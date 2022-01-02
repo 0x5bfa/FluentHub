@@ -1,0 +1,31 @@
+<!--
+    このファイルには、.NET ネイティブによって使用されるランタイム ディレクティブが含まれます。ここに示す既定値は多くの開発者に
+    適しています。ただし、これらのパラメーターを変更して、.NET ネイティブ オプティマイザーの動作を変更
+    できます。
+
+    ランタイム ディレクティブについては、https://go.microsoft.com/fwlink/?LinkID=391919 を参照してください
+
+    App1.MyClass およびそのすべてのパブリック/プライベート メンバーのリフレクションを完全に使用可能にする
+    <Type Name="App1.MyClass" Dynamic="Required All"/>
+
+    System.Int32 による AppClass<T> の特定のインスタンス化の動的生成を可能にする
+    <TypeInstantiation Name="App1.AppClass" Arguments="System.Int32" Activate="Required Public" />
+
+    名前空間ディレクティブを使用して、特定の名前空間のすべての型にリフレクション ポリシーを適用する
+    <Namespace Name="DataClasses.ViewModels" Serialize="All" />
+-->
+
+<Directives xmlns="http://schemas.microsoft.com/netfx/2013/01/metadata">
+  <Application>
+    <!--
+      Name="*Application*" のアセンブリ要素は、アプリケーション パッケージ内の
+      すべてのアセンブリに適用されます。アスタリスクはワイルドカードではありません。
+    -->
+    <Assembly Name="*Application*" Dynamic="Required All" />
+    
+    
+    <!--ここに、アプリケーション固有ランタイム ディレクティブを追加します。-->
+
+
+  </Application>
+</Directives>

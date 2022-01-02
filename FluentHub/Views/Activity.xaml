@@ -1,0 +1,87 @@
+﻿<Page
+    x:Class="FluentHub.Views.Activity"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FluentHub.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d">
+
+    <Grid>
+        <muxc:NavigationView IsTitleBarAutoPaddingEnabled="False" x:Name="HomeNavView" IsBackButtonVisible="Collapsed" IsPaneToggleButtonVisible="False" OpenPaneLength="250" BorderThickness="0">
+            <muxc:NavigationView.MenuItems>
+                <muxc:NavigationViewItemHeader Content="My Actions"/>
+                <muxc:NavigationViewItem>
+                    <muxc:NavigationViewItem.Content>
+                        <StackPanel Orientation="Horizontal" Spacing="16">
+                            <Border Background="LightGreen" Width="24" Height="24" CornerRadius="4">
+                                <FontIcon Glyph="&#xe716;" FontSize="16" Foreground="Black"/>
+                            </Border>
+                            <TextBlock Text="Issues"/>
+                        </StackPanel>
+                    </muxc:NavigationViewItem.Content>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem>
+                    <muxc:NavigationViewItem.Content>
+                        <StackPanel Orientation="Horizontal" Spacing="16">
+                            <Border Background="SkyBlue" Width="24" Height="24" CornerRadius="4">
+                                <FontIcon Glyph="&#xe716;" FontSize="16" Foreground="Black"/>
+                            </Border>
+                            <TextBlock Text="Pull request"/>
+                        </StackPanel>
+                    </muxc:NavigationViewItem.Content>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem>
+                    <muxc:NavigationViewItem.Content>
+                        <StackPanel Orientation="Horizontal" Spacing="16">
+                            <Border Background="BlueViolet" Width="24" Height="24" CornerRadius="4">
+                                <FontIcon Glyph="&#xe716;" FontSize="16" Foreground="Black"/>
+                            </Border>
+                            <TextBlock Text="Discussion"/>
+                        </StackPanel>
+                    </muxc:NavigationViewItem.Content>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem>
+                    <muxc:NavigationViewItem.Content>
+                        <StackPanel Orientation="Horizontal" Spacing="16">
+                            <Border Background="DimGray" Width="24" Height="24" CornerRadius="4">
+                                <FontIcon Glyph="&#xe716;" FontSize="16" Foreground="Black"/>
+                            </Border>
+                            <TextBlock Text="Repositories"/>
+                        </StackPanel>
+                    </muxc:NavigationViewItem.Content>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem>
+                    <muxc:NavigationViewItem.Content>
+                        <StackPanel Orientation="Horizontal" Spacing="16">
+                            <Border Background="Orange" Width="24" Height="24" CornerRadius="4">
+                                <FontIcon Glyph="&#xe716;" FontSize="16" Foreground="Black"/>
+                            </Border>
+                            <TextBlock Text="Organizations"/>
+                        </StackPanel>
+                    </muxc:NavigationViewItem.Content>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItem>
+                    <muxc:NavigationViewItem.Content>
+                        <StackPanel Orientation="Horizontal" Spacing="16">
+                            <Border Background="Yellow" Width="24" Height="24" CornerRadius="4">
+                                <FontIcon Glyph="&#xe716;" FontSize="16" Foreground="Black"/>
+                            </Border>
+                            <TextBlock Text="Stared"/>
+                        </StackPanel>
+                    </muxc:NavigationViewItem.Content>
+                </muxc:NavigationViewItem>
+                <muxc:NavigationViewItemHeader Content="Favorites"/>
+                <muxc:NavigationViewItem Icon="People" Content="Stared"/>
+                <muxc:NavigationViewItem Icon="Edit" Content="Stared"/>
+            </muxc:NavigationView.MenuItems>
+            <muxc:NavigationView.Content>
+                <Grid Background="{ThemeResource LayerFillColorDefaultBrush}" Margin="-1">
+                    <Border  BorderBrush="{ThemeResource ControlStrokeColorDefault}" BorderThickness="0.5" Width="0.5" HorizontalAlignment="Left"/>
+                    <Frame x:Name="HomeNavViewContent"/>
+                </Grid>
+            </muxc:NavigationView.Content>
+        </muxc:NavigationView>
+    </Grid>
+</Page>
