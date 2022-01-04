@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FluentHub.UserControls;
+using FluentHub.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -20,11 +22,14 @@ namespace FluentHub.Views
     /// <summary>
     /// それ自体で使用できる空白ページまたはフレーム内に移動できる空白ページ。
     /// </summary>
-    public sealed partial class SamplePage1 : Page
+    public sealed partial class UserIssuesList : Page
     {
-        public SamplePage1()
+        public UserIssuesList()
         {
             this.InitializeComponent();
+
+            this.DataContext = new UserIssueListViewModel();
+
         }
     }
 }

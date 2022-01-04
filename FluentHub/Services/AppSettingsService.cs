@@ -16,21 +16,21 @@ namespace FluentHub.Services
             settingsContainer = ApplicationData.Current.LocalSettings;
         }
 
-        public T GetValue<T>(string key)
+        public object GetValue(string key)
         {
             if (settingsContainer.Values.ContainsKey(key))
             {
                 try
                 {
-                    return (T)settingsContainer.Values[key];
+                    return settingsContainer.Values[key];
                 }
                 catch (Exception e)
                 {
-                    return default(T);
+                    return null;
                 }
             }
 
-            return default(T);
+            return null;
         }
 
         public void RemoveValue(string key)

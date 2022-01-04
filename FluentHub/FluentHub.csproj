@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>FluentHub</RootNamespace>
     <AssemblyName>FluentHub</AssemblyName>
-    <DefaultLanguage>ja-JP</DefaultLanguage>
+    <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.19041.0</TargetPlatformVersion>
     <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
@@ -18,6 +18,8 @@
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
     <AppxPackageSigningEnabled>false</AppxPackageSigningEnabled>
+    <LangVersion>preview</LangVersion>
+    <Nullable>enable</Nullable>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <DebugSymbols>true</DebugSymbols>
@@ -119,11 +121,26 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\ContentControlConverter.cs" />
+    <Compile Include="DataModels\IssueListItem.cs" />
+    <Compile Include="Healper\ConvertDataTimeToTimeAgo.cs" />
     <Compile Include="Services\AppSettingsService.cs" />
     <Compile Include="Services\Auth\AppCredentials.cs" />
+    <Compile Include="Services\Octiokit\IssueService.cs" />
+    <Compile Include="Services\Octiokit\UserClient.cs" />
+    <Compile Include="UserControls\ContentBlockControl.xaml.cs">
+      <DependentUpon>ContentBlockControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ContentDisplayControl.xaml.cs">
+      <DependentUpon>ContentDisplayControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\CustomTabView.xaml.cs">
       <DependentUpon>CustomTabView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\IssuesListItemControl.xaml.cs">
+      <DependentUpon>IssuesListItemControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\UserIssueListViewModel.cs" />
     <Compile Include="Views\Activity.xaml.cs">
       <DependentUpon>Activity.xaml</DependentUpon>
     </Compile>
@@ -131,8 +148,11 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\SamplePage1.xaml.cs">
-      <DependentUpon>SamplePage1.xaml</DependentUpon>
+    <Compile Include="Views\UserIssuesList.xaml.cs">
+      <DependentUpon>UserIssuesList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\WelcomePage.xaml.cs">
+      <DependentUpon>WelcomePage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -141,14 +161,59 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\AppTiles\LargeTile.scale-100.png" />
+    <Content Include="Assets\AppTiles\LargeTile.scale-125.png" />
+    <Content Include="Assets\AppTiles\LargeTile.scale-150.png" />
+    <Content Include="Assets\AppTiles\LargeTile.scale-200.png" />
+    <Content Include="Assets\AppTiles\LargeTile.scale-400.png" />
+    <Content Include="Assets\AppTiles\SmallTile.scale-100.png" />
+    <Content Include="Assets\AppTiles\SmallTile.scale-125.png" />
+    <Content Include="Assets\AppTiles\SmallTile.scale-150.png" />
+    <Content Include="Assets\AppTiles\SmallTile.scale-200.png" />
+    <Content Include="Assets\AppTiles\SmallTile.scale-400.png" />
+    <Content Include="Assets\AppTiles\SplashScreen.scale-100.png" />
+    <Content Include="Assets\AppTiles\SplashScreen.scale-125.png" />
+    <Content Include="Assets\AppTiles\SplashScreen.scale-150.png" />
+    <Content Include="Assets\AppTiles\SplashScreen.scale-400.png" />
+    <Content Include="Assets\AppTiles\Square150x150Logo.scale-100.png" />
+    <Content Include="Assets\AppTiles\Square150x150Logo.scale-125.png" />
+    <Content Include="Assets\AppTiles\Square150x150Logo.scale-150.png" />
+    <Content Include="Assets\AppTiles\Square150x150Logo.scale-400.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.altform-lightunplated_targetsize-16.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.altform-lightunplated_targetsize-24.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.altform-lightunplated_targetsize-256.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.altform-lightunplated_targetsize-32.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.altform-lightunplated_targetsize-48.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.altform-unplated_targetsize-16.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.altform-unplated_targetsize-256.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.altform-unplated_targetsize-32.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.altform-unplated_targetsize-48.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.scale-100.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.scale-125.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.scale-150.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.scale-400.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.targetsize-16.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.targetsize-24.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.targetsize-256.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.targetsize-32.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.targetsize-48.png" />
+    <Content Include="Assets\AppTiles\StoreLogo.scale-100.png" />
+    <Content Include="Assets\AppTiles\StoreLogo.scale-125.png" />
+    <Content Include="Assets\AppTiles\StoreLogo.scale-150.png" />
+    <Content Include="Assets\AppTiles\StoreLogo.scale-200.png" />
+    <Content Include="Assets\AppTiles\StoreLogo.scale-400.png" />
+    <Content Include="Assets\AppTiles\Wide310x150Logo.scale-100.png" />
+    <Content Include="Assets\AppTiles\Wide310x150Logo.scale-125.png" />
+    <Content Include="Assets\AppTiles\Wide310x150Logo.scale-150.png" />
+    <Content Include="Assets\AppTiles\Wide310x150Logo.scale-400.png" />
+    <Content Include="Assets\FluentHub.png" />
     <Content Include="Properties\Default.rd.xml" />
-    <Content Include="Assets\LockScreenLogo.scale-200.png" />
-    <Content Include="Assets\SplashScreen.scale-200.png" />
-    <Content Include="Assets\Square150x150Logo.scale-200.png" />
-    <Content Include="Assets\Square44x44Logo.scale-200.png" />
-    <Content Include="Assets\Square44x44Logo.targetsize-24_altform-unplated.png" />
-    <Content Include="Assets\StoreLogo.png" />
-    <Content Include="Assets\Wide310x150Logo.scale-200.png" />
+    <Content Include="Assets\AppTiles\LockScreenLogo.scale-200.png" />
+    <Content Include="Assets\AppTiles\SplashScreen.scale-200.png" />
+    <Content Include="Assets\AppTiles\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.targetsize-24_altform-unplated.png" />
+    <Content Include="Assets\AppTiles\Wide310x150Logo.scale-200.png" />
   </ItemGroup>
   <ItemGroup>
     <ApplicationDefinition Include="App.xaml">
@@ -167,7 +232,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\ContentBlockControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ContentDisplayControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\CustomTabView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\IssuesListItemControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -179,7 +256,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\SamplePage1.xaml">
+    <Page Include="Views\UserIssuesList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\WelcomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -189,6 +270,9 @@
       <Version>6.2.12</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI">
+      <Version>7.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
       <Version>7.1.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
@@ -207,6 +291,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Dialogs\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

@@ -1,0 +1,103 @@
+﻿<Page
+    x:Class="FluentHub.Views.WelcomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FluentHub.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:controls="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    mc:Ignorable="d"
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Border x:Name="AppTitleBar"
+                IsHitTestVisible="True"
+                VerticalAlignment="Top"
+                Background="Transparent"
+                Height="48"
+                Canvas.ZIndex="1" 
+                Margin="16,0,0,0">
+            <StackPanel Orientation="Horizontal">
+                <Image x:Name="AppFontIcon"
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Center"
+                    Source="/Assets/AppTiles/Square44x44Logo.png" 
+                    Width="24" 
+                    Height="24"/>
+                <TextBlock x:Name="AppTitle"
+                    Text="FluentHub "
+                    VerticalAlignment="Center"
+                    Margin="12, 0, 0, 0"
+                    Style="{StaticResource CaptionTextBlockStyle}" />
+                <TextBlock
+                    x:Name="PreviewTitle"
+                    Text="PREVIEW"
+                    VerticalAlignment="Center"
+                    Margin="4, 0, 0, 0"
+                    FontSize="11"
+                    Foreground="{StaticResource TextFillColorSecondaryBrush}" />
+            </StackPanel>
+        </Border>
+        <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,-50,0,0">
+            <TextBlock
+                Text="Welcome to"
+                Style="{ThemeResource TitleTextBlockStyle}"
+                HorizontalAlignment="Center"/>
+            <Image 
+                Source="/Assets/FluentHub.png"
+                Width="386"
+                HorizontalAlignment="Left"
+                Margin="0,32"/>
+            <TextBlock
+                Style="{ThemeResource BodyTextBlockStyle}"
+                HorizontalAlignment="Center"
+                HorizontalTextAlignment="Center">
+                We're glad you're here. Just need to go through a few simple<LineBreak/>steps and you'll be all up and running!
+            </TextBlock>
+            <Button Style="{ThemeResource AccentButtonStyle}" Content="Start setup" HorizontalAlignment="Center" Margin="0,24,0,0"/>
+        </StackPanel>
+        <!--<StackPanel Grid.Row="1">
+            <TextBlock Margin="0,0,0,8" Text="Welcome to FluentHub!" Style="{ThemeResource SubtitleTextBlockStyle}"/>
+            <TextBlock Margin="0,0,0,36" Text="To use this app, you need to sign in first." Style="{ThemeResource BodyTextBlockStyle}"/>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock FontSize="64" Text="👍"/>
+                <StackPanel Margin="24 0 0 0">
+                    <controls:MarkdownTextBlock Background="Transparent" Text="**Easily manage your repositories**"/>
+                    <controls:MarkdownTextBlock Background="Transparent" Height="20" Text="- View code across different branches and commits the way they are meant to"/>
+                    <controls:MarkdownTextBlock Background="Transparent" Height="20" Text="- View and manage Issues like a Pro!"/>
+                    <controls:MarkdownTextBlock Background="Transparent" Height="20" Text="- Merging a pull request has never been so elegent"/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0 24 0 0">
+                <TextBlock FontSize="64" Text="🚀"/>
+                <StackPanel Margin="24 0 0 0">
+                    <controls:MarkdownTextBlock Background="Transparent" Text="**Blazing performance**"/>
+                    <controls:MarkdownTextBlock TextWrapping="Wrap" Background="Transparent" Height="20" Text="- FluentHub is a native Windows app, so it uses way less resource than GitHub in the browser."/>
+                </StackPanel>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" Margin="0 24 0 0">
+                <TextBlock FontSize="64" Text="🎨"></TextBlock>
+                <StackPanel Margin="24 0 0 0">
+                    <controls:MarkdownTextBlock Background="Transparent" Text="**Beautiful Design**"/>
+                    <controls:MarkdownTextBlock Background="Transparent" Height="20" Text="- Incorporate the latest WinUI and Fluent Design simple, elegant, yet powerful"/>
+                    <controls:MarkdownTextBlock Background="Transparent" Height="20" Text="- Designed to function on different device type"/>
+                    <controls:MarkdownTextBlock Background="Transparent" Height="20" Text="- All UI layouts or design are similar to the browser's GitHub for intuitive use, with even more UI improvements."/>
+                </StackPanel>
+            </StackPanel>
+            <TextBlock x:Name="Token"></TextBlock>
+        </StackPanel>
+        <Button
+            Grid.Row="2"
+            x:Name="AuthorizeButton"
+            Style="{ThemeResource AccentButtonStyle}"
+            Content="Authorize with GitHub on your browser"
+            VerticalAlignment="Bottom"
+            Margin="16"/>-->
+    </Grid>
+</Page>

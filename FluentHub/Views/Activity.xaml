@@ -11,12 +11,12 @@
     <Grid>
         <muxc:NavigationView IsTitleBarAutoPaddingEnabled="False" x:Name="HomeNavView" IsBackButtonVisible="Collapsed" IsPaneToggleButtonVisible="False" OpenPaneLength="250" BorderThickness="0">
             <muxc:NavigationView.MenuItems>
-                <muxc:NavigationViewItemHeader Content="My Actions"/>
+                <muxc:NavigationViewItemHeader Content="My Work"/>
                 <muxc:NavigationViewItem>
                     <muxc:NavigationViewItem.Content>
                         <StackPanel Orientation="Horizontal" Spacing="16">
-                            <Border Background="LightGreen" Width="24" Height="24" CornerRadius="4">
-                                <FontIcon Glyph="&#xe716;" FontSize="16" Foreground="Black"/>
+                            <Border Background="#40d563" Width="24" Height="24" CornerRadius="4">
+                                <FontIcon Glyph="&#xe716;" FontSize="16"/>
                             </Border>
                             <TextBlock Text="Issues"/>
                         </StackPanel>
@@ -25,8 +25,8 @@
                 <muxc:NavigationViewItem>
                     <muxc:NavigationViewItem.Content>
                         <StackPanel Orientation="Horizontal" Spacing="16">
-                            <Border Background="SkyBlue" Width="24" Height="24" CornerRadius="4">
-                                <FontIcon Glyph="&#xe716;" FontSize="16" Foreground="Black"/>
+                            <Border Background="#2e8ffe" Width="24" Height="24" CornerRadius="4">
+                                <FontIcon Glyph="&#xe716;" FontSize="16"/>
                             </Border>
                             <TextBlock Text="Pull request"/>
                         </StackPanel>
@@ -35,8 +35,8 @@
                 <muxc:NavigationViewItem>
                     <muxc:NavigationViewItem.Content>
                         <StackPanel Orientation="Horizontal" Spacing="16">
-                            <Border Background="BlueViolet" Width="24" Height="24" CornerRadius="4">
-                                <FontIcon Glyph="&#xe716;" FontSize="16" Foreground="Black"/>
+                            <Border Background="#7548c7" Width="24" Height="24" CornerRadius="4">
+                                <FontIcon Glyph="&#xe716;" FontSize="16"/>
                             </Border>
                             <TextBlock Text="Discussion"/>
                         </StackPanel>
@@ -45,8 +45,8 @@
                 <muxc:NavigationViewItem>
                     <muxc:NavigationViewItem.Content>
                         <StackPanel Orientation="Horizontal" Spacing="16">
-                            <Border Background="DimGray" Width="24" Height="24" CornerRadius="4">
-                                <FontIcon Glyph="&#xe716;" FontSize="16" Foreground="Black"/>
+                            <Border Background="#41434e" Width="24" Height="24" CornerRadius="4">
+                                <FontIcon Glyph="&#xe716;" FontSize="16"/>
                             </Border>
                             <TextBlock Text="Repositories"/>
                         </StackPanel>
@@ -55,8 +55,8 @@
                 <muxc:NavigationViewItem>
                     <muxc:NavigationViewItem.Content>
                         <StackPanel Orientation="Horizontal" Spacing="16">
-                            <Border Background="Orange" Width="24" Height="24" CornerRadius="4">
-                                <FontIcon Glyph="&#xe716;" FontSize="16" Foreground="Black"/>
+                            <Border Background="#fe8a38" Width="24" Height="24" CornerRadius="4">
+                                <FontIcon Glyph="&#xe716;" FontSize="16"/>
                             </Border>
                             <TextBlock Text="Organizations"/>
                         </StackPanel>
@@ -65,8 +65,8 @@
                 <muxc:NavigationViewItem>
                     <muxc:NavigationViewItem.Content>
                         <StackPanel Orientation="Horizontal" Spacing="16">
-                            <Border Background="Yellow" Width="24" Height="24" CornerRadius="4">
-                                <FontIcon Glyph="&#xe716;" FontSize="16" Foreground="Black"/>
+                            <Border Background="#fecb1a" Width="24" Height="24" CornerRadius="4">
+                                <FontIcon Glyph="&#xe716;" FontSize="16"/>
                             </Border>
                             <TextBlock Text="Stared"/>
                         </StackPanel>

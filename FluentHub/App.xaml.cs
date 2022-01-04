@@ -1,4 +1,5 @@
 ﻿using FluentHub.Views;
+using FluentHub.Services;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,9 +22,6 @@ using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub
 {
-    /// <summary>
-    /// 既定の Application クラスを補完するアプリケーション固有の動作を提供します。
-    /// </summary>
     sealed partial class App : Application
     {
         public App()
@@ -34,9 +32,8 @@ namespace FluentHub
 
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            // Load settings
-
-
+            // Get local settings
+            AppSettingsService settings = new AppSettingsService();
 
             // Customize title bar
             CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
@@ -44,21 +41,16 @@ namespace FluentHub
             ApplicationView.GetForCurrentView().TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
             Frame rootFrame = Window.Current.Content as Frame;
 
-            // ウィンドウに既にコンテンツが表示されている場合は、アプリケーションの初期化を繰り返さずに、
-            // ウィンドウがアクティブであることだけを確認してください
             if (rootFrame == null)
             {
-                // ナビゲーション コンテキストとして動作するフレームを作成し、最初のページに移動します
                 rootFrame = new Frame();
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
-                    //TODO: 以前中断したアプリケーションから状態を読み込みます
                 }
 
-                // フレームを現在のウィンドウに配置します
                 Window.Current.Content = rootFrame;
             }
 
@@ -66,12 +58,17 @@ namespace FluentHub
             {
                 if (rootFrame.Content == null)
                 {
-                    // ナビゲーションの履歴スタックが復元されていない場合、最初のページに移動します。
-                    // このとき、必要な情報をナビゲーション パラメーターとして渡して、新しいページを
-                    // 作成します
-                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    // This app is needed authorized github client
+                    if(settings.GetValue("hasToken") == null || (bool)settings.GetValue("hasToken") == false)
+                    {
+                        rootFrame.Navigate(typeof(WelcomePage), e.Arguments);
+                    }
+                    else
+                    {
+                        rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    }
                 }
-                // 現在のウィンドウがアクティブであることを確認します
+
                 Window.Current.Activate();
             }
         }
@@ -84,7 +81,6 @@ namespace FluentHub
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
-            //TODO: アプリケーションの状態を保存してバックグラウンドの動作があれば停止します
             deferral.Complete();
         }
     }
