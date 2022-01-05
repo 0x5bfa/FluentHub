@@ -16,21 +16,24 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        <Border x:Name="AppTitleBar"
-                IsHitTestVisible="True"
-                VerticalAlignment="Top"
-                Background="Transparent"
-                Height="48"
-                Canvas.ZIndex="1" 
-                Margin="16,0,0,0">
+        <Border
+            x:Name="AppTitleBar"
+            IsHitTestVisible="True"
+            VerticalAlignment="Top"
+            Background="Transparent"
+            Height="48"
+            Canvas.ZIndex="1" 
+            Margin="16,0,0,0">
             <StackPanel Orientation="Horizontal">
-                <Image x:Name="AppFontIcon"
+                <Image
+                    x:Name="AppFontIcon"
                     HorizontalAlignment="Left" 
                     VerticalAlignment="Center"
                     Source="/Assets/AppTiles/Square44x44Logo.png" 
                     Width="24" 
                     Height="24"/>
-                <TextBlock x:Name="AppTitle"
+                <TextBlock
+                    x:Name="AppTitle"
                     Text="FluentHub "
                     VerticalAlignment="Center"
                     Margin="12, 0, 0, 0"
@@ -44,23 +47,34 @@
                     Foreground="{StaticResource TextFillColorSecondaryBrush}" />
             </StackPanel>
         </Border>
-        <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,-50,0,0">
+        <StackPanel
+            Grid.Row="1"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            Margin="0,-50,0,0"
+            Width="400">
             <TextBlock
                 Text="Welcome to"
                 Style="{ThemeResource TitleTextBlockStyle}"
                 HorizontalAlignment="Center"/>
             <Image 
                 Source="/Assets/FluentHub.png"
-                Width="386"
+                Width="Auto"
                 HorizontalAlignment="Left"
                 Margin="0,32"/>
             <TextBlock
                 Style="{ThemeResource BodyTextBlockStyle}"
                 HorizontalAlignment="Center"
-                HorizontalTextAlignment="Center">
-                We're glad you're here. Just need to go through a few simple<LineBreak/>steps and you'll be all up and running!
+                HorizontalTextAlignment="Center"
+                Text="We're glad you're here. Just need to go through a few simple steps and you'll be all up and running!"
+                TextWrapping="Wrap">
             </TextBlock>
-            <Button Style="{ThemeResource AccentButtonStyle}" Content="Start setup" HorizontalAlignment="Center" Margin="0,24,0,0"/>
+            <Button
+                Style="{ThemeResource AccentButtonStyle}"
+                Content="Start setup"
+                HorizontalAlignment="Center"
+                Margin="0,24,0,0"
+                Click="SetupButton_Click"/>
         </StackPanel>
         <!--<StackPanel Grid.Row="1">
             <TextBlock Margin="0,0,0,8" Text="Welcome to FluentHub!" Style="{ThemeResource SubtitleTextBlockStyle}"/>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentHub.Dialogs;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -25,6 +26,13 @@ namespace FluentHub.Views
         public WelcomePage()
         {
             this.InitializeComponent();
+        }
+
+        private async void SetupButton_Click(object sender, RoutedEventArgs e)
+        {
+            SetupDialog dialog = new SetupDialog();
+
+            _ = await dialog.ShowAsync();
         }
     }
 }

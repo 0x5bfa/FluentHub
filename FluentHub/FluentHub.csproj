@@ -123,6 +123,9 @@
     </Compile>
     <Compile Include="Converters\ContentControlConverter.cs" />
     <Compile Include="DataModels\IssueListItem.cs" />
+    <Compile Include="Dialogs\SetupDialog.xaml.cs">
+      <DependentUpon>SetupDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Healper\ConvertDataTimeToTimeAgo.cs" />
     <Compile Include="Services\AppSettingsService.cs" />
     <Compile Include="Services\Auth\AppCredentials.cs" />
@@ -207,6 +210,7 @@
     <Content Include="Assets\AppTiles\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\AppTiles\Wide310x150Logo.scale-400.png" />
     <Content Include="Assets\FluentHub.png" />
+    <Content Include="Assets\Privacy.png" />
     <Content Include="Properties\Default.rd.xml" />
     <Content Include="Assets\AppTiles\LockScreenLogo.scale-200.png" />
     <Content Include="Assets\AppTiles\SplashScreen.scale-200.png" />
@@ -220,6 +224,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Dialogs\SetupDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ResourceDictionaries\ToolbarButtonStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -291,7 +299,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Dialogs\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
