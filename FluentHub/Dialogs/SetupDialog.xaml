@@ -35,49 +35,49 @@
 
             <Grid Grid.Column="1">
                 <StackPanel>
-                    <TextBlock x:Name="Header"
+                    <Grid>
+                        <TextBlock x:Name="Header"
                            Padding="0,0,0,4"
                            Text="Authorize app"
-                           Style="{StaticResource TitleTextBlockStyle}" />
+                           Style="{StaticResource TitleTextBlockStyle}"/>
+                        <Button
+                            Click="CancelButton_Click"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Height="30" Width="30"
+                            Padding="0">
+                            <FontIcon Glyph="&#xe711;" FontSize="16"/>
+                        </Button>
+                    </Grid>
 
                     <StackPanel Padding="0,0,0,12">
                         <TextBlock
                             TextWrapping="Wrap"
                             Text="You can log in to GitHub in various ways. By authenticating, you can access more GitHub data and gain more experience."
                             Style="{ThemeResource BodyTextBlockStyle}"/>
-                        <TextBlock
-                            Margin="0,0,0,24"
-                            Text="*Only web authentication is currently valid*"
-                            Style="{ThemeResource BodyTextBlockStyle}"
-                            FontStyle="Italic"/>
 
                         <TextBlock
-                            Margin="0,0,0,3"
-                            Text="Login"
+                            Margin="0,24,0,5"
+                            Text="Login (Web authentication is recommended)"
                             Style="{ThemeResource BodyStrongTextBlockStyle}"/>
 
-                        <uc:SettingsBlockControl Title="Authentication type">
-                            <ComboBox Width="224">
-                                <x:String>Unauthorized access</x:String>
-                                <x:String>Basic authentication</x:String>
-                                <x:String>OAuth token authentication</x:String>
-                                <x:String>Web authentication</x:String>
-                            </ComboBox>
+                        <uc:SettingsBlockControl Title="Authentication type" Margin="0,3,0,0">
+                            <ComboBox Width="224" x:Name="AuthOptionCombobox" SelectionChanged="AuthOptionCombobox_SelectionChanged"/>
                         </uc:SettingsBlockControl>
 
                         <Grid>
-                            <StackPanel Spacing="3" Margin="0,3,0,0">
+                            <StackPanel x:Name="BasicAuth" Spacing="3" Margin="0,3,0,0" Visibility="Collapsed">
                                 <uc:SettingsBlockControl Title="User name">
-                                    <TextBox Width="224"/>
+                                    <TextBox x:Name="UsernameTextBox" Width="224" TextChanged="UsernameTextBox_TextChanged"/>
                                 </uc:SettingsBlockControl>
                                 <uc:SettingsBlockControl Title="password">
-                                    <TextBox Width="224"/>
+                                    <PasswordBox x:Name="PaddwordTextBox" Width="224" PasswordChanged="PaddwordTextBox_PasswordChanged"/>
                                 </uc:SettingsBlockControl>
                             </StackPanel>
 
-                            <StackPanel Spacing="3" Margin="0,3,0,0" Visibility="Collapsed">
-                                <uc:SettingsBlockControl Title="OAuth token">
-                                    <TextBox Width="224"/>
+                            <StackPanel x:Name="OAuthTokenAuth" Spacing="3" Margin="0,3,0,0" Visibility="Collapsed">
+                                <uc:SettingsBlockControl Title="OAuth token" Description="Format: ghp_[{A-Z|0-9|a-z}x36]">
+                                    <TextBox x:Name="TokenTextBox" Width="224" TextChanged="TokenTextBox_TextChanged"/>
                                 </uc:SettingsBlockControl>
                             </StackPanel>
                         </Grid>
@@ -96,12 +96,13 @@
               VerticalAlignment="Bottom">
 
             <Button
-                x:Name="PrimaryButton"
+                x:Name="ContinueButton"
                 Grid.Column="1"
                 HorizontalAlignment="Right"
-                Width="128"
+                MinWidth="240"
                 Style="{StaticResource AccentButtonStyle}"
-                Content="Continue"/>
+                Content="Continue"
+                Click="ContinueButton_Click"/>
         </Grid>
     </Grid>
 </ContentDialog>
