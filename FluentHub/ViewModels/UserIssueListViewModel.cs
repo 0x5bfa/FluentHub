@@ -1,6 +1,7 @@
 ﻿using FluentHub.DataModels;
 using FluentHub.UserControls;
 using FluentHub.ViewModels;
+using Octokit;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,55 +16,25 @@ namespace FluentHub.ViewModels
 {
     public class UserIssueListViewModel
     {
-        public static ObservableCollection<Item> Items { get; private set; }
+        public static ObservableCollection<IssueListItem> Items { get; private set; }
 
         public UserIssueListViewModel()
         {
-            Items = new ObservableCollection<Item>();
-            Items.Add(new Item { Title = "Title" });
-            Items.Add(new Item { Title = "Title" });
-            Items.Add(new Item { Title = "Title" });
-            Items.Add(new Item { Title = "Title" });
-            Items.Add(new Item { Title = "Title" });
-            Items.Add(new Item { Title = "Title" });
-            Items.Add(new Item { Title = "Title" });
-            Items.Add(new Item { Title = "Title" });
-            Items.Add(new Item { Title = "Title" });
-            Items.Add(new Item { Title = "Title" });
-            Items.Add(new Item { Title = "Title" });
-            Items.Add(new Item { Title = "Title" });
-            Items.Add(new Item { Title = "Title" });
-            Items.Add(new Item { Title = "Title" });
-            Items.Add(new Item { Title = "Title" });
-            Items.Add(new Item { Title = "Title" });
+            Items = new ObservableCollection<IssueListItem>();
         }
-    }
 
-    public class Item
-    {
-        public bool IsOpened { get; set; } = false;
-        public string StatusGlyph { get; set; } = "\uE9E6";
-        public SolidColorBrush StatusGlyphForeground 
+        public async void GetUserIssues()
         {
-            get
+            Services.Octiokit.UserClient.GithubClient = new GitHubClient(new ProductHeaderValue("FluentHub")) { Credentials = new Credentials("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") };
+            SearchIssuesRequest request = new SearchIssuesRequest();
+            request.Author = "onein528";
+            var Issues = await Services.Octiokit.UserClient.GithubClient.Search.SearchIssues(request);
+
+            foreach(var item in Issues.Items)
             {
-                if (IsOpened)
-                {
-                    return new SolidColorBrush(Windows.UI.Color.FromArgb(0xFF, 0x82, 0x56, 0xd0));
-                }
-                else
-                {
-                    // #57ab5a
-                    return new SolidColorBrush(Windows.UI.Color.FromArgb(0xFF, 0x57, 0xab, 0x5a));
-                }
-            }
-            private set
-            {
+                IssueListItem listItem = new IssueListItem(item);
+                Items.Add(listItem);
             }
         }
-        public string RepoFullName { get; set; } ="[repoFullName]";
-        public string TimeAgo { get; set; } = "[timeAgo]";
-        public string Title { get; set; } = "[title]";
     }
-
 }

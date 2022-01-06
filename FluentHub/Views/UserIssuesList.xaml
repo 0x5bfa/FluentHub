@@ -12,10 +12,6 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
 
-    <Page.DataContext>
-        <vm:UserIssueListViewModel/>
-    </Page.DataContext>
-
     <Page.Resources>
         <Style x:Key="ButtonSettingsBlockStyle" TargetType="Button" BasedOn="{StaticResource DefaultButtonStyle}">
             <Setter Property="Background" Value="{ThemeResource ExpanderHeaderBackground}" />
@@ -37,11 +33,11 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Text="Issues" Margin="24,12" Style="{ThemeResource TitleTextBlockStyle}" FontFamily="Segoe UI Variable Text"/>
+        <TextBlock Grid.Row="0" Text="Issues" Margin="24,12,0,1" Style="{ThemeResource TitleTextBlockStyle}" FontFamily="Segoe UI Variable Text"/>
         <ScrollViewer Grid.Row="1">
             <StackPanel Margin="24,0">
-                <muxc:ItemsRepeater ItemsSource="{x:Bind vm:UserIssueListViewModel.Items}">
-                    <DataTemplate x:DataType="vm:Item">
+                <muxc:ItemsRepeater ItemsSource="{x:Bind vm:UserIssueListViewModel.Items}" Loaded="ItemsRepeater_Loaded">
+                    <DataTemplate x:DataType="datamodel:IssueListItem">
                         <Grid>
                             <StackPanel>
                                 <Button Style="{StaticResource ButtonSettingsBlockStyle}" Margin="0,3,0,0" Padding="18,12">

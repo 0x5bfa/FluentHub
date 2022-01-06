@@ -26,9 +26,17 @@ namespace FluentHub.Views
     /// </summary>
     public sealed partial class UserIssuesList : Page
     {
+        UserIssueListViewModel vm = new UserIssueListViewModel();
+
         public UserIssuesList()
         {
+            this.DataContext = vm;
             this.InitializeComponent();
+        }
+
+        private void ItemsRepeater_Loaded(object sender, RoutedEventArgs e)
+        {
+            vm.GetUserIssues();
         }
     }
 }

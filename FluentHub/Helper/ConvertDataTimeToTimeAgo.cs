@@ -11,20 +11,30 @@ namespace FluentHub.Healper
         /// <summary>
         /// The resolution of time diff is 1 minute
         /// </summary>
-        /// <param name="dataTimeTarget"></param>
+        /// <param name="target"></param>
         /// <returns></returns>
-        static public string GetDataTimeDiff(DateTime dataTimeTarget)
+        static public string GetDataTimeDiff(DateTimeOffset target)
         {
-            DateTime dataTimeNow = DateTime.Now;
+            DateTime now = DateTime.Now;
+
+            int yearDiff = now.Year - target.Year;
+
+            if (target.Month == now.Month && now.Day < target.Day || now.Month < target.Month)
+            {
+                yearDiff--;
+            }
+
+            var diifTimeSpan = now - target;
+            int days = (int)Math.Abs(Math.Round(diifTimeSpan.TotalDays));
 
             string FormattedTimeDiffString = null;
             int timeDiff = 0;
 
-            if ((timeDiff = dataTimeNow.Year - dataTimeTarget.Year) == 0)
+            if (days < 365)
             {
-                if ((timeDiff = dataTimeNow.Month - dataTimeTarget.Month) == 0)
+                if ((timeDiff = now.Month + 12 - target.Month) == 0)
                 {
-                    TimeSpan timeSpanDiff = dataTimeNow - dataTimeTarget;
+                    TimeSpan timeSpanDiff = now - target;
 
                     if (timeSpanDiff.Days == 0)
                     {
@@ -61,7 +71,7 @@ namespace FluentHub.Healper
             }
             else
             {
-                FormattedTimeDiffString = string.Format($"{timeDiff}yr");
+                FormattedTimeDiffString = string.Format($"{yearDiff}yr");
                 return FormattedTimeDiffString;
             }
         }
