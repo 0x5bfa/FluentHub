@@ -27,8 +27,20 @@ namespace FluentHub.Views
         public Activity()
         {
             this.InitializeComponent();
-            Frame frame = new Frame();
-            HomeNavViewContent.Navigate(typeof(UserIssuesList));
+        }
+
+        private void HomeNavView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
+        {
+            string tag = args.InvokedItemContainer.Tag.ToString();
+
+            switch (tag)
+            {
+                case "Issues":
+                    HomeNavViewContent.Navigate(typeof(UserIssuesList));
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

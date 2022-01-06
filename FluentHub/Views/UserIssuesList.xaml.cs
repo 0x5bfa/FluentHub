@@ -1,7 +1,9 @@
-﻿using FluentHub.UserControls;
+﻿using FluentHub.DataModels;
+using FluentHub.UserControls;
 using FluentHub.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -27,9 +29,6 @@ namespace FluentHub.Views
         public UserIssuesList()
         {
             this.InitializeComponent();
-
-            this.DataContext = new UserIssueListViewModel();
-
         }
     }
 }

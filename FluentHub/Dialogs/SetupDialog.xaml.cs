@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentHub.Services.Octiokit;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,6 +14,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Windows.ApplicationModel.Resources;
+using FluentHub.Views;
+using FluentHub.Services.Auth;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -95,9 +98,29 @@ namespace FluentHub.Dialogs
         private void ContinueButton_Click(object sender, RoutedEventArgs e)
         {
             var selectedIndex = AuthOptionCombobox.SelectedIndex;
+            var webAuthenticationBroker = new WebAuthenticationBroker();
 
-            switch (selectedIndex) { }
+            switch (selectedIndex)
+            {
+                case 0:
+                    break;
 
+                case 1:
+                    UserClient.GithubClient.Credentials = new Octokit.Credentials(UsernameTextBox.Text, PaddwordTextBox.Password);
+                    break;
+
+                case 2:
+                    UserClient.GithubClient.Credentials = new Octokit.Credentials(TokenTextBox.Text);
+                    break;
+
+                case 3:
+                    // webAuthenticationBroker...
+                    break;
+            }
+
+            Frame rootFrame = Window.Current.Content as Frame;
+            rootFrame.Navigate(typeof(MainPage));
+            this.Hide();
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)

@@ -12,11 +12,11 @@ namespace FluentHub.Services.Auth
     public class AppCredentials
     {
         [JsonPropertyName("clientId")]
-        public string ClientId { get; set; }
-        [JsonPropertyName("age")]
-        public int ClientSecret { get; set; }
+        public string ClientId { get; private set; } = null;
+        [JsonPropertyName("clientSecret")]
+        public string ClientSecret { get; private set; } = null;
 
-        public async Task GetKey()
+        public async Task GetAppCredentials()
         {
             Windows.Storage.StorageFolder storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
             Windows.Storage.StorageFile file = await storageFolder.GetFileAsync("ms-appx:///AppCredentials.json");

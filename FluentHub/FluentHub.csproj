@@ -126,9 +126,10 @@
     <Compile Include="Dialogs\SetupDialog.xaml.cs">
       <DependentUpon>SetupDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Healper\ConvertDataTimeToTimeAgo.cs" />
+    <Compile Include="Helper\ConvertDataTimeToTimeAgo.cs" />
     <Compile Include="Services\AppSettingsService.cs" />
     <Compile Include="Services\Auth\AppCredentials.cs" />
+    <Compile Include="Services\Auth\WebAuthenticationBroker.cs" />
     <Compile Include="Services\Octiokit\IssueService.cs" />
     <Compile Include="Services\Octiokit\UserClient.cs" />
     <Compile Include="UserControls\ContentBlockControl.xaml.cs">
@@ -297,6 +298,7 @@
     <None Include="AppCredentials.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Content Include="Assets\Octions.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\" />

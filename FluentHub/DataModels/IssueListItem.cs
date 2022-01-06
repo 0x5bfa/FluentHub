@@ -24,6 +24,17 @@ namespace FluentHub.DataModels
             }
         }
 
-        public string Title;
+        private string title;
+        public string Title
+        {
+            get
+            {
+                return title;
+            }
+            set
+            {
+                title = value;
+            }
+        }
     }
 }

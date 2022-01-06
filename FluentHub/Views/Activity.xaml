@@ -9,72 +9,70 @@
     mc:Ignorable="d">
 
     <Grid>
-        <muxc:NavigationView IsTitleBarAutoPaddingEnabled="False" x:Name="HomeNavView" IsBackButtonVisible="Collapsed" IsPaneToggleButtonVisible="False" OpenPaneLength="250" BorderThickness="0">
+        <muxc:NavigationView IsTitleBarAutoPaddingEnabled="False" x:Name="HomeNavView" IsBackButtonVisible="Collapsed" IsPaneToggleButtonVisible="False" OpenPaneLength="250" BorderThickness="0" ItemInvoked="HomeNavView_ItemInvoked">
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItemHeader Content="My Work"/>
-                <muxc:NavigationViewItem>
+                <muxc:NavigationViewItem Tag="Issues">
                     <muxc:NavigationViewItem.Content>
                         <StackPanel Orientation="Horizontal" Spacing="16">
                             <Border Background="#40d563" Width="24" Height="24" CornerRadius="4">
-                                <FontIcon Glyph="&#xe716;" FontSize="16"/>
+                                <FontIcon FontFamily="octions" Glyph="&#xE9EA;" FontSize="16"/>
                             </Border>
-                            <TextBlock Text="Issues"/>
+                            <TextBlock Text="Issues" VerticalAlignment="Center"/>
                         </StackPanel>
                     </muxc:NavigationViewItem.Content>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem>
+                <muxc:NavigationViewItem Tag="PullRequests">
                     <muxc:NavigationViewItem.Content>
                         <StackPanel Orientation="Horizontal" Spacing="16">
                             <Border Background="#2e8ffe" Width="24" Height="24" CornerRadius="4">
-                                <FontIcon Glyph="&#xe716;" FontSize="16"/>
+                                <FontIcon FontFamily="octions" Glyph="&#xE9BF;" FontSize="16"/>
                             </Border>
-                            <TextBlock Text="Pull request"/>
+                            <TextBlock Text="Pull Requests" VerticalAlignment="Center"/>
                         </StackPanel>
                     </muxc:NavigationViewItem.Content>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem>
+                <muxc:NavigationViewItem Tag="Discussions">
                     <muxc:NavigationViewItem.Content>
                         <StackPanel Orientation="Horizontal" Spacing="16">
                             <Border Background="#7548c7" Width="24" Height="24" CornerRadius="4">
-                                <FontIcon Glyph="&#xe716;" FontSize="16"/>
+                                <FontIcon FontFamily="octions" Glyph="&#xE95D;" FontSize="16"/>
                             </Border>
-                            <TextBlock Text="Discussion"/>
+                            <TextBlock Text="Discussions" VerticalAlignment="Center"/>
                         </StackPanel>
                     </muxc:NavigationViewItem.Content>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem>
+                <muxc:NavigationViewItem Tag="Repositories">
                     <muxc:NavigationViewItem.Content>
                         <StackPanel Orientation="Horizontal" Spacing="16">
                             <Border Background="#41434e" Width="24" Height="24" CornerRadius="4">
-                                <FontIcon Glyph="&#xe716;" FontSize="16"/>
+                                <FontIcon FontFamily="octions" Glyph="&#xEA52;" FontSize="16"/>
                             </Border>
-                            <TextBlock Text="Repositories"/>
+                            <TextBlock Text="Repositories" VerticalAlignment="Center"/>
                         </StackPanel>
                     </muxc:NavigationViewItem.Content>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem>
+                <muxc:NavigationViewItem Tag="Organizations">
                     <muxc:NavigationViewItem.Content>
                         <StackPanel Orientation="Horizontal" Spacing="16">
                             <Border Background="#fe8a38" Width="24" Height="24" CornerRadius="4">
-                                <FontIcon Glyph="&#xe716;" FontSize="16"/>
+                                <FontIcon FontFamily="octions" Glyph="&#xEA27;" FontSize="16"/>
                             </Border>
-                            <TextBlock Text="Organizations"/>
+                            <TextBlock Text="Organizations" VerticalAlignment="Center"/>
                         </StackPanel>
                     </muxc:NavigationViewItem.Content>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem>
+                <muxc:NavigationViewItem Tag="Starred">
                     <muxc:NavigationViewItem.Content>
                         <StackPanel Orientation="Horizontal" Spacing="16">
                             <Border Background="#fecb1a" Width="24" Height="24" CornerRadius="4">
-                                <FontIcon Glyph="&#xe716;" FontSize="16"/>
+                                <FontIcon FontFamily="octions" Glyph="&#xEA94;" FontSize="16"/>
                             </Border>
-                            <TextBlock Text="Stared"/>
+                            <TextBlock Text="Starred" VerticalAlignment="Center"/>
                         </StackPanel>
                     </muxc:NavigationViewItem.Content>
                 </muxc:NavigationViewItem>
                 <muxc:NavigationViewItemHeader Content="Favorites"/>
-                <muxc:NavigationViewItem Icon="People" Content="Stared"/>
-                <muxc:NavigationViewItem Icon="Edit" Content="Stared"/>
             </muxc:NavigationView.MenuItems>
             <muxc:NavigationView.Content>
                 <Grid Background="{ThemeResource LayerFillColorDefaultBrush}" Margin="-1">

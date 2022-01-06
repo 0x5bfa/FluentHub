@@ -6,6 +6,9 @@
 
     <Application.Resources>
         <ResourceDictionary>
+
+            <FontFamily x:Key="Octions">/Assets/Octions.ttf#octions</FontFamily>
+
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" ControlsResourcesVersion="Version2" />
                 <ResourceDictionary>
@@ -151,6 +154,10 @@
                     <Color x:Key="ReposIconsBackground">#41434e</Color>
                     <Color x:Key="OrgsIconsBackground">#fe8a38</Color>
                     <Color x:Key="StaredIconsBackground">#fecb1a</Color>
+
+                    <Style x:Key="BaseTextBlockStyle" TargetType="TextBlock">
+                        <Setter Property="FontFamily"  Value="Segoe UI Variable Text"/>
+                    </Style>
 
                     <CornerRadius x:Key="NavigationViewContentGridCornerRadius">0</CornerRadius>
                     <CornerRadius x:Key="GridViewThumbnailCornerRadius">2</CornerRadius>
