@@ -26,11 +26,10 @@ namespace FluentHub.Dialogs
         public SetupDialog()
         {
             this.InitializeComponent();
-            AuthOptionCombobox.Items.Add("Unauthorized access");
             AuthOptionCombobox.Items.Add("Basic authentication");
             AuthOptionCombobox.Items.Add("OAuth token authentication");
             AuthOptionCombobox.Items.Add("Web authentication");
-            AuthOptionCombobox.SelectedIndex = 3;
+            AuthOptionCombobox.SelectedIndex = 2;
         }
 
         private void AuthOptionCombobox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -39,15 +38,11 @@ namespace FluentHub.Dialogs
             OAuthTokenAuth.Visibility = Visibility.Collapsed;
             UseWebAuthWarningInfoBar.IsOpen = false;
 
-            var selectedItem = AuthOptionCombobox.SelectedItem;
+            var selectedIndex = AuthOptionCombobox.SelectedIndex;
 
-            switch (selectedItem.ToString())
+            switch (selectedIndex)
             {
-                case "Unauthorized access":
-                    ContinueButton.Content = "Continue with no personal access";
-                    ContinueButton.IsEnabled = true;
-                    break;
-                case "Basic authentication":
+                case 0:
                     BasicAuth.Visibility = Visibility.Visible;
                     ContinueButton.Content = "Authorize with basic loggin";
                     UseWebAuthWarningInfoBar.IsOpen = true;
@@ -57,7 +52,8 @@ namespace FluentHub.Dialogs
                     else
                         ContinueButton.IsEnabled = false;
                     break;
-                case "OAuth token authentication":
+
+                case 1:
                     OAuthTokenAuth.Visibility = Visibility.Visible;
                     ContinueButton.Content = "Authorize with OAuth token";
 
@@ -66,7 +62,8 @@ namespace FluentHub.Dialogs
                     else
                         ContinueButton.IsEnabled = false;
                     break;
-                case "Web authentication":
+
+                case 2:
                     ContinueButton.Content = "Open with your browser";
                     ContinueButton.IsEnabled = true;
                     break;
@@ -105,18 +102,15 @@ namespace FluentHub.Dialogs
             switch (selectedIndex)
             {
                 case 0:
-                    break;
-
-                case 1:
                     App.Client.Credentials = new Octokit.Credentials(UsernameTextBox.Text, PaddwordTextBox.Password);
                     break;
 
-                case 2:
+                case 1:
                     App.Client.Credentials = new Octokit.Credentials(TokenTextBox.Text);
                     break;
 
-                case 3:
-                    // webAuthenticationBroker...
+                case 2:
+                    // call webAuthenticationBroker...
                     break;
             }
 
