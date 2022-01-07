@@ -59,6 +59,15 @@
                             Margin="0,24,0,5"
                             Text="Login (Web authentication is recommended)"
                             Style="{ThemeResource BodyStrongTextBlockStyle}"/>
+                        <muxc:InfoBar
+                            x:Name="UseWebAuthWarningInfoBar"
+                            Title="Reccommand"
+                            Message="You should auth with web authentication. If 2FA is enabled, basic authentication will fail."
+                            Severity="Warning">
+                            <muxc:InfoBar.IconSource>
+                                <muxc:SymbolIconSource Symbol="Permissions" />
+                            </muxc:InfoBar.IconSource>
+                        </muxc:InfoBar>
 
                         <uc:SettingsBlockControl Title="Authentication type" Margin="0,3,0,0">
                             <ComboBox Width="224" x:Name="AuthOptionCombobox" SelectionChanged="AuthOptionCombobox_SelectionChanged"/>
@@ -75,7 +84,7 @@
                             </StackPanel>
 
                             <StackPanel x:Name="OAuthTokenAuth" Spacing="3" Margin="0,3,0,0" Visibility="Collapsed">
-                                <uc:SettingsBlockControl Title="OAuth token" Description="Format: ghp_[{A-Z|0-9|a-z}x36]">
+                                <uc:SettingsBlockControl Title="OAuth token" Description="Format: ghp_[A-Z|0-9|a-z]{36}">
                                     <TextBox x:Name="TokenTextBox" Width="224" TextChanged="TokenTextBox_TextChanged"/>
                                 </uc:SettingsBlockControl>
                             </StackPanel>

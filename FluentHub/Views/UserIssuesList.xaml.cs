@@ -38,5 +38,11 @@ namespace FluentHub.Views
         {
             vm.GetUserIssues();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            // just testing
+            this.Frame.Navigate(typeof(WelcomePage));
+        }
     }
 }

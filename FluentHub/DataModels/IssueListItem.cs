@@ -12,6 +12,7 @@ namespace FluentHub.DataModels
     public class IssueListItem
     {
         Issue issue;
+        public string Tag { get; private set; } = "[tag]"; // format: [repoId]/#[IssueNumber]
         public bool IsOpened { get; private set; } = false;
         public string StatusGlyph { get; private set; } = "\uE9EA";
         public SolidColorBrush StatusGlyphForeground { get; set; } = new SolidColorBrush(Windows.UI.Color.FromArgb(0xFF, 0x57, 0xab, 0x5a));
@@ -36,6 +37,10 @@ namespace FluentHub.DataModels
             RepoFullName = string.Format($"{urlItem[3]} / {urlItem[4]} • #{issue.Number}");
             TimeAgo = ConvertDataTimeToTimeAgo.GetDataTimeDiff(((DateTimeOffset)issue.UpdatedAt).ToLocalTime());
             Title = issue.Title;
+
+            var repo = App.Client.Repository.Get(urlItem[3], urlItem[4]);
+            string repoId = repo.Id.ToString();
+            Tag = string.Format($"{repoId}/#{issue.Number}");
         }
     }
 }

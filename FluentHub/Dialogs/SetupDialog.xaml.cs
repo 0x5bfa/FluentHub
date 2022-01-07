@@ -37,6 +37,7 @@ namespace FluentHub.Dialogs
         {
             BasicAuth.Visibility = Visibility.Collapsed;
             OAuthTokenAuth.Visibility = Visibility.Collapsed;
+            UseWebAuthWarningInfoBar.IsOpen = false;
 
             var selectedItem = AuthOptionCombobox.SelectedItem;
 
@@ -49,6 +50,7 @@ namespace FluentHub.Dialogs
                 case "Basic authentication":
                     BasicAuth.Visibility = Visibility.Visible;
                     ContinueButton.Content = "Authorize with basic loggin";
+                    UseWebAuthWarningInfoBar.IsOpen = true;
 
                     if (UsernameTextBox.Text != "" && PaddwordTextBox.Password != "")
                         ContinueButton.IsEnabled = true;
@@ -106,11 +108,11 @@ namespace FluentHub.Dialogs
                     break;
 
                 case 1:
-                    UserClient.GithubClient.Credentials = new Octokit.Credentials(UsernameTextBox.Text, PaddwordTextBox.Password);
+                    App.Client.Credentials = new Octokit.Credentials(UsernameTextBox.Text, PaddwordTextBox.Password);
                     break;
 
                 case 2:
-                    UserClient.GithubClient.Credentials = new Octokit.Credentials(TokenTextBox.Text);
+                    App.Client.Credentials = new Octokit.Credentials(TokenTextBox.Text);
                     break;
 
                 case 3:

@@ -131,7 +131,6 @@
     <Compile Include="Services\Auth\AppCredentials.cs" />
     <Compile Include="Services\Auth\WebAuthenticationBroker.cs" />
     <Compile Include="Services\Octiokit\IssueService.cs" />
-    <Compile Include="Services\Octiokit\UserClient.cs" />
     <Compile Include="UserControls\ContentBlockControl.xaml.cs">
       <DependentUpon>ContentBlockControl.xaml</DependentUpon>
     </Compile>

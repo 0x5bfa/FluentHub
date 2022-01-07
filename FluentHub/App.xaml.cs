@@ -19,11 +19,14 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Octokit;
 
 namespace FluentHub
 {
-    sealed partial class App : Application
+    sealed partial class App : Windows.UI.Xaml.Application
     {
+        public static GitHubClient Client { get; set; } = new GitHubClient(new ProductHeaderValue("FluentHub"));
+
         public App()
         {
             this.InitializeComponent();

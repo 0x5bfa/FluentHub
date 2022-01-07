@@ -25,10 +25,9 @@ namespace FluentHub.ViewModels
 
         public async void GetUserIssues()
         {
-            Services.Octiokit.UserClient.GithubClient = new GitHubClient(new ProductHeaderValue("FluentHub")) { Credentials = new Credentials("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") };
             SearchIssuesRequest request = new SearchIssuesRequest();
             request.Author = "onein528";
-            var Issues = await Services.Octiokit.UserClient.GithubClient.Search.SearchIssues(request);
+            var Issues = await App.Client.Search.SearchIssues(request);
 
             foreach(var item in Issues.Items)
             {
