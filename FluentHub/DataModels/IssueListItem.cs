@@ -14,8 +14,8 @@ namespace FluentHub.DataModels
         Issue issue;
         public string Tag { get; private set; } = "[tag]"; // format: [repoId]/#[IssueNumber]
         public bool IsOpened { get; private set; } = false;
-        public string StatusGlyph { get; private set; } = "\uE9EA";
-        public SolidColorBrush StatusGlyphForeground { get; set; } = new SolidColorBrush(Windows.UI.Color.FromArgb(0xFF, 0x57, 0xab, 0x5a));
+        public string StatusGlyph { get; private set; } = "\uE9E6";
+        public SolidColorBrush StatusGlyphForeground { get; set; } = new SolidColorBrush(Windows.UI.Color.FromArgb(0xFF, 0x82, 0x56, 0xd0));
 
         public string RepoFullName { get; private set; } = "[repoFullName]";
         public string TimeAgo { get; private set; } = "[timeAgo]";
@@ -28,14 +28,14 @@ namespace FluentHub.DataModels
             if (issue.State == ItemState.Open)
             {
                 IsOpened = true;
-                StatusGlyph = "\uE9E6";
-                StatusGlyphForeground = new SolidColorBrush(Windows.UI.Color.FromArgb(0xFF, 0x82, 0x56, 0xd0));
+                StatusGlyph = "\uE9EA";
+                StatusGlyphForeground = new SolidColorBrush(Windows.UI.Color.FromArgb(0xFF, 0x57, 0xab, 0x5a));
             }
 
             var urlItem = issue.HtmlUrl.Split("/");
 
             RepoFullName = string.Format($"{urlItem[3]} / {urlItem[4]} • #{issue.Number}");
-            TimeAgo = ConvertDataTimeToTimeAgo.GetDataTimeDiff(((DateTimeOffset)issue.UpdatedAt).ToLocalTime());
+            TimeAgo = ConvertDataTimeToTimeAgo.GetDataTimeDiff(((DateTimeOffset)issue.CreatedAt).ToLocalTime());
             Title = issue.Title;
 
             var repo = App.Client.Repository.Get(urlItem[3], urlItem[4]);

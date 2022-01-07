@@ -9,70 +9,74 @@ namespace FluentHub.Healper
     public class ConvertDataTimeToTimeAgo
     {
         /// <summary>
-        /// The resolution of time diff is 1 minute
+        /// The resolution of time diff is one second
         /// </summary>
         /// <param name="target"></param>
         /// <returns></returns>
         static public string GetDataTimeDiff(DateTimeOffset target)
         {
-            DateTime now = DateTime.Now;
 
-            int yearDiff = now.Year - target.Year;
+            var ts = new TimeSpan(DateTime.Now.Ticks - target.Ticks);
+            double delta = Math.Abs(ts.TotalSeconds);
 
-            if (target.Month == now.Month && now.Day < target.Day || now.Month < target.Month)
+            if (delta < 60)
             {
-                yearDiff--;
-            }
-
-            var diifTimeSpan = now - target;
-            int days = (int)Math.Abs(Math.Round(diifTimeSpan.TotalDays));
-
-            string FormattedTimeDiffString = null;
-            int timeDiff = 0;
-
-            if (days < 365)
-            {
-                if ((timeDiff = now.Month + 12 - target.Month) == 0)
+                if (ts.Seconds <= 5)
                 {
-                    TimeSpan timeSpanDiff = now - target;
-
-                    if (timeSpanDiff.Days == 0)
-                    {
-                        if (timeSpanDiff.Hours == 0)
-                        {
-                            if (timeSpanDiff.Minutes == 0)
-                            {
-                                FormattedTimeDiffString = string.Format($"now");
-                                return FormattedTimeDiffString;
-                            }
-                            else
-                            {
-                                FormattedTimeDiffString = string.Format($"{timeSpanDiff.Minutes}min");
-                                return FormattedTimeDiffString;
-                            }
-                        }
-                        else
-                        {
-                            FormattedTimeDiffString = string.Format($"{timeSpanDiff.Hours}h");
-                            return FormattedTimeDiffString;
-                        }
-                    }
-                    else
-                    {
-                        FormattedTimeDiffString = string.Format($"{timeSpanDiff.Days}d");
-                        return FormattedTimeDiffString;
-                    }
+                    return "now";
                 }
                 else
                 {
-                    FormattedTimeDiffString = string.Format($"{timeDiff}mo");
-                    return FormattedTimeDiffString;
+                    return string.Format("{0}s", ts.Seconds);
                 }
+            }
+            else if (delta < 120)
+            {
+                return "1min";
+            }
+            else if (delta < 2700) // 45 * 60
+            {
+                return string.Format("{0}min", ts.Minutes);
+            }
+            else if (delta < 5400) // 90 * 60
+            {
+                return "1h";
+            }
+            else if (delta < 86400) // 24 * 60 * 60
+            {
+                return string.Format("{0}h", ts.Hours);
+            }
+            else if (delta < 172800) // 48 * 60 * 60
+            {
+                return "1d";
+            }
+            else if (delta < 2592000) // 30 * 24 * 60 * 60
+            {
+                return string.Format("{0}d", ts.Days);
+            }
+            else if (delta < 31104000) // 12 * 30 * 24 * 60 * 60
+            {
+                var months = Convert.ToInt32(Math.Floor((double)ts.Days / 30));
+
+                if (months <= 1)
+                {
+                    return "1mo";
+                }
+                else
+                {
+                    return string.Format("{0}mo", months);
+                }
+            }
+
+            int years = Convert.ToInt32(Math.Floor((double)ts.Days / 365));
+
+            if (years <= 1)
+            {
+                return "1yr";
             }
             else
             {
-                FormattedTimeDiffString = string.Format($"{yearDiff}yr");
-                return FormattedTimeDiffString;
+                return string.Format("{0}yr", years);
             }
         }
 
