@@ -20,12 +20,15 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using Octokit;
+using System.Threading.Tasks;
+using FluentHub.Services.Auth;
 
 namespace FluentHub
 {
     sealed partial class App : Windows.UI.Xaml.Application
     {
         public static GitHubClient Client { get; set; } = new GitHubClient(new ProductHeaderValue("FluentHub"));
+        private Frame rootFrame = Window.Current.Content as Frame;
 
         public App()
         {
@@ -42,7 +45,6 @@ namespace FluentHub
             CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
             ApplicationView.GetForCurrentView().TitleBar.ButtonBackgroundColor = Colors.Transparent;
             ApplicationView.GetForCurrentView().TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-            Frame rootFrame = Window.Current.Content as Frame;
 
             if (rootFrame == null)
             {
@@ -73,6 +75,36 @@ namespace FluentHub
                 }
 
                 Window.Current.Activate();
+            }
+        }
+
+        protected async override void OnActivated(IActivatedEventArgs args)
+        {
+            if (args.Kind == ActivationKind.Protocol)
+            {
+                if (args.PreviousExecutionState == ApplicationExecutionState.Running)
+                {
+                    await HandleProtocolActivationArguments(args);
+                }
+            }
+        }
+
+        private async Task HandleProtocolActivationArguments(IActivatedEventArgs args)
+        {
+            ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
+            string code = new WwwFormUrlDecoder(eventArgs.Uri.Query).GetFirstValueByName("code");
+
+            if (code != null)
+            {
+                RequestAuthorization auth = new RequestAuthorization();
+
+                // Request token with code
+                bool status = await auth.RequestOAuthToken(code);
+
+                if (status)
+                {
+                    rootFrame.Navigate(typeof(MainPage));
+                }
             }
         }
 

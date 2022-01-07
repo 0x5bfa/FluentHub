@@ -6,26 +6,34 @@ using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Windows.Data.Xml.Dom;
+using Windows.Storage;
 
 namespace FluentHub.Services.Auth
 {
     public class AppCredentials
     {
-        [JsonPropertyName("clientId")]
-        public string ClientId { get; private set; } = null;
-        [JsonPropertyName("clientSecret")]
-        public string ClientSecret { get; private set; } = null;
+        private string credentialsLocation = "ms-appx:///AppCredentials.config";
+        public string clientId = "";
+        public string clientSecret = "";
+
+        public AppCredentials()
+        {
+            clientId = "";
+            clientSecret = "";
+        }
 
         public async Task GetAppCredentials()
         {
-            Windows.Storage.StorageFolder storageFolder = Windows.Storage.ApplicationData.Current.LocalFolder;
-            Windows.Storage.StorageFile file = await storageFolder.GetFileAsync("ms-appx:///AppCredentials.json");
+            var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri(credentialsLocation));
 
-            string text = await Windows.Storage.FileIO.ReadTextAsync(file);
+            var xmlConfiguration = await XmlDocument.LoadFromFileAsync(file);
 
-            AppCredentials credentials = JsonSerializer.Deserialize<AppCredentials>(text);
-            ClientId = credentials.ClientId;
-            ClientSecret = credentials.ClientSecret;
+            var nodeId = xmlConfiguration.DocumentElement.SelectSingleNode("./client/type[@key='id']/@value");
+            var nodeSecret = xmlConfiguration.DocumentElement.SelectSingleNode("./client/type[@key='secret']/@value");
+
+            clientId = (string)nodeId.NodeValue;
+            clientSecret = (string)nodeSecret.NodeValue;
         }
     }
 }

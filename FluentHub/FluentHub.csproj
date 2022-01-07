@@ -129,7 +129,7 @@
     <Compile Include="Helper\ConvertDataTimeToTimeAgo.cs" />
     <Compile Include="Services\AppSettingsService.cs" />
     <Compile Include="Services\Auth\AppCredentials.cs" />
-    <Compile Include="Services\Auth\WebAuthenticationBroker.cs" />
+    <Compile Include="Services\Auth\RequestAuthorization.cs" />
     <Compile Include="Services\Octiokit\IssueService.cs" />
     <Compile Include="UserControls\ContentBlockControl.xaml.cs">
       <DependentUpon>ContentBlockControl.xaml</DependentUpon>
@@ -164,6 +164,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\AppTiles\DefaultLogo.png" />
     <Content Include="Assets\AppTiles\LargeTile.scale-100.png" />
     <Content Include="Assets\AppTiles\LargeTile.scale-125.png" />
     <Content Include="Assets\AppTiles\LargeTile.scale-150.png" />
@@ -294,7 +295,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="AppCredentials.json">
+    <None Include="AppCredentials.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="Assets\Octions.ttf" />

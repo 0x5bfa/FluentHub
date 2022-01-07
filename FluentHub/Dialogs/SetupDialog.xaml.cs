@@ -16,6 +16,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.ApplicationModel.Resources;
 using FluentHub.Views;
 using FluentHub.Services.Auth;
+using System.Threading.Tasks;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -94,10 +95,10 @@ namespace FluentHub.Dialogs
                 ContinueButton.IsEnabled = false;
         }
 
-        private void ContinueButton_Click(object sender, RoutedEventArgs e)
+        private async void ContinueButton_Click(object sender, RoutedEventArgs e)
         {
             var selectedIndex = AuthOptionCombobox.SelectedIndex;
-            var webAuthenticationBroker = new WebAuthenticationBroker();
+            var webAuthenticationBroker = new RequestAuthorization();
 
             switch (selectedIndex)
             {
@@ -110,13 +111,16 @@ namespace FluentHub.Dialogs
                     break;
 
                 case 2:
-                    // call webAuthenticationBroker...
-                    break;
+                    RequestAuthorization request = new RequestAuthorization();
+                    await request.RequestGitHubIdentity();
+                    this.Hide();
+                    return;
             }
 
             Frame rootFrame = Window.Current.Content as Frame;
             rootFrame.Navigate(typeof(MainPage));
             this.Hide();
+            return;
         }
 
         private void CancelButton_Click(object sender, RoutedEventArgs e)

@@ -69,49 +69,14 @@
                 Text="We're glad you're here. Just need to go through a few simple steps and you'll be all up and running!"
                 TextWrapping="Wrap">
             </TextBlock>
-            <Button
-                Style="{ThemeResource AccentButtonStyle}"
-                Content="Start setup"
-                HorizontalAlignment="Center"
-                Margin="0,24,0,0"
-                Click="SetupButton_Click"/>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,24,0,0">
+                <Button
+                    Style="{ThemeResource AccentButtonStyle}"
+                    Content="Start setup"
+                    HorizontalAlignment="Center"
+                    Click="SetupButton_Click"/>
+                <muxc:ProgressRing x:Name="AuthProgressRing" Visibility="Collapsed" VerticalAlignment="Stretch" Height="24" Width="24" Margin="12,0,0,0"/>
+            </StackPanel>
         </StackPanel>
-        <!--<StackPanel Grid.Row="1">
-            <TextBlock Margin="0,0,0,8" Text="Welcome to FluentHub!" Style="{ThemeResource SubtitleTextBlockStyle}"/>
-            <TextBlock Margin="0,0,0,36" Text="To use this app, you need to sign in first." Style="{ThemeResource BodyTextBlockStyle}"/>
-            <StackPanel Orientation="Horizontal">
-                <TextBlock FontSize="64" Text="👍"/>
-                <StackPanel Margin="24 0 0 0">
-                    <controls:MarkdownTextBlock Background="Transparent" Text="**Easily manage your repositories**"/>
-                    <controls:MarkdownTextBlock Background="Transparent" Height="20" Text="- View code across different branches and commits the way they are meant to"/>
-                    <controls:MarkdownTextBlock Background="Transparent" Height="20" Text="- View and manage Issues like a Pro!"/>
-                    <controls:MarkdownTextBlock Background="Transparent" Height="20" Text="- Merging a pull request has never been so elegent"/>
-                </StackPanel>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0 24 0 0">
-                <TextBlock FontSize="64" Text="🚀"/>
-                <StackPanel Margin="24 0 0 0">
-                    <controls:MarkdownTextBlock Background="Transparent" Text="**Blazing performance**"/>
-                    <controls:MarkdownTextBlock TextWrapping="Wrap" Background="Transparent" Height="20" Text="- FluentHub is a native Windows app, so it uses way less resource than GitHub in the browser."/>
-                </StackPanel>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal" Margin="0 24 0 0">
-                <TextBlock FontSize="64" Text="🎨"></TextBlock>
-                <StackPanel Margin="24 0 0 0">
-                    <controls:MarkdownTextBlock Background="Transparent" Text="**Beautiful Design**"/>
-                    <controls:MarkdownTextBlock Background="Transparent" Height="20" Text="- Incorporate the latest WinUI and Fluent Design simple, elegant, yet powerful"/>
-                    <controls:MarkdownTextBlock Background="Transparent" Height="20" Text="- Designed to function on different device type"/>
-                    <controls:MarkdownTextBlock Background="Transparent" Height="20" Text="- All UI layouts or design are similar to the browser's GitHub for intuitive use, with even more UI improvements."/>
-                </StackPanel>
-            </StackPanel>
-            <TextBlock x:Name="Token"></TextBlock>
-        </StackPanel>
-        <Button
-            Grid.Row="2"
-            x:Name="AuthorizeButton"
-            Style="{ThemeResource AccentButtonStyle}"
-            Content="Authorize with GitHub on your browser"
-            VerticalAlignment="Bottom"
-            Margin="16"/>-->
     </Grid>
 </Page>

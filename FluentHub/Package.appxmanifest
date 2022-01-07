@@ -40,6 +40,14 @@
         <uap:DefaultTile Wide310x150Logo="Assets\AppTiles\Wide310x150Logo.png" Square71x71Logo="Assets\AppTiles\SmallTile.png" Square310x310Logo="Assets\AppTiles\LargeTile.png"/>
         <uap:SplashScreen Image="Assets\AppTiles\SplashScreen.png" />
       </uap:VisualElements>
+      <Extensions>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="fluenthub">
+            <uap:Logo>Assets\AppTiles\DefaultLogo.png</uap:Logo>
+            <uap:DisplayName>FluentHub</uap:DisplayName>
+          </uap:Protocol>
+        </uap:Extension>
+      </Extensions>
     </Application>
   </Applications>
 
