@@ -1,5 +1,4 @@
-﻿using FluentHub.Views.UserPage;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -14,20 +13,18 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// 空白ページの項目テンプレートについては、https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x411 を参照してください
+// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace FluentHub.Views
+namespace FluentHub.Views.UserPage
 {
     /// <summary>
-    /// それ自体で使用できる空白ページまたはフレーム内に移動できる空白ページ。
+    /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainPage : Page
+    public sealed partial class ProfilePage : Page
     {
-        public MainPage()
+        public ProfilePage()
         {
             this.InitializeComponent();
-            Window.Current.SetTitleBar(DragArea);
-            ContentFrame.Navigate(typeof(Home));
         }
     }
 }

@@ -26,13 +26,13 @@
         </Grid.RowDefinitions>
         <Grid x:Name="DragArea" x:Load="True" Height="50" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
         <uc:CustomTabView />
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" Padding="8,0,8,8" ColumnSpacing="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0"  Padding="8,0,8,8" ColumnSpacing="4">
+            <Grid Grid.Column="0">
                 <StackPanel Orientation="Horizontal" Spacing="4">
                     <Button Width="36"
                     Height="32" Background="Transparent" Style="{ThemeResource ToolBarButtonStyle}">
@@ -44,7 +44,7 @@
                     </Button>
                     <Button Width="36"
                     Height="32" Background="Transparent" Style="{ThemeResource ToolBarButtonStyle}">
-                        <FontIcon FontSize="14" Glyph="&#xE72A;" />
+                        <FontIcon FontSize="14" Glyph="&#xE74A;" />
                     </Button>
                     <Button Width="36"
                     Height="32" Background="Transparent" Style="{ThemeResource ToolBarButtonStyle}">
@@ -53,12 +53,27 @@
                 </StackPanel>
             </Grid>
             <Grid Grid.Column="1">
-                <AutoSuggestBox HorizontalAlignment="Stretch" VerticalAlignment="Top"/>
+                <AutoSuggestBox
+                    PlaceholderText="Type GitHub URL"
+                    FontWeight="SemiBold"
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Top"/>
             </Grid>
-            <Border Grid.ColumnSpan="2" Height="0.5" BorderBrush="{ThemeResource ControlStrokeColorDefault}" BorderThickness="0.5" VerticalAlignment="Bottom"/>
-
+            <Grid Grid.Column="2">
+                <Button
+                    x:Name="SettingsButton"
+                    Width="36"
+                    Height="32"
+                    AccessKey="I"
+                    ToolTipService.ToolTip="App settings"
+                    Background="Transparent"
+                    Style="{StaticResource ToolBarButtonStyle}">
+                    <FontIcon FontSize="14" Glyph="&#xE115;" />
+                </Button>
+            </Grid>
+            <Border Margin="-8,0,-8,-8"  Grid.ColumnSpan="3" Height="0.5" BorderBrush="{ThemeResource ControlStrokeColorDefault}" BorderThickness="0.5" VerticalAlignment="Bottom"/>
         </Grid>
-        <Frame Grid.Row="2" x:Name="ContentFrame" Background="{ThemeResource LayerFillColorDefaultBrush}">
+            <Frame Grid.Row="2" x:Name="ContentFrame" Background="{ThemeResource LayerFillColorDefaultBrush}">
         </Frame>
     </Grid>
 </Page>

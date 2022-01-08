@@ -1,0 +1,157 @@
+﻿<Page
+    x:Class="FluentHub.Views.UserPage.ProfilePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FluentHub.Views.UserPage"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d">
+
+    <Grid Padding="0,24">
+        <ScrollViewer>
+            <StackPanel>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid x:Name="UserName" Grid.Row="0" Margin="24,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Border CornerRadius="32" Grid.RowSpan="1">
+                            <Image Source="https://avatars.githubusercontent.com/u/62196528" Height="64" Width="64" />
+                        </Border>
+                        <StackPanel Grid.Column="1" Margin="16,0,0,0" VerticalAlignment="Center">
+                            <TextBlock Style="{ThemeResource SubtitleTextBlockStyle}" Text="NullReferenceException" VerticalAlignment="Center"/>
+                            <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" Text="onein528" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Row="1" Margin="24,16,0,0">
+                        <Button BorderBrush="#966600" Background="#353329" BorderThickness="0.5" HorizontalContentAlignment="Left" CornerRadius="3" MinWidth="300" HorizontalAlignment="Left" Padding="8">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <Image Source="https://github.githubassets.com/images/icons/emoji/octocat.png" Height="14"/>
+                                <TextBlock Text="Learning C#" Style="{ThemeResource BodyTextBlockStyle}"/>
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                    <Grid Grid.Row="2" Margin="24,12,0,0">
+                        <TextBlock Text="Learning C++/C#, Working at WindowsCommands project" Style="{ThemeResource BodyTextBlockStyle}"/>
+                    </Grid>
+                    <Grid x:Name="UserInfo" Grid.Row="3" Margin="24,12,24,12">
+                        <StackPanel Spacing="4">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon
+                    Glyph="&#xecaf;"
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    FontSize="14"
+                    VerticalAlignment="Center"/>
+                                <TextBlock
+                    Margin="0,-2,0,0"
+                    Style="{ThemeResource BodyTextBlockStyle}"
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Text="somewhere :)"
+                    VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon
+                    Glyph="&#xe71b;"
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    FontSize="14"
+                    VerticalAlignment="Center"/>
+                                <TextBlock
+                    Margin="0,-2,0,0"
+                    Style="{ThemeResource BodyTextBlockStyle}"
+                    Text="github.com/onein528"
+                    VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon
+                    Glyph="&#xe964;"
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    FontSize="14"
+                    VerticalAlignment="Center"/>
+                                <TextBlock
+                    Margin="0,-2,0,0"
+                    Style="{ThemeResource BodyTextBlockStyle}"
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Text="Developer Program Member"
+                    VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <FontIcon
+                    Glyph="&#xe77b;"
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    FontSize="14"
+                    VerticalAlignment="Center"/>
+                                <TextBlock
+                    Margin="8,-2,0,0"
+                    Style="{ThemeResource BodyTextBlockStyle}"
+                    Text="2"
+                    VerticalAlignment="Center"/>
+                                <TextBlock
+                    Margin="6,-2,0,0"
+                    Style="{ThemeResource BodyTextBlockStyle}"
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Text="followers"
+                    VerticalAlignment="Center"/>
+                                <TextBlock
+                    Margin="4,-2,4,0"
+                    Style="{ThemeResource BodyTextBlockStyle}"
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Text="•"
+                    VerticalAlignment="Center"/>
+                                <TextBlock
+                    Margin="0,-2,0,0"
+                    Style="{ThemeResource BodyTextBlockStyle}"
+                    Text="3"
+                    VerticalAlignment="Center"/>
+                                <TextBlock
+                    Margin="6,-2,0,0"
+                    Style="{ThemeResource BodyTextBlockStyle}"
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Text="followers"
+                    VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Grid>
+                    <Grid Grid.Row="4">
+                        <muxc:NavigationView PaneDisplayMode="Top" IsBackButtonVisible="Collapsed" IsSettingsVisible="False">
+                            <muxc:NavigationView.MenuItems>
+                                <muxc:NavigationViewItem Tag="Overview" Content="Overview" Margin="12,0,0,0">
+                                    <muxc:NavigationViewItem.Icon>
+                                        <FontIcon FontFamily="octions" Glyph="&#xE922;" FontSize="16"/>
+                                    </muxc:NavigationViewItem.Icon>
+                                </muxc:NavigationViewItem>
+                                <muxc:NavigationViewItem Tag="Repositories" Content="Repositories">
+                                    <muxc:NavigationViewItem.Icon>
+                                        <FontIcon FontFamily="octions" Glyph="&#xEA52;" FontSize="16"/>
+                                    </muxc:NavigationViewItem.Icon>
+                                </muxc:NavigationViewItem>
+                                <muxc:NavigationViewItem Tag="Projects" Content="Projects">
+                                    <muxc:NavigationViewItem.Icon>
+                                        <FontIcon FontFamily="octions" Glyph="&#xEAA3;" FontSize="16"/>
+                                    </muxc:NavigationViewItem.Icon>
+                                </muxc:NavigationViewItem>
+                                <muxc:NavigationViewItem Tag="Packages" Content="Packages">
+                                    <muxc:NavigationViewItem.Icon>
+                                        <FontIcon FontFamily="octions" Glyph="&#xEA29;" FontSize="16"/>
+                                    </muxc:NavigationViewItem.Icon>
+                                </muxc:NavigationViewItem>
+                            </muxc:NavigationView.MenuItems>
+                        </muxc:NavigationView>
+                    </Grid>
+                </Grid>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

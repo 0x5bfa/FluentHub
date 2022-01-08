@@ -143,16 +143,21 @@
     <Compile Include="UserControls\IssuesListItemControl.xaml.cs">
       <DependentUpon>IssuesListItemControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\SettingsManager.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\UserIssueListViewModel.cs" />
-    <Compile Include="Views\Activity.xaml.cs">
-      <DependentUpon>Activity.xaml</DependentUpon>
+    <Compile Include="Views\UserPage\Home.xaml.cs">
+      <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\UserIssuesList.xaml.cs">
-      <DependentUpon>UserIssuesList.xaml</DependentUpon>
+    <Compile Include="Views\Issues.xaml.cs">
+      <DependentUpon>Issues.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserPage\ProfilePage.xaml.cs">
+      <DependentUpon>ProfilePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WelcomePage.xaml.cs">
       <DependentUpon>WelcomePage.xaml</DependentUpon>
@@ -257,7 +262,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Activity.xaml">
+    <Page Include="Views\UserPage\Home.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -265,7 +270,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\UserIssuesList.xaml">
+    <Page Include="Views\Issues.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserPage\ProfilePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

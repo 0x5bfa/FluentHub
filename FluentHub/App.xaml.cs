@@ -22,6 +22,7 @@ using Windows.UI.Xaml.Navigation;
 using Octokit;
 using System.Threading.Tasks;
 using FluentHub.Services.Auth;
+using System.Net.NetworkInformation;
 
 namespace FluentHub
 {

@@ -24,11 +24,11 @@ namespace FluentHub.Views
     /// <summary>
     /// それ自体で使用できる空白ページまたはフレーム内に移動できる空白ページ。
     /// </summary>
-    public sealed partial class UserIssuesList : Page
+    public sealed partial class Issues : Page
     {
         UserIssueListViewModel vm = new UserIssueListViewModel();
 
-        public UserIssuesList()
+        public Issues()
         {
             this.DataContext = vm;
             this.InitializeComponent();

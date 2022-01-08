@@ -17,14 +17,14 @@ using Windows.UI.Xaml.Navigation;
 
 // 空白ページの項目テンプレートについては、https://go.microsoft.com/fwlink/?LinkId=234238 を参照してください
 
-namespace FluentHub.Views
+namespace FluentHub.Views.UserPage
 {
     /// <summary>
     /// それ自体で使用できる空白ページまたはフレーム内に移動できる空白ページ。
     /// </summary>
-    public sealed partial class Activity : Page
+    public sealed partial class Home : Page
     {
-        public Activity()
+        public Home()
         {
             this.InitializeComponent();
         }
@@ -35,10 +35,26 @@ namespace FluentHub.Views
 
             switch (tag)
             {
-                case "Issues":
-                    HomeNavViewContent.Navigate(typeof(UserIssuesList));
+                case "Profile":
+                    HomeNavViewContent.Navigate(typeof(ProfilePage));
                     break;
-                default:
+                case "Notifications":
+                    break;
+                case "Activities":
+                    break;
+
+                case "Issues":
+                    HomeNavViewContent.Navigate(typeof(Issues));
+                    break;
+                case "PullRequests":
+                    break;
+                case "Discussions":
+                    break;
+                case "Repositories":
+                    break;
+                case "Organizations":
+                    break;
+                case "Starred":
                     break;
             }
         }
