@@ -9,7 +9,7 @@ namespace FluentHub.ViewModels
 {
     public class SettingsManager
     {
-        protected T Get<T>(string setting, T defaultValue)
+        public T Get<T>(string setting, T defaultValue)
         {
             ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
 
@@ -29,7 +29,7 @@ namespace FluentHub.ViewModels
             return (T)val;
         }
 
-        protected void Set<T>(string setting, T newValue)
+        public void Set<T>(string setting, T newValue)
         {
             // if types don't match, this'll throw an exception
             _ = Get(setting, newValue);

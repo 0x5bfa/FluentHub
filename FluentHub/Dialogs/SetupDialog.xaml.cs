@@ -17,6 +17,7 @@ using Windows.ApplicationModel.Resources;
 using FluentHub.Views;
 using FluentHub.Services.Auth;
 using System.Threading.Tasks;
+using FluentHub.ViewModels;
 
 // The Content Dialog item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -104,22 +105,27 @@ namespace FluentHub.Dialogs
             {
                 case 0:
                     App.Client.Credentials = new Octokit.Credentials(UsernameTextBox.Text, PaddwordTextBox.Password);
+                    App.settings.Set("username", UsernameTextBox.Text);
+                    App.settings.Set("password", PaddwordTextBox.Password);
                     break;
 
                 case 1:
                     App.Client.Credentials = new Octokit.Credentials(TokenTextBox.Text);
+                    App.settings.Set("accessToken", TokenTextBox.Text);
                     break;
 
                 case 2:
                     RequestAuthorization request = new RequestAuthorization();
                     await request.RequestGitHubIdentity();
                     this.Hide();
+                    App.settings.SetupProgress = true;
                     return;
             }
 
             Frame rootFrame = Window.Current.Content as Frame;
             rootFrame.Navigate(typeof(MainPage));
             this.Hide();
+            App.settings.SetupCompleted = true;
             return;
         }
 

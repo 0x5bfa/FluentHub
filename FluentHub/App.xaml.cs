@@ -23,25 +23,45 @@ using Octokit;
 using System.Threading.Tasks;
 using FluentHub.Services.Auth;
 using System.Net.NetworkInformation;
+using FluentHub.ViewModels;
 
 namespace FluentHub
 {
     sealed partial class App : Windows.UI.Xaml.Application
     {
         public static GitHubClient Client { get; set; } = new GitHubClient(new ProductHeaderValue("FluentHub"));
+
         private Frame rootFrame = Window.Current.Content as Frame;
+
+        public static SettingsViewModel settings { get; private set; }
 
         public App()
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+
+            settings = new SettingsViewModel();
+
+            // restore token or password
+            if (settings.SetupCompleted == true)
+            {
+                if (settings.Get("accessToken", "") != "")
+                {
+                    Client.Credentials = new Credentials(settings.Get("accessToken", ""));
+                }
+                else if (settings.Get("username", "") != "" && settings.Get("password", "") != "")
+                {
+                    Client.Credentials = new Credentials(settings.Get("username", ""), settings.Get("password", ""));
+                }
+                else
+                {
+                    return; // or throw exception
+                }
+            }
         }
 
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
-            // Get local settings
-            AppSettingsService settings = new AppSettingsService();
-
             // Customize title bar
             CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
             ApplicationView.GetForCurrentView().TitleBar.ButtonBackgroundColor = Colors.Transparent;
@@ -64,15 +84,9 @@ namespace FluentHub
             {
                 if (rootFrame.Content == null)
                 {
-                    // This app is needed authorized github client
-                    if(settings.GetValue("hasToken") == null || (bool)settings.GetValue("hasToken") == false)
-                    {
-                        rootFrame.Navigate(typeof(WelcomePage), e.Arguments);
-                    }
-                    else
-                    {
+                    _ = !settings.SetupCompleted ?
+                        rootFrame.Navigate(typeof(WelcomePage), e.Arguments) :
                         rootFrame.Navigate(typeof(MainPage), e.Arguments);
-                    }
                 }
 
                 Window.Current.Activate();
