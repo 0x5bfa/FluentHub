@@ -15,12 +15,12 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// 空白ページの項目テンプレートについては、https://go.microsoft.com/fwlink/?LinkId=234238 を参照してください
+// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace FluentHub.Views.UserPage
 {
     /// <summary>
-    /// それ自体で使用できる空白ページまたはフレーム内に移動できる空白ページ。
+    /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
     public sealed partial class Home : Page
     {
@@ -36,7 +36,7 @@ namespace FluentHub.Views.UserPage
             switch (tag)
             {
                 case "Profile":
-                    HomeNavViewContent.Navigate(typeof(ProfilePage));
+                    HomeNavViewContent.Navigate(typeof(ProfilePage), $"{App.AuthedUserName}");
                     break;
                 case "Notifications":
                     break;
@@ -57,6 +57,11 @@ namespace FluentHub.Views.UserPage
                 case "Starred":
                     break;
             }
+        }
+
+        private void HomeNavView_Loaded(object sender, RoutedEventArgs e)
+        {
+            HomeNavViewContent.Navigate(typeof(ProfilePage));
         }
     }
 }

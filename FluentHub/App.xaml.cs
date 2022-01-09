@@ -35,6 +35,10 @@ namespace FluentHub
 
         public static SettingsViewModel settings { get; private set; }
 
+        public static string AuthedUserName { get; private set; }
+
+        public static string DefaultDomain { get; private set; } = "https://github.com";
+
         public App()
         {
             this.InitializeComponent();
@@ -60,7 +64,7 @@ namespace FluentHub
             }
         }
 
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
             // Customize title bar
             CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
@@ -84,6 +88,9 @@ namespace FluentHub
             {
                 if (rootFrame.Content == null)
                 {
+                    User user = await Client.User.Current();
+                    AuthedUserName = user.Login;
+
                     _ = !settings.SetupCompleted ?
                         rootFrame.Navigate(typeof(WelcomePage), e.Arguments) :
                         rootFrame.Navigate(typeof(MainPage), e.Arguments);
@@ -118,6 +125,9 @@ namespace FluentHub
 
                 if (status)
                 {
+                    User user = await Client.User.Current();
+                    AuthedUserName = user.Login;
+
                     rootFrame.Navigate(typeof(MainPage));
                 }
             }

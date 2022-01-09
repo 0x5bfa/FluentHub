@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentHub.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,9 +23,21 @@ namespace FluentHub.Views.UserPage
     /// </summary>
     public sealed partial class ProfilePage : Page
     {
+        private string profileUsername = App.AuthedUserName;
+
         public ProfilePage()
         {
             this.InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            // Update main tab strip
+            MainPageViewModel.MainTabItems[MainPageViewModel.SelectedIndex].Header = "Profile";
+
+            profileUsername = e.Parameter as string;
+
+            base.OnNavigatedTo(e);
         }
     }
 }

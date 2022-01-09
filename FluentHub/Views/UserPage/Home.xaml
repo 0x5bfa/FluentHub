@@ -16,11 +16,12 @@
             IsPaneToggleButtonVisible="False"
             OpenPaneLength="250"
             BorderThickness="0"
-            ItemInvoked="HomeNavView_ItemInvoked">
+            ItemInvoked="HomeNavView_ItemInvoked"
+            Loaded="HomeNavView_Loaded">
             <muxc:NavigationView.MenuItems>
 
                 <muxc:NavigationViewItemHeader Content="Profile"/>
-                <muxc:NavigationViewItem Tag="Profile" Content="Profile">
+                <muxc:NavigationViewItem Tag="Profile" Content="Profile" IsSelected="True">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xe77b;"/>
                     </muxc:NavigationViewItem.Icon>

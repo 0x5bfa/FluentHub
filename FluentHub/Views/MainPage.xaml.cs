@@ -1,4 +1,5 @@
 ﻿using FluentHub.DataModels;
+using FluentHub.Helper;
 using FluentHub.ViewModels;
 using FluentHub.Views.UserPage;
 using Microsoft.UI.Xaml.Controls;
@@ -7,6 +8,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -26,36 +28,64 @@ namespace FluentHub.Views
     /// </summary>
     public sealed partial class MainPage : Page
     {
+        MainPageViewModel vm = new MainPageViewModel();
+
         public MainPage()
         {
             this.InitializeComponent();
-            Window.Current.SetTitleBar(DragArea);
 
-            TabItem item = new TabItem();
-            item.Header = "Home";
-            item.IconSource = new Microsoft.UI.Xaml.Controls.FontIconSource();
-            item.IconSource.Glyph = "\ue80f";
+            var CoreTitleBar = CoreApplication.GetCurrentView().TitleBar;
+            CoreTitleBar.ExtendViewIntoTitleBar = true;
+            CoreTitleBar.LayoutMetricsChanged += TitleBar_LayoutMetricsChanged;
 
-            MainPageViewModel.MainTabItems.Add(item);
+            CreateTabItem("Home", "\ue80f", $"{App.DefaultDomain}/{App.AuthedUserName}");
             ContentFrame.Navigate(typeof(Home));
+        }
+
+        private void TitleBar_LayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
+        {
+            RightPaddingColumn.Width = new GridLength(sender.SystemOverlayRightInset);
         }
 
         private void MainTabView_AddTabButtonClick(Microsoft.UI.Xaml.Controls.TabView sender, object args)
         {
+            CreateTabItem("Home", "\ue80f", $"{App.DefaultDomain}/{App.AuthedUserName}");
+            ContentFrame.Navigate(typeof(Home));
+
+            // selection change
+            MainTabView.SelectedIndex = MainPageViewModel.MainTabItems.Count() - 1;
+        }
+
+        private void CreateTabItem(string header, string glyph, string url)
+        {
             TabItem item = new TabItem();
-            item.Header = "Home";
+            item.Header = header;
             item.IconSource = new Microsoft.UI.Xaml.Controls.FontIconSource();
-            item.IconSource.Glyph = "\ue80f";
+            item.IconSource.Glyph = glyph;
+            item.PageUrl.Add(url);
+            vm.FullUrl = url;
 
             MainPageViewModel.MainTabItems.Add(item);
-            ContentFrame.Navigate(typeof(Home));
         }
 
         private void MainTabView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            MainPageViewModel.SelectedIndex = MainTabView.SelectedIndex;
+            if (MainTabView.SelectedIndex >= 0 && MainTabView.SelectedIndex < MainPageViewModel.MainTabItems.Count())
+            {
+                int index = MainPageViewModel.SelectedIndex = MainTabView.SelectedIndex;
 
-            // frame navigation
+                // frame navigation
+                var list = MainPageViewModel.MainTabItems[index].PageUrl;
+                var url = list[MainPageViewModel.MainTabItems[index].NavigationIndex];
+
+                GitHubUrlParser paeser = new GitHubUrlParser();
+                string navigateTo = paeser.WhereShouldINavigateTo(url);
+
+                if (navigateTo == "AuthedUserHomePage")
+                {
+                    ContentFrame.Navigate(typeof(Home));
+                }
+            }
         }
 
         private void MainTabView_TabCloseRequested(TabView sender, TabViewTabCloseRequestedEventArgs args)
@@ -73,6 +103,16 @@ namespace FluentHub.Views
             {
                 MainPageViewModel.MainTabItems.Remove(tabItem);
             }
+
+            if (MainPageViewModel.SelectedIndex > MainTabView.SelectedIndex)
+            {
+                MainPageViewModel.SelectedIndex--;
+            }
+        }
+
+        private void DragArea_Loaded(object sender, RoutedEventArgs e)
+        {
+            Window.Current.SetTitleBar(DragArea);
         }
     }
 }

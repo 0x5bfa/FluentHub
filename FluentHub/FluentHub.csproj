@@ -127,6 +127,7 @@
       <DependentUpon>SetupDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helper\ConvertDataTimeToTimeAgo.cs" />
+    <Compile Include="Helper\GitHubUrlParser.cs" />
     <Compile Include="Services\AppSettingsService.cs" />
     <Compile Include="Services\Auth\AppCredentials.cs" />
     <Compile Include="Services\Auth\RequestAuthorization.cs" />

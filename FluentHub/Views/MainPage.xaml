@@ -28,29 +28,34 @@
             <RowDefinition Height="42"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid x:Name="DragArea" Height="50" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
-        <muxc:TabView
-            x:Name="MainTabView"
-            Margin="4,0"
-            VerticalAlignment="Stretch"
-            HorizontalContentAlignment="Left"
-            AllowDropTabs="True"
-            Background="Transparent"
-            AddTabButtonClick="MainTabView_AddTabButtonClick"
-            TabCloseRequested="MainTabView_TabCloseRequested"
-            SelectionChanged="MainTabView_SelectionChanged"
-            TabItemsSource="{x:Bind vm:MainPageViewModel.MainTabItems}">
-            <muxc:TabView.TabItemTemplate>
-                <DataTemplate x:DataType="datamodel:TabItem">
-                    <muxc:TabViewItem
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition x:Name="RightPaddingColumn" Width="0"/>
+            </Grid.ColumnDefinitions>
+            <Grid x:Name="DragArea" Height="50" VerticalAlignment="Top" HorizontalAlignment="Stretch" Loaded="DragArea_Loaded"/>
+            <muxc:TabView
+                x:Name="MainTabView"
+                Margin="4,0"
+                VerticalAlignment="Stretch"
+                HorizontalAlignment="Left"
+                Background="Transparent"
+                AddTabButtonClick="MainTabView_AddTabButtonClick"
+                TabCloseRequested="MainTabView_TabCloseRequested"
+                SelectionChanged="MainTabView_SelectionChanged"
+                TabItemsSource="{x:Bind vm:MainPageViewModel.MainTabItems, Mode=OneWay}">
+                <muxc:TabView.TabItemTemplate>
+                    <DataTemplate x:DataType="datamodel:TabItem">
+                        <muxc:TabViewItem
                         Padding="2,0,2,2"
                         CornerRadius="4"
                         Style="{ThemeResource TabViewItemStyle}"
                         IconSource="{x:Bind IconSource, Mode=OneWay}"
                         Header="{x:Bind Header, Mode=OneWay}"/>
-                </DataTemplate>
-            </muxc:TabView.TabItemTemplate>
-        </muxc:TabView>
+                    </DataTemplate>
+                </muxc:TabView.TabItemTemplate>
+            </muxc:TabView>
+        </Grid>
         <Grid Grid.Row="1" Padding="8,0,8,8" ColumnSpacing="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
@@ -59,20 +64,16 @@
             </Grid.ColumnDefinitions>
             <Grid Grid.Column="0">
                 <StackPanel Orientation="Horizontal" Spacing="4">
-                    <Button Width="36"
-                    Height="32" Background="Transparent" Style="{ThemeResource ToolBarButtonStyle}">
+                    <Button Width="36" Height="32" Background="Transparent" Style="{ThemeResource ToolBarButtonStyle}" IsEnabled="False">
                         <FontIcon FontSize="14" Glyph="&#xE72B;" />
                     </Button>
-                    <Button Width="36"
-                    Height="32" Background="Transparent" Style="{ThemeResource ToolBarButtonStyle}">
+                    <Button Width="36" Height="32" Background="Transparent" Style="{ThemeResource ToolBarButtonStyle}" IsEnabled="False">
                         <FontIcon FontSize="14" Glyph="&#xE72A;" />
                     </Button>
-                    <Button Width="36"
-                    Height="32" Background="Transparent" Style="{ThemeResource ToolBarButtonStyle}">
+                    <Button Width="36" Height="32" Background="Transparent" Style="{ThemeResource ToolBarButtonStyle}" IsEnabled="False">
                         <FontIcon FontSize="14" Glyph="&#xE74A;" />
                     </Button>
-                    <Button Width="36"
-                    Height="32" Background="Transparent" Style="{ThemeResource ToolBarButtonStyle}">
+                    <Button Width="36" Height="32" Background="Transparent" Style="{ThemeResource ToolBarButtonStyle}" IsEnabled="False">
                         <FontIcon FontSize="14" Glyph="&#xE72C;" />
                     </Button>
                 </StackPanel>
@@ -82,7 +83,8 @@
                     PlaceholderText="Type GitHub URL"
                     FontWeight="SemiBold"
                     HorizontalAlignment="Stretch"
-                    VerticalAlignment="Top"/>
+                    VerticalAlignment="Top"
+                    Text="{x:Bind vm.FullUrl, Mode=OneWay}"/>
             </Grid>
             <Grid Grid.Column="2">
                 <Button
@@ -98,7 +100,6 @@
             </Grid>
             <Border Margin="-8,0,-8,-8"  Grid.ColumnSpan="3" Height="0.5" BorderBrush="{ThemeResource ControlStrokeColorDefault}" BorderThickness="0.5" VerticalAlignment="Bottom"/>
         </Grid>
-            <Frame Grid.Row="2" x:Name="ContentFrame" Background="{ThemeResource LayerFillColorDefaultBrush}">
-        </Frame>
+        <Frame Grid.Row="2" x:Name="ContentFrame" Background="{ThemeResource LayerFillColorDefaultBrush}"/>
     </Grid>
 </Page>
