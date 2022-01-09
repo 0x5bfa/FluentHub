@@ -1,4 +1,7 @@
-﻿using FluentHub.Views.UserPage;
+﻿using FluentHub.DataModels;
+using FluentHub.ViewModels;
+using FluentHub.Views.UserPage;
+using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -27,7 +30,49 @@ namespace FluentHub.Views
         {
             this.InitializeComponent();
             Window.Current.SetTitleBar(DragArea);
+
+            TabItem item = new TabItem();
+            item.Header = "Home";
+            item.IconSource = new Microsoft.UI.Xaml.Controls.FontIconSource();
+            item.IconSource.Glyph = "\ue80f";
+
+            MainPageViewModel.MainTabItems.Add(item);
             ContentFrame.Navigate(typeof(Home));
+        }
+
+        private void MainTabView_AddTabButtonClick(Microsoft.UI.Xaml.Controls.TabView sender, object args)
+        {
+            TabItem item = new TabItem();
+            item.Header = "Home";
+            item.IconSource = new Microsoft.UI.Xaml.Controls.FontIconSource();
+            item.IconSource.Glyph = "\ue80f";
+
+            MainPageViewModel.MainTabItems.Add(item);
+            ContentFrame.Navigate(typeof(Home));
+        }
+
+        private void MainTabView_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            MainPageViewModel.SelectedIndex = MainTabView.SelectedIndex;
+
+            // frame navigation
+        }
+
+        private void MainTabView_TabCloseRequested(TabView sender, TabViewTabCloseRequestedEventArgs args)
+        {
+            CloseTab(args.Item as TabItem);
+        }
+
+        public void CloseTab(TabItem tabItem)
+        {
+            if (MainPageViewModel.MainTabItems.Count == 1)
+            {
+                // App.CloseApp();
+            }
+            else if (MainPageViewModel.MainTabItems.Count > 1)
+            {
+                MainPageViewModel.MainTabItems.Remove(tabItem);
+            }
         }
     }
 }

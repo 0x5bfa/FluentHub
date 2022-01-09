@@ -3,7 +3,9 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:FluentHub"
+    xmlns:vm="using:FluentHub.ViewModels"
     xmlns:uc="using:FluentHub.UserControls"
+    xmlns:datamodel="using:FluentHub.DataModels"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -13,6 +15,8 @@
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="/ResourceDictionaries/TabView_themeresources.xaml" />
+                <ResourceDictionary Source="/ResourceDictionaries/TabViewItem_shared.xaml" />
                 <ResourceDictionary Source="/ResourceDictionaries/ToolbarButtonStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -24,8 +28,29 @@
             <RowDefinition Height="42"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid x:Name="DragArea" x:Load="True" Height="50" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
-        <uc:CustomTabView />
+        <Grid x:Name="DragArea" Height="50" VerticalAlignment="Top" HorizontalAlignment="Stretch"/>
+        <muxc:TabView
+            x:Name="MainTabView"
+            Margin="4,0"
+            VerticalAlignment="Stretch"
+            HorizontalContentAlignment="Left"
+            AllowDropTabs="True"
+            Background="Transparent"
+            AddTabButtonClick="MainTabView_AddTabButtonClick"
+            TabCloseRequested="MainTabView_TabCloseRequested"
+            SelectionChanged="MainTabView_SelectionChanged"
+            TabItemsSource="{x:Bind vm:MainPageViewModel.MainTabItems}">
+            <muxc:TabView.TabItemTemplate>
+                <DataTemplate x:DataType="datamodel:TabItem">
+                    <muxc:TabViewItem
+                        Padding="2,0,2,2"
+                        CornerRadius="4"
+                        Style="{ThemeResource TabViewItemStyle}"
+                        IconSource="{x:Bind IconSource, Mode=OneWay}"
+                        Header="{x:Bind Header, Mode=OneWay}"/>
+                </DataTemplate>
+            </muxc:TabView.TabItemTemplate>
+        </muxc:TabView>
         <Grid Grid.Row="1" Padding="8,0,8,8" ColumnSpacing="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto"/>
