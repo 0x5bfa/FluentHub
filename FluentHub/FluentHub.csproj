@@ -123,11 +123,13 @@
     </Compile>
     <Compile Include="Converters\ContentControlConverter.cs" />
     <Compile Include="DataModels\IssueListItem.cs" />
+    <Compile Include="DataModels\RepoItem.cs" />
     <Compile Include="Dialogs\SetupDialog.xaml.cs">
       <DependentUpon>SetupDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helper\ConvertDataTimeToTimeAgo.cs" />
     <Compile Include="Helper\GitHubUrlParser.cs" />
+    <Compile Include="Helper\LanguageColors.cs" />
     <Compile Include="Services\AppSettingsService.cs" />
     <Compile Include="Services\Auth\AppCredentials.cs" />
     <Compile Include="Services\Auth\RequestAuthorization.cs" />
@@ -146,6 +148,8 @@
     <Compile Include="ViewModels\SettingsManager.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\UserIssueListViewModel.cs" />
+    <Compile Include="ViewModels\UserOverviewViewModel.cs" />
+    <Compile Include="ViewModels\UserPage\RepositoriesPageViewModel.cs" />
     <Compile Include="Views\NotFoundPage.xaml.cs">
       <DependentUpon>NotFoundPage.xaml</DependentUpon>
     </Compile>
@@ -159,8 +163,14 @@
     <Compile Include="Views\UserPage\Issues.xaml.cs">
       <DependentUpon>Issues.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserPage\Overview.xaml.cs">
+      <DependentUpon>Overview.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserPage\ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserPage\Repositories.xaml.cs">
+      <DependentUpon>Repositories.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WelcomePage.xaml.cs">
       <DependentUpon>WelcomePage.xaml</DependentUpon>
@@ -277,7 +287,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\UserPage\Overview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\UserPage\ProfilePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserPage\Repositories.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

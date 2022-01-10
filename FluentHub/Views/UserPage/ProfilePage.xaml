@@ -13,6 +13,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
+                    <Thickness x:Key="NavigationViewTopPaneHeight">40</Thickness>
                     <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
                 </ResourceDictionary>
                 <ResourceDictionary Source="/ResourceDictionaries/ToolbarButtonStyle.xaml" />
@@ -161,33 +162,51 @@
                         </StackPanel>
                     </Grid>
                     <Grid Grid.Row="4">
-                        <muxc:NavigationView CornerRadius="4" x:Name="UserNavView" Loaded="UserNavView_Loaded" PaneDisplayMode="Top" IsBackButtonVisible="Collapsed" IsSettingsVisible="False">
-                            <muxc:NavigationView.MenuItems>
-                                <muxc:NavigationViewItem Tag="Overview" Content="Overview" Margin="12,0,0,0" IsSelected="True">
-                                    <muxc:NavigationViewItem.Icon>
-                                        <FontIcon FontFamily="octions" Glyph="&#xE922;" FontSize="16"/>
-                                    </muxc:NavigationViewItem.Icon>
-                                </muxc:NavigationViewItem>
-                                <muxc:NavigationViewItem Tag="Repositories" Content="Repositories">
-                                    <muxc:NavigationViewItem.Icon>
-                                        <FontIcon FontFamily="octions" Glyph="&#xEA52;" FontSize="16"/>
-                                    </muxc:NavigationViewItem.Icon>
-                                </muxc:NavigationViewItem>
-                                <muxc:NavigationViewItem Tag="Projects" Content="Projects">
-                                    <muxc:NavigationViewItem.Icon>
-                                        <FontIcon FontFamily="octions" Glyph="&#xEAA3;" FontSize="16"/>
-                                    </muxc:NavigationViewItem.Icon>
-                                </muxc:NavigationViewItem>
-                                <muxc:NavigationViewItem Tag="Packages" Content="Packages">
-                                    <muxc:NavigationViewItem.Icon>
-                                        <FontIcon FontFamily="octions" Glyph="&#xEA29;" FontSize="16"/>
-                                    </muxc:NavigationViewItem.Icon>
-                                </muxc:NavigationViewItem>
-                            </muxc:NavigationView.MenuItems>
-                            <muxc:NavigationView.Content>
-                                <Frame x:Name="UserNavViewContent"/>
-                            </muxc:NavigationView.Content>
-                        </muxc:NavigationView>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Grid
+                            Height="42"
+                            Margin="14,12,14,12"
+                            HorizontalAlignment="Stretch"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                            BorderThickness="1"
+                            CornerRadius="4">
+                            <muxc:NavigationView
+                                CornerRadius="4"
+                                x:Name="UserNavView"
+                                Loaded="UserNavView_Loaded"
+                                PaneDisplayMode="Top"
+                                IsBackButtonVisible="Collapsed"
+                                IsSettingsVisible="False"
+                                SelectionChanged="UserNavView_SelectionChanged">
+                                <muxc:NavigationView.MenuItems>
+                                    <muxc:NavigationViewItem Tag="Overview" Content="Overview" IsSelected="True">
+                                        <muxc:NavigationViewItem.Icon>
+                                            <FontIcon FontFamily="octions" Glyph="&#xE922;" FontSize="16"/>
+                                        </muxc:NavigationViewItem.Icon>
+                                    </muxc:NavigationViewItem>
+                                    <muxc:NavigationViewItem Tag="Repositories" Content="Repositories">
+                                        <muxc:NavigationViewItem.Icon>
+                                            <FontIcon FontFamily="octions" Glyph="&#xEA52;" FontSize="16"/>
+                                        </muxc:NavigationViewItem.Icon>
+                                    </muxc:NavigationViewItem>
+                                    <muxc:NavigationViewItem Tag="Projects" Content="Projects">
+                                        <muxc:NavigationViewItem.Icon>
+                                            <FontIcon FontFamily="octions" Glyph="&#xEAA3;" FontSize="16"/>
+                                        </muxc:NavigationViewItem.Icon>
+                                    </muxc:NavigationViewItem>
+                                    <muxc:NavigationViewItem Tag="Packages" Content="Packages">
+                                        <muxc:NavigationViewItem.Icon>
+                                            <FontIcon FontFamily="octions" Glyph="&#xEA29;" FontSize="16"/>
+                                        </muxc:NavigationViewItem.Icon>
+                                    </muxc:NavigationViewItem>
+                                </muxc:NavigationView.MenuItems>
+                            </muxc:NavigationView>
+                        </Grid>
+                        <Frame x:Name="UserNavViewContent" Grid.Row="1" Margin="14,0"/>
                     </Grid>
                 </Grid>
             </StackPanel>

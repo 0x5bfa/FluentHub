@@ -94,7 +94,22 @@ namespace FluentHub.Views.UserPage
 
         private void UserNavView_Loaded(object sender, RoutedEventArgs e)
         {
-            UserNavViewContent.Navigate(typeof(NotFoundPage));
+            UserNavViewContent.Navigate(typeof(Overview));
+        }
+
+        private void UserNavView_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
+        {
+            string tag = args.SelectedItemContainer.Tag.ToString();
+
+            switch (tag)
+            {
+                case "Overview":
+                    UserNavViewContent.Navigate(typeof(Overview));
+                    break;
+                case "Repositories":
+                    UserNavViewContent.Navigate(typeof(Repositories));
+                    break;
+            }
         }
     }
 }
