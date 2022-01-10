@@ -61,7 +61,7 @@ namespace FluentHub.Views.UserPage
 
         private void HomeNavView_Loaded(object sender, RoutedEventArgs e)
         {
-            HomeNavViewContent.Navigate(typeof(ProfilePage));
+            HomeNavViewContent.Navigate(typeof(ProfilePage), $"{App.AuthedUserName}");
         }
     }
 }

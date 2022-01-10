@@ -1,0 +1,15 @@
+﻿<Page
+    x:Class="FluentHub.Views.NotFoundPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FluentHub.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock x:Name="HttpStatusCode" Text="404" VerticalAlignment="Center" HorizontalAlignment="Center" Style="{ThemeResource HeaderTextBlockStyle}"/>
+        </StackPanel>
+    </Grid>
+</Page>
