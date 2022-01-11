@@ -1,10 +1,9 @@
 <p align="center">
-  <img src="FluentHub/Assets/AppTiles/StoreLogo.scale-400.png" />
+  <img alt="Logo" src="FluentHub/Assets/AppTiles/StoreLogo.scale-400.png" width="100px" />
 </p>
 
-## Welcome to the FluentHub repo
-
+## FluentHub
 FluentHub is amazing fluent GitHub desktop client
 
-**Current screenshot**
-![image](https://user-images.githubusercontent.com/62196528/148716222-71be0774-29aa-475b-82be-99f391e3866a.png)
+## Screenshot
+![image](https://user-images.githubusercontent.com/62196528/149005711-1d48a379-f513-4c71-8e1c-794cbf4434c1.png)
