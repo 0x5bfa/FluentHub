@@ -44,7 +44,7 @@ namespace FluentHub.Views.UserPages
                     break;
 
                 case "Issues":
-                    HomeNavViewContent.Navigate(typeof(Issues));
+                    HomeNavViewContent.Navigate(typeof(Issues), $"{App.AuthedUserName}");
                     break;
                 case "PullRequests":
                     break;

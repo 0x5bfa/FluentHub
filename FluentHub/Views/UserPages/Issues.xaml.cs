@@ -17,32 +17,39 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// 空白ページの項目テンプレートについては、https://go.microsoft.com/fwlink/?LinkId=234238 を参照してください
 
 namespace FluentHub.Views.UserPages
 {
-    /// <summary>
-    /// それ自体で使用できる空白ページまたはフレーム内に移動できる空白ページ。
-    /// </summary>
     public sealed partial class Issues : Page
     {
-        IssuesViewModel vm = new IssuesViewModel();
+        string username = "";
 
         public Issues()
         {
-            this.DataContext = vm;
             this.InitializeComponent();
         }
 
         private void ItemsRepeater_Loaded(object sender, RoutedEventArgs e)
         {
-            vm.GetUserIssues();
+            ViewModel.GetUserIssues(username);
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            username = e.Parameter as string;
+
+            if (username == $"{App.AuthedUserName}")
+            {
+                App.MainViewModel.MainTabItems[App.MainViewModel.SelectedIndex].PageUrl.Add($"{App.DefaultDomain}/issues");
+                App.MainViewModel.FullUrl = $"{App.DefaultDomain}/issues";
+                App.MainViewModel.UnpersedUrlString = $"{App.DefaultDomain}/issues";
+            }
+
+            base.OnNavigatedTo(e);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            // just testing
-            this.Frame.Navigate(typeof(WelcomePage));
         }
     }
 }

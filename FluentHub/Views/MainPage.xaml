@@ -87,7 +87,7 @@
                     FontWeight="SemiBold"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Top"
-                    Text="{x:Bind vm.FullUrl, Mode=OneWay}"/>
+                    Text="{x:Bind local:App.MainViewModel.FullUrl, Mode=OneWay}"/>
             </Grid>
             <Grid Grid.Column="2">
                 <Button

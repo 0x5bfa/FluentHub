@@ -19,17 +19,11 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// 空白ページの項目テンプレートについては、https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x411 を参照してください
 
 namespace FluentHub.Views
 {
-    /// <summary>
-    /// それ自体で使用できる空白ページまたはフレーム内に移動できる空白ページ。
-    /// </summary>
     public sealed partial class MainPage : Page
     {
-        MainViewModel vm = new MainViewModel();
-
         public MainPage()
         {
             this.InitializeComponent();
@@ -38,7 +32,10 @@ namespace FluentHub.Views
             CoreTitleBar.ExtendViewIntoTitleBar = true;
             CoreTitleBar.LayoutMetricsChanged += TitleBar_LayoutMetricsChanged;
 
-            CreateTabItem("Home", "\ue80f", $"{App.DefaultDomain}/{App.AuthedUserName}");
+            ContentFrame.Navigate(typeof(RepoPages.RepoPage));
+            return;
+
+            CreateFirstTabItem();
             ContentFrame.Navigate(typeof(Home));
         }
 
@@ -47,23 +44,22 @@ namespace FluentHub.Views
             RightPaddingColumn.Width = new GridLength(sender.SystemOverlayRightInset);
         }
 
-        private void MainTabView_AddTabButtonClick(Microsoft.UI.Xaml.Controls.TabView sender, object args)
+        private void MainTabView_AddTabButtonClick(TabView sender, object args)
         {
-            CreateTabItem("Home", "\ue80f", $"{App.DefaultDomain}/{App.AuthedUserName}");
+            CreateFirstTabItem();
             ContentFrame.Navigate(typeof(Home));
 
             // selection change
             MainTabView.SelectedIndex = App.MainViewModel.MainTabItems.Count() - 1;
         }
 
-        private void CreateTabItem(string header, string glyph, string url)
+        private void CreateFirstTabItem()
         {
             TabItem item = new TabItem();
-            item.Header = header;
-            item.IconSource = new Microsoft.UI.Xaml.Controls.FontIconSource();
-            item.IconSource.Glyph = glyph;
-            item.PageUrl.Add(url);
-            vm.FullUrl = url;
+
+            item.PageUrl.Add($"{App.DefaultDomain}/{App.AuthedUserName}?tab=repositories");
+            App.MainViewModel.FullUrl = item.PageUrl[0];
+            App.MainViewModel.UnpersedUrlString = item.PageUrl[0];
 
             App.MainViewModel.MainTabItems.Add(item);
         }
@@ -77,13 +73,19 @@ namespace FluentHub.Views
                 // frame navigation
                 var list = App.MainViewModel.MainTabItems[index].PageUrl;
                 var url = list[App.MainViewModel.MainTabItems[index].NavigationIndex];
+                App.MainViewModel.FullUrl = url;
 
-                GitHubUrlParser paeser = new GitHubUrlParser();
-                string navigateTo = paeser.WhereShouldINavigateTo(url);
+                UrlParseHelper paeser = new UrlParseHelper();
+                var pageType = paeser.WhereShouldINavigateTo(url);
 
-                if (navigateTo == "AuthedUserHomePage")
+                if (pageType == UrlParseHelper.PageType.UserProfile)
                 {
-                    ContentFrame.Navigate(typeof(Home));
+                    var username = url.Split("/")[3].Split("?")[0];
+
+                    if (username == App.AuthedUserName)
+                    {
+                        ContentFrame.Navigate(typeof(Home));
+                    }
                 }
             }
         }

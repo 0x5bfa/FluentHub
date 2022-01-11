@@ -16,17 +16,19 @@ namespace FluentHub.ViewModels.UserPages
 {
     public class IssuesViewModel
     {
-        public static ObservableCollection<IssueListItem> Items { get; private set; }
+        public ObservableCollection<IssueListItem> Items { get; private set; }
 
         public IssuesViewModel()
         {
             Items = new ObservableCollection<IssueListItem>();
         }
 
-        public async void GetUserIssues()
+        public async void GetUserIssues(string username)
         {
             SearchIssuesRequest request = new SearchIssuesRequest();
-            request.Author = "onein528";
+
+            request.Author = username;
+
             var Issues = await App.Client.Search.SearchIssues(request);
 
             foreach(var item in Issues.Items)

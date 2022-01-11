@@ -128,7 +128,7 @@
       <DependentUpon>SetupDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helper\ConvertDataTimeToTimeAgo.cs" />
-    <Compile Include="Helper\GitHubUrlParser.cs" />
+    <Compile Include="Helper\UrlParseHelper.cs" />
     <Compile Include="Helper\LanguageColors.cs" />
     <Compile Include="Services\AppSettingsService.cs" />
     <Compile Include="Services\Auth\AppCredentials.cs" />
@@ -145,6 +145,9 @@
       <DependentUpon>IssuesListItemControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="Views\RepoPages\RepoPage.xaml.cs">
+      <DependentUpon>RepoPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\SettingsManager.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\UserPages\IssuesViewModel.cs" />
@@ -268,6 +271,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\IssuesListItemControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RepoPages\RepoPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

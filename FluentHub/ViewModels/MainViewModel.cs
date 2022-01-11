@@ -27,9 +27,16 @@ namespace FluentHub.ViewModels
             }
         }
 
+        public void RequestNavigateMainFrame(string url)
+        {
+
+        }
+
         // Move roughly and perform processing such as queries on the moved page.
         public string UnpersedUrlString { get; set; }
 
+        // If the URL is entered, it will not record tha way to the specified page.
+        public bool SpecifiedUrl { get; set; } = false;
 
         public event PropertyChangedEventHandler PropertyChanged;
 

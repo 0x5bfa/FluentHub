@@ -46,11 +46,10 @@ namespace FluentHub.DataModels
         private int _naviationIndex;
         public int NavigationIndex
         {
-            get => _naviationIndex;
+            get => _pageUrl.Count() - 1;
             set
             {
-                _naviationIndex = value;
-                NotifyPropertyChanged(nameof(NavigationIndex));
+                // Navigation control is coming soon.
             }
         }
 
