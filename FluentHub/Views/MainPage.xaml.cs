@@ -1,7 +1,7 @@
 ﻿using FluentHub.DataModels;
 using FluentHub.Helper;
 using FluentHub.ViewModels;
-using FluentHub.Views.UserPage;
+using FluentHub.Views.UserPages;
 using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
@@ -28,7 +28,7 @@ namespace FluentHub.Views
     /// </summary>
     public sealed partial class MainPage : Page
     {
-        MainPageViewModel vm = new MainPageViewModel();
+        MainViewModel vm = new MainViewModel();
 
         public MainPage()
         {
@@ -53,7 +53,7 @@ namespace FluentHub.Views
             ContentFrame.Navigate(typeof(Home));
 
             // selection change
-            MainTabView.SelectedIndex = MainPageViewModel.MainTabItems.Count() - 1;
+            MainTabView.SelectedIndex = App.MainViewModel.MainTabItems.Count() - 1;
         }
 
         private void CreateTabItem(string header, string glyph, string url)
@@ -65,18 +65,18 @@ namespace FluentHub.Views
             item.PageUrl.Add(url);
             vm.FullUrl = url;
 
-            MainPageViewModel.MainTabItems.Add(item);
+            App.MainViewModel.MainTabItems.Add(item);
         }
 
         private void MainTabView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (MainTabView.SelectedIndex >= 0 && MainTabView.SelectedIndex < MainPageViewModel.MainTabItems.Count())
+            if (MainTabView.SelectedIndex >= 0 && MainTabView.SelectedIndex < App.MainViewModel.MainTabItems.Count())
             {
-                int index = MainPageViewModel.SelectedIndex = MainTabView.SelectedIndex;
+                int index = App.MainViewModel.SelectedIndex = MainTabView.SelectedIndex;
 
                 // frame navigation
-                var list = MainPageViewModel.MainTabItems[index].PageUrl;
-                var url = list[MainPageViewModel.MainTabItems[index].NavigationIndex];
+                var list = App.MainViewModel.MainTabItems[index].PageUrl;
+                var url = list[App.MainViewModel.MainTabItems[index].NavigationIndex];
 
                 GitHubUrlParser paeser = new GitHubUrlParser();
                 string navigateTo = paeser.WhereShouldINavigateTo(url);
@@ -95,18 +95,18 @@ namespace FluentHub.Views
 
         public void CloseTab(TabItem tabItem)
         {
-            if (MainPageViewModel.MainTabItems.Count == 1)
+            if (App.MainViewModel.MainTabItems.Count == 1)
             {
                 // App.CloseApp();
             }
-            else if (MainPageViewModel.MainTabItems.Count > 1)
+            else if (App.MainViewModel.MainTabItems.Count > 1)
             {
-                MainPageViewModel.MainTabItems.Remove(tabItem);
+                App.MainViewModel.MainTabItems.Remove(tabItem);
             }
 
-            if (MainPageViewModel.SelectedIndex > MainTabView.SelectedIndex)
+            if (App.MainViewModel.SelectedIndex > MainTabView.SelectedIndex)
             {
-                MainPageViewModel.SelectedIndex--;
+                App.MainViewModel.SelectedIndex--;
             }
         }
 

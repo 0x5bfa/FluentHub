@@ -12,6 +12,9 @@
     mc:Ignorable="d"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
 
+    <Page.DataContext>
+        <vm:MainViewModel x:Name="MainViewModel"/>
+    </Page.DataContext>
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -43,7 +46,7 @@
                 AddTabButtonClick="MainTabView_AddTabButtonClick"
                 TabCloseRequested="MainTabView_TabCloseRequested"
                 SelectionChanged="MainTabView_SelectionChanged"
-                TabItemsSource="{x:Bind vm:MainPageViewModel.MainTabItems, Mode=OneWay}">
+                TabItemsSource="{x:Bind local:App.MainViewModel.MainTabItems, Mode=OneWay}">
                 <muxc:TabView.TabItemTemplate>
                     <DataTemplate x:DataType="datamodel:TabItem">
                         <muxc:TabViewItem

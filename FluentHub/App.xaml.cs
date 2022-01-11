@@ -39,6 +39,8 @@ namespace FluentHub
 
         public static string DefaultDomain { get; private set; } = "https://github.com";
 
+        public static MainViewModel MainViewModel { get; private set; } = new MainViewModel();
+
         public App()
         {
             this.InitializeComponent();

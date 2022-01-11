@@ -144,32 +144,32 @@
     <Compile Include="UserControls\IssuesListItemControl.xaml.cs">
       <DependentUpon>IssuesListItemControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\MainPageViewModel.cs" />
+    <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\SettingsManager.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
-    <Compile Include="ViewModels\UserIssueListViewModel.cs" />
-    <Compile Include="ViewModels\UserOverviewViewModel.cs" />
-    <Compile Include="ViewModels\UserPage\RepositoriesPageViewModel.cs" />
+    <Compile Include="ViewModels\UserPages\IssuesViewModel.cs" />
+    <Compile Include="ViewModels\UserPages\OverviewViewModel.cs" />
+    <Compile Include="ViewModels\UserPages\RepositoriesViewModel.cs" />
     <Compile Include="Views\NotFoundPage.xaml.cs">
       <DependentUpon>NotFoundPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserPage\Home.xaml.cs">
+    <Compile Include="Views\UserPages\Home.xaml.cs">
       <DependentUpon>Home.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\UserPage\Issues.xaml.cs">
+    <Compile Include="Views\UserPages\Issues.xaml.cs">
       <DependentUpon>Issues.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserPage\Overview.xaml.cs">
+    <Compile Include="Views\UserPages\Overview.xaml.cs">
       <DependentUpon>Overview.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserPage\ProfilePage.xaml.cs">
+    <Compile Include="Views\UserPages\ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserPage\Repositories.xaml.cs">
+    <Compile Include="Views\UserPages\Repositories.xaml.cs">
       <DependentUpon>Repositories.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WelcomePage.xaml.cs">
@@ -275,7 +275,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserPage\Home.xaml">
+    <Page Include="Views\UserPages\Home.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -283,19 +283,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\UserPage\Issues.xaml">
+    <Page Include="Views\UserPages\Issues.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserPage\Overview.xaml">
+    <Page Include="Views\UserPages\Overview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserPage\ProfilePage.xaml">
+    <Page Include="Views\UserPages\ProfilePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserPage\Repositories.xaml">
+    <Page Include="Views\UserPages\Repositories.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

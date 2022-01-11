@@ -6,13 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FluentHub.ViewModels
+namespace FluentHub.ViewModels.UserPages
 {
-    public class UserOverviewViewModel
+    public class OverviewViewModel
     {
         public static ObservableCollection<RepoItem> Items { get; private set; }
 
-        public UserOverviewViewModel()
+        public OverviewViewModel()
         {
             Items = new ObservableCollection<RepoItem>();
         }

@@ -18,7 +18,7 @@ using Windows.UI.Xaml.Media.Imaging;
 
 // The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace FluentHub.Views.UserPage
+namespace FluentHub.Views.UserPages
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
@@ -37,7 +37,7 @@ namespace FluentHub.Views.UserPage
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             // Update main tab strip
-            MainPageViewModel.MainTabItems[MainPageViewModel.SelectedIndex].Header = "Profile";
+            App.MainViewModel.MainTabItems[App.MainViewModel.SelectedIndex].Header = "Profile";
 
             profileUsername = e.Parameter as string;
             user = await App.Client.User.Get(profileUsername);

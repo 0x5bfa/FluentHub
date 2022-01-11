@@ -7,9 +7,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FluentHub.ViewModels.UserPage
+namespace FluentHub.ViewModels.UserPages
 {
-    public class RepositoriesPageViewModel : INotifyPropertyChanged
+    public class RepositoriesViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<RepoItem> _items = new ObservableCollection<RepoItem>();
         public ObservableCollection<RepoItem> Items
@@ -22,7 +22,7 @@ namespace FluentHub.ViewModels.UserPage
             }
         }
 
-        public RepositoriesPageViewModel()
+        public RepositoriesViewModel()
         {
         }
 

@@ -12,13 +12,13 @@ using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media;
 
-namespace FluentHub.ViewModels
+namespace FluentHub.ViewModels.UserPages
 {
-    public class UserIssueListViewModel
+    public class IssuesViewModel
     {
         public static ObservableCollection<IssueListItem> Items { get; private set; }
 
-        public UserIssueListViewModel()
+        public IssuesViewModel()
         {
             Items = new ObservableCollection<IssueListItem>();
         }

@@ -10,11 +10,11 @@ using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels
 {
-    public class MainPageViewModel : INotifyPropertyChanged
+    public class MainViewModel : INotifyPropertyChanged
     {
-        public static ObservableCollection<TabItem> MainTabItems { get; set; } = new ObservableCollection<TabItem>();
+        public ObservableCollection<TabItem> MainTabItems { get; set; } = new ObservableCollection<TabItem>();
 
-        public static int SelectedIndex { get; set; }
+        public int SelectedIndex { get; set; }
 
         private string _fullUrl;
         public string FullUrl

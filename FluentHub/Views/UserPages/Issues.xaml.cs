@@ -1,6 +1,6 @@
 ﻿using FluentHub.DataModels;
 using FluentHub.UserControls;
-using FluentHub.ViewModels;
+using FluentHub.ViewModels.UserPages;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,14 +19,14 @@ using Windows.UI.Xaml.Navigation;
 
 // 空白ページの項目テンプレートについては、https://go.microsoft.com/fwlink/?LinkId=234238 を参照してください
 
-namespace FluentHub.Views.UserPage
+namespace FluentHub.Views.UserPages
 {
     /// <summary>
     /// それ自体で使用できる空白ページまたはフレーム内に移動できる空白ページ。
     /// </summary>
     public sealed partial class Issues : Page
     {
-        UserIssueListViewModel vm = new UserIssueListViewModel();
+        IssuesViewModel vm = new IssuesViewModel();
 
         public Issues()
         {
