@@ -330,6 +330,9 @@
     <PackageReference Include="System.Text.Json">
       <Version>6.0.1</Version>
     </PackageReference>
+    <PackageReference Include="Monaco.Editor">
+      <Version>0.9.0-beta</Version>
+    </PackageReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="AppCredentials.config">

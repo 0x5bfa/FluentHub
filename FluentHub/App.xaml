@@ -148,6 +148,7 @@
                         </LinearGradientBrush.GradientStops>
                     </LinearGradientBrush>
 
+
                     <Color x:Key="IssuesIconsBackground">#40d563</Color>
                     <Color x:Key="PRsIconsBackground">#2e8ffe</Color>
                     <Color x:Key="DiscussionsIconsBackground">#7548c7</Color>
@@ -165,6 +166,7 @@
                     <!--  Workaround for https://github.com/microsoft/microsoft-ui-xaml/issues/5441  -->
                     <x:Double x:Key="MediaTransportControlsMinWidth">50</x:Double>
                 </ResourceDictionary>
+                    <ResourceDictionary Source="/ResourceDictionaries/ToolbarButtonStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources></Application>
