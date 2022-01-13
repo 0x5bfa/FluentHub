@@ -32,9 +32,6 @@ namespace FluentHub.Views
             CoreTitleBar.ExtendViewIntoTitleBar = true;
             CoreTitleBar.LayoutMetricsChanged += TitleBar_LayoutMetricsChanged;
 
-            ContentFrame.Navigate(typeof(RepoPages.RepoPage));
-            return;
-
             CreateFirstTabItem();
             ContentFrame.Navigate(typeof(Home));
         }
