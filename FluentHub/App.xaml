@@ -6,9 +6,6 @@
 
     <Application.Resources>
         <ResourceDictionary>
-
-            <FontFamily x:Key="Octions">/Assets/Octions.ttf#octions</FontFamily>
-
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" ControlsResourcesVersion="Version2" />
                 <ResourceDictionary>
@@ -138,16 +135,6 @@
                             <SolidColorBrush x:Key="NavigationViewContentBackground" Color="#0F000000" />
                         </ResourceDictionary>
                     </ResourceDictionary.ThemeDictionaries>
-                    <LinearGradientBrush x:Key="ControlElevationBorderBrush" MappingMode="Absolute" StartPoint="0,0" EndPoint="0,3">
-                        <LinearGradientBrush.RelativeTransform>
-                            <ScaleTransform CenterY="0.5" ScaleY="-1" />
-                        </LinearGradientBrush.RelativeTransform>
-                        <LinearGradientBrush.GradientStops>
-                            <GradientStop Offset="0" Color="{ThemeResource ControlStrokeColorSecondary}" />
-                            <GradientStop Offset="1.0" Color="{ThemeResource ControlStrokeColorDefault}" />
-                        </LinearGradientBrush.GradientStops>
-                    </LinearGradientBrush>
-
 
                     <Color x:Key="IssuesIconsBackground">#40d563</Color>
                     <Color x:Key="PRsIconsBackground">#2e8ffe</Color>
@@ -155,18 +142,9 @@
                     <Color x:Key="ReposIconsBackground">#41434e</Color>
                     <Color x:Key="OrgsIconsBackground">#fe8a38</Color>
                     <Color x:Key="StaredIconsBackground">#fecb1a</Color>
-
-                    <Style x:Key="BaseTextBlockStyle" TargetType="TextBlock">
-                        <Setter Property="FontFamily"  Value="Segoe UI Variable Text"/>
-                    </Style>
-
-                    <CornerRadius x:Key="NavigationViewContentGridCornerRadius">0</CornerRadius>
-                    <CornerRadius x:Key="GridViewThumbnailCornerRadius">2</CornerRadius>
-                    <CornerRadius x:Key="DetailsLayoutThumbnailCornerRadius">2</CornerRadius>
-                    <!--  Workaround for https://github.com/microsoft/microsoft-ui-xaml/issues/5441  -->
-                    <x:Double x:Key="MediaTransportControlsMinWidth">50</x:Double>
                 </ResourceDictionary>
-                    <ResourceDictionary Source="/ResourceDictionaries/ToolbarButtonStyle.xaml" />
+                <ResourceDictionary Source="/ResourceDictionaries/ClearButtonStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-    </Application.Resources></Application>
+    </Application.Resources>
+</Application>

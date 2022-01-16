@@ -7,11 +7,11 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="41dc5216-9611-41f8-a176-bf337c9aef7d"
+    Name="53074628-0d96-431b-b85c-c8879d205803"
     Publisher="CN=T31068068"
     Version="1.0.0.0" />
 
-  <mp:PhoneIdentity PhoneProductId="41dc5216-9611-41f8-a176-bf337c9aef7d" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
+  <mp:PhoneIdentity PhoneProductId="53074628-0d96-431b-b85c-c8879d205803" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>FluentHub</DisplayName>
@@ -40,14 +40,6 @@
         <uap:DefaultTile Wide310x150Logo="Assets\AppTiles\Wide310x150Logo.png" Square71x71Logo="Assets\AppTiles\SmallTile.png" Square310x310Logo="Assets\AppTiles\LargeTile.png"/>
         <uap:SplashScreen Image="Assets\AppTiles\SplashScreen.png" />
       </uap:VisualElements>
-      <Extensions>
-        <uap:Extension Category="windows.protocol">
-          <uap:Protocol Name="fluenthub">
-            <uap:Logo>Assets\AppTiles\DefaultLogo.png</uap:Logo>
-            <uap:DisplayName>FluentHub</uap:DisplayName>
-          </uap:Protocol>
-        </uap:Extension>
-      </Extensions>
     </Application>
   </Applications>
 

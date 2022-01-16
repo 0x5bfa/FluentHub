@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FluentHub.DataModels
+namespace FluentHub.Models
 {
     public class TabItem : INotifyPropertyChanged
     {
@@ -33,13 +33,13 @@ namespace FluentHub.DataModels
         }
 
         private List<string> _pageUrl = new List<string>();
-        public List<string> PageUrl
+        public List<string> PageUrlList
         {
             get => _pageUrl;
             set
             {
                 _pageUrl = value;
-                NotifyPropertyChanged(nameof(PageUrl));
+                NotifyPropertyChanged(nameof(PageUrlList));
             }
         }
 

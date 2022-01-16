@@ -1,5 +1,6 @@
-﻿using FluentHub.Views;
-using FluentHub.Services;
+﻿using FluentHub.ViewModels;
+using FluentHub.Views;
+using Octokit;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,70 +20,48 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using Octokit;
-using System.Threading.Tasks;
-using FluentHub.Services.Auth;
-using System.Net.NetworkInformation;
-using FluentHub.ViewModels;
+
 
 namespace FluentHub
 {
     sealed partial class App : Windows.UI.Xaml.Application
     {
-        public static GitHubClient Client { get; set; } = new GitHubClient(new ProductHeaderValue("FluentHub"));
-
-        private Frame rootFrame = Window.Current.Content as Frame;
-
-        public static SettingsViewModel settings { get; private set; }
-
-        public static string AuthedUserName { get; private set; }
-
-        public static string DefaultDomain { get; private set; } = "https://github.com";
+        public static GitHubClient Client { get; private set; } = new GitHubClient(new ProductHeaderValue("FluentHub"));
 
         public static MainViewModel MainViewModel { get; private set; } = new MainViewModel();
+
+        public static string SignedInUserName { get; private set; } = "onein528";
 
         public App()
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
-
-            settings = new SettingsViewModel();
-
-            // restore token or password
-            if (settings.SetupCompleted == true)
-            {
-                if (settings.Get("accessToken", "") != "")
-                {
-                    Client.Credentials = new Credentials(settings.Get("accessToken", ""));
-                }
-                else if (settings.Get("username", "") != "" && settings.Get("password", "") != "")
-                {
-                    Client.Credentials = new Credentials(settings.Get("username", ""), settings.Get("password", ""));
-                }
-                else
-                {
-                    return; // or throw exception
-                }
-            }
         }
 
-        protected override async void OnLaunched(LaunchActivatedEventArgs e)
+        protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             // Customize title bar
             CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
             ApplicationView.GetForCurrentView().TitleBar.ButtonBackgroundColor = Colors.Transparent;
             ApplicationView.GetForCurrentView().TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
 
+            Frame rootFrame = Window.Current.Content as Frame;
+
+            // Do not repeat app initialization when the Window already has content,
+            // just ensure that the window is active
             if (rootFrame == null)
             {
+                // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
+                    //TODO: Load state from previously suspended application
                 }
 
+                // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
             }
 
@@ -90,48 +69,13 @@ namespace FluentHub
             {
                 if (rootFrame.Content == null)
                 {
-                    User user = await Client.User.Current();
-                    AuthedUserName = user.Login;
-
-                    _ = !settings.SetupCompleted ?
-                        rootFrame.Navigate(typeof(WelcomePage), e.Arguments) :
-                        rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    // When the navigation stack isn't restored navigate to the first page,
+                    // configuring the new page by passing required information as a navigation
+                    // parameter
+                    rootFrame.Navigate(typeof(MainPage), e.Arguments);
                 }
-
+                // Ensure the current window is active
                 Window.Current.Activate();
-            }
-        }
-
-        protected async override void OnActivated(IActivatedEventArgs args)
-        {
-            if (args.Kind == ActivationKind.Protocol)
-            {
-                if (args.PreviousExecutionState == ApplicationExecutionState.Running)
-                {
-                    await HandleProtocolActivationArguments(args);
-                }
-            }
-        }
-
-        private async Task HandleProtocolActivationArguments(IActivatedEventArgs args)
-        {
-            ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
-            string code = new WwwFormUrlDecoder(eventArgs.Uri.Query).GetFirstValueByName("code");
-
-            if (code != null)
-            {
-                RequestAuthorization auth = new RequestAuthorization();
-
-                // Request token with code
-                bool status = await auth.RequestOAuthToken(code);
-
-                if (status)
-                {
-                    User user = await Client.User.Current();
-                    AuthedUserName = user.Login;
-
-                    rootFrame.Navigate(typeof(MainPage));
-                }
             }
         }
 
@@ -143,7 +87,16 @@ namespace FluentHub
         private void OnSuspending(object sender, SuspendingEventArgs e)
         {
             var deferral = e.SuspendingOperation.GetDeferral();
+            //TODO: Save application state and stop any background activity
             deferral.Complete();
+        }
+
+        public static async void CloseApp()
+        {
+            if (!await ApplicationView.GetForCurrentView().TryConsolidateAsync())
+            {
+                Windows.UI.Xaml.Application.Current.Exit();
+            }
         }
     }
 }

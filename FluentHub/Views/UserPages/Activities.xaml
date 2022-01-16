@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="FluentHub.Views.UserPages.Issues"
+    x:Class="FluentHub.Views.UserPages.Activities"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:FluentHub.Views.UserPages"
@@ -9,6 +9,6 @@
     mc:Ignorable="d">
 
     <Grid>
-        <TextBlock Text="Issues page"/>
+        <TextBlock Text="Activities page"/>
     </Grid>
 </Page>

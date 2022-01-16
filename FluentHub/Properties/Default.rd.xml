@@ -1,30 +1,30 @@
 <!--
-    このファイルには、.NET ネイティブによって使用されるランタイム ディレクティブが含まれます。ここに示す既定値は多くの開発者に
-    適しています。ただし、これらのパラメーターを変更して、.NET ネイティブ オプティマイザーの動作を変更
-    できます。
+    This file contains Runtime Directives used by .NET Native. The defaults here are suitable for most
+    developers. However, you can modify these parameters to modify the behavior of the .NET Native
+    optimizer.
 
-    ランタイム ディレクティブについては、https://go.microsoft.com/fwlink/?LinkID=391919 を参照してください
+    Runtime Directives are documented at https://go.microsoft.com/fwlink/?LinkID=391919
 
-    App1.MyClass およびそのすべてのパブリック/プライベート メンバーのリフレクションを完全に使用可能にする
+    To fully enable reflection for App1.MyClass and all of its public/private members
     <Type Name="App1.MyClass" Dynamic="Required All"/>
 
-    System.Int32 による AppClass<T> の特定のインスタンス化の動的生成を可能にする
+    To enable dynamic creation of the specific instantiation of AppClass<T> over System.Int32
     <TypeInstantiation Name="App1.AppClass" Arguments="System.Int32" Activate="Required Public" />
 
-    名前空間ディレクティブを使用して、特定の名前空間のすべての型にリフレクション ポリシーを適用する
+    Using the Namespace directive to apply reflection policy to all the types in a particular namespace
     <Namespace Name="DataClasses.ViewModels" Serialize="All" />
 -->
 
 <Directives xmlns="http://schemas.microsoft.com/netfx/2013/01/metadata">
   <Application>
     <!--
-      Name="*Application*" のアセンブリ要素は、アプリケーション パッケージ内の
-      すべてのアセンブリに適用されます。アスタリスクはワイルドカードではありません。
+      An Assembly element with Name="*Application*" applies to all assemblies in
+      the application package. The asterisks are not wildcards.
     -->
     <Assembly Name="*Application*" Dynamic="Required All" />
     
     
-    <!--ここに、アプリケーション固有ランタイム ディレクティブを追加します。-->
+    <!-- Add your application specific runtime directives here. -->
 
 
   </Application>

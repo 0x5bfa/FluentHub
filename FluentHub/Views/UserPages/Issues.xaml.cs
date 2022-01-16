@@ -1,9 +1,5 @@
-﻿using FluentHub.DataModels;
-using FluentHub.UserControls;
-using FluentHub.ViewModels.UserPages;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -17,39 +13,18 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
+// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace FluentHub.Views.UserPages
 {
+    /// <summary>
+    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// </summary>
     public sealed partial class Issues : Page
     {
-        string username = "";
-
         public Issues()
         {
             this.InitializeComponent();
-        }
-
-        private void ItemsRepeater_Loaded(object sender, RoutedEventArgs e)
-        {
-            ViewModel.GetUserIssues(username);
-        }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            username = e.Parameter as string;
-
-            if (username == $"{App.AuthedUserName}")
-            {
-                App.MainViewModel.MainTabItems[App.MainViewModel.SelectedIndex].PageUrl.Add($"{App.DefaultDomain}/issues");
-                App.MainViewModel.FullUrl = $"{App.DefaultDomain}/issues";
-                App.MainViewModel.UnpersedUrlString = $"{App.DefaultDomain}/issues";
-            }
-
-            base.OnNavigatedTo(e);
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
         }
     }
 }

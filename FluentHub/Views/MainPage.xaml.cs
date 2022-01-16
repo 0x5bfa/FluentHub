@@ -1,8 +1,5 @@
-﻿using FluentHub.DataModels;
-using FluentHub.Helper;
+﻿using FluentHub.Models;
 using FluentHub.ViewModels;
-using FluentHub.Views.UserPages;
-using Microsoft.UI.Xaml.Controls;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -28,12 +25,8 @@ namespace FluentHub.Views
         {
             this.InitializeComponent();
 
-            var CoreTitleBar = CoreApplication.GetCurrentView().TitleBar;
-            CoreTitleBar.ExtendViewIntoTitleBar = true;
-            CoreTitleBar.LayoutMetricsChanged += TitleBar_LayoutMetricsChanged;
-
-            CreateFirstTabItem();
-            ContentFrame.Navigate(typeof(Home));
+            App.MainViewModel.MainFrame.Navigating += ViewModelMainFrame_Navigating;
+            CoreApplication.GetCurrentView().TitleBar.LayoutMetricsChanged += TitleBar_LayoutMetricsChanged;
         }
 
         private void TitleBar_LayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
@@ -41,77 +34,73 @@ namespace FluentHub.Views
             RightPaddingColumn.Width = new GridLength(sender.SystemOverlayRightInset);
         }
 
-        private void MainTabView_AddTabButtonClick(TabView sender, object args)
+        private void ViewModelMainFrame_Navigating(object sender, NavigatingCancelEventArgs e)
         {
-            CreateFirstTabItem();
-            ContentFrame.Navigate(typeof(Home));
+            MainFrame.Navigate(e.SourcePageType);
 
-            // selection change
-            MainTabView.SelectedIndex = App.MainViewModel.MainTabItems.Count() - 1;
-        }
-
-        private void CreateFirstTabItem()
-        {
-            TabItem item = new TabItem();
-
-            item.PageUrl.Add($"{App.DefaultDomain}/{App.AuthedUserName}?tab=repositories");
-            App.MainViewModel.FullUrl = item.PageUrl[0];
-            App.MainViewModel.UnpersedUrlString = item.PageUrl[0];
-
-            App.MainViewModel.MainTabItems.Add(item);
+            e.Cancel = true;
         }
 
         private void MainTabView_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if (MainTabView.SelectedIndex >= 0 && MainTabView.SelectedIndex < App.MainViewModel.MainTabItems.Count())
+            if (MainPageViewModel.TabItemAdding || MainPageViewModel.TabItemDeleting)
             {
-                int index = App.MainViewModel.SelectedIndex = MainTabView.SelectedIndex;
+                MainPageViewModel.TabItemAdding = false;
+                MainPageViewModel.TabItemDeleting = false;
+                return;
+            }
 
-                // frame navigation
-                var list = App.MainViewModel.MainTabItems[index].PageUrl;
-                var url = list[App.MainViewModel.MainTabItems[index].NavigationIndex];
-                App.MainViewModel.FullUrl = url;
+            int index = App.MainViewModel.SelectedTabIndex = MainTabView.SelectedIndex;
 
-                UrlParseHelper paeser = new UrlParseHelper();
-                var pageType = paeser.WhereShouldINavigateTo(url);
+            if (App.MainViewModel.SelectedTabIndex >= 0 && App.MainViewModel.MainTabItems[index].NavigationIndex >= 0)
+            {
+                var pageUrlList = App.MainViewModel.MainTabItems[index].PageUrlList;
+                var pageUrl = pageUrlList[App.MainViewModel.MainTabItems[index].NavigationIndex];
 
-                if (pageType == UrlParseHelper.PageType.UserProfile)
-                {
-                    var username = url.Split("/")[3].Split("?")[0];
-
-                    if (username == App.AuthedUserName)
-                    {
-                        ContentFrame.Navigate(typeof(Home));
-                    }
-                }
+                App.MainViewModel.NavigateMainFrame(pageUrl);
             }
         }
 
-        private void MainTabView_TabCloseRequested(TabView sender, TabViewTabCloseRequestedEventArgs args)
+        private void MainTabView_TabCloseRequested(Microsoft.UI.Xaml.Controls.TabView sender, Microsoft.UI.Xaml.Controls.TabViewTabCloseRequestedEventArgs args)
         {
             CloseTab(args.Item as TabItem);
-        }
-
-        public void CloseTab(TabItem tabItem)
-        {
-            if (App.MainViewModel.MainTabItems.Count == 1)
-            {
-                // App.CloseApp();
-            }
-            else if (App.MainViewModel.MainTabItems.Count > 1)
-            {
-                App.MainViewModel.MainTabItems.Remove(tabItem);
-            }
-
-            if (App.MainViewModel.SelectedIndex > MainTabView.SelectedIndex)
-            {
-                App.MainViewModel.SelectedIndex--;
-            }
         }
 
         private void DragArea_Loaded(object sender, RoutedEventArgs e)
         {
             Window.Current.SetTitleBar(DragArea);
+        }
+
+        private void MainTabView_Loaded(object sender, RoutedEventArgs e)
+        {
+            MainPageViewModel.AddNewTabByPath($"/{App.SignedInUserName}");
+        }
+
+        private void CloseTab(TabItem tabItem)
+        {
+            if (App.MainViewModel.MainTabItems.Count == 1)
+            {
+                App.CloseApp();
+            }
+            else if (App.MainViewModel.MainTabItems.Count > 1)
+            {
+                if (App.MainViewModel.SelectedTabIndex > MainTabView.SelectedIndex)
+                {
+                    App.MainViewModel.SelectedTabIndex--;
+                }
+                else if (App.MainViewModel.SelectedTabIndex == MainTabView.SelectedIndex)
+                {
+                    MainPageViewModel.TabItemDeleting = true;
+                }
+
+                App.MainViewModel.MainTabItems.Remove(tabItem);
+            }
+        }
+
+        private void AddNewTabButton_Click(object sender, RoutedEventArgs e)
+        {
+            MainPageViewModel.AddNewTabByPath($"/{App.SignedInUserName}");
+            App.MainViewModel.SelectedTabIndex = MainTabView.SelectedIndex = App.MainViewModel.MainTabItems.Count() - 1;
         }
     }
 }

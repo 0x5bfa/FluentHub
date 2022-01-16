@@ -1,5 +1,4 @@
-﻿using FluentHub.DataModels;
-using FluentHub.UserControls;
+﻿using FluentHub.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -7,36 +6,46 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
 
 namespace FluentHub.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<TabItem> MainTabItems { get; set; } = new ObservableCollection<TabItem>();
+        public ObservableCollection<TabItem> MainTabItems { get; private set; } = new ObservableCollection<TabItem>();
 
-        public int SelectedIndex { get; set; }
+        public int SelectedTabIndex { get; set; }
 
-        private string _fullUrl;
-        public string FullUrl
+        private string _currentPageUrl;
+        public string CurrentPageUrl
         {
-            get => _fullUrl;
+            get
+            {
+                if (SpecifiedPath != null)
+                {
+                    return SpecifiedPath;
+                }
+                else
+                {
+                    int index = MainTabItems[SelectedTabIndex].NavigationIndex;
+                    return MainTabItems[SelectedTabIndex].PageUrlList[index];
+                }
+            }
             set
             {
-                _fullUrl = value;
-                NotifyPropertyChanged(nameof(FullUrl));
+                _currentPageUrl = value;
+                NotifyPropertyChanged(nameof(CurrentPageUrl));
             }
         }
 
-        public void RequestNavigateMainFrame(string url)
+        public string SpecifiedPath { get; set; }
+
+        public Frame MainFrame { get; private set; } = new Frame();
+
+        public void NavigateMainFrame(string url)
         {
-
+            // MainFrame.Navigate(pageType);
         }
-
-        // Move roughly and perform processing such as queries on the moved page.
-        public string UnpersedUrlString { get; set; }
-
-        // If the URL is entered, it will not record tha way to the specified page.
-        public bool SpecifiedUrl { get; set; } = false;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
