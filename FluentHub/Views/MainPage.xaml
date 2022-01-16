@@ -3,7 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:FluentHub"
-    xmlns:model="using:FluentHub.Models"
+    xmlns:uc="using:FluentHub.UserControls"
     xmlns:vm="using:FluentHub.ViewModels"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -41,47 +41,13 @@
             <Grid
                 x:Name="DragArea"
                 Height="50"
+                Grid.Column="0"
+                Grid.ColumnSpan="2"
                 VerticalAlignment="Top"
+                Background="Transparent"
                 HorizontalAlignment="Stretch"
                 Loaded="DragArea_Loaded"/>
-            <muxc:TabView
-                x:Name="MainTabView"
-                Margin="4,0"
-                VerticalAlignment="Stretch"
-                HorizontalAlignment="Left"
-                Background="Transparent"
-                Loaded="MainTabView_Loaded"
-                IsAddTabButtonVisible="False"
-                TabCloseRequested="MainTabView_TabCloseRequested"
-                SelectionChanged="MainTabView_SelectionChanged"
-                TabItemsSource="{x:Bind local:App.MainViewModel.MainTabItems, Mode=OneWay}">
-                <muxc:TabView.TabItemTemplate>
-                    <DataTemplate x:DataType="model:TabItem">
-                        <muxc:TabViewItem
-                            Padding="2,0,2,2"
-                            CornerRadius="4"
-                            Style="{ThemeResource TabViewItemStyle}"
-                            IconSource="{x:Bind IconSource, Mode=OneWay}"
-                            Header="{x:Bind Header, Mode=OneWay}"/>
-                    </DataTemplate>
-                </muxc:TabView.TabItemTemplate>
-            </muxc:TabView>
-            <Button
-                Width="32"
-                Height="32"
-                Padding="8"
-                Grid.Column="1"
-                Background="Transparent"
-                BorderBrush="Transparent"
-                BorderThickness="0"
-                ToolTipService.ToolTip="New tab"
-                IsEnabled="False"
-                Click="AddNewTabButton_Click"
-                HorizontalAlignment="Left">
-                <Button.Content>
-                    <FontIcon FontSize="12" Glyph="&#xE710;" />
-                </Button.Content>
-            </Button>
+            <uc:CustomTabView Grid.Column="0"/>
         </Grid>
         <Grid Grid.Row="1" Padding="8,0,8,8" ColumnSpacing="4">
             <Grid.ColumnDefinitions>

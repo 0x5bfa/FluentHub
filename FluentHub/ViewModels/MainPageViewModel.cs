@@ -1,4 +1,4 @@
-﻿using FluentHub.Models;
+﻿using FluentHub.UserControls;
 using Microsoft.Toolkit.Uwp;
 using System;
 using System.Collections.Generic;
@@ -10,8 +10,6 @@ namespace FluentHub.ViewModels
 {
     public class MainPageViewModel
     {
-        public static bool TabItemAdding { get; set; } = false;
-        public static bool TabItemDeleting { get; set; } = false;
 
         public static void AddNewTabByPath(string path)
         {
@@ -20,8 +18,6 @@ namespace FluentHub.ViewModels
                 Header = null,
                 IconSource = null,
             };
-
-            TabItemAdding = true;
 
             App.MainViewModel.SpecifiedPath = path;
             App.MainViewModel.MainTabItems.Add(tabItem);
