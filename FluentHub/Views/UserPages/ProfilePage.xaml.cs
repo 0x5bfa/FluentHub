@@ -21,23 +21,23 @@ namespace FluentHub.Views.UserPages
     public sealed partial class ProfilePage : Windows.UI.Xaml.Controls.Page
     {
         private string requestedUsername { get; set; } = "";
-        private User user { get; set; }
+        private User user { get; set; } = new User();
 
         public ProfilePage()
         {
             this.InitializeComponent();
         }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             requestedUsername = e.Parameter as string;
-            user = await App.Client.User.Get(requestedUsername);
 
             base.OnNavigatedTo(e);
         }
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            user = await App.Client.User.Get(requestedUsername);
             SetUserInfo();
         }
 
@@ -76,7 +76,7 @@ namespace FluentHub.Views.UserPages
             }
 
             // Location
-            if (LocationTextBlock.Text != "")
+            if (user.Location != "")
             {
                 LocationTextBlock.Text = user.Location;
                 LocationBlock.Visibility = Visibility.Visible;
