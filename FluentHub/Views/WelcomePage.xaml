@@ -1,0 +1,81 @@
+﻿<Page
+    x:Class="FluentHub.Views.WelcomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FluentHub.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d"
+    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Border
+            x:Name="AppTitleBar"
+            IsHitTestVisible="True"
+            VerticalAlignment="Top"
+            Background="Transparent"
+            Height="48"
+            Canvas.ZIndex="1" 
+            Margin="16,0,0,0">
+            <StackPanel Orientation="Horizontal">
+                <Image
+                    x:Name="AppFontIcon"
+                    HorizontalAlignment="Left" 
+                    VerticalAlignment="Center"
+                    Source="/Assets/AppTiles/Square44x44Logo.png" 
+                    Width="24" 
+                    Height="24"/>
+                <TextBlock
+                    x:Name="AppTitle"
+                    Text="FluentHub "
+                    VerticalAlignment="Center"
+                    Margin="12, 0, 0, 0"
+                    Style="{StaticResource CaptionTextBlockStyle}" />
+                <TextBlock
+                    x:Name="PreviewTitle"
+                    Text="PREVIEW"
+                    VerticalAlignment="Center"
+                    Margin="4, 0, 0, 0"
+                    FontSize="11"
+                    Foreground="{StaticResource TextFillColorSecondaryBrush}" />
+            </StackPanel>
+        </Border>
+        <StackPanel
+            Grid.Row="1"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"
+            Margin="0,-50,0,0"
+            Width="400">
+            <TextBlock
+                Text="Welcome to"
+                Style="{ThemeResource TitleTextBlockStyle}"
+                HorizontalAlignment="Center"/>
+            <Image 
+                Source="/Assets/FluentHub.png"
+                Width="Auto"
+                HorizontalAlignment="Left"
+                Margin="0,32"/>
+            <TextBlock
+                Style="{ThemeResource BodyTextBlockStyle}"
+                HorizontalAlignment="Center"
+                HorizontalTextAlignment="Center"
+                Text="We're glad you're here. Just need to go through a few simple steps and you'll be all up and running!"
+                TextWrapping="Wrap">
+            </TextBlock>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,24,0,0">
+                <Button
+                    Style="{ThemeResource AccentButtonStyle}"
+                    Content="Start setup"
+                    HorizontalAlignment="Center"
+                    Click="SetupButton_Click"/>
+                <muxc:ProgressRing x:Name="AuthProgressRing" Visibility="Collapsed" VerticalAlignment="Stretch" Height="24" Width="24" Margin="12,0,0,0"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>

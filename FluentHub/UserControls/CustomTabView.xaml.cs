@@ -1,4 +1,5 @@
 ﻿using FluentHub.ViewModels;
+using FluentHub.Views.UserPages;
 using Microsoft.UI.Xaml.Controls;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -103,6 +104,7 @@ namespace FluentHub.UserControls
         private void MainTabView_Loaded(object sender, RoutedEventArgs e)
         {
             MainPageViewModel.AddNewTabByPath($"/{App.SignedInUserName}");
+            App.MainViewModel.MainFrame.Navigate(typeof(ProfilePage), $"{App.SignedInUserName}");
         }
 
         private void CloseTab(TabItem tabItem)
@@ -131,6 +133,7 @@ namespace FluentHub.UserControls
             TabItemAdding = true;
 
             MainPageViewModel.AddNewTabByPath($"/{App.SignedInUserName}");
+            App.MainViewModel.MainFrame.Navigate(typeof(ProfilePage), $"{App.SignedInUserName}");
             App.MainViewModel.SelectedTabIndex = MainTabView.SelectedIndex = App.MainViewModel.MainTabItems.Count() - 1;
         }
     }

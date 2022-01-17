@@ -15,6 +15,20 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <MenuFlyout x:Key="TabFlyout" x:Name="TabItemContextMenu">
+                        <MenuFlyoutItem Text="New tab">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xF164;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                        <MenuFlyoutItem Text="Duplicate tab">
+                            <MenuFlyoutItem.Icon>
+                                <FontIcon Glyph="&#xECCD;" />
+                            </MenuFlyoutItem.Icon>
+                        </MenuFlyoutItem>
+                    </MenuFlyout>
+                </ResourceDictionary>
                 <ResourceDictionary Source="/ResourceDictionaries/TabView_themeresources.xaml" />
                 <ResourceDictionary Source="/ResourceDictionaries/TabViewItem_shared.xaml" />
             </ResourceDictionary.MergedDictionaries>
@@ -42,6 +56,7 @@
                     <muxc:TabViewItem
                         Padding="2,0,2,2"
                         CornerRadius="4"
+                        ContextFlyout="{StaticResource TabFlyout}"
                         Style="{ThemeResource TabViewItemStyle}"
                         IconSource="{x:Bind IconSource, Mode=OneWay}"
                         Header="{x:Bind Header, Mode=OneWay}"/>

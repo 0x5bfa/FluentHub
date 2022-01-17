@@ -6,6 +6,7 @@
 
     <Application.Resources>
         <ResourceDictionary>
+            <FontFamily x:Key="Octions">/Assets/Octions.ttf#octions</FontFamily>
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" ControlsResourcesVersion="Version2" />
                 <ResourceDictionary>

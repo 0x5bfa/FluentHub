@@ -4,7 +4,7 @@
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
 # App credentials
-AppCredentials.*
+AppCredentials.config
 
 # User-specific files
 *.rsuser

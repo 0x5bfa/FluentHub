@@ -126,9 +126,11 @@
                         x:Name="SettingsButton"
                         Width="36"
                         Height="36"
+                        Style="{StaticResource ClearButtonStyle}"
+                        CornerRadius="8"
                         ToolTipService.ToolTip="App settings"
                         Background="Transparent"
-                        Style="{StaticResource ClearButtonStyle}">
+>
                         <FontIcon FontSize="16" Glyph="&#xE115;" />
                     </Button>
                 </StackPanel>

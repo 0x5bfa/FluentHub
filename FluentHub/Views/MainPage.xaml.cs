@@ -35,7 +35,7 @@ namespace FluentHub.Views
 
         private void ViewModelMainFrame_Navigating(object sender, NavigatingCancelEventArgs e)
         {
-            MainFrame.Navigate(e.SourcePageType);
+            MainFrame.Navigate(e.SourcePageType, e.Parameter);
 
             e.Cancel = true;
         }
