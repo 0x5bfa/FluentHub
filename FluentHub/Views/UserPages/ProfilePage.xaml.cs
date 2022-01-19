@@ -41,7 +41,6 @@ namespace FluentHub.Views.UserPages
             SetUserInfo();
         }
 
-
         private void SetUserInfo()
         {
             // Avator
@@ -85,6 +84,11 @@ namespace FluentHub.Views.UserPages
             // FF
             FollowerCount.Text = user.Followers.ToString();
             FollowingCount.Text = user.Following.ToString();
+        }
+
+        private void UserNavView_Loaded(object sender, RoutedEventArgs e)
+        {
+            UserNavViewContent.Navigate(typeof(Activities));
         }
     }
 }

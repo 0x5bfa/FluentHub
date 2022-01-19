@@ -9,6 +9,19 @@
     mc:Ignorable="d">
 
     <Grid>
-        <TextBlock Text="Activities page"/>
+        <Grid
+            Height="512"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Top"
+            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="4">
+            <WebView
+                Loaded="WebViewSample_Loaded"
+                x:Name="WebViewSample"
+                DefaultBackgroundColor="Transparent"
+                NavigationStarting="WebViewSample_NavigationStarting"/>
+        </Grid>
     </Grid>
 </Page>

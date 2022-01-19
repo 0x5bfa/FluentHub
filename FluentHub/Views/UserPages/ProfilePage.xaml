@@ -69,15 +69,15 @@
                                     </Border>
                                     <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center">
                                         <TextBlock
-                                        x:Name="Username"
-                                        Style="{StaticResource BodyTextBlockStyle}"
-                                        FontWeight="SemiBold"
-                                        VerticalAlignment="Center"/>
+                                            x:Name="Username"
+                                            Style="{StaticResource BodyTextBlockStyle}"
+                                            FontWeight="SemiBold"
+                                            VerticalAlignment="Center"/>
                                         <TextBlock
-                                        x:Name="FullName"
-                                        Style="{ThemeResource CaptionTextBlockStyle}"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        VerticalAlignment="Center"/>
+                                            x:Name="FullName"
+                                            Style="{ThemeResource CaptionTextBlockStyle}"
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            VerticalAlignment="Center"/>
                                     </StackPanel>
                                 </Grid>
                             </Button>
@@ -93,13 +93,13 @@
                                 <muxc:Expander.Header>
                                     <Grid>
                                         <TextBlock Text="Public profile" VerticalAlignment="Center"/>
-                                        <Button HorizontalAlignment="Right" Style="{StaticResource ClearButtonStyle}" Background="Transparent" Height="32" Width="32">
+                                        <Button HorizontalAlignment="Right" Margin="0,0,-12,0" Style="{StaticResource ClearButtonStyle}" Background="Transparent" Height="32" Width="32">
                                             <FontIcon Glyph="&#xE70F;" FontSize="14"/>
                                         </Button>
                                     </Grid>
                                 </muxc:Expander.Header>
                                 <muxc:Expander.Content>
-                                    <Grid RowSpacing="8">
+                                    <Grid RowSpacing="12">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto"/>
                                             <RowDefinition Height="Auto"/>
@@ -115,7 +115,8 @@
                                         </Grid>
                                         <Grid
                                             x:Name="UserInfo"
-                                            Grid.Row="2">
+                                            Grid.Row="2"
+                                            RowSpacing="4">
                                             <Grid.RowDefinitions>
                                                 <RowDefinition Height="Auto"/>
                                                 <RowDefinition Height="Auto"/>
@@ -137,7 +138,6 @@
                                                     VerticalAlignment="Center"/>
                                                 <TextBlock
                                                     x:Name="LocationTextBlock"
-                                                    Margin="0,-2,0,0"
                                                     Style="{ThemeResource BodyTextBlockStyle}"
                                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                                     VerticalAlignment="Center"/>
@@ -258,7 +258,8 @@
                                 x:Name="UserNavView"
                                 PaneDisplayMode="Top"
                                 IsBackButtonVisible="Collapsed"
-                                IsSettingsVisible="False">
+                                IsSettingsVisible="False"
+                                Loaded="UserNavView_Loaded">
                                 <muxc:NavigationView.MenuItems>
                                     <muxc:NavigationViewItem Tag="Overview" Content="Overview" IsSelected="True">
                                         <muxc:NavigationViewItem.Icon>
@@ -288,7 +289,7 @@
                                 </muxc:NavigationView.MenuItems>
                             </muxc:NavigationView>
                         </Grid>
-                        <Frame x:Name="UserNavViewContent" Grid.Row="1" Margin="14,0"/>
+                        <Frame x:Name="UserNavViewContent" Grid.Row="1" Margin="14,6"/>
                     </Grid>
                 </Grid>
             </StackPanel>
