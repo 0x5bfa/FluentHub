@@ -4,9 +4,9 @@
   FluentHub
 </h1>
 
-### What's this
+### What's this?
 
-`FluentHub` is the best GitHub Desktop compliant with the Fluent Design System using GitHub Api v3(Rest API) and v4(GraphQL API) on Windows.
+`FluentHub` is the GitHub Desktop which conform to [Fluent Design System](https://www.microsoft.com/design/fluent) using GitHub API [v3(Rest API)](https://developer.github.com/v3/) and [v4(GraphQL API)](https://developer.github.com/v4/) on Windows.
 
 > **Warning**⚠️<br> This project is in beta stage. Expect regular breaking changes.
 
@@ -14,9 +14,9 @@
 
 ### Features
 
-> **Dev status**<br/>To do:🔴<br/>In progress:🔵<br/>Done:🟢
+> **Dev status🚩**<br/>🔴 To do<br/>🔵 In progress<br/>🟢 Done
 
-Features|Location|Proprity|Dev
+Features|Location|Priority|Dev
 ---|---|:---:|:---:
 **User Profile Page**|`/{username}`|Must|🔵
 User's contribution graph|`/{username}`|Must|🔵
