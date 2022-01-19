@@ -44,4 +44,4 @@ Repo setings page|`/organizations/{user(org)name}/settings/profile`|Must|🔴
 ## Screenshot
 > A profile page that have not been developed yet
 
-![image](https://user-images.githubusercontent.com/62196528/149936753-517a5611-ae7c-4b40-a3d8-de24ecf2c3bc.png)
+![image](https://user-images.githubusercontent.com/62196528/150060338-2acba5ca-10ac-4c04-b340-7dbbb99a4dbf.png)
