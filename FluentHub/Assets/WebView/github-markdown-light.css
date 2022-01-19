@@ -1,10 +1,10 @@
 .markdown-body {
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
-  margin: 0;
+  margin: 16px;
   color: #24292f;
   background-color: transparent;
-  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji";
+  font-family: "Segoe UI Variable Text","Segoe UI",Arial,sans-serif,"Segoe UI Emoji";
   font-size: 16px;
   line-height: 1.5;
   word-wrap: break-word;
@@ -107,7 +107,7 @@
   border-style: none;
   max-width: 100%;
   box-sizing: content-box;
-  background-color: #ffffff;
+  background-color: transparent;
 }
 
 .markdown-body code,
@@ -233,7 +233,7 @@
 .markdown-body kbd {
   display: inline-block;
   padding: 3px 5px;
-  font: 11px ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
+  font: 11px ui-monospace,"Fira Code",Consolas,monospace;
   line-height: 10px;
   color: #24292f;
   vertical-align: middle;
@@ -321,16 +321,16 @@
 
 .markdown-body tt,
 .markdown-body code {
-  font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
-  font-size: 12px;
+    font-family: ui-monospace,"Fira Code",Consolas,monospace;
+    font-size: 12px;
 }
 
 .markdown-body pre {
-  margin-top: 0;
-  margin-bottom: 0;
-  font-family: ui-monospace,SFMono-Regular,SF Mono,Menlo,Consolas,Liberation Mono,monospace;
-  font-size: 12px;
-  word-wrap: normal;
+    margin-top: 0;
+    margin-bottom: 0;
+    font-family: ui-monospace,"Fira Code",Consolas,monospace;
+    font-size: 12px;
+    word-wrap: normal;
 }
 
 .markdown-body .octicon {
@@ -477,7 +477,7 @@
 }
 
 .markdown-body g-emoji {
-  font-family: "Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-family: "Segoe UI Emoji","Segoe UI Symbol";
   font-size: 1em;
   font-style: normal !important;
   font-weight: 400;

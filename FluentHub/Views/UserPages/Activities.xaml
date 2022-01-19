@@ -10,6 +10,9 @@
 
     <Grid>
         <Grid
+            x:Name="UserSpecialReadmeBlock"
+            Margin="0,0,0,6"
+            Visibility="Collapsed"
             Height="512"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Top"
@@ -17,11 +20,19 @@
             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
             BorderThickness="1"
             CornerRadius="4">
+            <HyperlinkButton
+                x:Name="ReadMeLink"
+                Padding="4"
+                FontSize="12"
+                Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                Margin="20,12,0,0"
+                VerticalAlignment="Top"/>
             <WebView
-                Loaded="WebViewSample_Loaded"
-                x:Name="WebViewSample"
+                x:Name="UserSpecialReadmeWebView"
+                Loaded="UserSpecialReadmeWebView_Loaded"
+                Margin="0,40,0,0"
                 DefaultBackgroundColor="Transparent"
-                NavigationStarting="WebViewSample_NavigationStarting"/>
+                NavigationStarting="UserSpecialReadmeWebView_NavigationStarting"/>
         </Grid>
     </Grid>
 </Page>

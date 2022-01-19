@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentHub.Services.OctokitEx;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -24,25 +25,29 @@ namespace FluentHub.Views.UserPages
             this.InitializeComponent();
         }
 
-        private async void WebViewSample_Loaded(object sender, RoutedEventArgs e)
+        private async void UserSpecialReadmeWebView_Loaded(object sender, RoutedEventArgs e)
         {
-            Services.OctokitEx.Markdown markdown = new Services.OctokitEx.Markdown();
+            Markdown markdown = new Markdown();
 
-            var item = await App.Client.Repository.Content.GetReadmeHtml($"{App.SignedInUserName}", $"{App.SignedInUserName}");
+            var readme = await App.Client.Repository.Content.GetReadme($"{App.SignedInUserName}", $"{App.SignedInUserName}");
 
-            StorageFile template = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/WebView/RenderedMarkdownTemplate.html"));
-            StorageFile style = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/WebView/github-markdown-dark.css"));
+            if (readme == null)
+            {
+                return;
+            }
+            else
+            {
+                UserSpecialReadmeBlock.Visibility = Visibility.Visible;
+            }
 
-            string templateText = await Windows.Storage.FileIO.ReadTextAsync(template);
-            string styleText = await Windows.Storage.FileIO.ReadTextAsync(style);
+            ReadMeLink.Content = string.Format("{0} / {1}", $"{App.SignedInUserName}", readme.Name);
+            ReadMeLink.NavigateUri = new Uri(readme.HtmlUrl);
 
-            string result = templateText.Replace("{0}", styleText);
-            result = result.Replace("{1}", item);
-
-            WebViewSample.NavigateToString(result);
+            string result = await markdown.FormatRenderedMarkdownToHtml(await readme.GetHtmlContent());
+            UserSpecialReadmeWebView.NavigateToString(result);
         }
 
-        private void WebViewSample_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
+        private void UserSpecialReadmeWebView_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
         {
             if(args.Uri != null)
             {

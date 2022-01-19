@@ -162,6 +162,9 @@
     <Compile Include="Views\UserPages\Pulls.xaml.cs">
       <DependentUpon>Pulls.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\UserPages\Repositories.xaml.cs">
+      <DependentUpon>Repositories.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserPages\Stars.xaml.cs">
       <DependentUpon>Stars.xaml</DependentUpon>
     </Compile>
@@ -296,6 +299,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UserPages\Pulls.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserPages\Repositories.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -32,8 +32,8 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid Padding="0,24">
-        <ScrollViewer>
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel>
                 <Grid Margin="16,12">
                     <Grid.ColumnDefinitions>
@@ -259,7 +259,8 @@
                                 PaneDisplayMode="Top"
                                 IsBackButtonVisible="Collapsed"
                                 IsSettingsVisible="False"
-                                Loaded="UserNavView_Loaded">
+                                Loaded="UserNavView_Loaded"
+                                SelectionChanged="UserNavView_SelectionChanged">
                                 <muxc:NavigationView.MenuItems>
                                     <muxc:NavigationViewItem Tag="Overview" Content="Overview" IsSelected="True">
                                         <muxc:NavigationViewItem.Icon>
@@ -269,16 +270,6 @@
                                     <muxc:NavigationViewItem Tag="Repositories" Content="Repositories">
                                         <muxc:NavigationViewItem.Icon>
                                             <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xEA52;" FontSize="16"/>
-                                        </muxc:NavigationViewItem.Icon>
-                                    </muxc:NavigationViewItem>
-                                    <muxc:NavigationViewItem Tag="Projects" Content="Projects">
-                                        <muxc:NavigationViewItem.Icon>
-                                            <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xEAA3;" FontSize="16"/>
-                                        </muxc:NavigationViewItem.Icon>
-                                    </muxc:NavigationViewItem>
-                                    <muxc:NavigationViewItem Tag="Packages" Content="Packages">
-                                        <muxc:NavigationViewItem.Icon>
-                                            <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xEA29;" FontSize="16"/>
                                         </muxc:NavigationViewItem.Icon>
                                     </muxc:NavigationViewItem>
                                     <muxc:NavigationViewItem Tag="Stars" Content="Stars">
