@@ -10,7 +10,43 @@
 
 > **Warning**⚠️<br> This project is in beta stage. Expect regular breaking changes.
 
->**Need help**🔧<br/>Any trivial suggestions or corrections are fine. Feel free to open a [issue](https://github.com/onein528/FluentHub/issues/new)/[PR](https://github.com/onein528/FluentHub/compare).
+>**Need help**🔧<br/>Any trivial suggestions or corrections are fine. Feel free to open a [issue](https://github.com/onein528/FluentHub/issues/new)/[PR](https://github.com/onein528/FluentHub/compare).<br*>If you want to contribute to this repository in earnest, please [request a this project member](https://github.com/onein528/FluentHub/issues/new).*
+
+### Build from source
+
+#### 1. Preparation
+
+- Visual Studio 2022 with the Windows SDK.
+
+#### 2. Clone the repo
+
+Click "Open Visual Studio" on this repo page
+
+#### 3. Add app credentials
+
+1. After cloning this repository to your local machine, create a file named `AppCredentials.config` in the root of your FluentHub repo with Solution Explorer and update it as follows:
+
+```xml
+<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    <client>
+        <type key="id" value="YOUR-APP-ID"/>
+        <type key="secret" value="YOUR-APP-SECRET"/>
+    </client>
+</configuration>
+```
+
+2. Set and get the value on [this site](https://github.com/settings/applications/new) as follows:
+
+Name|Value
+---|---
+Application name|`FluentHub`<br/>
+Homepage URL|`https://github.com/fluenthub-uwp/FluentHub`<br/>
+Application description|*Optional*<br/>
+Authorization callback URL|`fluenthub://`<br/>
+Application logo|Use `/Assets/AppTiles/DefaultLogo.png`<br/>
+Badge background color|`#2D333B`<br/>
+
 
 ### Features
 
