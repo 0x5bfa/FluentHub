@@ -1,7 +1,5 @@
 <h1 align="center">
-  <img alt="Logo" src="FluentHub/Assets/AppTiles/StoreLogo.scale-400.png" width="72" />
-  <br/>
-  FluentHub
+  <img alt="Logo" src="FluentHub/Assets/FluentHub.png" Height="64" />
 </h1>
 
 ## What's this?
