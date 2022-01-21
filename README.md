@@ -6,7 +6,7 @@
 
 `FluentHub` is the GitHub Desktop which conform to [Fluent Design System](https://www.microsoft.com/design/fluent) using GitHub API [v3(Rest API)](https://developer.github.com/v3/) and [v4(GraphQL API)](https://developer.github.com/v4/) on Windows.
 
-> **Warning**⚠️<br> This project is in beta stage. Expect regular breaking changes.
+> **Warning**⚠️<br> This project is in dev stage. Expect regular breaking changes.
 
 >**Need help**🔧<br/>Any trivial suggestions or corrections are fine. Feel free to open a [issue](https://github.com/onein528/FluentHub/issues/new)/[PR](https://github.com/onein528/FluentHub/compare).<br>*If you want to contribute to this repository in earnest, please [request a this project member](https://github.com/onein528/FluentHub/issues/new).*
 
@@ -34,7 +34,7 @@ Click "Open Visual Studio" on this repo page
 </configuration>
 ```
 
-2. Set and get the value on [this site](https://github.com/settings/applications/new) as follows (Repository members get from [here](https://github.com/organizations/fluenthub-uwp/settings/applications/)):
+2. Set and get the value on [this site](https://github.com/settings/applications/new) as follows:
 
 Name|Value
 ---|---
