@@ -13,7 +13,7 @@
             x:Name="UserSpecialReadmeBlock"
             Margin="0,0,0,6"
             Visibility="Collapsed"
-            Height="512"
+            Height="400"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Top"
             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
@@ -22,6 +22,7 @@
             CornerRadius="4">
             <HyperlinkButton
                 x:Name="ReadMeLink"
+                FontFamily="Cascadia Code"
                 Padding="4"
                 FontSize="12"
                 Foreground="{ThemeResource ApplicationForegroundThemeBrush}"

@@ -88,11 +88,15 @@ namespace FluentHub.Views.UserPages
 
         private void UserNavView_Loaded(object sender, RoutedEventArgs e)
         {
-            //UserNavViewContent.Navigate(typeof(Activities));
         }
 
         private void UserNavView_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
         {
+            if(args.SelectedItem == null || args.SelectedItemContainer == null)
+            {
+                return;
+            }
+
             switch (args.SelectedItemContainer.Tag.ToString())
             {
                 case "Overview":
@@ -105,6 +109,20 @@ namespace FluentHub.Views.UserPages
                     UserNavViewContent.Navigate(typeof(Stars));
                     break;
             }
+        }
+
+        private void FollowersButton_Click(object sender, RoutedEventArgs e)
+        {
+            UserNavView.SelectedItem = null;
+
+            UserNavViewContent.Navigate(typeof(Followers));
+        }
+
+        private void FollowingButton_Click(object sender, RoutedEventArgs e)
+        {
+            UserNavView.SelectedItem = null;
+
+            UserNavViewContent.Navigate(typeof(Following));
         }
     }
 }
