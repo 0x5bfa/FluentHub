@@ -1,4 +1,4 @@
-﻿using FluentHub.Helpers;
+using FluentHub.Helpers;
 using Octokit;
 using System;
 using System.Collections.Generic;
