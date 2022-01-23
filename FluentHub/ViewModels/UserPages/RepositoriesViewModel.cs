@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -24,6 +25,7 @@ namespace FluentHub.ViewModels.UserPages
 
         public async void GetUserRepos(string username)
         {
+            IsActive = true;
             var repos = await App.Client.Repository.GetAllForUser(username);
 
             foreach (var item in repos)
@@ -32,6 +34,7 @@ namespace FluentHub.ViewModels.UserPages
                 {
                     RepoListItem listItem = new RepoListItem(item);
                     Items.Add(listItem);
+                    IsActive = false;
                 }
             }
 
@@ -46,5 +49,21 @@ namespace FluentHub.ViewModels.UserPages
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
         }
+
+        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
+        {
+            if (!Equals(field, newValue))
+            {
+                field = newValue;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool isActive;
+
+        public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
     }
 }
