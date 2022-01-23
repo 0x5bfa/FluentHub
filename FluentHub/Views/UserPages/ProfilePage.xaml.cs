@@ -70,7 +70,8 @@ namespace FluentHub.Views.UserPages
             if (user.Blog != "")
             {
                 LinkButton.Content = user.Blog;
-                LinkButton.NavigateUri = new Uri(user.Blog);
+                var uri = new UriBuilder(user.Blog).Uri;
+                LinkButton.NavigateUri = uri;
                 LinkBlock.Visibility = Visibility.Visible;
             }
 
