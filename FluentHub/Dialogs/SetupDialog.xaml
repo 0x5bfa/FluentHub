@@ -10,13 +10,8 @@
     Style="{StaticResource DefaultContentDialogStyle}"
     mc:Ignorable="d">
 
-    <ContentDialog.Resources>
-        <x:Double x:Key="ContentDialogMinWidth">762</x:Double>
-        <x:Double x:Key="ContentDialogMinHeight">490</x:Double>
-    </ContentDialog.Resources>
-
-    <Grid x:Name="RootGrid">
-        <Grid.RowDefinitions>
+    <Grid RowSpacing="16">
+        <!--<Grid.RowDefinitions>
             <RowDefinition Height="1*" />
             <RowDefinition Height="56" />
         </Grid.RowDefinitions>
@@ -124,6 +119,56 @@
                 Content="Continue"
                 HorizontalContentAlignment="Center">
             </Button>
+        </Grid>-->
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Margin="16,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Image Source="/Assets/Privacy.png" Height="84"/>
+            <StackPanel Grid.Column="1" Spacing="6" Margin="32,0,0,0">
+                <TextBlock
+                    x:Name="Header"
+                    Text="Authorize FluentHub"
+                    Style="{StaticResource SubtitleTextBlockStyle}"/>
+                <TextBlock
+                    TextWrapping="Wrap"
+                    Text="You can log in to GitHub in various ways. By authenticating, you can access more GitHub data and gain more experience."
+                    Style="{ThemeResource BodyTextBlockStyle}"/>
+            </StackPanel>
+            <Button
+                Click="CancelButton_Click"
+                Grid.Column="2"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Height="36" Width="36"
+                Padding="0"
+                Style="{StaticResource ClearButtonStyle}"
+                Background="Transparent">
+                <FontIcon Glyph="&#xe711;" FontSize="16"/>
+            </Button>
         </Grid>
+        <muxc:InfoBar Grid.Row="1"
+            IsClosable="False"
+            IsOpen="True"
+            Title="Only web authentication is valid"
+            Message="In the future, password and token authentication will be enabled."
+            Severity="Success">
+            <muxc:InfoBar.IconSource>
+                <muxc:SymbolIconSource Symbol="Permissions" />
+            </muxc:InfoBar.IconSource>
+        </muxc:InfoBar>
+        <Button
+            Click="ContinueButton_Click"
+            Grid.Row="2"
+            HorizontalAlignment="Right"
+            Style="{StaticResource AccentButtonStyle}"
+            Content="Open with your browser"/>
     </Grid>
 </ContentDialog>

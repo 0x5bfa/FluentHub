@@ -34,9 +34,9 @@ namespace FluentHub
 
         public static MainViewModel MainViewModel { get; private set; } = new MainViewModel();
 
-        public static SettingsViewModel settings { get; private set; } = new SettingsViewModel();
+        public static SettingsViewModel Settings { get; private set; } = new SettingsViewModel();
 
-        public static string Host { get; private set; } = "https://github.com";
+        public static string DefaultHost { get; private set; } = "https://github.com";
 
         public static string SignedInUserName { get; private set; }
 
@@ -46,15 +46,11 @@ namespace FluentHub
             this.Suspending += OnSuspending;
 
             // restore token or password
-            if (settings.SetupCompleted == true)
+            if (Settings.SetupCompleted == true)
             {
-                if (settings.Get("accessToken", "") != "")
+                if (Settings.Get("AccessToken", "") != "")
                 {
-                    Client.Credentials = new Credentials(settings.Get("accessToken", ""));
-                }
-                else if (settings.Get("username", "") != "" && settings.Get("password", "") != "")
-                {
-                    Client.Credentials = new Credentials(settings.Get("username", ""), settings.Get("password", ""));
+                    Client.Credentials = new Credentials(Settings.Get("AccessToken", ""));
                 }
                 else
                 {
@@ -65,16 +61,12 @@ namespace FluentHub
 
         protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
-            // Customize title bar
             CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
             ApplicationView.GetForCurrentView().TitleBar.ButtonBackgroundColor = Colors.Transparent;
             ApplicationView.GetForCurrentView().TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
 
-            // Do not repeat app initialization when the Window already has content,
-            // just ensure that the window is active
             if (rootFrame == null)
             {
-                // Create a Frame to act as the navigation context and navigate to the first page
                 rootFrame = new Frame();
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
@@ -84,7 +76,6 @@ namespace FluentHub
                     //TODO: Load state from previously suspended application
                 }
 
-                // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
             }
 
@@ -92,18 +83,17 @@ namespace FluentHub
             {
                 if (rootFrame.Content == null)
                 {
-                    if (settings.SetupCompleted == true)
+                    if (Settings.SetupCompleted == true)
                     {
                         User user = await Client.User.Current();
                         SignedInUserName = user.Login;
                     }
 
-                    _ = !settings.SetupCompleted ?
+                    _ = !Settings.SetupCompleted ?
                         rootFrame.Navigate(typeof(WelcomePage), e.Arguments) :
                         rootFrame.Navigate(typeof(MainPage), e.Arguments);
                 }
 
-                // Ensure the current window is active
                 Window.Current.Activate();
             }
         }
@@ -157,7 +147,7 @@ namespace FluentHub
         {
             if (!await ApplicationView.GetForCurrentView().TryConsolidateAsync())
             {
-                Windows.UI.Xaml.Application.Current.Exit();
+                Current.Exit();
             }
         }
     }

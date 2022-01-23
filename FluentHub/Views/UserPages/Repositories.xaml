@@ -43,7 +43,7 @@
                     <AutoSuggestBox Grid.Row="1" PlaceholderText="Find a repository..."/>
                 </StackPanel>
             </Grid>
-            <ScrollViewer VerticalScrollMode="Disabled" HorizontalScrollBarVisibility="Auto"  IsHorizontalRailEnabled="True" HorizontalScrollMode="Enabled" Grid.Column="1">
+            <ScrollViewer VerticalScrollMode="Disabled" HorizontalScrollBarVisibility="Auto" Grid.Column="1">
                 <Grid RowSpacing="6" ColumnSpacing="6">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>

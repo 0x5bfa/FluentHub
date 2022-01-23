@@ -10,7 +10,7 @@ using Windows.UI;
 using Windows.UI.Xaml.Media;
 
 
-namespace FluentHub.Helper
+namespace FluentHub.Helpers
 {
     public class LanguageColorHelpers
     {

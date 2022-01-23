@@ -29,7 +29,7 @@ namespace FluentHub.Views.UserPages
 
         private void ItemsRepeater_Loaded(object sender, RoutedEventArgs e)
         {
-            ViewModel.GetUserRepos();
+            ViewModel.GetUserRepos(App.SignedInUserName);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.UserPages
 {
-    public class RepositoriesViewModel : INotifyPropertyChanged
+    public class ActivitiesViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<RepoListItem> _items = new ObservableCollection<RepoListItem>();
         public ObservableCollection<RepoListItem> Items
@@ -22,17 +22,14 @@ namespace FluentHub.ViewModels.UserPages
             }
         }
 
-        public async void GetUserRepos(string username)
+        public async void GetUserRepos(List<long> repoIdList)
         {
-            var repos = await App.Client.Repository.GetAllForUser(username);
-
-            foreach (var item in repos)
+            foreach (var repoId in repoIdList)
             {
-                if (item.Owner.Type == Octokit.AccountType.User)
-                {
-                    RepoListItem listItem = new RepoListItem(item);
-                    Items.Add(listItem);
-                }
+                var item = await App.Client.Repository.Get(repoId);
+
+                RepoListItem listItem = new RepoListItem(item);
+                Items.Add(listItem);
             }
 
             Items = new ObservableCollection<RepoListItem>(Items.OrderByDescending(x => x.UpdatedAt));

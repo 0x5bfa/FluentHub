@@ -65,7 +65,7 @@
                 Style="{ThemeResource BodyTextBlockStyle}"
                 HorizontalAlignment="Center"
                 HorizontalTextAlignment="Center"
-                Text="We're glad you're here. Just need to go through a few simple steps and you'll be all up and running!"
+                Text="We're glad you're here.&#10;To user all features, just you need to sign in first."
                 TextWrapping="Wrap">
             </TextBlock>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,24,0,0">

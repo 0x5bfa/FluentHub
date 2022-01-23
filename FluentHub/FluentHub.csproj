@@ -132,6 +132,7 @@
     <Compile Include="Services\Auth\AppCredentials.cs" />
     <Compile Include="Services\Auth\RequestAuthorization.cs" />
     <Compile Include="Services\OctokitEx\Markdown.cs" />
+    <Compile Include="Services\OctokitEx\UserPinnedItems.cs" />
     <Compile Include="UserControls\CustomTabView.xaml.cs">
       <DependentUpon>CustomTabView.xaml</DependentUpon>
     </Compile>
@@ -146,6 +147,7 @@
     <Compile Include="ViewModels\SettingsManager.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\UserPages\RepositoriesViewModel.cs" />
+    <Compile Include="ViewModels\UserPages\ActivitiesViewModel.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -333,6 +335,12 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="GraphQL.Client">
+      <Version>4.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="GraphQL.Client.Serializer.Newtonsoft">
+      <Version>4.0.2</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.12</Version>
     </PackageReference>
