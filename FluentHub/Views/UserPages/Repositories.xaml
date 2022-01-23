@@ -84,6 +84,7 @@
         </Grid>
         <ScrollViewer Grid.Row="1" Margin="0,6,0,0">
             <Grid>
+                <muxc:ProgressRing x:Name="loadingRing" IsActive="{Binding IsActive}" />
                 <Border>
                     <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Items}" Loaded="ItemsRepeater_Loaded">
                         <DataTemplate x:DataType="model:RepoListItem">
