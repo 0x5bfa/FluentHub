@@ -3,10 +3,16 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:FluentHub.Views.UserPages"
+    xmlns:model="using:FluentHub.Models.Items"
+    xmlns:vm="using:FluentHub.ViewModels.UserPages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
 
+    <Page.DataContext>
+        <vm:RepositoriesViewModel x:Name="ViewModel"/>
+    </Page.DataContext>
     <Page.Resources>
         <Style x:Key="ContentBlockButtonStyle" TargetType="Button" BasedOn="{StaticResource DefaultButtonStyle}">
             <Setter Property="Background" Value="{ThemeResource ExpanderHeaderBackground}" />
@@ -18,9 +24,6 @@
             <Setter Property="MinHeight" Value="{StaticResource ExpanderMinHeight}" />
             <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
         </Style>
-        <Style x:Key="BaseTextBlockStyle" TargetType="TextBlock">
-            <Setter Property="FontFamily"  Value="Segoe UI"/>
-        </Style>
     </Page.Resources>
 
     <Grid>
@@ -29,49 +32,100 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid RowSpacing="6" ColumnSpacing="6" Margin="0,0,0,6">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="Auto"/>
-            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="256"/>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Find a repository" FontWeight="SemiBold"/>
-            <AutoSuggestBox Grid.Row="1" PlaceholderText="Find a repository..."/>
-            <TextBlock Grid.Column="1" Text="Type" FontWeight="SemiBold"/>
-            <ComboBox Grid.Row="1" Grid.Column="1" Width="96" PlaceholderText="Type">
-                <x:String>All</x:String>
-                <x:String>Public</x:String>
-                <x:String>Private</x:String>
-            </ComboBox>
-            <TextBlock Grid.Column="2" Text="Language" FontWeight="SemiBold"/>
-            <ComboBox Grid.Row="1" Grid.Column="2" Width="96" PlaceholderText="Language">
-                <x:String>All</x:String>
-                <x:String>C</x:String>
-                <x:String>C++</x:String>
-                <x:String>C#</x:String>
-            </ComboBox>
-            <TextBlock Grid.Column="3" Text="Sort" FontWeight="SemiBold"/>
-            <ComboBox Grid.Row="1" Grid.Column="3" Width="130" PlaceholderText="Sort">
-                <x:String>Last updated</x:String>
-                <x:String>Name</x:String>
-                <x:String>Stars</x:String>
-            </ComboBox>
-            <Button Grid.Row="1" Grid.Column="4" Style="{StaticResource AccentButtonStyle}">
+            <Grid>
+                <StackPanel Spacing="6">
+                    <TextBlock Text="Find a repository" FontWeight="SemiBold"/>
+                    <AutoSuggestBox Grid.Row="1" PlaceholderText="Find a repository..."/>
+                </StackPanel>
+            </Grid>
+            <ScrollViewer VerticalScrollMode="Disabled" HorizontalScrollBarVisibility="Auto" Grid.Column="1">
+                <Grid RowSpacing="6" ColumnSpacing="6">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Type" FontWeight="SemiBold"/>
+                    <ComboBox Grid.Row="1" Grid.Column="0" Width="130" PlaceholderText="Type">
+                        <x:String>All</x:String>
+                        <x:String>Public</x:String>
+                        <x:String>Private</x:String>
+                    </ComboBox>
+                    <TextBlock Grid.Column="1" Text="Language" FontWeight="SemiBold"/>
+                    <ComboBox Grid.Row="1" Grid.Column="1" Width="130" PlaceholderText="Language">
+                        <x:String>All</x:String>
+                        <x:String>C</x:String>
+                        <x:String>C++</x:String>
+                        <x:String>C#</x:String>
+                    </ComboBox>
+                    <TextBlock Grid.Column="2" Text="Sort" FontWeight="SemiBold"/>
+                    <ComboBox Grid.Row="1" Grid.Column="2" Width="130" PlaceholderText="Sort">
+                        <x:String>Last updated</x:String>
+                        <x:String>Name</x:String>
+                        <x:String>Stars</x:String>
+                    </ComboBox>
+                </Grid>
+            </ScrollViewer>
+            <Button Grid.Column="2" Style="{StaticResource AccentButtonStyle}" VerticalAlignment="Bottom">
                 <StackPanel Orientation="Horizontal" Spacing="6">
                     <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xEA52;" FontSize="16"/>
                     <TextBlock Text="New"/>
                 </StackPanel>
             </Button>
         </Grid>
-        <Grid Grid.Row="1" Margin="0,6,0,0">
-            <StackPanel>
-                <Button Style="{StaticResource ContentBlockButtonStyle}"/>
-            </StackPanel>
-        </Grid>
+        <ScrollViewer Grid.Row="1" Margin="0,6,0,0">
+            <Grid>
+                <Border>
+                    <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Items}" Loaded="ItemsRepeater_Loaded">
+                        <DataTemplate x:DataType="model:RepoListItem">
+                            <Grid>
+                                <StackPanel>
+                                    <Button
+                                        Style="{StaticResource ContentBlockButtonStyle}"
+                                        Margin="0,3,0,0"
+                                        Padding="18,12"
+                                        Click="Button_Click"
+                                        Tag="{x:Bind Tag}">
+                                        <Grid RowSpacing="4">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Grid.Row="1" Text="{x:Bind Name}" Style="{ThemeResource BodyTextBlockStyle}" FontWeight="SemiBold"/>
+                                            <TextBlock Grid.Row="2" Text="{x:Bind Description}"/>
+                                            <Grid Grid.Row="3" Margin="0,4,0,0" ColumnSpacing="16">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                                    <FontIcon Glyph="&#xe734;" FontSize="14"/>
+                                                    <TextBlock Text="{x:Bind StarCount}"/>
+                                                </StackPanel>
+                                                <StackPanel x:Name="LanguageBlock" Grid.Column="1" Orientation="Horizontal" Spacing="6">
+                                                    <Border CornerRadius="8" Height="14" Width="14" Background="{x:Bind LanguageColor}"/>
+                                                    <TextBlock Text="{x:Bind Language}"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Grid>
+                                    </Button>
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </muxc:ItemsRepeater>
+                </Border>
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </Page>

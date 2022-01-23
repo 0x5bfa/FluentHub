@@ -1,4 +1,5 @@
 ﻿using FluentHub.Services.OctokitEx;
+using Octokit;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,7 +19,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub.Views.UserPages
 {
-    public sealed partial class Activities : Page
+    public sealed partial class Activities : Windows.UI.Xaml.Controls.Page
     {
         public Activities()
         {
@@ -40,7 +41,7 @@ namespace FluentHub.Views.UserPages
                 UserSpecialReadmeBlock.Visibility = Visibility.Visible;
             }
 
-            ReadMeLink.Content = string.Format("{0} / {1}", $"{App.SignedInUserName}", readme.Name);
+            ReadMeLink.Content = string.Format("{0}/{1}", $"{App.SignedInUserName}", readme.Name);
             ReadMeLink.NavigateUri = new Uri(readme.HtmlUrl);
 
             string result = await markdown.FormatRenderedMarkdownToHtml(await readme.GetHtmlContent());
@@ -53,6 +54,15 @@ namespace FluentHub.Views.UserPages
             {
                 args.Cancel = true;
             }
+        }
+
+        private async void ItemsRepeater_Loaded(object sender, RoutedEventArgs e)
+        {
+            UserPinnedItems pinnedItems = new UserPinnedItems();
+
+            var repoIdList = await pinnedItems.Get(App.SignedInUserName);
+
+            ViewModel.GetUserRepos(repoIdList);
         }
     }
 }

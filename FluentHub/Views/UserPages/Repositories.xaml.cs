@@ -26,5 +26,15 @@ namespace FluentHub.Views.UserPages
         {
             this.InitializeComponent();
         }
+
+        private void ItemsRepeater_Loaded(object sender, RoutedEventArgs e)
+        {
+            ViewModel.GetUserRepos(App.SignedInUserName);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

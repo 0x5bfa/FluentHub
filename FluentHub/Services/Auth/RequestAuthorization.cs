@@ -54,8 +54,9 @@ namespace FluentHub.Services.Auth
 
                     // store token (in the future, this token will be stored credential locker)
                     // https://docs.microsoft.com/en-us/windows/uwp/security/credential-locker
-                    Set("accessToken", token.AccessToken);
-                    App.settings.SetupCompleted = true;
+                    Set("AccessToken", token.AccessToken);
+
+                    App.Settings.SetupCompleted = true;
 
                     return true;
                 }
