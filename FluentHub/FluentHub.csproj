@@ -128,6 +128,7 @@
     <Compile Include="Helpers\Base64Helpers.cs" />
     <Compile Include="Helpers\LanguageColorHelpers.cs" />
     <Compile Include="Helpers\NavigationHelpers.cs" />
+    <Compile Include="Models\Items\ProfileBlockItem.cs" />
     <Compile Include="Models\Items\RepoListItem.cs" />
     <Compile Include="Services\Auth\AppCredentials.cs" />
     <Compile Include="Services\Auth\RequestAuthorization.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\SettingsManager.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\UserPages\ProfilePageViewModel.cs" />
     <Compile Include="ViewModels\UserPages\RepositoriesViewModel.cs" />
     <Compile Include="ViewModels\UserPages\ActivitiesViewModel.cs" />
     <Compile Include="Views\MainPage.xaml.cs">

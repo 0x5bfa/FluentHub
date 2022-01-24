@@ -38,57 +38,9 @@ namespace FluentHub.Views.UserPages
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             user = await App.Client.User.Get(requestedUsername);
-            SetUserInfo();
-        }
 
-        private void SetUserInfo()
-        {
-            // Avator
-            BitmapImage avatorImage = new BitmapImage(new Uri(user.AvatarUrl));
-            UserAvatorImage.Source = avatorImage;
-
-            // Username
-            if (user.Login != "")
-            {
-                Username.Text = user.Login;
-            }
-
-            // Fullname
-            if (user.Name != "")
-            {
-                FullName.Text = user.Name;
-            }
-
-            // Bio
-            if (user.Bio != "")
-            {
-                UserBioTextBlock.Text = user.Bio;
-                UserBioBlock.Visibility = Visibility.Visible;
-            }
-
-            //Link
-            if (user.Blog != "")
-            {
-                LinkButton.Content = user.Blog;
-                var uri = new UriBuilder(user.Blog).Uri;
-                LinkButton.NavigateUri = uri;
-                LinkBlock.Visibility = Visibility.Visible;
-            }
-
-            // Location
-            if (user.Location != "")
-            {
-                LocationTextBlock.Text = user.Location;
-                LocationBlock.Visibility = Visibility.Visible;
-            }
-
-            // FF
-            FollowerCount.Text = user.Followers.ToString();
-            FollowingCount.Text = user.Following.ToString();
-        }
-
-        private void UserNavView_Loaded(object sender, RoutedEventArgs e)
-        {
+            SetTopLevelUserInfo();
+            ViewModel.SetProfileElements(user);
         }
 
         private void UserNavView_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
@@ -112,18 +64,30 @@ namespace FluentHub.Views.UserPages
             }
         }
 
-        private void FollowersButton_Click(object sender, RoutedEventArgs e)
+        private void SetTopLevelUserInfo()
         {
-            UserNavView.SelectedItem = null;
+            // Avator
+            BitmapImage avatorImage = new BitmapImage(new Uri(user.AvatarUrl));
+            UserAvatorImage.Source = avatorImage;
 
-            UserNavViewContent.Navigate(typeof(Followers));
-        }
+            // Username
+            if (user.Login != "")
+            {
+                Username.Text = user.Login;
+            }
 
-        private void FollowingButton_Click(object sender, RoutedEventArgs e)
-        {
-            UserNavView.SelectedItem = null;
+            // Fullname
+            if (user.Name != "")
+            {
+                FullName.Text = user.Name;
+            }
 
-            UserNavViewContent.Navigate(typeof(Following));
+            // Bio
+            if (user.Bio != "")
+            {
+                UserBioTextBlock.Text = user.Bio;
+                UserBioBlock.Visibility = Visibility.Visible;
+            }
         }
     }
 }
