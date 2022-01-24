@@ -68,7 +68,8 @@
                             x:Name="UserSpecialReadmeWebView"
                             Loaded="UserSpecialReadmeWebView_Loaded"
                             DefaultBackgroundColor="Transparent"
-                            NavigationStarting="UserSpecialReadmeWebView_NavigationStarting"/>
+                            NavigationStarting="UserSpecialReadmeWebView_NavigationStarting"
+                            CanBeScrollAnchor="True"/>
                     </Grid>
                 </Grid>
                 <Grid Grid.Row="1" RowSpacing="6">

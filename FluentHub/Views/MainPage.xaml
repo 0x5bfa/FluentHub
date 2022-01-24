@@ -19,6 +19,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
                     <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
+                    <CornerRadius x:Key="NavigationViewContentGridCornerRadius">0</CornerRadius>
                 </ResourceDictionary>
                 <ResourceDictionary Source="/ResourceDictionaries/TabView_themeresources.xaml" />
                 <ResourceDictionary Source="/ResourceDictionaries/TabViewItem_shared.xaml" />
@@ -136,13 +137,108 @@
                 </StackPanel>
             </Grid>
             <Border
-                Margin="-8,0,-8,-8"
+                Margin="-8,0,-8,-9"
                 Grid.ColumnSpan="3"
-                Height="0.5"
+                Height="1"
                 BorderBrush="{ThemeResource ControlStrokeColorDefault}"
-                BorderThickness="0.5"
+                BorderThickness="1"
                 VerticalAlignment="Bottom"/>
         </Grid>
-        <Frame Grid.Row="2" x:Name="MainFrame" Background="{ThemeResource LayerFillColorDefaultBrush}"/>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <muxc:NavigationView IsBackButtonVisible="Collapsed" IsPaneToggleButtonVisible="False" AlwaysShowHeader="True" IsSettingsVisible="False" IsPaneOpen="True" OpenPaneLength="250">
+
+                <muxc:NavigationView.MenuItems>
+
+                    <muxc:NavigationViewItemHeader Content="Profile"/>
+                    <muxc:NavigationViewItem Tag="Profile" Content="Profile" IsSelected="True">
+                        <muxc:NavigationViewItem.Icon>
+                            <FontIcon Glyph="&#xe77b;"/>
+                        </muxc:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem>
+                    <muxc:NavigationViewItem Tag="Notifications" Content="Notifications">
+                        <muxc:NavigationViewItem.Icon>
+                            <FontIcon Glyph="&#xea8f;"/>
+                        </muxc:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem>
+                    <muxc:NavigationViewItem Tag="Activities" Content="Activities">
+                        <muxc:NavigationViewItem.Icon>
+                            <FontIcon Glyph="&#xecad;"/>
+                        </muxc:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem>
+                    <muxc:NavigationViewItemHeader Content="My Work"/>
+                    <muxc:NavigationViewItem Tag="Issues">
+                        <muxc:NavigationViewItem.Content>
+                            <StackPanel Orientation="Horizontal" Spacing="16">
+                                <Border Background="#40d563" Width="24" Height="24" CornerRadius="4">
+                                    <FontIcon FontFamily="octions" Glyph="&#xE9EA;" FontSize="16"/>
+                                </Border>
+                                <TextBlock Text="Issues" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </muxc:NavigationViewItem.Content>
+                    </muxc:NavigationViewItem>
+                    <muxc:NavigationViewItem Tag="PullRequests">
+                        <muxc:NavigationViewItem.Content>
+                            <StackPanel Orientation="Horizontal" Spacing="16">
+                                <Border Background="#2e8ffe" Width="24" Height="24" CornerRadius="4">
+                                    <FontIcon FontFamily="octions" Glyph="&#xE9BF;" FontSize="16"/>
+                                </Border>
+                                <TextBlock Text="Pull Requests" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </muxc:NavigationViewItem.Content>
+                    </muxc:NavigationViewItem>
+                    <muxc:NavigationViewItem Tag="Discussions">
+                        <muxc:NavigationViewItem.Content>
+                            <StackPanel Orientation="Horizontal" Spacing="16">
+                                <Border Background="#7548c7" Width="24" Height="24" CornerRadius="4">
+                                    <FontIcon FontFamily="octions" Glyph="&#xE95D;" FontSize="16"/>
+                                </Border>
+                                <TextBlock Text="Discussions" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </muxc:NavigationViewItem.Content>
+                    </muxc:NavigationViewItem>
+                    <muxc:NavigationViewItem Tag="Repositories">
+                        <muxc:NavigationViewItem.Content>
+                            <StackPanel Orientation="Horizontal" Spacing="16">
+                                <Border Background="#41434e" Width="24" Height="24" CornerRadius="4">
+                                    <FontIcon FontFamily="octions" Glyph="&#xEA52;" FontSize="16"/>
+                                </Border>
+                                <TextBlock Text="Repositories" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </muxc:NavigationViewItem.Content>
+                    </muxc:NavigationViewItem>
+                    <muxc:NavigationViewItem Tag="Organizations">
+                        <muxc:NavigationViewItem.Content>
+                            <StackPanel Orientation="Horizontal" Spacing="16">
+                                <Border Background="#fe8a38" Width="24" Height="24" CornerRadius="4">
+                                    <FontIcon FontFamily="octions" Glyph="&#xEA27;" FontSize="16"/>
+                                </Border>
+                                <TextBlock Text="Organizations" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </muxc:NavigationViewItem.Content>
+                    </muxc:NavigationViewItem>
+                    <muxc:NavigationViewItem Tag="Starred">
+                        <muxc:NavigationViewItem.Content>
+                            <StackPanel Orientation="Horizontal" Spacing="16">
+                                <Border Background="#fecb1a" Width="24" Height="24" CornerRadius="4">
+                                    <FontIcon FontFamily="octions" Glyph="&#xEA94;" FontSize="16"/>
+                                </Border>
+                                <TextBlock Text="Starred" VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </muxc:NavigationViewItem.Content>
+                    </muxc:NavigationViewItem>
+
+                    <muxc:NavigationViewItemHeader Content="Favorites"/>
+
+                    <muxc:NavigationViewItemHeader Content="Explorer"/>
+
+                </muxc:NavigationView.MenuItems>
+                <muxc:NavigationView.Content>
+                    <Frame Grid.Column="1" x:Name="MainFrame" Background="{ThemeResource LayerFillColorDefaultBrush}"/>
+                </muxc:NavigationView.Content>
+            </muxc:NavigationView>
+        </Grid>
     </Grid>
 </Page>
