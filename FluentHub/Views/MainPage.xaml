@@ -85,6 +85,15 @@
                         Style="{StaticResource ClearButtonStyle}">
                         <FontIcon FontSize="14" Glyph="&#xE72C;" />
                     </Button>
+                    <Button
+                        Width="36"
+                        Height="36"
+                        Background="Transparent"
+                        ToolTipService.ToolTip="Refresh"
+                        Click="HomeButton_Click"
+                        Style="{StaticResource ClearButtonStyle}">
+                        <FontIcon FontSize="14" Glyph="&#xE80F;" />
+                    </Button>
                 </StackPanel>
             </Grid>
             <Grid Grid.Column="1">
@@ -95,34 +104,6 @@
             </Grid>
             <Grid Grid.Column="2">
                 <StackPanel Orientation="Horizontal" Spacing="2">
-                    <Button
-                        x:Name="NotificationsButton"
-                        Width="36"
-                        Height="36"
-                        ToolTipService.ToolTip="Notifications"
-                        Padding="0"
-                        Background="Transparent"
-                        Style="{StaticResource ClearButtonStyle}">
-                        <Grid>
-                            <FontIcon FontSize="16" Glyph="&#xEA8F;" />
-                            <muxc:InfoBadge
-                                x:Name="NotificationBadge"
-                                Margin="0,-8,-8,0"
-                                Value="0"
-                                Visibility="Collapsed"
-                                HorizontalAlignment="Right"
-                                VerticalAlignment="Top"/>
-                        </Grid>
-                    </Button>
-                    <Button
-                        x:Name="ProfileButton"
-                        Width="36"
-                        Height="36"
-                        ToolTipService.ToolTip="Profile"
-                        Background="Transparent"
-                        Style="{StaticResource ClearButtonStyle}">
-                        <FontIcon FontSize="16" Glyph="&#xE77B;" />
-                    </Button>
                     <Button
                         x:Name="SettingsButton"
                         Width="36"

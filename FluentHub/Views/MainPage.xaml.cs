@@ -44,5 +44,9 @@ namespace FluentHub.Views
         {
             Window.Current.SetTitleBar(DragArea);
         }
+
+        private void HomeButton_Click(object sender, RoutedEventArgs e)
+        {
+        }
     }
 }
