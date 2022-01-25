@@ -15,6 +15,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 
 namespace FluentHub.Views.UserPages
@@ -44,7 +45,7 @@ namespace FluentHub.Views.UserPages
             ViewModel.SetProfileElements(user);
         }
 
-        private void UserNavView_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
+        private void UserNavView_SelectionChanged(muxc.NavigationView sender, muxc.NavigationViewSelectionChangedEventArgs args)
         {
             if(args.SelectedItem == null || args.SelectedItemContainer == null)
             {
@@ -72,13 +73,13 @@ namespace FluentHub.Views.UserPages
             UserAvatorImage.Source = avatorImage;
 
             // Username
-            if (user.Login != "")
+            if (user.Login != null)
             {
                 Username.Text = user.Login;
             }
 
             // Fullname
-            if (user.Name != "")
+            if (user.Name != null)
             {
                 FullName.Text = user.Name;
             }
@@ -117,14 +118,14 @@ namespace FluentHub.Views.UserPages
             }
 
             // Bio
-            if (user.Bio != "")
+            if (user.Bio != null)
             {
                 UserBioTextBlock.Text = user.Bio;
                 UserBioTextBlock.Visibility = Visibility.Visible;
             }
 
             //Link
-            if (user.Blog != "")
+            if (user.Blog != null)
             {
                 LinkButton.Content = user.Blog;
                 var uri = new UriBuilder(user.Blog).Uri;
@@ -133,7 +134,7 @@ namespace FluentHub.Views.UserPages
             }
 
             // Location
-            if (user.Location != "")
+            if (user.Location != null)
             {
                 LocationTextBlock.Text = user.Location;
                 LocationBlock.Visibility = Visibility.Visible;
