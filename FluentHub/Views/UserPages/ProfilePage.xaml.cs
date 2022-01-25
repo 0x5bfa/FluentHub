@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -39,7 +40,7 @@ namespace FluentHub.Views.UserPages
         {
             user = await App.Client.User.Get(requestedUsername);
 
-            SetTopLevelUserInfo();
+            _=await SetTopLevelUserInfo();
             ViewModel.SetProfileElements(user);
         }
 
@@ -64,7 +65,7 @@ namespace FluentHub.Views.UserPages
             }
         }
 
-        private void SetTopLevelUserInfo()
+        private async Task<bool> SetTopLevelUserInfo()
         {
             // Avator
             BitmapImage avatorImage = new BitmapImage(new Uri(user.AvatarUrl));
@@ -82,12 +83,70 @@ namespace FluentHub.Views.UserPages
                 FullName.Text = user.Name;
             }
 
+            // Company
+            if (user.Company != "")
+            {
+                try
+                {
+                    CompanyLinkButton.Content = user.Company;
+                    string company = user.Company.Replace("@", "");
+
+                    var userCompany = await App.Client.User.Get(company);
+                    var org = await App.Client.Organization.Get(company);
+                    string navigateUrl = null;
+                    navigateUrl = App.DefaultHost + "/" + company;
+                    var uri = new UriBuilder(navigateUrl).Uri;
+                    CompanyLinkButton.NavigateUri = uri;
+                    CompanyLinkButton.Visibility = Visibility.Visible;
+
+                    CompanyBlock.Visibility = Visibility.Visible;
+                }
+                catch
+                {
+                    CompanyLinkTextBlock.Text = user.Company;
+                    CompanyLinkTextBlock.Visibility = Visibility.Visible;
+                    CompanyBlock.Visibility = Visibility.Visible;
+                }
+                CompanyBlock.Visibility = Visibility.Visible;
+            }
+
             // Bio
             if (user.Bio != "")
             {
                 UserBioTextBlock.Text = user.Bio;
-                UserBioBlock.Visibility = Visibility.Visible;
+                UserBioTextBlock.Visibility = Visibility.Visible;
             }
+
+            //Link
+            if (user.Blog != "")
+            {
+                LinkButton.Content = user.Blog;
+                var uri = new UriBuilder(user.Blog).Uri;
+                LinkButton.NavigateUri = uri;
+                LinkBlock.Visibility = Visibility.Visible;
+            }
+
+            // Location
+            if (user.Location != "")
+            {
+                LocationTextBlock.Text = user.Location;
+                LocationBlock.Visibility = Visibility.Visible;
+            }
+
+            // FF
+            FollowerCount.Text = user.Followers.ToString();
+            FollowingCount.Text = user.Following.ToString();
+
+            if (user.Login == App.SignedInUserName)
+            {
+                EditProfileButton.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                FollowButton.Visibility = Visibility.Visible;
+            }
+
+            return true;
         }
     }
 }

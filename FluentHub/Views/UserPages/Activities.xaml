@@ -26,107 +26,105 @@
     </Page.Resources>
 
     <Grid>
-        <ScrollViewer>
-            <Grid RowSpacing="12">
+        <Grid RowSpacing="12">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <Grid
+                RowSpacing="6"
+                x:Name="UserSpecialReadmeBlock"
+                Margin="0,0,0,6"
+                Visibility="Collapsed"
+                Height="400"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Top">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
-                <Grid
-                    RowSpacing="6"
-                    x:Name="UserSpecialReadmeBlock"
-                    Margin="0,0,0,6"
-                    Visibility="Collapsed"
-                    Height="400"
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Top">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
-                    <Grid>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xEA38;" FontSize="16"/>
-                            <TextBlock Text="README" Style="{StaticResource SubtitleTextBlockStyle}" FontSize="14" VerticalAlignment="Center"/>
-                        </StackPanel>
-                        <HyperlinkButton
-                            x:Name="ReadMeLink"
-                            FontFamily="Cascadia Code"
-                            Padding="4"
-                            HorizontalAlignment="Right"
-                            FontSize="12"
-                            Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
-                            VerticalAlignment="Center"/>
-                    </Grid>
-                    <Grid
-                        Grid.Row="1"
-                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                        BorderThickness="1"
-                        CornerRadius="4">
-                        <WebView
-                            x:Name="UserSpecialReadmeWebView"
-                            Loaded="UserSpecialReadmeWebView_Loaded"
-                            DefaultBackgroundColor="Transparent"
-                            NavigationStarting="UserSpecialReadmeWebView_NavigationStarting"
-                            CanBeScrollAnchor="True"/>
-                    </Grid>
-                </Grid>
-                <Grid Grid.Row="1" RowSpacing="6">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="*"/>
-                    </Grid.RowDefinitions>
+                <Grid>
                     <StackPanel Orientation="Horizontal" Spacing="8">
-                        <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xEA3E;" FontSize="16"/>
-                        <TextBlock Text="Pinned" Style="{StaticResource SubtitleTextBlockStyle}" FontSize="14"/>
+                        <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xEA38;" FontSize="16"/>
+                        <TextBlock Text="README" Style="{StaticResource SubtitleTextBlockStyle}" FontSize="14" VerticalAlignment="Center"/>
                     </StackPanel>
-                    <ScrollViewer VerticalScrollMode="Disabled" HorizontalScrollBarVisibility="Auto" Grid.Row="1">
-                        <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Items}" Loaded="ItemsRepeater_Loaded">
-                            <muxc:ItemsRepeater.Layout>
-                                <muxc:StackLayout Orientation="Horizontal" Spacing="8"/>
-                            </muxc:ItemsRepeater.Layout>
-                            <DataTemplate x:DataType="model:RepoListItem">
-                                <Grid>
-                                    <StackPanel>
-                                        <Button
-                                            Style="{StaticResource PinnedItemBlockButtonStyle}"
-                                            Margin="0,3,0,0"
-                                            Padding="18,12"
-                                            Width="256"
-                                            Tag="{x:Bind Tag}">
-                                            <Grid RowSpacing="4">
-                                                <Grid.RowDefinitions>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                    <RowDefinition Height="*"/>
-                                                    <RowDefinition Height="Auto"/>
-                                                </Grid.RowDefinitions>
-                                                <TextBlock Grid.Row="1" Text="{x:Bind Name}" Style="{ThemeResource BodyTextBlockStyle}" FontWeight="SemiBold"/>
-                                                <TextBlock Grid.Row="2" Text="{x:Bind Description}"/>
-                                                <Grid Grid.Row="3" Margin="0,4,0,0" ColumnSpacing="16">
-                                                    <Grid.ColumnDefinitions>
-                                                        <ColumnDefinition Width="Auto"/>
-                                                        <ColumnDefinition Width="Auto"/>
-                                                    </Grid.ColumnDefinitions>
-                                                    <StackPanel Orientation="Horizontal" Spacing="6">
-                                                        <FontIcon Glyph="&#xe734;" FontSize="14"/>
-                                                        <TextBlock Text="{x:Bind StarCount}"/>
-                                                    </StackPanel>
-                                                    <StackPanel x:Name="LanguageBlock" Grid.Column="1" Orientation="Horizontal" Spacing="6">
-                                                        <Border CornerRadius="8" Height="14" Width="14" Background="{x:Bind LanguageColor}"/>
-                                                        <TextBlock Text="{x:Bind Language}"/>
-                                                    </StackPanel>
-                                                </Grid>
-                                            </Grid>
-                                        </Button>
-                                    </StackPanel>
-                                </Grid>
-                            </DataTemplate>
-                        </muxc:ItemsRepeater>
-                    </ScrollViewer>
+                    <HyperlinkButton
+                        x:Name="ReadMeLink"
+                        FontFamily="Cascadia Code"
+                        Padding="4"
+                        HorizontalAlignment="Right"
+                        FontSize="12"
+                        Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                        VerticalAlignment="Center"/>
+                </Grid>
+                <Grid
+                    Grid.Row="1"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="4">
+                    <WebView
+                        x:Name="UserSpecialReadmeWebView"
+                        Loaded="UserSpecialReadmeWebView_Loaded"
+                        DefaultBackgroundColor="Transparent"
+                        NavigationStarting="UserSpecialReadmeWebView_NavigationStarting"
+                        CanBeScrollAnchor="True"/>
                 </Grid>
             </Grid>
-        </ScrollViewer>
+            <Grid Grid.Row="1" RowSpacing="6">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xEA3E;" FontSize="16"/>
+                    <TextBlock Text="Pinned" Style="{StaticResource SubtitleTextBlockStyle}" FontSize="14"/>
+                </StackPanel>
+                <ScrollViewer VerticalScrollMode="Disabled" HorizontalScrollBarVisibility="Auto" Grid.Row="1">
+                    <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Items}" Loaded="ItemsRepeater_Loaded">
+                        <muxc:ItemsRepeater.Layout>
+                            <muxc:StackLayout Orientation="Horizontal" Spacing="8"/>
+                        </muxc:ItemsRepeater.Layout>
+                        <DataTemplate x:DataType="model:RepoListItem">
+                            <Grid>
+                                <StackPanel>
+                                    <Button
+                                        Style="{StaticResource PinnedItemBlockButtonStyle}"
+                                        Margin="0,3,0,0"
+                                        Padding="18,12"
+                                        Width="256"
+                                        Tag="{x:Bind Tag}">
+                                        <Grid RowSpacing="4">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="*"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <TextBlock Grid.Row="1" Text="{x:Bind Name}" Style="{ThemeResource BodyTextBlockStyle}" FontWeight="SemiBold"/>
+                                            <TextBlock Grid.Row="2" Text="{x:Bind Description}"/>
+                                            <Grid Grid.Row="3" Margin="0,4,0,0" ColumnSpacing="16">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                                    <FontIcon Glyph="&#xe734;" FontSize="14"/>
+                                                    <TextBlock Text="{x:Bind StarCount}"/>
+                                                </StackPanel>
+                                                <StackPanel x:Name="LanguageBlock" Grid.Column="1" Orientation="Horizontal" Spacing="6">
+                                                    <Border CornerRadius="8" Height="14" Width="14" Background="{x:Bind LanguageColor}"/>
+                                                    <TextBlock Text="{x:Bind Language}"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Grid>
+                                    </Button>
+                                </StackPanel>
+                            </Grid>
+                        </DataTemplate>
+                    </muxc:ItemsRepeater>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
     </Grid>
 </Page>

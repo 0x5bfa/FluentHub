@@ -132,6 +132,7 @@
     <Compile Include="Models\Items\RepoListItem.cs" />
     <Compile Include="Services\Auth\AppCredentials.cs" />
     <Compile Include="Services\Auth\RequestAuthorization.cs" />
+    <Compile Include="Services\OctokitEx\DevProgramMember.cs" />
     <Compile Include="Services\OctokitEx\Markdown.cs" />
     <Compile Include="Services\OctokitEx\UserPinnedItems.cs" />
     <Compile Include="UserControls\CustomTabView.xaml.cs">
