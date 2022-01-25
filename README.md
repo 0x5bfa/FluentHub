@@ -10,6 +10,11 @@
 
 >**Need help**🔧<br/>Any trivial suggestions or corrections are fine. Feel free to open a [issue](https://github.com/onein528/FluentHub/issues/new)/[PR](https://github.com/onein528/FluentHub/compare).<br>*If you want to contribute to this repository in earnest, please [request a this project member](https://github.com/onein528/FluentHub/issues/new).*
 
+## Screenshot
+> User profile page which have not been developed yet
+
+![image](https://user-images.githubusercontent.com/62196528/150998767-6f1f09c4-51d9-4367-8d0e-90cd52ebb9cd.png)
+
 ## Build from source
 
 ### 1. Preparation
@@ -85,9 +90,3 @@ Repo's Pull list|`/{user(org)name}/{reponame}/pulls`|Must|🔴
 Repo setings page|`/organizations/{user(org)name}/settings/profile`|Must|🔴
 
 > **Dev status🚩**<br/>🔴 To do<br/>🔵 In progress<br/>🟢 Done
-
-
-## Screenshot
-> User profile page which have not been developed yet
-
-![image](https://user-images.githubusercontent.com/62196528/150998767-6f1f09c4-51d9-4367-8d0e-90cd52ebb9cd.png)
