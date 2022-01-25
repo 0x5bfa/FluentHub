@@ -84,7 +84,7 @@ namespace FluentHub.Views.UserPages
             }
 
             // Company
-            if (user.Company != "")
+            if (user.Company != null)
             {
                 try
                 {
