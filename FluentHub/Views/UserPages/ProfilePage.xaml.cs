@@ -88,25 +88,31 @@ namespace FluentHub.Views.UserPages
             {
                 try
                 {
-                    CompanyLinkButton.Content = user.Company;
-                    string company = user.Company.Replace("@", "");
+                    if (user.Company.IndexOf("@") == 0)
+                    {
+                        CompanyLinkButton.Content = user.Company;
+                        string company = user.Company.Replace("@", "");
 
-                    var userCompany = await App.Client.User.Get(company);
-                    var org = await App.Client.Organization.Get(company);
-                    string navigateUrl = null;
-                    navigateUrl = App.DefaultHost + "/" + company;
-                    var uri = new UriBuilder(navigateUrl).Uri;
-                    CompanyLinkButton.NavigateUri = uri;
-                    CompanyLinkButton.Visibility = Visibility.Visible;
-
-                    CompanyBlock.Visibility = Visibility.Visible;
+                        var userCompany = await App.Client.User.Get(company);
+                        var org = await App.Client.Organization.Get(company);
+                        string navigateUrl = null;
+                        navigateUrl = App.DefaultHost + "/" + company;
+                        var uri = new UriBuilder(navigateUrl).Uri;
+                        CompanyLinkButton.NavigateUri = uri;
+                        CompanyLinkButton.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        CompanyLinkTextBlock.Text = user.Company;
+                        CompanyLinkTextBlock.Visibility = Visibility.Visible;
+                    }
                 }
                 catch
                 {
                     CompanyLinkTextBlock.Text = user.Company;
                     CompanyLinkTextBlock.Visibility = Visibility.Visible;
-                    CompanyBlock.Visibility = Visibility.Visible;
                 }
+
                 CompanyBlock.Visibility = Visibility.Visible;
             }
 

@@ -105,6 +105,7 @@
                             Visibility="Collapsed"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
                         <TextBlock
+                            Margin="4,0,0,0"
                             x:Name="CompanyLinkTextBlock"
                             Visibility="Collapsed"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
