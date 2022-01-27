@@ -73,7 +73,8 @@
             BorderThickness="0"
             ToolTipService.ToolTip="New tab"
             Click="AddNewTabButton_Click"
-            HorizontalAlignment="Left">
+            HorizontalAlignment="Left"
+            IsEnabled="False">
             <Button.Content>
                 <FontIcon FontSize="12" Glyph="&#xE710;" />
             </Button.Content>

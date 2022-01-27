@@ -31,7 +31,9 @@ namespace FluentHub.Views.UserPages
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            requestedUsername = e.Parameter as string;
+            _ = e.Parameter as string != null
+                ? requestedUsername = e.Parameter as string
+                : requestedUsername = App.SignedInUserName;
 
             base.OnNavigatedTo(e);
         }
@@ -40,13 +42,12 @@ namespace FluentHub.Views.UserPages
         {
             user = await App.Client.User.Get(requestedUsername);
 
-            _=await SetTopLevelUserInfo();
-            ViewModel.SetProfileElements(user);
+            _ = await SetTopLevelUserInfo();
         }
 
         private void UserNavView_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
         {
-            if(args.SelectedItem == null || args.SelectedItemContainer == null)
+            if (args.SelectedItem == null || args.SelectedItemContainer == null)
             {
                 return;
             }
@@ -72,19 +73,19 @@ namespace FluentHub.Views.UserPages
             UserAvatorImage.Source = avatorImage;
 
             // Username
-            if (user.Login != "")
+            if (!string.IsNullOrEmpty(user.Login))
             {
                 Username.Text = user.Login;
             }
 
             // Fullname
-            if (user.Name != "")
+            if (!string.IsNullOrEmpty(user.Name))
             {
                 FullName.Text = user.Name;
             }
 
             // Company
-            if (user.Company != null)
+            if (!string.IsNullOrEmpty(user.Company))
             {
                 try
                 {
@@ -117,14 +118,14 @@ namespace FluentHub.Views.UserPages
             }
 
             // Bio
-            if (user.Bio != "")
+            if (!string.IsNullOrEmpty(user.Bio))
             {
                 UserBioTextBlock.Text = user.Bio;
                 UserBioTextBlock.Visibility = Visibility.Visible;
             }
 
             //Link
-            if (user.Blog != "")
+            if (!string.IsNullOrEmpty(user.Blog))
             {
                 LinkButton.Content = user.Blog;
                 var uri = new UriBuilder(user.Blog).Uri;
@@ -133,7 +134,7 @@ namespace FluentHub.Views.UserPages
             }
 
             // Location
-            if (user.Location != "")
+            if (!string.IsNullOrEmpty(user.Location))
             {
                 LocationTextBlock.Text = user.Location;
                 LocationBlock.Visibility = Visibility.Visible;
