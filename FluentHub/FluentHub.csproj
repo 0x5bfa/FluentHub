@@ -126,8 +126,8 @@
       <DependentUpon>SetupDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Helpers\Base64Helpers.cs" />
-    <Compile Include="Helpers\DateFormatHelpers.cs" />
     <Compile Include="Helpers\LanguageColorHelpers.cs" />
+    <Compile Include="Helpers\MentionHelpers.cs" />
     <Compile Include="Helpers\NavigationHelpers.cs" />
     <Compile Include="Models\Items\NotificationListItem.cs" />
     <Compile Include="Models\Items\ProfileBlockItem.cs" />
@@ -353,6 +353,9 @@
     </PackageReference>
     <PackageReference Include="GraphQL.Client.Serializer.Newtonsoft">
       <Version>4.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="Humanizer">
+      <Version>2.8.25</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.12</Version>

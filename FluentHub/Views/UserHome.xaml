@@ -25,17 +25,17 @@
                 <muxc:NavigationViewItemHeader Content="Profile"/>
                 <muxc:NavigationViewItem Tag="Profile" Content="Profile" IsSelected="True">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xe77b;"/>
+                        <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xEA38;"/>
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem Tag="Notifications" Content="Notifications">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xea8f;"/>
+                        <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xE918;"/>
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem Tag="Activities" Content="Activities">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xecad;"/>
+                        <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xE9AB;"/>
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
                 <muxc:NavigationViewItemHeader Content="My Work"/>

@@ -1,4 +1,5 @@
-﻿using Octokit;
+﻿using Humanizer;
+using Octokit;
 using FluentHub.Models.Items;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using FluentHub.Helpers;
 
 namespace FluentHub.ViewModels.UserPages
 {
@@ -41,10 +43,13 @@ namespace FluentHub.ViewModels.UserPages
                 listItem.SubjectTitle = item.Subject.Title;
                 listItem.SubjectWithOwnerName = item.Repository.Owner.Login + " / " + item.Repository.Name;
                 listItem.Unread = item.Unread ? Windows.UI.Xaml.Visibility.Visible : Windows.UI.Xaml.Visibility.Collapsed;
-
+                listItem.FormattedNotifiedReason = item.Reason;
+                var parsedUpdatedAt = DateTimeOffset.Parse(item.UpdatedAt);
+                listItem.FormattedNotifiedDate = parsedUpdatedAt.Humanize();
                 Items.Add(listItem);
-                IsActive = false;
             }
+
+            IsActive = false;
         }
 
         private int GetSubjectIdFromUrl(string url)

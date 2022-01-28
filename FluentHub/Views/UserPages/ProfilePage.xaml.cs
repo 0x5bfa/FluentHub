@@ -1,4 +1,5 @@
-﻿using Octokit;
+﻿using FluentHub.Helpers;
+using Octokit;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -11,6 +12,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Documents;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
@@ -120,11 +122,13 @@ namespace FluentHub.Views.UserPages
             // Bio
             if (!string.IsNullOrEmpty(user.Bio))
             {
-                UserBioTextBlock.Text = user.Bio;
+                MentionHelpers mentionHelpers = new MentionHelpers();
+                await mentionHelpers.GetTextBlock(user.Bio, ref UserBioTextBlock);
+
                 UserBioTextBlock.Visibility = Visibility.Visible;
             }
 
-            //Link
+            // Link
             if (!string.IsNullOrEmpty(user.Blog))
             {
                 LinkButton.Content = user.Blog;

@@ -123,10 +123,10 @@
                                                 </StackPanel>
                                                 <StackPanel Grid.Row="2" HorizontalAlignment="Left" Spacing="6" Margin="0,6,0,0" Orientation="Horizontal">
                                                     <Border CornerRadius="8" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" Height="16" Width="16">
-                                                        <Image Source="https://avatars.githubusercontent.com/u/62196528" Height="16" Width="16"/>
+                                                        <Image Source="{x:Bind LatestEventUserAvatar}" Height="16" Width="16"/>
                                                     </Border>
                                                     <TextBlock
-                                                        Text="mention"
+                                                        Text="{x:Bind FormattedNotifiedReason}"
                                                         Style="{ThemeResource BodyTextBlockStyle}"
                                                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
                                                 </StackPanel>

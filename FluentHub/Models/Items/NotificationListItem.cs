@@ -23,5 +23,6 @@ namespace FluentHub.Models.Items
         public string SubjectTitle { get; set; }
         public string FormattedNotifiedReason { get; set; }
         public Visibility Unread { get; set; }
+        public ImageSource LatestEventUserAvatar { get; set; }
     }
 }

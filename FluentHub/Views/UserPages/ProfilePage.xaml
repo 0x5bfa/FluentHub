@@ -208,7 +208,7 @@
                                     <TextBlock
                                         Style="{ThemeResource BodyTextBlockStyle}"
                                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        Text="followers"
+                                        Text="following"
                                         VerticalAlignment="Center"/>
                                 </StackPanel>
                             </Button.Content>
