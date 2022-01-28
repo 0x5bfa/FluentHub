@@ -16,16 +16,11 @@ using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub.Views.UserPages
 {
-    public sealed partial class Notifications : Page
+    public sealed partial class StarListPage : Page
     {
-        public Notifications()
+        public StarListPage()
         {
             this.InitializeComponent();
-        }
-
-        private async void ItemsRepeater_Loaded(object sender, RoutedEventArgs e)
-        {
-            await ViewModel.GetNotifications();
         }
     }
 }

@@ -18,9 +18,9 @@ using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Views
 {
-    public sealed partial class UserHome : Page
+    public sealed partial class UserHomePage : Page
     {
-        public UserHome()
+        public UserHomePage()
         {
             this.InitializeComponent();
         }
@@ -35,7 +35,7 @@ namespace FluentHub.Views
                     HomeContentFrame.Navigate(typeof(ProfilePage));
                     break;
                 case "Notifications":
-                    HomeContentFrame.Navigate(typeof(Notifications));
+                    HomeContentFrame.Navigate(typeof(NotificationPage));
                     break;
                 //case "Activities":
                 //    HomeContentFrame.Navigate(typeof());

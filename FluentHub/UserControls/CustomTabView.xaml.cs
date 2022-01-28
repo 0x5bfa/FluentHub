@@ -105,7 +105,7 @@ namespace FluentHub.UserControls
         private void MainTabView_Loaded(object sender, RoutedEventArgs e)
         {
             MainPageViewModel.AddNewTabByPath($"/{App.SignedInUserName}");
-            App.MainViewModel.MainFrame.Navigate(typeof(UserHome));
+            App.MainViewModel.MainFrame.Navigate(typeof(UserHomePage));
         }
 
         private void CloseTab(TabItem tabItem)

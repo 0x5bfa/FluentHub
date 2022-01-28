@@ -153,40 +153,40 @@
     <Compile Include="ViewModels\UserPages\NotificationsViewModel.cs" />
     <Compile Include="ViewModels\UserPages\ProfilePageViewModel.cs" />
     <Compile Include="ViewModels\UserPages\RepositoriesViewModel.cs" />
-    <Compile Include="ViewModels\UserPages\ActivitiesViewModel.cs" />
+    <Compile Include="ViewModels\UserPages\OverviewViewModel.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\UserHome.xaml.cs">
-      <DependentUpon>UserHome.xaml</DependentUpon>
+    <Compile Include="Views\UserHomePage.xaml.cs">
+      <DependentUpon>UserHomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserPages\Activities.xaml.cs">
-      <DependentUpon>Activities.xaml</DependentUpon>
+    <Compile Include="Views\UserPages\OverviewPage.xaml.cs">
+      <DependentUpon>OverviewPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserPages\Followers.xaml.cs">
-      <DependentUpon>Followers.xaml</DependentUpon>
+    <Compile Include="Views\UserPages\FollowersPage.xaml.cs">
+      <DependentUpon>FollowersPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserPages\Following.xaml.cs">
-      <DependentUpon>Following.xaml</DependentUpon>
+    <Compile Include="Views\UserPages\FollowingPage.xaml.cs">
+      <DependentUpon>FollowingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserPages\Issues.xaml.cs">
-      <DependentUpon>Issues.xaml</DependentUpon>
+    <Compile Include="Views\UserPages\IssueListPage.xaml.cs">
+      <DependentUpon>IssueListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserPages\Notifications.xaml.cs">
-      <DependentUpon>Notifications.xaml</DependentUpon>
+    <Compile Include="Views\UserPages\NotificationPage.xaml.cs">
+      <DependentUpon>NotificationPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserPages\ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserPages\Pulls.xaml.cs">
-      <DependentUpon>Pulls.xaml</DependentUpon>
+    <Compile Include="Views\UserPages\PullRequestListPage.xaml.cs">
+      <DependentUpon>PullRequestListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserPages\Repositories.xaml.cs">
-      <DependentUpon>Repositories.xaml</DependentUpon>
+    <Compile Include="Views\UserPages\RepoListPage.xaml.cs">
+      <DependentUpon>RepoListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserPages\Stars.xaml.cs">
-      <DependentUpon>Stars.xaml</DependentUpon>
+    <Compile Include="Views\UserPages\StarListPage.xaml.cs">
+      <DependentUpon>StarListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\WelcomePage.xaml.cs">
       <DependentUpon>WelcomePage.xaml</DependentUpon>
@@ -302,27 +302,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\UserHome.xaml">
+    <Page Include="Views\UserHomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserPages\Activities.xaml">
+    <Page Include="Views\UserPages\OverviewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserPages\Followers.xaml">
+    <Page Include="Views\UserPages\FollowersPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserPages\Following.xaml">
+    <Page Include="Views\UserPages\FollowingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserPages\Issues.xaml">
+    <Page Include="Views\UserPages\IssueListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserPages\Notifications.xaml">
+    <Page Include="Views\UserPages\NotificationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -330,15 +330,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserPages\Pulls.xaml">
+    <Page Include="Views\UserPages\PullRequestListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserPages\Repositories.xaml">
+    <Page Include="Views\UserPages\RepoListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserPages\Stars.xaml">
+    <Page Include="Views\UserPages\StarListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

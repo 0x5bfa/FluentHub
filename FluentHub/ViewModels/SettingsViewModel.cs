@@ -36,7 +36,7 @@ namespace FluentHub.ViewModels
 
         public string LastOpenedPageFrame
         {
-            get => Get(nameof(LastOpenedPageFrame), nameof(Views.UserHome));
+            get => Get(nameof(LastOpenedPageFrame), nameof(Views.UserHomePage));
             set => Set(nameof(LastOpenedPageFrame), value);
         }
 

@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.UserPages
 {
-    public class ActivitiesViewModel : INotifyPropertyChanged
+    public class OverviewViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<RepoListItem> _items = new ObservableCollection<RepoListItem>();
         public ObservableCollection<RepoListItem> Items

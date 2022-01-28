@@ -57,13 +57,13 @@ namespace FluentHub.Views.UserPages
             switch (args.SelectedItemContainer.Tag.ToString())
             {
                 case "Overview":
-                    UserNavViewContent.Navigate(typeof(Activities));
+                    UserNavViewContent.Navigate(typeof(OverviewPage));
                     break;
                 case "Repositories":
-                    UserNavViewContent.Navigate(typeof(Repositories));
+                    UserNavViewContent.Navigate(typeof(RepoListPage));
                     break;
                 case "Stars":
-                    UserNavViewContent.Navigate(typeof(Stars));
+                    UserNavViewContent.Navigate(typeof(StarListPage));
                     break;
             }
         }
