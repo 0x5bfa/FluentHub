@@ -1,6 +1,5 @@
-﻿using Humanizer;
+﻿using FluentHub.Models.Items;
 using Octokit;
-using FluentHub.Models.Items;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,11 +8,10 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using FluentHub.Helpers;
 
 namespace FluentHub.ViewModels.UserPages
 {
-    public class NotificationsViewModel : INotifyPropertyChanged
+    public class ActivityViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<NotificationListItem> _items = new ObservableCollection<NotificationListItem>();
         public ObservableCollection<NotificationListItem> Items
@@ -26,45 +24,29 @@ namespace FluentHub.ViewModels.UserPages
             }
         }
 
-        public async Task GetNotifications()
+        public async Task GetAllActivityForCurrent()
         {
             IsActive = true;
 
-            NotificationsRequest request = new NotificationsRequest();
-            request.All = true;
+            var events = await App.Client.Activity.Events.GetAllUserReceived($"{App.SignedInUserName}");
 
-            var notifications = await App.Client.Activity.Notifications.GetAllForCurrent(request);
-
-            foreach (var item in notifications)
+            foreach (var item in events)
             {
-                NotificationListItem listItem = new NotificationListItem();
+                if (item.Type != "ForkEvent"
+                    && item.Type != "PushEvent"
+                    && item.Type != "ReleaseEvent"
+                    && item.Type != "WatchEvent")
+                {
+                    continue;
+                }
 
-                //listItem.SubjectId = GetSubjectIdFromUrl(item.Subject.Url);
-                listItem.SubjectTitle = item.Subject.Title;
-                listItem.SubjectWithOwnerName = item.Repository.Owner.Login + " / " + item.Repository.Name;
-                listItem.Unread = item.Unread ? Windows.UI.Xaml.Visibility.Visible : Windows.UI.Xaml.Visibility.Collapsed;
-                listItem.FormattedNotifiedReason = item.Reason;
-                var parsedUpdatedAt = DateTimeOffset.Parse(item.UpdatedAt);
-                listItem.FormattedNotifiedDate = parsedUpdatedAt.Humanize();
-                Items.Add(listItem);
+
+
+
             }
 
             IsActive = false;
         }
-
-        private int GetSubjectIdFromUrl(string url)
-        {
-            if (url == null)
-            {
-                return 0;
-            }
-
-            var splitedUrl = url.Split("/");
-            string id = splitedUrl[splitedUrl.Count() - 1];
-
-            return Convert.ToInt32(id);
-        }
-
 
         private bool isActive;
         public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }

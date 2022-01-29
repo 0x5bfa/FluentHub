@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.UserPages
 {
-    public class RepositoriesViewModel : INotifyPropertyChanged
+    public class RepoListViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<RepoListItem> _items = new ObservableCollection<RepoListItem>();
         public ObservableCollection<RepoListItem> Items
@@ -32,13 +32,13 @@ namespace FluentHub.ViewModels.UserPages
             {
                 if (item.Owner.Type == Octokit.AccountType.User)
                 {
-                    RepoListItem listItem = new RepoListItem(item);
+                    RepoListItem listItem = new RepoListItem();
+                    listItem.RepoId = item.Id;
                     Items.Add(listItem);
-                    IsActive = false;
                 }
             }
 
-            Items = new ObservableCollection<RepoListItem>(Items.OrderByDescending(x => x.UpdatedAt));
+            IsActive = false;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -63,7 +63,6 @@ namespace FluentHub.ViewModels.UserPages
         }
 
         private bool isActive;
-
         public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
     }
 }

@@ -1,0 +1,85 @@
+﻿<UserControl
+    x:Class="FluentHub.UserControls.Block.RepoBlock"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FluentHub.UserControls.Block"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    Loaded="RepoBlockUserControl_Loaded">
+
+    <UserControl.Resources>
+        <Style x:Key="ContentBlockButtonStyle" TargetType="Button" BasedOn="{StaticResource DefaultButtonStyle}">
+            <Setter Property="Background" Value="{ThemeResource ExpanderHeaderBackground}" />
+            <Setter Property="BorderBrush" Value="{ThemeResource ExpanderHeaderBorderBrush}" />
+            <Setter Property="BorderThickness" Value="{ThemeResource ExpanderHeaderBorderThickness}" />
+            <Setter Property="HorizontalAlignment" Value="Stretch" />
+            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="Padding" Value="{StaticResource ExpanderContentPadding}" />
+            <Setter Property="MinHeight" Value="{StaticResource ExpanderMinHeight}" />
+            <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
+        </Style>
+    </UserControl.Resources>
+
+    <Grid>
+        <Button
+            x:Name="RepoBlockButton"
+            Style="{StaticResource ContentBlockButtonStyle}"
+            Margin="0,3,0,0"
+            Padding="18,12">
+            <Grid RowSpacing="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <TextBlock Grid.Row="0" x:Name="RepoName" Style="{ThemeResource BodyTextBlockStyle}" FontWeight="SemiBold"/>
+                <TextBlock Grid.Row="1" x:Name="ForkedFrom" Style="{StaticResource CaptionTextBlockStyle}" Visibility="Collapsed"/>
+                <TextBlock Grid.Row="2" x:Name="Description" Visibility="Collapsed"/>
+                <Grid Grid.Row="3" Margin="0,4,0,0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="6" Margin="0,0,16,0">
+                        <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xEA94;" FontSize="14"/>
+                        <TextBlock x:Name="StarCount"/>
+                    </StackPanel>
+                    <StackPanel x:Name="LanguageBlock" Grid.Column="1" Orientation="Horizontal" Spacing="6" Margin="0,0,16,0" Visibility="Collapsed">
+                        <Border x:Name="LanguageColor" CornerRadius="8" Height="14" Width="14"/>
+                        <TextBlock x:Name="Language"/>
+                    </StackPanel>
+                    <StackPanel x:Name="LicenseBlock" Grid.Column="2" Orientation="Horizontal" Spacing="6" Margin="0,0,16,0" Visibility="Collapsed">
+                        <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xE9F7;" FontSize="14"/>
+                        <TextBlock x:Name="License"/>
+                    </StackPanel>
+                    <StackPanel x:Name="ForkCountBlock" Grid.Column="3" Orientation="Horizontal" Spacing="6" Margin="0,0,16,0" Visibility="Collapsed">
+                        <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xEA55;" FontSize="14"/>
+                        <TextBlock x:Name="ForkCount"/>
+                    </StackPanel>
+                    <StackPanel x:Name="IssueCountBlock" Grid.Column="4" Orientation="Horizontal" Spacing="6" Margin="0,0,16,0" Visibility="Collapsed">
+                        <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xE9EA;" FontSize="14"/>
+                        <TextBlock x:Name="IssueCount"/>
+                    </StackPanel>
+                    <StackPanel x:Name="PRCountBlock" Grid.Column="5" Orientation="Horizontal" Spacing="6" Margin="0,0,16,0" Visibility="Collapsed">
+                        <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xE9BF;" FontSize="14"/>
+                        <TextBlock x:Name="PRCount"/>
+                    </StackPanel>
+                    <StackPanel x:Name="UpdatedAtBlock" Grid.Column="6" Orientation="Horizontal" Margin="0,0,16,0" Visibility="Collapsed">
+                        <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xEA9A;" FontSize="14" Margin="0,0,6,0"/>
+                        <TextBlock x:Name="UpdatedAtText" Text="Updated"/>
+                        <TextBlock x:Name="UpdatedAt" xml:space="preserve"/>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Button>
+    </Grid>
+</UserControl>

@@ -137,8 +137,14 @@
     <Compile Include="Services\OctokitEx\DevProgramMember.cs" />
     <Compile Include="Services\OctokitEx\Markdown.cs" />
     <Compile Include="Services\OctokitEx\UserPinnedItems.cs" />
+    <Compile Include="UserControls\Block\RepoBlock.xaml.cs">
+      <DependentUpon>RepoBlock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\CustomTabView.xaml.cs">
       <DependentUpon>CustomTabView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Label\UserProPlanLabel.xaml.cs">
+      <DependentUpon>UserProPlanLabel.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\SettingsBlockControl.xaml.cs">
       <DependentUpon>SettingsBlockControl.xaml</DependentUpon>
@@ -150,9 +156,10 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\SettingsManager.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
-    <Compile Include="ViewModels\UserPages\NotificationsViewModel.cs" />
+    <Compile Include="ViewModels\UserPages\ActivityViewModel.cs" />
+    <Compile Include="ViewModels\UserPages\NotificationViewModel.cs" />
     <Compile Include="ViewModels\UserPages\ProfilePageViewModel.cs" />
-    <Compile Include="ViewModels\UserPages\RepositoriesViewModel.cs" />
+    <Compile Include="ViewModels\UserPages\RepoListViewModel.cs" />
     <Compile Include="ViewModels\UserPages\OverviewViewModel.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -160,6 +167,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Views\UserHomePage.xaml.cs">
       <DependentUpon>UserHomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserPages\ActivityPage.xaml.cs">
+      <DependentUpon>ActivityPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserPages\OverviewPage.xaml.cs">
       <DependentUpon>OverviewPage.xaml</DependentUpon>
@@ -286,7 +296,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="UserControls\Block\RepoBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\CustomTabView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Label\UserProPlanLabel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -303,6 +321,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\UserHomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserPages\ActivityPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

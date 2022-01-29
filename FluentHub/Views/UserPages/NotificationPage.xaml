@@ -11,7 +11,7 @@
     mc:Ignorable="d">
 
     <Page.DataContext>
-        <vm:NotificationsViewModel x:Name="ViewModel"/>
+        <vm:NotificationViewModel x:Name="ViewModel"/>
     </Page.DataContext>
     <Page.Resources>
         <Style x:Key="ContentBlockButtonStyle" TargetType="Button" BasedOn="{StaticResource DefaultButtonStyle}">

@@ -37,9 +37,9 @@ namespace FluentHub.Views
                 case "Notifications":
                     HomeContentFrame.Navigate(typeof(NotificationPage));
                     break;
-                //case "Activities":
-                //    HomeContentFrame.Navigate(typeof());
-                //    break;
+                case "Activities":
+                    HomeContentFrame.Navigate(typeof(ActivityPage));
+                    break;
 
                 //case "Issues":
                 //    HomeContentFrame.Navigate(typeof());

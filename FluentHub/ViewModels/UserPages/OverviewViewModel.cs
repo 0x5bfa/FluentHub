@@ -28,11 +28,9 @@ namespace FluentHub.ViewModels.UserPages
             {
                 var item = await App.Client.Repository.Get(repoId);
 
-                RepoListItem listItem = new RepoListItem(item);
+                RepoListItem listItem = new RepoListItem();
                 Items.Add(listItem);
             }
-
-            Items = new ObservableCollection<RepoListItem>(Items.OrderByDescending(x => x.UpdatedAt));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
