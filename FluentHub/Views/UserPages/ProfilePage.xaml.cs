@@ -65,6 +65,12 @@ namespace FluentHub.Views.UserPages
                 case "Stars":
                     UserNavViewContent.Navigate(typeof(StarListPage));
                     break;
+                case "Followers":
+                    UserNavViewContent.Navigate(typeof(FollowersPage));
+                    break;
+                case "Following":
+                    UserNavViewContent.Navigate(typeof(FollowingPage));
+                    break;
             }
         }
 

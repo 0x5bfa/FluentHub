@@ -249,6 +249,16 @@
                                     <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xEA94;" FontSize="16"/>
                                 </muxc:NavigationViewItem.Icon>
                             </muxc:NavigationViewItem>
+                            <muxc:NavigationViewItem Tag="Followers" Content="Followers">
+                                <muxc:NavigationViewItem.Icon>
+                                    <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xEA38;" FontSize="16"/>
+                                </muxc:NavigationViewItem.Icon>
+                            </muxc:NavigationViewItem>
+                            <muxc:NavigationViewItem Tag="Following" Content="Followering">
+                                <muxc:NavigationViewItem.Icon>
+                                    <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xEA38;" FontSize="16"/>
+                                </muxc:NavigationViewItem.Icon>
+                            </muxc:NavigationViewItem>
                         </muxc:NavigationView.MenuItems>
                     </muxc:NavigationView>
                 </Grid>
