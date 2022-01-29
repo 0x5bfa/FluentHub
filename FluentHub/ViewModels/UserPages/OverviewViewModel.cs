@@ -22,13 +22,12 @@ namespace FluentHub.ViewModels.UserPages
             }
         }
 
-        public async void GetUserRepos(List<long> repoIdList)
+        public void GetPinnedRepos(List<long> repoIdList)
         {
             foreach (var repoId in repoIdList)
             {
-                var item = await App.Client.Repository.Get(repoId);
-
                 RepoListItem listItem = new RepoListItem();
+                listItem.RepoId = repoId;
                 Items.Add(listItem);
             }
         }

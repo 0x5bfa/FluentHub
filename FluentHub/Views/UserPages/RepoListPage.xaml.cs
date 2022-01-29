@@ -27,10 +27,5 @@ namespace FluentHub.Views.UserPages
         {
             ViewModel.GetUserRepos(App.SignedInUserName);
         }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }
