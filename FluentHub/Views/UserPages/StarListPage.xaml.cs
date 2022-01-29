@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentHub.Services.OctokitEx;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -21,6 +22,11 @@ namespace FluentHub.Views.UserPages
         public StarListPage()
         {
             this.InitializeComponent();
+        }
+
+        private void ItemsRepeater_Loaded(object sender, RoutedEventArgs e)
+        {
+            ViewModel.GetUserStarredRepos();
         }
     }
 }

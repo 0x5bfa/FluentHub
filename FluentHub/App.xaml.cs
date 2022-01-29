@@ -38,6 +38,10 @@ namespace FluentHub
 
         public static string DefaultHost { get; private set; } = "https://github.com";
 
+        public static string RestApiEndPoint { get; private set; } = "https://api.github.com";
+
+        public static string GraphQlApiEndPoint { get; private set; } = "https://api.github.com/graphql";
+
         public static string SignedInUserName { get; private set; }
 
         public App()

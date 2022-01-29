@@ -62,7 +62,7 @@ namespace FluentHub.Views.UserPages
 
             var repoIdList = await pinnedItems.Get(App.SignedInUserName);
 
-            ViewModel.GetPinnedRepos(repoIdList);
+            ViewModel.GetUserPinnedRepos(repoIdList);
         }
     }
 }

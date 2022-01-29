@@ -3,11 +3,17 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:FluentHub.Views.UserPages"
+    xmlns:uc="using:FluentHub.UserControls.Block"
+    xmlns:item="using:FluentHub.Models.Items"
+    xmlns:vm="using:FluentHub.ViewModels.UserPages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
 
+    <Page.DataContext>
+        <vm:StarListViewModel x:Name="ViewModel"/>
+    </Page.DataContext>
     <Page.Resources>
         <Style x:Key="ContentBlockButtonStyle" TargetType="Button" BasedOn="{StaticResource DefaultButtonStyle}">
             <Setter Property="Background" Value="{ThemeResource ExpanderHeaderBackground}" />
@@ -24,34 +30,12 @@
         </Style>
     </Page.Resources>
 
-    <Grid RowSpacing="6">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Spacing="8">
-            <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xEA01;" FontSize="16"/>
-            <TextBlock Text="List" Style="{StaticResource SubtitleTextBlockStyle}" FontSize="20"/>
-        </StackPanel>
-        <Grid Grid.Row="1">
-            <StackPanel>
-                <Button Style="{StaticResource ContentBlockButtonStyle}"/>
-            </StackPanel>
-        </Grid>
-        <Grid Grid.Row="2" Margin="8,0,0,32">
-            <TextBlock Padding="0" Style="{StaticResource CaptionTextBlockStyle}" Foreground="{StaticResource ApplicationSecondaryForegroundThemeBrush}">
-                <Span xml:space="preserve"><Run>Lists are currently in Fuature preview. </Run><Hyperlink NavigateUri="https://github.com/github/feedback/discussions/categories/lists-feedback">Share feedback and report bugs</Hyperlink><Run>.</Run></Span>
-            </TextBlock>
-        </Grid>
-        <StackPanel Grid.Row="3" Orientation="Horizontal" Spacing="8">
-            <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xEA94;" FontSize="16"/>
-            <TextBlock Text="Starred" Style="{StaticResource SubtitleTextBlockStyle}"/>
-        </StackPanel>
-        <Grid Grid.Row="4" RowSpacing="6" ColumnSpacing="6" Margin="0,0,0,6">
+        <Grid Grid.Row="0" RowSpacing="6" ColumnSpacing="6" Margin="0,0,0,6">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -62,7 +46,7 @@
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
-            <TextBlock Text="Find a repository" FontWeight="SemiBold"/>
+            <TextBlock Text="Find a starred repository" FontWeight="SemiBold"/>
             <AutoSuggestBox Grid.Row="1" PlaceholderText="Find a repository..."/>
             <TextBlock Grid.Column="1" Text="Type" FontWeight="SemiBold"/>
             <ComboBox Grid.Row="1" Grid.Column="1" Width="96" PlaceholderText="Type">
@@ -84,10 +68,15 @@
                 <x:String>Most stars</x:String>
             </ComboBox>
         </Grid>
-        <Grid Grid.Row="5" Margin="0,6,0,0">
-            <StackPanel>
-                <Button Style="{StaticResource ContentBlockButtonStyle}"/>
-            </StackPanel>
+        <Grid Grid.Row="1" Margin="0,6,0,0">
+            <muxc:ProgressRing x:Name="loadingRing" IsActive="{Binding IsActive}" />
+            <Border>
+                <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Items}" Loaded="ItemsRepeater_Loaded">
+                    <DataTemplate x:DataType="item:RepoListItem">
+                        <uc:RepoBlock x:Name="RepositoryBlock" RepositoryId="{x:Bind RepoId}" DisplayDitails="True"/>
+                    </DataTemplate>
+                </muxc:ItemsRepeater>
+            </Border>
         </Grid>
     </Grid>
 </Page>

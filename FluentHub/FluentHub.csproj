@@ -137,6 +137,7 @@
     <Compile Include="Services\OctokitEx\DevProgramMember.cs" />
     <Compile Include="Services\OctokitEx\Markdown.cs" />
     <Compile Include="Services\OctokitEx\UserPinnedItems.cs" />
+    <Compile Include="Services\OctokitEx\UserStarredItems.cs" />
     <Compile Include="UserControls\Block\RepoBlock.xaml.cs">
       <DependentUpon>RepoBlock.xaml</DependentUpon>
     </Compile>
@@ -161,6 +162,7 @@
     <Compile Include="ViewModels\UserPages\ProfilePageViewModel.cs" />
     <Compile Include="ViewModels\UserPages\RepoListViewModel.cs" />
     <Compile Include="ViewModels\UserPages\OverviewViewModel.cs" />
+    <Compile Include="ViewModels\UserPages\StarListViewModel.cs" />
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
