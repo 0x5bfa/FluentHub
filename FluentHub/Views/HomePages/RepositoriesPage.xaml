@@ -28,6 +28,6 @@
         <Grid Margin="20,20,20,12">
             <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Repositories"/>
         </Grid>
-        <Frame Grid.Row="1" x:Name="HomeRepoPageFrame"/>
+        <Frame Grid.Row="1" Margin="20,6" x:Name="HomeRepoPageFrame"/>
     </Grid>
 </Page>

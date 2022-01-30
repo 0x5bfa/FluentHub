@@ -28,6 +28,6 @@
         <Grid Margin="20,20,20,12">
             <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Starred"/>
         </Grid>
-        <Frame Grid.Row="1" x:Name="HomeStarsPageFrame"/>
+        <Frame Grid.Row="1" Margin="20,6" x:Name="HomeStarsPageFrame"/>
     </Grid>
 </Page>
