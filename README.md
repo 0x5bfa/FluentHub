@@ -8,12 +8,12 @@
 
 > **Warning**⚠️<br> This project is in dev stage. Expect regular breaking changes.
 
->**Need help**🔧<br/>Any trivial suggestions or corrections are fine. Feel free to open a [issue](https://github.com/onein528/FluentHub/issues/new)/[PR](https://github.com/onein528/FluentHub/compare).<br>*If you want to contribute to this repository in earnest, please [request a this project member](https://github.com/onein528/FluentHub/issues/new).*
+>**Need help**🔧<br/>Any trivial suggestions or corrections are fine. Feel free to open a [issue](https://github.com/onein528/FluentHub/issues/new)/[PR](https://github.com/onein528/FluentHub/compare).<br>**If you want to contribute to this repository in earnest, please [request to become a member](https://github.com/onein528/FluentHub/issues/new).**
 
 ## Screenshot
 > User profile page which have not been developed yet
 
-![image](https://user-images.githubusercontent.com/62196528/150998767-6f1f09c4-51d9-4367-8d0e-90cd52ebb9cd.png)
+![image](https://user-images.githubusercontent.com/62196528/151688553-7ad79c8a-a88a-4e57-b5ab-417ba247e9a1.png)
 
 ## Build from source
 
@@ -23,7 +23,7 @@
 
 ### 2. Clone the repo
 
-Click "Open Visual Studio" on this repo page
+Click "Open with Visual Studio" on this repo page
 
 ### 3. Add app credentials
 
