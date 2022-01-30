@@ -17,6 +17,8 @@
             <Setter Property="BorderThickness" Value="{ThemeResource ExpanderHeaderBorderThickness}" />
             <Setter Property="HorizontalAlignment" Value="Stretch" />
             <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            <Setter Property="VerticalContentAlignment" Value="Stretch" />
+            <Setter Property="VerticalAlignment" Value="Stretch" />
             <Setter Property="Padding" Value="{StaticResource ExpanderContentPadding}" />
             <Setter Property="MinHeight" Value="{StaticResource ExpanderMinHeight}" />
             <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
@@ -28,22 +30,23 @@
             x:Name="RepoBlockButton"
             Style="{StaticResource ContentBlockButtonStyle}"
             Margin="0,3,0,0"
-            Padding="18,12">
+            Padding="18,12"
+            Click="RepoBlockButton_Click">
             <Grid ColumnSpacing="6">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Grid RowSpacing="4">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" x:Name="RepoName" Style="{ThemeResource BodyTextBlockStyle}" FontWeight="SemiBold"/>
+                    <TextBlock Grid.Row="0" x:Name="RepoName" Style="{ThemeResource BodyTextBlockStyle}" FontWeight="SemiBold" TextWrapping="Wrap"/>
                     <TextBlock Grid.Row="1" x:Name="ForkedFrom" Style="{StaticResource CaptionTextBlockStyle}" Visibility="Collapsed"/>
-                    <TextBlock Grid.Row="2" x:Name="Description" Visibility="Collapsed"/>
+                    <TextBlock Grid.Row="2" x:Name="Description" Visibility="Collapsed" TextWrapping="Wrap"/>
                     <Grid Grid.Row="3" Margin="0,4,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -85,7 +88,7 @@
                         </StackPanel>
                     </Grid>
                 </Grid>
-                <Grid Grid.Column="1">
+                <Grid x:Name="StarButtonBlock" Grid.Column="1" Visibility="Visible" Width="100">
                     <Button HorizontalAlignment="Stretch" Click="StarButton_Click">
                         <StackPanel Orientation="Horizontal" Spacing="6">
                             <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xEA94;" FontSize="16"/>

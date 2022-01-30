@@ -48,6 +48,20 @@ namespace FluentHub.UserControls.Block
             set => SetValue(DisplayDitailsProperty, value);
         }
 
+        public static readonly DependencyProperty DisplayStarButtonProperty
+            = DependencyProperty.Register(
+                  nameof(DisplayStarButton),
+                  typeof(bool),
+                  typeof(RepoBlock),
+                  new PropertyMetadata(null)
+                );
+
+        public bool DisplayStarButton
+        {
+            get => (bool)GetValue(DisplayStarButtonProperty);
+            set => SetValue(DisplayStarButtonProperty, value);
+        }
+
         public RepoBlock()
         {
             this.InitializeComponent();
@@ -55,6 +69,13 @@ namespace FluentHub.UserControls.Block
 
         private async void RepoBlockUserControl_Loaded(object sender, RoutedEventArgs e)
         {
+            // Star button
+            if (DisplayStarButton == false)
+            {
+                StarButtonBlock.Visibility = Visibility.Collapsed;
+            }
+
+            // Block contents
             var repo = await App.Client.Repository.Get(RepositoryId);
 
             RepoBlockButton.Tag = RepositoryId;
@@ -110,6 +131,11 @@ namespace FluentHub.UserControls.Block
         private void StarButton_Click(object sender, RoutedEventArgs e)
         {
 
+        }
+
+        private void RepoBlockButton_Click(object sender, RoutedEventArgs e)
+        {
+            App.MainViewModel.MainFrame.Navigate(typeof(Views.RepoPages.OverviewPage), RepoBlockButton.Tag.ToString());
         }
     }
 }

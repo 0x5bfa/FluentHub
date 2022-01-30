@@ -47,6 +47,7 @@ namespace FluentHub.Views
 
         private void HomeButton_Click(object sender, RoutedEventArgs e)
         {
+            App.MainViewModel.MainFrame.Navigate(typeof(UserHomePage));
         }
     }
 }

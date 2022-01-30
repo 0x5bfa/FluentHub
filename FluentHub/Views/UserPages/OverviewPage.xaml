@@ -87,7 +87,7 @@
                             <muxc:StackLayout Orientation="Horizontal" Spacing="8"/>
                         </muxc:ItemsRepeater.Layout>
                         <DataTemplate x:DataType="item:RepoListItem">
-                            <uc:RepoBlock x:Name="RepositoryBlock" RepositoryId="{x:Bind RepoId}" Width="250"/>
+                            <uc:RepoBlock x:Name="RepositoryBlock" RepositoryId="{x:Bind RepoId}" Width="250" VerticalAlignment="Stretch" DisplayStarButton="False"/>
                         </DataTemplate>
                     </muxc:ItemsRepeater>
                 </ScrollViewer>
