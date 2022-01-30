@@ -35,7 +35,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" RowSpacing="6" ColumnSpacing="6" Margin="0,0,0,6">
+        <Grid Grid.Row="0" RowSpacing="6" ColumnSpacing="6">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
@@ -68,15 +68,17 @@
                 <x:String>Most stars</x:String>
             </ComboBox>
         </Grid>
-        <Grid Grid.Row="1" Margin="0,6,0,0">
-            <muxc:ProgressRing x:Name="loadingRing" IsActive="{Binding IsActive}" />
-            <Border>
-                <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Items}" Loaded="ItemsRepeater_Loaded">
-                    <DataTemplate x:DataType="item:RepoListItem">
-                        <uc:RepoBlock x:Name="RepositoryBlock" RepositoryId="{x:Bind RepoId}" DisplayDitails="True"/>
-                    </DataTemplate>
-                </muxc:ItemsRepeater>
-            </Border>
-        </Grid>
+        <ScrollViewer Grid.Row="1" Margin="0,6,0,0">
+            <Grid>
+                <muxc:ProgressRing x:Name="loadingRing" IsActive="{Binding IsActive}" />
+                <Border>
+                    <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Items}" Loaded="ItemsRepeater_Loaded">
+                        <DataTemplate x:DataType="item:RepoListItem">
+                            <uc:RepoBlock x:Name="RepositoryBlock" RepositoryId="{x:Bind RepoId}" DisplayDitails="True"/>
+                        </DataTemplate>
+                    </muxc:ItemsRepeater>
+                </Border>
+            </Grid>
+        </ScrollViewer>
     </Grid>
 </Page>

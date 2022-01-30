@@ -1,4 +1,5 @@
-﻿using FluentHub.Views.UserPages;
+﻿using FluentHub.Views.HomePages;
+using FluentHub.Views.UserPages;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -35,30 +36,30 @@ namespace FluentHub.Views
                     HomeContentFrame.Navigate(typeof(ProfilePage));
                     break;
                 case "Notifications":
-                    HomeContentFrame.Navigate(typeof(NotificationPage));
+                    HomeContentFrame.Navigate(typeof(NotificationsPage));
                     break;
                 case "Activities":
                     HomeContentFrame.Navigate(typeof(ActivityPage));
                     break;
 
-                //case "Issues":
-                //    HomeContentFrame.Navigate(typeof());
-                //    break;
-                //case "Pulls":
-                //    HomeContentFrame.Navigate(typeof());
-                //    break;
-                //case "Discussions":
-                //    HomeContentFrame.Navigate(typeof());
-                //    break;
-                //case "Repositories":
-                //    HomeContentFrame.Navigate(typeof());
-                //    break;
-                //case "Organizations":
-                //    HomeContentFrame.Navigate(typeof());
-                //    break;
-                //case "Starred":
-                //    HomeContentFrame.Navigate(typeof());
-                //    break;
+                case "Issues":
+                    HomeContentFrame.Navigate(typeof(IssueListPage));
+                    break;
+                case "Pulls":
+                    HomeContentFrame.Navigate(typeof(PullRequestListPage));
+                    break;
+                case "Discussions":
+                    //HomeContentFrame.Navigate(typeof());
+                    break;
+                case "Repositories":
+                    HomeContentFrame.Navigate(typeof(HomePages.RepositoriesPage));
+                    break;
+                case "Organizations":
+                    //HomeContentFrame.Navigate(typeof());
+                    break;
+                case "Starred":
+                    HomeContentFrame.Navigate(typeof(HomePages.StarsPage));
+                    break;
             }
         }
     }

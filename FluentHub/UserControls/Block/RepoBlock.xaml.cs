@@ -106,5 +106,10 @@ namespace FluentHub.UserControls.Block
             UpdatedAt.Text = " " + repo.UpdatedAt.Humanize();
             UpdatedAtBlock.Visibility = Visibility.Visible;
         }
+
+        private void StarButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
