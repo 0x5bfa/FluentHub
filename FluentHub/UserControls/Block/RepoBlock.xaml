@@ -35,7 +35,7 @@
             <Grid ColumnSpacing="6">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="100"/>
+                    <ColumnDefinition Width="Auto"/>
                 </Grid.ColumnDefinitions>
                 <Grid RowSpacing="4">
                     <Grid.RowDefinitions>
@@ -44,9 +44,9 @@
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="Auto"/>
                     </Grid.RowDefinitions>
-                    <TextBlock Grid.Row="0" x:Name="RepoName" Style="{ThemeResource BodyTextBlockStyle}" FontWeight="SemiBold"/>
+                    <TextBlock Grid.Row="0" x:Name="RepoName" Style="{ThemeResource BodyTextBlockStyle}" FontWeight="SemiBold" TextWrapping="Wrap"/>
                     <TextBlock Grid.Row="1" x:Name="ForkedFrom" Style="{StaticResource CaptionTextBlockStyle}" Visibility="Collapsed"/>
-                    <TextBlock Grid.Row="2" x:Name="Description" Visibility="Collapsed"/>
+                    <TextBlock Grid.Row="2" x:Name="Description" Visibility="Collapsed" TextWrapping="Wrap"/>
                     <Grid Grid.Row="3" Margin="0,4,0,0">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto"/>
@@ -88,7 +88,7 @@
                         </StackPanel>
                     </Grid>
                 </Grid>
-                <Grid Grid.Column="1">
+                <Grid x:Name="StarButtonBlock" Grid.Column="1" Visibility="Visible" Width="100">
                     <Button HorizontalAlignment="Stretch" Click="StarButton_Click">
                         <StackPanel Orientation="Horizontal" Spacing="6">
                             <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xEA94;" FontSize="16"/>
