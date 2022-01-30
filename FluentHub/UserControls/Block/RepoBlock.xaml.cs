@@ -111,5 +111,10 @@ namespace FluentHub.UserControls.Block
         {
 
         }
+
+        private void RepoBlockButton_Click(object sender, RoutedEventArgs e)
+        {
+            App.MainViewModel.MainFrame.Navigate(typeof(Views.RepoPages.OverviewPage), RepoBlockButton.Tag.ToString());
+        }
     }
 }

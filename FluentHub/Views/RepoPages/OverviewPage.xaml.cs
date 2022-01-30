@@ -22,5 +22,10 @@ namespace FluentHub.Views.RepoPages
         {
             this.InitializeComponent();
         }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            var RepoId = e.Parameter as string;
+        }
     }
 }

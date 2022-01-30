@@ -5,9 +5,42 @@
     xmlns:local="using:FluentHub.Views.RepoPages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
 
-    <Grid>
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <Thickness x:Key="NavigationViewTopPaneHeight">40</Thickness>
+                    <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
+                    <!--<SolidColorBrush x:Key="ExpanderHeaderBackground" Color="Transparent" />
+                    <SolidColorBrush x:Key="ExpanderHeaderBorderBrush" Color="Transparent" />
+                    <Thickness x:Key="ExpanderHeaderPadding">0</Thickness>
+                    <SolidColorBrush x:Key="ExpanderHeaderBorderPointerOverBrush" Color="Transparent" />
+                    <SolidColorBrush x:Key="ExpanderHeaderBorderPressedBrush" Color="Transparent" />
+                    <SolidColorBrush x:Key="ExpanderContentBackground" Color="Transparent" />
+                    <SolidColorBrush x:Key="ExpanderContentBorderBrush" Color="Transparent" />
+                    <x:Double x:Key="ExpanderMinHeight">0</x:Double>
+                    <Thickness x:Key="ExpanderContentPadding">0</Thickness>-->
+                    <Style x:Key="ButtonSettingsBlockStyle" TargetType="Button" BasedOn="{StaticResource DefaultButtonStyle}">
+                        <Setter Property="Background" Value="{ThemeResource ExpanderHeaderBackground}" />
+                        <Setter Property="BorderBrush" Value="{ThemeResource ExpanderHeaderBorderBrush}" />
+                        <Setter Property="BorderThickness" Value="{ThemeResource ExpanderHeaderBorderThickness}" />
+                        <Setter Property="HorizontalAlignment" Value="Stretch" />
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Setter Property="Padding" Value="{StaticResource ExpanderContentPadding}" />
+                        <Setter Property="MinHeight" Value="{StaticResource ExpanderMinHeight}" />
+                        <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
+                    </Style>
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
 
+    <Grid>
+        <ScrollViewer>
+            <TextBlock Text="Repository page"/>
+        </ScrollViewer>
     </Grid>
 </Page>
