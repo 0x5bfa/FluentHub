@@ -1,9 +1,10 @@
 ﻿<Page
-    x:Class="FluentHub.Views.UserPages.Activities"
+    x:Class="FluentHub.Views.UserPages.OverviewPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:FluentHub.Views.UserPages"
-    xmlns:model="using:FluentHub.Models.Items"
+    xmlns:uc="using:FluentHub.UserControls.Block"
+    xmlns:item="using:FluentHub.Models.Items"
     xmlns:vm="using:FluentHub.ViewModels.UserPages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -11,7 +12,7 @@
     mc:Ignorable="d">
 
     <Page.DataContext>
-        <vm:ActivitiesViewModel x:Name="ViewModel"/>
+        <vm:OverviewViewModel x:Name="ViewModel"/>
     </Page.DataContext>
     <Page.Resources>
         <Style x:Key="PinnedItemBlockButtonStyle" TargetType="Button" BasedOn="{StaticResource DefaultButtonStyle}">
@@ -80,47 +81,13 @@
                     <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xEA3E;" FontSize="16"/>
                     <TextBlock Text="Pinned" Style="{StaticResource SubtitleTextBlockStyle}" FontSize="14"/>
                 </StackPanel>
-                <ScrollViewer VerticalScrollMode="Disabled" HorizontalScrollBarVisibility="Auto" Grid.Row="1">
+                <ScrollViewer VerticalScrollMode="Disabled" HorizontalScrollBarVisibility="Hidden" Grid.Row="1">
                     <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Items}" Loaded="ItemsRepeater_Loaded">
                         <muxc:ItemsRepeater.Layout>
                             <muxc:StackLayout Orientation="Horizontal" Spacing="8"/>
                         </muxc:ItemsRepeater.Layout>
-                        <DataTemplate x:DataType="model:RepoListItem">
-                            <Grid>
-                                <StackPanel>
-                                    <Button
-                                        Style="{StaticResource PinnedItemBlockButtonStyle}"
-                                        Margin="0,3,0,0"
-                                        Padding="18,12"
-                                        Width="256"
-                                        Tag="{x:Bind Tag}">
-                                        <Grid RowSpacing="4">
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="*"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
-                                            <TextBlock Grid.Row="1" Text="{x:Bind Name}" Style="{ThemeResource BodyTextBlockStyle}" FontWeight="SemiBold"/>
-                                            <TextBlock Grid.Row="2" Text="{x:Bind Description}"/>
-                                            <Grid Grid.Row="3" Margin="0,4,0,0" ColumnSpacing="16">
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                    <ColumnDefinition Width="Auto"/>
-                                                </Grid.ColumnDefinitions>
-                                                <StackPanel Orientation="Horizontal" Spacing="6">
-                                                    <FontIcon Glyph="&#xe734;" FontSize="14"/>
-                                                    <TextBlock Text="{x:Bind StarCount}"/>
-                                                </StackPanel>
-                                                <StackPanel x:Name="LanguageBlock" Grid.Column="1" Orientation="Horizontal" Spacing="6">
-                                                    <Border CornerRadius="8" Height="14" Width="14" Background="{x:Bind LanguageColor}"/>
-                                                    <TextBlock Text="{x:Bind Language}"/>
-                                                </StackPanel>
-                                            </Grid>
-                                        </Grid>
-                                    </Button>
-                                </StackPanel>
-                            </Grid>
+                        <DataTemplate x:DataType="item:RepoListItem">
+                            <uc:RepoBlock x:Name="RepositoryBlock" RepositoryId="{x:Bind RepoId}" Width="250"/>
                         </DataTemplate>
                     </muxc:ItemsRepeater>
                 </ScrollViewer>

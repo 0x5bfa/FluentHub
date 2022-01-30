@@ -1,15 +1,17 @@
 ﻿using FluentHub.Models.Items;
+using FluentHub.Services.OctokitEx;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.UserPages
 {
-    public class ActivitiesViewModel : INotifyPropertyChanged
+    public class StarListViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<RepoListItem> _items = new ObservableCollection<RepoListItem>();
         public ObservableCollection<RepoListItem> Items
@@ -22,17 +24,22 @@ namespace FluentHub.ViewModels.UserPages
             }
         }
 
-        public async void GetUserRepos(List<long> repoIdList)
+        public async void GetUserStarredRepos()
         {
+            IsActive = true;
+
+            UserStarredItems starredItems = new UserStarredItems();
+
+            var repoIdList = await starredItems.Get(App.SignedInUserName);
+
             foreach (var repoId in repoIdList)
             {
-                var item = await App.Client.Repository.Get(repoId);
-
-                RepoListItem listItem = new RepoListItem(item);
+                RepoListItem listItem = new RepoListItem();
+                listItem.RepoId = repoId;
                 Items.Add(listItem);
             }
 
-            Items = new ObservableCollection<RepoListItem>(Items.OrderByDescending(x => x.UpdatedAt));
+            IsActive = false;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -43,5 +50,20 @@ namespace FluentHub.ViewModels.UserPages
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
         }
+
+        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
+        {
+            if (!Equals(field, newValue))
+            {
+                field = newValue;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool isActive;
+        public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
     }
 }

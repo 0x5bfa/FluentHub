@@ -1,4 +1,5 @@
 ﻿using FluentHub.ViewModels;
+using FluentHub.Views;
 using FluentHub.Views.UserPages;
 using Microsoft.UI.Xaml.Controls;
 using System.Collections.Generic;
@@ -104,7 +105,7 @@ namespace FluentHub.UserControls
         private void MainTabView_Loaded(object sender, RoutedEventArgs e)
         {
             MainPageViewModel.AddNewTabByPath($"/{App.SignedInUserName}");
-            App.MainViewModel.MainFrame.Navigate(typeof(ProfilePage), $"{App.SignedInUserName}");
+            App.MainViewModel.MainFrame.Navigate(typeof(UserHomePage));
         }
 
         private void CloseTab(TabItem tabItem)

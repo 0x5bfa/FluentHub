@@ -19,9 +19,9 @@ using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub.Views.UserPages
 {
-    public sealed partial class Activities : Windows.UI.Xaml.Controls.Page
+    public sealed partial class OverviewPage : Windows.UI.Xaml.Controls.Page
     {
-        public Activities()
+        public OverviewPage()
         {
             this.InitializeComponent();
         }
@@ -62,7 +62,7 @@ namespace FluentHub.Views.UserPages
 
             var repoIdList = await pinnedItems.Get(App.SignedInUserName);
 
-            ViewModel.GetUserRepos(repoIdList);
+            ViewModel.GetUserPinnedRepos(repoIdList);
         }
     }
 }

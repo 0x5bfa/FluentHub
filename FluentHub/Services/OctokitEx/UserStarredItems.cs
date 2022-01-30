@@ -1,17 +1,15 @@
 ﻿using GraphQL;
 using GraphQL.Client.Http;
 using GraphQL.Client.Serializer.Newtonsoft;
-using Octokit;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace FluentHub.Services.OctokitEx
 {
-    public class UserPinnedItems
+    public class UserStarredItems
     {
         public async Task<List<long>> Get(string username)
         {
@@ -25,19 +23,21 @@ namespace FluentHub.Services.OctokitEx
 
                 var repositoriesRequest = new GraphQLRequest
                 {
-                    Query = "query { user(login: \"" + username + "\") {pinnedItems(first: 6) {nodes {... on Repository {nameWithOwner}}}}}"
+                    Query = "query { user(login: \"" + username + "\") {starredRepositories(first: 100) { nodes { nameWithOwner }}}}"
                 };
 
                 var graphQLResponse = await graphQLClient.SendQueryAsync<ResponseType>(repositoriesRequest);
 
                 List<long> repoIdList = new List<long>();
 
-                foreach (var fullname in graphQLResponse.Data.User.PinnedItems.Nodes)
+                foreach (var fullname in graphQLResponse.Data.User.StarredRepositories.Nodes)
                 {
                     var repoId = await GetRepoIdFromRepoNameAndOwner(fullname.NameWithOwner);
 
                     repoIdList.Add(repoId);
                 }
+
+                repoIdList.Reverse();
 
                 return repoIdList;
             }
@@ -62,9 +62,9 @@ namespace FluentHub.Services.OctokitEx
 
             public class UserNode
             {
-                public PinnedItemsNode PinnedItems { get; set; }
+                public StarredRepositoriesNode StarredRepositories { get; set; }
 
-                public class PinnedItemsNode
+                public class StarredRepositoriesNode
                 {
                     public List<NodeType> Nodes { get; set; }
 

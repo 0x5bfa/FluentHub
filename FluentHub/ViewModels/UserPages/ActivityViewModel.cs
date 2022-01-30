@@ -1,4 +1,5 @@
 ﻿using FluentHub.Models.Items;
+using Octokit;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -10,10 +11,10 @@ using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.UserPages
 {
-    public class RepositoriesViewModel : INotifyPropertyChanged
+    public class ActivityViewModel : INotifyPropertyChanged
     {
-        private ObservableCollection<RepoListItem> _items = new ObservableCollection<RepoListItem>();
-        public ObservableCollection<RepoListItem> Items
+        private ObservableCollection<NotificationListItem> _items = new ObservableCollection<NotificationListItem>();
+        public ObservableCollection<NotificationListItem> Items
         {
             get => _items;
             private set
@@ -23,26 +24,35 @@ namespace FluentHub.ViewModels.UserPages
             }
         }
 
-        public async void GetUserRepos(string username)
+        public async Task GetAllActivityForCurrent()
         {
             IsActive = true;
-            var repos = await App.Client.Repository.GetAllForUser(username);
 
-            foreach (var item in repos)
+            var events = await App.Client.Activity.Events.GetAllUserReceived($"{App.SignedInUserName}");
+
+            foreach (var item in events)
             {
-                if (item.Owner.Type == Octokit.AccountType.User)
+                if (item.Type != "ForkEvent"
+                    && item.Type != "PushEvent"
+                    && item.Type != "ReleaseEvent"
+                    && item.Type != "WatchEvent")
                 {
-                    RepoListItem listItem = new RepoListItem(item);
-                    Items.Add(listItem);
-                    IsActive = false;
+                    continue;
                 }
+
+
+
+
             }
 
-            Items = new ObservableCollection<RepoListItem>(Items.OrderByDescending(x => x.UpdatedAt));
+            IsActive = false;
         }
 
+        private bool isActive;
+        public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
+
         public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged(String info)
+        private void NotifyPropertyChanged(string info)
         {
             if (PropertyChanged != null)
             {
@@ -61,9 +71,5 @@ namespace FluentHub.ViewModels.UserPages
 
             return false;
         }
-
-        private bool isActive;
-
-        public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
     }
 }
