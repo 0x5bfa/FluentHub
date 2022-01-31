@@ -6,14 +6,14 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Loaded="Page_Loaded">
 
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
                     <Thickness x:Key="NavigationViewTopPaneHeight">40</Thickness>
-                    <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
                     <!--<SolidColorBrush x:Key="ExpanderHeaderBackground" Color="Transparent" />
                     <SolidColorBrush x:Key="ExpanderHeaderBorderBrush" Color="Transparent" />
                     <Thickness x:Key="ExpanderHeaderPadding">0</Thickness>
@@ -38,9 +38,139 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid>
-        <ScrollViewer>
-            <TextBlock Text="Repository page"/>
-        </ScrollViewer>
-    </Grid>
+    <ScrollViewer VerticalScrollMode="Disabled">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid Margin="20,20,20,12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Border CornerRadius="8" Background="{ThemeResource ExpanderHeaderBackground}" BorderBrush="{ThemeResource ExpanderHeaderBorderBrush}" BorderThickness="0.5">
+                    <Image Source="https://avatars.githubusercontent.com/u/98096883?s=88&amp;=4" Height="48"/>
+                </Border>
+                <StackPanel Grid.Column="1" Margin="12,0" VerticalAlignment="Center">
+                    <Button Grid.Column="1" FontWeight="Normal" Style="{StaticResource ClearButtonStyle}" Background="Transparent" HorizontalAlignment="Left" Padding="2,0">
+                        <TextBlock x:Name="RepoOwnerName" Text="fluenthub-uwp" Style="{StaticResource BodyTextBlockStyle}" FontWeight="Normal"/>
+                    </Button>
+                    <Button Grid.Column="3" FontWeight="Normal" Style="{StaticResource ClearButtonStyle}" Background="Transparent" HorizontalAlignment="Left" Padding="2,-4">
+                        <TextBlock x:Name="RepoName" Text="FluentHub" Style="{StaticResource SubtitleTextBlockStyle}"/>
+                    </Button>
+                </StackPanel>
+                <StackPanel Grid.Column="5" Spacing="6" Orientation="Horizontal" VerticalAlignment="Top">
+                    <muxc:DropDownButton x:Name="WatchCombbox" Grid.Column="2">
+                        <muxc:DropDownButton.Flyout>
+                            <MenuFlyout Placement="BottomEdgeAlignedLeft">
+                                <muxc:RadioMenuFlyoutItem Text="Participating and @mentions" IsChecked="True"/>
+                                <muxc:RadioMenuFlyoutItem Text="All activity" IsChecked="True"/>
+                                <muxc:RadioMenuFlyoutItem Text="Ignore" IsChecked="True"/>
+                                <muxc:RadioMenuFlyoutItem Text="Custom" IsChecked="True"/>
+                            </MenuFlyout>
+                        </muxc:DropDownButton.Flyout>
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon FontFamily="octions" Glyph="&#xe98b;" FontSize="14"/>
+                                <TextBlock Text="Watch"/>
+                                <muxc:InfoBadge Value="1000"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </muxc:DropDownButton>
+                    <Button Grid.Column="3">
+                        <Button.Content>
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon FontFamily="octions" Glyph="&#xea55;" FontSize="14"/>
+                                <TextBlock Text="Fork"/>
+                                <muxc:InfoBadge Value="1000"/>
+                            </StackPanel>
+                        </Button.Content>
+                    </Button>
+                    <muxc:ToggleSplitButton Grid.Column="4">
+                        <muxc:ToggleSplitButton.Flyout>
+                            <MenuFlyout Placement="Bottom">
+                                <ToggleMenuFlyoutItem Text="List1" IsChecked="True"/>
+                                <ToggleMenuFlyoutItem Text="List2"/>
+                                <MenuFlyoutSeparator/>
+                                <MenuFlyoutItem Icon="Add" Text="Create list" MinWidth="128"/>
+                            </MenuFlyout>
+                        </muxc:ToggleSplitButton.Flyout>
+                        <muxc:ToggleSplitButton.Content>
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon Glyph="&#xe734;" FontSize="14"/>
+                                <TextBlock Text="Star"/>
+                                <muxc:InfoBadge Value="0"/>
+                            </StackPanel>
+                        </muxc:ToggleSplitButton.Content>
+                    </muxc:ToggleSplitButton>
+                </StackPanel>
+            </Grid>
+            <Grid Grid.Row="1">
+                <muxc:NavigationView x:Name="RepoPageNavView" PaneDisplayMode="Top" IsSettingsVisible="False" IsBackButtonVisible="Collapsed" Margin="10,0" SelectionChanged="RepoPageNavView_SelectionChanged">
+                    <muxc:NavigationView.MenuItems>
+                        <muxc:NavigationViewItem Tag="Code" Content="Code" IsSelected="True">
+                            <muxc:NavigationViewItem.Icon>
+                                <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xE94b;" FontSize="16"/>
+                            </muxc:NavigationViewItem.Icon>
+                        </muxc:NavigationViewItem>
+                        <muxc:NavigationViewItem Tag="Issues" Content="Issues">
+                            <muxc:NavigationViewItem.Icon>
+                                <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xE9EA;" FontSize="16"/>
+                            </muxc:NavigationViewItem.Icon>
+                            <muxc:NavigationViewItem.InfoBadge>
+                                <muxc:InfoBadge Value="256"/>
+                            </muxc:NavigationViewItem.InfoBadge>
+                        </muxc:NavigationViewItem>
+                        <muxc:NavigationViewItem Tag="PRs" Content="Pull Requests">
+                            <muxc:NavigationViewItem.Icon>
+                                <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xE9BF;" FontSize="16"/>
+                            </muxc:NavigationViewItem.Icon>
+                            <muxc:NavigationViewItem.InfoBadge>
+                                <muxc:InfoBadge Value="256"/>
+                            </muxc:NavigationViewItem.InfoBadge>
+                        </muxc:NavigationViewItem>
+                        <!--<muxc:NavigationViewItem Tag="Actions" Content="Actions">
+                            <muxc:NavigationViewItem.Icon>
+                                <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xEA40;" FontSize="16"/>
+                            </muxc:NavigationViewItem.Icon>
+                        </muxc:NavigationViewItem>
+                        <muxc:NavigationViewItem Tag="Projects" Content="Projects">
+                            <muxc:NavigationViewItem.Icon>
+                                <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xEAA3;" FontSize="16"/>
+                            </muxc:NavigationViewItem.Icon>
+                        </muxc:NavigationViewItem>
+                        <muxc:NavigationViewItem Tag="Wiki" Content="Wiki">
+                            <muxc:NavigationViewItem.Icon>
+                                <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xE922;" FontSize="16"/>
+                            </muxc:NavigationViewItem.Icon>
+                        </muxc:NavigationViewItem>
+                        <muxc:NavigationViewItem Tag="Security" Content="Security">
+                            <muxc:NavigationViewItem.Icon>
+                                <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xEA72;" FontSize="16"/>
+                            </muxc:NavigationViewItem.Icon>
+                        </muxc:NavigationViewItem>
+                        <muxc:NavigationViewItem Tag="Insights" Content="Insights">
+                            <muxc:NavigationViewItem.Icon>
+                                <FontIcon FontFamily="octions" Glyph="&#xE9C9;" FontSize="16"/>
+                            </muxc:NavigationViewItem.Icon>
+                        </muxc:NavigationViewItem>-->
+                        <muxc:NavigationViewItem Tag="Settings" Content="Settings">
+                            <muxc:NavigationViewItem.Icon>
+                                <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xE9B3;" FontSize="16"/>
+                            </muxc:NavigationViewItem.Icon>
+                        </muxc:NavigationViewItem>
+                    </muxc:NavigationView.MenuItems>
+                    <muxc:NavigationView.Content>
+                        <Frame x:Name="RepoPageNavViewFrame" Background="{ThemeResource LayerFillColorDefaultBrush}" Margin="-12,0"/>
+                    </muxc:NavigationView.Content>
+                </muxc:NavigationView>
+            </Grid>
+        </Grid>
+    </ScrollViewer>
 </Page>
