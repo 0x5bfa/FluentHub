@@ -11,6 +11,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 
@@ -56,6 +57,8 @@ namespace FluentHub.Views.RepoPages
             RepoOwnerName.Text = repo.Owner.Login;
 
             RepoName.Text = repo.Name;
+
+            RepoOwnerAvatar.Source = new BitmapImage(new Uri(repo.Owner.AvatarUrl));
         }
     }
 }

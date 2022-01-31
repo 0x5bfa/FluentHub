@@ -8,282 +8,279 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
 
-    <ScrollViewer>
-        <Grid Margin="20" ColumnSpacing="12">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="256"/>
-            </Grid.ColumnDefinitions>
+    <Grid Margin="18,12" ColumnSpacing="12">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="256"/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
-                </Grid.RowDefinitions>
-                <Grid>
-                    <StackPanel Spacing="6" Orientation="Horizontal">
-                        <ComboBox PlaceholderText="Branch" Margin="0,0,12,0">
-                            <x:String>main</x:String>
-                            <x:String>feature/add-tabs</x:String>
-                        </ComboBox>
-                        <Button Grid.Column="1" FontWeight="Normal" Style="{StaticResource ClearButtonStyle}" Background="Transparent" HorizontalAlignment="Left" Height="24" Padding="4,0">
-                            <TextBlock Text="73 branches" Style="{StaticResource BodyTextBlockStyle}" FontWeight="Normal"/>
-                        </Button>
-                        <Button Grid.Column="1" FontWeight="Normal" Style="{StaticResource ClearButtonStyle}" Background="Transparent" HorizontalAlignment="Left" Height="24" Padding="4,0">
-                            <TextBlock Text="300 tags" Style="{StaticResource BodyTextBlockStyle}" FontWeight="Normal"/>
-                        </Button>
-                    </StackPanel>
-                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Spacing="6" VerticalAlignment="Top">
-                        <Button Content="Go to file"/>
-                        <muxc:DropDownButton Content="Add file">
-                            <muxc:DropDownButton.Flyout>
-                                <MenuFlyout Placement="Bottom">
-                                    <MenuFlyoutItem Icon="Add" Text="Create new file"/>
-                                    <MenuFlyoutItem Icon="OpenFile" Text="Upload files"/>
-                                </MenuFlyout>
-                            </muxc:DropDownButton.Flyout>
-                        </muxc:DropDownButton>
-                        <muxc:DropDownButton Content="Code" Style="{ThemeResource AccentButtonStyle}">
-                            <muxc:DropDownButton.Flyout>
-                                <Flyout Placement="BottomEdgeAlignedRight">
-                                    <Flyout.FlyoutPresenterStyle>
-                                        <Style TargetType="FlyoutPresenter">
-                                            <Setter Property="Padding" Value="16,16"/>
-                                            <Setter Property="CornerRadius" Value="6"/>
-                                        </Style>
-                                    </Flyout.FlyoutPresenterStyle>
-                                    <StackPanel>
-                                        <muxc:NavigationView
-                                        Margin="-12,-12,-12,12"
-                                        CornerRadius="4"
-                                        PaneDisplayMode="Top"
-                                        IsBackButtonVisible="Collapsed"
-                                        IsSettingsVisible="False">
-                                            <muxc:NavigationView.MenuItems>
-                                                <muxc:NavigationViewItem Tag="Overview" Content="HTTPS" IsSelected="True"/>
-                                                <muxc:NavigationViewItem Tag="Repositories" Content="SSH"/>
-                                                <muxc:NavigationViewItem Tag="Repositories" Content="GitHub CLI"/>
-                                            </muxc:NavigationView.MenuItems>
-                                        </muxc:NavigationView>
-                                        <Grid ColumnSpacing="8" RowSpacing="8">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*"/>
-                                                <ColumnDefinition Width="Auto"/>
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                                <RowDefinition Height="Auto"/>
-                                            </Grid.RowDefinitions>
-                                            <TextBox PlaceholderText="Web URL" HorizontalAlignment="Stretch"/>
-                                            <Button Grid.Column="1">
-                                                <FontIcon Glyph="&#xe8c8;" FontSize="14" Height="18"/>
+                <StackPanel Spacing="6" Orientation="Horizontal">
+                    <ComboBox PlaceholderText="Branch" Margin="0,0,12,0">
+                        <x:String>main</x:String>
+                        <x:String>feature/add-tabs</x:String>
+                    </ComboBox>
+                    <Button Grid.Column="1" FontWeight="Normal" Style="{StaticResource ClearButtonStyle}" Background="Transparent" HorizontalAlignment="Left" Height="24" Padding="4,0">
+                        <TextBlock Text="73 branches" Style="{StaticResource BodyTextBlockStyle}" FontWeight="Normal"/>
+                    </Button>
+                    <Button Grid.Column="1" FontWeight="Normal" Style="{StaticResource ClearButtonStyle}" Background="Transparent" HorizontalAlignment="Left" Height="24" Padding="4,0">
+                        <TextBlock Text="300 tags" Style="{StaticResource BodyTextBlockStyle}" FontWeight="Normal"/>
+                    </Button>
+                </StackPanel>
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Spacing="6" VerticalAlignment="Top">
+                    <Button Content="Go to file"/>
+                    <muxc:DropDownButton Content="Add file">
+                        <muxc:DropDownButton.Flyout>
+                            <MenuFlyout Placement="Bottom">
+                                <MenuFlyoutItem Icon="Add" Text="Create new file"/>
+                                <MenuFlyoutItem Icon="OpenFile" Text="Upload files"/>
+                            </MenuFlyout>
+                        </muxc:DropDownButton.Flyout>
+                    </muxc:DropDownButton>
+                    <muxc:DropDownButton Content="Code" Style="{ThemeResource AccentButtonStyle}">
+                        <muxc:DropDownButton.Flyout>
+                            <Flyout Placement="BottomEdgeAlignedRight">
+                                <Flyout.FlyoutPresenterStyle>
+                                    <Style TargetType="FlyoutPresenter">
+                                        <Setter Property="Padding" Value="16,16"/>
+                                        <Setter Property="CornerRadius" Value="6"/>
+                                    </Style>
+                                </Flyout.FlyoutPresenterStyle>
+                                <StackPanel>
+                                    <muxc:NavigationView
+                                    Margin="-12,-12,-12,12"
+                                    CornerRadius="4"
+                                    PaneDisplayMode="Top"
+                                    IsBackButtonVisible="Collapsed"
+                                    IsSettingsVisible="False">
+                                        <muxc:NavigationView.MenuItems>
+                                            <muxc:NavigationViewItem Tag="Overview" Content="HTTPS" IsSelected="True"/>
+                                            <muxc:NavigationViewItem Tag="Repositories" Content="SSH"/>
+                                            <muxc:NavigationViewItem Tag="Repositories" Content="GitHub CLI"/>
+                                        </muxc:NavigationView.MenuItems>
+                                    </muxc:NavigationView>
+                                    <Grid ColumnSpacing="8" RowSpacing="8">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <TextBox PlaceholderText="Web URL" HorizontalAlignment="Stretch"/>
+                                        <Button Grid.Column="1">
+                                            <FontIcon Glyph="&#xe8c8;" FontSize="14" Height="18"/>
+                                        </Button>
+                                        <TextBlock Grid.ColumnSpan="2" Grid.Row="1" Text="Use Git or checkout with SVN using the web URL." Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" HorizontalAlignment="Stretch"/>
+                                        <StackPanel Grid.ColumnSpan="2" Grid.Row="2" Spacing="8" Margin="0,8,0,0">
+                                            <Button HorizontalAlignment="Stretch">
+                                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                                    <FontIcon FontFamily="octions" Glyph="&#xE970;" FontSize="14" Height="18"/>
+                                                    <TextBlock Text="Open with GitHub Desktop"/>
+                                                </StackPanel>
                                             </Button>
-                                            <TextBlock Grid.ColumnSpan="2" Grid.Row="1" Text="Use Git or checkout with SVN using the web URL." Style="{ThemeResource BodyTextBlockStyle}" Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" HorizontalAlignment="Stretch"/>
-                                            <StackPanel Grid.ColumnSpan="2" Grid.Row="2" Spacing="8" Margin="0,8,0,0">
-                                                <Button HorizontalAlignment="Stretch">
-                                                    <StackPanel Orientation="Horizontal" Spacing="8">
-                                                        <FontIcon FontFamily="octions" Glyph="&#xE970;" FontSize="14" Height="18"/>
-                                                        <TextBlock Text="Open with GitHub Desktop"/>
-                                                    </StackPanel>
-                                                </Button>
-                                                <Button HorizontalAlignment="Stretch">
-                                                    <StackPanel Orientation="Horizontal" Spacing="8">
-                                                        <FontIcon FontFamily="octions" Glyph="&#xE92E;" FontSize="14" Height="18"/>
-                                                        <TextBlock Text="Open with Visual Studio"/>
-                                                    </StackPanel>
-                                                </Button>
-                                                <Button HorizontalAlignment="Stretch" Style="{ThemeResource AccentButtonStyle}">
-                                                    <StackPanel Orientation="Horizontal" Spacing="8">
-                                                        <FontIcon FontFamily="octions" Glyph="&#xE9A7;" FontSize="14" Height="18"/>
-                                                        <TextBlock Text="Download zip"/>
-                                                    </StackPanel>
-                                                </Button>
-                                            </StackPanel>
-                                        </Grid>
-                                    </StackPanel>
-                                </Flyout>
-                            </muxc:DropDownButton.Flyout>
-                        </muxc:DropDownButton>
-                    </StackPanel>
-                </Grid>
+                                            <Button HorizontalAlignment="Stretch">
+                                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                                    <FontIcon FontFamily="octions" Glyph="&#xE92E;" FontSize="14" Height="18"/>
+                                                    <TextBlock Text="Open with Visual Studio"/>
+                                                </StackPanel>
+                                            </Button>
+                                            <Button HorizontalAlignment="Stretch" Style="{ThemeResource AccentButtonStyle}">
+                                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                                    <FontIcon FontFamily="octions" Glyph="&#xE9A7;" FontSize="14" Height="18"/>
+                                                    <TextBlock Text="Download zip"/>
+                                                </StackPanel>
+                                            </Button>
+                                        </StackPanel>
+                                    </Grid>
+                                </StackPanel>
+                            </Flyout>
+                        </muxc:DropDownButton.Flyout>
+                    </muxc:DropDownButton>
+                </StackPanel>
             </Grid>
-            <Grid
-                Grid.Column="1"
-                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                BorderThickness="1"
-                CornerRadius="4"
-                Padding="16"
-                RowSpacing="4">
-                <ScrollViewer>
-                    <Grid>
+        </Grid>
+        <Grid
+            Grid.Column="1"
+            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="4"
+            RowSpacing="4">
+            <ScrollViewer>
+                <Grid Margin="16">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid RowSpacing="8">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
-                        <Grid RowSpacing="8">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <TextBlock Text="About" Style="{StaticResource BodyStrongTextBlockStyle}" FontSize="16"/>
-                            <TextBlock Grid.Row="1" Text="A framework for building native applications using React" Style="{StaticResource BodyTextBlockStyle}" Foreground="{StaticResource ApplicationSecondaryForegroundThemeBrush}"/>
-                            <StackPanel Grid.Row="2" Spacing="2" Margin="0,8,0,0">
-                                <StackPanel Orientation="Horizontal" Spacing="8">
-                                    <FontIcon
-                                        Glyph="&#xe71b;"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        FontSize="14"
-                                        VerticalAlignment="Center"/>
-                                    <HyperlinkButton
-                                        Margin="0,-2,0,0"
-                                        Content="Readme"
-                                        Padding="4"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        VerticalAlignment="Center"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Spacing="8" Visibility="Visible">
-                                    <FontIcon
-                                        Glyph="&#xe71b;"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        FontSize="14"
-                                        VerticalAlignment="Center"/>
-                                    <HyperlinkButton
-                                        Padding="4"
-                                        Content="MIT License"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Spacing="8" Visibility="Visible">
-                                    <FontIcon
-                                        Glyph="&#xe71b;"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        FontSize="14"
-                                        VerticalAlignment="Center"/>
-                                    <HyperlinkButton
-                                        Padding="4"
-                                        Content="Code of conduct"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Spacing="8" Visibility="Visible">
-                                    <FontIcon
-                                        Glyph="&#xe71b;"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        FontSize="14"
-                                        VerticalAlignment="Center"/>
-                                    <HyperlinkButton
-                                        Padding="4"
-                                        Content="100k stars"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Spacing="8" Visibility="Visible">
-                                    <FontIcon
-                                        Glyph="&#xe71b;"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        FontSize="14"
-                                        VerticalAlignment="Center"/>
-                                    <HyperlinkButton
-                                        Padding="4"
-                                        Content="1k watching"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Spacing="8" Visibility="Visible">
-                                    <FontIcon
-                                        Glyph="&#xe71b;"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        FontSize="14"
-                                        VerticalAlignment="Center"/>
-                                    <HyperlinkButton
-                                        Padding="4"
-                                        Content="4k forks"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
-                                </StackPanel>
-                                <MenuFlyoutSeparator Grid.Row="3" Margin="-16,12"/>
+                        <TextBlock Text="About" Style="{StaticResource BodyStrongTextBlockStyle}" FontSize="16"/>
+                        <TextBlock Grid.Row="1" Text="A framework for building native applications using React" Style="{StaticResource BodyTextBlockStyle}" Foreground="{StaticResource ApplicationSecondaryForegroundThemeBrush}"/>
+                        <StackPanel Grid.Row="2" Spacing="2" Margin="0,8,0,0">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon
+                                    Glyph="&#xe71b;"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    FontSize="14"
+                                    VerticalAlignment="Center"/>
+                                <HyperlinkButton
+                                    Margin="0,-2,0,0"
+                                    Content="Readme"
+                                    Padding="4"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    VerticalAlignment="Center"/>
                             </StackPanel>
-                        </Grid>
-                        <Grid Grid.Row="1" RowSpacing="8">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                                <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <TextBlock Text="Release" Style="{StaticResource BodyStrongTextBlockStyle}" FontSize="16"/>
-                            <StackPanel Grid.Row="1" Spacing="2" Margin="0,8,0,0">
-                                <StackPanel Orientation="Horizontal" Spacing="8">
-                                    <FontIcon
-                                        Glyph="&#xe71b;"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        FontSize="14"
-                                        VerticalAlignment="Center"/>
-                                    <HyperlinkButton
-                                        Margin="0,-2,0,0"
-                                        Content="Readme"
-                                        Padding="4"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        VerticalAlignment="Center"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Spacing="8" Visibility="Visible">
-                                    <FontIcon
-                                        Glyph="&#xe71b;"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        FontSize="14"
-                                        VerticalAlignment="Center"/>
-                                    <HyperlinkButton
-                                        Padding="4"
-                                        Content="MIT License"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Spacing="8" Visibility="Visible">
-                                    <FontIcon
-                                        Glyph="&#xe71b;"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        FontSize="14"
-                                        VerticalAlignment="Center"/>
-                                    <HyperlinkButton
-                                        Padding="4"
-                                        Content="Code of conduct"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Spacing="8" Visibility="Visible">
-                                    <FontIcon
-                                        Glyph="&#xe71b;"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        FontSize="14"
-                                        VerticalAlignment="Center"/>
-                                    <HyperlinkButton
-                                        Padding="4"
-                                        Content="100k stars"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Spacing="8" Visibility="Visible">
-                                    <FontIcon
-                                        Glyph="&#xe71b;"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        FontSize="14"
-                                        VerticalAlignment="Center"/>
-                                    <HyperlinkButton
-                                        Padding="4"
-                                        Content="1k watching"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
-                                </StackPanel>
-                                <StackPanel Orientation="Horizontal" Spacing="8" Visibility="Visible">
-                                    <FontIcon
-                                        Glyph="&#xe71b;"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        FontSize="14"
-                                        VerticalAlignment="Center"/>
-                                    <HyperlinkButton
-                                        Padding="4"
-                                        Content="4k forks"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
-                                </StackPanel>
-                                <MenuFlyoutSeparator Grid.Row="3" Margin="-16,12"/>
+                            <StackPanel Orientation="Horizontal" Spacing="8" Visibility="Visible">
+                                <FontIcon
+                                    Glyph="&#xe71b;"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    FontSize="14"
+                                    VerticalAlignment="Center"/>
+                                <HyperlinkButton
+                                    Padding="4"
+                                    Content="MIT License"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
                             </StackPanel>
-                        </Grid>
+                            <StackPanel Orientation="Horizontal" Spacing="8" Visibility="Visible">
+                                <FontIcon
+                                    Glyph="&#xe71b;"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    FontSize="14"
+                                    VerticalAlignment="Center"/>
+                                <HyperlinkButton
+                                    Padding="4"
+                                    Content="Code of conduct"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="8" Visibility="Visible">
+                                <FontIcon
+                                    Glyph="&#xe71b;"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    FontSize="14"
+                                    VerticalAlignment="Center"/>
+                                <HyperlinkButton
+                                    Padding="4"
+                                    Content="100k stars"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="8" Visibility="Visible">
+                                <FontIcon
+                                    Glyph="&#xe71b;"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    FontSize="14"
+                                    VerticalAlignment="Center"/>
+                                <HyperlinkButton
+                                    Padding="4"
+                                    Content="1k watching"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="8" Visibility="Visible">
+                                <FontIcon
+                                    Glyph="&#xe71b;"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    FontSize="14"
+                                    VerticalAlignment="Center"/>
+                                <HyperlinkButton
+                                    Padding="4"
+                                    Content="4k forks"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
+                            </StackPanel>
+                            <MenuFlyoutSeparator Grid.Row="3" Margin="-16,12"/>
+                        </StackPanel>
                     </Grid>
-                </ScrollViewer>
-            </Grid>
+                    <Grid Grid.Row="1" RowSpacing="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Release" Style="{StaticResource BodyStrongTextBlockStyle}" FontSize="16"/>
+                        <StackPanel Grid.Row="1" Spacing="2" Margin="0,8,0,0">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon
+                                    Glyph="&#xe71b;"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    FontSize="14"
+                                    VerticalAlignment="Center"/>
+                                <HyperlinkButton
+                                    Margin="0,-2,0,0"
+                                    Content="Readme"
+                                    Padding="4"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="8" Visibility="Visible">
+                                <FontIcon
+                                    Glyph="&#xe71b;"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    FontSize="14"
+                                    VerticalAlignment="Center"/>
+                                <HyperlinkButton
+                                    Padding="4"
+                                    Content="MIT License"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="8" Visibility="Visible">
+                                <FontIcon
+                                    Glyph="&#xe71b;"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    FontSize="14"
+                                    VerticalAlignment="Center"/>
+                                <HyperlinkButton
+                                    Padding="4"
+                                    Content="Code of conduct"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="8" Visibility="Visible">
+                                <FontIcon
+                                    Glyph="&#xe71b;"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    FontSize="14"
+                                    VerticalAlignment="Center"/>
+                                <HyperlinkButton
+                                    Padding="4"
+                                    Content="100k stars"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="8" Visibility="Visible">
+                                <FontIcon
+                                    Glyph="&#xe71b;"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    FontSize="14"
+                                    VerticalAlignment="Center"/>
+                                <HyperlinkButton
+                                    Padding="4"
+                                    Content="1k watching"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Spacing="8" Visibility="Visible">
+                                <FontIcon
+                                    Glyph="&#xe71b;"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    FontSize="14"
+                                    VerticalAlignment="Center"/>
+                                <HyperlinkButton
+                                    Padding="4"
+                                    Content="4k forks"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
+                            </StackPanel>
+                            <MenuFlyoutSeparator Grid.Row="3" Margin="-16,12"/>
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </ScrollViewer>
         </Grid>
-    </ScrollViewer>
+    </Grid>
 </Page>
