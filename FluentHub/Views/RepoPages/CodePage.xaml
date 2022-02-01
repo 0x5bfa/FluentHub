@@ -6,19 +6,27 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Loaded="Page_Loaded">
 
-    <Grid Margin="18,12" ColumnSpacing="12">
+    <Grid Margin="18,12" ColumnSpacing="6">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="256"/>
+            <ColumnDefinition x:Name="OverviewColumn" Width="256"/>
         </Grid.ColumnDefinitions>
-        <Grid>
+        <Grid RowSpacing="8">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
                 <StackPanel Spacing="6" Orientation="Horizontal">
                     <ComboBox PlaceholderText="Branch" Margin="0,0,12,0">
                         <x:String>main</x:String>
@@ -31,7 +39,7 @@
                         <TextBlock Text="300 tags" Style="{StaticResource BodyTextBlockStyle}" FontWeight="Normal"/>
                     </Button>
                 </StackPanel>
-                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Spacing="6" VerticalAlignment="Top">
+                <StackPanel Grid.Column="2" HorizontalAlignment="Right" Orientation="Horizontal" Spacing="6" VerticalAlignment="Top">
                     <Button Content="Go to file"/>
                     <muxc:DropDownButton Content="Add file">
                         <muxc:DropDownButton.Flyout>
@@ -104,6 +112,106 @@
                         </muxc:DropDownButton.Flyout>
                     </muxc:DropDownButton>
                 </StackPanel>
+                <Button Grid.Column="3" x:Name="OverviewColumnOpenButton" Margin="8,0,0,0" Padding="0" Click="OverviewColumnOpenButton_Click" Height="32" Width="32" Visibility="Collapsed">
+                    <FontIcon Glyph="&#xE700;" FontSize="14"/>
+                </Button>
+            </Grid>
+            <Grid
+                Grid.Row="1"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="4"
+                VerticalAlignment="Top" Height="64"
+                Padding="12">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Border
+                    CornerRadius="12"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    Height="24"
+                    Width="24">
+                    <Image Source="https://avatars.githubusercontent.com/u/62196528?v=4" Height="24" Width="24"/>
+                </Border>
+                <TextBlock Grid.Column="1" VerticalAlignment="Center" Margin="12,0,0,0" Text="onein528" Style="{StaticResource BodyStrongTextBlockStyle}"/>
+                <TextBlock Grid.Column="2" VerticalAlignment="Center" Margin="4,0,0,0" Text="Add repository overview page (#24)" Style="{StaticResource BodyTextBlockStyle}"/>
+                <TextBlock Grid.Column="4" VerticalAlignment="Center" Text="319fbea" Style="{StaticResource CaptionTextBlockStyle}" FontFamily="consolas" Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
+                <TextBlock Grid.Column="5" VerticalAlignment="Center" Margin="4,0,0,0" Text="2 days ago" Style="{StaticResource BodyTextBlockStyle}" Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
+                <StackPanel Grid.Column="6" Orientation="Horizontal" Spacing="4">
+                    <FontIcon Glyph="&#xE9D3;" FontFamily="{StaticResource Octions}" Margin="12,0,0,0" FontSize="18"/>
+                    <TextBlock Text="48" VerticalAlignment="Center" Style="{StaticResource BodyStrongTextBlockStyle}"/>
+                    <TextBlock Grid.Column="5" VerticalAlignment="Center" Text="commits" Style="{StaticResource CaptionTextBlockStyle}" Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
+                </StackPanel>
+            </Grid>
+            <Grid
+                Grid.Row="2"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="4">
+                <ListView
+                    x:Name="ListView"
+                    Grid.Row="2"
+                    Grid.ColumnSpan="2"
+                    HorizontalAlignment="Stretch"
+                    SelectionMode="Single">
+                    <ListView.ItemContainerStyle>
+                        <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
+                            <Setter Property="MinHeight" Value="40" />
+                            <Setter Property="Height" Value="40" />
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="32" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="2*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <FontIcon
+                                    x:Name="ItemIcon"
+                                    HorizontalAlignment="Left"
+                                    VerticalAlignment="Center"
+                                    FontSize="16" />
+                                <TextBlock
+                                    x:Name="ItemNameTextBox"
+                                    Text="A"
+                                    Grid.Column="1"
+                                    VerticalAlignment="Center">
+                                </TextBlock>
+                                <TextBlock
+                                    x:Name="ItemLatestCommitTitleTextBox"
+                                    Grid.Column="2"
+                                    VerticalAlignment="Center"
+                                    TextTrimming="CharacterEllipsis" />
+                                <TextBlock
+                                    x:Name="ItemUpdatedAtTextBlock"
+                                    Grid.Column="3"
+                                    VerticalAlignment="Center" />
+                                <TextBlock
+                                        x:Name="InheritTextBox"
+                                        Grid.Column="5"
+                                        VerticalAlignment="Center"
+                                        TextTrimming="CharacterEllipsis" />
+                            </Grid>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                    <ListViewItem></ListViewItem>
+                    <ListViewItem></ListViewItem>
+                    <ListViewItem></ListViewItem>
+                    <ListViewItem></ListViewItem>
+                </ListView>
             </Grid>
         </Grid>
         <Grid
@@ -113,9 +221,15 @@
             BorderThickness="1"
             CornerRadius="4"
             RowSpacing="4">
+            <Button Style="{StaticResource ClearButtonStyle}" Click="OverviewColumnCloseButton_Click" VerticalAlignment="Top" Canvas.ZIndex="1" HorizontalAlignment="Right" Background="Transparent" Height="32" Width="32" Margin="8">
+                <FontIcon Glyph="&#xE711;" FontSize="18"/>
+            </Button>
             <ScrollViewer>
                 <Grid Margin="16">
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
                         <RowDefinition Height="Auto"/>
@@ -125,13 +239,15 @@
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
                             <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <TextBlock Text="About" Style="{StaticResource BodyStrongTextBlockStyle}" FontSize="16"/>
-                        <TextBlock Grid.Row="1" Text="A framework for building native applications using React" Style="{StaticResource BodyTextBlockStyle}" Foreground="{StaticResource ApplicationSecondaryForegroundThemeBrush}"/>
+                        <TextBlock Grid.Row="1" x:Name="RepoDescription"  Style="{StaticResource BodyTextBlockStyle}" Foreground="{StaticResource ApplicationSecondaryForegroundThemeBrush}"/>
                         <StackPanel Grid.Row="2" Spacing="2" Margin="0,8,0,0">
                             <StackPanel Orientation="Horizontal" Spacing="8">
                                 <FontIcon
-                                    Glyph="&#xe71b;"
+                                    Glyph="&#xE922;"
+                                    FontFamily="{StaticResource Octions}"
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                     FontSize="14"
                                     VerticalAlignment="Center"/>
@@ -144,7 +260,8 @@
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Spacing="8" Visibility="Visible">
                                 <FontIcon
-                                    Glyph="&#xe71b;"
+                                    Glyph="&#xE9F7;"
+                                    FontFamily="{StaticResource Octions}"
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                     FontSize="14"
                                     VerticalAlignment="Center"/>
@@ -155,7 +272,8 @@
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Spacing="8" Visibility="Visible">
                                 <FontIcon
-                                    Glyph="&#xe71b;"
+                                    Glyph="&#xE93B;"
+                                    FontFamily="{StaticResource Octions}"
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                     FontSize="14"
                                     VerticalAlignment="Center"/>
@@ -166,7 +284,8 @@
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Spacing="8" Visibility="Visible">
                                 <FontIcon
-                                    Glyph="&#xe71b;"
+                                    Glyph="&#xEA94;"
+                                    FontFamily="{StaticResource Octions}"
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                     FontSize="14"
                                     VerticalAlignment="Center"/>
@@ -177,7 +296,8 @@
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Spacing="8" Visibility="Visible">
                                 <FontIcon
-                                    Glyph="&#xe71b;"
+                                    Glyph="&#xE98B;"
+                                    FontFamily="{StaticResource Octions}"
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                     FontSize="14"
                                     VerticalAlignment="Center"/>
@@ -188,7 +308,8 @@
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" Spacing="8" Visibility="Visible">
                                 <FontIcon
-                                    Glyph="&#xe71b;"
+                                    Glyph="&#xEA55;"
+                                    FontFamily="{StaticResource Octions}"
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                     FontSize="14"
                                     VerticalAlignment="Center"/>
@@ -197,8 +318,8 @@
                                     Content="4k forks"
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
                             </StackPanel>
-                            <MenuFlyoutSeparator Grid.Row="3" Margin="-16,12"/>
                         </StackPanel>
+                        <MenuFlyoutSeparator Grid.Row="3" Margin="-16,12"/>
                     </Grid>
                     <Grid Grid.Row="1" RowSpacing="8">
                         <Grid.RowDefinitions>
@@ -207,77 +328,28 @@
                             <RowDefinition Height="Auto"/>
                         </Grid.RowDefinitions>
                         <TextBlock Text="Release" Style="{StaticResource BodyStrongTextBlockStyle}" FontSize="16"/>
-                        <StackPanel Grid.Row="1" Spacing="2" Margin="0,8,0,0">
-                            <StackPanel Orientation="Horizontal" Spacing="8">
-                                <FontIcon
-                                    Glyph="&#xe71b;"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    FontSize="14"
-                                    VerticalAlignment="Center"/>
-                                <HyperlinkButton
-                                    Margin="0,-2,0,0"
-                                    Content="Readme"
-                                    Padding="4"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    VerticalAlignment="Center"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Spacing="8" Visibility="Visible">
-                                <FontIcon
-                                    Glyph="&#xe71b;"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    FontSize="14"
-                                    VerticalAlignment="Center"/>
-                                <HyperlinkButton
-                                    Padding="4"
-                                    Content="MIT License"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Spacing="8" Visibility="Visible">
-                                <FontIcon
-                                    Glyph="&#xe71b;"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    FontSize="14"
-                                    VerticalAlignment="Center"/>
-                                <HyperlinkButton
-                                    Padding="4"
-                                    Content="Code of conduct"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Spacing="8" Visibility="Visible">
-                                <FontIcon
-                                    Glyph="&#xe71b;"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    FontSize="14"
-                                    VerticalAlignment="Center"/>
-                                <HyperlinkButton
-                                    Padding="4"
-                                    Content="100k stars"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Spacing="8" Visibility="Visible">
-                                <FontIcon
-                                    Glyph="&#xe71b;"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    FontSize="14"
-                                    VerticalAlignment="Center"/>
-                                <HyperlinkButton
-                                    Padding="4"
-                                    Content="1k watching"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
-                            </StackPanel>
-                            <StackPanel Orientation="Horizontal" Spacing="8" Visibility="Visible">
-                                <FontIcon
-                                    Glyph="&#xe71b;"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    FontSize="14"
-                                    VerticalAlignment="Center"/>
-                                <HyperlinkButton
-                                    Padding="4"
-                                    Content="4k forks"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
-                            </StackPanel>
-                            <MenuFlyoutSeparator Grid.Row="3" Margin="-16,12"/>
+                        <StackPanel x:Name="LatestReleaseBlock" Grid.Row="1" Spacing="2" Visibility="Collapsed">
+                            <Button HorizontalAlignment="Stretch" Height="64" Background="Transparent" BorderBrush="Transparent"/>
                         </StackPanel>
+                        <StackPanel x:Name="ReleaseNotFoundBlock" Grid.Row="1" Spacing="2">
+                            <TextBlock Text="No releases published" Style="{StaticResource CaptionTextBlockStyle}"/>
+                            <TextBlock Text="Create a new release" Style="{StaticResource CaptionTextBlockStyle}"/>
+                        </StackPanel>
+                        <MenuFlyoutSeparator Grid.Row="3" Margin="-16,12"/>
+                    </Grid>
+                    <Grid Grid.Row="2" RowSpacing="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock Text="Contoributors" Style="{StaticResource BodyStrongTextBlockStyle}" FontSize="16" VerticalAlignment="Center"/>
+                            <muxc:InfoBadge x:Name="ContoributorsCountBadge" Value="2"/>
+                        </StackPanel>
+                        <StackPanel x:Name="ContributrsBlock" Grid.Row="1" Spacing="2" Visibility="Collapsed">
+                        </StackPanel>
+                        <MenuFlyoutSeparator Grid.Row="3" Margin="-16,12"/>
                     </Grid>
                 </Grid>
             </ScrollViewer>

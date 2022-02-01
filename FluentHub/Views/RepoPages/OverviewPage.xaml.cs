@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 
 namespace FluentHub.Views.RepoPages
@@ -31,21 +32,21 @@ namespace FluentHub.Views.RepoPages
             RepoId = Convert.ToInt64(e.Parameter as string);
         }
 
-        private void RepoPageNavView_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
+        private void RepoPageNavView_SelectionChanged(muxc.NavigationView sender, muxc.NavigationViewSelectionChangedEventArgs args)
         {
             switch (args.SelectedItemContainer.Tag.ToString())
             {
                 case "Code":
-                    RepoPageNavViewFrame.Navigate(typeof(CodePage));
+                    RepoPageNavViewFrame.Navigate(typeof(CodePage), RepoId.ToString());
                     break;
                 case "Issues":
-                    RepoPageNavViewFrame.Navigate(typeof(IssueListPage));
+                    RepoPageNavViewFrame.Navigate(typeof(IssueListPage), RepoId.ToString());
                     break;
                 case "PRs":
-                    RepoPageNavViewFrame.Navigate(typeof(PullRequestListPage));
+                    RepoPageNavViewFrame.Navigate(typeof(PullRequestListPage), RepoId.ToString());
                     break;
                 case "Settings":
-                    RepoPageNavViewFrame.Navigate(typeof(Settings));
+                    RepoPageNavViewFrame.Navigate(typeof(Settings), RepoId.ToString());
                     break;
             }
         }
@@ -59,6 +60,26 @@ namespace FluentHub.Views.RepoPages
             RepoName.Text = repo.Name;
 
             RepoOwnerAvatar.Source = new BitmapImage(new Uri(repo.Owner.AvatarUrl));
+
+            WatchersCountBadge.Value = repo.SubscribersCount;
+
+            ForksCountBadge.Value = repo.ForksCount;
+
+            StargazersCountBadge.Value = repo.StargazersCount;
+
+            if (repo.OpenIssuesCount != 0)
+            {
+                IssuesCountBadge.Value = repo.OpenIssuesCount;
+                IssuesCountBadge.Visibility = Visibility.Visible;
+            }
+
+            var pulls = await App.Client.PullRequest.GetAllForRepository(RepoId);
+
+            if (pulls.Count() != 0)
+            {
+                PullsCountBadge.Value = pulls.Count();
+                PullsCountBadge.Visibility = Visibility.Visible;
+            }
         }
     }
 }
