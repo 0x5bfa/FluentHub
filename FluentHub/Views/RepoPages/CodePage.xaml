@@ -14,8 +14,9 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition x:Name="OverviewColumn" Width="256"/>
         </Grid.ColumnDefinitions>
-        <Grid RowSpacing="8">
+        <Grid RowSpacing="4">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="Auto"/>
                 <RowDefinition Height="*"/>
@@ -122,8 +123,9 @@
                 BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                 BorderThickness="1"
                 CornerRadius="4"
-                VerticalAlignment="Top" Height="64"
-                Padding="12">
+                VerticalAlignment="Top" Height="48"
+                Padding="12,0"
+                Margin="0,8,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto"/>
                     <ColumnDefinition Width="Auto"/>
@@ -155,9 +157,9 @@
             <Grid
                 Grid.Row="2"
                 Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                    BorderThickness="1"
-                    CornerRadius="4">
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="4">
                 <ListView
                     x:Name="ListView"
                     Grid.Row="2"
@@ -212,6 +214,15 @@
                     <ListViewItem></ListViewItem>
                     <ListViewItem></ListViewItem>
                 </ListView>
+            </Grid>
+            <TextBlock Grid.Row="2" Text="Code viewing feature is not available (Dev stage) This Feature need to use GitHub Database API." VerticalAlignment="Center" HorizontalAlignment="Center"/>
+            <Grid
+                Grid.Row="3"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="4">
+                <TextBlock Grid.Row="2" Text="README place" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </Grid>
         </Grid>
         <Grid
