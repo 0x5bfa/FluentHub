@@ -91,6 +91,8 @@ namespace FluentHub.Views.RepoPages
 
             RepoLatestCommitAuthorName.Text = commits[0].Author.Login;
 
+            RepoLatestCommitMessage.Text = commits[0].Commit.Message.Split("\n")[0];
+
             RepoLatestCommitSha.Text = commits[0].Sha.Substring(0, 7);
 
             RepoLatestCommitUpdatedAtHumanized.Text = commits[0].Commit.Author.Date.Humanize();
