@@ -52,7 +52,20 @@ namespace FluentHub.Views.RepoPages
         {
             Repository = await App.Client.Repository.Get(RepoId);
 
-            RepoDescription.Text = Repository.Description;
+            string repoDescription = Repository.Description;
+
+            bool descriptionNotExists = string.IsNullOrEmpty(repoDescription);
+
+            if(descriptionNotExists == false)
+            {
+                RepoDescription.Text = repoDescription;
+            }
+            else
+            {
+                RepoDescription.Text = "No description found for this repositiry.";
+            }
+
+            
 
             if (Readme != null)
             {
