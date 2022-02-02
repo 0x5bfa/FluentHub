@@ -22,7 +22,7 @@ namespace FluentHub.ViewModels.UserPages
             }
         }
 
-        public void GetUserPinnedRepos(List<long> repoIdList)
+        public void GetPinnedRepos(List<long> repoIdList)
         {
             foreach (var repoId in repoIdList)
             {
