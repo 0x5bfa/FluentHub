@@ -155,6 +155,7 @@
     </Compile>
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\RepoPages\CodePageViewModel.cs" />
     <Compile Include="ViewModels\SettingsManager.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\UserPages\ActivityViewModel.cs" />
