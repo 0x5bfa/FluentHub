@@ -106,6 +106,10 @@ namespace FluentHub.UserControls
         {
             MainPageViewModel.AddNewTabByPath($"/{App.SignedInUserName}");
             App.MainViewModel.MainFrame.Navigate(typeof(UserHomePage));
+            var iconSource = new FontIconSource();
+            iconSource.Glyph = "\uE737";
+            App.MainViewModel.MainTabItems[App.MainViewModel.SelectedTabIndex].IconSource = iconSource;
+            App.MainViewModel.MainTabItems[App.MainViewModel.SelectedTabIndex].Header = "FluentHub";
         }
 
         private void CloseTab(TabItem tabItem)
