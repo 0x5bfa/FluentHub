@@ -11,9 +11,13 @@
 >**Need help**🔧<br/>Any trivial suggestions or corrections are fine. Feel free to open a [issue](https://github.com/onein528/FluentHub/issues/new)/[PR](https://github.com/onein528/FluentHub/compare).<br>**If you want to contribute to this repository in earnest, please [request to become a member](https://github.com/onein528/FluentHub/issues/new).**
 
 ## Screenshot
-> User profile page which have not been developed yet
+* User profile page which have not been developed yet with light mode
 
-![image](https://user-images.githubusercontent.com/62196528/151688553-7ad79c8a-a88a-4e57-b5ab-417ba247e9a1.png)
+  ![image](https://user-images.githubusercontent.com/62196528/152377145-9dcc3adc-6bfc-4244-bf7d-77eb9f5f547c.png)
+
+* Repository page which have not been developed yet with light mode
+
+  ![image](https://user-images.githubusercontent.com/62196528/152377118-ae0488a1-95a4-4198-abae-2a60a4cb25ca.png)
 
 ## Build from source
 
