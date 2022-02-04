@@ -145,6 +145,9 @@
     <Compile Include="UserControls\Block\RepoBlock.xaml.cs">
       <DependentUpon>RepoBlock.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\CodeFlyout.xaml.cs">
+      <DependentUpon>CodeFlyout.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\CustomTabView.xaml.cs">
       <DependentUpon>CustomTabView.xaml</DependentUpon>
     </Compile>
@@ -343,6 +346,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Block\RepoBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\CodeFlyout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

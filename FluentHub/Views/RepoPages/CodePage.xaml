@@ -6,6 +6,7 @@
     xmlns:local="using:FluentHub.Views.RepoPages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:usc="using:FluentHub.UserControls"
     xmlns:vm="using:FluentHub.ViewModels.RepoPages"
     Loaded="Page_Loaded"
     mc:Ignorable="d">
@@ -81,96 +82,7 @@
                                 </MenuFlyout>
                             </muxc:DropDownButton.Flyout>
                         </muxc:DropDownButton>
-                        <muxc:DropDownButton Content="Code" Style="{ThemeResource AccentButtonStyle}">
-                            <muxc:DropDownButton.Flyout>
-                                <Flyout Placement="BottomEdgeAlignedRight">
-                                    <Flyout.FlyoutPresenterStyle>
-                                        <Style TargetType="FlyoutPresenter">
-                                            <Setter Property="Padding" Value="16,16" />
-                                            <Setter Property="CornerRadius" Value="6" />
-                                        </Style>
-                                    </Flyout.FlyoutPresenterStyle>
-                                    <StackPanel>
-                                        <muxc:NavigationView
-                                            Margin="-12,-12,-12,12"
-                                            CornerRadius="4"
-                                            IsBackButtonVisible="Collapsed"
-                                            IsSettingsVisible="False"
-                                            PaneDisplayMode="Top">
-                                            <muxc:NavigationView.MenuItems>
-                                                <muxc:NavigationViewItem
-                                                    Content="HTTPS"
-                                                    IsSelected="True"
-                                                    Tag="Overview" />
-                                                <muxc:NavigationViewItem Content="SSH" Tag="Repositories" />
-                                                <muxc:NavigationViewItem Content="GitHub CLI" Tag="Repositories" />
-                                            </muxc:NavigationView.MenuItems>
-                                        </muxc:NavigationView>
-                                        <Grid ColumnSpacing="8" RowSpacing="8">
-                                            <Grid.ColumnDefinitions>
-                                                <ColumnDefinition Width="*" />
-                                                <ColumnDefinition Width="Auto" />
-                                            </Grid.ColumnDefinitions>
-                                            <Grid.RowDefinitions>
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                                <RowDefinition Height="Auto" />
-                                            </Grid.RowDefinitions>
-                                            <TextBox HorizontalAlignment="Stretch" PlaceholderText="Web URL" />
-                                            <Button Grid.Column="1">
-                                                <FontIcon
-                                                    Height="18"
-                                                    FontSize="14"
-                                                    Glyph="&#xe8c8;" />
-                                            </Button>
-                                            <TextBlock
-                                                Grid.Row="1"
-                                                Grid.ColumnSpan="2"
-                                                HorizontalAlignment="Stretch"
-                                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                                Style="{ThemeResource BodyTextBlockStyle}"
-                                                Text="Use Git or checkout with SVN using the web URL." />
-                                            <StackPanel
-                                                Grid.Row="2"
-                                                Grid.ColumnSpan="2"
-                                                Margin="0,8,0,0"
-                                                Spacing="8">
-                                                <Button HorizontalAlignment="Stretch">
-                                                    <StackPanel Orientation="Horizontal" Spacing="8">
-                                                        <FontIcon
-                                                            Height="18"
-                                                            FontFamily="octions"
-                                                            FontSize="14"
-                                                            Glyph="&#xE970;" />
-                                                        <TextBlock Text="Open with GitHub Desktop" />
-                                                    </StackPanel>
-                                                </Button>
-                                                <Button HorizontalAlignment="Stretch">
-                                                    <StackPanel Orientation="Horizontal" Spacing="8">
-                                                        <FontIcon
-                                                            Height="18"
-                                                            FontFamily="octions"
-                                                            FontSize="14"
-                                                            Glyph="&#xE92E;" />
-                                                        <TextBlock Text="Open with Visual Studio" />
-                                                    </StackPanel>
-                                                </Button>
-                                                <Button HorizontalAlignment="Stretch" Style="{ThemeResource AccentButtonStyle}">
-                                                    <StackPanel Orientation="Horizontal" Spacing="8">
-                                                        <FontIcon
-                                                            Height="18"
-                                                            FontFamily="octions"
-                                                            FontSize="14"
-                                                            Glyph="&#xE9A7;" />
-                                                        <TextBlock Text="Download zip" />
-                                                    </StackPanel>
-                                                </Button>
-                                            </StackPanel>
-                                        </Grid>
-                                    </StackPanel>
-                                </Flyout>
-                            </muxc:DropDownButton.Flyout>
-                        </muxc:DropDownButton>
+                        <usc:CodeFlyout></usc:CodeFlyout>
                     </StackPanel>
                     <Button
                         x:Name="OverviewColumnOpenButton"
