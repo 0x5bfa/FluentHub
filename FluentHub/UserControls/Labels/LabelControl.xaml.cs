@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentHub.Helpers;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -74,11 +75,44 @@ namespace FluentHub.UserControls.Label
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            LabelBorder.BorderBrush = AccentColor;
             LabelBackground.Background = AccentColor;
+            LabelBackground.Opacity = 0.18;
+            LabelBorder.Opacity = 0.3;
+
+            Color color = ((SolidColorBrush)AccentColor).Color;
+
+            //float H = 0; float S = 0; float L = 0;
+            //ColorHelpers.RgbToHsl(color.R, color.G, color.B, out H, out S, out L);
+
+            //SetColorAdjustedBorderAndColor(color.R, color.G, color.B, H, S, L);
+
+            LabelBorder.BorderBrush = AccentColor;
             LabelTextBlock.Foreground = AccentColor;
 
             LabelTextBlock.Text = LabelText;
+        }
+
+        private void SetColorAdjustedBorderAndColor(int R, int G, int B, float H, float S, float L)
+        {
+            // This method was created from github web-site style named flash.scss
+            // but I could not update color blightness correctly. I don't know why.
+            float lightnessThreshold = 0.6F;
+
+            float perceivedLightness = ((R * 0.2126F) + (G * 0.7152F) + (B * 0.0722F)) / 255F;
+            float lightnessSwitch = (perceivedLightness - lightnessThreshold) * -1000;
+            lightnessSwitch = ((lightnessSwitch < 1) ? lightnessSwitch : 1);
+            lightnessSwitch =( (0 > lightnessSwitch) ? 0 : lightnessSwitch);
+
+            float lightenBy = ((lightnessThreshold - perceivedLightness) * 100) * lightnessSwitch;
+
+            S *= 0.01F;
+            L = (L + lightenBy) * 0.01F;
+
+            ColorHelpers.HslToRgb(H, S, L, out R, out G, out B);
+
+            var adjustedBrush = new SolidColorBrush(Color.FromArgb(0xFF, (byte)R, (byte)G, (byte)B));
+            LabelBorder.BorderBrush = adjustedBrush;
+            LabelTextBlock.Foreground = adjustedBrush;
         }
     }
 }
