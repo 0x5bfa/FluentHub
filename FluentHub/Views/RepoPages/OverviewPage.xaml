@@ -57,7 +57,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Border
-                Height="24"
+                Height="26"
                 Background="{ThemeResource ExpanderHeaderBackground}"
                 BorderBrush="{ThemeResource ExpanderHeaderBorderBrush}"
                 BorderThickness="0.5"
@@ -75,7 +75,7 @@
                     HorizontalAlignment="Left"
                     Background="Transparent"
                     FontWeight="Normal"
-                    Style="{StaticResource ClearButtonStyle}">
+                    Style="{StaticResource LinkLikeButtonStyle}">
                     <TextBlock
                         x:Name="RepoOwnerName"
                         FontWeight="Normal"
@@ -92,7 +92,7 @@
                     HorizontalAlignment="Left"
                     Background="Transparent"
                     FontWeight="Normal"
-                    Style="{StaticResource ClearButtonStyle}">
+                    Style="{StaticResource LinkLikeButtonStyle}">
                     <TextBlock
                         x:Name="RepoName"
                         Style="{StaticResource SubtitleTextBlockStyle}"
