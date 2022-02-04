@@ -150,10 +150,10 @@
                         Width="24">
                         <Image x:Name="RepoLatestCommitAuthorAvatar"  Height="24" Width="24"/>
                     </Border>
-                    <TextBlock Grid.Column="1" x:Name="RepoLatestCommitAuthorName" VerticalAlignment="Center" Margin="12,0,0,0" Text="onein528" Style="{StaticResource BodyStrongTextBlockStyle}"/>
-                    <TextBlock Grid.Column="2" x:Name="RepoLatestCommitMessage" VerticalAlignment="Center" Margin="4,0,0,0" TextWrapping="NoWrap" Text="Add repository overview page (#24)" Style="{StaticResource BodyTextBlockStyle}"/>
+                    <TextBlock Grid.Column="1" x:Name="RepoLatestCommitAuthorName" VerticalAlignment="Center" Margin="12,0,0,0" Style="{StaticResource BodyStrongTextBlockStyle}"/>
+                    <TextBlock Grid.Column="2" x:Name="RepoLatestCommitMessage" VerticalAlignment="Center" Margin="4,0,0,0" TextWrapping="NoWrap" Style="{StaticResource BodyTextBlockStyle}"/>
                     <TextBlock Grid.Column="4" x:Name="RepoLatestCommitSha" VerticalAlignment="Center" Style="{StaticResource CaptionTextBlockStyle}" FontFamily="consolas" Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
-                    <TextBlock Grid.Column="5" x:Name="RepoLatestCommitUpdatedAtHumanized" VerticalAlignment="Center" Margin="4,0,0,0" Text="2 days ago" Style="{StaticResource BodyTextBlockStyle}" Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
+                    <TextBlock Grid.Column="5" x:Name="RepoLatestCommitUpdatedAtHumanized" VerticalAlignment="Center" Margin="4,0,0,0" Style="{StaticResource BodyTextBlockStyle}" Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
                     <StackPanel Grid.Column="6" Orientation="Horizontal" Spacing="4">
                         <FontIcon Glyph="&#xE9D3;" FontFamily="{StaticResource Octions}" Margin="12,0,0,0" FontSize="18"/>
                         <TextBlock x:Name="RepoCommitsCount" VerticalAlignment="Center" Style="{StaticResource BodyStrongTextBlockStyle}"/>
@@ -222,7 +222,6 @@
                 <Grid
                     x:Name="RepositoryReadmeBlock"
                     Grid.Row="3"
-                    Height="1024"
                     Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1"
@@ -232,7 +231,14 @@
                         x:Name="RepositoryReadmeWebView"
                         Loaded="RepositoryReadmeWebView_Loaded"
                         DefaultBackgroundColor="Transparent"
-                        NavigationStarting="RepositoryReadmeWebView_NavigationStarting"/>
+                        NavigationStarting="RepositoryReadmeWebView_NavigationStarting"
+                        NavigationCompleted="RepositoryReadmeWebView_NavigationCompleted"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Height="Auto" Width="Auto"
+                        ScrollViewer.VerticalScrollMode="Disabled"
+                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                        ScrollViewer.VerticalScrollBarVisibility="Disabled"/>
                 </Grid>
             </Grid>
             <Grid

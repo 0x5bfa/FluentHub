@@ -42,6 +42,8 @@ namespace FluentHub.ViewModels
 
         public Frame MainFrame { get; private set; } = new Frame();
 
+        public Frame RepoMainFrame { get; private set; } = new Frame();
+
         public void NavigateMainFrame(string url)
         {
             // MainFrame.Navigate(pageType);

@@ -91,6 +91,8 @@ namespace FluentHub.Views.RepoPages
 
             RepoLatestCommitAuthorName.Text = commits[0].Author.Login;
 
+            RepoLatestCommitMessage.Text = commits[0].Commit.Message.Split("\n")[0];
+
             RepoLatestCommitSha.Text = commits[0].Sha.Substring(0, 7);
 
             RepoLatestCommitUpdatedAtHumanized.Text = commits[0].Commit.Author.Date.Humanize();
@@ -126,5 +128,27 @@ namespace FluentHub.Views.RepoPages
 
             RepositoryReadmeWebView.NavigateToString(result);
         }
+
+        private async void RepositoryReadmeWebView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
+        {
+            string returnStr = await RepositoryReadmeWebView.InvokeScriptAsync("eval", new string[] { SetBodyOverFlowHiddenString });
+            int heightScroll = 0;
+            var heightScrollStr = await RepositoryReadmeWebView.InvokeScriptAsync("eval", new[] { "document.body.scrollHeight.toString()" });
+
+            if (int.TryParse(heightScrollStr, out heightScroll))
+            {
+                RepositoryReadmeWebView.Height = heightScroll;
+            }
+        }
+
+
+        string SetBodyOverFlowHiddenString
+            = @" function SetBodyOverFlowHidden()
+                {
+                    document.body.style.overflow = 'hidden';
+                    return 'Set Style to hidden';
+                }
+                SetBodyOverFlowHidden();
+            ";
     }
 }
