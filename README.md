@@ -1,6 +1,11 @@
-<h1 align="center">
-  <img alt="Logo" src="FluentHub/Assets/FluentHub.png" Height="64" />
-</h1>
+<p align="center">
+  <img alt="Logo" src="https://avatars.githubusercontent.com/u/98096883?s=400&u=d9d8b793aee2e6e6a9646c8482e3a8d5a5e181c3&v=4" width="100px" />
+  <h1 align="center">FluentHub</h1>
+</p>
+
+![DownloadsCount](https://img.shields.io/github/downloads/fluenthub-uwp/FluentHub/total)
+![License](https://img.shields.io/github/license/fluenthub-uwp/FluentHub)
+![RepoSize](https://img.shields.io/github/repo-size/fluenthub-uwp/FluentHub)
 
 ## What's this?
 
