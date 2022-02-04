@@ -7,7 +7,7 @@
 ![License](https://img.shields.io/github/license/fluenthub-uwp/FluentHub)
 ![RepoSize](https://img.shields.io/github/repo-size/fluenthub-uwp/FluentHub)
 
-## What's this?
+## What is FluentHub?
 
 `FluentHub` is the GitHub Desktop which conform to [Fluent Design System](https://www.microsoft.com/design/fluent) using GitHub API [v3(Rest API)](https://developer.github.com/v3/) and [v4(GraphQL API)](https://developer.github.com/v4/) on Windows.
 
