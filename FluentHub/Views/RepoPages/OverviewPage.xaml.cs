@@ -25,6 +25,15 @@ namespace FluentHub.Views.RepoPages
         public OverviewPage()
         {
             this.InitializeComponent();
+
+            App.MainViewModel.RepoMainFrame.Navigating += RepoMainFrameNavigating;
+        }
+
+        private void RepoMainFrameNavigating(object sender, NavigatingCancelEventArgs e)
+        {
+            RepoPageNavViewFrame.Navigate(e.SourcePageType, e.Parameter);
+
+            e.Cancel = true;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

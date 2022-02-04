@@ -57,16 +57,18 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Border
+                Height="24"
                 Background="{ThemeResource ExpanderHeaderBackground}"
                 BorderBrush="{ThemeResource ExpanderHeaderBorderBrush}"
                 BorderThickness="0.5"
                 CornerRadius="8">
-                <Image x:Name="RepoOwnerAvatar" Height="48" />
+                <Image x:Name="RepoOwnerAvatar" Height="24" />
             </Border>
             <StackPanel
                 Grid.Column="1"
-                Margin="12,0"
-                VerticalAlignment="Center">
+                Margin="8,0"
+                VerticalAlignment="Center"
+                Orientation="Horizontal">
                 <Button
                     Grid.Column="1"
                     Padding="2,0"
@@ -77,12 +79,16 @@
                     <TextBlock
                         x:Name="RepoOwnerName"
                         FontWeight="Normal"
-                        Style="{StaticResource BodyTextBlockStyle}"
+                        Style="{StaticResource SubtitleTextBlockStyle}"
                         Text="fluenthub-uwp" />
                 </Button>
+                <TextBlock
+                    Margin="4,0"
+                    Style="{StaticResource SubtitleTextBlockStyle}"
+                    Text="/" />
                 <Button
                     Grid.Column="3"
-                    Padding="2,-4"
+                    Padding="2,0"
                     HorizontalAlignment="Left"
                     Background="Transparent"
                     FontWeight="Normal"

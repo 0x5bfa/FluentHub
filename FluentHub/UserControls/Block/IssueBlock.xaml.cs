@@ -1,4 +1,5 @@
-﻿using Humanizer;
+﻿using FluentHub.Views.RepoPages;
+using Humanizer;
 using Octokit;
 using System;
 using System.Collections.Generic;
@@ -60,7 +61,8 @@ namespace FluentHub.UserControls.Block
 
         private void IssueBlockButton_Click(object sender, RoutedEventArgs e)
         {
-
+            string param = RepositoryId + "/" + IssueIndex;
+            App.MainViewModel.RepoMainFrame.Navigate(typeof(IssuePage), param);
         }
 
         public SolidColorBrush GetSolidColorBrush(string hex)
