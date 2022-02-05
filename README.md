@@ -6,6 +6,7 @@
 ![DownloadsCount](https://img.shields.io/github/downloads/fluenthub-uwp/FluentHub/total)
 ![License](https://img.shields.io/github/license/fluenthub-uwp/FluentHub)
 ![RepoSize](https://img.shields.io/github/repo-size/fluenthub-uwp/FluentHub)
+[![CodeFactor](https://www.codefactor.io/repository/github/fluenthub-uwp/fluenthub/badge)](https://www.codefactor.io/repository/github/fluenthub-uwp/fluenthub)
 
 ## What is FluentHub?
 
