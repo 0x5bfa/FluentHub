@@ -80,7 +80,7 @@ namespace FluentHub.Views.RepoPages
 
             OverviewStargazersCount.Content = Repository.StargazersCount.ToString() + " Stars";
 
-            OverviewWatchingCount.Content = Repository.SubscribersCount.ToString() + " Watching";
+            OverviewWatchingCount.Content = Repository.WatchersCount.ToString() + " Watching";
 
             OverviewForksCount.Content = Repository.ForksCount.ToString() + " Forks";
 

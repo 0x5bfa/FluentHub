@@ -82,7 +82,7 @@
                                 </MenuFlyout>
                             </muxc:DropDownButton.Flyout>
                         </muxc:DropDownButton>
-                        <usc:CodeFlyout></usc:CodeFlyout>
+                        <usc:CodeFlyout />
                     </StackPanel>
                     <Button
                         x:Name="OverviewColumnOpenButton"
