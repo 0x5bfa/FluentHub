@@ -3,8 +3,11 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:label="using:FluentHub.UserControls.Labels"
     xmlns:local="using:FluentHub.Views.RepoPages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    Loaded="Page_Loaded"
     mc:Ignorable="d">
 
     <ScrollViewer Padding="24,18">
@@ -14,13 +17,16 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <StackPanel Orientation="Horizontal" Spacing="8">
                 <TextBlock
+                    x:Name="IssueTitleTextBlock"
                     FontWeight="Normal"
-                    Style="{StaticResource TitleTextBlockStyle}"
-                    Text="Repository page ScrollViewer position" />
+                    Style="{StaticResource TitleTextBlockStyle}" />
                 <TextBlock
+                    x:Name="IssueNumberTextBlock"
                     FontWeight="SemiLight"
                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                     Style="{StaticResource TitleTextBlockStyle}"
@@ -31,37 +37,31 @@
                 Margin="0,8"
                 Orientation="Horizontal"
                 Spacing="4">
-                <Border
-                    Height="36"
-                    Margin="0,0,4,0"
-                    Padding="12,6"
-                    HorizontalAlignment="Left"
-                    Background="#347d39"
-                    BorderBrush="Transparent"
-                    BorderThickness="1"
-                    CornerRadius="20">
-                    <StackPanel Orientation="Horizontal" Spacing="4">
-                        <FontIcon
-                            FontFamily="{StaticResource Octions}"
-                            FontSize="16"
-                            Glyph="&#xE9EA;" />
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="Open" />
-                    </StackPanel>
-                </Border>
+                <label:StateLabel x:Name="StatusLabel" Status="IssueDraft" />
                 <TextBlock
+                    x:Name="IssueOpenerNameTextBlock"
                     VerticalAlignment="Center"
                     Foreground="{StaticResource ApplicationSecondaryForegroundThemeBrush}"
-                    Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="onein528" />
+                    Style="{StaticResource BodyStrongTextBlockStyle}" />
                 <TextBlock
+                    x:Name="IssueOpenedComment"
                     VerticalAlignment="Center"
                     Foreground="{StaticResource ApplicationSecondaryForegroundThemeBrush}"
-                    Style="{StaticResource BodyTextBlockStyle}"
-                    Text="opened this issue yesterday · 2 comments" />
+                    Style="{StaticResource BodyTextBlockStyle}" />
             </StackPanel>
+            <MenuFlyoutSeparator Grid.Row="2" Margin="0,0,0,8" />
+            <!--<Grid
+                Grid.Row="2"
+                Grid.RowSpan="5"
+                Margin="64,32"
+                HorizontalAlignment="Left">
+                <Border Width="0.5" Background="{StaticResource MenuFlyoutSeparatorBackground}" />
+            </Grid>
+            <StackPanel
+                x:Name="EventsPanel"
+                Grid.Row="3"
+                MinHeight="256" />-->
+            <TextBlock Grid.Row="3" Text="Currently, issue events and comments are not available. Comming soon!" />
         </Grid>
     </ScrollViewer>
 </Page>

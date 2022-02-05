@@ -4,7 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:block="using:FluentHub.UserControls.Block"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:label="using:FluentHub.UserControls.Label"
+    xmlns:item="using:FluentHub.Models.Items"
     xmlns:local="using:FluentHub.Views.RepoPages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -38,29 +38,6 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="*" />
                     </Grid.ColumnDefinitions>
-                    <!--<Grid
-                        MinHeight="96"
-                        HorizontalAlignment="Stretch"
-                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                        BorderThickness="1"
-                        CornerRadius="4" />
-                    <Grid
-                        Grid.Column="1"
-                        MinHeight="96"
-                        HorizontalAlignment="Stretch"
-                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                        BorderThickness="1"
-                        CornerRadius="4" />
-                    <Grid
-                        Grid.Column="2"
-                        MinHeight="96"
-                        HorizontalAlignment="Stretch"
-                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                        BorderThickness="1"
-                        CornerRadius="4" />-->
                 </Grid>
             </Grid>
             <Grid
@@ -140,7 +117,7 @@
                     <muxc:ProgressRing x:Name="loadingRing" IsActive="{Binding IsActive}" />
                     <Border>
                         <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Items}" Loaded="ItemsRepeater_Loaded">
-                            <DataTemplate x:DataType="vm:IssueListItem">
+                            <DataTemplate x:DataType="item:IssueListItem">
                                 <block:IssueBlock
                                     x:Name="RepositoryBlock"
                                     IssueIndex="{x:Bind IssueIndex}"

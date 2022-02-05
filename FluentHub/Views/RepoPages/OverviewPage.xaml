@@ -14,15 +14,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
                     <Thickness x:Key="NavigationViewTopPaneHeight">40</Thickness>
-                    <!--<SolidColorBrush x:Key="ExpanderHeaderBackground" Color="Transparent" />
-                    <SolidColorBrush x:Key="ExpanderHeaderBorderBrush" Color="Transparent" />
-                    <Thickness x:Key="ExpanderHeaderPadding">0</Thickness>
-                    <SolidColorBrush x:Key="ExpanderHeaderBorderPointerOverBrush" Color="Transparent" />
-                    <SolidColorBrush x:Key="ExpanderHeaderBorderPressedBrush" Color="Transparent" />
-                    <SolidColorBrush x:Key="ExpanderContentBackground" Color="Transparent" />
-                    <SolidColorBrush x:Key="ExpanderContentBorderBrush" Color="Transparent" />
-                    <x:Double x:Key="ExpanderMinHeight">0</x:Double>
-                    <Thickness x:Key="ExpanderContentPadding">0</Thickness>-->
                     <Style
                         x:Key="ButtonSettingsBlockStyle"
                         BasedOn="{StaticResource DefaultButtonStyle}"
@@ -57,7 +48,7 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
             <Border
-                Height="24"
+                Height="26"
                 Background="{ThemeResource ExpanderHeaderBackground}"
                 BorderBrush="{ThemeResource ExpanderHeaderBorderBrush}"
                 BorderThickness="0.5"
@@ -75,7 +66,7 @@
                     HorizontalAlignment="Left"
                     Background="Transparent"
                     FontWeight="Normal"
-                    Style="{StaticResource ClearButtonStyle}">
+                    Style="{StaticResource LinkLikeButtonStyle}">
                     <TextBlock
                         x:Name="RepoOwnerName"
                         FontWeight="Normal"
@@ -92,7 +83,7 @@
                     HorizontalAlignment="Left"
                     Background="Transparent"
                     FontWeight="Normal"
-                    Style="{StaticResource ClearButtonStyle}">
+                    Style="{StaticResource LinkLikeButtonStyle}">
                     <TextBlock
                         x:Name="RepoName"
                         Style="{StaticResource SubtitleTextBlockStyle}"
@@ -164,8 +155,8 @@
                 Margin="10,0"
                 IsBackButtonVisible="Collapsed"
                 IsSettingsVisible="False"
-                PaneDisplayMode="Top"
-                SelectionChanged="RepoPageNavView_SelectionChanged">
+                ItemInvoked="RepoPageNavView_ItemInvoked"
+                PaneDisplayMode="Top">
                 <muxc:NavigationView.MenuItems>
                     <muxc:NavigationViewItem
                         Content="Code"

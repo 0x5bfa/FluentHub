@@ -54,18 +54,15 @@ namespace FluentHub.Views.RepoPages
 
             string repoDescription = Repository.Description;
 
-            bool descriptionNotExists = string.IsNullOrEmpty(repoDescription);
-
-            if(descriptionNotExists == false)
+            if(string.IsNullOrEmpty(repoDescription) == false)
             {
                 RepoDescription.Text = repoDescription;
             }
             else
             {
                 RepoDescription.Text = "No description found for this repositiry.";
+                RepoDescription.FontStyle = Windows.UI.Text.FontStyle.Italic;
             }
-
-            
 
             if (Readme != null)
             {
@@ -80,12 +77,19 @@ namespace FluentHub.Views.RepoPages
 
             OverviewStargazersCount.Content = Repository.StargazersCount.ToString() + " Stars";
 
-            OverviewWatchingCount.Content = Repository.SubscribersCount.ToString() + " Watching";
+            OverviewWatchingCount.Content = Repository.WatchersCount.ToString() + " Watching";
 
             OverviewForksCount.Content = Repository.ForksCount.ToString() + " Forks";
 
-            var commits = await App.Client.Repository.Commit.GetAll(RepoId);
+            var branches = await App.Client.Repository.Branch.GetAll(RepoId);
 
+            BranchesCountTextBlock.Text = branches.Count().ToString();
+
+            var tags = await App.Client.Repository.GetAllTags(RepoId);
+
+            TagsCountTextBlock.Text = tags.Count().ToString();
+
+            var commits = await App.Client.Repository.Commit.GetAll(RepoId);
 
             RepoLatestCommitAuthorAvatar.Source = new BitmapImage(new Uri(commits[0].Author.AvatarUrl));
 
@@ -150,5 +154,11 @@ namespace FluentHub.Views.RepoPages
                 }
                 SetBodyOverFlowHidden();
             ";
+
+        private void Page_Loading(FrameworkElement sender, object args)
+        {
+            GitCloneFlyout.RepositoryId = RepoId;
+
+        }
     }
 }

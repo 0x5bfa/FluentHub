@@ -161,32 +161,53 @@
                         <Setter Property="TextLineBounds" Value="Full" />
                         <Setter Property="OpticalMarginAlignment" Value="TrimSideBearings" />
                     </Style>
-                    <Style x:Key="CaptionTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+                    <Style
+                        x:Key="CaptionTextBlockStyle"
+                        BasedOn="{StaticResource BaseTextBlockStyle}"
+                        TargetType="TextBlock">
                         <Setter Property="FontSize" Value="{StaticResource CaptionTextBlockFontSize}" />
                         <Setter Property="FontWeight" Value="Normal" />
                         <Setter Property="OpticalMarginAlignment" Value="None" />
                     </Style>
-                    <Style x:Key="BodyTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+                    <Style
+                        x:Key="BodyTextBlockStyle"
+                        BasedOn="{StaticResource BaseTextBlockStyle}"
+                        TargetType="TextBlock">
                         <Setter Property="FontSize" Value="{StaticResource BodyTextBlockFontSize}" />
                         <Setter Property="FontWeight" Value="Normal" />
                         <Setter Property="OpticalMarginAlignment" Value="None" />
                     </Style>
-                    <Style x:Key="BodyStrongTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BodyTextBlockStyle}">
+                    <Style
+                        x:Key="BodyStrongTextBlockStyle"
+                        BasedOn="{StaticResource BodyTextBlockStyle}"
+                        TargetType="TextBlock">
                         <Setter Property="FontWeight" Value="SemiBold" />
                     </Style>
-                    <Style x:Key="SubtitleTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+                    <Style
+                        x:Key="SubtitleTextBlockStyle"
+                        BasedOn="{StaticResource BaseTextBlockStyle}"
+                        TargetType="TextBlock">
                         <Setter Property="FontSize" Value="{StaticResource SubtitleTextBlockFontSize}" />
                         <Setter Property="FontWeight" Value="SemiBold" />
                     </Style>
-                    <Style x:Key="TitleTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+                    <Style
+                        x:Key="TitleTextBlockStyle"
+                        BasedOn="{StaticResource BaseTextBlockStyle}"
+                        TargetType="TextBlock">
                         <Setter Property="FontSize" Value="{StaticResource TitleTextBlockFontSize}" />
                         <Setter Property="FontWeight" Value="SemiBold" />
                     </Style>
-                    <Style x:Key="TitleLargeTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+                    <Style
+                        x:Key="TitleLargeTextBlockStyle"
+                        BasedOn="{StaticResource BaseTextBlockStyle}"
+                        TargetType="TextBlock">
                         <Setter Property="FontSize" Value="{StaticResource TitleLargeTextBlockFontSize}" />
                         <Setter Property="FontWeight" Value="SemiBold" />
                     </Style>
-                    <Style x:Key="DisplayTextBlockStyle" TargetType="TextBlock" BasedOn="{StaticResource BaseTextBlockStyle}">
+                    <Style
+                        x:Key="DisplayTextBlockStyle"
+                        BasedOn="{StaticResource BaseTextBlockStyle}"
+                        TargetType="TextBlock">
                         <Setter Property="FontSize" Value="{StaticResource DisplayTextBlockFontSize}" />
                         <Setter Property="FontWeight" Value="SemiBold" />
                     </Style>

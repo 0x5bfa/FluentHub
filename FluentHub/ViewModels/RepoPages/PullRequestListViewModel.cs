@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.RepoPages
 {
-    public class IssueListViewModel : INotifyPropertyChanged
+    public class PullRequestListViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<IssueListItem> _items = new ObservableCollection<IssueListItem>();
         public ObservableCollection<IssueListItem> Items
@@ -28,20 +28,17 @@ namespace FluentHub.ViewModels.RepoPages
         {
             IsActive = true;
 
-            RepositoryIssueRequest request = new RepositoryIssueRequest();
+            PullRequestRequest request = new PullRequestRequest();
             request.State = ItemStateFilter.All;
 
-            var issues = await App.Client.Issue.GetAllForRepository(repoId, request);
+            var issues = await App.Client.PullRequest.GetAllForRepository(repoId, request);
 
             foreach (var item in issues)
             {
-                if (item.PullRequest == null)
-                {
-                    IssueListItem listItem = new IssueListItem();
-                    listItem.RepoId = repoId;
-                    listItem.IssueIndex = item.Number;
-                    Items.Add(listItem);
-                }
+                IssueListItem listItem = new IssueListItem();
+                listItem.RepoId = repoId;
+                listItem.IssueIndex = item.Number;
+                Items.Add(listItem);
             }
 
             IsActive = false;

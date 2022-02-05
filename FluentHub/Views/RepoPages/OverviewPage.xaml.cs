@@ -15,7 +15,6 @@ using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using muxc = Microsoft.UI.Xaml.Controls;
 
-
 namespace FluentHub.Views.RepoPages
 {
     public sealed partial class OverviewPage : Page
@@ -41,25 +40,6 @@ namespace FluentHub.Views.RepoPages
             RepoId = Convert.ToInt64(e.Parameter as string);
         }
 
-        private void RepoPageNavView_SelectionChanged(muxc.NavigationView sender, muxc.NavigationViewSelectionChangedEventArgs args)
-        {
-            switch (args.SelectedItemContainer.Tag.ToString())
-            {
-                case "Code":
-                    RepoPageNavViewFrame.Navigate(typeof(CodePage), RepoId.ToString());
-                    break;
-                case "Issues":
-                    RepoPageNavViewFrame.Navigate(typeof(IssueListPage), RepoId.ToString());
-                    break;
-                case "PRs":
-                    RepoPageNavViewFrame.Navigate(typeof(PullRequestListPage), RepoId.ToString());
-                    break;
-                case "Settings":
-                    RepoPageNavViewFrame.Navigate(typeof(Settings), RepoId.ToString());
-                    break;
-            }
-        }
-
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             var repo = await App.Client.Repository.Get(RepoId);
@@ -76,18 +56,39 @@ namespace FluentHub.Views.RepoPages
 
             StargazersCountBadge.Value = repo.StargazersCount;
 
+            var pulls = await App.Client.PullRequest.GetAllForRepository(RepoId);
+
             if (repo.OpenIssuesCount != 0)
             {
-                IssuesCountBadge.Value = repo.OpenIssuesCount;
+                IssuesCountBadge.Value = repo.OpenIssuesCount - pulls.Count();
                 IssuesCountBadge.Visibility = Visibility.Visible;
             }
-
-            var pulls = await App.Client.PullRequest.GetAllForRepository(RepoId);
 
             if (pulls.Count() != 0)
             {
                 PullsCountBadge.Value = pulls.Count();
                 PullsCountBadge.Visibility = Visibility.Visible;
+            }
+
+            RepoPageNavViewFrame.Navigate(typeof(CodePage), RepoId.ToString());
+        }
+
+        private void RepoPageNavView_ItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
+        {
+            switch (args.InvokedItemContainer.Tag.ToString())
+            {
+                case "Code":
+                    RepoPageNavViewFrame.Navigate(typeof(CodePage), RepoId.ToString());
+                    break;
+                case "Issues":
+                    RepoPageNavViewFrame.Navigate(typeof(IssueListPage), RepoId.ToString());
+                    break;
+                case "PRs":
+                    RepoPageNavViewFrame.Navigate(typeof(PullRequestListPage), RepoId.ToString());
+                    break;
+                case "Settings":
+                    RepoPageNavViewFrame.Navigate(typeof(Settings), RepoId.ToString());
+                    break;
             }
         }
     }
