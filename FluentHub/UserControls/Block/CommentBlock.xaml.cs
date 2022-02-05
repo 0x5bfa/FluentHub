@@ -13,13 +13,16 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// La plantilla de elemento Control de usuario está documentada en https://go.microsoft.com/fwlink/?LinkId=234236
+// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace FluentHub.UserControls
+namespace FluentHub.UserControls.Block
 {
-    public sealed partial class CodeFlyout : UserControl
+    /// <summary>
+    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// </summary>
+    public sealed partial class CommentBlock : Page
     {
-        public CodeFlyout()
+        public CommentBlock()
         {
             this.InitializeComponent();
         }
