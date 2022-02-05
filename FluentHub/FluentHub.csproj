@@ -142,6 +142,9 @@
     <Compile Include="UserControls\Block\IssueBlock.xaml.cs">
       <DependentUpon>IssueBlock.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Block\PullRequestBlock.xaml.cs">
+      <DependentUpon>PullRequestBlock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Block\RepoBlock.xaml.cs">
       <DependentUpon>RepoBlock.xaml</DependentUpon>
     </Compile>
@@ -167,6 +170,7 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\RepoPages\CodePageViewModel.cs" />
     <Compile Include="ViewModels\RepoPages\IssueListViewModel.cs" />
+    <Compile Include="ViewModels\RepoPages\PullRequestListViewModel.cs" />
     <Compile Include="ViewModels\SettingsManager.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\UserPages\ActivityViewModel.cs" />
@@ -205,6 +209,9 @@
     </Compile>
     <Compile Include="Views\RepoPages\IssueListPage.xaml.cs">
       <DependentUpon>IssueListPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RepoPages\PullRequestPage.xaml.cs">
+      <DependentUpon>PullRequestPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RepoPages\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
@@ -348,6 +355,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\Block\PullRequestBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Block\RepoBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -413,6 +424,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\RepoPages\IssueListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RepoPages\PullRequestPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
