@@ -136,6 +136,7 @@
     <Compile Include="Helpers\LanguageColorHelpers.cs" />
     <Compile Include="Helpers\MentionHelpers.cs" />
     <Compile Include="Helpers\NavigationHelpers.cs" />
+    <Compile Include="Helpers\ResourceHelper.cs" />
     <Compile Include="Models\Items\IssueListItem.cs" />
     <Compile Include="Models\Items\NotificationListItem.cs" />
     <Compile Include="Models\Items\ProfileBlockItem.cs" />

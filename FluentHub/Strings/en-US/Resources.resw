@@ -117,64 +117,65 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="activities.Content" xml:space="preserve">
+  <data name="activities" xml:space="preserve">
     <value>Activities</value>
   </data>
-  <data name="backBtn.ToolTipService.ToolTip" xml:space="preserve">
+  <data name="backBtn" xml:space="preserve">
     <value>Back</value>
   </data>
-  <data name="discussions.Text" xml:space="preserve">
+  <data name="discussions" xml:space="preserve">
     <value>Discussions</value>
   </data>
-  <data name="forwardBtn.ToolTipService.ToolTip" xml:space="preserve">
+  <data name="forwardBtn" xml:space="preserve">
     <value>Forward</value>
   </data>
-  <data name="homeBtn.ToolTipService.ToolTip" xml:space="preserve">
+  <data name="homeBtn" xml:space="preserve">
     <value>Home</value>
   </data>
-  <data name="issues.Text" xml:space="preserve">
+  <data name="issues" xml:space="preserve">
     <value>Issues</value>
   </data>
-  <data name="notifications.Content" xml:space="preserve">
+  <data name="notifications" xml:space="preserve">
     <value>Notifications</value>
   </data>
-  <data name="orgs.Text" xml:space="preserve">
+  <data name="orgs" xml:space="preserve">
     <value>Organizations</value>
   </data>
-  <data name="profile.Content" xml:space="preserve">
+  <data name="profile" xml:space="preserve">
     <value>Profile</value>
   </data>
-  <data name="PRs.Text" xml:space="preserve">
+  <data name="PRs" xml:space="preserve">
     <value>Pull Requests</value>
   </data>
-  <data name="refreshBtn.ToolTipService.ToolTip" xml:space="preserve">
+  <data name="refreshBtn" xml:space="preserve">
     <value>Refresh</value>
   </data>
-  <data name="repos.Text" xml:space="preserve">
+  <data name="repositories" xml:space="preserve">
     <value>Repositories</value>
   </data>
-  <data name="searchBarPH.PlaceholderText" xml:space="preserve">
+  <data name="searchBarPlaceholder" xml:space="preserve">
     <value>Find code, projects, and people on GitHub</value>
   </data>
-  <data name="settingsBtn.ToolTipService.ToolTip" xml:space="preserve">
+  <data name="settingsBtn" xml:space="preserve">
     <value>App settings</value>
   </data>
-  <data name="starred.Text" xml:space="preserve">
+  <data name="starred" xml:space="preserve">
     <value>Starred</value>
   </data>
-  <data name="startUpButton.Content" xml:space="preserve">
+  <data name="startUpButton" xml:space="preserve">
     <value>Start setup</value>
     <comment>The same as the value</comment>
   </data>
   <data name="thxLog" xml:space="preserve">
-    <value>We're glad you're here.&amp;#10;To user all features, just you need to sign in first.</value>
+    <value>We're glad you're here.
+    To user all features, just you need to sign in first.</value>
     <comment>Thanks giving for downloading the app and tell you to login</comment>
   </data>
   <data name="welcome" xml:space="preserve">
     <value>Welcome to</value>
     <comment>Welcome text (Startup)</comment>
   </data>
-  <data name="work.Content" xml:space="preserve">
+  <data name="work" xml:space="preserve">
     <value>My work</value>
   </data>
 </root>

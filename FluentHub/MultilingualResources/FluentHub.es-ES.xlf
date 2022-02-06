@@ -6,50 +6,11 @@
     </header>
     <body>
       <group id="FLUENTHUB/STRINGS/EN-US/RESOURCES.RESW" datatype="resx">
-        <trans-unit id="activities.Content" translate="yes" xml:space="preserve">
-          <source>Activities</source>
-          <target state="translated">Actividad</target>
-        </trans-unit>
-        <trans-unit id="discussions.Text" translate="yes" xml:space="preserve">
-          <source>Discussions</source>
-          <target state="translated">Discusiones</target>
-        </trans-unit>
-        <trans-unit id="issues.Text" translate="yes" xml:space="preserve">
-          <source>Issues</source>
-          <target state="translated">Propuestas</target>
-        </trans-unit>
-        <trans-unit id="notifications.Content" translate="yes" xml:space="preserve">
-          <source>Notifications</source>
-          <target state="translated">Notificaciones</target>
-        </trans-unit>
-        <trans-unit id="orgs.Text" translate="yes" xml:space="preserve">
-          <source>Organizations</source>
-          <target state="translated">Organizaciones</target>
-        </trans-unit>
-        <trans-unit id="profile.Content" translate="yes" xml:space="preserve">
-          <source>Profile</source>
-          <target state="translated">Perfil</target>
-        </trans-unit>
-        <trans-unit id="PRs.Text" translate="yes" xml:space="preserve">
-          <source>Pull Requests</source>
-          <target state="translated">Solicitudes de cambios</target>
-        </trans-unit>
-        <trans-unit id="repos.Text" translate="yes" xml:space="preserve">
-          <source>Repositories</source>
-          <target state="translated">Repositorios</target>
-        </trans-unit>
-        <trans-unit id="starred.Text" translate="yes" xml:space="preserve">
-          <source>Starred</source>
-          <target state="translated">Marcado con Estrella</target>
-        </trans-unit>
-        <trans-unit id="startUpButton.Content" translate="yes" xml:space="preserve">
-          <source>Start setup</source>
-          <target state="translated">Iniciar configuración</target>
-          <note from="MultilingualBuild" annotates="source" priority="2">The same as the value</note>
-        </trans-unit>
         <trans-unit id="thxLog" translate="yes" xml:space="preserve">
-          <source>We're glad you're here.&amp;#10;To user all features, just you need to sign in first.</source>
-          <target state="translated">Agradecemos el tenerte aquí.&amp;#10;Para usar todas las funciones tan solo necesitas inciar sesión.</target>
+          <source>We're glad you're here.
+    To user all features, just you need to sign in first.</source>
+          <target state="translated">Agradecemos el tenerte aquí
+Para usar todas las funciones tan solo necesitas inciar sesión.</target>
           <note from="MultilingualBuild" annotates="source" priority="2">Thanks giving for downloading the app and tell you to login</note>
         </trans-unit>
         <trans-unit id="welcome" translate="yes" xml:space="preserve">
@@ -57,33 +18,74 @@
           <target state="translated">Bienvenido a</target>
           <note from="MultilingualBuild" annotates="source" priority="2">Welcome text (Startup)</note>
         </trans-unit>
-        <trans-unit id="work.Content" translate="yes" xml:space="preserve">
+        <trans-unit id="work" translate="yes" xml:space="preserve">
           <source>My work</source>
           <target state="translated">Mi trabajo</target>
         </trans-unit>
-        <trans-unit id="backBtn.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+        <trans-unit id="activities" translate="yes" xml:space="preserve">
+          <source>Activities</source>
+          <target state="translated">Actividad</target>
+        </trans-unit>
+        <trans-unit id="backBtn" translate="yes" xml:space="preserve">
           <source>Back</source>
           <target state="translated">Atrás</target>
         </trans-unit>
-        <trans-unit id="forwardBtn.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+        <trans-unit id="discussions" translate="yes" xml:space="preserve">
+          <source>Discussions</source>
+          <target state="translated">Discusiones</target>
+        </trans-unit>
+        <trans-unit id="forwardBtn" translate="yes" xml:space="preserve">
           <source>Forward</source>
           <target state="translated">Adelante</target>
         </trans-unit>
-        <trans-unit id="homeBtn.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+        <trans-unit id="homeBtn" translate="yes" xml:space="preserve">
           <source>Home</source>
           <target state="translated">Inicio</target>
         </trans-unit>
-        <trans-unit id="refreshBtn.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+        <trans-unit id="issues" translate="yes" xml:space="preserve">
+          <source>Issues</source>
+          <target state="translated">Propuestas</target>
+        </trans-unit>
+        <trans-unit id="notifications" translate="yes" xml:space="preserve">
+          <source>Notifications</source>
+          <target state="translated">Notificaciones</target>
+        </trans-unit>
+        <trans-unit id="orgs" translate="yes" xml:space="preserve">
+          <source>Organizations</source>
+          <target state="translated">Organizaciones</target>
+        </trans-unit>
+        <trans-unit id="profile" translate="yes" xml:space="preserve">
+          <source>Profile</source>
+          <target state="translated">Perfil</target>
+        </trans-unit>
+        <trans-unit id="PRs" translate="yes" xml:space="preserve">
+          <source>Pull Requests</source>
+          <target state="translated">Solicitudes de cambio</target>
+        </trans-unit>
+        <trans-unit id="refreshBtn" translate="yes" xml:space="preserve">
           <source>Refresh</source>
           <target state="translated">Refrescar</target>
         </trans-unit>
-        <trans-unit id="searchBarPH.PlaceholderText" translate="yes" xml:space="preserve">
-          <source>Find code, projects, and people on GitHub</source>
-          <target state="translated">Encuentra código, proyectos y gente en GitHub</target>
+        <trans-unit id="repositories" translate="yes" xml:space="preserve">
+          <source>Repositories</source>
+          <target state="translated">Repositorios</target>
         </trans-unit>
-        <trans-unit id="settingsBtn.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+        <trans-unit id="searchBarPlaceholder" translate="yes" xml:space="preserve">
+          <source>Find code, projects, and people on GitHub</source>
+          <target state="translated">Encuemtra código, proyectos y gente en GitHub</target>
+        </trans-unit>
+        <trans-unit id="settingsBtn" translate="yes" xml:space="preserve">
           <source>App settings</source>
           <target state="translated">Ajustes</target>
+        </trans-unit>
+        <trans-unit id="starred" translate="yes" xml:space="preserve">
+          <source>Starred</source>
+          <target state="translated">Marcado con estrellas</target>
+        </trans-unit>
+        <trans-unit id="startUpButton" translate="yes" xml:space="preserve">
+          <source>Start setup</source>
+          <target state="translated">Iniciar configuración inicial</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">The same as the value</note>
         </trans-unit>
       </group>
     </body>

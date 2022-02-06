@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="using:FluentHub.Helpers"
     xmlns:local="using:FluentHub.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -53,31 +54,28 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center">
             <TextBlock
-                x:Uid="welcome"
                 HorizontalAlignment="Center"
                 Style="{ThemeResource TitleTextBlockStyle}"
-                Text="Welcome to" />
+                Text="{helpers:ResourceString Name=welcome}" />
             <Image
                 Width="Auto"
                 Margin="0,32"
                 HorizontalAlignment="Left"
                 Source="/Assets/FluentHub.png" />
             <TextBlock
-                x:Uid="thxLog"
                 HorizontalAlignment="Center"
                 HorizontalTextAlignment="Center"
                 Style="{ThemeResource BodyTextBlockStyle}"
-                Text="We're glad you're here.&#10;To user all features, just you need to sign in first."
+                Text="{helpers:ResourceString Name=thxLog}"
                 TextWrapping="Wrap" />
             <StackPanel
                 Margin="0,24,0,0"
                 HorizontalAlignment="Center"
                 Orientation="Horizontal">
                 <Button
-                    x:Uid="startUpButton"
                     HorizontalAlignment="Center"
                     Click="SetupButton_Click"
-                    Content="Start setup"
+                    Content="{helpers:ResourceString Name=startUpButton}"
                     Style="{ThemeResource AccentButtonStyle}" />
                 <muxc:ProgressRing
                     x:Name="AuthProgressRing"

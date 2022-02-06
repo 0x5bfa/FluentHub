@@ -12,37 +12,6 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="activities.Content" xml:space="preserve">
-    <value>アクティビティ</value>
-  </data>
-  <data name="discussions.Text" xml:space="preserve">
-    <value>ディスカッション</value>
-  </data>
-  <data name="issues.Text" xml:space="preserve">
-    <value>Issue</value>
-  </data>
-  <data name="notifications.Content" xml:space="preserve">
-    <value>通知</value>
-  </data>
-  <data name="orgs.Text" xml:space="preserve">
-    <value>Organization</value>
-  </data>
-  <data name="profile.Content" xml:space="preserve">
-    <value>プロフィール</value>
-  </data>
-  <data name="PRs.Text" xml:space="preserve">
-    <value>Pull Request</value>
-  </data>
-  <data name="repos.Text" xml:space="preserve">
-    <value>リポジトリ</value>
-  </data>
-  <data name="starred.Text" xml:space="preserve">
-    <value>Star 済み</value>
-  </data>
-  <data name="startUpButton.Content" xml:space="preserve">
-    <value>セットアップを始める</value>
-    <comment>The same as the value</comment>
-  </data>
   <data name="thxLog" xml:space="preserve">
     <value>あなたがここにいてくれてうれしいです。&amp;#10;すべての機能を使用するには、最初にサインインする必要があります。</value>
     <comment>Thanks giving for downloading the app and tell you to login</comment>
@@ -50,8 +19,5 @@
   <data name="welcome" xml:space="preserve">
     <value>ようこそ</value>
     <comment>Welcome text (Startup)</comment>
-  </data>
-  <data name="work.Content" xml:space="preserve">
-    <value>自分の作業</value>
   </data>
 </root>
