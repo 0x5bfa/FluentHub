@@ -62,6 +62,7 @@
             <Grid Grid.Column="0">
                 <StackPanel Orientation="Horizontal" Spacing="4">
                     <Button
+                        x:Uid="backBtn"
                         Width="36"
                         Height="36"
                         Background="Transparent"
@@ -71,6 +72,7 @@
                         <FontIcon FontSize="14" Glyph="&#xE72B;" />
                     </Button>
                     <Button
+                        x:Uid="forwardBtn"
                         Width="36"
                         Height="36"
                         Background="Transparent"
@@ -80,6 +82,7 @@
                         <FontIcon FontSize="14" Glyph="&#xE72A;" />
                     </Button>
                     <Button
+                        x:Uid="refreshBtn"
                         Width="36"
                         Height="36"
                         Background="Transparent"
@@ -89,18 +92,20 @@
                         <FontIcon FontSize="14" Glyph="&#xE72C;" />
                     </Button>
                     <Button
+                        x:Uid="homeBtn"
                         Width="36"
                         Height="36"
                         Background="Transparent"
                         Click="HomeButton_Click"
                         Style="{StaticResource ClearButtonStyle}"
-                        ToolTipService.ToolTip="Refresh">
+                        ToolTipService.ToolTip="Home">
                         <FontIcon FontSize="14" Glyph="&#xE80F;" />
                     </Button>
                 </StackPanel>
             </Grid>
             <Grid Grid.Column="1">
                 <TextBox
+                    x:Uid="searchBarPH"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Top"
                     PlaceholderText="Find code, projects, and people on GitHub:" />
@@ -109,6 +114,7 @@
                 <StackPanel Orientation="Horizontal" Spacing="2">
                     <Button
                         x:Name="SettingsButton"
+                        x:Uid="settingsBtn"
                         Width="36"
                         Height="36"
                         Background="Transparent"

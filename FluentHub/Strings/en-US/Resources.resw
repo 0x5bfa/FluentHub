@@ -120,8 +120,17 @@
   <data name="activities.Content" xml:space="preserve">
     <value>Activities</value>
   </data>
+  <data name="backBtn.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Back</value>
+  </data>
   <data name="discussions.Text" xml:space="preserve">
     <value>Discussions</value>
+  </data>
+  <data name="forwardBtn.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Forward</value>
+  </data>
+  <data name="homeBtn.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Home</value>
   </data>
   <data name="issues.Text" xml:space="preserve">
     <value>Issues</value>
@@ -138,8 +147,17 @@
   <data name="PRs.Text" xml:space="preserve">
     <value>Pull Requests</value>
   </data>
+  <data name="refreshBtn.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
   <data name="repos.Text" xml:space="preserve">
     <value>Repositories</value>
+  </data>
+  <data name="searchBarPH.PlaceholderText" xml:space="preserve">
+    <value>Find code, projects, and people on GitHub</value>
+  </data>
+  <data name="settingsBtn.ToolTipService.ToolTip" xml:space="preserve">
+    <value>App settings</value>
   </data>
   <data name="starred.Text" xml:space="preserve">
     <value>Starred</value>

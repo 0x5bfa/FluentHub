@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en-US" target-language="ja-JP" original="FLUENTHUB/STRINGS/EN-US/RESOURCES.RESW" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.6921.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="FLUENTHUB/STRINGS/EN-US/RESOURCES.RESW" datatype="resx">
+        <trans-unit id="activities.Content" translate="yes" xml:space="preserve">
+          <source>Activities</source>
+          <target state="translated">アクティビティ</target>
+        </trans-unit>
+        <trans-unit id="discussions.Text" translate="yes" xml:space="preserve">
+          <source>Discussions</source>
+          <target state="translated">ディスカッション</target>
+        </trans-unit>
+        <trans-unit id="issues.Text" translate="yes" xml:space="preserve">
+          <source>Issues</source>
+          <target state="translated">Issue</target>
+        </trans-unit>
+        <trans-unit id="notifications.Content" translate="yes" xml:space="preserve">
+          <source>Notifications</source>
+          <target state="translated">通知</target>
+        </trans-unit>
+        <trans-unit id="orgs.Text" translate="yes" xml:space="preserve">
+          <source>Organizations</source>
+          <target state="translated">Organization</target>
+        </trans-unit>
+        <trans-unit id="profile.Content" translate="yes" xml:space="preserve">
+          <source>Profile</source>
+          <target state="translated">プロフィール</target>
+        </trans-unit>
+        <trans-unit id="PRs.Text" translate="yes" xml:space="preserve">
+          <source>Pull Requests</source>
+          <target state="translated">Pull Request</target>
+        </trans-unit>
+        <trans-unit id="repos.Text" translate="yes" xml:space="preserve">
+          <source>Repositories</source>
+          <target state="translated">リポジトリ</target>
+        </trans-unit>
+        <trans-unit id="starred.Text" translate="yes" xml:space="preserve">
+          <source>Starred</source>
+          <target state="translated">Star 済み</target>
+        </trans-unit>
+        <trans-unit id="startUpButton.Content" translate="yes" xml:space="preserve">
+          <source>Start setup</source>
+          <target state="translated">セットアップを始める</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">The same as the value</note>
+        </trans-unit>
+        <trans-unit id="thxLog" translate="yes" xml:space="preserve">
+          <source>We're glad you're here.&amp;#10;To user all features, just you need to sign in first.</source>
+          <target state="translated">あなたがここにいてくれてうれしいです。&amp;#10;すべての機能を使用するには、最初にサインインする必要があります。</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Thanks giving for downloading the app and tell you to login</note>
+        </trans-unit>
+        <trans-unit id="welcome" translate="yes" xml:space="preserve">
+          <source>Welcome to</source>
+          <target state="translated">ようこそ</target>
+          <note from="MultilingualBuild" annotates="source" priority="2">Welcome text (Startup)</note>
+        </trans-unit>
+        <trans-unit id="work.Content" translate="yes" xml:space="preserve">
+          <source>My work</source>
+          <target state="translated">自分の作業</target>
+        </trans-unit>
+        <trans-unit id="backBtn.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Back</source>
+          <target state="new">Back</target>
+        </trans-unit>
+        <trans-unit id="forwardBtn.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Forward</source>
+          <target state="new">Forward</target>
+        </trans-unit>
+        <trans-unit id="homeBtn.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Home</source>
+          <target state="new">Home</target>
+        </trans-unit>
+        <trans-unit id="refreshBtn.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Refresh</source>
+          <target state="new">Refresh</target>
+        </trans-unit>
+        <trans-unit id="searchBarPH.PlaceholderText" translate="yes" xml:space="preserve">
+          <source>Find code, projects, and people on GitHub</source>
+          <target state="new">Find code, projects, and people on GitHub</target>
+        </trans-unit>
+        <trans-unit id="settingsBtn.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>App settings</source>
+          <target state="new">App settings</target>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>
