@@ -103,7 +103,7 @@ namespace FluentHub.Views.RepoPages
             }
             else
             {
-                App.MainViewModel.MainFrame.Navigate(typeof(OrganizationPages.OverviewPage), Repository.Owner.Login);
+                App.MainViewModel.MainFrame.Navigate(typeof(OrganizationPages.ProfilePage), Repository.Owner.Login);
             }
         }
     }

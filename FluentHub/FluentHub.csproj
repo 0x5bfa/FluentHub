@@ -202,6 +202,9 @@
     <Compile Include="Views\OrganizationPages\OverviewPage.xaml.cs">
       <DependentUpon>OverviewPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\OrganizationPages\ProfilePage.xaml.cs">
+      <DependentUpon>ProfilePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\RepoPages\CodePage.xaml.cs">
       <DependentUpon>CodePage.xaml</DependentUpon>
     </Compile>
@@ -416,6 +419,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\OrganizationPages\OverviewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrganizationPages\ProfilePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
