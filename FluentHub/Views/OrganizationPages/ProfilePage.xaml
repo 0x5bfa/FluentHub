@@ -181,7 +181,7 @@
                                         Glyph="&#xEA52;" />
                                 </muxc:NavigationViewItem.Icon>
                             </muxc:NavigationViewItem>
-                            <muxc:NavigationViewItem Content="People" Tag="Followers">
+                            <muxc:NavigationViewItem Content="People" Tag="People">
                                 <muxc:NavigationViewItem.Icon>
                                     <FontIcon
                                         FontFamily="{StaticResource Octions}"
@@ -189,7 +189,7 @@
                                         Glyph="&#xEA38;" />
                                 </muxc:NavigationViewItem.Icon>
                             </muxc:NavigationViewItem>
-                            <muxc:NavigationViewItem Content="Teams" Tag="Following">
+                            <muxc:NavigationViewItem Content="Teams" Tag="Teams">
                                 <muxc:NavigationViewItem.Icon>
                                     <FontIcon
                                         FontFamily="{StaticResource Octions}"

@@ -172,6 +172,7 @@
     </Compile>
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\OrganizationPages\OverviewViewModel.cs" />
     <Compile Include="ViewModels\RepoPages\CodePageViewModel.cs" />
     <Compile Include="ViewModels\RepoPages\IssueListViewModel.cs" />
     <Compile Include="ViewModels\RepoPages\PullRequestListViewModel.cs" />

@@ -98,7 +98,7 @@ namespace FluentHub.Views.UserPages
         {
             UserPinnedItems pinnedItems = new UserPinnedItems();
 
-            var repoIdList = await pinnedItems.Get(UserName);
+            var repoIdList = await pinnedItems.Get(UserName, true);
 
             var count = ViewModel.GetPinnedRepos(repoIdList);
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentHub.Services.OctokitEx;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,9 +18,33 @@ namespace FluentHub.Views.OrganizationPages
 {
     public sealed partial class OverviewPage : Page
     {
+        private string OrganizationName { get; set; }
+
         public OverviewPage()
         {
             this.InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            OrganizationName = e.Parameter as string;
+
+            base.OnNavigatedTo(e);
+        }
+
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            UserPinnedItems pinnedItems = new UserPinnedItems();
+
+            var repoIdList = await pinnedItems.Get(OrganizationName, false);
+
+            var count = ViewModel.GetPinnedRepos(repoIdList);
+
+            if (count != 0)
+            {
+                NoOverviewBlock.Visibility = Visibility.Collapsed;
+                UserPinnedItemsBlock.Visibility = Visibility.Visible;
+            }
         }
     }
 }

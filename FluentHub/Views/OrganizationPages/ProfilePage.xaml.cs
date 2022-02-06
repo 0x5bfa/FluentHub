@@ -37,7 +37,16 @@ namespace FluentHub.Views.OrganizationPages
 
         private void OrgNavView_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
         {
-
+            switch (args.SelectedItemContainer.Tag.ToString())
+            {
+                case "Repositories":
+                    OrgNavViewContent.Navigate(typeof(OverviewPage), OrganizationName);
+                    break;
+                case "People":
+                    break;
+                case "Teams":
+                    break;
+            }
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
@@ -78,6 +87,8 @@ namespace FluentHub.Views.OrganizationPages
                 LinkButton.NavigateUri = new Uri("mailto:" + Organization.Email);
                 MailBlock.Visibility = Visibility.Visible;
             }
+
+            OrgNavViewContent.Navigate(typeof(OverviewPage), OrganizationName);
         }
     }
 }
