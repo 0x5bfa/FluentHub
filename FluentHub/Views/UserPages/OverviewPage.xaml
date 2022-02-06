@@ -9,6 +9,7 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:FluentHub.UserControls.Block"
     xmlns:vm="using:FluentHub.ViewModels.UserPages"
+    Loaded="Page_Loaded"
     mc:Ignorable="d">
 
     <Page.DataContext>
@@ -33,12 +34,50 @@
         <Grid RowSpacing="12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid
+                x:Name="UserPinnedItemsBlock"
+                Grid.Row="0"
+                Margin="0,6,0,0"
+                RowSpacing="6"
+                Visibility="Collapsed">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <FontIcon
+                        FontFamily="{StaticResource Octions}"
+                        FontSize="16"
+                        Glyph="&#xEA3E;" />
+                    <TextBlock
+                        FontSize="14"
+                        Style="{StaticResource SubtitleTextBlockStyle}"
+                        Text="Pinned" />
+                </StackPanel>
+                <ScrollViewer
+                    Grid.Row="1"
+                    HorizontalScrollBarVisibility="Hidden"
+                    VerticalScrollMode="Disabled">
+                    <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Items}">
+                        <muxc:ItemsRepeater.Layout>
+                            <muxc:StackLayout Orientation="Horizontal" Spacing="8" />
+                        </muxc:ItemsRepeater.Layout>
+                        <DataTemplate x:DataType="item:RepoListItem">
+                            <uc:RepoBlock
+                                x:Name="RepositoryBlock"
+                                Width="250"
+                                VerticalAlignment="Stretch"
+                                DisplayStarButton="False"
+                                RepositoryId="{x:Bind RepoId}" />
+                        </DataTemplate>
+                    </muxc:ItemsRepeater>
+                </ScrollViewer>
+            </Grid>
+            <Grid
                 x:Name="UserSpecialReadmeBlock"
-                Height="400"
-                Margin="0,0,0,6"
+                Grid.Row="1"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Top"
                 RowSpacing="6"
@@ -79,43 +118,16 @@
                         CanBeScrollAnchor="True"
                         DefaultBackgroundColor="Transparent"
                         Loaded="UserSpecialReadmeWebView_Loaded"
+                        NavigationCompleted="UserSpecialReadmeWebView_NavigationCompleted"
                         NavigationStarting="UserSpecialReadmeWebView_NavigationStarting" />
                 </Grid>
             </Grid>
-            <Grid Grid.Row="1" RowSpacing="6">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <StackPanel Orientation="Horizontal" Spacing="8">
-                    <FontIcon
-                        FontFamily="{StaticResource Octions}"
-                        FontSize="16"
-                        Glyph="&#xEA3E;" />
-                    <TextBlock
-                        FontSize="14"
-                        Style="{StaticResource SubtitleTextBlockStyle}"
-                        Text="Pinned" />
-                </StackPanel>
-                <ScrollViewer
-                    Grid.Row="1"
-                    HorizontalScrollBarVisibility="Hidden"
-                    VerticalScrollMode="Disabled">
-                    <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Items}" Loaded="ItemsRepeater_Loaded">
-                        <muxc:ItemsRepeater.Layout>
-                            <muxc:StackLayout Orientation="Horizontal" Spacing="8" />
-                        </muxc:ItemsRepeater.Layout>
-                        <DataTemplate x:DataType="item:RepoListItem">
-                            <uc:RepoBlock
-                                x:Name="RepositoryBlock"
-                                Width="250"
-                                VerticalAlignment="Stretch"
-                                DisplayStarButton="False"
-                                RepositoryId="{x:Bind RepoId}" />
-                        </DataTemplate>
-                    </muxc:ItemsRepeater>
-                </ScrollViewer>
-            </Grid>
+            <TextBlock
+                x:Name="NoOverviewBlock"
+                Grid.RowSpan="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Text="There are no overview. Contribution graph will be comming soon!" />
         </Grid>
     </Grid>
 </Page>

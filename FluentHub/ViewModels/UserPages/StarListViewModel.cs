@@ -24,13 +24,13 @@ namespace FluentHub.ViewModels.UserPages
             }
         }
 
-        public async void GetUserStarredRepos()
+        public async void GetUserStarredRepos(string username)
         {
             IsActive = true;
 
             UserStarredItems starredItems = new UserStarredItems();
 
-            var repoIdList = await starredItems.Get(App.SignedInUserName);
+            var repoIdList = await starredItems.Get(username);
 
             foreach (var repoId in repoIdList)
             {

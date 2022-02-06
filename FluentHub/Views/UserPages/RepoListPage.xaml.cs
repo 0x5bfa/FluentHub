@@ -18,14 +18,31 @@ namespace FluentHub.Views.UserPages
 {
     public sealed partial class RepoListPage : Page
     {
+        private string UserName { get; set; }
+
         public RepoListPage()
         {
             this.InitializeComponent();
         }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            if (e.Parameter != null)
+            {
+                UserName = e.Parameter as string;
+            }
+            else
+            {
+                UserName = App.SignedInUserName;
+            }
+
+            base.OnNavigatedTo(e);
+        }
+
+
         private void ItemsRepeater_Loaded(object sender, RoutedEventArgs e)
         {
-            ViewModel.GetUserRepos(App.SignedInUserName);
+            ViewModel.GetUserRepos(UserName);
         }
     }
 }
