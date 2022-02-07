@@ -22,7 +22,7 @@ namespace FluentHub.ViewModels.UserPages
             }
         }
 
-        public void GetPinnedRepos(List<long> repoIdList)
+        public int GetPinnedRepos(List<long> repoIdList)
         {
             foreach (var repoId in repoIdList)
             {
@@ -30,6 +30,8 @@ namespace FluentHub.ViewModels.UserPages
                 listItem.RepoId = repoId;
                 Items.Add(listItem);
             }
+
+            return Items.Count();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

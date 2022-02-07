@@ -149,6 +149,9 @@
     <Compile Include="UserControls\Block\RepoBlock.xaml.cs">
       <DependentUpon>RepoBlock.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Flyouts\OrganizationCardFlyout.xaml.cs">
+      <DependentUpon>OrganizationCardFlyout.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\GitCloneFlyout.xaml.cs">
       <DependentUpon>GitCloneFlyout.xaml</DependentUpon>
     </Compile>
@@ -169,6 +172,8 @@
     </Compile>
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
+    <Compile Include="ViewModels\OrganizationPages\OverviewViewModel.cs" />
+    <Compile Include="ViewModels\OrganizationPages\RepoListViewModel.cs" />
     <Compile Include="ViewModels\RepoPages\CodePageViewModel.cs" />
     <Compile Include="ViewModels\RepoPages\IssueListViewModel.cs" />
     <Compile Include="ViewModels\RepoPages\PullRequestListViewModel.cs" />
@@ -196,6 +201,18 @@
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\OrganizationPages\MembershipPage.xaml.cs">
+      <DependentUpon>MembershipPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OrganizationPages\OverviewPage.xaml.cs">
+      <DependentUpon>OverviewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OrganizationPages\ProfilePage.xaml.cs">
+      <DependentUpon>ProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OrganizationPages\RepoListPage.xaml.cs">
+      <DependentUpon>RepoListPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\RepoPages\CodePage.xaml.cs">
       <DependentUpon>CodePage.xaml</DependentUpon>
     </Compile>
@@ -361,6 +378,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\Flyouts\OrganizationCardFlyout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\GitCloneFlyout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -404,6 +425,22 @@
     <Page Include="Views\MainPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\OrganizationPages\MembershipPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrganizationPages\OverviewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrganizationPages\ProfilePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrganizationPages\RepoListPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\RepoPages\CodePage.xaml">
       <SubType>Designer</SubType>

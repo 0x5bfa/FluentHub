@@ -42,36 +42,38 @@
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <Border
-                Height="26"
-                Background="{ThemeResource ExpanderHeaderBackground}"
-                BorderBrush="{ThemeResource ExpanderHeaderBorderBrush}"
-                BorderThickness="0.5"
-                CornerRadius="8">
-                <Image x:Name="RepoOwnerAvatar" Height="24" />
-            </Border>
-            <StackPanel
-                Grid.Column="1"
-                Margin="8,0"
-                VerticalAlignment="Center"
-                Orientation="Horizontal">
+            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                 <Button
                     Grid.Column="1"
                     Padding="2,0"
                     HorizontalAlignment="Left"
                     Background="Transparent"
+                    Click="OwnerButton_Click"
                     FontWeight="Normal"
                     Style="{StaticResource LinkLikeButtonStyle}">
-                    <TextBlock
-                        x:Name="RepoOwnerName"
-                        FontWeight="Normal"
-                        Style="{StaticResource SubtitleTextBlockStyle}"
-                        Text="fluenthub-uwp" />
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Border
+                            Width="26"
+                            Height="26"
+                            Background="{ThemeResource ExpanderHeaderBackground}"
+                            BorderBrush="{ThemeResource ExpanderHeaderBorderBrush}"
+                            BorderThickness="0.5"
+                            CornerRadius="8">
+                            <Image
+                                x:Name="RepoOwnerAvatar"
+                                Width="26"
+                                Height="24" />
+                        </Border>
+                        <TextBlock
+                            x:Name="RepoOwnerName"
+                            FontWeight="Normal"
+                            Style="{StaticResource SubtitleTextBlockStyle}"
+                            Text="fluenthub-uwp" />
+                    </StackPanel>
                 </Button>
                 <TextBlock
                     Margin="4,0"
