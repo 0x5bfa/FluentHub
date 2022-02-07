@@ -39,7 +39,6 @@ namespace FluentHub.Views.UserPages
             base.OnNavigatedTo(e);
         }
 
-
         private void ItemsRepeater_Loaded(object sender, RoutedEventArgs e)
         {
             ViewModel.GetUserRepos(UserName);

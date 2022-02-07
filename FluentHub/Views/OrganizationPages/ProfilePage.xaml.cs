@@ -22,7 +22,6 @@ namespace FluentHub.Views.OrganizationPages
         private string OrganizationName { get; set; }
         private Organization Organization { get; set; }
 
-
         public ProfilePage()
         {
             this.InitializeComponent();

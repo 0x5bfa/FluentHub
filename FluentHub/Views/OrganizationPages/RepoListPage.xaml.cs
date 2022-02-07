@@ -31,7 +31,6 @@ namespace FluentHub.Views.OrganizationPages
             base.OnNavigatedTo(e);
         }
 
-
         private void ItemsRepeater_Loaded(object sender, RoutedEventArgs e)
         {
             ViewModel.GetUserRepos(OrganizationName);
