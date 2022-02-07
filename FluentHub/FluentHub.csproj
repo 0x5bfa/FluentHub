@@ -173,6 +173,7 @@
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\OrganizationPages\OverviewViewModel.cs" />
+    <Compile Include="ViewModels\OrganizationPages\RepoListViewModel.cs" />
     <Compile Include="ViewModels\RepoPages\CodePageViewModel.cs" />
     <Compile Include="ViewModels\RepoPages\IssueListViewModel.cs" />
     <Compile Include="ViewModels\RepoPages\PullRequestListViewModel.cs" />
@@ -205,6 +206,9 @@
     </Compile>
     <Compile Include="Views\OrganizationPages\ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\OrganizationPages\RepoListPage.xaml.cs">
+      <DependentUpon>RepoListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RepoPages\CodePage.xaml.cs">
       <DependentUpon>CodePage.xaml</DependentUpon>
@@ -424,6 +428,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\OrganizationPages\ProfilePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\OrganizationPages\RepoListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

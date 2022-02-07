@@ -159,8 +159,8 @@
                         CornerRadius="4"
                         IsBackButtonVisible="Collapsed"
                         IsSettingsVisible="False"
-                        PaneDisplayMode="Top"
-                        SelectionChanged="OrgNavView_SelectionChanged">
+                        ItemInvoked="OrgNavView_ItemInvoked"
+                        PaneDisplayMode="Top">
                         <muxc:NavigationView.MenuItems>
                             <muxc:NavigationViewItem
                                 Content="Overview"

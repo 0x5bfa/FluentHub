@@ -1,5 +1,4 @@
-﻿using FluentHub.Services.OctokitEx;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -16,11 +15,11 @@ using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub.Views.OrganizationPages
 {
-    public sealed partial class OverviewPage : Page
+    public sealed partial class RepoListPage : Page
     {
         private string OrganizationName { get; set; }
 
-        public OverviewPage()
+        public RepoListPage()
         {
             this.InitializeComponent();
         }
@@ -32,20 +31,10 @@ namespace FluentHub.Views.OrganizationPages
             base.OnNavigatedTo(e);
         }
 
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
+
+        private void ItemsRepeater_Loaded(object sender, RoutedEventArgs e)
         {
-            UserPinnedItems pinnedItems = new UserPinnedItems();
-
-            var repoIdList = await pinnedItems.Get(OrganizationName, false);
-
-            var count = ViewModel.GetPinnedRepos(repoIdList);
-
-            if (count != 0)
-            {
-                UserPinnedItemsBlock.Visibility = Visibility.Visible;
-            }
-
-            OrgPageFrame.Navigate(typeof(RepoListPage), OrganizationName);
+            ViewModel.GetUserRepos(OrganizationName);
         }
     }
 }

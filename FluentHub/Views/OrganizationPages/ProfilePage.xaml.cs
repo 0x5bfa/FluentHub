@@ -35,20 +35,6 @@ namespace FluentHub.Views.OrganizationPages
             base.OnNavigatedTo(e);
         }
 
-        private void OrgNavView_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
-        {
-            switch (args.SelectedItemContainer.Tag.ToString())
-            {
-                case "Repositories":
-                    OrgNavViewContent.Navigate(typeof(OverviewPage), OrganizationName);
-                    break;
-                case "People":
-                    break;
-                case "Teams":
-                    break;
-            }
-        }
-
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             Organization = await App.Client.Organization.Get(OrganizationName);
@@ -89,6 +75,23 @@ namespace FluentHub.Views.OrganizationPages
             }
 
             OrgNavViewContent.Navigate(typeof(OverviewPage), OrganizationName);
+        }
+
+        private void OrgNavView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
+        {
+            switch (args.InvokedItemContainer.Tag.ToString())
+            {
+                case "Overview":
+                    OrgNavViewContent.Navigate(typeof(OverviewPage), OrganizationName);
+                    break;
+                case "Repositories":
+                    OrgNavViewContent.Navigate(typeof(RepoListPage), OrganizationName);
+                    break;
+                case "People":
+                    break;
+                case "Teams":
+                    break;
+            }
         }
     }
 }
