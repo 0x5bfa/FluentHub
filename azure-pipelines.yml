@@ -38,4 +38,4 @@ steps:
 - task: BatchScript@1
   inputs:
     filename: 'move'
-    arguments: 'CredentialSecureFile.secureFilePath $(solution)'
+    arguments: '/y CredentialSecureFile.secureFilePath $(solution)'
