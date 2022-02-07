@@ -120,6 +120,9 @@
   <data name="activities" xml:space="preserve">
     <value>Activities</value>
   </data>
+  <data name="allowFH" xml:space="preserve">
+    <value>Authorize FluentHub</value>
+  </data>
   <data name="backBtn" xml:space="preserve">
     <value>Back</value>
   </data>
@@ -132,11 +135,20 @@
   <data name="homeBtn" xml:space="preserve">
     <value>Home</value>
   </data>
+  <data name="howToLogIn" xml:space="preserve">
+    <value>You can log in to GitHub in various ways. By authenticating, you can access more GitHub data and gain more experience.</value>
+  </data>
   <data name="issues" xml:space="preserve">
     <value>Issues</value>
   </data>
   <data name="notifications" xml:space="preserve">
     <value>Notifications</value>
+  </data>
+  <data name="onlyWebAuth" xml:space="preserve">
+    <value>Only web authentication is valid</value>
+  </data>
+  <data name="openWithBrowser" xml:space="preserve">
+    <value>Open with your browser</value>
   </data>
   <data name="orgs" xml:space="preserve">
     <value>Organizations</value>
@@ -158,6 +170,9 @@
   </data>
   <data name="settingsBtn" xml:space="preserve">
     <value>App settings</value>
+  </data>
+  <data name="soonMoreAuthOptions" xml:space="preserve">
+    <value>In the future, password and token authentication will be enabled.</value>
   </data>
   <data name="starred" xml:space="preserve">
     <value>Starred</value>

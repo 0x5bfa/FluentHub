@@ -87,6 +87,26 @@ Para usar todas las funciones tan solo necesitas inciar sesión.</target>
           <target state="translated">Iniciar configuración inicial</target>
           <note from="MultilingualBuild" annotates="source" priority="2">The same as the value</note>
         </trans-unit>
+        <trans-unit id="allowFH" translate="yes" xml:space="preserve">
+          <source>Authorize FluentHub</source>
+          <target state="new">Authorize FluentHub</target>
+        </trans-unit>
+        <trans-unit id="howToLogIn" translate="yes" xml:space="preserve">
+          <source>You can log in to GitHub in various ways. By authenticating, you can access more GitHub data and gain more experience.</source>
+          <target state="new">You can log in to GitHub in various ways. By authenticating, you can access more GitHub data and gain more experience.</target>
+        </trans-unit>
+        <trans-unit id="onlyWebAuth" translate="yes" xml:space="preserve">
+          <source>Only web authentication is valid</source>
+          <target state="new">Only web authentication is valid</target>
+        </trans-unit>
+        <trans-unit id="openWithBrowser" translate="yes" xml:space="preserve">
+          <source>Open with your browser</source>
+          <target state="new">Open with your browser</target>
+        </trans-unit>
+        <trans-unit id="soonMoreAuthOptions" translate="yes" xml:space="preserve">
+          <source>In the future, password and token authentication will be enabled.</source>
+          <target state="new">In the future, password and token authentication will be enabled.</target>
+        </trans-unit>
       </group>
     </body>
   </file>
