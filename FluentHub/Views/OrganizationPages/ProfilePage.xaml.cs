@@ -88,8 +88,10 @@ namespace FluentHub.Views.OrganizationPages
                     OrgNavViewContent.Navigate(typeof(RepoListPage), OrganizationName);
                     break;
                 case "People":
+                    OrgNavViewContent.Navigate(typeof(MembershipPage), OrganizationName);
                     break;
                 case "Teams":
+                    //OrgNavViewContent.Navigate(typeof(TeamsPage), OrganizationName);
                     break;
             }
         }
