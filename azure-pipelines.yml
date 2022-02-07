@@ -28,3 +28,14 @@ steps:
     solution: '$(solution)'
     configuration: '$(buildConfiguration)'
     msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload'
+
+- task: DownloadSecureFile@1
+  name: CredentialSecureFile
+  inputs:
+    secureFile: AppCredentials.config
+    retryCount: 5
+
+- task: BatchScript@1
+  inputs:
+    filename: 'move'
+    arguments: 'CredentialSecureFile.secureFilePath $(solution)'
