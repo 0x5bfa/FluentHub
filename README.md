@@ -90,7 +90,7 @@ User settings page|`/settings/profile`|Must|🔴|
 **Organization Profile Page**||Must|🔵|
 Org's contribution graph|`/{username}`|Must|🔴|
 Org's pinned items(v4)|`/{username}`|Must|🟢|
-Org's repository list|`/{username}?tab=repositories`|Must|🟢|
+Org's repository list|`/{username}?tab=repositories`|Must|🔵|
 Org settings page|`/settings/profile`|Must|🔴|
 **Repository page**||Must|🟢|
 Repo's code page(ListView)|`/{user(org)name}/{reponame}`|Must|🟢|
