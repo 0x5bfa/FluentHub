@@ -26,8 +26,8 @@ steps:
 
 - task: BatchScript@1
   inputs:
-    filename: 'move'
-    arguments: '/y CredentialSecureFile.secureFilePath $(solution)'
+    filename: 'C:\Windows\system32\move.exe'
+    arguments: '/y CredentialSecureFile.secureFilePath ./FluentHub/
 
 - task: NuGetCommand@2
   inputs:
