@@ -22,7 +22,6 @@ steps:
   name: CredentialSecureFile
   inputs:
     secureFile: AppCredentials.config
-    retryCount: 5
 
 - task: BatchScript@1
   inputs:
