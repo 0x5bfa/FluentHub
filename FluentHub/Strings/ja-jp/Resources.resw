@@ -12,11 +12,11 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="thxLog" xml:space="preserve">
+  <data name="GladText" xml:space="preserve">
     <value>あなたがここにいてくれてうれしいです。&amp;#10;すべての機能を使用するには、最初にサインインする必要があります。</value>
     <comment>Thanks giving for downloading the app and tell you to login</comment>
   </data>
-  <data name="welcome" xml:space="preserve">
+  <data name="WelcomeTo" xml:space="preserve">
     <value>ようこそ</value>
     <comment>Welcome text (Startup)</comment>
   </data>

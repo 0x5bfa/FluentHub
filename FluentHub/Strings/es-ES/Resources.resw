@@ -12,65 +12,80 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="thxLog" xml:space="preserve">
-    <value>Agradecemos el tenerte aquí
-Para usar todas las funciones tan solo necesitas inciar sesión.</value>
-    <comment>Thanks giving for downloading the app and tell you to login</comment>
-  </data>
-  <data name="welcome" xml:space="preserve">
-    <value>Bienvenido a</value>
-    <comment>Welcome text (Startup)</comment>
-  </data>
-  <data name="work" xml:space="preserve">
-    <value>Mi trabajo</value>
-  </data>
-  <data name="activities" xml:space="preserve">
+  <data name="Activities" xml:space="preserve">
     <value>Actividad</value>
   </data>
-  <data name="backBtn" xml:space="preserve">
-    <value>Atrás</value>
-  </data>
-  <data name="discussions" xml:space="preserve">
-    <value>Discusiones</value>
-  </data>
-  <data name="forwardBtn" xml:space="preserve">
-    <value>Adelante</value>
-  </data>
-  <data name="homeBtn" xml:space="preserve">
-    <value>Inicio</value>
-  </data>
-  <data name="issues" xml:space="preserve">
-    <value>Propuestas</value>
-  </data>
-  <data name="notifications" xml:space="preserve">
-    <value>Notificaciones</value>
-  </data>
-  <data name="orgs" xml:space="preserve">
-    <value>Organizaciones</value>
-  </data>
-  <data name="profile" xml:space="preserve">
-    <value>Perfil</value>
-  </data>
-  <data name="PRs" xml:space="preserve">
-    <value>Solicitudes de cambio</value>
-  </data>
-  <data name="refreshBtn" xml:space="preserve">
-    <value>Refrescar</value>
-  </data>
-  <data name="repositories" xml:space="preserve">
-    <value>Repositorios</value>
-  </data>
-  <data name="searchBarPlaceholder" xml:space="preserve">
-    <value>Encuemtra código, proyectos y gente en GitHub</value>
-  </data>
-  <data name="settingsBtn" xml:space="preserve">
+  <data name="AppSettings" xml:space="preserve">
     <value>Ajustes</value>
   </data>
-  <data name="starred" xml:space="preserve">
-    <value>Marcado con estrellas</value>
+  <data name="AuthFluentHub" xml:space="preserve">
+    <value>Autoriza a FluentHub</value>
   </data>
-  <data name="startUpButton" xml:space="preserve">
+  <data name="Back" xml:space="preserve">
+    <value>Atrás</value>
+  </data>
+  <data name="Discussions" xml:space="preserve">
+    <value>Discusiones</value>
+  </data>
+  <data name="Forward" xml:space="preserve">
+    <value>Adelante</value>
+  </data>
+  <data name="GladText" xml:space="preserve">
+    <value>Agradecemos el tenerte aquí.
+Para usar todas las funciones, solo necesitas iniciar sesión.</value>
+    <comment>Thanks giving for downloading the app and tell you to login</comment>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Inicio</value>
+  </data>
+  <data name="HowToSignIn" xml:space="preserve">
+    <value>Puedes inciar sesión en GitHub de varias maneras. Iniciando sesión puedes acceder a más datos de los servidores de GitHub, teniendo así una mejor experiencia.</value>
+  </data>
+  <data name="Issues" xml:space="preserve">
+    <value>Propuestas</value>
+  </data>
+  <data name="MoreAuthOptionsComingSoon" xml:space="preserve">
+    <value>En el futuro, el inicio mediante contraseña y token estarán disponibles.</value>
+  </data>
+  <data name="MyWork" xml:space="preserve">
+    <value>Mi trabajo</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Notificaciones</value>
+  </data>
+  <data name="OnlyWebAuth" xml:space="preserve">
+    <value>Solo la autentificación web es válida</value>
+  </data>
+  <data name="OpenWithBrowser" xml:space="preserve">
+    <value>Abrir en tu navegador</value>
+  </data>
+  <data name="Organizations" xml:space="preserve">
+    <value>Organizaciones</value>
+  </data>
+  <data name="Profile" xml:space="preserve">
+    <value>Perfil</value>
+  </data>
+  <data name="PullRequests" xml:space="preserve">
+    <value>Solicitudes de cambio</value>
+  </data>
+  <data name="Refresh" xml:space="preserve">
+    <value>Refrescar</value>
+  </data>
+  <data name="Repositories" xml:space="preserve">
+    <value>Repositorios</value>
+  </data>
+  <data name="Starred" xml:space="preserve">
+    <value>Marcado con Estrella</value>
+  </data>
+  <data name="StartSetup" xml:space="preserve">
     <value>Iniciar configuración inicial</value>
     <comment>The same as the value</comment>
+  </data>
+  <data name="ToolbarSearchBarPlaceholder" xml:space="preserve">
+    <value>Encuentra código, proyectos, y gente en GitHub</value>
+  </data>
+  <data name="WelcomeTo" xml:space="preserve">
+    <value>Bienvenido a</value>
+    <comment>Welcome text (Startup)</comment>
   </data>
 </root>

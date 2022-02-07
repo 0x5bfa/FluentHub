@@ -8,7 +8,7 @@
       <group id="FLUENTHUB/STRINGS/EN-US/RESOURCES.RESW" datatype="resx">
         <trans-unit id="GladText" translate="yes" xml:space="preserve">
           <source>We're glad you're here.
-    To user all features, just you need to sign in first.</source>
+To user all features, just you need to sign in first.</source>
           <target state="needs-review-translation">あなたがここにいてくれてうれしいです。&amp;#10;すべての機能を使用するには、最初にサインインする必要があります。</target>
           <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
           <note from="MultilingualBuild" annotates="source" priority="2">Thanks giving for downloading the app and tell you to login</note>
