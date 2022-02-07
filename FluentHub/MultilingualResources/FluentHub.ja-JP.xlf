@@ -6,104 +6,104 @@
     </header>
     <body>
       <group id="FLUENTHUB/STRINGS/EN-US/RESOURCES.RESW" datatype="resx">
-        <trans-unit id="thxLog" translate="yes" xml:space="preserve">
+        <trans-unit id="GladText" translate="yes" xml:space="preserve">
           <source>We're glad you're here.
     To user all features, just you need to sign in first.</source>
           <target state="needs-review-translation">あなたがここにいてくれてうれしいです。&amp;#10;すべての機能を使用するには、最初にサインインする必要があります。</target>
           <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
           <note from="MultilingualBuild" annotates="source" priority="2">Thanks giving for downloading the app and tell you to login</note>
         </trans-unit>
-        <trans-unit id="welcome" translate="yes" xml:space="preserve">
+        <trans-unit id="WelcomeTo" translate="yes" xml:space="preserve">
           <source>Welcome to</source>
           <target state="translated">ようこそ</target>
           <note from="MultilingualBuild" annotates="source" priority="2">Welcome text (Startup)</note>
         </trans-unit>
-        <trans-unit id="work" translate="yes" xml:space="preserve">
+        <trans-unit id="MyWork" translate="yes" xml:space="preserve">
           <source>My work</source>
           <target state="new">My work</target>
         </trans-unit>
-        <trans-unit id="activities" translate="yes" xml:space="preserve">
+        <trans-unit id="Activities" translate="yes" xml:space="preserve">
           <source>Activities</source>
           <target state="new">Activities</target>
         </trans-unit>
-        <trans-unit id="backBtn" translate="yes" xml:space="preserve">
+        <trans-unit id="Back" translate="yes" xml:space="preserve">
           <source>Back</source>
           <target state="new">Back</target>
         </trans-unit>
-        <trans-unit id="discussions" translate="yes" xml:space="preserve">
+        <trans-unit id="Discussions" translate="yes" xml:space="preserve">
           <source>Discussions</source>
           <target state="new">Discussions</target>
         </trans-unit>
-        <trans-unit id="forwardBtn" translate="yes" xml:space="preserve">
+        <trans-unit id="Forward" translate="yes" xml:space="preserve">
           <source>Forward</source>
           <target state="new">Forward</target>
         </trans-unit>
-        <trans-unit id="homeBtn" translate="yes" xml:space="preserve">
+        <trans-unit id="Home" translate="yes" xml:space="preserve">
           <source>Home</source>
           <target state="new">Home</target>
         </trans-unit>
-        <trans-unit id="issues" translate="yes" xml:space="preserve">
+        <trans-unit id="Issues" translate="yes" xml:space="preserve">
           <source>Issues</source>
           <target state="new">Issues</target>
         </trans-unit>
-        <trans-unit id="notifications" translate="yes" xml:space="preserve">
+        <trans-unit id="Notifications" translate="yes" xml:space="preserve">
           <source>Notifications</source>
           <target state="new">Notifications</target>
         </trans-unit>
-        <trans-unit id="orgs" translate="yes" xml:space="preserve">
+        <trans-unit id="Organizations" translate="yes" xml:space="preserve">
           <source>Organizations</source>
           <target state="new">Organizations</target>
         </trans-unit>
-        <trans-unit id="profile" translate="yes" xml:space="preserve">
+        <trans-unit id="Profile" translate="yes" xml:space="preserve">
           <source>Profile</source>
           <target state="new">Profile</target>
         </trans-unit>
-        <trans-unit id="PRs" translate="yes" xml:space="preserve">
+        <trans-unit id="PullRequests" translate="yes" xml:space="preserve">
           <source>Pull Requests</source>
           <target state="new">Pull Requests</target>
         </trans-unit>
-        <trans-unit id="refreshBtn" translate="yes" xml:space="preserve">
+        <trans-unit id="Refresh" translate="yes" xml:space="preserve">
           <source>Refresh</source>
           <target state="new">Refresh</target>
         </trans-unit>
-        <trans-unit id="repositories" translate="yes" xml:space="preserve">
+        <trans-unit id="Repositories" translate="yes" xml:space="preserve">
           <source>Repositories</source>
           <target state="new">Repositories</target>
         </trans-unit>
-        <trans-unit id="searchBarPlaceholder" translate="yes" xml:space="preserve">
+        <trans-unit id="ToolbarSearchBarPlaceholder" translate="yes" xml:space="preserve">
           <source>Find code, projects, and people on GitHub</source>
           <target state="new">Find code, projects, and people on GitHub</target>
         </trans-unit>
-        <trans-unit id="settingsBtn" translate="yes" xml:space="preserve">
+        <trans-unit id="AppSettings" translate="yes" xml:space="preserve">
           <source>App settings</source>
           <target state="new">App settings</target>
         </trans-unit>
-        <trans-unit id="starred" translate="yes" xml:space="preserve">
+        <trans-unit id="Starred" translate="yes" xml:space="preserve">
           <source>Starred</source>
           <target state="new">Starred</target>
         </trans-unit>
-        <trans-unit id="startUpButton" translate="yes" xml:space="preserve">
+        <trans-unit id="StartSetup" translate="yes" xml:space="preserve">
           <source>Start setup</source>
           <target state="new">Start setup</target>
           <note from="MultilingualBuild" annotates="source" priority="2">The same as the value</note>
         </trans-unit>
-        <trans-unit id="allowFH" translate="yes" xml:space="preserve">
+        <trans-unit id="AuthFluentHub" translate="yes" xml:space="preserve">
           <source>Authorize FluentHub</source>
           <target state="new">Authorize FluentHub</target>
         </trans-unit>
-        <trans-unit id="howToLogIn" translate="yes" xml:space="preserve">
+        <trans-unit id="HowToSignIn" translate="yes" xml:space="preserve">
           <source>You can log in to GitHub in various ways. By authenticating, you can access more GitHub data and gain more experience.</source>
           <target state="new">You can log in to GitHub in various ways. By authenticating, you can access more GitHub data and gain more experience.</target>
         </trans-unit>
-        <trans-unit id="onlyWebAuth" translate="yes" xml:space="preserve">
+        <trans-unit id="OnlyWebAuth" translate="yes" xml:space="preserve">
           <source>Only web authentication is valid</source>
           <target state="new">Only web authentication is valid</target>
         </trans-unit>
-        <trans-unit id="openWithBrowser" translate="yes" xml:space="preserve">
+        <trans-unit id="OpenWithBrowser" translate="yes" xml:space="preserve">
           <source>Open with your browser</source>
           <target state="new">Open with your browser</target>
         </trans-unit>
-        <trans-unit id="soonMoreAuthOptions" translate="yes" xml:space="preserve">
+        <trans-unit id="MoreAuthOptionsComingSoon" translate="yes" xml:space="preserve">
           <source>In the future, password and token authentication will be enabled.</source>
           <target state="new">In the future, password and token authentication will be enabled.</target>
         </trans-unit>

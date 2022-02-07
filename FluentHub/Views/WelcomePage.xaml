@@ -56,7 +56,7 @@
             <TextBlock
                 HorizontalAlignment="Center"
                 Style="{ThemeResource TitleTextBlockStyle}"
-                Text="{helpers:ResourceString Name=welcome}" />
+                Text="{helpers:ResourceString Name=WelcomeTo}" />
             <Image
                 Width="Auto"
                 Margin="0,32"
@@ -66,7 +66,7 @@
                 HorizontalAlignment="Center"
                 HorizontalTextAlignment="Center"
                 Style="{ThemeResource BodyTextBlockStyle}"
-                Text="{helpers:ResourceString Name=thxLog}"
+                Text="{helpers:ResourceString Name=GladText}"
                 TextWrapping="Wrap" />
             <StackPanel
                 Margin="0,24,0,0"
@@ -75,7 +75,7 @@
                 <Button
                     HorizontalAlignment="Center"
                     Click="SetupButton_Click"
-                    Content="{helpers:ResourceString Name=startUpButton}"
+                    Content="{helpers:ResourceString Name=StartSetup}"
                     Style="{ThemeResource AccentButtonStyle}" />
                 <muxc:ProgressRing
                     x:Name="AuthProgressRing"
