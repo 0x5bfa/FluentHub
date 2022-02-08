@@ -23,7 +23,7 @@ namespace FluentHub.Views.UserPages
 {
     public sealed partial class ProfilePage : Windows.UI.Xaml.Controls.Page
     {
-        private string requestedUsername { get; set; } = "";
+        private string requestedUsername { get; set; }
         private User user { get; set; } = new User();
 
         public ProfilePage()
@@ -33,9 +33,14 @@ namespace FluentHub.Views.UserPages
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            _ = e.Parameter as string != null
-                ? requestedUsername = e.Parameter as string
-                : requestedUsername = App.SignedInUserName;
+            if (e.Parameter != null)
+            {
+                requestedUsername = e.Parameter as string;
+            }
+            else
+            {
+                requestedUsername = App.SignedInUserName;
+            }
 
             base.OnNavigatedTo(e);
         }
@@ -57,19 +62,19 @@ namespace FluentHub.Views.UserPages
             switch (args.SelectedItemContainer.Tag.ToString())
             {
                 case "Overview":
-                    UserNavViewContent.Navigate(typeof(OverviewPage));
+                    UserNavViewContent.Navigate(typeof(OverviewPage), requestedUsername);
                     break;
                 case "Repositories":
-                    UserNavViewContent.Navigate(typeof(RepoListPage));
+                    UserNavViewContent.Navigate(typeof(RepoListPage), requestedUsername);
                     break;
                 case "Stars":
-                    UserNavViewContent.Navigate(typeof(StarListPage));
+                    UserNavViewContent.Navigate(typeof(StarListPage), requestedUsername);
                     break;
                 case "Followers":
-                    UserNavViewContent.Navigate(typeof(FollowersPage));
+                    UserNavViewContent.Navigate(typeof(FollowersPage), requestedUsername);
                     break;
                 case "Following":
-                    UserNavViewContent.Navigate(typeof(FollowingPage));
+                    UserNavViewContent.Navigate(typeof(FollowingPage), requestedUsername);
                     break;
             }
         }

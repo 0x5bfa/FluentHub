@@ -13,12 +13,11 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-
-namespace FluentHub.Views.UserPages
+namespace FluentHub.Views.OrganizationPages
 {
     public sealed partial class RepoListPage : Page
     {
-        private string UserName { get; set; }
+        private string OrganizationName { get; set; }
 
         public RepoListPage()
         {
@@ -27,21 +26,14 @@ namespace FluentHub.Views.UserPages
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (e.Parameter != null)
-            {
-                UserName = e.Parameter as string;
-            }
-            else
-            {
-                UserName = App.SignedInUserName;
-            }
+            OrganizationName = e.Parameter as string;
 
             base.OnNavigatedTo(e);
         }
 
         private void ItemsRepeater_Loaded(object sender, RoutedEventArgs e)
         {
-            ViewModel.GetUserRepos(UserName);
+            ViewModel.GetUserRepos(OrganizationName);
         }
     }
 }

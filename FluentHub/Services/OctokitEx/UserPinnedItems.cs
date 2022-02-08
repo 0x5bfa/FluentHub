@@ -13,7 +13,7 @@ namespace FluentHub.Services.OctokitEx
 {
     public class UserPinnedItems
     {
-        public async Task<List<long>> Get(string username)
+        public async Task<List<long>> Get(string username, bool isUser)
         {
             try
             {
@@ -23,20 +23,35 @@ namespace FluentHub.Services.OctokitEx
 
                 graphQLClient.HttpClient.DefaultRequestHeaders.Add("Authorization", $"bearer {token}");
 
-                var repositoriesRequest = new GraphQLRequest
-                {
-                    Query = "query { user(login: \"" + username + "\") {pinnedItems(first: 6) {nodes {... on Repository {nameWithOwner}}}}}"
-                };
-
-                var graphQLResponse = await graphQLClient.SendQueryAsync<ResponseType>(repositoriesRequest);
+                string query = null;
 
                 List<long> repoIdList = new List<long>();
 
-                foreach (var fullname in graphQLResponse.Data.User.PinnedItems.Nodes)
+                if (isUser)
                 {
-                    var repoId = await GetRepoIdFromRepoNameAndOwner(fullname.NameWithOwner);
+                    query = "query { user(login: \"" + username + "\") {pinnedItems(first: 6) {nodes {... on Repository {nameWithOwner}}}}}";
+                    var repositoriesRequest = new GraphQLRequest { Query = query };
 
-                    repoIdList.Add(repoId);
+                    var graphQLResponse = await graphQLClient.SendQueryAsync<UserResponseType>(repositoriesRequest);
+
+                    foreach (var fullname in graphQLResponse.Data.User.PinnedItems.Nodes)
+                    {
+                        var repoId = await GetRepoIdFromRepoNameAndOwner(fullname.NameWithOwner);
+                        repoIdList.Add(repoId);
+                    }
+                }
+                else
+                {
+                    query = "query { organization(login: \"" + username + "\") {pinnedItems(first: 6) {nodes {... on Repository {nameWithOwner}}}}}";
+                    var repositoriesRequest = new GraphQLRequest { Query = query };
+
+                    var graphQLResponse = await graphQLClient.SendQueryAsync<OrgResponseType>(repositoriesRequest);
+
+                    foreach (var fullname in graphQLResponse.Data.Organization.PinnedItems.Nodes)
+                    {
+                        var repoId = await GetRepoIdFromRepoNameAndOwner(fullname.NameWithOwner);
+                        repoIdList.Add(repoId);
+                    }
                 }
 
                 return repoIdList;
@@ -56,11 +71,31 @@ namespace FluentHub.Services.OctokitEx
             return repo.Id;
         }
 
-        public class ResponseType
+        public class UserResponseType
         {
             public UserNode User { get; set; }
 
             public class UserNode
+            {
+                public PinnedItemsNode PinnedItems { get; set; }
+
+                public class PinnedItemsNode
+                {
+                    public List<NodeType> Nodes { get; set; }
+
+                    public class NodeType
+                    {
+                        public string NameWithOwner { get; set; }
+                    }
+                }
+            }
+        }
+
+        public class OrgResponseType
+        {
+            public OrganizationNode Organization { get; set; }
+
+            public class OrganizationNode
             {
                 public PinnedItemsNode PinnedItems { get; set; }
 

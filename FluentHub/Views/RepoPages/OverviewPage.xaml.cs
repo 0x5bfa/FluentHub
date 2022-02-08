@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Octokit;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,9 +18,10 @@ using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Views.RepoPages
 {
-    public sealed partial class OverviewPage : Page
+    public sealed partial class OverviewPage : Windows.UI.Xaml.Controls.Page
     {
         private long RepoId { get; set; }
+        private Repository Repository { get; set; }
 
         public OverviewPage()
         {
@@ -42,25 +44,26 @@ namespace FluentHub.Views.RepoPages
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            var repo = await App.Client.Repository.Get(RepoId);
+            Repository = await App.Client.Repository.Get(RepoId);
 
-            RepoOwnerName.Text = repo.Owner.Login;
+            RepoOwnerName.Text = Repository.Owner.Login;
 
-            RepoName.Text = repo.Name;
+            RepoName.Text = Repository.Name;
 
-            RepoOwnerAvatar.Source = new BitmapImage(new Uri(repo.Owner.AvatarUrl));
+            RepoOwnerAvatar.Source = new BitmapImage(new Uri(Repository.Owner.AvatarUrl));
 
-            WatchersCountBadge.Value = repo.SubscribersCount;
+            // I dare to do it like this. Don't change.
+            WatchersCountBadge.Value = Repository.SubscribersCount;
 
-            ForksCountBadge.Value = repo.ForksCount;
+            ForksCountBadge.Value = Repository.ForksCount;
 
-            StargazersCountBadge.Value = repo.StargazersCount;
+            StargazersCountBadge.Value = Repository.StargazersCount;
 
             var pulls = await App.Client.PullRequest.GetAllForRepository(RepoId);
 
-            if (repo.OpenIssuesCount != 0)
+            if (Repository.OpenIssuesCount != 0)
             {
-                IssuesCountBadge.Value = repo.OpenIssuesCount - pulls.Count();
+                IssuesCountBadge.Value = Repository.OpenIssuesCount - pulls.Count();
                 IssuesCountBadge.Visibility = Visibility.Visible;
             }
 
@@ -89,6 +92,18 @@ namespace FluentHub.Views.RepoPages
                 case "Settings":
                     RepoPageNavViewFrame.Navigate(typeof(Settings), RepoId.ToString());
                     break;
+            }
+        }
+
+        private void OwnerButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (Repository.Owner.Type == AccountType.User)
+            {
+                App.MainViewModel.MainFrame.Navigate(typeof(UserPages.ProfilePage), Repository.Owner.Login);
+            }
+            else
+            {
+                App.MainViewModel.MainFrame.Navigate(typeof(OrganizationPages.ProfilePage), Repository.Owner.Login);
             }
         }
     }

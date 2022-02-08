@@ -1,5 +1,4 @@
 ﻿using FluentHub.Models.Items;
-using FluentHub.Services.OctokitEx;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,9 +8,9 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FluentHub.ViewModels.UserPages
+namespace FluentHub.ViewModels.OrganizationPages
 {
-    public class StarListViewModel : INotifyPropertyChanged
+    public class RepoListViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<RepoListItem> _items = new ObservableCollection<RepoListItem>();
         public ObservableCollection<RepoListItem> Items
@@ -24,18 +23,15 @@ namespace FluentHub.ViewModels.UserPages
             }
         }
 
-        public async void GetUserStarredRepos(string username)
+        public async void GetUserRepos(string username)
         {
             IsActive = true;
+            var repos = await App.Client.Repository.GetAllForOrg(username);
 
-            UserStarredItems starredItems = new UserStarredItems();
-
-            var repoIdList = await starredItems.Get(username);
-
-            foreach (var repoId in repoIdList)
+            foreach (var item in repos)
             {
                 RepoListItem listItem = new RepoListItem();
-                listItem.RepoId = repoId;
+                listItem.RepoId = item.Id;
                 Items.Add(listItem);
             }
 
