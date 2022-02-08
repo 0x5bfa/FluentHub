@@ -555,13 +555,9 @@
     <Content Include="AppCredentials.config" />
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\es-ES\Resources.resw" />
+    <PRIResource Include="Strings\ja-JP\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\ja-jp\Resources.resw" />
-  </ItemGroup>
-  <ItemGroup>
-    <XliffResource Include="MultilingualResources\FluentHub.es-ES.xlf" />
     <XliffResource Include="MultilingualResources\FluentHub.ja-JP.xlf" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">

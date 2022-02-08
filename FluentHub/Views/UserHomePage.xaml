@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="using:FluentHub.Helpers"
     xmlns:local="using:FluentHub.Views"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -24,31 +25,24 @@
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItemHeader x:Uid="profile" Content="Profile" />
                 <muxc:NavigationViewItem
-                    x:Uid="profile"
-                    Content="Profile"
+                    Content="{helpers:ResourceString Name=Profile}"
                     IsSelected="True"
                     Tag="Profile">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xEA38;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem
-                    x:Uid="notifications"
-                    Content="Notifications"
-                    Tag="Notifications">
+                <muxc:NavigationViewItem Content="{helpers:ResourceString Name=Notifications}" Tag="Notifications">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xE918;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem
-                    x:Uid="activities"
-                    Content="Activities"
-                    Tag="Activities">
+                <muxc:NavigationViewItem Content="{helpers:ResourceString Name=Activities}" Tag="Activities">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xE9AB;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItemHeader x:Uid="work" Content="My Work" />
+                <muxc:NavigationViewItemHeader Content="{helpers:ResourceString Name=MyWork}" />
                 <muxc:NavigationViewItem Tag="Issues">
                     <muxc:NavigationViewItem.Content>
                         <StackPanel Orientation="Horizontal" Spacing="16">
@@ -63,10 +57,7 @@
                                     Foreground="White"
                                     Glyph="&#xE9EA;" />
                             </Border>
-                            <TextBlock
-                                x:Uid="issues"
-                                VerticalAlignment="Center"
-                                Text="Issues" />
+                            <TextBlock VerticalAlignment="Center" Text="{helpers:ResourceString Name=Issues}" />
                         </StackPanel>
                     </muxc:NavigationViewItem.Content>
                 </muxc:NavigationViewItem>
@@ -84,10 +75,7 @@
                                     Foreground="White"
                                     Glyph="&#xE9BF;" />
                             </Border>
-                            <TextBlock
-                                x:Uid="PRs"
-                                VerticalAlignment="Center"
-                                Text="Pull Requests" />
+                            <TextBlock VerticalAlignment="Center" Text="{helpers:ResourceString Name=PullRequests}" />
                         </StackPanel>
                     </muxc:NavigationViewItem.Content>
                 </muxc:NavigationViewItem>
@@ -105,10 +93,7 @@
                                     Foreground="White"
                                     Glyph="&#xE95D;" />
                             </Border>
-                            <TextBlock
-                                x:Uid="discussions"
-                                VerticalAlignment="Center"
-                                Text="Discussions" />
+                            <TextBlock VerticalAlignment="Center" Text="{helpers:ResourceString Name=Discussions}" />
                         </StackPanel>
                     </muxc:NavigationViewItem.Content>
                 </muxc:NavigationViewItem>
@@ -126,10 +111,7 @@
                                     Foreground="White"
                                     Glyph="&#xEA52;" />
                             </Border>
-                            <TextBlock
-                                x:Uid="repos"
-                                VerticalAlignment="Center"
-                                Text="Repositories" />
+                            <TextBlock VerticalAlignment="Center" Text="{helpers:ResourceString Name=Repositories}" />
                         </StackPanel>
                     </muxc:NavigationViewItem.Content>
                 </muxc:NavigationViewItem>
@@ -147,10 +129,7 @@
                                     Foreground="White"
                                     Glyph="&#xEA27;" />
                             </Border>
-                            <TextBlock
-                                x:Uid="orgs"
-                                VerticalAlignment="Center"
-                                Text="Organizations" />
+                            <TextBlock VerticalAlignment="Center" Text="{helpers:ResourceString Name=Organizations}" />
                         </StackPanel>
                     </muxc:NavigationViewItem.Content>
                 </muxc:NavigationViewItem>
@@ -168,10 +147,7 @@
                                     Foreground="White"
                                     Glyph="&#xEA94;" />
                             </Border>
-                            <TextBlock
-                                x:Uid="starred"
-                                VerticalAlignment="Center"
-                                Text="Starred" />
+                            <TextBlock VerticalAlignment="Center" Text="{helpers:ResourceString Name=Starred}" />
                         </StackPanel>
                     </muxc:NavigationViewItem.Content>
                 </muxc:NavigationViewItem>

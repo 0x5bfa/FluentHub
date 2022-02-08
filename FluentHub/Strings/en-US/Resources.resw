@@ -136,9 +136,7 @@
     <value>Forward</value>
   </data>
   <data name="GladText" xml:space="preserve">
-    <value>We're glad you're here.
-To user all features, just you need to sign in first.</value>
-    <comment>Thanks giving for downloading the app and tell you to login</comment>
+    <value>To user all features, just you need to sign in first.</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
@@ -184,13 +182,11 @@ To user all features, just you need to sign in first.</value>
   </data>
   <data name="StartSetup" xml:space="preserve">
     <value>Start setup</value>
-    <comment>The same as the value</comment>
   </data>
   <data name="ToolbarSearchBarPlaceholder" xml:space="preserve">
     <value>Find code, projects, and people on GitHub</value>
   </data>
   <data name="WelcomeTo" xml:space="preserve">
     <value>Welcome to</value>
-    <comment>Welcome text (Startup)</comment>
   </data>
 </root>

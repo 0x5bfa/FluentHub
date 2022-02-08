@@ -57,11 +57,19 @@
                 HorizontalAlignment="Center"
                 Style="{ThemeResource TitleTextBlockStyle}"
                 Text="{helpers:ResourceString Name=WelcomeTo}" />
-            <Image
-                Width="Auto"
-                Margin="0,32"
-                HorizontalAlignment="Left"
-                Source="/Assets/FluentHub.png" />
+            <StackPanel Margin="0,24" Spacing="12">
+                <Image
+                    Width="Auto"
+                    Height="84"
+                    HorizontalAlignment="Center"
+                    Source="/Assets/AppTiles/StoreLogo.scale-150.png" />
+                <TextBlock
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    FontSize="32"
+                    Style="{StaticResource TitleTextBlockStyle}"
+                    Text="FluentHub" />
+            </StackPanel>
             <TextBlock
                 HorizontalAlignment="Center"
                 HorizontalTextAlignment="Center"
