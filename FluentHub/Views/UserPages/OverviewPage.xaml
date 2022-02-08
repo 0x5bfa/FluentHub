@@ -53,9 +53,9 @@
                         FontSize="16"
                         Glyph="&#xEA3E;" />
                     <TextBlock
+                        x:Uid="UserPinnedItemsTextBlock"
                         FontSize="14"
-                        Style="{StaticResource SubtitleTextBlockStyle}"
-                        Text="{helpers:ResourceString Name=Pinned}" />
+                        Style="{StaticResource SubtitleTextBlockStyle}" />
                 </StackPanel>
                 <ScrollViewer
                     Grid.Row="1"
@@ -94,10 +94,10 @@
                             FontSize="16"
                             Glyph="&#xEA38;" />
                         <TextBlock
+                            x:Uid="UserSpecialReadmeTextBlock"
                             VerticalAlignment="Center"
                             FontSize="14"
-                            Style="{StaticResource SubtitleTextBlockStyle}"
-                            Text="{helpers:ResourceString Name=Readme}" />
+                            Style="{StaticResource SubtitleTextBlockStyle}" />
                     </StackPanel>
                     <HyperlinkButton
                         x:Name="ReadMeLink"

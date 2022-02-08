@@ -160,7 +160,7 @@
                                 FontFamily="{StaticResource Octions}"
                                 FontSize="14"
                                 Glyph="&#xEA9A;" />
-                            <TextBlock x:Name="UpdatedAt" />
+                            <TextBlock x:Name="RepositoryBlockUpdatedAtTextBlock" x:Uid="RepositoryBlockUpdatedAtTextBlock" />
                         </StackPanel>
                     </Grid>
                 </Grid>

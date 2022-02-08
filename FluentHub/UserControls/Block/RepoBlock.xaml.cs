@@ -125,7 +125,7 @@ namespace FluentHub.UserControls.Block
             PRCount.Text = pulls.Count().ToString();
             PRCountBlock.Visibility = Visibility.Visible;
 
-            UpdatedAt.Text = string.Format("UpdatedAt".GetLocalized(), repo.UpdatedAt.Humanize());
+            RepositoryBlockUpdatedAtTextBlock.Text = string.Format("RepositoryBlockUpdatedAtTextBlock".GetLocalized(), repo.UpdatedAt.Humanize());
             UpdatedAtBlock.Visibility = Visibility.Visible;
         }
 

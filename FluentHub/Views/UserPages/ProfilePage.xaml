@@ -207,18 +207,19 @@
                         <Button
                             Padding="4"
                             Background="Transparent"
-                            Style="{ThemeResource ClearButtonStyle}">
+                            Style="{ThemeResource LinkLikeButtonStyle}">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal" Spacing="6">
                                     <TextBlock
                                         x:Name="FollowerCount"
                                         VerticalAlignment="Center"
+                                        FontWeight="SemiBold"
                                         Style="{ThemeResource BodyTextBlockStyle}" />
                                     <TextBlock
+                                        x:Uid="UserFollowersCountTextBlock"
                                         VerticalAlignment="Center"
                                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        Style="{ThemeResource BodyTextBlockStyle}"
-                                        Text="{helpers:ResourceString Name=Followers}" />
+                                        Style="{ThemeResource BodyTextBlockStyle}" />
                                 </StackPanel>
                             </Button.Content>
                         </Button>
@@ -231,18 +232,19 @@
                         <Button
                             Padding="4"
                             Background="Transparent"
-                            Style="{ThemeResource ClearButtonStyle}">
+                            Style="{ThemeResource LinkLikeButtonStyle}">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal" Spacing="6">
                                     <TextBlock
                                         x:Name="FollowingCount"
                                         VerticalAlignment="Center"
+                                        FontWeight="SemiBold"
                                         Style="{ThemeResource BodyTextBlockStyle}" />
                                     <TextBlock
+                                        x:Uid="UserFollowingCountTextBlock"
                                         VerticalAlignment="Center"
                                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        Style="{ThemeResource BodyTextBlockStyle}"
-                                        Text="{helpers:ResourceString Name=Following}" />
+                                        Style="{ThemeResource BodyTextBlockStyle}" />
                                 </StackPanel>
                             </Button.Content>
                         </Button>
@@ -268,7 +270,7 @@
                         SelectionChanged="UserNavView_SelectionChanged">
                         <muxc:NavigationView.MenuItems>
                             <muxc:NavigationViewItem
-                                Content="{helpers:ResourceString Name=Overview}"
+                                x:Uid="UserNavViewItemOverview"
                                 IsSelected="True"
                                 Tag="Overview">
                                 <muxc:NavigationViewItem.Icon>
@@ -278,7 +280,7 @@
                                         Glyph="&#xE922;" />
                                 </muxc:NavigationViewItem.Icon>
                             </muxc:NavigationViewItem>
-                            <muxc:NavigationViewItem Content="{helpers:ResourceString Name=Repositories}" Tag="Repositories">
+                            <muxc:NavigationViewItem x:Uid="UserNavViewItemRepositories" Tag="Repositories">
                                 <muxc:NavigationViewItem.Icon>
                                     <FontIcon
                                         FontFamily="{StaticResource Octions}"

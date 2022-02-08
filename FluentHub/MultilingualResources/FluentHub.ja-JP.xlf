@@ -74,10 +74,6 @@
           <source>PREVIEW</source>
           <target state="new">PREVIEW</target>
         </trans-unit>
-        <trans-unit id="Pull Requests" translate="yes" xml:space="preserve">
-          <source>Pull Requests</source>
-          <target state="new">Pull Requests</target>
-        </trans-unit>
         <trans-unit id="StartSetupButton.Content" translate="yes" xml:space="preserve">
           <source>Start setup</source>
           <target state="new">Start setup</target>
@@ -109,6 +105,102 @@
         <trans-unit id="WelcomeText.Text" translate="yes" xml:space="preserve">
           <source>Welcome to</source>
           <target state="new">Welcome to</target>
+        </trans-unit>
+        <trans-unit id="Followers" translate="yes" xml:space="preserve">
+          <source>Followers</source>
+          <target state="new">Followers</target>
+        </trans-unit>
+        <trans-unit id="Following" translate="yes" xml:space="preserve">
+          <source>Following</source>
+          <target state="new">Following</target>
+        </trans-unit>
+        <trans-unit id="PullRequests" translate="yes" xml:space="preserve">
+          <source>Pull Requests</source>
+          <target state="new">Pull Requests</target>
+        </trans-unit>
+        <trans-unit id="RepoForkButtonTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>Fork</source>
+          <target state="new">Fork</target>
+        </trans-unit>
+        <trans-unit id="RepoPageNavViewItemCode.Content" translate="yes" xml:space="preserve">
+          <source>Code</source>
+          <target state="new">Code</target>
+        </trans-unit>
+        <trans-unit id="RepoPageNavViewItemSettings.Content" translate="yes" xml:space="preserve">
+          <source>Settings</source>
+          <target state="new">Settings</target>
+        </trans-unit>
+        <trans-unit id="RepositoryBlockUpdatedAtTextBlock" translate="yes" xml:space="preserve">
+          <source>Updated {0}</source>
+          <target state="new">Updated {0}</target>
+        </trans-unit>
+        <trans-unit id="RepoStarSplitButtonTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>Star</source>
+          <target state="new">Star</target>
+        </trans-unit>
+        <trans-unit id="RepoWatchCombboxStopIgnoring" translate="yes" xml:space="preserve">
+          <source>Stop ignoring</source>
+          <target state="new">Stop ignoring</target>
+        </trans-unit>
+        <trans-unit id="RepoWatchCombboxUnWatch" translate="yes" xml:space="preserve">
+          <source>Unwatch</source>
+          <target state="new">Unwatch</target>
+        </trans-unit>
+        <trans-unit id="RepoWatchCombboxWatch" translate="yes" xml:space="preserve">
+          <source>Watch</source>
+          <target state="new">Watch</target>
+        </trans-unit>
+        <trans-unit id="UserFollowersCountTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>followers</source>
+          <target state="new">followers</target>
+        </trans-unit>
+        <trans-unit id="UserFollowingCountTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>following</source>
+          <target state="new">following</target>
+        </trans-unit>
+        <trans-unit id="UserNavViewItemOverview.Content" translate="yes" xml:space="preserve">
+          <source>Overview</source>
+          <target state="new">Overview</target>
+        </trans-unit>
+        <trans-unit id="UserNavViewItemRepositories.Content" translate="yes" xml:space="preserve">
+          <source>Repositories</source>
+          <target state="new">Repositories</target>
+        </trans-unit>
+        <trans-unit id="UserPinnedItemsTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>Pinned</source>
+          <target state="new">Pinned</target>
+        </trans-unit>
+        <trans-unit id="UserSpecialReadmeTextBlock" translate="yes" xml:space="preserve">
+          <source>README</source>
+          <target state="new">README</target>
+        </trans-unit>
+        <trans-unit id="GoToFileButton.Content" translate="yes" xml:space="preserve">
+          <source>Go to file</source>
+          <target state="new">Go to file</target>
+        </trans-unit>
+        <trans-unit id="RepoAddFile.Content" translate="yes" xml:space="preserve">
+          <source>Add file</source>
+          <target state="new">Add file</target>
+        </trans-unit>
+        <trans-unit id="RepoAddFileMenuFlyoutItemAdd.Text" translate="yes" xml:space="preserve">
+          <source>Create new file</source>
+          <target state="new">Create new file</target>
+        </trans-unit>
+        <trans-unit id="RepoAddFileMenuFlyoutItemUploadFiles.Text" translate="yes" xml:space="preserve">
+          <source>Upload files</source>
+          <target state="new">Upload files</target>
+        </trans-unit>
+        <trans-unit id="RepoBranchesCountTextTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>branches</source>
+          <target state="new">branches</target>
+        </trans-unit>
+        <trans-unit id="RepoTagsCountTextTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>tags</source>
+          <target state="new">tags</target>
+        </trans-unit>
+        <trans-unit id="Star" translate="yes" xml:space="preserve">
+          <source>Star</source>
+          <target state="new">Star</target>
         </trans-unit>
       </group>
     </body>

@@ -98,7 +98,7 @@
                 VerticalAlignment="Top"
                 Orientation="Horizontal"
                 Spacing="6">
-                <muxc:DropDownButton x:Name="WatchCombbox" Grid.Column="2">
+                <muxc:DropDownButton x:Name="RepoWatchCombbox" Grid.Column="2">
                     <muxc:DropDownButton.Flyout>
                         <MenuFlyout Placement="BottomEdgeAlignedLeft">
                             <muxc:RadioMenuFlyoutItem IsChecked="True" Text="Participating and @mentions" />
@@ -107,45 +107,34 @@
                             <muxc:RadioMenuFlyoutItem IsChecked="True" Text="Custom" />
                         </MenuFlyout>
                     </muxc:DropDownButton.Flyout>
-                    <Button.Content>
+                    <muxc:DropDownButton.Content>
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <FontIcon
-                                FontFamily="octions"
+                                FontFamily="{StaticResource Octions}"
                                 FontSize="14"
                                 Glyph="&#xE98B;" />
-                            <TextBlock Text="{helpers:ResourceString Name=Watch}" />
+                            <TextBlock x:Name="RepoWatchCombboxWatchTextBlock" Text="{helpers:ResourceString Name=RepoWatchCombboxWatchTextBlock}" />
                             <muxc:InfoBadge x:Name="WatchersCountBadge" Value="0" />
                         </StackPanel>
-                    </Button.Content>
+                    </muxc:DropDownButton.Content>
                 </muxc:DropDownButton>
                 <Button Grid.Column="3">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <FontIcon
-                                FontFamily="octions"
+                                FontFamily="{StaticResource Octions}"
                                 FontSize="14"
                                 Glyph="&#xea55;" />
-                            <TextBlock Text="Fork" />
+                            <TextBlock x:Uid="RepoForkButtonTextBlock" />
                             <muxc:InfoBadge x:Name="ForksCountBadge" Value="0" />
                         </StackPanel>
                     </Button.Content>
                 </Button>
                 <muxc:SplitButton Grid.Column="4">
-                    <muxc:SplitButton.Flyout>
-                        <MenuFlyout Placement="Bottom">
-                            <ToggleMenuFlyoutItem IsChecked="True" Text="List1" />
-                            <ToggleMenuFlyoutItem Text="List2" />
-                            <MenuFlyoutSeparator />
-                            <MenuFlyoutItem
-                                MinWidth="128"
-                                Icon="Add"
-                                Text="Create list" />
-                        </MenuFlyout>
-                    </muxc:SplitButton.Flyout>
                     <muxc:SplitButton.Content>
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <FontIcon FontSize="14" Glyph="&#xE734;" />
-                            <TextBlock Text="Star" />
+                            <TextBlock x:Uid="RepoStarSplitButtonTextBlock" />
                             <muxc:InfoBadge x:Name="StargazersCountBadge" Value="0" />
                         </StackPanel>
                     </muxc:SplitButton.Content>
@@ -162,6 +151,7 @@
                 PaneDisplayMode="Top">
                 <muxc:NavigationView.MenuItems>
                     <muxc:NavigationViewItem
+                        x:Uid="RepoPageNavViewItemCode"
                         Content="Code"
                         IsSelected="True"
                         Tag="Code">
@@ -180,7 +170,7 @@
                                     FontFamily="{StaticResource Octions}"
                                     FontSize="16"
                                     Glyph="&#xE9EA;" />
-                                <TextBlock Text="Issues" />
+                                <TextBlock Text="{helpers:ResourceString Name=Issues}" />
                                 <muxc:InfoBadge
                                     x:Name="IssuesCountBadge"
                                     Margin="8,0,0,0"
@@ -195,14 +185,14 @@
                                 FontFamily="{StaticResource Octions}"
                                 FontSize="16"
                                 Glyph="&#xE9BF;" />
-                            <TextBlock Text="Pull Requests" />
+                            <TextBlock Text="{helpers:ResourceString Name=PullRequests}" />
                             <muxc:InfoBadge
                                 x:Name="PullsCountBadge"
                                 Margin="8,0,0,0"
                                 Visibility="Collapsed" />
                         </StackPanel>
                     </muxc:NavigationViewItem>
-                    <muxc:NavigationViewItem Content="Settings" Tag="Settings">
+                    <muxc:NavigationViewItem x:Uid="RepoPageNavViewItemSettings" Tag="Settings">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
