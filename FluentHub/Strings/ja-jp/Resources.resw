@@ -109,9 +109,6 @@
     <value>ピン済み</value>
   </data>
   <data name="Readme" xml:space="preserve">
-    <value>Readme</value>
-  </data>
-  <data name="ReadmeUpper" xml:space="preserve">
     <value>README</value>
   </data>
   <data name="FollowersInline" xml:space="preserve">
@@ -119,5 +116,77 @@
   </data>
   <data name="FollowingInline" xml:space="preserve">
     <value>フォロー中</value>
+  </data>
+  <data name="ReadmeLower" xml:space="preserve">
+    <value>Readme</value>
+  </data>
+  <data name="UpdatedAt" xml:space="preserve">
+    <value>{0}に更新</value>
+  </data>
+  <data name="About" xml:space="preserve">
+    <value>このレポジトリについて</value>
+  </data>
+  <data name="AddFile" xml:space="preserve">
+    <value>ファイルを追加</value>
+  </data>
+  <data name="BranchesInline" xml:space="preserve">
+    <value>ブランチ</value>
+  </data>
+  <data name="Code" xml:space="preserve">
+    <value>コード</value>
+  </data>
+  <data name="Commits" xml:space="preserve">
+    <value>コミット</value>
+  </data>
+  <data name="Contributers" xml:space="preserve">
+    <value>コントリビュータ</value>
+  </data>
+  <data name="CreateNewRelease" xml:space="preserve">
+    <value>新しいリリースを作成する</value>
+  </data>
+  <data name="Fork" xml:space="preserve">
+    <value>フォーク</value>
+  </data>
+  <data name="GoToFile" xml:space="preserve">
+    <value>ファイルへ移動</value>
+  </data>
+  <data name="NoReleasesPublished" xml:space="preserve">
+    <value>リリースが公開されていません</value>
+  </data>
+  <data name="Releases" xml:space="preserve">
+    <value>リリース</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="Star" xml:space="preserve">
+    <value>Star</value>
+  </data>
+  <data name="TagsInline" xml:space="preserve">
+    <value>タグ</value>
+  </data>
+  <data name="Watch" xml:space="preserve">
+    <value>ウォッチ</value>
+  </data>
+  <data name="CodeOfConduct" xml:space="preserve">
+    <value>行動規範</value>
+  </data>
+  <data name="ForksInline" xml:space="preserve">
+    <value>フォーク</value>
+  </data>
+  <data name="StarOnly" xml:space="preserve">
+    <value>スター</value>
+  </data>
+  <data name="StarsInline" xml:space="preserve">
+    <value>Star 中</value>
+  </data>
+  <data name="StopIgnoring" xml:space="preserve">
+    <value>無視をやめる</value>
+  </data>
+  <data name="Unwatch" xml:space="preserve">
+    <value>ウォッチを外す</value>
+  </data>
+  <data name="WatchingInline" xml:space="preserve">
+    <value>ウォッチ中</value>
   </data>
 </root>

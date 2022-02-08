@@ -135,10 +135,6 @@
           <target state="translated">ピン済み</target>
         </trans-unit>
         <trans-unit id="Readme" translate="yes" xml:space="preserve">
-          <source>Readme</source>
-          <target state="translated">Readme</target>
-        </trans-unit>
-        <trans-unit id="ReadmeUpper" translate="yes" xml:space="preserve">
           <source>README</source>
           <target state="translated">README</target>
         </trans-unit>
@@ -149,6 +145,102 @@
         <trans-unit id="FollowingInline" translate="yes" xml:space="preserve">
           <source>following</source>
           <target state="translated">フォロー中</target>
+        </trans-unit>
+        <trans-unit id="ReadmeLower" translate="yes" xml:space="preserve">
+          <source>Readme</source>
+          <target state="translated">Readme</target>
+        </trans-unit>
+        <trans-unit id="UpdatedAt" translate="yes" xml:space="preserve">
+          <source>Updated {0}</source>
+          <target state="translated">{0}に更新</target>
+        </trans-unit>
+        <trans-unit id="About" translate="yes" xml:space="preserve">
+          <source>About</source>
+          <target state="translated">このレポジトリについて</target>
+        </trans-unit>
+        <trans-unit id="AddFile" translate="yes" xml:space="preserve">
+          <source>Add file</source>
+          <target state="translated">ファイルを追加</target>
+        </trans-unit>
+        <trans-unit id="BranchesInline" translate="yes" xml:space="preserve">
+          <source>branches</source>
+          <target state="translated">ブランチ</target>
+        </trans-unit>
+        <trans-unit id="Code" translate="yes" xml:space="preserve">
+          <source>Code</source>
+          <target state="translated">コード</target>
+        </trans-unit>
+        <trans-unit id="Commits" translate="yes" xml:space="preserve">
+          <source>Commits</source>
+          <target state="translated">コミット</target>
+        </trans-unit>
+        <trans-unit id="Contributers" translate="yes" xml:space="preserve">
+          <source>Contributers</source>
+          <target state="translated">コントリビュータ</target>
+        </trans-unit>
+        <trans-unit id="CreateNewRelease" translate="yes" xml:space="preserve">
+          <source>Create a new release</source>
+          <target state="translated">新しいリリースを作成する</target>
+        </trans-unit>
+        <trans-unit id="Fork" translate="yes" xml:space="preserve">
+          <source>Fork</source>
+          <target state="translated">フォーク</target>
+        </trans-unit>
+        <trans-unit id="GoToFile" translate="yes" xml:space="preserve">
+          <source>Go to file</source>
+          <target state="translated">ファイルへ移動</target>
+        </trans-unit>
+        <trans-unit id="NoReleasesPublished" translate="yes" xml:space="preserve">
+          <source>No releases published</source>
+          <target state="translated">リリースが公開されていません</target>
+        </trans-unit>
+        <trans-unit id="Releases" translate="yes" xml:space="preserve">
+          <source>Releases</source>
+          <target state="translated">リリース</target>
+        </trans-unit>
+        <trans-unit id="Settings" translate="yes" xml:space="preserve">
+          <source>Settings</source>
+          <target state="translated">設定</target>
+        </trans-unit>
+        <trans-unit id="Star" translate="yes" xml:space="preserve">
+          <source>Star</source>
+          <target state="translated">Star</target>
+        </trans-unit>
+        <trans-unit id="TagsInline" translate="yes" xml:space="preserve">
+          <source>tags</source>
+          <target state="translated">タグ</target>
+        </trans-unit>
+        <trans-unit id="Watch" translate="yes" xml:space="preserve">
+          <source>Watch</source>
+          <target state="translated">ウォッチ</target>
+        </trans-unit>
+        <trans-unit id="CodeOfConduct" translate="yes" xml:space="preserve">
+          <source>Code of conduct</source>
+          <target state="translated">行動規範</target>
+        </trans-unit>
+        <trans-unit id="ForksInline" translate="yes" xml:space="preserve">
+          <source>forks</source>
+          <target state="translated">フォーク</target>
+        </trans-unit>
+        <trans-unit id="StarOnly" translate="yes" xml:space="preserve">
+          <source>Star</source>
+          <target state="translated">スター</target>
+        </trans-unit>
+        <trans-unit id="StarsInline" translate="yes" xml:space="preserve">
+          <source>Stars</source>
+          <target state="translated">Star 中</target>
+        </trans-unit>
+        <trans-unit id="StopIgnoring" translate="yes" xml:space="preserve">
+          <source>Stop ignoring</source>
+          <target state="translated">無視をやめる</target>
+        </trans-unit>
+        <trans-unit id="Unwatch" translate="yes" xml:space="preserve">
+          <source>Unwatch</source>
+          <target state="translated">ウォッチを外す</target>
+        </trans-unit>
+        <trans-unit id="WatchingInline" translate="yes" xml:space="preserve">
+          <source>watching</source>
+          <target state="translated">ウォッチ中</target>
         </trans-unit>
       </group>
     </body>

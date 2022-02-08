@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="using:FluentHub.Helpers"
     xmlns:local="using:FluentHub.Views.RepoPages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -112,7 +113,7 @@
                                 FontFamily="octions"
                                 FontSize="14"
                                 Glyph="&#xE98B;" />
-                            <TextBlock Text="Watch" />
+                            <TextBlock Text="{helpers:ResourceString Name=Watch}" />
                             <muxc:InfoBadge x:Name="WatchersCountBadge" Value="0" />
                         </StackPanel>
                     </Button.Content>

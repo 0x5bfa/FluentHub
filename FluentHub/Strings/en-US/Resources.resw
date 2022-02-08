@@ -117,8 +117,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About" xml:space="preserve">
+    <value>About</value>
+  </data>
   <data name="Activities" xml:space="preserve">
     <value>Activities</value>
+  </data>
+  <data name="AddFile" xml:space="preserve">
+    <value>Add file</value>
   </data>
   <data name="AppSettings" xml:space="preserve">
     <value>App settings</value>
@@ -129,8 +135,26 @@
   <data name="Back" xml:space="preserve">
     <value>Back</value>
   </data>
+  <data name="BranchesInline" xml:space="preserve">
+    <value>branches</value>
+  </data>
   <data name="CanonicalAppName" xml:space="preserve">
     <value>FluentHub</value>
+  </data>
+  <data name="Code" xml:space="preserve">
+    <value>Code</value>
+  </data>
+  <data name="CodeOfConduct" xml:space="preserve">
+    <value>Code of conduct</value>
+  </data>
+  <data name="Commits" xml:space="preserve">
+    <value>Commits</value>
+  </data>
+  <data name="Contributers" xml:space="preserve">
+    <value>Contributers</value>
+  </data>
+  <data name="CreateNewRelease" xml:space="preserve">
+    <value>Create a new release</value>
   </data>
   <data name="Discussions" xml:space="preserve">
     <value>Discussions</value>
@@ -153,11 +177,20 @@
   <data name="FollowingInline" xml:space="preserve">
     <value>following</value>
   </data>
+  <data name="Fork" xml:space="preserve">
+    <value>Fork</value>
+  </data>
+  <data name="ForksInline" xml:space="preserve">
+    <value>forks</value>
+  </data>
   <data name="Forward" xml:space="preserve">
     <value>Forward</value>
   </data>
   <data name="GladText" xml:space="preserve">
     <value>To user all features, just you need to sign in first.</value>
+  </data>
+  <data name="GoToFile" xml:space="preserve">
+    <value>Go to file</value>
   </data>
   <data name="Home" xml:space="preserve">
     <value>Home</value>
@@ -173,6 +206,9 @@
   </data>
   <data name="MyWork" xml:space="preserve">
     <value>My work</value>
+  </data>
+  <data name="NoReleasesPublished" xml:space="preserve">
+    <value>No releases published</value>
   </data>
   <data name="Notifications" xml:space="preserve">
     <value>Notifications</value>
@@ -210,20 +246,53 @@
   <data name="Refresh" xml:space="preserve">
     <value>Refresh</value>
   </data>
+  <data name="Releases" xml:space="preserve">
+    <value>Releases</value>
+  </data>
   <data name="Repositories" xml:space="preserve">
     <value>Repositories</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="Star" xml:space="preserve">
+    <value>Star</value>
+  </data>
+  <data name="StarOnly" xml:space="preserve">
+    <value>Star</value>
   </data>
   <data name="Starred" xml:space="preserve">
     <value>Starred</value>
   </data>
+  <data name="StarsInline" xml:space="preserve">
+    <value>Stars</value>
+  </data>
   <data name="StartSetup" xml:space="preserve">
     <value>Start setup</value>
+  </data>
+  <data name="StopIgnoring" xml:space="preserve">
+    <value>Stop ignoring</value>
+  </data>
+  <data name="TagsInline" xml:space="preserve">
+    <value>tags</value>
   </data>
   <data name="ToolbarSearchBarPlaceholder" xml:space="preserve">
     <value>Find code, projects, and people on GitHub</value>
   </data>
-  <data name="Updated" xml:space="preserve">
-    <value>Updated</value>
+  <data name="Unwatch" xml:space="preserve">
+    <value>Unwatch</value>
+  </data>
+  <data name="UpdatedAt" xml:space="preserve">
+    <value>Updated {0}</value>
+  </data>
+  <data name="Watch" xml:space="preserve">
+    <value>Watch</value>
+  </data>
+  <data name="WatchDropdown" xml:space="preserve">
+    <value />
+  </data>
+  <data name="WatchingInline" xml:space="preserve">
+    <value>watching</value>
   </data>
   <data name="WelcomeTo" xml:space="preserve">
     <value>Welcome to</value>
