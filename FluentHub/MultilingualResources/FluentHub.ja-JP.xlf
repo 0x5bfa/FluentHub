@@ -110,6 +110,46 @@
           <source>FluentHub</source>
           <target state="translated">FluentHub</target>
         </trans-unit>
+        <trans-unit id="EditProfile" translate="yes" xml:space="preserve">
+          <source>Edit profile</source>
+          <target state="translated">プロフィールを編集</target>
+        </trans-unit>
+        <trans-unit id="Follow" translate="yes" xml:space="preserve">
+          <source>Follow</source>
+          <target state="translated">フォロー</target>
+        </trans-unit>
+        <trans-unit id="Followers" translate="yes" xml:space="preserve">
+          <source>Followers</source>
+          <target state="translated">フォロワー</target>
+        </trans-unit>
+        <trans-unit id="Following" translate="yes" xml:space="preserve">
+          <source>Following</source>
+          <target state="translated">フォロー中</target>
+        </trans-unit>
+        <trans-unit id="Overview" translate="yes" xml:space="preserve">
+          <source>Overview</source>
+          <target state="translated">概要</target>
+        </trans-unit>
+        <trans-unit id="Pinned" translate="yes" xml:space="preserve">
+          <source>Pinned</source>
+          <target state="translated">ピン済み</target>
+        </trans-unit>
+        <trans-unit id="Readme" translate="yes" xml:space="preserve">
+          <source>Readme</source>
+          <target state="translated">Readme</target>
+        </trans-unit>
+        <trans-unit id="ReadmeUpper" translate="yes" xml:space="preserve">
+          <source>README</source>
+          <target state="translated">README</target>
+        </trans-unit>
+        <trans-unit id="FollowersInline" translate="yes" xml:space="preserve">
+          <source>followers</source>
+          <target state="translated">フォロワー</target>
+        </trans-unit>
+        <trans-unit id="FollowingInline" translate="yes" xml:space="preserve">
+          <source>following</source>
+          <target state="translated">フォロー中</target>
+        </trans-unit>
       </group>
     </body>
   </file>

@@ -90,4 +90,34 @@
   <data name="CanonicalAppName" xml:space="preserve">
     <value>FluentHub</value>
   </data>
+  <data name="EditProfile" xml:space="preserve">
+    <value>プロフィールを編集</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>フォロー</value>
+  </data>
+  <data name="Followers" xml:space="preserve">
+    <value>フォロワー</value>
+  </data>
+  <data name="Following" xml:space="preserve">
+    <value>フォロー中</value>
+  </data>
+  <data name="Overview" xml:space="preserve">
+    <value>概要</value>
+  </data>
+  <data name="Pinned" xml:space="preserve">
+    <value>ピン済み</value>
+  </data>
+  <data name="Readme" xml:space="preserve">
+    <value>Readme</value>
+  </data>
+  <data name="ReadmeUpper" xml:space="preserve">
+    <value>README</value>
+  </data>
+  <data name="FollowersInline" xml:space="preserve">
+    <value>フォロワー</value>
+  </data>
+  <data name="FollowingInline" xml:space="preserve">
+    <value>フォロー中</value>
+  </data>
 </root>

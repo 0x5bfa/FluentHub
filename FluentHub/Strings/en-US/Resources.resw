@@ -135,6 +135,24 @@
   <data name="Discussions" xml:space="preserve">
     <value>Discussions</value>
   </data>
+  <data name="EditProfile" xml:space="preserve">
+    <value>Edit profile</value>
+  </data>
+  <data name="Follow" xml:space="preserve">
+    <value>Follow</value>
+  </data>
+  <data name="Followers" xml:space="preserve">
+    <value>Followers</value>
+  </data>
+  <data name="FollowersInline" xml:space="preserve">
+    <value>followers</value>
+  </data>
+  <data name="Following" xml:space="preserve">
+    <value>Following</value>
+  </data>
+  <data name="FollowingInline" xml:space="preserve">
+    <value>following</value>
+  </data>
   <data name="Forward" xml:space="preserve">
     <value>Forward</value>
   </data>
@@ -168,6 +186,12 @@
   <data name="Organizations" xml:space="preserve">
     <value>Organizations</value>
   </data>
+  <data name="Overview" xml:space="preserve">
+    <value>Overview</value>
+  </data>
+  <data name="Pinned" xml:space="preserve">
+    <value>Pinned</value>
+  </data>
   <data name="PreviewTitle" xml:space="preserve">
     <value>PREVIEW</value>
   </data>
@@ -176,6 +200,12 @@
   </data>
   <data name="PullRequests" xml:space="preserve">
     <value>Pull Requests</value>
+  </data>
+  <data name="Readme" xml:space="preserve">
+    <value>README</value>
+  </data>
+  <data name="ReadmeLower" xml:space="preserve">
+    <value>Readme</value>
   </data>
   <data name="Refresh" xml:space="preserve">
     <value>Refresh</value>
@@ -191,6 +221,9 @@
   </data>
   <data name="ToolbarSearchBarPlaceholder" xml:space="preserve">
     <value>Find code, projects, and people on GitHub</value>
+  </data>
+  <data name="Updated" xml:space="preserve">
+    <value>Updated</value>
   </data>
   <data name="WelcomeTo" xml:space="preserve">
     <value>Welcome to</value>
