@@ -129,6 +129,9 @@
   <data name="Back" xml:space="preserve">
     <value>Back</value>
   </data>
+  <data name="CanonicalAppName" xml:space="preserve">
+    <value>FluentHub</value>
+  </data>
   <data name="Discussions" xml:space="preserve">
     <value>Discussions</value>
   </data>
@@ -164,6 +167,9 @@
   </data>
   <data name="Organizations" xml:space="preserve">
     <value>Organizations</value>
+  </data>
+  <data name="PreviewTitle" xml:space="preserve">
+    <value>PREVIEW</value>
   </data>
   <data name="Profile" xml:space="preserve">
     <value>Profile</value>

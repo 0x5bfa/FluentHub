@@ -23,7 +23,7 @@
             OpenPaneLength="250"
             SelectionChanged="HomeNavView_SelectionChanged">
             <muxc:NavigationView.MenuItems>
-                <muxc:NavigationViewItemHeader x:Uid="profile" Content="Profile" />
+                <muxc:NavigationViewItemHeader x:Uid="profile" Content="{helpers:ResourceString Name=Profile}" />
                 <muxc:NavigationViewItem
                     Content="{helpers:ResourceString Name=Profile}"
                     IsSelected="True"

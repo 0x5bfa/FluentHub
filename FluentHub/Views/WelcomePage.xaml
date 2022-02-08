@@ -37,14 +37,14 @@
                     Margin="12,0,0,0"
                     VerticalAlignment="Center"
                     Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="FluentHub " />
+                    Text="{helpers:ResourceString Name=CanonicalAppName}" />
                 <TextBlock
                     x:Name="PreviewTitle"
                     Margin="4,0,0,0"
                     VerticalAlignment="Center"
                     FontSize="11"
                     Foreground="{StaticResource TextFillColorSecondaryBrush}"
-                    Text="PREVIEW" />
+                    Text="{helpers:ResourceString Name=PreviewTitle}" />
             </StackPanel>
         </Border>
         <StackPanel
@@ -62,7 +62,7 @@
                     Width="Auto"
                     Height="84"
                     HorizontalAlignment="Center"
-                    Source="/Assets/AppTiles/StoreLogo.scale-150.png" />
+                    Source="/Assets/AppTiles/StoreLogo.scale-200.png" />
                 <TextBlock
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"

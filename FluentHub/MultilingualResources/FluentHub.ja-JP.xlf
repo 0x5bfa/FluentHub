@@ -8,27 +8,27 @@
       <group id="FLUENTHUB/STRINGS/EN-US/RESOURCES.RESW" datatype="resx">
         <trans-unit id="Activities" translate="yes" xml:space="preserve">
           <source>Activities</source>
-          <target state="translated">Activities</target>
+          <target state="translated">アクティビティ</target>
         </trans-unit>
         <trans-unit id="AppSettings" translate="yes" xml:space="preserve">
           <source>App settings</source>
-          <target state="translated">App settings</target>
+          <target state="translated">アプリの設定</target>
         </trans-unit>
         <trans-unit id="AuthFluentHub" translate="yes" xml:space="preserve">
           <source>Authorize FluentHub</source>
-          <target state="translated">Authorize FluentHub</target>
+          <target state="translated">FluentHub の認証</target>
         </trans-unit>
         <trans-unit id="Back" translate="yes" xml:space="preserve">
           <source>Back</source>
-          <target state="translated">Back</target>
+          <target state="translated">戻る</target>
         </trans-unit>
         <trans-unit id="Discussions" translate="yes" xml:space="preserve">
           <source>Discussions</source>
-          <target state="translated">Discussions</target>
+          <target state="translated">ディスカッション</target>
         </trans-unit>
         <trans-unit id="Forward" translate="yes" xml:space="preserve">
           <source>Forward</source>
-          <target state="translated">Forward</target>
+          <target state="translated">進む</target>
         </trans-unit>
         <trans-unit id="GladText" translate="yes" xml:space="preserve">
           <source>To user all features, just you need to sign in first.</source>
@@ -36,7 +36,7 @@
         </trans-unit>
         <trans-unit id="Home" translate="yes" xml:space="preserve">
           <source>Home</source>
-          <target state="translated">Home</target>
+          <target state="translated">ホーム</target>
         </trans-unit>
         <trans-unit id="HowToSignIn" translate="yes" xml:space="preserve">
           <source>You can log in to GitHub in various ways. By authenticating, you can access more GitHub data and gain more experience.</source>
@@ -44,51 +44,51 @@
         </trans-unit>
         <trans-unit id="Issues" translate="yes" xml:space="preserve">
           <source>Issues</source>
-          <target state="translated">Issues</target>
+          <target state="translated">Issue</target>
         </trans-unit>
         <trans-unit id="MoreAuthOptionsComingSoon" translate="yes" xml:space="preserve">
           <source>In the future, password and token authentication will be enabled.</source>
-          <target state="translated">In the future, password and token authentication will be enabled.</target>
+          <target state="translated">将来的には、パスワードとトークンの認証が有効になります。</target>
         </trans-unit>
         <trans-unit id="MyWork" translate="yes" xml:space="preserve">
           <source>My work</source>
-          <target state="translated">My work</target>
+          <target state="translated">作業</target>
         </trans-unit>
         <trans-unit id="Notifications" translate="yes" xml:space="preserve">
           <source>Notifications</source>
-          <target state="translated">Notifications</target>
+          <target state="translated">通知</target>
         </trans-unit>
         <trans-unit id="OnlyWebAuth" translate="yes" xml:space="preserve">
           <source>Only web authentication is valid</source>
-          <target state="translated">Only web authentication is valid</target>
+          <target state="translated">Web 認証のみが有効です</target>
         </trans-unit>
         <trans-unit id="OpenWithBrowser" translate="yes" xml:space="preserve">
           <source>Open with your browser</source>
-          <target state="translated">Open with your browser</target>
+          <target state="translated">ブラウザで開く</target>
         </trans-unit>
         <trans-unit id="Organizations" translate="yes" xml:space="preserve">
           <source>Organizations</source>
-          <target state="translated">Organizations</target>
+          <target state="translated">Organization</target>
         </trans-unit>
         <trans-unit id="Profile" translate="yes" xml:space="preserve">
           <source>Profile</source>
-          <target state="translated">Profile</target>
+          <target state="translated">プロフィール</target>
         </trans-unit>
         <trans-unit id="PullRequests" translate="yes" xml:space="preserve">
           <source>Pull Requests</source>
-          <target state="translated">Pull Requests</target>
+          <target state="translated">Pull Request</target>
         </trans-unit>
         <trans-unit id="Refresh" translate="yes" xml:space="preserve">
           <source>Refresh</source>
-          <target state="translated">Refresh</target>
+          <target state="translated">リロード</target>
         </trans-unit>
         <trans-unit id="Repositories" translate="yes" xml:space="preserve">
           <source>Repositories</source>
-          <target state="translated">Repositories</target>
+          <target state="translated">リポジトリ</target>
         </trans-unit>
         <trans-unit id="Starred" translate="yes" xml:space="preserve">
           <source>Starred</source>
-          <target state="translated">Starred</target>
+          <target state="translated">Star 済み</target>
         </trans-unit>
         <trans-unit id="StartSetup" translate="yes" xml:space="preserve">
           <source>Start setup</source>
@@ -96,11 +96,19 @@
         </trans-unit>
         <trans-unit id="ToolbarSearchBarPlaceholder" translate="yes" xml:space="preserve">
           <source>Find code, projects, and people on GitHub</source>
-          <target state="translated">Find code, projects, and people on GitHub</target>
+          <target state="translated">GitHub でコード、プロジェクト、ユーザーを探す</target>
         </trans-unit>
         <trans-unit id="WelcomeTo" translate="yes" xml:space="preserve">
           <source>Welcome to</source>
           <target state="translated">ようこそ</target>
+        </trans-unit>
+        <trans-unit id="PreviewTitle" translate="yes" xml:space="preserve">
+          <source>PREVIEW</source>
+          <target state="translated">プレビュー</target>
+        </trans-unit>
+        <trans-unit id="CanonicalAppName" translate="yes" xml:space="preserve">
+          <source>FluentHub</source>
+          <target state="translated">FluentHub</target>
         </trans-unit>
       </group>
     </body>

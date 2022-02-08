@@ -2,25 +2,28 @@
     x:Class="FluentHub.Views.UserPages.ProfilePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:FluentHub.Views.UserPages"
-    xmlns:item="using:FluentHub.Models.Items"
-    xmlns:vm="using:FluentHub.ViewModels.UserPages"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:item="using:FluentHub.Models.Items"
+    xmlns:local="using:FluentHub.Views.UserPages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    mc:Ignorable="d"
-    Loaded="Page_Loaded">
+    xmlns:vm="using:FluentHub.ViewModels.UserPages"
+    Loaded="Page_Loaded"
+    mc:Ignorable="d">
 
     <Page.DataContext>
-        <vm:ProfilePageViewModel x:Name="ViewModel"/>
+        <vm:ProfilePageViewModel x:Name="ViewModel" />
     </Page.DataContext>
 
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
-                    <Style x:Key="ButtonSettingsBlockStyle" TargetType="Button" BasedOn="{StaticResource DefaultButtonStyle}">
+                    <Style
+                        x:Key="ButtonSettingsBlockStyle"
+                        BasedOn="{StaticResource DefaultButtonStyle}"
+                        TargetType="Button">
                         <Setter Property="Background" Value="{ThemeResource ExpanderHeaderBackground}" />
                         <Setter Property="BorderBrush" Value="{ThemeResource ExpanderHeaderBorderBrush}" />
                         <Setter Property="BorderThickness" Value="{ThemeResource ExpanderHeaderBorderThickness}" />
@@ -42,174 +45,203 @@
     <ScrollViewer>
         <Grid Margin="20">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid Margin="0,0,0,12">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto"/>
-                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto"/>
-                        <ColumnDefinition Width="*"/>
-                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <Border CornerRadius="84" Grid.RowSpan="1" Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-                        <Image x:Name="UserAvatorImage" Height="84" Width="84" />
+                    <Border
+                        Grid.RowSpan="1"
+                        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                        CornerRadius="84">
+                        <Image
+                            x:Name="UserAvatorImage"
+                            Width="84"
+                            Height="84" />
                     </Border>
-                    <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center">
+                    <StackPanel
+                        Grid.Column="1"
+                        Margin="12,0,0,0"
+                        VerticalAlignment="Center">
                         <TextBlock
                             x:Name="FullName"
-                            Style="{StaticResource SubtitleTextBlockStyle}"
+                            VerticalAlignment="Center"
                             FontWeight="SemiBold"
-                            VerticalAlignment="Center"/>
+                            Style="{StaticResource SubtitleTextBlockStyle}" />
                         <TextBlock
                             x:Name="Username"
+                            VerticalAlignment="Center"
                             FontSize="13"
-                            Style="{ThemeResource CaptionTextBlockStyle}"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            VerticalAlignment="Center"/>
-                        <TextBlock x:Name="UserBioTextBlock" Visibility="Collapsed" Style="{ThemeResource BodyTextBlockStyle}"/>
+                            Style="{ThemeResource CaptionTextBlockStyle}" />
+                        <TextBlock
+                            x:Name="UserBioTextBlock"
+                            Style="{ThemeResource BodyTextBlockStyle}"
+                            Visibility="Collapsed" />
                     </StackPanel>
-                    <StackPanel Grid.Column="2" Spacing="8" Orientation="Horizontal" VerticalAlignment="Top">
-                        <Button x:Name="FollowButton" Width="120" Content="Follow" Visibility="Collapsed"/>
-                        <Button x:Name="EditProfileButton" Width="120" Content="Edit profile" Visibility="Collapsed"/>
+                    <StackPanel
+                        Grid.Column="2"
+                        VerticalAlignment="Top"
+                        Orientation="Horizontal"
+                        Spacing="8">
+                        <Button
+                            x:Name="FollowButton"
+                            Width="120"
+                            Content="Follow"
+                            Visibility="Collapsed" />
+                        <Button
+                            x:Name="EditProfileButton"
+                            Width="120"
+                            Content="Edit profile"
+                            Visibility="Collapsed" />
                     </StackPanel>
                 </Grid>
-                <toolkit:WrapPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Stretch" HorizontalSpacing="6" Margin="0,6,0,0">
+                <toolkit:WrapPanel
+                    Grid.Row="1"
+                    Margin="0,6,0,0"
+                    HorizontalAlignment="Stretch"
+                    HorizontalSpacing="6"
+                    Orientation="Horizontal">
                     <StackPanel
-                        Orientation="Horizontal"
                         x:Name="CompanyBlock"
-                        Visibility="Collapsed"
+                        HorizontalAlignment="Left"
+                        Orientation="Horizontal"
                         Spacing="2"
-                        HorizontalAlignment="Left">
+                        Visibility="Collapsed">
                         <FontIcon
+                            VerticalAlignment="Center"
                             FontFamily="{StaticResource Octions}"
-                            Glyph="&#xEA27;"
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             FontSize="14"
-                            VerticalAlignment="Center"/>
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Glyph="&#xEA27;" />
                         <HyperlinkButton
                             x:Name="CompanyLinkButton"
                             Padding="4"
-                            Visibility="Collapsed"
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
-                        <TextBlock
-                            Margin="4,0,6,0"
-                            x:Name="CompanyLinkTextBlock"
-                            Visibility="Collapsed"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            VerticalAlignment="Center"/>
+                            Visibility="Collapsed" />
+                        <TextBlock
+                            x:Name="CompanyLinkTextBlock"
+                            Margin="4,0,6,0"
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Visibility="Collapsed" />
                     </StackPanel>
                     <StackPanel
-                        Orientation="Horizontal"
                         x:Name="LocationBlock"
-                        Visibility="Collapsed"
-                        Spacing="6"
+                        Margin="0,0,6,0"
                         HorizontalAlignment="Left"
-                        Margin="0,0,6,0">
+                        Orientation="Horizontal"
+                        Spacing="6"
+                        Visibility="Collapsed">
                         <FontIcon
+                            VerticalAlignment="Center"
                             FontFamily="{StaticResource Octions}"
-                            Glyph="&#xEA03;"
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             FontSize="14"
-                            VerticalAlignment="Center"/>
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Glyph="&#xEA03;" />
                         <TextBlock
                             x:Name="LocationTextBlock"
-                            Style="{ThemeResource BodyTextBlockStyle}"
+                            VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            VerticalAlignment="Center"/>
+                            Style="{ThemeResource BodyTextBlockStyle}" />
                     </StackPanel>
                     <StackPanel
                         x:Name="LinkBlock"
                         Orientation="Horizontal"
-                        Visibility="Collapsed"
-                        Spacing="2">
+                        Spacing="2"
+                        Visibility="Collapsed">
                         <FontIcon
+                            VerticalAlignment="Center"
                             FontFamily="{StaticResource Octions}"
-                            Glyph="&#xE9FB;"
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             FontSize="14"
-                            VerticalAlignment="Center"/>
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Glyph="&#xE9FB;" />
                         <HyperlinkButton
                             x:Name="LinkButton"
                             Padding="4"
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"/>
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" />
                     </StackPanel>
                     <StackPanel
                         x:Name="DeveloperProgramMemberBlock"
                         Orientation="Horizontal"
-                        Visibility="Collapsed"
-                        Spacing="4">
+                        Spacing="4"
+                        Visibility="Collapsed">
                         <FontIcon
+                            VerticalAlignment="Center"
                             FontFamily="{StaticResource Octions}"
-                            Glyph="&#xE964;"
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             FontSize="14"
-                            VerticalAlignment="Center"/>
-                        <TextBlock
-                            Style="{ThemeResource BodyTextBlockStyle}"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Text="Developer Program Member"
-                            VerticalAlignment="Center"/>
+                            Glyph="&#xE964;" />
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{ThemeResource BodyTextBlockStyle}"
+                            Text="Developer Program Member" />
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
                         <FontIcon
-                            FontFamily="{StaticResource Octions}"
-                            Glyph="&#xEA36;"
                             Margin="0,0,4,0"
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            VerticalAlignment="Center"
+                            FontFamily="{StaticResource Octions}"
                             FontSize="14"
-                            VerticalAlignment="Center"/>
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Glyph="&#xEA36;" />
                         <Button
-                            Style="{ThemeResource ClearButtonStyle}"
+                            Padding="4"
                             Background="Transparent"
-                            Padding="4">
+                            Style="{ThemeResource ClearButtonStyle}">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal" Spacing="6">
                                     <TextBlock
                                         x:Name="FollowerCount"
-                                        Style="{ThemeResource BodyTextBlockStyle}"
-                                        VerticalAlignment="Center"/>
+                                        VerticalAlignment="Center"
+                                        Style="{ThemeResource BodyTextBlockStyle}" />
                                     <TextBlock
-                                        Style="{ThemeResource BodyTextBlockStyle}"
+                                        VerticalAlignment="Center"
                                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        Text="followers"
-                                        VerticalAlignment="Center"/>
+                                        Style="{ThemeResource BodyTextBlockStyle}"
+                                        Text="followers" />
                                 </StackPanel>
                             </Button.Content>
                         </Button>
                         <TextBlock
                             Margin="2,0"
-                            Style="{ThemeResource BodyTextBlockStyle}"
+                            VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Text="•"
-                            VerticalAlignment="Center"/>
+                            Style="{ThemeResource BodyTextBlockStyle}"
+                            Text="•" />
                         <Button
-                            Style="{ThemeResource ClearButtonStyle}"
+                            Padding="4"
                             Background="Transparent"
-                            Padding="4">
+                            Style="{ThemeResource ClearButtonStyle}">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal" Spacing="6">
                                     <TextBlock
                                         x:Name="FollowingCount"
-                                        Style="{ThemeResource BodyTextBlockStyle}"
-                                        VerticalAlignment="Center"/>
+                                        VerticalAlignment="Center"
+                                        Style="{ThemeResource BodyTextBlockStyle}" />
                                     <TextBlock
-                                        Style="{ThemeResource BodyTextBlockStyle}"
+                                        VerticalAlignment="Center"
                                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        Text="following"
-                                        VerticalAlignment="Center"/>
+                                        Style="{ThemeResource BodyTextBlockStyle}"
+                                        Text="following" />
                                 </StackPanel>
                             </Button.Content>
                         </Button>
@@ -218,8 +250,8 @@
             </Grid>
             <Grid Grid.Row="1" RowSpacing="6">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid
                     Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
@@ -227,42 +259,60 @@
                     BorderThickness="1"
                     CornerRadius="4">
                     <muxc:NavigationView
-                        CornerRadius="4"
                         x:Name="UserNavView"
-                        PaneDisplayMode="Top"
+                        CornerRadius="4"
                         IsBackButtonVisible="Collapsed"
                         IsSettingsVisible="False"
+                        PaneDisplayMode="Top"
                         SelectionChanged="UserNavView_SelectionChanged">
                         <muxc:NavigationView.MenuItems>
-                            <muxc:NavigationViewItem Tag="Overview" Content="Overview" IsSelected="True">
+                            <muxc:NavigationViewItem
+                                Content="Overview"
+                                IsSelected="True"
+                                Tag="Overview">
                                 <muxc:NavigationViewItem.Icon>
-                                    <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xE922;" FontSize="16"/>
+                                    <FontIcon
+                                        FontFamily="{StaticResource Octions}"
+                                        FontSize="16"
+                                        Glyph="&#xE922;" />
                                 </muxc:NavigationViewItem.Icon>
                             </muxc:NavigationViewItem>
-                            <muxc:NavigationViewItem Tag="Repositories" Content="Repositories">
+                            <muxc:NavigationViewItem Content="Repositories" Tag="Repositories">
                                 <muxc:NavigationViewItem.Icon>
-                                    <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xEA52;" FontSize="16"/>
+                                    <FontIcon
+                                        FontFamily="{StaticResource Octions}"
+                                        FontSize="16"
+                                        Glyph="&#xEA52;" />
                                 </muxc:NavigationViewItem.Icon>
                             </muxc:NavigationViewItem>
-                            <muxc:NavigationViewItem Tag="Stars" Content="Stars">
+                            <muxc:NavigationViewItem Content="Stars" Tag="Stars">
                                 <muxc:NavigationViewItem.Icon>
-                                    <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xEA94;" FontSize="16"/>
+                                    <FontIcon
+                                        FontFamily="{StaticResource Octions}"
+                                        FontSize="16"
+                                        Glyph="&#xEA94;" />
                                 </muxc:NavigationViewItem.Icon>
                             </muxc:NavigationViewItem>
-                            <muxc:NavigationViewItem Tag="Followers" Content="Followers">
+                            <muxc:NavigationViewItem Content="Followers" Tag="Followers">
                                 <muxc:NavigationViewItem.Icon>
-                                    <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xEA38;" FontSize="16"/>
+                                    <FontIcon
+                                        FontFamily="{StaticResource Octions}"
+                                        FontSize="16"
+                                        Glyph="&#xEA38;" />
                                 </muxc:NavigationViewItem.Icon>
                             </muxc:NavigationViewItem>
-                            <muxc:NavigationViewItem Tag="Following" Content="Followering">
+                            <muxc:NavigationViewItem Content="Followering" Tag="Following">
                                 <muxc:NavigationViewItem.Icon>
-                                    <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xEA38;" FontSize="16"/>
+                                    <FontIcon
+                                        FontFamily="{StaticResource Octions}"
+                                        FontSize="16"
+                                        Glyph="&#xEA38;" />
                                 </muxc:NavigationViewItem.Icon>
                             </muxc:NavigationViewItem>
                         </muxc:NavigationView.MenuItems>
                     </muxc:NavigationView>
                 </Grid>
-                <Frame x:Name="UserNavViewContent" Grid.Row="1"/>
+                <Frame x:Name="UserNavViewContent" Grid.Row="1" />
             </Grid>
         </Grid>
     </ScrollViewer>

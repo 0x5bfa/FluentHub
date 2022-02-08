@@ -11,7 +11,7 @@
     Style="{StaticResource DefaultContentDialogStyle}"
     mc:Ignorable="d">
 
-    <Grid RowSpacing="16">
+    <Grid MinHeight="300" RowSpacing="16">
         <!--<Grid.RowDefinitions>
             <RowDefinition Height="1*" />
             <RowDefinition Height="56" />
@@ -126,7 +126,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid Margin="16,0">
+        <Grid Margin="16,0,0,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
@@ -172,6 +172,7 @@
         </muxc:InfoBar>
         <Button
             Grid.Row="2"
+            MinWidth="120"
             HorizontalAlignment="Right"
             Click="ContinueButton_Click"
             Content="{helpers:ResourceString Name=OpenWithBrowser}"
