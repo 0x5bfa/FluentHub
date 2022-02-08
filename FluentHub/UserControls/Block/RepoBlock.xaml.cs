@@ -1,5 +1,6 @@
 ﻿using Humanizer;
 using FluentHub.Helpers;
+using Microsoft.Toolkit.Uwp;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -124,7 +125,7 @@ namespace FluentHub.UserControls.Block
             PRCount.Text = pulls.Count().ToString();
             PRCountBlock.Visibility = Visibility.Visible;
 
-            UpdatedAt.Text = " " + repo.UpdatedAt.Humanize();
+            RepositoryBlockUpdatedAtTextBlock.Text = string.Format("RepositoryBlockUpdatedAtTextBlock".GetLocalized(), repo.UpdatedAt.Humanize());
             UpdatedAtBlock.Visibility = Visibility.Visible;
         }
 
