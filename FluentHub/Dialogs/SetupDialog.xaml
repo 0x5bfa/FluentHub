@@ -139,11 +139,11 @@
                 Spacing="6">
                 <TextBlock
                     x:Name="Header"
-                    Style="{StaticResource SubtitleTextBlockStyle}"
-                    Text="{helpers:ResourceString Name=AuthFluentHub}" />
+                    x:Uid="AuthFluentHubTextBlock"
+                    Style="{StaticResource SubtitleTextBlockStyle}" />
                 <TextBlock
+                    x:Uid="HowToSignInTextBlock"
                     Style="{ThemeResource BodyTextBlockStyle}"
-                    Text="{helpers:ResourceString Name=HowToSignIn}"
                     TextWrapping="Wrap" />
             </StackPanel>
             <Button
@@ -160,22 +160,21 @@
             </Button>
         </Grid>
         <muxc:InfoBar
-            Title="{helpers:ResourceString Name=OnlyWebAuth}"
+            x:Uid="OnlyWebAuthIsValidInfoBar"
             Grid.Row="1"
             IsClosable="False"
             IsOpen="True"
-            Message="{helpers:ResourceString Name=MoreAuthOptionsComingSoon}"
             Severity="Success">
             <muxc:InfoBar.IconSource>
                 <muxc:SymbolIconSource Symbol="Permissions" />
             </muxc:InfoBar.IconSource>
         </muxc:InfoBar>
         <Button
+            x:Uid="OpenWithBrowserButton"
             Grid.Row="2"
             MinWidth="120"
             HorizontalAlignment="Right"
             Click="ContinueButton_Click"
-            Content="{helpers:ResourceString Name=OpenWithBrowser}"
             Style="{StaticResource AccentButtonStyle}" />
     </Grid>
 </ContentDialog>

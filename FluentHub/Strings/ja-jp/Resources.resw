@@ -12,62 +12,14 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Activities" xml:space="preserve">
-    <value>アクティビティ</value>
-  </data>
-  <data name="AppSettings" xml:space="preserve">
-    <value>アプリの設定</value>
-  </data>
-  <data name="AuthFluentHub" xml:space="preserve">
-    <value>FluentHub の認証</value>
-  </data>
-  <data name="Back" xml:space="preserve">
-    <value>戻る</value>
-  </data>
   <data name="Discussions" xml:space="preserve">
     <value>ディスカッション</value>
-  </data>
-  <data name="Forward" xml:space="preserve">
-    <value>進む</value>
-  </data>
-  <data name="GladText" xml:space="preserve">
-    <value>すべての機能を使用するには、最初にサインインする必要があります。</value>
-  </data>
-  <data name="Home" xml:space="preserve">
-    <value>ホーム</value>
-  </data>
-  <data name="HowToSignIn" xml:space="preserve">
-    <value>さまざまな方法でGitHubにログインできます。 認証することで、より多くのGitHubデータにアクセスし、より多くの経験を積むことができます。</value>
   </data>
   <data name="Issues" xml:space="preserve">
     <value>Issue</value>
   </data>
-  <data name="MoreAuthOptionsComingSoon" xml:space="preserve">
-    <value>将来的には、パスワードとトークンの認証が有効になります。</value>
-  </data>
-  <data name="MyWork" xml:space="preserve">
-    <value>作業</value>
-  </data>
-  <data name="Notifications" xml:space="preserve">
-    <value>通知</value>
-  </data>
-  <data name="OnlyWebAuth" xml:space="preserve">
-    <value>Web 認証のみが有効です</value>
-  </data>
-  <data name="OpenWithBrowser" xml:space="preserve">
-    <value>ブラウザで開く</value>
-  </data>
   <data name="Organizations" xml:space="preserve">
     <value>Organization</value>
-  </data>
-  <data name="Profile" xml:space="preserve">
-    <value>プロフィール</value>
-  </data>
-  <data name="PullRequests" xml:space="preserve">
-    <value>Pull Request</value>
-  </data>
-  <data name="Refresh" xml:space="preserve">
-    <value>リロード</value>
   </data>
   <data name="Repositories" xml:space="preserve">
     <value>リポジトリ</value>
@@ -75,118 +27,7 @@
   <data name="Starred" xml:space="preserve">
     <value>Star 済み</value>
   </data>
-  <data name="StartSetup" xml:space="preserve">
-    <value>セットアップを始める</value>
-  </data>
-  <data name="ToolbarSearchBarPlaceholder" xml:space="preserve">
-    <value>GitHub でコード、プロジェクト、ユーザーを探す</value>
-  </data>
-  <data name="WelcomeTo" xml:space="preserve">
-    <value>ようこそ</value>
-  </data>
-  <data name="PreviewTitle" xml:space="preserve">
-    <value>プレビュー</value>
-  </data>
   <data name="CanonicalAppName" xml:space="preserve">
     <value>FluentHub</value>
-  </data>
-  <data name="EditProfile" xml:space="preserve">
-    <value>プロフィールを編集</value>
-  </data>
-  <data name="Follow" xml:space="preserve">
-    <value>フォロー</value>
-  </data>
-  <data name="Followers" xml:space="preserve">
-    <value>フォロワー</value>
-  </data>
-  <data name="Following" xml:space="preserve">
-    <value>フォロー中</value>
-  </data>
-  <data name="Overview" xml:space="preserve">
-    <value>概要</value>
-  </data>
-  <data name="Pinned" xml:space="preserve">
-    <value>ピン済み</value>
-  </data>
-  <data name="Readme" xml:space="preserve">
-    <value>README</value>
-  </data>
-  <data name="FollowersInline" xml:space="preserve">
-    <value>フォロワー</value>
-  </data>
-  <data name="FollowingInline" xml:space="preserve">
-    <value>フォロー中</value>
-  </data>
-  <data name="ReadmeLower" xml:space="preserve">
-    <value>Readme</value>
-  </data>
-  <data name="UpdatedAt" xml:space="preserve">
-    <value>{0}に更新</value>
-  </data>
-  <data name="About" xml:space="preserve">
-    <value>このレポジトリについて</value>
-  </data>
-  <data name="AddFile" xml:space="preserve">
-    <value>ファイルを追加</value>
-  </data>
-  <data name="BranchesInline" xml:space="preserve">
-    <value>ブランチ</value>
-  </data>
-  <data name="Code" xml:space="preserve">
-    <value>コード</value>
-  </data>
-  <data name="Commits" xml:space="preserve">
-    <value>コミット</value>
-  </data>
-  <data name="Contributers" xml:space="preserve">
-    <value>コントリビュータ</value>
-  </data>
-  <data name="CreateNewRelease" xml:space="preserve">
-    <value>新しいリリースを作成する</value>
-  </data>
-  <data name="Fork" xml:space="preserve">
-    <value>フォーク</value>
-  </data>
-  <data name="GoToFile" xml:space="preserve">
-    <value>ファイルへ移動</value>
-  </data>
-  <data name="NoReleasesPublished" xml:space="preserve">
-    <value>リリースが公開されていません</value>
-  </data>
-  <data name="Releases" xml:space="preserve">
-    <value>リリース</value>
-  </data>
-  <data name="Settings" xml:space="preserve">
-    <value>設定</value>
-  </data>
-  <data name="Star" xml:space="preserve">
-    <value>Star</value>
-  </data>
-  <data name="TagsInline" xml:space="preserve">
-    <value>タグ</value>
-  </data>
-  <data name="Watch" xml:space="preserve">
-    <value>ウォッチ</value>
-  </data>
-  <data name="CodeOfConduct" xml:space="preserve">
-    <value>行動規範</value>
-  </data>
-  <data name="ForksInline" xml:space="preserve">
-    <value>フォーク</value>
-  </data>
-  <data name="StarOnly" xml:space="preserve">
-    <value>スター</value>
-  </data>
-  <data name="StarsInline" xml:space="preserve">
-    <value>Star 中</value>
-  </data>
-  <data name="StopIgnoring" xml:space="preserve">
-    <value>無視をやめる</value>
-  </data>
-  <data name="Unwatch" xml:space="preserve">
-    <value>ウォッチを外す</value>
-  </data>
-  <data name="WatchingInline" xml:space="preserve">
-    <value>ウォッチ中</value>
   </data>
 </root>

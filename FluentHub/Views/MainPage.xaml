@@ -63,59 +63,59 @@
             <Grid Grid.Column="0">
                 <StackPanel Orientation="Horizontal" Spacing="4">
                     <Button
+                        x:Uid="ToobarBackButton"
                         Width="36"
                         Height="36"
                         Background="Transparent"
                         IsEnabled="False"
-                        Style="{StaticResource ClearButtonStyle}"
-                        ToolTipService.ToolTip="{helpers:ResourceString Name=Back}">
+                        Style="{StaticResource ClearButtonStyle}">
                         <FontIcon FontSize="14" Glyph="&#xE72B;" />
                     </Button>
                     <Button
+                        x:Uid="ToobarForwardButton"
                         Width="36"
                         Height="36"
                         Background="Transparent"
                         IsEnabled="False"
-                        Style="{StaticResource ClearButtonStyle}"
-                        ToolTipService.ToolTip="{helpers:ResourceString Name=Forward}">
+                        Style="{StaticResource ClearButtonStyle}">
                         <FontIcon FontSize="14" Glyph="&#xE72A;" />
                     </Button>
                     <Button
+                        x:Uid="ToobarRefreshButton"
                         Width="36"
                         Height="36"
                         Background="Transparent"
                         IsEnabled="False"
-                        Style="{StaticResource ClearButtonStyle}"
-                        ToolTipService.ToolTip="{helpers:ResourceString Name=Refresh}">
+                        Style="{StaticResource ClearButtonStyle}">
                         <FontIcon FontSize="14" Glyph="&#xE72C;" />
                     </Button>
                     <Button
+                        x:Uid="ToobarHomeButton"
                         Width="36"
                         Height="36"
                         Background="Transparent"
                         Click="HomeButton_Click"
-                        Style="{StaticResource ClearButtonStyle}"
-                        ToolTipService.ToolTip="{helpers:ResourceString Name=Home}">
+                        Style="{StaticResource ClearButtonStyle}">
                         <FontIcon FontSize="14" Glyph="&#xE80F;" />
                     </Button>
                 </StackPanel>
             </Grid>
             <Grid Grid.Column="1">
                 <TextBox
+                    x:Uid="ToolbarSearchbox"
                     HorizontalAlignment="Stretch"
-                    VerticalAlignment="Top"
-                    PlaceholderText="{helpers:ResourceString Name=ToolbarSearchBarPlaceholder}" />
+                    VerticalAlignment="Top" />
             </Grid>
             <Grid Grid.Column="2">
                 <StackPanel Orientation="Horizontal" Spacing="2">
                     <Button
-                        x:Name="SettingsButton"
+                        x:Name="ToolbarAppSettingsButton"
+                        x:Uid="ToolbarAppSettingsButton"
                         Width="36"
                         Height="36"
                         Background="Transparent"
                         CornerRadius="8"
-                        Style="{StaticResource ClearButtonStyle}"
-                        ToolTipService.ToolTip="{helpers:ResourceString Name=AppSettings}">
+                        Style="{StaticResource ClearButtonStyle}">
                         <FontIcon FontSize="16" Glyph="&#xE115;" />
                     </Button>
                 </StackPanel>

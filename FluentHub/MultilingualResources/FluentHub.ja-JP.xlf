@@ -6,81 +6,17 @@
     </header>
     <body>
       <group id="FLUENTHUB/STRINGS/EN-US/RESOURCES.RESW" datatype="resx">
-        <trans-unit id="Activities" translate="yes" xml:space="preserve">
-          <source>Activities</source>
-          <target state="translated">アクティビティ</target>
-        </trans-unit>
-        <trans-unit id="AppSettings" translate="yes" xml:space="preserve">
-          <source>App settings</source>
-          <target state="translated">アプリの設定</target>
-        </trans-unit>
-        <trans-unit id="AuthFluentHub" translate="yes" xml:space="preserve">
-          <source>Authorize FluentHub</source>
-          <target state="translated">FluentHub の認証</target>
-        </trans-unit>
-        <trans-unit id="Back" translate="yes" xml:space="preserve">
-          <source>Back</source>
-          <target state="translated">戻る</target>
-        </trans-unit>
         <trans-unit id="Discussions" translate="yes" xml:space="preserve">
           <source>Discussions</source>
           <target state="translated">ディスカッション</target>
-        </trans-unit>
-        <trans-unit id="Forward" translate="yes" xml:space="preserve">
-          <source>Forward</source>
-          <target state="translated">進む</target>
-        </trans-unit>
-        <trans-unit id="GladText" translate="yes" xml:space="preserve">
-          <source>To user all features, just you need to sign in first.</source>
-          <target state="translated">すべての機能を使用するには、最初にサインインする必要があります。</target>
-        </trans-unit>
-        <trans-unit id="Home" translate="yes" xml:space="preserve">
-          <source>Home</source>
-          <target state="translated">ホーム</target>
-        </trans-unit>
-        <trans-unit id="HowToSignIn" translate="yes" xml:space="preserve">
-          <source>You can log in to GitHub in various ways. By authenticating, you can access more GitHub data and gain more experience.</source>
-          <target state="translated">さまざまな方法でGitHubにログインできます。 認証することで、より多くのGitHubデータにアクセスし、より多くの経験を積むことができます。</target>
         </trans-unit>
         <trans-unit id="Issues" translate="yes" xml:space="preserve">
           <source>Issues</source>
           <target state="translated">Issue</target>
         </trans-unit>
-        <trans-unit id="MoreAuthOptionsComingSoon" translate="yes" xml:space="preserve">
-          <source>In the future, password and token authentication will be enabled.</source>
-          <target state="translated">将来的には、パスワードとトークンの認証が有効になります。</target>
-        </trans-unit>
-        <trans-unit id="MyWork" translate="yes" xml:space="preserve">
-          <source>My work</source>
-          <target state="translated">作業</target>
-        </trans-unit>
-        <trans-unit id="Notifications" translate="yes" xml:space="preserve">
-          <source>Notifications</source>
-          <target state="translated">通知</target>
-        </trans-unit>
-        <trans-unit id="OnlyWebAuth" translate="yes" xml:space="preserve">
-          <source>Only web authentication is valid</source>
-          <target state="translated">Web 認証のみが有効です</target>
-        </trans-unit>
-        <trans-unit id="OpenWithBrowser" translate="yes" xml:space="preserve">
-          <source>Open with your browser</source>
-          <target state="translated">ブラウザで開く</target>
-        </trans-unit>
         <trans-unit id="Organizations" translate="yes" xml:space="preserve">
           <source>Organizations</source>
           <target state="translated">Organization</target>
-        </trans-unit>
-        <trans-unit id="Profile" translate="yes" xml:space="preserve">
-          <source>Profile</source>
-          <target state="translated">プロフィール</target>
-        </trans-unit>
-        <trans-unit id="PullRequests" translate="yes" xml:space="preserve">
-          <source>Pull Requests</source>
-          <target state="translated">Pull Request</target>
-        </trans-unit>
-        <trans-unit id="Refresh" translate="yes" xml:space="preserve">
-          <source>Refresh</source>
-          <target state="translated">リロード</target>
         </trans-unit>
         <trans-unit id="Repositories" translate="yes" xml:space="preserve">
           <source>Repositories</source>
@@ -90,157 +26,89 @@
           <source>Starred</source>
           <target state="translated">Star 済み</target>
         </trans-unit>
-        <trans-unit id="StartSetup" translate="yes" xml:space="preserve">
-          <source>Start setup</source>
-          <target state="translated">セットアップを始める</target>
-        </trans-unit>
-        <trans-unit id="ToolbarSearchBarPlaceholder" translate="yes" xml:space="preserve">
-          <source>Find code, projects, and people on GitHub</source>
-          <target state="translated">GitHub でコード、プロジェクト、ユーザーを探す</target>
-        </trans-unit>
-        <trans-unit id="WelcomeTo" translate="yes" xml:space="preserve">
-          <source>Welcome to</source>
-          <target state="translated">ようこそ</target>
-        </trans-unit>
-        <trans-unit id="PreviewTitle" translate="yes" xml:space="preserve">
-          <source>PREVIEW</source>
-          <target state="translated">プレビュー</target>
-        </trans-unit>
         <trans-unit id="CanonicalAppName" translate="yes" xml:space="preserve">
           <source>FluentHub</source>
           <target state="translated">FluentHub</target>
         </trans-unit>
-        <trans-unit id="EditProfile" translate="yes" xml:space="preserve">
-          <source>Edit profile</source>
-          <target state="translated">プロフィールを編集</target>
+        <trans-unit id="AuthFluentHubTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>Authorize FluentHub</source>
+          <target state="new">Authorize FluentHub</target>
         </trans-unit>
-        <trans-unit id="Follow" translate="yes" xml:space="preserve">
-          <source>Follow</source>
-          <target state="translated">フォロー</target>
+        <trans-unit id="HomeNavViewHeaderMyWork.Content" translate="yes" xml:space="preserve">
+          <source>My Work</source>
+          <target state="new">My Work</target>
         </trans-unit>
-        <trans-unit id="Followers" translate="yes" xml:space="preserve">
-          <source>Followers</source>
-          <target state="translated">フォロワー</target>
+        <trans-unit id="HomeNavViewHeaderProfile.Content" translate="yes" xml:space="preserve">
+          <source>Profile</source>
+          <target state="new">Profile</target>
         </trans-unit>
-        <trans-unit id="Following" translate="yes" xml:space="preserve">
-          <source>Following</source>
-          <target state="translated">フォロー中</target>
+        <trans-unit id="HomeNavViewItemNotifications.Content" translate="yes" xml:space="preserve">
+          <source>Notifications</source>
+          <target state="new">Notifications</target>
         </trans-unit>
-        <trans-unit id="Overview" translate="yes" xml:space="preserve">
-          <source>Overview</source>
-          <target state="translated">概要</target>
+        <trans-unit id="HomeNavViewItemProfile.Content" translate="yes" xml:space="preserve">
+          <source>Profile</source>
+          <target state="new">Profile</target>
         </trans-unit>
-        <trans-unit id="Pinned" translate="yes" xml:space="preserve">
-          <source>Pinned</source>
-          <target state="translated">ピン済み</target>
+        <trans-unit id="HowToSignInTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>You can sign in to GitHub in various ways. By authenticating, you can access more GitHub data and gain more experience.</source>
+          <target state="new">You can sign in to GitHub in various ways. By authenticating, you can access more GitHub data and gain more experience.</target>
         </trans-unit>
-        <trans-unit id="Readme" translate="yes" xml:space="preserve">
-          <source>README</source>
-          <target state="translated">README</target>
+        <trans-unit id="NeedToSigninFirst" translate="yes" xml:space="preserve">
+          <source>To use all features, just you need to sign in first.</source>
+          <target state="new">To use all features, just you need to sign in first.</target>
         </trans-unit>
-        <trans-unit id="FollowersInline" translate="yes" xml:space="preserve">
-          <source>followers</source>
-          <target state="translated">フォロワー</target>
+        <trans-unit id="OnlyWebAuthIsValidInfoBar.Message" translate="yes" xml:space="preserve">
+          <source>In the future, password and token authentication will be enabled.</source>
+          <target state="new">In the future, password and token authentication will be enabled.</target>
         </trans-unit>
-        <trans-unit id="FollowingInline" translate="yes" xml:space="preserve">
-          <source>following</source>
-          <target state="translated">フォロー中</target>
+        <trans-unit id="OnlyWebAuthIsValidInfoBar.Title" translate="yes" xml:space="preserve">
+          <source>Only web authentication is valid</source>
+          <target state="new">Only web authentication is valid</target>
         </trans-unit>
-        <trans-unit id="ReadmeLower" translate="yes" xml:space="preserve">
-          <source>Readme</source>
-          <target state="translated">Readme</target>
+        <trans-unit id="OpenWithBrowserButton.Content" translate="yes" xml:space="preserve">
+          <source>Open with your browser</source>
+          <target state="new">Open with your browser</target>
         </trans-unit>
-        <trans-unit id="UpdatedAt" translate="yes" xml:space="preserve">
-          <source>Updated {0}</source>
-          <target state="translated">{0}に更新</target>
+        <trans-unit id="PreviewTitle.Text" translate="yes" xml:space="preserve">
+          <source>PREVIEW</source>
+          <target state="new">PREVIEW</target>
         </trans-unit>
-        <trans-unit id="About" translate="yes" xml:space="preserve">
-          <source>About</source>
-          <target state="translated">このレポジトリについて</target>
+        <trans-unit id="Pull Requests" translate="yes" xml:space="preserve">
+          <source>Pull Requests</source>
+          <target state="new">Pull Requests</target>
         </trans-unit>
-        <trans-unit id="AddFile" translate="yes" xml:space="preserve">
-          <source>Add file</source>
-          <target state="translated">ファイルを追加</target>
+        <trans-unit id="StartSetupButton.Content" translate="yes" xml:space="preserve">
+          <source>Start setup</source>
+          <target state="new">Start setup</target>
         </trans-unit>
-        <trans-unit id="BranchesInline" translate="yes" xml:space="preserve">
-          <source>branches</source>
-          <target state="translated">ブランチ</target>
+        <trans-unit id="ToobarBackButton.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Back</source>
+          <target state="new">Back</target>
         </trans-unit>
-        <trans-unit id="Code" translate="yes" xml:space="preserve">
-          <source>Code</source>
-          <target state="translated">コード</target>
+        <trans-unit id="ToobarForwardButton.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Forward</source>
+          <target state="new">Forward</target>
         </trans-unit>
-        <trans-unit id="Commits" translate="yes" xml:space="preserve">
-          <source>Commits</source>
-          <target state="translated">コミット</target>
+        <trans-unit id="ToobarHomeButton.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Home</source>
+          <target state="new">Home</target>
         </trans-unit>
-        <trans-unit id="Contributers" translate="yes" xml:space="preserve">
-          <source>Contributers</source>
-          <target state="translated">コントリビュータ</target>
+        <trans-unit id="ToobarRefreshButton.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Refresh</source>
+          <target state="new">Refresh</target>
         </trans-unit>
-        <trans-unit id="CreateNewRelease" translate="yes" xml:space="preserve">
-          <source>Create a new release</source>
-          <target state="translated">新しいリリースを作成する</target>
+        <trans-unit id="ToolbarAppSettingsButton.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>App settings</source>
+          <target state="new">App settings</target>
         </trans-unit>
-        <trans-unit id="Fork" translate="yes" xml:space="preserve">
-          <source>Fork</source>
-          <target state="translated">フォーク</target>
+        <trans-unit id="ToolbarSearchbox.PlaceholderText" translate="yes" xml:space="preserve">
+          <source>Find code, projects, and people on GitHub</source>
+          <target state="new">Find code, projects, and people on GitHub</target>
         </trans-unit>
-        <trans-unit id="GoToFile" translate="yes" xml:space="preserve">
-          <source>Go to file</source>
-          <target state="translated">ファイルへ移動</target>
-        </trans-unit>
-        <trans-unit id="NoReleasesPublished" translate="yes" xml:space="preserve">
-          <source>No releases published</source>
-          <target state="translated">リリースが公開されていません</target>
-        </trans-unit>
-        <trans-unit id="Releases" translate="yes" xml:space="preserve">
-          <source>Releases</source>
-          <target state="translated">リリース</target>
-        </trans-unit>
-        <trans-unit id="Settings" translate="yes" xml:space="preserve">
-          <source>Settings</source>
-          <target state="translated">設定</target>
-        </trans-unit>
-        <trans-unit id="Star" translate="yes" xml:space="preserve">
-          <source>Star</source>
-          <target state="translated">Star</target>
-        </trans-unit>
-        <trans-unit id="TagsInline" translate="yes" xml:space="preserve">
-          <source>tags</source>
-          <target state="translated">タグ</target>
-        </trans-unit>
-        <trans-unit id="Watch" translate="yes" xml:space="preserve">
-          <source>Watch</source>
-          <target state="translated">ウォッチ</target>
-        </trans-unit>
-        <trans-unit id="CodeOfConduct" translate="yes" xml:space="preserve">
-          <source>Code of conduct</source>
-          <target state="translated">行動規範</target>
-        </trans-unit>
-        <trans-unit id="ForksInline" translate="yes" xml:space="preserve">
-          <source>forks</source>
-          <target state="translated">フォーク</target>
-        </trans-unit>
-        <trans-unit id="StarOnly" translate="yes" xml:space="preserve">
-          <source>Star</source>
-          <target state="translated">スター</target>
-        </trans-unit>
-        <trans-unit id="StarsInline" translate="yes" xml:space="preserve">
-          <source>Stars</source>
-          <target state="translated">Star 中</target>
-        </trans-unit>
-        <trans-unit id="StopIgnoring" translate="yes" xml:space="preserve">
-          <source>Stop ignoring</source>
-          <target state="translated">無視をやめる</target>
-        </trans-unit>
-        <trans-unit id="Unwatch" translate="yes" xml:space="preserve">
-          <source>Unwatch</source>
-          <target state="translated">ウォッチを外す</target>
-        </trans-unit>
-        <trans-unit id="WatchingInline" translate="yes" xml:space="preserve">
-          <source>watching</source>
-          <target state="translated">ウォッチ中</target>
+        <trans-unit id="WelcomeText.Text" translate="yes" xml:space="preserve">
+          <source>Welcome to</source>
+          <target state="new">Welcome to</target>
         </trans-unit>
       </group>
     </body>

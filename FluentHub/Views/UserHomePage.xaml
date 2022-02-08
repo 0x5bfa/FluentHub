@@ -23,26 +23,26 @@
             OpenPaneLength="250"
             SelectionChanged="HomeNavView_SelectionChanged">
             <muxc:NavigationView.MenuItems>
-                <muxc:NavigationViewItemHeader x:Uid="profile" Content="{helpers:ResourceString Name=Profile}" />
+                <muxc:NavigationViewItemHeader x:Uid="HomeNavViewHeaderProfile" />
                 <muxc:NavigationViewItem
-                    Content="{helpers:ResourceString Name=Profile}"
+                    x:Uid="HomeNavViewItemProfile"
                     IsSelected="True"
                     Tag="Profile">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xEA38;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem Content="{helpers:ResourceString Name=Notifications}" Tag="Notifications">
+                <muxc:NavigationViewItem x:Uid="HomeNavViewItemNotifications" Tag="Notifications">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xE918;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem Content="{helpers:ResourceString Name=Activities}" Tag="Activities">
+                <muxc:NavigationViewItem x:Uid="HomeNavViewItemActivities" Tag="Activities">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xE9AB;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItemHeader Content="{helpers:ResourceString Name=MyWork}" />
+                <muxc:NavigationViewItemHeader x:Uid="HomeNavViewHeaderMyWork" />
                 <muxc:NavigationViewItem Tag="Issues">
                     <muxc:NavigationViewItem.Content>
                         <StackPanel Orientation="Horizontal" Spacing="16">
