@@ -530,7 +530,7 @@
       <Version>4.0.2</Version>
     </PackageReference>
     <PackageReference Include="Humanizer">
-      <Version>2.8.25</Version>
+      <Version>2.14.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.13</Version>
