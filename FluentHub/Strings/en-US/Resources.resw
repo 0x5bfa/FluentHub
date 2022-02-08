@@ -153,7 +153,7 @@
   <data name="Issues" xml:space="preserve">
     <value>Issues</value>
   </data>
-  <data name="NeedToSigninFirst" xml:space="preserve">
+  <data name="NeedToSigninFirst.Text" xml:space="preserve">
     <value>To use all features, just you need to sign in first.</value>
   </data>
   <data name="OnlyWebAuthIsValidInfoBar.Message" xml:space="preserve">
