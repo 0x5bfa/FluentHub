@@ -20,7 +20,6 @@ namespace FluentHub.Services.Octokit
                 App.Logger.Warn(ex, ex.Message);
                 return null;
             }
-
         }
     }
 }

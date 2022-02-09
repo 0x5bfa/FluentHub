@@ -48,7 +48,7 @@ namespace FluentHub.Views.UserPages
                 return;
             }
 
-            await SetTopLevelUserInfo();
+            await SetUserInfo();
         }
 
         private void UserNavView_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
@@ -78,7 +78,7 @@ namespace FluentHub.Views.UserPages
             }
         }
 
-        private async Task SetTopLevelUserInfo()
+        private async Task SetUserInfo()
         {
             // Avator
             BitmapImage avatorImage = new BitmapImage(new Uri(User.AvatarUrl));
