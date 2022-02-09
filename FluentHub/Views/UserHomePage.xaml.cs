@@ -33,7 +33,7 @@ namespace FluentHub.Views
             switch (tag)
             {
                 case "Profile":
-                    HomeContentFrame.Navigate(typeof(ProfilePage));
+                    HomeContentFrame.Navigate(typeof(ProfilePage), App.SignedInUserName);
                     break;
                 case "Notifications":
                     HomeContentFrame.Navigate(typeof(NotificationsPage));
@@ -43,22 +43,22 @@ namespace FluentHub.Views
                     break;
 
                 case "Issues":
-                    HomeContentFrame.Navigate(typeof(IssueListPage));
+                    HomeContentFrame.Navigate(typeof(IssueListPage), App.SignedInUserName);
                     break;
                 case "Pulls":
-                    HomeContentFrame.Navigate(typeof(PullRequestListPage));
+                    HomeContentFrame.Navigate(typeof(PullRequestListPage), App.SignedInUserName);
                     break;
                 case "Discussions":
                     //HomeContentFrame.Navigate(typeof());
                     break;
                 case "Repositories":
-                    HomeContentFrame.Navigate(typeof(HomePages.RepositoriesPage));
+                    HomeContentFrame.Navigate(typeof(RepositoriesPage), App.SignedInUserName);
                     break;
                 case "Organizations":
                     //HomeContentFrame.Navigate(typeof());
                     break;
                 case "Starred":
-                    HomeContentFrame.Navigate(typeof(HomePages.StarsPage));
+                    HomeContentFrame.Navigate(typeof(StarsPage), App.SignedInUserName);
                     break;
             }
         }

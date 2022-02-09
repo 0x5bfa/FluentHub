@@ -82,12 +82,12 @@
                         Margin="12,0,0,0"
                         VerticalAlignment="Center">
                         <TextBlock
-                            x:Name="FullName"
+                            x:Name="LoginNameTextBlock"
                             VerticalAlignment="Center"
                             FontWeight="SemiBold"
                             Style="{StaticResource SubtitleTextBlockStyle}" />
                         <TextBlock
-                            x:Name="Username"
+                            x:Name="UserNameTextBlock"
                             VerticalAlignment="Center"
                             FontSize="13"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"

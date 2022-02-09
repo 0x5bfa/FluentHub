@@ -1,4 +1,5 @@
-﻿using FluentHub.Services.Auth;
+﻿using FluentHub.Services;
+using FluentHub.Services.Auth;
 using FluentHub.ViewModels;
 using FluentHub.Views;
 using Octokit;
@@ -43,6 +44,8 @@ namespace FluentHub
         public static string GraphQlApiEndPoint { get; private set; } = "https://api.github.com/graphql";
 
         public static string SignedInUserName { get; private set; }
+
+        public static Logger Logger { get; private set; }
 
         public App()
         {

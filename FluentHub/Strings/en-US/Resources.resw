@@ -141,6 +141,9 @@
   <data name="HomeNavViewHeaderProfile.Content" xml:space="preserve">
     <value>Profile</value>
   </data>
+  <data name="HomeNavViewItemActivities.Content" xml:space="preserve">
+    <value>Activities</value>
+  </data>
   <data name="HomeNavViewItemNotifications.Content" xml:space="preserve">
     <value>Notifications</value>
   </data>

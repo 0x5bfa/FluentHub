@@ -1,4 +1,5 @@
 ﻿using FluentHub.Helpers;
+using FluentHub.Services.Octokit;
 using Octokit;
 using System;
 using System.Collections.Generic;
@@ -23,8 +24,8 @@ namespace FluentHub.Views.UserPages
 {
     public sealed partial class ProfilePage : Windows.UI.Xaml.Controls.Page
     {
-        private string requestedUsername { get; set; }
-        private User user { get; set; } = new User();
+        private string UserName { get; set; }
+        private User User { get; set; }
 
         public ProfilePage()
         {
@@ -33,23 +34,21 @@ namespace FluentHub.Views.UserPages
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (e.Parameter != null)
-            {
-                requestedUsername = e.Parameter as string;
-            }
-            else
-            {
-                requestedUsername = App.SignedInUserName;
-            }
+            UserName = e.Parameter as string;
 
             base.OnNavigatedTo(e);
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            user = await App.Client.User.Get(requestedUsername);
+            User = await UserService.Get(UserName);
 
-            _ = await SetTopLevelUserInfo();
+            if (User == null)
+            {
+                return;
+            }
+
+            await SetTopLevelUserInfo();
         }
 
         private void UserNavView_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
@@ -62,50 +61,50 @@ namespace FluentHub.Views.UserPages
             switch (args.SelectedItemContainer.Tag.ToString())
             {
                 case "Overview":
-                    UserNavViewContent.Navigate(typeof(OverviewPage), requestedUsername);
+                    UserNavViewContent.Navigate(typeof(OverviewPage), UserName);
                     break;
                 case "Repositories":
-                    UserNavViewContent.Navigate(typeof(RepoListPage), requestedUsername);
+                    UserNavViewContent.Navigate(typeof(RepoListPage), UserName);
                     break;
                 case "Stars":
-                    UserNavViewContent.Navigate(typeof(StarListPage), requestedUsername);
+                    UserNavViewContent.Navigate(typeof(StarListPage), UserName);
                     break;
                 case "Followers":
-                    UserNavViewContent.Navigate(typeof(FollowersPage), requestedUsername);
+                    UserNavViewContent.Navigate(typeof(FollowersPage), UserName);
                     break;
                 case "Following":
-                    UserNavViewContent.Navigate(typeof(FollowingPage), requestedUsername);
+                    UserNavViewContent.Navigate(typeof(FollowingPage), UserName);
                     break;
             }
         }
 
-        private async Task<bool> SetTopLevelUserInfo()
+        private async Task SetTopLevelUserInfo()
         {
             // Avator
-            BitmapImage avatorImage = new BitmapImage(new Uri(user.AvatarUrl));
+            BitmapImage avatorImage = new BitmapImage(new Uri(User.AvatarUrl));
             UserAvatorImage.Source = avatorImage;
 
-            // Username
-            if (!string.IsNullOrEmpty(user.Login))
+            // Login name
+            if (!string.IsNullOrEmpty(User.Login))
             {
-                Username.Text = user.Login;
+                LoginNameTextBlock.Text = User.Login;
             }
 
-            // Fullname
-            if (!string.IsNullOrEmpty(user.Name))
+            // User name
+            if (!string.IsNullOrEmpty(User.Name))
             {
-                FullName.Text = user.Name;
+                UserNameTextBlock.Text = User.Name;
             }
 
             // Company
-            if (!string.IsNullOrEmpty(user.Company))
+            if (!string.IsNullOrEmpty(User.Company))
             {
                 try
                 {
-                    if (user.Company.IndexOf("@") == 0)
+                    if (User.Company.IndexOf("@") == 0)
                     {
-                        CompanyLinkButton.Content = user.Company;
-                        string company = user.Company.Replace("@", "");
+                        CompanyLinkButton.Content = User.Company;
+                        string company = User.Company.Replace("@", "");
 
                         var userCompany = await App.Client.User.Get(company);
                         var org = await App.Client.Organization.Get(company);
@@ -117,13 +116,13 @@ namespace FluentHub.Views.UserPages
                     }
                     else
                     {
-                        CompanyLinkTextBlock.Text = user.Company;
+                        CompanyLinkTextBlock.Text = User.Company;
                         CompanyLinkTextBlock.Visibility = Visibility.Visible;
                     }
                 }
                 catch
                 {
-                    CompanyLinkTextBlock.Text = user.Company;
+                    CompanyLinkTextBlock.Text = User.Company;
                     CompanyLinkTextBlock.Visibility = Visibility.Visible;
                 }
 
@@ -131,35 +130,35 @@ namespace FluentHub.Views.UserPages
             }
 
             // Bio
-            if (!string.IsNullOrEmpty(user.Bio))
+            if (!string.IsNullOrEmpty(User.Bio))
             {
                 MentionHelpers mentionHelpers = new MentionHelpers();
-                await mentionHelpers.GetTextBlock(user.Bio, ref UserBioTextBlock);
+                await mentionHelpers.GetTextBlock(User.Bio, ref UserBioTextBlock);
 
                 UserBioTextBlock.Visibility = Visibility.Visible;
             }
 
             // Link
-            if (!string.IsNullOrEmpty(user.Blog))
+            if (!string.IsNullOrEmpty(User.Blog))
             {
-                LinkButton.Content = user.Blog;
-                var uri = new UriBuilder(user.Blog).Uri;
+                LinkButton.Content = User.Blog;
+                var uri = new UriBuilder(User.Blog).Uri;
                 LinkButton.NavigateUri = uri;
                 LinkBlock.Visibility = Visibility.Visible;
             }
 
             // Location
-            if (!string.IsNullOrEmpty(user.Location))
+            if (!string.IsNullOrEmpty(User.Location))
             {
-                LocationTextBlock.Text = user.Location;
+                LocationTextBlock.Text = User.Location;
                 LocationBlock.Visibility = Visibility.Visible;
             }
 
             // FF
-            FollowerCount.Text = user.Followers.ToString();
-            FollowingCount.Text = user.Following.ToString();
+            FollowerCount.Text = User.Followers.ToString();
+            FollowingCount.Text = User.Following.ToString();
 
-            if (user.Login == App.SignedInUserName)
+            if (User.Login == App.SignedInUserName)
             {
                 EditProfileButton.Visibility = Visibility.Visible;
             }
@@ -167,8 +166,6 @@ namespace FluentHub.Views.UserPages
             {
                 FollowButton.Visibility = Visibility.Visible;
             }
-
-            return true;
         }
     }
 }

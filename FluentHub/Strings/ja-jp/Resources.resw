@@ -30,4 +30,133 @@
   <data name="CanonicalAppName" xml:space="preserve">
     <value>FluentHub</value>
   </data>
+  <data name="AuthFluentHubTextBlock.Text" xml:space="preserve">
+    <value>FluentHub を認証</value>
+  </data>
+  <data name="HomeNavViewHeaderMyWork.Content" xml:space="preserve">
+    <value>自分の作業</value>
+  </data>
+  <data name="HomeNavViewHeaderProfile.Content" xml:space="preserve">
+    <value>プロフィール</value>
+  </data>
+  <data name="HomeNavViewItemNotifications.Content" xml:space="preserve">
+    <value>通知</value>
+  </data>
+  <data name="HomeNavViewItemProfile.Content" xml:space="preserve">
+    <value>プロフィール</value>
+  </data>
+  <data name="HowToSignInTextBlock.Text" xml:space="preserve">
+    <value>GitHubには様々な方法でサインインすることができます。認証を行うことで、より多くのGitHubのデータにアクセスすることができ、より多くのエクスペリエンスを得ることができます。</value>
+  </data>
+  <data name="OnlyWebAuthIsValidInfoBar.Message" xml:space="preserve">
+    <value>将来的には、パスワード認証とトークン認証が可能になる予定です。</value>
+  </data>
+  <data name="OnlyWebAuthIsValidInfoBar.Title" xml:space="preserve">
+    <value>Web認証のみ有効</value>
+  </data>
+  <data name="OpenWithBrowserButton.Content" xml:space="preserve">
+    <value>ブラウザで開く</value>
+  </data>
+  <data name="PreviewTitle.Text" xml:space="preserve">
+    <value>プレビュー</value>
+  </data>
+  <data name="StartSetupButton.Content" xml:space="preserve">
+    <value>セットアップの開始</value>
+  </data>
+  <data name="ToobarBackButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>戻る</value>
+  </data>
+  <data name="ToobarForwardButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>進む</value>
+  </data>
+  <data name="ToobarHomeButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>ホーム</value>
+  </data>
+  <data name="ToobarRefreshButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>リロード</value>
+  </data>
+  <data name="ToolbarAppSettingsButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>アプリ設定</value>
+  </data>
+  <data name="ToolbarSearchbox.PlaceholderText" xml:space="preserve">
+    <value>GitHub でコード、プロジェクト、ユーザーを探す</value>
+  </data>
+  <data name="WelcomeText.Text" xml:space="preserve">
+    <value>ようこそ</value>
+  </data>
+  <data name="Followers" xml:space="preserve">
+    <value>フォロワー</value>
+  </data>
+  <data name="Following" xml:space="preserve">
+    <value>フォロー中</value>
+  </data>
+  <data name="PullRequests" xml:space="preserve">
+    <value>Pull Request</value>
+  </data>
+  <data name="RepoForkButtonTextBlock.Text" xml:space="preserve">
+    <value>フォーク</value>
+  </data>
+  <data name="RepoPageNavViewItemCode.Content" xml:space="preserve">
+    <value>コード</value>
+  </data>
+  <data name="RepoPageNavViewItemSettings.Content" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="RepositoryBlockUpdatedAtTextBlock" xml:space="preserve">
+    <value>{0}に更新</value>
+  </data>
+  <data name="RepoStarSplitButtonTextBlock.Text" xml:space="preserve">
+    <value>Star</value>
+  </data>
+  <data name="RepoWatchCombboxStopIgnoring" xml:space="preserve">
+    <value>見落とさない</value>
+  </data>
+  <data name="RepoWatchCombboxUnWatch" xml:space="preserve">
+    <value>ウォッチを外す</value>
+  </data>
+  <data name="RepoWatchCombboxWatch" xml:space="preserve">
+    <value>ウォッチ</value>
+  </data>
+  <data name="UserFollowersCountTextBlock.Text" xml:space="preserve">
+    <value>フォロワー</value>
+  </data>
+  <data name="UserFollowingCountTextBlock.Text" xml:space="preserve">
+    <value>フォロー中</value>
+  </data>
+  <data name="UserNavViewItemOverview.Content" xml:space="preserve">
+    <value>概要</value>
+  </data>
+  <data name="UserNavViewItemRepositories.Content" xml:space="preserve">
+    <value>リポジトリ</value>
+  </data>
+  <data name="UserPinnedItemsTextBlock.Text" xml:space="preserve">
+    <value>ピン済み</value>
+  </data>
+  <data name="UserSpecialReadmeTextBlock" xml:space="preserve">
+    <value>README</value>
+  </data>
+  <data name="GoToFileButton.Content" xml:space="preserve">
+    <value>ファイルへ移動</value>
+  </data>
+  <data name="RepoAddFile.Content" xml:space="preserve">
+    <value>ファイルを追加</value>
+  </data>
+  <data name="RepoAddFileMenuFlyoutItemAdd.Text" xml:space="preserve">
+    <value>新しいファイルを追加</value>
+  </data>
+  <data name="RepoAddFileMenuFlyoutItemUploadFiles.Text" xml:space="preserve">
+    <value>ファイルをアップロード</value>
+  </data>
+  <data name="RepoBranchesCountTextTextBlock.Text" xml:space="preserve">
+    <value>ブランチ</value>
+  </data>
+  <data name="RepoTagsCountTextTextBlock.Text" xml:space="preserve">
+    <value>タグ</value>
+  </data>
+  <data name="Star" xml:space="preserve">
+    <value>Star</value>
+  </data>
+  <data name="NeedToSigninFirst.Text" xml:space="preserve">
+    <value>すべての機能を利用するには、まずサインインする必要があります。</value>
+  </data>
 </root>

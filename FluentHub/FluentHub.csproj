@@ -143,10 +143,13 @@
     <Compile Include="Models\Items\RepoListItem.cs" />
     <Compile Include="Services\Auth\AppCredentials.cs" />
     <Compile Include="Services\Auth\RequestAuthorization.cs" />
+    <Compile Include="Services\ILogWriter.cs" />
+    <Compile Include="Services\LoggerService.cs" />
     <Compile Include="Services\OctokitEx\DevProgramMember.cs" />
     <Compile Include="Services\OctokitEx\Markdown.cs" />
     <Compile Include="Services\OctokitEx\UserPinnedItems.cs" />
     <Compile Include="Services\OctokitEx\UserStarredItems.cs" />
+    <Compile Include="Services\Octokit\UserService.cs" />
     <Compile Include="UserControls\Block\CommentBlock.xaml.cs">
       <DependentUpon>CommentBlock.xaml</DependentUpon>
     </Compile>
@@ -530,7 +533,7 @@
       <Version>4.0.2</Version>
     </PackageReference>
     <PackageReference Include="Humanizer">
-      <Version>2.14.1</Version>
+      <Version>2.8.25</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.13</Version>
