@@ -132,9 +132,6 @@
   <data name="UserPinnedItemsTextBlock.Text" xml:space="preserve">
     <value>ピン済み</value>
   </data>
-  <data name="UserSpecialReadmeTextBlock" xml:space="preserve">
-    <value>README</value>
-  </data>
   <data name="GoToFileButton.Content" xml:space="preserve">
     <value>ファイルへ移動</value>
   </data>
@@ -158,5 +155,11 @@
   </data>
   <data name="NeedToSigninFirst.Text" xml:space="preserve">
     <value>すべての機能を利用するには、まずサインインする必要があります。</value>
+  </data>
+  <data name="HomeNavViewItemActivities.Content" xml:space="preserve">
+    <value>アクティビティ</value>
+  </data>
+  <data name="UserSpecialReadmeTextBlock.Text" xml:space="preserve">
+    <value>README</value>
   </data>
 </root>

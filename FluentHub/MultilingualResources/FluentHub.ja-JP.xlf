@@ -166,10 +166,6 @@
           <source>Pinned</source>
           <target state="translated">ピン済み</target>
         </trans-unit>
-        <trans-unit id="UserSpecialReadmeTextBlock" translate="yes" xml:space="preserve">
-          <source>README</source>
-          <target state="translated">README</target>
-        </trans-unit>
         <trans-unit id="GoToFileButton.Content" translate="yes" xml:space="preserve">
           <source>Go to file</source>
           <target state="translated">ファイルへ移動</target>
@@ -204,7 +200,19 @@
         </trans-unit>
         <trans-unit id="HomeNavViewItemActivities.Content" translate="yes" xml:space="preserve">
           <source>Activities</source>
-          <target state="new">Activities</target>
+          <target state="translated">アクティビティ</target>
+        </trans-unit>
+        <trans-unit id="UserSpecialReadmeTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>README</source>
+          <target state="translated">README</target>
+        </trans-unit>
+        <trans-unit id="EditProfileButton.Content" translate="yes" xml:space="preserve">
+          <source>Edit profile</source>
+          <target state="new">Edit profile</target>
+        </trans-unit>
+        <trans-unit id="FollowButton.Content" translate="yes" xml:space="preserve">
+          <source>Follow</source>
+          <target state="new">Follow</target>
         </trans-unit>
       </group>
     </body>

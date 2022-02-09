@@ -5,3 +5,6 @@ updates:
   schedule:
     interval: daily
   open-pull-requests-limit: 10
+  ignore:
+    - dependency-name: "Humanizer"
+    # Avoid PRI errors "Processing Resources failed with error: Duplicate Entry."

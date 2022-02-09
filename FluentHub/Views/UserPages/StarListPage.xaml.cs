@@ -28,14 +28,7 @@ namespace FluentHub.Views.UserPages
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (e.Parameter != null)
-            {
-                UserName = e.Parameter as string;
-            }
-            else
-            {
-                UserName = App.SignedInUserName;
-            }
+            UserName = e.Parameter as string;
 
             base.OnNavigatedTo(e);
         }

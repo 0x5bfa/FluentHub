@@ -167,5 +167,15 @@ namespace FluentHub.Views.UserPages
                 FollowButton.Visibility = Visibility.Visible;
             }
         }
+
+        private void UserFollowersButton_Click(object sender, RoutedEventArgs e)
+        {
+            UserNavViewItemFollowers.IsSelected = true;
+        }
+
+        private void UserFollowingButton_Click(object sender, RoutedEventArgs e)
+        {
+            UserNavViewItemFollowing.IsSelected = true;
+        }
     }
 }

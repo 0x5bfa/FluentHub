@@ -126,6 +126,12 @@
   <data name="Discussions" xml:space="preserve">
     <value>Discussions</value>
   </data>
+  <data name="EditProfileButton.Content" xml:space="preserve">
+    <value>Edit profile</value>
+  </data>
+  <data name="FollowButton.Content" xml:space="preserve">
+    <value>Follow</value>
+  </data>
   <data name="Followers" xml:space="preserve">
     <value>Followers</value>
   </data>
@@ -261,7 +267,7 @@
   <data name="UserPinnedItemsTextBlock.Text" xml:space="preserve">
     <value>Pinned</value>
   </data>
-  <data name="UserSpecialReadmeTextBlock" xml:space="preserve">
+  <data name="UserSpecialReadmeTextBlock.Text" xml:space="preserve">
     <value>README</value>
   </data>
   <data name="WelcomeText.Text" xml:space="preserve">
