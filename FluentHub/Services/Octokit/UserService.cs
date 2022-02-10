@@ -17,7 +17,6 @@ namespace FluentHub.Services.Octokit
             }
             catch (Exception ex)
             {
-                App.Logger.Warn(ex, ex.Message);
                 return null;
             }
         }
