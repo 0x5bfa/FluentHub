@@ -42,10 +42,9 @@ See [this documentation](translations.md)
 
 ## Screenshot
 
-* User profile page not yet developed:
+User profile page|Repository page
+---|---
+![image](https://user-images.githubusercontent.com/62196528/152377145-9dcc3adc-6bfc-4244-bf7d-77eb9f5f547c.png)|![image](https://user-images.githubusercontent.com/62196528/152377118-ae0488a1-95a4-4198-abae-2a60a4cb25ca.png)
 
-  ![image](https://user-images.githubusercontent.com/62196528/152377145-9dcc3adc-6bfc-4244-bf7d-77eb9f5f547c.png)
 
-* Repository page not yet developed:
 
-  ![image](https://user-images.githubusercontent.com/62196528/152377118-ae0488a1-95a4-4198-abae-2a60a4cb25ca.png)
