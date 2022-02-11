@@ -180,6 +180,9 @@
     <Compile Include="UserControls\ReadmeContentBlock.xaml.cs">
       <DependentUpon>ReadmeContentBlock.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\RepositoryOverviewContentBlock.xaml.cs">
+      <DependentUpon>RepositoryOverviewContentBlock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\RepositoryTreeContentBlock.xaml.cs">
       <DependentUpon>RepositoryTreeContentBlock.xaml</DependentUpon>
     </Compile>
@@ -208,6 +211,9 @@
     <Compile Include="ViewModels\UserPages\RepoListViewModel.cs" />
     <Compile Include="ViewModels\UserPages\OverviewViewModel.cs" />
     <Compile Include="ViewModels\UserPages\StarListViewModel.cs" />
+    <Compile Include="Views\AppSettingsPages\GeneralPage.xaml.cs">
+      <DependentUpon>GeneralPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\HomePages\IssuesPage.xaml.cs">
       <DependentUpon>IssuesPage.xaml</DependentUpon>
     </Compile>
@@ -429,6 +435,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\RepositoryOverviewContentBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\RepositoryTreeContentBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -442,6 +452,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\UserAvatar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AppSettingsPages\GeneralPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

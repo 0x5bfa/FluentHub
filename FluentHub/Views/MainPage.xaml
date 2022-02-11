@@ -114,9 +114,10 @@
                         Width="36"
                         Height="36"
                         Background="Transparent"
+                        Click="ToolbarAppSettingsButton_Click"
                         CornerRadius="8"
                         Style="{StaticResource ClearButtonStyle}">
-                        <FontIcon FontSize="16" Glyph="&#xE115;" />
+                        <FontIcon FontSize="14" Glyph="&#xE115;" />
                     </Button>
                 </StackPanel>
             </Grid>
