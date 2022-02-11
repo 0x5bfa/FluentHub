@@ -1,7 +1,11 @@
 ﻿using FluentHub.Helpers;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -12,36 +16,33 @@ namespace FluentHub.Services.OctokitEx
 {
     public class Markdown
     {
-        public async Task<string> FormatRenderedMarkdownToHtml(string renderedString)
+        ApplicationTheme appTheme = Application.Current.RequestedTheme;
+
+        public async Task<string> GetHtml(string markdown, string missedPath)
         {
-            ApplicationTheme appTheme = Application.Current.RequestedTheme;
-            StorageFile template
-                = await StorageFile.GetFileFromApplicationUriAsync(
-                    new Uri("ms-appx:///Assets/WebView/RenderedMarkdownTemplate.html"));
-            StorageFile style;
-            string templateText = await Windows.Storage.FileIO.ReadTextAsync(template);
-            string result;
-
-            if (appTheme == ApplicationTheme.Light)
+            if (string.IsNullOrEmpty(markdown))
             {
-                style = await StorageFile.GetFileFromApplicationUriAsync(
-                    new Uri("ms-appx:///Assets/WebView/github-markdown-light.css"));
-            }
-            else // ApplicationTheme.Dark
-            {
-                style = await StorageFile.GetFileFromApplicationUriAsync(
-                    new Uri("ms-appx:///Assets/WebView/github-markdown-dark.css"));
+                return null;
             }
 
-            string styleText = await Windows.Storage.FileIO.ReadTextAsync(style);
+            StorageFile indexFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/WebView/index.html"));
+            var indexHtml = await FileIO.ReadTextAsync(indexFile);
 
-            result = templateText.Replace("{0}", styleText);
-            return result = result.Replace("{1}", renderedString);
+            var htmlBody = Get(markdown);
+
+            string fullHtml
+                = ((string)indexHtml!.Clone())
+                .Replace("{{renderTheme}}", appTheme.ToString().ToLower())
+                .Replace("{{htmlBody}}", htmlBody);
+
+            fullHtml = FixRelativeLink(fullHtml, missedPath);
+
+            return fullHtml;
         }
 
-        public string FixRelativeLinkInHtml(string renderedString, string missedPath)
+        public string FixRelativeLink(string renderedString, string missedPath)
         {
-            var baseUri = new Uri("https://raw.githubusercontent.com/fluenthub-uwp/FluentHub/blob/main/");
+            var baseUri = new Uri(missedPath);
 
             var pattern = @"(?<name>src|href)=""(?<value>[^""]*)""";
 
@@ -63,6 +64,31 @@ namespace FluentHub.Services.OctokitEx
             var adjustedHtml = Regex.Replace(renderedString, pattern, matchEvaluator);
 
             return adjustedHtml;
+        }
+
+        public string Get(string markdown)
+        {
+            string url = "https://api.github.com/markdown/raw";
+
+            try
+            {
+                WebClient wc = new WebClient();
+
+                wc.Headers["Content-Type"] = "text/plain";
+                wc.Headers["User-agent"] = "FluentHub";
+
+                var resData = wc.UploadData(url, "POST", Encoding.UTF8.GetBytes(markdown));
+                wc.Dispose();
+
+                string data = Encoding.UTF8.GetString(resData);
+
+                return data;
+            }
+            catch (Exception e)
+            {
+                Log.Error(e.ToString());
+                return null;
+            }
         }
     }
 }

@@ -56,7 +56,7 @@ namespace FluentHub.Views.UserPages
             ReadMeLink.Content = string.Format("{0}/{1}", UserName, readme.Name);
             ReadMeLink.NavigateUri = new Uri(readme.HtmlUrl);
 
-            string result = await markdown.FormatRenderedMarkdownToHtml(await readme.GetHtmlContent());
+            string result = await markdown.GetHtml(readme.Content, "https://github.com/files-community/Files/blob/main/");
             UserSpecialReadmeWebView.NavigateToString(result);
         }
 

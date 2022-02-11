@@ -764,12 +764,12 @@
 }
 
 .markdown-body table tr {
-  background-color: var(--color-canvas-default);
+  background-color: transparent;
   border-top: 1px solid var(--color-border-muted);
 }
 
 .markdown-body table tr:nth-child(2n) {
-  background-color: var(--color-canvas-subtle);
+  background-color: transparent;
 }
 
 .markdown-body table img {

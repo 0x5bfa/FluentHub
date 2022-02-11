@@ -5,18 +5,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Networking.Connectivity;
+using Windows.UI.Xaml.Controls;
 
 namespace FluentHub.Helpers
 {
     public class InternetConnectionHelpers
     {
+        private static bool IsAvailablePrevious { get; set; } = false;
+
         public InternetConnectionHelpers()
         {
             NetworkInformation.NetworkStatusChanged += OnNetworkStatusChanged;
         }
-
-        public static bool IsAvailablePrevious = false;
-
 
         public void OnNetworkStatusChanged(object sender)
         {

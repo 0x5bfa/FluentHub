@@ -128,7 +128,7 @@ namespace FluentHub.Views.RepoPages
                 RepositoryReadmeBlock.Visibility = Visibility.Visible;
             }
 
-            string result = await markdown.FormatRenderedMarkdownToHtml(await Readme.GetHtmlContent());
+            string result = await markdown.GetHtml(await Readme.GetHtmlContent());
 
             RepositoryReadmeWebView.NavigateToString(result);
         }
