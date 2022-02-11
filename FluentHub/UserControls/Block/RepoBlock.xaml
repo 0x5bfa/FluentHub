@@ -33,6 +33,7 @@
             x:Name="RepoBlockButton"
             Margin="0,3,0,0"
             Padding="18,12"
+            IsEnabled="{Binding IsEnabled}"
             Click="RepoBlockButton_Click"
             Style="{StaticResource ContentBlockButtonStyle}">
             <Grid ColumnSpacing="6">

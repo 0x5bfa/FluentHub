@@ -70,6 +70,8 @@ namespace FluentHub.UserControls.Block
 
         private async void RepoBlockUserControl_Loaded(object sender, RoutedEventArgs e)
         {
+
+            RepoBlockButton.Tag = RepositoryId;
             // Star button
             if (DisplayStarButton == false)
             {
@@ -78,8 +80,6 @@ namespace FluentHub.UserControls.Block
 
             // Block contents
             var repo = await App.Client.Repository.Get(RepositoryId);
-
-            RepoBlockButton.Tag = RepositoryId;
 
             RepoName.Text = repo.Name;
 
