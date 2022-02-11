@@ -37,7 +37,10 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <StackPanel Orientation="Horizontal" Spacing="6">
-                        <ComboBox Margin="0,0,4,0" PlaceholderText="Branch" />
+                        <ComboBox
+                            x:Name="BranchesComboBox"
+                            Margin="0,0,4,0"
+                            PlaceholderText="Branch" />
                         <Button
                             Grid.Column="1"
                             Height="24"
@@ -103,6 +106,7 @@
                         Margin="8,0,0,0"
                         Padding="0"
                         Click="OverviewColumnOpenButton_Click"
+                        Style="{StaticResource ClearButtonStyle}"
                         Visibility="Collapsed">
                         <FontIcon FontSize="14" Glyph="&#xE700;" />
                     </Button>
@@ -247,28 +251,7 @@
                         </ListView.ItemTemplate>
                     </ListView>
                 </Grid>
-                <Grid
-                    x:Name="RepositoryReadmeBlock"
-                    Grid.Row="3"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                    BorderThickness="1"
-                    CornerRadius="4"
-                    Visibility="Collapsed">
-                    <WebView
-                        x:Name="RepositoryReadmeWebView"
-                        Width="Auto"
-                        Height="Auto"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Stretch"
-                        DefaultBackgroundColor="Transparent"
-                        Loaded="RepositoryReadmeWebView_Loaded"
-                        NavigationCompleted="RepositoryReadmeWebView_NavigationCompleted"
-                        NavigationStarting="RepositoryReadmeWebView_NavigationStarting"
-                        ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                        ScrollViewer.VerticalScrollBarVisibility="Disabled"
-                        ScrollViewer.VerticalScrollMode="Disabled" />
-                </Grid>
+                <uc:ReadmeContentBlock x:Name="RepositoryRootReadmeContentBlock" Grid.Row="3" />
             </Grid>
         </ScrollViewer>
         <Grid
@@ -316,111 +299,101 @@
                             Grid.Row="1"
                             Foreground="{StaticResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}" />
-                        <StackPanel
-                            Grid.Row="2"
-                            Margin="0,8,0,0"
-                            Spacing="2">
+                        <StackPanel Grid.Row="2" Margin="0,6,0,0">
                             <StackPanel
                                 x:Name="OverviewReadmeBlock"
-                                Orientation="Horizontal"
-                                Spacing="8"
+                                Margin="0,3"
                                 Visibility="Collapsed">
-                                <FontIcon
-                                    VerticalAlignment="Center"
-                                    FontFamily="{StaticResource Octions}"
-                                    FontSize="14"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Glyph="&#xE922;" />
                                 <Button
                                     x:Name="OverviewReadme"
-                                    Margin="0,-2,0,0"
                                     Padding="4"
                                     VerticalAlignment="Center"
-                                    Content="Readme"
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Style="{StaticResource LinkLikeButtonStyle}" />
+                                    Style="{StaticResource LinkLikeButtonStyle}">
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <FontIcon
+                                            VerticalAlignment="Center"
+                                            FontFamily="{StaticResource Octions}"
+                                            FontSize="14"
+                                            Glyph="&#xE922;" />
+                                        <TextBlock Text="README" />
+                                    </StackPanel>
+                                </Button>
+                                <Button />
                             </StackPanel>
                             <StackPanel
                                 x:Name="OverviewLicenseBlock"
-                                Orientation="Horizontal"
-                                Spacing="8"
+                                Margin="0,3"
                                 Visibility="Collapsed">
-                                <FontIcon
-                                    VerticalAlignment="Center"
-                                    FontFamily="{StaticResource Octions}"
-                                    FontSize="14"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Glyph="&#xE9F7;" />
-                                <Button
-                                    x:Name="OverviewLicense"
-                                    Padding="4"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Style="{StaticResource LinkLikeButtonStyle}" />
+                                <Button Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" Style="{StaticResource LinkLikeButtonStyle}">
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <FontIcon
+                                            VerticalAlignment="Center"
+                                            FontFamily="{StaticResource Octions}"
+                                            FontSize="14"
+                                            Glyph="&#xE9F7;" />
+                                        <TextBlock x:Name="LicenseName" />
+                                    </StackPanel>
+                                </Button>
                             </StackPanel>
                             <StackPanel
                                 x:Name="OverviewCodeOfConduct"
-                                Orientation="Horizontal"
-                                Spacing="8"
+                                Margin="0,3"
                                 Visibility="Collapsed">
-                                <FontIcon
-                                    VerticalAlignment="Center"
-                                    FontFamily="{StaticResource Octions}"
-                                    FontSize="14"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Glyph="&#xE93B;" />
-                                <Button
-                                    Padding="4"
-                                    Content="Code of conduct"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Style="{StaticResource LinkLikeButtonStyle}" />
+                                <Button Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" Style="{StaticResource LinkLikeButtonStyle}">
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <FontIcon
+                                            VerticalAlignment="Center"
+                                            FontFamily="{StaticResource Octions}"
+                                            FontSize="14"
+                                            Glyph="&#xE93B;" />
+                                        <TextBlock Text="Code of conduct" />
+                                    </StackPanel>
+                                </Button>
                             </StackPanel>
-                            <StackPanel
-                                x:Name="OverviewStargazersCountBlock"
-                                Orientation="Horizontal"
-                                Spacing="8">
-                                <FontIcon
-                                    VerticalAlignment="Center"
-                                    FontFamily="{StaticResource Octions}"
-                                    FontSize="14"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Glyph="&#xEA94;" />
-                                <Button
-                                    x:Name="OverviewStargazersCount"
-                                    Padding="4"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Style="{StaticResource LinkLikeButtonStyle}" />
+                            <StackPanel x:Name="OverviewStarsCountBlock" Margin="0,3">
+                                <Button Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" Style="{StaticResource LinkLikeButtonStyle}">
+                                    <StackPanel Orientation="Horizontal" Spacing="6">
+                                        <FontIcon
+                                            Margin="0,0,2,0"
+                                            VerticalAlignment="Center"
+                                            FontFamily="{StaticResource Octions}"
+                                            FontSize="14"
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Glyph="&#xEA94;" />
+                                        <TextBlock x:Name="StarsCountTextBlock" FontWeight="SemiBold" />
+                                        <TextBlock Text="Stars" />
+                                    </StackPanel>
+                                </Button>
                             </StackPanel>
-                            <StackPanel
-                                x:Name="OverviewWatchingCountBlock"
-                                Orientation="Horizontal"
-                                Spacing="8">
-                                <FontIcon
-                                    VerticalAlignment="Center"
-                                    FontFamily="{StaticResource Octions}"
-                                    FontSize="14"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Glyph="&#xE98B;" />
-                                <Button
-                                    x:Name="OverviewWatchingCount"
-                                    Padding="4"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Style="{StaticResource LinkLikeButtonStyle}" />
+                            <StackPanel x:Name="OverviewWatchingCountBlock" Margin="0,3">
+                                <Button Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" Style="{StaticResource LinkLikeButtonStyle}">
+                                    <StackPanel Orientation="Horizontal" Spacing="6">
+                                        <FontIcon
+                                            Margin="0,0,2,0"
+                                            VerticalAlignment="Center"
+                                            FontFamily="{StaticResource Octions}"
+                                            FontSize="14"
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Glyph="&#xE98B;" />
+                                        <TextBlock x:Name="WatchingCountTextBlock" FontWeight="SemiBold" />
+                                        <TextBlock Text="Watching" />
+                                    </StackPanel>
+                                </Button>
                             </StackPanel>
-                            <StackPanel
-                                x:Name="OverviewForksCountBlock"
-                                Orientation="Horizontal"
-                                Spacing="8">
-                                <FontIcon
-                                    VerticalAlignment="Center"
-                                    FontFamily="{StaticResource Octions}"
-                                    FontSize="14"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Glyph="&#xEA55;" />
-                                <Button
-                                    x:Name="OverviewForksCount"
-                                    Padding="4"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Style="{StaticResource LinkLikeButtonStyle}" />
+                            <StackPanel x:Name="OverviewForksCountBlock" Margin="0,3">
+                                <Button Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" Style="{StaticResource LinkLikeButtonStyle}">
+                                    <StackPanel Orientation="Horizontal" Spacing="6">
+                                        <FontIcon
+                                            Margin="0,0,2,0"
+                                            VerticalAlignment="Center"
+                                            FontFamily="{StaticResource Octions}"
+                                            FontSize="14"
+                                            Glyph="&#xEA55;" />
+                                        <TextBlock x:Name="ForksCountTextBlock" FontWeight="SemiBold" />
+                                        <TextBlock Text="Forks" />
+                                    </StackPanel>
+                                </Button>
                             </StackPanel>
                         </StackPanel>
                         <MenuFlyoutSeparator Grid.Row="3" Margin="-16,12" />

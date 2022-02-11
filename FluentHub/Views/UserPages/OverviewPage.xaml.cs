@@ -36,40 +36,6 @@ namespace FluentHub.Views.UserPages
             base.OnNavigatedTo(e);
         }
 
-        private async void UserSpecialReadmeWebView_Loaded(object sender, RoutedEventArgs e)
-        {
-            Markdown markdown = new Markdown();
-            Readme readme;
-
-            try
-            {
-                readme = await App.Client.Repository.Content.GetReadme(UserName, UserName);
-            }
-            catch
-            {
-                return;
-            }
-
-            NoOverviewBlock.Visibility = Visibility.Collapsed;
-            UserSpecialReadmeBlock.Visibility = Visibility.Visible;
-
-            ReadMeLink.Content = string.Format("{0}/{1}", UserName, readme.Name);
-            ReadMeLink.NavigateUri = new Uri(readme.HtmlUrl);
-
-            string result = await markdown.GetHtml(readme.Content, "https://github.com/files-community/Files/blob/main/");
-            UserSpecialReadmeWebView.NavigateToString(result);
-        }
-
-        private void UserSpecialReadmeWebView_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
-        {
-            if (args.Uri != null) args.Cancel = true;
-        }
-
-        private void UserSpecialReadmeWebView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
-        {
-            WebViewHelpers.DisableWebViewVerticalScrolling(ref UserSpecialReadmeWebView);
-        }
-
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             UserPinnedItems pinnedItems = new UserPinnedItems();
@@ -83,6 +49,9 @@ namespace FluentHub.Views.UserPages
                 NoOverviewBlock.Visibility = Visibility.Collapsed;
                 UserPinnedItemsBlock.Visibility = Visibility.Visible;
             }
+
+            var repo = await App.Client.Repository.Get(UserName, UserName);
+            UserSpecialReadmeBlock.RepositoryId = repo.Id;
         }
     }
 }

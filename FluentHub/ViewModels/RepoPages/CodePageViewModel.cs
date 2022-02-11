@@ -71,6 +71,11 @@ namespace FluentHub.ViewModels.RepoPages
 
         }
 
+        public async Task EnumRepositoryBranches(long repoId)
+        {
+
+        }
+
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(string info)
         {

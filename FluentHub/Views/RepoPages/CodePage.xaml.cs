@@ -24,7 +24,6 @@ namespace FluentHub.Views.RepoPages
     {
         private long RepoId { get; set; }
         private Repository Repository { get; set; }
-        private Readme Readme { get; set; }
 
         public CodePage()
         {
@@ -52,6 +51,9 @@ namespace FluentHub.Views.RepoPages
         {
             Repository = await App.Client.Repository.Get(RepoId);
 
+            RepositoryRootReadmeContentBlock.RepositoryId = RepoId;
+
+            // Repository Description
             string repoDescription = Repository.Description;
 
             if(string.IsNullOrEmpty(repoDescription) == false)
@@ -64,31 +66,36 @@ namespace FluentHub.Views.RepoPages
                 RepoDescription.FontStyle = Windows.UI.Text.FontStyle.Italic;
             }
 
-            if (Readme != null)
-            {
-                OverviewReadmeBlock.Visibility = Visibility.Visible;
-            }
-
+            // Repository License
             if (Repository.License != null)
             {
+                LicenseName.Text = Repository.License.Name;
                 OverviewLicenseBlock.Visibility = Visibility.Visible;
-                OverviewLicense.Content = Repository.License.Name;
             }
 
-            OverviewStargazersCount.Content = Repository.StargazersCount.ToString() + " Stars";
+            // Stars Count
+            StarsCountTextBlock.Text = Repository.StargazersCount.ToString();
 
-            OverviewWatchingCount.Content = Repository.WatchersCount.ToString() + " Watching";
+            // Watchers Count (Do not fix CS0618 warning)
+            WatchingCountTextBlock.Text = Repository.SubscribersCount.ToString();
 
-            OverviewForksCount.Content = Repository.ForksCount.ToString() + " Forks";
+            // Forks Count
+            ForksCountTextBlock.Text = Repository.ForksCount.ToString();
 
+            // Branches Count
             var branches = await App.Client.Repository.Branch.GetAll(RepoId);
 
             BranchesCountTextBlock.Text = branches.Count().ToString();
 
+            // Branches
+
+
+            // Tags Count
             var tags = await App.Client.Repository.GetAllTags(RepoId);
 
             TagsCountTextBlock.Text = tags.Count().ToString();
 
+            #region LatestCommitBlock
             var commits = await App.Client.Repository.Commit.GetAll(RepoId);
 
             RepoLatestCommitAuthorAvatar.Source = new BitmapImage(new Uri(commits[0].Author.AvatarUrl));
@@ -102,63 +109,14 @@ namespace FluentHub.Views.RepoPages
             RepoLatestCommitUpdatedAtHumanized.Text = commits[0].Commit.Author.Date.Humanize();
 
             RepoCommitsCount.Text = commits.Count().ToString();
+            #endregion
 
             await ViewModel.EnumRepositoryContents(RepoId);
         }
 
-        private void RepositoryReadmeWebView_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
-        {
-            if (args.Uri != null)
-            {
-                args.Cancel = true;
-            }
-        }
-
-        private async void RepositoryReadmeWebView_Loaded(object sender, RoutedEventArgs e)
-        {
-            Readme = await App.Client.Repository.Content.GetReadme(RepoId);
-            Markdown markdown = new Markdown();
-
-            if (Readme == null)
-            {
-                return;
-            }
-            else
-            {
-                RepositoryReadmeBlock.Visibility = Visibility.Visible;
-            }
-
-            string result = await markdown.GetHtml(await Readme.GetHtmlContent());
-
-            RepositoryReadmeWebView.NavigateToString(result);
-        }
-
-        private async void RepositoryReadmeWebView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
-        {
-            string returnStr = await RepositoryReadmeWebView.InvokeScriptAsync("eval", new string[] { SetBodyOverFlowHiddenString });
-            int heightScroll = 0;
-            var heightScrollStr = await RepositoryReadmeWebView.InvokeScriptAsync("eval", new[] { "document.body.scrollHeight.toString()" });
-
-            if (int.TryParse(heightScrollStr, out heightScroll))
-            {
-                RepositoryReadmeWebView.Height = heightScroll;
-            }
-        }
-
-
-        string SetBodyOverFlowHiddenString
-            = @" function SetBodyOverFlowHidden()
-                {
-                    document.body.style.overflow = 'hidden';
-                    return 'Set Style to hidden';
-                }
-                SetBodyOverFlowHidden();
-            ";
-
         private void Page_Loading(FrameworkElement sender, object args)
         {
             GitCloneFlyout.RepositoryId = RepoId;
-
         }
     }
 }
