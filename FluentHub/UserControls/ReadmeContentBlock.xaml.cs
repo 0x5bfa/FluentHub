@@ -67,7 +67,10 @@ namespace FluentHub.UserControls
                 return;
             }
 
-            string result = await markdown.GetHtml(readme.Content, repo.HtmlUrl + "/blob/main/");
+            string result = await markdown.GetHtml(
+                readme.Content,
+                "https://raw.githubusercontent.com/" + repo.Owner.Login + "/" + repo.Name + "/" + repo.DefaultBranch +"/");
+
             ReadmeWebView.NavigateToString(result);
 
             ReadmeBlock.Visibility = Visibility.Visible;

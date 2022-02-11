@@ -35,23 +35,12 @@ namespace FluentHub.Views.RepoPages
             RepoId = Convert.ToInt64(e.Parameter as string);
         }
 
-        private void OverviewColumnCloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            OverviewColumn.Width = new GridLength(0);
-            OverviewColumnOpenButton.Visibility = Visibility.Visible;
-        }
-
-        private void OverviewColumnOpenButton_Click(object sender, RoutedEventArgs e)
-        {
-            OverviewColumn.Width = new GridLength(256);
-            OverviewColumnOpenButton.Visibility = Visibility.Collapsed;
-        }
-
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             Repository = await App.Client.Repository.Get(RepoId);
 
-            RepositoryRootReadmeContentBlock.RepositoryId = RepoId;
+            RepoContentsContentBlock.RepositoryId = RepoId;
+            RepoContentsContentBlock.Path = "";
 
             // Repository Description
             string repoDescription = Repository.Description;
@@ -82,41 +71,7 @@ namespace FluentHub.Views.RepoPages
             // Forks Count
             ForksCountTextBlock.Text = Repository.ForksCount.ToString();
 
-            // Branches Count
-            var branches = await App.Client.Repository.Branch.GetAll(RepoId);
-
-            BranchesCountTextBlock.Text = branches.Count().ToString();
-
-            // Branches
-
-
-            // Tags Count
-            var tags = await App.Client.Repository.GetAllTags(RepoId);
-
-            TagsCountTextBlock.Text = tags.Count().ToString();
-
-            #region LatestCommitBlock
-            var commits = await App.Client.Repository.Commit.GetAll(RepoId);
-
-            RepoLatestCommitAuthorAvatar.Source = new BitmapImage(new Uri(commits[0].Author.AvatarUrl));
-
-            RepoLatestCommitAuthorName.Text = commits[0].Author.Login;
-
-            RepoLatestCommitMessage.Text = commits[0].Commit.Message.Split("\n")[0];
-
-            RepoLatestCommitSha.Text = commits[0].Sha.Substring(0, 7);
-
-            RepoLatestCommitUpdatedAtHumanized.Text = commits[0].Commit.Author.Date.Humanize();
-
-            RepoCommitsCount.Text = commits.Count().ToString();
-            #endregion
-
             await ViewModel.EnumRepositoryContents(RepoId);
-        }
-
-        private void Page_Loading(FrameworkElement sender, object args)
-        {
-            GitCloneFlyout.RepositoryId = RepoId;
         }
     }
 }
