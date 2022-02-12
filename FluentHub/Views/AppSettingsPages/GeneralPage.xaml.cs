@@ -26,5 +26,10 @@ namespace FluentHub.Views.AppSettingsPages
         {
             this.InitializeComponent();
         }
+
+        private void SettingsNavView_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
+        {
+
+        }
     }
 }
