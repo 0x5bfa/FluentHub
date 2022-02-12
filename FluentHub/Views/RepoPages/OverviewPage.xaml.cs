@@ -1,4 +1,5 @@
-﻿using Octokit;
+﻿using FluentHub.ViewModels.RepoPages;
+using Octokit;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -57,10 +58,14 @@ namespace FluentHub.Views.RepoPages
 
         private void RepoPageNavView_ItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
         {
+            var commonRepoViewModel = new CommonRepoViewModel();
+
             switch (args.InvokedItemContainer.Tag.ToString())
             {
                 case "Code":
-                    RepoPageNavViewFrame.Navigate(typeof(CodePage), RepoId.ToString());
+                    commonRepoViewModel.RepositoryId = RepoId;
+                    commonRepoViewModel.IsRootDir = true;
+                    RepoPageNavViewFrame.Navigate(typeof(CodePage), commonRepoViewModel);
                     break;
                 case "Issues":
                     RepoPageNavViewFrame.Navigate(typeof(IssueListPage), RepoId.ToString());
@@ -118,7 +123,12 @@ namespace FluentHub.Views.RepoPages
                 PullsCountBadge.Visibility = Visibility.Visible;
             }
 
-            RepoPageNavViewFrame.Navigate(typeof(CodePage), RepoId.ToString());
+            var commonRepoViewModel = new CommonRepoViewModel();
+
+            commonRepoViewModel.RepositoryId = RepoId;
+            commonRepoViewModel.IsRootDir = true;
+
+            RepoPageNavViewFrame.Navigate(typeof(CodePage), commonRepoViewModel);
         }
     }
 }

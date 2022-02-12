@@ -41,5 +41,23 @@ namespace FluentHub.Views.RepoPages.Layouts
             ViewModel.CommonRepoViewModel = CommonRepoViewModel;
             await ViewModel.EnumRepositoryContents();
         }
+
+        private void DirListView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            var commonRepoViewModel = new CommonRepoViewModel();
+
+            commonRepoViewModel.RepositoryId = CommonRepoViewModel.RepositoryId;
+            commonRepoViewModel.IsRootDir = false;
+
+            var clickedItem = e.OriginalSource as FrameworkElement;
+
+            var grid = clickedItem.FindName("ListViewItemGrid") as Grid;
+
+            string tag = grid.Tag.ToString();
+
+            commonRepoViewModel.Path = CommonRepoViewModel.Path + tag + "/";
+
+            App.MainViewModel.RepoMainFrame.Navigate(typeof(CodePage), commonRepoViewModel);
+        }
     }
 }

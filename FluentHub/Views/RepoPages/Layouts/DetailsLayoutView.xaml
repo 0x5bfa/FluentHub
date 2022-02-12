@@ -32,10 +32,11 @@
                     BorderThickness="1"
                     CornerRadius="4">
                     <ListView
-                        x:Name="ListView"
+                        x:Name="DirListView"
                         Grid.Row="2"
                         Grid.ColumnSpan="2"
                         HorizontalAlignment="Stretch"
+                        DoubleTapped="DirListView_DoubleTapped"
                         ItemsSource="{Binding Items}"
                         SelectionMode="Single">
                         <ListView.ItemContainerStyle>
@@ -46,7 +47,7 @@
                         </ListView.ItemContainerStyle>
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="items:DetailsLayoutListViewItem">
-                                <Grid>
+                                <Grid x:Name="ListViewItemGrid" Tag="{x:Bind ObjectTag, Mode=OneWay}">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="32" />
                                         <ColumnDefinition Width="*" />
@@ -59,18 +60,18 @@
                                         VerticalAlignment="Center"
                                         FontFamily="{StaticResource Octions}"
                                         FontSize="16"
-                                        Glyph="{x:Bind ObjectTypeIconGlyph}" />
+                                        Glyph="{x:Bind ObjectTypeIconGlyph, Mode=OneWay}" />
                                     <TextBlock
                                         x:Name="ItemNameTextBox"
                                         Grid.Column="1"
                                         VerticalAlignment="Center"
-                                        Text="{x:Bind ObjectName}" />
+                                        Text="{x:Bind ObjectName, Mode=OneWay}" />
                                     <TextBlock
                                         x:Name="ItemLatestCommitTitleTextBox"
                                         Grid.Column="2"
                                         VerticalAlignment="Center"
                                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        Text="{x:Bind ObjectLatestCommitMessage}"
+                                        Text="{x:Bind ObjectLatestCommitMessage, Mode=OneWay}"
                                         TextTrimming="CharacterEllipsis" />
                                     <TextBlock
                                         x:Name="ItemUpdatedAtTextBlock"
@@ -78,7 +79,7 @@
                                         HorizontalAlignment="Right"
                                         VerticalAlignment="Center"
                                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        Text="{x:Bind ObjectUpdatedAtHumanized}" />
+                                        Text="{x:Bind ObjectUpdatedAtHumanized, Mode=OneWay}" />
                                 </Grid>
                             </DataTemplate>
                         </ListView.ItemTemplate>

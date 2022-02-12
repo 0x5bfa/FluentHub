@@ -45,6 +45,8 @@ namespace FluentHub.ViewModels.RepoPages.Layouts
 
                 listItem.ObjectName = item.Name;
 
+                listItem.ObjectTag = item.Name;
+
                 Octokit.CommitRequest request = new Octokit.CommitRequest();
                 request.Path = item.Path;
 

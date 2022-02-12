@@ -22,7 +22,7 @@ namespace FluentHub.Views.RepoPages
 {
     public sealed partial class CodePage : Windows.UI.Xaml.Controls.Page
     {
-        private long RepoId { get; set; }
+        private CommonRepoViewModel CommonRepoViewModel { get; set; }
 
         public CodePage()
         {
@@ -40,16 +40,14 @@ namespace FluentHub.Views.RepoPages
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            RepoId = Convert.ToInt64(e.Parameter as string);
+            CommonRepoViewModel = e.Parameter as CommonRepoViewModel;
+
+            CodeViewLayout.Navigate(typeof(Layouts.DetailsLayoutView), CommonRepoViewModel);
         }
 
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             // Default page layout is detailsview
-            CommonRepoViewModel commonRepoViewModel = new CommonRepoViewModel();
-            commonRepoViewModel.RepositoryId = RepoId;
-
-            CodeViewLayout.Navigate(typeof(Layouts.DetailsLayoutView), commonRepoViewModel);
         }
     }
 }

@@ -15,5 +15,7 @@ namespace FluentHub.Models.Items
         public string ObjectLatestCommitMessage { get; set; }
 
         public string ObjectUpdatedAtHumanized { get; set; }
+
+        public string ObjectTag { get; set; }
     }
 }
