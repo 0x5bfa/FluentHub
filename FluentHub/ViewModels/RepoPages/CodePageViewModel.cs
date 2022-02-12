@@ -28,12 +28,11 @@ namespace FluentHub.ViewModels.RepoPages
         public ObservableCollection<DetailsLayoutModel> Items
         {
             get => _items;
-            private set
-            {
-                _items = value;
-                NotifyPropertyChanged(nameof(Items));
-            }
+            private set => SetProperty(ref _items, value);
         }
+
+        private bool displayTreeView = false;
+        public bool DisplayTreeView { get => displayTreeView; set => SetProperty(ref displayTreeView, value); }
 
         public async Task EnumRepositoryContents(long repoId)
         {
@@ -73,17 +72,10 @@ namespace FluentHub.ViewModels.RepoPages
 
         public async Task EnumRepositoryBranches(long repoId)
         {
-
+            // to combobox
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged(string info)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(info));
-            }
-        }
 
         protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
         {

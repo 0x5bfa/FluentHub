@@ -16,7 +16,7 @@
     </Page.DataContext>
 
     <Grid Margin="18,18,18,12">
-        <Grid.ColumnDefinitions>
+        <!--<Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
             <ColumnDefinition x:Name="OverviewColumn" Width="256" />
         </Grid.ColumnDefinitions>
@@ -223,6 +223,6 @@
                     </Grid>
                 </Grid>
             </ScrollViewer>
-        </Grid>
+        </Grid>-->
     </Grid>
 </Page>
