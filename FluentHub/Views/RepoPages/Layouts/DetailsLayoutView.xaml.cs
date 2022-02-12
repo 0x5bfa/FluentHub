@@ -32,14 +32,20 @@ namespace FluentHub.Views.RepoPages.Layouts
             CommonRepoViewModel = e.Parameter as CommonRepoViewModel;
 
             LatastCommitBlock.CommonRepoViewModel = CommonRepoViewModel;
-
-            RepoReadmeBlock.RepositoryId = CommonRepoViewModel.RepositoryId;
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
             ViewModel.CommonRepoViewModel = CommonRepoViewModel;
-            await ViewModel.EnumRepositoryContents();
+
+            if (CommonRepoViewModel.IsFile == true) return;
+
+            var ItemsCount = await ViewModel.EnumRepositoryContents();
+
+            if (RepoReadmeBlock != null)
+            {
+                RepoReadmeBlock.RepositoryId = CommonRepoViewModel.RepositoryId;
+            }
         }
 
         private void DirListView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
@@ -53,9 +59,21 @@ namespace FluentHub.Views.RepoPages.Layouts
 
             var grid = clickedItem.FindName("ListViewItemGrid") as Grid;
 
+            if (grid == null || grid.Tag == null) return;
+
             string tag = grid.Tag.ToString();
 
-            commonRepoViewModel.Path = CommonRepoViewModel.Path + tag + "/";
+            var tagItem = tag.Split("/");
+
+            if (tagItem[0] != "dir")
+            {
+                commonRepoViewModel.IsFile = true;
+                commonRepoViewModel.Path = CommonRepoViewModel.Path + tagItem[1];
+            }
+            else
+            {
+                commonRepoViewModel.Path = CommonRepoViewModel.Path + tagItem[1] + "/";
+            }
 
             App.MainViewModel.RepoMainFrame.Navigate(typeof(CodePage), commonRepoViewModel);
         }

@@ -26,7 +26,9 @@
                 </Grid.RowDefinitions>
                 <contents:LatestCommitBlock x:Name="LatastCommitBlock" Grid.Row="0" />
                 <Grid
+                    x:Name="DirListViewContentGrid"
                     Grid.Row="1"
+                    x:Load="{x:Bind ViewModel.CommonRepoViewModel.IsDir, Mode=OneWay}"
                     Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1"
@@ -85,8 +87,14 @@
                         </ListView.ItemTemplate>
                     </ListView>
                 </Grid>
-                <contents:FileContentBlock x:Name="FileContentBlock" Grid.Row="2" />
-                <contents:ReadmeContentBlock x:Name="RepoReadmeBlock" Grid.Row="3" />
+                <contents:FileContentBlock
+                    x:Name="FileContentBlock"
+                    Grid.Row="2"
+                    x:Load="{x:Bind ViewModel.CommonRepoViewModel.IsFile, Mode=OneWay}" />
+                <contents:ReadmeContentBlock
+                    x:Name="RepoReadmeBlock"
+                    Grid.Row="3"
+                    x:Load="{x:Bind ViewModel.CommonRepoViewModel.IsRootDir, Mode=OneWay}" />
             </Grid>
         </ScrollViewer>
     </Grid>

@@ -13,9 +13,6 @@ namespace FluentHub.ViewModels.RepoPages.Layouts
 {
     public class DetailsLayoutViewModel : INotifyPropertyChanged
     {
-        private long _repositoryId;
-        public long RepositoryId { get => _repositoryId; set => SetProperty(ref _repositoryId, value); }
-
         private ObservableCollection<DetailsLayoutListViewItem> items = new ObservableCollection<DetailsLayoutListViewItem>();
         public ObservableCollection<DetailsLayoutListViewItem> Items
         {
@@ -24,11 +21,18 @@ namespace FluentHub.ViewModels.RepoPages.Layouts
         }
 
         private CommonRepoViewModel commonRepoViewModel;
-        public CommonRepoViewModel CommonRepoViewModel { get => commonRepoViewModel; set => commonRepoViewModel = value; }
+        public CommonRepoViewModel CommonRepoViewModel { get => commonRepoViewModel; set => SetProperty(ref commonRepoViewModel, value); }
 
-        public async Task EnumRepositoryContents()
+        public async Task<int> EnumRepositoryContents()
         {
             var contents = await App.Client.Repository.Content.GetAllContents(CommonRepoViewModel.RepositoryId, CommonRepoViewModel.Path);
+
+            CommonRepoViewModel.IsDir = true;
+
+            if(CommonRepoViewModel.Path == "/")
+            {
+                CommonRepoViewModel.IsRootDir = true;
+            }
 
             foreach (var item in contents)
             {
@@ -37,15 +41,16 @@ namespace FluentHub.ViewModels.RepoPages.Layouts
                 if (item.Type == Octokit.ContentType.Dir)
                 {
                     listItem.ObjectTypeIconGlyph = "\uE9A0";
+                    listItem.ObjectTag = "dir/" + item.Name;
                 }
                 else
                 {
                     listItem.ObjectTypeIconGlyph = "\uE996";
+                    listItem.ObjectTag = "file/" + item.Name;
                 }
 
                 listItem.ObjectName = item.Name;
 
-                listItem.ObjectTag = item.Name;
 
                 Octokit.CommitRequest request = new Octokit.CommitRequest();
                 request.Path = item.Path;
@@ -60,6 +65,8 @@ namespace FluentHub.ViewModels.RepoPages.Layouts
             }
 
             Items = new ObservableCollection<DetailsLayoutListViewItem>(Items.OrderByDescending(x => x.ObjectTypeIconGlyph));
+
+            return Items.Count();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
