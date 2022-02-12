@@ -16,7 +16,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-
+using FluentHub.ViewModels.RepoPages;
 
 namespace FluentHub.Views.RepoPages
 {
@@ -46,7 +46,10 @@ namespace FluentHub.Views.RepoPages
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             // Default page layout is detailsview
-            CodeViewLayout.Navigate(typeof(Layouts.DetailsLayoutView), RepoId.ToString());
+            CommonRepoViewModel commonRepoViewModel = new CommonRepoViewModel();
+            commonRepoViewModel.RepositoryId = RepoId;
+
+            CodeViewLayout.Navigate(typeof(Layouts.DetailsLayoutView), commonRepoViewModel);
         }
     }
 }

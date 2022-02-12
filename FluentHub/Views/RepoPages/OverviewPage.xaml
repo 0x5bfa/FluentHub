@@ -113,7 +113,7 @@
                                 FontFamily="{StaticResource Octions}"
                                 FontSize="14"
                                 Glyph="&#xE98B;" />
-                            <TextBlock x:Name="RepoWatchCombboxWatchTextBlock" Text="{helpers:ResourceString Name=RepoWatchCombboxWatchTextBlock}" />
+                            <TextBlock x:Name="RepoWatchCombboxWatchTextBlock" Text="{helpers:ResourceString Name=RepoWatchCombboxWatch}" />
                             <muxc:InfoBadge x:Name="WatchersCountBadge" Value="0" />
                         </StackPanel>
                     </muxc:DropDownButton.Content>

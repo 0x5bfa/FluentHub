@@ -1,4 +1,5 @@
-﻿using FluentHub.ViewModels.UserControls.Repository;
+﻿using FluentHub.ViewModels.RepoPages;
+using FluentHub.ViewModels.UserControls.Repository;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,30 +19,31 @@ namespace FluentHub.UserControls.Repository
 {
     public sealed partial class LatestCommitBlock : UserControl
     {
-        #region RepositoryIdProperty
+        #region ViewModelProperty
         public static readonly DependencyProperty ViewModelProperty
         = DependencyProperty.Register(
-              nameof(ViewModel),
-              typeof(LatestCommitBlockViewModel),
+              nameof(CommonRepoViewModel),
+              typeof(CommonRepoViewModel),
               typeof(LatestCommitBlock),
               new PropertyMetadata(null)
             );
 
-        public LatestCommitBlockViewModel ViewModel
+        public CommonRepoViewModel CommonRepoViewModel
         {
-            get => (LatestCommitBlockViewModel)GetValue(ViewModelProperty);
-            set
-            {
-                SetValue(ViewModelProperty, value);
-                DataContext = ViewModel;
-                ViewModel.SetContents();
-            }
+            get => (CommonRepoViewModel)GetValue(ViewModelProperty);
+            set => SetValue(ViewModelProperty, value);
         }
         #endregion
 
         public LatestCommitBlock()
         {
             this.InitializeComponent();
+        }
+
+        private async void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            ViewModel.CommonRepoViewModel = CommonRepoViewModel;
+            await ViewModel.SetContents();
         }
     }
 }

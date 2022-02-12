@@ -7,10 +7,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:uc="using:FluentHub.UserControls"
     xmlns:vm="using:FluentHub.ViewModels.UserControls.Repository"
+    Loaded="UserControl_Loaded"
     mc:Ignorable="d">
 
     <UserControl.DataContext>
-        <vm:LatestCommitBlockViewModel />
+        <vm:LatestCommitBlockViewModel x:Name="ViewModel" />
     </UserControl.DataContext>
 
     <Grid
@@ -32,6 +33,17 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
+        <Border
+            Width="24"
+            Height="24"
+            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+            CornerRadius="{Binding AuthorAvatarImageCR}">
+            <Image
+                x:Name="RepoLatestCommitAuthorAvatar"
+                Width="24"
+                Height="24"
+                Source="{Binding AuthorAvatarImage}" />
+        </Border>
         <TextBlock
             x:Name="RepoLatestCommitAuthorName"
             Grid.Column="1"

@@ -1,4 +1,5 @@
-﻿using FluentHub.ViewModels.UserControls.Repository;
+﻿using FluentHub.ViewModels.RepoPages;
+using FluentHub.ViewModels.UserControls.Repository;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -18,6 +19,8 @@ namespace FluentHub.Views.RepoPages.Layouts
 {
     public sealed partial class DetailsLayoutView : Page
     {
+        private CommonRepoViewModel CommonRepoViewModel { get; set; }
+
         public DetailsLayoutView()
         {
             this.InitializeComponent();
@@ -26,14 +29,17 @@ namespace FluentHub.Views.RepoPages.Layouts
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            string repoIdStr = e.Parameter as string;
-            long RepoId = Convert.ToInt64(repoIdStr);
+            CommonRepoViewModel = e.Parameter as CommonRepoViewModel;
 
-            var viewModel = new LatestCommitBlockViewModel();
-            viewModel.RepositoryId = RepoId;
-            LatastCommitBlock.ViewModel = viewModel;
+            LatastCommitBlock.CommonRepoViewModel = CommonRepoViewModel;
 
-            RepoReadmeBlock.RepositoryId = RepoId;
+            RepoReadmeBlock.RepositoryId = CommonRepoViewModel.RepositoryId;
+        }
+
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            ViewModel.CommonRepoViewModel = CommonRepoViewModel;
+            await ViewModel.EnumRepositoryContents();
         }
     }
 }
