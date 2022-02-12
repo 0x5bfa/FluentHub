@@ -201,6 +201,8 @@
     <Compile Include="ViewModels\OrganizationPages\RepoListViewModel.cs" />
     <Compile Include="ViewModels\RepoPages\CodePageViewModel.cs" />
     <Compile Include="ViewModels\RepoPages\IssueListViewModel.cs" />
+    <Compile Include="ViewModels\RepoPages\Layouts\DetailsLayoutViewModel.cs" />
+    <Compile Include="ViewModels\RepoPages\Layouts\TreeLayoutViewModel.cs" />
     <Compile Include="ViewModels\RepoPages\PullRequestListViewModel.cs" />
     <Compile Include="ViewModels\SettingsManager.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />

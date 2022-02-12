@@ -23,11 +23,19 @@ namespace FluentHub.Views.RepoPages
     public sealed partial class CodePage : Windows.UI.Xaml.Controls.Page
     {
         private long RepoId { get; set; }
-        private Repository Repository { get; set; }
 
         public CodePage()
         {
             this.InitializeComponent();
+            this.SizeChanged += CodePage_SizeChanged;
+        }
+
+        private void CodePage_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (e.NewSize.Width >= 1024)
+            {
+                // Change frame content to treeview
+            }
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -35,43 +43,10 @@ namespace FluentHub.Views.RepoPages
             RepoId = Convert.ToInt64(e.Parameter as string);
         }
 
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        private void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            //Repository = await App.Client.Repository.Get(RepoId);
-
-            //RepoContentsContentBlock.RepositoryId = RepoId;
-            //RepoContentsContentBlock.Path = "";
-
-            //// Repository Description
-            //string repoDescription = Repository.Description;
-
-            //if(string.IsNullOrEmpty(repoDescription) == false)
-            //{
-            //    RepoDescription.Text = repoDescription;
-            //}
-            //else
-            //{
-            //    RepoDescription.Text = "No description found for this repositiry.";
-            //    RepoDescription.FontStyle = Windows.UI.Text.FontStyle.Italic;
-            //}
-
-            //// Repository License
-            //if (Repository.License != null)
-            //{
-            //    LicenseName.Text = Repository.License.Name;
-            //    OverviewLicenseBlock.Visibility = Visibility.Visible;
-            //}
-
-            //// Stars Count
-            //StarsCountTextBlock.Text = Repository.StargazersCount.ToString();
-
-            //// Watchers Count (Do not fix CS0618 warning)
-            //WatchingCountTextBlock.Text = Repository.SubscribersCount.ToString();
-
-            //// Forks Count
-            //ForksCountTextBlock.Text = Repository.ForksCount.ToString();
-
-            //await ViewModel.EnumRepositoryContents(RepoId);
+            // Default page layout is detailsview
+            CodeViewLayout.Navigate(typeof(Layouts.DetailsLayoutView), RepoId);
         }
     }
 }
