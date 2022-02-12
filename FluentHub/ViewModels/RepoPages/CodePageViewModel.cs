@@ -65,10 +65,7 @@ namespace FluentHub.ViewModels.RepoPages
 
                 Items.Add(listItem);
             }
-
-
             Items = new ObservableCollection<DetailsLayoutModel>(Items.OrderByDescending(x => x.ObjectTypeIconGlyph));
-
         }
 
         public async Task EnumRepositoryBranches(long repoId)
