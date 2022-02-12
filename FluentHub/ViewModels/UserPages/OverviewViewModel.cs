@@ -24,24 +24,14 @@ namespace FluentHub.ViewModels.UserPages
 
         public int GetPinnedRepos(List<long> repoIdList)
         {
-            IsEnabled = false;
-
             foreach (var repoId in repoIdList)
             {
-                IsEnabled = false;
                 RepoListItem listItem = new RepoListItem();
                 listItem.RepoId = repoId;
                 Items.Add(listItem);
-                IsEnabled = true;
             }
-
-           IsEnabled = true;
             return Items.Count();
-
-            
         }
-
-        #region PropetyChanged things
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void NotifyPropertyChanged(String info)
@@ -60,13 +50,7 @@ namespace FluentHub.ViewModels.UserPages
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
                 return true;
             }
-
             return false;
         }
-
-        private bool isEnabled;
-        public bool IsEnabled { get => isEnabled; set => SetProperty(ref isEnabled, value); }
-
-        #endregion
     }
 }
