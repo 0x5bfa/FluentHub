@@ -37,41 +37,41 @@ namespace FluentHub.Views.RepoPages
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            Repository = await App.Client.Repository.Get(RepoId);
+            //Repository = await App.Client.Repository.Get(RepoId);
 
-            RepoContentsContentBlock.RepositoryId = RepoId;
-            RepoContentsContentBlock.Path = "";
+            //RepoContentsContentBlock.RepositoryId = RepoId;
+            //RepoContentsContentBlock.Path = "";
 
-            // Repository Description
-            string repoDescription = Repository.Description;
+            //// Repository Description
+            //string repoDescription = Repository.Description;
 
-            if(string.IsNullOrEmpty(repoDescription) == false)
-            {
-                RepoDescription.Text = repoDescription;
-            }
-            else
-            {
-                RepoDescription.Text = "No description found for this repositiry.";
-                RepoDescription.FontStyle = Windows.UI.Text.FontStyle.Italic;
-            }
+            //if(string.IsNullOrEmpty(repoDescription) == false)
+            //{
+            //    RepoDescription.Text = repoDescription;
+            //}
+            //else
+            //{
+            //    RepoDescription.Text = "No description found for this repositiry.";
+            //    RepoDescription.FontStyle = Windows.UI.Text.FontStyle.Italic;
+            //}
 
-            // Repository License
-            if (Repository.License != null)
-            {
-                LicenseName.Text = Repository.License.Name;
-                OverviewLicenseBlock.Visibility = Visibility.Visible;
-            }
+            //// Repository License
+            //if (Repository.License != null)
+            //{
+            //    LicenseName.Text = Repository.License.Name;
+            //    OverviewLicenseBlock.Visibility = Visibility.Visible;
+            //}
 
-            // Stars Count
-            StarsCountTextBlock.Text = Repository.StargazersCount.ToString();
+            //// Stars Count
+            //StarsCountTextBlock.Text = Repository.StargazersCount.ToString();
 
-            // Watchers Count (Do not fix CS0618 warning)
-            WatchingCountTextBlock.Text = Repository.SubscribersCount.ToString();
+            //// Watchers Count (Do not fix CS0618 warning)
+            //WatchingCountTextBlock.Text = Repository.SubscribersCount.ToString();
 
-            // Forks Count
-            ForksCountTextBlock.Text = Repository.ForksCount.ToString();
+            //// Forks Count
+            //ForksCountTextBlock.Text = Repository.ForksCount.ToString();
 
-            await ViewModel.EnumRepositoryContents(RepoId);
+            //await ViewModel.EnumRepositoryContents(RepoId);
         }
     }
 }
