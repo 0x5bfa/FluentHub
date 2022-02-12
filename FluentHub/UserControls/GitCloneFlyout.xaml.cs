@@ -34,7 +34,7 @@ namespace FluentHub.UserControls
         }
         #endregion
 
-        private Repository repository { get; set; }
+        private Octokit.Repository repository { get; set; }
 
         public GitCloneFlyout()
         {

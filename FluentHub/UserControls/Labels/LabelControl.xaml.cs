@@ -16,7 +16,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 
-namespace FluentHub.UserControls.Label
+namespace FluentHub.UserControls.Labels
 {
     public sealed partial class LabelControl : UserControl
     {

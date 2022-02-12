@@ -16,7 +16,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace FluentHub.UserControls
+namespace FluentHub.UserControls.Repository
 {
     public sealed partial class ReadmeContentBlock : UserControl
     {
@@ -25,7 +25,7 @@ namespace FluentHub.UserControls
         = DependencyProperty.Register(
               nameof(RepositoryId),
               typeof(long),
-              typeof(GitCloneFlyout),
+              typeof(ReadmeContentBlock),
               new PropertyMetadata(null)
             );
 
@@ -40,6 +40,22 @@ namespace FluentHub.UserControls
         }
         #endregion
 
+        #region RepositoryPathProperty
+        public static readonly DependencyProperty RepositoryPathProperty
+        = DependencyProperty.Register(
+              nameof(RepositoryPath),
+              typeof(string),
+              typeof(ReadmeContentBlock),
+              new PropertyMetadata(null)
+            );
+
+        public string RepositoryPath
+        {
+            get => (string)GetValue(RepositoryPathProperty);
+            set => SetValue(RepositoryPathProperty, value);
+        }
+        #endregion
+
         public ReadmeContentBlock()
         {
             this.InitializeComponent();
@@ -47,10 +63,7 @@ namespace FluentHub.UserControls
 
         private async void LoadContents()
         {
-            if (RepositoryId == 0)
-            {
-                return;
-            }
+            if (RepositoryId == 0) return;
 
             var repo = await App.Client.Repository.Get(RepositoryId);
 

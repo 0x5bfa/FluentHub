@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentHub.ViewModels.UserControls.Repository;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,18 +14,26 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace FluentHub.Views.RepoPages.Layouts
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
     public sealed partial class DetailsLayoutView : Page
     {
         public DetailsLayoutView()
         {
             this.InitializeComponent();
+
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            string repoIdStr = e.Parameter as string;
+            long RepoId = Convert.ToInt64(repoIdStr);
+
+            var viewModel = new LatestCommitBlockViewModel();
+            viewModel.RepositoryId = RepoId;
+            LatastCommitBlock.ViewModel = viewModel;
+
+            RepoReadmeBlock.RepositoryId = RepoId;
         }
     }
 }

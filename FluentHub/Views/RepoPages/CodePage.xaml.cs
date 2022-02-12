@@ -46,7 +46,7 @@ namespace FluentHub.Views.RepoPages
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             // Default page layout is detailsview
-            CodeViewLayout.Navigate(typeof(Layouts.DetailsLayoutView), RepoId);
+            CodeViewLayout.Navigate(typeof(Layouts.DetailsLayoutView), RepoId.ToString());
         }
     }
 }

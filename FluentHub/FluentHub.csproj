@@ -177,23 +177,17 @@
     <Compile Include="UserControls\Labels\StateLabel.xaml.cs">
       <DependentUpon>StateLabel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ReadmeContentBlock.xaml.cs">
+    <Compile Include="UserControls\Repository\ReadmeContentBlock.xaml.cs">
       <DependentUpon>ReadmeContentBlock.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\RepositoryOverviewContentBlock.xaml.cs">
-      <DependentUpon>RepositoryOverviewContentBlock.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\RepositoryTreeContentBlock.xaml.cs">
-      <DependentUpon>RepositoryTreeContentBlock.xaml</DependentUpon>
+    <Compile Include="UserControls\Repository\LatestCommitBlock.xaml.cs">
+      <DependentUpon>LatestCommitBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\SettingsBlockControl.xaml.cs">
       <DependentUpon>SettingsBlockControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\SettingsDisplayControl.xaml.cs">
       <DependentUpon>SettingsDisplayControl.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\UserAvatar.xaml.cs">
-      <DependentUpon>UserAvatar.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
@@ -206,7 +200,7 @@
     <Compile Include="ViewModels\RepoPages\PullRequestListViewModel.cs" />
     <Compile Include="ViewModels\SettingsManager.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\RepositoryTreeContentBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Repository\LatestCommitBlockViewModel.cs" />
     <Compile Include="ViewModels\UserPages\ActivityViewModel.cs" />
     <Compile Include="ViewModels\UserPages\NotificationViewModel.cs" />
     <Compile Include="ViewModels\UserPages\ProfilePageViewModel.cs" />
@@ -439,15 +433,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\ReadmeContentBlock.xaml">
+    <Page Include="UserControls\Repository\ReadmeContentBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\RepositoryOverviewContentBlock.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\RepositoryTreeContentBlock.xaml">
+    <Page Include="UserControls\Repository\LatestCommitBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -456,10 +446,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\SettingsDisplayControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\UserAvatar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

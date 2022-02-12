@@ -15,7 +15,7 @@
         <vm:CodePageViewModel x:Name="ViewModel" />
     </Page.DataContext>
 
-    <Grid Margin="18,18,18,18">
+    <Grid>
         <Frame x:Name="CodeViewLayout" />
     </Grid>
 </Page>
