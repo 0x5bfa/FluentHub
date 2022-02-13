@@ -116,7 +116,7 @@
         </trans-unit>
         <trans-unit id="RepoForkButtonTextBlock.Text" translate="yes" xml:space="preserve">
           <source>Fork</source>
-          <target state="translated">Birfurcar</target>
+          <target state="translated">Bifurcar</target>
         </trans-unit>
         <trans-unit id="RepoPageNavViewItemCode.Content" translate="yes" xml:space="preserve">
           <source>Code</source>
