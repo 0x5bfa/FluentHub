@@ -1,4 +1,5 @@
 ﻿using FluentHub.Helpers;
+using FluentHub.ViewModels;
 using FluentHub.ViewModels.AppSettingsPages;
 using System;
 using System.Collections.Generic;
@@ -21,13 +22,31 @@ namespace FluentHub.Views.AppSettingsPages
 {
     public sealed partial class GeneralSettingsPage : Page
     {
+        public static SettingsViewModel Settings { get; private set; } = new SettingsViewModel();
+
         public GeneralSettingsPage()
         {
             this.InitializeComponent();
             themeComboBox.PlaceholderText = ThemeHelper.ActualTheme.ToString();
         }
 
-        private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+         private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+         {
+             if (themeComboBox.SelectedItem != null)
+             {
+                 ComboBoxItem cbi = (ComboBoxItem)themeComboBox.SelectedItem;
+
+                 var selectedTheme = cbi.Tag.ToString();
+
+                 if (selectedTheme != null)
+                 {
+                     ThemeHelper.RootTheme = App.GetEnum<ElementTheme>(selectedTheme);
+                    Settings.AppTheme = selectedTheme;
+                 }
+             }
+         }
+
+       /* private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (themeComboBox.SelectedItem != null)
             {
@@ -35,12 +54,16 @@ namespace FluentHub.Views.AppSettingsPages
 
                 var selectedTheme = cbi.Tag.ToString();
 
-                if (selectedTheme != null)
+                if (selectedTheme == "Dark")
                 {
-                    ThemeHelper.RootTheme = App.GetEnum<ElementTheme>(selectedTheme);
+                    Settings.AppTheme = ApplicationTheme.Dark;
+                }
+                else
+                {
+                    Settings.AppTheme = ApplicationTheme.Light;
                 }
             }
-        }
+        }*/
 
         private void languageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {

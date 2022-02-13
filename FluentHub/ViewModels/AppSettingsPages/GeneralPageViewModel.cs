@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.AppSettingsPages
 {
+    #region Languages
     public class LanguageCB
     {
         public string PrimaryLangTag { get ; set; }
@@ -50,6 +51,7 @@ namespace FluentHub.ViewModels.AppSettingsPages
 
             Items.Insert(0, defaultLangCB);
         }
+        #endregion
 
         protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
         {
@@ -62,5 +64,7 @@ namespace FluentHub.ViewModels.AppSettingsPages
 
             return false;
         }
+
+
     }
 }

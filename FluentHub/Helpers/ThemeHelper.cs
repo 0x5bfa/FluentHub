@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentHub.ViewModels;
+using System;
 using Windows.Storage;
 using Windows.UI;
 using Windows.UI.ViewManagement;
@@ -12,6 +13,7 @@ namespace FluentHub.Helpers
         private static Window CurrentApplicationWindow;
         // Keep reference so it does not get optimized/garbage collected
         private static UISettings uiSettings;
+        public static SettingsViewModel Settings { get; private set; } = new SettingsViewModel();
         /// <summary>
         /// Gets the current actual theme of the app based on the requested theme of the
         /// root element, or if that value is Default, the requested theme of the Application.
@@ -27,8 +29,9 @@ namespace FluentHub.Helpers
                         return rootElement.RequestedTheme;
                     }
                 }
-
-                return FluentHub.App.GetEnum<ElementTheme>(App.Current.RequestedTheme.ToString());
+                string currentTheme = App.Current.RequestedTheme.ToString();
+                Settings.AppTheme = currentTheme;
+                return FluentHub.App.GetEnum<ElementTheme>(currentTheme);
             }
         }
 
@@ -62,7 +65,7 @@ namespace FluentHub.Helpers
         {
             // Save reference as this might be null when the user is in another app
             CurrentApplicationWindow = Window.Current;
-            string savedTheme = ApplicationData.Current.LocalSettings.Values[SelectedAppThemeKey]?.ToString();
+            string savedTheme = Settings.AppTheme; //ApplicationData.Current.LocalSettings.Values[SelectedAppThemeKey]?.ToString();
 
             if (savedTheme != null)
             {
@@ -91,6 +94,7 @@ namespace FluentHub.Helpers
         {
             if (RootTheme == ElementTheme.Default)
             {
+                Settings.AppTheme = "Dark";
                 return Application.Current.RequestedTheme == ApplicationTheme.Dark;
             }
             return RootTheme == ElementTheme.Dark;

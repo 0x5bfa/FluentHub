@@ -28,9 +28,9 @@ namespace FluentHub.ViewModels
             set => Set(nameof(AccessToken), value);
         }
 
-        public ApplicationTheme AppTheme
+        public string AppTheme
         {
-            get => Get(nameof(AppTheme), Application.Current.RequestedTheme);
+            get => Get(nameof(AppTheme), "Default");
             set => Set(nameof(AppTheme), value);
         }
 

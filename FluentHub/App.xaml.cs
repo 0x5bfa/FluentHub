@@ -56,6 +56,7 @@ namespace FluentHub
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+            
 
             if (Settings.SetupCompleted == true)
             {
@@ -90,7 +91,6 @@ namespace FluentHub
             CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
             ApplicationView.GetForCurrentView().TitleBar.ButtonBackgroundColor = Colors.Transparent;
             ApplicationView.GetForCurrentView().TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-            ThemeHelper.Initialize();
 
             if (rootFrame == null)
             {
@@ -124,6 +124,7 @@ namespace FluentHub
                         rootFrame.Navigate(typeof(IntroPage), e.Arguments) :
                         rootFrame.Navigate(typeof(MainPage), e.Arguments);
                 }
+                ThemeHelper.Initialize();
 
                 Window.Current.Activate();
             }
