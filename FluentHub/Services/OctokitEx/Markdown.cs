@@ -1,4 +1,5 @@
 ﻿using FluentHub.Helpers;
+using FluentHub.ViewModels;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,8 @@ namespace FluentHub.Services.OctokitEx
 {
     public class Markdown
     {
-        ApplicationTheme appTheme = Application.Current.RequestedTheme;
+        public static SettingsViewModel Settings { get; private set; } = new SettingsViewModel();
+        string appTheme = Settings.AppTheme;
 
         public async Task<string> GetHtml(string markdown, string missedPath)
         {
@@ -32,7 +34,7 @@ namespace FluentHub.Services.OctokitEx
 
             string fullHtml
                 = ((string)indexHtml!.Clone())
-                .Replace("{{renderTheme}}", appTheme.ToString().ToLower())
+                .Replace("{{renderTheme}}", appTheme.ToLower())
                 .Replace("{{htmlBody}}", htmlBody);
 
             fullHtml = FixRelativeLink(fullHtml, missedPath);
