@@ -18,13 +18,13 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0">
+        <StackPanel Grid.Column="0" Spacing="4">
             <uc:SettingsBlockControl
                 Title="Theme"
                 Description="Choose the theme that you want to use in the app."
                 IsClickable="False">
                 <uc:SettingsBlockControl.Icon>
-                    <FontIcon FontFamily="{StaticResource Fluent Icons}" Glyph="&#xE76D;" />
+                    <FontIcon FontFamily="{StaticResource Fluent Icons}" Glyph="&#xE771;" />
                 </uc:SettingsBlockControl.Icon>
                 <ComboBox
                     x:Name="themeComboBox"
@@ -40,7 +40,7 @@
                 Description="Choose the language that you want to use in the app."
                 IsClickable="False">
                 <uc:SettingsBlockControl.Icon>
-                    <FontIcon FontFamily="{StaticResource Fluent Icons}" Glyph="&#xE76D;" />
+                    <FontIcon FontFamily="{StaticResource Fluent Icons}" Glyph="&#xF2B7;" />
                 </uc:SettingsBlockControl.Icon>
                 <ComboBox
                     x:Name="languageComboBox"

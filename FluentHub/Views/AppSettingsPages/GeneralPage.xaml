@@ -9,29 +9,51 @@
     mc:Ignorable="d">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Margin="20,20,20,12">
-            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Settings" />
-        </Grid>
-
-        <Grid Grid.Row="1" Padding="5">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+        <Grid Padding="5">
             <muxc:NavigationView
                 x:Name="SettingsNavView"
-                Grid.Column="1"
                 IsBackButtonVisible="Collapsed"
                 IsPaneOpen="True"
                 IsPaneToggleButtonVisible="False"
                 IsSettingsVisible="False"
-                OpenPaneLength="250"
+                IsTitleBarAutoPaddingEnabled="False"
+                OpenPaneLength="270"
                 SelectionChanged="SettingsNavView_SelectionChanged">
-
+                <muxc:NavigationView.PaneHeader>
+                    <Button
+                        Height="76"
+                        Margin="4,12"
+                        Padding="8,6"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Left"
+                        Background="Transparent"
+                        Style="{StaticResource ClearButtonStyle}">
+                        <Grid ColumnSpacing="12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Border
+                                Width="60"
+                                Height="60"
+                                HorizontalAlignment="Left"
+                                Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                                CornerRadius="30">
+                                <Image x:Name="AppSignedInUserAvatar" />
+                            </Border>
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="UserName" />
+                                <TextBlock
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                    Text="mail@outlook.com" />
+                            </StackPanel>
+                        </Grid>
+                    </Button>
+                </muxc:NavigationView.PaneHeader>
+                <muxc:NavigationView.AutoSuggestBox>
+                    <AutoSuggestBox Margin="-12,0" PlaceholderText="Search app settings" />
+                </muxc:NavigationView.AutoSuggestBox>
                 <muxc:NavigationView.MenuItems>
                     <muxc:NavigationViewItem
                         x:Uid="SettingsNavViewItemGeneral"
@@ -49,10 +71,22 @@
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
                 </muxc:NavigationView.FooterMenuItems>
-                <Frame
-                    x:Name="SettingsContentFrame"
-                    Grid.Column="0"
-                    Background="Transparent" />
+                <muxc:NavigationView.Content>
+                    <Grid Margin="32,12,0,0" RowSpacing="12">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            x:Name="NavViewFrameTitleTextBlock"
+                            Style="{StaticResource TitleTextBlockStyle}"
+                            Text="General" />
+                        <Frame
+                            x:Name="SettingsContentFrame"
+                            Grid.Row="1"
+                            Background="Transparent" />
+                    </Grid>
+                </muxc:NavigationView.Content>
             </muxc:NavigationView>
         </Grid>
     </Grid>
