@@ -129,6 +129,9 @@
   <data name="EditProfileButton.Content" xml:space="preserve">
     <value>Edit profile</value>
   </data>
+  <data name="FirstNumberedListInWebAuth.Text" xml:space="preserve">
+    <value>Click Opwn with Browser.</value>
+  </data>
   <data name="FollowButton.Content" xml:space="preserve">
     <value>Follow</value>
   </data>
@@ -157,7 +160,7 @@
     <value>Profile</value>
   </data>
   <data name="HowToSignInTextBlock.Text" xml:space="preserve">
-    <value>You can sign in to GitHub in various ways. By authenticating, you can access more GitHub data and gain more experience.</value>
+    <value>By authenticating, you can access more GitHub data and gain more experience.</value>
   </data>
   <data name="Issues" xml:space="preserve">
     <value>Issues</value>
@@ -225,6 +228,9 @@
   <data name="RepoWatchCombboxWatch" xml:space="preserve">
     <value>Watch</value>
   </data>
+  <data name="SecondNumberedListInWebAuth.Text" xml:space="preserve">
+    <value>Click Open FluentHub Dev in your browser.</value>
+  </data>
   <data name="Star" xml:space="preserve">
     <value>Star</value>
   </data>
@@ -233,6 +239,9 @@
   </data>
   <data name="StartSetupButton.Content" xml:space="preserve">
     <value>Start setup</value>
+  </data>
+  <data name="ThirdNumberedListInWebAuth.Text" xml:space="preserve">
+    <value>Back to FluentHub.</value>
   </data>
   <data name="ToobarBackButton.ToolTipService.ToolTip" xml:space="preserve">
     <value>Back</value>

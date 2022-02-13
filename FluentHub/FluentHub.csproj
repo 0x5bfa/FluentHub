@@ -128,9 +128,6 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\SettingsControlConverter.cs" />
-    <Compile Include="Dialogs\SetupDialog.xaml.cs">
-      <DependentUpon>SetupDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Helpers\Base64Helpers.cs" />
     <Compile Include="Helpers\ColorHelpers.cs" />
     <Compile Include="Helpers\InternetConnectionHelpers.cs" />
@@ -267,6 +264,9 @@
     <Compile Include="Views\RepoPages\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SignInPages\SignInPage.xaml.cs">
+      <DependentUpon>SignInPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UserHomePage.xaml.cs">
       <DependentUpon>UserHomePage.xaml</DependentUpon>
     </Compile>
@@ -300,8 +300,8 @@
     <Compile Include="Views\UserPages\StarListPage.xaml.cs">
       <DependentUpon>StarListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WelcomePage.xaml.cs">
-      <DependentUpon>WelcomePage.xaml</DependentUpon>
+    <Compile Include="Views\SignInPages\IntroPage.xaml.cs">
+      <DependentUpon>IntroPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -382,10 +382,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Dialogs\SetupDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ResourceDictionaries\LinkLikeButtonStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -530,6 +526,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\SignInPages\SignInPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\UserHomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -574,7 +574,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\WelcomePage.xaml">
+    <Page Include="Views\SignInPages\IntroPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -621,6 +621,9 @@
   </ItemGroup>
   <ItemGroup>
     <XliffResource Include="MultilingualResources\FluentHub.ja-JP.xlf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Dialogs\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

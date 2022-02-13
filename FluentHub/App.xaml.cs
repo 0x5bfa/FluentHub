@@ -3,6 +3,7 @@ using FluentHub.Services;
 using FluentHub.Services.Auth;
 using FluentHub.ViewModels;
 using FluentHub.Views;
+using FluentHub.Views.SignInPages;
 using Octokit;
 using Serilog;
 using System;
@@ -66,7 +67,7 @@ namespace FluentHub
                     Settings.SetupProgress = false;
                     Settings.SetupCompleted = false;
 
-                    rootFrame.Navigate(typeof(WelcomePage));
+                    rootFrame.Navigate(typeof(IntroPage));
                 }
             }
         }
@@ -118,7 +119,7 @@ namespace FluentHub
                     IntializeLogger();
 
                     _ = !Settings.SetupCompleted ?
-                        rootFrame.Navigate(typeof(WelcomePage), e.Arguments) :
+                        rootFrame.Navigate(typeof(IntroPage), e.Arguments) :
                         rootFrame.Navigate(typeof(MainPage), e.Arguments);
                 }
 

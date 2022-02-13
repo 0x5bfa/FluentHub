@@ -46,7 +46,7 @@
     <value>プロフィール</value>
   </data>
   <data name="HowToSignInTextBlock.Text" xml:space="preserve">
-    <value>GitHubには様々な方法でサインインすることができます。認証を行うことで、より多くのGitHubのデータにアクセスすることができ、より多くのエクスペリエンスを得ることができます。</value>
+    <value>認証を行うことで、より多くのGitHubのデータにアクセスすることができ、より多くのエクスペリエンスを得ることができます。</value>
   </data>
   <data name="OnlyWebAuthIsValidInfoBar.Message" xml:space="preserve">
     <value>将来的には、パスワード認証とトークン認証が可能になる予定です。</value>
@@ -161,5 +161,20 @@
   </data>
   <data name="UserSpecialReadmeTextBlock.Text" xml:space="preserve">
     <value>README</value>
+  </data>
+  <data name="EditProfileButton.Content" xml:space="preserve">
+    <value>プロフィールを編集</value>
+  </data>
+  <data name="FollowButton.Content" xml:space="preserve">
+    <value>フォロー</value>
+  </data>
+  <data name="FirstNumberedListInWebAuth.Text" xml:space="preserve">
+    <value>ブラウザで開くをクリック。</value>
+  </data>
+  <data name="SecondNumberedListInWebAuth.Text" xml:space="preserve">
+    <value>ブラウザで FluentHub Dev を開くをクリック。</value>
+  </data>
+  <data name="ThirdNumberedListInWebAuth.Text" xml:space="preserve">
+    <value>FluentHub に戻る。</value>
   </data>
 </root>

@@ -51,8 +51,8 @@
           <target state="translated">プロフィール</target>
         </trans-unit>
         <trans-unit id="HowToSignInTextBlock.Text" translate="yes" xml:space="preserve">
-          <source>You can sign in to GitHub in various ways. By authenticating, you can access more GitHub data and gain more experience.</source>
-          <target state="translated">GitHubには様々な方法でサインインすることができます。認証を行うことで、より多くのGitHubのデータにアクセスすることができ、より多くのエクスペリエンスを得ることができます。</target>
+          <source>By authenticating, you can access more GitHub data and gain more experience.</source>
+          <target state="translated">認証を行うことで、より多くのGitHubのデータにアクセスすることができ、より多くのエクスペリエンスを得ることができます。</target>
         </trans-unit>
         <trans-unit id="OnlyWebAuthIsValidInfoBar.Message" translate="yes" xml:space="preserve">
           <source>In the future, password and token authentication will be enabled.</source>
@@ -208,11 +208,23 @@
         </trans-unit>
         <trans-unit id="EditProfileButton.Content" translate="yes" xml:space="preserve">
           <source>Edit profile</source>
-          <target state="new">Edit profile</target>
+          <target state="translated">プロフィールを編集</target>
         </trans-unit>
         <trans-unit id="FollowButton.Content" translate="yes" xml:space="preserve">
           <source>Follow</source>
-          <target state="new">Follow</target>
+          <target state="translated">フォロー</target>
+        </trans-unit>
+        <trans-unit id="FirstNumberedListInWebAuth.Text" translate="yes" xml:space="preserve">
+          <source>Click Opwn with Browser.</source>
+          <target state="translated">ブラウザで開くをクリック。</target>
+        </trans-unit>
+        <trans-unit id="SecondNumberedListInWebAuth.Text" translate="yes" xml:space="preserve">
+          <source>Click Open FluentHub Dev in your browser.</source>
+          <target state="translated">ブラウザで FluentHub Dev を開くをクリック。</target>
+        </trans-unit>
+        <trans-unit id="ThirdNumberedListInWebAuth.Text" translate="yes" xml:space="preserve">
+          <source>Back to FluentHub.</source>
+          <target state="translated">FluentHub に戻る。</target>
         </trans-unit>
       </group>
     </body>
