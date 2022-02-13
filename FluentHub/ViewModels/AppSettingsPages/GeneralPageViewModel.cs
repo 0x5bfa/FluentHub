@@ -35,7 +35,7 @@ namespace FluentHub.ViewModels.AppSettingsPages
         {
             foreach(var langItem in Windows.Globalization.ApplicationLanguages.ManifestLanguages)
             {
-                var country = new CultureInfo(langItem).DisplayName;
+                var country = new CultureInfo(langItem).NativeName;
 
                 LanguageCB langCB = new LanguageCB();
 

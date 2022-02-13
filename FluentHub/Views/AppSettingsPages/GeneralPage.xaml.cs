@@ -35,9 +35,11 @@ namespace FluentHub.Views.AppSettingsPages
             {
                 case "General":
                     SettingsContentFrame.Navigate(typeof(GeneralSettingsPage));
+                    NavViewFrameTitleTextBlock.Text = "General";
                     break;
                 case "AboutUs":
                     SettingsContentFrame.Navigate(typeof(AboutUsPage));
+                    NavViewFrameTitleTextBlock.Text = "About Us";
                     break;
             }
 

@@ -28,6 +28,7 @@ namespace FluentHub.Views.AppSettingsPages
         {
             this.InitializeComponent();
             themeComboBox.PlaceholderText = ThemeHelper.ActualTheme.ToString();
+            languageComboBox.PlaceholderText = new CultureInfo(ApplicationLanguages.PrimaryLanguageOverride).NativeName;
         }
 
          private void ComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
