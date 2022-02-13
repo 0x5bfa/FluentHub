@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:FluentHub.UserControls.Repository"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:monaco="using:Monaco"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -87,5 +88,12 @@
             </StackPanel>
         </Grid>
         <MenuFlyoutSeparator Grid.Row="1" />
+        <Grid Grid.Row="2">
+            <!--<monaco:CodeEditor
+                x:Name="Editor"
+                CodeLanguage="csharp"
+                HasGlyphMargin="True"
+                Text="" />-->
+        </Grid>
     </Grid>
 </UserControl>

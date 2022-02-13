@@ -598,6 +598,9 @@
     <PackageReference Include="Microsoft.UI.Xaml">
       <Version>2.8.0-prerelease.220118001</Version>
     </PackageReference>
+    <PackageReference Include="Monaco.Editor">
+        <Version>0.9.0-beta</Version>
+    </PackageReference>
     <PackageReference Include="Octokit">
       <Version>0.50.0</Version>
     </PackageReference>
