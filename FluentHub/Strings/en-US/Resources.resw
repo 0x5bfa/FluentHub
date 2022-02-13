@@ -228,6 +228,12 @@
   <data name="RepoWatchCombboxWatch" xml:space="preserve">
     <value>Watch</value>
   </data>
+  <data name="SettingsNavViewItemAboutUs.Content" xml:space="preserve">
+    <value>About Us</value>
+  </data>
+  <data name="SettingsNavViewItemGeneral.Content" xml:space="preserve">
+    <value>General</value>
+  </data>
   <data name="SecondNumberedListInWebAuth.Text" xml:space="preserve">
     <value>Click Open FluentHub Dev in your browser.</value>
   </data>

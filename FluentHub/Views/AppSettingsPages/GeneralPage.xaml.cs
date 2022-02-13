@@ -29,6 +29,17 @@ namespace FluentHub.Views.AppSettingsPages
 
         private void SettingsNavView_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
         {
+            string tag = args.SelectedItemContainer.Tag.ToString();
+
+            switch (tag)
+            {
+                case "General":
+                    SettingsContentFrame.Navigate(typeof(GeneralSettingsPage));
+                    break;
+                case "AboutUs":
+                    SettingsContentFrame.Navigate(typeof(AboutUsPage));
+                    break;
+            }
 
         }
     }

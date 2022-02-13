@@ -7,6 +7,7 @@
     <Application.Resources>
         <ResourceDictionary>
             <FontFamily x:Key="Octions">/Assets/Octions.ttf#octions</FontFamily>
+            <FontFamily x:Key="Fluent Icons">/Assets/Segoe  Fluent  Icons  Normal.ttf#Segoe Fluent Icons</FontFamily>
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" ControlsResourcesVersion="Version2" />
                 <ResourceDictionary>

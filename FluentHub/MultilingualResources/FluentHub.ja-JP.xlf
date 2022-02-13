@@ -226,6 +226,14 @@
           <source>Back to FluentHub.</source>
           <target state="translated">FluentHub に戻る。</target>
         </trans-unit>
+        <trans-unit id="SettingsNavViewItemAboutUs.Content" translate="yes" xml:space="preserve">
+          <source>About Us</source>
+          <target state="new">About Us</target>
+        </trans-unit>
+        <trans-unit id="SettingsNavViewItemGeneral.Content" translate="yes" xml:space="preserve">
+          <source>General</source>
+          <target state="new">General</target>
+        </trans-unit>
       </group>
     </body>
   </file>

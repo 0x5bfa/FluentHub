@@ -6,6 +6,7 @@
     xmlns:local="using:FluentHub.Views.AppSettingsPages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    RequestedTheme="Light"
     mc:Ignorable="d">
 
     <Grid>
@@ -17,25 +18,43 @@
             <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Settings" />
         </Grid>
 
-        <Grid Grid.Row="1" Padding="15">
+        <Grid Grid.Row="1" Padding="5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <muxc:NavigationView
                 x:Name="SettingsNavView"
-                Grid.Column="0"
+                Grid.Column="1"
+                IsBackButtonVisible="Collapsed"
                 IsPaneOpen="True"
                 IsPaneToggleButtonVisible="False"
+                IsSettingsVisible="False"
                 OpenPaneLength="250"
                 SelectionChanged="SettingsNavView_SelectionChanged">
 
-                <muxc:NavigationView.MenuItems />
+                <muxc:NavigationView.MenuItems>
+                    <muxc:NavigationViewItem
+                        x:Uid="SettingsNavViewItemGeneral"
+                        IsSelected="True"
+                        Tag="General">
+                        <muxc:NavigationViewItem.Icon>
+                            <FontIcon FontFamily="{StaticResource Fluent Icons}" Glyph="&#xE13D;" />
+                        </muxc:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem>
+                </muxc:NavigationView.MenuItems>
+                <muxc:NavigationView.FooterMenuItems>
+                    <muxc:NavigationViewItem x:Uid="SettingsNavViewItemAboutUs" Tag="AboutUs">
+                        <muxc:NavigationViewItem.Icon>
+                            <FontIcon FontFamily="{StaticResource Fluent Icons}" Glyph="&#xE946;" />
+                        </muxc:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem>
+                </muxc:NavigationView.FooterMenuItems>
+                <Frame
+                    x:Name="SettingsContentFrame"
+                    Grid.Column="0"
+                    Background="Transparent" />
             </muxc:NavigationView>
-            <Frame
-                x:Name="SettingsContentFrame"
-                Grid.Column="1"
-                Background="{ThemeResource LayerFillColorDefaultBrush}" />
         </Grid>
     </Grid>
 </Page>
