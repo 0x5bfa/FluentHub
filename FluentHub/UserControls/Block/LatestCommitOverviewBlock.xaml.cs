@@ -85,7 +85,6 @@ namespace FluentHub.UserControls.Block
             RepoLatestCommitUpdatedAtHumanized.Text = commits[0].Commit.Author.Date.Humanize();
 
             RepoCommitsCount.Text = commits.Count().ToString();
-
         }
     }
 }

@@ -34,7 +34,5 @@ namespace FluentHub.Views.HomePages
 
             base.OnNavigatedTo(e);
         }
-
-
     }
 }

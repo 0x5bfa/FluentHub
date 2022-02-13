@@ -24,7 +24,6 @@ namespace FluentHub.Views.RepoPages.Layouts
         public DetailsLayoutView()
         {
             this.InitializeComponent();
-
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
