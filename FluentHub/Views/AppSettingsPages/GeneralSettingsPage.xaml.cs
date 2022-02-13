@@ -1,11 +1,14 @@
 ﻿using FluentHub.Helpers;
+using FluentHub.ViewModels.AppSettingsPages;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Globalization;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -14,13 +17,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// La plantilla de elemento Página en blanco está documentada en https://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace FluentHub.Views.AppSettingsPages
 {
-    /// <summary>
-    /// Una página vacía que se puede usar de forma independiente o a la que se puede navegar dentro de un objeto Frame.
-    /// </summary>
     public sealed partial class GeneralSettingsPage : Page
     {
         public GeneralSettingsPage()
@@ -42,8 +40,27 @@ namespace FluentHub.Views.AppSettingsPages
                     ThemeHelper.RootTheme = App.GetEnum<ElementTheme>(selectedTheme);
                 }
             }
+        }
 
+        private void languageComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (languageComboBox.SelectedItem != null)
+            {
+                LanguageCB lcb = (LanguageCB)languageComboBox.SelectedItem;
 
+                if (lcb.PrimaryLangTag == "win-default")
+                {
+                    var ci = new CultureInfo(Windows.System.UserProfile.GlobalizationPreferences.Languages[0].ToString());
+                    lcb.PrimaryLangTag = ci.Name;
+                }
+
+                ApplicationLanguages.PrimaryLanguageOverride = lcb.PrimaryLangTag;
+            }
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            ViewModel.EnumAvailableLanguages();
         }
     }
 }

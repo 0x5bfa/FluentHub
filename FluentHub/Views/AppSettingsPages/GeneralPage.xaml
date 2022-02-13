@@ -6,7 +6,6 @@
     xmlns:local="using:FluentHub.Views.AppSettingsPages"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    RequestedTheme="Light"
     mc:Ignorable="d">
 
     <Grid>

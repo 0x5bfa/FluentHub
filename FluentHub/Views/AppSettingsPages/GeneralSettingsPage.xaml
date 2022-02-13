@@ -7,8 +7,13 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:FluentHub.UserControls"
+    xmlns:vm="using:FluentHub.ViewModels.AppSettingsPages"
+    Loaded="Page_Loaded"
     mc:Ignorable="d">
 
+    <Page.DataContext>
+        <vm:GeneralPageViewModel x:Name="ViewModel" />
+    </Page.DataContext>
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -29,7 +34,27 @@
                     <ComboBoxItem Content="Light" Tag="Light" />
                     <ComboBoxItem Content="Dark" Tag="Dark" />
                 </ComboBox>
-
+            </uc:SettingsBlockControl>
+            <uc:SettingsBlockControl
+                Title="Language"
+                Description="Choose the language that you want to use in the app."
+                IsClickable="False">
+                <uc:SettingsBlockControl.Icon>
+                    <FontIcon FontFamily="{StaticResource Fluent Icons}" Glyph="&#xE76D;" />
+                </uc:SettingsBlockControl.Icon>
+                <ComboBox
+                    x:Name="languageComboBox"
+                    ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
+                    PlaceholderText="Choose languages"
+                    SelectionChanged="languageComboBox_SelectionChanged">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate x:DataType="vm:LanguageCB">
+                            <Grid x:Name="LanguageComboBoxItemGrid" Tag="{x:Bind PrimaryLangTag, Mode=OneWay}">
+                                <TextBlock Text="{x:Bind CanonicalLangName, Mode=OneWay}" />
+                            </Grid>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
             </uc:SettingsBlockControl>
         </StackPanel>
     </Grid>
