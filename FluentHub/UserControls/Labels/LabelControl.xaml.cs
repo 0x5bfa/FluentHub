@@ -16,7 +16,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 
-namespace FluentHub.UserControls.Label
+namespace FluentHub.UserControls.Labels
 {
     public sealed partial class LabelControl : UserControl
     {
@@ -101,7 +101,7 @@ namespace FluentHub.UserControls.Label
             float perceivedLightness = ((R * 0.2126F) + (G * 0.7152F) + (B * 0.0722F)) / 255F;
             float lightnessSwitch = (perceivedLightness - lightnessThreshold) * -1000;
             lightnessSwitch = ((lightnessSwitch < 1) ? lightnessSwitch : 1);
-            lightnessSwitch =( (0 > lightnessSwitch) ? 0 : lightnessSwitch);
+            lightnessSwitch =( (lightnessSwitch < 0) ? 0 : lightnessSwitch);
 
             float lightenBy = ((lightnessThreshold - perceivedLightness) * 100) * lightnessSwitch;
 

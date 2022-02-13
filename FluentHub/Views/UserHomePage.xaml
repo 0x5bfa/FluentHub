@@ -155,7 +155,7 @@
             <muxc:NavigationView.Content>
                 <Frame
                     x:Name="HomeContentFrame"
-                    Grid.Column="1"
+                    Grid.Column="0"
                     Background="{ThemeResource LayerFillColorDefaultBrush}" />
             </muxc:NavigationView.Content>
         </muxc:NavigationView>

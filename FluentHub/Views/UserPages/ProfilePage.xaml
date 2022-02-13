@@ -82,12 +82,12 @@
                         Margin="12,0,0,0"
                         VerticalAlignment="Center">
                         <TextBlock
-                            x:Name="FullName"
+                            x:Name="LoginNameTextBlock"
                             VerticalAlignment="Center"
                             FontWeight="SemiBold"
                             Style="{StaticResource SubtitleTextBlockStyle}" />
                         <TextBlock
-                            x:Name="Username"
+                            x:Name="UserNameTextBlock"
                             VerticalAlignment="Center"
                             FontSize="13"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
@@ -104,13 +104,13 @@
                         Spacing="8">
                         <Button
                             x:Name="FollowButton"
+                            x:Uid="FollowButton"
                             Width="120"
-                            Content="{helpers:ResourceString Name=FollowersUpper}"
                             Visibility="Collapsed" />
                         <Button
                             x:Name="EditProfileButton"
+                            x:Uid="EditProfileButton"
                             Width="120"
-                            Content="{helpers:ResourceString Name=EditProfile}"
                             Visibility="Collapsed" />
                     </StackPanel>
                 </Grid>
@@ -207,6 +207,7 @@
                         <Button
                             Padding="4"
                             Background="Transparent"
+                            Click="UserFollowersButton_Click"
                             Style="{ThemeResource LinkLikeButtonStyle}">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal" Spacing="6">
@@ -232,6 +233,7 @@
                         <Button
                             Padding="4"
                             Background="Transparent"
+                            Click="UserFollowingButton_Click"
                             Style="{ThemeResource LinkLikeButtonStyle}">
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal" Spacing="6">
@@ -270,6 +272,7 @@
                         SelectionChanged="UserNavView_SelectionChanged">
                         <muxc:NavigationView.MenuItems>
                             <muxc:NavigationViewItem
+                                x:Name="UserNavViewItemOverview"
                                 x:Uid="UserNavViewItemOverview"
                                 IsSelected="True"
                                 Tag="Overview">
@@ -280,7 +283,10 @@
                                         Glyph="&#xE922;" />
                                 </muxc:NavigationViewItem.Icon>
                             </muxc:NavigationViewItem>
-                            <muxc:NavigationViewItem x:Uid="UserNavViewItemRepositories" Tag="Repositories">
+                            <muxc:NavigationViewItem
+                                x:Name="UserNavViewItemRepositories"
+                                x:Uid="UserNavViewItemRepositories"
+                                Tag="Repositories">
                                 <muxc:NavigationViewItem.Icon>
                                     <FontIcon
                                         FontFamily="{StaticResource Octions}"
@@ -288,7 +294,10 @@
                                         Glyph="&#xEA52;" />
                                 </muxc:NavigationViewItem.Icon>
                             </muxc:NavigationViewItem>
-                            <muxc:NavigationViewItem Content="{helpers:ResourceString Name=Starred}" Tag="Stars">
+                            <muxc:NavigationViewItem
+                                x:Name="UserNavViewItemStarred"
+                                Content="{helpers:ResourceString Name=Starred}"
+                                Tag="Stars">
                                 <muxc:NavigationViewItem.Icon>
                                     <FontIcon
                                         FontFamily="{StaticResource Octions}"
@@ -296,7 +305,10 @@
                                         Glyph="&#xEA94;" />
                                 </muxc:NavigationViewItem.Icon>
                             </muxc:NavigationViewItem>
-                            <muxc:NavigationViewItem Content="{helpers:ResourceString Name=Followers}" Tag="Followers">
+                            <muxc:NavigationViewItem
+                                x:Name="UserNavViewItemFollowers"
+                                Content="{helpers:ResourceString Name=Followers}"
+                                Tag="Followers">
                                 <muxc:NavigationViewItem.Icon>
                                     <FontIcon
                                         FontFamily="{StaticResource Octions}"
@@ -304,7 +316,10 @@
                                         Glyph="&#xEA38;" />
                                 </muxc:NavigationViewItem.Icon>
                             </muxc:NavigationViewItem>
-                            <muxc:NavigationViewItem Content="{helpers:ResourceString Name=Following}" Tag="Following">
+                            <muxc:NavigationViewItem
+                                x:Name="UserNavViewItemFollowing"
+                                Content="{helpers:ResourceString Name=Following}"
+                                Tag="Following">
                                 <muxc:NavigationViewItem.Icon>
                                     <FontIcon
                                         FontFamily="{StaticResource Octions}"
@@ -315,7 +330,10 @@
                         </muxc:NavigationView.MenuItems>
                     </muxc:NavigationView>
                 </Grid>
-                <Frame x:Name="UserNavViewContent" Grid.Row="1" />
+                <Frame
+                    x:Name="UserNavViewContent"
+                    Grid.Row="1"
+                    Margin="0,8,0,0" />
             </Grid>
         </Grid>
     </ScrollViewer>

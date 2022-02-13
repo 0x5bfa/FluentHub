@@ -19,13 +19,14 @@ namespace FluentHub.ViewModels.UserPages
             private set
             {
                 _items = value;
-                NotifyPropertyChanged(nameof(Items));
+                SetProperty(ref _items, value);
             }
         }
 
         public async void GetUserRepos(string username)
         {
             IsActive = true;
+
             var repos = await App.Client.Repository.GetAllForUser(username);
 
             foreach (var item in repos)
@@ -42,7 +43,7 @@ namespace FluentHub.ViewModels.UserPages
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged(String info)
+        private void NotifyPropertyChanged(string info)
         {
             if (PropertyChanged != null)
             {

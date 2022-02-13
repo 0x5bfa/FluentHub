@@ -13,21 +13,20 @@ namespace FluentHub.ViewModels.UserPages
 {
     public class StarListViewModel : INotifyPropertyChanged
     {
-        private ObservableCollection<RepoListItem> _items = new ObservableCollection<RepoListItem>();
+        private ObservableCollection<RepoListItem> _items;
         public ObservableCollection<RepoListItem> Items
         {
             get => _items;
             private set
             {
-                _items = value;
-                NotifyPropertyChanged(nameof(Items));
+                SetProperty(ref _items, value);
             }
         }
 
         public async void GetUserStarredRepos(string username)
         {
             IsActive = true;
-
+            Items = new ObservableCollection<RepoListItem>();
             UserStarredItems starredItems = new UserStarredItems();
 
             var repoIdList = await starredItems.Get(username);
@@ -38,6 +37,8 @@ namespace FluentHub.ViewModels.UserPages
                 listItem.RepoId = repoId;
                 Items.Add(listItem);
             }
+
+            SetProperty(ref _items, Items);
 
             IsActive = false;
         }

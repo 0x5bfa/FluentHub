@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentHub.Services.Auth;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,26 +12,21 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
-using Windows.ApplicationModel.Resources;
-using FluentHub.Views;
-using FluentHub.Services.Auth;
-using System.Threading.Tasks;
-using FluentHub.ViewModels;
 
-
-namespace FluentHub.Dialogs
+namespace FluentHub.Views.SignInPages
 {
-    public sealed partial class SetupDialog : ContentDialog
+    public sealed partial class SignInPage : Page
     {
-        public SetupDialog()
+        public SignInPage()
         {
             this.InitializeComponent();
+            Window.Current.SetTitleBar(AppTitleBar);
         }
 
         private async void CancelButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Hide();
         }
 
         private async void ContinueButton_Click(object sender, RoutedEventArgs e)
@@ -38,9 +34,13 @@ namespace FluentHub.Dialogs
             RequestAuthorization request = new RequestAuthorization();
             _ = await request.RequestGitHubIdentity();
 
-            this.Hide();
-
             App.Settings.SetupProgress = true;
+            SetupProgressRing.IsActive = true;
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(IntroPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromLeft });
         }
     }
 }

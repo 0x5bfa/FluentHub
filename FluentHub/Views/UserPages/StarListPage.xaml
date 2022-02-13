@@ -99,12 +99,12 @@
             <Grid>
                 <muxc:ProgressRing x:Name="loadingRing" IsActive="{Binding IsActive}" />
                 <Border>
-                    <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Items}" Loaded="ItemsRepeater_Loaded">
+                    <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}" Loaded="ItemsRepeater_Loaded">
                         <DataTemplate x:DataType="item:RepoListItem">
                             <uc:RepoBlock
                                 x:Name="RepositoryBlock"
                                 DisplayDitails="True"
-                                RepositoryId="{x:Bind RepoId}" />
+                                RepositoryId="{x:Bind RepoId, Mode=OneWay}" />
                         </DataTemplate>
                     </muxc:ItemsRepeater>
                 </Border>

@@ -115,7 +115,7 @@
 .markdown-body kbd,
 .markdown-body pre,
 .markdown-body samp {
-  font-family: monospace,monospace;
+  font-family: monospace;
   font-size: 1em;
 }
 
@@ -669,12 +669,12 @@
 }
 
 .markdown-body table tr {
-  background-color: #0d1117;
+  background-color: transparent;
   border-top: 1px solid #21262d;
 }
 
 .markdown-body table tr:nth-child(2n) {
-  background-color: #161b22;
+  background-color: transparent;
 }
 
 .markdown-body table img {

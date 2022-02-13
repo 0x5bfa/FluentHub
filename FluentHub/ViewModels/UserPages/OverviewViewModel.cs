@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -17,8 +18,7 @@ namespace FluentHub.ViewModels.UserPages
             get => _items;
             private set
             {
-                _items = value;
-                NotifyPropertyChanged(nameof(Items));
+                SetProperty(ref _items, value);
             }
         }
 
@@ -30,7 +30,6 @@ namespace FluentHub.ViewModels.UserPages
                 listItem.RepoId = repoId;
                 Items.Add(listItem);
             }
-
             return Items.Count();
         }
 
@@ -41,6 +40,17 @@ namespace FluentHub.ViewModels.UserPages
             {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
+        }
+
+        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
+        {
+            if (!Equals(field, newValue))
+            {
+                field = newValue;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+                return true;
+            }
+            return false;
         }
     }
 }

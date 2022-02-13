@@ -1,4 +1,5 @@
-﻿using FluentHub.Services.OctokitEx;
+﻿using FluentHub.Helpers;
+using FluentHub.Services.OctokitEx;
 using Octokit;
 using System;
 using System.Collections.Generic;
@@ -30,69 +31,10 @@ namespace FluentHub.Views.UserPages
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (e.Parameter != null)
-            {
-                UserName = e.Parameter as string;
-            }
-            else
-            {
-                UserName = App.SignedInUserName;
-            }
+            UserName = e.Parameter as string;
 
             base.OnNavigatedTo(e);
         }
-
-        private async void UserSpecialReadmeWebView_Loaded(object sender, RoutedEventArgs e)
-        {
-            Markdown markdown = new Markdown();
-            Readme readme;
-
-            try
-            {
-                readme = await App.Client.Repository.Content.GetReadme(UserName, UserName);
-            }
-            catch
-            {
-                return;
-            }
-
-            NoOverviewBlock.Visibility = Visibility.Collapsed;
-            UserSpecialReadmeBlock.Visibility = Visibility.Visible;
-
-            ReadMeLink.Content = string.Format("{0}/{1}", UserName, readme.Name);
-            ReadMeLink.NavigateUri = new Uri(readme.HtmlUrl);
-
-            string result = await markdown.FormatRenderedMarkdownToHtml(await readme.GetHtmlContent());
-            UserSpecialReadmeWebView.NavigateToString(result);
-        }
-
-        private void UserSpecialReadmeWebView_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
-        {
-            if(args.Uri != null)
-            {
-                args.Cancel = true;
-            }
-        }
-
-        private async void UserSpecialReadmeWebView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
-        {
-            string returnStr = await UserSpecialReadmeWebView.InvokeScriptAsync("eval", new string[] { SetBodyOverFlowHiddenString });
-            int heightScroll = 0;
-            var heightScrollStr = await UserSpecialReadmeWebView.InvokeScriptAsync("eval", new[] { "document.body.scrollHeight.toString()" });
-
-            if (int.TryParse(heightScrollStr, out heightScroll))
-            {
-                UserSpecialReadmeWebView.Height = heightScroll;
-            }
-        }
-
-        string SetBodyOverFlowHiddenString
-            = @"function SetBodyOverFlowHidden()
-                {
-                    document.body.style.overflow = 'hidden';
-                }
-                SetBodyOverFlowHidden();
-            ";
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
@@ -107,6 +49,9 @@ namespace FluentHub.Views.UserPages
                 NoOverviewBlock.Visibility = Visibility.Collapsed;
                 UserPinnedItemsBlock.Visibility = Visibility.Visible;
             }
+
+            var repo = await App.Client.Repository.Get(UserName, UserName);
+            UserSpecialReadmeBlock.RepositoryId = repo.Id;
         }
     }
 }

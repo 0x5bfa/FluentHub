@@ -1,7 +1,11 @@
-﻿using FluentHub.Services.Auth;
+﻿using FluentHub.Helpers;
+using FluentHub.Services;
+using FluentHub.Services.Auth;
 using FluentHub.ViewModels;
 using FluentHub.Views;
+using FluentHub.Views.SignInPages;
 using Octokit;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,6 +17,7 @@ using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
@@ -44,12 +49,13 @@ namespace FluentHub
 
         public static string SignedInUserName { get; private set; }
 
+        private static InternetConnectionHelpers internetConnection = new InternetConnectionHelpers();
+
         public App()
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
 
-            // restore token or password
             if (Settings.SetupCompleted == true)
             {
                 if (Settings.Get("AccessToken", "") != "")
@@ -58,9 +64,24 @@ namespace FluentHub
                 }
                 else
                 {
-                    return; // or throw exception
+                    Settings.SetupProgress = false;
+                    Settings.SetupCompleted = false;
+
+                    rootFrame.Navigate(typeof(IntroPage));
                 }
             }
+        }
+
+        private void IntializeLogger()
+        {
+            string logFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "Logs/Log.txt");
+
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .WriteTo.File(logFilePath, rollingInterval: RollingInterval.Day)
+                .CreateLogger();
+
+            Log.Debug("Initialized logger.");
         }
 
         protected override async void OnLaunched(LaunchActivatedEventArgs e)
@@ -93,8 +114,12 @@ namespace FluentHub
                         SignedInUserName = user.Login;
                     }
 
+                    Log.Information("FluentHub has been launched.");
+
+                    IntializeLogger();
+
                     _ = !Settings.SetupCompleted ?
-                        rootFrame.Navigate(typeof(WelcomePage), e.Arguments) :
+                        rootFrame.Navigate(typeof(IntroPage), e.Arguments) :
                         rootFrame.Navigate(typeof(MainPage), e.Arguments);
                 }
 

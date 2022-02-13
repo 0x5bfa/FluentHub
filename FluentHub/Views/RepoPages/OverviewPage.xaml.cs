@@ -1,9 +1,11 @@
-﻿using Octokit;
+﻿using FluentHub.ViewModels.RepoPages;
+using Octokit;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -46,6 +48,54 @@ namespace FluentHub.Views.RepoPages
         {
             Repository = await App.Client.Repository.Get(RepoId);
 
+            if (Repository == null)
+            {
+                return;
+            }
+
+            await SetRepoInfo();
+        }
+
+        private void RepoPageNavView_ItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
+        {
+            var commonRepoViewModel = new CommonRepoViewModel();
+
+            switch (args.InvokedItemContainer.Tag.ToString())
+            {
+                case "Code":
+                    commonRepoViewModel.RepositoryId = RepoId;
+                    commonRepoViewModel.IsRootDir = true;
+                    RepoPageNavViewFrame.Navigate(typeof(CodePage), commonRepoViewModel);
+                    break;
+                case "Issues":
+                    RepoPageNavViewFrame.Navigate(typeof(IssueListPage), RepoId.ToString());
+                    break;
+                case "PRs":
+                    RepoPageNavViewFrame.Navigate(typeof(PullRequestListPage), RepoId.ToString());
+                    break;
+                case "Settings":
+                    RepoPageNavViewFrame.Navigate(typeof(Settings), RepoId.ToString());
+                    break;
+            }
+        }
+
+        private void OwnerButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (Repository != null)
+            {
+                if (Repository.Owner.Type == AccountType.User)
+                {
+                    App.MainViewModel.MainFrame.Navigate(typeof(UserPages.ProfilePage), Repository.Owner.Login);
+                }
+                else
+                {
+                    App.MainViewModel.MainFrame.Navigate(typeof(OrganizationPages.ProfilePage), Repository.Owner.Login);
+                }
+            }
+        }
+
+        private async Task SetRepoInfo()
+        {
             RepoOwnerName.Text = Repository.Owner.Login;
 
             RepoName.Text = Repository.Name;
@@ -73,38 +123,12 @@ namespace FluentHub.Views.RepoPages
                 PullsCountBadge.Visibility = Visibility.Visible;
             }
 
-            RepoPageNavViewFrame.Navigate(typeof(CodePage), RepoId.ToString());
-        }
+            var commonRepoViewModel = new CommonRepoViewModel();
 
-        private void RepoPageNavView_ItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
-        {
-            switch (args.InvokedItemContainer.Tag.ToString())
-            {
-                case "Code":
-                    RepoPageNavViewFrame.Navigate(typeof(CodePage), RepoId.ToString());
-                    break;
-                case "Issues":
-                    RepoPageNavViewFrame.Navigate(typeof(IssueListPage), RepoId.ToString());
-                    break;
-                case "PRs":
-                    RepoPageNavViewFrame.Navigate(typeof(PullRequestListPage), RepoId.ToString());
-                    break;
-                case "Settings":
-                    RepoPageNavViewFrame.Navigate(typeof(Settings), RepoId.ToString());
-                    break;
-            }
-        }
+            commonRepoViewModel.RepositoryId = RepoId;
+            commonRepoViewModel.IsRootDir = true;
 
-        private void OwnerButton_Click(object sender, RoutedEventArgs e)
-        {
-            if (Repository.Owner.Type == AccountType.User)
-            {
-                App.MainViewModel.MainFrame.Navigate(typeof(UserPages.ProfilePage), Repository.Owner.Login);
-            }
-            else
-            {
-                App.MainViewModel.MainFrame.Navigate(typeof(OrganizationPages.ProfilePage), Repository.Owner.Login);
-            }
+            RepoPageNavViewFrame.Navigate(typeof(CodePage), commonRepoViewModel);
         }
     }
 }

@@ -49,5 +49,10 @@ namespace FluentHub.Views
         {
             App.MainViewModel.MainFrame.Navigate(typeof(UserHomePage));
         }
+
+        private void ToolbarAppSettingsButton_Click(object sender, RoutedEventArgs e)
+        {
+            App.MainViewModel.MainFrame.Navigate(typeof(AppSettingsPages.GeneralPage));
+        }
     }
 }

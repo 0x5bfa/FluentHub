@@ -128,15 +128,15 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\SettingsControlConverter.cs" />
-    <Compile Include="Dialogs\SetupDialog.xaml.cs">
-      <DependentUpon>SetupDialog.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Helpers\Base64Helpers.cs" />
     <Compile Include="Helpers\ColorHelpers.cs" />
+    <Compile Include="Helpers\InternetConnectionHelpers.cs" />
     <Compile Include="Helpers\LanguageColorHelpers.cs" />
     <Compile Include="Helpers\MentionHelpers.cs" />
     <Compile Include="Helpers\NavigationHelpers.cs" />
     <Compile Include="Helpers\ResourceHelper.cs" />
+    <Compile Include="Helpers\WebViewHelpers.cs" />
+    <Compile Include="Models\Items\DetailsLayoutListViewItem.cs" />
     <Compile Include="Models\Items\IssueListItem.cs" />
     <Compile Include="Models\Items\NotificationListItem.cs" />
     <Compile Include="Models\Items\ProfileBlockItem.cs" />
@@ -147,11 +147,15 @@
     <Compile Include="Services\OctokitEx\Markdown.cs" />
     <Compile Include="Services\OctokitEx\UserPinnedItems.cs" />
     <Compile Include="Services\OctokitEx\UserStarredItems.cs" />
+    <Compile Include="Services\Octokit\UserService.cs" />
     <Compile Include="UserControls\Block\CommentBlock.xaml.cs">
       <DependentUpon>CommentBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Block\IssueBlock.xaml.cs">
       <DependentUpon>IssueBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Block\LatestCommitOverviewBlock.xaml.cs">
+      <DependentUpon>LatestCommitOverviewBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Block\RepoBlock.xaml.cs">
       <DependentUpon>RepoBlock.xaml</DependentUpon>
@@ -171,6 +175,15 @@
     <Compile Include="UserControls\Labels\StateLabel.xaml.cs">
       <DependentUpon>StateLabel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Repository\FileContentBlock.xaml.cs">
+      <DependentUpon>FileContentBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Repository\ReadmeContentBlock.xaml.cs">
+      <DependentUpon>ReadmeContentBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Repository\LatestCommitBlock.xaml.cs">
+      <DependentUpon>LatestCommitBlock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\SettingsBlockControl.xaml.cs">
       <DependentUpon>SettingsBlockControl.xaml</DependentUpon>
     </Compile>
@@ -182,16 +195,23 @@
     <Compile Include="ViewModels\OrganizationPages\OverviewViewModel.cs" />
     <Compile Include="ViewModels\OrganizationPages\RepoListViewModel.cs" />
     <Compile Include="ViewModels\RepoPages\CodePageViewModel.cs" />
+    <Compile Include="ViewModels\RepoPages\CommonRepoViewModel.cs" />
     <Compile Include="ViewModels\RepoPages\IssueListViewModel.cs" />
+    <Compile Include="ViewModels\RepoPages\Layouts\DetailsLayoutViewModel.cs" />
+    <Compile Include="ViewModels\RepoPages\Layouts\TreeLayoutViewModel.cs" />
     <Compile Include="ViewModels\RepoPages\PullRequestListViewModel.cs" />
     <Compile Include="ViewModels\SettingsManager.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Repository\LatestCommitBlockViewModel.cs" />
     <Compile Include="ViewModels\UserPages\ActivityViewModel.cs" />
     <Compile Include="ViewModels\UserPages\NotificationViewModel.cs" />
     <Compile Include="ViewModels\UserPages\ProfilePageViewModel.cs" />
     <Compile Include="ViewModels\UserPages\RepoListViewModel.cs" />
     <Compile Include="ViewModels\UserPages\OverviewViewModel.cs" />
     <Compile Include="ViewModels\UserPages\StarListViewModel.cs" />
+    <Compile Include="Views\AppSettingsPages\GeneralPage.xaml.cs">
+      <DependentUpon>GeneralPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\HomePages\IssuesPage.xaml.cs">
       <DependentUpon>IssuesPage.xaml</DependentUpon>
     </Compile>
@@ -226,6 +246,12 @@
     <Compile Include="Views\RepoPages\IssuePage.xaml.cs">
       <DependentUpon>IssuePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\RepoPages\Layouts\DetailsLayoutView.xaml.cs">
+      <DependentUpon>DetailsLayoutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RepoPages\Layouts\TreeLayoutView.xaml.cs">
+      <DependentUpon>TreeLayoutView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\RepoPages\OverviewPage.xaml.cs">
       <DependentUpon>OverviewPage.xaml</DependentUpon>
     </Compile>
@@ -237,6 +263,9 @@
     </Compile>
     <Compile Include="Views\RepoPages\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SignInPages\SignInPage.xaml.cs">
+      <DependentUpon>SignInPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UserHomePage.xaml.cs">
       <DependentUpon>UserHomePage.xaml</DependentUpon>
@@ -271,8 +300,8 @@
     <Compile Include="Views\UserPages\StarListPage.xaml.cs">
       <DependentUpon>StarListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\WelcomePage.xaml.cs">
-      <DependentUpon>WelcomePage.xaml</DependentUpon>
+    <Compile Include="Views\SignInPages\IntroPage.xaml.cs">
+      <DependentUpon>IntroPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -332,7 +361,7 @@
     <Content Include="Assets\AppTiles\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\AppTiles\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\AppTiles\Wide310x150Logo.scale-400.png" />
-    <Content Include="Assets\WebView\RenderedMarkdownTemplate.html">
+    <Content Include="Assets\WebView\index.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\FluentHub.png" />
@@ -353,10 +382,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Dialogs\SetupDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="ResourceDictionaries\LinkLikeButtonStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -378,6 +403,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Block\IssueBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Block\LatestCommitOverviewBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -405,11 +434,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\Repository\FileContentBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Repository\ReadmeContentBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Repository\LatestCommitBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\SettingsBlockControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\SettingsDisplayControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AppSettingsPages\GeneralPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -457,6 +502,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\RepoPages\Layouts\DetailsLayoutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\RepoPages\Layouts\TreeLayoutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\RepoPages\OverviewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -470,6 +523,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\RepoPages\Settings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SignInPages\SignInPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -517,7 +574,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\WelcomePage.xaml">
+    <Page Include="Views\SignInPages\IntroPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -530,7 +587,7 @@
       <Version>4.0.2</Version>
     </PackageReference>
     <PackageReference Include="Humanizer">
-      <Version>2.14.1</Version>
+      <Version>2.8.25</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.13</Version>
@@ -539,10 +596,16 @@
       <Version>7.1.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
-      <Version>2.7.0</Version>
+      <Version>2.8.0-prerelease.220118001</Version>
+    </PackageReference>
+    <PackageReference Include="Monaco.Editor">
+        <Version>0.9.0-beta</Version>
     </PackageReference>
     <PackageReference Include="Octokit">
       <Version>0.50.0</Version>
+    </PackageReference>
+    <PackageReference Include="Serilog.Sinks.File">
+      <Version>5.0.0</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
@@ -561,6 +624,9 @@
   </ItemGroup>
   <ItemGroup>
     <XliffResource Include="MultilingualResources\FluentHub.ja-JP.xlf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Dialogs\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

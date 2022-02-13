@@ -126,6 +126,15 @@
   <data name="Discussions" xml:space="preserve">
     <value>Discussions</value>
   </data>
+  <data name="EditProfileButton.Content" xml:space="preserve">
+    <value>Edit profile</value>
+  </data>
+  <data name="FirstNumberedListInWebAuth.Text" xml:space="preserve">
+    <value>Click Opwn with Browser.</value>
+  </data>
+  <data name="FollowButton.Content" xml:space="preserve">
+    <value>Follow</value>
+  </data>
   <data name="Followers" xml:space="preserve">
     <value>Followers</value>
   </data>
@@ -141,6 +150,9 @@
   <data name="HomeNavViewHeaderProfile.Content" xml:space="preserve">
     <value>Profile</value>
   </data>
+  <data name="HomeNavViewItemActivities.Content" xml:space="preserve">
+    <value>Activities</value>
+  </data>
   <data name="HomeNavViewItemNotifications.Content" xml:space="preserve">
     <value>Notifications</value>
   </data>
@@ -148,12 +160,12 @@
     <value>Profile</value>
   </data>
   <data name="HowToSignInTextBlock.Text" xml:space="preserve">
-    <value>You can sign in to GitHub in various ways. By authenticating, you can access more GitHub data and gain more experience.</value>
+    <value>By authenticating, you can access more GitHub data and gain more experience.</value>
   </data>
   <data name="Issues" xml:space="preserve">
     <value>Issues</value>
   </data>
-  <data name="NeedToSigninFirst" xml:space="preserve">
+  <data name="NeedToSigninFirst.Text" xml:space="preserve">
     <value>To use all features, just you need to sign in first.</value>
   </data>
   <data name="OnlyWebAuthIsValidInfoBar.Message" xml:space="preserve">
@@ -216,6 +228,9 @@
   <data name="RepoWatchCombboxWatch" xml:space="preserve">
     <value>Watch</value>
   </data>
+  <data name="SecondNumberedListInWebAuth.Text" xml:space="preserve">
+    <value>Click Open FluentHub Dev in your browser.</value>
+  </data>
   <data name="Star" xml:space="preserve">
     <value>Star</value>
   </data>
@@ -224,6 +239,9 @@
   </data>
   <data name="StartSetupButton.Content" xml:space="preserve">
     <value>Start setup</value>
+  </data>
+  <data name="ThirdNumberedListInWebAuth.Text" xml:space="preserve">
+    <value>Back to FluentHub.</value>
   </data>
   <data name="ToobarBackButton.ToolTipService.ToolTip" xml:space="preserve">
     <value>Back</value>
@@ -258,7 +276,7 @@
   <data name="UserPinnedItemsTextBlock.Text" xml:space="preserve">
     <value>Pinned</value>
   </data>
-  <data name="UserSpecialReadmeTextBlock" xml:space="preserve">
+  <data name="UserSpecialReadmeTextBlock.Text" xml:space="preserve">
     <value>README</value>
   </data>
   <data name="WelcomeText.Text" xml:space="preserve">
