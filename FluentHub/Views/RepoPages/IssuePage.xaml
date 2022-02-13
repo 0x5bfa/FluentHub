@@ -38,16 +38,6 @@
                 Orientation="Horizontal"
                 Spacing="4">
                 <label:StateLabel x:Name="StatusLabel" Status="IssueDraft" />
-                <TextBlock
-                    x:Name="IssueOpenerNameTextBlock"
-                    VerticalAlignment="Center"
-                    Foreground="{StaticResource ApplicationSecondaryForegroundThemeBrush}"
-                    Style="{StaticResource BodyStrongTextBlockStyle}" />
-                <TextBlock
-                    x:Name="IssueOpenedComment"
-                    VerticalAlignment="Center"
-                    Foreground="{StaticResource ApplicationSecondaryForegroundThemeBrush}"
-                    Style="{StaticResource BodyTextBlockStyle}" />
             </StackPanel>
             <MenuFlyoutSeparator Grid.Row="2" Margin="0,0,0,8" />
             <!--<Grid

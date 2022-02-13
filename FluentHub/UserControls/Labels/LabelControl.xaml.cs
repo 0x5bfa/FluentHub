@@ -76,18 +76,16 @@ namespace FluentHub.UserControls.Labels
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             LabelBackground.Background = AccentColor;
-            LabelBackground.Opacity = 0.18;
-            LabelBorder.Opacity = 0.3;
 
-            Color color = ((SolidColorBrush)AccentColor).Color;
+            //Color color = ((SolidColorBrush)AccentColor).Color;
 
             //float H = 0; float S = 0; float L = 0;
             //ColorHelpers.RgbToHsl(color.R, color.G, color.B, out H, out S, out L);
 
             //SetColorAdjustedBorderAndColor(color.R, color.G, color.B, H, S, L);
 
-            LabelBorder.BorderBrush = AccentColor;
-            LabelTextBlock.Foreground = AccentColor;
+            //LabelBorder.BorderBrush = AccentColor;
+            //LabelTextBlock.Foreground = AccentColor;
 
             LabelTextBlock.Text = LabelText;
         }

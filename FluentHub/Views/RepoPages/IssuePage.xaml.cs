@@ -32,8 +32,40 @@ namespace FluentHub.Views.RepoPages
             IssueTitleTextBlock.Text = Issue.Title;
             IssueNumberTextBlock.Text = "#" + IssueNumber.ToString();
 
-            IssueOpenerNameTextBlock.Text = Issue.User.Login;
-            IssueOpenedComment.Text = "opened this issue " + Issue.CreatedAt.Humanize() + " · " + Issue.Comments.ToString() + " comments";
+            if (Issue.PullRequest != null)
+            {
+                switch (Issue.State.Value.ToString())
+                {
+                    case "Open":
+                        StatusLabel.Status = UserControls.Labels.Status.PullOpened;
+                        break;
+                    case "Closed":
+                        StatusLabel.Status = UserControls.Labels.Status.PullClosed;
+                        break;
+                }
+
+                if (Issue.PullRequest.Merged)
+                {
+                    StatusLabel.Status = UserControls.Labels.Status.PullMerged;
+                }
+
+                if (Issue.PullRequest.Draft)
+                {
+                    StatusLabel.Status = UserControls.Labels.Status.PullDraft;
+                }
+            }
+            else
+            {
+                switch (Issue.State.Value.ToString())
+                {
+                    case "Open":
+                        StatusLabel.Status = UserControls.Labels.Status.IssueOpened;
+                        break;
+                    case "Closed":
+                        StatusLabel.Status = UserControls.Labels.Status.IssueClosed;
+                        break;
+                }
+            }
 
             var events = await App.Client.Issue.Events.GetAllForIssue(RepoId, IssueNumber);
 

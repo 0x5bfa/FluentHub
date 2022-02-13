@@ -7,30 +7,40 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="300"
     d:DesignWidth="400"
-    Loaded="UserControl_Loaded"
     mc:Ignorable="d">
 
-    <Grid>
-        <Border
-            x:Name="StateLabelBorder"
-            Height="36"
-            Margin="0,0,4,0"
-            Padding="12,6"
+    <Grid HorizontalAlignment="Left">
+        <Grid
+            Width="Auto"
+            Height="28"
             HorizontalAlignment="Left"
-            Background="#636e7b"
-            BorderBrush="Transparent"
-            BorderThickness="1"
-            CornerRadius="20">
-            <StackPanel Orientation="Horizontal" Spacing="4">
+            CornerRadius="4">
+            <Grid
+                x:Name="LabelBackground"
+                Background="{x:Bind LabelBackground.Background, Mode=OneWay}"
+                Opacity="0.10" />
+            <Grid
+                x:Name="LabelBorder"
+                BorderBrush="{x:Bind LabelBackground.Background, Mode=OneWay}"
+                BorderThickness="1"
+                CornerRadius="4"
+                Opacity="0.3" />
+            <StackPanel
+                Padding="12,0"
+                Orientation="Horizontal"
+                Spacing="4">
                 <FontIcon
                     x:Name="StateLabelFont"
                     FontFamily="{StaticResource Octions}"
-                    FontSize="16" />
+                    FontSize="14"
+                    Foreground="{x:Bind LabelBackground.Background, Mode=OneWay}" />
                 <TextBlock
                     x:Name="StateLabelTextBlock"
                     VerticalAlignment="Center"
+                    Foreground="{x:Bind LabelBackground.Background, Mode=OneWay}"
                     Style="{StaticResource BodyStrongTextBlockStyle}" />
             </StackPanel>
-        </Border>
+        </Grid>
     </Grid>
+
 </UserControl>

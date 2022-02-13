@@ -30,7 +30,7 @@ namespace FluentHub.UserControls.Labels
         public Status Status
         {
             get => (Status)GetValue(StatusProperty);
-            set => SetValue(StatusProperty, value);
+            set { SetValue(StatusProperty, value); SetContents(); }
         }
         #endregion
 
@@ -39,43 +39,43 @@ namespace FluentHub.UserControls.Labels
             this.InitializeComponent();
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        private void SetContents()
         {
             switch (Status)
             {
-                case Status.IssueOpened:
-                    StateLabelBorder.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x34, 0x7d, 0x39));
+                case Status.IssueOpened: // 94e2a6
+                    LabelBackground.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x94, 0xE2, 0xA6));
                     StateLabelFont.Glyph = "\uE9EA";
                     StateLabelTextBlock.Text = "Open";
                     break;
-                case Status.IssueClosed:
-                    StateLabelBorder.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xc9, 0x3c, 0x37));
+                case Status.IssueClosed: // b797f3
+                    LabelBackground.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xB7, 0x97, 0xF3));
                     StateLabelFont.Glyph = "\uE9E6";
                     StateLabelTextBlock.Text = "Closed";
                     break;
-                case Status.IssueDraft:
-                    StateLabelBorder.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x63, 0x6e, 0x7b));
+                case Status.IssueDraft: // bdbdc7
+                    LabelBackground.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xBD, 0xBD, 0xC7));
                     StateLabelFont.Glyph = "\uE9E8";
                     StateLabelTextBlock.Text = "Draft";
                     break;
 
-                case Status.PullOpened:
-                    StateLabelBorder.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x34, 0x7d, 0x39));
+                case Status.PullOpened: // 94e2a6
+                    LabelBackground.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x94, 0xE2, 0xA6));
                     StateLabelFont.Glyph = "\uE9BF";
                     StateLabelTextBlock.Text = "Open";
                     break;
-                case Status.PullClosed:
-                    StateLabelBorder.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xc9, 0x3c, 0x37));
+                case Status.PullClosed: // f47d88
+                    LabelBackground.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xF4, 0x7D, 0x88));
                     StateLabelFont.Glyph = "\uE9BF";
                     StateLabelTextBlock.Text = "Closed";
                     break;
-                case Status.PullMerged:
-                    StateLabelBorder.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x82, 0x56, 0xd0));
+                case Status.PullMerged: // b797f3
+                    LabelBackground.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xB7, 0x97, 0xF3));
                     StateLabelFont.Glyph = "\uE9BD";
                     StateLabelTextBlock.Text = "Marged";
                     break;
-                case Status.PullDraft:
-                    StateLabelBorder.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x63, 0x6e, 0x7b));
+                case Status.PullDraft: // bdbdc7
+                    LabelBackground.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x63, 0x6e, 0x7b));
                     StateLabelFont.Glyph = "\uE9BF";
                     StateLabelTextBlock.Text = "Draft";
                     break;

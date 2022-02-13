@@ -116,12 +116,12 @@
                 <Grid>
                     <muxc:ProgressRing x:Name="loadingRing" IsActive="{Binding IsActive}" />
                     <Border>
-                        <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Items}" Loaded="ItemsRepeater_Loaded">
+                        <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}" Loaded="ItemsRepeater_Loaded">
                             <DataTemplate x:DataType="item:IssueListItem">
                                 <block:IssueBlock
                                     x:Name="RepositoryBlock"
-                                    IssueIndex="{x:Bind IssueIndex}"
-                                    RepositoryId="{x:Bind RepoId}" />
+                                    IssueIndex="{x:Bind IssueIndex, Mode=OneWay}"
+                                    RepositoryId="{x:Bind RepoId, Mode=OneWay}" />
                             </DataTemplate>
                         </muxc:ItemsRepeater>
                     </Border>
