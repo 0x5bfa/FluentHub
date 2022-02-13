@@ -178,6 +178,9 @@
     <Compile Include="UserControls\Repository\FileContentBlock.xaml.cs">
       <DependentUpon>FileContentBlock.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Repository\IssueCommentBlock.xaml.cs">
+      <DependentUpon>IssueCommentBlock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Repository\ReadmeContentBlock.xaml.cs">
       <DependentUpon>ReadmeContentBlock.xaml</DependentUpon>
     </Compile>
@@ -438,6 +441,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\Repository\IssueCommentBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Repository\ReadmeContentBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -599,7 +606,7 @@
       <Version>2.8.0-prerelease.220118001</Version>
     </PackageReference>
     <PackageReference Include="Monaco.Editor">
-        <Version>0.9.0-beta</Version>
+      <Version>0.9.0-beta</Version>
     </PackageReference>
     <PackageReference Include="Octokit">
       <Version>0.50.0</Version>
