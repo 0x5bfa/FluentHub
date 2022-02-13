@@ -639,6 +639,7 @@
     <PRIResource Include="Strings\ja-JP\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
+    <XliffResource Include="MultilingualResources\FluentHub.es-ES.xlf" />
     <XliffResource Include="MultilingualResources\FluentHub.ja-JP.xlf" />
   </ItemGroup>
   <ItemGroup>
@@ -646,6 +647,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Segoe  Fluent  Icons  Normal.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\es-ES\Resources.resw" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
