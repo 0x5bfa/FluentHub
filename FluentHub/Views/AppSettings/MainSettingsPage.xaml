@@ -6,6 +6,7 @@
     xmlns:local="using:FluentHub.Views.AppSettings"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    Loaded="Page_Loaded"
     mc:Ignorable="d">
 
     <Grid>
@@ -43,8 +44,8 @@
                                 <Image x:Name="AppSignedInUserAvatar" />
                             </Border>
                             <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="UserName" />
-                                <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="mail@outlook.com" />
+                                <TextBlock x:Name="SignedInLoginName" Style="{StaticResource BodyStrongTextBlockStyle}" />
+                                <TextBlock x:Name="SignedInUserName" Style="{StaticResource CaptionTextBlockStyle}" />
                             </StackPanel>
                         </Grid>
                     </Button>

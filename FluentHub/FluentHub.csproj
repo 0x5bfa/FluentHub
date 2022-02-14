@@ -382,7 +382,6 @@
     <Content Include="Assets\WebView\github-markdown.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\Privacy.png" />
     <Content Include="Properties\Default.rd.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -643,6 +642,7 @@
     <XliffResource Include="MultilingualResources\FluentHub.ja-JP.xlf" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Assets\Avatars\" />
     <Folder Include="Dialogs\" />
   </ItemGroup>
   <ItemGroup>

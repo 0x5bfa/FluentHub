@@ -11,6 +11,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub.Views.AppSettings
@@ -46,6 +47,17 @@ namespace FluentHub.Views.AppSettings
                     break;
             }
 
+        }
+
+        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            var authedUser = await App.Client.User.Get(App.SignedInUserName);
+
+            AppSignedInUserAvatar.Source = new BitmapImage(new Uri(authedUser.AvatarUrl));
+
+            SignedInLoginName.Text = authedUser.Login;
+
+            SignedInUserName.Text = authedUser.Name;
         }
     }
 }

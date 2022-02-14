@@ -42,6 +42,10 @@
             </Button>
         </Grid>
         <MenuFlyoutSeparator Grid.Row="1" />
+        <muxc:ProgressBar
+            x:Name="ReadmeLoadingProgressBar"
+            Grid.Row="1"
+            IsIndeterminate="True" />
         <WebView
             x:Name="ReadmeWebView"
             Grid.Row="2"
