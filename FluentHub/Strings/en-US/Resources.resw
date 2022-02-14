@@ -228,11 +228,11 @@
   <data name="RepoWatchCombboxWatch" xml:space="preserve">
     <value>Watch</value>
   </data>
-  <data name="SettingsNavViewItemAboutUs.Content" xml:space="preserve">
-    <value>About Us</value>
+  <data name="SettingsNavViewItemAbout.Content" xml:space="preserve">
+    <value>About</value>
   </data>
-  <data name="SettingsNavViewItemGeneral.Content" xml:space="preserve">
-    <value>General</value>
+  <data name="SettingsNavViewItemAppearance.Content" xml:space="preserve">
+    <value>Appearance</value>
   </data>
   <data name="SecondNumberedListInWebAuth.Text" xml:space="preserve">
     <value>Click Open FluentHub Dev in your browser.</value>
@@ -287,5 +287,11 @@
   </data>
   <data name="WelcomeText.Text" xml:space="preserve">
     <value>Welcome to</value>
+  </data>
+  <data name="SettingsNavViewItemAccount.Content" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="SettingsNavViewItemTextEditor.Content" xml:space="preserve">
+    <value>Text editor</value>
   </data>
 </root>

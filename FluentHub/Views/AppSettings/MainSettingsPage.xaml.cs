@@ -28,13 +28,21 @@ namespace FluentHub.Views.AppSettings
 
             switch (tag)
             {
-                case "General":
+                case "Appearance":
                     SettingsContentFrame.Navigate(typeof(AppearancePage));
-                    NavViewFrameTitleTextBlock.Text = "General";
+                    NavViewFrameTitleTextBlock.Text = "Appearance";
                     break;
-                case "AboutUs":
+                case "About":
                     SettingsContentFrame.Navigate(typeof(AboutPage));
                     NavViewFrameTitleTextBlock.Text = "About";
+                    break;
+                case "Account":
+                    //SettingsContentFrame.Navigate(typeof(AccountPage));
+                    NavViewFrameTitleTextBlock.Text = "Account";
+                    break;
+                case "TextEditor":
+                    //SettingsContentFrame.Navigate(typeof(TextEditorPage));
+                    NavViewFrameTitleTextBlock.Text = "Text editor";
                     break;
             }
 

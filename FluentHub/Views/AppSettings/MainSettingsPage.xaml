@@ -9,9 +9,10 @@
     mc:Ignorable="d">
 
     <Grid>
-        <Grid Padding="5">
+        <Grid>
             <muxc:NavigationView
                 x:Name="SettingsNavView"
+                Margin="6,6,0,6"
                 IsBackButtonVisible="Collapsed"
                 IsPaneOpen="True"
                 IsPaneToggleButtonVisible="False"
@@ -43,36 +44,46 @@
                             </Border>
                             <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                 <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="UserName" />
-                                <TextBlock
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Style="{StaticResource CaptionTextBlockStyle}"
-                                    Text="mail@outlook.com" />
+                                <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="mail@outlook.com" />
                             </StackPanel>
                         </Grid>
                     </Button>
                 </muxc:NavigationView.PaneHeader>
                 <muxc:NavigationView.AutoSuggestBox>
-                    <AutoSuggestBox Margin="-12,0" PlaceholderText="Search app settings" />
+                    <AutoSuggestBox
+                        Margin="-12,0"
+                        PlaceholderText="Search app settings"
+                        QueryIcon="Find" />
                 </muxc:NavigationView.AutoSuggestBox>
                 <muxc:NavigationView.MenuItems>
                     <muxc:NavigationViewItem
-                        x:Uid="SettingsNavViewItemGeneral"
+                        x:Uid="SettingsNavViewItemAppearance"
                         IsSelected="True"
-                        Tag="General">
+                        Tag="Appearance">
                         <muxc:NavigationViewItem.Icon>
-                            <FontIcon FontFamily="{StaticResource Fluent Icons}" Glyph="&#xE13D;" />
+                            <FontIcon Glyph="&#xE790;" />
+                        </muxc:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem>
+                    <muxc:NavigationViewItem x:Uid="SettingsNavViewItemAccount" Tag="Account">
+                        <muxc:NavigationViewItem.Icon>
+                            <FontIcon Glyph="&#xE77B;" />
+                        </muxc:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem>
+                    <muxc:NavigationViewItem x:Uid="SettingsNavViewItemTextEditor" Tag="TextEditor">
+                        <muxc:NavigationViewItem.Icon>
+                            <FontIcon Glyph="&#xE943;" />
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
                 </muxc:NavigationView.MenuItems>
                 <muxc:NavigationView.FooterMenuItems>
-                    <muxc:NavigationViewItem x:Uid="SettingsNavViewItemAboutUs" Tag="AboutUs">
+                    <muxc:NavigationViewItem x:Uid="SettingsNavViewItemAbout" Tag="About">
                         <muxc:NavigationViewItem.Icon>
-                            <FontIcon FontFamily="{StaticResource Fluent Icons}" Glyph="&#xE946;" />
+                            <FontIcon Glyph="&#xE946;" />
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
                 </muxc:NavigationView.FooterMenuItems>
                 <muxc:NavigationView.Content>
-                    <Grid Margin="32,12,0,0" RowSpacing="12">
+                    <Grid Margin="32,20,0,6" RowSpacing="16">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />

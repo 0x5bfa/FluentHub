@@ -154,14 +154,6 @@
           <source>Watch</source>
           <target state="translated">Observar</target>
         </trans-unit>
-        <trans-unit id="SettingsNavViewItemAboutUs.Content" translate="yes" xml:space="preserve">
-          <source>About Us</source>
-          <target state="translated">Acerca de</target>
-        </trans-unit>
-        <trans-unit id="SettingsNavViewItemGeneral.Content" translate="yes" xml:space="preserve">
-          <source>General</source>
-          <target state="new">General</target>
-        </trans-unit>
         <trans-unit id="SecondNumberedListInWebAuth.Text" translate="yes" xml:space="preserve">
           <source>Click Open FluentHub Dev in your browser.</source>
           <target state="translated">Haz click en Abrir FluentHub Dev en tu navegador</target>
@@ -233,6 +225,22 @@
         <trans-unit id="WelcomeText.Text" translate="yes" xml:space="preserve">
           <source>Welcome to</source>
           <target state="translated">Bienvenido/a a</target>
+        </trans-unit>
+        <trans-unit id="SettingsNavViewItemAbout.Content" translate="yes" xml:space="preserve">
+          <source>About</source>
+          <target state="new">About</target>
+        </trans-unit>
+        <trans-unit id="SettingsNavViewItemAppearance.Content" translate="yes" xml:space="preserve">
+          <source>Appearance</source>
+          <target state="new">Appearance</target>
+        </trans-unit>
+        <trans-unit id="SettingsNavViewItemAccount.Content" translate="yes" xml:space="preserve">
+          <source>Account</source>
+          <target state="new">Account</target>
+        </trans-unit>
+        <trans-unit id="SettingsNavViewItemTextEditor.Content" translate="yes" xml:space="preserve">
+          <source>Text editor</source>
+          <target state="new">Text editor</target>
         </trans-unit>
       </group>
     </body>

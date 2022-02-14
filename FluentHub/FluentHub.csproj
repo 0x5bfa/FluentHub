@@ -373,7 +373,6 @@
     <Content Include="Assets\WebView\index.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Assets\FluentHub.png" />
     <Content Include="Assets\WebView\github-markdown-dark.css">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -631,7 +630,7 @@
     </PRIResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Octions.ttf" />
+    <Content Include="Assets\Glyphs\Octions.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AppCredentials.config" />
@@ -647,7 +646,7 @@
     <Folder Include="Dialogs\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Segoe  Fluent  Icons  Normal.ttf" />
+    <Content Include="Assets\Glyphs\SegoeFluentIconsNormal.ttf" />
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Strings\es-ES\Resources.resw" />

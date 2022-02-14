@@ -14,45 +14,48 @@
     <Page.DataContext>
         <vm:AppearanceViewModel x:Name="ViewModel" />
     </Page.DataContext>
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <StackPanel Grid.Column="0" Spacing="4">
-            <uc:SettingsBlockControl
-                Title="App Theme"
-                Description="Select which app theme to display"
-                IsClickable="False">
-                <uc:SettingsBlockControl.Icon>
-                    <FontIcon FontFamily="{StaticResource Fluent Icons}" Glyph="&#xE771;" />
-                </uc:SettingsBlockControl.Icon>
-                <ComboBox x:Name="themeComboBox" SelectionChanged="ComboBox_SelectionChanged">
-                    <ComboBoxItem Content="Light" Tag="Light" />
-                    <ComboBoxItem Content="Dark" Tag="Dark" />
-                    <ComboBoxItem Content="Use system settings" Tag="Default" />
-                </ComboBox>
-            </uc:SettingsBlockControl>
-            <uc:SettingsBlockControl
-                Title="Language"
-                Description="Select language which you want use"
-                IsClickable="False">
-                <uc:SettingsBlockControl.Icon>
-                    <FontIcon FontFamily="{StaticResource Fluent Icons}" Glyph="&#xF2B7;" />
-                </uc:SettingsBlockControl.Icon>
-                <ComboBox
-                    x:Name="languageComboBox"
-                    ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
-                    PlaceholderText="Choose languages"
-                    SelectionChanged="languageComboBox_SelectionChanged">
-                    <ComboBox.ItemTemplate>
-                        <DataTemplate x:DataType="vm:LanguageCB">
-                            <Grid x:Name="LanguageComboBoxItemGrid" Tag="{x:Bind PrimaryLangTag, Mode=OneWay}">
-                                <TextBlock Text="{x:Bind CanonicalLangName, Mode=OneWay}" />
-                            </Grid>
-                        </DataTemplate>
-                    </ComboBox.ItemTemplate>
-                </ComboBox>
-            </uc:SettingsBlockControl>
-        </StackPanel>
-    </Grid>
+
+    <ScrollViewer>
+        <Grid Margin="0,0,16,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Grid.Column="0" Spacing="4">
+                <uc:SettingsBlockControl
+                    Title="App Theme"
+                    Description="Select which app theme to display"
+                    IsClickable="False">
+                    <uc:SettingsBlockControl.Icon>
+                        <FontIcon Glyph="&#xE771;" />
+                    </uc:SettingsBlockControl.Icon>
+                    <ComboBox x:Name="themeComboBox" SelectionChanged="ComboBox_SelectionChanged">
+                        <ComboBoxItem Content="Light" Tag="Light" />
+                        <ComboBoxItem Content="Dark" Tag="Dark" />
+                        <ComboBoxItem Content="Use system settings" Tag="Default" />
+                    </ComboBox>
+                </uc:SettingsBlockControl>
+                <uc:SettingsBlockControl
+                    Title="Language"
+                    Description="Select language which you want use"
+                    IsClickable="False">
+                    <uc:SettingsBlockControl.Icon>
+                        <FontIcon Glyph="&#xF2B7;" />
+                    </uc:SettingsBlockControl.Icon>
+                    <ComboBox
+                        x:Name="languageComboBox"
+                        ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
+                        PlaceholderText="Choose languages"
+                        SelectionChanged="languageComboBox_SelectionChanged">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate x:DataType="vm:LanguageCB">
+                                <Grid x:Name="LanguageComboBoxItemGrid" Tag="{x:Bind PrimaryLangTag, Mode=OneWay}">
+                                    <TextBlock Text="{x:Bind CanonicalLangName, Mode=OneWay}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </uc:SettingsBlockControl>
+            </StackPanel>
+        </Grid>
+    </ScrollViewer>
 </Page>

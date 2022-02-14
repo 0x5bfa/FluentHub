@@ -6,8 +6,8 @@
 
     <Application.Resources>
         <ResourceDictionary>
-            <FontFamily x:Key="Octions">/Assets/Octions.ttf#octions</FontFamily>
-            <FontFamily x:Key="Fluent Icons">/Assets/Segoe  Fluent  Icons  Normal.ttf#Segoe Fluent Icons</FontFamily>
+            <FontFamily x:Key="Octions">/Assets/Glyphs/Octions.ttf#octions</FontFamily>
+            <FontFamily x:Key="FluentIcons">/Assets/Glyphs/SegoeFluentIconsNormal.ttf#Segoe Fluent Icons</FontFamily>
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" ControlsResourcesVersion="Version2" />
                 <ResourceDictionary>
@@ -212,6 +212,11 @@
                         TargetType="TextBlock">
                         <Setter Property="FontSize" Value="{StaticResource DisplayTextBlockFontSize}" />
                         <Setter Property="FontWeight" Value="SemiBold" />
+                    </Style>
+                </ResourceDictionary>
+                <ResourceDictionary>
+                    <Style TargetType="FontIcon">
+                        <Setter Property="FontFamily" Value="{StaticResource FluentIcons}" />
                     </Style>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
