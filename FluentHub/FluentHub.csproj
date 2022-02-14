@@ -191,7 +191,8 @@
     <Compile Include="UserControls\SettingsDisplayControl.xaml.cs">
       <DependentUpon>SettingsDisplayControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\AppSettingsPages\GeneralPageViewModel.cs" />
+    <Compile Include="ViewModels\AppSettings\AboutViewModel.cs" />
+    <Compile Include="ViewModels\AppSettings\AppearanceViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\OrganizationPages\OverviewViewModel.cs" />
@@ -211,14 +212,14 @@
     <Compile Include="ViewModels\UserPages\RepoListViewModel.cs" />
     <Compile Include="ViewModels\UserPages\OverviewViewModel.cs" />
     <Compile Include="ViewModels\UserPages\StarListViewModel.cs" />
-    <Compile Include="Views\AppSettingsPages\AboutUsPage.xaml.cs">
-      <DependentUpon>AboutUsPage.xaml</DependentUpon>
+    <Compile Include="Views\AppSettings\AboutPage.xaml.cs">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AppSettingsPages\GeneralPage.xaml.cs">
-      <DependentUpon>GeneralPage.xaml</DependentUpon>
+    <Compile Include="Views\AppSettings\MainSettingsPage.xaml.cs">
+      <DependentUpon>MainSettingsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AppSettingsPages\GeneralSettingsPage.xaml.cs">
-      <DependentUpon>GeneralSettingsPage.xaml</DependentUpon>
+    <Compile Include="Views\AppSettings\AppearancePage.xaml.cs">
+      <DependentUpon>AppearancePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\HomePages\IssuesPage.xaml.cs">
       <DependentUpon>IssuesPage.xaml</DependentUpon>
@@ -462,15 +463,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AppSettingsPages\AboutUsPage.xaml">
+    <Page Include="Views\AppSettings\AboutPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AppSettingsPages\GeneralPage.xaml">
+    <Page Include="Views\AppSettings\MainSettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AppSettingsPages\GeneralSettingsPage.xaml">
+    <Page Include="Views\AppSettings\AppearancePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

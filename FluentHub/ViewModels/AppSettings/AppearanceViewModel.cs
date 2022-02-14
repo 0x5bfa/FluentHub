@@ -8,16 +8,15 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FluentHub.ViewModels.AppSettingsPages
+namespace FluentHub.ViewModels.AppSettings
 {
-    #region Languages
     public class LanguageCB
     {
         public string PrimaryLangTag { get ; set; }
         public string CanonicalLangName { get ;set; }
     }
 
-    public class GeneralPageViewModel : INotifyPropertyChanged
+    public class AppearanceViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<LanguageCB> items = new ObservableCollection<LanguageCB>();
         public ObservableCollection<LanguageCB> Items
@@ -51,7 +50,6 @@ namespace FluentHub.ViewModels.AppSettingsPages
 
             Items.Insert(0, defaultLangCB);
         }
-        #endregion
 
         protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
         {

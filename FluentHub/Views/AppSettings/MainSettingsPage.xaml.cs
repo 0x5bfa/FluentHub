@@ -13,16 +13,11 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// The Blank Page item template is documented at https://go.microsoft.com/fwlink/?LinkId=234238
-
-namespace FluentHub.Views.AppSettingsPages
+namespace FluentHub.Views.AppSettings
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
-    public sealed partial class GeneralPage : Page
+    public sealed partial class MainSettingsPage : Page
     {
-        public GeneralPage()
+        public MainSettingsPage()
         {
             this.InitializeComponent();
         }
@@ -34,12 +29,12 @@ namespace FluentHub.Views.AppSettingsPages
             switch (tag)
             {
                 case "General":
-                    SettingsContentFrame.Navigate(typeof(GeneralSettingsPage));
+                    SettingsContentFrame.Navigate(typeof(AppearancePage));
                     NavViewFrameTitleTextBlock.Text = "General";
                     break;
                 case "AboutUs":
-                    SettingsContentFrame.Navigate(typeof(AboutUsPage));
-                    NavViewFrameTitleTextBlock.Text = "About Us";
+                    SettingsContentFrame.Navigate(typeof(AboutPage));
+                    NavViewFrameTitleTextBlock.Text = "About";
                     break;
             }
 

@@ -1,6 +1,6 @@
 ﻿using FluentHub.Helpers;
 using FluentHub.ViewModels;
-using FluentHub.ViewModels.AppSettingsPages;
+using FluentHub.ViewModels.AppSettings;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -18,13 +18,13 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace FluentHub.Views.AppSettingsPages
+namespace FluentHub.Views.AppSettings
 {
-    public sealed partial class GeneralSettingsPage : Page
+    public sealed partial class AppearancePage : Page
     {
         public static SettingsViewModel Settings { get; private set; } = new SettingsViewModel();
 
-        public GeneralSettingsPage()
+        public AppearancePage()
         {
             this.InitializeComponent();
 

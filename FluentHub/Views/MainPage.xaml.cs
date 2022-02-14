@@ -52,7 +52,7 @@ namespace FluentHub.Views
 
         private void ToolbarAppSettingsButton_Click(object sender, RoutedEventArgs e)
         {
-            App.MainViewModel.MainFrame.Navigate(typeof(AppSettingsPages.GeneralPage));
+            App.MainViewModel.MainFrame.Navigate(typeof(AppSettings.MainSettingsPage));
         }
     }
 }
