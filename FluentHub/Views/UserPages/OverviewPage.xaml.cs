@@ -1,6 +1,7 @@
 ﻿using FluentHub.Helpers;
 using FluentHub.Services.OctokitEx;
 using Octokit;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -38,20 +39,33 @@ namespace FluentHub.Views.UserPages
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            UserPinnedItems pinnedItems = new UserPinnedItems();
-
-            var repoIdList = await pinnedItems.Get(UserName, true);
-
-            var count = ViewModel.GetPinnedRepos(repoIdList);
-
-            if (count != 0)
+            try
             {
-                NoOverviewBlock.Visibility = Visibility.Collapsed;
-                UserPinnedItemsBlock.Visibility = Visibility.Visible;
-            }
+                UserPinnedItems pinnedItems = new UserPinnedItems();
 
-            var repo = await App.Client.Repository.Get(UserName, UserName);
-            UserSpecialReadmeBlock.RepositoryId = repo.Id;
+                var repoIdList = await pinnedItems.Get(UserName, true);
+
+                var count = ViewModel.GetPinnedRepos(repoIdList);
+
+                if (count != 0)
+                {
+                    NoOverviewBlock.Visibility = Visibility.Collapsed;
+                    UserPinnedItemsBlock.Visibility = Visibility.Visible;
+                }
+
+                var repo = await App.Client.Repository.Get(UserName, UserName);
+                UserSpecialReadmeBlock.RepositoryId = repo.Id;
+            }
+            catch (ApiException aex)
+            {
+                Log.Error(aex, aex.Message);
+                return;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, ex.Message);
+                return;
+            }
         }
     }
 }
