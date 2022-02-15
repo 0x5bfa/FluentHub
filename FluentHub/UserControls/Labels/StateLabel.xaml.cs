@@ -43,39 +43,39 @@ namespace FluentHub.UserControls.Labels
         {
             switch (Status)
             {
-                case Status.IssueOpened: // 94e2a6
-                    LabelBackground.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x94, 0xE2, 0xA6));
+                case Status.IssueOpened: // #1a7f37 [github light color bind theme]
+                    LabelBackground.Background = Application.Current.Resources["SystemFillColorSuccessBackgroundBrush"] as SolidColorBrush;
                     StateLabelFont.Glyph = "\uE9EA";
                     StateLabelTextBlock.Text = "Open";
                     break;
-                case Status.IssueClosed: // b797f3
-                    LabelBackground.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xB7, 0x97, 0xF3));
+                case Status.IssueClosed: // #8250df [github light color bind theme]
+                    LabelBackground.Background = Application.Current.Resources["SystemFillColorSuccessBackgroundBrush"] as SolidColorBrush;
                     StateLabelFont.Glyph = "\uE9E6";
                     StateLabelTextBlock.Text = "Closed";
                     break;
-                case Status.IssueDraft: // bdbdc7
-                    LabelBackground.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xBD, 0xBD, 0xC7));
+                case Status.IssueDraft: // #57606a [github light color bind theme]
+                    LabelBackground.Background = Application.Current.Resources["SystemFillColorSolidNeutral"] as SolidColorBrush;
                     StateLabelFont.Glyph = "\uE9E8";
                     StateLabelTextBlock.Text = "Draft";
                     break;
 
-                case Status.PullOpened: // 94e2a6
-                    LabelBackground.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x94, 0xE2, 0xA6));
+                case Status.PullOpened: // #1a7f37 [github light color bind theme]
+                    LabelBackground.Background = Application.Current.Resources["SystemFillColorSuccessBackgroundBrush"] as SolidColorBrush;
                     StateLabelFont.Glyph = "\uE9BF";
                     StateLabelTextBlock.Text = "Open";
                     break;
-                case Status.PullClosed: // f47d88
-                    LabelBackground.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xF4, 0x7D, 0x88));
+                case Status.PullClosed: // #cf222e [github light color bind theme]
+                    LabelBackground.Background = Application.Current.Resources["SystemFillColorCritical"] as SolidColorBrush;
                     StateLabelFont.Glyph = "\uE9BF";
                     StateLabelTextBlock.Text = "Closed";
                     break;
-                case Status.PullMerged: // b797f3
-                    LabelBackground.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0xB7, 0x97, 0xF3));
+                case Status.PullMerged: // #8250df [github light color bind theme]
+                    LabelBackground.Background = Application.Current.Resources["SystemFillColorSuccessBackgroundBrush"] as SolidColorBrush;
                     StateLabelFont.Glyph = "\uE9BD";
                     StateLabelTextBlock.Text = "Marged";
                     break;
-                case Status.PullDraft: // bdbdc7
-                    LabelBackground.Background = new SolidColorBrush(Color.FromArgb(0xFF, 0x63, 0x6e, 0x7b));
+                case Status.PullDraft: // #57606a [github light color bind theme]
+                    LabelBackground.Background = Application.Current.Resources["SystemFillColorSolidNeutral"] as SolidColorBrush;
                     StateLabelFont.Glyph = "\uE9BF";
                     StateLabelTextBlock.Text = "Draft";
                     break;

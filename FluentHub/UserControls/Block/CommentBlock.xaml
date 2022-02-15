@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:FluentHub.UserControls.Block"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
 
     <Grid Grid.Row="3">
@@ -21,12 +22,11 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <Grid
-                Height="36"
                 Padding="12,8"
-                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                ColumnSpacing="8"
+                ColumnSpacing="12"
                 CornerRadius="4,4,0,0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
@@ -36,33 +36,52 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Border
-                    Width="20"
-                    Height="20"
+                    Width="36"
+                    Height="36"
                     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                    CornerRadius="10">
+                    CornerRadius="18">
                     <Image
-                        Width="20"
-                        Height="20"
+                        Width="36"
+                        Height="36"
                         Source="https://avatars.githubusercontent.com/u/62196528?v=4" />
                 </Border>
-                <TextBlock
-                    Grid.Column="1"
-                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                    Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="onein528" />
-                <TextBlock
-                    Grid.Column="2"
-                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                    Style="{StaticResource BodyTextBlockStyle}"
-                    Text="commented 14 hours ago" />
+                <StackPanel Grid.Column="1" Orientation="Horizontal">
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="onein528" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text=" • 14 hours ago" />
+                </StackPanel>
                 <Button
                     Grid.Column="4"
+                    Width="36"
+                    Height="32"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Center"
-                    Style="{StaticResource LinkLikeButtonStyle}">
+                    Background="Transparent"
+                    Style="{StaticResource ClearButtonStyle}">
+                    <Button.Flyout>
+                        <MenuFlyout Placement="Bottom">
+                            <MenuFlyoutItem Text="Share" />
+                            <MenuFlyoutItem Text="Quote reply" />
+                            <MenuFlyoutItem Text="Reference in new issue" />
+                            <MenuFlyoutSeparator />
+                            <MenuFlyoutItem Text="Edit" />
+                            <MenuFlyoutSeparator />
+                            <MenuFlyoutItem Text="Report" />
+                            <MenuFlyoutItem Text="Hide" />
+                            <MenuFlyoutItem Text="Delete" />
+                        </MenuFlyout>
+                    </Button.Flyout>
                     <FontIcon FontSize="16" Glyph="&#xE10C;" />
                 </Button>
             </Grid>
+            <MenuFlyoutSeparator Grid.Row="1" />
+            <WebView />
         </Grid>
     </Grid>
 </Page>

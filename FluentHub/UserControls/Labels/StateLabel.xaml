@@ -17,14 +17,8 @@
             CornerRadius="4">
             <Grid
                 x:Name="LabelBackground"
-                Background="{x:Bind LabelBackground.Background, Mode=OneWay}"
-                Opacity="0.10" />
-            <Grid
-                x:Name="LabelBorder"
-                BorderBrush="{x:Bind LabelBackground.Background, Mode=OneWay}"
-                BorderThickness="1"
-                CornerRadius="4"
-                Opacity="0.3" />
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch" />
             <StackPanel
                 Padding="12,0"
                 Orientation="Horizontal"
@@ -32,12 +26,10 @@
                 <FontIcon
                     x:Name="StateLabelFont"
                     FontFamily="{StaticResource Octions}"
-                    FontSize="14"
-                    Foreground="{x:Bind LabelBackground.Background, Mode=OneWay}" />
+                    FontSize="14" />
                 <TextBlock
                     x:Name="StateLabelTextBlock"
                     VerticalAlignment="Center"
-                    Foreground="{x:Bind LabelBackground.Background, Mode=OneWay}"
                     Style="{StaticResource BodyStrongTextBlockStyle}" />
             </StackPanel>
         </Grid>
