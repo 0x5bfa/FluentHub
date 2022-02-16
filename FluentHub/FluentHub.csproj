@@ -148,8 +148,8 @@
     <Compile Include="Services\OctokitEx\UserPinnedItems.cs" />
     <Compile Include="Services\OctokitEx\UserStarredItems.cs" />
     <Compile Include="Services\Octokit\UserService.cs" />
-    <Compile Include="UserControls\Block\CommentBlock.xaml.cs">
-      <DependentUpon>CommentBlock.xaml</DependentUpon>
+    <Compile Include="UserControls\Block\IssueContentBlock.xaml.cs">
+      <DependentUpon>IssueContentBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Block\IssueBlock.xaml.cs">
       <DependentUpon>IssueBlock.xaml</DependentUpon>
@@ -401,7 +401,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\Block\CommentBlock.xaml">
+    <Page Include="UserControls\Block\IssueContentBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
