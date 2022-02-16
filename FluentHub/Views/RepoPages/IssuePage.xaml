@@ -15,33 +15,44 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal" Spacing="8">
-                <TextBlock
-                    x:Name="IssueTitleTextBlock"
-                    FontWeight="Normal"
-                    Style="{StaticResource TitleTextBlockStyle}" />
-                <TextBlock
-                    x:Name="IssueNumberTextBlock"
-                    FontWeight="SemiLight"
-                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                    Style="{StaticResource TitleTextBlockStyle}"
-                    Text="#30" />
-            </StackPanel>
-            <StackPanel
-                Grid.Row="1"
-                Margin="0,8"
-                Orientation="Horizontal"
-                Spacing="4">
-                <label:StateLabel x:Name="StatusLabel" Status="IssueDraft" />
-            </StackPanel>
-            <MenuFlyoutSeparator Grid.Row="2" Margin="0,0,0,8" />
-            <block:CommentBlock Grid.Row="3" />
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <TextBlock
+                        x:Name="IssueTitleTextBlock"
+                        FontWeight="Normal"
+                        Style="{StaticResource TitleTextBlockStyle}" />
+                    <TextBlock
+                        x:Name="IssueNumberTextBlock"
+                        FontWeight="SemiLight"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Style="{StaticResource TitleTextBlockStyle}"
+                        Text="#30" />
+                </StackPanel>
+                <StackPanel
+                    Grid.Row="1"
+                    Margin="0,8"
+                    Orientation="Horizontal"
+                    Spacing="4">
+                    <label:StateLabel x:Name="StatusLabel" Status="IssueDraft" />
+                </StackPanel>
+                <MenuFlyoutSeparator Grid.Row="2" Margin="0,0,0,8" />
+            </Grid>
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+            </Grid>
         </Grid>
     </ScrollViewer>
 </Page>

@@ -15,9 +15,9 @@ using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub.UserControls.Block
 {
-    public sealed partial class CommentBlock : Page
+    public sealed partial class IssueContentBlock : Page
     {
-        public CommentBlock()
+        public IssueContentBlock()
         {
             this.InitializeComponent();
         }

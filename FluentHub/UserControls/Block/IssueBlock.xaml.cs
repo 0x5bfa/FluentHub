@@ -78,38 +78,47 @@ namespace FluentHub.UserControls.Block
         {
             var issue = await App.Client.Issue.Get(RepositoryId, IssueIndex);
 
-            if (issue.State == ItemState.Open)
+            if (issue.PullRequest != null)
             {
-                StatusFontGlyph.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x1A, 0x7F, 0x37));
-                StatusFontGlyph.Glyph = "\uE9EA";
-            }
-            else if (issue.PullRequest != null)
-            {
-                if (issue.PullRequest.State == ItemState.Open) // green
-                {
-                    StatusFontGlyph.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x1A, 0x7F, 0x37));
-                    StatusFontGlyph.Glyph = "\uE9BF";
-                }
-                else if (issue.PullRequest.State == ItemState.Closed) // red
-                {
-                    StatusFontGlyph.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0xCF, 0x22, 0x2E));
-                    StatusFontGlyph.Glyph = "\uE9BF";
-                }
-                else if (issue.PullRequest.Merged == true) // purple
+                var pr = await App.Client.PullRequest.Get(RepositoryId, IssueIndex);
+
+                if (pr.Merged == true) // purple
                 {
                     StatusFontGlyph.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x82, 0x50, 0xDF));
-                    StatusFontGlyph.Glyph = "\uE9BF";
+                    StatusFontGlyph.Glyph = "\uE9BD";
                 }
-                else if (issue.PullRequest.Draft == true) // gray
+                else if (pr.Draft == true) // gray
                 {
                     StatusFontGlyph.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x57, 0x60, 0x6A));
-                    StatusFontGlyph.Glyph = "\uE9BF";
+                    StatusFontGlyph.Glyph = "\uE9C3";
+                }
+                else
+                {
+                    if (pr.State == ItemState.Open) // green
+                    {
+                        StatusFontGlyph.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x1A, 0x7F, 0x37));
+                        StatusFontGlyph.Glyph = "\uE9BF";
+                    }
+                    else if (pr.State == ItemState.Closed) // red
+                    {
+                        StatusFontGlyph.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0xCF, 0x22, 0x2E));
+                        StatusFontGlyph.Glyph = "\uE9C1";
+                    }
                 }
             }
-            else // purple
+            else
             {
-                StatusFontGlyph.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x82, 0x50, 0xDF));
-                StatusFontGlyph.Glyph = "\uE9E6";
+                if (issue.State == ItemState.Open)
+                {
+                    StatusFontGlyph.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x1A, 0x7F, 0x37));
+                    StatusFontGlyph.Glyph = "\uE9EA";
+                }
+                else // purple
+                {
+                    StatusFontGlyph.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x82, 0x50, 0xDF));
+                    StatusFontGlyph.Glyph = "\uE9E6";
+                }
+
             }
 
             var repo = await App.Client.Repository.Get(RepositoryId);

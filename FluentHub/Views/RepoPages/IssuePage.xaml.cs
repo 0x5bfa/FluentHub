@@ -34,24 +34,27 @@ namespace FluentHub.Views.RepoPages
 
             if (Issue.PullRequest != null)
             {
-                switch (Issue.State.Value.ToString())
-                {
-                    case "Open":
-                        StatusLabel.Status = UserControls.Labels.Status.PullOpened;
-                        break;
-                    case "Closed":
-                        StatusLabel.Status = UserControls.Labels.Status.PullClosed;
-                        break;
-                }
+                var pr = await App.Client.PullRequest.Get(RepoId, IssueNumber);
 
-                if (Issue.PullRequest.Merged)
+                if (pr.Merged)
                 {
                     StatusLabel.Status = UserControls.Labels.Status.PullMerged;
                 }
-
-                if (Issue.PullRequest.Draft)
+                else if (pr.Draft)
                 {
                     StatusLabel.Status = UserControls.Labels.Status.PullDraft;
+                }
+                else
+                {
+                    switch (pr.State.Value.ToString())
+                    {
+                        case "Open":
+                            StatusLabel.Status = UserControls.Labels.Status.PullOpened;
+                            break;
+                        case "Closed":
+                            StatusLabel.Status = UserControls.Labels.Status.PullClosed;
+                            break;
+                    }
                 }
             }
             else

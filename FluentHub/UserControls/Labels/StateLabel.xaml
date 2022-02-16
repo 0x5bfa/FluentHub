@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:FluentHub.UserControls.Labels"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -18,7 +19,8 @@
             <Grid
                 x:Name="LabelBackground"
                 HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch" />
+                VerticalAlignment="Stretch"
+                Opacity="0.20" />
             <StackPanel
                 Padding="12,0"
                 Orientation="Horizontal"
@@ -26,7 +28,8 @@
                 <FontIcon
                     x:Name="StateLabelFont"
                     FontFamily="{StaticResource Octions}"
-                    FontSize="14" />
+                    FontSize="16"
+                    Foreground="{x:Bind StateLabelTextBlock.Foreground, Mode=OneWay}" />
                 <TextBlock
                     x:Name="StateLabelTextBlock"
                     VerticalAlignment="Center"
