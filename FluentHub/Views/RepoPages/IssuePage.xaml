@@ -48,10 +48,7 @@
                 <MenuFlyoutSeparator Grid.Row="2" Margin="0,0,0,8" />
             </Grid>
             <Grid Grid.Row="1">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+                <StackPanel x:Name="IssueContentPanel" Spacing="6" />
             </Grid>
         </Grid>
     </ScrollViewer>

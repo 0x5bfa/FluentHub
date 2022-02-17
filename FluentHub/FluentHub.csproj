@@ -137,6 +137,7 @@
     <Compile Include="Helpers\ResourceHelper.cs" />
     <Compile Include="Helpers\WebViewHelpers.cs" />
     <Compile Include="Models\Items\DetailsLayoutListViewItem.cs" />
+    <Compile Include="Models\Items\IssueCommentItem.cs" />
     <Compile Include="Models\Items\IssueListItem.cs" />
     <Compile Include="Models\Items\NotificationListItem.cs" />
     <Compile Include="Models\Items\ProfileBlockItem.cs" />
@@ -169,6 +170,9 @@
     <Compile Include="UserControls\CustomTabView.xaml.cs">
       <DependentUpon>CustomTabView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Issue\IssueCommentBlock.xaml.cs">
+      <DependentUpon>IssueCommentBlock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Labels\LabelControl.xaml.cs">
       <DependentUpon>LabelControl.xaml</DependentUpon>
     </Compile>
@@ -177,9 +181,6 @@
     </Compile>
     <Compile Include="UserControls\Repository\FileContentBlock.xaml.cs">
       <DependentUpon>FileContentBlock.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\Repository\IssueCommentBlock.xaml.cs">
-      <DependentUpon>IssueCommentBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Repository\ReadmeContentBlock.xaml.cs">
       <DependentUpon>ReadmeContentBlock.xaml</DependentUpon>
@@ -205,6 +206,7 @@
     <Compile Include="ViewModels\RepoPages\PullRequestListViewModel.cs" />
     <Compile Include="ViewModels\SettingsManager.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Issue\IssueCommentBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Repository\LatestCommitBlockViewModel.cs" />
     <Compile Include="ViewModels\UserPages\ActivityViewModel.cs" />
     <Compile Include="ViewModels\UserPages\NotificationViewModel.cs" />
@@ -429,6 +431,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\Issue\IssueCommentBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Labels\LabelControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -438,10 +444,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Repository\FileContentBlock.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\Repository\IssueCommentBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
