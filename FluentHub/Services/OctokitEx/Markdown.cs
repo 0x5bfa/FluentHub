@@ -87,7 +87,7 @@ namespace FluentHub.Services.OctokitEx
 
                 wc.Headers["Content-Type"] = "text/plain";
                 wc.Headers["User-agent"] = "FluentHub";
-                wc.Headers["Authorization"] = "token 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";
+                wc.Headers["Authorization"] = "token " + App.Settings.Get("AccessToken", "");
                 //wc.Headers["Mode"] = "GFM";
 
                 var resData = wc.UploadData(url, "POST", Encoding.UTF8.GetBytes(markdown));
