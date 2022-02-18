@@ -78,19 +78,52 @@ namespace FluentHub.UserControls.Block
         {
             var issue = await App.Client.Issue.Get(RepositoryId, IssueIndex);
 
-            if (issue.State == ItemState.Closed)
+            if (issue.PullRequest != null)
             {
-                StatusFontGlyph.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x98, 0x6E, 0xE2)); // #986EE2
-                StatusFontGlyph.Glyph = "\uE9E6";
-            }
+                var pr = await App.Client.PullRequest.Get(RepositoryId, IssueIndex);
 
-            // #57AB5A - issue/PR opened
-            // #768390 - draft
-            // #E5534B - PR closed
+                if (pr.Merged == true) // purple
+                {
+                    StatusFontGlyph.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x82, 0x50, 0xDF));
+                    StatusFontGlyph.Glyph = "\uE9BD";
+                }
+                else if (pr.Draft == true) // gray
+                {
+                    StatusFontGlyph.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x57, 0x60, 0x6A));
+                    StatusFontGlyph.Glyph = "\uE9C3";
+                }
+                else
+                {
+                    if (pr.State == ItemState.Open) // green
+                    {
+                        StatusFontGlyph.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x1A, 0x7F, 0x37));
+                        StatusFontGlyph.Glyph = "\uE9BF";
+                    }
+                    else if (pr.State == ItemState.Closed) // red
+                    {
+                        StatusFontGlyph.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0xCF, 0x22, 0x2E));
+                        StatusFontGlyph.Glyph = "\uE9C1";
+                    }
+                }
+            }
+            else
+            {
+                if (issue.State == ItemState.Open)
+                {
+                    StatusFontGlyph.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x1A, 0x7F, 0x37));
+                    StatusFontGlyph.Glyph = "\uE9EA";
+                }
+                else // purple
+                {
+                    StatusFontGlyph.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x82, 0x50, 0xDF));
+                    StatusFontGlyph.Glyph = "\uE9E6";
+                }
+
+            }
 
             var repo = await App.Client.Repository.Get(RepositoryId);
 
-            RepoNameWithOwnerAndNumber.Text = repo.Owner + " / " + repo.Name + " #" + issue.Number;
+            RepoNameWithOwnerAndNumber.Text = repo.Owner.Login + " / " + repo.Name + " #" + issue.Number;
 
             UpdatedAtHumanized.Text = issue.UpdatedAt.Humanize();
 
@@ -116,5 +149,4 @@ namespace FluentHub.UserControls.Block
         public string LabelText { get; set; }
         public Brush AccentColor { get; set; }
     }
-
 }

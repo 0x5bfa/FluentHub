@@ -5,32 +5,37 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:FluentHub.UserControls.Labels"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
-    Loaded="UserControl_Loaded"
     mc:Ignorable="d">
 
-    <Grid>
-        <Border
-            x:Name="StateLabelBorder"
-            Height="36"
-            Margin="0,0,4,0"
-            Padding="12,6"
+    <Grid HorizontalAlignment="Left">
+        <Grid
+            Width="Auto"
+            Height="28"
             HorizontalAlignment="Left"
-            Background="#636e7b"
-            BorderBrush="Transparent"
-            BorderThickness="1"
-            CornerRadius="20">
-            <StackPanel Orientation="Horizontal" Spacing="4">
+            CornerRadius="4">
+            <Grid
+                x:Name="LabelBackground"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                Opacity="0.20" />
+            <StackPanel
+                Padding="12,0"
+                Orientation="Horizontal"
+                Spacing="4">
                 <FontIcon
                     x:Name="StateLabelFont"
                     FontFamily="{StaticResource Octions}"
-                    FontSize="16" />
+                    FontSize="16"
+                    Foreground="{x:Bind StateLabelTextBlock.Foreground, Mode=OneWay}" />
                 <TextBlock
                     x:Name="StateLabelTextBlock"
                     VerticalAlignment="Center"
                     Style="{StaticResource BodyStrongTextBlockStyle}" />
             </StackPanel>
-        </Border>
+        </Grid>
     </Grid>
+
 </UserControl>

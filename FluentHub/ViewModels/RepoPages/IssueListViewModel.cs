@@ -19,8 +19,7 @@ namespace FluentHub.ViewModels.RepoPages
             get => _items;
             private set
             {
-                _items = value;
-                NotifyPropertyChanged(nameof(Items));
+                SetProperty(ref _items, value);
             }
         }
 
@@ -43,6 +42,8 @@ namespace FluentHub.ViewModels.RepoPages
                     Items.Add(listItem);
                 }
             }
+
+            Items = new ObservableCollection<IssueListItem>(Items.OrderByDescending(x => x.IssueIndex));
 
             IsActive = false;
         }

@@ -32,6 +32,8 @@ namespace FluentHub.Services.OctokitEx
 
             var htmlBody = Get(markdown);
 
+            htmlBody = AddLineBreak(htmlBody);
+
             string fullHtml
                 = ((string)indexHtml!.Clone())
                 .Replace("{{renderTheme}}", appTheme.ToLower())
@@ -40,6 +42,13 @@ namespace FluentHub.Services.OctokitEx
             fullHtml = FixRelativeLink(fullHtml, missedPath);
 
             return fullHtml;
+        }
+
+        public string AddLineBreak(string body)
+        {
+            string formattedBody = body;
+
+            return formattedBody.Replace(@"</strong>", "</strong>\n<br>");
         }
 
         public string FixRelativeLink(string renderedString, string missedPath)
@@ -78,6 +87,8 @@ namespace FluentHub.Services.OctokitEx
 
                 wc.Headers["Content-Type"] = "text/plain";
                 wc.Headers["User-agent"] = "FluentHub";
+                wc.Headers["Authorization"] = "token " + App.Settings.Get("AccessToken", "");
+                //wc.Headers["Mode"] = "GFM";
 
                 var resData = wc.UploadData(url, "POST", Encoding.UTF8.GetBytes(markdown));
                 wc.Dispose();
