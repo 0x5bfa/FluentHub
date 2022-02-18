@@ -2,6 +2,7 @@
     x:Class="FluentHub.Views.RepoPages.IssuePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:block="using:FluentHub.UserControls.Block"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:label="using:FluentHub.UserControls.Labels"
     xmlns:local="using:FluentHub.Views.RepoPages"
@@ -14,54 +15,41 @@
         <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal" Spacing="8">
-                <TextBlock
-                    x:Name="IssueTitleTextBlock"
-                    FontWeight="Normal"
-                    Style="{StaticResource TitleTextBlockStyle}" />
-                <TextBlock
-                    x:Name="IssueNumberTextBlock"
-                    FontWeight="SemiLight"
-                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                    Style="{StaticResource TitleTextBlockStyle}"
-                    Text="#30" />
-            </StackPanel>
-            <StackPanel
-                Grid.Row="1"
-                Margin="0,8"
-                Orientation="Horizontal"
-                Spacing="4">
-                <label:StateLabel x:Name="StatusLabel" Status="IssueDraft" />
-                <TextBlock
-                    x:Name="IssueOpenerNameTextBlock"
-                    VerticalAlignment="Center"
-                    Foreground="{StaticResource ApplicationSecondaryForegroundThemeBrush}"
-                    Style="{StaticResource BodyStrongTextBlockStyle}" />
-                <TextBlock
-                    x:Name="IssueOpenedComment"
-                    VerticalAlignment="Center"
-                    Foreground="{StaticResource ApplicationSecondaryForegroundThemeBrush}"
-                    Style="{StaticResource BodyTextBlockStyle}" />
-            </StackPanel>
-            <MenuFlyoutSeparator Grid.Row="2" Margin="0,0,0,8" />
-            <!--<Grid
-                Grid.Row="2"
-                Grid.RowSpan="5"
-                Margin="64,32"
-                HorizontalAlignment="Left">
-                <Border Width="0.5" Background="{StaticResource MenuFlyoutSeparatorBackground}" />
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal" Spacing="8">
+                    <TextBlock
+                        x:Name="IssueTitleTextBlock"
+                        FontWeight="Normal"
+                        Style="{StaticResource TitleTextBlockStyle}" />
+                    <TextBlock
+                        x:Name="IssueNumberTextBlock"
+                        FontWeight="SemiLight"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Style="{StaticResource TitleTextBlockStyle}"
+                        Text="#30" />
+                </StackPanel>
+                <StackPanel
+                    Grid.Row="1"
+                    Margin="0,8"
+                    Orientation="Horizontal"
+                    Spacing="4">
+                    <label:StateLabel x:Name="StatusLabel" Status="IssueDraft" />
+                </StackPanel>
+                <MenuFlyoutSeparator Grid.Row="2" Margin="0,0,0,8" />
             </Grid>
-            <StackPanel
-                x:Name="EventsPanel"
-                Grid.Row="3"
-                MinHeight="256" />-->
-            <TextBlock Grid.Row="3" Text="Currently, issue events and comments are not available. Comming soon!" />
+            <Grid Grid.Row="1">
+                <StackPanel x:Name="IssueContentPanel" Spacing="12" />
+            </Grid>
         </Grid>
     </ScrollViewer>
 </Page>

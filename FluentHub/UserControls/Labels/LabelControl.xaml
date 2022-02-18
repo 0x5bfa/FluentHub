@@ -22,14 +22,17 @@
                 Opacity="0.18" />
             <Grid
                 x:Name="LabelBorder"
+                Background="{x:Bind LabelBackground.Background, Mode=OneWay}"
+                BorderBrush="{x:Bind LabelBackground.Background, Mode=OneWay}"
                 BorderThickness="0.5"
                 CornerRadius="10"
-                Opacity="0.18" />
+                Opacity="0.3" />
             <TextBlock
                 x:Name="LabelTextBlock"
                 Margin="7,0"
                 VerticalAlignment="Center"
                 FontWeight="SemiBold"
+                Foreground="{x:Bind LabelBackground.Background, Mode=OneWay}"
                 Style="{StaticResource CaptionTextBlockStyle}" />
         </Grid>
     </Grid>

@@ -43,7 +43,6 @@
                     x:Name="StatusFontGlyph"
                     Margin="0,0,8,0"
                     FontFamily="{StaticResource Octions}"
-                    Foreground="#57AB5A"
                     Glyph="&#xE9EA;" />
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>

@@ -137,6 +137,8 @@
     <Compile Include="Helpers\ResourceHelper.cs" />
     <Compile Include="Helpers\WebViewHelpers.cs" />
     <Compile Include="Models\Items\DetailsLayoutListViewItem.cs" />
+    <Compile Include="Models\Items\IssueCommentItem.cs" />
+    <Compile Include="Models\Items\IssueEventItem.cs" />
     <Compile Include="Models\Items\IssueListItem.cs" />
     <Compile Include="Models\Items\NotificationListItem.cs" />
     <Compile Include="Models\Items\ProfileBlockItem.cs" />
@@ -148,8 +150,8 @@
     <Compile Include="Services\OctokitEx\UserPinnedItems.cs" />
     <Compile Include="Services\OctokitEx\UserStarredItems.cs" />
     <Compile Include="Services\Octokit\UserService.cs" />
-    <Compile Include="UserControls\Block\CommentBlock.xaml.cs">
-      <DependentUpon>CommentBlock.xaml</DependentUpon>
+    <Compile Include="UserControls\Block\IssueContentBlock.xaml.cs">
+      <DependentUpon>IssueContentBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Block\IssueBlock.xaml.cs">
       <DependentUpon>IssueBlock.xaml</DependentUpon>
@@ -168,6 +170,12 @@
     </Compile>
     <Compile Include="UserControls\CustomTabView.xaml.cs">
       <DependentUpon>CustomTabView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Issue\IssueCommentBlock.xaml.cs">
+      <DependentUpon>IssueCommentBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Issue\IssueEventBlock.xaml.cs">
+      <DependentUpon>IssueEventBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Labels\LabelControl.xaml.cs">
       <DependentUpon>LabelControl.xaml</DependentUpon>
@@ -202,6 +210,8 @@
     <Compile Include="ViewModels\RepoPages\PullRequestListViewModel.cs" />
     <Compile Include="ViewModels\SettingsManager.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Issue\IssueCommentBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Issue\IssueEventBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Repository\LatestCommitBlockViewModel.cs" />
     <Compile Include="ViewModels\UserPages\ActivityViewModel.cs" />
     <Compile Include="ViewModels\UserPages\NotificationViewModel.cs" />
@@ -398,7 +408,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\Block\CommentBlock.xaml">
+    <Page Include="UserControls\Block\IssueContentBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -423,6 +433,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\CustomTabView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Issue\IssueCommentBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Issue\IssueEventBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -599,7 +617,7 @@
       <Version>2.8.0-prerelease.220118001</Version>
     </PackageReference>
     <PackageReference Include="Monaco.Editor">
-        <Version>0.9.0-beta</Version>
+      <Version>0.9.0-beta</Version>
     </PackageReference>
     <PackageReference Include="Octokit">
       <Version>0.50.0</Version>
