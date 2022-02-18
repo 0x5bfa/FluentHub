@@ -34,7 +34,5 @@ namespace FluentHub.Models.Items
         public RenameInfo Rename;
 
         public IssueEventProjectCard ProjectCard;
-
-
     }
 }

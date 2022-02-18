@@ -152,7 +152,6 @@ namespace FluentHub.Helpers
                     , Convert.ToByte(hexColorCode.Substring(1, 2), 16)
                     , Convert.ToByte(hexColorCode.Substring(3, 2), 16)
                     , Convert.ToByte(hexColorCode.Substring(5, 2), 16)));
-
             }
             else
             {

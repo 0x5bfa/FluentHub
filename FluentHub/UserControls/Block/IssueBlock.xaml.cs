@@ -149,5 +149,4 @@ namespace FluentHub.UserControls.Block
         public string LabelText { get; set; }
         public Brush AccentColor { get; set; }
     }
-
 }
