@@ -4,6 +4,8 @@ using FluentHub.ViewModels.UserControls.Issue;
 using Humanizer;
 using Octokit;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Navigation;
@@ -36,9 +38,9 @@ namespace FluentHub.Views.RepoPages
             IssueTitleTextBlock.Text = Issue.Title;
             IssueNumberTextBlock.Text = "#" + IssueNumber.ToString();
 
-            await SetLabelContent();
-
             SetIssueBody();
+
+            await SetLabelContent();
 
             await SetIssueContent();
         }
@@ -84,34 +86,90 @@ namespace FluentHub.Views.RepoPages
             }
         }
 
+        public struct IssueItemStruct
+        {
+            public string Type;
+            public DateTimeOffset CreatedAt;
+            public IssueComment Comment;
+            public IssueEvent Event;
+        }
+
         private async Task SetIssueContent()
         {
             var comments = await App.Client.Issue.Comment.GetAllForIssue(RepoId, IssueNumber);
+            var events = await App.Client.Issue.Events.GetAllForIssue(RepoId, IssueNumber);
 
-            foreach (var item in comments)
+            List<IssueItemStruct> issueItems = new();
+
+            foreach (var commentItem in comments)
             {
-                var viewmodel = new IssueCommentBlockViewModel();
-                var commentItem = new IssueCommentItem();
+                IssueItemStruct issueItemStruct = new() { Type = "Comment", CreatedAt = commentItem.CreatedAt, Comment = commentItem };
+                issueItems.Add(issueItemStruct);
+            }
 
-                viewmodel.CommentId = item.Id;
-                viewmodel.RepositoryId = RepoId;
-                viewmodel.IssueNumber = IssueNumber;
+            foreach (var eventItem in events)
+            {
+                IssueItemStruct issueItemStruct = new() { Type = "Event", CreatedAt = eventItem.CreatedAt, Event = eventItem };
+                issueItems.Add(issueItemStruct);
+            }
 
-                commentItem.AuthorAssociation = item.AuthorAssociation;
-                commentItem.Body = item.Body;
-                commentItem.CreatedAt = item.CreatedAt.Humanize();
-                commentItem.HtmlUrl = item.HtmlUrl;
-                commentItem.Id = item.Id;
-                commentItem.NodeId = item.NodeId;
-                commentItem.Reactions = item.Reactions;
-                commentItem.UpdatedAt = item.UpdatedAt.Humanize();
-                commentItem.Url = item.Url;
-                commentItem.User = item.User;
+            var sortedIssueItems = issueItems.OrderBy(x => x.CreatedAt);
 
-                viewmodel.IssueComment = commentItem;
+            foreach (var item in sortedIssueItems)
+            {
+                if (item.Type == "Comment")
+                {
+                    var viewmodel = new IssueCommentBlockViewModel();
+                    var commentItem = new IssueCommentItem();
 
-                var commentBlock = new IssueCommentBlock() { PropertyViewModel = viewmodel };
-                IssueContentPanel.Children.Add(commentBlock);
+                    viewmodel.CommentId = item.Comment.Id;
+                    viewmodel.RepositoryId = RepoId;
+                    viewmodel.IssueNumber = IssueNumber;
+
+                    commentItem.AuthorAssociation = item.Comment.AuthorAssociation;
+                    commentItem.Body = item.Comment.Body;
+                    commentItem.CreatedAt = item.CreatedAt.Humanize();
+                    commentItem.HtmlUrl = item.Comment.HtmlUrl;
+                    commentItem.Id = item.Comment.Id;
+                    commentItem.NodeId = item.Comment.NodeId;
+                    commentItem.Reactions = item.Comment.Reactions;
+                    commentItem.UpdatedAt = item.Comment.UpdatedAt.Humanize();
+                    commentItem.Url = item.Comment.Url;
+                    commentItem.User = item.Comment.User;
+
+                    viewmodel.IssueComment = commentItem;
+
+                    var commentBlock = new IssueCommentBlock() { PropertyViewModel = viewmodel };
+                    IssueContentPanel.Children.Add(commentBlock);
+                }
+                else
+                {
+                    var viewmodel = new IssueEventBlockViewModel();
+                    var eventItem = new IssueEventItem();
+
+                    viewmodel.CommentId = item.Event.Id;
+                    viewmodel.RepositoryId = RepoId;
+                    viewmodel.IssueNumber = IssueNumber;
+
+                    eventItem.Actor = item.Event.Actor;
+                    eventItem.Assignee = item.Event.Assignee;
+                    eventItem.CommitId = item.Event.CommitId;
+                    eventItem.CommitUrl = item.Event.CommitUrl;
+                    eventItem.CreatedAt = item.Event.CreatedAt;
+                    eventItem.Event = item.Event.Event;
+                    eventItem.Id = item.Event.Id;
+                    eventItem.Issue = item.Event.Issue;
+                    eventItem.Label = item.Event.Label;
+                    eventItem.NodeId = item.Event.NodeId;
+                    eventItem.ProjectCard = item.Event.ProjectCard;
+                    eventItem.Rename = item.Event.Rename;
+                    eventItem.Url = item.Event.Url;
+
+                    viewmodel.IssueEvent = eventItem;
+
+                    var eventBlock = new IssueEventBlock() { PropertyViewModel = viewmodel };
+                    IssueContentPanel.Children.Add(eventBlock);
+                }
             }
         }
 

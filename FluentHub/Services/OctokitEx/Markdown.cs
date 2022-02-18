@@ -46,9 +46,7 @@ namespace FluentHub.Services.OctokitEx
         {
             string formattedBody = body;
 
-            formattedBody.Replace(@"</strong>", "</strong>\n<br>");
-
-            return formattedBody;
+            return formattedBody.Replace(@"</strong>", "</strong>\n<br>");
         }
 
         public string FixRelativeLink(string renderedString, string missedPath)
