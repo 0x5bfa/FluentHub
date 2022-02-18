@@ -14,52 +14,73 @@
         <vm:IssueEventBlockViewModel x:Name="ViewModel" />
     </UserControl.DataContext>
 
-    <Grid Margin="0,-4">
+    <Grid>
         <Button
             HorizontalAlignment="Stretch"
             HorizontalContentAlignment="Stretch"
             Background="Transparent"
             BorderBrush="Transparent"
             Style="{StaticResource ClearButtonStyle}">
-            <Grid Padding="16,8" ColumnSpacing="8">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+            <Grid Padding="12,-1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
                 <Border
-                    Width="32"
-                    Height="32"
-                    Margin="0,0,8,0"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                    CornerRadius="16">
-                    <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xE9B9;" />
-                </Border>
+                    Grid.Row="0"
+                    Width="1.5"
+                    Height="8"
+                    Margin="15,0,0,0"
+                    HorizontalAlignment="Left"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+                <Grid Grid.Row="1" ColumnSpacing="8">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Border
+                        Width="28"
+                        Height="28"
+                        Margin="2,0,8,0"
+                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        CornerRadius="16">
+                        <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xE9B9;" />
+                    </Border>
+                    <Border
+                        Grid.Column="1"
+                        Width="20"
+                        Height="20"
+                        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                        CornerRadius="11">
+                        <Image Source="{x:Bind ViewModel.IssueEvent.Actor.AvatarUrl, Mode=OneWay}" />
+                    </Border>
+                    <TextBlock
+                        Grid.Column="2"
+                        VerticalAlignment="Center"
+                        FontFamily="Cascadia Code"
+                        FontWeight="Light"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="{x:Bind ViewModel.IssueEvent.Event.StringValue, Mode=OneWay}" />
+                    <TextBlock
+                        Grid.Column="3"
+                        VerticalAlignment="Center"
+                        FontFamily="Cascadia Code"
+                        FontWeight="Light"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="{x:Bind ViewModel.IssueEvent.CommitId, Mode=OneWay}" />
+                </Grid>
                 <Border
-                    Grid.Column="1"
-                    Width="22"
-                    Height="22"
-                    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                    CornerRadius="11">
-                    <Image Source="{x:Bind ViewModel.IssueEvent.Actor.AvatarUrl, Mode=OneWay}" />
-                </Border>
-                <TextBlock
-                    Grid.Column="2"
-                    VerticalAlignment="Center"
-                    FontFamily="Cascadia Code"
-                    FontWeight="Light"
-                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                    Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="{x:Bind ViewModel.IssueEvent.Event.StringValue, Mode=OneWay}" />
-                <TextBlock
-                    Grid.Column="3"
-                    VerticalAlignment="Center"
-                    FontFamily="Cascadia Code"
-                    FontWeight="Light"
-                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                    Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="{x:Bind ViewModel.IssueEvent.CommitId, Mode=OneWay}" />
+                    Grid.Row="2"
+                    Width="1.5"
+                    Height="8"
+                    Margin="15,0,0,0"
+                    HorizontalAlignment="Left"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
             </Grid>
         </Button>
     </Grid>
