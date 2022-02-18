@@ -92,12 +92,14 @@ namespace FluentHub.Views.RepoPages
             public DateTimeOffset CreatedAt;
             public IssueComment Comment;
             public IssueEvent Event;
+            public PullRequestCommit Commit;
         }
 
         private async Task SetIssueContent()
         {
             var comments = await App.Client.Issue.Comment.GetAllForIssue(RepoId, IssueNumber);
             var events = await App.Client.Issue.Events.GetAllForIssue(RepoId, IssueNumber);
+            var commits = await App.Client.PullRequest.Commits(RepoId, IssueNumber);
 
             List<IssueItemStruct> issueItems = new();
 
@@ -112,6 +114,11 @@ namespace FluentHub.Views.RepoPages
                 IssueItemStruct issueItemStruct = new() { Type = "Event", CreatedAt = eventItem.CreatedAt, Event = eventItem };
                 issueItems.Add(issueItemStruct);
             }
+
+            //foreach (var commitItem in commits)
+            //{
+            //    IssueItemStruct issueItemStruct = new() { Type = "Commit", CreatedAt = commitItem.Commit.Author.Date, Commit = commitItem };
+            //}
 
             var sortedIssueItems = issueItems.OrderBy(x => x.CreatedAt);
 
@@ -151,19 +158,30 @@ namespace FluentHub.Views.RepoPages
                     viewmodel.RepositoryId = RepoId;
                     viewmodel.IssueNumber = IssueNumber;
 
-                    eventItem.Actor = item.Event.Actor;
-                    eventItem.Assignee = item.Event.Assignee;
-                    eventItem.CommitId = item.Event.CommitId;
-                    eventItem.CommitUrl = item.Event.CommitUrl;
-                    eventItem.CreatedAt = item.Event.CreatedAt;
-                    eventItem.Event = item.Event.Event;
-                    eventItem.Id = item.Event.Id;
-                    eventItem.Issue = item.Event.Issue;
-                    eventItem.Label = item.Event.Label;
-                    eventItem.NodeId = item.Event.NodeId;
-                    eventItem.ProjectCard = item.Event.ProjectCard;
-                    eventItem.Rename = item.Event.Rename;
-                    eventItem.Url = item.Event.Url;
+                    if (item.Type == "Commit")
+                    {
+                        eventItem.Actor = item.Commit.Author;
+                        eventItem.CommitId = item.Commit.Commit.Sha;
+                        eventItem.CommitUrl = item.Commit.Commit.Url;
+                        eventItem.NodeId = item.Commit.NodeId;
+                        eventItem.Url = item.Commit.Url;
+                    }
+                    else
+                    {
+                        eventItem.Actor = item.Event.Actor;
+                        eventItem.Assignee = item.Event.Assignee;
+                        eventItem.CommitId = item.Event.CommitId;
+                        eventItem.CommitUrl = item.Event.CommitUrl;
+                        eventItem.CreatedAt = item.Event.CreatedAt;
+                        eventItem.Event = item.Event.Event;
+                        eventItem.Id = item.Event.Id;
+                        eventItem.Issue = item.Event.Issue;
+                        eventItem.Label = item.Event.Label;
+                        eventItem.NodeId = item.Event.NodeId;
+                        eventItem.ProjectCard = item.Event.ProjectCard;
+                        eventItem.Rename = item.Event.Rename;
+                        eventItem.Url = item.Event.Url;
+                    }
 
                     viewmodel.IssueEvent = eventItem;
 
