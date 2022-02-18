@@ -15,7 +15,13 @@
         <vm:IssueCommentBlockViewModel x:Name="ViewModel" />
     </UserControl.DataContext>
     <Grid Grid.Row="3">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
         <Grid
+            Grid.Row="1"
             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
             BorderThickness="1"
@@ -92,5 +98,19 @@
                 DefaultBackgroundColor="Transparent"
                 NavigationCompleted="CommentWebView_NavigationCompleted" />
         </Grid>
+        <Border
+            Grid.Row="2"
+            Width="1.5"
+            Height="20"
+            Margin="28,-2,0,0"
+            HorizontalAlignment="Left"
+            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+        <Border
+            Grid.Row="0"
+            Width="1.5"
+            Height="20"
+            Margin="28,0,0,0"
+            HorizontalAlignment="Left"
+            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
     </Grid>
 </UserControl>
