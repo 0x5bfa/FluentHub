@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.System;
@@ -27,8 +28,7 @@ namespace FluentHub.UserControls
 
         private async void RestartButton_Click(object sender, RoutedEventArgs e)
         {
-            //await Launcher.LaunchUriAsync(new Uri("fluenthub:"));
-            //Process.GetCurrentProcess().Kill();
+            await CoreApplication.RequestRestartAsync("Application Restart Programmatically ");
         }
     }
 }
