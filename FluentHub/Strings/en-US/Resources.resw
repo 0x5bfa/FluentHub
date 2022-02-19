@@ -294,4 +294,16 @@
   <data name="SettingsNavViewItemTextEditor.Content" xml:space="preserve">
     <value>Text editor</value>
   </data>
+  <data name="ThemeDark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="ThemeLight" xml:space="preserve">
+    <value>Light</value>
+  </data>
+  <data name="UseSystemSetting" xml:space="preserve">
+    <value>Use system setting</value>
+  </data>
+  <data name="WindowsDefault" xml:space="preserve">
+    <value>Windows default</value>
+  </data>
 </root>

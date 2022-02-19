@@ -137,6 +137,7 @@
     <Compile Include="Helpers\ResourceHelper.cs" />
     <Compile Include="Helpers\ThemeHelper.cs" />
     <Compile Include="Helpers\WebViewHelpers.cs" />
+    <Compile Include="Models\DefaultLanguageModel.cs" />
     <Compile Include="Models\Items\DetailsLayoutListViewItem.cs" />
     <Compile Include="Models\Items\IssueCommentItem.cs" />
     <Compile Include="Models\Items\IssueEventItem.cs" />
@@ -192,6 +193,9 @@
     </Compile>
     <Compile Include="UserControls\Repository\LatestCommitBlock.xaml.cs">
       <DependentUpon>LatestCommitBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\RestartInfoBar.xaml.cs">
+      <DependentUpon>RestartInfoBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\SettingsBlockControl.xaml.cs">
       <DependentUpon>SettingsBlockControl.xaml</DependentUpon>
@@ -475,6 +479,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Repository\LatestCommitBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\RestartInfoBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

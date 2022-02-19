@@ -1,15 +1,12 @@
-﻿using FluentHub.Helpers;
-using FluentHub.ViewModels;
-using FluentHub.ViewModels.AppSettings;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using Windows.Globalization;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -18,13 +15,20 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace FluentHub.Views.AppSettings
+
+namespace FluentHub.UserControls
 {
-    public sealed partial class AppearancePage : Page
+    public sealed partial class RestartInfoBar : UserControl
     {
-        public AppearancePage()
+        public RestartInfoBar()
         {
             this.InitializeComponent();
+        }
+
+        private async void RestartButton_Click(object sender, RoutedEventArgs e)
+        {
+            //await Launcher.LaunchUriAsync(new Uri("fluenthub:"));
+            //Process.GetCurrentProcess().Kill();
         }
     }
 }

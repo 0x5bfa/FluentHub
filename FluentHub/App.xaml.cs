@@ -144,6 +144,9 @@ namespace FluentHub
         private async Task HandleProtocolActivationArguments(IActivatedEventArgs args)
         {
             ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
+
+            if (string.IsNullOrEmpty(eventArgs.Uri.Query)) return;
+
             string code = new WwwFormUrlDecoder(eventArgs.Uri.Query).GetFirstValueByName("code");
 
             if (code != null)
