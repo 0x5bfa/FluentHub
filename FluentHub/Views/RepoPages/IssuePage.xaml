@@ -45,10 +45,10 @@
                     Spacing="4">
                     <label:StateLabel x:Name="StatusLabel" Status="IssueDraft" />
                 </StackPanel>
-                <MenuFlyoutSeparator Grid.Row="2" Margin="0,0,0,8" />
+                <MenuFlyoutSeparator Grid.Row="2" />
             </Grid>
-            <Grid Grid.Row="1">
-                <StackPanel x:Name="IssueContentPanel" Spacing="12" />
+            <Grid Grid.Row="1" Margin="0,-1,0,0">
+                <StackPanel x:Name="IssueContentPanel" />
             </Grid>
         </Grid>
     </ScrollViewer>

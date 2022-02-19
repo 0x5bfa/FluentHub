@@ -99,7 +99,13 @@ namespace FluentHub.Views.RepoPages
         {
             var comments = await App.Client.Issue.Comment.GetAllForIssue(RepoId, IssueNumber);
             var events = await App.Client.Issue.Events.GetAllForIssue(RepoId, IssueNumber);
-            var commits = await App.Client.PullRequest.Commits(RepoId, IssueNumber);
+
+            IReadOnlyList<PullRequestCommit> commits;
+
+            if (Issue.PullRequest != null)
+            {
+                commits = await App.Client.PullRequest.Commits(RepoId, IssueNumber);
+            }
 
             List<IssueItemStruct> issueItems = new();
 
