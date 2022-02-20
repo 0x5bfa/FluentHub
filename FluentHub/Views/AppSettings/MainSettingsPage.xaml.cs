@@ -46,7 +46,6 @@ namespace FluentHub.Views.AppSettings
                     NavViewFrameTitleTextBlock.Text = "Text editor";
                     break;
             }
-
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)

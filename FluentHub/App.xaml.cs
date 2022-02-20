@@ -56,7 +56,6 @@ namespace FluentHub
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
-            
 
             if (Settings.SetupCompleted == true)
             {

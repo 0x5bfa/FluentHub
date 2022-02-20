@@ -14,12 +14,6 @@ using FluentHub.Models;
 
 namespace FluentHub.ViewModels.AppSettings
 {
-    public class LanguageCB
-    {
-        public string PrimaryLangTag { get ; set; }
-        public string CanonicalLangName { get ;set; }
-    }
-
     public class AppearanceViewModel : INotifyPropertyChanged
     {
         public ObservableCollection<DefaultLanguageModel> DefaultLanguages { get; private set; }
@@ -94,7 +88,5 @@ namespace FluentHub.ViewModels.AppSettings
 
             return false;
         }
-
-
     }
 }
