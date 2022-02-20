@@ -18,10 +18,18 @@
         <ScrollViewer>
             <Grid Margin="0,0,16,0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <StackPanel Grid.Column="0" Spacing="4">
+                <TextBlock
+                    Margin="0,8"
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                    Text="General" />
+                <StackPanel Grid.Row="1" Spacing="4">
                     <uc:SettingsBlockControl
                         Title="App Theme"
                         Description="Select which app theme to display"
@@ -39,6 +47,41 @@
                             <FontIcon Glyph="&#xF2B7;" />
                         </uc:SettingsBlockControl.Icon>
                         <ComboBox ItemsSource="{Binding DefaultLanguages}" SelectedIndex="{Binding SelectedLanguageIndex, Mode=TwoWay}" />
+                    </uc:SettingsBlockControl>
+                </StackPanel>
+                <TextBlock
+                    Grid.Row="2"
+                    Margin="0,16,0,8"
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                    Text="Code viewer" />
+                <StackPanel Grid.Row="3" Spacing="4">
+                    <uc:SettingsBlockControl
+                        Title="Font"
+                        Description="Select which editor font to display"
+                        IsClickable="False">
+                        <uc:SettingsBlockControl.Icon>
+                            <FontIcon Glyph="&#xe8d2;" />
+                        </uc:SettingsBlockControl.Icon>
+                    </uc:SettingsBlockControl>
+                    <uc:SettingsBlockControl Title="Force Dark Mode" IsClickable="False">
+                        <uc:SettingsBlockControl.Icon>
+                            <FontIcon Glyph="&#xE71D;" />
+                        </uc:SettingsBlockControl.Icon>
+                    </uc:SettingsBlockControl>
+                    <uc:SettingsBlockControl Title="Line Wrapping" IsClickable="False">
+                        <uc:SettingsBlockControl.Icon>
+                            <FontIcon Glyph="&#xE751;" />
+                        </uc:SettingsBlockControl.Icon>
+                    </uc:SettingsBlockControl>
+                    <uc:SettingsBlockControl Title="Override System Font Size" IsClickable="False">
+                        <uc:SettingsBlockControl.Icon>
+                            <FontIcon Glyph="&#xE71D;" />
+                        </uc:SettingsBlockControl.Icon>
+                    </uc:SettingsBlockControl>
+                    <uc:SettingsBlockControl Title="Render White Space" IsClickable="False">
+                        <uc:SettingsBlockControl.Icon>
+                            <FontIcon Glyph="&#xE71D;" />
+                        </uc:SettingsBlockControl.Icon>
                     </uc:SettingsBlockControl>
                 </StackPanel>
             </Grid>

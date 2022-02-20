@@ -59,5 +59,11 @@ namespace FluentHub.Views.AppSettings
 
             SignedInUserName.Text = authedUser.Name;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            SettingsNavViewItemAccount.IsSelected = true;
+            NavViewFrameTitleTextBlock.Text = "Accounts";
+        }
     }
 }

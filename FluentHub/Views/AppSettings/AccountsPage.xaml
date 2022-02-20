@@ -16,36 +16,27 @@
             <Grid Margin="0,0,16,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <Grid Margin="0,0,0,12">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
+                <Grid Margin="0,16">
                     <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
                         <Border
                             Grid.RowSpan="1"
                             Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                            CornerRadius="84">
+                            CornerRadius="72">
                             <Image
                                 x:Name="UserAvatorImage"
-                                Width="84"
-                                Height="84" />
+                                Width="72"
+                                Height="72" />
                         </Border>
                         <StackPanel
                             Grid.Column="1"
@@ -62,120 +53,132 @@
                                 FontSize="13"
                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                 Style="{ThemeResource CaptionTextBlockStyle}" />
-                            <TextBlock
-                                x:Name="UserBioTextBlock"
-                                Style="{ThemeResource BodyTextBlockStyle}"
-                                Visibility="Collapsed" />
                         </StackPanel>
+                        <Button
+                            Grid.Column="3"
+                            HorizontalAlignment="Right"
+                            Content="Sign out">
+                            <Button.Resources>
+                                <ResourceDictionary>
+                                    <ResourceDictionary.ThemeDictionaries>
+                                        <ResourceDictionary x:Key="Light">
+                                            <SolidColorBrush x:Key="ButtonBackground" Color="Firebrick" />
+                                            <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#C23232" />
+                                            <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#A21212" />
+                                            <SolidColorBrush x:Key="ButtonForeground" Color="White" />
+                                            <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White" />
+                                            <SolidColorBrush x:Key="ButtonForegroundPressed" Color="White" />
+                                        </ResourceDictionary>
+                                        <ResourceDictionary x:Key="Dark">
+                                            <SolidColorBrush x:Key="ButtonBackground" Color="Firebrick" />
+                                            <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#C23232" />
+                                            <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#A21212" />
+                                            <SolidColorBrush x:Key="ButtonForeground" Color="White" />
+                                            <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="White" />
+                                            <SolidColorBrush x:Key="ButtonForegroundPressed" Color="White" />
+                                        </ResourceDictionary>
+                                        <ResourceDictionary x:Key="HighContrast">
+                                            <SolidColorBrush x:Key="ButtonBackground" Color="{ThemeResource SystemColorButtonFaceColor}" />
+                                            <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="{ThemeResource SystemColorHighlightColor}" />
+                                            <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="{ThemeResource SystemColorHighlightColor}" />
+                                            <SolidColorBrush x:Key="ButtonForeground" Color="{ThemeResource SystemColorButtonTextColor}" />
+                                            <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="{ThemeResource SystemColorHighlightTextColor}" />
+                                            <SolidColorBrush x:Key="ButtonForegroundPressed" Color="{ThemeResource SystemColorHighlightTextColor}" />
+                                        </ResourceDictionary>
+                                    </ResourceDictionary.ThemeDictionaries>
+                                </ResourceDictionary>
+                            </Button.Resources>
+                        </Button>
                     </Grid>
-                    <toolkit:WrapPanel
-                        Grid.Row="1"
-                        Margin="0,6,0,0"
-                        HorizontalAlignment="Stretch"
-                        HorizontalSpacing="6"
-                        Orientation="Horizontal">
-                        <StackPanel
-                            x:Name="CompanyBlock"
-                            HorizontalAlignment="Left"
-                            Orientation="Horizontal"
-                            Spacing="2"
-                            Visibility="Collapsed">
-                            <FontIcon
-                                VerticalAlignment="Center"
-                                FontFamily="{StaticResource Octions}"
-                                FontSize="14"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xEA27;" />
-                            <HyperlinkButton
-                                x:Name="CompanyLinkButton"
-                                Padding="4"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Visibility="Collapsed" />
-                            <TextBlock
-                                x:Name="CompanyLinkTextBlock"
-                                Margin="4,0,6,0"
-                                VerticalAlignment="Center"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Visibility="Collapsed" />
-                        </StackPanel>
-                        <StackPanel
-                            x:Name="LocationBlock"
-                            Margin="0,0,6,0"
-                            HorizontalAlignment="Left"
-                            Orientation="Horizontal"
-                            Spacing="6"
-                            Visibility="Collapsed">
-                            <FontIcon
-                                VerticalAlignment="Center"
-                                FontFamily="{StaticResource Octions}"
-                                FontSize="14"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xEA03;" />
-                            <TextBlock
-                                x:Name="LocationTextBlock"
-                                VerticalAlignment="Center"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Style="{ThemeResource BodyTextBlockStyle}" />
-                        </StackPanel>
-                        <StackPanel
-                            x:Name="LinkBlock"
-                            Orientation="Horizontal"
-                            Spacing="2"
-                            Visibility="Collapsed">
-                            <FontIcon
-                                VerticalAlignment="Center"
-                                FontFamily="{StaticResource Octions}"
-                                FontSize="14"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xE9FB;" />
-                            <HyperlinkButton
-                                x:Name="LinkButton"
-                                Padding="4"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" />
-                        </StackPanel>
-                        <StackPanel
-                            x:Name="DeveloperProgramMemberBlock"
-                            Orientation="Horizontal"
-                            Spacing="4"
-                            Visibility="Collapsed">
-                            <FontIcon
-                                VerticalAlignment="Center"
-                                FontFamily="{StaticResource Octions}"
-                                FontSize="14"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xE964;" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Style="{ThemeResource BodyTextBlockStyle}"
-                                Text="Developer Program Member" />
-                        </StackPanel>
-                    </toolkit:WrapPanel>
                 </Grid>
-                <StackPanel Grid.Row="1" Spacing="4">
-                    <uc:SettingsBlockControl
-                        Title="App Theme"
-                        Description="Select which app theme to display"
-                        IsClickable="False">
+                <TextBlock
+                    Grid.Row="1"
+                    Margin="0,16,0,8"
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                    Text="Other users" />
+                <StackPanel Grid.Row="2" Spacing="4">
+                    <uc:SettingsBlockControl Title="Add other users" IsClickable="False">
                         <uc:SettingsBlockControl.Icon>
-                            <FontIcon Glyph="&#xE771;" />
+                            <FontIcon Glyph="&#xE8FA;" />
                         </uc:SettingsBlockControl.Icon>
+                        <Button Content="Add account" Style="{StaticResource AccentButtonStyle}" />
                     </uc:SettingsBlockControl>
                     <uc:SettingsBlockControl
-                        Title="Language"
-                        Description="Select language which you want use"
+                        Title="User1"
+                        Description="User1"
                         IsClickable="False">
                         <uc:SettingsBlockControl.Icon>
-                            <FontIcon Glyph="&#xF2B7;" />
+                            <FontIcon Glyph="&#xE77B;" />
                         </uc:SettingsBlockControl.Icon>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Button Content="Switch" />
+                            <Button Content="Delete">
+                                <Button.Resources>
+                                    <ResourceDictionary>
+                                        <ResourceDictionary.ThemeDictionaries>
+                                            <ResourceDictionary x:Key="Light">
+                                                <SolidColorBrush x:Key="ButtonForeground" Color="Red" />
+                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="Red" />
+                                                <SolidColorBrush x:Key="ButtonForegroundPressed" Color="#A21212" />
+                                            </ResourceDictionary>
+                                            <ResourceDictionary x:Key="Dark">
+                                                <SolidColorBrush x:Key="ButtonForeground" Color="Red" />
+                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="Red" />
+                                                <SolidColorBrush x:Key="ButtonForegroundPressed" Color="Firebrick" />
+                                            </ResourceDictionary>
+                                            <ResourceDictionary x:Key="HighContrast">
+                                                <SolidColorBrush x:Key="ButtonBackground" Color="{ThemeResource SystemColorButtonFaceColor}" />
+                                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="{ThemeResource SystemColorHighlightColor}" />
+                                                <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="{ThemeResource SystemColorHighlightColor}" />
+                                                <SolidColorBrush x:Key="ButtonForeground" Color="{ThemeResource SystemColorButtonTextColor}" />
+                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="{ThemeResource SystemColorHighlightTextColor}" />
+                                                <SolidColorBrush x:Key="ButtonForegroundPressed" Color="{ThemeResource SystemColorHighlightTextColor}" />
+                                            </ResourceDictionary>
+                                        </ResourceDictionary.ThemeDictionaries>
+                                    </ResourceDictionary>
+                                </Button.Resources>
+                            </Button>
+                        </StackPanel>
+                    </uc:SettingsBlockControl>
+                    <uc:SettingsBlockControl
+                        Title="User2"
+                        Description="User2"
+                        IsClickable="False">
+                        <uc:SettingsBlockControl.Icon>
+                            <FontIcon Glyph="&#xE77B;" />
+                        </uc:SettingsBlockControl.Icon>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <Button Content="Switch" />
+                            <Button Content="Delete">
+                                <Button.Resources>
+                                    <ResourceDictionary>
+                                        <ResourceDictionary.ThemeDictionaries>
+                                            <ResourceDictionary x:Key="Light">
+                                                <SolidColorBrush x:Key="ButtonForeground" Color="Red" />
+                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="Red" />
+                                                <SolidColorBrush x:Key="ButtonForegroundPressed" Color="#A21212" />
+                                            </ResourceDictionary>
+                                            <ResourceDictionary x:Key="Dark">
+                                                <SolidColorBrush x:Key="ButtonForeground" Color="Red" />
+                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="Red" />
+                                                <SolidColorBrush x:Key="ButtonForegroundPressed" Color="#A21212" />
+                                            </ResourceDictionary>
+                                            <ResourceDictionary x:Key="HighContrast">
+                                                <SolidColorBrush x:Key="ButtonBackground" Color="{ThemeResource SystemColorButtonFaceColor}" />
+                                                <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="{ThemeResource SystemColorHighlightColor}" />
+                                                <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="{ThemeResource SystemColorHighlightColor}" />
+                                                <SolidColorBrush x:Key="ButtonForeground" Color="{ThemeResource SystemColorButtonTextColor}" />
+                                                <SolidColorBrush x:Key="ButtonForegroundPointerOver" Color="{ThemeResource SystemColorHighlightTextColor}" />
+                                                <SolidColorBrush x:Key="ButtonForegroundPressed" Color="{ThemeResource SystemColorHighlightTextColor}" />
+                                            </ResourceDictionary>
+                                        </ResourceDictionary.ThemeDictionaries>
+                                    </ResourceDictionary>
+                                </Button.Resources>
+                            </Button>
+                        </StackPanel>
                     </uc:SettingsBlockControl>
                 </StackPanel>
             </Grid>
         </ScrollViewer>
-        <!--<uc:RestartInfoBar
-            x:Name="RestartInfoBar"
-            Grid.Row="2"
-            Margin="0,0,16,0"
-            VerticalAlignment="Bottom" />-->
     </Grid>
 </Page>

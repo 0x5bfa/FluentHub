@@ -49,55 +49,6 @@ namespace FluentHub.Views.AppSettings
             {
                 UserNameTextBlock.Text = User.Name;
             }
-
-            // Company
-            if (!string.IsNullOrEmpty(User.Company))
-            {
-                try
-                {
-                    if (User.Company.IndexOf("@") == 0)
-                    {
-                        CompanyLinkButton.Content = User.Company;
-                        string company = User.Company.Replace("@", "");
-
-                        var userCompany = await App.Client.User.Get(company);
-                        var org = await App.Client.Organization.Get(company);
-                        string navigateUrl = null;
-                        navigateUrl = App.DefaultHost + "/" + company;
-                        var uri = new UriBuilder(navigateUrl).Uri;
-                        CompanyLinkButton.NavigateUri = uri;
-                        CompanyLinkButton.Visibility = Visibility.Visible;
-                    }
-                    else
-                    {
-                        CompanyLinkTextBlock.Text = User.Company;
-                        CompanyLinkTextBlock.Visibility = Visibility.Visible;
-                    }
-                }
-                catch
-                {
-                    CompanyLinkTextBlock.Text = User.Company;
-                    CompanyLinkTextBlock.Visibility = Visibility.Visible;
-                }
-
-                CompanyBlock.Visibility = Visibility.Visible;
-            }
-
-            // Link
-            if (!string.IsNullOrEmpty(User.Blog))
-            {
-                LinkButton.Content = User.Blog;
-                var uri = new UriBuilder(User.Blog).Uri;
-                LinkButton.NavigateUri = uri;
-                LinkBlock.Visibility = Visibility.Visible;
-            }
-
-            // Location
-            if (!string.IsNullOrEmpty(User.Location))
-            {
-                LocationTextBlock.Text = User.Location;
-                LocationBlock.Visibility = Visibility.Visible;
-            }
         }
     }
 }

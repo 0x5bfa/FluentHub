@@ -9,6 +9,17 @@
     Loaded="Page_Loaded"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <StaticResource x:Key="NavigationViewContentBackground" ResourceKey="SystemControlPageBackgroundTransparentBrush" />
+                    <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
     <Grid>
         <Grid>
             <muxc:NavigationView
@@ -29,6 +40,7 @@
                         HorizontalAlignment="Stretch"
                         HorizontalContentAlignment="Left"
                         Background="Transparent"
+                        Click="Button_Click"
                         Style="{StaticResource ClearButtonStyle}">
                         <Grid ColumnSpacing="12">
                             <Grid.ColumnDefinitions>
@@ -65,14 +77,12 @@
                             <FontIcon Glyph="&#xE790;" />
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
-                    <muxc:NavigationViewItem x:Uid="SettingsNavViewItemAccount" Tag="Accounts">
+                    <muxc:NavigationViewItem
+                        x:Name="SettingsNavViewItemAccount"
+                        x:Uid="SettingsNavViewItemAccount"
+                        Tag="Accounts">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon Glyph="&#xE77B;" />
-                        </muxc:NavigationViewItem.Icon>
-                    </muxc:NavigationViewItem>
-                    <muxc:NavigationViewItem x:Uid="SettingsNavViewItemTextEditor" Tag="TextEditor">
-                        <muxc:NavigationViewItem.Icon>
-                            <FontIcon Glyph="&#xE943;" />
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
                 </muxc:NavigationView.MenuItems>
