@@ -70,7 +70,7 @@
                         </Grid>
                     </uc:SettingsBlockControl.ExpandableContent>
                 </uc:SettingsBlockControl>
-                <uc:SettingsBlockControl Title="Open app log location" IsClickable="True">
+                <uc:SettingsBlockControl Title="Open app log location" IsClickable="True" Click="SettingsBlockControl_Click">
                     <uc:SettingsBlockControl.Icon>
                         <FontIcon Glyph="&#xe838;" />
                     </uc:SettingsBlockControl.Icon>
