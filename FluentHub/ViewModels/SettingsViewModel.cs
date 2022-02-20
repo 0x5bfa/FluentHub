@@ -59,6 +59,13 @@ namespace FluentHub.ViewModels
             set => Set(nameof(AppVersion), value);
         }
 
+        // will be replaced by a account list json file
+        public string AccountsNamesJoinedSlashes
+        {
+            get => Get(nameof(AppVersion), $"{App.SignedInUserName}");
+            set => Set(nameof(AppVersion), value);
+        }
+
         public ObservableCollection<DefaultLanguageModel> DefaultLanguages { get; private set; }
 
         public DefaultLanguageModel DefaultLanguage

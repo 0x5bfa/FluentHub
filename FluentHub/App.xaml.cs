@@ -114,6 +114,7 @@ namespace FluentHub
                     {
                         User user = await Client.User.Current();
                         SignedInUserName = user.Login;
+                        Settings.AccountsNamesJoinedSlashes += ("/" + user.Login);
                     }
 
                     Log.Information("FluentHub has been launched.");
@@ -160,6 +161,7 @@ namespace FluentHub
                 {
                     User user = await Client.User.Current();
                     SignedInUserName = user.Login;
+                    Settings.AccountsNamesJoinedSlashes += ("/" + user.Login);
 
                     rootFrame.Navigate(typeof(MainPage));
                 }
