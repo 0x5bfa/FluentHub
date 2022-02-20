@@ -7,15 +7,15 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="49462fluenthub-uwp.FluentHub"
-    Publisher="CN=4E3C0825-4D00-4ECC-89F8-528E9200B125"
+    Name="FluentHubDev"
+    Publisher="CN=FluentHub"
     Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="14243bcb-aa7e-4e10-8aa9-9f7632d80841" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
   <Properties>
     <DisplayName>FluentHub</DisplayName>
-    <PublisherDisplayName>fluenthub-uwp</PublisherDisplayName>
+    <PublisherDisplayName>Tomoyuki Terashita</PublisherDisplayName>
     <Logo>Assets\AppTiles\StoreLogo.png</Logo>
   </Properties>
 
