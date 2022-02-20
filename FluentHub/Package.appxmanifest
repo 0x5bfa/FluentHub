@@ -8,7 +8,7 @@
 
   <Identity
     Name="FluentHubDev"
-    Publisher="CN=T31068068"
+    Publisher="CN=Tomoyuki Terashita"
     Version="1.0.0.0" />
 
   <mp:PhoneIdentity PhoneProductId="53074628-0d96-431b-b85c-c8879d205803" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
