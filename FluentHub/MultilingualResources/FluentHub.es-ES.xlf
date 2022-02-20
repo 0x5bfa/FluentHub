@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en-US" target-language="es-ES" original="FLUENTHUB/STRINGS/EN-US/RESOURCES.RESW" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.6921.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="FLUENTHUB/STRINGS/EN-US/RESOURCES.RESW" datatype="resx">
+        <trans-unit id="AuthFluentHubTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>Authorize FluentHub</source>
+          <target state="translated">Autorizar a FluentHub</target>
+        </trans-unit>
+        <trans-unit id="CanonicalAppName" translate="yes" xml:space="preserve">
+          <source>FluentHub</source>
+          <target state="new">FluentHub</target>
+        </trans-unit>
+        <trans-unit id="Discussions" translate="yes" xml:space="preserve">
+          <source>Discussions</source>
+          <target state="translated">Debates</target>
+        </trans-unit>
+        <trans-unit id="EditProfileButton.Content" translate="yes" xml:space="preserve">
+          <source>Edit profile</source>
+          <target state="translated">Editar perfil</target>
+        </trans-unit>
+        <trans-unit id="FirstNumberedListInWebAuth.Text" translate="yes" xml:space="preserve">
+          <source>Click Opwn with Browser.</source>
+          <target state="translated">Abrir con el navegador</target>
+        </trans-unit>
+        <trans-unit id="FollowButton.Content" translate="yes" xml:space="preserve">
+          <source>Follow</source>
+          <target state="translated">Seguir</target>
+        </trans-unit>
+        <trans-unit id="Followers" translate="yes" xml:space="preserve">
+          <source>Followers</source>
+          <target state="translated">Seguidores</target>
+        </trans-unit>
+        <trans-unit id="Following" translate="yes" xml:space="preserve">
+          <source>Following</source>
+          <target state="translated">Siguiendo</target>
+        </trans-unit>
+        <trans-unit id="GoToFileButton.Content" translate="yes" xml:space="preserve">
+          <source>Go to file</source>
+          <target state="translated">Ir al archivo</target>
+        </trans-unit>
+        <trans-unit id="HomeNavViewHeaderMyWork.Content" translate="yes" xml:space="preserve">
+          <source>My Work</source>
+          <target state="translated">Mi trabajo</target>
+        </trans-unit>
+        <trans-unit id="HomeNavViewHeaderProfile.Content" translate="yes" xml:space="preserve">
+          <source>Profile</source>
+          <target state="translated">Perfil</target>
+        </trans-unit>
+        <trans-unit id="HomeNavViewItemActivities.Content" translate="yes" xml:space="preserve">
+          <source>Activities</source>
+          <target state="translated">Actividad</target>
+        </trans-unit>
+        <trans-unit id="HomeNavViewItemNotifications.Content" translate="yes" xml:space="preserve">
+          <source>Notifications</source>
+          <target state="translated">Notificaciones</target>
+        </trans-unit>
+        <trans-unit id="HomeNavViewItemProfile.Content" translate="yes" xml:space="preserve">
+          <source>Profile</source>
+          <target state="translated">Perfil</target>
+        </trans-unit>
+        <trans-unit id="HowToSignInTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>By authenticating, you can access more GitHub data and gain more experience.</source>
+          <target state="translated">Iniciando sesión puedes acceder a más información de los servidores de GitHub y así obtener una mejor experiencia.</target>
+        </trans-unit>
+        <trans-unit id="Issues" translate="yes" xml:space="preserve">
+          <source>Issues</source>
+          <target state="translated">Propuestas</target>
+        </trans-unit>
+        <trans-unit id="NeedToSigninFirst.Text" translate="yes" xml:space="preserve">
+          <source>To use all features, just you need to sign in first.</source>
+          <target state="translated">Para utilizar todas las funciones tan solo necesitas iniciar sesión</target>
+        </trans-unit>
+        <trans-unit id="OnlyWebAuthIsValidInfoBar.Message" translate="yes" xml:space="preserve">
+          <source>In the future, password and token authentication will be enabled.</source>
+          <target state="translated">En el futuro, la autentificación mediante contraseña y token estarán disponibles</target>
+        </trans-unit>
+        <trans-unit id="OnlyWebAuthIsValidInfoBar.Title" translate="yes" xml:space="preserve">
+          <source>Only web authentication is valid</source>
+          <target state="translated">Solo la autentificación web es válida</target>
+        </trans-unit>
+        <trans-unit id="OpenWithBrowserButton.Content" translate="yes" xml:space="preserve">
+          <source>Open with your browser</source>
+          <target state="translated">Abrir con tu navegador</target>
+        </trans-unit>
+        <trans-unit id="Organizations" translate="yes" xml:space="preserve">
+          <source>Organizations</source>
+          <target state="translated">Organizaciones</target>
+        </trans-unit>
+        <trans-unit id="PreviewTitle.Text" translate="yes" xml:space="preserve">
+          <source>PREVIEW</source>
+          <target state="new">PREVIEW</target>
+        </trans-unit>
+        <trans-unit id="PullRequests" translate="yes" xml:space="preserve">
+          <source>Pull Requests</source>
+          <target state="translated">Solicitudes de cambio</target>
+        </trans-unit>
+        <trans-unit id="RepoAddFile.Content" translate="yes" xml:space="preserve">
+          <source>Add file</source>
+          <target state="translated">Añadir archivo</target>
+        </trans-unit>
+        <trans-unit id="RepoAddFileMenuFlyoutItemAdd.Text" translate="yes" xml:space="preserve">
+          <source>Create new file</source>
+          <target state="translated">Crear nuevo archivo</target>
+        </trans-unit>
+        <trans-unit id="RepoAddFileMenuFlyoutItemUploadFiles.Text" translate="yes" xml:space="preserve">
+          <source>Upload files</source>
+          <target state="translated">Subir archivo</target>
+        </trans-unit>
+        <trans-unit id="RepoBranchesCountTextTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>branches</source>
+          <target state="translated">ramas</target>
+        </trans-unit>
+        <trans-unit id="RepoForkButtonTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>Fork</source>
+          <target state="translated">Bifurcar</target>
+        </trans-unit>
+        <trans-unit id="RepoPageNavViewItemCode.Content" translate="yes" xml:space="preserve">
+          <source>Code</source>
+          <target state="translated">Código</target>
+        </trans-unit>
+        <trans-unit id="RepoPageNavViewItemSettings.Content" translate="yes" xml:space="preserve">
+          <source>Settings</source>
+          <target state="translated">Ajustes</target>
+        </trans-unit>
+        <trans-unit id="Repositories" translate="yes" xml:space="preserve">
+          <source>Repositories</source>
+          <target state="translated">Repositorios</target>
+        </trans-unit>
+        <trans-unit id="RepositoryBlockUpdatedAtTextBlock" translate="yes" xml:space="preserve">
+          <source>Updated {0}</source>
+          <target state="translated">Actualizado {0}</target>
+        </trans-unit>
+        <trans-unit id="RepoStarSplitButtonTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>Star</source>
+          <target state="translated">Marcar con estrella</target>
+        </trans-unit>
+        <trans-unit id="RepoTagsCountTextTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>tags</source>
+          <target state="new">tags</target>
+        </trans-unit>
+        <trans-unit id="RepoWatchCombboxStopIgnoring" translate="yes" xml:space="preserve">
+          <source>Stop ignoring</source>
+          <target state="translated">Dejar de ignorar</target>
+        </trans-unit>
+        <trans-unit id="RepoWatchCombboxUnWatch" translate="yes" xml:space="preserve">
+          <source>Unwatch</source>
+          <target state="translated">Dejar de observar</target>
+        </trans-unit>
+        <trans-unit id="RepoWatchCombboxWatch" translate="yes" xml:space="preserve">
+          <source>Watch</source>
+          <target state="translated">Observar</target>
+        </trans-unit>
+        <trans-unit id="SecondNumberedListInWebAuth.Text" translate="yes" xml:space="preserve">
+          <source>Click Open FluentHub Dev in your browser.</source>
+          <target state="translated">Haz click en Abrir FluentHub Dev en tu navegador</target>
+        </trans-unit>
+        <trans-unit id="Star" translate="yes" xml:space="preserve">
+          <source>Star</source>
+          <target state="translated">Marcar con estrella</target>
+        </trans-unit>
+        <trans-unit id="Starred" translate="yes" xml:space="preserve">
+          <source>Starred</source>
+          <target state="translated">Marcado con estrella</target>
+        </trans-unit>
+        <trans-unit id="StartSetupButton.Content" translate="yes" xml:space="preserve">
+          <source>Start setup</source>
+          <target state="translated">Iniciar configuración inicial</target>
+        </trans-unit>
+        <trans-unit id="ThirdNumberedListInWebAuth.Text" translate="yes" xml:space="preserve">
+          <source>Back to FluentHub.</source>
+          <target state="translated">Vuelve a FluentHub.</target>
+        </trans-unit>
+        <trans-unit id="ToobarBackButton.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Back</source>
+          <target state="translated">Atrás</target>
+        </trans-unit>
+        <trans-unit id="ToobarForwardButton.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Forward</source>
+          <target state="translated">Adelante</target>
+        </trans-unit>
+        <trans-unit id="ToobarHomeButton.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Home</source>
+          <target state="translated">Inicio</target>
+        </trans-unit>
+        <trans-unit id="ToobarRefreshButton.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Refresh</source>
+          <target state="translated">Refrescar</target>
+        </trans-unit>
+        <trans-unit id="ToolbarAppSettingsButton.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>App settings</source>
+          <target state="translated">Ajustes</target>
+        </trans-unit>
+        <trans-unit id="ToolbarSearchbox.PlaceholderText" translate="yes" xml:space="preserve">
+          <source>Find code, projects, and people on GitHub</source>
+          <target state="translated">Encuentra código, proyectos y gente en GitHub</target>
+        </trans-unit>
+        <trans-unit id="UserFollowersCountTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>followers</source>
+          <target state="translated">seguidores</target>
+        </trans-unit>
+        <trans-unit id="UserFollowingCountTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>following</source>
+          <target state="translated">siguiendo</target>
+        </trans-unit>
+        <trans-unit id="UserNavViewItemOverview.Content" translate="yes" xml:space="preserve">
+          <source>Overview</source>
+          <target state="translated">Vista general</target>
+        </trans-unit>
+        <trans-unit id="UserNavViewItemRepositories.Content" translate="yes" xml:space="preserve">
+          <source>Repositories</source>
+          <target state="translated">Repositorios</target>
+        </trans-unit>
+        <trans-unit id="UserPinnedItemsTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>Pinned</source>
+          <target state="translated">Fijado</target>
+        </trans-unit>
+        <trans-unit id="UserSpecialReadmeTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>README</source>
+          <target state="new">README</target>
+        </trans-unit>
+        <trans-unit id="WelcomeText.Text" translate="yes" xml:space="preserve">
+          <source>Welcome to</source>
+          <target state="translated">Bienvenido/a a</target>
+        </trans-unit>
+        <trans-unit id="SettingsNavViewItemAbout.Content" translate="yes" xml:space="preserve">
+          <source>About</source>
+          <target state="new">About</target>
+        </trans-unit>
+        <trans-unit id="SettingsNavViewItemAppearance.Content" translate="yes" xml:space="preserve">
+          <source>Appearance</source>
+          <target state="new">Appearance</target>
+        </trans-unit>
+        <trans-unit id="SettingsNavViewItemAccount.Content" translate="yes" xml:space="preserve">
+          <source>Account</source>
+          <target state="new">Account</target>
+        </trans-unit>
+        <trans-unit id="SettingsNavViewItemTextEditor.Content" translate="yes" xml:space="preserve">
+          <source>Text editor</source>
+          <target state="new">Text editor</target>
+        </trans-unit>
+        <trans-unit id="UseSystemSetting" translate="yes" xml:space="preserve">
+          <source>Use system setting</source>
+          <target state="new">Use system setting</target>
+        </trans-unit>
+        <trans-unit id="ThemeDark" translate="yes" xml:space="preserve">
+          <source>Dark</source>
+          <target state="new">Dark</target>
+        </trans-unit>
+        <trans-unit id="ThemeLight" translate="yes" xml:space="preserve">
+          <source>Light</source>
+          <target state="new">Light</target>
+        </trans-unit>
+        <trans-unit id="WindowsDefault" translate="yes" xml:space="preserve">
+          <source>Windows default</source>
+          <target state="new">Windows default</target>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>

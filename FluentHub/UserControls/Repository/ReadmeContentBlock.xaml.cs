@@ -92,6 +92,9 @@ namespace FluentHub.UserControls.Repository
         private void ReadmeWebView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
         {
             WebViewHelpers.DisableWebViewVerticalScrolling(ref ReadmeWebView);
+
+            ReadmeLoadingProgressBar.IsIndeterminate = false;
+            ReadmeLoadingProgressBar.Visibility = Visibility.Collapsed;
         }
 
         private void ReadmeWebView_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)

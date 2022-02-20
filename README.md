@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="Logo" src="https://avatars.githubusercontent.com/u/98096883?s=400&u=d9d8b793aee2e6e6a9646c8482e3a8d5a5e181c3&v=4" width="100px" />
+  <img alt="Logo" src="/FluentHub/Assets/AppTiles/Primitives/Dev/FluentHub.dev.original.scale-1024.png" width="100px" />
   <h1 align="center">FluentHub</h1>
 </p>
 
@@ -10,41 +10,38 @@
 
 ## What is FluentHub?
 
-`FluentHub` is the GitHub Desktop which conform to [Fluent Design System](https://www.microsoft.com/design/fluent) using GitHub API [v3(Rest API)](https://developer.github.com/v3/) and [v4(GraphQL API)](https://developer.github.com/v4/) on Windows.
+`FluentHub` is the GitHub desktop client which conform to [Fluent Design System](https://www.microsoft.com/design/fluent) using GitHub API [v3](https://developer.github.com/v3/) and [v4](https://developer.github.com/v4/) for Windows.
 
-> **Warning**⚠️<br> This project is in dev stage. Expect regular breaking changes.
+> **Warning**<br> This project is in dev stage. Expect regular breaking changes.
 
->**Need any help**🔧<br/>Feel free to open a [issue](https://github.com/onein528/FluentHub/issues/new)/[PR](https://github.com/onein528/FluentHub/compare).<br>If you want to contribute to this repository in earnest, please [request to become a member](https://github.com/onein528/FluentHub/issues/new).
+>**Need idea/help**<br/>Do you have an idea? Please make a suggestion in the [issue](https://github.com/onein528/FluentHub/issues/new)/[PR](https://github.com/onein528/FluentHub/compare).</br>Do you want to become a member of this project? Tell us in a issue.
 
-## Builds
+## Building from source
 
-If you are building a project, you need to look at [this documentation](building-from-source.md).
+If you want to build this project, you need to take a look at [this instructions](building-from-source.md).
 
 ## Our goals
 
 * Multi-tab support
   * Go back and forward on the page(now disabled)
   * Jump to the page with the URL of GitHub
-  * Share button (URL copy) for current page
+  * Copy URL of this page
 * App settings
-  * AppTheme
+  * App themes
+  * App languages
   * Default new page
-* Octokit.NET authorization
+  * Multi-account support
+* Octokit.NET full support
   * Make up for missing API requests with HttpRequest class and GraphQL.NET.
-* Support for rendered markdown displaying using WebView
+* Support for displaying rendered markdown using WebView
 
-## Translation
+## Translations
 
-FluentHub is different from traditional GitHub in that it needs to be made available in a variety of languages.
-But we are currently in the Dev stage, so the scope of translation is limited.
+This app can be localized.</br>
+Before updating resources, follow [this](translations.md) instructions.
 
-See [this documentation](translations.md)
+## Screenshots
 
-## Screenshot
-
-User profile page|Repository page
----|---
-![image](https://user-images.githubusercontent.com/62196528/152377145-9dcc3adc-6bfc-4244-bf7d-77eb9f5f547c.png)|![image](https://user-images.githubusercontent.com/62196528/152377118-ae0488a1-95a4-4198-abae-2a60a4cb25ca.png)
-
-
-
+User profile|Repository|PR|Appearance|About
+:---:|:---:|:---:|:---:|:---:
+![image](https://user-images.githubusercontent.com/62196528/154069731-645b0e7e-2990-404a-8822-5f33e2fc3d79.png)|![image](https://user-images.githubusercontent.com/62196528/154069743-0a8ce0cb-c9f2-4015-87e7-17af30a0a74a.png)|![image](https://user-images.githubusercontent.com/62196528/154069757-3857b79d-28de-4637-9fda-2100cf116fb0.png)|![image](https://user-images.githubusercontent.com/62196528/154069772-cc4147ab-65d2-452e-b9d1-4178a5eb8e1a.png)|![image](https://user-images.githubusercontent.com/62196528/154069788-ee203963-d844-4c5a-a2ef-1199af34d97d.png)

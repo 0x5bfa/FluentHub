@@ -226,6 +226,38 @@
           <source>Back to FluentHub.</source>
           <target state="translated">FluentHub に戻る。</target>
         </trans-unit>
+        <trans-unit id="SettingsNavViewItemAbout.Content" translate="yes" xml:space="preserve">
+          <source>About</source>
+          <target state="new">About</target>
+        </trans-unit>
+        <trans-unit id="SettingsNavViewItemAppearance.Content" translate="yes" xml:space="preserve">
+          <source>Appearance</source>
+          <target state="new">Appearance</target>
+        </trans-unit>
+        <trans-unit id="SettingsNavViewItemAccount.Content" translate="yes" xml:space="preserve">
+          <source>Account</source>
+          <target state="new">Account</target>
+        </trans-unit>
+        <trans-unit id="SettingsNavViewItemTextEditor.Content" translate="yes" xml:space="preserve">
+          <source>Text editor</source>
+          <target state="new">Text editor</target>
+        </trans-unit>
+        <trans-unit id="UseSystemSetting" translate="yes" xml:space="preserve">
+          <source>Use system setting</source>
+          <target state="new">Use system setting</target>
+        </trans-unit>
+        <trans-unit id="ThemeDark" translate="yes" xml:space="preserve">
+          <source>Dark</source>
+          <target state="new">Dark</target>
+        </trans-unit>
+        <trans-unit id="ThemeLight" translate="yes" xml:space="preserve">
+          <source>Light</source>
+          <target state="new">Light</target>
+        </trans-unit>
+        <trans-unit id="WindowsDefault" translate="yes" xml:space="preserve">
+          <source>Windows default</source>
+          <target state="new">Windows default</target>
+        </trans-unit>
       </group>
     </body>
   </file>

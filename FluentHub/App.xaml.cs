@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
@@ -112,6 +113,7 @@ namespace FluentHub
                     {
                         User user = await Client.User.Current();
                         SignedInUserName = user.Login;
+                        Settings.AccountsNamesJoinedSlashes += ("/" + user.Login);
                     }
 
                     Log.Information("FluentHub has been launched.");
@@ -122,6 +124,7 @@ namespace FluentHub
                         rootFrame.Navigate(typeof(IntroPage), e.Arguments) :
                         rootFrame.Navigate(typeof(MainPage), e.Arguments);
                 }
+                ThemeHelper.Initialize();
 
                 Window.Current.Activate();
             }
@@ -141,6 +144,9 @@ namespace FluentHub
         private async Task HandleProtocolActivationArguments(IActivatedEventArgs args)
         {
             ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
+
+            if (string.IsNullOrEmpty(eventArgs.Uri.Query)) return;
+
             string code = new WwwFormUrlDecoder(eventArgs.Uri.Query).GetFirstValueByName("code");
 
             if (code != null)
@@ -154,6 +160,7 @@ namespace FluentHub
                 {
                     User user = await Client.User.Current();
                     SignedInUserName = user.Login;
+                    Settings.AccountsNamesJoinedSlashes += ("/" + user.Login);
 
                     rootFrame.Navigate(typeof(MainPage));
                 }
@@ -170,6 +177,15 @@ namespace FluentHub
             var deferral = e.SuspendingOperation.GetDeferral();
             //TODO: Save application state and stop any background activity
             deferral.Complete();
+        }
+
+        public static TEnum GetEnum<TEnum>(string text) where TEnum : struct
+        {
+            if (!typeof(TEnum).GetTypeInfo().IsEnum)
+            {
+                throw new InvalidOperationException("Generic parameter 'TEnum' must be an enum.");
+            }
+            return (TEnum)Enum.Parse(typeof(TEnum), text);
         }
 
         public static async void CloseApp()
