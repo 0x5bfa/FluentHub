@@ -1,4 +1,5 @@
 ﻿using FluentHub.ViewModels;
+using FluentHub.Views.Home;
 using System;
 using System.Collections.Generic;
 using System.IO;

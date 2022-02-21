@@ -3,7 +3,7 @@ using FluentHub.Services;
 using FluentHub.Services.Auth;
 using FluentHub.ViewModels;
 using FluentHub.Views;
-using FluentHub.Views.SignInPages;
+using FluentHub.Views.SignIn;
 using Octokit;
 using Serilog;
 using System;
