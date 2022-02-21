@@ -9,6 +9,17 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <StaticResource x:Key="NavigationViewContentBackground" ResourceKey="SystemControlPageBackgroundTransparentBrush" />
+                    <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" />
@@ -52,7 +63,7 @@
                                 Background="#40d563"
                                 CornerRadius="4">
                                 <FontIcon
-                                    FontFamily="octions"
+                                    FontFamily="{StaticResource Octions}"
                                     FontSize="16"
                                     Foreground="White"
                                     Glyph="&#xE9EA;" />
@@ -70,7 +81,7 @@
                                 Background="#2e8ffe"
                                 CornerRadius="4">
                                 <FontIcon
-                                    FontFamily="octions"
+                                    FontFamily="{StaticResource Octions}"
                                     FontSize="16"
                                     Foreground="White"
                                     Glyph="&#xE9BF;" />
@@ -88,7 +99,7 @@
                                 Background="#7548c7"
                                 CornerRadius="4">
                                 <FontIcon
-                                    FontFamily="octions"
+                                    FontFamily="{StaticResource Octions}"
                                     FontSize="16"
                                     Foreground="White"
                                     Glyph="&#xE95D;" />
@@ -106,7 +117,7 @@
                                 Background="#41434e"
                                 CornerRadius="4">
                                 <FontIcon
-                                    FontFamily="octions"
+                                    FontFamily="{StaticResource Octions}"
                                     FontSize="16"
                                     Foreground="White"
                                     Glyph="&#xEA52;" />
@@ -124,7 +135,7 @@
                                 Background="#fe8a38"
                                 CornerRadius="4">
                                 <FontIcon
-                                    FontFamily="octions"
+                                    FontFamily="{StaticResource Octions}"
                                     FontSize="16"
                                     Foreground="White"
                                     Glyph="&#xEA27;" />

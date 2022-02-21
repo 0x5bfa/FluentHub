@@ -14,7 +14,9 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
+                    <StaticResource x:Key="NavigationViewContentBackground" ResourceKey="SystemControlPageBackgroundTransparentBrush" />
                     <Thickness x:Key="NavigationViewTopPaneHeight">40</Thickness>
+                    <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
                     <Style
                         x:Key="ButtonSettingsBlockStyle"
                         BasedOn="{StaticResource DefaultButtonStyle}"

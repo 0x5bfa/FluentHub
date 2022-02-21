@@ -36,6 +36,7 @@
                     </Style>
                 </ResourceDictionary>
                 <ResourceDictionary>
+                    <StaticResource x:Key="NavigationViewContentBackground" ResourceKey="SystemControlPageBackgroundTransparentBrush" />
                     <Thickness x:Key="NavigationViewTopPaneHeight">40</Thickness>
                     <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
                 </ResourceDictionary>
