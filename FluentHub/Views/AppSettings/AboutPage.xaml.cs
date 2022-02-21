@@ -5,6 +5,8 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Storage;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -20,6 +22,12 @@ namespace FluentHub.Views.AppSettings
         public AboutPage()
         {
             this.InitializeComponent();
+        }
+
+        private async void SettingsBlockControl_Click(object sender, RoutedEventArgs e)
+        {
+            string logsFolder = Path.Combine(ApplicationData.Current.LocalFolder.Path, "Logs");
+            await Launcher.LaunchFolderPathAsync(logsFolder);
         }
     }
 }
