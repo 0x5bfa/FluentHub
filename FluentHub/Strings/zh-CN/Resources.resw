@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="Discussions" xml:space="preserve">
+    <value>讨论</value>
+  </data>
+  <data name="EditProfileButton.Content" xml:space="preserve">
+    <value>编辑个人资料</value>
+  </data>
+  <data name="FollowButton.Content" xml:space="preserve">
+    <value>+关注</value>
+  </data>
+  <data name="Followers" xml:space="preserve">
+    <value>关注者</value>
+  </data>
+  <data name="Following" xml:space="preserve">
+    <value>正在关注</value>
+  </data>
+  <data name="HomeNavViewHeaderMyWork.Content" xml:space="preserve">
+    <value>我的工作</value>
+  </data>
+  <data name="HomeNavViewHeaderProfile.Content" xml:space="preserve">
+    <value>个人资料</value>
+  </data>
+  <data name="HomeNavViewItemActivities.Content" xml:space="preserve">
+    <value>活动</value>
+  </data>
+  <data name="HomeNavViewItemNotifications.Content" xml:space="preserve">
+    <value>通知</value>
+  </data>
+  <data name="HomeNavViewItemProfile.Content" xml:space="preserve">
+    <value>个人资料</value>
+  </data>
+  <data name="Issues" xml:space="preserve">
+    <value>问题</value>
+  </data>
+  <data name="Organizations" xml:space="preserve">
+    <value>组织</value>
+  </data>
+  <data name="PreviewTitle.Text" xml:space="preserve">
+    <value>预览</value>
+  </data>
+  <data name="PullRequests" xml:space="preserve">
+    <value>拉取请求</value>
+  </data>
+  <data name="RepoAddFile.Content" xml:space="preserve">
+    <value>添加文件</value>
+  </data>
+  <data name="RepoAddFileMenuFlyoutItemAdd.Text" xml:space="preserve">
+    <value>创建新文件</value>
+  </data>
+  <data name="RepoAddFileMenuFlyoutItemUploadFiles.Text" xml:space="preserve">
+    <value>上载文件</value>
+  </data>
+  <data name="RepoBranchesCountTextTextBlock.Text" xml:space="preserve">
+    <value>分支</value>
+  </data>
+  <data name="RepoForkButtonTextBlock.Text" xml:space="preserve">
+    <value>叉子</value>
+  </data>
+  <data name="RepoPageNavViewItemCode.Content" xml:space="preserve">
+    <value>CODE</value>
+  </data>
+  <data name="RepoPageNavViewItemSettings.Content" xml:space="preserve">
+    <value>设置</value>
+  </data>
+  <data name="Repositories" xml:space="preserve">
+    <value>存储库</value>
+  </data>
+  <data name="RepositoryBlockUpdatedAtTextBlock" xml:space="preserve">
+    <value>更新时间 {0}</value>
+  </data>
+  <data name="RepoStarSplitButtonTextBlock.Text" xml:space="preserve">
+    <value>星星</value>
+  </data>
+  <data name="RepoTagsCountTextTextBlock.Text" xml:space="preserve">
+    <value>标记</value>
+  </data>
+  <data name="RepoWatchCombboxStopIgnoring" xml:space="preserve">
+    <value>停止忽略</value>
+  </data>
+  <data name="RepoWatchCombboxWatch" xml:space="preserve">
+    <value>观看</value>
+  </data>
+  <data name="SettingsNavViewItemAbout.Content" xml:space="preserve">
+    <value>关于</value>
+  </data>
+  <data name="SettingsNavViewItemAppearance.Content" xml:space="preserve">
+    <value>外观</value>
+  </data>
+  <data name="Star" xml:space="preserve">
+    <value>星星</value>
+  </data>
+  <data name="Starred" xml:space="preserve">
+    <value>已加星标</value>
+  </data>
+  <data name="StartSetupButton.Content" xml:space="preserve">
+    <value>启动安装程序</value>
+  </data>
+  <data name="ToobarBackButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>返回</value>
+  </data>
+  <data name="ToobarForwardButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>快进</value>
+  </data>
+  <data name="ToobarHomeButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>住宅</value>
+  </data>
+  <data name="ToobarRefreshButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>刷新</value>
+  </data>
+  <data name="ToolbarAppSettingsButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>应用设置</value>
+  </data>
+  <data name="UserFollowersCountTextBlock.Text" xml:space="preserve">
+    <value>关注者</value>
+  </data>
+  <data name="UserFollowingCountTextBlock.Text" xml:space="preserve">
+    <value>正在追随</value>
+  </data>
+  <data name="UserNavViewItemOverview.Content" xml:space="preserve">
+    <value>概述</value>
+  </data>
+  <data name="UserNavViewItemRepositories.Content" xml:space="preserve">
+    <value>存储库</value>
+  </data>
+  <data name="UserPinnedItemsTextBlock.Text" xml:space="preserve">
+    <value>固定</value>
+  </data>
+  <data name="UserSpecialReadmeTextBlock.Text" xml:space="preserve">
+    <value>README</value>
+  </data>
+  <data name="WelcomeText.Text" xml:space="preserve">
+    <value>欢迎使用</value>
+  </data>
+  <data name="SettingsNavViewItemAccount.Content" xml:space="preserve">
+    <value>帐户</value>
+  </data>
+  <data name="SettingsNavViewItemTextEditor.Content" xml:space="preserve">
+    <value>文本编辑器</value>
+  </data>
+  <data name="ThemeDark" xml:space="preserve">
+    <value>深色</value>
+  </data>
+  <data name="ThemeLight" xml:space="preserve">
+    <value>简略</value>
+  </data>
+  <data name="UseSystemSetting" xml:space="preserve">
+    <value>使用系统设置</value>
+  </data>
+  <data name="WindowsDefault" xml:space="preserve">
+    <value>Windows 默认</value>
+  </data>
+</root>
