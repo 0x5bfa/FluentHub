@@ -1,0 +1,264 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="urn:oasis:names:tc:xliff:document:1.2 xliff-core-1.2-transitional.xsd">
+  <file datatype="xml" source-language="en-US" target-language="zh-CN" original="FLUENTHUB/STRINGS/EN-US/RESOURCES.RESW" tool-id="MultilingualAppToolkit" product-name="n/a" product-version="n/a" build-num="n/a">
+    <header>
+      <tool tool-id="MultilingualAppToolkit" tool-name="Multilingual App Toolkit" tool-version="4.0.6921.0" tool-company="Microsoft" />
+    </header>
+    <body>
+      <group id="FLUENTHUB/STRINGS/EN-US/RESOURCES.RESW" datatype="resx">
+        <trans-unit id="AuthFluentHubTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>Authorize FluentHub</source>
+          <target state="new">Authorize FluentHub</target>
+        </trans-unit>
+        <trans-unit id="CanonicalAppName" translate="yes" xml:space="preserve">
+          <source>FluentHub</source>
+          <target state="new">FluentHub</target>
+        </trans-unit>
+        <trans-unit id="Discussions" translate="yes" xml:space="preserve">
+          <source>Discussions</source>
+          <target state="translated" state-qualifier="tm-suggestion">讨论</target>
+        </trans-unit>
+        <trans-unit id="EditProfileButton.Content" translate="yes" xml:space="preserve">
+          <source>Edit profile</source>
+          <target state="translated" state-qualifier="tm-suggestion">编辑个人资料</target>
+        </trans-unit>
+        <trans-unit id="FirstNumberedListInWebAuth.Text" translate="yes" xml:space="preserve">
+          <source>Click Opwn with Browser.</source>
+          <target state="new">Click Opwn with Browser.</target>
+        </trans-unit>
+        <trans-unit id="FollowButton.Content" translate="yes" xml:space="preserve">
+          <source>Follow</source>
+          <target state="translated" state-qualifier="tm-suggestion">+关注</target>
+        </trans-unit>
+        <trans-unit id="Followers" translate="yes" xml:space="preserve">
+          <source>Followers</source>
+          <target state="translated" state-qualifier="tm-suggestion">关注者</target>
+        </trans-unit>
+        <trans-unit id="Following" translate="yes" xml:space="preserve">
+          <source>Following</source>
+          <target state="translated" state-qualifier="tm-suggestion">正在关注</target>
+        </trans-unit>
+        <trans-unit id="GoToFileButton.Content" translate="yes" xml:space="preserve">
+          <source>Go to file</source>
+          <target state="new">Go to file</target>
+        </trans-unit>
+        <trans-unit id="HomeNavViewHeaderMyWork.Content" translate="yes" xml:space="preserve">
+          <source>My Work</source>
+          <target state="translated" state-qualifier="tm-suggestion">我的工作</target>
+        </trans-unit>
+        <trans-unit id="HomeNavViewHeaderProfile.Content" translate="yes" xml:space="preserve">
+          <source>Profile</source>
+          <target state="translated" state-qualifier="tm-suggestion">个人资料</target>
+        </trans-unit>
+        <trans-unit id="HomeNavViewItemActivities.Content" translate="yes" xml:space="preserve">
+          <source>Activities</source>
+          <target state="translated" state-qualifier="tm-suggestion">活动</target>
+        </trans-unit>
+        <trans-unit id="HomeNavViewItemNotifications.Content" translate="yes" xml:space="preserve">
+          <source>Notifications</source>
+          <target state="translated" state-qualifier="tm-suggestion">通知</target>
+        </trans-unit>
+        <trans-unit id="HomeNavViewItemProfile.Content" translate="yes" xml:space="preserve">
+          <source>Profile</source>
+          <target state="translated" state-qualifier="tm-suggestion">个人资料</target>
+        </trans-unit>
+        <trans-unit id="HowToSignInTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>By authenticating, you can access more GitHub data and gain more experience.</source>
+          <target state="new">By authenticating, you can access more GitHub data and gain more experience.</target>
+        </trans-unit>
+        <trans-unit id="Issues" translate="yes" xml:space="preserve">
+          <source>Issues</source>
+          <target state="translated" state-qualifier="tm-suggestion">问题</target>
+        </trans-unit>
+        <trans-unit id="NeedToSigninFirst.Text" translate="yes" xml:space="preserve">
+          <source>To use all features, just you need to sign in first.</source>
+          <target state="new">To use all features, just you need to sign in first.</target>
+        </trans-unit>
+        <trans-unit id="OnlyWebAuthIsValidInfoBar.Message" translate="yes" xml:space="preserve">
+          <source>In the future, password and token authentication will be enabled.</source>
+          <target state="new">In the future, password and token authentication will be enabled.</target>
+        </trans-unit>
+        <trans-unit id="OnlyWebAuthIsValidInfoBar.Title" translate="yes" xml:space="preserve">
+          <source>Only web authentication is valid</source>
+          <target state="new">Only web authentication is valid</target>
+        </trans-unit>
+        <trans-unit id="OpenWithBrowserButton.Content" translate="yes" xml:space="preserve">
+          <source>Open with your browser</source>
+          <target state="new">Open with your browser</target>
+        </trans-unit>
+        <trans-unit id="Organizations" translate="yes" xml:space="preserve">
+          <source>Organizations</source>
+          <target state="translated" state-qualifier="tm-suggestion">组织</target>
+        </trans-unit>
+        <trans-unit id="PreviewTitle.Text" translate="yes" xml:space="preserve">
+          <source>PREVIEW</source>
+          <target state="translated" state-qualifier="tm-suggestion">预览</target>
+        </trans-unit>
+        <trans-unit id="PullRequests" translate="yes" xml:space="preserve">
+          <source>Pull Requests</source>
+          <target state="translated" state-qualifier="tm-suggestion">拉取请求</target>
+        </trans-unit>
+        <trans-unit id="RepoAddFile.Content" translate="yes" xml:space="preserve">
+          <source>Add file</source>
+          <target state="translated" state-qualifier="tm-suggestion">添加文件</target>
+        </trans-unit>
+        <trans-unit id="RepoAddFileMenuFlyoutItemAdd.Text" translate="yes" xml:space="preserve">
+          <source>Create new file</source>
+          <target state="translated" state-qualifier="tm-suggestion">创建新文件</target>
+        </trans-unit>
+        <trans-unit id="RepoAddFileMenuFlyoutItemUploadFiles.Text" translate="yes" xml:space="preserve">
+          <source>Upload files</source>
+          <target state="translated" state-qualifier="tm-suggestion">上载文件</target>
+        </trans-unit>
+        <trans-unit id="RepoBranchesCountTextTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>branches</source>
+          <target state="translated" state-qualifier="tm-suggestion">分支</target>
+        </trans-unit>
+        <trans-unit id="RepoForkButtonTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>Fork</source>
+          <target state="translated" state-qualifier="tm-suggestion">叉子</target>
+        </trans-unit>
+        <trans-unit id="RepoPageNavViewItemCode.Content" translate="yes" xml:space="preserve">
+          <source>Code</source>
+          <target state="translated" state-qualifier="tm-suggestion">CODE</target>
+        </trans-unit>
+        <trans-unit id="RepoPageNavViewItemSettings.Content" translate="yes" xml:space="preserve">
+          <source>Settings</source>
+          <target state="translated" state-qualifier="tm-suggestion">设置</target>
+        </trans-unit>
+        <trans-unit id="Repositories" translate="yes" xml:space="preserve">
+          <source>Repositories</source>
+          <target state="translated" state-qualifier="tm-suggestion">存储库</target>
+        </trans-unit>
+        <trans-unit id="RepositoryBlockUpdatedAtTextBlock" translate="yes" xml:space="preserve">
+          <source>Updated {0}</source>
+          <target state="translated" state-qualifier="tm-suggestion">更新时间 {0}</target>
+        </trans-unit>
+        <trans-unit id="RepoStarSplitButtonTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>Star</source>
+          <target state="translated" state-qualifier="tm-suggestion">星星</target>
+        </trans-unit>
+        <trans-unit id="RepoTagsCountTextTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>tags</source>
+          <target state="translated" state-qualifier="tm-suggestion">标记</target>
+        </trans-unit>
+        <trans-unit id="RepoWatchCombboxStopIgnoring" translate="yes" xml:space="preserve">
+          <source>Stop ignoring</source>
+          <target state="translated" state-qualifier="tm-suggestion">停止忽略</target>
+        </trans-unit>
+        <trans-unit id="RepoWatchCombboxUnWatch" translate="yes" xml:space="preserve">
+          <source>Unwatch</source>
+          <target state="new">Unwatch</target>
+        </trans-unit>
+        <trans-unit id="RepoWatchCombboxWatch" translate="yes" xml:space="preserve">
+          <source>Watch</source>
+          <target state="translated" state-qualifier="tm-suggestion">观看</target>
+        </trans-unit>
+        <trans-unit id="SettingsNavViewItemAbout.Content" translate="yes" xml:space="preserve">
+          <source>About</source>
+          <target state="translated" state-qualifier="tm-suggestion">关于</target>
+        </trans-unit>
+        <trans-unit id="SettingsNavViewItemAppearance.Content" translate="yes" xml:space="preserve">
+          <source>Appearance</source>
+          <target state="translated" state-qualifier="tm-suggestion">外观</target>
+        </trans-unit>
+        <trans-unit id="SecondNumberedListInWebAuth.Text" translate="yes" xml:space="preserve">
+          <source>Click Open FluentHub Dev in your browser.</source>
+          <target state="new">Click Open FluentHub Dev in your browser.</target>
+        </trans-unit>
+        <trans-unit id="Star" translate="yes" xml:space="preserve">
+          <source>Star</source>
+          <target state="translated" state-qualifier="tm-suggestion">星星</target>
+        </trans-unit>
+        <trans-unit id="Starred" translate="yes" xml:space="preserve">
+          <source>Starred</source>
+          <target state="translated" state-qualifier="tm-suggestion">已加星标</target>
+        </trans-unit>
+        <trans-unit id="StartSetupButton.Content" translate="yes" xml:space="preserve">
+          <source>Start setup</source>
+          <target state="translated" state-qualifier="tm-suggestion">启动安装程序</target>
+        </trans-unit>
+        <trans-unit id="ThirdNumberedListInWebAuth.Text" translate="yes" xml:space="preserve">
+          <source>Back to FluentHub.</source>
+          <target state="new">Back to FluentHub.</target>
+        </trans-unit>
+        <trans-unit id="ToobarBackButton.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Back</source>
+          <target state="translated" state-qualifier="tm-suggestion">返回</target>
+        </trans-unit>
+        <trans-unit id="ToobarForwardButton.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Forward</source>
+          <target state="translated" state-qualifier="tm-suggestion">快进</target>
+        </trans-unit>
+        <trans-unit id="ToobarHomeButton.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Home</source>
+          <target state="translated" state-qualifier="tm-suggestion">住宅</target>
+        </trans-unit>
+        <trans-unit id="ToobarRefreshButton.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>Refresh</source>
+          <target state="translated" state-qualifier="tm-suggestion">刷新</target>
+        </trans-unit>
+        <trans-unit id="ToolbarAppSettingsButton.ToolTipService.ToolTip" translate="yes" xml:space="preserve">
+          <source>App settings</source>
+          <target state="translated" state-qualifier="tm-suggestion">应用设置</target>
+        </trans-unit>
+        <trans-unit id="ToolbarSearchbox.PlaceholderText" translate="yes" xml:space="preserve">
+          <source>Find code, projects, and people on GitHub</source>
+          <target state="new">Find code, projects, and people on GitHub</target>
+        </trans-unit>
+        <trans-unit id="UserFollowersCountTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>followers</source>
+          <target state="translated" state-qualifier="tm-suggestion">关注者</target>
+        </trans-unit>
+        <trans-unit id="UserFollowingCountTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>following</source>
+          <target state="translated" state-qualifier="tm-suggestion">正在追随</target>
+        </trans-unit>
+        <trans-unit id="UserNavViewItemOverview.Content" translate="yes" xml:space="preserve">
+          <source>Overview</source>
+          <target state="translated" state-qualifier="tm-suggestion">概述</target>
+        </trans-unit>
+        <trans-unit id="UserNavViewItemRepositories.Content" translate="yes" xml:space="preserve">
+          <source>Repositories</source>
+          <target state="translated" state-qualifier="tm-suggestion">存储库</target>
+        </trans-unit>
+        <trans-unit id="UserPinnedItemsTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>Pinned</source>
+          <target state="translated" state-qualifier="tm-suggestion">固定</target>
+        </trans-unit>
+        <trans-unit id="UserSpecialReadmeTextBlock.Text" translate="yes" xml:space="preserve">
+          <source>README</source>
+          <target state="translated" state-qualifier="tm-suggestion">README</target>
+        </trans-unit>
+        <trans-unit id="WelcomeText.Text" translate="yes" xml:space="preserve">
+          <source>Welcome to</source>
+          <target state="translated" state-qualifier="tm-suggestion">欢迎使用</target>
+        </trans-unit>
+        <trans-unit id="SettingsNavViewItemAccount.Content" translate="yes" xml:space="preserve">
+          <source>Account</source>
+          <target state="translated" state-qualifier="tm-suggestion">帐户</target>
+        </trans-unit>
+        <trans-unit id="SettingsNavViewItemTextEditor.Content" translate="yes" xml:space="preserve">
+          <source>Text editor</source>
+          <target state="translated" state-qualifier="tm-suggestion">文本编辑器</target>
+        </trans-unit>
+        <trans-unit id="ThemeDark" translate="yes" xml:space="preserve">
+          <source>Dark</source>
+          <target state="translated" state-qualifier="tm-suggestion">深色</target>
+        </trans-unit>
+        <trans-unit id="ThemeLight" translate="yes" xml:space="preserve">
+          <source>Light</source>
+          <target state="translated" state-qualifier="tm-suggestion">简略</target>
+        </trans-unit>
+        <trans-unit id="UseSystemSetting" translate="yes" xml:space="preserve">
+          <source>Use system setting</source>
+          <target state="translated" state-qualifier="tm-suggestion">使用系统设置</target>
+        </trans-unit>
+        <trans-unit id="WindowsDefault" translate="yes" xml:space="preserve">
+          <source>Windows default</source>
+          <target state="translated" state-qualifier="tm-suggestion">Windows 默认</target>
+        </trans-unit>
+      </group>
+    </body>
+  </file>
+</xliff>
