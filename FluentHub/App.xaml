@@ -80,6 +80,9 @@
                 <ResourceDictionary Source="/ResourceDictionaries/ClearButtonStyle.xaml" />
                 <ResourceDictionary Source="/ResourceDictionaries/TextBlockStyles.xaml" />
                 <ResourceDictionary Source="/ResourceDictionaries/LinkLikeButtonStyle.xaml" />
+
+                <ResourceDictionary Source="/ResourceDictionaries/DefaultThemeResourcesAny.xaml" />
+                <ResourceDictionary Source="/ResourceDictionaries/DefaultThemeResources.xaml" />
                 <ResourceDictionary>
                     <Style TargetType="FontIcon">
                         <Setter Property="FontFamily" Value="{StaticResource FluentIcons}" />
