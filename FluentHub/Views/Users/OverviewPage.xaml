@@ -17,26 +17,12 @@
     <Page.DataContext>
         <vm:OverviewViewModel x:Name="ViewModel" />
     </Page.DataContext>
-    <Page.Resources>
-        <Style
-            x:Key="PinnedItemBlockButtonStyle"
-            BasedOn="{StaticResource DefaultButtonStyle}"
-            TargetType="Button">
-            <Setter Property="Background" Value="{ThemeResource ExpanderHeaderBackground}" />
-            <Setter Property="BorderBrush" Value="{ThemeResource ExpanderHeaderBorderBrush}" />
-            <Setter Property="BorderThickness" Value="{ThemeResource ExpanderHeaderBorderThickness}" />
-            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-            <Setter Property="Padding" Value="{StaticResource ExpanderContentPadding}" />
-            <Setter Property="MinHeight" Value="{StaticResource ExpanderMinHeight}" />
-            <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
-        </Style>
-    </Page.Resources>
 
     <Grid>
         <Grid RowSpacing="12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid
                 x:Name="UserPinnedItemsBlock"
@@ -83,7 +69,7 @@
                 Grid.RowSpan="2"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Text="There are no overview. Contribution graph will be comming soon!" />
+                Text="There is no overview. Contribution graph will be comming soon!" />
         </Grid>
     </Grid>
 </Page>
