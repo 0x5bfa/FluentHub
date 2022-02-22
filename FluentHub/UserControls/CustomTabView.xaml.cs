@@ -1,6 +1,7 @@
 ﻿using FluentHub.ViewModels;
 using FluentHub.Views;
-using FluentHub.Views.UserPages;
+using FluentHub.Views.Home;
+using FluentHub.Views.Users;
 using Microsoft.UI.Xaml.Controls;
 using System.Collections.Generic;
 using System.ComponentModel;

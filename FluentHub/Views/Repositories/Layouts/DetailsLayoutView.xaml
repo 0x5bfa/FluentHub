@@ -1,0 +1,101 @@
+﻿<Page
+    x:Class="FluentHub.Views.Repositories.Layouts.DetailsLayoutView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:contents="using:FluentHub.UserControls.Repository"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:items="using:FluentHub.Models.Items"
+    xmlns:local="using:FluentHub.Views.Repositories.Layouts"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:vm="using:FluentHub.ViewModels.Repositories.Layouts"
+    Loaded="Page_Loaded"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <vm:DetailsLayoutViewModel x:Name="ViewModel" />
+    </Page.DataContext>
+
+    <Grid>
+        <ScrollViewer Padding="12">
+            <Grid RowSpacing="6">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <contents:LatestCommitBlock x:Name="LatastCommitBlock" Grid.Row="0" />
+                <Grid
+                    x:Name="DirListViewContentGrid"
+                    Grid.Row="1"
+                    x:Load="{x:Bind ViewModel.CommonRepoViewModel.IsDir, Mode=OneWay}"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="4">
+                    <ListView
+                        x:Name="DirListView"
+                        Grid.Row="2"
+                        Grid.ColumnSpan="2"
+                        HorizontalAlignment="Stretch"
+                        DoubleTapped="DirListView_DoubleTapped"
+                        ItemsSource="{Binding Items}"
+                        SelectionMode="Single">
+                        <ListView.ItemContainerStyle>
+                            <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
+                                <Setter Property="MinHeight" Value="40" />
+                                <Setter Property="Height" Value="40" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="items:DetailsLayoutListViewItem">
+                                <Grid x:Name="ListViewItemGrid" Tag="{x:Bind ObjectTag, Mode=OneWay}">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="32" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="2*" />
+                                        <ColumnDefinition Width="120" />
+                                    </Grid.ColumnDefinitions>
+                                    <FontIcon
+                                        x:Name="ItemIcon"
+                                        HorizontalAlignment="Left"
+                                        VerticalAlignment="Center"
+                                        FontFamily="{StaticResource Octions}"
+                                        FontSize="16"
+                                        Glyph="{x:Bind ObjectTypeIconGlyph, Mode=OneWay}" />
+                                    <TextBlock
+                                        x:Name="ItemNameTextBox"
+                                        Grid.Column="1"
+                                        VerticalAlignment="Center"
+                                        Text="{x:Bind ObjectName, Mode=OneWay}" />
+                                    <TextBlock
+                                        x:Name="ItemLatestCommitTitleTextBox"
+                                        Grid.Column="2"
+                                        VerticalAlignment="Center"
+                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        Text="{x:Bind ObjectLatestCommitMessage, Mode=OneWay}"
+                                        TextTrimming="CharacterEllipsis" />
+                                    <TextBlock
+                                        x:Name="ItemUpdatedAtTextBlock"
+                                        Grid.Column="3"
+                                        HorizontalAlignment="Right"
+                                        VerticalAlignment="Center"
+                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        Text="{x:Bind ObjectUpdatedAtHumanized, Mode=OneWay}" />
+                                </Grid>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
+                <contents:FileContentBlock
+                    x:Name="FileContentBlock"
+                    Grid.Row="2"
+                    x:Load="{x:Bind ViewModel.CommonRepoViewModel.IsFile, Mode=OneWay}" />
+                <contents:ReadmeContentBlock
+                    x:Name="RepoReadmeBlock"
+                    Grid.Row="3"
+                    x:Load="{x:Bind ViewModel.CommonRepoViewModel.IsRootDir, Mode=OneWay}" />
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Page>

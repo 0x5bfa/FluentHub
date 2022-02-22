@@ -15,25 +15,32 @@
     </UserControl.DataContext>
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Border
+            Grid.Row="0"
+            Width="1.5"
+            Height="12"
+            Margin="28,0,0,-8"
+            HorizontalAlignment="Left"
+            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
         <Button
+            Grid.Row="1"
+            Margin="0,2,0,2"
             HorizontalAlignment="Stretch"
             HorizontalContentAlignment="Stretch"
             Background="Transparent"
             BorderBrush="Transparent"
             Style="{StaticResource ClearButtonStyle}">
-            <Grid Padding="12,-1">
+            <Grid Padding="12,4">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <Border
-                    Grid.Row="0"
-                    Width="1.5"
-                    Height="8"
-                    Margin="15,0,0,0"
-                    HorizontalAlignment="Left"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
                 <Grid Grid.Row="1" ColumnSpacing="8">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -74,14 +81,14 @@
                         Style="{StaticResource CaptionTextBlockStyle}"
                         Text="{x:Bind ViewModel.IssueEvent.CommitId, Mode=OneWay}" />
                 </Grid>
-                <Border
-                    Grid.Row="2"
-                    Width="1.5"
-                    Height="8"
-                    Margin="15,0,0,0"
-                    HorizontalAlignment="Left"
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
             </Grid>
         </Button>
+        <Border
+            Grid.Row="2"
+            Width="1.5"
+            Height="12"
+            Margin="28,-8,0,0"
+            HorizontalAlignment="Left"
+            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
     </Grid>
 </UserControl>

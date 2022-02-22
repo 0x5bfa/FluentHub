@@ -1,4 +1,4 @@
-﻿using FluentHub.ViewModels.RepoPages;
+﻿using FluentHub.ViewModels.Repositories;
 using Humanizer;
 using Octokit;
 using System;
