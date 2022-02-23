@@ -20,15 +20,15 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 
-namespace FluentHub.UserControls.Block
+namespace FluentHub.UserControls.ButtonBlocks
 {
-    public sealed partial class IssueBlock : Windows.UI.Xaml.Controls.Page
+    public sealed partial class IssueButtonBlock : Windows.UI.Xaml.Controls.Page
     {
         public static readonly DependencyProperty RepositoryIdProperty
             = DependencyProperty.Register(
                   nameof(RepositoryId),
                   typeof(long),
-                  typeof(RepoBlock),
+                  typeof(IssueButtonBlock),
                   new PropertyMetadata(null)
                 );
 
@@ -42,7 +42,7 @@ namespace FluentHub.UserControls.Block
             = DependencyProperty.Register(
                   nameof(IssueIndex),
                   typeof(int),
-                  typeof(RepoBlock),
+                  typeof(IssueButtonBlock),
                   new PropertyMetadata(null)
                 );
 
@@ -54,7 +54,7 @@ namespace FluentHub.UserControls.Block
 
         private ObservableCollection<LabelItem> _items = new ObservableCollection<LabelItem>();
 
-        public IssueBlock()
+        public IssueButtonBlock()
         {
             this.InitializeComponent();
         }

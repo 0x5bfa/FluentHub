@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace FluentHub.ViewModels.UserControls.Repository
+namespace FluentHub.ViewModels.UserControls.Blocks
 {
     public class LatestCommitBlockViewModel : INotifyPropertyChanged
     {

@@ -2,8 +2,8 @@
     x:Class="FluentHub.Views.Users.OverviewPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:block="using:FluentHub.UserControls.Block"
-    xmlns:contents="using:FluentHub.UserControls.Repository"
+    xmlns:block="using:FluentHub.UserControls.ButtonBlocks"
+    xmlns:contents="using:FluentHub.UserControls.Blocks"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="using:FluentHub.Helpers"
     xmlns:item="using:FluentHub.Models.Items"
@@ -53,7 +53,7 @@
                             <muxc:StackLayout Orientation="Horizontal" Spacing="8" />
                         </muxc:ItemsRepeater.Layout>
                         <DataTemplate x:DataType="item:RepoListItem">
-                            <block:RepoBlock
+                            <block:RepoButtonBlock
                                 x:Name="RepositoryBlock"
                                 Width="250"
                                 VerticalAlignment="Stretch"

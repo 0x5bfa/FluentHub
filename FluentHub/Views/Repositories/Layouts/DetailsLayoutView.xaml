@@ -2,7 +2,7 @@
     x:Class="FluentHub.Views.Repositories.Layouts.DetailsLayoutView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:contents="using:FluentHub.UserControls.Repository"
+    xmlns:contents="using:FluentHub.UserControls.Blocks"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:items="using:FluentHub.Models.Items"
     xmlns:local="using:FluentHub.Views.Repositories.Layouts"

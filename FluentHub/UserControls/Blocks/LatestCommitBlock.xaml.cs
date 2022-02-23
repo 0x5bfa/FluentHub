@@ -1,5 +1,5 @@
 ﻿using FluentHub.ViewModels.Repositories;
-using FluentHub.ViewModels.UserControls.Repository;
+using FluentHub.ViewModels.UserControls.Blocks;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -15,7 +15,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace FluentHub.UserControls.Repository
+namespace FluentHub.UserControls.Blocks
 {
     public sealed partial class LatestCommitBlock : UserControl
     {

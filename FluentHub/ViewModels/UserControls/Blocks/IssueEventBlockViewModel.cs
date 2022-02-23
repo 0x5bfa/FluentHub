@@ -1,6 +1,4 @@
-﻿using FluentHub.Helpers;
-using FluentHub.Models.Items;
-using FluentHub.Services.OctokitEx;
+﻿using FluentHub.Models.Items;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,11 +6,10 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.UI.Xaml.Controls;
 
-namespace FluentHub.ViewModels.UserControls.Issue
+namespace FluentHub.ViewModels.UserControls.Blocks
 {
-    public class IssueCommentBlockViewModel : INotifyPropertyChanged
+    public class IssueEventBlockViewModel : INotifyPropertyChanged
     {
         private long repositoryId;
         public long RepositoryId { get => repositoryId; set => SetProperty(ref repositoryId, value); }
@@ -23,29 +20,29 @@ namespace FluentHub.ViewModels.UserControls.Issue
         private long commentId;
         public long CommentId { get => commentId; set => SetProperty(ref commentId, value); }
 
-        private IssueCommentItem issueComment;
-        public IssueCommentItem IssueComment
+        private IssueEventItem issueEvent;
+        public IssueEventItem IssueEvent
         {
-            get => issueComment;
+            get => issueEvent;
             set
             {
-                SetProperty(ref issueComment, value);
+                SetProperty(ref issueEvent, value);
             }
         }
 
         private string bodyHtml;
         public string BodyHtml { get => bodyHtml; set => SetProperty(ref bodyHtml, value); }
 
-        public async Task SetWebViewContentsAsync(WebView webView)
-        {
-            Markdown markdown = new();
+        //public async Task SetWebViewContentsAsync(WebView webView)
+        //{
+        //    Markdown markdown = new();
 
-            var repo = await App.Client.Repository.Get(RepositoryId);
+        //    var repo = await App.Client.Repository.Get(RepositoryId);
 
-            var BodyHtml = await markdown.GetHtml(IssueComment.Body, repo.HtmlUrl);
+        //    var BodyHtml = await markdown.GetHtml(IssueComment.Body, repo.HtmlUrl);
 
-            webView.NavigateToString(BodyHtml);
-        }
+        //    webView.NavigateToString(BodyHtml);
+        //}
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)

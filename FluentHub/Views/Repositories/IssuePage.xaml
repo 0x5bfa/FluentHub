@@ -2,7 +2,7 @@
     x:Class="FluentHub.Views.Repositories.IssuePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:block="using:FluentHub.UserControls.Block"
+    xmlns:block="using:FluentHub.UserControls.ButtonBlocks"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:label="using:FluentHub.UserControls.Labels"
     xmlns:local="using:FluentHub.Views.Repositories"

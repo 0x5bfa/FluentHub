@@ -7,7 +7,7 @@
     xmlns:local="using:FluentHub.Views.Users"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:uc="using:FluentHub.UserControls.Block"
+    xmlns:uc="using:FluentHub.UserControls.ButtonBlocks"
     xmlns:vm="using:FluentHub.ViewModels.Users"
     mc:Ignorable="d">
 
@@ -101,7 +101,7 @@
                 <Border>
                     <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}" Loaded="ItemsRepeater_Loaded">
                         <DataTemplate x:DataType="item:RepoListItem">
-                            <uc:RepoBlock
+                            <uc:RepoButtonBlock
                                 x:Name="RepositoryBlock"
                                 DisplayDitails="True"
                                 RepositoryId="{x:Bind RepoId, Mode=OneWay}" />

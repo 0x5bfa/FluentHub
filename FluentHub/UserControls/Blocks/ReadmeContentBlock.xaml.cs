@@ -16,7 +16,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace FluentHub.UserControls.Repository
+namespace FluentHub.UserControls.Blocks
 {
     public sealed partial class ReadmeContentBlock : UserControl
     {

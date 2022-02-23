@@ -151,17 +151,11 @@
     <Compile Include="Services\OctokitEx\UserPinnedItems.cs" />
     <Compile Include="Services\OctokitEx\UserStarredItems.cs" />
     <Compile Include="Services\Octokit\UserService.cs" />
-    <Compile Include="UserControls\Block\IssueContentBlock.xaml.cs">
-      <DependentUpon>IssueContentBlock.xaml</DependentUpon>
+    <Compile Include="UserControls\ButtonBlocks\IssueButtonBlock.xaml.cs">
+      <DependentUpon>IssueButtonBlock.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Block\IssueBlock.xaml.cs">
-      <DependentUpon>IssueBlock.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\Block\LatestCommitOverviewBlock.xaml.cs">
-      <DependentUpon>LatestCommitOverviewBlock.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\Block\RepoBlock.xaml.cs">
-      <DependentUpon>RepoBlock.xaml</DependentUpon>
+    <Compile Include="UserControls\ButtonBlocks\RepoButtonBlock.xaml.cs">
+      <DependentUpon>RepoButtonBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Flyouts\OrganizationCardFlyout.xaml.cs">
       <DependentUpon>OrganizationCardFlyout.xaml</DependentUpon>
@@ -172,10 +166,10 @@
     <Compile Include="UserControls\CustomTabView.xaml.cs">
       <DependentUpon>CustomTabView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Issue\IssueCommentBlock.xaml.cs">
+    <Compile Include="UserControls\Blocks\IssueCommentBlock.xaml.cs">
       <DependentUpon>IssueCommentBlock.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Issue\IssueEventBlock.xaml.cs">
+    <Compile Include="UserControls\Blocks\IssueEventBlock.xaml.cs">
       <DependentUpon>IssueEventBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Labels\LabelControl.xaml.cs">
@@ -184,13 +178,13 @@
     <Compile Include="UserControls\Labels\StateLabel.xaml.cs">
       <DependentUpon>StateLabel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Repository\FileContentBlock.xaml.cs">
+    <Compile Include="UserControls\Blocks\FileContentBlock.xaml.cs">
       <DependentUpon>FileContentBlock.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Repository\ReadmeContentBlock.xaml.cs">
+    <Compile Include="UserControls\Blocks\ReadmeContentBlock.xaml.cs">
       <DependentUpon>ReadmeContentBlock.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Repository\LatestCommitBlock.xaml.cs">
+    <Compile Include="UserControls\Blocks\LatestCommitBlock.xaml.cs">
       <DependentUpon>LatestCommitBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\RestartInfoBar.xaml.cs">
@@ -216,9 +210,10 @@
     <Compile Include="ViewModels\Repositories\PullRequestListViewModel.cs" />
     <Compile Include="ViewModels\SettingsManager.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\Issue\IssueCommentBlockViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\Issue\IssueEventBlockViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\Repository\LatestCommitBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\ButtonBlocks\RepoButtonBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Blocks\IssueCommentBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Blocks\IssueEventBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Blocks\LatestCommitBlockViewModel.cs" />
     <Compile Include="ViewModels\Home\ActivityViewModel.cs" />
     <Compile Include="ViewModels\Home\NotificationViewModel.cs" />
     <Compile Include="ViewModels\Users\ProfilePageViewModel.cs" />
@@ -440,19 +435,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\Block\IssueContentBlock.xaml">
+    <Page Include="UserControls\ButtonBlocks\IssueButtonBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\Block\IssueBlock.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\Block\LatestCommitOverviewBlock.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\Block\RepoBlock.xaml">
+    <Page Include="UserControls\ButtonBlocks\RepoButtonBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -468,11 +455,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\Issue\IssueCommentBlock.xaml">
+    <Page Include="UserControls\Blocks\IssueCommentBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\Issue\IssueEventBlock.xaml">
+    <Page Include="UserControls\Blocks\IssueEventBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -484,15 +471,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\Repository\FileContentBlock.xaml">
+    <Page Include="UserControls\Blocks\FileContentBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\Repository\ReadmeContentBlock.xaml">
+    <Page Include="UserControls\Blocks\ReadmeContentBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\Repository\LatestCommitBlock.xaml">
+    <Page Include="UserControls\Blocks\LatestCommitBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

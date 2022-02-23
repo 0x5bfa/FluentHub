@@ -17,15 +17,15 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 
-namespace FluentHub.UserControls.Block
+namespace FluentHub.UserControls.ButtonBlocks
 {
-    public sealed partial class RepoBlock : UserControl
+    public sealed partial class RepoButtonBlock : UserControl
     {
         public static readonly DependencyProperty RepositoryIdProperty
             = DependencyProperty.Register(
                   nameof(RepositoryId),
                   typeof(long),
-                  typeof(RepoBlock),
+                  typeof(RepoButtonBlock),
                   new PropertyMetadata(null)
                 );
 
@@ -39,7 +39,7 @@ namespace FluentHub.UserControls.Block
             = DependencyProperty.Register(
                   nameof(DisplayDitails),
                   typeof(bool),
-                  typeof(RepoBlock),
+                  typeof(RepoButtonBlock),
                   new PropertyMetadata(null)
                 );
 
@@ -53,7 +53,7 @@ namespace FluentHub.UserControls.Block
             = DependencyProperty.Register(
                   nameof(DisplayStarButton),
                   typeof(bool),
-                  typeof(RepoBlock),
+                  typeof(RepoButtonBlock),
                   new PropertyMetadata(null)
                 );
 
@@ -63,7 +63,7 @@ namespace FluentHub.UserControls.Block
             set => SetValue(DisplayStarButtonProperty, value);
         }
 
-        public RepoBlock()
+        public RepoButtonBlock()
         {
             this.InitializeComponent();
         }

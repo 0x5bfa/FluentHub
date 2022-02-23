@@ -1,6 +1,6 @@
 ﻿using FluentHub.Models.Items;
-using FluentHub.UserControls.Issue;
-using FluentHub.ViewModels.UserControls.Issue;
+using FluentHub.UserControls.Blocks;
+using FluentHub.ViewModels.UserControls.Blocks;
 using Humanizer;
 using Octokit;
 using System;
