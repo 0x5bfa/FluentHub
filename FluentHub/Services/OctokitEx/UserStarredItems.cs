@@ -23,7 +23,7 @@ namespace FluentHub.Services.OctokitEx
 
                 var repositoriesRequest = new GraphQLRequest
                 {
-                    Query = "query { user(login: \"" + username + "\") {starredRepositories(first: 100) { nodes { nameWithOwner }}}}"
+                    Query = "query { user(login: \"" + username + "\") {starredRepositories(first: 30) { nodes { nameWithOwner }}}}"
                 };
 
                 var graphQLResponse = await graphQLClient.SendQueryAsync<ResponseType>(repositoriesRequest);

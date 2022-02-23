@@ -41,7 +41,7 @@ namespace FluentHub.ViewModels.Users
             }
 
             // order by updated at
-            Items = new(Items.OrderByDescending(x => x.UpdatedAt));
+            //Items = new(Items.OrderByDescending(x => x.UpdatedAt));
 
             IsActive = false;
 
