@@ -143,7 +143,6 @@
     <Compile Include="Models\Items\IssueEventItem.cs" />
     <Compile Include="Models\Items\IssueListItem.cs" />
     <Compile Include="Models\Items\NotificationListItem.cs" />
-    <Compile Include="Models\Items\ProfileBlockItem.cs" />
     <Compile Include="Models\Items\RepoListItem.cs" />
     <Compile Include="Services\Auth\AppCredentials.cs" />
     <Compile Include="Services\Auth\RequestAuthorization.cs" />
