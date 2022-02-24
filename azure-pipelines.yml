@@ -37,7 +37,7 @@ steps:
   inputs:
     secureFile: AppCredentials.config
 
-- task: CopyFiles
+- task: CopyFiles@2
   inputs:
     SourceFolder: '$(Agent.TempDirectory)'
     Contents: '$(CredentialSecureFile.secureFilePath)'
