@@ -11,30 +11,115 @@ pool:
 
 variables:
   solution: '**/*.sln'
-  buildPlatform: 'x86|x64|ARM'
+  buildPlatform: 'x86|x64'
   buildConfiguration: 'Release'
   appxPackageDir: '$(build.artifactStagingDirectory)\AppxPackages\\'
 
-steps:
-- task: NuGetToolInstaller@1
+jobs:
+### Sideload release ###
+- job: SideloadRelease
+  timeoutInMinutes: 120
 
-- task: DownloadSecureFile@1
-  name: CredentialSecureFile
-  inputs:
-    secureFile: AppCredentials.config
+  steps:
+  - task: PowerShell@2
+    displayName: 'Canonicalize package manifest'
+    inputs:
+      targetType: 'inline'
+      script: |
+        [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\FluentHub\Package.appxmanifest
+        $xmlDoc.Package.Identity.Name="FluentHub"
+        $xmlDoc.Package.Identity.Publisher="CN=FluentHub"
+        $xmlDoc.Package.Properties.DisplayName="FluentHub"
+        $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub"
+        $xmlDoc.Save('$(Build.SourcesDirectory)\FluentHub\Package.appxmanifest')
+      failOnStderr: true
 
-- task: BatchScript@1
-  inputs:
-    filename: 'C:\Windows\system32\cmd.exe'
-    arguments: '/c move /y $(CredentialSecureFile.secureFilePath) ./FluentHub/'
+  - task: NuGetToolInstaller@1
 
-- task: NuGetCommand@2
-  inputs:
-    restoreSolution: '$(solution)'
+  - task: DownloadSecureFile@1
+    name: CredentialSecureFile
+    inputs:
+      secureFile: AppCredentials.config
 
-- task: VSBuild@1
-  inputs:
-    platform: 'x86'
-    solution: '$(solution)'
-    configuration: '$(buildConfiguration)'
-    msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload'
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: '$(Agent.TempDirectory)'
+      Contents: '$(CredentialSecureFile.secureFilePath)'
+      TargetFolder: '$(Build.SourcesDirectory)\FluentHub'
+
+  - task: NuGetCommand@2
+    inputs:
+      restoreSolution: '$(solution)'
+
+  - task: VSBuild@1
+    inputs:
+      platform: 'x86|x64'
+      solution: '$(solution)'
+      configuration: '$(buildConfiguration)'
+      msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload'
+
+  - task: CopyFiles@2
+    displayName: 'Copy AppxPackageDirFiles to: $(build.artifactstagingdirectory)'
+    inputs:
+      SourceFolder: '$(system.defaultworkingdirectory)'
+      Contents: '**\bin\$(BuildConfiguration)\**'
+      TargetFolder: '$(build.artifactstagingdirectory)'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: store-release-artifacts'
+    inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)'
+
+### Store release ###
+- job: StoreRelease
+  timeoutInMinutes: 120
+
+  steps:
+  - task: PowerShell@2
+    displayName: 'Canonicalize package manifest'
+    inputs:
+      targetType: 'inline'
+      script: |
+        [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\FluentHub\Package.appxmanifest
+        $xmlDoc.Package.Identity.Name="FluentHub"
+        $xmlDoc.Package.Identity.Publisher="CN=FluentHub"
+        $xmlDoc.Package.Properties.DisplayName="FluentHub"
+        $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub"
+        $xmlDoc.Save('$(Build.SourcesDirectory)\FluentHub\Package.appxmanifest')
+      failOnStderr: true
+
+  - task: NuGetToolInstaller@1
+
+  - task: DownloadSecureFile@1
+    name: CredentialSecureFile
+    inputs:
+      secureFile: AppCredentials.config
+
+  - task: CopyFiles@2
+    inputs:
+      SourceFolder: '$(Agent.TempDirectory)'
+      Contents: '$(CredentialSecureFile.secureFilePath)'
+      TargetFolder: '$(Build.SourcesDirectory)\FluentHub'
+
+  - task: NuGetCommand@2
+    inputs:
+      restoreSolution: '$(solution)'
+
+  - task: VSBuild@1
+    inputs:
+      platform: 'x86|x64'
+      solution: '$(solution)'
+      configuration: '$(buildConfiguration)'
+      msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload'
+
+  - task: CopyFiles@2
+    displayName: 'Copy AppxPackageDirFiles to: $(build.artifactstagingdirectory)'
+    inputs:
+      SourceFolder: '$(system.defaultworkingdirectory)'
+      Contents: '**\bin\$(BuildConfiguration)\**'
+      TargetFolder: '$(build.artifactstagingdirectory)'
+
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Artifact: store-release-artifacts'
+    inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)'
