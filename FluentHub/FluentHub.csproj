@@ -207,25 +207,25 @@
     <Compile Include="ViewModels\AppSettings\AppearanceViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
-    <Compile Include="ViewModels\OrganizationPages\OverviewViewModel.cs" />
-    <Compile Include="ViewModels\OrganizationPages\RepoListViewModel.cs" />
-    <Compile Include="ViewModels\RepoPages\CodePageViewModel.cs" />
-    <Compile Include="ViewModels\RepoPages\CommonRepoViewModel.cs" />
-    <Compile Include="ViewModels\RepoPages\IssueListViewModel.cs" />
-    <Compile Include="ViewModels\RepoPages\Layouts\DetailsLayoutViewModel.cs" />
-    <Compile Include="ViewModels\RepoPages\Layouts\TreeLayoutViewModel.cs" />
-    <Compile Include="ViewModels\RepoPages\PullRequestListViewModel.cs" />
+    <Compile Include="ViewModels\Organizations\OverviewViewModel.cs" />
+    <Compile Include="ViewModels\Organizations\RepoListViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\CodePageViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\CommonRepoViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\IssueListViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\Layouts\DetailsLayoutViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\Layouts\TreeLayoutViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\PullRequestListViewModel.cs" />
     <Compile Include="ViewModels\SettingsManager.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Issue\IssueCommentBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Issue\IssueEventBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Repository\LatestCommitBlockViewModel.cs" />
-    <Compile Include="ViewModels\UserPages\ActivityViewModel.cs" />
-    <Compile Include="ViewModels\UserPages\NotificationViewModel.cs" />
-    <Compile Include="ViewModels\UserPages\ProfilePageViewModel.cs" />
-    <Compile Include="ViewModels\UserPages\RepoListViewModel.cs" />
-    <Compile Include="ViewModels\UserPages\OverviewViewModel.cs" />
-    <Compile Include="ViewModels\UserPages\StarListViewModel.cs" />
+    <Compile Include="ViewModels\Home\ActivityViewModel.cs" />
+    <Compile Include="ViewModels\Home\NotificationViewModel.cs" />
+    <Compile Include="ViewModels\Users\ProfilePageViewModel.cs" />
+    <Compile Include="ViewModels\Users\RepoListViewModel.cs" />
+    <Compile Include="ViewModels\Users\OverviewViewModel.cs" />
+    <Compile Include="ViewModels\Users\StarListViewModel.cs" />
     <Compile Include="Views\AppSettings\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
@@ -238,95 +238,95 @@
     <Compile Include="Views\AppSettings\AppearancePage.xaml.cs">
       <DependentUpon>AppearancePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\HomePages\IssuesPage.xaml.cs">
+    <Compile Include="Views\Home\IssuesPage.xaml.cs">
       <DependentUpon>IssuesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\HomePages\PullRequestsPage.xaml.cs">
+    <Compile Include="Views\Home\PullRequestsPage.xaml.cs">
       <DependentUpon>PullRequestsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\HomePages\RepositoriesPage.xaml.cs">
+    <Compile Include="Views\Home\RepositoriesPage.xaml.cs">
       <DependentUpon>RepositoriesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\HomePages\StarsPage.xaml.cs">
+    <Compile Include="Views\Home\StarsPage.xaml.cs">
       <DependentUpon>StarsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Views\OrganizationPages\MembershipPage.xaml.cs">
+    <Compile Include="Views\Organizations\MembershipPage.xaml.cs">
       <DependentUpon>MembershipPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\OrganizationPages\OverviewPage.xaml.cs">
+    <Compile Include="Views\Organizations\OverviewPage.xaml.cs">
       <DependentUpon>OverviewPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\OrganizationPages\ProfilePage.xaml.cs">
+    <Compile Include="Views\Organizations\ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\OrganizationPages\RepoListPage.xaml.cs">
+    <Compile Include="Views\Organizations\RepoListPage.xaml.cs">
       <DependentUpon>RepoListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\RepoPages\CodePage.xaml.cs">
+    <Compile Include="Views\Repositories\CodePage.xaml.cs">
       <DependentUpon>CodePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\RepoPages\IssuePage.xaml.cs">
+    <Compile Include="Views\Repositories\IssuePage.xaml.cs">
       <DependentUpon>IssuePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\RepoPages\Layouts\DetailsLayoutView.xaml.cs">
+    <Compile Include="Views\Repositories\Layouts\DetailsLayoutView.xaml.cs">
       <DependentUpon>DetailsLayoutView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\RepoPages\Layouts\TreeLayoutView.xaml.cs">
+    <Compile Include="Views\Repositories\Layouts\TreeLayoutView.xaml.cs">
       <DependentUpon>TreeLayoutView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\RepoPages\OverviewPage.xaml.cs">
+    <Compile Include="Views\Repositories\OverviewPage.xaml.cs">
       <DependentUpon>OverviewPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\RepoPages\PullRequestListPage.xaml.cs">
+    <Compile Include="Views\Repositories\PullRequestListPage.xaml.cs">
       <DependentUpon>PullRequestListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\RepoPages\IssueListPage.xaml.cs">
+    <Compile Include="Views\Repositories\IssueListPage.xaml.cs">
       <DependentUpon>IssueListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\RepoPages\Settings.xaml.cs">
+    <Compile Include="Views\Repositories\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SignInPages\SignInPage.xaml.cs">
+    <Compile Include="Views\SignIn\SignInPage.xaml.cs">
       <DependentUpon>SignInPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserHomePage.xaml.cs">
+    <Compile Include="Views\Home\UserHomePage.xaml.cs">
       <DependentUpon>UserHomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserPages\ActivityPage.xaml.cs">
+    <Compile Include="Views\Home\ActivityPage.xaml.cs">
       <DependentUpon>ActivityPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserPages\OverviewPage.xaml.cs">
+    <Compile Include="Views\Users\OverviewPage.xaml.cs">
       <DependentUpon>OverviewPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserPages\FollowersPage.xaml.cs">
+    <Compile Include="Views\Users\FollowersPage.xaml.cs">
       <DependentUpon>FollowersPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserPages\FollowingPage.xaml.cs">
+    <Compile Include="Views\Users\FollowingPage.xaml.cs">
       <DependentUpon>FollowingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserPages\IssueListPage.xaml.cs">
+    <Compile Include="Views\Users\IssueListPage.xaml.cs">
       <DependentUpon>IssueListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\HomePages\NotificationsPage.xaml.cs">
+    <Compile Include="Views\Home\NotificationsPage.xaml.cs">
       <DependentUpon>NotificationsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserPages\ProfilePage.xaml.cs">
+    <Compile Include="Views\Users\ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserPages\PullRequestListPage.xaml.cs">
+    <Compile Include="Views\Users\PullRequestListPage.xaml.cs">
       <DependentUpon>PullRequestListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserPages\RepoListPage.xaml.cs">
+    <Compile Include="Views\Users\RepoListPage.xaml.cs">
       <DependentUpon>RepoListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\UserPages\StarListPage.xaml.cs">
+    <Compile Include="Views\Users\StarListPage.xaml.cs">
       <DependentUpon>StarListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SignInPages\IntroPage.xaml.cs">
+    <Compile Include="Views\SignIn\IntroPage.xaml.cs">
       <DependentUpon>IntroPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -517,19 +517,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\HomePages\IssuesPage.xaml">
+    <Page Include="Views\Home\IssuesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\HomePages\PullRequestsPage.xaml">
+    <Page Include="Views\Home\PullRequestsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\HomePages\RepositoriesPage.xaml">
+    <Page Include="Views\Home\RepositoriesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\HomePages\StarsPage.xaml">
+    <Page Include="Views\Home\StarsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -537,103 +537,103 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\OrganizationPages\MembershipPage.xaml">
+    <Page Include="Views\Organizations\MembershipPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\OrganizationPages\OverviewPage.xaml">
+    <Page Include="Views\Organizations\OverviewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\OrganizationPages\ProfilePage.xaml">
+    <Page Include="Views\Organizations\ProfilePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\OrganizationPages\RepoListPage.xaml">
+    <Page Include="Views\Organizations\RepoListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\RepoPages\CodePage.xaml">
+    <Page Include="Views\Repositories\CodePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\RepoPages\IssuePage.xaml">
+    <Page Include="Views\Repositories\IssuePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\RepoPages\Layouts\DetailsLayoutView.xaml">
+    <Page Include="Views\Repositories\Layouts\DetailsLayoutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\RepoPages\Layouts\TreeLayoutView.xaml">
+    <Page Include="Views\Repositories\Layouts\TreeLayoutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\RepoPages\OverviewPage.xaml">
+    <Page Include="Views\Repositories\OverviewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\RepoPages\PullRequestListPage.xaml">
+    <Page Include="Views\Repositories\PullRequestListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\RepoPages\IssueListPage.xaml">
+    <Page Include="Views\Repositories\IssueListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\RepoPages\Settings.xaml">
+    <Page Include="Views\Repositories\Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SignInPages\SignInPage.xaml">
+    <Page Include="Views\SignIn\SignInPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserHomePage.xaml">
+    <Page Include="Views\Home\UserHomePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserPages\ActivityPage.xaml">
+    <Page Include="Views\Home\ActivityPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserPages\OverviewPage.xaml">
+    <Page Include="Views\Users\OverviewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserPages\FollowersPage.xaml">
+    <Page Include="Views\Users\FollowersPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserPages\FollowingPage.xaml">
+    <Page Include="Views\Users\FollowingPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserPages\IssueListPage.xaml">
+    <Page Include="Views\Users\IssueListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\HomePages\NotificationsPage.xaml">
+    <Page Include="Views\Home\NotificationsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserPages\ProfilePage.xaml">
+    <Page Include="Views\Users\ProfilePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserPages\PullRequestListPage.xaml">
+    <Page Include="Views\Users\PullRequestListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserPages\RepoListPage.xaml">
+    <Page Include="Views\Users\RepoListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\UserPages\StarListPage.xaml">
+    <Page Include="Views\Users\StarListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SignInPages\IntroPage.xaml">
+    <Page Include="Views\SignIn\IntroPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -684,6 +684,7 @@
   <ItemGroup>
     <XliffResource Include="MultilingualResources\FluentHub.es-ES.xlf" />
     <XliffResource Include="MultilingualResources\FluentHub.ja-JP.xlf" />
+    <XliffResource Include="MultilingualResources\FluentHub.zh-CN.xlf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Assets\Avatars\" />
@@ -694,6 +695,9 @@
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Strings\es-ES\Resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\zh-CN\Resources.resw" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

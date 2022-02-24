@@ -1,4 +1,4 @@
-﻿using FluentHub.ViewModels.RepoPages;
+﻿using FluentHub.ViewModels.Repositories;
 using FluentHub.ViewModels.UserControls.Repository;
 using System;
 using System.Collections.Generic;
