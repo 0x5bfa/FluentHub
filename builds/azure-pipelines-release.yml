@@ -68,7 +68,7 @@ jobs:
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact: store-release-artifacts'
     inputs:
-    PathtoPublish: '$(build.artifactstagingdirectory)'
+      PathtoPublish: '$(build.artifactstagingdirectory)'
 
 ### Store release ###
 - job: StoreRelease
@@ -122,4 +122,4 @@ jobs:
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact: store-release-artifacts'
     inputs:
-    PathtoPublish: '$(build.artifactstagingdirectory)'
+      PathtoPublish: '$(build.artifactstagingdirectory)'
