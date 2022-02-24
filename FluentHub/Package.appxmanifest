@@ -7,7 +7,7 @@
   IgnorableNamespaces="uap mp">
 
   <Identity
-    Name="FluentHub Dev"
+    Name="FluentHubDev"
     Publisher="CN=FluentHub"
     Version="0.7.1.0" />
 
