@@ -53,7 +53,7 @@ jobs:
 
   - task: VSBuild@1
     inputs:
-      platform: 'x86|x64'
+      platform: 'x64'
       solution: '$(solution)'
       configuration: '$(buildConfiguration)'
       msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload'
@@ -107,7 +107,7 @@ jobs:
 
   - task: VSBuild@1
     inputs:
-      platform: 'x86|x64'
+      platform: 'x64'
       solution: '$(solution)'
       configuration: '$(buildConfiguration)'
       msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload'
