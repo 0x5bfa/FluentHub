@@ -27,7 +27,9 @@ namespace FluentHub.ViewModels.Users
         {
             IsActive = true;
 
-            var repos = await App.Client.Repository.GetAllForUser(username);
+            ApiOptions options = new() { PageSize = 30, PageCount = 1, StartPage = 1 };
+
+            var repos = await App.Client.Repository.GetAllForUser(username, options);
 
             foreach (var item in repos)
             {
