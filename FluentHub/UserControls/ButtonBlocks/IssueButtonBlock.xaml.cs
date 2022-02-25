@@ -1,4 +1,5 @@
-﻿using FluentHub.Views.Repositories;
+﻿using FluentHub.Models.Items;
+using FluentHub.Views.Repositories;
 using Humanizer;
 using Octokit;
 using System;
@@ -52,7 +53,7 @@ namespace FluentHub.UserControls.ButtonBlocks
             set => SetValue(IssueIndexProperty, value);
         }
 
-        private ObservableCollection<LabelItem> _items = new ObservableCollection<LabelItem>();
+        private ObservableCollection<LabelSimpleItem> _items = new();
 
         public IssueButtonBlock()
         {
@@ -131,22 +132,14 @@ namespace FluentHub.UserControls.ButtonBlocks
 
             foreach (var label in issue.Labels)
             {
-                LabelItem labelItem = new LabelItem();
+                LabelSimpleItem labelItem = new();
 
-                var brush = GetSolidColorBrush(label.Color);
-
-                labelItem.AccentColor = brush;
+                labelItem.ColorBrush = GetSolidColorBrush(label.Color);
 
                 labelItem.LabelText = label.Name;
 
                 _items.Add(labelItem);
             }
         }
-    }
-
-    public class LabelItem
-    {
-        public string LabelText { get; set; }
-        public Brush AccentColor { get; set; }
     }
 }

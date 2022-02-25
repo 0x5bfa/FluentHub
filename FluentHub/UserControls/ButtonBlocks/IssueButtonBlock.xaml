@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:item="using:FluentHub.Models.Items"
     xmlns:label="using:FluentHub.UserControls.Labels"
     xmlns:local="using:FluentHub.UserControls.ButtonBlocks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -73,8 +74,8 @@
                             <muxc:ItemsRepeater.Layout>
                                 <muxc:StackLayout Orientation="Horizontal" Spacing="8" />
                             </muxc:ItemsRepeater.Layout>
-                            <DataTemplate x:DataType="local:LabelItem">
-                                <label:LabelControl LabelBackground="{x:Bind AccentColor}" LabelText="{x:Bind LabelText}" />
+                            <DataTemplate x:DataType="item:LabelSimpleItem">
+                                <label:LabelControl LabelBackground="{x:Bind ColorBrush}" LabelText="{x:Bind LabelText}" />
                             </DataTemplate>
                         </muxc:ItemsRepeater>
                     </StackPanel>

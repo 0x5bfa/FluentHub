@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:block="using:FluentHub.UserControls.ButtonBlocks"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:item="using:FluentHub.Models.Items"
     xmlns:label="using:FluentHub.UserControls.Labels"
     xmlns:local="using:FluentHub.Views.Repositories"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -11,12 +12,12 @@
     Loaded="Page_Loaded"
     mc:Ignorable="d">
 
-    <Grid Padding="24,18,24,0">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid>
+        <Grid Padding="24,18,24,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -44,22 +45,38 @@
                 Spacing="4">
                 <label:StateLabel x:Name="StatusLabel" Status="IssueDraft" />
             </StackPanel>
-            <MenuFlyoutSeparator Grid.Row="2" />
         </Grid>
         <Grid
             Grid.Row="1"
-            Margin="0,-1,0,0"
-            ColumnSpacing="8">
+            Margin="18,4,18,0"
+            ColumnSpacing="12">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="300" />
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition
+                    Width="*"
+                    MinWidth="180"
+                    MaxWidth="300" />
             </Grid.ColumnDefinitions>
+            <MenuFlyoutSeparator
+                Grid.ColumnSpan="2"
+                Margin="0,-1"
+                VerticalAlignment="Top" />
             <ScrollViewer>
                 <StackPanel x:Name="IssueContentPanel" />
             </ScrollViewer>
-            <ScrollViewer Grid.Column="1" Margin="0,20,0,0">
-                <Grid RowSpacing="8">
+            <ScrollViewer Grid.Column="1">
+                <Grid
+                    Margin="0,20"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="4">
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -68,53 +85,63 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid
-                        Height="84"
                         Padding="12"
                         VerticalAlignment="Top"
-                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                        BorderThickness="1"
-                        CornerRadius="4">
+                        RowSpacing="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Reviewers" />
+                        <StackPanel
+                            x:Name="ReviewersListBlock"
+                            Grid.Row="1"
+                            Spacing="2" />
+                    </Grid>
+                    <MenuFlyoutSeparator Grid.Row="1" />
+                    <Grid
+                        Grid.Row="2"
+                        Padding="12"
+                        VerticalAlignment="Top"
+                        RowSpacing="10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Assignees" />
-                        <TextBlock
+                        <StackPanel
+                            x:Name="AssigneesListBlock"
                             Grid.Row="1"
-                            VerticalAlignment="Center"
-                            Style="{StaticResource BodyTextBlockStyle}"
-                            Text="Comming soon!!" />
+                            Spacing="2" />
                     </Grid>
+                    <MenuFlyoutSeparator Grid.Row="3" />
                     <Grid
-                        Grid.Row="1"
-                        Height="84"
+                        Grid.Row="4"
                         Padding="12"
                         VerticalAlignment="Top"
-                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                        BorderThickness="1"
-                        CornerRadius="4">
+                        RowSpacing="8">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Labels" />
-                        <TextBlock
-                            Grid.Row="1"
-                            VerticalAlignment="Center"
-                            Style="{StaticResource BodyTextBlockStyle}"
-                            Text="Comming soon!!" />
+                        <StackPanel Grid.Row="1">
+                            <muxc:ItemsRepeater ItemsSource="{x:Bind _items}">
+                                <muxc:ItemsRepeater.Layout>
+                                    <muxc:StackLayout Spacing="8" />
+                                </muxc:ItemsRepeater.Layout>
+                                <DataTemplate x:DataType="item:LabelSimpleItem">
+                                    <label:LabelControl LabelBackground="{x:Bind ColorBrush}" LabelText="{x:Bind LabelText}" />
+                                </DataTemplate>
+                            </muxc:ItemsRepeater>
+                        </StackPanel>
                     </Grid>
+                    <MenuFlyoutSeparator Grid.Row="5" />
                     <Grid
-                        Grid.Row="2"
-                        Height="84"
+                        Grid.Row="6"
                         Padding="12"
                         VerticalAlignment="Top"
-                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                        BorderThickness="1"
-                        CornerRadius="4">
+                        RowSpacing="10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />

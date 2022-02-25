@@ -80,9 +80,9 @@ namespace FluentHub.UserControls.Blocks
                 return;
             }
 
-            string result = await markdown.GetHtml(
-                readme.Content,
-                "https://raw.githubusercontent.com/" + repo.Owner.Login + "/" + repo.Name + "/" + repo.DefaultBranch +"/");
+            string missingBasePath = "https://raw.githubusercontent.com/" + repo.Owner.Login + "/" + repo.Name + "/" + repo.DefaultBranch + "/";
+
+            string result = await markdown.GetHtml(readme.Content, missingBasePath);
 
             ReadmeWebView.NavigateToString(result);
 

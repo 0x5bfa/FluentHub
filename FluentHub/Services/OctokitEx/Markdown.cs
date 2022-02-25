@@ -73,15 +73,14 @@ namespace FluentHub.Services.OctokitEx
                 match =>
                 {
                     var value = match.Groups["value"].Value;
-                    Uri uri;
 
-                    if (Uri.TryCreate(baseUri, value, out uri))
-                    {
-                        var name = match.Groups["name"].Value;
-                        return string.Format("{0}=\"{1}\"", name, uri.AbsoluteUri);
-                    }
+                    // Remove the first character slash
+                    if (value[0] == '/') value = value.Remove(0, 1);
 
-                    return null;
+                    Uri uri = new Uri(baseUri, value);
+
+                    var name = match.Groups["name"].Value;
+                    return string.Format("{0}=\"{1}\"", name, uri.AbsoluteUri);
                 });
 
             var adjustedHtml = Regex.Replace(renderedString, pattern, matchEvaluator);
