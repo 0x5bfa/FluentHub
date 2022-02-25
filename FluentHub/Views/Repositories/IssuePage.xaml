@@ -66,11 +66,14 @@
             </ScrollViewer>
             <ScrollViewer Grid.Column="1">
                 <Grid
-                    Margin="0,20"
+                    Margin="0,20,0,12"
+                    Padding="12"
+                    VerticalAlignment="Stretch"
                     Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1"
-                    CornerRadius="4">
+                    CornerRadius="4"
+                    RowSpacing="12">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -83,46 +86,46 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <Grid
-                        Padding="12"
-                        VerticalAlignment="Top"
-                        RowSpacing="10">
+                    <Grid VerticalAlignment="Top" RowSpacing="10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Reviewers" />
                         <StackPanel
                             x:Name="ReviewersListBlock"
                             Grid.Row="1"
                             Spacing="2" />
+                        <MenuFlyoutSeparator Grid.Row="2" Margin="-12,0" />
                     </Grid>
-                    <MenuFlyoutSeparator Grid.Row="1" />
                     <Grid
-                        Grid.Row="2"
-                        Padding="12"
+                        Grid.Row="1"
                         VerticalAlignment="Top"
                         RowSpacing="10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Assignees" />
                         <StackPanel
                             x:Name="AssigneesListBlock"
                             Grid.Row="1"
                             Spacing="2" />
+                        <MenuFlyoutSeparator Grid.Row="2" Margin="-12,0" />
                     </Grid>
-                    <MenuFlyoutSeparator Grid.Row="3" />
                     <Grid
-                        Grid.Row="4"
-                        Padding="12"
+                        Grid.Row="2"
                         VerticalAlignment="Top"
                         RowSpacing="8">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Labels" />
                         <StackPanel Grid.Row="1">
@@ -135,23 +138,135 @@
                                 </DataTemplate>
                             </muxc:ItemsRepeater>
                         </StackPanel>
+                        <MenuFlyoutSeparator Grid.Row="2" Margin="-12,0" />
                     </Grid>
-                    <MenuFlyoutSeparator Grid.Row="5" />
                     <Grid
-                        Grid.Row="6"
-                        Padding="12"
+                        Grid.Row="3"
                         VerticalAlignment="Top"
                         RowSpacing="10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Milestones" />
+                        <StackPanel
+                            x:Name="MilestonesListBlock"
+                            Grid.Row="1"
+                            Spacing="2">
+                            <TextBlock FontStyle="Italic" Text="Milestones block is not available" />
+                        </StackPanel>
+                        <MenuFlyoutSeparator Grid.Row="2" Margin="-12,0" />
+                    </Grid>
+                    <Grid
+                        Grid.Row="4"
+                        VerticalAlignment="Top"
+                        RowSpacing="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
                         <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Linked pull requests" />
-                        <TextBlock
+                        <StackPanel
+                            x:Name="LinkedPRsListBlock"
                             Grid.Row="1"
-                            VerticalAlignment="Center"
-                            Style="{StaticResource BodyTextBlockStyle}"
-                            Text="Comming soon!!" />
+                            Spacing="2">
+                            <TextBlock FontStyle="Italic" Text="Linked PRs block is not available" />
+                        </StackPanel>
+                        <MenuFlyoutSeparator Grid.Row="2" Margin="-12,0" />
+                    </Grid>
+                    <Grid
+                        Grid.Row="5"
+                        VerticalAlignment="Top"
+                        RowSpacing="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Notifications" />
+                        <StackPanel Grid.Row="1" Spacing="2">
+                            <Button
+                                HorizontalAlignment="Stretch"
+                                Content="Subscribe"
+                                IsEnabled="False" />
+                        </StackPanel>
+                        <MenuFlyoutSeparator Grid.Row="2" Margin="-12,0" />
+                    </Grid>
+                    <Grid
+                        Grid.Row="6"
+                        VerticalAlignment="Top"
+                        RowSpacing="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Participants" />
+                        <StackPanel
+                            x:Name="ParticipantAvatarsListBlock"
+                            Grid.Row="1"
+                            Spacing="2" />
+                        <MenuFlyoutSeparator Grid.Row="2" Margin="-12,0" />
+                    </Grid>
+                    <Grid
+                        Grid.Row="7"
+                        VerticalAlignment="Top"
+                        ColumnSpacing="6"
+                        RowSpacing="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Button Style="{StaticResource LinkLikeButtonStyle}">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <FontIcon
+                                    FontFamily="{StaticResource Octions}"
+                                    FontSize="16"
+                                    Glyph="&#xEA05;" />
+                                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Lock conversations" />
+                            </StackPanel>
+                        </Button>
+                        <Button Grid.Row="1" Style="{StaticResource LinkLikeButtonStyle}">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <FontIcon
+                                    FontFamily="{StaticResource Octions}"
+                                    FontSize="16"
+                                    Glyph="&#xEA3E;" />
+                                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Pin issue" />
+                            </StackPanel>
+                        </Button>
+                        <Button Grid.Row="2" Style="{StaticResource LinkLikeButtonStyle}">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <FontIcon
+                                    FontFamily="{StaticResource Octions}"
+                                    FontSize="16"
+                                    Glyph="&#xE90E;" />
+                                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Transfer issue" />
+                            </StackPanel>
+                        </Button>
+                        <Button Grid.Row="3" Style="{StaticResource LinkLikeButtonStyle}">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <FontIcon
+                                    FontFamily="{StaticResource Octions}"
+                                    FontSize="16"
+                                    Glyph="&#xE95D;" />
+                                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Convert to discussion" />
+                            </StackPanel>
+                        </Button>
+                        <Button Grid.Row="4" Style="{StaticResource LinkLikeButtonStyle}">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <FontIcon
+                                    FontFamily="{StaticResource Octions}"
+                                    FontSize="16"
+                                    Glyph="&#xEAB6;" />
+                                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Delete issue" />
+                            </StackPanel>
+                        </Button>
                     </Grid>
                 </Grid>
             </ScrollViewer>
