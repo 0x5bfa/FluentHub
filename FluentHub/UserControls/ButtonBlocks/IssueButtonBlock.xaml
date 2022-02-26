@@ -86,7 +86,7 @@
                         Spacing="8">
                         <label:LabelControl
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            LabelBackground="{StaticResource CardStrokeColorDefaultBrush}"
+                            LabelBackground="{ThemeResource ExpanderHeaderBackground}"
                             LabelText="Checks">
                             <label:LabelControl.Icon>
                                 <FontIcon
@@ -98,7 +98,7 @@
                         </label:LabelControl>
                         <label:LabelControl
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            LabelBackground="{StaticResource CardStrokeColorDefaultBrush}"
+                            LabelBackground="{ThemeResource ExpanderHeaderBackground}"
                             LabelText="Reviews">
                             <label:LabelControl.Icon>
                                 <FontIcon
@@ -110,7 +110,7 @@
                         </label:LabelControl>
                         <label:LabelControl
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            LabelBackground="{StaticResource CardStrokeColorDefaultBrush}"
+                            LabelBackground="{ThemeResource ExpanderHeaderBackground}"
                             LabelText="N/A">
                             <label:LabelControl.Icon>
                                 <FontIcon
