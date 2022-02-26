@@ -1,4 +1,5 @@
 ﻿using FluentHub.Models.Items;
+using FluentHub.Services.OctokitEx;
 using FluentHub.Views.Repositories;
 using Humanizer;
 using Octokit;
@@ -25,6 +26,7 @@ namespace FluentHub.UserControls.ButtonBlocks
 {
     public sealed partial class IssueButtonBlock : Windows.UI.Xaml.Controls.Page
     {
+        #region DependencyProperties
         public static readonly DependencyProperty RepositoryIdProperty
             = DependencyProperty.Register(
                   nameof(RepositoryId),
@@ -52,6 +54,7 @@ namespace FluentHub.UserControls.ButtonBlocks
             get => (int)GetValue(IssueIndexProperty);
             set => SetValue(IssueIndexProperty, value);
         }
+        #endregion
 
         private ObservableCollection<LabelSimpleItem> _items = new();
 
@@ -140,6 +143,52 @@ namespace FluentHub.UserControls.ButtonBlocks
 
                 _items.Add(labelItem);
             }
+
+            // Get checks/reviews status
+            PullCheckStatus pullCheckStatus = new();
+
+            var comments = await App.Client.Issue.Comment.GetAllForIssue(RepositoryId, issue.Number);
+
+            CommentsCountLabelControl.LabelText = comments.Count().ToString();
+
+            if (issue.PullRequest == null) return;
+
+            // Only for PRs ----------------------------------------------------
+
+            var repository = await App.Client.Repository.Get(RepositoryId);
+
+            var checkResult = await pullCheckStatus.GetLatestCheckStatus(repository.Owner.Login, repository.Name, issue.Number);
+
+            switch (checkResult)
+            {
+                case PullCheckStatus.CheckStatuses.EXPECTED:
+                    ChecksLabelControlFontIcon.Glyph = "\uE984";
+                    ChecksLabelControlFontIcon.Foreground = new SolidColorBrush(Colors.DarkGray);
+                    break;
+                case PullCheckStatus.CheckStatuses.ERROR:
+                    ChecksLabelControlFontIcon.Glyph = "\uEAD4";
+                    ChecksLabelControlFontIcon.Foreground = new SolidColorBrush(Colors.Red);
+                    break;
+                case PullCheckStatus.CheckStatuses.FAILURE:
+                    ChecksLabelControlFontIcon.Glyph = "\uEAD3";
+                    ChecksLabelControlFontIcon.Foreground = new SolidColorBrush(Colors.Red);
+                    break;
+                case PullCheckStatus.CheckStatuses.PENDING:
+                    ChecksLabelControlFontIcon.Glyph = "\uE984";
+                    ChecksLabelControlFontIcon.Foreground = new SolidColorBrush(Colors.DarkGray);
+                    break;
+                case PullCheckStatus.CheckStatuses.SUCCESS:
+                    ChecksLabelControlFontIcon.Glyph = "\uE933";
+                    ChecksLabelControlFontIcon.Foreground = new SolidColorBrush(Colors.LightGreen);
+                    break;
+                default:
+                    ChecksLabelControlFontIcon.Glyph = "\uE984";
+                    ChecksLabelControlFontIcon.Foreground = new SolidColorBrush(Colors.DarkGray);
+                    break;
+            }
+
+            ChecksLabelControl.Visibility = Visibility.Visible;
+            ReviewsLabelControl.Visibility = Visibility.Visible;
         }
     }
 }
