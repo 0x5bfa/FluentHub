@@ -160,26 +160,17 @@ namespace FluentHub.UserControls.ButtonBlocks
 
             switch (checkResult)
             {
-                case PullCheckStatus.CheckStatuses.EXPECTED:
-                    ChecksLabelControlFontIcon.Glyph = "\uE984";
-                    ChecksLabelControlFontIcon.Foreground = new SolidColorBrush(Colors.DarkGray);
-                    break;
                 case PullCheckStatus.CheckStatuses.ERROR:
-                    ChecksLabelControlFontIcon.Glyph = "\uEAD4";
-                    ChecksLabelControlFontIcon.Foreground = new SolidColorBrush(Colors.Red);
-                    break;
                 case PullCheckStatus.CheckStatuses.FAILURE:
                     ChecksLabelControlFontIcon.Glyph = "\uEAD3";
                     ChecksLabelControlFontIcon.Foreground = new SolidColorBrush(Colors.Red);
-                    break;
-                case PullCheckStatus.CheckStatuses.PENDING:
-                    ChecksLabelControlFontIcon.Glyph = "\uE984";
-                    ChecksLabelControlFontIcon.Foreground = new SolidColorBrush(Colors.DarkGray);
                     break;
                 case PullCheckStatus.CheckStatuses.SUCCESS:
                     ChecksLabelControlFontIcon.Glyph = "\uE933";
                     ChecksLabelControlFontIcon.Foreground = new SolidColorBrush(Colors.LightGreen);
                     break;
+                case PullCheckStatus.CheckStatuses.PENDING:
+                case PullCheckStatus.CheckStatuses.EXPECTED:
                 default:
                     ChecksLabelControlFontIcon.Glyph = "\uE984";
                     ChecksLabelControlFontIcon.Foreground = new SolidColorBrush(Colors.DarkGray);
@@ -187,6 +178,28 @@ namespace FluentHub.UserControls.ButtonBlocks
             }
 
             ChecksLabelControl.Visibility = Visibility.Visible;
+
+            PullReviewStatus pullReviewStatus = new();
+
+            var latestReview = await pullReviewStatus.GetLatestReviewStatus(RepositoryId, issue.Number);
+
+            if (latestReview.State == PullRequestReviewState.Approved)
+            {
+                ReviewsLabelControlFontIcon.Glyph = "\uE933";
+                ReviewsLabelControlFontIcon.Foreground = new SolidColorBrush(Colors.LightGreen);
+            }
+            else if (latestReview.State == PullRequestReviewState.Pending
+                || latestReview.State == PullRequestReviewState.Dismissed)
+            {
+                ReviewsLabelControlFontIcon.Glyph = "\uE984";
+                ReviewsLabelControlFontIcon.Foreground = new SolidColorBrush(Colors.DarkGray);
+            }
+            else if (latestReview.State == PullRequestReviewState.ChangesRequested)
+            {
+                ReviewsLabelControlFontIcon.Glyph = "\uEAD3";
+                ReviewsLabelControlFontIcon.Foreground = new SolidColorBrush(Colors.Red);
+            }
+
             ReviewsLabelControl.Visibility = Visibility.Visible;
         }
     }

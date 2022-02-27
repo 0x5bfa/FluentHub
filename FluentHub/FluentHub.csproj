@@ -153,7 +153,6 @@
     <Compile Include="Services\OctokitEx\PullReviewStatus.cs" />
     <Compile Include="Services\OctokitEx\UserPinnedItems.cs" />
     <Compile Include="Services\OctokitEx\UserStarredItems.cs" />
-    <Compile Include="Services\Octokit\UserService.cs" />
     <Compile Include="UserControls\ButtonBlocks\IssueButtonBlock.xaml.cs">
       <DependentUpon>IssueButtonBlock.xaml</DependentUpon>
     </Compile>

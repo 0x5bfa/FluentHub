@@ -95,8 +95,8 @@
                                     x:Name="ChecksLabelControlFontIcon"
                                     FontFamily="{StaticResource Octions}"
                                     FontSize="14"
-                                    Foreground="LightGreen"
-                                    Glyph="&#xE933;" />
+                                    Foreground="DarkGray"
+                                    Glyph="&#xE984;" />
                             </label:LabelControl.Icon>
                         </label:LabelControl>
                         <label:LabelControl
@@ -108,10 +108,11 @@
                             Visibility="Collapsed">
                             <label:LabelControl.Icon>
                                 <FontIcon
+                                    x:Name="ReviewsLabelControlFontIcon"
                                     FontFamily="{StaticResource Octions}"
                                     FontSize="14"
-                                    Foreground="LightGreen"
-                                    Glyph="&#xE933;" />
+                                    Foreground="DarkGray"
+                                    Glyph="&#xE984;" />
                             </label:LabelControl.Icon>
                         </label:LabelControl>
                         <label:LabelControl

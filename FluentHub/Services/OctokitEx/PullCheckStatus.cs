@@ -21,11 +21,7 @@ namespace FluentHub.Services.OctokitEx
 
                 graphQLClient.HttpClient.DefaultRequestHeaders.Add("Authorization", $"bearer {token}");
 
-                string query = null;
-
-                List<long> repoIdList = new List<long>();
-
-                query = "{repository (name: \"" + name + "\",owner: \"" + owner + "\") {pullRequest(number: " + number + ") {commits(last: 1){ nodes{ commit{ statusCheckRollup { state }}}}}}}";
+                string query = "{repository (name: \"" + name + "\",owner: \"" + owner + "\") {pullRequest(number: " + number + ") {commits(last: 1){ nodes{ commit{ statusCheckRollup { state }}}}}}}";
 
                 var repositoriesRequest = new GraphQLRequest { Query = query };
 

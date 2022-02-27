@@ -11,8 +11,11 @@ namespace FluentHub.Services.OctokitEx
 {
     public class PullReviewStatus
     {
-        public void GetLatestReviewStatus(string owner, string name, int number)
+        public async Task<Octokit.PullRequestReview> GetLatestReviewStatus(long repositoryId, int number)
         {
+            var reviews = await App.Client.PullRequest.Review.GetAll(repositoryId, number);
+
+            return (reviews[0] ?? null);
         }
     }
 }
