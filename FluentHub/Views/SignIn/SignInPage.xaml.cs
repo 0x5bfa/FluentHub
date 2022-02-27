@@ -25,10 +25,6 @@ namespace FluentHub.Views.SignIn
             Window.Current.SetTitleBar(AppTitleBar);
         }
 
-        private async void CancelButton_Click(object sender, RoutedEventArgs e)
-        {
-        }
-
         private async void ContinueButton_Click(object sender, RoutedEventArgs e)
         {
             RequestAuthorization request = new RequestAuthorization();
@@ -40,7 +36,10 @@ namespace FluentHub.Views.SignIn
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(IntroPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromLeft });
+            this.Frame.Navigate(typeof(IntroPage), null, new SlideNavigationTransitionInfo()
+            {
+                Effect = SlideNavigationTransitionEffect.FromLeft
+            });
         }
     }
 }

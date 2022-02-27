@@ -23,9 +23,12 @@ namespace FluentHub.Views.SignIn
             this.InitializeComponent();
         }
 
-        private async void SetupButton_Click(object sender, RoutedEventArgs e)
+        private void SetupButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(SignInPage), null, new SlideNavigationTransitionInfo() { Effect = SlideNavigationTransitionEffect.FromRight });
+            this.Frame.Navigate(typeof(SignInPage), null, new SlideNavigationTransitionInfo()
+            {
+                Effect = SlideNavigationTransitionEffect.FromRight
+            });
         }
     }
 }

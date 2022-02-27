@@ -85,14 +85,6 @@
                     HorizontalAlignment="Center"
                     Click="SetupButton_Click"
                     Style="{ThemeResource AccentButtonStyle}" />
-                <muxc:ProgressRing
-                    x:Name="AuthProgressRing"
-                    Width="24"
-                    Height="24"
-                    Margin="12,0,0,0"
-                    VerticalAlignment="Stretch"
-                    IsActive="False"
-                    Visibility="Collapsed" />
             </StackPanel>
         </StackPanel>
     </Grid>
