@@ -47,9 +47,22 @@ namespace FluentHub.UserControls.Labels
             set => SetValue(LabelBackgroundProperty, value);
         }
 
+        public static readonly DependencyProperty IsOutlineEnableProperty
+            = DependencyProperty.Register(nameof(IsOutlineEnable), typeof(bool), typeof(LabelControl), new PropertyMetadata(null));
+
+        public bool IsOutlineEnable
+        {
+            get => (bool)GetValue(IsOutlineEnableProperty);
+            set => SetValue(IsOutlineEnableProperty, value);
+        }
+
         public LabelControl()
         {
             this.InitializeComponent();
+        }
+
+        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
         }
 
         //private void UserControl_Loaded(object sender, RoutedEventArgs e)
