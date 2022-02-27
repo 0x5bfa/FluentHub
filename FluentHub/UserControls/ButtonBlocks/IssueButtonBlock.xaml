@@ -87,7 +87,8 @@
                             x:Name="ChecksLabelControl"
                             Margin="0,0,8,0"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            LabelBackground="{ThemeResource CardStrokeColorDefaultBrush}"
+                            IsOutlineEnable="True"
+                            LabelBackground="{ThemeResource TextFillColorDisabledBrush}"
                             LabelText="Checks"
                             Visibility="Collapsed">
                             <label:LabelControl.Icon>
@@ -104,7 +105,7 @@
                             Margin="0,0,8,0"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             IsOutlineEnable="True"
-                            LabelBackground="{ThemeResource CardStrokeColorDefaultBrush}"
+                            LabelBackground="{ThemeResource TextFillColorDisabledBrush}"
                             LabelText="Reviews"
                             Visibility="Collapsed">
                             <label:LabelControl.Icon>
@@ -119,7 +120,8 @@
                         <label:LabelControl
                             x:Name="CommentsCountLabelControl"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            LabelBackground="{ThemeResource CardStrokeColorDefaultBrush}"
+                            IsOutlineEnable="True"
+                            LabelBackground="{ThemeResource TextFillColorDisabledBrush}"
                             LabelText="0">
                             <label:LabelControl.Icon>
                                 <FontIcon

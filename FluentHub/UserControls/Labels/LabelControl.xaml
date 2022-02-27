@@ -36,7 +36,6 @@
     <Grid Height="22" HorizontalAlignment="Left">
         <Grid
             x:Name="LabelBackgroundGrid"
-            Background="{x:Bind LabelBackground, Mode=OneWay}"
             CornerRadius="11"
             Opacity="0.3" />
         <Grid
