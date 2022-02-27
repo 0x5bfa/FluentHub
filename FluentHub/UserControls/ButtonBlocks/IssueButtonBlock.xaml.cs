@@ -173,7 +173,7 @@ namespace FluentHub.UserControls.ButtonBlocks
                 case PullCheckStatus.CheckStatuses.EXPECTED:
                 default:
                     ChecksLabelControlFontIcon.Glyph = "\uE984";
-                    ChecksLabelControlFontIcon.Foreground = new SolidColorBrush(Colors.DarkGray);
+                    ChecksLabelControlFontIcon.Foreground = new SolidColorBrush(Colors.DarkGoldenrod);
                     break;
             }
 
