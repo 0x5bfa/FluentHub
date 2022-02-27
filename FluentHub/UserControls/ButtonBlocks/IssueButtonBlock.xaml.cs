@@ -1,4 +1,6 @@
-﻿using FluentHub.Views.Repositories;
+﻿using FluentHub.Models.Items;
+using FluentHub.Services.OctokitEx;
+using FluentHub.Views.Repositories;
 using Humanizer;
 using Octokit;
 using System;
@@ -19,16 +21,16 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-
-namespace FluentHub.UserControls.Block
+namespace FluentHub.UserControls.ButtonBlocks
 {
-    public sealed partial class IssueBlock : Windows.UI.Xaml.Controls.Page
+    public sealed partial class IssueButtonBlock : Windows.UI.Xaml.Controls.Page
     {
+        #region DependencyProperties
         public static readonly DependencyProperty RepositoryIdProperty
             = DependencyProperty.Register(
                   nameof(RepositoryId),
                   typeof(long),
-                  typeof(RepoBlock),
+                  typeof(IssueButtonBlock),
                   new PropertyMetadata(null)
                 );
 
@@ -42,7 +44,7 @@ namespace FluentHub.UserControls.Block
             = DependencyProperty.Register(
                   nameof(IssueIndex),
                   typeof(int),
-                  typeof(RepoBlock),
+                  typeof(IssueButtonBlock),
                   new PropertyMetadata(null)
                 );
 
@@ -51,10 +53,11 @@ namespace FluentHub.UserControls.Block
             get => (int)GetValue(IssueIndexProperty);
             set => SetValue(IssueIndexProperty, value);
         }
+        #endregion
 
-        private ObservableCollection<LabelItem> _items = new ObservableCollection<LabelItem>();
+        private ObservableCollection<LabelSimpleItem> _items = new();
 
-        public IssueBlock()
+        public IssueButtonBlock()
         {
             this.InitializeComponent();
         }
@@ -131,22 +134,73 @@ namespace FluentHub.UserControls.Block
 
             foreach (var label in issue.Labels)
             {
-                LabelItem labelItem = new LabelItem();
+                LabelSimpleItem labelItem = new();
 
-                var brush = GetSolidColorBrush(label.Color);
-
-                labelItem.AccentColor = brush;
+                labelItem.ColorBrush = GetSolidColorBrush(label.Color);
 
                 labelItem.LabelText = label.Name;
 
                 _items.Add(labelItem);
             }
-        }
-    }
 
-    public class LabelItem
-    {
-        public string LabelText { get; set; }
-        public Brush AccentColor { get; set; }
+            // Get checks/reviews status
+            PullCheckStatus pullCheckStatus = new();
+
+            var comments = await App.Client.Issue.Comment.GetAllForIssue(RepositoryId, issue.Number);
+
+            CommentsCountLabelControl.LabelText = comments.Count().ToString();
+
+            if (issue.PullRequest == null) return;
+
+            // Only for PRs ----------------------------------------------------
+
+            var repository = await App.Client.Repository.Get(RepositoryId);
+
+            var checkResult = await pullCheckStatus.GetLatestCheckStatus(repository.Owner.Login, repository.Name, issue.Number);
+
+            switch (checkResult)
+            {
+                case PullCheckStatus.CheckStatuses.ERROR:
+                case PullCheckStatus.CheckStatuses.FAILURE:
+                    ChecksLabelControlFontIcon.Glyph = "\uEAD3";
+                    ChecksLabelControlFontIcon.Foreground = new SolidColorBrush(Colors.Red);
+                    break;
+                case PullCheckStatus.CheckStatuses.SUCCESS:
+                    ChecksLabelControlFontIcon.Glyph = "\uE933";
+                    ChecksLabelControlFontIcon.Foreground = new SolidColorBrush(Colors.LightGreen);
+                    break;
+                case PullCheckStatus.CheckStatuses.PENDING:
+                case PullCheckStatus.CheckStatuses.EXPECTED:
+                default:
+                    ChecksLabelControlFontIcon.Glyph = "\uE984";
+                    ChecksLabelControlFontIcon.Foreground = new SolidColorBrush(Colors.DarkGoldenrod);
+                    break;
+            }
+
+            ChecksLabelControl.Visibility = Visibility.Visible;
+
+            PullReviewStatus pullReviewStatus = new();
+
+            var latestReview = await pullReviewStatus.GetLatestReviewStatus(RepositoryId, issue.Number);
+
+            if (latestReview.State == PullRequestReviewState.Approved)
+            {
+                ReviewsLabelControlFontIcon.Glyph = "\uE933";
+                ReviewsLabelControlFontIcon.Foreground = new SolidColorBrush(Colors.LightGreen);
+            }
+            else if (latestReview.State == PullRequestReviewState.Pending
+                || latestReview.State == PullRequestReviewState.Dismissed)
+            {
+                ReviewsLabelControlFontIcon.Glyph = "\uE984";
+                ReviewsLabelControlFontIcon.Foreground = new SolidColorBrush(Colors.DarkGray);
+            }
+            else if (latestReview.State == PullRequestReviewState.ChangesRequested)
+            {
+                ReviewsLabelControlFontIcon.Glyph = "\uEAD3";
+                ReviewsLabelControlFontIcon.Foreground = new SolidColorBrush(Colors.Red);
+            }
+
+            ReviewsLabelControl.Visibility = Visibility.Visible;
+        }
     }
 }

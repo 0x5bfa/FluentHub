@@ -1,5 +1,5 @@
 ﻿using FluentHub.ViewModels.Repositories;
-using FluentHub.ViewModels.UserControls.Repository;
+using FluentHub.ViewModels.UserControls.Blocks;
 using System;
 using System.Collections.Generic;
 using System.IO;

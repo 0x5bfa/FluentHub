@@ -68,6 +68,7 @@
                         </ResourceDictionary>
                     </ResourceDictionary.ThemeDictionaries>
                 </ResourceDictionary>
+
                 <ResourceDictionary>
                     <Color x:Key="IssuesIconsBackground">#40d563</Color>
                     <Color x:Key="PRsIconsBackground">#2e8ffe</Color>
@@ -77,9 +78,12 @@
                     <Color x:Key="StaredIconsBackground">#fecb1a</Color>
                     <CornerRadius x:Key="OrganizationAvatarCornerRadius">6</CornerRadius>
                 </ResourceDictionary>
+
                 <ResourceDictionary Source="/ResourceDictionaries/ClearButtonStyle.xaml" />
-                <ResourceDictionary Source="/ResourceDictionaries/TextBlockStyles.xaml" />
                 <ResourceDictionary Source="/ResourceDictionaries/LinkLikeButtonStyle.xaml" />
+
+                <ResourceDictionary Source="/ResourceDictionaries/TextBlockStyles.xaml" />
+
                 <ResourceDictionary>
                     <Style TargetType="FontIcon">
                         <Setter Property="FontFamily" Value="{StaticResource FluentIcons}" />

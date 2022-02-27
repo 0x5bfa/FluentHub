@@ -1,6 +1,6 @@
 ﻿using FluentHub.Helpers;
 using FluentHub.Services.OctokitEx;
-using FluentHub.ViewModels.UserControls.Issue;
+using FluentHub.ViewModels.UserControls.Blocks;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -17,7 +17,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace FluentHub.UserControls.Issue
+namespace FluentHub.UserControls.Blocks
 {
     public sealed partial class IssueCommentBlock : UserControl
     {

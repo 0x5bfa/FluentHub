@@ -1,13 +1,16 @@
-﻿using FluentHub.Models.Items;
-using FluentHub.UserControls.Issue;
-using FluentHub.ViewModels.UserControls.Issue;
+﻿using FluentHub.Helpers;
+using FluentHub.Models.Items;
+using FluentHub.UserControls.Blocks;
+using FluentHub.ViewModels.UserControls.Blocks;
 using Humanizer;
 using Octokit;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub.Views.Repositories
@@ -17,6 +20,8 @@ namespace FluentHub.Views.Repositories
         private long RepoId { get; set; }
         private int IssueNumber { get; set; }
         private Issue Issue { get; set; }
+
+        private ObservableCollection<LabelSimpleItem> _items = new();
 
         public IssuePage()
         {
@@ -43,6 +48,12 @@ namespace FluentHub.Views.Repositories
             await SetLabelContent();
 
             await SetIssueContent();
+
+            await SetIssueReviewers();
+
+            SetIssueAssignees();
+
+            SetIssueLabels();
         }
 
         private async Task SetLabelContent()
@@ -197,6 +208,24 @@ namespace FluentHub.Views.Repositories
             }
         }
 
+        private void SetIssueAssignees()
+        {
+            foreach (var assignees in Issue.Assignees)
+            {
+                TextBlock textBlock = new();
+                textBlock.Text = assignees.Login;
+                AssigneesListBlock.Children.Add(textBlock);
+            }
+
+            if (AssigneesListBlock.Children.Count == 0)
+            {
+                TextBlock textBlock = new();
+                textBlock.Text = "No assignees";
+                textBlock.FontStyle = Windows.UI.Text.FontStyle.Italic;
+                AssigneesListBlock.Children.Add(textBlock);
+            }
+        }
+
         private void SetIssueBody()
         {
             var viewmodel = new IssueCommentBlockViewModel();
@@ -220,6 +249,52 @@ namespace FluentHub.Views.Repositories
 
             var commentBlock = new IssueCommentBlock() { PropertyViewModel = viewmodel };
             IssueContentPanel.Children.Add(commentBlock);
+        }
+
+        private void SetIssueLabels()
+        {
+            foreach (var label in Issue.Labels)
+            {
+                LabelSimpleItem labelItem = new();
+
+                labelItem.ColorBrush = ColorHelpers.HexCodeToSolidColorBrush(label.Color);
+
+                labelItem.LabelText = label.Name;
+
+                _items.Add(labelItem);
+            }
+        }
+
+        private async Task SetIssueReviewers()
+        {
+            if (Issue.PullRequest == null)
+            {
+                TextBlock textBlock = new();
+                textBlock.Text = "No reviewers";
+                textBlock.FontStyle = Windows.UI.Text.FontStyle.Italic;
+                ReviewersListBlock.Children.Add(textBlock);
+
+                return;
+            }
+
+            PullRequest pr = await App.Client.PullRequest.Get(RepoId, IssueNumber);
+
+            if (pr.RequestedReviewers.Count != 0)
+            {
+                foreach (var reviewer in pr.RequestedReviewers)
+                {
+                    TextBlock textBlock = new();
+                    textBlock.Text = reviewer.Login;
+                    ReviewersListBlock.Children.Add(textBlock);
+                }
+            }
+            else
+            {
+                TextBlock textBlock = new();
+                textBlock.Text = "No reviewers";
+                textBlock.FontStyle = Windows.UI.Text.FontStyle.Italic;
+                ReviewersListBlock.Children.Add(textBlock);
+            }
         }
     }
 }

@@ -14,5 +14,7 @@ namespace FluentHub.Models.Items
     public class RepoListItem
     {
         public long RepoId { get; set; }
+
+        public Repository Repository { get; set; }
     }
 }

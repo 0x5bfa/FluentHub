@@ -31,7 +31,9 @@ namespace FluentHub.ViewModels.Repositories
             PullRequestRequest request = new PullRequestRequest();
             request.State = ItemStateFilter.All;
 
-            var issues = await App.Client.PullRequest.GetAllForRepository(repoId, request);
+            ApiOptions options = new() { PageSize = 30, PageCount = 1, StartPage = 1 };
+
+            var issues = await App.Client.PullRequest.GetAllForRepository(repoId, request, options);
 
             foreach (var item in issues)
             {

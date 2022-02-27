@@ -1,5 +1,4 @@
 ﻿using FluentHub.Helpers;
-using FluentHub.Services.Octokit;
 using Octokit;
 using System;
 using System.Collections.Generic;
@@ -40,7 +39,7 @@ namespace FluentHub.Views.Users
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            User = await UserService.Get(UserName);
+            User = await App.Client.User.Get(UserName);
 
             if (User == null)
             {

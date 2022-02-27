@@ -1,4 +1,5 @@
 ﻿using FluentHub.Models.Items;
+using Octokit;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -26,7 +27,10 @@ namespace FluentHub.ViewModels.Organizations
         public async void GetUserRepos(string username)
         {
             IsActive = true;
-            var repos = await App.Client.Repository.GetAllForOrg(username);
+
+            ApiOptions options = new() { PageSize = 30, PageCount = 1, StartPage = 1 };
+
+            var repos = await App.Client.Repository.GetAllForOrg(username, options);
 
             foreach (var item in repos)
             {

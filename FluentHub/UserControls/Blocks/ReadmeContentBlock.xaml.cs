@@ -16,7 +16,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace FluentHub.UserControls.Repository
+namespace FluentHub.UserControls.Blocks
 {
     public sealed partial class ReadmeContentBlock : UserControl
     {
@@ -80,9 +80,9 @@ namespace FluentHub.UserControls.Repository
                 return;
             }
 
-            string result = await markdown.GetHtml(
-                readme.Content,
-                "https://raw.githubusercontent.com/" + repo.Owner.Login + "/" + repo.Name + "/" + repo.DefaultBranch +"/");
+            string missingBasePath = "https://raw.githubusercontent.com/" + repo.Owner.Login + "/" + repo.Name + "/" + repo.DefaultBranch + "/";
+
+            string result = await markdown.GetHtml(readme.Content, missingBasePath);
 
             ReadmeWebView.NavigateToString(result);
 

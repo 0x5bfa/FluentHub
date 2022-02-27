@@ -1,4 +1,5 @@
 ﻿using FluentHub.Models.Items;
+using Octokit;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,45 +13,44 @@ namespace FluentHub.ViewModels.Users
 {
     public class RepoListViewModel : INotifyPropertyChanged
     {
-        private ObservableCollection<RepoListItem> _items = new ObservableCollection<RepoListItem>();
-        public ObservableCollection<RepoListItem> Items
+        private ObservableCollection<Repository> _items = new ObservableCollection<Repository>();
+        public ObservableCollection<Repository> Items
         {
             get => _items;
-            private set
-            {
-                _items = value;
-                SetProperty(ref _items, value);
-            }
+            set => SetProperty(ref _items, value);
         }
 
-        public async void GetUserRepos(string username)
+        private bool isActive;
+        public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
+
+        public async Task<int> GetUserRepos(string username)
         {
             IsActive = true;
 
-            var repos = await App.Client.Repository.GetAllForUser(username);
+            ApiOptions options = new() { PageSize = 30, PageCount = 1, StartPage = 1 };
+
+            var repos = await App.Client.Repository.GetAllForUser(username, options);
 
             foreach (var item in repos)
             {
-                if (item.Owner.Type == Octokit.AccountType.User)
+                // In the future, pagination will be avaiable https://primer.style/react/Pagination
+                if (Items.Count == 30) break;
+
+                if (item.Owner.Type == AccountType.User)
                 {
-                    RepoListItem listItem = new RepoListItem();
-                    listItem.RepoId = item.Id;
-                    Items.Add(listItem);
+                    Items.Add(item);
                 }
             }
 
+            // order by updated at
+            //Items = new(Items.OrderByDescending(x => x.UpdatedAt));
+
             IsActive = false;
+
+            return repos.Count();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged(string info)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(info));
-            }
-        }
-
         protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
         {
             if (!Equals(field, newValue))
@@ -62,8 +62,5 @@ namespace FluentHub.ViewModels.Users
 
             return false;
         }
-
-        private bool isActive;
-        public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
     }
 }

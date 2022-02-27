@@ -1,7 +1,4 @@
-﻿using Monaco;
-using Monaco.Editor;
-using Monaco.Helpers;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -16,7 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace FluentHub.UserControls.Repository
+namespace FluentHub.UserControls.Blocks
 {
     public sealed partial class FileContentBlock : UserControl
     {

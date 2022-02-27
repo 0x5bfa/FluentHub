@@ -100,6 +100,12 @@ namespace FluentHub.Views.Repositories
 
             RepoName.Text = Repository.Name;
 
+            // Avatar block will be replaced by user control
+            if (Repository.Owner.Type == AccountType.Organization)
+            {
+                RepoOwnerAvatarBorder.CornerRadius = new CornerRadius(6);
+            }
+
             RepoOwnerAvatar.Source = new BitmapImage(new Uri(Repository.Owner.AvatarUrl));
 
             // I dare to do it like this. Don't change.

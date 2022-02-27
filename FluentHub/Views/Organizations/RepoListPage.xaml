@@ -2,7 +2,7 @@
     x:Class="FluentHub.Views.Organizations.RepoListPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:block="using:FluentHub.UserControls.Block"
+    xmlns:block="using:FluentHub.UserControls.ButtonBlocks"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:item="using:FluentHub.Models.Items"
     xmlns:local="using:FluentHub.Views.Organizations"
@@ -119,7 +119,7 @@
                 <Border>
                     <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Items}" Loaded="ItemsRepeater_Loaded">
                         <DataTemplate x:DataType="item:RepoListItem">
-                            <block:RepoBlock
+                            <block:RepoButtonBlock
                                 x:Name="RepositoryBlock"
                                 DisplayDitails="True"
                                 RepositoryId="{x:Bind RepoId}" />

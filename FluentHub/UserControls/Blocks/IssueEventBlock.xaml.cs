@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using FluentHub.ViewModels.UserControls.Issue;
+using FluentHub.ViewModels.UserControls.Blocks;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
@@ -14,12 +14,12 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace FluentHub.UserControls.Issue
+namespace FluentHub.UserControls.Blocks
 {
     public sealed partial class IssueEventBlock : UserControl
     {
         public static readonly DependencyProperty PropertyViewModelProperty =
-       DependencyProperty.Register(nameof(PropertyViewModel), typeof(IssueEventBlockViewModel), typeof(IssueCommentBlock), new PropertyMetadata(0));
+       DependencyProperty.Register(nameof(PropertyViewModel), typeof(IssueEventBlockViewModel), typeof(IssueEventBlock), new PropertyMetadata(0));
 
         public IssueEventBlockViewModel PropertyViewModel
         {

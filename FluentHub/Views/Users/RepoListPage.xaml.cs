@@ -31,9 +31,14 @@ namespace FluentHub.Views.Users
             base.OnNavigatedTo(e);
         }
 
-        private void ItemsRepeater_Loaded(object sender, RoutedEventArgs e)
+        private async void ItemsRepeater_Loaded(object sender, RoutedEventArgs e)
         {
-            ViewModel.GetUserRepos(UserName);
+            int itemCount = await ViewModel.GetUserRepos(UserName);
+
+            if (itemCount > 30)
+            {
+                OnlyThirtyItemsAreDisplayedTextBlock.Visibility = Visibility.Visible;
+            }
         }
     }
 }
