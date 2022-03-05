@@ -51,21 +51,23 @@ namespace FluentHub.ViewModels.Repositories.Layouts
 
                 listItem.ObjectName = item.Name;
 
-                Octokit.CommitRequest request = new Octokit.CommitRequest();
-                request.Path = item.Path;
-
-                // First aid to be fast for loading contents
-
-                //var commit = await App.Client.Repository.Commit.GetAll(CommonRepoViewModel.RepositoryId, request);
-
-                //listItem.ObjectLatestCommitMessage = commit[0].Commit.Message.Split("\n")[0];
-                listItem.ObjectLatestCommitMessage = "Commit.Message";
-
-                //listItem.ObjectUpdatedAtHumanized = commit[0].Commit.Author.Date.Humanize();
-                listItem.ObjectLatestCommitMessage = "Commit.Author.Date.Humanize();";
-
                 Items.Add(listItem);
             }
+
+            for (int i = 0; i < Items.Count(); i++)
+            {
+                Octokit.CommitRequest request = new Octokit.CommitRequest();
+                request.Path = contents[i].Path;
+
+                Octokit.ApiOptions options = new() { PageSize = 1, PageCount = 1, StartPage = 1 };
+
+                var commit = await App.Client.Repository.Commit.GetAll(CommonRepoViewModel.RepositoryId, request, options);
+
+                Items[i].ObjectLatestCommitMessage = commit[0].Commit.Message.Split("\n")[0];
+
+                Items[i].ObjectUpdatedAtHumanized = commit[0].Commit.Author.Date.Humanize();
+            }
+
 
             Items = new ObservableCollection<DetailsLayoutListViewItem>(Items.OrderByDescending(x => x.ObjectTypeIconGlyph));
 
