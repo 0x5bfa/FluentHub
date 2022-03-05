@@ -59,8 +59,10 @@ namespace FluentHub.ViewModels.Repositories.Layouts
                 //var commit = await App.Client.Repository.Commit.GetAll(CommonRepoViewModel.RepositoryId, request);
 
                 //listItem.ObjectLatestCommitMessage = commit[0].Commit.Message.Split("\n")[0];
+                listItem.ObjectLatestCommitMessage = "Commit.Message";
 
                 //listItem.ObjectUpdatedAtHumanized = commit[0].Commit.Author.Date.Humanize();
+                listItem.ObjectLatestCommitMessage = "Commit.Author.Date.Humanize();";
 
                 Items.Add(listItem);
             }
