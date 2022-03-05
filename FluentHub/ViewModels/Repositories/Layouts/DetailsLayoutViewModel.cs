@@ -68,7 +68,6 @@ namespace FluentHub.ViewModels.Repositories.Layouts
                 Items[i].ObjectUpdatedAtHumanized = commit[0].Commit.Author.Date.Humanize();
             }
 
-
             Items = new ObservableCollection<DetailsLayoutListViewItem>(Items.OrderByDescending(x => x.ObjectTypeIconGlyph));
 
             return Items.Count();
