@@ -96,7 +96,7 @@
                                     x:Name="ChecksLabelControlFontIcon"
                                     FontFamily="{StaticResource Octions}"
                                     FontSize="14"
-                                    Foreground="DarkGray"
+                                    Foreground="{StaticResource DividerStrokeColorDefaultBrush}"
                                     Glyph="&#xE984;" />
                             </label:LabelControl.Icon>
                         </label:LabelControl>
@@ -113,7 +113,7 @@
                                     x:Name="ReviewsLabelControlFontIcon"
                                     FontFamily="{StaticResource Octions}"
                                     FontSize="14"
-                                    Foreground="DarkGray"
+                                    Foreground="{StaticResource DividerStrokeColorDefaultBrush}"
                                     Glyph="&#xE984;" />
                             </label:LabelControl.Icon>
                         </label:LabelControl>
@@ -121,7 +121,7 @@
                             x:Name="CommentsCountLabelControl"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             IsOutlineEnable="True"
-                            LabelBackground="{ThemeResource TextFillColorDisabledBrush}"
+                            LabelBackground="{StaticResource DividerStrokeColorDefaultBrush}"
                             LabelText="0">
                             <label:LabelControl.Icon>
                                 <FontIcon
