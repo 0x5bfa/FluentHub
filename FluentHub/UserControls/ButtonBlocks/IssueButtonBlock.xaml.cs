@@ -183,6 +183,8 @@ namespace FluentHub.UserControls.ButtonBlocks
 
             var latestReview = await pullReviewStatus.GetLatestReviewStatus(RepositoryId, issue.Number);
 
+            if (latestReview == null) return;
+
             if (latestReview.State == PullRequestReviewState.Approved)
             {
                 ReviewsLabelControlFontIcon.Glyph = "\uE933";

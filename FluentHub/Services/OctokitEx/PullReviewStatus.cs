@@ -15,7 +15,14 @@ namespace FluentHub.Services.OctokitEx
         {
             var reviews = await App.Client.PullRequest.Review.GetAll(repositoryId, number);
 
-            return (reviews[0] ?? null);
+            if (reviews == null || reviews.Count() == 0)
+            {
+                return null;
+            }
+            else
+            {
+                return reviews[0];
+            }
         }
     }
 }
