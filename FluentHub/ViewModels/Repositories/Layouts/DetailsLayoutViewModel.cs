@@ -54,11 +54,13 @@ namespace FluentHub.ViewModels.Repositories.Layouts
                 Octokit.CommitRequest request = new Octokit.CommitRequest();
                 request.Path = item.Path;
 
-                var commit = await App.Client.Repository.Commit.GetAll(CommonRepoViewModel.RepositoryId, request);
+                // First aid to be fast for loading contents
 
-                listItem.ObjectLatestCommitMessage = commit[0].Commit.Message.Split("\n")[0];
+                //var commit = await App.Client.Repository.Commit.GetAll(CommonRepoViewModel.RepositoryId, request);
 
-                listItem.ObjectUpdatedAtHumanized = commit[0].Commit.Author.Date.Humanize();
+                //listItem.ObjectLatestCommitMessage = commit[0].Commit.Message.Split("\n")[0];
+
+                //listItem.ObjectUpdatedAtHumanized = commit[0].Commit.Author.Date.Humanize();
 
                 Items.Add(listItem);
             }
