@@ -1,0 +1,62 @@
+name: Bug Report
+description: Create a bug report to help improve the FluentHub
+labels: [bug]
+body:
+  - type: checkboxes
+    attributes:
+      label: Before you start...
+      options:
+        - label: Have you updated the FluentHub? You might be using an old version.
+          required: true
+        - label: Have you checked if similar issue have already been reported?
+          required: true
+  - type: dropdown
+    id: windows
+    attributes:
+      label: What windows are you seeing the problem on?
+      multiple: true
+      options:
+        - Windows 10
+        - Windows 10 Release Preview
+        - Windows 10 Beta
+        - Windows 10 Dev
+        - Windows 11
+        - Windows 11 Release Preview
+        - Windows 11 Beta
+        - Windows 11 Dev
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: What FluentHub version/architecture are you seeing the problem on?
+      description: Copy and paste the version from the about page of the settings page.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Description
+      description: A clear and concise description of what the bug is.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Steps To Reproduce
+      description: Steps to reproduce the behavior.
+      placeholder: |
+        1. Go to '....'
+        2. Click on '....'
+        3. Scroll down to '....'
+        4. See the error
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: Expected behavior
+      description: A clear and concise description of what you expected to happen.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Relevant Assets
+      description: |
+        A list of assets (errors, screenshots) relevant to this bug.
