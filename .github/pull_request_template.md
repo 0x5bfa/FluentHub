@@ -1,25 +1,22 @@
-<!-- 
-📢📢📢📢
-I ACKNOWLEDGE THE FOLLOWING BEFORE PROCEEDING:
-1. PR may be deleted if it is not following the template
-2. Try not to make duplicates. Do a quick search before posting
-3. Add a clarified title
--->
+### Before opening this PR
 
-**Resolved / Related Issues**
-Items resolved / related issues by this PR.
+- [ ] Have you updated the FluentHub from store/sideload? *You might be using an old version.*
+- [ ] Have you checked to see if similar issue have already been reported?
+
+### Resolved / Related Issues**
+
 - Closes #issue...
 - Related #issue...
 
-**Details of Changes**
-Add details of changes here.
-- Added...
-- Fixed...
+### Details of Changes**
 
-**Validation**
-How did you test these changes?
+- Added
+- Fixed
+
+### Validation**
+
 - [ ] Built and ran the app
 - [ ] Tested the changes for accessibility
 
-**Screenshots (optional)**
-Add screenshots here.
+### Screenshots (optional)**
+
