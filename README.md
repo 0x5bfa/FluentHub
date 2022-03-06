@@ -1,9 +1,9 @@
 <p align="center">
-  <img alt="Logo" src="/FluentHub/Assets/AppTiles/Primitives/Dev/FluentHub.dev.original.scale-1024.png" width="100px" />
+  <img alt="Logo" src="src/FluentHub/Assets/AppTiles/Primitives/Dev/FluentHub.dev.original.scale-1024.png" width="100px" />
   <h1 align="center">FluentHub</h1>
 </p>
 
-[![Build Status](https://dev.azure.com/fluenthub-uwp/FluentHub/_apis/build/status/Build%20Pipeline?branchName=main)](https://dev.azure.com/fluenthub-uwp/FluentHub/_build/latest?definitionId=1&branchName=main)
+[![Build Status](https://dev.azure.com/fluenthub-community/FluentHub/_apis/build/status/Build%20Pipeline?branchName=main)](https://dev.azure.com/fluenthub-community/FluentHub/_build/latest?definitionId=1&branchName=main)
 [![CodeFactor](https://www.codefactor.io/repository/github/fluenthub-community/fluenthub/badge)](https://www.codefactor.io/repository/github/fluenthub-community/fluenthub)
 ![License](https://img.shields.io/github/license/fluenthub-uwp/FluentHub)
 ![RepoSize](https://img.shields.io/github/repo-size/fluenthub-uwp/FluentHub)
