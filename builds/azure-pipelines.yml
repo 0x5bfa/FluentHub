@@ -22,12 +22,12 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\FluentHub\Package.appxmanifest
+      [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\FluentHub\Package.appxmanifest
       $xmlDoc.Package.Identity.Name="49462fluenthub-uwp.FluentHub"
       $xmlDoc.Package.Identity.Publisher="CN=4E3C0825-4D00-4ECC-89F8-528E9200B125"
       $xmlDoc.Package.Properties.DisplayName="FluentHub"
       $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub"
-      $xmlDoc.Save('$(Build.SourcesDirectory)\FluentHub\Package.appxmanifest')
+      $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub\Package.appxmanifest')
     failOnStderr: true
 
 - task: NuGetToolInstaller@1
@@ -41,7 +41,7 @@ steps:
   inputs:
     SourceFolder: '$(Agent.TempDirectory)'
     Contents: '$(CredentialSecureFile.secureFilePath)'
-    TargetFolder: '$(Build.SourcesDirectory)\FluentHub'
+    TargetFolder: '$(Build.SourcesDirectory)\src\FluentHub'
 
 - task: NuGetCommand@2
   inputs:
