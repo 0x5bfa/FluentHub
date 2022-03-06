@@ -7,8 +7,8 @@
     <ProjectGuid>{893EDCC9-4345-4F49-A13F-1A426A7BA432}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>OctokitExtensions</RootNamespace>
-    <AssemblyName>OctokitExtensions</AssemblyName>
+    <RootNamespace>FluentHub.OctokitEx</RootNamespace>
+    <AssemblyName>FluentHub.OctokitEx</AssemblyName>
     <DefaultLanguage>ja-JP</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.22000.0</TargetPlatformVersion>
@@ -122,7 +122,7 @@
   <ItemGroup>
     <Compile Include="Clients\UserStatusClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="Properties\OctokitExtensions.rd.xml" />
+    <EmbeddedResource Include="Properties\Default.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">

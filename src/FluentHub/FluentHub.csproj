@@ -700,7 +700,7 @@
     <PRIResource Include="Strings\zh-CN\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OctokitExtensions\FluentHub.OctokitEx.csproj">
+    <ProjectReference Include="..\FluentHub.OctokitEx\FluentHub.OctokitEx.csproj">
       <Project>{893edcc9-4345-4f49-a13f-1a426a7ba432}</Project>
       <Name>FluentHub.OctokitEx</Name>
     </ProjectReference>
