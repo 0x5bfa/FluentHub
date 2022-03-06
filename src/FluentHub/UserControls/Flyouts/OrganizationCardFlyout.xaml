@@ -9,5 +9,46 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <Grid />
+    <Grid
+        Width="256"
+        Margin="4"
+        RowSpacing="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Spacing="12">
+            <Image
+                Width="48"
+                Height="48"
+                Source="https://avatars.githubusercontent.com/u/98096883?s=88&amp;v=4" />
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock
+                    FontSize="16"
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                    Text="fluenthub-community" />
+                <TextBlock
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Style="{StaticResource BodyTextBlockStyle}"
+                    Text="Fluent GitHub desktop for windows"
+                    TextTrimming="Clip"
+                    TextWrapping="NoWrap" />
+            </StackPanel>
+        </StackPanel>
+        <MenuFlyoutSeparator Grid.Row="1" Margin="-8,2" />
+        <StackPanel
+            Grid.Row="2"
+            Orientation="Horizontal"
+            Spacing="12">
+            <TextBlock
+                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                Style="{StaticResource BodyTextBlockStyle}"
+                Text="5 repositories" />
+            <TextBlock
+                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                Style="{StaticResource BodyTextBlockStyle}"
+                Text="3 members" />
+        </StackPanel>
+    </Grid>
 </UserControl>
