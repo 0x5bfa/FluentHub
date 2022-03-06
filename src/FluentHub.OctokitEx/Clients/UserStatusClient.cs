@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OctokitExtensions.Clients
+namespace FluentHub.OctokitEx.Clients
 {
     public class UserStatusClient
     {

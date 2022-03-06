@@ -37,7 +37,12 @@ namespace FluentHub.Views.Repositories.Layouts
         {
             ViewModel.CommonRepoViewModel = CommonRepoViewModel;
 
-            if (CommonRepoViewModel.IsFile == true) return;
+            if (CommonRepoViewModel.IsFile == true)
+            {
+                DirListViewLoadingProgreeBar.IsIndeterminate = false;
+                DirListViewLoadingProgreeBar.Visibility = Visibility.Collapsed;
+                return;
+            }
 
             var ItemsCount = await ViewModel.EnumRepositoryContents();
 
@@ -46,11 +51,8 @@ namespace FluentHub.Views.Repositories.Layouts
                 RepoReadmeBlock.RepositoryId = CommonRepoViewModel.RepositoryId;
             }
 
-            if (DirListViewContentGrid != null)
-            {
-                DirListViewLoadingProgreeBar.IsIndeterminate = false;
-                DirListViewLoadingProgreeBar.Visibility = Visibility.Collapsed;
-            }
+            DirListViewLoadingProgreeBar.IsIndeterminate = false;
+            DirListViewLoadingProgreeBar.Visibility = Visibility.Collapsed;
         }
 
         private void DirListView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)

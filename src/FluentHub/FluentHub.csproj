@@ -700,9 +700,9 @@
     <PRIResource Include="Strings\zh-CN\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\OctokitExtensions\OctokitExtensions.csproj">
+    <ProjectReference Include="..\OctokitExtensions\FluentHub.OctokitEx.csproj">
       <Project>{893edcc9-4345-4f49-a13f-1a426a7ba432}</Project>
-      <Name>OctokitExtensions</Name>
+      <Name>FluentHub.OctokitEx</Name>
     </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
