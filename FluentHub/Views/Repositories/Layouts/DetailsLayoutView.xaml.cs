@@ -45,6 +45,12 @@ namespace FluentHub.Views.Repositories.Layouts
             {
                 RepoReadmeBlock.RepositoryId = CommonRepoViewModel.RepositoryId;
             }
+
+            if (DirListViewContentGrid != null)
+            {
+                DirListViewLoadingProgreeBar.IsIndeterminate = false;
+                DirListViewLoadingProgreeBar.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void DirListView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)

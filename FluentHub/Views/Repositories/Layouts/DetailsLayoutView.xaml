@@ -7,6 +7,7 @@
     xmlns:items="using:FluentHub.Models.Items"
     xmlns:local="using:FluentHub.Views.Repositories.Layouts"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:vm="using:FluentHub.ViewModels.Repositories.Layouts"
     Loaded="Page_Loaded"
     mc:Ignorable="d">
@@ -16,18 +17,22 @@
     </Page.DataContext>
 
     <Grid>
-        <ScrollViewer Padding="12">
-            <Grid RowSpacing="6">
+        <ScrollViewer>
+            <Grid Margin="0,0,0,12">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <contents:LatestCommitBlock x:Name="LatastCommitBlock" Grid.Row="0" />
+                <contents:LatestCommitBlock
+                    x:Name="LatastCommitBlock"
+                    Grid.Row="0"
+                    Margin="12,12,12,0" />
                 <Grid
                     x:Name="DirListViewContentGrid"
                     Grid.Row="1"
+                    Margin="12,12,12,0"
                     x:Load="{x:Bind ViewModel.CommonRepoViewModel.IsDir, Mode=OneWay}"
                     Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
@@ -87,13 +92,20 @@
                         </ListView.ItemTemplate>
                     </ListView>
                 </Grid>
+                <muxc:ProgressBar
+                    x:Name="DirListViewLoadingProgreeBar"
+                    Grid.Row="1"
+                    Margin="12,12,12,0"
+                    IsIndeterminate="True" />
                 <contents:FileContentBlock
                     x:Name="FileContentBlock"
                     Grid.Row="2"
+                    Margin="12,12,12,0"
                     x:Load="{x:Bind ViewModel.CommonRepoViewModel.IsFile, Mode=OneWay}" />
                 <contents:ReadmeContentBlock
                     x:Name="RepoReadmeBlock"
                     Grid.Row="3"
+                    Margin="12,12,12,0"
                     x:Load="{x:Bind ViewModel.CommonRepoViewModel.IsRootDir, Mode=OneWay}" />
             </Grid>
         </ScrollViewer>

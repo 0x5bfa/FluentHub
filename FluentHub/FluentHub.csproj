@@ -692,6 +692,12 @@
   <ItemGroup>
     <PRIResource Include="Strings\zh-CN\Resources.resw" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\OctokitExtensions\OctokitExtensions.csproj">
+      <Project>{893edcc9-4345-4f49-a13f-1a426a7ba432}</Project>
+      <Name>OctokitExtensions</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

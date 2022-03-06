@@ -59,9 +59,7 @@ namespace FluentHub.ViewModels.Repositories.Layouts
                 Octokit.CommitRequest request = new Octokit.CommitRequest();
                 request.Path = contents[i].Path;
 
-                Octokit.ApiOptions options = new() { PageSize = 1, PageCount = 1, StartPage = 1 };
-
-                var commit = await App.Client.Repository.Commit.GetAll(CommonRepoViewModel.RepositoryId, request, options);
+                var commit = App.Client.Repository.Commit.GetAll(CommonRepoViewModel.RepositoryId, request).GetAwaiter().GetResult();
 
                 Items[i].ObjectLatestCommitMessage = commit[0].Commit.Message.Split("\n")[0];
 
