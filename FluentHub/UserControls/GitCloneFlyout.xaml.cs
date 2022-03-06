@@ -43,9 +43,9 @@ namespace FluentHub.UserControls
 
         private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            repository = await App.Client.Repository.Get(RepositoryId);
+            //repository = await App.Client.Repository.Get(RepositoryId);
 
-            CloneUriTextBox.Text = repository.CloneUrl;
+            //CloneUriTextBox.Text = repository.CloneUrl;
             CloneDescriptionTextBlock.Text = "Use Git or checkout with SVN using the web URL.";
         }
 
@@ -54,15 +54,15 @@ namespace FluentHub.UserControls
             switch (args.InvokedItemContainer.Tag.ToString())
             {
                 case "Https":
-                    CloneUriTextBox.Text = repository.CloneUrl;
+                    //CloneUriTextBox.Text = repository.CloneUrl;
                     CloneDescriptionTextBlock.Text = "Use Git or checkout with SVN using the web URL.";
                     break;
                 case "Ssh":
-                    CloneUriTextBox.Text = repository.SshUrl;
+                    //CloneUriTextBox.Text = repository.SshUrl;
                     CloneDescriptionTextBlock.Text = "Use a password-protected SSH key.";
                     break;
                 case "GitHubCli":
-                    CloneUriTextBox.Text = repository.GitUrl;
+                    //CloneUriTextBox.Text = repository.GitUrl;
                     CloneDescriptionTextBlock.Text = "Work fast with our official CLI.";
                     break;
             }
@@ -70,9 +70,9 @@ namespace FluentHub.UserControls
 
         private void CopyButton_Click(object sender, RoutedEventArgs e)
         {
-            var dp = new Windows.ApplicationModel.DataTransfer.DataPackage();
-            dp.SetText(CloneUriTextBox.Text);
-            Windows.ApplicationModel.DataTransfer.Clipboard.SetContent(dp);
+            //var dp = new Windows.ApplicationModel.DataTransfer.DataPackage();
+            //dp.SetText(CloneUriTextBox.Text);
+            //Windows.ApplicationModel.DataTransfer.Clipboard.SetContent(dp);
         }
     }
 }

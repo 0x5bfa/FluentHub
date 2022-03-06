@@ -153,6 +153,9 @@
     <Compile Include="Services\OctokitEx\PullReviewStatus.cs" />
     <Compile Include="Services\OctokitEx\UserPinnedItems.cs" />
     <Compile Include="Services\OctokitEx\UserStarredItems.cs" />
+    <Compile Include="UserControls\Blocks\FileNavigationBlock.xaml.cs">
+      <DependentUpon>FileNavigationBlock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ButtonBlocks\IssueButtonBlock.xaml.cs">
       <DependentUpon>IssueButtonBlock.xaml</DependentUpon>
     </Compile>
@@ -434,6 +437,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Default\DefaultThemeResourcesAny.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Blocks\FileNavigationBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
