@@ -12,7 +12,7 @@
 
 FluentHub is a GitHub client app with a fluent and powerful design.
 
-Please contribute to make this project better.
+Please contribute to make this project better(please follow [this coding guidlines](docs/code-style.md)).
 
 > **Warning**</br> This project is in dev stage. Expect regular breaking changes.</br>
 > We don't have logos(stable/dev) [that can be used in the store version](https://github.com/logos). Logos/mockups are especially welcome😊
