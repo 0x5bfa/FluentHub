@@ -15,13 +15,13 @@ FluentHub is a GitHub client app with a fluent and powerful design.
 Please contribute to make this project better.
 
 > **Warning**</br> This project is in dev stage. Expect regular breaking changes.</br>
-> We don't have logos(stable/dev) that can be used in the store version. Logos/mockups are especially welcome😊
+> We don't have logos(stable/dev) [that can be used in the store version](https://github.com/logos). Logos/mockups are especially welcome😊
 
 ![image](https://user-images.githubusercontent.com/62196528/156875118-f58c4acb-46de-478b-8b5b-9733b466d6b2.png)
 
 ## Building from source
 
-If you want to build this project, you need to take a look at [this instructions](building-from-source.md).
+If you want to build this project, you need to take a look at [this instructions](docs/building-from-source.md).
 
 ## Privacy
 
@@ -30,19 +30,18 @@ We may use the App Center to track the settings used, find bugs and fix crashes.
 ## Our goals
 
 * Multi-tab support
-  * Go back and forward on the page(now disabled)
+  * Go back and forward on the page
   * Jump to the page with the URL of GitHub
-  * Copy URL of this page
+  * Copy URL of the page
 * App settings
   * App themes
   * App languages
   * Default new page
   * Multi-account support
 * Octokit.NET full support
-  * Make up for missing API requests with HttpRequest class and GraphQL.NET.
 * Support for displaying rendered markdown using WebView
 
 ## Translations
 
 This app can be localized.</br>
-Before updating resources, follow [this instructions](translations.md).
+Before updating resources, follow [this instructions](docs/translations.md).
