@@ -1,4 +1,6 @@
 ﻿using FluentHub.Models.Items;
+using FluentHub.Services.OctokitEx;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -12,36 +14,33 @@ namespace FluentHub.ViewModels.Users
 {
     public class OverviewViewModel : INotifyPropertyChanged
     {
-        private ObservableCollection<RepoListItem> _items = new ObservableCollection<RepoListItem>();
-        public ObservableCollection<RepoListItem> Items
-        {
-            get => _items;
-            private set
-            {
-                SetProperty(ref _items, value);
-            }
-        }
+        public ObservableCollection<RepoListItem> Items { get; private set; }
 
-        public int GetPinnedRepos(List<long> repoIdList)
+        public async Task<int> GetPinnedRepos(string login)
         {
-            foreach (var repoId in repoIdList)
+            try
             {
-                RepoListItem listItem = new RepoListItem();
-                listItem.RepoId = repoId;
-                Items.Add(listItem);
+                UserPinnedItems pinnedItems = new UserPinnedItems();
+
+                var repoIdList = await pinnedItems.Get(login, true);
+
+                foreach (var repoId in repoIdList)
+                {
+                    RepoListItem listItem = new RepoListItem();
+                    listItem.RepoId = repoId;
+                    Items.Add(listItem);
+                }
+
+                return Items.Count();
             }
-            return Items.Count();
+            catch (Exception ex)
+            {
+                Log.Error(ex, ex.Message);
+                return -1;
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged(String info)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(info));
-            }
-        }
-
         protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
         {
             if (!Equals(field, newValue))

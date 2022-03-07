@@ -22,7 +22,7 @@ namespace FluentHub.Views.Users
 {
     public sealed partial class OverviewPage : Windows.UI.Xaml.Controls.Page
     {
-        private string UserName { get; set; }
+        private string Login { get; set; }
 
         public OverviewPage()
         {
@@ -31,7 +31,7 @@ namespace FluentHub.Views.Users
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            UserName = e.Parameter as string;
+            Login = e.Parameter as string;
 
             base.OnNavigatedTo(e);
         }
@@ -40,11 +40,7 @@ namespace FluentHub.Views.Users
         {
             try
             {
-                UserPinnedItems pinnedItems = new UserPinnedItems();
-
-                var repoIdList = await pinnedItems.Get(UserName, true);
-
-                var count = ViewModel.GetPinnedRepos(repoIdList);
+                var count = await ViewModel.GetPinnedRepos(Login);
 
                 if (count != 0)
                 {
@@ -52,18 +48,12 @@ namespace FluentHub.Views.Users
                     UserPinnedItemsBlock.Visibility = Visibility.Visible;
                 }
 
-                var repo = await App.Client.Repository.Get(UserName, UserName);
+                var repo = await App.Client.Repository.Get(Login, Login);
                 UserSpecialReadmeBlock.RepositoryId = repo.Id;
             }
-            catch (ApiException aex)
+            catch (ApiException apiEx)
             {
-                Log.Error(aex, aex.Message);
-                return;
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex, ex.Message);
-                return;
+                Log.Error(apiEx, apiEx.Message);
             }
         }
     }
