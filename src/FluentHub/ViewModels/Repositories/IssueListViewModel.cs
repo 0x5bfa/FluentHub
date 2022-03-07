@@ -13,38 +13,33 @@ namespace FluentHub.ViewModels.Repositories
 {
     public class IssueListViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<IssueListItem> Items { get; private set; }
-
-        public IssueListViewModel()
-        {
-            Items = new();
-        }
+        public ObservableCollection<Issue> Items { get; private set; } = new();
 
         public async void GetRepoIssues(long repoId)
         {
-            IsActive = true;
+            //IsActive = true;
 
-            RepositoryIssueRequest request = new RepositoryIssueRequest();
-            request.State = ItemStateFilter.All;
+            //RepositoryIssueRequest request = new RepositoryIssueRequest();
+            //request.State = ItemStateFilter.All;
 
-            ApiOptions options = new() { PageSize = 30, PageCount = 1, StartPage = 1 };
+            //ApiOptions options = new() { PageSize = 30, PageCount = 1, StartPage = 1 };
 
-            var issues = await App.Client.Issue.GetAllForRepository(repoId, request, options);
+            //var issues = await App.Client.Issue.GetAllForRepository(repoId, request, options);
 
-            foreach (var item in issues)
-            {
-                if (item.PullRequest == null)
-                {
-                    IssueListItem listItem = new IssueListItem();
-                    listItem.RepoId = repoId;
-                    listItem.IssueIndex = item.Number;
-                    Items.Add(listItem);
-                }
-            }
+            //foreach (var item in issues)
+            //{
+            //    if (item.PullRequest == null)
+            //    {
+            //        IssueListItem listItem = new IssueListItem();
+            //        listItem.RepoId = repoId;
+            //        listItem.IssueIndex = item.Number;
+            //        Items.Add(listItem);
+            //    }
+            //}
 
-            Items = new ObservableCollection<IssueListItem>(Items.OrderByDescending(x => x.IssueIndex));
+            //Items = new ObservableCollection<IssueListItem>(Items.OrderByDescending(x => x.IssueIndex));
 
-            IsActive = false;
+            //IsActive = false;
         }
 
         private bool isActive;

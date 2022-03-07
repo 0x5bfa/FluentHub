@@ -10,13 +10,11 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:vm="using:FluentHub.ViewModels.Users"
-    Loaded="Page_Loaded"
     mc:Ignorable="d">
 
     <Page.DataContext>
         <vm:ProfilePageViewModel x:Name="ViewModel" />
     </Page.DataContext>
-
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -76,7 +74,8 @@
                         <Image
                             x:Name="UserAvatorImage"
                             Width="84"
-                            Height="84" />
+                            Height="84"
+                            Source="{Binding User.AvatarUrl}" />
                     </Border>
                     <StackPanel
                         Grid.Column="1"
@@ -86,17 +85,21 @@
                             x:Name="LoginNameTextBlock"
                             VerticalAlignment="Center"
                             FontWeight="SemiBold"
-                            Style="{StaticResource SubtitleTextBlockStyle}" />
+                            Style="{StaticResource SubtitleTextBlockStyle}"
+                            Text="{Binding User.Login}" />
                         <TextBlock
                             x:Name="UserNameTextBlock"
                             VerticalAlignment="Center"
                             FontSize="13"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{ThemeResource CaptionTextBlockStyle}" />
+                            Style="{ThemeResource CaptionTextBlockStyle}"
+                            Text="{Binding User.Name}" />
                         <TextBlock
                             x:Name="UserBioTextBlock"
                             Style="{ThemeResource BodyTextBlockStyle}"
+                            Text="{Binding User.Bio}"
                             Visibility="Collapsed" />
+
                     </StackPanel>
                     <StackPanel
                         Grid.Column="2"
@@ -136,6 +139,7 @@
                         <HyperlinkButton
                             x:Name="CompanyLinkButton"
                             Padding="4"
+                            Content="{Binding User.Company}"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Visibility="Collapsed" />
                         <TextBlock
@@ -143,6 +147,7 @@
                             Margin="4,0,6,0"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Text="{Binding User.Company}"
                             Visibility="Collapsed" />
                     </StackPanel>
                     <StackPanel
@@ -162,7 +167,8 @@
                             x:Name="LocationTextBlock"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{ThemeResource BodyTextBlockStyle}" />
+                            Style="{ThemeResource BodyTextBlockStyle}"
+                            Text="{Binding User.Location}" />
                     </StackPanel>
                     <StackPanel
                         x:Name="LinkBlock"
@@ -178,6 +184,7 @@
                         <HyperlinkButton
                             x:Name="LinkButton"
                             Padding="4"
+                            Content="{Binding User.Blog}"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" />
                     </StackPanel>
                     <StackPanel
@@ -216,12 +223,14 @@
                                         x:Name="FollowerCount"
                                         VerticalAlignment="Center"
                                         FontWeight="SemiBold"
-                                        Style="{ThemeResource BodyTextBlockStyle}" />
+                                        Style="{ThemeResource BodyTextBlockStyle}"
+                                        Text="{Binding User.Followers}" />
                                     <TextBlock
                                         x:Uid="UserFollowersCountTextBlock"
                                         VerticalAlignment="Center"
                                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        Style="{ThemeResource BodyTextBlockStyle}" />
+                                        Style="{ThemeResource BodyTextBlockStyle}"
+                                        Text="followers" />
                                 </StackPanel>
                             </Button.Content>
                         </Button>
@@ -242,12 +251,14 @@
                                         x:Name="FollowingCount"
                                         VerticalAlignment="Center"
                                         FontWeight="SemiBold"
-                                        Style="{ThemeResource BodyTextBlockStyle}" />
+                                        Style="{ThemeResource BodyTextBlockStyle}"
+                                        Text="{Binding User.Following}" />
                                     <TextBlock
                                         x:Uid="UserFollowingCountTextBlock"
                                         VerticalAlignment="Center"
                                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        Style="{ThemeResource BodyTextBlockStyle}" />
+                                        Style="{ThemeResource BodyTextBlockStyle}"
+                                        Text="following" />
                                 </StackPanel>
                             </Button.Content>
                         </Button>
