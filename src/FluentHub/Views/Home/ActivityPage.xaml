@@ -13,6 +13,7 @@
     <Page.DataContext>
         <vm:ActivityViewModel x:Name="ViewModel" />
     </Page.DataContext>
+
     <Page.Resources>
         <Style
             x:Key="ContentBlockButtonStyle"
@@ -38,27 +39,29 @@
         <Grid Margin="20,20,20,12">
             <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Activities" />
         </Grid>
-        <ScrollViewer Grid.Row="2" Margin="0,6,0,0">
-            <Grid Margin="20,0,20,20">
-                <muxc:ProgressRing x:Name="loadingRing" IsActive="{Binding IsActive}" />
-                <Border>
-                    <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Items}" Loaded="ItemsRepeater_Loaded">
-                        <DataTemplate x:DataType="item:NotificationListItem">
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <Grid />
-                            </Grid>
-                        </DataTemplate>
-                    </muxc:ItemsRepeater>
-                </Border>
-            </Grid>
-        </ScrollViewer>
+        <muxc:ItemsRepeaterScrollHost>
+            <ScrollViewer Grid.Row="2" Margin="0,6,0,0">
+                <Grid Margin="20,0,20,20">
+                    <muxc:ProgressRing x:Name="loadingRing" IsActive="{Binding IsActive}" />
+                    <Border>
+                        <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Items}" Loaded="ItemsRepeater_Loaded">
+                            <DataTemplate x:DataType="item:NotificationListItem">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Grid />
+                                </Grid>
+                            </DataTemplate>
+                        </muxc:ItemsRepeater>
+                    </Border>
+                </Grid>
+            </ScrollViewer>
+        </muxc:ItemsRepeaterScrollHost>
     </Grid>
 </Page>

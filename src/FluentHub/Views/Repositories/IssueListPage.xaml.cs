@@ -27,10 +27,7 @@ namespace FluentHub.Views.Repositories
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             RepoId = Convert.ToInt64(e.Parameter as string);
-        }
 
-        private void ItemsRepeater_Loaded(object sender, RoutedEventArgs e)
-        {
             ViewModel.GetRepoIssues(RepoId);
         }
     }

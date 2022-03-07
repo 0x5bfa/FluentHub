@@ -13,14 +13,11 @@ namespace FluentHub.ViewModels.Repositories
 {
     public class IssueListViewModel : INotifyPropertyChanged
     {
-        private ObservableCollection<IssueListItem> _items = new ObservableCollection<IssueListItem>();
-        public ObservableCollection<IssueListItem> Items
+        public ObservableCollection<IssueListItem> Items { get; private set; }
+
+        public IssueListViewModel()
         {
-            get => _items;
-            private set
-            {
-                SetProperty(ref _items, value);
-            }
+            Items = new();
         }
 
         public async void GetRepoIssues(long repoId)
@@ -50,15 +47,10 @@ namespace FluentHub.ViewModels.Repositories
             IsActive = false;
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged(String info)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(info));
-            }
-        }
+        private bool isActive;
+        public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
 
+        public event PropertyChangedEventHandler PropertyChanged;
         protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
         {
             if (!Equals(field, newValue))
@@ -70,8 +62,5 @@ namespace FluentHub.ViewModels.Repositories
 
             return false;
         }
-
-        private bool isActive;
-        public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
     }
 }

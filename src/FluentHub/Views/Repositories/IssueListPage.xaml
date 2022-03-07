@@ -14,6 +14,7 @@
     <Page.DataContext>
         <vm:IssueListViewModel x:Name="ViewModel" />
     </Page.DataContext>
+
     <ScrollViewer>
         <Grid Margin="18">
             <Grid.RowDefinitions>
@@ -116,12 +117,12 @@
                 <Grid>
                     <muxc:ProgressRing x:Name="loadingRing" IsActive="{Binding IsActive}" />
                     <Border>
-                        <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}" Loaded="ItemsRepeater_Loaded">
+                        <muxc:ItemsRepeater ItemsSource="{Binding Items}">
                             <DataTemplate x:DataType="item:IssueListItem">
                                 <block:IssueButtonBlock
                                     x:Name="RepositoryBlock"
-                                    IssueIndex="{x:Bind IssueIndex, Mode=OneWay}"
-                                    RepositoryId="{x:Bind RepoId, Mode=OneWay}" />
+                                    IssueIndex="{Binding IssueIndex}"
+                                    RepositoryId="{Binding RepoId}" />
                             </DataTemplate>
                         </muxc:ItemsRepeater>
                     </Border>

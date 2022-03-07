@@ -8,8 +8,12 @@
     xmlns:local="using:FluentHub.UserControls.ButtonBlocks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:vm="using:FluentHub.ViewModels.UserControls.ButtonBlocks"
     mc:Ignorable="d">
 
+    <UserControl.DataContext>
+        <vm:IssueButtonBlockViewModel x:Name="ViewModel" />
+    </UserControl.DataContext>
     <UserControl.Resources>
         <Style
             x:Key="ContentBlockButtonStyle"
