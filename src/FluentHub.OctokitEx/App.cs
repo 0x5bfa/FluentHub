@@ -1,5 +1,4 @@
-﻿using FluentHub.ViewModels;
-using Octokit.GraphQL;
+﻿using Octokit.GraphQL;
 using Serilog;
 using System;
 using System.Collections.Generic;
