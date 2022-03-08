@@ -14,7 +14,7 @@ namespace FluentHub.ViewModels.Users
 {
     public class OverviewViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<RepoListItem> Items { get; private set; }
+        public ObservableCollection<RepoListItem> Items { get; private set; } = new();
 
         public async Task<int> GetPinnedRepos(string login)
         {

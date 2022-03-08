@@ -9,6 +9,8 @@ namespace FluentHub.OctokitEx.Clients
 {
     public class UserStatusClient
     {
+        public UserStatusClient() { _ = new App(); }
+
         public async Task<Octokit.GraphQL.Model.UserStatus> Get(string login)
         {
             var query = new Query().User(login).Status;

@@ -21,5 +21,14 @@ namespace FluentHub.Views.Users
         {
             this.InitializeComponent();
         }
+
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            string login = e.Parameter as string;
+
+            await ViewModel.GetFollowingList(login);
+
+            base.OnNavigatedTo(e);
+        }
     }
 }

@@ -28,9 +28,6 @@
             <Setter Property="MinHeight" Value="{StaticResource ExpanderMinHeight}" />
             <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
         </Style>
-        <Style x:Key="BaseTextBlockStyle" TargetType="TextBlock">
-            <Setter Property="FontFamily" Value="Segoe UI" />
-        </Style>
     </Page.Resources>
 
     <Grid>

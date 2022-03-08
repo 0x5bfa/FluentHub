@@ -43,12 +43,12 @@
     </Page.Resources>
 
     <ScrollViewer>
-        <Grid Margin="20">
+        <Grid Margin="12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Grid Margin="0,0,0,12">
+            <Grid Margin="12,12,12,24">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />

@@ -121,7 +121,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="Clients\UserFollowersClient.cs" />
+    <Compile Include="Clients\UserFollowingClient.cs" />
     <Compile Include="Clients\UserStatusClient.cs" />
+    <Compile Include="Models\UserFollowers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Default.rd.xml" />
   </ItemGroup>
@@ -141,7 +144,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Auth\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

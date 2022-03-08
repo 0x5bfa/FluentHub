@@ -162,6 +162,9 @@
     <Compile Include="UserControls\ButtonBlocks\RepoButtonBlock.xaml.cs">
       <DependentUpon>RepoButtonBlock.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ButtonBlocks\UserButtonBlock.xaml.cs">
+      <DependentUpon>UserButtonBlock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Flyouts\OrganizationCardFlyout.xaml.cs">
       <DependentUpon>OrganizationCardFlyout.xaml</DependentUpon>
     </Compile>
@@ -222,6 +225,9 @@
     <Compile Include="ViewModels\UserControls\Blocks\LatestCommitBlockViewModel.cs" />
     <Compile Include="ViewModels\Home\ActivityViewModel.cs" />
     <Compile Include="ViewModels\Home\NotificationViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\ButtonBlocks\UserButtonBlockViewModel.cs" />
+    <Compile Include="ViewModels\Users\FollowersViewModel.cs" />
+    <Compile Include="ViewModels\Users\FollowingViewModel.cs" />
     <Compile Include="ViewModels\Users\ProfilePageViewModel.cs" />
     <Compile Include="ViewModels\Users\RepoListViewModel.cs" />
     <Compile Include="ViewModels\Users\OverviewViewModel.cs" />
@@ -450,6 +456,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ButtonBlocks\RepoButtonBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ButtonBlocks\UserButtonBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
