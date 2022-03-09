@@ -24,21 +24,11 @@ namespace FluentHub.Views.Users
             this.InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            UserName = e.Parameter as string;
+            await ViewModel.GetUserRepos(e.Parameter as string);
 
             base.OnNavigatedTo(e);
-        }
-
-        private async void ItemsRepeater_Loaded(object sender, RoutedEventArgs e)
-        {
-            int itemCount = await ViewModel.GetUserRepos(UserName);
-
-            if (itemCount > 30)
-            {
-                OnlyThirtyItemsAreDisplayedTextBlock.Visibility = Visibility.Visible;
-            }
         }
     }
 }

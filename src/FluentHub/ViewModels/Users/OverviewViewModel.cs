@@ -24,9 +24,6 @@ namespace FluentHub.ViewModels.Users
                 UserPinnedItems pinnedItems = new UserPinnedItems();
                 var repoIdList = await pinnedItems.Get(login, true);
 
-                PinnedItemsQueries query = new();
-                await query.Get(login, true);
-
                 foreach (var repoId in repoIdList)
                 {
                     RepoListItem listItem = new RepoListItem();

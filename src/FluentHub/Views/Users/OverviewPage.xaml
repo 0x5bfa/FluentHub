@@ -25,6 +25,7 @@
             </Grid.RowDefinitions>
             <Grid
                 x:Name="UserPinnedItemsBlock"
+                Margin="0,0,0,12"
                 RowSpacing="2"
                 Visibility="Collapsed">
                 <Grid.RowDefinitions>
@@ -69,10 +70,7 @@
                     </ScrollViewer>
                 </muxc:ItemsRepeaterScrollHost>
             </Grid>
-            <contents:ReadmeContentBlock
-                x:Name="UserSpecialReadmeBlock"
-                Grid.Row="1"
-                Margin="0,12,0,0" />
+            <contents:ReadmeContentBlock x:Name="UserSpecialReadmeBlock" Grid.Row="1" />
             <TextBlock
                 x:Name="NoOverviewBlock"
                 Grid.RowSpan="2"

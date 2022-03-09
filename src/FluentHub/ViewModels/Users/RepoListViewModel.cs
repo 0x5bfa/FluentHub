@@ -13,17 +13,12 @@ namespace FluentHub.ViewModels.Users
 {
     public class RepoListViewModel : INotifyPropertyChanged
     {
-        private ObservableCollection<Repository> _items = new ObservableCollection<Repository>();
-        public ObservableCollection<Repository> Items
-        {
-            get => _items;
-            set => SetProperty(ref _items, value);
-        }
+        public ObservableCollection<Repository> Items { get; private set; }
 
         private bool isActive;
         public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
 
-        public async Task<int> GetUserRepos(string username)
+        public async Task GetUserRepos(string username)
         {
             IsActive = true;
 
@@ -33,7 +28,6 @@ namespace FluentHub.ViewModels.Users
 
             foreach (var item in repos)
             {
-                // In the future, pagination will be avaiable https://primer.style/react/Pagination
                 if (Items.Count == 30) break;
 
                 if (item.Owner.Type == AccountType.User)
@@ -42,12 +36,7 @@ namespace FluentHub.ViewModels.Users
                 }
             }
 
-            // order by updated at
-            //Items = new(Items.OrderByDescending(x => x.UpdatedAt));
-
             IsActive = false;
-
-            return repos.Count();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

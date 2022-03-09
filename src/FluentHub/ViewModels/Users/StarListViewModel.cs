@@ -13,45 +13,27 @@ namespace FluentHub.ViewModels.Users
 {
     public class StarListViewModel : INotifyPropertyChanged
     {
-        private ObservableCollection<RepoListItem> _items;
-        public ObservableCollection<RepoListItem> Items
-        {
-            get => _items;
-            private set
-            {
-                SetProperty(ref _items, value);
-            }
-        }
+        public ObservableCollection<RepoListItem> Items { get; private set; }
 
         public async void GetUserStarredRepos(string username)
         {
             IsActive = true;
-            Items = new ObservableCollection<RepoListItem>();
-            UserStarredItems starredItems = new UserStarredItems();
 
+            UserStarredItems starredItems = new UserStarredItems();
             var repoIdList = await starredItems.Get(username);
 
             foreach (var repoId in repoIdList)
             {
                 RepoListItem listItem = new RepoListItem();
                 listItem.RepoId = repoId;
+
                 Items.Add(listItem);
             }
-
-            SetProperty(ref _items, Items);
 
             IsActive = false;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged(String info)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(info));
-            }
-        }
-
         protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
         {
             if (!Equals(field, newValue))

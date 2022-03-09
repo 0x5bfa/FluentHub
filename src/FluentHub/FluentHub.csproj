@@ -321,14 +321,14 @@
     <Compile Include="Views\Users\ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Users\PullRequestListPage.xaml.cs">
+    <Compile Include="Views\Home\PullRequestListPage.xaml.cs">
       <DependentUpon>PullRequestListPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Users\RepoListPage.xaml.cs">
-      <DependentUpon>RepoListPage.xaml</DependentUpon>
+    <Compile Include="Views\Users\RepositoriesPage.xaml.cs">
+      <DependentUpon>RepositoriesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Users\StarListPage.xaml.cs">
-      <DependentUpon>StarListPage.xaml</DependentUpon>
+    <Compile Include="Views\Users\StarredReposPage.xaml.cs">
+      <DependentUpon>StarredReposPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SignIn\IntroPage.xaml.cs">
       <DependentUpon>IntroPage.xaml</DependentUpon>
@@ -671,15 +671,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Users\PullRequestListPage.xaml">
+    <Page Include="Views\Home\PullRequestListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Users\RepoListPage.xaml">
+    <Page Include="Views\Users\RepositoriesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Users\StarListPage.xaml">
+    <Page Include="Views\Users\StarredReposPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
