@@ -29,31 +29,24 @@ namespace FluentHub.Views.Users
             this.InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             Login = e.Parameter as string;
+            await ViewModel.GetPinnedRepos(Login);
+            var repo = await App.Client.Repository.Get(Login, Login);
+            UserSpecialReadmeBlock.RepositoryId = repo.Id;
+
+            UpdateVisibility();
 
             base.OnNavigatedTo(e);
         }
 
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        private void UpdateVisibility()
         {
-            try
+            if (ViewModel.PinnedRepos.Count() != 0)
             {
-                var count = await ViewModel.GetPinnedRepos(Login);
-
-                if (count != 0)
-                {
-                    NoOverviewBlock.Visibility = Visibility.Collapsed;
-                    UserPinnedItemsBlock.Visibility = Visibility.Visible;
-                }
-
-                var repo = await App.Client.Repository.Get(Login, Login);
-                UserSpecialReadmeBlock.RepositoryId = repo.Id;
-            }
-            catch (ApiException apiEx)
-            {
-                Log.Error(apiEx, apiEx.Message);
+                NoOverviewBlock.Visibility = Visibility.Collapsed;
+                UserPinnedItemsBlock.Visibility = Visibility.Visible;
             }
         }
     }

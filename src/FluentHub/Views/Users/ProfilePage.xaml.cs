@@ -45,7 +45,6 @@ namespace FluentHub.Views.Users
                 return;
             }
 
-            // C#9.0
             _ = args.SelectedItemContainer.Tag.ToString() switch
             {
                 "Overview" =>     UserNavViewContent.Navigate(typeof(OverviewPage), UserName),

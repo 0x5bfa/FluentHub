@@ -244,9 +244,6 @@
     <Compile Include="Views\AppSettings\AppearancePage.xaml.cs">
       <DependentUpon>AppearancePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Home\IssuesPage.xaml.cs">
-      <DependentUpon>IssuesPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Home\PullRequestsPage.xaml.cs">
       <DependentUpon>PullRequestsPage.xaml</DependentUpon>
     </Compile>
@@ -314,8 +311,8 @@
     <Compile Include="Views\Users\FollowingPage.xaml.cs">
       <DependentUpon>FollowingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Users\IssueListPage.xaml.cs">
-      <DependentUpon>IssueListPage.xaml</DependentUpon>
+    <Compile Include="Views\Home\Issues.xaml.cs">
+      <DependentUpon>Issues.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Home\NotificationsPage.xaml.cs">
       <DependentUpon>NotificationsPage.xaml</DependentUpon>
@@ -573,10 +570,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Home\IssuesPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Home\PullRequestsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -665,7 +658,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Users\IssueListPage.xaml">
+    <Page Include="Views\Home\Issues.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -740,7 +733,6 @@
     <XliffResource Include="MultilingualResources\FluentHub.zh-CN.xlf" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Assets\Avatars\" />
     <Folder Include="Dialogs\" />
   </ItemGroup>
   <ItemGroup>

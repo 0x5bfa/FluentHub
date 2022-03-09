@@ -14,7 +14,7 @@ namespace FluentHub.ViewModels.Users
 {
     public class OverviewViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<RepoListItem> Items { get; private set; } = new();
+        public ObservableCollection<RepoListItem> PinnedRepos { get; private set; } = new();
 
         public async Task<int> GetPinnedRepos(string login)
         {
@@ -28,10 +28,10 @@ namespace FluentHub.ViewModels.Users
                 {
                     RepoListItem listItem = new RepoListItem();
                     listItem.RepoId = repoId;
-                    Items.Add(listItem);
+                    PinnedRepos.Add(listItem);
                 }
 
-                return Items.Count();
+                return PinnedRepos.Count();
             }
             catch (Exception ex)
             {

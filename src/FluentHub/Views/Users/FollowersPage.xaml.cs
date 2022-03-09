@@ -24,9 +24,7 @@ namespace FluentHub.Views.Users
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            string login = e.Parameter as string;
-
-            await ViewModel.GetFollowersList(login);
+            await ViewModel.GetFollowersList(e.Parameter as string);
 
             base.OnNavigatedTo(e);
         }

@@ -26,39 +26,19 @@ namespace FluentHub.Views.Home
 
         private void HomeNavView_SelectionChanged(muxc.NavigationView sender, muxc.NavigationViewSelectionChangedEventArgs args)
         {
-            string tag = args.SelectedItemContainer.Tag.ToString();
-
-            switch (tag)
+            _ = args.SelectedItemContainer.Tag.ToString() switch
             {
-                case "Profile":
-                    HomeContentFrame.Navigate(typeof(ProfilePage), App.SignedInUserName);
-                    break;
-                case "Notifications":
-                    HomeContentFrame.Navigate(typeof(NotificationsPage));
-                    break;
-                case "Activities":
-                    HomeContentFrame.Navigate(typeof(ActivityPage));
-                    break;
-
-                case "Issues":
-                    HomeContentFrame.Navigate(typeof(IssueListPage), App.SignedInUserName);
-                    break;
-                case "Pulls":
-                    HomeContentFrame.Navigate(typeof(PullRequestListPage), App.SignedInUserName);
-                    break;
-                case "Discussions":
-                    //HomeContentFrame.Navigate(typeof());
-                    break;
-                case "Repositories":
-                    HomeContentFrame.Navigate(typeof(RepositoriesPage), App.SignedInUserName);
-                    break;
-                case "Organizations":
-                    //HomeContentFrame.Navigate(typeof());
-                    break;
-                case "Starred":
-                    HomeContentFrame.Navigate(typeof(StarsPage), App.SignedInUserName);
-                    break;
-            }
+                "Profile" =>       HomeContentFrame.Navigate(typeof(ProfilePage), App.SignedInUserName),
+                "Notifications" => HomeContentFrame.Navigate(typeof(NotificationsPage)),
+                "Activities" =>    HomeContentFrame.Navigate(typeof(ActivityPage)),
+                "Issues" =>        HomeContentFrame.Navigate(typeof(IssuesPage), App.SignedInUserName),
+                "Pulls" =>         HomeContentFrame.Navigate(typeof(PullRequestListPage), App.SignedInUserName),
+                //"Discussions" => HomeContentFrame.Navigate(typeof()),
+                "Repositories" =>  HomeContentFrame.Navigate(typeof(RepositoriesPage), App.SignedInUserName),
+                //"Organizations" => HomeContentFrame.Navigate(typeof()),
+                "Starred" =>       HomeContentFrame.Navigate(typeof(StarsPage), App.SignedInUserName),
+                _ =>               HomeContentFrame.Navigate(typeof(ProfilePage), App.SignedInUserName),
+            };
         }
     }
 }

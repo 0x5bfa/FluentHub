@@ -11,7 +11,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:vm="using:FluentHub.ViewModels.Users"
-    Loaded="Page_Loaded"
     mc:Ignorable="d">
 
     <Page.DataContext>
@@ -47,8 +46,11 @@
                         Text="Pinned repositories" />
                 </StackPanel>
                 <muxc:ItemsRepeaterScrollHost Grid.Row="1">
-                    <ScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollMode="Disabled">
-                        <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}">
+                    <ScrollViewer
+                        HorizontalScrollBarVisibility="Hidden"
+                        VerticalScrollBarVisibility="Disabled"
+                        VerticalScrollMode="Disabled">
+                        <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.PinnedRepos, Mode=OneWay}">
                             <muxc:ItemsRepeater.Layout>
                                 <muxc:StackLayout Orientation="Horizontal" Spacing="8" />
                             </muxc:ItemsRepeater.Layout>

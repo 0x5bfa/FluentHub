@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="FluentHub.Views.Users.IssueListPage"
+    x:Class="FluentHub.Views.Home.IssuesPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -9,6 +9,13 @@
     mc:Ignorable="d">
 
     <Grid>
-        <TextBlock Text="Issues page" />
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Margin="20,20,20,12">
+            <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Issues" />
+        </Grid>
     </Grid>
 </Page>
