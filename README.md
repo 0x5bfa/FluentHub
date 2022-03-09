@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="Logo" src="src/FluentHub/Assets/AppTiles/Primitives/Dev/FluentHub.dev.original.scale-1024.png" width="100px" />
+  <img alt="Logo" src="src/FluentHub/Assets/AppTilesDev/StoreLogo.scale-400.png" width="100px" />
   <h1 align="center">FluentHub</h1>
 </p>
 
