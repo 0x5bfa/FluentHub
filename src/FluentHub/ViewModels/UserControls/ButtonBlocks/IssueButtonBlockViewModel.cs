@@ -1,4 +1,4 @@
-﻿using FluentHub.OctokitEx.Clients;
+﻿using FluentHub.OctokitEx.Queries;
 using System;
 using System.Collections.Generic;
 using System.Linq;

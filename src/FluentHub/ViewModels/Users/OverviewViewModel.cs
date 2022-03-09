@@ -1,5 +1,5 @@
 ﻿using FluentHub.Models.Items;
-using FluentHub.OctokitEx.Clients;
+using FluentHub.OctokitEx.Queries;
 using FluentHub.Services.OctokitEx;
 using Serilog;
 using System;
