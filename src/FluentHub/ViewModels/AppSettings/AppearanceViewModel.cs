@@ -72,7 +72,6 @@ namespace FluentHub.ViewModels.AppSettings
                 "ThemeDark".GetLocalized(),
             };
 
-
             DefaultLanguages = App.Settings.DefaultLanguages;
         }
 

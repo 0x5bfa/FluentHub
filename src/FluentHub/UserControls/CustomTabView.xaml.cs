@@ -1,7 +1,6 @@
-﻿using FluentHub.ViewModels;
-using FluentHub.Views;
+﻿using FluentHub.Models;
+using FluentHub.ViewModels;
 using FluentHub.Views.Home;
-using FluentHub.Views.Users;
 using Microsoft.UI.Xaml.Controls;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -12,62 +11,6 @@ using FontIconSource = Microsoft.UI.Xaml.Controls.FontIconSource;
 
 namespace FluentHub.UserControls
 {
-    public class TabItem : INotifyPropertyChanged
-    {
-        private string _header;
-        public string Header
-        {
-            get => _header;
-            set
-            {
-                _header = value;
-                NotifyPropertyChanged(nameof(Header));
-            }
-        }
-
-        private FontIconSource _iconSource;
-        public FontIconSource IconSource
-        {
-            get => _iconSource;
-            set
-            {
-                _iconSource = value;
-                NotifyPropertyChanged(nameof(IconSource));
-            }
-        }
-
-        private List<string> _pageUrl = new List<string>();
-        public List<string> PageUrlList
-        {
-            get => _pageUrl;
-            set
-            {
-                _pageUrl = value;
-                NotifyPropertyChanged(nameof(PageUrlList));
-            }
-        }
-
-        private int _naviationIndex;
-        public int NavigationIndex
-        {
-            get => _pageUrl.Count() - 1;
-            set
-            {
-                // Navigation control is coming soon.
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void NotifyPropertyChanged(string name)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
-            }
-        }
-    }
-
     public sealed partial class CustomTabView : UserControl
     {
         private bool TabItemAdding { get; set; } = false;
@@ -139,7 +82,7 @@ namespace FluentHub.UserControls
             TabItemAdding = true;
 
             MainPageViewModel.AddNewTabByPath($"/{App.SignedInUserName}");
-            App.MainViewModel.MainFrame.Navigate(typeof(ProfilePage), $"{App.SignedInUserName}");
+            App.MainViewModel.MainFrame.Navigate(typeof(UserHomePage));
             App.MainViewModel.SelectedTabIndex = MainTabView.SelectedIndex = App.MainViewModel.MainTabItems.Count() - 1;
         }
     }

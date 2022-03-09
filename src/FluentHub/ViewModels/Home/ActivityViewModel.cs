@@ -39,10 +39,6 @@ namespace FluentHub.ViewModels.Home
                 {
                     continue;
                 }
-
-
-
-
             }
 
             IsActive = false;

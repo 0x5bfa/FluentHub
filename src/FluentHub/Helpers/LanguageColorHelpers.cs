@@ -1,14 +1,10 @@
-﻿// Copyright (c) 2022 fluenthub-uwp
-// Licensed under the MIT License.
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI;
 using Windows.UI.Xaml.Media;
-
 
 namespace FluentHub.Helpers
 {

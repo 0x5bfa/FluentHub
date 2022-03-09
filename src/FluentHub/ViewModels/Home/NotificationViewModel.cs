@@ -65,7 +65,6 @@ namespace FluentHub.ViewModels.Home
             return Convert.ToInt32(id);
         }
 
-
         private bool isActive;
         public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
 

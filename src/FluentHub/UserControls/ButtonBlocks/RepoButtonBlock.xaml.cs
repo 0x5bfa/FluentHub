@@ -16,7 +16,6 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-
 namespace FluentHub.UserControls.ButtonBlocks
 {
     public sealed partial class RepoButtonBlock : UserControl

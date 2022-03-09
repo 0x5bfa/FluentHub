@@ -145,6 +145,7 @@
     <Compile Include="Models\Items\LabelSimpleItem.cs" />
     <Compile Include="Models\Items\NotificationListItem.cs" />
     <Compile Include="Models\Items\RepoListItem.cs" />
+    <Compile Include="Models\TabItem.cs" />
     <Compile Include="Services\Auth\AppCredentials.cs" />
     <Compile Include="Services\Auth\RequestAuthorization.cs" />
     <Compile Include="Services\OctokitEx\DevProgramMember.cs" />

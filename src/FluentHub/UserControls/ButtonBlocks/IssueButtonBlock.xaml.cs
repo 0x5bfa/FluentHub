@@ -77,6 +77,7 @@ namespace FluentHub.UserControls.ButtonBlocks
             return brush;
         }
 
+        // complex method.
         private async void ItemsRepeater_Loaded(object sender, RoutedEventArgs e)
         {
             var issue = await App.Client.Issue.Get(RepositoryId, IssueIndex);
@@ -121,7 +122,6 @@ namespace FluentHub.UserControls.ButtonBlocks
                     StatusFontGlyph.Foreground = new SolidColorBrush(Color.FromArgb(0xFF, 0x82, 0x50, 0xDF));
                     StatusFontGlyph.Glyph = "\uE9E6";
                 }
-
             }
 
             var repo = await App.Client.Repository.Get(RepositoryId);

@@ -1,5 +1,4 @@
-﻿using FluentHub.UserControls;
-using Microsoft.Toolkit.Uwp;
+﻿using FluentHub.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +9,6 @@ namespace FluentHub.ViewModels
 {
     public class MainPageViewModel
     {
-
         public static void AddNewTabByPath(string path)
         {
             TabItem tabItem = new TabItem()
