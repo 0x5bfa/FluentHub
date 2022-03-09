@@ -52,7 +52,7 @@
             TabCloseRequested="MainTabView_TabCloseRequested"
             TabItemsSource="{x:Bind root:App.MainViewModel.MainTabItems, Mode=OneWay}">
             <muxc:TabView.TabItemTemplate>
-                <DataTemplate x:DataType="local:TabItem">
+                <DataTemplate x:DataType="model:TabItem">
                     <muxc:TabViewItem
                         Padding="2,0,2,2"
                         ContextFlyout="{StaticResource TabFlyout}"
