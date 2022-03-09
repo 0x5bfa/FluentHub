@@ -123,11 +123,12 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
-    <Compile Include="Clients\UserFollowersClient.cs" />
-    <Compile Include="Clients\UserFollowingClient.cs" />
-    <Compile Include="Clients\UserPinnedItemsClient.cs" />
-    <Compile Include="Clients\UserStatusClient.cs" />
-    <Compile Include="Models\UserFollowers.cs" />
+    <Compile Include="Queries\User\FollowersQueries.cs" />
+    <Compile Include="Queries\User\FollowingQueries.cs" />
+    <Compile Include="Queries\User\PinnedItemsQueries.cs" />
+    <Compile Include="Queries\User\StatusQueries.cs" />
+    <Compile Include="Models\RepositoryBlockItem.cs" />
+    <Compile Include="Models\UserBlockItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="Properties\Default.rd.xml" />
   </ItemGroup>
@@ -146,7 +147,9 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Converters\" />
+    <Folder Include="Auth\" />
+    <Folder Include="Queries\Organization\" />
+    <Folder Include="Queries\Repository\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

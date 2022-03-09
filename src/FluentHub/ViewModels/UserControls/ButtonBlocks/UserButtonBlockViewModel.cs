@@ -12,8 +12,8 @@ namespace FluentHub.ViewModels.UserControls.ButtonBlocks
 {
     public class UserButtonBlockViewModel : INotifyPropertyChanged
     {
-        private UserFollowers user;
-        public UserFollowers User
+        private UserBlockItem user;
+        public UserBlockItem User
         {
             get => user;
             set

@@ -5,14 +5,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FluentHub.OctokitEx.Clients
+namespace FluentHub.OctokitEx.Queries
 {
-    public class UserPinnedItemsClient
+    public class PinnedItemsQueries
     {
-        public UserPinnedItemsClient() => new App();
+        public PinnedItemsQueries() => new App();
 
-        public async Task<List<Models.UserFollowers>> Get(string login, bool isUser)
+        public async Task Get(string login, bool isUser)
         {
+            #region Queries
             var userPinnedItemsQuery = new Query()
                     .User(login)
                     .PinnedItems(first: 6)
@@ -52,10 +53,14 @@ namespace FluentHub.OctokitEx.Clients
                         //repo.UpdatedAt,
                     })))
                     .Compile();
+            #endregion
 
             var result = await App.Connection.Run(isUser ? userPinnedItemsQuery: orgPinnedItemsQuery);
 
-            return null;
+            foreach (var res in result)
+            {
+                Models.RepositoryBlockItem item = new();
+            }
         }
     }
 }

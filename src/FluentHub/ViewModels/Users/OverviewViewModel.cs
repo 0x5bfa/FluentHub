@@ -1,4 +1,5 @@
 ﻿using FluentHub.Models.Items;
+using FluentHub.OctokitEx.Clients;
 using FluentHub.Services.OctokitEx;
 using Serilog;
 using System;
@@ -16,13 +17,15 @@ namespace FluentHub.ViewModels.Users
     {
         public ObservableCollection<RepoListItem> PinnedRepos { get; private set; } = new();
 
-        public async Task<int> GetPinnedRepos(string login)
+        public async Task GetPinnedRepos(string login)
         {
             try
             {
                 UserPinnedItems pinnedItems = new UserPinnedItems();
-
                 var repoIdList = await pinnedItems.Get(login, true);
+
+                PinnedItemsQueries query = new();
+                await query.Get(login, true);
 
                 foreach (var repoId in repoIdList)
                 {
@@ -30,13 +33,10 @@ namespace FluentHub.ViewModels.Users
                     listItem.RepoId = repoId;
                     PinnedRepos.Add(listItem);
                 }
-
-                return PinnedRepos.Count();
             }
             catch (Exception ex)
             {
                 Log.Error(ex, ex.Message);
-                return -1;
             }
         }
 

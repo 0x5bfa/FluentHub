@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FluentHub.OctokitEx.Clients
+namespace FluentHub.OctokitEx.Queries
 {
-    public class UserStatusClient
+    public class StatusQueries
     {
-        public UserStatusClient() { _ = new App(); }
+        public StatusQueries() { _ = new App(); }
 
         public async Task<Octokit.GraphQL.Model.UserStatus> Get(string login)
         {

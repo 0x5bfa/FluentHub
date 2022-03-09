@@ -6,13 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FluentHub.OctokitEx.Clients
+namespace FluentHub.OctokitEx.Queries
 {
-    public class UserFollowersClient
+    public class FollowersQueries
     {
-        public UserFollowersClient() => new App();
+        public FollowersQueries() => new App();
 
-        public async Task<List<Models.UserFollowers>> Get(string login)
+        public async Task<List<Models.UserBlockItem>> Get(string login)
         {
             var query = new Query()
                     .User(login)
@@ -27,20 +27,20 @@ namespace FluentHub.OctokitEx.Clients
                     })
                     .Compile();
 
-            List<Models.UserFollowers> formattedFollowersList = new List<Models.UserFollowers>();
+            List<Models.UserBlockItem> formattedFollowersList = new();
 
             var result = await App.Connection.Run(query);
 
             foreach(var res in result)
             {
-                Models.UserFollowers follower = new Models.UserFollowers();
+                Models.UserBlockItem item = new();
 
-                follower.AvatarUrl = res.AvatarUrl;
-                follower.Name = res.Name;
-                follower.Login = res.Login;
-                follower.Bio = res.Bio;
+                item.AvatarUrl = res.AvatarUrl;
+                item.Name = res.Name;
+                item.Login = res.Login;
+                item.Bio = res.Bio;
 
-                formattedFollowersList.Add(follower);
+                formattedFollowersList.Add(item);
             }
 
             return formattedFollowersList;

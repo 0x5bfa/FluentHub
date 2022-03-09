@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FluentHub.OctokitEx.Models
 {
-    public class UserFollowers
+    public class UserBlockItem
     {
         public string AvatarUrl { get; set; } // 100x100
 
