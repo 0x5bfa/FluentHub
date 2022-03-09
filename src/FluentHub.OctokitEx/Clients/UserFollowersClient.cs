@@ -10,7 +10,7 @@ namespace FluentHub.OctokitEx.Clients
 {
     public class UserFollowersClient
     {
-        public UserFollowersClient() { _ = new App(); }
+        public UserFollowersClient() => new App();
 
         public async Task<List<Models.UserFollowers>> Get(string login)
         {
