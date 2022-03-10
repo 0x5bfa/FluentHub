@@ -1,4 +1,5 @@
-﻿using FluentHub.ViewModels.Repositories;
+﻿using FluentHub.Models.Items;
+using FluentHub.ViewModels.Repositories;
 using FluentHub.ViewModels.UserControls.Blocks;
 using System;
 using System.Collections.Generic;
@@ -57,20 +58,15 @@ namespace FluentHub.Views.Repositories.Layouts
 
         private void DirListView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
-            var commonRepoViewModel = new CommonRepoViewModel();
+            var commonRepoViewModel = new CommonRepoViewModel()
+            {
+                RepositoryId = CommonRepoViewModel.RepositoryId,
+                IsRootDir = false,
+            };
 
-            commonRepoViewModel.RepositoryId = CommonRepoViewModel.RepositoryId;
-            commonRepoViewModel.IsRootDir = false;
+            DetailsLayoutListViewItem item = DirListView.SelectedItem as DetailsLayoutListViewItem;
 
-            var clickedItem = e.OriginalSource as FrameworkElement;
-
-            var grid = clickedItem.FindName("ListViewItemGrid") as Grid;
-
-            if (grid == null || grid.Tag == null) return;
-
-            string tag = grid.Tag.ToString();
-
-            var tagItem = tag.Split("/");
+            var tagItem = item.ObjectTag.Split("/");
 
             if (tagItem[0] != "dir")
             {

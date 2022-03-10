@@ -1,5 +1,4 @@
-﻿using Octokit;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,59 +16,45 @@ using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub.Views.Organizations
 {
-    public sealed partial class ProfilePage : Windows.UI.Xaml.Controls.Page
+    public sealed partial class ProfilePage : Page
     {
         private string OrganizationName { get; set; }
-        private Organization Organization { get; set; }
 
         public ProfilePage()
         {
             this.InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             OrganizationName = e.Parameter as string;
+            await ViewModel.GetOrganization(OrganizationName);
+            UpdateVisibility();
 
             base.OnNavigatedTo(e);
         }
 
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        private void UpdateVisibility()
         {
-            Organization = await App.Client.Organization.Get(OrganizationName);
-
-            // Avator
-            UserAvatorImage.Source = new BitmapImage(new Uri(Organization.AvatarUrl));
-
-            // Fullname
-            if (!string.IsNullOrEmpty(Organization.Name))
+            if (!string.IsNullOrEmpty(OrgDescriptionTextBlock.Text))
             {
-                FullName.Text = Organization.Name;
+                OrgDescriptionTextBlock.Visibility = Visibility.Visible;
             }
 
-            if (!string.IsNullOrEmpty(Organization.Description))
+            if (!string.IsNullOrEmpty(LocationTextBlock.Text))
             {
-                UserBioTextBlock.Text = Organization.Description;
-                UserBioTextBlock.Visibility = Visibility.Visible;
-            }
-
-            if (!string.IsNullOrEmpty(Organization.Location))
-            {
-                LocationTextBlock.Text = Organization.Location;
                 LocationBlock.Visibility = Visibility.Visible;
             }
 
-            if (!string.IsNullOrEmpty(Organization.Blog))
+            if (!string.IsNullOrEmpty(LinkHyperlinkButton.Content as string))
             {
-                LinkButton.Content = Organization.Blog;
-                LinkButton.NavigateUri = new UriBuilder(Organization.Blog).Uri;
+                LinkHyperlinkButton.NavigateUri = new UriBuilder(LinkHyperlinkButton.Content as string).Uri;
                 LinkBlock.Visibility = Visibility.Visible;
             }
 
-            if (!string.IsNullOrEmpty(Organization.Email))
+            if (!string.IsNullOrEmpty(MailHyperlinkButton.Content as string))
             {
-                MailButton.Content = Organization.Email;
-                LinkButton.NavigateUri = new Uri("mailto:" + Organization.Email);
+                MailHyperlinkButton.NavigateUri = new Uri("mailto:" + MailHyperlinkButton.Content);
                 MailBlock.Visibility = Visibility.Visible;
             }
 
@@ -78,21 +63,14 @@ namespace FluentHub.Views.Organizations
 
         private void OrgNavView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
         {
-            switch (args.InvokedItemContainer.Tag.ToString())
+            _ = args.InvokedItemContainer.Tag.ToString() switch
             {
-                case "Overview":
-                    OrgNavViewContent.Navigate(typeof(OverviewPage), OrganizationName);
-                    break;
-                case "Repositories":
-                    OrgNavViewContent.Navigate(typeof(RepoListPage), OrganizationName);
-                    break;
-                case "People":
-                    OrgNavViewContent.Navigate(typeof(MembershipPage), OrganizationName);
-                    break;
-                case "Teams":
-                    //OrgNavViewContent.Navigate(typeof(TeamsPage), OrganizationName);
-                    break;
-            }
+                "Overview" =>     OrgNavViewContent.Navigate(typeof(OverviewPage), OrganizationName),
+                "Repositories" => OrgNavViewContent.Navigate(typeof(RepoListPage), OrganizationName),
+                "People" =>       OrgNavViewContent.Navigate(typeof(MembershipPage), OrganizationName),
+                //"Teams" => OrgNavViewContent.Navigate(typeof(TeamsPage), OrganizationName),
+                _ =>              OrgNavViewContent.Navigate(typeof(OverviewPage), OrganizationName),
+            };
         }
     }
 }

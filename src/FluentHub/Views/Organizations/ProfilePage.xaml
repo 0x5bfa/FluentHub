@@ -7,11 +7,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:vm="using:FluentHub.ViewModels.Organizations"
     d:DesignHeight="300"
     d:DesignWidth="400"
-    Loaded="Page_Loaded"
     mc:Ignorable="d">
 
+    <Page.DataContext>
+        <vm:ProfileViewModel x:Name="ViewModel" />
+    </Page.DataContext>
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -24,12 +27,12 @@
     </Page.Resources>
 
     <ScrollViewer>
-        <Grid Margin="20">
+        <Grid Margin="12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Grid Margin="0,0,0,12">
+            <Grid Margin="12,12,12,24">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -56,21 +59,23 @@
                             x:Name="UserAvatorImage"
                             Width="84"
                             Height="84"
-                            Source="https://avatars.githubusercontent.com/u/98096883?s=200&amp;v=4" />
+                            Source="{x:Bind ViewModel.Organization.AvatarUrl, Mode=OneWay}" />
                     </Border>
                     <StackPanel
                         Grid.Column="1"
                         Margin="12,0,0,0"
                         VerticalAlignment="Center">
                         <TextBlock
-                            x:Name="FullName"
+                            x:Name="OrgNameTextBlock"
                             VerticalAlignment="Center"
                             FontWeight="SemiBold"
-                            Style="{StaticResource SubtitleTextBlockStyle}" />
+                            Style="{StaticResource SubtitleTextBlockStyle}"
+                            Text="{x:Bind ViewModel.Organization.Name, Mode=OneWay}" />
                         <TextBlock
-                            x:Name="UserBioTextBlock"
+                            x:Name="OrgDescriptionTextBlock"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{ThemeResource BodyTextBlockStyle}"
+                            Text="{x:Bind ViewModel.Organization.Description, Mode=OneWay}"
                             Visibility="Collapsed" />
                         <toolkit:WrapPanel
                             Grid.Row="1"
@@ -95,7 +100,8 @@
                                     x:Name="LocationTextBlock"
                                     VerticalAlignment="Center"
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Style="{ThemeResource BodyTextBlockStyle}" />
+                                    Style="{ThemeResource BodyTextBlockStyle}"
+                                    Text="{x:Bind ViewModel.Organization.Location, Mode=OneWay}" />
                             </StackPanel>
                             <StackPanel
                                 x:Name="LinkBlock"
@@ -109,8 +115,9 @@
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                     Glyph="&#xE9FB;" />
                                 <HyperlinkButton
-                                    x:Name="LinkButton"
+                                    x:Name="LinkHyperlinkButton"
                                     Padding="4"
+                                    Content="{x:Bind ViewModel.Organization.WebsiteUrl, Mode=OneWay}"
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" />
                             </StackPanel>
                             <StackPanel
@@ -125,8 +132,9 @@
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                     Glyph="&#xEA09;" />
                                 <HyperlinkButton
-                                    x:Name="MailButton"
+                                    x:Name="MailHyperlinkButton"
                                     Padding="4"
+                                    Content="{x:Bind ViewModel.Organization.Email, Mode=OneWay}"
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" />
                             </StackPanel>
                         </toolkit:WrapPanel>
