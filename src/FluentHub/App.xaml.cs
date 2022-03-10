@@ -51,6 +51,8 @@ namespace FluentHub
 
         private static InternetConnectionHelpers internetConnection = new InternetConnectionHelpers();
 
+        public static string AppVersion = $"{Package.Current.Id.Version.Major}.{Package.Current.Id.Version.Minor}.{Package.Current.Id.Version.Build}.{Package.Current.Id.Version.Revision}";
+
         public App()
         {
             this.InitializeComponent();

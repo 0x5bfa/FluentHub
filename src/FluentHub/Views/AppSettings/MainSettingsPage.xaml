@@ -8,13 +8,15 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     Loaded="Page_Loaded"
     mc:Ignorable="d">
-
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
                     <StaticResource x:Key="NavigationViewContentBackground" ResourceKey="SystemControlPageBackgroundTransparentBrush" />
                     <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
+                    <Thickness x:Key="NavigationViewItemMargin">10,0,10,0</Thickness>
+                    <Thickness x:Key="NavigationViewCompactItemContentPresenterMargin">-10,0</Thickness>
+                    <x:Double x:Key="NavigationViewCompactPaneLength">48</x:Double>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -24,18 +26,18 @@
         <Grid>
             <muxc:NavigationView
                 x:Name="SettingsNavView"
-                Margin="6,6,0,6"
                 IsBackButtonVisible="Collapsed"
                 IsPaneOpen="True"
                 IsPaneToggleButtonVisible="False"
                 IsSettingsVisible="False"
                 IsTitleBarAutoPaddingEnabled="False"
-                OpenPaneLength="270"
+                OpenPaneLength="300"
+                PaneDisplayMode="Left"
                 SelectionChanged="SettingsNavView_SelectionChanged">
                 <muxc:NavigationView.PaneHeader>
                     <Button
                         Height="76"
-                        Margin="4,12"
+                        Margin="5,12"
                         Padding="8,6"
                         HorizontalAlignment="Stretch"
                         HorizontalContentAlignment="Left"
@@ -64,7 +66,7 @@
                 </muxc:NavigationView.PaneHeader>
                 <muxc:NavigationView.AutoSuggestBox>
                     <AutoSuggestBox
-                        Margin="-12,0"
+                        Margin="0,0"
                         PlaceholderText="Search app settings"
                         QueryIcon="Find" />
                 </muxc:NavigationView.AutoSuggestBox>
@@ -112,4 +114,17 @@
             </muxc:NavigationView>
         </Grid>
     </Grid>
+
+    <VisualStateManager.VisualStateGroups>
+        <VisualStateGroup>
+            <VisualState x:Name="Min">
+                <VisualState.StateTriggers>
+                    <AdaptiveTrigger MinWindowWidth="450" />
+                </VisualState.StateTriggers>
+                <VisualState.Setters>
+                    <Setter Target="SettingsNavView.PaneDisplayMode" Value="LeftMinimal" />
+                </VisualState.Setters>
+            </VisualState>
+        </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
 </Page>

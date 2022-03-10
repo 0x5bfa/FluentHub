@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Views.AppSettings
 {
@@ -23,12 +24,11 @@ namespace FluentHub.Views.AppSettings
             this.InitializeComponent();
         }
 
-        private void SettingsNavView_SelectionChanged(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewSelectionChangedEventArgs args)
+        private void SettingsNavView_SelectionChanged(muxc.NavigationView sender, muxc.NavigationViewSelectionChangedEventArgs args)
         {
-            string tag = args.SelectedItemContainer.Tag.ToString();
-
-            switch (tag)
+            switch (args.SelectedItemContainer.Tag.ToString())
             {
+                default:
                 case "Appearance":
                     SettingsContentFrame.Navigate(typeof(AppearancePage));
                     NavViewFrameTitleTextBlock.Text = "Appearance";

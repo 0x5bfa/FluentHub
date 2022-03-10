@@ -23,11 +23,5 @@ namespace FluentHub.Views.AppSettings
         {
             this.InitializeComponent();
         }
-
-        private async void SettingsBlockControl_Click(object sender, RoutedEventArgs e)
-        {
-            string logsFolder = Path.Combine(ApplicationData.Current.LocalFolder.Path, "Logs");
-            await Launcher.LaunchFolderPathAsync(logsFolder);
-        }
     }
 }
