@@ -15,17 +15,7 @@
     </Page.DataContext>
 
     <ScrollViewer>
-        <Grid Margin="0,0,16,0">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+        <StackPanel Margin="0,0,16,0">
             <StackPanel
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
@@ -86,11 +76,10 @@
                 </uc:SettingsBlockControl>
             </StackPanel>
             <TextBlock
-                Grid.Row="1"
                 Margin="0,24,0,6"
                 Style="{StaticResource BodyStrongTextBlockStyle}"
                 Text="FluentHub Team Members" />
-            <StackPanel Grid.Row="2" Spacing="4">
+            <StackPanel Spacing="4">
                 <Grid
                     Padding="12"
                     Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
@@ -158,7 +147,7 @@
                         Text="BobbyESP" />
                 </Grid>
             </StackPanel>
-        </Grid>
+        </StackPanel>
     </ScrollViewer>
 </Page>
 
