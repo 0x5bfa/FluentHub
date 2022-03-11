@@ -132,6 +132,7 @@
     <Compile Include="Models\RepositoryBlockItem.cs" />
     <Compile Include="Models\UserBlockItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\User\ViewerQueries.cs" />
     <EmbeddedResource Include="Properties\Default.rd.xml" />
   </ItemGroup>
   <ItemGroup>

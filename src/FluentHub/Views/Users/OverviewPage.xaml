@@ -60,7 +60,6 @@
                                     <block:RepoButtonBlock
                                         x:Name="RepositoryBlock"
                                         Width="250"
-                                        Height="{Binding ScrollViewer.Height}"
                                         VerticalAlignment="Stretch"
                                         DisplayStarButton="False"
                                         RepositoryId="{x:Bind RepoId, Mode=OneWay}" />

@@ -1,4 +1,5 @@
 ﻿using FluentHub.Helpers;
+using FluentHub.OctokitEx.Queries.User;
 using FluentHub.Services;
 using FluentHub.Services.Auth;
 using FluentHub.ViewModels;
@@ -63,6 +64,8 @@ namespace FluentHub
                 if (Settings.Get("AccessToken", "") != "")
                 {
                     Client.Credentials = new Credentials(Settings.Get("AccessToken", ""));
+
+                    _ = GetViewerLoginName();
                 }
                 else
                 {
@@ -72,6 +75,15 @@ namespace FluentHub
                     rootFrame.Navigate(typeof(IntroPage));
                 }
             }
+
+            IntializeLogger();
+            Log.Information("FluentHub has been launched.");
+        }
+
+        private async Task GetViewerLoginName()
+        {
+            ViewerQueries queries = new();
+            SignedInUserName = await queries.GetLoginName();
         }
 
         private void IntializeLogger()
@@ -80,13 +92,14 @@ namespace FluentHub
 
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
-                .WriteTo.File(logFilePath, rollingInterval: RollingInterval.Day)
+                .WriteTo
+                .File(logFilePath, rollingInterval: RollingInterval.Day)
                 .CreateLogger();
 
-            Log.Debug("Initialized logger.");
+            Log.Debug("Initialized logger in FluentHub.");
         }
 
-        protected override async void OnLaunched(LaunchActivatedEventArgs e)
+        protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
             ApplicationView.GetForCurrentView().TitleBar.ButtonBackgroundColor = Colors.Transparent;
@@ -112,21 +125,16 @@ namespace FluentHub
                 {
                     if (Settings.SetupCompleted == true)
                     {
-                        User user = await Client.User.Current();
-                        SignedInUserName = user.Login;
-                        Settings.AccountsNamesJoinedSlashes += ("/" + user.Login);
-                    }
-
-                    Log.Information("FluentHub has been launched.");
-
-                    IntializeLogger();
-
-                    _ = !Settings.SetupCompleted ?
-                        rootFrame.Navigate(typeof(IntroPage), e.Arguments) :
+                        Settings.AccountsNamesJoinedSlashes += ("/" + SignedInUserName);
                         rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                    }
+                    else
+                    {
+                        rootFrame.Navigate(typeof(IntroPage), e.Arguments);
+                    }
                 }
-                ThemeHelper.Initialize();
 
+                ThemeHelper.Initialize();
                 Window.Current.Activate();
             }
         }
