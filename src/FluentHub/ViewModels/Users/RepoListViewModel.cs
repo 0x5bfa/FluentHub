@@ -13,7 +13,7 @@ namespace FluentHub.ViewModels.Users
 {
     public class RepoListViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<Repository> Items { get; private set; }
+        public ObservableCollection<Repository> Items { get; private set; } = new();
 
         private bool isActive;
         public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
@@ -28,12 +28,12 @@ namespace FluentHub.ViewModels.Users
 
             foreach (var item in repos)
             {
-                if (Items.Count == 30) break;
-
                 if (item.Owner.Type == AccountType.User)
                 {
                     Items.Add(item);
                 }
+
+                if (Items.Count == 30) break;
             }
 
             IsActive = false;

@@ -18,7 +18,7 @@
     </Page.DataContext>
 
     <Grid>
-        <Grid>
+        <Grid Margin="12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />

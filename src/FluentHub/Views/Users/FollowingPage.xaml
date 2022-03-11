@@ -15,7 +15,7 @@
         <vm:FollowingViewModel x:Name="ViewModel" />
     </Page.DataContext>
 
-    <Grid RowSpacing="2">
+    <Grid Margin="12">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />

@@ -246,14 +246,14 @@
     <Compile Include="Views\AppSettings\AppearancePage.xaml.cs">
       <DependentUpon>AppearancePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Home\PullRequestsPage.xaml.cs">
+    <Compile Include="Views\Users\DiscussionsPage.xaml.cs">
+      <DependentUpon>DiscussionsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Users\OrganizationsPage.xaml.cs">
+      <DependentUpon>OrganizationsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Users\PullRequestsPage.xaml.cs">
       <DependentUpon>PullRequestsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Home\RepositoriesPage.xaml.cs">
-      <DependentUpon>RepositoriesPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Home\StarsPage.xaml.cs">
-      <DependentUpon>StarsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
@@ -313,17 +313,14 @@
     <Compile Include="Views\Users\FollowingPage.xaml.cs">
       <DependentUpon>FollowingPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Home\Issues.xaml.cs">
-      <DependentUpon>Issues.xaml</DependentUpon>
+    <Compile Include="Views\Users\IssuesPage.xaml.cs">
+      <DependentUpon>IssuesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Home\NotificationsPage.xaml.cs">
       <DependentUpon>NotificationsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Users\ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Home\PullRequestListPage.xaml.cs">
-      <DependentUpon>PullRequestListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Users\RepositoriesPage.xaml.cs">
       <DependentUpon>RepositoriesPage.xaml</DependentUpon>
@@ -572,15 +569,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Home\PullRequestsPage.xaml">
+    <Page Include="Views\Users\DiscussionsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Home\RepositoriesPage.xaml">
+    <Page Include="Views\Users\OrganizationsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Home\StarsPage.xaml">
+    <Page Include="Views\Users\PullRequestsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -660,7 +657,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Home\Issues.xaml">
+    <Page Include="Views\Users\IssuesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -669,10 +666,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Users\ProfilePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Home\PullRequestListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

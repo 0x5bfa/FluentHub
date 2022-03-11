@@ -13,26 +13,18 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace FluentHub.Views.Home
-{
-    public sealed partial class StarsPage : Page
-    {
-        private string UserName { get; set; }
+// 空白ページの項目テンプレートについては、https://go.microsoft.com/fwlink/?LinkId=234238 を参照してください
 
-        public StarsPage()
+namespace FluentHub.Views.Users
+{
+    /// <summary>
+    /// それ自体で使用できる空白ページまたはフレーム内に移動できる空白ページ。
+    /// </summary>
+    public sealed partial class DiscussionsPage : Page
+    {
+        public DiscussionsPage()
         {
             this.InitializeComponent();
-
-            HomeStarsPageFrame.Navigate(typeof(Users.StarListPage));
-        }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            UserName = e.Parameter as string;
-
-            HomeStarsPageFrame.Navigate(typeof(Users.StarListPage), UserName);
-
-            base.OnNavigatedTo(e);
         }
     }
 }

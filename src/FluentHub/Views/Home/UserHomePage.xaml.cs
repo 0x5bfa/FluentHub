@@ -26,19 +26,53 @@ namespace FluentHub.Views.Home
 
         private void HomeNavView_SelectionChanged(muxc.NavigationView sender, muxc.NavigationViewSelectionChangedEventArgs args)
         {
-            _ = args.SelectedItemContainer.Tag.ToString() switch
+            switch (args.SelectedItemContainer.Tag.ToString())
             {
-                "Profile" =>       HomeContentFrame.Navigate(typeof(ProfilePage), App.SignedInUserName),
-                "Notifications" => HomeContentFrame.Navigate(typeof(NotificationsPage)),
-                "Activities" =>    HomeContentFrame.Navigate(typeof(ActivityPage)),
-                "Issues" =>        HomeContentFrame.Navigate(typeof(IssuesPage), App.SignedInUserName),
-                "Pulls" =>         HomeContentFrame.Navigate(typeof(PullRequestListPage), App.SignedInUserName),
-                //"Discussions" => HomeContentFrame.Navigate(typeof()),
-                "Repositories" =>  HomeContentFrame.Navigate(typeof(RepositoriesPage), App.SignedInUserName),
-                //"Organizations" => HomeContentFrame.Navigate(typeof()),
-                "Starred" =>       HomeContentFrame.Navigate(typeof(StarsPage), App.SignedInUserName),
-                _ =>               HomeContentFrame.Navigate(typeof(ProfilePage), App.SignedInUserName),
-            };
+                case "Profile":
+                    NavViewFrameTitleTextBlock.Visibility = Visibility.Collapsed;
+                    HomeContentFrame.Navigate(typeof(ProfilePage), App.SignedInUserName);
+                    break;
+                case "Notifications":
+                    NavViewFrameTitleTextBlock.Text = "Yours Notifications";
+                    NavViewFrameTitleTextBlock.Visibility = Visibility.Visible;
+                    HomeContentFrame.Navigate(typeof(NotificationsPage));
+                    break;
+                case "Activities":
+                    NavViewFrameTitleTextBlock.Text = "Yours Activities";
+                    NavViewFrameTitleTextBlock.Visibility = Visibility.Visible;
+                    HomeContentFrame.Navigate(typeof(ActivityPage));
+                    break;
+                case "Issues":
+                    NavViewFrameTitleTextBlock.Text = "Yours Issues";
+                    NavViewFrameTitleTextBlock.Visibility = Visibility.Visible;
+                    HomeContentFrame.Navigate(typeof(IssuesPage), App.SignedInUserName);
+                    break;
+                case "Pulls":
+                    NavViewFrameTitleTextBlock.Text = "Yours Pull Requests";
+                    NavViewFrameTitleTextBlock.Visibility = Visibility.Visible;
+                    HomeContentFrame.Navigate(typeof(PullRequestsPage), App.SignedInUserName);
+                    break;
+                case "Discussions":
+                    NavViewFrameTitleTextBlock.Text = "Yours Discussions";
+                    NavViewFrameTitleTextBlock.Visibility = Visibility.Visible;
+                    HomeContentFrame.Navigate(typeof(DiscussionsPage));
+                    break;
+                case "Repositories":
+                    NavViewFrameTitleTextBlock.Text = "Yours Repositories";
+                    NavViewFrameTitleTextBlock.Visibility = Visibility.Visible;
+                    HomeContentFrame.Navigate(typeof(RepositoriesPage), App.SignedInUserName);
+                    break;
+                case "Organizations":
+                    NavViewFrameTitleTextBlock.Text = "Yours Organizations";
+                    NavViewFrameTitleTextBlock.Visibility = Visibility.Visible;
+                    HomeContentFrame.Navigate(typeof(OrganizationsPage));
+                    break;
+                case "Starred":
+                    NavViewFrameTitleTextBlock.Text = "Yours Starred Repositories";
+                    NavViewFrameTitleTextBlock.Visibility = Visibility.Visible;
+                    HomeContentFrame.Navigate(typeof(StarredReposPage), App.SignedInUserName);
+                    break;
+            }
         }
     }
 }

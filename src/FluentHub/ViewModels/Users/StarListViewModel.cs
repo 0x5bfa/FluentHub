@@ -13,7 +13,7 @@ namespace FluentHub.ViewModels.Users
 {
     public class StarListViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<RepoListItem> Items { get; private set; }
+        public ObservableCollection<RepoListItem> Items { get; private set; } = new();
 
         public async void GetUserStarredRepos(string username)
         {

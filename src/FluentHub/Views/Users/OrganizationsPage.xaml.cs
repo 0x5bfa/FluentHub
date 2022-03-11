@@ -13,23 +13,18 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace FluentHub.Views.Home
-{
-    public sealed partial class RepositoriesPage : Page
-    {
-        private string UserName { get; set; }
+// 空白ページの項目テンプレートについては、https://go.microsoft.com/fwlink/?LinkId=234238 を参照してください
 
-        public RepositoriesPage()
+namespace FluentHub.Views.Users
+{
+    /// <summary>
+    /// それ自体で使用できる空白ページまたはフレーム内に移動できる空白ページ。
+    /// </summary>
+    public sealed partial class OrganizationsPage : Page
+    {
+        public OrganizationsPage()
         {
             this.InitializeComponent();
-        }
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            UserName = e.Parameter as string;
-
-            HomeRepoPageFrame.Navigate(typeof(Users.RepoListPage), UserName);
-
-            base.OnNavigatedTo(e);
         }
     }
 }

@@ -164,10 +164,18 @@
                 </muxc:NavigationViewItem>
             </muxc:NavigationView.MenuItems>
             <muxc:NavigationView.Content>
-                <Frame
-                    x:Name="HomeContentFrame"
-                    Grid.Column="0"
-                    Background="{ThemeResource LayerFillColorDefaultBrush}" />
+                <Grid Background="{ThemeResource LayerFillColorDefaultBrush}">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        x:Name="NavViewFrameTitleTextBlock"
+                        Margin="20,20,20,8"
+                        Style="{StaticResource SubtitleTextBlockStyle}"
+                        Visibility="Visible" />
+                    <Frame x:Name="HomeContentFrame" Grid.Row="1" />
+                </Grid>
             </muxc:NavigationView.Content>
         </muxc:NavigationView>
     </Grid>

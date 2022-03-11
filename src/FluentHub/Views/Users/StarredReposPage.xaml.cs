@@ -16,11 +16,11 @@ using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub.Views.Users
 {
-    public sealed partial class StarListPage : Page
+    public sealed partial class StarredReposPage : Page
     {
         private string UserName { get; set; }
 
-        public StarListPage()
+        public StarredReposPage()
         {
             this.InitializeComponent();
         }

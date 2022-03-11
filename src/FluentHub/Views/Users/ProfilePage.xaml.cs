@@ -46,8 +46,8 @@ namespace FluentHub.Views.Users
             _ = args.SelectedItemContainer.Tag.ToString() switch
             {
                 "Overview" =>     UserNavViewContent.Navigate(typeof(OverviewPage), UserName),
-                "Repositories" => UserNavViewContent.Navigate(typeof(RepoListPage), UserName),
-                "Stars" =>        UserNavViewContent.Navigate(typeof(StarListPage), UserName),
+                "Repositories" => UserNavViewContent.Navigate(typeof(RepositoriesPage), UserName),
+                "Stars" =>        UserNavViewContent.Navigate(typeof(StarredReposPage), UserName),
                 "Followers" =>    UserNavViewContent.Navigate(typeof(FollowersPage), UserName),
                 "Following" =>    UserNavViewContent.Navigate(typeof(FollowingPage), UserName),
                 _ =>              UserNavViewContent.Navigate(typeof(OverviewPage), UserName)
