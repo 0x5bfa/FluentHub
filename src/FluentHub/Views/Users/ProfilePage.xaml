@@ -46,6 +46,7 @@
         <Grid Margin="12,12,12,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid Margin="12,12,12,24">
@@ -265,88 +266,83 @@
                     </StackPanel>
                 </toolkit:WrapPanel>
             </Grid>
-            <Grid Grid.Row="1" RowSpacing="6">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Grid
-                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                    BorderThickness="1"
-                    CornerRadius="4">
-                    <muxc:NavigationView
-                        x:Name="UserNavView"
-                        CornerRadius="4"
-                        IsBackButtonVisible="Collapsed"
-                        IsSettingsVisible="False"
-                        PaneDisplayMode="Top"
-                        SelectionChanged="UserNavView_SelectionChanged">
-                        <muxc:NavigationView.MenuItems>
-                            <muxc:NavigationViewItem
-                                x:Name="UserNavViewItemOverview"
-                                x:Uid="UserNavViewItemOverview"
-                                IsSelected="True"
-                                Tag="Overview">
-                                <muxc:NavigationViewItem.Icon>
-                                    <FontIcon
-                                        FontFamily="{StaticResource Octions}"
-                                        FontSize="16"
-                                        Glyph="&#xE922;" />
-                                </muxc:NavigationViewItem.Icon>
-                            </muxc:NavigationViewItem>
-                            <muxc:NavigationViewItem
-                                x:Name="UserNavViewItemRepositories"
-                                x:Uid="UserNavViewItemRepositories"
-                                Tag="Repositories">
-                                <muxc:NavigationViewItem.Icon>
-                                    <FontIcon
-                                        FontFamily="{StaticResource Octions}"
-                                        FontSize="16"
-                                        Glyph="&#xEA52;" />
-                                </muxc:NavigationViewItem.Icon>
-                            </muxc:NavigationViewItem>
-                            <muxc:NavigationViewItem
-                                x:Name="UserNavViewItemStarred"
-                                Content="{helpers:ResourceString Name=Starred}"
-                                Tag="Stars">
-                                <muxc:NavigationViewItem.Icon>
-                                    <FontIcon
-                                        FontFamily="{StaticResource Octions}"
-                                        FontSize="16"
-                                        Glyph="&#xEA94;" />
-                                </muxc:NavigationViewItem.Icon>
-                            </muxc:NavigationViewItem>
-                            <muxc:NavigationViewItem
-                                x:Name="UserNavViewItemFollowers"
-                                Content="{helpers:ResourceString Name=Followers}"
-                                Tag="Followers">
-                                <muxc:NavigationViewItem.Icon>
-                                    <FontIcon
-                                        FontFamily="{StaticResource Octions}"
-                                        FontSize="16"
-                                        Glyph="&#xEA38;" />
-                                </muxc:NavigationViewItem.Icon>
-                            </muxc:NavigationViewItem>
-                            <muxc:NavigationViewItem
-                                x:Name="UserNavViewItemFollowing"
-                                Content="{helpers:ResourceString Name=Following}"
-                                Tag="Following">
-                                <muxc:NavigationViewItem.Icon>
-                                    <FontIcon
-                                        FontFamily="{StaticResource Octions}"
-                                        FontSize="16"
-                                        Glyph="&#xEA38;" />
-                                </muxc:NavigationViewItem.Icon>
-                            </muxc:NavigationViewItem>
-                        </muxc:NavigationView.MenuItems>
-                    </muxc:NavigationView>
-                </Grid>
-                <Frame
-                    x:Name="UserNavViewContent"
-                    Grid.Row="1"
-                    Margin="-12,-6,-12,0" />
+            <Grid
+                Grid.Row="1"
+                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="4">
+                <muxc:NavigationView
+                    x:Name="UserNavView"
+                    CornerRadius="4"
+                    IsBackButtonVisible="Collapsed"
+                    IsSettingsVisible="False"
+                    PaneDisplayMode="Top"
+                    SelectionChanged="UserNavView_SelectionChanged">
+                    <muxc:NavigationView.MenuItems>
+                        <muxc:NavigationViewItem
+                            x:Name="UserNavViewItemOverview"
+                            x:Uid="UserNavViewItemOverview"
+                            IsSelected="True"
+                            Tag="Overview">
+                            <muxc:NavigationViewItem.Icon>
+                                <FontIcon
+                                    FontFamily="{StaticResource Octions}"
+                                    FontSize="16"
+                                    Glyph="&#xE922;" />
+                            </muxc:NavigationViewItem.Icon>
+                        </muxc:NavigationViewItem>
+                        <muxc:NavigationViewItem
+                            x:Name="UserNavViewItemRepositories"
+                            x:Uid="UserNavViewItemRepositories"
+                            Tag="Repositories">
+                            <muxc:NavigationViewItem.Icon>
+                                <FontIcon
+                                    FontFamily="{StaticResource Octions}"
+                                    FontSize="16"
+                                    Glyph="&#xEA52;" />
+                            </muxc:NavigationViewItem.Icon>
+                        </muxc:NavigationViewItem>
+                        <muxc:NavigationViewItem
+                            x:Name="UserNavViewItemStarred"
+                            Content="{helpers:ResourceString Name=Starred}"
+                            Tag="Stars">
+                            <muxc:NavigationViewItem.Icon>
+                                <FontIcon
+                                    FontFamily="{StaticResource Octions}"
+                                    FontSize="16"
+                                    Glyph="&#xEA94;" />
+                            </muxc:NavigationViewItem.Icon>
+                        </muxc:NavigationViewItem>
+                        <muxc:NavigationViewItem
+                            x:Name="UserNavViewItemFollowers"
+                            Content="{helpers:ResourceString Name=Followers}"
+                            Tag="Followers">
+                            <muxc:NavigationViewItem.Icon>
+                                <FontIcon
+                                    FontFamily="{StaticResource Octions}"
+                                    FontSize="16"
+                                    Glyph="&#xEA38;" />
+                            </muxc:NavigationViewItem.Icon>
+                        </muxc:NavigationViewItem>
+                        <muxc:NavigationViewItem
+                            x:Name="UserNavViewItemFollowing"
+                            Content="{helpers:ResourceString Name=Following}"
+                            Tag="Following">
+                            <muxc:NavigationViewItem.Icon>
+                                <FontIcon
+                                    FontFamily="{StaticResource Octions}"
+                                    FontSize="16"
+                                    Glyph="&#xEA38;" />
+                            </muxc:NavigationViewItem.Icon>
+                        </muxc:NavigationViewItem>
+                    </muxc:NavigationView.MenuItems>
+                </muxc:NavigationView>
             </Grid>
+            <Frame
+                x:Name="UserNavViewContent"
+                Grid.Row="2"
+                Margin="-12,0,-12,0" />
         </Grid>
     </ScrollViewer>
 </Page>

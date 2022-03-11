@@ -9,73 +9,65 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:FluentHub.UserControls.ButtonBlocks"
     xmlns:vm="using:FluentHub.ViewModels.Organizations"
-    Loaded="Page_Loaded"
     mc:Ignorable="d">
 
     <Page.DataContext>
         <vm:OverviewViewModel x:Name="ViewModel" />
     </Page.DataContext>
-    <Page.Resources>
-        <Style
-            x:Key="PinnedItemBlockButtonStyle"
-            BasedOn="{StaticResource DefaultButtonStyle}"
-            TargetType="Button">
-            <Setter Property="Background" Value="{ThemeResource ExpanderHeaderBackground}" />
-            <Setter Property="BorderBrush" Value="{ThemeResource ExpanderHeaderBorderBrush}" />
-            <Setter Property="BorderThickness" Value="{ThemeResource ExpanderHeaderBorderThickness}" />
-            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-            <Setter Property="Padding" Value="{StaticResource ExpanderContentPadding}" />
-            <Setter Property="MinHeight" Value="{StaticResource ExpanderMinHeight}" />
-            <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
-        </Style>
-    </Page.Resources>
 
     <Grid>
-        <Grid RowSpacing="12">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid
+            x:Name="UserPinnedItemsBlock"
+            Grid.Row="0"
+            Margin="12,12,12,0"
+            Visibility="Collapsed">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Grid
-                x:Name="UserPinnedItemsBlock"
-                Grid.Row="0"
-                Margin="0,6,0,0"
-                RowSpacing="6"
-                Visibility="Collapsed">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <StackPanel Orientation="Horizontal" Spacing="8">
-                    <FontIcon
-                        FontFamily="{StaticResource Octions}"
-                        FontSize="16"
-                        Glyph="&#xEA3E;" />
-                    <TextBlock
-                        FontSize="14"
-                        Style="{StaticResource SubtitleTextBlockStyle}"
-                        Text="Pinned" />
-                </StackPanel>
-                <ScrollViewer
-                    Grid.Row="1"
-                    HorizontalScrollBarVisibility="Hidden"
-                    VerticalScrollMode="Disabled">
-                    <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Items}">
-                        <muxc:ItemsRepeater.Layout>
-                            <muxc:StackLayout Orientation="Horizontal" Spacing="8" />
-                        </muxc:ItemsRepeater.Layout>
-                        <DataTemplate x:DataType="item:RepoListItem">
-                            <uc:RepoButtonBlock
-                                x:Name="RepositoryBlock"
-                                Width="250"
-                                VerticalAlignment="Stretch"
-                                DisplayStarButton="False"
-                                RepositoryId="{x:Bind RepoId}" />
-                        </DataTemplate>
-                    </muxc:ItemsRepeater>
-                </ScrollViewer>
-            </Grid>
-            <Frame x:Name="OrgPageFrame" Grid.Row="1" />
+            <StackPanel
+                Margin="4,0"
+                Orientation="Horizontal"
+                Spacing="8">
+                <FontIcon
+                    FontFamily="{StaticResource Octions}"
+                    FontSize="16"
+                    Glyph="&#xEA3E;" />
+                <TextBlock
+                    FontSize="14"
+                    Style="{StaticResource SubtitleTextBlockStyle}"
+                    Text="Pinned repositories" />
+            </StackPanel>
+            <ScrollViewer
+                Grid.Row="1"
+                HorizontalScrollBarVisibility="Hidden"
+                VerticalScrollMode="Disabled">
+                <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.OrgPinnedItems}">
+                    <muxc:ItemsRepeater.Layout>
+                        <muxc:StackLayout Orientation="Horizontal" Spacing="8" />
+                    </muxc:ItemsRepeater.Layout>
+                    <DataTemplate x:DataType="item:RepoListItem">
+                        <uc:RepoButtonBlock
+                            x:Name="RepositoryBlock"
+                            Width="250"
+                            VerticalAlignment="Stretch"
+                            DisplayStarButton="False"
+                            RepositoryId="{x:Bind RepoId}" />
+                    </DataTemplate>
+                </muxc:ItemsRepeater>
+            </ScrollViewer>
         </Grid>
+        <Frame x:Name="OrgPageFrame" Grid.Row="1" />
+        <TextBlock
+            x:Name="NoOverviewTextBlock"
+            Grid.RowSpan="2"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Text="There is no overview."
+            Visibility="Collapsed" />
     </Grid>
 </Page>

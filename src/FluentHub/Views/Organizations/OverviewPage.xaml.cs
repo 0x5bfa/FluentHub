@@ -18,34 +18,33 @@ namespace FluentHub.Views.Organizations
 {
     public sealed partial class OverviewPage : Page
     {
-        private string OrganizationName { get; set; }
-
         public OverviewPage()
         {
             this.InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            OrganizationName = e.Parameter as string;
+            string orgName = e.Parameter as string;
+
+            OrgPageFrame.Navigate(typeof(RepoListPage), orgName);
+            await ViewModel.GetPinnedRepos(orgName);
+
+            UpdateVisibility();
 
             base.OnNavigatedTo(e);
         }
 
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        private void UpdateVisibility()
         {
-            UserPinnedItems pinnedItems = new UserPinnedItems();
-
-            var repoIdList = await pinnedItems.Get(OrganizationName, false);
-
-            var count = ViewModel.GetPinnedRepos(repoIdList);
-
-            if (count != 0)
+            if (ViewModel.OrgPinnedItems.Count() != 0)
             {
                 UserPinnedItemsBlock.Visibility = Visibility.Visible;
             }
-
-            OrgPageFrame.Navigate(typeof(RepoListPage), OrganizationName);
+            else
+            {
+                NoOverviewTextBlock.Visibility = Visibility.Visible;
+            }
         }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using FluentHub.Models.Items;
+using FluentHub.Services.OctokitEx;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -11,36 +13,32 @@ namespace FluentHub.ViewModels.Organizations
 {
     public class OverviewViewModel : INotifyPropertyChanged
     {
-        private ObservableCollection<RepoListItem> _items = new ObservableCollection<RepoListItem>();
-        public ObservableCollection<RepoListItem> Items
-        {
-            get => _items;
-            private set
-            {
-                _items = value;
-                NotifyPropertyChanged(nameof(Items));
-            }
-        }
+        public ObservableCollection<RepoListItem> OrgPinnedItems { get; private set; } = new();
 
-        public int GetPinnedRepos(List<long> repoIdList)
+        public async Task GetPinnedRepos(string org)
         {
+            UserPinnedItems pinnedItems = new UserPinnedItems();
+            var repoIdList = await pinnedItems.Get(org, false);
+
             foreach (var repoId in repoIdList)
             {
                 RepoListItem listItem = new RepoListItem();
                 listItem.RepoId = repoId;
-                Items.Add(listItem);
+                OrgPinnedItems.Add(listItem);
             }
-
-            return Items.Count();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged(String info)
+        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
         {
-            if (PropertyChanged != null)
+            if (!Equals(field, newValue))
             {
-                PropertyChanged(this, new PropertyChangedEventArgs(info));
+                field = newValue;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+                return true;
             }
+
+            return false;
         }
     }
 }
