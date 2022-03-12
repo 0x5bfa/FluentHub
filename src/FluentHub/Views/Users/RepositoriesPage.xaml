@@ -12,7 +12,7 @@
     mc:Ignorable="d">
 
     <Page.DataContext>
-        <vm:RepoListViewModel x:Name="ViewModel" />
+        <vm:RepositoriesViewModel x:Name="ViewModel" />
     </Page.DataContext>
 
     <ScrollViewer>

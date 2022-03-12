@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.Organizations
 {
-    public class RepoListViewModel : INotifyPropertyChanged
+    public class RepositoriesViewModel : INotifyPropertyChanged
     {
         private ObservableCollection<RepoListItem> _items = new ObservableCollection<RepoListItem>();
         public ObservableCollection<RepoListItem> Items

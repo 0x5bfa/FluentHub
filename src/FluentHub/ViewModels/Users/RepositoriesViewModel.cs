@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.Users
 {
-    public class RepoListViewModel : INotifyPropertyChanged
+    public class RepositoriesViewModel : INotifyPropertyChanged
     {
         public ObservableCollection<Repository> Items { get; private set; } = new();
 

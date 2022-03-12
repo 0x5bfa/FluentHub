@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="FluentHub.Views.Organizations.RepoListPage"
+    x:Class="FluentHub.Views.Organizations.RepositoriesPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:block="using:FluentHub.UserControls.ButtonBlocks"
@@ -12,7 +12,7 @@
     mc:Ignorable="d">
 
     <Page.DataContext>
-        <vm:RepoListViewModel x:Name="ViewModel" />
+        <vm:RepositoriesViewModel x:Name="ViewModel" />
     </Page.DataContext>
 
     <ScrollViewer Margin="12">

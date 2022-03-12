@@ -15,11 +15,11 @@ using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub.Views.Organizations
 {
-    public sealed partial class RepoListPage : Page
+    public sealed partial class RepositoriesPage : Page
     {
         private string OrganizationName { get; set; }
 
-        public RepoListPage()
+        public RepositoriesPage()
         {
             this.InitializeComponent();
         }

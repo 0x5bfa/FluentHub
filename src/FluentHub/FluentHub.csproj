@@ -215,7 +215,7 @@
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\Organizations\OverviewViewModel.cs" />
     <Compile Include="ViewModels\Organizations\ProfileViewModel.cs" />
-    <Compile Include="ViewModels\Organizations\RepoListViewModel.cs" />
+    <Compile Include="ViewModels\Organizations\RepositoriesViewModel.cs" />
     <Compile Include="ViewModels\Repositories\CodePageViewModel.cs" />
     <Compile Include="ViewModels\Repositories\CommonRepoViewModel.cs" />
     <Compile Include="ViewModels\Repositories\IssuesViewModel.cs" />
@@ -237,7 +237,7 @@
     <Compile Include="ViewModels\Users\FollowersViewModel.cs" />
     <Compile Include="ViewModels\Users\FollowingViewModel.cs" />
     <Compile Include="ViewModels\Users\ProfilePageViewModel.cs" />
-    <Compile Include="ViewModels\Users\RepoListViewModel.cs" />
+    <Compile Include="ViewModels\Users\RepositoriesViewModel.cs" />
     <Compile Include="ViewModels\Users\OverviewViewModel.cs" />
     <Compile Include="ViewModels\Users\StarListViewModel.cs" />
     <Compile Include="Views\AppSettings\AboutPage.xaml.cs">
@@ -274,8 +274,8 @@
     <Compile Include="Views\Organizations\ProfilePage.xaml.cs">
       <DependentUpon>ProfilePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Organizations\RepoListPage.xaml.cs">
-      <DependentUpon>RepoListPage.xaml</DependentUpon>
+    <Compile Include="Views\Organizations\RepositoriesPage.xaml.cs">
+      <DependentUpon>RepositoriesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Repositories\CodePage.xaml.cs">
       <DependentUpon>CodePage.xaml</DependentUpon>
@@ -607,7 +607,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Organizations\RepoListPage.xaml">
+    <Page Include="Views\Organizations\RepositoriesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
