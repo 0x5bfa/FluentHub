@@ -1,5 +1,6 @@
 ﻿using FluentHub.OctokitEx.Models;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
+using FluentHub.Views.Repositories;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -44,8 +45,12 @@ namespace FluentHub.UserControls.ButtonBlocks
             this.InitializeComponent();
         }
 
-        private void IssueBlockButton_Click(object sender, RoutedEventArgs e)
+        private async void IssueBlockButton_Click(object sender, RoutedEventArgs e)
         {
+            var repo = await App.Client.Repository.Get(ViewModel.IssueItem.Owner, ViewModel.IssueItem.Name);
+
+            string param = repo.Id + "/" + ViewModel.IssueItem.Number;
+            App.MainViewModel.RepoMainFrame.Navigate(typeof(IssuePage), param);
         }
     }
 }
