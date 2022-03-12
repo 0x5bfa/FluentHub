@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AuthFluentHubTextBlock.Text" xml:space="preserve">
+    <value>Autorizar o FluentHub</value>
+  </data>
+  <data name="CanonicalAppName" xml:space="preserve">
+    <value>FluentHub</value>
+  </data>
+  <data name="Discussions" xml:space="preserve">
+    <value>Discussões</value>
+  </data>
+  <data name="EditProfileButton.Content" xml:space="preserve">
+    <value>Editar perfil</value>
+  </data>
+  <data name="FirstNumberedListInWebAuth.Text" xml:space="preserve">
+    <value>Clique em Abrir com seu navegador.</value>
+  </data>
+  <data name="FollowButton.Content" xml:space="preserve">
+    <value>Seguir</value>
+  </data>
+  <data name="Followers" xml:space="preserve">
+    <value>Seguidores</value>
+  </data>
+  <data name="Following" xml:space="preserve">
+    <value>Seguindo</value>
+  </data>
+  <data name="GoToFileButton.Content" xml:space="preserve">
+    <value>Ir para o arquivo</value>
+  </data>
+  <data name="HomeNavViewHeaderMyWork.Content" xml:space="preserve">
+    <value>Meu trabalho</value>
+  </data>
+  <data name="HomeNavViewHeaderProfile.Content" xml:space="preserve">
+    <value>Perfil</value>
+  </data>
+  <data name="HomeNavViewItemActivities.Content" xml:space="preserve">
+    <value>Atividades</value>
+  </data>
+  <data name="HomeNavViewItemNotifications.Content" xml:space="preserve">
+    <value>Notificações</value>
+  </data>
+  <data name="HomeNavViewItemProfile.Content" xml:space="preserve">
+    <value>Perfil</value>
+  </data>
+  <data name="HowToSignInTextBlock.Text" xml:space="preserve">
+    <value>Ao autenticar, você pode acessar mais dados do GitHub e obter uma melhor experiência.</value>
+  </data>
+  <data name="Issues" xml:space="preserve">
+    <value>Issues</value>
+  </data>
+  <data name="NeedToSigninFirst.Text" xml:space="preserve">
+    <value>Para usar todos os recursos, você deve primeiro fazer login.</value>
+  </data>
+  <data name="OnlyWebAuthIsValidInfoBar.Message" xml:space="preserve">
+    <value>No futuro, a autenticação por senha e token serão habilitadas.</value>
+  </data>
+  <data name="OnlyWebAuthIsValidInfoBar.Title" xml:space="preserve">
+    <value>Somente a autenticação web é válida</value>
+  </data>
+  <data name="OpenWithBrowserButton.Content" xml:space="preserve">
+    <value>Abrir com o seu navegador</value>
+  </data>
+  <data name="Organizations" xml:space="preserve">
+    <value>Organizações</value>
+  </data>
+  <data name="PreviewTitle.Text" xml:space="preserve">
+    <value>PRÉVIA</value>
+  </data>
+  <data name="PullRequests" xml:space="preserve">
+    <value>Pull Requests</value>
+  </data>
+  <data name="RepoAddFile.Content" xml:space="preserve">
+    <value>Adicionar arquivo</value>
+  </data>
+  <data name="RepoAddFileMenuFlyoutItemAdd.Text" xml:space="preserve">
+    <value>Criar novo arquivo</value>
+  </data>
+  <data name="RepoAddFileMenuFlyoutItemUploadFiles.Text" xml:space="preserve">
+    <value>Fazer upload dos arquivos</value>
+  </data>
+  <data name="RepoBranchesCountTextTextBlock.Text" xml:space="preserve">
+    <value>branches</value>
+  </data>
+  <data name="RepoForkButtonTextBlock.Text" xml:space="preserve">
+    <value>Fork</value>
+  </data>
+  <data name="RepoPageNavViewItemCode.Content" xml:space="preserve">
+    <value>Código fonte</value>
+  </data>
+  <data name="RepoPageNavViewItemSettings.Content" xml:space="preserve">
+    <value>Configurações</value>
+  </data>
+  <data name="Repositories" xml:space="preserve">
+    <value>Repositórios</value>
+  </data>
+  <data name="RepositoryBlockUpdatedAtTextBlock" xml:space="preserve">
+    <value>Atualizado {0}</value>
+  </data>
+  <data name="RepoStarSplitButtonTextBlock.Text" xml:space="preserve">
+    <value>Estrela</value>
+  </data>
+  <data name="RepoTagsCountTextTextBlock.Text" xml:space="preserve">
+    <value>marcadores</value>
+  </data>
+  <data name="RepoWatchCombboxStopIgnoring" xml:space="preserve">
+    <value>Parar de ignorar</value>
+  </data>
+  <data name="RepoWatchCombboxUnWatch" xml:space="preserve">
+    <value>Não observar</value>
+  </data>
+  <data name="RepoWatchCombboxWatch" xml:space="preserve">
+    <value>Observar</value>
+  </data>
+  <data name="SettingsNavViewItemAbout.Content" xml:space="preserve">
+    <value>Sobre</value>
+  </data>
+  <data name="SettingsNavViewItemAppearance.Content" xml:space="preserve">
+    <value>Aparência</value>
+  </data>
+  <data name="SecondNumberedListInWebAuth.Text" xml:space="preserve">
+    <value>Clique para abrir FluentHub Dev em seu navegador.</value>
+  </data>
+  <data name="Star" xml:space="preserve">
+    <value>Estrela</value>
+  </data>
+  <data name="Starred" xml:space="preserve">
+    <value>Marcado com estrela</value>
+  </data>
+  <data name="StartSetupButton.Content" xml:space="preserve">
+    <value>Iniciar a configuração</value>
+  </data>
+  <data name="ThirdNumberedListInWebAuth.Text" xml:space="preserve">
+    <value>Voltar para o FluentHub.</value>
+  </data>
+  <data name="ToobarBackButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Voltar</value>
+  </data>
+  <data name="ToobarForwardButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Avançar</value>
+  </data>
+  <data name="ToobarHomeButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Início</value>
+  </data>
+  <data name="ToobarRefreshButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Atualizar</value>
+  </data>
+  <data name="ToolbarAppSettingsButton.ToolTipService.ToolTip" xml:space="preserve">
+    <value>Configurações do app</value>
+  </data>
+  <data name="ToolbarSearchbox.PlaceholderText" xml:space="preserve">
+    <value>Encontre códigos, projetos e pessoas no GitHub</value>
+  </data>
+  <data name="UserFollowersCountTextBlock.Text" xml:space="preserve">
+    <value>seguidores</value>
+  </data>
+  <data name="UserFollowingCountTextBlock.Text" xml:space="preserve">
+    <value>seguindo</value>
+  </data>
+  <data name="UserNavViewItemOverview.Content" xml:space="preserve">
+    <value>Visão geral</value>
+  </data>
+  <data name="UserNavViewItemRepositories.Content" xml:space="preserve">
+    <value>Repositórios</value>
+  </data>
+  <data name="UserPinnedItemsTextBlock.Text" xml:space="preserve">
+    <value>Fixados</value>
+  </data>
+  <data name="UserSpecialReadmeTextBlock.Text" xml:space="preserve">
+    <value>README</value>
+  </data>
+  <data name="WelcomeText.Text" xml:space="preserve">
+    <value>Bem vindo ao</value>
+  </data>
+  <data name="SettingsNavViewItemAccount.Content" xml:space="preserve">
+    <value>Conta</value>
+  </data>
+  <data name="SettingsNavViewItemTextEditor.Content" xml:space="preserve">
+    <value>Editor de texto</value>
+  </data>
+  <data name="ThemeDark" xml:space="preserve">
+    <value>Escuro</value>
+  </data>
+  <data name="ThemeLight" xml:space="preserve">
+    <value>Claro</value>
+  </data>
+  <data name="UseSystemSetting" xml:space="preserve">
+    <value>Usar configurações do sistema</value>
+  </data>
+  <data name="WindowsDefault" xml:space="preserve">
+    <value>Padrão do Windows</value>
+  </data>
+</root>

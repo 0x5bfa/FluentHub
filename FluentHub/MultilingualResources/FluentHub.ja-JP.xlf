@@ -215,8 +215,9 @@
           <target state="translated">フォロー</target>
         </trans-unit>
         <trans-unit id="FirstNumberedListInWebAuth.Text" translate="yes" xml:space="preserve">
-          <source>Click Opwn with Browser.</source>
-          <target state="translated">ブラウザで開くをクリック。</target>
+          <source>Click Open with your Browser.</source>
+          <target state="needs-review-translation">ブラウザで開くをクリック。</target>
+          <note from="MultilingualUpdate" annotates="source" priority="2">Please verify the translation’s accuracy as the source string was updated after it was translated.</note>
         </trans-unit>
         <trans-unit id="SecondNumberedListInWebAuth.Text" translate="yes" xml:space="preserve">
           <source>Click Open FluentHub Dev in your browser.</source>

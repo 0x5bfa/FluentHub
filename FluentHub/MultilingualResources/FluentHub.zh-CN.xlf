@@ -23,8 +23,8 @@
           <target state="translated" state-qualifier="tm-suggestion">编辑个人资料</target>
         </trans-unit>
         <trans-unit id="FirstNumberedListInWebAuth.Text" translate="yes" xml:space="preserve">
-          <source>Click Opwn with Browser.</source>
-          <target state="new">Click Opwn with Browser.</target>
+          <source>Click Open with your Browser.</source>
+          <target state="new">Click Open with your Browser.</target>
         </trans-unit>
         <trans-unit id="FollowButton.Content" translate="yes" xml:space="preserve">
           <source>Follow</source>
