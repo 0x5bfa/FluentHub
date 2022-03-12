@@ -17,20 +17,20 @@ using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub.UserControls.ButtonBlocks
 {
-    public sealed partial class IssueButtonBlock : UserControl
+    public sealed partial class PullButtonBlock : UserControl
     {
         #region dprops
         public static readonly DependencyProperty ViewModelProperty
             = DependencyProperty.Register(
-                  nameof(IssueOverviewItem),
-                  typeof(IssueButtonBlockViewModel),
-                  typeof(IssueButtonBlock),
+                  nameof(PullOverviewItem),
+                  typeof(PullButtonBlockViewModel),
+                  typeof(PullButtonBlock),
                   new PropertyMetadata(null)
                 );
 
-        public IssueButtonBlockViewModel ViewModel
+        public PullButtonBlockViewModel ViewModel
         {
-            get => (IssueButtonBlockViewModel)GetValue(ViewModelProperty);
+            get => (PullButtonBlockViewModel)GetValue(ViewModelProperty);
             set
             {
                 SetValue(ViewModelProperty, value);
@@ -39,7 +39,7 @@ namespace FluentHub.UserControls.ButtonBlocks
         }
         #endregion
 
-        public IssueButtonBlock()
+        public PullButtonBlock()
         {
             this.InitializeComponent();
         }

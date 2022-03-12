@@ -161,6 +161,9 @@
     <Compile Include="UserControls\ButtonBlocks\IssueButtonBlock.xaml.cs">
       <DependentUpon>IssueButtonBlock.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ButtonBlocks\PullButtonBlock.xaml.cs">
+      <DependentUpon>PullButtonBlock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ButtonBlocks\RepoButtonBlock.xaml.cs">
       <DependentUpon>RepoButtonBlock.xaml</DependentUpon>
     </Compile>
@@ -215,14 +218,15 @@
     <Compile Include="ViewModels\Organizations\RepoListViewModel.cs" />
     <Compile Include="ViewModels\Repositories\CodePageViewModel.cs" />
     <Compile Include="ViewModels\Repositories\CommonRepoViewModel.cs" />
-    <Compile Include="ViewModels\Repositories\IssueListViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\IssuesViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Layouts\DetailsLayoutViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Layouts\TreeLayoutViewModel.cs" />
-    <Compile Include="ViewModels\Repositories\PullRequestListViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\PullRequestsViewModel.cs" />
     <Compile Include="ViewModels\SettingsManager.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\FileContentBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\IssueButtonBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\ButtonBlocks\PullButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\RepoButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\IssueCommentBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\IssueEventBlockViewModel.cs" />
@@ -288,11 +292,11 @@
     <Compile Include="Views\Repositories\OverviewPage.xaml.cs">
       <DependentUpon>OverviewPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Repositories\PullRequestListPage.xaml.cs">
-      <DependentUpon>PullRequestListPage.xaml</DependentUpon>
+    <Compile Include="Views\Repositories\PullRequestsPage.xaml.cs">
+      <DependentUpon>PullRequestsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Repositories\IssueListPage.xaml.cs">
-      <DependentUpon>IssueListPage.xaml</DependentUpon>
+    <Compile Include="Views\Repositories\IssuesPage.xaml.cs">
+      <DependentUpon>IssuesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Repositories\Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
@@ -495,6 +499,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\ButtonBlocks\PullButtonBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\ButtonBlocks\RepoButtonBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -623,11 +631,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Repositories\PullRequestListPage.xaml">
+    <Page Include="Views\Repositories\PullRequestsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Repositories\IssueListPage.xaml">
+    <Page Include="Views\Repositories\IssuesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

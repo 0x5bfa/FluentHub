@@ -15,27 +15,19 @@ using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub.Views.Repositories
 {
-    public sealed partial class IssueListPage : Page
+    public sealed partial class PullRequestsPage : Page
     {
-        private long RepoId { get; set; }
-
-        public IssueListPage()
+        public PullRequestsPage()
         {
             this.InitializeComponent();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            RepoId = Convert.ToInt64(e.Parameter as string);
-        }
+            long repositoryId = Convert.ToInt64(e.Parameter as string);
 
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-        }
-
-        private void ItemsRepeater_Loaded(object sender, RoutedEventArgs e)
-        {
-            ViewModel.GetRepoIssues(RepoId);
+            var repo = await App.Client.Repository.Get(repositoryId);
+            await ViewModel.GetRepoPRs(repo.Name, repo.Owner.Login);
         }
     }
 }

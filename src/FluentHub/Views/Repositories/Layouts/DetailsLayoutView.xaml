@@ -45,7 +45,7 @@
                         Grid.ColumnSpan="2"
                         HorizontalAlignment="Stretch"
                         DoubleTapped="DirListView_DoubleTapped"
-                        ItemsSource="{Binding Items}"
+                        ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
                         SelectionMode="Single">
                         <ListView.ItemContainerStyle>
                             <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">

@@ -71,10 +71,10 @@ namespace FluentHub.Views.Repositories
                     RepoPageNavViewFrame.Navigate(typeof(CodePage), commonRepoViewModel);
                     break;
                 case "Issues":
-                    RepoPageNavViewFrame.Navigate(typeof(IssueListPage), RepoId.ToString());
+                    RepoPageNavViewFrame.Navigate(typeof(IssuesPage), RepoId.ToString());
                     break;
                 case "PRs":
-                    RepoPageNavViewFrame.Navigate(typeof(PullRequestListPage), RepoId.ToString());
+                    RepoPageNavViewFrame.Navigate(typeof(PullRequestsPage), RepoId.ToString());
                     break;
                 case "Settings":
                     RepoPageNavViewFrame.Navigate(typeof(Settings), RepoId.ToString());

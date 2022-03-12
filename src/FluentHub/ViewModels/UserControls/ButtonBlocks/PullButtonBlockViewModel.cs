@@ -10,9 +10,9 @@ using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.UserControls.ButtonBlocks
 {
-    public class IssueButtonBlockViewModel : INotifyPropertyChanged
+    public class PullButtonBlockViewModel : INotifyPropertyChanged
     {
-        public IssueOverviewItem IssueItem { get; set; } = new();
+        public PullOverviewItem PullItem { get; set; } = new();
 
         private string nameWithOwner;
         public string NameWithOwner { get => nameWithOwner; set => SetProperty(ref nameWithOwner, value); }
