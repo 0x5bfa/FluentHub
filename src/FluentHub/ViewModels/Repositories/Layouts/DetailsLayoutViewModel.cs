@@ -1,4 +1,5 @@
 ﻿using FluentHub.Models.Items;
+using FluentHub.OctokitEx.Queries.Repository;
 using Humanizer;
 using System;
 using System.Collections.Generic;
@@ -25,18 +26,21 @@ namespace FluentHub.ViewModels.Repositories.Layouts
 
         public async Task<int> EnumRepositoryContents()
         {
+            #region outdated
+            /*
             var contents = await App.Client.Repository.Content.GetAllContents(CommonRepoViewModel.RepositoryId, CommonRepoViewModel.Path);
+            LatestCommitQueries queries = new();
 
             CommonRepoViewModel.IsDir = true;
 
-            if(CommonRepoViewModel.Path == "/")
+            if (CommonRepoViewModel.Path == "/")
             {
                 CommonRepoViewModel.IsRootDir = true;
             }
 
             foreach (var item in contents)
             {
-                DetailsLayoutListViewItem listItem = new DetailsLayoutListViewItem();
+                DetailsLayoutListViewItem listItem = new();
 
                 if (item.Type == Octokit.ContentType.Dir)
                 {
@@ -56,14 +60,61 @@ namespace FluentHub.ViewModels.Repositories.Layouts
 
             for (int i = 0; i < Items.Count(); i++)
             {
-                Octokit.CommitRequest request = new Octokit.CommitRequest();
-                request.Path = contents[i].Path;
+                // using await inside for is deprecated.
+                var commitOverview
+                    = await queries.Get(
+                    CommonRepoViewModel.Name,
+                    CommonRepoViewModel.Owner,
+                    CommonRepoViewModel.BranchName,
+                    contents[i].Path);
 
-                var commit = App.Client.Repository.Commit.GetAll(CommonRepoViewModel.RepositoryId, request).GetAwaiter().GetResult();
+                Items[i].ObjectLatestCommitMessage = commitOverview.CommitMessage.Split("\n")[0];
 
-                Items[i].ObjectLatestCommitMessage = commit[0].Commit.Message.Split("\n")[0];
+                Items[i].ObjectUpdatedAtHumanized = commitOverview.CommittedDate.Humanize();
 
-                Items[i].ObjectUpdatedAtHumanized = commit[0].Commit.Author.Date.Humanize();
+            }
+            */
+            #endregion
+
+            LatestCommitQueries queries = new();
+            var fileOverviews = await queries.EnumFilesAndItsLatestCommit(CommonRepoViewModel.Name,
+                    CommonRepoViewModel.Owner,
+                    CommonRepoViewModel.BranchName,
+                    CommonRepoViewModel.Path);
+
+            CommonRepoViewModel.IsDir = true;
+
+            if (CommonRepoViewModel.Path == "/")
+            {
+                CommonRepoViewModel.IsRootDir = true;
+            }
+
+            foreach (var overview in fileOverviews)
+            {
+                DetailsLayoutListViewItem listItem = new();
+
+                // object's icon
+                if (overview.ObjectType == "tree")
+                {
+                    listItem.ObjectTypeIconGlyph = "\uE9A0";
+                    listItem.ObjectTag = "tree/" + overview.FileName;
+                }
+                else
+                {
+                    listItem.ObjectTypeIconGlyph = "\uE996";
+                    listItem.ObjectTag = "blob/" + overview.FileName;
+                }
+
+                // object's name
+                listItem.ObjectName = overview.FileName;
+
+                // object's commit message headline
+                listItem.ObjectLatestCommitMessage = overview.CommitMessage.Split("\n")[0];
+
+                // object's committed date
+                listItem.ObjectUpdatedAtHumanized = overview.CommittedDate.Humanize();
+
+                Items.Add(listItem);
             }
 
             Items = new ObservableCollection<DetailsLayoutListViewItem>(Items.OrderByDescending(x => x.ObjectTypeIconGlyph));
@@ -72,7 +123,6 @@ namespace FluentHub.ViewModels.Repositories.Layouts
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
         protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
         {
             if (!Equals(field, newValue))

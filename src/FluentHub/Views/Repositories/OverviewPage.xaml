@@ -18,19 +18,6 @@
                     <StaticResource x:Key="NavigationViewContentBackground" ResourceKey="SystemControlPageBackgroundTransparentBrush" />
                     <Thickness x:Key="NavigationViewTopPaneHeight">40</Thickness>
                     <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
-                    <Style
-                        x:Key="ButtonSettingsBlockStyle"
-                        BasedOn="{StaticResource DefaultButtonStyle}"
-                        TargetType="Button">
-                        <Setter Property="Background" Value="{ThemeResource ExpanderHeaderBackground}" />
-                        <Setter Property="BorderBrush" Value="{ThemeResource ExpanderHeaderBorderBrush}" />
-                        <Setter Property="BorderThickness" Value="{ThemeResource ExpanderHeaderBorderThickness}" />
-                        <Setter Property="HorizontalAlignment" Value="Stretch" />
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                        <Setter Property="Padding" Value="{StaticResource ExpanderContentPadding}" />
-                        <Setter Property="MinHeight" Value="{StaticResource ExpanderMinHeight}" />
-                        <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
-                    </Style>
                     <Style TargetType="ToolTip">
                         <Setter Property="Placement" Value="Right" />
                     </Style>

@@ -123,8 +123,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="Models\CommitOverviewItem.cs" />
     <Compile Include="Models\OrganizationOverviewItem.cs" />
     <Compile Include="Queries\Organization\OrganizationQueries.cs" />
+    <Compile Include="Queries\Repository\LatestCommitQueries.cs" />
     <Compile Include="Queries\User\FollowersQueries.cs" />
     <Compile Include="Queries\User\FollowingQueries.cs" />
     <Compile Include="Queries\User\PinnedItemsQueries.cs" />
@@ -151,7 +153,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Auth\" />
-    <Folder Include="Queries\Repository\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

@@ -45,7 +45,7 @@ namespace FluentHub.Views.Repositories.Layouts
                 return;
             }
 
-            var ItemsCount = await ViewModel.EnumRepositoryContents();
+            await ViewModel.EnumRepositoryContents();
 
             if (RepoReadmeBlock != null)
             {
@@ -60,6 +60,8 @@ namespace FluentHub.Views.Repositories.Layouts
         {
             var commonRepoViewModel = new CommonRepoViewModel()
             {
+                Name = CommonRepoViewModel.Name,
+                Owner = CommonRepoViewModel.Owner,
                 RepositoryId = CommonRepoViewModel.RepositoryId,
                 IsRootDir = false,
             };
@@ -68,12 +70,12 @@ namespace FluentHub.Views.Repositories.Layouts
 
             var tagItem = item.ObjectTag.Split("/");
 
-            if (tagItem[0] != "dir")
+            if (tagItem[0] != "tree")
             {
                 commonRepoViewModel.IsFile = true;
                 commonRepoViewModel.Path = CommonRepoViewModel.Path + tagItem[1];
             }
-            else
+            else // tree
             {
                 commonRepoViewModel.Path = CommonRepoViewModel.Path + tagItem[1] + "/";
             }

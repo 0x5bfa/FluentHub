@@ -9,7 +9,7 @@ namespace FluentHub.OctokitEx.Queries
 {
     public class StatusQueries
     {
-        public StatusQueries() { _ = new App(); }
+        public StatusQueries() => new App();
 
         public async Task<Octokit.GraphQL.Model.UserStatus> Get(string login)
         {

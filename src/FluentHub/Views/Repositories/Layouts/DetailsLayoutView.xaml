@@ -93,11 +93,6 @@
                     </ListView>
                 </Grid>
                 <contents:FileNavigationBlock />
-                <muxc:ProgressBar
-                    x:Name="DirListViewLoadingProgreeBar"
-                    Grid.Row="2"
-                    Margin="12,12,12,0"
-                    IsIndeterminate="True" />
                 <contents:FileContentBlock
                     x:Name="FileContentBlock"
                     Grid.Row="3"
@@ -110,5 +105,9 @@
                     x:Load="{x:Bind ViewModel.CommonRepoViewModel.IsRootDir, Mode=OneWay}" />
             </Grid>
         </ScrollViewer>
+        <muxc:ProgressRing
+            x:Name="DirListViewLoadingProgreeBar"
+            Margin="12,12,12,0"
+            IsIndeterminate="True" />
     </Grid>
 </Page>

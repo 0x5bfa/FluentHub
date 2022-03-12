@@ -48,6 +48,7 @@ namespace FluentHub.Views.Repositories
         {
             Repository = await App.Client.Repository.Get(RepoId);
 
+
             if (Repository == null)
             {
                 return;
@@ -65,6 +66,8 @@ namespace FluentHub.Views.Repositories
                 case "Code":
                     commonRepoViewModel.RepositoryId = RepoId;
                     commonRepoViewModel.IsRootDir = true;
+                    commonRepoViewModel.Name = Repository.Name;
+                    commonRepoViewModel.Owner = Repository.Owner.Login;
                     RepoPageNavViewFrame.Navigate(typeof(CodePage), commonRepoViewModel);
                     break;
                 case "Issues":
@@ -133,6 +136,8 @@ namespace FluentHub.Views.Repositories
 
             commonRepoViewModel.RepositoryId = RepoId;
             commonRepoViewModel.IsRootDir = true;
+            commonRepoViewModel.Name = Repository.Name;
+            commonRepoViewModel.Owner = Repository.Owner.Login;
 
             RepoPageNavViewFrame.Navigate(typeof(CodePage), commonRepoViewModel);
         }

@@ -12,6 +12,10 @@ namespace FluentHub.ViewModels.Repositories
     {
         public long RepositoryId { get; set; }
 
+        public string Name { get; set;}
+
+        public string Owner { get; set; }
+
         public string BranchName { get; set; } = "main";
 
         public string Path { get; set; } = "/";
@@ -50,7 +54,6 @@ namespace FluentHub.ViewModels.Repositories
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
         protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
         {
             if (!Equals(field, newValue))
