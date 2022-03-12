@@ -38,12 +38,16 @@ namespace FluentHub.Views.Users
                 var repo = await App.Client.Repository.Get(Login, Login);
                 UserSpecialReadmeBlock.RepositoryId = repo.Id;
             }
+            catch
+            {
+                return;
+            }
             finally
             {
                 UpdateVisibility();
-            }
 
-            base.OnNavigatedTo(e);
+                base.OnNavigatedTo(e);
+            }
         }
 
         private void UpdateVisibility()
@@ -57,7 +61,6 @@ namespace FluentHub.Views.Users
             {
                 UserOverviewLoadingProgressRing.Visibility = Visibility.Collapsed;
                 NoOverviewTextBlock.Visibility = Visibility.Visible;
-
             }
         }
     }
