@@ -27,7 +27,7 @@ namespace FluentHub.Views.Organizations
         {
             string orgName = e.Parameter as string;
 
-            OrgPageFrame.Navigate(typeof(RepoListPage), orgName);
+            OrgPageFrame.Navigate(typeof(RepositoriesPage), orgName);
             await ViewModel.GetPinnedRepos(orgName);
 
             UpdateVisibility();

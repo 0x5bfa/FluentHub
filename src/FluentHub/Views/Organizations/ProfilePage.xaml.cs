@@ -66,7 +66,7 @@ namespace FluentHub.Views.Organizations
             _ = args.InvokedItemContainer.Tag.ToString() switch
             {
                 "Overview" =>     OrgNavViewContent.Navigate(typeof(OverviewPage), OrganizationName),
-                "Repositories" => OrgNavViewContent.Navigate(typeof(RepoListPage), OrganizationName),
+                "Repositories" => OrgNavViewContent.Navigate(typeof(RepositoriesPage), OrganizationName),
                 "People" =>       OrgNavViewContent.Navigate(typeof(MembershipPage), OrganizationName),
                 //"Teams" => OrgNavViewContent.Navigate(typeof(TeamsPage), OrganizationName),
                 _ =>              OrgNavViewContent.Navigate(typeof(OverviewPage), OrganizationName),
