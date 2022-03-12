@@ -129,6 +129,7 @@
     </Compile>
     <Compile Include="Converters\SettingsControlConverter.cs" />
     <Compile Include="Helpers\Base64Helpers.cs" />
+    <Compile Include="Helpers\BlobDetailsHelpers.cs" />
     <Compile Include="Helpers\ColorHelpers.cs" />
     <Compile Include="Helpers\InternetConnectionHelpers.cs" />
     <Compile Include="Helpers\LanguageColorHelpers.cs" />

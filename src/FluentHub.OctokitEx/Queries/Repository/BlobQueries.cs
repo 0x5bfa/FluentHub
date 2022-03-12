@@ -12,7 +12,7 @@ namespace FluentHub.OctokitEx.Queries.Repository
     {
         public BlobQueries() => new App();
 
-        public async Task<string> GetBlob(string name, string owner, string branch, string path)
+        public async Task<(string, long)> GetBlob(string name, string owner, string branch, string path)
         {
             // Remove slash
             path = path.Remove(0, 1);
@@ -20,12 +20,16 @@ namespace FluentHub.OctokitEx.Queries.Repository
             var queryToGetFileInfo = new Query()
                 .Repository(name, owner)
                 .Object(expression: branch+ ":" + path)
-                .Cast<Blob>().Select(x => x.Text)
+                .Cast<Blob>().Select(x => new
+                {
+                    x.Text,
+                    x.ByteSize,
+                })
                 .Compile();
 
             var response = await App.Connection.Run(queryToGetFileInfo);
 
-            return response;
+            return (response.Text, response.ByteSize);
         }
     }
 }

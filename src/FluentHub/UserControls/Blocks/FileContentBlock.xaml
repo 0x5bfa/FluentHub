@@ -39,7 +39,7 @@
                     VerticalAlignment="Center"
                     FontFamily="Cascadia Code"
                     Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="0 lines (0 sloc)" />
+                    Text="{x:Bind ViewModel.FormattedFileDetails, Mode=OneWay}" />
                 <Border
                     Width="0.5"
                     Height="24"
@@ -51,7 +51,7 @@
                     VerticalAlignment="Center"
                     FontFamily="Cascadia Code"
                     Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="0 Byte" />
+                    Text="{x:Bind ViewModel.FormattedFileSize, Mode=OneWay}" />
             </StackPanel>
             <StackPanel
                 Grid.Column="2"
@@ -96,8 +96,21 @@
             </StackPanel>
         </Grid>
         <MenuFlyoutSeparator Grid.Row="1" />
-        <Grid Grid.Row="2" Padding="12,8">
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock
+                Margin="12,8,0,0"
+                FontFamily="Cascadia Code"
+                FontWeight="ExtraLight"
+                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                HorizontalTextAlignment="Right"
+                Text="{x:Bind ViewModel.LineText, Mode=OneWay}" />
             <ScrollViewer
+                Grid.Column="1"
+                Padding="12,8"
                 HorizontalScrollBarVisibility="Auto"
                 HorizontalScrollMode="Enabled"
                 VerticalScrollBarVisibility="Disabled"

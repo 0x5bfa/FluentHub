@@ -1,4 +1,5 @@
-﻿using FluentHub.OctokitEx.Queries.Repository;
+﻿using FluentHub.Helpers;
+using FluentHub.OctokitEx.Queries.Repository;
 using FluentHub.ViewModels.Repositories;
 using System;
 using System.Collections.Generic;
@@ -22,6 +23,15 @@ namespace FluentHub.ViewModels.UserControls.Blocks
         private string blobContent;
         public string BlobContent { get => blobContent; set => SetProperty(ref blobContent, value); }
 
+        private string formattedFileDetails;
+        public string FormattedFileDetails { get => formattedFileDetails; set => SetProperty(ref formattedFileDetails, value); }
+
+        private string formattedFileSize;
+        public string FormattedFileSize { get => formattedFileSize; set => SetProperty(ref formattedFileSize, value); }
+
+        private string lineText;
+        public string LineText { get => lineText; set => SetProperty(ref lineText, value); }
+
         public async Task GetFileContent()
         {
             BlobQueries queries = new();
@@ -31,7 +41,19 @@ namespace FluentHub.ViewModels.UserControls.Blocks
                 CommonRepoViewModel.BranchName,
                 CommonRepoViewModel.Path);
 
-            BlobContent = content;
+            BlobContent = content.Item1;
+
+            var response = BlobDetailsHelpers.GetBlobDetails(ref content.Item1, content.Item2);
+
+            FormattedFileDetails = $"{response.Item1} lines ({response.Item2} sloc)";
+            FormattedFileSize = response.Item3;
+
+            for (int i = 0; i < response.Item1; i++)
+            {
+                LineText += $"{i}\n";
+            }
+
+            LineText += $"{response.Item1}";
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
