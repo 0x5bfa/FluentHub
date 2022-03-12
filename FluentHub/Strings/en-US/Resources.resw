@@ -130,7 +130,7 @@
     <value>Edit profile</value>
   </data>
   <data name="FirstNumberedListInWebAuth.Text" xml:space="preserve">
-    <value>Click Opwn with Browser.</value>
+    <value>Click Open with your Browser.</value>
   </data>
   <data name="FollowButton.Content" xml:space="preserve">
     <value>Follow</value>
