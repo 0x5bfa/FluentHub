@@ -31,12 +31,17 @@ namespace FluentHub.Views.Users
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            Login = e.Parameter as string;
-            await ViewModel.GetPinnedRepos(Login);
-            var repo = await App.Client.Repository.Get(Login, Login);
-            UserSpecialReadmeBlock.RepositoryId = repo.Id;
-
-            UpdateVisibility();
+            try
+            {
+                Login = e.Parameter as string;
+                await ViewModel.GetPinnedRepos(Login);
+                var repo = await App.Client.Repository.Get(Login, Login);
+                UserSpecialReadmeBlock.RepositoryId = repo.Id;
+            }
+            finally
+            {
+                UpdateVisibility();
+            }
 
             base.OnNavigatedTo(e);
         }

@@ -57,7 +57,7 @@ namespace FluentHub.Views.Repositories
             await SetRepoInfo();
         }
 
-        private void RepoPageNavView_ItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
+        private async void RepoPageNavView_ItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
         {
             var commonRepoViewModel = new CommonRepoViewModel();
 
@@ -68,6 +68,7 @@ namespace FluentHub.Views.Repositories
                     commonRepoViewModel.IsRootDir = true;
                     commonRepoViewModel.Name = Repository.Name;
                     commonRepoViewModel.Owner = Repository.Owner.Login;
+                    commonRepoViewModel.BranchName = Repository.DefaultBranch;
                     RepoPageNavViewFrame.Navigate(typeof(CodePage), commonRepoViewModel);
                     break;
                 case "Issues":
@@ -138,6 +139,7 @@ namespace FluentHub.Views.Repositories
             commonRepoViewModel.IsRootDir = true;
             commonRepoViewModel.Name = Repository.Name;
             commonRepoViewModel.Owner = Repository.Owner.Login;
+            commonRepoViewModel.BranchName = Repository.DefaultBranch;
 
             RepoPageNavViewFrame.Navigate(typeof(CodePage), commonRepoViewModel);
         }

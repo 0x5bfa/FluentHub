@@ -62,6 +62,7 @@ namespace FluentHub.Views.Repositories.Layouts
                 Name = CommonRepoViewModel.Name,
                 Owner = CommonRepoViewModel.Owner,
                 RepositoryId = CommonRepoViewModel.RepositoryId,
+                BranchName = CommonRepoViewModel.BranchName,
                 IsRootDir = false,
             };
 
