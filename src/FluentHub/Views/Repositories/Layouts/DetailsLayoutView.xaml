@@ -28,7 +28,8 @@
                 <contents:LatestCommitBlock
                     x:Name="LatastCommitBlock"
                     Grid.Row="1"
-                    Margin="12,12,12,0" />
+                    Margin="12,12,12,0"
+                    CommonRepoViewModel="{x:Bind ViewModel.CommonRepoViewModel, Mode=OneWay}" />
                 <Grid
                     x:Name="DirListViewContentGrid"
                     Grid.Row="2"
@@ -92,12 +93,13 @@
                         </ListView.ItemTemplate>
                     </ListView>
                 </Grid>
-                <contents:FileNavigationBlock />
+                <contents:FileNavigationBlock CommonRepoViewModel="{x:Bind ViewModel.CommonRepoViewModel, Mode=OneWay}" />
                 <contents:FileContentBlock
                     x:Name="FileContentBlock"
                     Grid.Row="3"
                     Margin="12,12,12,0"
-                    x:Load="{x:Bind ViewModel.CommonRepoViewModel.IsFile, Mode=OneWay}" />
+                    x:Load="{x:Bind ViewModel.CommonRepoViewModel.IsFile, Mode=OneWay}"
+                    CommonRepoViewModel="{x:Bind ViewModel.CommonRepoViewModel, Mode=OneWay}" />
                 <contents:ReadmeContentBlock
                     x:Name="RepoReadmeBlock"
                     Grid.Row="4"

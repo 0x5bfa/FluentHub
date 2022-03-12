@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentHub.ViewModels.Repositories;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,9 +18,28 @@ namespace FluentHub.UserControls.Blocks
 {
     public sealed partial class FileContentBlock : UserControl
     {
+        public static readonly DependencyProperty CommonRepoViewModelProperty =
+            DependencyProperty.Register(
+                nameof(CommonRepoViewModel),
+                typeof(CommonRepoViewModel),
+                typeof(FileContentBlock),
+                new PropertyMetadata(0));
+
+        public CommonRepoViewModel CommonRepoViewModel
+        {
+            get { return (CommonRepoViewModel)GetValue(CommonRepoViewModelProperty); }
+            set { SetValue(CommonRepoViewModelProperty, value); }
+        }
+
         public FileContentBlock()
         {
             this.InitializeComponent();
+        }
+
+        private async void UserControl_Loaded(object sender, RoutedEventArgs e)
+        {
+            ViewModel.CommonRepoViewModel = CommonRepoViewModel;
+            await ViewModel.GetFileContent();
         }
     }
 }

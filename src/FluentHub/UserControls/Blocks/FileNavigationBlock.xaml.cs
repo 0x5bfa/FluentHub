@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentHub.ViewModels.Repositories;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -32,6 +33,19 @@ namespace FluentHub.UserControls.Blocks
             set => SetValue(RepositoryIdProperty, value);
         }
         #endregion
+
+        public static readonly DependencyProperty CommonRepoViewModelProperty =
+            DependencyProperty.Register(
+                nameof(CommonRepoViewModel),
+                typeof(CommonRepoViewModel),
+                typeof(FileNavigationBlock),
+                new PropertyMetadata(0));
+
+        public CommonRepoViewModel CommonRepoViewModel
+        {
+            get { return (CommonRepoViewModel)GetValue(CommonRepoViewModelProperty); }
+            set { SetValue(CommonRepoViewModelProperty, value); }
+        }
 
         public FileNavigationBlock()
         {

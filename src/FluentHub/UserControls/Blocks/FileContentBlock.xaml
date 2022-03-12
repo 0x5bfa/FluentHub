@@ -5,10 +5,15 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:FluentHub.UserControls.Blocks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:monaco="using:Monaco"
+    xmlns:vm="using:FluentHub.ViewModels.UserControls.Blocks"
     d:DesignHeight="300"
     d:DesignWidth="400"
+    Loaded="UserControl_Loaded"
     mc:Ignorable="d">
+
+    <UserControl.DataContext>
+        <vm:FileContentBlockViewModel x:Name="ViewModel" />
+    </UserControl.DataContext>
 
     <Grid
         x:Name="ContentBlock"
@@ -20,7 +25,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="48" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="256" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid Padding="8,6" VerticalAlignment="Stretch">
             <Grid.ColumnDefinitions>
@@ -34,7 +39,7 @@
                     VerticalAlignment="Center"
                     FontFamily="Cascadia Code"
                     Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="339 lines (281 sloc)" />
+                    Text="0 lines (0 sloc)" />
                 <Border
                     Width="0.5"
                     Height="24"
@@ -46,7 +51,7 @@
                     VerticalAlignment="Center"
                     FontFamily="Cascadia Code"
                     Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="17.7 KB" />
+                    Text="0 Byte" />
             </StackPanel>
             <StackPanel
                 Grid.Column="2"
@@ -57,6 +62,7 @@
                     Height="32"
                     VerticalAlignment="Center"
                     Background="Transparent"
+                    IsEnabled="False"
                     Style="{StaticResource ClearButtonStyle}">
                     <FontIcon
                         FontSize="14"
@@ -68,6 +74,7 @@
                     Height="32"
                     VerticalAlignment="Center"
                     Background="Transparent"
+                    IsEnabled="False"
                     Style="{StaticResource ClearButtonStyle}">
                     <FontIcon
                         FontSize="14"
@@ -79,6 +86,7 @@
                     Height="32"
                     VerticalAlignment="Center"
                     Background="Transparent"
+                    IsEnabled="False"
                     Style="{StaticResource ClearButtonStyle}">
                     <FontIcon
                         FontSize="14"
@@ -88,12 +96,18 @@
             </StackPanel>
         </Grid>
         <MenuFlyoutSeparator Grid.Row="1" />
-        <Grid Grid.Row="2">
-            <!--<monaco:CodeEditor
-                x:Name="Editor"
-                CodeLanguage="csharp"
-                HasGlyphMargin="True"
-                Text="" />-->
+        <Grid Grid.Row="2" Padding="12,8">
+            <ScrollViewer
+                HorizontalScrollBarVisibility="Auto"
+                HorizontalScrollMode="Enabled"
+                VerticalScrollBarVisibility="Disabled"
+                VerticalScrollMode="Disabled">
+                <TextBlock
+                    FontFamily="Cascadia Code"
+                    FontWeight="SemiLight"
+                    IsTextSelectionEnabled="True"
+                    Text="{x:Bind ViewModel.BlobContent, Mode=OneWay}" />
+            </ScrollViewer>
         </Grid>
     </Grid>
 </UserControl>
