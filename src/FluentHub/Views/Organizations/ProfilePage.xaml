@@ -140,6 +140,7 @@
                         x:Name="EditProfileButton"
                         Width="120"
                         Content="Edit profile"
+                        IsEnabled="False"
                         Visibility="Collapsed" />
                 </StackPanel>
             </Grid>

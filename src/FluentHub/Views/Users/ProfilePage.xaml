@@ -111,11 +111,13 @@
                             x:Name="FollowButton"
                             x:Uid="FollowButton"
                             Width="120"
+                            IsEnabled="False"
                             Visibility="Collapsed" />
                         <Button
                             x:Name="EditProfileButton"
                             x:Uid="EditProfileButton"
                             Width="120"
+                            IsEnabled="False"
                             Visibility="Collapsed" />
                     </StackPanel>
                 </Grid>

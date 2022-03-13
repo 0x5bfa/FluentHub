@@ -33,42 +33,42 @@ namespace FluentHub.Views.Home
                     HomeContentFrame.Navigate(typeof(ProfilePage), App.SignedInUserName);
                     break;
                 case "Notifications":
-                    NavViewFrameTitleTextBlock.Text = "Yours Notifications";
+                    NavViewFrameTitleTextBlock.Text = "Your Notifications";
                     NavViewFrameTitleTextBlock.Visibility = Visibility.Visible;
                     HomeContentFrame.Navigate(typeof(NotificationsPage));
                     break;
                 case "Activities":
-                    NavViewFrameTitleTextBlock.Text = "Yours Activities";
+                    NavViewFrameTitleTextBlock.Text = "Your Activities";
                     NavViewFrameTitleTextBlock.Visibility = Visibility.Visible;
                     HomeContentFrame.Navigate(typeof(ActivityPage));
                     break;
                 case "Issues":
-                    NavViewFrameTitleTextBlock.Text = "Yours Issues";
+                    NavViewFrameTitleTextBlock.Text = "Your Issues";
                     NavViewFrameTitleTextBlock.Visibility = Visibility.Visible;
                     HomeContentFrame.Navigate(typeof(IssuesPage), App.SignedInUserName);
                     break;
                 case "Pulls":
-                    NavViewFrameTitleTextBlock.Text = "Yours Pull Requests";
+                    NavViewFrameTitleTextBlock.Text = "Your Pull Requests";
                     NavViewFrameTitleTextBlock.Visibility = Visibility.Visible;
                     HomeContentFrame.Navigate(typeof(PullRequestsPage), App.SignedInUserName);
                     break;
                 case "Discussions":
-                    NavViewFrameTitleTextBlock.Text = "Yours Discussions";
+                    NavViewFrameTitleTextBlock.Text = "Your Discussions";
                     NavViewFrameTitleTextBlock.Visibility = Visibility.Visible;
                     HomeContentFrame.Navigate(typeof(DiscussionsPage));
                     break;
                 case "Repositories":
-                    NavViewFrameTitleTextBlock.Text = "Yours Repositories";
+                    NavViewFrameTitleTextBlock.Text = "Your Repositories";
                     NavViewFrameTitleTextBlock.Visibility = Visibility.Visible;
                     HomeContentFrame.Navigate(typeof(RepositoriesPage), App.SignedInUserName);
                     break;
                 case "Organizations":
-                    NavViewFrameTitleTextBlock.Text = "Yours Organizations";
+                    NavViewFrameTitleTextBlock.Text = "Your Organizations";
                     NavViewFrameTitleTextBlock.Visibility = Visibility.Visible;
                     HomeContentFrame.Navigate(typeof(OrganizationsPage));
                     break;
                 case "Starred":
-                    NavViewFrameTitleTextBlock.Text = "Yours Starred Repositories";
+                    NavViewFrameTitleTextBlock.Text = "Your Starred Repositories";
                     NavViewFrameTitleTextBlock.Visibility = Visibility.Visible;
                     HomeContentFrame.Navigate(typeof(StarredReposPage), App.SignedInUserName);
                     break;

@@ -17,7 +17,7 @@
     <muxc:ItemsRepeaterScrollHost>
         <ScrollViewer>
             <Grid Margin="12">
-                <muxc:ProgressRing x:Name="loadingRing" IsActive="{Binding IsActive}" />
+                <muxc:ProgressRing IsActive="{Binding IsActive}" />
                 <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Items}" Loaded="ItemsRepeater_Loaded">
                     <DataTemplate x:DataType="item:NotificationListItem">
                         <Grid>
