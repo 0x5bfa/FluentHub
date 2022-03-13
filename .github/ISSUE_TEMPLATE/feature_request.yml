@@ -1,0 +1,29 @@
+name: Feature Request
+description: Request a new feature for the FluentHub
+labels: [feature_request]
+body:
+  - type: checkboxes
+    attributes:
+      label: Before you start...
+      options:
+        - label: Have you updated the FluentHub? You might be using an old version.
+          required: true
+        - label: Have you checked if similar issue have already been reported?
+          required: true
+  - type: textarea
+    attributes:
+      label: Description
+      description: A clear and concise description of what your idea is. Include things like possible use cases, drawbacks, etc.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: Alternative solutions
+      description: Describe more ways this problem/idea could be solved/implemented.
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: Relevant Assets
+      description: |
+        A list of assets (screenshots, mockups) relevant to this feature request.

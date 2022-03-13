@@ -1,0 +1,72 @@
+﻿using FluentHub.Helpers;
+using FluentHub.OctokitEx.Queries.Repository;
+using FluentHub.ViewModels.Repositories;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace FluentHub.ViewModels.UserControls.Blocks
+{
+    public class FileContentBlockViewModel : INotifyPropertyChanged
+    {
+        private CommonRepoViewModel commonRepoViewModel;
+        public CommonRepoViewModel CommonRepoViewModel
+        {
+            get => commonRepoViewModel;
+            set => SetProperty(ref commonRepoViewModel, value);
+        }
+
+        private string blobContent;
+        public string BlobContent { get => blobContent; set => SetProperty(ref blobContent, value); }
+
+        private string formattedFileDetails;
+        public string FormattedFileDetails { get => formattedFileDetails; set => SetProperty(ref formattedFileDetails, value); }
+
+        private string formattedFileSize;
+        public string FormattedFileSize { get => formattedFileSize; set => SetProperty(ref formattedFileSize, value); }
+
+        private string lineText;
+        public string LineText { get => lineText; set => SetProperty(ref lineText, value); }
+
+        public async Task GetFileContent()
+        {
+            BlobQueries queries = new();
+            var content = await queries.GetBlob(
+                CommonRepoViewModel.Name,
+                CommonRepoViewModel.Owner,
+                CommonRepoViewModel.BranchName,
+                CommonRepoViewModel.Path);
+
+            BlobContent = content.Item1;
+
+            var response = BlobDetailsHelpers.GetBlobDetails(ref content.Item1, content.Item2);
+
+            FormattedFileDetails = $"{response.Item1} lines ({response.Item2} sloc)";
+            FormattedFileSize = response.Item3;
+
+            for (int i = 0; i < response.Item1; i++)
+            {
+                LineText += $"{i}\n";
+            }
+
+            LineText += $"{response.Item1}";
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
+        {
+            if (!Equals(field, newValue))
+            {
+                field = newValue;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+                return true;
+            }
+
+            return false;
+        }
+    }
+}

@@ -1,0 +1,39 @@
+﻿<Page
+    x:Class="FluentHub.Views.Home.ActivityPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:item="using:FluentHub.Models.Items"
+    xmlns:local="using:FluentHub.Views.Home"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:vm="using:FluentHub.ViewModels.Home"
+    mc:Ignorable="d">
+
+    <Page.DataContext>
+        <vm:ActivityViewModel x:Name="ViewModel" />
+    </Page.DataContext>
+
+    <muxc:ItemsRepeaterScrollHost>
+        <ScrollViewer>
+            <Grid Margin="12">
+                <muxc:ProgressRing x:Name="loadingRing" IsActive="{Binding IsActive}" />
+                <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Items}" Loaded="ItemsRepeater_Loaded">
+                    <DataTemplate x:DataType="item:NotificationListItem">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <Grid />
+                        </Grid>
+                    </DataTemplate>
+                </muxc:ItemsRepeater>
+            </Grid>
+        </ScrollViewer>
+    </muxc:ItemsRepeaterScrollHost>
+</Page>

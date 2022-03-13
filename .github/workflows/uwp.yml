@@ -1,0 +1,55 @@
+
+name: UWP
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+
+jobs:
+  build:
+    runs-on: windows-2022
+    strategy:
+      matrix:
+        architecture: [x64]
+    steps:
+      - name: Configure Pagefile
+        uses: al-cheb/configure-pagefile-action@v1.2
+        with:
+          minimum-size: 32GB
+          maximum-size: 32GB
+          disk-root: "C:"
+
+
+      - name: Checkout
+        uses: actions/checkout@v2.3.4
+
+
+      - name: Add MSBuild to PATH
+        uses: microsoft/setup-msbuild@v1.0.2
+
+
+      - name: Create Secret File
+        uses: finnp/create-file-action@1.0.0
+        env:
+          APP_ID: ${{ secrets.APPIDENTIFIER }}
+          APP_SECRET: ${{ secrets.APPSECRET }}
+          FILE_NAME: "FluentHub/AppCredentials.config"
+          FILE_DATA: "<?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot; ?><configuration><client><type key=&quot;id&quot; value=&quot;$AppId&quot;/><type key=&quot;secret&quot; value=&quot;$AppSecret&quot;/></client></configuration>"
+
+
+      - name: Build UWP utilities
+        run: msbuild /m /t:FluentHub /restore /p:Platform=${{ matrix.architecture }} /p:AppxBundle=$env:AppxBundle /p:AppxBundlePlatforms="${{ matrix.architecture }}" /p:AppxPackageDir=${{ github.workspace }}\artifacts\win-${{ matrix.architecture }} /p:AppxPackageSigningEnabled=false /p:RuntimeIdentifier=win-${{ matrix.architecture }} /p:PublishDir=${{ github.workspace }}\artifacts\win-${{ matrix.architecture }}/UWP /p:PublishSingleFile=true /p:Configuration=Release FluentHub.sln
+        env:
+          AppxBundle: Always
+          BuildMode: SideloadOnly
+          Configuration: Release
+
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: win-${{ matrix.architecture }}
+          path: ${{ github.workspace }}/artifacts/win-${{ matrix.architecture }}
