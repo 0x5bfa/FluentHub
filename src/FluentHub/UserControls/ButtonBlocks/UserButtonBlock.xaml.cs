@@ -1,4 +1,5 @@
-﻿using FluentHub.ViewModels.UserControls.ButtonBlocks;
+﻿using FluentHub.OctokitEx.Models;
+using FluentHub.ViewModels.UserControls.ButtonBlocks;
 using Octokit;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace FluentHub.UserControls.ButtonBlocks
     {
         #region properties
         public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(User), typeof(UserButtonBlockViewModel), typeof(UserButtonBlock), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(UserBlockItem), typeof(UserButtonBlockViewModel), typeof(UserButtonBlock), new PropertyMetadata(null));
 
         public UserButtonBlockViewModel ViewModel
         {
@@ -39,8 +40,9 @@ namespace FluentHub.UserControls.ButtonBlocks
             this.InitializeComponent();
         }
 
-        private void UserControl_Loaded(object sender, RoutedEventArgs e)
+        private void UserButtonBlockButton_Click(object sender, RoutedEventArgs e)
         {
+            App.MainViewModel.MainFrame.Navigate(typeof(Views.Users.ProfilePage), ViewModel.User.Login);
         }
     }
 }
