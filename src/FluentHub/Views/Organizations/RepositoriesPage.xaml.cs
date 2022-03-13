@@ -17,8 +17,6 @@ namespace FluentHub.Views.Organizations
 {
     public sealed partial class RepositoriesPage : Page
     {
-        private string OrganizationName { get; set; }
-
         public RepositoriesPage()
         {
             this.InitializeComponent();
@@ -26,14 +24,9 @@ namespace FluentHub.Views.Organizations
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            OrganizationName = e.Parameter as string;
+            ViewModel.GetUserRepos(e.Parameter as string);
 
             base.OnNavigatedTo(e);
-        }
-
-        private void ItemsRepeater_Loaded(object sender, RoutedEventArgs e)
-        {
-            ViewModel.GetUserRepos(OrganizationName);
         }
     }
 }

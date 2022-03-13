@@ -239,7 +239,7 @@
     <Compile Include="ViewModels\Users\ProfilePageViewModel.cs" />
     <Compile Include="ViewModels\Users\RepositoriesViewModel.cs" />
     <Compile Include="ViewModels\Users\OverviewViewModel.cs" />
-    <Compile Include="ViewModels\Users\StarListViewModel.cs" />
+    <Compile Include="ViewModels\Users\StarredReposViewModel.cs" />
     <Compile Include="Views\AppSettings\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>

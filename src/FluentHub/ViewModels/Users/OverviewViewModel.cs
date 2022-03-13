@@ -1,6 +1,5 @@
-﻿using FluentHub.Models.Items;
-using FluentHub.OctokitEx.Queries;
-using FluentHub.Services.OctokitEx;
+﻿using FluentHub.OctokitEx.Queries;
+using FluentHub.ViewModels.UserControls.ButtonBlocks;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -15,26 +14,29 @@ namespace FluentHub.ViewModels.Users
 {
     public class OverviewViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<RepoListItem> PinnedRepos { get; private set; } = new();
+        public ObservableCollection<RepoButtonBlockViewModel> PinnedRepos { get; private set; } = new();
+
+        private bool isActive;
+        public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
 
         public async Task GetPinnedRepos(string login)
         {
-            try
-            {
-                UserPinnedItems pinnedItems = new UserPinnedItems();
-                var repoIdList = await pinnedItems.Get(login, true);
+            IsActive = true;
 
-                foreach (var repoId in repoIdList)
-                {
-                    RepoListItem listItem = new RepoListItem();
-                    listItem.RepoId = repoId;
-                    PinnedRepos.Add(listItem);
-                }
-            }
-            catch (Exception ex)
+            PinnedItemsQueries queries = new();
+            var PinnedItems = await queries.Get(login, true);
+
+            foreach (var item in PinnedItems)
             {
-                Log.Error(ex, ex.Message);
+                RepoButtonBlockViewModel viewModel = new();
+                viewModel.Item = item;
+                viewModel.DisplayDetails = false;
+                viewModel.DisplayStarButton = false;
+
+                PinnedRepos.Add(viewModel);
             }
+
+            IsActive = false;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

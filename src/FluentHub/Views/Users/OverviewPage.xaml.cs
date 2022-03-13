@@ -54,12 +54,10 @@ namespace FluentHub.Views.Users
         {
             if (ViewModel.PinnedRepos.Count() != 0)
             {
-                UserOverviewLoadingProgressRing.Visibility = Visibility.Collapsed;
                 UserPinnedItemsBlock.Visibility = Visibility.Visible;
             }
             else
             {
-                UserOverviewLoadingProgressRing.Visibility = Visibility.Collapsed;
                 NoOverviewTextBlock.Visibility = Visibility.Visible;
             }
         }

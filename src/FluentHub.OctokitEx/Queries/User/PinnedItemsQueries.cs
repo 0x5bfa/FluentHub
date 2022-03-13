@@ -1,4 +1,5 @@
 ﻿using Octokit.GraphQL;
+using Octokit.GraphQL.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,56 +12,70 @@ namespace FluentHub.OctokitEx.Queries
     {
         public PinnedItemsQueries() => new App();
 
-        public async Task Get(string login, bool isUser)
+        public async Task<List<Models.RepositoryBlockItem>> Get(string login, bool isUser)
         {
-            #region Queries
-            var userPinnedItemsQuery = new Query()
+            var usersQuery = new Query()
                     .User(login)
                     .PinnedItems(first: 6)
                     .Nodes
-                    .Select(x => x.Switch<object>(when => when
-                    .Repository(repo => new
+                    .OfType<Octokit.GraphQL.Model.Repository>()
+                    .Select(x => new
                     {
-                        repo.Name,
-                        owner = repo.Owner.Select(owner => owner.Login),
-                        repo.Description,
-                        repo.StargazerCount,
-                        language = repo.Languages(1, null, null, null, null).Nodes.Select(language => language.Name),
-                        //license = repo.LicenseInfo.Select(license => license.Name),
-                        //repo.ForkCount,
-                        //issueCount = repo.Issues(null, null, null, null, null, null, null, null).TotalCount,
-                        //pullCount = repo.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
-                        //repo.UpdatedAt,
-                    })))
+                        x.Name,
+                        x.Description,
+                        Owner = x.Owner.Select(y => y.Login).Single(),
+                        PrimaryLanguage = 
+                        x.Languages(1, null, null, null, null)
+                        .Nodes
+                        .Select(language => new
+                        {
+                            language.Name, language.Color
+                        }).ToList(),
+                        x.StargazerCount,
+                    })
                     .Compile();
 
-            var orgPinnedItemsQuery = new Query()
+            var orgsQuery = new Query()
                     .Organization(login)
                     .PinnedItems(first: 6)
                     .Nodes
-                    .Select(x => x.Switch<object>(when => when
-                    .Repository(repo => new
+                    .OfType<Octokit.GraphQL.Model.Repository>()
+                    .Select(x => new
                     {
-                        repo.Name,
-                        owner = repo.Owner.Select(owner => owner.Login),
-                        repo.Description,
-                        repo.StargazerCount,
-                        language = repo.Languages(1, null, null, null, null).Nodes.Select(language => language.Name),
-                        //license = repo.LicenseInfo.Select(license => license.Name),
-                        //repo.ForkCount,
-                        //issueCount = repo.Issues(null, null, null, null, null, null, null, null).TotalCount,
-                        //pullCount = repo.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
-                        //repo.UpdatedAt,
-                    })))
+                        x.Name,
+                        x.Description,
+                        Owner = x.Owner.Select(y => y.Login).Single(),
+                        PrimaryLanguage =
+                        x.Languages(1, null, null, null, null)
+                        .Nodes
+                        .Select(language => new
+                        {
+                            language.Name,
+                            language.Color
+                        }).ToList(),
+                        x.StargazerCount,
+                    })
                     .Compile();
-            #endregion
 
-            var result = await App.Connection.Run(isUser ? userPinnedItemsQuery: orgPinnedItemsQuery);
+            var result = await App.Connection.Run(isUser ? usersQuery : orgsQuery);
+
+            List<Models.RepositoryBlockItem> items = new();
 
             foreach (var res in result)
             {
                 Models.RepositoryBlockItem item = new();
+
+                item.Description = res.Description;
+                item.PrimaryLangName = res.PrimaryLanguage[0].Name;
+                item.PrimaryLangColor = res.PrimaryLanguage[0].Color;
+                item.Owner = res.Owner;
+                item.Name = res.Name;
+                item.StargazerCount = res.StargazerCount;
+
+                items.Add(item);
             }
+
+            return items;
         }
     }
 }

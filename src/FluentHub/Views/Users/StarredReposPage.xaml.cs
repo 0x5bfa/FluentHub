@@ -18,8 +18,6 @@ namespace FluentHub.Views.Users
 {
     public sealed partial class StarredReposPage : Page
     {
-        private string UserName { get; set; }
-
         public StarredReposPage()
         {
             this.InitializeComponent();
@@ -27,14 +25,9 @@ namespace FluentHub.Views.Users
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            UserName = e.Parameter as string;
+            ViewModel.GetUserStarredRepos(e.Parameter as string);
 
             base.OnNavigatedTo(e);
-        }
-
-        private void ItemsRepeater_Loaded(object sender, RoutedEventArgs e)
-        {
-            ViewModel.GetUserStarredRepos(UserName);
         }
     }
 }

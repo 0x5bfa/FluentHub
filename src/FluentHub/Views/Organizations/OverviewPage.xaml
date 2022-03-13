@@ -2,6 +2,8 @@
     x:Class="FluentHub.Views.Organizations.OverviewPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:bbvm="using:FluentHub.ViewModels.UserControls.ButtonBlocks"
+    xmlns:block="using:FluentHub.UserControls.ButtonBlocks"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:item="using:FluentHub.Models.Items"
     xmlns:local="using:FluentHub.Views.Organizations"
@@ -50,13 +52,14 @@
                     <muxc:ItemsRepeater.Layout>
                         <muxc:StackLayout Orientation="Horizontal" Spacing="8" />
                     </muxc:ItemsRepeater.Layout>
-                    <DataTemplate x:DataType="item:RepoListItem">
-                        <uc:RepoButtonBlock
-                            x:Name="RepositoryBlock"
-                            Width="250"
-                            VerticalAlignment="Stretch"
-                            DisplayStarButton="False"
-                            RepositoryId="{x:Bind RepoId}" />
+                    <DataTemplate x:DataType="bbvm:RepoButtonBlockViewModel">
+                        <Grid>
+                            <block:RepoButtonBlock
+                                x:Name="RepositoryBlock"
+                                Width="250"
+                                VerticalAlignment="Stretch"
+                                ViewModel="{x:Bind}" />
+                        </Grid>
                     </DataTemplate>
                 </muxc:ItemsRepeater>
             </ScrollViewer>
