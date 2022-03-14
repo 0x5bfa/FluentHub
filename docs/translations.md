@@ -1,4 +1,4 @@
-## Translation Guidlines
+# Translation Guidlines
 
 To help translate, follow these instructions.
 
