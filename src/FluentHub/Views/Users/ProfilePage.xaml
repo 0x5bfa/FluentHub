@@ -49,7 +49,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Grid Margin="12,12,12,24">
+            <Grid Margin="18,18,18,12">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -70,8 +70,10 @@
                     </Grid.ColumnDefinitions>
                     <Border
                         Grid.RowSpan="1"
+                        Width="84"
+                        Height="84"
                         Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                        CornerRadius="84">
+                        CornerRadius="42">
                         <Image
                             x:Name="UserAvatorImage"
                             Width="84"
@@ -123,15 +125,16 @@
                 </Grid>
                 <toolkit:WrapPanel
                     Grid.Row="1"
-                    Margin="0,6,0,0"
+                    Margin="0,12,0,0"
                     HorizontalAlignment="Stretch"
                     HorizontalSpacing="6"
                     Orientation="Horizontal">
                     <StackPanel
                         x:Name="CompanyBlock"
+                        Margin="0,0,12,0"
                         HorizontalAlignment="Left"
                         Orientation="Horizontal"
-                        Spacing="2"
+                        Spacing="6"
                         Visibility="Collapsed">
                         <FontIcon
                             VerticalAlignment="Center"
@@ -139,23 +142,15 @@
                             FontSize="14"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Glyph="&#xEA27;" />
-                        <HyperlinkButton
-                            x:Name="CompanyLinkButton"
-                            Padding="4"
-                            Content="{Binding User.Company}"
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Visibility="Collapsed" />
                         <TextBlock
                             x:Name="CompanyLinkTextBlock"
-                            Margin="4,0,6,0"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Text="{Binding User.Company}"
-                            Visibility="Collapsed" />
+                            Text="{Binding User.Company}" />
                     </StackPanel>
                     <StackPanel
                         x:Name="LocationBlock"
-                        Margin="0,0,6,0"
+                        Margin="0,0,12,0"
                         HorizontalAlignment="Left"
                         Orientation="Horizontal"
                         Spacing="6"
@@ -175,6 +170,7 @@
                     </StackPanel>
                     <StackPanel
                         x:Name="LinkBlock"
+                        Margin="0,0,12,0"
                         Orientation="Horizontal"
                         Spacing="2"
                         Visibility="Collapsed">

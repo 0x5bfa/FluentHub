@@ -43,17 +43,18 @@ namespace FluentHub.ViewModels.UserControls.Blocks
 
             BlobContent = content.Item1;
 
-            var response = BlobDetailsHelpers.GetBlobDetails(ref content.Item1, content.Item2);
+            var lines = BlobDetailsHelpers.GetBlobActualLines(ref content.Item1);
+            var sloc = BlobDetailsHelpers.GetBlobSloc(ref content.Item1);
 
-            FormattedFileDetails = $"{response.Item1} lines ({response.Item2} sloc)";
-            FormattedFileSize = response.Item3;
+            FormattedFileDetails = $"{lines} lines ({sloc} sloc)";
+            FormattedFileSize = BlobDetailsHelpers.FormatSize(content.Item2);
 
-            for (int i = 0; i < response.Item1; i++)
+            for (int i = 0; i < lines; i++)
             {
                 LineText += $"{i}\n";
             }
 
-            LineText += $"{response.Item1}";
+            LineText += $"{lines}";
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

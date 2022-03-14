@@ -13,41 +13,46 @@ namespace FluentHub.OctokitEx.Queries.Repository
     {
         public LatestCommitQueries() => new App();
 
-        public async Task<CommitOverviewItem> Get(string name, string owner, string qualifiedRefName, string path = ".")
+        public async Task<CommitOverviewItem> Get(string name, string owner, string branchName, string path)
         {
+            path = path.Remove(0, 1);
+
+            if (string.IsNullOrEmpty(path)) path = ".";
+
             var query = new Query()
-                .Repository(name, owner)
-                .Ref(qualifiedRefName)
-                .Target
-                .Cast<Commit>()
-                .History(path: path, first: 1)
-                .Select(x => new
-                {
-                    CommitSummary = x.Nodes.Select(y => new
+                    .Repository(name, owner)
+                    .Ref(branchName)
+                    .Target
+                    .Cast<Commit>()
+                    .History(first: 1, path: path)
+                    .Select(x => new
                     {
-                        y.AbbreviatedOid,
-                        AuthorAvatarUrl = y.Author.AvatarUrl(100),
-                        y.Author.Name,
-                        y.CommittedDate,
-                        y.Message,
-                    }).ToList(),
-                    x.TotalCount,
-                })
-                .Compile();
+                        CommitSummary = x.Nodes.Select(y => new
+                        {
+                            y.AbbreviatedOid,
+                            AuthorAvatarUrl = y.Author.AvatarUrl(100),
+                            y.Author.User.Login,
+                            y.CommittedDate,
+                            y.Message,
+                        }).ToList(),
+                        x.TotalCount,
+                    })
+                    .Compile();
 
             var result = await App.Connection.Run(query);
 
             CommitOverviewItem item = new();
             item.AbbreviatedOid = result.CommitSummary[0].AbbreviatedOid;
             item.AuthorAvatarUrl = result.CommitSummary[0].AuthorAvatarUrl;
-            item.AuthorName = result.CommitSummary[0].Name;
+            item.AuthorName = result.CommitSummary[0].Login;
             item.CommitMessage = result.CommitSummary[0].Message;
             item.CommittedDate = result.CommitSummary[0].CommittedDate;
+            item.TotalCount = result.TotalCount;
 
             return item;
         }
 
-        public async Task<List<CommitOverviewItem>> EnumFilesAndItsLatestCommit(string name, string owner, string branchName, string path = "")
+        public async Task<List<CommitOverviewItem>> EnumFilesAndItsLatestCommit(string name, string owner, string branchName, string path)
         {
             path = path.Remove(0, 1);
 
