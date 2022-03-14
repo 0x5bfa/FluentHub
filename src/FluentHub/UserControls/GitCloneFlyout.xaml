@@ -49,7 +49,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <StackPanel Spacing="6">
-                <Grid ColumnSpacing="8">
+                <Grid ColumnSpacing="4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
@@ -61,8 +61,7 @@
                     <Button
                         x:Name="CopyButton"
                         Grid.Column="1"
-                        Click="CopyButton_Click"
-                        IsEnabled="False">
+                        Click="CopyButton_Click">
                         <FontIcon
                             Height="18"
                             FontSize="14"

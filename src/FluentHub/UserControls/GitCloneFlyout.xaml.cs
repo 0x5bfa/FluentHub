@@ -1,4 +1,5 @@
-﻿using Octokit;
+﻿using FluentHub.ViewModels.Repositories;
+using Octokit;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,28 +14,26 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.UserControls
 {
     public sealed partial class GitCloneFlyout : UserControl
     {
-        #region RepositoryIdProperty
-        public static readonly DependencyProperty RepositoryIdProperty
-        = DependencyProperty.Register(
-              nameof(RepositoryId),
-              typeof(long),
-              typeof(GitCloneFlyout),
-              new PropertyMetadata(null)
-            );
+        public static readonly DependencyProperty CommonRepoViewModelProperty =
+            DependencyProperty.Register(
+                nameof(CommonRepoViewModel),
+                typeof(CommonRepoViewModel),
+                typeof(GitCloneFlyout),
+                new PropertyMetadata(0));
 
-        public long RepositoryId
+        public CommonRepoViewModel CommonRepoViewModel
         {
-            get => (long)GetValue(RepositoryIdProperty);
-            set => SetValue(RepositoryIdProperty, value);
+            get { return (CommonRepoViewModel)GetValue(CommonRepoViewModelProperty); }
+            set { SetValue(CommonRepoViewModelProperty, value); }
         }
-        #endregion
 
-        private Octokit.Repository repository { get; set; }
+        Repository Repository;
 
         public GitCloneFlyout()
         {
@@ -43,26 +42,26 @@ namespace FluentHub.UserControls
 
         private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            //repository = await App.Client.Repository.Get(RepositoryId);
+            Repository = await App.Client.Repository.Get(CommonRepoViewModel.Owner, CommonRepoViewModel.Name);
 
-            //CloneUriTextBox.Text = repository.CloneUrl;
+            CloneUriTextBox.Text = Repository.CloneUrl;
             CloneDescriptionTextBlock.Text = "Use Git or checkout with SVN using the web URL.";
         }
 
-        private void GitCloneFlyoutNavView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
+        private void GitCloneFlyoutNavView_ItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
         {
             switch (args.InvokedItemContainer.Tag.ToString())
             {
                 case "Https":
-                    //CloneUriTextBox.Text = repository.CloneUrl;
+                    CloneUriTextBox.Text = Repository.CloneUrl;
                     CloneDescriptionTextBlock.Text = "Use Git or checkout with SVN using the web URL.";
                     break;
                 case "Ssh":
-                    //CloneUriTextBox.Text = repository.SshUrl;
+                    CloneUriTextBox.Text = Repository.SshUrl;
                     CloneDescriptionTextBlock.Text = "Use a password-protected SSH key.";
                     break;
                 case "GitHubCli":
-                    //CloneUriTextBox.Text = repository.GitUrl;
+                    CloneUriTextBox.Text = Repository.GitUrl;
                     CloneDescriptionTextBlock.Text = "Work fast with our official CLI.";
                     break;
             }
@@ -70,9 +69,9 @@ namespace FluentHub.UserControls
 
         private void CopyButton_Click(object sender, RoutedEventArgs e)
         {
-            //var dp = new Windows.ApplicationModel.DataTransfer.DataPackage();
-            //dp.SetText(CloneUriTextBox.Text);
-            //Windows.ApplicationModel.DataTransfer.Clipboard.SetContent(dp);
+            var dp = new Windows.ApplicationModel.DataTransfer.DataPackage();
+            dp.SetText(CloneUriTextBox.Text);
+            Windows.ApplicationModel.DataTransfer.Clipboard.SetContent(dp);
         }
     }
 }

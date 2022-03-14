@@ -7,7 +7,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:FluentHub.UserControls"
+    xmlns:vm="using:FluentHub.ViewModels.UserControls.Blocks"
     mc:Ignorable="d">
+
+    <UserControl.DataContext>
+        <vm:FileNavigationBlockViewModel x:Name="ViewModel" />
+    </UserControl.DataContext>
 
     <Grid Margin="12,0" ColumnSpacing="8">
         <Grid.ColumnDefinitions>
@@ -91,7 +96,7 @@
                             <Setter Property="CornerRadius" Value="6" />
                         </Style>
                     </Flyout.FlyoutPresenterStyle>
-                    <uc:GitCloneFlyout />
+                    <uc:GitCloneFlyout CommonRepoViewModel="{x:Bind ViewModel.CommonRepoViewModel}" />
                 </Flyout>
             </muxc:DropDownButton.Flyout>
         </muxc:DropDownButton>

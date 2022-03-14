@@ -18,22 +18,6 @@ namespace FluentHub.UserControls.Blocks
 {
     public sealed partial class FileNavigationBlock : UserControl
     {
-        #region RepositoryIdProperty
-        public static readonly DependencyProperty RepositoryIdProperty
-        = DependencyProperty.Register(
-              nameof(RepositoryId),
-              typeof(long),
-              typeof(GitCloneFlyout),
-              new PropertyMetadata(null)
-            );
-
-        public long RepositoryId
-        {
-            get => (long)GetValue(RepositoryIdProperty);
-            set => SetValue(RepositoryIdProperty, value);
-        }
-        #endregion
-
         public static readonly DependencyProperty CommonRepoViewModelProperty =
             DependencyProperty.Register(
                 nameof(CommonRepoViewModel),
@@ -44,7 +28,11 @@ namespace FluentHub.UserControls.Blocks
         public CommonRepoViewModel CommonRepoViewModel
         {
             get { return (CommonRepoViewModel)GetValue(CommonRepoViewModelProperty); }
-            set { SetValue(CommonRepoViewModelProperty, value); }
+            set
+            {
+                SetValue(CommonRepoViewModelProperty, value);
+                ViewModel.CommonRepoViewModel = CommonRepoViewModel;
+            }
         }
 
         public FileNavigationBlock()

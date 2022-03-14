@@ -134,6 +134,7 @@
     <Compile Include="Queries\Repository\EnumIssueOverviewsQueries.cs" />
     <Compile Include="Queries\Repository\EnumPullOverviewsQueries.cs" />
     <Compile Include="Queries\Repository\LatestCommitQueries.cs" />
+    <Compile Include="Queries\Repository\RepoHeaderQueries.cs" />
     <Compile Include="Queries\User\EnumRepositoryQueries.cs" />
     <Compile Include="Queries\User\EnumStarredRepoQueries.cs" />
     <Compile Include="Queries\User\FollowersQueries.cs" />
