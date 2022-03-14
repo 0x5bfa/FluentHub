@@ -17,15 +17,14 @@
         <vm:OverviewViewModel x:Name="ViewModel" />
     </Page.DataContext>
 
-    <Grid>
+    <Grid Margin="12">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid
             x:Name="UserPinnedItemsBlock"
-            Grid.Row="0"
-            Margin="12,12,12,0"
+            Margin="0,0,0,12"
             Visibility="Collapsed">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -64,7 +63,10 @@
                 </muxc:ItemsRepeater>
             </ScrollViewer>
         </Grid>
-        <Frame x:Name="OrgPageFrame" Grid.Row="1" />
+        <Frame
+            x:Name="OrgPageFrame"
+            Grid.Row="1"
+            Margin="-12" />
         <TextBlock
             x:Name="NoOverviewTextBlock"
             Grid.RowSpan="2"

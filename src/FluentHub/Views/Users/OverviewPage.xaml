@@ -27,7 +27,6 @@
             <Grid
                 x:Name="UserPinnedItemsBlock"
                 Margin="0,0,0,12"
-                RowSpacing="2"
                 Visibility="Collapsed">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
