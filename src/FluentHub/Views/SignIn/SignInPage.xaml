@@ -8,6 +8,7 @@
     xmlns:local="using:FluentHub.Views.SignIn"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:uc="using:FluentHub.UserControls"
     mc:Ignorable="d">
 
     <Grid MinHeight="300" RowSpacing="16">
@@ -16,54 +17,27 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Grid
-            x:Name="AppTitleBar"
-            Height="48"
-            Margin="8,0,0,0"
-            VerticalAlignment="Top"
-            Background="Transparent"
-            IsHitTestVisible="True">
-            <StackPanel Margin="40,0,0,0" Orientation="Horizontal">
-                <Image
-                    x:Name="AppFontIcon"
-                    Width="24"
-                    Height="24"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Source="/Assets/AppTiles/Square44x44Logo.png" />
-                <TextBlock
-                    x:Name="AppTitle"
-                    Margin="12,0,0,0"
-                    VerticalAlignment="Center"
-                    Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="{helpers:ResourceString Name=CanonicalAppName}" />
-                <TextBlock
-                    x:Name="PreviewTitle"
-                    x:Uid="PreviewTitle"
-                    Margin="4,0,0,0"
-                    VerticalAlignment="Center"
-                    FontSize="11"
-                    Foreground="{StaticResource TextFillColorSecondaryBrush}" />
-            </StackPanel>
+        <Grid>
+            <uc:TitleBar x:Name="AppTitleBar" Margin="44,0,0,0" />
+            <Button
+                Width="32"
+                Height="32"
+                Margin="8,0,0,0"
+                Padding="6"
+                Background="Transparent"
+                BorderBrush="Transparent"
+                Canvas.ZIndex="1"
+                Click="BackButton_Click">
+                <muxc:AnimatedIcon x:Name="BackAnimatedIcon">
+                    <muxc:AnimatedIcon.Source>
+                        <animatedvisuals:AnimatedBackVisualSource />
+                    </muxc:AnimatedIcon.Source>
+                    <muxc:AnimatedIcon.FallbackIconSource>
+                        <muxc:SymbolIconSource Symbol="Back" />
+                    </muxc:AnimatedIcon.FallbackIconSource>
+                </muxc:AnimatedIcon>
+            </Button>
         </Grid>
-        <Button
-            Width="32"
-            Height="32"
-            Margin="8,0,0,0"
-            Padding="6"
-            Background="Transparent"
-            BorderBrush="Transparent"
-            Canvas.ZIndex="1"
-            Click="BackButton_Click">
-            <muxc:AnimatedIcon x:Name="BackAnimatedIcon">
-                <muxc:AnimatedIcon.Source>
-                    <animatedvisuals:AnimatedBackVisualSource />
-                </muxc:AnimatedIcon.Source>
-                <muxc:AnimatedIcon.FallbackIconSource>
-                    <muxc:SymbolIconSource Symbol="Back" />
-                </muxc:AnimatedIcon.FallbackIconSource>
-            </muxc:AnimatedIcon>
-        </Button>
         <StackPanel
             Grid.Row="1"
             Width="400"
