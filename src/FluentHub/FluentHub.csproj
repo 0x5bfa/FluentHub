@@ -164,6 +164,9 @@
     <Compile Include="UserControls\ButtonBlocks\IssueButtonBlock.xaml.cs">
       <DependentUpon>IssueButtonBlock.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ButtonBlocks\NotificationButtonBlock.xaml.cs">
+      <DependentUpon>NotificationButtonBlock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ButtonBlocks\OrgButtonBlock.xaml.cs">
       <DependentUpon>OrgButtonBlock.xaml</DependentUpon>
     </Compile>
@@ -237,6 +240,7 @@
     <Compile Include="ViewModels\UserControls\Blocks\FileNavigationBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\DiscussionButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\IssueButtonBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\ButtonBlocks\NotificationButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\OrgButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\PullButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\RepoButtonBlockViewModel.cs" />
@@ -244,7 +248,7 @@
     <Compile Include="ViewModels\UserControls\Blocks\IssueEventBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\LatestCommitBlockViewModel.cs" />
     <Compile Include="ViewModels\Home\ActivityViewModel.cs" />
-    <Compile Include="ViewModels\Home\NotificationViewModel.cs" />
+    <Compile Include="ViewModels\Home\NotificationsViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\UserButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\Users\DiscussionsViewModel.cs" />
     <Compile Include="ViewModels\Users\FollowersViewModel.cs" />
@@ -519,6 +523,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ButtonBlocks\IssueButtonBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ButtonBlocks\NotificationButtonBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

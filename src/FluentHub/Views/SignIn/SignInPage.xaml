@@ -143,7 +143,6 @@
                         TextAlignment="Center" />
                 </Border>
                 <TextBlock
-                    x:Uid="FirstNumberedListInWebAuth"
                     Grid.Column="1"
                     VerticalAlignment="Top"
                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
