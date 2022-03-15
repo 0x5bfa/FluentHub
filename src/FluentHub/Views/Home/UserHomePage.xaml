@@ -15,6 +15,7 @@
                 <ResourceDictionary>
                     <StaticResource x:Key="NavigationViewContentBackground" ResourceKey="SystemControlPageBackgroundTransparentBrush" />
                     <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
+                    <x:Double x:Key="CompactModeThresholdWidth">640</x:Double>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -27,6 +28,7 @@
         <muxc:NavigationView
             x:Name="HomeNavView"
             AlwaysShowHeader="True"
+            CompactModeThresholdWidth="320"
             IsBackButtonVisible="Collapsed"
             IsPaneOpen="True"
             IsPaneToggleButtonVisible="False"
@@ -178,5 +180,27 @@
                 </Grid>
             </muxc:NavigationView.Content>
         </muxc:NavigationView>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="smallScreen">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="HomeNavView.PaneDisplayMode" Value="Top" />
+                    </VisualState.Setters>
+                </VisualState>
+
+                <VisualState x:Name="bigScreen">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="{StaticResource CompactModeThresholdWidth}" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="HomeNavView.PaneDisplayMode" Value="Auto" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
 </Page>
