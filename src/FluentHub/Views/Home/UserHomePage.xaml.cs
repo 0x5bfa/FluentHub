@@ -40,7 +40,7 @@ namespace FluentHub.Views.Home
                 case "Activities":
                     NavViewFrameTitleTextBlock.Text = "Your Activities";
                     NavViewFrameTitleTextBlock.Visibility = Visibility.Visible;
-                    HomeContentFrame.Navigate(typeof(ActivityPage), App.SignedInUserName);
+                    HomeContentFrame.Navigate(typeof(ActivitiesPage), App.SignedInUserName);
                     break;
                 case "Issues":
                     NavViewFrameTitleTextBlock.Text = "Your Issues";

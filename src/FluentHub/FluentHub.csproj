@@ -155,6 +155,9 @@
     <Compile Include="Services\OctokitEx\PullReviewStatus.cs" />
     <Compile Include="Services\OctokitEx\UserPinnedItems.cs" />
     <Compile Include="Services\OctokitEx\UserStarredItems.cs" />
+    <Compile Include="UserControls\Blocks\ActivityBlock.xaml.cs">
+      <DependentUpon>ActivityBlock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Blocks\FileNavigationBlock.xaml.cs">
       <DependentUpon>FileNavigationBlock.xaml</DependentUpon>
     </Compile>
@@ -236,6 +239,7 @@
     <Compile Include="ViewModels\Repositories\PullRequestsViewModel.cs" />
     <Compile Include="ViewModels\SettingsManager.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Blocks\ActivityBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\FileContentBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\FileNavigationBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\DiscussionButtonBlockViewModel.cs" />
@@ -247,7 +251,7 @@
     <Compile Include="ViewModels\UserControls\Blocks\IssueCommentBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\IssueEventBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\LatestCommitBlockViewModel.cs" />
-    <Compile Include="ViewModels\Home\ActivityViewModel.cs" />
+    <Compile Include="ViewModels\Home\ActivitiesViewModel.cs" />
     <Compile Include="ViewModels\Home\NotificationsViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\UserButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\Users\DiscussionsViewModel.cs" />
@@ -330,8 +334,8 @@
     <Compile Include="Views\Home\UserHomePage.xaml.cs">
       <DependentUpon>UserHomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Home\ActivityPage.xaml.cs">
-      <DependentUpon>ActivityPage.xaml</DependentUpon>
+    <Compile Include="Views\Home\ActivitiesPage.xaml.cs">
+      <DependentUpon>ActivitiesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Users\OverviewPage.xaml.cs">
       <DependentUpon>OverviewPage.xaml</DependentUpon>
@@ -511,6 +515,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Default\DefaultThemeResourcesAny.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Blocks\ActivityBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -694,7 +702,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Home\ActivityPage.xaml">
+    <Page Include="Views\Home\ActivitiesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

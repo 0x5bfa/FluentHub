@@ -15,16 +15,16 @@ using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub.Views.Home
 {
-    public sealed partial class ActivityPage : Page
+    public sealed partial class ActivitiesPage : Page
     {
-        public ActivityPage()
+        public ActivitiesPage()
         {
             this.InitializeComponent();
         }
 
-        private async void ItemsRepeater_Loaded(object sender, RoutedEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            await ViewModel.GetAllActivityForCurrent();
+            await ViewModel.GetAllActivityForCurrent(e.Parameter as string);
         }
     }
 }
