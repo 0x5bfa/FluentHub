@@ -1,6 +1,7 @@
-﻿using FluentHub.ViewModels.Repositories;
+﻿using FluentHub.OctokitEx.Models;
+using FluentHub.OctokitEx.Queries.Repository;
+using FluentHub.ViewModels.Repositories;
 using Humanizer;
-using Octokit;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,59 +17,52 @@ namespace FluentHub.ViewModels.UserControls.Blocks
     public class LatestCommitBlockViewModel : INotifyPropertyChanged
     {
         private CommonRepoViewModel commonRepoViewModel;
-        public CommonRepoViewModel CommonRepoViewModel
-        {
-            get => commonRepoViewModel;
-            set => commonRepoViewModel = value;
-        }
+        public CommonRepoViewModel CommonRepoViewModel { get => commonRepoViewModel; set => SetProperty(ref commonRepoViewModel, value); }
 
-        private BitmapImage authorAvatarImage;
-        public BitmapImage AuthorAvatarImage { get => authorAvatarImage; set => SetProperty(ref authorAvatarImage, value); }
-
-        private string authorLoginName;
-        public string AuthorLoginName { get => authorLoginName; set => SetProperty(ref authorLoginName, value); }
-
-        private string commitMessage;
-        public string CommitMessage { get => commitMessage; set => SetProperty(ref commitMessage, value); }
-
-        private string commitSha;
-        public string CommitSha { get => commitSha; set => SetProperty(ref commitSha, value); }
+        private CommitOverviewItem commitOverviewItem;
+        public CommitOverviewItem CommitOverviewItem { get => commitOverviewItem; set => SetProperty(ref commitOverviewItem, value); }
 
         private string commitUpdatedAtHumanized;
         public string CommitUpdatedAtHumanized { get => commitUpdatedAtHumanized; set => SetProperty(ref commitUpdatedAtHumanized, value); }
 
-        private string commitsCount;
-        public string CommitsCount { get => commitsCount; set => SetProperty(ref commitsCount, value); }
+        private string commitMessageHeadline;
+        public string CommitMessageHeadline { get => commitMessageHeadline; set => SetProperty(ref commitMessageHeadline, value); }
 
-        private CornerRadius authorAvatarImageCR = new CornerRadius(12d);
-        public CornerRadius AuthorAvatarImageCR { get => authorAvatarImageCR; set => SetProperty(ref authorAvatarImageCR, value); }
+        private bool hasMoreCommitMessage;
+        public bool HasMoreCommitMessage { get => hasMoreCommitMessage; set => SetProperty(ref hasMoreCommitMessage, value); }
 
-        public async Task SetContents()
+        private string subCommitMessages;
+        public string SubCommitMessages { get => subCommitMessages; set => SetProperty(ref subCommitMessages, value); }
+
+        public async Task GetCommitDetails()
         {
             if (CommonRepoViewModel == null) return;
 
-            CommitRequest request = new CommitRequest();
-            request.Path = CommonRepoViewModel.Path;
+            LatestCommitQueries queries = new();
+            CommitOverviewItem = await queries.Get(CommonRepoViewModel.Name, CommonRepoViewModel.Owner, CommonRepoViewModel.BranchName, CommonRepoViewModel.Path);
 
-            var commits = await App.Client.Repository.Commit.GetAll(CommonRepoViewModel.RepositoryId, request);
+            CommitUpdatedAtHumanized = CommitOverviewItem.CommittedDate.Humanize();
 
-            AuthorAvatarImage = new BitmapImage(new Uri(commits[0].Author.AvatarUrl));
+            var commitMessageLines = CommitOverviewItem.CommitMessage.Split("\n");
+            CommitMessageHeadline = commitMessageLines[0];
 
-            if (commits[0].Author.Type != "User") AuthorAvatarImageCR = new CornerRadius(6d);
+            // prepare
+            if (commitMessageLines.Count() > 1)
+            {
+                HasMoreCommitMessage = true;
 
-            AuthorLoginName = commits[0].Author.Login;
+                if(commitMessageLines[1] == "\n")
+                {
+                    var messageTextLinesList = commitMessageLines.ToList();
+                    messageTextLinesList.RemoveAt(1);
+                    commitMessageLines = messageTextLinesList.ToArray();
+                }
 
-            CommitMessage = commits[0].Commit.Message.Split("\n")[0];
-
-            CommitSha = commits[0].Sha.Substring(0, 7);
-
-            CommitUpdatedAtHumanized = commits[0].Commit.Author.Date.Humanize();
-
-            CommitsCount = commits.Count().ToString();
+                SubCommitMessages = string.Join('\n', commitMessageLines, 1, commitMessageLines.Count() - 1);
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
         protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
         {
             if (!Equals(field, newValue))

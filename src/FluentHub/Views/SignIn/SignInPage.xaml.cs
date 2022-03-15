@@ -22,7 +22,12 @@ namespace FluentHub.Views.SignIn
         public SignInPage()
         {
             this.InitializeComponent();
+        }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
             Window.Current.SetTitleBar(AppTitleBar);
+            base.OnNavigatedTo(e);
         }
 
         private async void ContinueButton_Click(object sender, RoutedEventArgs e)

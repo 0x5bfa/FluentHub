@@ -1,4 +1,5 @@
-﻿using FluentHub.Models.Items;
+﻿using FluentHub.OctokitEx.Queries.Organization;
+using FluentHub.ViewModels.UserControls.ButtonBlocks;
 using Octokit;
 using System;
 using System.Collections.Generic;
@@ -13,44 +14,32 @@ namespace FluentHub.ViewModels.Organizations
 {
     public class RepositoriesViewModel : INotifyPropertyChanged
     {
-        private ObservableCollection<RepoListItem> _items = new ObservableCollection<RepoListItem>();
-        public ObservableCollection<RepoListItem> Items
-        {
-            get => _items;
-            private set
-            {
-                _items = value;
-                NotifyPropertyChanged(nameof(Items));
-            }
-        }
+        public ObservableCollection<RepoButtonBlockViewModel> Items { get; private set; } = new();
 
-        public async void GetUserRepos(string username)
+        private bool isActive;
+        public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
+
+        public async void GetUserRepos(string org)
         {
             IsActive = true;
 
-            ApiOptions options = new() { PageSize = 30, PageCount = 1, StartPage = 1 };
+            EnumRepositoryQueries queries = new();
+            var items = await queries.Get(org);
 
-            var repos = await App.Client.Repository.GetAllForOrg(username, options);
-
-            foreach (var item in repos)
+            foreach (var item in items)
             {
-                RepoListItem listItem = new RepoListItem();
-                listItem.RepoId = item.Id;
-                Items.Add(listItem);
+                RepoButtonBlockViewModel viewModel = new();
+                viewModel.Item = item;
+                viewModel.DisplayDetails = true;
+                viewModel.DisplayStarButton = true;
+
+                Items.Add(viewModel);
             }
 
             IsActive = false;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private void NotifyPropertyChanged(String info)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(info));
-            }
-        }
-
         protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
         {
             if (!Equals(field, newValue))
@@ -62,8 +51,5 @@ namespace FluentHub.ViewModels.Organizations
 
             return false;
         }
-
-        private bool isActive;
-        public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
     }
 }

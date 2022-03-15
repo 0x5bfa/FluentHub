@@ -24,25 +24,29 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
-                <contents:LatestCommitBlock
-                    x:Name="LatastCommitBlock"
-                    Grid.Row="1"
-                    Margin="12,12,12,0"
-                    CommonRepoViewModel="{x:Bind ViewModel.CommonRepoViewModel, Mode=OneWay}" />
+                <contents:FileNavigationBlock CommonRepoViewModel="{x:Bind ViewModel.CommonRepoViewModel, Mode=OneWay}" />
                 <Grid
                     x:Name="DirListViewContentGrid"
-                    Grid.Row="2"
+                    Grid.Row="1"
                     Margin="12,12,12,0"
                     x:Load="{x:Bind ViewModel.CommonRepoViewModel.IsDir, Mode=OneWay}"
                     Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1"
                     CornerRadius="4">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <contents:LatestCommitBlock x:Name="LatastCommitBlock" CommonRepoViewModel="{x:Bind ViewModel.CommonRepoViewModel, Mode=OneWay}" />
+                    <MenuFlyoutSeparator Grid.Row="1" />
                     <ListView
                         x:Name="DirListView"
                         Grid.Row="2"
-                        Grid.ColumnSpan="2"
+                        Margin="0,4"
                         HorizontalAlignment="Stretch"
                         DoubleTapped="DirListView_DoubleTapped"
                         ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
@@ -93,9 +97,19 @@
                         </ListView.ItemTemplate>
                     </ListView>
                 </Grid>
-                <contents:FileNavigationBlock CommonRepoViewModel="{x:Bind ViewModel.CommonRepoViewModel, Mode=OneWay}" />
+                <Grid
+                    x:Name="BlobContentGrid"
+                    Grid.Row="2"
+                    Margin="12,12,12,0"
+                    x:Load="{x:Bind ViewModel.CommonRepoViewModel.IsFile, Mode=OneWay}"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="4">
+                    <contents:LatestCommitBlock x:Name="BlobLatastCommitBlock" CommonRepoViewModel="{x:Bind ViewModel.CommonRepoViewModel, Mode=OneWay}" />
+                </Grid>
                 <contents:FileContentBlock
-                    x:Name="FileContentBlock"
+                    x:Name="BlobContentBlock"
                     Grid.Row="3"
                     Margin="12,12,12,0"
                     x:Load="{x:Bind ViewModel.CommonRepoViewModel.IsFile, Mode=OneWay}"
@@ -109,7 +123,7 @@
         </ScrollViewer>
         <muxc:ProgressRing
             x:Name="DirListViewLoadingProgreeBar"
-            Margin="12,12,12,0"
+            Margin="0,12,0,0"
             IsIndeterminate="True" />
     </Grid>
 </Page>

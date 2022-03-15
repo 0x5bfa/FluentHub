@@ -17,8 +17,6 @@ namespace FluentHub.Views.Users
 {
     public sealed partial class RepositoriesPage : Page
     {
-        private string UserName { get; set; }
-
         public RepositoriesPage()
         {
             this.InitializeComponent();

@@ -7,6 +7,7 @@
     xmlns:local="using:FluentHub.Views.SignIn"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:uc="using:FluentHub.UserControls"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
 
@@ -16,37 +17,9 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Border
-            x:Name="AppTitleBar"
-            Height="48"
-            Margin="16,0,0,0"
-            VerticalAlignment="Top"
-            Background="Transparent"
-            Canvas.ZIndex="1"
-            IsHitTestVisible="True">
-            <StackPanel Orientation="Horizontal">
-                <Image
-                    x:Name="AppFontIcon"
-                    Width="24"
-                    Height="24"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Center"
-                    Source="/Assets/AppTiles/Square44x44Logo.png" />
-                <TextBlock
-                    x:Name="AppTitle"
-                    Margin="12,0,0,0"
-                    VerticalAlignment="Center"
-                    Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="{helpers:ResourceString Name=CanonicalAppName}" />
-                <TextBlock
-                    x:Name="PreviewTitle"
-                    x:Uid="PreviewTitle"
-                    Margin="4,0,0,0"
-                    VerticalAlignment="Center"
-                    FontSize="11"
-                    Foreground="{StaticResource TextFillColorSecondaryBrush}" />
-            </StackPanel>
-        </Border>
+        <Grid x:Name="AppTitleBar" Background="Transparent">
+            <uc:TitleBar Margin="12,0,0,0" />
+        </Grid>
         <StackPanel
             Grid.Row="1"
             Width="400"

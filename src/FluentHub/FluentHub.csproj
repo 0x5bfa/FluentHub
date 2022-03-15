@@ -155,11 +155,23 @@
     <Compile Include="Services\OctokitEx\PullReviewStatus.cs" />
     <Compile Include="Services\OctokitEx\UserPinnedItems.cs" />
     <Compile Include="Services\OctokitEx\UserStarredItems.cs" />
+    <Compile Include="UserControls\Blocks\ActivityBlock.xaml.cs">
+      <DependentUpon>ActivityBlock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Blocks\FileNavigationBlock.xaml.cs">
       <DependentUpon>FileNavigationBlock.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ButtonBlocks\DiscussionButtonBlock.xaml.cs">
+      <DependentUpon>DiscussionButtonBlock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ButtonBlocks\IssueButtonBlock.xaml.cs">
       <DependentUpon>IssueButtonBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ButtonBlocks\NotificationButtonBlock.xaml.cs">
+      <DependentUpon>NotificationButtonBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ButtonBlocks\OrgButtonBlock.xaml.cs">
+      <DependentUpon>OrgButtonBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ButtonBlocks\PullButtonBlock.xaml.cs">
       <DependentUpon>PullButtonBlock.xaml</DependentUpon>
@@ -209,6 +221,9 @@
     <Compile Include="UserControls\SettingsDisplayControl.xaml.cs">
       <DependentUpon>SettingsDisplayControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\TitleBar.xaml.cs">
+      <DependentUpon>TitleBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\AppSettings\AboutViewModel.cs" />
     <Compile Include="ViewModels\AppSettings\AppearanceViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
@@ -224,22 +239,31 @@
     <Compile Include="ViewModels\Repositories\PullRequestsViewModel.cs" />
     <Compile Include="ViewModels\SettingsManager.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Blocks\ActivityBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\FileContentBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Blocks\FileNavigationBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\ButtonBlocks\DiscussionButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\IssueButtonBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\ButtonBlocks\NotificationButtonBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\ButtonBlocks\OrgButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\PullButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\RepoButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\IssueCommentBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\IssueEventBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\LatestCommitBlockViewModel.cs" />
-    <Compile Include="ViewModels\Home\ActivityViewModel.cs" />
-    <Compile Include="ViewModels\Home\NotificationViewModel.cs" />
+    <Compile Include="ViewModels\Home\ActivitiesViewModel.cs" />
+    <Compile Include="ViewModels\Home\NotificationsViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\UserButtonBlockViewModel.cs" />
+    <Compile Include="ViewModels\Users\DiscussionsViewModel.cs" />
     <Compile Include="ViewModels\Users\FollowersViewModel.cs" />
     <Compile Include="ViewModels\Users\FollowingViewModel.cs" />
+    <Compile Include="ViewModels\Users\IssuesViewModel.cs" />
+    <Compile Include="ViewModels\Users\OrganizationsViewModel.cs" />
     <Compile Include="ViewModels\Users\ProfilePageViewModel.cs" />
+    <Compile Include="ViewModels\Users\PullRequestsViewModel.cs" />
     <Compile Include="ViewModels\Users\RepositoriesViewModel.cs" />
     <Compile Include="ViewModels\Users\OverviewViewModel.cs" />
-    <Compile Include="ViewModels\Users\StarListViewModel.cs" />
+    <Compile Include="ViewModels\Users\StarredReposViewModel.cs" />
     <Compile Include="Views\AppSettings\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
@@ -251,6 +275,9 @@
     </Compile>
     <Compile Include="Views\AppSettings\AppearancePage.xaml.cs">
       <DependentUpon>AppearancePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Searches\MainSearchPage.xaml.cs">
+      <DependentUpon>MainSearchPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Users\DiscussionsPage.xaml.cs">
       <DependentUpon>DiscussionsPage.xaml</DependentUpon>
@@ -307,8 +334,8 @@
     <Compile Include="Views\Home\UserHomePage.xaml.cs">
       <DependentUpon>UserHomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Home\ActivityPage.xaml.cs">
-      <DependentUpon>ActivityPage.xaml</DependentUpon>
+    <Compile Include="Views\Home\ActivitiesPage.xaml.cs">
+      <DependentUpon>ActivitiesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Users\OverviewPage.xaml.cs">
       <DependentUpon>OverviewPage.xaml</DependentUpon>
@@ -491,11 +518,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\Blocks\ActivityBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Blocks\FileNavigationBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\ButtonBlocks\DiscussionButtonBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\ButtonBlocks\IssueButtonBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ButtonBlocks\NotificationButtonBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ButtonBlocks\OrgButtonBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -563,6 +606,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\TitleBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AppSettings\AboutPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -576,6 +623,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AppSettings\AppearancePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Searches\MainSearchPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -651,7 +702,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Home\ActivityPage.xaml">
+    <Page Include="Views\Home\ActivitiesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

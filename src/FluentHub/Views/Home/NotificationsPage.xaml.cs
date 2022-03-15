@@ -22,7 +22,7 @@ namespace FluentHub.Views.Home
             this.InitializeComponent();
         }
 
-        private async void ItemsRepeater_Loaded(object sender, RoutedEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             await ViewModel.GetNotifications();
         }

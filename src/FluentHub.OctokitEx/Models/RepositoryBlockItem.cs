@@ -14,7 +14,9 @@ namespace FluentHub.OctokitEx.Models
 
         public string Description { get; set; }
 
-        public string Language { get; set; }
+        public string PrimaryLangName { get; set; }
+
+        public string PrimaryLangColor { get; set; }
 
         public string LicenseName { get; set; }
 
@@ -23,6 +25,8 @@ namespace FluentHub.OctokitEx.Models
         public int IssueCount { get; set; }
 
         public int PullCount { get; set; }
+
+        public int StargazerCount { get; set; }
 
         public DateTimeOffset UpdatedAt { get; set; }
     }

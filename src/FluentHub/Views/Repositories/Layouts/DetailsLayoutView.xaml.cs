@@ -29,14 +29,11 @@ namespace FluentHub.Views.Repositories.Layouts
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             CommonRepoViewModel = e.Parameter as CommonRepoViewModel;
-
-            LatastCommitBlock.CommonRepoViewModel = CommonRepoViewModel;
+            ViewModel.CommonRepoViewModel = CommonRepoViewModel;
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
-            ViewModel.CommonRepoViewModel = CommonRepoViewModel;
-
             if (CommonRepoViewModel.IsFile == true)
             {
                 DirListViewLoadingProgreeBar.IsIndeterminate = false;

@@ -1,5 +1,6 @@
-﻿using FluentHub.Models.Items;
-using FluentHub.Services.OctokitEx;
+﻿using FluentHub.OctokitEx.Queries.User;
+using FluentHub.ViewModels.UserControls.ButtonBlocks;
+using Octokit;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -11,23 +12,25 @@ using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.Users
 {
-    public class StarListViewModel : INotifyPropertyChanged
+    public class StarredReposViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<RepoListItem> Items { get; private set; } = new();
+        public ObservableCollection<RepoButtonBlockViewModel> Items { get; private set; } = new();
 
-        public async void GetUserStarredRepos(string username)
+        public async void GetUserStarredRepos(string login)
         {
             IsActive = true;
 
-            UserStarredItems starredItems = new UserStarredItems();
-            var repoIdList = await starredItems.Get(username);
+            EnumStarredRepoQueries queries = new();
+            var items = await queries.Get(login);
 
-            foreach (var repoId in repoIdList)
+            foreach (var item in items)
             {
-                RepoListItem listItem = new RepoListItem();
-                listItem.RepoId = repoId;
+                RepoButtonBlockViewModel viewModel = new();
+                viewModel.Item = item;
+                viewModel.DisplayDetails = true;
+                viewModel.DisplayStarButton = true;
 
-                Items.Add(listItem);
+                Items.Add(viewModel);
             }
 
             IsActive = false;

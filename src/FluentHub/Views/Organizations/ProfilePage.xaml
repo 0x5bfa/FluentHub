@@ -33,7 +33,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Grid Margin="12,12,12,24">
+            <Grid Margin="18,18,18,24">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -71,13 +71,13 @@
                         Visibility="Collapsed" />
                     <toolkit:WrapPanel
                         Grid.Row="1"
-                        Margin="0,6,0,0"
+                        Margin="0,12,0,0"
                         HorizontalAlignment="Stretch"
                         HorizontalSpacing="6"
                         Orientation="Horizontal">
                         <StackPanel
                             x:Name="LocationBlock"
-                            Margin="0,0,6,0"
+                            Margin="0,0,12,0"
                             HorizontalAlignment="Left"
                             Orientation="Horizontal"
                             Spacing="6"
@@ -97,6 +97,7 @@
                         </StackPanel>
                         <StackPanel
                             x:Name="LinkBlock"
+                            Margin="0,0,12,0"
                             Orientation="Horizontal"
                             Spacing="2"
                             Visibility="Collapsed">
@@ -114,6 +115,7 @@
                         </StackPanel>
                         <StackPanel
                             x:Name="MailBlock"
+                            Margin="0,0,12,0"
                             Orientation="Horizontal"
                             Spacing="2"
                             Visibility="Collapsed">
@@ -140,6 +142,7 @@
                         x:Name="EditProfileButton"
                         Width="120"
                         Content="Edit profile"
+                        IsEnabled="False"
                         Visibility="Collapsed" />
                 </StackPanel>
             </Grid>

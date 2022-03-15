@@ -13,18 +13,18 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace FluentHub.Views.Home
+// 空白ページの項目テンプレートについては、https://go.microsoft.com/fwlink/?LinkId=234238 を参照してください
+
+namespace FluentHub.Views.Searches
 {
-    public sealed partial class ActivityPage : Page
+    /// <summary>
+    /// それ自体で使用できる空白ページまたはフレーム内に移動できる空白ページ。
+    /// </summary>
+    public sealed partial class MainSearchPage : Page
     {
-        public ActivityPage()
+        public MainSearchPage()
         {
             this.InitializeComponent();
-        }
-
-        private async void ItemsRepeater_Loaded(object sender, RoutedEventArgs e)
-        {
-            await ViewModel.GetAllActivityForCurrent();
         }
     }
 }

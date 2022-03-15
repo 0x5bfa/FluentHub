@@ -42,17 +42,17 @@
                     IsSelected="True"
                     Tag="Profile">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xEA38;" />
+                        <FontIcon Glyph="&#xE77B;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem x:Uid="HomeNavViewItemNotifications" Tag="Notifications">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xE918;" />
+                        <FontIcon Glyph="&#xEA8F;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
                 <muxc:NavigationViewItem x:Uid="HomeNavViewItemActivities" Tag="Activities">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xE9AB;" />
+                        <FontIcon Glyph="&#xECAD;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
                 <muxc:NavigationViewItemHeader x:Uid="HomeNavViewHeaderMyWork" />

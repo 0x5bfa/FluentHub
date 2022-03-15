@@ -48,7 +48,6 @@ namespace FluentHub.Views.Repositories
         {
             Repository = await App.Client.Repository.Get(RepoId);
 
-
             if (Repository == null)
             {
                 return;
@@ -57,7 +56,7 @@ namespace FluentHub.Views.Repositories
             await SetRepoInfo();
         }
 
-        private async void RepoPageNavView_ItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
+        private void RepoPageNavView_ItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
         {
             var commonRepoViewModel = new CommonRepoViewModel();
 

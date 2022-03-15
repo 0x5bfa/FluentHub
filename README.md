@@ -29,19 +29,9 @@ We may use the App Center to track the settings used, find bugs and fix crashes.
 
 ## Our goals
 
-* Multi-tab support
-  * Go back and forward on the page
-  * Jump to the page with the URL of GitHub
-  * Copy URL of the page
-* App settings
-  * App themes
-  * App languages
-  * Default new page
-  * Multi-account support
-* Octokit.NET full support
-* Support for displaying rendered markdown using WebView
+- Our goal is not to imitate the GitHub UI, but to provide a Fluent Design compliant UI and a more experience.
+- Some pages on GitHub have a potential bug that loads all the information(such as file changes, issue, PR pages) and slows down your browser. We will subdivide our data so that we provide more data when users need it.
 
 ## Translations
 
-This app can be localized.</br>
-Before updating resources, follow [this instructions](docs/translations.md).
+Before updating localize resources, follow [this instructions](docs/translations.md).
