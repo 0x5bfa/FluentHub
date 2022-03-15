@@ -11,7 +11,7 @@ namespace FluentHub.Views
     {
         public MainPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             App.MainViewModel.MainFrame.Navigating += ViewModelMainFrame_Navigating;
             CoreApplication.GetCurrentView().TitleBar.LayoutMetricsChanged += TitleBar_LayoutMetricsChanged;
@@ -20,18 +20,7 @@ namespace FluentHub.Views
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             // Configure Jumplist
-            //JumpListHelper.AddToJumpList("FluentHub", "ms-appx:///Assets/AppTiles/StoreLogo.png", "", "FluentHub", "FluentHub");
-            await JumpListHelper.AddToJumpListAsync("Profile", "ms-appx:///Assets/AppTiles/StoreLogo.png", "Profile", "", "Profile");
-            await JumpListHelper.AddToJumpListAsync("Notifications", "ms-appx:///Assets/AppTiles/StoreLogo.png", "Notifications", "", "Profile");
-            await JumpListHelper.AddToJumpListAsync("Activities", "ms-appx:///Assets/AppTiles/StoreLogo.png", "Activities", "", "Profile");
-
-            await JumpListHelper.AddToJumpListAsync("Issues", "ms-appx:///Assets/AppTiles/StoreLogo.png", "Issues", "", "My Work");
-            await JumpListHelper.AddToJumpListAsync("Pull Requests", "ms-appx:///Assets/AppTiles/StoreLogo.png", "Pull Requests", "", "My Work");
-            await JumpListHelper.AddToJumpListAsync("Discussions", "ms-appx:///Assets/AppTiles/StoreLogo.png", "Discussions", "", "My Work");
-            await JumpListHelper.AddToJumpListAsync("Repositories", "ms-appx:///Assets/AppTiles/StoreLogo.png", "Repositories", "", "My Work");
-            await JumpListHelper.AddToJumpListAsync("Organizations", "ms-appx:///Assets/AppTiles/StoreLogo.png", "Organizations", "", "My Work");
-            await JumpListHelper.AddToJumpListAsync("Starred", "ms-appx:///Assets/AppTiles/StoreLogo.png", "Starred", "", "My Work");
-
+            await JumpListHelper.ConfigureDefaultJumpListAsync();
         }
 
         private void TitleBar_LayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)

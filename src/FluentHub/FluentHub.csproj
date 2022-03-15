@@ -128,6 +128,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\SettingsControlConverter.cs" />
+    <Compile Include="Extensions\IEnumerableExt.cs" />
     <Compile Include="Helpers\Base64Helpers.cs" />
     <Compile Include="Helpers\BlobDetailsHelpers.cs" />
     <Compile Include="Helpers\ColorHelpers.cs" />
