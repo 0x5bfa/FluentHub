@@ -54,8 +54,6 @@ namespace FluentHub.UserControls.Blocks
         }
         private void OnCloneButtonPointerPressed(object sender, PointerRoutedEventArgs e) => SetState(sender as UIElement, "Pressed");
 
-        private void OnCloneButtonPointerReleased(object sender, PointerRoutedEventArgs e) => SetState(sender as UIElement, "Normal");
-
-       
+        private void OnCloneButtonPointerReleased(object sender, PointerRoutedEventArgs e) => SetState(sender as UIElement, "Normal");       
     }
 }
