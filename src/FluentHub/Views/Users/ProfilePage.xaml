@@ -70,13 +70,18 @@
                     </Grid.ColumnDefinitions>
                     <Border
                         Grid.RowSpan="1"
+                        Width="84"
+                        Height="84"
                         Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                         CornerRadius="84">
-                        <Image
-                            x:Name="UserAvatorImage"
-                            Width="84"
-                            Height="84"
-                            Source="{Binding User.AvatarUrl}" />
+                        <Image x:Name="UserAvatorImage">
+                            <Image.Source>
+                                <BitmapImage
+                                    DecodePixelHeight="128"
+                                    DecodePixelWidth="128"
+                                    UriSource="{Binding User.AvatarUrl}" />
+                            </Image.Source>
+                        </Image>
                     </Border>
                     <StackPanel
                         Grid.Column="1"
@@ -97,10 +102,16 @@
                             Text="{Binding User.Name}" />
                         <TextBlock
                             x:Name="UserBioTextBlock"
+                            MaxLines="2"
                             Style="{ThemeResource BodyTextBlockStyle}"
                             Text="{Binding User.Bio}"
-                            Visibility="Collapsed" />
-
+                            TextTrimming="CharacterEllipsis"
+                            Visibility="Collapsed">
+                            <ToolTipService.ToolTip>
+                                <!--  Enable tooltip only if the text is trimmed  -->
+                                <ToolTip Content="{x:Bind UserBioTextBlock.Text, Mode=OneWay}" IsEnabled="{x:Bind UserBioTextBlock.IsTextTrimmed, Mode=OneWay}" />
+                            </ToolTipService.ToolTip>
+                        </TextBlock>
                     </StackPanel>
                     <StackPanel
                         Grid.Column="2"

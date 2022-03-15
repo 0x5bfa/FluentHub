@@ -155,7 +155,7 @@
                                 Background="#fecb1a"
                                 CornerRadius="4">
                                 <FontIcon
-                                    FontFamily="octions"
+                                    FontFamily="{StaticResource Octions}"
                                     FontSize="16"
                                     Foreground="White"
                                     Glyph="&#xEA94;" />

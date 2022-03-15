@@ -45,12 +45,12 @@ namespace FluentHub.Views.Users
 
             _ = args.SelectedItemContainer.Tag.ToString() switch
             {
-                "Overview" =>     UserNavViewContent.Navigate(typeof(OverviewPage), UserName),
-                "Repositories" => UserNavViewContent.Navigate(typeof(RepositoriesPage), UserName),
-                "Stars" =>        UserNavViewContent.Navigate(typeof(StarredReposPage), UserName),
-                "Followers" =>    UserNavViewContent.Navigate(typeof(FollowersPage), UserName),
-                "Following" =>    UserNavViewContent.Navigate(typeof(FollowingPage), UserName),
-                _ =>              UserNavViewContent.Navigate(typeof(OverviewPage), UserName)
+                "Overview" =>     UserNavViewContent.Navigate(typeof(OverviewPage), UserName, args.RecommendedNavigationTransitionInfo),
+                "Repositories" => UserNavViewContent.Navigate(typeof(RepositoriesPage), UserName, args.RecommendedNavigationTransitionInfo),
+                "Stars" =>        UserNavViewContent.Navigate(typeof(StarredReposPage), UserName, args.RecommendedNavigationTransitionInfo),
+                "Followers" =>    UserNavViewContent.Navigate(typeof(FollowersPage), UserName, args.RecommendedNavigationTransitionInfo),
+                "Following" =>    UserNavViewContent.Navigate(typeof(FollowingPage), UserName, args.RecommendedNavigationTransitionInfo),
+                _ =>              UserNavViewContent.Navigate(typeof(OverviewPage), UserName, args.RecommendedNavigationTransitionInfo)
             };
         }
 
