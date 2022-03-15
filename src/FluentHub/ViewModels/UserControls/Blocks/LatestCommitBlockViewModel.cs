@@ -43,13 +43,21 @@ namespace FluentHub.ViewModels.UserControls.Blocks
 
             CommitUpdatedAtHumanized = CommitOverviewItem.CommittedDate.Humanize();
 
-            var commitMessageLines = CommitOverviewItem.CommitMessage.Split("\n\n");
+            var commitMessageLines = CommitOverviewItem.CommitMessage.Split("\n");
             CommitMessageHeadline = commitMessageLines[0];
 
             // prepare
             if (commitMessageLines.Count() > 1)
             {
                 HasMoreCommitMessage = true;
+
+                if(commitMessageLines[1] == "\n")
+                {
+                    var messageTextLinesList = commitMessageLines.ToList();
+                    messageTextLinesList.RemoveAt(1);
+                    commitMessageLines = messageTextLinesList.ToArray();
+                }
+
                 SubCommitMessages = string.Join('\n', commitMessageLines, 1, commitMessageLines.Count() - 1);
             }
         }
