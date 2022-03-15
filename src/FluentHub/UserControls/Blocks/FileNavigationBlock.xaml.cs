@@ -1,18 +1,9 @@
 ﻿using FluentHub.ViewModels.Repositories;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.UserControls.Blocks
 {
@@ -35,9 +26,22 @@ namespace FluentHub.UserControls.Blocks
             }
         }
 
-        public FileNavigationBlock()
+        public FileNavigationBlock() => InitializeComponent();
+        public void SetState(UIElement target, string state)
         {
-            this.InitializeComponent();
+            if (target != null)
+            {                
+                muxc.AnimatedIcon.SetState(target, state);
+            }
         }
+        private void OnCloneButtonLoaded(object sender, RoutedEventArgs e)
+        {
+            var button = (Button)sender;
+            button.AddHandler(PointerPressedEvent, new PointerEventHandler(OnCloneButtonPointerPressed), true);
+            button.AddHandler(PointerReleasedEvent, new PointerEventHandler(OnCloneButtonPointerReleased), true);
+        }
+        private void OnCloneButtonPointerPressed(object sender, PointerRoutedEventArgs e) => SetState(sender as UIElement, "Pressed");
+
+        private void OnCloneButtonPointerReleased(object sender, PointerRoutedEventArgs e) => SetState(sender as UIElement, "Normal");       
     }
 }
