@@ -29,7 +29,7 @@
                 <FontIcon
                     FontFamily="{StaticResource Octions}"
                     FontSize="16"
-                    Glyph="&#xEA52;" />
+                    Glyph="&#xE9BF;" />
                 <TextBlock
                     VerticalAlignment="Center"
                     FontSize="14"
