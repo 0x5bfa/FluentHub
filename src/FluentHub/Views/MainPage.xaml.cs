@@ -1,19 +1,8 @@
-﻿using FluentHub.ViewModels;
+﻿using FluentHub.Helpers;
 using FluentHub.Views.Home;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel.Core;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub.Views
@@ -26,6 +15,23 @@ namespace FluentHub.Views
 
             App.MainViewModel.MainFrame.Navigating += ViewModelMainFrame_Navigating;
             CoreApplication.GetCurrentView().TitleBar.LayoutMetricsChanged += TitleBar_LayoutMetricsChanged;
+        }
+
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            // Configure Jumplist
+            //JumpListHelper.AddToJumpList("FluentHub", "ms-appx:///Assets/AppTiles/StoreLogo.png", "", "FluentHub", "FluentHub");
+            await JumpListHelper.AddToJumpListAsync("Profile", "ms-appx:///Assets/AppTiles/StoreLogo.png", "Profile", "", "Profile");
+            await JumpListHelper.AddToJumpListAsync("Notifications", "ms-appx:///Assets/AppTiles/StoreLogo.png", "Notifications", "", "Profile");
+            await JumpListHelper.AddToJumpListAsync("Activities", "ms-appx:///Assets/AppTiles/StoreLogo.png", "Activities", "", "Profile");
+
+            await JumpListHelper.AddToJumpListAsync("Issues", "ms-appx:///Assets/AppTiles/StoreLogo.png", "Issues", "", "My Work");
+            await JumpListHelper.AddToJumpListAsync("Pull Requests", "ms-appx:///Assets/AppTiles/StoreLogo.png", "Pull Requests", "", "My Work");
+            await JumpListHelper.AddToJumpListAsync("Discussions", "ms-appx:///Assets/AppTiles/StoreLogo.png", "Discussions", "", "My Work");
+            await JumpListHelper.AddToJumpListAsync("Repositories", "ms-appx:///Assets/AppTiles/StoreLogo.png", "Repositories", "", "My Work");
+            await JumpListHelper.AddToJumpListAsync("Organizations", "ms-appx:///Assets/AppTiles/StoreLogo.png", "Organizations", "", "My Work");
+            await JumpListHelper.AddToJumpListAsync("Starred", "ms-appx:///Assets/AppTiles/StoreLogo.png", "Starred", "", "My Work");
+
         }
 
         private void TitleBar_LayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
