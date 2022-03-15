@@ -17,27 +17,27 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <Grid>
-            <uc:TitleBar x:Name="AppTitleBar" Margin="44,0,0,0" />
-            <Button
-                Width="32"
-                Height="32"
-                Margin="8,0,0,0"
-                Padding="6"
-                Background="Transparent"
-                BorderBrush="Transparent"
-                Canvas.ZIndex="1"
-                Click="BackButton_Click">
-                <muxc:AnimatedIcon x:Name="BackAnimatedIcon">
-                    <muxc:AnimatedIcon.Source>
-                        <animatedvisuals:AnimatedBackVisualSource />
-                    </muxc:AnimatedIcon.Source>
-                    <muxc:AnimatedIcon.FallbackIconSource>
-                        <muxc:SymbolIconSource Symbol="Back" />
-                    </muxc:AnimatedIcon.FallbackIconSource>
-                </muxc:AnimatedIcon>
-            </Button>
+        <Grid x:Name="AppTitleBar" Background="Transparent">
+            <uc:TitleBar Margin="44,0,0,0" />
         </Grid>
+        <Button
+            Width="32"
+            Height="32"
+            Margin="8,0,0,0"
+            Padding="6"
+            Background="Transparent"
+            BorderBrush="Transparent"
+            Canvas.ZIndex="1"
+            Click="BackButton_Click">
+            <muxc:AnimatedIcon x:Name="BackAnimatedIcon">
+                <muxc:AnimatedIcon.Source>
+                    <animatedvisuals:AnimatedBackVisualSource />
+                </muxc:AnimatedIcon.Source>
+                <muxc:AnimatedIcon.FallbackIconSource>
+                    <muxc:SymbolIconSource Symbol="Back" />
+                </muxc:AnimatedIcon.FallbackIconSource>
+            </muxc:AnimatedIcon>
+        </Button>
         <StackPanel
             Grid.Row="1"
             Width="400"
