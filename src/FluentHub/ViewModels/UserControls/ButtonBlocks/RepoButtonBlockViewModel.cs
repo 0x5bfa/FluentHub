@@ -31,12 +31,12 @@ namespace FluentHub.ViewModels.UserControls.ButtonBlocks
 
         public void GetColorBrush()
         {
-            if (Item.PrimaryLangColor != null)
+            if (Item?.PrimaryLangColor != null)
             {
                 PrimaryLangColor = ColorHelpers.HexCodeToSolidColorBrush(Item.PrimaryLangColor);
             }
 
-            UpdatedAtHumanized = Item.UpdatedAt.Humanize();
+            UpdatedAtHumanized = Item?.UpdatedAt.Humanize();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

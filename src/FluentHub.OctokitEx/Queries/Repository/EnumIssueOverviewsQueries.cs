@@ -13,7 +13,7 @@ namespace FluentHub.OctokitEx.Queries.Repository
     {
         public EnumIssueOverviewsQueries() => new App();
 
-        public async Task<List<IssueOverviewItem>> Get(string name, string owner)
+        public async Task<List<IssueOverviewItem>> GetAll(string name, string owner)
         {
             IssueOrder order = new() { Direction = OrderDirection.Desc, Field = IssueOrderField.CreatedAt };
 

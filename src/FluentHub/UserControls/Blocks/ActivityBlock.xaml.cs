@@ -31,6 +31,7 @@ namespace FluentHub.UserControls.Blocks
             set
             {
                 SetValue(ViewModelProperty, value);
+                _ = ViewModel?.GetPayloadContents();
                 this.DataContext = ViewModel;
             }
         }

@@ -30,7 +30,7 @@ namespace FluentHub.UserControls.ButtonBlocks
             {
                 SetValue(ViewModelProperty, value);
                 this.DataContext = ViewModel;
-                ViewModel.GetColorBrush();
+                ViewModel?.GetColorBrush();
                 UpdateVisibility();
             }
         }
@@ -43,13 +43,13 @@ namespace FluentHub.UserControls.ButtonBlocks
 
         public void UpdateVisibility()
         {
-            if (ViewModel.Item.PrimaryLangName == null)
+            if (ViewModel?.Item?.PrimaryLangName == null)
             {
                 LanguageBlock.Visibility = Visibility.Collapsed;
             }
 
             // does not work property
-            if (LicenseBlock != null && string.IsNullOrEmpty(ViewModel.Item.LicenseName))
+            if (LicenseBlock != null && string.IsNullOrEmpty(ViewModel?.Item.LicenseName))
             {
                 LicenseBlock.Visibility = Visibility.Collapsed;
             }

@@ -1,6 +1,7 @@
 ﻿using FluentHub.Helpers;
 using FluentHub.OctokitEx.Queries.Repository;
 using FluentHub.ViewModels.Repositories;
+using FluentHub.ViewModels.UserControls.ButtonBlocks;
 using Octokit;
 using System;
 using System.Collections.Generic;
@@ -26,7 +27,22 @@ namespace FluentHub.ViewModels.UserControls.Blocks
         private string actor;
         public string Actor { get => actor; set => SetProperty(ref actor, value); }
 
-        public ActivityPayload rawPayload;
+        public Activity FullPayload { get; set; }
+
+        public RepoButtonBlockViewModel RepoButtonBlockViewModel { get; set; } = new();
+
+        public UserButtonBlockViewModel UserButtonBlockViewModel { get; set; } = new();
+
+        public async Task GetPayloadContents()
+        {
+            if (isForkEvent || isWatchEvent)
+            {
+                RepoButtonBlockViewModel.DisplayDetails = false;
+                RepositoryOverviewQueries queries = new();
+                var response = await queries.Get(FullPayload.Repo.Name.Split("/")[0], FullPayload.Repo.Name.Split("/")[1]);
+                RepoButtonBlockViewModel.Item = response;
+            }
+        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)

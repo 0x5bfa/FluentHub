@@ -41,7 +41,7 @@ namespace FluentHub.ViewModels.Home
 
                 viewModel.AvatarUrl = item.Actor.AvatarUrl;
                 viewModel.Actor = item.Actor.Login;
-                viewModel.rawPayload = item.Payload;
+                viewModel.FullPayload = item;
 
                 EventItems.Add(viewModel);
             }

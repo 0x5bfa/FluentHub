@@ -136,6 +136,7 @@
     <Compile Include="Queries\Repository\EnumPullOverviewsQueries.cs" />
     <Compile Include="Queries\Repository\LatestCommitQueries.cs" />
     <Compile Include="Queries\Repository\RepoHeaderQueries.cs" />
+    <Compile Include="Queries\Repository\RepositoryOverviewQueries.cs" />
     <Compile Include="Queries\User\EnumDiscussionOverviewsQueries.cs" />
     <Compile Include="Queries\User\EnumIssueOverviewsQueries.cs" />
     <Compile Include="Queries\User\EnumOrganizationOverviewsQueries.cs" />
