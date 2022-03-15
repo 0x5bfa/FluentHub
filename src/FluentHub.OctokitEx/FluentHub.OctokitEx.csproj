@@ -124,6 +124,7 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="Models\CommitOverviewItem.cs" />
+    <Compile Include="Models\DiscussionOverviewItem.cs" />
     <Compile Include="Models\IssueOverviewItem.cs" />
     <Compile Include="Models\LabelOverviewItem.cs" />
     <Compile Include="Models\OrganizationOverviewItem.cs" />
@@ -135,6 +136,10 @@
     <Compile Include="Queries\Repository\EnumPullOverviewsQueries.cs" />
     <Compile Include="Queries\Repository\LatestCommitQueries.cs" />
     <Compile Include="Queries\Repository\RepoHeaderQueries.cs" />
+    <Compile Include="Queries\User\EnumDiscussionOverviewsQueries.cs" />
+    <Compile Include="Queries\User\EnumIssueOverviewsQueries.cs" />
+    <Compile Include="Queries\User\EnumOrganizationOverviewsQueries.cs" />
+    <Compile Include="Queries\User\EnumPullOverviewsQueries.cs" />
     <Compile Include="Queries\User\EnumRepositoryQueries.cs" />
     <Compile Include="Queries\User\EnumStarredRepoQueries.cs" />
     <Compile Include="Queries\User\FollowersQueries.cs" />

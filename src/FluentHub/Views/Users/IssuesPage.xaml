@@ -8,7 +8,12 @@
     xmlns:local="using:FluentHub.Views.Users"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:vm="using:FluentHub.ViewModels.Users"
     mc:Ignorable="d">
+
+    <Page.DataContext>
+        <vm:IssuesViewModel x:Name="ViewModel" />
+    </Page.DataContext>
 
     <ScrollViewer>
         <Grid Margin="12">
@@ -30,17 +35,14 @@
                     Style="{StaticResource BodyStrongTextBlockStyle}"
                     Text="Issues" />
             </StackPanel>
-            <!--<muxc:ItemsRepeater Grid.Row="1" ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}">
-                <DataTemplate x:DataType="bbvm:RepoButtonBlockViewModel">
+            <muxc:ItemsRepeater Grid.Row="1" ItemsSource="{x:Bind ViewModel.IssueItems, Mode=OneWay}">
+                <DataTemplate x:DataType="bbvm:IssueButtonBlockViewModel">
                     <Grid>
-                        <block:RepoButtonBlock
-                            x:Name="RepositoryBlock"
-                            VerticalAlignment="Stretch"
-                            ViewModel="{x:Bind}" />
+                        <block:IssueButtonBlock VerticalAlignment="Stretch" ViewModel="{x:Bind}" />
                     </Grid>
                 </DataTemplate>
-            </muxc:ItemsRepeater>-->
-            <!--<muxc:ProgressRing Grid.RowSpan="2" IsActive="{Binding IsActive}" />-->
+            </muxc:ItemsRepeater>
+            <muxc:ProgressRing Grid.RowSpan="2" IsActive="{Binding IsActive}" />
         </Grid>
     </ScrollViewer>
 </Page>

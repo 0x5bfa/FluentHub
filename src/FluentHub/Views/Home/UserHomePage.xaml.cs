@@ -35,12 +35,12 @@ namespace FluentHub.Views.Home
                 case "Notifications":
                     NavViewFrameTitleTextBlock.Text = "Your Notifications";
                     NavViewFrameTitleTextBlock.Visibility = Visibility.Visible;
-                    HomeContentFrame.Navigate(typeof(NotificationsPage));
+                    HomeContentFrame.Navigate(typeof(NotificationsPage), App.SignedInUserName);
                     break;
                 case "Activities":
                     NavViewFrameTitleTextBlock.Text = "Your Activities";
                     NavViewFrameTitleTextBlock.Visibility = Visibility.Visible;
-                    HomeContentFrame.Navigate(typeof(ActivityPage));
+                    HomeContentFrame.Navigate(typeof(ActivityPage), App.SignedInUserName);
                     break;
                 case "Issues":
                     NavViewFrameTitleTextBlock.Text = "Your Issues";
@@ -55,7 +55,7 @@ namespace FluentHub.Views.Home
                 case "Discussions":
                     NavViewFrameTitleTextBlock.Text = "Your Discussions";
                     NavViewFrameTitleTextBlock.Visibility = Visibility.Visible;
-                    HomeContentFrame.Navigate(typeof(DiscussionsPage));
+                    HomeContentFrame.Navigate(typeof(DiscussionsPage), App.SignedInUserName);
                     break;
                 case "Repositories":
                     NavViewFrameTitleTextBlock.Text = "Your Repositories";
@@ -65,7 +65,7 @@ namespace FluentHub.Views.Home
                 case "Organizations":
                     NavViewFrameTitleTextBlock.Text = "Your Organizations";
                     NavViewFrameTitleTextBlock.Visibility = Visibility.Visible;
-                    HomeContentFrame.Navigate(typeof(OrganizationsPage));
+                    HomeContentFrame.Navigate(typeof(OrganizationsPage), App.SignedInUserName);
                     break;
                 case "Starred":
                     NavViewFrameTitleTextBlock.Text = "Your Starred Repositories";

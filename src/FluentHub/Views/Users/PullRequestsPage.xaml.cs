@@ -21,5 +21,10 @@ namespace FluentHub.Views.Users
         {
             this.InitializeComponent();
         }
+
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        {
+            await ViewModel.GetRepoPRs(e.Parameter as string);
+        }
     }
 }
