@@ -235,9 +235,13 @@
     <Compile Include="ViewModels\Home\ActivityViewModel.cs" />
     <Compile Include="ViewModels\Home\NotificationViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\UserButtonBlockViewModel.cs" />
+    <Compile Include="ViewModels\Users\DiscussionsViewModel.cs" />
     <Compile Include="ViewModels\Users\FollowersViewModel.cs" />
     <Compile Include="ViewModels\Users\FollowingViewModel.cs" />
+    <Compile Include="ViewModels\Users\IssuesViewModel.cs" />
+    <Compile Include="ViewModels\Users\OrganizationsViewModel.cs" />
     <Compile Include="ViewModels\Users\ProfilePageViewModel.cs" />
+    <Compile Include="ViewModels\Users\PullRequestsViewModel.cs" />
     <Compile Include="ViewModels\Users\RepositoriesViewModel.cs" />
     <Compile Include="ViewModels\Users\OverviewViewModel.cs" />
     <Compile Include="ViewModels\Users\StarredReposViewModel.cs" />

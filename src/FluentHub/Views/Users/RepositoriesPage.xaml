@@ -8,8 +8,6 @@
     xmlns:local="using:FluentHub.Views.Users"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:octokit="using:Octokit"
-    xmlns:uc="using:FluentHub.UserControls.ButtonBlocks"
     xmlns:vm="using:FluentHub.ViewModels.Users"
     mc:Ignorable="d">
 
