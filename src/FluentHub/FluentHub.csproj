@@ -146,7 +146,7 @@
     <Compile Include="Models\Items\LabelSimpleItem.cs" />
     <Compile Include="Models\Items\NotificationListItem.cs" />
     <Compile Include="Models\Items\RepoListItem.cs" />
-    <Compile Include="Models\TabItem.cs" />
+    <Compile Include="UserControls\TabViewControl\TabItem.cs" />
     <Compile Include="Services\Auth\AppCredentials.cs" />
     <Compile Include="Services\Auth\RequestAuthorization.cs" />
     <Compile Include="Services\OctokitEx\DevProgramMember.cs" />
@@ -182,13 +182,13 @@
     <Compile Include="UserControls\ButtonBlocks\UserButtonBlock.xaml.cs">
       <DependentUpon>UserButtonBlock.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Flyouts\OrganizationCardFlyout.xaml.cs">
+    <Compile Include="UserControls\HoverCards\OrganizationCardFlyout.xaml.cs">
       <DependentUpon>OrganizationCardFlyout.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\GitCloneFlyout.xaml.cs">
       <DependentUpon>GitCloneFlyout.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\CustomTabView.xaml.cs">
+    <Compile Include="UserControls\TabViewControl\CustomTabView.xaml.cs">
       <DependentUpon>CustomTabView.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Blocks\IssueCommentBlock.xaml.cs">
@@ -554,7 +554,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\Flyouts\OrganizationCardFlyout.xaml">
+    <Page Include="UserControls\HoverCards\OrganizationCardFlyout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -562,7 +562,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\CustomTabView.xaml">
+    <Page Include="UserControls\TabViewControl\CustomTabView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

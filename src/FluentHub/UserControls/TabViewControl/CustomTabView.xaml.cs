@@ -1,15 +1,14 @@
 ﻿using FluentHub.Models;
 using FluentHub.ViewModels;
 using FluentHub.Views.Home;
-using Microsoft.UI.Xaml.Controls;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using FontIconSource = Microsoft.UI.Xaml.Controls.FontIconSource;
+using muxc = Microsoft.UI.Xaml.Controls;
 
-namespace FluentHub.UserControls
+namespace FluentHub.UserControls.TabViewControl
 {
     public sealed partial class CustomTabView : UserControl
     {
@@ -34,14 +33,14 @@ namespace FluentHub.UserControls
 
             if (App.MainViewModel.SelectedTabIndex >= 0 && App.MainViewModel.MainTabItems[index].NavigationIndex >= 0)
             {
-                var pageUrlList = App.MainViewModel.MainTabItems[index].PageUrlList;
+                var pageUrlList = App.MainViewModel.MainTabItems[index].PageUrls;
                 var pageUrl = pageUrlList[App.MainViewModel.MainTabItems[index].NavigationIndex];
 
                 App.MainViewModel.NavigateMainFrame(pageUrl);
             }
         }
 
-        private void MainTabView_TabCloseRequested(Microsoft.UI.Xaml.Controls.TabView sender, Microsoft.UI.Xaml.Controls.TabViewTabCloseRequestedEventArgs args)
+        private void MainTabView_TabCloseRequested(muxc.TabView sender, muxc.TabViewTabCloseRequestedEventArgs args)
         {
             CloseTab(args.Item as TabItem);
         }
@@ -50,7 +49,7 @@ namespace FluentHub.UserControls
         {
             MainPageViewModel.AddNewTabByPath($"/{App.SignedInUserName}");
             App.MainViewModel.MainFrame.Navigate(typeof(UserHomePage));
-            var iconSource = new FontIconSource();
+            var iconSource = new muxc.FontIconSource();
             iconSource.Glyph = "\uE737";
             App.MainViewModel.MainTabItems[App.MainViewModel.SelectedTabIndex].IconSource = iconSource;
             App.MainViewModel.MainTabItems[App.MainViewModel.SelectedTabIndex].Header = "FluentHub";

@@ -1,9 +1,10 @@
-﻿using FluentHub.Models;
+﻿using FluentHub.UserControls.TabViewControl;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
@@ -12,11 +13,11 @@ namespace FluentHub.ViewModels
 {
     public class MainViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<TabItem> MainTabItems { get; private set; } = new ObservableCollection<TabItem>();
+        public ObservableCollection<TabItem> MainTabItems { get; private set; } = new();
 
         public int SelectedTabIndex { get; set; }
 
-        private string _currentPageUrl;
+        private string currentPageUrl;
         public string CurrentPageUrl
         {
             get
@@ -28,13 +29,12 @@ namespace FluentHub.ViewModels
                 else
                 {
                     int index = MainTabItems[SelectedTabIndex].NavigationIndex;
-                    return MainTabItems[SelectedTabIndex].PageUrlList[index];
+                    return MainTabItems[SelectedTabIndex].PageUrls[index];
                 }
             }
             set
             {
-                _currentPageUrl = value;
-                NotifyPropertyChanged(nameof(CurrentPageUrl));
+                SetProperty(ref currentPageUrl, value);
             }
         }
 
@@ -50,13 +50,16 @@ namespace FluentHub.ViewModels
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-
-        private void NotifyPropertyChanged(string name)
+        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
         {
-            if (PropertyChanged != null)
+            if (!Equals(field, newValue))
             {
-                PropertyChanged(this, new PropertyChangedEventArgs(name));
+                field = newValue;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+                return true;
             }
+
+            return false;
         }
     }
 }
