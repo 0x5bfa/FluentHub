@@ -49,15 +49,52 @@ namespace FluentHub.Helpers
             {                
                 var jumpList = await JumpList.LoadCurrentAsync();
 
-                jumpList.Items[0] = CreateJumpListItem("Profile", "Profile", "ms-appx:///Assets/AppTiles/StoreLogo.png", "", "Profile");
-                jumpList.Items[1] = CreateJumpListItem("Notifications", "Notifications", "ms-appx:///Assets/AppTiles/StoreLogo.png", "", "Profile");
-                jumpList.Items[2] = CreateJumpListItem("Activities", "Activities", "ms-appx:///Assets/AppTiles/StoreLogo.png", "", "Profile");                
-                jumpList.Items[3] = CreateJumpListItem("Issues", "Issues", "ms-appx:///Assets/AppTiles/StoreLogo.png", "", "My Work");                                               
-                jumpList.Items[4] = CreateJumpListItem("Pull Requests", "Pull Requests", "ms-appx:///Assets/AppTiles/StoreLogo.png", "", "My Work");
-                jumpList.Items[5] = CreateJumpListItem("Discussions", "Discussions", "ms-appx:///Assets/AppTiles/StoreLogo.png", "", "My Work");
-                jumpList.Items[6] = CreateJumpListItem("Repositories", "Repositories", "ms-appx:///Assets/AppTiles/StoreLogo.png", "", "My Work");
-                jumpList.Items[7] = CreateJumpListItem("Organizations", "Organizations", "ms-appx:///Assets/AppTiles/StoreLogo.png", "", "My Work");                
-                jumpList.Items[8] = CreateJumpListItem("Starred", "Starred", "ms-appx:///Assets/AppTiles/StoreLogo.png", "", "My Work");
+                var prefix = "ms-appx:///Assets/JumpListIcons";
+                jumpList.Items[0] = CreateJumpListItem("Profile",
+                                                       "Profile",
+                                                       $"{prefix}/Profile.png",
+                                                       "",
+                                                       "Profile");
+                jumpList.Items[1] = CreateJumpListItem("Notifications",
+                                                       "Notifications",
+                                                       $"{prefix}/Notifications.png",
+                                                       "",
+                                                       "Profile");
+                jumpList.Items[2] = CreateJumpListItem("Activities",
+                                                       "Activities",
+                                                       $"{prefix}/Activities.png",
+                                                       "",
+                                                       "Profile");                
+                jumpList.Items[3] = CreateJumpListItem("Issues",
+                                                       "Issues",
+                                                       $"{prefix}/Issues.png",
+                                                       "",
+                                                       "My Work");                                               
+                jumpList.Items[4] = CreateJumpListItem("Pull Requests",
+                                                       "Pull Requests",
+                                                       $"{prefix}/PullRequests.png",
+                                                       "",
+                                                       "My Work");
+                jumpList.Items[5] = CreateJumpListItem("Discussions",
+                                                       "Discussions",
+                                                       $"{prefix}/Discussions.png",
+                                                       "",
+                                                       "My Work");
+                jumpList.Items[6] = CreateJumpListItem("Repositories",
+                                                       "Repositories",
+                                                       $"{prefix}/Repositories.png",
+                                                       "",
+                                                       "My Work");
+                jumpList.Items[7] = CreateJumpListItem("Organizations",
+                                                       "Organizations",
+                                                       $"{prefix}/Organizations.png",
+                                                       "",
+                                                       "My Work");                
+                jumpList.Items[8] = CreateJumpListItem("Starred",
+                                                       "Starred",
+                                                       $"{prefix}/Starred.png",
+                                                       "",
+                                                       "My Work");
                 await jumpList.SaveAsync();
             }
         }
