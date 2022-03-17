@@ -3,10 +3,8 @@
   <h1 align="center">FluentHub</h1>
 </p>
 
-[![Build Status](https://dev.azure.com/fluenthub-community/FluentHub/_apis/build/status/Build%20Pipeline?branchName=main)](https://dev.azure.com/fluenthub-community/FluentHub/_build/latest?definitionId=1&branchName=main)
-[![CodeFactor](https://www.codefactor.io/repository/github/fluenthub-community/fluenthub/badge)](https://www.codefactor.io/repository/github/fluenthub-community/fluenthub)
-![License](https://img.shields.io/github/license/fluenthub-community/FluentHub)
-![RepoSize](https://img.shields.io/github/repo-size/fluenthub-community/FluentHub)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/fluenthub-community/fluenthub)
+[![Build Status](https://dev.azure.com/fluenthub-community/FluentHub/_apis/build/status/Build%20Pipeline%20(x64)?branchName=main)](https://dev.azure.com/fluenthub-community/FluentHub/_build/latest?definitionId=5&branchName=main)
 
 ## What is FluentHub?
 
