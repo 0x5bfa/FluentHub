@@ -28,8 +28,18 @@ namespace FluentHub.ViewModels
                 }
                 else
                 {
-                    int index = MainTabItems[SelectedTabIndex].NavigationIndex;
-                    return MainTabItems[SelectedTabIndex].PageUrls[index];
+                    if (MainTabItems.Count() != 0)
+                    {
+                        int index = MainTabItems[SelectedTabIndex].NavigationIndex;
+
+                        if (index >= 0)
+                        {
+                            return MainTabItems[SelectedTabIndex].PageUrls[index];
+                        }
+                        else return null;
+                    }
+
+                    return null;
                 }
             }
             set

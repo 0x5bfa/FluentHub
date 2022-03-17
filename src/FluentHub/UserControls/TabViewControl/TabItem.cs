@@ -32,13 +32,18 @@ namespace FluentHub.UserControls.TabViewControl
             set => SetProperty(ref iconSource, value);
         }
 
+        private bool useHomeView;
+        public bool UseHomeView
+        {
+            get => useHomeView;
+            set => SetProperty(ref useHomeView, value);
+        }
+
         public ObservableCollection<string> PageUrls { get; set; } = new();
 
-        private int naviationIndex;
         public int NavigationIndex
         {
             get => PageUrls.Count() - 1;
-            set => SetProperty(ref naviationIndex, value);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

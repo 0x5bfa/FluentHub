@@ -1,7 +1,4 @@
-﻿using FluentHub.Helpers;
-using FluentHub.Services.OctokitEx;
-using Octokit;
-using Serilog;
+﻿using Serilog;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,10 +17,8 @@ using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub.Views.Users
 {
-    public sealed partial class OverviewPage : Windows.UI.Xaml.Controls.Page
+    public sealed partial class OverviewPage : Page
     {
-        private string Login { get; set; }
-
         public OverviewPage()
         {
             this.InitializeComponent();
@@ -31,23 +26,15 @@ namespace FluentHub.Views.Users
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            try
-            {
-                Login = e.Parameter as string;
-                await ViewModel.GetPinnedRepos(Login);
-                var repo = await App.Client.Repository.Get(Login, Login);
-                UserSpecialReadmeBlock.RepositoryId = repo.Id;
-            }
-            catch
-            {
-                return;
-            }
-            finally
-            {
-                UpdateVisibility();
+            string login = e.Parameter as string;
 
-                base.OnNavigatedTo(e);
-            }
+            Helpers.NavigationHelpers.AddPageInfoToTabItem($"{login}'s overview", $"https://github.com/{login}?tab=overview", $"https://github.com/{login}?tab=overview", "\uE77B");
+
+            await ViewModel.GetPinnedRepos(login);
+            await ViewModel.GetSpecialRepoId(login);
+            UpdateVisibility();
+
+            base.OnNavigatedTo(e);
         }
 
         private void UpdateVisibility()

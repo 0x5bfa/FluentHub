@@ -16,6 +16,12 @@ namespace FluentHub.ViewModels.Users
     {
         public ObservableCollection<RepoButtonBlockViewModel> PinnedRepos { get; private set; } = new();
 
+        private long userSpecialReadmeRepoId;
+        public long UserSpecialReadmeRepoId { get => userSpecialReadmeRepoId; set => SetProperty(ref userSpecialReadmeRepoId, value); }
+
+        private bool hasUserSpecialReadmeRepoId;
+        public bool HasUserSpecialReadmeRepoId { get => hasUserSpecialReadmeRepoId; set => SetProperty(ref hasUserSpecialReadmeRepoId, value); }
+
         private bool isActive;
         public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
 
@@ -37,6 +43,21 @@ namespace FluentHub.ViewModels.Users
             }
 
             IsActive = false;
+        }
+
+        public async Task GetSpecialRepoId(string login)
+        {
+            try
+            {
+                var repo = await App.Client.Repository.Get(login, login);
+                UserSpecialReadmeRepoId = repo.Id;
+                HasUserSpecialReadmeRepoId = true;
+            }
+            catch
+            {
+                HasUserSpecialReadmeRepoId = false;
+                return;
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

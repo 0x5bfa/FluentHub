@@ -24,6 +24,9 @@ namespace FluentHub.Views.Home
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
+            // save navigation info
+            Helpers.NavigationHelpers.AddPageInfoToTabItem("Activities", "Viewer's activities", "https://github.com", "\uECAD");
+
             await ViewModel.GetAllActivityForCurrent(e.Parameter as string);
         }
     }

@@ -68,13 +68,18 @@
                     </ScrollViewer>
                 </muxc:ItemsRepeaterScrollHost>
             </Grid>
-            <contents:ReadmeContentBlock x:Name="UserSpecialReadmeBlock" Grid.Row="1" />
+            <contents:ReadmeContentBlock
+                x:Name="UserSpecialReadmeBlock"
+                Grid.Row="1"
+                x:Load="{x:Bind ViewModel.HasUserSpecialReadmeRepoId, Mode=OneWay}"
+                RepositoryId="{x:Bind ViewModel.UserSpecialReadmeRepoId, Mode=OneWay}" />
             <muxc:ProgressRing Grid.RowSpan="2" IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
             <TextBlock
                 x:Name="NoOverviewTextBlock"
                 Grid.RowSpan="2"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
+                Style="{StaticResource BodyStrongTextBlockStyle}"
                 Text="There is no overview. Contribution graph will be comming soon!"
                 Visibility="Collapsed" />
         </Grid>

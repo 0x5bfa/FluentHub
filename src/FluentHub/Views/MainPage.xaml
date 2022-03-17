@@ -104,7 +104,9 @@
                 <TextBox
                     x:Uid="ToolbarSearchbox"
                     HorizontalAlignment="Stretch"
-                    VerticalAlignment="Top" />
+                    VerticalAlignment="Top"
+                    IsEnabled="False"
+                    Text="{x:Bind local:App.MainViewModel.CurrentPageUrl, Mode=OneWay}" />
             </Grid>
             <Grid Grid.Column="2">
                 <StackPanel Orientation="Horizontal" Spacing="2">

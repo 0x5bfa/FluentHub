@@ -24,6 +24,8 @@ namespace FluentHub.Views.Home
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
+            Helpers.NavigationHelpers.AddPageInfoToTabItem("Notifications", "Viewer's notifications", "https://github.com/notifications", "\uEA8F");
+
             await ViewModel.GetNotifications();
         }
     }
