@@ -25,7 +25,11 @@ namespace FluentHub.Views.Users
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            ViewModel.GetUserStarredRepos(e.Parameter as string);
+            string login = e.Parameter as string;
+
+            Helpers.NavigationHelpers.AddPageInfoToTabItem($"Stars", $"{login}'s stars", $"https://github.com/{login}?tab=stars", "\uE737");
+
+            ViewModel.GetUserStarredRepos(login);
 
             base.OnNavigatedTo(e);
         }

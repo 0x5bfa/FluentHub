@@ -24,7 +24,11 @@ namespace FluentHub.Views.Users
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            await ViewModel.GetRepoIssues(e.Parameter as string);
+            string login = e.Parameter as string;
+
+            Helpers.NavigationHelpers.AddPageInfoToTabItem($"Issues", "Viewer's issues", $"https://github.com/issues", "\uE737");
+
+            await ViewModel.GetRepoIssues(login);
         }
     }
 }

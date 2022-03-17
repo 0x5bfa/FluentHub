@@ -24,7 +24,11 @@ namespace FluentHub.Views.Users
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            await ViewModel.GetUserRepos(e.Parameter as string);
+            string login = e.Parameter as string;
+
+            Helpers.NavigationHelpers.AddPageInfoToTabItem($"Repositories", $"{login}'s repositories", $"https://github.com/{login}?tab=repositories", "\uE737");
+
+            await ViewModel.GetUserRepos(login);
 
             base.OnNavigatedTo(e);
         }
