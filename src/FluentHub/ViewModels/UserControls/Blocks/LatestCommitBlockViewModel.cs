@@ -51,7 +51,7 @@ namespace FluentHub.ViewModels.UserControls.Blocks
             {
                 HasMoreCommitMessage = true;
 
-                if(commitMessageLines[1] == "\n")
+                if(commitMessageLines[1] == "")
                 {
                     var messageTextLinesList = commitMessageLines.ToList();
                     messageTextLinesList.RemoveAt(1);
