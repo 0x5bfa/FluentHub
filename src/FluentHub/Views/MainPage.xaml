@@ -61,7 +61,8 @@
                         Width="36"
                         Height="36"
                         Background="Transparent"
-                        IsEnabled="False"
+                        Click="{x:Bind GoBack}"
+                        IsEnabled="{Binding SelectedItem.NavigationHistory.CanGoBack, ElementName=TabView, FallbackValue=false}"
                         Style="{StaticResource ClearButtonStyle}">
                         <FontIcon FontSize="14" Glyph="&#xE72B;" />
                     </Button>
@@ -70,7 +71,8 @@
                         Width="36"
                         Height="36"
                         Background="Transparent"
-                        IsEnabled="False"
+                        Click="{x:Bind GoForward}"
+                        IsEnabled="{Binding SelectedItem.NavigationHistory.CanGoForward, ElementName=TabView, FallbackValue=false}"
                         Style="{StaticResource ClearButtonStyle}">
                         <FontIcon FontSize="14" Glyph="&#xE72A;" />
                     </Button>

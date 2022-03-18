@@ -34,5 +34,8 @@ namespace FluentHub.Views
 
         private void OnToolbarAppSettingsButtonClick(object sender, RoutedEventArgs e)
             => navigationService.Navigate<AppSettings.MainSettingsPage>();
+
+        private void GoBack() => navigationService.GoBack();
+        private void GoForward() => navigationService.GoForward();
     }
 }

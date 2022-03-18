@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Animation;
 using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.UserControls.TabViewControl
@@ -26,26 +27,34 @@ namespace FluentHub.UserControls.TabViewControl
         #region properties
         public ITabItemView SelectedItem
         {
-            get => MainTabView.SelectedItem as ITabItemView;
-            set => MainTabView.SelectedItem = value;
+            get => (ITabItemView)GetValue(SelectedItemProperty);
+            set => SetValue(SelectedItemProperty, value);
         }
+        public static readonly DependencyProperty SelectedItemProperty =
+            DependencyProperty.Register("SelectedItem",
+                                        typeof(ITabItemView),
+                                        typeof(UserControl),
+                                        new PropertyMetadata(null));
 
         public ReadOnlyObservableCollection<ITabItemView> Items { get; }
         #endregion
 
         #region public methods
-        public ITabItemView OpenTab(Type page, object parameter = null, bool setAsSelected = true)
+        public ITabItemView OpenTab(Type page!!, object parameter = null, bool setAsSelected = true)
         {
             var item = new TabItem
             {
                 Guid = Guid.NewGuid(),
-                CurrentPage = page,
-                Parameter = parameter,
                 IconSource = new muxc.FontIconSource
                 {
                     Glyph = "\uE737"
                 }
             };
+            item.NavigationHistory.NavigateTo(new(page, parameter, new SlideNavigationTransitionInfo
+            {
+                Effect = SlideNavigationTransitionEffect.FromRight
+            }));
+
             _items.Add(item);
             if (setAsSelected)
             {
@@ -109,11 +118,18 @@ namespace FluentHub.UserControls.TabViewControl
             App.MainViewModel.MainTabItems[App.MainViewModel.SelectedTabIndex].Header = "FluentHub";*/
         }
 
-
-
         private void AddNewTabButton_Click(object sender, RoutedEventArgs e)
         {
-            OpenTab(null, null, true);
+            var item = new TabItem
+            {
+                Guid = Guid.NewGuid(),
+                IconSource = new muxc.FontIconSource
+                {
+                    Glyph = "\uE737"
+                }
+            };
+            _items.Add(item);
+            SelectedItem = item;
             //TabItemAdding = true;
             /*
             MainPageViewModel.AddNewTabByPath($"/{App.SignedInUserName}");

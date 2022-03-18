@@ -46,6 +46,7 @@
             Background="Transparent"
             IsAddTabButtonVisible="False"
             Loaded="OnMainTabViewLoaded"
+            SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
             SelectionChanged="OnMainTabViewSelectionChanged"
             TabCloseRequested="OnMainTabViewTabCloseRequested"
             TabItemsSource="{x:Bind Items}">

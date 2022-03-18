@@ -14,6 +14,10 @@ namespace FluentHub.Services
         Guid OpenTab<T>(object parameter = null) where T : Page;
         void CloseTab(Guid tabId);
         void GoToTab(Guid tabId);
+        void GoBack();
+        void GoForward();
+        bool CanGoBack();
+        bool CanGoForward();
         Type NewTabPage { get; set; }
     }
 }

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using FluentHub.Utils;
+using System;
 using System.ComponentModel;
+using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub.Services.Navigation
 {
@@ -7,7 +9,6 @@ namespace FluentHub.Services.Navigation
     {
         Guid Guid { get; set; }
         string Header { get; set; }
-        Type CurrentPage { get; set; }
-        object Parameter { get; set; }
+        NavigationHistory<PageStackEntry> NavigationHistory { get; }
     }
 }

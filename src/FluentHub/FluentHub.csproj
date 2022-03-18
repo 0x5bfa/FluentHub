@@ -227,6 +227,7 @@
     <Compile Include="UserControls\TitleBar.xaml.cs">
       <DependentUpon>TitleBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utils\NavigationHistory.cs" />
     <Compile Include="ViewModels\AppSettings\AboutViewModel.cs" />
     <Compile Include="ViewModels\AppSettings\AppearanceViewModel.cs" />
     <Compile Include="ViewModels\Organizations\OverviewViewModel.cs" />
