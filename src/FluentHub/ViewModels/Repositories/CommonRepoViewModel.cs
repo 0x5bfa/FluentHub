@@ -12,7 +12,7 @@ namespace FluentHub.ViewModels.Repositories
     {
         public long RepositoryId { get; set; }
 
-        public string Name { get; set;}
+        public string Name { get; set; }
 
         public string Owner { get; set; }
 
