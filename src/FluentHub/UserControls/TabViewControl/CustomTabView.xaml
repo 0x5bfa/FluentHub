@@ -60,7 +60,7 @@
                         Header="{x:Bind Header, Mode=OneWay}"
                         IconSource="{x:Bind IconSource, Mode=OneWay}"
                         Style="{ThemeResource TabViewItemStyle}"
-                        ToolTipService.ToolTip="{x:Bind Description, Mode=OneWay}" />
+                        ToolTipService.ToolTip="{x:Bind Header, Mode=OneWay}" />
                 </DataTemplate>
             </muxc:TabView.TabItemTemplate>
         </muxc:TabView>
