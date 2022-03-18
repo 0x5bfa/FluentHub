@@ -1,62 +1,42 @@
-﻿using System.Collections.Generic;
+﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.UserControls.TabViewControl
 {
-    public class TabItem : INotifyPropertyChanged
+    public class TabItem : ObservableObject
     {
-        private string header;
+        private string _header;
         public string Header
         {
-            get => header;
-            set => SetProperty(ref header, value);
+            get => _header;
+            set => SetProperty(ref _header, value);
         }
 
-        private string description;
+        private string _description;
         public string Description
         {
-            get => description;
-            set => SetProperty(ref description, value);
+            get => _description;
+            set => SetProperty(ref _description, value);
         }
 
-        private muxc.FontIconSource iconSource;
+        private muxc.FontIconSource _iconSource;
         public muxc.FontIconSource IconSource
         {
-            get => iconSource;
-            set => SetProperty(ref iconSource, value);
+            get => _iconSource;
+            set => SetProperty(ref _iconSource, value);
         }
 
-        private bool useHomeView;
+        private bool _useHomeView;
         public bool UseHomeView
         {
-            get => useHomeView;
-            set => SetProperty(ref useHomeView, value);
+            get => _useHomeView;
+            set => SetProperty(ref _useHomeView, value);
         }
 
         public ObservableCollection<string> PageUrls { get; set; } = new();
 
-        public int NavigationIndex
-        {
-            get => PageUrls.Count() - 1;
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
-        {
-            if (!Equals(field, newValue))
-            {
-                field = newValue;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-                return true;
-            }
-
-            return false;
-        }
+        public int NavigationIndex => PageUrls.Count() - 1;
     }
 }
