@@ -26,5 +26,10 @@ namespace FluentHub.Views.AppSettings
         {
             this.InitializeComponent();
         }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            Helpers.NavigationHelpers.AddPageInfoToTabItem($"Appearance", "Appearance settings", "fluenthub://settings/appearance", "\uE713");
+        }
     }
 }

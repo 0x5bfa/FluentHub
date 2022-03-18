@@ -26,7 +26,7 @@ namespace FluentHub.Views.Users
         {
             string login = e.Parameter as string;
 
-            Helpers.NavigationHelpers.AddPageInfoToTabItem($"Followers", $"{login}'s followers", $"https://github.com/{login}?tab=followers", "\uE737");
+            Helpers.NavigationHelpers.AddPageInfoToTabItem($"Followers", $"{login}'s followers", $"https://github.com/{login}?tab=followers", "\uEA36", true);
 
             await ViewModel.GetFollowersList(login);
 

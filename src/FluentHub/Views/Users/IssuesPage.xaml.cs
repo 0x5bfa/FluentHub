@@ -26,7 +26,7 @@ namespace FluentHub.Views.Users
         {
             string login = e.Parameter as string;
 
-            Helpers.NavigationHelpers.AddPageInfoToTabItem($"Issues", "Viewer's issues", $"https://github.com/issues", "\uE737");
+            Helpers.NavigationHelpers.AddPageInfoToTabItem($"Issues", "Viewer's issues", $"https://github.com/issues", "\uE9EA", true);
 
             await ViewModel.GetRepoIssues(login);
         }

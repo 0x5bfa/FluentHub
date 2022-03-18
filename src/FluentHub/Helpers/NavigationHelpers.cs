@@ -9,12 +9,21 @@ namespace FluentHub.Helpers
 {
     public class NavigationHelpers
     {
-        public static void AddPageInfoToTabItem(string header, string description, string url, string glyph)
+        public static void AddPageInfoToTabItem(string header, string description, string url, string glyph, bool useOctions = false)
         {
             App.MainViewModel.MainTabItems[App.MainViewModel.SelectedTabIndex].Description = description;
             App.MainViewModel.MainTabItems[App.MainViewModel.SelectedTabIndex].Header = header;
             App.MainViewModel.MainTabItems[App.MainViewModel.SelectedTabIndex].IconSource = new muxc.FontIconSource() { Glyph = glyph };
             App.MainViewModel.MainTabItems[App.MainViewModel.SelectedTabIndex].PageUrls.Add(url);
+
+            if (useOctions)
+            {
+                App.MainViewModel.MainTabItems[App.MainViewModel.SelectedTabIndex].UseOctions = true;
+            }
+            else
+            {
+                App.MainViewModel.MainTabItems[App.MainViewModel.SelectedTabIndex].UseOctions = false;
+            }
         }
     }
 }

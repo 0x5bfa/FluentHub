@@ -49,6 +49,30 @@ namespace FluentHub.UserControls.TabViewControl
             set => SetProperty(ref useHomeView, value);
         }
 
+        private bool useOctions;
+        public bool UseOctions
+        {
+            get => useOctions;
+            set
+            {
+                if (value)
+                {
+                    var iconSourceWithOctions = new muxc.FontIconSource();
+                    iconSourceWithOctions.Glyph = IconSource.Glyph;
+                    iconSourceWithOctions.FontFamily = Application.Current.Resources["Octions"] as Windows.UI.Xaml.Media.FontFamily;
+                    IconSource = iconSourceWithOctions;
+                }
+                else
+                {
+                    var iconSourceWithDefault = new muxc.FontIconSource();
+                    iconSourceWithDefault.Glyph = IconSource.Glyph;
+                    IconSource = iconSourceWithDefault;
+                }
+
+                SetProperty(ref useOctions, value);
+            }
+        }
+
         public ObservableCollection<string> PageUrls { get; set; } = new();
 
         public int NavigationIndex
