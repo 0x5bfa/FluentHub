@@ -1,12 +1,16 @@
-﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
+﻿using FluentHub.Services.Navigation;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.UserControls.TabViewControl
 {
-    public class TabItem : ObservableObject
+    public class TabItem : ObservableObject, ITabItemView
     {
+        public Guid Guid { get; set; }
+
         private string _header;
         public string Header
         {
@@ -38,5 +42,8 @@ namespace FluentHub.UserControls.TabViewControl
         public ObservableCollection<string> PageUrls { get; set; } = new();
 
         public int NavigationIndex => PageUrls.Count() - 1;
+
+        public Type CurrentPage { get; set; }        
+        public object Parameter { get; set; }
     }
 }

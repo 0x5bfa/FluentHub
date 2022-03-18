@@ -4,10 +4,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:item="using:FluentHub.UserControls.TabViewControl"
-    xmlns:local="using:FluentHub.UserControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:root="using:FluentHub"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -50,7 +48,7 @@
             Loaded="MainTabView_Loaded"
             SelectionChanged="MainTabView_SelectionChanged"
             TabCloseRequested="MainTabView_TabCloseRequested"
-            TabItemsSource="{x:Bind root:App.MainViewModel.MainTabItems, Mode=OneWay}">
+            TabItemsSource="{x:Bind Items}">
             <muxc:TabView.TabItemTemplate>
                 <DataTemplate x:DataType="item:TabItem">
                     <muxc:TabViewItem
@@ -73,7 +71,7 @@
             Background="Transparent"
             BorderThickness="0"
             Click="AddNewTabButton_Click"
-            IsEnabled="False"
+            IsEnabled="True"
             Style="{StaticResource ClearButtonStyle}"
             ToolTipService.ToolTip="New tab">
             <Button.Content>

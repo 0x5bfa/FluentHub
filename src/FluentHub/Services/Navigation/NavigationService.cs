@@ -1,32 +1,83 @@
-﻿using FluentHub.UserControls.TabViewControl;
-using System;
+﻿using System;
+using System.Linq;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Animation;
 
 namespace FluentHub.Services.Navigation
 {
     public class NavigationService : INavigationService
     {
+        private Frame _frame;
         public ITabView TabView { get; private set; }
+        public Type NewTabPage { get; set; }
 
-        public void CloseTab(Guid tabId)
+        public void Configure(ITabView tabView!!, Frame frame!!, Type newTabPage!!)
         {
-            throw new NotImplementedException();
+            UnsubscribeEvents();
+            TabView = tabView;
+            _frame = frame;
+            NewTabPage = newTabPage;
+            SubscribeEvents();
         }
 
-        public void Configure(ITabView tabView!!) => TabView = tabView;
-
-        public void Navigate<T>(object parameter = null)
+        private void OnTabViewSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            throw new NotImplementedException();
+            if (e.AddedItems.FirstOrDefault() is ITabItemView item)
+            {
+                _frame.Navigate(item.CurrentPage ?? NewTabPage, item.Parameter, new SlideNavigationTransitionInfo
+                {
+                    Effect = SlideNavigationTransitionEffect.FromRight
+                });
+            }
         }
 
-        public Guid OpenTab<T>(object parameter = null)
+        public void Navigate(Type page, object parameter)
         {
-            throw new NotImplementedException();
+            if (TabView.SelectedItem is null)
+            {
+                TabView.CreateTab(page, parameter, true);
+            }
+            else
+            {
+                _frame.Navigate(page, parameter);
+            }
         }
+
+        public void Navigate<T>(object parameter = null) where T : Page => Navigate(typeof(T), parameter);
+
+        public Guid OpenTab(Type page, object parameter)
+        {
+            var item = TabView.CreateTab(page, parameter, true);
+            item.CurrentPage = page;
+            return item.Guid;
+        }
+        public Guid OpenTab<T>(object parameter = null) where T : Page => OpenTab(typeof(T), parameter);
 
         public void GoToTab(Guid tabId)
         {
-            throw new NotImplementedException();
+            var item = TabView.Items.FirstOrDefault(x => x.Guid == tabId);
+            if (item != null)
+            {
+                TabView.SelectedItem = item;
+                _frame.Navigate(item.CurrentPage);
+            }
+        }
+        public void CloseTab(Guid tabId) => throw new NotImplementedException();
+
+        private void SubscribeEvents()
+        {
+            if (TabView != null)
+            {
+                TabView.SelectionChanged += OnTabViewSelectionChanged;
+            }
+        }
+
+        private void UnsubscribeEvents()
+        {
+            if (TabView != null)
+            {
+                TabView.SelectionChanged -= OnTabViewSelectionChanged;
+            }
         }
     }
 }

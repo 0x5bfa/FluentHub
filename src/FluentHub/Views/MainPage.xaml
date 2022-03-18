@@ -49,7 +49,7 @@
                 VerticalAlignment="Top"
                 Background="Transparent"
                 Loaded="DragArea_Loaded" />
-            <uc:CustomTabView Grid.Column="0" />
+            <uc:CustomTabView x:Name="TabView" Grid.Column="0" />
         </Grid>
         <Grid
             Grid.Row="1"
@@ -116,7 +116,7 @@
                         Width="36"
                         Height="36"
                         Background="Transparent"
-                        Click="ToolbarAppSettingsButton_Click"
+                        Click="OnToolbarAppSettingsButtonClick"
                         CornerRadius="8"
                         Style="{StaticResource ClearButtonStyle}">
                         <FontIcon FontSize="14" Glyph="&#xE115;" />
