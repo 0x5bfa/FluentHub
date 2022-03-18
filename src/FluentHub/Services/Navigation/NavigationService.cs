@@ -92,7 +92,7 @@ namespace FluentHub.Services.Navigation
                 TabView.SelectedItem = item;
             }
         }
-        public void CloseTab(Guid tabId) => throw new NotImplementedException();
+        public void CloseTab(Guid tabId) => TabView.CloseTab(tabId);
 
         public void GoBack()
         {

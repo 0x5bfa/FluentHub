@@ -149,6 +149,7 @@
     <Compile Include="Services\Navigation\ITabItemView.cs" />
     <Compile Include="Services\Navigation\ITabView.cs" />
     <Compile Include="Services\Navigation\NavigationService.cs" />
+    <Compile Include="Services\Navigation\TabViewSelectionChangedEventArgs.cs" />
     <Compile Include="UserControls\TabViewControl\TabItem.cs" />
     <Compile Include="Services\Auth\AppCredentials.cs" />
     <Compile Include="Services\Auth\RequestAuthorization.cs" />
