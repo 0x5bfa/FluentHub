@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub.Services.Navigation
@@ -21,17 +20,14 @@ namespace FluentHub.Services.Navigation
             SubscribeEvents();
         }
 
-        private void OnTabViewSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void OnTabViewSelectionChanged(object sender, TabViewSelectionChangedEventArgs e)
         {
-            if (e.AddedItems.FirstOrDefault() is ITabItemView item)
+            if (e.NewSelectedItem is ITabItemView item)
             {
                 var currentHistoryItem = item.NavigationHistory.CurrentItem;
                 if (currentHistoryItem == null) // No navigation history, go to new tab page
                 {
-                    _frame.Navigate(NewTabPage, null, new SlideNavigationTransitionInfo
-                    {
-                        Effect = SlideNavigationTransitionEffect.FromRight
-                    });
+                    _frame.Navigate(NewTabPage, null, e.RecommendedNavigationTransitionInfo);
                 }
                 else
                 {
@@ -42,15 +38,17 @@ namespace FluentHub.Services.Navigation
                         _frame.BackStack.Clear();
                         _frame.Navigate(currentHistoryItem.SourcePageType,
                                         currentHistoryItem.Parameter,
-                                        currentHistoryItem.NavigationTransitionInfo);
+                                        e.RecommendedNavigationTransitionInfo);
+
+
 
                         for (int i = 0; i < item.NavigationHistory.CurrentItemIndex; i++)
                         {
-                            _frame.BackStack.Add(item.NavigationHistory.CurrentItem);
+                            _frame.BackStack.Add(item.NavigationHistory[i]);
                         }
-                        for (int i = 0; i < item.NavigationHistory.Items.Count - item.NavigationHistory.CurrentItemIndex - 1; i++)
+                        for (int i = item.NavigationHistory.CurrentItemIndex + 1; i < item.NavigationHistory.Items.Count; i++)
                         {
-                            _frame.ForwardStack.Add(item.NavigationHistory.CurrentItem);
+                            _frame.ForwardStack.Add(item.NavigationHistory[i]);
                         }
                     }
                     finally

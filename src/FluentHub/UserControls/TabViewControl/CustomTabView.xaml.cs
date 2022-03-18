@@ -102,8 +102,37 @@ namespace FluentHub.UserControls.TabViewControl
         }
         #endregion
 
-        #region event handlers        
-        private void OnMainTabViewSelectionChanged(object sender, SelectionChangedEventArgs e) => SelectionChanged?.Invoke(this, e);
+        #region event handlers
+        private void OnMainTabViewSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var newItem = e.AddedItems.FirstOrDefault() as ITabItemView;
+            var oldItem = e.RemovedItems.FirstOrDefault() as ITabItemView;
+            NavigationTransitionInfo transitionInfo;
+
+            if (newItem is null || oldItem is null)
+            {
+                transitionInfo = new SlideNavigationTransitionInfo
+                {
+                    Effect = SlideNavigationTransitionEffect.FromRight
+                };
+            }
+            else
+            {
+                var oldItemIndex = _items.IndexOf(oldItem);
+                var newItemIndex = _items.IndexOf(newItem);
+                transitionInfo = new SlideNavigationTransitionInfo
+                {
+                    Effect = (oldItemIndex - newItemIndex) switch
+                    {
+                        > 0 => SlideNavigationTransitionEffect.FromLeft,
+                        < 0 => SlideNavigationTransitionEffect.FromRight,
+                        _ => SlideNavigationTransitionEffect.FromBottom
+                    }
+                };
+            }
+            var args = new TabViewSelectionChangedEventArgs(newItem, oldItem, transitionInfo);
+            SelectionChanged?.Invoke(this, args);
+        }
 
         private void OnMainTabViewTabCloseRequested(muxc.TabView sender, muxc.TabViewTabCloseRequestedEventArgs args) => CloseTab(args.Item as ITabItemView);
 
@@ -138,8 +167,8 @@ namespace FluentHub.UserControls.TabViewControl
         }
         #endregion
 
-        #region events       
-        public event SelectionChangedEventHandler SelectionChanged;
+        #region events
+        public event EventHandler<TabViewSelectionChangedEventArgs> SelectionChanged;
         #endregion
     }
 }
