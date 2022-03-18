@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace FluentHub.OctokitEx.Queries.Organization
 {
-    public class EnumRepositoryQueries
+    public class RepositoryQueries
     {
-        public EnumRepositoryQueries() => new App();
+        public RepositoryQueries() => new App();
 
-        public async Task<List<Models.RepositoryBlockItem>> Get(string org)
+        public async Task<List<Models.RepositoryBlockItem>> GetOverviewAll(string org)
         {
             var query = new Query()
                     .Organization(org)

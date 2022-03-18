@@ -38,8 +38,8 @@ namespace FluentHub.ViewModels.UserControls.Blocks
             if (isForkEvent || isWatchEvent)
             {
                 RepoButtonBlockViewModel.DisplayDetails = false;
-                RepositoryOverviewQueries queries = new();
-                var response = await queries.Get(FullPayload.Repo.Name.Split("/")[0], FullPayload.Repo.Name.Split("/")[1]);
+                RepositoryQueries queries = new();
+                var response = await queries.GetOverview(FullPayload.Repo.Name.Split("/")[0], FullPayload.Repo.Name.Split("/")[1]);
                 RepoButtonBlockViewModel.Item = response;
             }
         }

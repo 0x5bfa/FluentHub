@@ -12,7 +12,7 @@ namespace FluentHub.OctokitEx.Queries
     {
         public FollowersQueries() => new App();
 
-        public async Task<List<Models.UserBlockItem>> Get(string login)
+        public async Task<List<Models.UserBlockItem>> GetOverview(string login)
         {
             var query = new Query()
                     .User(login)

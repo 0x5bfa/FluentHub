@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace FluentHub.OctokitEx.Queries.User
 {
-    public class EnumIssueOverviewsQueries
+    public class IssueQueries
     {
-        public EnumIssueOverviewsQueries() => new App();
+        public IssueQueries() => new App();
 
-        public async Task<List<IssueOverviewItem>> Get(string login)
+        public async Task<List<IssueOverviewItem>> GetOverviewAll(string login)
         {
             IssueOrder order = new() { Direction = OrderDirection.Desc, Field = IssueOrderField.CreatedAt };
 

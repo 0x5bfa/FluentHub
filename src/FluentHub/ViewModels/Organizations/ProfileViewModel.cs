@@ -25,7 +25,7 @@ namespace FluentHub.ViewModels.Organizations
             try
             {
                 OrganizationQueries queries = new();
-                Organization = await queries.Get(org);
+                Organization = await queries.GetOverview(org);
             }
             catch (Exception ex)
             {

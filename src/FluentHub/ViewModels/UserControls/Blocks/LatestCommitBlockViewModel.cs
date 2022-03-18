@@ -38,8 +38,8 @@ namespace FluentHub.ViewModels.UserControls.Blocks
         {
             if (CommonRepoViewModel == null) return;
 
-            LatestCommitQueries queries = new();
-            CommitOverviewItem = await queries.Get(CommonRepoViewModel.Name, CommonRepoViewModel.Owner, CommonRepoViewModel.BranchName, CommonRepoViewModel.Path);
+            CommitQueries queries = new();
+            CommitOverviewItem = await queries.GetOverview(CommonRepoViewModel.Name, CommonRepoViewModel.Owner, CommonRepoViewModel.BranchName, CommonRepoViewModel.Path);
 
             CommitUpdatedAtHumanized = CommitOverviewItem.CommittedDate.Humanize();
 

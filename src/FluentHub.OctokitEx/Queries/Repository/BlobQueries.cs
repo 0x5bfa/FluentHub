@@ -12,7 +12,7 @@ namespace FluentHub.OctokitEx.Queries.Repository
     {
         public BlobQueries() => new App();
 
-        public async Task<(string, long)> GetBlob(string name, string owner, string branch, string path)
+        public async Task<(string, long)> Get(string name, string owner, string branch, string path)
         {
             // Remove slash
             path = path.Remove(0, 1);

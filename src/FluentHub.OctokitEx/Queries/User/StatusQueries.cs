@@ -1,4 +1,5 @@
-﻿using Octokit.GraphQL;
+﻿using Octokit.GraphQL.Model;
+using Octokit.GraphQL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace FluentHub.OctokitEx.Queries
     {
         public StatusQueries() => new App();
 
-        public async Task<Octokit.GraphQL.Model.UserStatus> Get(string login)
+        public async Task<UserStatus> Get(string login)
         {
             var query = new Query().User(login).Status;
 

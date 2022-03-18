@@ -23,8 +23,8 @@ namespace FluentHub.ViewModels.Organizations
         {
             IsActive = true;
 
-            EnumRepositoryQueries queries = new();
-            var items = await queries.Get(org);
+            RepositoryQueries queries = new();
+            var items = await queries.GetOverviewAll(org);
 
             foreach (var item in items)
             {

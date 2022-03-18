@@ -23,7 +23,7 @@ namespace FluentHub.ViewModels.Users
             IsActive = true;
 
             FollowingQueries client = new();
-            var following = await client.Get(login);
+            var following = await client.GetOverview(login);
 
             foreach (var user in following)
             {

@@ -12,7 +12,7 @@ namespace FluentHub.OctokitEx.Queries
     {
         public PinnedItemsQueries() => new App();
 
-        public async Task<List<Models.RepositoryBlockItem>> Get(string login, bool isUser)
+        public async Task<List<Models.RepositoryBlockItem>> GetOverviewAll(string login, bool isUser)
         {
             var usersQuery = new Query()
                     .User(login)

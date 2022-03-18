@@ -21,8 +21,8 @@ namespace FluentHub.ViewModels.Repositories.Layouts
 
         public async Task EnumRepositoryContents()
         {
-            LatestCommitQueries queries = new();
-            var fileOverviews = await queries.EnumFilesAndItsLatestCommit(CommonRepoViewModel.Name,
+            CommitQueries queries = new();
+            var fileOverviews = await queries.GetOverviewAllFilesAndLatestCommit(CommonRepoViewModel.Name,
                     CommonRepoViewModel.Owner,
                     CommonRepoViewModel.BranchName,
                     CommonRepoViewModel.Path);

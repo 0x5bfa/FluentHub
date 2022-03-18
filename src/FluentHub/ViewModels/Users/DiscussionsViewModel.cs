@@ -23,8 +23,8 @@ namespace FluentHub.ViewModels.Users
         {
             IsActive = true;
 
-            EnumDiscussionOverviewsQueries queries = new();
-            var items = await queries.Get(login);
+            DiscussionQueries queries = new();
+            var items = await queries.GetOverviewAll(login);
 
             foreach (var item in items)
             {

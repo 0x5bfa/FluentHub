@@ -8,15 +8,15 @@ using System.Threading.Tasks;
 
 namespace FluentHub.OctokitEx.Queries.User
 {
-    public class EnumRepositoryQueries
+    public class StarredRepoQueries
     {
-        public EnumRepositoryQueries() => new App();
+        public StarredRepoQueries() => new App();
 
-        public async Task<List<Models.RepositoryBlockItem>> Get(string login)
+        public async Task<List<Models.RepositoryBlockItem>> GetOverviewAll(string login)
         {
             var query = new Query()
                     .User(login)
-                    .Repositories(first: 30)
+                    .StarredRepositories(first: 30)
                     .Nodes
                     .Select(x => new
                     {

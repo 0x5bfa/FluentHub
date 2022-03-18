@@ -23,8 +23,8 @@ namespace FluentHub.ViewModels.Repositories
         {
             IsActive = true;
 
-            EnumIssueOverviewsQueries queries = new();
-            var items = await queries.GetAll(name, owner);
+            IssueQueries queries = new();
+            var items = await queries.GetOverviewAll(name, owner);
 
             foreach (var item in items)
             {
