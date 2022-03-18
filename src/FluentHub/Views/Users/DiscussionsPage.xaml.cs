@@ -24,7 +24,7 @@ namespace FluentHub.Views.Users
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            Helpers.NavigationHelpers.AddPageInfoToTabItem($"Discussions", "Viewer's discussions", $"https://github.com/discussions", "\uE737");
+            Helpers.NavigationHelpers.AddPageInfoToTabItem($"Discussions", "Viewer's discussions", $"https://github.com/discussions", "\uE95D", true);
 
             await ViewModel.GetUserDiscussions(e.Parameter as string);
         }
