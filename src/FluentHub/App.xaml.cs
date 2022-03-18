@@ -30,9 +30,7 @@ namespace FluentHub
     {
         Frame rootFrame = Window.Current.Content as Frame;
 
-        public static GitHubClient Client { get; private set; } = new GitHubClient(new ProductHeaderValue("FluentHub"));
-
-        public static MainViewModel MainViewModel { get; private set; } = new MainViewModel();
+        public static GitHubClient Client { get; private set; } = new GitHubClient(new ProductHeaderValue("FluentHub"));        
 
         public static SettingsViewModel Settings { get; private set; } = new SettingsViewModel();
 
