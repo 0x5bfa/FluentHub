@@ -3,18 +3,12 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:helpers="using:FluentHub.Helpers"
-    xmlns:local="using:FluentHub"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:FluentHub.UserControls.TabViewControl"
-    xmlns:vm="using:FluentHub.ViewModels"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     mc:Ignorable="d">
 
-    <Page.DataContext>
-        <vm:MainPageViewModel x:Name="ViewModel" />
-    </Page.DataContext>
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -105,8 +99,7 @@
                     x:Uid="ToolbarSearchbox"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Top"
-                    IsEnabled="False"
-                    Text="{x:Bind local:App.MainViewModel.CurrentPageUrl, Mode=OneWay}" />
+                    IsEnabled="False" />
             </Grid>
             <Grid Grid.Column="2">
                 <StackPanel Orientation="Horizontal" Spacing="2">

@@ -17,7 +17,6 @@ namespace FluentHub.Views.Repositories
         public OverviewPage()
         {
             InitializeComponent();
-            App.MainViewModel.RepoMainFrame.Navigating += RepoMainFrameNavigating;
             navigationService = App.Current.Services.GetService<INavigationService>();
         }
 
@@ -25,12 +24,6 @@ namespace FluentHub.Views.Repositories
         private Repository Repository { get; set; }
 
         private readonly INavigationService navigationService;
-
-        private void RepoMainFrameNavigating(object sender, NavigatingCancelEventArgs e)
-        {
-            RepoPageNavViewFrame.Navigate(e.SourcePageType, e.Parameter);
-            e.Cancel = true;
-        }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {

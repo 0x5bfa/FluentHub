@@ -1,18 +1,10 @@
 ﻿using FluentHub.Models.Items;
+using FluentHub.Services;
 using FluentHub.ViewModels.Repositories;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub.Views.Repositories.Layouts
@@ -24,7 +16,10 @@ namespace FluentHub.Views.Repositories.Layouts
         public DetailsLayoutView()
         {
             this.InitializeComponent();
+            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
         }
+
+        private readonly INavigationService navigationService;
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -76,8 +71,8 @@ namespace FluentHub.Views.Repositories.Layouts
             {
                 commonRepoViewModel.Path = CommonRepoViewModel.Path + tagItem[1] + "/";
             }
-
-            App.MainViewModel.RepoMainFrame.Navigate(typeof(CodePage), commonRepoViewModel);
+            navigationService.Navigate<CodePage>(commonRepoViewModel);
+            //App.MainViewModel.RepoMainFrame.Navigate(typeof(CodePage), commonRepoViewModel);
         }
     }
 }

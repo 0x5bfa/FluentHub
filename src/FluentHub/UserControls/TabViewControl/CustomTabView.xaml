@@ -45,9 +45,9 @@
             VerticalAlignment="Stretch"
             Background="Transparent"
             IsAddTabButtonVisible="False"
-            Loaded="MainTabView_Loaded"
-            SelectionChanged="MainTabView_SelectionChanged"
-            TabCloseRequested="MainTabView_TabCloseRequested"
+            Loaded="OnMainTabViewLoaded"
+            SelectionChanged="OnMainTabViewSelectionChanged"
+            TabCloseRequested="OnMainTabViewTabCloseRequested"
             TabItemsSource="{x:Bind Items}">
             <muxc:TabView.TabItemTemplate>
                 <DataTemplate x:DataType="item:TabItem">

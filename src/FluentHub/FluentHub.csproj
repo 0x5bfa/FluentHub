@@ -134,7 +134,6 @@
     <Compile Include="Helpers\InternetConnectionHelpers.cs" />
     <Compile Include="Helpers\LanguageColorHelpers.cs" />
     <Compile Include="Helpers\MentionHelpers.cs" />
-    <Compile Include="Helpers\NavigationHelpers.cs" />
     <Compile Include="Helpers\ResourceHelper.cs" />
     <Compile Include="Helpers\ThemeHelper.cs" />
     <Compile Include="Helpers\WebViewHelpers.cs" />
@@ -230,7 +229,6 @@
     </Compile>
     <Compile Include="ViewModels\AppSettings\AboutViewModel.cs" />
     <Compile Include="ViewModels\AppSettings\AppearanceViewModel.cs" />
-    <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\MainViewModel.cs" />
     <Compile Include="ViewModels\Organizations\OverviewViewModel.cs" />
     <Compile Include="ViewModels\Organizations\ProfileViewModel.cs" />

@@ -35,7 +35,7 @@ namespace FluentHub.Services.Navigation
         {
             if (TabView.SelectedItem is null)
             {
-                TabView.CreateTab(page, parameter, true);
+                TabView.OpenTab(page, parameter, true);
             }
             else
             {
@@ -47,7 +47,7 @@ namespace FluentHub.Services.Navigation
 
         public Guid OpenTab(Type page, object parameter)
         {
-            var item = TabView.CreateTab(page, parameter, true);
+            var item = TabView.OpenTab(page, parameter, true);
             item.CurrentPage = page;
             return item.Guid;
         }
