@@ -102,7 +102,6 @@
             </Grid>
             <Grid Grid.Column="1">
                 <TextBox
-                    x:Uid="ToolbarSearchbox"
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Top"
                     IsEnabled="False"

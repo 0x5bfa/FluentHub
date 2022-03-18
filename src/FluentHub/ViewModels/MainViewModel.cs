@@ -18,35 +18,7 @@ namespace FluentHub.ViewModels
         public int SelectedTabIndex { get; set; }
 
         private string currentPageUrl;
-        public string CurrentPageUrl
-        {
-            get
-            {
-                if (SpecifiedPath != null)
-                {
-                    return SpecifiedPath;
-                }
-                else
-                {
-                    if (MainTabItems.Count() != 0)
-                    {
-                        int index = MainTabItems[SelectedTabIndex].NavigationIndex;
-
-                        if (index >= 0)
-                        {
-                            return MainTabItems[SelectedTabIndex].PageUrls[index];
-                        }
-                        else return null;
-                    }
-
-                    return null;
-                }
-            }
-            set
-            {
-                SetProperty(ref currentPageUrl, value);
-            }
-        }
+        public string CurrentPageUrl { get => currentPageUrl; set => SetProperty(ref currentPageUrl, value); }
 
         public string SpecifiedPath { get; set; }
 

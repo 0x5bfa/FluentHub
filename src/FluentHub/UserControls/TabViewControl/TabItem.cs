@@ -11,6 +11,16 @@ namespace FluentHub.UserControls.TabViewControl
 {
     public class TabItem : INotifyPropertyChanged
     {
+        public TabItem()
+        {
+            PageUrls.CollectionChanged += PageUrls_CollectionChanged;
+        }
+
+        private void PageUrls_CollectionChanged(object sender, System.Collections.Specialized.NotifyCollectionChangedEventArgs e)
+        {
+            App.MainViewModel.CurrentPageUrl = (sender as ObservableCollection<string>)[e.NewStartingIndex];
+        }
+
         private string header;
         public string Header
         {
