@@ -113,12 +113,27 @@
                         x:Name="ToolbarAppSettingsButton"
                         x:Uid="ToolbarAppSettingsButton"
                         Width="36"
-                        Height="36"
+                        Height="32"
                         Background="Transparent"
-                        Click="ToolbarAppSettingsButton_Click"
                         CornerRadius="8"
                         Style="{StaticResource ClearButtonStyle}">
-                        <FontIcon FontSize="14" Glyph="&#xE115;" />
+                        <FontIcon FontSize="14" Glyph="&#xE712;" />
+                        <Button.Flyout>
+                            <MenuFlyout Placement="BottomEdgeAlignedRight">
+                                <MenuFlyoutItem Click="ShareWithBrowserMenuFlyoutItem_Click" Text="Continue with your browser" />
+                                <MenuFlyoutSeparator />
+                                <MenuFlyoutItem IsEnabled="False" Text="Your profile" />
+                                <MenuFlyoutItem IsEnabled="False" Text="Your repositories" />
+                                <MenuFlyoutItem IsEnabled="False" Text="Your organizations" />
+                                <MenuFlyoutItem IsEnabled="False" Text="Your discussions" />
+                                <MenuFlyoutItem IsEnabled="False" Text="Your stars" />
+                                <MenuFlyoutSeparator />
+                                <MenuFlyoutItem IsEnabled="False" Text="Abuse this page" />
+                                <MenuFlyoutSeparator />
+                                <MenuFlyoutItem Click="SettingsMenuFlyoutItem_Click" Text="App settings" />
+                                <MenuFlyoutItem Click="SignOutMenuFlyoutItem_Click" Text="Sign out" />
+                            </MenuFlyout>
+                        </Button.Flyout>
                     </Button>
                 </StackPanel>
             </Grid>

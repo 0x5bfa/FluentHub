@@ -52,7 +52,23 @@ namespace FluentHub.Views
 
         private void ToolbarAppSettingsButton_Click(object sender, RoutedEventArgs e)
         {
+        }
+
+        private async void ShareWithBrowserMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        {
+            await Windows.System.Launcher.LaunchUriAsync(new Uri(App.MainViewModel.CurrentPageUrl));
+        }
+
+        private void SettingsMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        {
             App.MainViewModel.MainFrame.Navigate(typeof(AppSettings.MainSettingsPage));
+        }
+
+        private void SignOutMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        {
+            // Temporary treatment (Deletion requested credentials must be deleted)
+            Frame rootFrame = Window.Current.Content as Frame;
+            rootFrame.Navigate(typeof(SignIn.IntroPage));
         }
     }
 }
