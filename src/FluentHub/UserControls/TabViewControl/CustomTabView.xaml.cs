@@ -109,7 +109,7 @@ namespace FluentHub.UserControls.TabViewControl
             var oldItem = e.RemovedItems.FirstOrDefault() as ITabItemView;
             NavigationTransitionInfo transitionInfo;
 
-            if (newItem is null || oldItem is null)
+            /*if (newItem is null || oldItem is null)
             {
                 transitionInfo = new SlideNavigationTransitionInfo
                 {
@@ -129,7 +129,8 @@ namespace FluentHub.UserControls.TabViewControl
                         _ => SlideNavigationTransitionEffect.FromBottom
                     }
                 };
-            }
+            }*/
+            transitionInfo = new SuppressNavigationTransitionInfo();                                 
             var args = new TabViewSelectionChangedEventArgs(newItem, oldItem, transitionInfo);
             SelectionChanged?.Invoke(this, args);
         }
