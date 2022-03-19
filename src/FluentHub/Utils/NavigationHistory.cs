@@ -6,8 +6,7 @@ namespace FluentHub.Utils
 {
     public class NavigationHistory<T> : ObservableObject
     {
-
-        #region constructor		
+        #region constructor
         public NavigationHistory()
         {
             _items = new ObservableCollection<T>();
@@ -17,6 +16,9 @@ namespace FluentHub.Utils
             _currentItemIndex = -1;
         }
         #endregion
+#if DEBUG
+        ~NavigationHistory() => System.Diagnostics.Debug.WriteLine("~NavigationHistoy");
+#endif
 
         #region fields
         private bool _canGoBack;
@@ -26,7 +28,7 @@ namespace FluentHub.Utils
         private ObservableCollection<T> _items;
         #endregion
 
-        #region properties		
+        #region properties
         public T this[int index] => Items[index];
         public T CurrentItem { get => _currentItem; private set => SetProperty(ref _currentItem, value); }
         public int CurrentItemIndex
@@ -51,7 +53,7 @@ namespace FluentHub.Utils
         public ReadOnlyObservableCollection<T> Items { get; }
         #endregion
 
-        #region methods		
+        #region methods
         public bool GoBack()
         {
             if (CanGoBack)

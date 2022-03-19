@@ -16,7 +16,12 @@ namespace FluentHub.UserControls.TabViewControl
             PageUrls = new();
             NavigationHistory = new();
         }
+#if DEBUG
+        ~TabItem() => System.Diagnostics.Debug.WriteLine("~TabItem");
+#endif
+
         public Guid Guid { get; set; }
+
 
         private string _header;
         public string Header

@@ -11,7 +11,7 @@ namespace FluentHub.Services.Navigation
         public ITabView TabView { get; private set; }
         public Type NewTabPage { get; set; }
 
-        public void Configure(ITabView tabView!!, Frame frame!!, Type newTabPage!!)
+        public void Configure(ITabView tabView!!, Frame frame!!, Type newTabPage)
         {
             UnsubscribeEvents();
             TabView = tabView;
@@ -27,7 +27,10 @@ namespace FluentHub.Services.Navigation
                 var currentHistoryItem = item.NavigationHistory.CurrentItem;
                 if (currentHistoryItem == null) // No navigation history, go to new tab page
                 {
-                    _frame.Navigate(NewTabPage, null, e.RecommendedNavigationTransitionInfo);
+                    if (NewTabPage != null)
+                    {
+                        _frame.Navigate(NewTabPage, null, e.RecommendedNavigationTransitionInfo);
+                    }
                 }
                 else
                 {
