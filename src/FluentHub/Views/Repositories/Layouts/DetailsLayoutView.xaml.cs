@@ -29,10 +29,6 @@ namespace FluentHub.Views.Repositories.Layouts
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             CommonRepoViewModel = e.Parameter as CommonRepoViewModel;
-
-            // CommonRepoViewModel.Path.Remove() means remove the slash
-            Helpers.NavigationHelpers.AddPageInfoToTabItem($"{CommonRepoViewModel.Path.Remove(0, 1)} at {CommonRepoViewModel.BranchName} • {CommonRepoViewModel.Owner}/{CommonRepoViewModel.Name}", "{org}'s overview", $"https://github.com/{CommonRepoViewModel.Owner}/{CommonRepoViewModel.Name}/tree/{CommonRepoViewModel.BranchName}{CommonRepoViewModel.Path}", "\uEA52", true);
-
             ViewModel.CommonRepoViewModel = CommonRepoViewModel;
         }
 

@@ -179,6 +179,22 @@
                                     Glyph="&#xEA52;" />
                             </muxc:NavigationViewItem.Icon>
                         </muxc:NavigationViewItem>
+                        <muxc:NavigationViewItem Content="People" Tag="People">
+                            <muxc:NavigationViewItem.Icon>
+                                <FontIcon
+                                    FontFamily="{StaticResource Octions}"
+                                    FontSize="16"
+                                    Glyph="&#xEA38;" />
+                            </muxc:NavigationViewItem.Icon>
+                        </muxc:NavigationViewItem>
+                        <muxc:NavigationViewItem Content="Teams" Tag="Teams">
+                            <muxc:NavigationViewItem.Icon>
+                                <FontIcon
+                                    FontFamily="{StaticResource Octions}"
+                                    FontSize="16"
+                                    Glyph="&#xEA38;" />
+                            </muxc:NavigationViewItem.Icon>
+                        </muxc:NavigationViewItem>
                     </muxc:NavigationView.MenuItems>
                 </muxc:NavigationView>
             </Grid>
