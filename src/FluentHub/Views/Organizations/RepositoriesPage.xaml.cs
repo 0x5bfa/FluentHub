@@ -24,7 +24,11 @@ namespace FluentHub.Views.Organizations
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            ViewModel.GetUserRepos(e.Parameter as string);
+            string org = e.Parameter as string;
+
+            Helpers.NavigationHelpers.AddPageInfoToTabItem($"{org}", $"{org}'s repositoryes", $"https://github.com/orgs/{org}/repositories", "\uEA27", true);
+
+            ViewModel.GetUserRepos(org);
 
             base.OnNavigatedTo(e);
         }

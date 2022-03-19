@@ -25,10 +25,14 @@ namespace FluentHub.Views.Organizations
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            string orgName = e.Parameter as string;
+            string org = e.Parameter as string;
 
-            await ViewModel.GetPinnedRepos(orgName);
-            OrgPageFrame.Navigate(typeof(RepositoriesPage), orgName);
+            Helpers.NavigationHelpers.AddPageInfoToTabItem($"{org}", $"{org}'s overview", $"https://github.com/{org}", "\uEA27", true);
+
+            await ViewModel.GetPinnedRepos(org);
+
+            // Avoid duplicates
+            OrgPageFrame.Navigate(typeof(RepositoriesPage), org);
 
             UpdateVisibility();
 

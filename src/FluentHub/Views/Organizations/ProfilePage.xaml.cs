@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Views.Organizations
 {
@@ -28,6 +29,7 @@ namespace FluentHub.Views.Organizations
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             OrganizationName = e.Parameter as string;
+
             await ViewModel.GetOrganization(OrganizationName);
             UpdateVisibility();
 
@@ -61,14 +63,12 @@ namespace FluentHub.Views.Organizations
             OrgNavViewContent.Navigate(typeof(OverviewPage), OrganizationName);
         }
 
-        private void OrgNavView_ItemInvoked(Microsoft.UI.Xaml.Controls.NavigationView sender, Microsoft.UI.Xaml.Controls.NavigationViewItemInvokedEventArgs args)
+        private void OrgNavView_ItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
         {
             _ = args.InvokedItemContainer.Tag.ToString() switch
             {
                 "Overview" =>     OrgNavViewContent.Navigate(typeof(OverviewPage), OrganizationName),
                 "Repositories" => OrgNavViewContent.Navigate(typeof(RepositoriesPage), OrganizationName),
-                "People" =>       OrgNavViewContent.Navigate(typeof(MembershipPage), OrganizationName),
-                //"Teams" => OrgNavViewContent.Navigate(typeof(TeamsPage), OrganizationName),
                 _ =>              OrgNavViewContent.Navigate(typeof(OverviewPage), OrganizationName),
             };
         }
