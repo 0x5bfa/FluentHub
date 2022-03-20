@@ -143,8 +143,6 @@
     <Compile Include="Models\Items\IssueCommentItem.cs" />
     <Compile Include="Models\Items\IssueEventItem.cs" />
     <Compile Include="Models\Items\LabelSimpleItem.cs" />
-    <Compile Include="Models\Items\NotificationListItem.cs" />
-    <Compile Include="Models\Items\RepoListItem.cs" />
     <Compile Include="Services\Navigation\INavigationService.cs" />
     <Compile Include="Services\Navigation\ITabItemView.cs" />
     <Compile Include="Services\Navigation\ITabView.cs" />

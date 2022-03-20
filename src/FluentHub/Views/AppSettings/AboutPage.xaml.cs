@@ -1,19 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Storage;
-using Windows.System;
-using Windows.UI.Xaml;
+﻿using FluentHub.Services.Navigation;
+using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Views.AppSettings
 {
@@ -26,7 +15,14 @@ namespace FluentHub.Views.AppSettings
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            Helpers.NavigationHelpers.AddPageInfoToTabItem($"About", "About FluentHub", "fluenthub://settings/about", "\uE713");
+            //Helpers.NavigationHelpers.AddPageInfoToTabItem($"About", "About FluentHub", "fluenthub://settings/about", "\uE713");
+            var currentItem = App.Current.Services.GetService<ITabItemView>();
+            currentItem.Header = "About";
+            currentItem.Description = "About FluentHub";
+            currentItem.Icon = new muxc.FontIconSource
+            {
+                Glyph = "\uE713"
+            };
         }
     }
 }

@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
+﻿using FluentHub.Services.Navigation;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Views.AppSettings
 {
@@ -21,13 +14,20 @@ namespace FluentHub.Views.AppSettings
     {
         public AccountsPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             Loaded += AccountsPage_Loaded;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            Helpers.NavigationHelpers.AddPageInfoToTabItem("Accounts", "Users signed in FluentHub", "fluenthub://settings/accounts", "\uE713");
+            //Helpers.NavigationHelpers.AddPageInfoToTabItem("Accounts", "Users signed in FluentHub", "fluenthub://settings/accounts", "\uE713");
+            var currentItem = App.Current.Services.GetService<ITabItemView>();
+            currentItem.Header = "Accounts";
+            currentItem.Description = "Users signed in FluentHub";
+            currentItem.Icon = new muxc.FontIconSource
+            {
+                Glyph = "\uE713",
+            };
         }
 
         private async void AccountsPage_Loaded(object sender, RoutedEventArgs e)

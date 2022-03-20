@@ -4,8 +4,10 @@ using FluentHub.ViewModels.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using muxc = Microsoft.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
+using FluentHub.Services.Navigation;
 
 namespace FluentHub.Views.Repositories.Layouts
 {
@@ -26,7 +28,23 @@ namespace FluentHub.Views.Repositories.Layouts
             CommonRepoViewModel = e.Parameter as CommonRepoViewModel;
 
             // CommonRepoViewModel.Path.Remove() means remove the slash
-            Helpers.NavigationHelpers.AddPageInfoToTabItem($"{CommonRepoViewModel.Path.Remove(0, 1)} at {CommonRepoViewModel.BranchName} • {CommonRepoViewModel.Owner}/{CommonRepoViewModel.Name}", "{org}'s overview", $"https://github.com/{CommonRepoViewModel.Owner}/{CommonRepoViewModel.Name}/tree/{CommonRepoViewModel.BranchName}{CommonRepoViewModel.Path}", "\uEA52", true);
+            /*
+            Helpers.NavigationHelpers.AddPageInfoToTabItem($"{CommonRepoViewModel.Path.Remove(0, 1)} at {CommonRepoViewModel.BranchName} • {CommonRepoViewModel.Owner}/{CommonRepoViewModel.Name}",
+                                                           "{org}'s overview",
+                                                           $"https://github.com/{CommonRepoViewModel.Owner}/{CommonRepoViewModel.Name}/tree/{CommonRepoViewModel.BranchName}{CommonRepoViewModel.Path}",
+                                                           "\uEA52",
+                                                           true);
+            */
+
+            var currentItem = navigationService.TabView.SelectedItem;
+            currentItem.Header = $"{CommonRepoViewModel.Path.Remove(0, 1)} at {CommonRepoViewModel.BranchName} • {CommonRepoViewModel.Owner}/{CommonRepoViewModel.Name}";
+            currentItem.Description = "{org}'s overview";
+            currentItem.Icon = new muxc.FontIconSource
+            {
+                Glyph = "\uEA52",
+                FontFamily = new Windows.UI.Xaml.Media.FontFamily("/Assets/Glyphs/Octions.ttf#octions")
+            };
+
 
             ViewModel.CommonRepoViewModel = CommonRepoViewModel;
         }

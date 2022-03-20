@@ -4,6 +4,7 @@ using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
+using Windows.UI.Xaml.Navigation;
 using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Views.AppSettings
@@ -17,7 +18,13 @@ namespace FluentHub.Views.AppSettings
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            Helpers.NavigationHelpers.AddPageInfoToTabItem($"Settings", "FluentHub settings", "fluenthub://settings/appearance", "\uE713");
+            //Helpers.NavigationHelpers.AddPageInfoToTabItem($"Settings", "FluentHub settings", "fluenthub://settings/appearance", "\uE713");
+            var currentItem = App.Current.Services.GetService<ITabItemView>();
+            currentItem.Header = "Settings";
+            currentItem.Icon = new muxc.FontIconSource
+            {
+                Glyph = "\uE713"
+            };
         }
 
         private void SettingsNavView_SelectionChanged(muxc.NavigationView sender, muxc.NavigationViewSelectionChangedEventArgs args)
@@ -45,13 +52,7 @@ namespace FluentHub.Views.AppSettings
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            var currentItem = App.Current.Services.GetService<ITabItemView>();
-            currentItem.Header = "Settings";
-            currentItem.Icon = new muxc.FontIconSource
-            {
-                Glyph = "\uE115"
-            };
+        {            
             var authedUser = await App.Client.User.Get(App.SignedInUserName);
 
             AppSignedInUserAvatar.Source = new BitmapImage(new Uri(authedUser.AvatarUrl));

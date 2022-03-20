@@ -1,6 +1,7 @@
 ﻿using FluentHub.Services;
 using FluentHub.Views.Home;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -30,11 +31,7 @@ namespace FluentHub.Views
 
         private void DragArea_Loaded(object sender, RoutedEventArgs e) => Window.Current.SetTitleBar(DragArea);
 
-        private void HomeButton_Click(object sender, RoutedEventArgs e) => navigationService.Navigate<UserHomePage>();
-
-        private void OnToolbarAppSettingsButtonClick(object sender, RoutedEventArgs e)
-            => navigationService.Navigate<AppSettings.MainSettingsPage>();
-
+        private void HomeButton_Click(object sender, RoutedEventArgs e) => navigationService.Navigate<UserHomePage>();        
         private void GoBack() => navigationService.GoBack();
         private void GoForward() => navigationService.GoForward();
         private void ToolbarAppSettingsButton_Click(object sender, RoutedEventArgs e)
@@ -43,12 +40,13 @@ namespace FluentHub.Views
 
         private async void ShareWithBrowserMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
-            await Windows.System.Launcher.LaunchUriAsync(new Uri(App.MainViewModel.CurrentPageUrl));
+            //await Windows.System.Launcher.LaunchUriAsync(new Uri(App.MainViewModel.CurrentPageUrl));
+            throw new NotImplementedException();
         }
 
         private void SettingsMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
-            navigationService.Navigate<AppSettings.MainSettingsPage>();            
+            navigationService.Navigate<AppSettings.MainSettingsPage>();
         }
 
         private void SignOutMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
