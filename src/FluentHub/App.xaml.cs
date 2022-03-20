@@ -30,7 +30,7 @@ namespace FluentHub
     {
         Frame rootFrame = Window.Current.Content as Frame;
 
-        public static GitHubClient Client { get; private set; } = new GitHubClient(new ProductHeaderValue("FluentHub"));        
+        public static GitHubClient Client { get; private set; } = new GitHubClient(new ProductHeaderValue("FluentHub"));
 
         public static SettingsViewModel Settings { get; private set; } = new SettingsViewModel();
 
@@ -90,13 +90,10 @@ namespace FluentHub
         /// </summary>
         private static IServiceProvider ConfigureServices()
         {
-            var services = new ServiceCollection();
-
-            services                
+            return new ServiceCollection()
                 .AddSingleton<INavigationService, NavigationService>()
-                ;
-
-            return services.BuildServiceProvider();
+                .AddTransient<ITabItemView>(provider => provider.GetService<INavigationService>()?.TabView?.SelectedItem)
+                .BuildServiceProvider();
         }
 
         private async Task GetViewerLoginName()

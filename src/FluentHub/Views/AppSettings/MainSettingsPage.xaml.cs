@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using FluentHub.Services.Navigation;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
-using Windows.UI.Xaml.Navigation;
 using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Views.AppSettings
@@ -21,7 +12,7 @@ namespace FluentHub.Views.AppSettings
     {
         public MainSettingsPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         private void SettingsNavView_SelectionChanged(muxc.NavigationView sender, muxc.NavigationViewSelectionChangedEventArgs args)
@@ -50,6 +41,12 @@ namespace FluentHub.Views.AppSettings
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
         {
+            var currentItem = App.Current.Services.GetService<ITabItemView>();
+            currentItem.Header = "Settings";
+            currentItem.Icon = new muxc.FontIconSource
+            {
+                Glyph = "\uE115"
+            };
             var authedUser = await App.Client.User.Get(App.SignedInUserName);
 
             AppSignedInUserAvatar.Source = new BitmapImage(new Uri(authedUser.AvatarUrl));
