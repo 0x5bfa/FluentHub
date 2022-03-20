@@ -1,7 +1,9 @@
 ﻿using FluentHub.Services.Navigation;
 using System;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Linq;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
@@ -33,7 +35,7 @@ namespace FluentHub.UserControls.TabViewControl
         public static readonly DependencyProperty SelectedItemProperty =
             DependencyProperty.Register("SelectedItem",
                                         typeof(ITabItemView),
-                                        typeof(UserControl),
+                                        typeof(CustomTabView),
                                         new PropertyMetadata(null));
 
         public ReadOnlyObservableCollection<ITabItemView> Items { get; }
@@ -102,6 +104,34 @@ namespace FluentHub.UserControls.TabViewControl
         }
         #endregion
 
+        #region private methods
+        private void SetWindowTitle(string title)
+        {
+            var view = ApplicationView.GetForCurrentView();
+            view.Title = title ?? "";
+            System.Diagnostics.Debug.WriteLine("New name: " + view.Title);
+        }
+        private void Update(ITabItemView item)
+        {
+            if (item != null)
+            {
+                SetWindowTitle(item.Header);
+            }
+        }
+        private void TrackChanges(ITabItemView item)
+        {
+            if (item != null)
+                item.PropertyChanged += OnSelectedItemPropertyChanged;
+        }
+        private void UntrackChanges(ITabItemView item)
+        {
+            if (item != null)
+            {
+                item.PropertyChanged -= OnSelectedItemPropertyChanged;
+            }
+        }
+        #endregion
+
         #region event handlers
         private void OnMainTabViewSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -132,9 +162,15 @@ namespace FluentHub.UserControls.TabViewControl
                 };
             }
             */
-            transitionInfo = new SuppressNavigationTransitionInfo();                                 
+            transitionInfo = new SuppressNavigationTransitionInfo();
             var args = new TabViewSelectionChangedEventArgs(newItem, oldItem, transitionInfo);
             SelectionChanged?.Invoke(this, args);
+
+            
+            Update(newItem);
+            // Track changes
+            TrackChanges(newItem);
+            UntrackChanges(oldItem);
         }
 
         private void OnMainTabViewTabCloseRequested(muxc.TabView sender, muxc.TabViewTabCloseRequestedEventArgs args) => CloseTab(args.Item as ITabItemView);
@@ -164,12 +200,14 @@ namespace FluentHub.UserControls.TabViewControl
             _items.Add(item);
             SelectedItem = item;
             /*
-            TabItemAdding = true;            
+            TabItemAdding = true;
             MainPageViewModel.AddNewTabByPath($"/{App.SignedInUserName}");
             App.MainViewModel.MainFrame.Navigate(typeof(UserHomePage));
             App.MainViewModel.SelectedTabIndex = MainTabView.SelectedIndex = App.MainViewModel.MainTabItems.Count() - 1;
             */
         }
+
+        private void OnSelectedItemPropertyChanged(object sender, PropertyChangedEventArgs e) => Update((ITabItemView)sender);
         #endregion
 
         #region events

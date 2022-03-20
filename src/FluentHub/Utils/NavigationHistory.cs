@@ -17,7 +17,7 @@ namespace FluentHub.Utils
         }
         #endregion
 #if DEBUG
-        ~NavigationHistory() => System.Diagnostics.Debug.WriteLine("~NavigationHistoy");
+        ~NavigationHistory() => System.Diagnostics.Debug.WriteLine("~NavigationHistory");
 #endif
 
         #region fields
