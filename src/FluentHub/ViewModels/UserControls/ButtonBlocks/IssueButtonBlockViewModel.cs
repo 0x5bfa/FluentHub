@@ -1,4 +1,4 @@
-﻿using Humanizer;
+﻿using FluentHub.Helpers;
 using FluentHub.OctokitEx.Models;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,6 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Media;
-using FluentHub.Helpers;
 
 namespace FluentHub.ViewModels.UserControls.ButtonBlocks
 {

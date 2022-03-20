@@ -142,10 +142,7 @@
     <Compile Include="Models\Items\DetailsLayoutListViewItem.cs" />
     <Compile Include="Models\Items\IssueCommentItem.cs" />
     <Compile Include="Models\Items\IssueEventItem.cs" />
-    <Compile Include="Models\Items\IssueListItem.cs" />
     <Compile Include="Models\Items\LabelSimpleItem.cs" />
-    <Compile Include="Models\Items\NotificationListItem.cs" />
-    <Compile Include="Models\Items\RepoListItem.cs" />
     <Compile Include="UserControls\TabViewControl\TabItem.cs" />
     <Compile Include="Services\Auth\AppCredentials.cs" />
     <Compile Include="Services\Auth\RequestAuthorization.cs" />

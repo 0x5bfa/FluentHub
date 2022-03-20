@@ -69,5 +69,50 @@ namespace FluentHub.OctokitEx.Queries.Repository
 
             return items;
         }
+
+        public async Task<IssueOverviewItem> GetOverview(string owner, string name, int number)
+        {
+            #region query
+            var query = new Query()
+                .Repository(name, owner)
+                .Issue(number)
+                .Select(x => new
+                {
+                    x.Closed,
+                    Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new
+                    {
+                        y.Color,
+                        y.Name,
+                    }).ToList(),
+                    x.Number,
+                    x.Title,
+                    x.UpdatedAt,
+                })
+                .Compile();
+            #endregion
+
+            var response = await App.Connection.Run(query);
+
+            #region copying
+            IssueOverviewItem item = new();
+            item.Labels = new();
+            item.IsClosed = response.Closed;
+            foreach (var label in response.Labels)
+            {
+                LabelOverviewItem labels = new();
+                labels.Color = label.Color;
+                labels.Name = label.Name;
+
+                item.Labels.Add(labels);
+            }
+            item.Number = response.Number;
+            item.Title = response.Title;
+            item.UpdatedAt = response.UpdatedAt;
+            item.Name = name;
+            item.Owner = owner;
+            #endregion
+
+            return item;
+        }
     }
 }
