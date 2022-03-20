@@ -1,4 +1,4 @@
-﻿using FluentHub.Services.Navigation;
+﻿using FluentHub.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using Windows.UI.Xaml;
@@ -14,12 +14,14 @@ namespace FluentHub.Views.AppSettings
         public MainSettingsPage()
         {
             InitializeComponent();
+            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
         }
+        private readonly INavigationService navigationService;
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             //Helpers.NavigationHelpers.AddPageInfoToTabItem($"Settings", "FluentHub settings", "fluenthub://settings/appearance", "\uE713");
-            var currentItem = App.Current.Services.GetService<ITabItemView>().NavigationHistory.CurrentItem;
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Settings";
             currentItem.Description = "FluentHub settings";
             currentItem.Url = "fluenthub://settings/appearance";
@@ -54,7 +56,7 @@ namespace FluentHub.Views.AppSettings
         }
 
         private async void Page_Loaded(object sender, RoutedEventArgs e)
-        {            
+        {
             var authedUser = await App.Client.User.Get(App.SignedInUserName);
 
             AppSignedInUserAvatar.Source = new BitmapImage(new Uri(authedUser.AvatarUrl));

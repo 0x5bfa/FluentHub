@@ -1,4 +1,4 @@
-﻿using FluentHub.Services.Navigation;
+﻿using FluentHub.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
@@ -11,14 +11,19 @@ namespace FluentHub.Views.Organizations
 {
     public sealed partial class OverviewPage : Page
     {
-        public OverviewPage() => InitializeComponent();
+        public OverviewPage()
+        {
+            InitializeComponent();
+            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
+        }
+        private readonly INavigationService navigationService;
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             string org = e.Parameter as string;
 
             //Helpers.NavigationHelpers.AddPageInfoToTabItem($"{org}", $"{org}'s overview", $"https://github.com/{org}", "\uEA27", true);
-            var currentItem = App.Current.Services.GetService<ITabItemView>().NavigationHistory.CurrentItem;
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = $"{org}";
             currentItem.Description = $"{org}'s overview";
             currentItem.Url = $"https://github.com/{org}";

@@ -91,8 +91,7 @@ namespace FluentHub
         private static IServiceProvider ConfigureServices()
         {
             return new ServiceCollection()
-                .AddSingleton<INavigationService, NavigationService>()
-                .AddTransient<ITabItemView>(provider => provider.GetService<INavigationService>()?.TabView?.SelectedItem)
+                .AddSingleton<INavigationService, NavigationService>()                
                 .BuildServiceProvider();
         }
 

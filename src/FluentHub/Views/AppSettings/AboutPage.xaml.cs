@@ -1,4 +1,4 @@
-﻿using FluentHub.Services.Navigation;
+﻿using FluentHub.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -10,13 +10,15 @@ namespace FluentHub.Views.AppSettings
     {
         public AboutPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
         }
+        private readonly INavigationService navigationService;
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             //Helpers.NavigationHelpers.AddPageInfoToTabItem($"About", "About FluentHub", "fluenthub://settings/about", "\uE713");
-            var currentItem = App.Current.Services.GetRequiredService<ITabItemView>().NavigationHistory.CurrentItem;
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "About";
             currentItem.Description = "About FluentHub";
             currentItem.Url = "fluenthub://settings/about";
