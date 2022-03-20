@@ -37,7 +37,8 @@ namespace FluentHub.Views
         private async void ShareWithBrowserMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            await Windows.System.Launcher.LaunchUriAsync(new Uri(currentItem.Url));
+            var result = await Windows.System.Launcher.LaunchUriAsync(new Uri(currentItem.Url));
+            System.Diagnostics.Debug.WriteLine("LaunchUriAsync({0}) - result:{1}", currentItem.Url, result);
         }
 
         private void SettingsMenuFlyoutItem_Click(object sender, RoutedEventArgs e)

@@ -1,4 +1,4 @@
-﻿using FluentHub.Services.Navigation;
+﻿using FluentHub.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Threading.Tasks;
@@ -16,12 +16,13 @@ namespace FluentHub.Views.AppSettings
         {
             InitializeComponent();
             Loaded += AccountsPage_Loaded;
+            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
         }
-
+        private readonly INavigationService navigationService;
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             //Helpers.NavigationHelpers.AddPageInfoToTabItem("Accounts", "Users signed in FluentHub", "fluenthub://settings/accounts", "\uE713");
-            var currentItem = App.Current.Services.GetService<ITabItemView>().NavigationHistory.CurrentItem;
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Accounts";
             currentItem.Description = "Users signed in FluentHub";
             currentItem.Url = "fluenthub://settings/accounts";

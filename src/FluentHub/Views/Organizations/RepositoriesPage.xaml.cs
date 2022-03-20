@@ -1,4 +1,4 @@
-﻿using FluentHub.Services.Navigation;
+﻿using FluentHub.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -8,14 +8,19 @@ namespace FluentHub.Views.Organizations
 {
     public sealed partial class RepositoriesPage : Page
     {
-        public RepositoriesPage() => InitializeComponent();
+        public RepositoriesPage()
+        {
+            InitializeComponent();
+            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
+        }
+        private readonly INavigationService navigationService;
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             string org = e.Parameter as string;
 
             //Helpers.NavigationHelpers.AddPageInfoToTabItem($"{org}", $"{org}'s repositoryes", $"https://github.com/orgs/{org}/repositories", "\uEA27", true);
-            var currentItem = App.Current.Services.GetService<ITabItemView>().NavigationHistory.CurrentItem;
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = $"{org}";
             currentItem.Description = $"{org}'s repositories";
             currentItem.Url = $"https://github.com/orgs/{org}/repositories";
