@@ -45,7 +45,7 @@ namespace FluentHub.UserControls.TabViewControl
             var item = new TabItem
             {
                 Guid = Guid.NewGuid(),
-                IconSource = new muxc.FontIconSource
+                Icon = new muxc.FontIconSource
                 {
                     Glyph = "\uE737"
                 }
@@ -109,7 +109,8 @@ namespace FluentHub.UserControls.TabViewControl
             var oldItem = e.RemovedItems.FirstOrDefault() as ITabItemView;
             NavigationTransitionInfo transitionInfo;
 
-            /*if (newItem is null || oldItem is null)
+            /*
+            if (newItem is null || oldItem is null)
             {
                 transitionInfo = new SlideNavigationTransitionInfo
                 {
@@ -129,7 +130,8 @@ namespace FluentHub.UserControls.TabViewControl
                         _ => SlideNavigationTransitionEffect.FromBottom
                     }
                 };
-            }*/
+            }
+            */
             transitionInfo = new SuppressNavigationTransitionInfo();                                 
             var args = new TabViewSelectionChangedEventArgs(newItem, oldItem, transitionInfo);
             SelectionChanged?.Invoke(this, args);
@@ -145,7 +147,8 @@ namespace FluentHub.UserControls.TabViewControl
             var iconSource = new muxc.FontIconSource();
             iconSource.Glyph = "\uE737";
             App.MainViewModel.MainTabItems[App.MainViewModel.SelectedTabIndex].IconSource = iconSource;
-            App.MainViewModel.MainTabItems[App.MainViewModel.SelectedTabIndex].Header = "FluentHub";*/
+            App.MainViewModel.MainTabItems[App.MainViewModel.SelectedTabIndex].Header = "FluentHub";
+            */
         }
 
         private void AddNewTabButton_Click(object sender, RoutedEventArgs e)
@@ -153,18 +156,19 @@ namespace FluentHub.UserControls.TabViewControl
             var item = new TabItem
             {
                 Guid = Guid.NewGuid(),
-                IconSource = new muxc.FontIconSource
+                Icon = new muxc.FontIconSource
                 {
                     Glyph = "\uE737"
                 }
             };
             _items.Add(item);
             SelectedItem = item;
-            //TabItemAdding = true;
             /*
+            TabItemAdding = true;            
             MainPageViewModel.AddNewTabByPath($"/{App.SignedInUserName}");
             App.MainViewModel.MainFrame.Navigate(typeof(UserHomePage));
-            App.MainViewModel.SelectedTabIndex = MainTabView.SelectedIndex = App.MainViewModel.MainTabItems.Count() - 1;*/
+            App.MainViewModel.SelectedTabIndex = MainTabView.SelectedIndex = App.MainViewModel.MainTabItems.Count() - 1;
+            */
         }
         #endregion
 

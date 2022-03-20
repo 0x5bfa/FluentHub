@@ -21,7 +21,13 @@ namespace FluentHub.Views.Users
             string login = e.Parameter as string;
 
             //Helpers.NavigationHelpers.AddPageInfoToTabItem($"Following", $"{login}'s followers", $"https://github.com/{login}?tab=following", "\uE737");
-            navigationService.TabView.SelectedItem.Header = $"Following".GetLocalized();
+            var currentTab = navigationService.TabView.SelectedItem;
+            currentTab.Header = $"Following".GetLocalized();
+            currentTab.Description = $"{login}'s followers";
+            currentTab.Icon = new Microsoft.UI.Xaml.Controls.FontIconSource
+            {
+                Glyph = "\uE737"
+            };
 
             await ViewModel.GetFollowingList(login);
 

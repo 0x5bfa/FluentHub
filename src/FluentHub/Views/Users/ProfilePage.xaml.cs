@@ -23,7 +23,13 @@ namespace FluentHub.Views.Users
             login = e.Parameter as string;
 
             //Helpers.NavigationHelpers.AddPageInfoToTabItem($"{login}'s profile", $"https://github.com/{login}", $"https://github.com/{login}", "\uE77B");
-            navigationService.TabView.SelectedItem.Header = $"{login}'s profile";
+            var currentTab = navigationService.TabView.SelectedItem;
+            currentTab.Header = $"{login}'s profile";
+            currentTab.Description = "";
+            currentTab.Icon = new muxc.FontIconSource
+            {
+                Glyph = "\uE77B"
+            };
 
             await ViewModel.GetUser(login);
             UpdateVisibility();

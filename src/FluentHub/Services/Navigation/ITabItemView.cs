@@ -9,6 +9,8 @@ namespace FluentHub.Services.Navigation
     {
         Guid Guid { get; set; }
         string Header { get; set; }
+        string Description { get; set; }
         NavigationHistory<PageStackEntry> NavigationHistory { get; }
+        Microsoft.UI.Xaml.Controls.IconSource Icon { get; set; }        
     }
 }

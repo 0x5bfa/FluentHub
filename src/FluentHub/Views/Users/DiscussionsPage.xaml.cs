@@ -19,7 +19,15 @@ namespace FluentHub.Views.Users
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             //Helpers.NavigationHelpers.AddPageInfoToTabItem($"Discussions", "Viewer's discussions", $"https://github.com/discussions", "\uE737");
-            navigationService.TabView.SelectedItem.Header = "Discussions".GetLocalized();
+            var currentTab = navigationService.TabView.SelectedItem;
+            currentTab.Header = "Discussions".GetLocalized();
+            currentTab.Description = "Viewer's discussions";
+            currentTab.Icon = new Microsoft.UI.Xaml.Controls.FontIconSource
+            {
+                Glyph = "\uE95D",
+                FontFamily = new Windows.UI.Xaml.Media.FontFamily("/Assets/Glyphs/Octions.ttf#octions")
+            };
+
             await ViewModel.GetUserDiscussions(e.Parameter as string);
         }
     }

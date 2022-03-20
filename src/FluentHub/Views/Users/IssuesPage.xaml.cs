@@ -21,7 +21,15 @@ namespace FluentHub.Views.Users
             string login = e.Parameter as string;
 
             //Helpers.NavigationHelpers.AddPageInfoToTabItem($"Issues", "Viewer's issues", $"https://github.com/issues", "\uE737");
-            navigationService.TabView.SelectedItem.Header = "Issues".GetLocalized();
+            var currentTab = navigationService.TabView.SelectedItem;
+            currentTab.Header = "Issues".GetLocalized();
+            currentTab.Description = "Viewer's issues";
+            currentTab.Icon = new Microsoft.UI.Xaml.Controls.FontIconSource
+            {
+                Glyph = "\uE9EA",
+                FontFamily = new Windows.UI.Xaml.Media.FontFamily("/Assets/Glyphs/Octions.ttf#octions")
+            };
+
             await ViewModel.GetRepoIssues(login);
         }
     }
