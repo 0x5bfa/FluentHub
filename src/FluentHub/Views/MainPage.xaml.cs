@@ -31,17 +31,13 @@ namespace FluentHub.Views
 
         private void DragArea_Loaded(object sender, RoutedEventArgs e) => Window.Current.SetTitleBar(DragArea);
 
-        private void HomeButton_Click(object sender, RoutedEventArgs e) => navigationService.Navigate<UserHomePage>();        
+        private void HomeButton_Click(object sender, RoutedEventArgs e) => navigationService.Navigate<UserHomePage>();
         private void GoBack() => navigationService.GoBack();
         private void GoForward() => navigationService.GoForward();
-        private void ToolbarAppSettingsButton_Click(object sender, RoutedEventArgs e)
-        {
-        }
-
         private async void ShareWithBrowserMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
-            //await Windows.System.Launcher.LaunchUriAsync(new Uri(App.MainViewModel.CurrentPageUrl));
-            throw new NotImplementedException();
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            await Windows.System.Launcher.LaunchUriAsync(new Uri(currentItem.Url));
         }
 
         private void SettingsMenuFlyoutItem_Click(object sender, RoutedEventArgs e)

@@ -19,10 +19,11 @@ namespace FluentHub.Views.Home
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             //Helpers.NavigationHelpers.AddPageInfoToTabItem("Notifications", "Viewer's notifications", "https://github.com/notifications", "\uEA8F");
-            var currentTab = navigationService.TabView.SelectedItem;
-            currentTab.Header = "HomeNavViewItemNotifications/Content".GetLocalized();
-            currentTab.Description = "Viewer's notifications";
-            currentTab.Icon = new Microsoft.UI.Xaml.Controls.FontIconSource
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = "HomeNavViewItemNotifications/Content".GetLocalized();
+            currentItem.Description = "Viewer's notifications";
+            currentItem.Url = "https://github.com/notifications";
+            currentItem.Icon = new Microsoft.UI.Xaml.Controls.FontIconSource
             {
                 Glyph = "\uEA8F"
             };

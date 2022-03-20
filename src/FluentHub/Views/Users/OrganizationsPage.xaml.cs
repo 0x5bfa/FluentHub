@@ -21,10 +21,11 @@ namespace FluentHub.Views.Users
             string login = e.Parameter as string;
 
             //Helpers.NavigationHelpers.AddPageInfoToTabItem($"Organizations", "Viewer's organizations", $"https://github.com/organizations", "\uE737");
-            var currentTab = navigationService.TabView.SelectedItem;
-            currentTab.Header = "Organizations".GetLocalized();
-            currentTab.Description = "Viewer's organizations";
-            currentTab.Icon = new Microsoft.UI.Xaml.Controls.FontIconSource
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = "Organizations".GetLocalized();
+            currentItem.Description = "Viewer's organizations";
+            currentItem.Url = $"https://ghitub.com/organizations";
+            currentItem.Icon = new Microsoft.UI.Xaml.Controls.FontIconSource
             {
                 Glyph = "\uEA27F",
                 FontFamily = new Windows.UI.Xaml.Media.FontFamily("/Assets/Glyphs/Octions.ttf#octions")

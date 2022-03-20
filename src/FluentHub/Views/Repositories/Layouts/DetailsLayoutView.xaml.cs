@@ -36,9 +36,10 @@ namespace FluentHub.Views.Repositories.Layouts
                                                            true);
             */
 
-            var currentItem = navigationService.TabView.SelectedItem;
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = $"{CommonRepoViewModel.Path.Remove(0, 1)} at {CommonRepoViewModel.BranchName} • {CommonRepoViewModel.Owner}/{CommonRepoViewModel.Name}";
             currentItem.Description = "{org}'s overview";
+            currentItem.Url = $"https://github.com/{CommonRepoViewModel.Owner}/{CommonRepoViewModel.Name}/tree/{CommonRepoViewModel.BranchName}{CommonRepoViewModel.Path}";
             currentItem.Icon = new muxc.FontIconSource
             {
                 Glyph = "\uEA52",

@@ -146,6 +146,7 @@
     <Compile Include="Services\Navigation\INavigationService.cs" />
     <Compile Include="Services\Navigation\ITabItemView.cs" />
     <Compile Include="Services\Navigation\ITabView.cs" />
+    <Compile Include="Services\Navigation\PageNavigationEntry.cs" />
     <Compile Include="Services\Navigation\NavigationService.cs" />
     <Compile Include="Services\Navigation\TabViewSelectionChangedEventArgs.cs" />
     <Compile Include="UserControls\TabViewControl\TabItem.cs" />

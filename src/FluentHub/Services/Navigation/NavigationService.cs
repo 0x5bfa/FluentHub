@@ -39,19 +39,19 @@ namespace FluentHub.Services.Navigation
                         _frame.Navigating -= OnFrameNavigating;
                         _frame.ForwardStack.Clear();
                         _frame.BackStack.Clear();
-                        _frame.Navigate(currentHistoryItem.SourcePageType,
-                                        currentHistoryItem.Parameter,
+                        _frame.Navigate(currentHistoryItem.PageStackEntry.SourcePageType,
+                                        currentHistoryItem.PageStackEntry.Parameter,
                                         e.RecommendedNavigationTransitionInfo);
 
 
 
                         for (int i = 0; i < item.NavigationHistory.CurrentItemIndex; i++)
                         {
-                            _frame.BackStack.Add(item.NavigationHistory[i]);
+                            _frame.BackStack.Add(item.NavigationHistory[i].PageStackEntry);
                         }
                         for (int i = item.NavigationHistory.CurrentItemIndex + 1; i < item.NavigationHistory.Items.Count; i++)
                         {
-                            _frame.ForwardStack.Add(item.NavigationHistory[i]);
+                            _frame.ForwardStack.Add(item.NavigationHistory[i].PageStackEntry);
                         }
                     }
                     finally
@@ -127,7 +127,7 @@ namespace FluentHub.Services.Navigation
             switch (e.NavigationMode)
             {
                 case NavigationMode.New:
-                    history.NavigateTo(new PageStackEntry(e.SourcePageType, e.Parameter, e.NavigationTransitionInfo), history.CurrentItemIndex + 1);
+                    history.NavigateTo(new PageNavigationEntry(e.SourcePageType, e.Parameter, e.NavigationTransitionInfo), history.CurrentItemIndex + 1);
                     break;
 
                 case NavigationMode.Back:

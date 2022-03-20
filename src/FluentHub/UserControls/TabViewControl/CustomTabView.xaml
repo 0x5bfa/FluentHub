@@ -56,10 +56,10 @@
                         Padding="2,0,2,2"
                         ContextFlyout="{StaticResource TabFlyout}"
                         CornerRadius="{StaticResource ControlCornerRadius}"
-                        Header="{x:Bind Header, Mode=OneWay}"
-                        IconSource="{x:Bind Icon, Mode=OneWay}"
+                        Header="{x:Bind NavigationHistory.CurrentItem.Header, Mode=OneWay}"
+                        IconSource="{x:Bind NavigationHistory.CurrentItem.Icon, Mode=OneWay}"
                         Style="{ThemeResource TabViewItemStyle}"
-                        ToolTipService.ToolTip="{x:Bind Header, Mode=OneWay}" />
+                        ToolTipService.ToolTip="{x:Bind NavigationHistory.CurrentItem.Description, Mode=OneWay}" />
                 </DataTemplate>
             </muxc:TabView.TabItemTemplate>
         </muxc:TabView>

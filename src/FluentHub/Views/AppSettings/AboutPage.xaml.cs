@@ -16,9 +16,10 @@ namespace FluentHub.Views.AppSettings
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             //Helpers.NavigationHelpers.AddPageInfoToTabItem($"About", "About FluentHub", "fluenthub://settings/about", "\uE713");
-            var currentItem = App.Current.Services.GetService<ITabItemView>();
+            var currentItem = App.Current.Services.GetRequiredService<ITabItemView>().NavigationHistory.CurrentItem;
             currentItem.Header = "About";
             currentItem.Description = "About FluentHub";
+            currentItem.Url = "fluenthub://settings/about";
             currentItem.Icon = new muxc.FontIconSource
             {
                 Glyph = "\uE713"

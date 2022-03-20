@@ -15,9 +15,10 @@ namespace FluentHub.Views.Organizations
             string org = e.Parameter as string;
 
             //Helpers.NavigationHelpers.AddPageInfoToTabItem($"{org}", $"{org}'s repositoryes", $"https://github.com/orgs/{org}/repositories", "\uEA27", true);
-            var currentItem = App.Current.Services.GetService<ITabItemView>();
+            var currentItem = App.Current.Services.GetService<ITabItemView>().NavigationHistory.CurrentItem;
             currentItem.Header = $"{org}";
             currentItem.Description = $"{org}'s repositories";
+            currentItem.Url = $"https://github.com/orgs/{org}/repositories";
             currentItem.Icon = new muxc.FontIconSource
             {
                 Glyph = "\uEA27",

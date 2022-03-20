@@ -19,8 +19,10 @@ namespace FluentHub.Views.AppSettings
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             //Helpers.NavigationHelpers.AddPageInfoToTabItem($"Settings", "FluentHub settings", "fluenthub://settings/appearance", "\uE713");
-            var currentItem = App.Current.Services.GetService<ITabItemView>();
+            var currentItem = App.Current.Services.GetService<ITabItemView>().NavigationHistory.CurrentItem;
             currentItem.Header = "Settings";
+            currentItem.Description = "FluentHub settings";
+            currentItem.Url = "fluenthub://settings/appearance";
             currentItem.Icon = new muxc.FontIconSource
             {
                 Glyph = "\uE713"

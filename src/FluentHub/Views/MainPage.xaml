@@ -43,7 +43,10 @@
                 VerticalAlignment="Top"
                 Background="Transparent"
                 Loaded="DragArea_Loaded" />
-            <uc:CustomTabView x:Name="TabView" Grid.Column="0" />
+            <uc:CustomTabView
+                x:Name="TabView"
+                Title="{x:Bind TabView.SelectedItem.NavigationHistory.CurrentItem.Header, Mode=OneWay}"
+                Grid.Column="0" />
         </Grid>
         <Grid
             Grid.Row="1"
@@ -100,7 +103,8 @@
                 <TextBox
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Top"
-                    IsEnabled="False" />
+                    IsEnabled="False"
+                    Text="{x:Bind TabView.SelectedItem.NavigationHistory.CurrentItem.Url, Mode=OneWay}" />
             </Grid>
             <Grid Grid.Column="2">
                 <StackPanel Orientation="Horizontal" Spacing="2">

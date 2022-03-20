@@ -21,10 +21,11 @@ namespace FluentHub.Views.Home
         {
             // save navigation info
 
-            var currentTab = navigationService.TabView.SelectedItem;
-            currentTab.Header = "Activities";
-            currentTab.Description = "Viewer's activities";
-            currentTab.Icon = new Microsoft.UI.Xaml.Controls.FontIconSource
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = "Activities";
+            currentItem.Description = "Viewer's activities";
+            currentItem.Url = "https://github.com";
+            currentItem.Icon = new Microsoft.UI.Xaml.Controls.FontIconSource
             {
                 Glyph = "\uECAD"
             };
