@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace FluentHub.OctokitEx.Queries.Repository
 {
-    public class LatestCommitQueries
+    public class CommitQueries
     {
-        public LatestCommitQueries() => new App();
+        public CommitQueries() => new App();
 
-        public async Task<CommitOverviewItem> Get(string name, string owner, string branchName, string path)
+        public async Task<CommitOverviewItem> GetOverview(string name, string owner, string branchName, string path)
         {
             path = path.Remove(0, 1);
 
@@ -52,7 +52,7 @@ namespace FluentHub.OctokitEx.Queries.Repository
             return item;
         }
 
-        public async Task<List<CommitOverviewItem>> EnumFilesAndItsLatestCommit(string name, string owner, string branchName, string path)
+        public async Task<List<CommitOverviewItem>> GetOverviewAllFilesAndLatestCommit(string name, string owner, string branchName, string path)
         {
             path = path.Remove(0, 1);
 

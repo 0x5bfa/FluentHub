@@ -15,19 +15,19 @@ namespace FluentHub.ViewModels.UserControls.Blocks
 {
     public class ActivityBlockViewModel : INotifyPropertyChanged
     {
+        public Activity FullPayload { get; set; }
+
         private bool isForkEvent;
         public bool IsForkEvent { get => isForkEvent; set => SetProperty(ref isForkEvent, value); }
 
         private bool isWatchEvent;
         public bool IsWatchEvent { get => isWatchEvent; set => SetProperty(ref isWatchEvent, value); }
 
-        private string avatarUrl;
-        public string AvatarUrl { get => avatarUrl; set => SetProperty(ref avatarUrl, value); }
+        private bool isPushEvent;
+        public bool IsPushEvent { get => isPushEvent; set => SetProperty(ref isPushEvent, value); }
 
-        private string actor;
-        public string Actor { get => actor; set => SetProperty(ref actor, value); }
-
-        public Activity FullPayload { get; set; }
+        private string updatedAtHumanized;
+        public string UpdatedAtHumanized { get => updatedAtHumanized; set => SetProperty(ref updatedAtHumanized, value); }
 
         public RepoButtonBlockViewModel RepoButtonBlockViewModel { get; set; } = new();
 
@@ -38,8 +38,8 @@ namespace FluentHub.ViewModels.UserControls.Blocks
             if (isForkEvent || isWatchEvent)
             {
                 RepoButtonBlockViewModel.DisplayDetails = false;
-                RepositoryOverviewQueries queries = new();
-                var response = await queries.Get(FullPayload.Repo.Name.Split("/")[0], FullPayload.Repo.Name.Split("/")[1]);
+                RepositoryQueries queries = new();
+                var response = await queries.GetOverview(FullPayload.Repo.Name.Split("/")[0], FullPayload.Repo.Name.Split("/")[1]);
                 RepoButtonBlockViewModel.Item = response;
             }
         }

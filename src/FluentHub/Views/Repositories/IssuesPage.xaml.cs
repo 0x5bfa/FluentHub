@@ -26,6 +26,8 @@ namespace FluentHub.Views.Repositories
         {
             long repositoryId = Convert.ToInt64(e.Parameter as string);
 
+            //Helpers.NavigationHelpers.AddPageInfoToTabItem($"Issues • {CommonRepoViewModel.Owner}/{CommonRepoViewModel.Name}", $"Issues • {CommonRepoViewModel.Owner}/{CommonRepoViewModel.Name}", $"https://github.com/{CommonRepoViewModel.Owner}/{CommonRepoViewModel.Name}/issues", "\uE9EA", true);
+
             var repo = await App.Client.Repository.Get(repositoryId);
             await ViewModel.GetRepoIssues(repo.Name, repo.Owner.Login);
         }

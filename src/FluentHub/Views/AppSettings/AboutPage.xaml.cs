@@ -23,5 +23,10 @@ namespace FluentHub.Views.AppSettings
         {
             this.InitializeComponent();
         }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            Helpers.NavigationHelpers.AddPageInfoToTabItem($"About", "About FluentHub", "fluenthub://settings/about", "\uE713");
+        }
     }
 }

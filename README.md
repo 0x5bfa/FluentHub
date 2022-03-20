@@ -15,7 +15,7 @@ Please contribute to make this project better(please follow [this coding guidlin
 > **Warning**</br> This project is in dev stage. Expect regular breaking changes.</br>
 > We don't have logos(stable/dev) [that can be used in the store version](https://github.com/logos). Logos/mockups are especially welcome😊
 
-![image](https://user-images.githubusercontent.com/62196528/156875118-f58c4acb-46de-478b-8b5b-9733b466d6b2.png)
+![image](https://user-images.githubusercontent.com/62196528/159022004-d7228fc5-2d97-4f92-9fde-34f1f2b6f08e.png)
 
 ## Building from source
 

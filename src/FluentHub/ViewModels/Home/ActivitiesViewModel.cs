@@ -1,5 +1,6 @@
-﻿using FluentHub.Models.Items;
+﻿using Humanizer;
 using FluentHub.ViewModels.UserControls.Blocks;
+using Octokit;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,28 +21,28 @@ namespace FluentHub.ViewModels.Home
             IsActive = true;
 
             // It takes too much time. but there is no event API in Octokit.GraphQl.NET.
-            var events = await App.Client.Activity.Events.GetAllUserReceived(login);
+            ApiOptions options = new() { PageCount = 1, PageSize = 30, StartPage = 1 };
+            var events = await App.Client.Activity.Events.GetAllUserReceived(login, options);
 
             foreach (var item in events)
             {
-                // Allowed event types: releases, fork repos, star(watch) repos/users, push commits
-                if (item.Type != "ForkEvent" && item.Type != "WatchEvent")
-                {
-                    continue;
-                }
-
                 ActivityBlockViewModel viewModel = new();
 
-                // Event type
-                _ = item.Type switch
+                switch (item.Type)
                 {
-                    "ForkEvent" => viewModel.IsForkEvent = true,
-                    "WatchEvent" => viewModel.IsWatchEvent = true,
-                };
+                    case "ForkEvent":
+                        viewModel.IsForkEvent = true;
+                        break;
+                    case "WatchEvent":
+                        viewModel.IsWatchEvent = true;
+                        break;
+                    case "PushEvent":
+                        viewModel.IsPushEvent = true;
+                        break;
+                }
 
-                viewModel.AvatarUrl = item.Actor.AvatarUrl;
-                viewModel.Actor = item.Actor.Login;
                 viewModel.FullPayload = item;
+                viewModel.UpdatedAtHumanized = item.CreatedAt.Humanize();
 
                 EventItems.Add(viewModel);
             }

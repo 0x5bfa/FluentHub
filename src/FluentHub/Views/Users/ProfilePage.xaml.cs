@@ -39,11 +39,6 @@ namespace FluentHub.Views.Users
 
         private void UserNavView_SelectionChanged(muxc.NavigationView sender, muxc.NavigationViewSelectionChangedEventArgs args)
         {
-            if (args.SelectedItem == null || args.SelectedItemContainer == null)
-            {
-                return;
-            }
-
             _ = args.SelectedItemContainer.Tag.ToString() switch
             {
                 "Overview" => UserNavViewContent.Navigate(typeof(OverviewPage), login, args.RecommendedNavigationTransitionInfo),
@@ -77,15 +72,6 @@ namespace FluentHub.Views.Users
                 var uri = new UriBuilder(LinkButton.Content as string).Uri;
                 LinkButton.NavigateUri = uri;
                 LinkBlock.Visibility = Visibility.Visible;
-            }
-
-            if (LoginNameTextBlock.Text == App.SignedInUserName)
-            {
-                EditProfileButton.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                FollowButton.Visibility = Visibility.Visible;
             }
         }
 

@@ -79,7 +79,7 @@
                                 <BitmapImage
                                     DecodePixelHeight="128"
                                     DecodePixelWidth="128"
-                                    UriSource="{Binding User.AvatarUrl}" />
+                                    UriSource="{x:Bind ViewModel.UserItem.AvatarUrl, Mode=OneWay}" />
                             </Image.Source>
                         </Image>
                     </Border>
@@ -92,23 +92,22 @@
                             VerticalAlignment="Center"
                             FontWeight="SemiBold"
                             Style="{StaticResource SubtitleTextBlockStyle}"
-                            Text="{Binding User.Login}" />
+                            Text="{x:Bind ViewModel.UserItem.Login, Mode=OneWay}" />
                         <TextBlock
                             x:Name="UserNameTextBlock"
                             VerticalAlignment="Center"
                             FontSize="13"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{ThemeResource CaptionTextBlockStyle}"
-                            Text="{Binding User.Name}" />
+                            Text="{x:Bind ViewModel.UserItem.Name, Mode=OneWay}" />
                         <TextBlock
                             x:Name="UserBioTextBlock"
                             MaxLines="2"
                             Style="{ThemeResource BodyTextBlockStyle}"
-                            Text="{Binding User.Bio}"
+                            Text="{x:Bind ViewModel.UserItem.Bio, Mode=OneWay}"
                             TextTrimming="CharacterEllipsis"
                             Visibility="Collapsed">
                             <ToolTipService.ToolTip>
-                                <!--  Enable tooltip only if the text is trimmed  -->
                                 <ToolTip Content="{x:Bind UserBioTextBlock.Text, Mode=OneWay}" IsEnabled="{x:Bind UserBioTextBlock.IsTextTrimmed, Mode=OneWay}" />
                             </ToolTipService.ToolTip>
                         </TextBlock>
@@ -122,14 +121,14 @@
                             x:Name="FollowButton"
                             x:Uid="FollowButton"
                             Width="120"
-                            IsEnabled="False"
-                            Visibility="Collapsed" />
+                            x:Load="{x:Bind ViewModel.IsNotViewer, Mode=OneWay}"
+                            IsEnabled="False" />
                         <Button
                             x:Name="EditProfileButton"
                             x:Uid="EditProfileButton"
                             Width="120"
-                            IsEnabled="False"
-                            Visibility="Collapsed" />
+                            x:Load="{x:Bind ViewModel.UserItem.IsViewer, Mode=OneWay}"
+                            IsEnabled="False" />
                     </StackPanel>
                 </Grid>
                 <toolkit:WrapPanel
@@ -155,7 +154,7 @@
                             x:Name="CompanyLinkTextBlock"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Text="{Binding User.Company}" />
+                            Text="{x:Bind ViewModel.UserItem.Company, Mode=OneWay}" />
                     </StackPanel>
                     <StackPanel
                         x:Name="LocationBlock"
@@ -175,7 +174,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{ThemeResource BodyTextBlockStyle}"
-                            Text="{Binding User.Location}" />
+                            Text="{x:Bind ViewModel.UserItem.Location, Mode=OneWay}" />
                     </StackPanel>
                     <StackPanel
                         x:Name="LinkBlock"
@@ -192,14 +191,15 @@
                         <HyperlinkButton
                             x:Name="LinkButton"
                             Padding="4"
-                            Content="{Binding User.Blog}"
+                            Content="{x:Bind ViewModel.UserItem.WebsiteUrl, Mode=OneWay}"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" />
                     </StackPanel>
                     <StackPanel
                         x:Name="DeveloperProgramMemberBlock"
+                        Margin="0,0,12,0"
+                        x:Load="{x:Bind ViewModel.UserItem.IsDeveloperProgramMember, Mode=OneWay}"
                         Orientation="Horizontal"
-                        Spacing="4"
-                        Visibility="Collapsed">
+                        Spacing="6">
                         <FontIcon
                             VerticalAlignment="Center"
                             FontFamily="{StaticResource Octions}"
@@ -232,7 +232,7 @@
                                         VerticalAlignment="Center"
                                         FontWeight="SemiBold"
                                         Style="{ThemeResource BodyTextBlockStyle}"
-                                        Text="{Binding User.Followers}" />
+                                        Text="{x:Bind ViewModel.UserItem.FollowersTotalCount, Mode=OneWay}" />
                                     <TextBlock
                                         x:Uid="UserFollowersCountTextBlock"
                                         VerticalAlignment="Center"
@@ -260,7 +260,7 @@
                                         VerticalAlignment="Center"
                                         FontWeight="SemiBold"
                                         Style="{ThemeResource BodyTextBlockStyle}"
-                                        Text="{Binding User.Following}" />
+                                        Text="{x:Bind ViewModel.UserItem.FollowingTotalCount, Mode=OneWay}" />
                                     <TextBlock
                                         x:Uid="UserFollowingCountTextBlock"
                                         VerticalAlignment="Center"

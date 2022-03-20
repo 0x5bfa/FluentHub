@@ -12,7 +12,7 @@ namespace FluentHub.OctokitEx.Queries.Organization
     {
         public OrganizationQueries() => new App();
 
-        public async Task<Models.OrganizationOverviewItem> Get(string org)
+        public async Task<OrganizationOverviewItem> GetOverview(string org)
         {
             var query = new Query()
                     .Organization(org)

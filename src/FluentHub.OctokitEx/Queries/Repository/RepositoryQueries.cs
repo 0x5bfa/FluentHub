@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace FluentHub.OctokitEx.Queries.Repository
 {
-    public class RepositoryOverviewQueries
+    public class RepositoryQueries
     {
-        public RepositoryOverviewQueries() => new App();
+        public RepositoryQueries() => new App();
 
-        public async Task<RepositoryBlockItem> Get(string name, string owner)
+        public async Task<RepositoryBlockItem> GetOverview(string name, string owner)
         {
             #region queries
             var query = new Query()

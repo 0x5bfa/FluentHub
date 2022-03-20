@@ -11,9 +11,5 @@ namespace FluentHub.OctokitEx.Queries.Repository
     public class RepoHeaderQueries
     {
         public RepoHeaderQueries() => new App();
-
-        public void GetRepoHeaderDetails(string name, string owner)
-        {
-        }
     }
 }

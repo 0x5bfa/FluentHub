@@ -7,31 +7,31 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FluentHub.OctokitEx.Queries.Repository
+namespace FluentHub.OctokitEx.Queries.User
 {
-    public class EnumPullOverviewsQueries
+    public class IssueQueries
     {
-        public EnumPullOverviewsQueries() => new App();
+        public IssueQueries() => new App();
 
-        public async Task<List<PullOverviewItem>> Get(string name, string owner)
+        public async Task<List<IssueOverviewItem>> GetOverviewAll(string login)
         {
-            IssueOrder order = new() { Direction = OrderDirection.Desc, Field = IssueOrderField.CreatedAt};
+            IssueOrder order = new() { Direction = OrderDirection.Desc, Field = IssueOrderField.CreatedAt };
 
             #region queries
             var query = new Query()
-                .Repository(name, owner)
-                .PullRequests(first: 30, orderBy: order)
+                .User(login)
+                .Issues(first: 30, orderBy: order)
                 .Nodes
                 .Select(x => new
                 {
                     x.Closed,
-                    x.Merged,
-                    x.IsDraft,
                     Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new
                     {
                         y.Color,
                         y.Name,
                     }).ToList(),
+                    x.Repository.Name,
+                    x.Repository.Owner.Login,
                     x.Number,
                     x.Title,
                     x.UpdatedAt,
@@ -41,16 +41,14 @@ namespace FluentHub.OctokitEx.Queries.Repository
 
             var response = await App.Connection.Run(query);
 
-            List<PullOverviewItem> items = new();
+            List<IssueOverviewItem> items = new();
 
             foreach (var res in response)
             {
-                PullOverviewItem item = new();
+                IssueOverviewItem item = new();
                 item.Labels = new();
 
                 item.IsClosed = res.Closed;
-                item.IsMerged = res.Merged;
-                item.IsDraft = res.IsDraft;
 
                 foreach (var label in res.Labels)
                 {
@@ -64,9 +62,8 @@ namespace FluentHub.OctokitEx.Queries.Repository
                 item.Number = res.Number;
                 item.Title = res.Title;
                 item.UpdatedAt = res.UpdatedAt;
-
-                item.Name = name;
-                item.Owner = owner;
+                item.Name = res.Name;
+                item.Owner = res.Login;
 
                 items.Add(item);
             }

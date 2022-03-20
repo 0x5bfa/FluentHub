@@ -25,6 +25,11 @@ namespace FluentHub.Views.AppSettings
             Loaded += AccountsPage_Loaded;
         }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            Helpers.NavigationHelpers.AddPageInfoToTabItem("Accounts", "Users signed in FluentHub", "fluenthub://settings/accounts", "\uE713");
+        }
+
         private async void AccountsPage_Loaded(object sender, RoutedEventArgs e)
         {
             await SetUserInfo();

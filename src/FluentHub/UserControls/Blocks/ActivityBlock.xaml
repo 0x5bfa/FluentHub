@@ -32,13 +32,13 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid Margin="0,3,0,0">
+    <Grid Margin="0,16,0,0">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Spacing="8">
+        <StackPanel Orientation="Horizontal" Spacing="4">
             <Border
                 Width="28"
                 Height="28"
@@ -47,20 +47,72 @@
                 <Image
                     Width="28"
                     Height="28"
-                    Source="{x:Bind ViewModel.AvatarUrl, Mode=OneWay}" />
+                    Source="{x:Bind ViewModel.FullPayload.Actor.AvatarUrl, Mode=OneWay}" />
             </Border>
             <Button Style="{StaticResource LinkLikeButtonStyle}">
                 <TextBlock
                     VerticalAlignment="Center"
                     Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="{x:Bind ViewModel.Actor, Mode=OneWay}" />
+                    Text="{x:Bind ViewModel.FullPayload.Actor.Login, Mode=OneWay}" />
             </Button>
-            <TextBlock
-                VerticalAlignment="Center"
-                Style="{StaticResource BodyTextBlockStyle}"
-                Text="starred fluenthub-community/FluentHub" />
+            <StackPanel Orientation="Horizontal" Spacing="4">
+                <StackPanel
+                    x:Name="PushEventMessageBlock"
+                    VerticalAlignment="Center"
+                    x:Load="{x:Bind ViewModel.IsPushEvent, Mode=OneWay}"
+                    Orientation="Horizontal"
+                    Spacing="4">
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Text="pushed to" />
+                    <Button
+                        Content="{x:Bind ViewModel.FullPayload.Repo.Name, Mode=OneWay}"
+                        FontWeight="SemiBold"
+                        IsEnabled="False"
+                        Style="{StaticResource LinkLikeButtonStyle}" />
+                </StackPanel>
+                <StackPanel
+                    x:Name="ForkEventMessageBlock"
+                    VerticalAlignment="Center"
+                    x:Load="{x:Bind ViewModel.IsForkEvent, Mode=OneWay}"
+                    Orientation="Horizontal"
+                    Spacing="4">
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Text="forked" />
+                    <Button
+                        Content="{x:Bind ViewModel.FullPayload.Repo.Name, Mode=OneWay}"
+                        FontWeight="SemiBold"
+                        IsEnabled="False"
+                        Style="{StaticResource LinkLikeButtonStyle}" />
+                </StackPanel>
+                <StackPanel
+                    x:Name="WatchEventMessageBlock"
+                    VerticalAlignment="Center"
+                    x:Load="{x:Bind ViewModel.IsWatchEvent, Mode=OneWay}"
+                    Orientation="Horizontal"
+                    Spacing="4">
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Text="starred" />
+                    <Button
+                        Content="{x:Bind ViewModel.FullPayload.Repo.Name, Mode=OneWay}"
+                        FontWeight="SemiBold"
+                        IsEnabled="False"
+                        Style="{StaticResource LinkLikeButtonStyle}" />
+                </StackPanel>
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="{x:Bind ViewModel.UpdatedAtHumanized, Mode=OneWay}" />
+            </StackPanel>
         </StackPanel>
-        <Grid Grid.Row="1" Margin="32,8,0,0">
+        <Grid Grid.Row="1" Margin="32,8,0,8">
+            <Button Height="32" HorizontalAlignment="Stretch" />
             <!--<bb:RepoButtonBlock
                 x:Name="ForkedRepoButtonBlock"
                 x:Load="{x:Bind ViewModel.IsForkEvent, Mode=OneWay}"
@@ -70,6 +122,6 @@
                 x:Load="{x:Bind ViewModel.IsWatchEvent, Mode=OneWay}"
                 ViewModel="{x:Bind ViewModel.RepoButtonBlockViewModel, Mode=OneWay}" />-->
         </Grid>
-        <MenuFlyoutSeparator Grid.Row="2" Margin="0,8" />
+        <MenuFlyoutSeparator Grid.Row="2" Margin="0,8,0,0" />
     </Grid>
 </UserControl>

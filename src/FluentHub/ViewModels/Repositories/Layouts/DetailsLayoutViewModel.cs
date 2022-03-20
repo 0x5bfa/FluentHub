@@ -21,8 +21,8 @@ namespace FluentHub.ViewModels.Repositories.Layouts
 
         public async Task EnumRepositoryContents()
         {
-            LatestCommitQueries queries = new();
-            var fileOverviews = await queries.EnumFilesAndItsLatestCommit(CommonRepoViewModel.Name,
+            CommitQueries queries = new();
+            var fileOverviews = await queries.GetOverviewAllFilesAndLatestCommit(CommonRepoViewModel.Name,
                     CommonRepoViewModel.Owner,
                     CommonRepoViewModel.BranchName,
                     CommonRepoViewModel.Path);
@@ -62,7 +62,10 @@ namespace FluentHub.ViewModels.Repositories.Layouts
                 Items.Add(listItem);
             }
 
-            Items = new ObservableCollection<DetailsLayoutListViewItem>(Items.OrderByDescending(x => x.ObjectTypeIconGlyph));
+            // Order by item type(tree or blob)
+            var orderedByItemType = new ObservableCollection<DetailsLayoutListViewItem>(Items.OrderByDescending(x => x.ObjectTypeIconGlyph));
+            Items.Clear();
+            foreach (var orderedItem in orderedByItemType) Items.Add(orderedItem);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
