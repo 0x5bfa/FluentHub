@@ -32,23 +32,29 @@ namespace FluentHub.ViewModels.UserControls.ButtonBlocks
         {
             if (PullItem.IsClosed)
             {
-                StateGlyph = "\uE9E6";
-                StateGlyphForeground = ColorHelpers.HexCodeToSolidColorBrush("#986EE2");
-            }
-            else if (PullItem.IsDraft)
-            {
-                StateGlyph = "\uE9EA";
-                StateGlyphForeground = ColorHelpers.HexCodeToSolidColorBrush("#57AB5A");
-            }
-            else if (PullItem.IsMerged)
-            {
-                StateGlyph = "\uE9EA";
-                StateGlyphForeground = ColorHelpers.HexCodeToSolidColorBrush("#57AB5A");
+                if (PullItem.IsMerged)
+                {
+                    StateGlyph = "\uE9BD";
+                    StateGlyphForeground = ColorHelpers.HexCodeToSolidColorBrush("#986EE2");
+                }
+                else
+                {
+                    StateGlyph = "\uE9C1";
+                    StateGlyphForeground = ColorHelpers.HexCodeToSolidColorBrush("#E5534B");
+                }
             }
             else
             {
-                StateGlyph = "\uE9EA";
-                StateGlyphForeground = ColorHelpers.HexCodeToSolidColorBrush("#57AB5A");
+                if (PullItem.IsDraft)
+                {
+                    StateGlyph = "\uE9C3";
+                    StateGlyphForeground = ColorHelpers.HexCodeToSolidColorBrush("#768390");
+                }
+                else
+                {
+                    StateGlyph = "\uE9BF";
+                    StateGlyphForeground = ColorHelpers.HexCodeToSolidColorBrush("#57AB5A");
+                }
             }
         }
 
