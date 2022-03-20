@@ -129,6 +129,7 @@
     <Compile Include="Models\LabelOverviewItem.cs" />
     <Compile Include="Models\OrganizationOverviewItem.cs" />
     <Compile Include="Models\PullOverviewItem.cs" />
+    <Compile Include="Models\UserOverviewItem.cs" />
     <Compile Include="Queries\Organization\RepositoryQueries.cs" />
     <Compile Include="Queries\Organization\OrganizationQueries.cs" />
     <Compile Include="Queries\Repository\BlobQueries.cs" />
@@ -150,6 +151,7 @@
     <Compile Include="Models\RepositoryBlockItem.cs" />
     <Compile Include="Models\UserBlockItem.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Queries\User\UserQueries.cs" />
     <Compile Include="Queries\User\ViewerQueries.cs" />
     <EmbeddedResource Include="Properties\Default.rd.xml" />
   </ItemGroup>
