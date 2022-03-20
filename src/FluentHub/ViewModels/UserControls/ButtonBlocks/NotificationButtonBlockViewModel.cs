@@ -23,10 +23,10 @@ namespace FluentHub.ViewModels.UserControls.ButtonBlocks
         private string updatedAtHumanized;
         public string UpdatedAtHumanized { get => updatedAtHumanized; set => SetProperty(ref updatedAtHumanized, value); }
 
-        private string stateGlyph;
+        private string stateGlyph = "\uE95D";
         public string StateGlyph { get => stateGlyph; set => SetProperty(ref stateGlyph, value); }
 
-        private Brush stateGlyphForeground;
+        private Brush stateGlyphForeground = ColorHelpers.HexCodeToSolidColorBrush("#768390");
         public Brush StateGlyphForeground { get => stateGlyphForeground; set => SetProperty(ref stateGlyphForeground, value); }
 
         public async Task SetStateContents()

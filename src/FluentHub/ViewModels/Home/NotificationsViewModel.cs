@@ -26,7 +26,7 @@ namespace FluentHub.ViewModels.Home
 
             NotificationsRequest request = new NotificationsRequest();
             request.All = true;
-            ApiOptions options = new() { PageCount = 1, PageSize = 50, StartPage = 2 };
+            ApiOptions options = new() { PageCount = 1, PageSize = 50, StartPage = 1 };
             var notifications = await App.Client.Activity.Notifications.GetAllForCurrent(request, options);
 
             foreach (var item in notifications)
