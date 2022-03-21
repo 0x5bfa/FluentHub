@@ -154,12 +154,9 @@
     <Compile Include="UserControls\TabViewControl\TabItem.cs" />
     <Compile Include="Services\Auth\AppCredentials.cs" />
     <Compile Include="Services\Auth\RequestAuthorization.cs" />
-    <Compile Include="Services\OctokitEx\DevProgramMember.cs" />
     <Compile Include="Services\OctokitEx\Markdown.cs" />
     <Compile Include="Services\OctokitEx\PullCheckStatus.cs" />
     <Compile Include="Services\OctokitEx\PullReviewStatus.cs" />
-    <Compile Include="Services\OctokitEx\UserPinnedItems.cs" />
-    <Compile Include="Services\OctokitEx\UserStarredItems.cs" />
     <Compile Include="UserControls\Blocks\ActivityBlock.xaml.cs">
       <DependentUpon>ActivityBlock.xaml</DependentUpon>
     </Compile>
