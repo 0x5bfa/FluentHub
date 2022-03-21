@@ -1,6 +1,5 @@
-﻿using FluentHub.Models.Items;
-using FluentHub.OctokitEx.Queries;
-using FluentHub.Services.OctokitEx;
+﻿using FluentHub.Octokit.Queries.Users;
+using FluentHub.ViewModels.UserControls.ButtonBlocks;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -15,25 +14,49 @@ namespace FluentHub.ViewModels.Users
 {
     public class OverviewViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<RepoListItem> PinnedRepos { get; private set; } = new();
+        public ObservableCollection<RepoButtonBlockViewModel> PinnedRepos { get; private set; } = new();
+
+        private long userSpecialReadmeRepoId;
+        public long UserSpecialReadmeRepoId { get => userSpecialReadmeRepoId; set => SetProperty(ref userSpecialReadmeRepoId, value); }
+
+        private bool hasUserSpecialReadmeRepoId;
+        public bool HasUserSpecialReadmeRepoId { get => hasUserSpecialReadmeRepoId; set => SetProperty(ref hasUserSpecialReadmeRepoId, value); }
+
+        private bool isActive;
+        public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
 
         public async Task GetPinnedRepos(string login)
         {
+            IsActive = true;
+
+            PinnedItemsQueries queries = new();
+            var PinnedItems = await queries.GetOverviewAll(login, true);
+
+            foreach (var item in PinnedItems)
+            {
+                RepoButtonBlockViewModel viewModel = new();
+                viewModel.Item = item;
+                viewModel.DisplayDetails = false;
+                viewModel.DisplayStarButton = false;
+
+                PinnedRepos.Add(viewModel);
+            }
+
+            IsActive = false;
+        }
+
+        public async Task GetSpecialRepoId(string login)
+        {
             try
             {
-                UserPinnedItems pinnedItems = new UserPinnedItems();
-                var repoIdList = await pinnedItems.Get(login, true);
-
-                foreach (var repoId in repoIdList)
-                {
-                    RepoListItem listItem = new RepoListItem();
-                    listItem.RepoId = repoId;
-                    PinnedRepos.Add(listItem);
-                }
+                var repo = await App.Client.Repository.Get(login, login);
+                UserSpecialReadmeRepoId = repo.Id;
+                HasUserSpecialReadmeRepoId = true;
             }
-            catch (Exception ex)
+            catch
             {
-                Log.Error(ex, ex.Message);
+                HasUserSpecialReadmeRepoId = false;
+                return;
             }
         }
 

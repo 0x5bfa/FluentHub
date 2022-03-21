@@ -29,7 +29,7 @@
                 <FontIcon
                     FontFamily="{StaticResource Octions}"
                     FontSize="16"
-                    Glyph="&#xEA52;" />
+                    Glyph="&#xE9BF;" />
                 <TextBlock
                     VerticalAlignment="Center"
                     FontSize="14"
@@ -39,7 +39,7 @@
             <muxc:ProgressRing Grid.Row="1" IsActive="{Binding IsActive}" />
             <muxc:ItemsRepeater Grid.Row="1" ItemsSource="{x:Bind ViewModel.PullItems, Mode=OneWay}">
                 <DataTemplate x:DataType="bbvm:PullButtonBlockViewModel">
-                    <block:PullButtonBlock x:Name="RepositoryBlock" ViewModel="{x:Bind}" />
+                    <block:PullButtonBlock ViewModel="{x:Bind}" />
                 </DataTemplate>
             </muxc:ItemsRepeater>
         </Grid>

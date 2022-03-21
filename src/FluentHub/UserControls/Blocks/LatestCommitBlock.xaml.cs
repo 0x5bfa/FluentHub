@@ -43,7 +43,19 @@ namespace FluentHub.UserControls.Blocks
         private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
             ViewModel.CommonRepoViewModel = CommonRepoViewModel;
-            await ViewModel.SetContents();
+            await ViewModel.GetCommitDetails();
+        }
+
+        private void MoreCommitMessageButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (SubCommitMessagesGrid.Visibility == Visibility.Visible)
+            {
+                SubCommitMessagesGrid.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                SubCommitMessagesGrid.Visibility = Visibility.Visible;
+            }
         }
     }
 }

@@ -8,80 +8,11 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
 
-    <ScrollViewer Margin="0,6,0,0">
-        <Grid RowSpacing="6">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal" Spacing="8">
-                <FontIcon
-                    FontFamily="{StaticResource Octions}"
-                    FontSize="16"
-                    Glyph="&#xEA3E;" />
-                <TextBlock
-                    FontSize="14"
-                    Style="{StaticResource SubtitleTextBlockStyle}"
-                    Text="Organization permissions" />
-            </StackPanel>
-            <Grid Grid.Row="1" ColumnSpacing="6">
-                <Grid VerticalAlignment="Top" CornerRadius="4">
-                    <muxc:NavigationView
-                        x:Name="MembershipNavView"
-                        CornerRadius="4"
-                        IsBackButtonVisible="Collapsed"
-                        IsPaneToggleButtonVisible="False"
-                        IsSettingsVisible="False"
-                        OpenPaneLength="300"
-                        PaneDisplayMode="Left">
-                        <muxc:NavigationView.MenuItems>
-                            <muxc:NavigationViewItem
-                                Content="Members"
-                                IsSelected="True"
-                                Tag="Repositories" />
-                            <muxc:NavigationViewItem Content="Outside collaborators" Tag="People" />
-                            <muxc:NavigationViewItem Content="Pending collaborators" Tag="Teams" />
-                            <muxc:NavigationViewItem Content="Pending invitations" Tag="Teams" />
-                            <muxc:NavigationViewItem Content="Failed invitations" Tag="Teams" />
-                        </muxc:NavigationView.MenuItems>
-                        <muxc:NavigationView.Content>
-                            <Grid
-                                Grid.Column="1"
-                                Padding="0,4"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Top"
-                                Background="{ThemeResource LayerFillColorDefaultBrush}"
-                                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                                BorderThickness="1"
-                                CornerRadius="4">
-                                <ListView
-                                    x:Name="ListView"
-                                    Grid.Row="2"
-                                    Grid.ColumnSpan="2"
-                                    HorizontalAlignment="Stretch"
-                                    SelectionMode="Single">
-                                    <ListView.ItemContainerStyle>
-                                        <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
-                                            <Setter Property="MinHeight" Value="40" />
-                                            <Setter Property="Height" Value="40" />
-                                        </Style>
-                                    </ListView.ItemContainerStyle>
-                                    <ListView.ItemTemplate>
-                                        <DataTemplate>
-                                            <Grid>
-                                                <Grid.ColumnDefinitions>
-                                                    <ColumnDefinition Width="*" />
-                                                </Grid.ColumnDefinitions>
-                                            </Grid>
-                                        </DataTemplate>
-                                    </ListView.ItemTemplate>
-                                    <ListViewItem Content="A" />
-                                </ListView>
-                            </Grid>
-                        </muxc:NavigationView.Content>
-                    </muxc:NavigationView>
-                </Grid>
-            </Grid>
-        </Grid>
+    <ScrollViewer>
+        <TextBlock
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            Style="{StaticResource BodyStrongTextBlockStyle}"
+            Text="Organization membership page is not available." />
     </ScrollViewer>
 </Page>

@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 using Windows.Storage;
 using Windows.UI.Xaml;
 
-namespace FluentHub.Services.OctokitEx
+namespace FluentHub.Services.Octokit
 {
     public class Markdown
     {

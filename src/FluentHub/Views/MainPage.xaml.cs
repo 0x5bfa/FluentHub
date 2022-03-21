@@ -1,5 +1,9 @@
 ﻿using FluentHub.Helpers;
 using FluentHub.Views.Home;
+﻿using FluentHub.Services;
+using FluentHub.Views.Home;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using Windows.ApplicationModel.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -12,42 +16,50 @@ namespace FluentHub.Views
         public MainPage()
         {
             InitializeComponent();
-
-            App.MainViewModel.MainFrame.Navigating += ViewModelMainFrame_Navigating;
             CoreApplication.GetCurrentView().TitleBar.LayoutMetricsChanged += TitleBar_LayoutMetricsChanged;
         }
+        private readonly INavigationService navigationService;
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
+            navigationService.Configure(TabView, MainFrame, typeof(UserHomePage));
+            navigationService.Navigate<UserHomePage>();
+
             // Configure Jumplist
-            await JumpListHelper.ConfigureDefaultJumpListAsync();
+            await JumpListHelper.ConfigureDefaultJumpListAsync();                    
         }
 
         private void TitleBar_LayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
         {
-            RightPaddingColumn.Width = new GridLength(sender.SystemOverlayRightInset);
+            CoreApplication.GetCurrentView().TitleBar.LayoutMetricsChanged += OnTitleBarLayoutMetricsChanged;
+            navigationService = App.Current.Services.GetService<INavigationService>();
         }
 
-        private void ViewModelMainFrame_Navigating(object sender, NavigatingCancelEventArgs e)
-        {
-            MainFrame.Navigate(e.SourcePageType, e.Parameter);
+        private void OnTitleBarLayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
+            => RightPaddingColumn.Width = new GridLength(sender.SystemOverlayRightInset);
 
-            e.Cancel = true;
+        private void DragArea_Loaded(object sender, RoutedEventArgs e) => Window.Current.SetTitleBar(DragArea);
+
+        private void HomeButton_Click(object sender, RoutedEventArgs e) => navigationService.Navigate<UserHomePage>();
+        private void GoBack() => navigationService.GoBack();
+        private void GoForward() => navigationService.GoForward();
+        private async void ShareWithBrowserMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        {
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            var result = await Windows.System.Launcher.LaunchUriAsync(new Uri(currentItem.Url));
+            System.Diagnostics.Debug.WriteLine("LaunchUriAsync({0}) - result:{1}", currentItem.Url, result);
         }
 
-        private void DragArea_Loaded(object sender, RoutedEventArgs e)
+        private void SettingsMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
-            Window.Current.SetTitleBar(DragArea);
+            navigationService.Navigate<AppSettings.MainSettingsPage>();
         }
 
-        private void HomeButton_Click(object sender, RoutedEventArgs e)
+        private void SignOutMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
-            App.MainViewModel.MainFrame.Navigate(typeof(UserHomePage));
-        }
-
-        private void ToolbarAppSettingsButton_Click(object sender, RoutedEventArgs e)
-        {
-            App.MainViewModel.MainFrame.Navigate(typeof(AppSettings.MainSettingsPage));
+            // Temporary treatment (Deletion requested credentials must be deleted)
+            Frame rootFrame = Window.Current.Content as Frame;
+            rootFrame.Navigate(typeof(SignIn.IntroPage));
         }
     }
 }

@@ -49,7 +49,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Grid Margin="12,12,12,24">
+            <Grid Margin="18,18,18,12">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -73,13 +73,13 @@
                         Width="84"
                         Height="84"
                         Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                        CornerRadius="84">
+                        CornerRadius="42">
                         <Image x:Name="UserAvatorImage">
                             <Image.Source>
                                 <BitmapImage
                                     DecodePixelHeight="128"
                                     DecodePixelWidth="128"
-                                    UriSource="{Binding User.AvatarUrl}" />
+                                    UriSource="{x:Bind ViewModel.UserItem.AvatarUrl, Mode=OneWay}" />
                             </Image.Source>
                         </Image>
                     </Border>
@@ -92,23 +92,22 @@
                             VerticalAlignment="Center"
                             FontWeight="SemiBold"
                             Style="{StaticResource SubtitleTextBlockStyle}"
-                            Text="{Binding User.Login}" />
+                            Text="{x:Bind ViewModel.UserItem.Login, Mode=OneWay}" />
                         <TextBlock
                             x:Name="UserNameTextBlock"
                             VerticalAlignment="Center"
                             FontSize="13"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{ThemeResource CaptionTextBlockStyle}"
-                            Text="{Binding User.Name}" />
+                            Text="{x:Bind ViewModel.UserItem.Name, Mode=OneWay}" />
                         <TextBlock
                             x:Name="UserBioTextBlock"
                             MaxLines="2"
                             Style="{ThemeResource BodyTextBlockStyle}"
-                            Text="{Binding User.Bio}"
+                            Text="{x:Bind ViewModel.UserItem.Bio, Mode=OneWay}"
                             TextTrimming="CharacterEllipsis"
                             Visibility="Collapsed">
                             <ToolTipService.ToolTip>
-                                <!--  Enable tooltip only if the text is trimmed  -->
                                 <ToolTip Content="{x:Bind UserBioTextBlock.Text, Mode=OneWay}" IsEnabled="{x:Bind UserBioTextBlock.IsTextTrimmed, Mode=OneWay}" />
                             </ToolTipService.ToolTip>
                         </TextBlock>
@@ -122,25 +121,28 @@
                             x:Name="FollowButton"
                             x:Uid="FollowButton"
                             Width="120"
-                            Visibility="Collapsed" />
+                            x:Load="{x:Bind ViewModel.IsNotViewer, Mode=OneWay}"
+                            IsEnabled="False" />
                         <Button
                             x:Name="EditProfileButton"
                             x:Uid="EditProfileButton"
                             Width="120"
-                            Visibility="Collapsed" />
+                            x:Load="{x:Bind ViewModel.UserItem.IsViewer, Mode=OneWay}"
+                            IsEnabled="False" />
                     </StackPanel>
                 </Grid>
                 <toolkit:WrapPanel
                     Grid.Row="1"
-                    Margin="0,6,0,0"
+                    Margin="0,12,0,0"
                     HorizontalAlignment="Stretch"
                     HorizontalSpacing="6"
                     Orientation="Horizontal">
                     <StackPanel
                         x:Name="CompanyBlock"
+                        Margin="0,0,12,0"
                         HorizontalAlignment="Left"
                         Orientation="Horizontal"
-                        Spacing="2"
+                        Spacing="6"
                         Visibility="Collapsed">
                         <FontIcon
                             VerticalAlignment="Center"
@@ -148,23 +150,15 @@
                             FontSize="14"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Glyph="&#xEA27;" />
-                        <HyperlinkButton
-                            x:Name="CompanyLinkButton"
-                            Padding="4"
-                            Content="{Binding User.Company}"
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Visibility="Collapsed" />
                         <TextBlock
                             x:Name="CompanyLinkTextBlock"
-                            Margin="4,0,6,0"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Text="{Binding User.Company}"
-                            Visibility="Collapsed" />
+                            Text="{x:Bind ViewModel.UserItem.Company, Mode=OneWay}" />
                     </StackPanel>
                     <StackPanel
                         x:Name="LocationBlock"
-                        Margin="0,0,6,0"
+                        Margin="0,0,12,0"
                         HorizontalAlignment="Left"
                         Orientation="Horizontal"
                         Spacing="6"
@@ -180,10 +174,11 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{ThemeResource BodyTextBlockStyle}"
-                            Text="{Binding User.Location}" />
+                            Text="{x:Bind ViewModel.UserItem.Location, Mode=OneWay}" />
                     </StackPanel>
                     <StackPanel
                         x:Name="LinkBlock"
+                        Margin="0,0,12,0"
                         Orientation="Horizontal"
                         Spacing="2"
                         Visibility="Collapsed">
@@ -196,14 +191,15 @@
                         <HyperlinkButton
                             x:Name="LinkButton"
                             Padding="4"
-                            Content="{Binding User.Blog}"
+                            Content="{x:Bind ViewModel.UserItem.WebsiteUrl, Mode=OneWay}"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" />
                     </StackPanel>
                     <StackPanel
                         x:Name="DeveloperProgramMemberBlock"
+                        Margin="0,0,12,0"
+                        x:Load="{x:Bind ViewModel.UserItem.IsDeveloperProgramMember, Mode=OneWay}"
                         Orientation="Horizontal"
-                        Spacing="4"
-                        Visibility="Collapsed">
+                        Spacing="6">
                         <FontIcon
                             VerticalAlignment="Center"
                             FontFamily="{StaticResource Octions}"
@@ -236,7 +232,7 @@
                                         VerticalAlignment="Center"
                                         FontWeight="SemiBold"
                                         Style="{ThemeResource BodyTextBlockStyle}"
-                                        Text="{Binding User.Followers}" />
+                                        Text="{x:Bind ViewModel.UserItem.FollowersTotalCount, Mode=OneWay}" />
                                     <TextBlock
                                         x:Uid="UserFollowersCountTextBlock"
                                         VerticalAlignment="Center"
@@ -264,7 +260,7 @@
                                         VerticalAlignment="Center"
                                         FontWeight="SemiBold"
                                         Style="{ThemeResource BodyTextBlockStyle}"
-                                        Text="{Binding User.Following}" />
+                                        Text="{x:Bind ViewModel.UserItem.FollowingTotalCount, Mode=OneWay}" />
                                     <TextBlock
                                         x:Uid="UserFollowingCountTextBlock"
                                         VerticalAlignment="Center"
@@ -333,7 +329,7 @@
                                 <FontIcon
                                     FontFamily="{StaticResource Octions}"
                                     FontSize="16"
-                                    Glyph="&#xEA38;" />
+                                    Glyph="&#xEA36;" />
                             </muxc:NavigationViewItem.Icon>
                         </muxc:NavigationViewItem>
                         <muxc:NavigationViewItem
@@ -344,7 +340,7 @@
                                 <FontIcon
                                     FontFamily="{StaticResource Octions}"
                                     FontSize="16"
-                                    Glyph="&#xEA38;" />
+                                    Glyph="&#xEA36;" />
                             </muxc:NavigationViewItem.Icon>
                         </muxc:NavigationViewItem>
                     </muxc:NavigationView.MenuItems>

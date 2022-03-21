@@ -8,32 +8,25 @@ namespace FluentHub.Helpers
 {
     public class BlobDetailsHelpers
     {
-        public static (int, int, string) GetBlobDetails(ref string text, long bytes)
+        public static int GetBlobActualLines(ref string text)
+        {
+            int line = text.Length - text.Replace("\n", "").Length;
+            return line;
+        }
+
+        public static int GetBlobSloc(ref string text)
         {
             int line = text.Length - text.Replace("\n", "").Length;
 
-            int maxSloc = 0;
+            int notsloc = text.Length - text.Replace("\n\n", "").Length;
 
-            for (int i = 0; i < text.Length; i++)
-            {
-                int index = text.IndexOf("\n", i);
-
-                if (maxSloc < (index - i))
-                {
-                    maxSloc = index - i;
-                }
-
-                i = index + 1;
-            }
-
-            string formattedSize =  FormatSize(bytes);
-
-            return (line, maxSloc, formattedSize);
+            // sloc is needed to reduce lines which is not source code(such as comments, black lines)
+            return line - notsloc;
         }
 
         static readonly string[] suffixes = { "Bytes", "KB", "MB", "GB", "TB", "PB" };
 
-        private static string FormatSize(long bytes)
+        public static string FormatSize(long bytes)
         {
             int counter = 0;
             decimal number = bytes;

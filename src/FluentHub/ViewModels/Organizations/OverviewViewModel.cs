@@ -1,5 +1,6 @@
-﻿using FluentHub.Models.Items;
-using FluentHub.Services.OctokitEx;
+﻿using FluentHub.Octokit.Queries.Users;
+using FluentHub.ViewModels.UserControls.ButtonBlocks;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,19 +14,29 @@ namespace FluentHub.ViewModels.Organizations
 {
     public class OverviewViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<RepoListItem> OrgPinnedItems { get; private set; } = new();
+        public ObservableCollection<RepoButtonBlockViewModel> OrgPinnedItems { get; private set; } = new();
+
+        private bool isActive;
+        public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
 
         public async Task GetPinnedRepos(string org)
         {
-            UserPinnedItems pinnedItems = new UserPinnedItems();
-            var repoIdList = await pinnedItems.Get(org, false);
+            IsActive = true;
 
-            foreach (var repoId in repoIdList)
+            PinnedItemsQueries queries = new();
+            var PinnedItems = await queries.GetOverviewAll(org, false);
+
+            foreach (var item in PinnedItems)
             {
-                RepoListItem listItem = new RepoListItem();
-                listItem.RepoId = repoId;
-                OrgPinnedItems.Add(listItem);
+                RepoButtonBlockViewModel viewModel = new();
+                viewModel.Item = item;
+                viewModel.DisplayDetails = false;
+                viewModel.DisplayStarButton = false;
+
+                OrgPinnedItems.Add(viewModel);
             }
+
+            IsActive = false;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

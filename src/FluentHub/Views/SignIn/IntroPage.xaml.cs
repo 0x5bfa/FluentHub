@@ -23,6 +23,12 @@ namespace FluentHub.Views.SignIn
             this.InitializeComponent();
         }
 
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            Window.Current.SetTitleBar(AppTitleBar);
+            base.OnNavigatedTo(e);
+        }
+
         private void SetupButton_Click(object sender, RoutedEventArgs e)
         {
             this.Frame.Navigate(typeof(SignInPage), null, new SlideNavigationTransitionInfo()

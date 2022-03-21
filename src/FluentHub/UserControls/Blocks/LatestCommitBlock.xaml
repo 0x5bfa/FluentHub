@@ -14,87 +14,116 @@
         <vm:LatestCommitBlockViewModel x:Name="ViewModel" />
     </UserControl.DataContext>
 
-    <Grid
-        Grid.Row="1"
-        Height="48"
-        Padding="12,0"
-        VerticalAlignment="Top"
-        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-        BorderThickness="1"
-        CornerRadius="4">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="Auto" />
-        </Grid.ColumnDefinitions>
-        <Border
-            Width="24"
-            Height="24"
-            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-            CornerRadius="{Binding AuthorAvatarImageCR}">
-            <Image
-                x:Name="RepoLatestCommitAuthorAvatar"
-                Width="24"
-                Height="24"
-                Source="{Binding AuthorAvatarImage}" />
-        </Border>
-        <TextBlock
-            x:Name="RepoLatestCommitAuthorName"
-            Grid.Column="1"
-            Margin="12,0,0,0"
-            VerticalAlignment="Center"
-            Style="{StaticResource BodyStrongTextBlockStyle}"
-            Text="{Binding AuthorLoginName}" />
-        <TextBlock
-            x:Name="RepoLatestCommitMessage"
-            Grid.Column="2"
-            Margin="4,0,0,0"
-            VerticalAlignment="Center"
-            Style="{StaticResource BodyTextBlockStyle}"
-            Text="{Binding CommitMessage}"
-            TextWrapping="NoWrap" />
-        <TextBlock
-            x:Name="RepoLatestCommitSha"
-            Grid.Column="4"
-            VerticalAlignment="Center"
-            FontFamily="consolas"
-            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-            Style="{StaticResource CaptionTextBlockStyle}"
-            Text="{Binding CommitSha}" />
-        <TextBlock
-            x:Name="RepoLatestCommitUpdatedAtHumanized"
-            Grid.Column="5"
-            Margin="4,0,0,0"
-            VerticalAlignment="Center"
-            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-            Style="{StaticResource BodyTextBlockStyle}"
-            Text="{Binding CommitUpdatedAtHumanized}" />
-        <StackPanel Grid.Column="6" Orientation="Horizontal">
-            <Button Style="{StaticResource LinkLikeButtonStyle}">
+    <Grid Padding="12,0">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid Padding="0,12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <Border
+                    Width="24"
+                    Height="24"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    CornerRadius="12">
+                    <Image
+                        Width="24"
+                        Height="24"
+                        Source="{x:Bind ViewModel.CommitOverviewItem.AuthorAvatarUrl, Mode=OneWay}" />
+                </Border>
+                <TextBlock
+                    Margin="6,0,0,0"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                    Text="{x:Bind ViewModel.CommitOverviewItem.AuthorName, Mode=OneWay}" />
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal">
+                <TextBlock
+                    Grid.Column="2"
+                    Margin="8,0,0,0"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource BodyTextBlockStyle}"
+                    Text="{x:Bind ViewModel.CommitMessageHeadline, Mode=OneWay}"
+                    TextWrapping="NoWrap" />
+                <Button
+                    x:Name="MoreCommitMessageButton"
+                    Width="24"
+                    Margin="6,0,0,0"
+                    VerticalAlignment="Center"
+                    x:Load="{x:Bind ViewModel.HasMoreCommitMessage, Mode=OneWay}"
+                    Click="MoreCommitMessageButton_Click"
+                    Style="{StaticResource ClearButtonStyle}">
+                    <FontIcon FontSize="15" Glyph="&#xE712;" />
+                </Button>
+            </StackPanel>
+            <TextBlock
+                Grid.Column="4"
+                Margin="0,4,0,0"
+                VerticalAlignment="Center"
+                FontFamily="Cascadia Code"
+                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Text="{x:Bind ViewModel.CommitOverviewItem.AbbreviatedOid, Mode=OneWay}" />
+            <TextBlock
+                Grid.Column="5"
+                Margin="6,0,0,0"
+                VerticalAlignment="Center"
+                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                Style="{StaticResource BodyTextBlockStyle}"
+                Text="{x:Bind ViewModel.CommitUpdatedAtHumanized, Mode=OneWay}" />
+            <Button
+                Grid.Column="6"
+                Margin="8,0,0,0"
+                IsEnabled="False"
+                Style="{StaticResource LinkLikeButtonStyle}">
                 <StackPanel Orientation="Horizontal" Spacing="4">
                     <FontIcon
-                        Margin="12,0,0,0"
                         FontFamily="{StaticResource Octions}"
                         FontSize="18"
                         Glyph="&#xE9D3;" />
                     <TextBlock
-                        x:Name="RepoCommitsCount"
                         VerticalAlignment="Center"
                         Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="{Binding CommitsCount}" />
+                        Text="{x:Bind ViewModel.CommitOverviewItem.TotalCount, Mode=OneWay}" />
                     <TextBlock
-                        Grid.Column="5"
                         VerticalAlignment="Center"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         Style="{StaticResource CaptionTextBlockStyle}"
                         Text="commits" />
                 </StackPanel>
             </Button>
-        </StackPanel>
+        </Grid>
+        <Grid
+            x:Name="SubCommitMessagesGrid"
+            Grid.Row="1"
+            Padding="30,0,0,12"
+            Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <TextBlock
+                IsTextSelectionEnabled="True"
+                Style="{StaticResource BodyStrongTextBlockStyle}"
+                Text="{x:Bind ViewModel.CommitMessageHeadline, Mode=OneWay}" />
+            <TextBlock
+                Grid.Row="1"
+                Margin="0,6,0,0"
+                FontFamily="Cascadia Code"
+                FontWeight="ExtraLight"
+                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                IsTextSelectionEnabled="True"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Text="{x:Bind ViewModel.SubCommitMessages, Mode=OneWay}" />
+        </Grid>
     </Grid>
 </UserControl>

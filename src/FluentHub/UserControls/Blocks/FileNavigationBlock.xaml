@@ -8,7 +8,12 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:FluentHub.UserControls"
+    xmlns:vm="using:FluentHub.ViewModels.UserControls.Blocks"
     mc:Ignorable="d">
+
+    <UserControl.DataContext>
+        <vm:FileNavigationBlockViewModel x:Name="ViewModel" />
+    </UserControl.DataContext>
 
     <Grid Margin="12,0" ColumnSpacing="8">
         <Grid.ColumnDefinitions>
@@ -20,20 +25,66 @@
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
-        <ComboBox>
-            <ComboBoxItem Content="main" IsSelected="True" />
-            <ComboBoxItem Content="tt/general-updates" />
+        <ComboBox IsEditable="False" IsEnabled="False">
+            <ComboBoxItem Content="{x:Bind ViewModel.CommonRepoViewModel.BranchName, Mode=OneWay}" IsSelected="True" />
         </ComboBox>
         <Button
             Grid.Column="1"
-            Content="0 branches"
-            Style="{StaticResource LinkLikeButtonStyle}" />
+            Padding="4"
+            Background="Transparent"
+            IsEnabled="False"
+            Style="{ThemeResource LinkLikeButtonStyle}">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        FontWeight="SemiBold"
+                        Style="{ThemeResource BodyTextBlockStyle}"
+                        Text="0" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Style="{ThemeResource BodyTextBlockStyle}"
+                        Text="branches" />
+                </StackPanel>
+            </Button.Content>
+        </Button>
         <Button
             Grid.Column="2"
-            Content="0 tags"
-            Style="{StaticResource LinkLikeButtonStyle}" />
-        <Button Grid.Column="4" Content="Go to file" />
-        <muxc:DropDownButton Grid.Column="5" Content="Add files" />
+            Padding="4"
+            Background="Transparent"
+            IsEnabled="False"
+            Style="{ThemeResource LinkLikeButtonStyle}">
+            <Button.Content>
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        FontWeight="SemiBold"
+                        Style="{ThemeResource BodyTextBlockStyle}"
+                        Text="0" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Style="{ThemeResource BodyTextBlockStyle}"
+                        Text="tags" />
+                </StackPanel>
+            </Button.Content>
+        </Button>
+        <Button
+            Grid.Column="4"
+            Content="Go to file"
+            IsEnabled="False" />
+        <muxc:DropDownButton
+            Grid.Column="5"
+            Content="Add files"
+            IsEnabled="False">
+            <muxc:DropDownButton.Flyout>
+                <MenuFlyout Placement="Bottom">
+                    <MenuFlyoutItem Text="Create new file" />
+                    <MenuFlyoutItem Text="Upload files" />
+                </MenuFlyout>
+            </muxc:DropDownButton.Flyout>
+        </muxc:DropDownButton>
         <muxc:DropDownButton
             Grid.Column="6"
             muxc:AnimatedIcon.State="Normal"
@@ -45,9 +96,7 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-
                     <TextBlock Text="Clone" />
-
                     <muxc:AnimatedIcon
                         x:Name="ChevronIcon"
                         Grid.Column="1"
@@ -75,7 +124,7 @@
                             <Setter Property="CornerRadius" Value="{StaticResource OverlayCornerRadius}" />
                         </Style>
                     </Flyout.FlyoutPresenterStyle>
-                    <uc:GitCloneFlyout />
+                    <uc:GitCloneFlyout CommonRepoViewModel="{x:Bind ViewModel.CommonRepoViewModel}" />
                 </Flyout>
             </muxc:DropDownButton.Flyout>
         </muxc:DropDownButton>

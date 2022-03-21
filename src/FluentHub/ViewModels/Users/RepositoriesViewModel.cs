@@ -1,4 +1,5 @@
-﻿using FluentHub.Models.Items;
+﻿using FluentHub.Octokit.Queries.Users;
+using FluentHub.ViewModels.UserControls.ButtonBlocks;
 using Octokit;
 using System;
 using System.Collections.Generic;
@@ -13,27 +14,26 @@ namespace FluentHub.ViewModels.Users
 {
     public class RepositoriesViewModel : INotifyPropertyChanged
     {
-        public ObservableCollection<Repository> Items { get; private set; } = new();
+        public ObservableCollection<RepoButtonBlockViewModel> Items { get; private set; } = new();
 
         private bool isActive;
         public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
 
-        public async Task GetUserRepos(string username)
+        public async Task GetUserRepos(string login)
         {
             IsActive = true;
 
-            ApiOptions options = new() { PageSize = 30, PageCount = 1, StartPage = 1 };
+            RepositoryQueries queries = new();
+            var items = await queries.GetOverviewAll(login);
 
-            var repos = await App.Client.Repository.GetAllForUser(username, options);
-
-            foreach (var item in repos)
+            foreach (var item in items)
             {
-                if (item.Owner.Type == AccountType.User)
-                {
-                    Items.Add(item);
-                }
+                RepoButtonBlockViewModel viewModel = new();
+                viewModel.Item = item;
+                viewModel.DisplayDetails = true;
+                viewModel.DisplayStarButton = true;
 
-                if (Items.Count == 30) break;
+                Items.Add(viewModel);
             }
 
             IsActive = false;

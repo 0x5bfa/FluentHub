@@ -146,6 +146,39 @@
                         Style="{StaticResource CaptionTextBlockStyle}"
                         Text="BobbyESP" />
                 </Grid>
+                <Grid
+                    Padding="12"
+                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    ColumnSpacing="5"
+                    CornerRadius="4">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+                    <Border
+                        Width="32"
+                        Height="32"
+                        HorizontalAlignment="Left"
+                        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                        CornerRadius="16">
+                        <Image Source="https://avatars.githubusercontent.com/u/30560453" />
+                    </Border>
+                    <TextBlock
+                        Grid.Column="1"
+                        Margin="6,0,0,0"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="Luandersonn Airton" />
+                    <TextBlock
+                        Grid.Column="2"
+                        VerticalAlignment="Center"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="luandersonn" />
+                </Grid>
             </StackPanel>
         </StackPanel>
     </ScrollViewer>

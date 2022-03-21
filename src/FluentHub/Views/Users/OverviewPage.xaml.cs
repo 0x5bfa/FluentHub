@@ -1,65 +1,51 @@
-﻿using FluentHub.Helpers;
-using FluentHub.Services.OctokitEx;
-using Octokit;
-using Serilog;
-using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using FluentHub.Services;
+using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub.Views.Users
 {
-    public sealed partial class OverviewPage : Windows.UI.Xaml.Controls.Page
+    public sealed partial class OverviewPage : Page
     {
-        private string Login { get; set; }
-
         public OverviewPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
         }
+
+        private readonly INavigationService navigationService;
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            try
-            {
-                Login = e.Parameter as string;
-                await ViewModel.GetPinnedRepos(Login);
-                var repo = await App.Client.Repository.Get(Login, Login);
-                UserSpecialReadmeBlock.RepositoryId = repo.Id;
-            }
-            catch
-            {
-                return;
-            }
-            finally
-            {
-                UpdateVisibility();
+            string login = e.Parameter as string;
 
-                base.OnNavigatedTo(e);
-            }
+            //Helpers.NavigationHelpers.AddPageInfoToTabItem($"{login}'s overview", $"https://github.com/{login}?tab=overview", $"https://github.com/{login}?tab=overview", "\uE77B");
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = $"{login}'s overview";
+            currentItem.Description = "";
+            currentItem.Url = $"https://github.com/{login}?tab=overview";
+            currentItem.Icon = new Microsoft.UI.Xaml.Controls.FontIconSource
+            {
+                Glyph = "\uE77B"
+            };
+
+            await ViewModel.GetPinnedRepos(login);
+            await ViewModel.GetSpecialRepoId(login);
+            UpdateVisibility();
+
+            base.OnNavigatedTo(e);
         }
 
         private void UpdateVisibility()
         {
-            if (ViewModel.PinnedRepos.Count() != 0)
+            if (ViewModel.PinnedRepos.Any())
             {
-                UserOverviewLoadingProgressRing.Visibility = Visibility.Collapsed;
                 UserPinnedItemsBlock.Visibility = Visibility.Visible;
             }
             else
             {
-                UserOverviewLoadingProgressRing.Visibility = Visibility.Collapsed;
                 NoOverviewTextBlock.Visibility = Visibility.Visible;
             }
         }

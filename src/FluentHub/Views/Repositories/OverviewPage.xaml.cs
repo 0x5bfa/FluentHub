@@ -1,19 +1,11 @@
-﻿using FluentHub.ViewModels.Repositories;
+﻿using FluentHub.Services;
+using FluentHub.ViewModels.Repositories;
+using Microsoft.Extensions.DependencyInjection;
 using Octokit;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using muxc = Microsoft.UI.Xaml.Controls;
@@ -22,22 +14,16 @@ namespace FluentHub.Views.Repositories
 {
     public sealed partial class OverviewPage : Windows.UI.Xaml.Controls.Page
     {
+        public OverviewPage()
+        {
+            InitializeComponent();
+            navigationService = App.Current.Services.GetService<INavigationService>();
+        }
+
         private long RepoId { get; set; }
         private Repository Repository { get; set; }
 
-        public OverviewPage()
-        {
-            this.InitializeComponent();
-
-            App.MainViewModel.RepoMainFrame.Navigating += RepoMainFrameNavigating;
-        }
-
-        private void RepoMainFrameNavigating(object sender, NavigatingCancelEventArgs e)
-        {
-            RepoPageNavViewFrame.Navigate(e.SourcePageType, e.Parameter);
-
-            e.Cancel = true;
-        }
+        private readonly INavigationService navigationService;
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -48,7 +34,6 @@ namespace FluentHub.Views.Repositories
         {
             Repository = await App.Client.Repository.Get(RepoId);
 
-
             if (Repository == null)
             {
                 return;
@@ -57,7 +42,7 @@ namespace FluentHub.Views.Repositories
             await SetRepoInfo();
         }
 
-        private async void RepoPageNavView_ItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
+        private void RepoPageNavView_ItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
         {
             var commonRepoViewModel = new CommonRepoViewModel();
 
@@ -87,14 +72,17 @@ namespace FluentHub.Views.Repositories
         {
             if (Repository != null)
             {
+                Type type = null;
+                object args = Repository.Owner.Login;
                 if (Repository.Owner.Type == AccountType.User)
                 {
-                    App.MainViewModel.MainFrame.Navigate(typeof(Users.ProfilePage), Repository.Owner.Login);
+                    type = typeof(Users.ProfilePage);
                 }
                 else
                 {
-                    App.MainViewModel.MainFrame.Navigate(typeof(Organizations.ProfilePage), Repository.Owner.Login);
+                    type = typeof(Organizations.ProfilePage);
                 }
+                navigationService.Navigate(type, args);
             }
         }
 

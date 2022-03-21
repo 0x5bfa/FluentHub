@@ -1,4 +1,4 @@
-﻿using FluentHub.OctokitEx.Queries;
+﻿using FluentHub.Octokit.Queries.Users;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
 using System;
 using System.Collections.Generic;
@@ -23,7 +23,7 @@ namespace FluentHub.ViewModels.Users
             IsActive = true;
 
             FollowersQueries client = new();
-            var followers = await client.Get(login);
+            var followers = await client.GetOverview(login);
 
             foreach (var user in followers)
             {

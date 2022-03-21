@@ -49,14 +49,13 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
             <StackPanel Spacing="6">
-                <Grid ColumnSpacing="8">
+                <Grid ColumnSpacing="4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
                     <TextBox
                         x:Name="CloneUriTextBox"
-                        Width="300"
                         HorizontalAlignment="Stretch"
                         IsReadOnly="True" />
                     <Button
@@ -82,7 +81,7 @@
                 Grid.ColumnSpan="2"
                 Margin="0,8,0,0"
                 Spacing="8">
-                <Button HorizontalAlignment="Stretch">
+                <Button HorizontalAlignment="Stretch" IsEnabled="False">
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <FontIcon
                             Height="18"
@@ -92,12 +91,15 @@
                         <TextBlock Text="Open with GitHub Desktop" />
                     </StackPanel>
                 </Button>
-                <Button HorizontalAlignment="Stretch">
+                <Button HorizontalAlignment="Stretch" IsEnabled="False">
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <TextBlock Text="Open with Visual Studio" />
                     </StackPanel>
                 </Button>
-                <Button HorizontalAlignment="Stretch" Style="{ThemeResource AccentButtonStyle}">
+                <Button
+                    HorizontalAlignment="Stretch"
+                    IsEnabled="False"
+                    Style="{ThemeResource AccentButtonStyle}">
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <FontIcon
                             Height="18"

@@ -47,7 +47,8 @@
                     x:Name="StatusFontGlyph"
                     Margin="0,0,8,0"
                     FontFamily="{StaticResource Octions}"
-                    Glyph="&#xE9EA;" />
+                    Foreground="{x:Bind ViewModel.StateGlyphForeground, Mode=OneWay}"
+                    Glyph="{x:Bind ViewModel.StateGlyph, Mode=OneWay}" />
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
