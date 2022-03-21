@@ -13,7 +13,7 @@ namespace FluentHub.ViewModels.UserControls.ButtonBlocks
 {
     public class IssueButtonBlockViewModel : INotifyPropertyChanged
     {
-        public IssueOverviewItem IssueItem { get; set; } = new();
+        public Issue IssueItem { get; set; } = new();
 
         private string nameWithOwner;
         public string NameWithOwner { get => nameWithOwner; set => SetProperty(ref nameWithOwner, value); }

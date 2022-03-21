@@ -22,7 +22,7 @@ namespace FluentHub.UserControls.ButtonBlocks
         #region dprops
         public static readonly DependencyProperty ViewModelProperty
             = DependencyProperty.Register(
-                  nameof(DiscussionOverviewItem),
+                  nameof(Discussion),
                   typeof(DiscussionButtonBlockViewModel),
                   typeof(DiscussionButtonBlock),
                   new PropertyMetadata(null)

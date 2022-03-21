@@ -1,6 +1,6 @@
 ﻿using FluentHub.Helpers;
 using FluentHub.Models.Items;
-using FluentHub.Octokit.Queries.Repository;
+using FluentHub.Octokit.Queries.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -15,7 +15,7 @@ namespace FluentHub.ViewModels.UserControls.ButtonBlocks
 {
     public class NotificationButtonBlockViewModel : INotifyPropertyChanged
     {
-        public Octokit.Notification NotificationItem { get; set; } = new();
+        public global::Octokit.Notification NotificationItem { get; set; } = new();
 
         private string nameWithOwner;
         public string NameWithOwner { get => nameWithOwner; set => SetProperty(ref nameWithOwner, value); }

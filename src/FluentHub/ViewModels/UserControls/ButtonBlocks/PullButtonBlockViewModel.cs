@@ -14,7 +14,7 @@ namespace FluentHub.ViewModels.UserControls.ButtonBlocks
 {
     public class PullButtonBlockViewModel : INotifyPropertyChanged
     {
-        public PullOverviewItem PullItem { get; set; } = new();
+        public PullRequest PullItem { get; set; } = new();
 
         private string nameWithOwner;
         public string NameWithOwner { get => nameWithOwner; set => SetProperty(ref nameWithOwner, value); }

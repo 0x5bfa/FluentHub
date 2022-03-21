@@ -1,5 +1,5 @@
 ﻿using FluentHub.Helpers;
-using FluentHub.Octokit.Queries.Repository;
+using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.ViewModels.Repositories;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
 using Octokit;

@@ -1,4 +1,4 @@
-﻿using FluentHub.Octokit.Queries;
+﻿using FluentHub.Octokit.Queries.Users;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
 using Serilog;
 using System;

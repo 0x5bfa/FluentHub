@@ -1,5 +1,5 @@
 ﻿using FluentHub.Octokit.Models;
-using FluentHub.Octokit.Queries.Repository;
+using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.ViewModels.Repositories;
 using Humanizer;
 using System;
@@ -19,8 +19,8 @@ namespace FluentHub.ViewModels.UserControls.Blocks
         private CommonRepoViewModel commonRepoViewModel;
         public CommonRepoViewModel CommonRepoViewModel { get => commonRepoViewModel; set => SetProperty(ref commonRepoViewModel, value); }
 
-        private CommitOverviewItem commitOverviewItem;
-        public CommitOverviewItem CommitOverviewItem { get => commitOverviewItem; set => SetProperty(ref commitOverviewItem, value); }
+        private Commit commitOverviewItem;
+        public Commit CommitOverviewItem { get => commitOverviewItem; set => SetProperty(ref commitOverviewItem, value); }
 
         private string commitUpdatedAtHumanized;
         public string CommitUpdatedAtHumanized { get => commitUpdatedAtHumanized; set => SetProperty(ref commitUpdatedAtHumanized, value); }

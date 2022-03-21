@@ -123,36 +123,38 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
-    <Compile Include="Models\CommitOverviewItem.cs" />
-    <Compile Include="Models\DiscussionOverviewItem.cs" />
-    <Compile Include="Models\IssueOverviewItem.cs" />
-    <Compile Include="Models\LabelOverviewItem.cs" />
-    <Compile Include="Models\OrganizationOverviewItem.cs" />
-    <Compile Include="Models\PullOverviewItem.cs" />
+    <Compile Include="Models\Commit.cs" />
+    <Compile Include="Models\Discussion.cs" />
+    <Compile Include="Models\Issue.cs" />
+    <Compile Include="Models\Label.cs" />
+    <Compile Include="Models\Notification.cs" />
+    <Compile Include="Models\Organization.cs" />
+    <Compile Include="Models\PullRequest.cs" />
     <Compile Include="Models\UserOverviewItem.cs" />
-    <Compile Include="Queries\Organization\RepositoryQueries.cs" />
-    <Compile Include="Queries\Organization\OrganizationQueries.cs" />
-    <Compile Include="Queries\Repository\BlobQueries.cs" />
-    <Compile Include="Queries\Repository\IssueQueries.cs" />
-    <Compile Include="Queries\Repository\PullRequestQueries.cs" />
-    <Compile Include="Queries\Repository\CommitQueries.cs" />
-    <Compile Include="Queries\Repository\RepoHeaderQueries.cs" />
-    <Compile Include="Queries\Repository\RepositoryQueries.cs" />
-    <Compile Include="Queries\User\DiscussionQueries.cs" />
-    <Compile Include="Queries\User\IssueQueries.cs" />
-    <Compile Include="Queries\User\OrganizationQueries.cs" />
-    <Compile Include="Queries\User\PullRequestQueries.cs" />
-    <Compile Include="Queries\User\RepositoryQueries.cs" />
-    <Compile Include="Queries\User\StarredRepoQueries.cs" />
-    <Compile Include="Queries\User\FollowersQueries.cs" />
-    <Compile Include="Queries\User\FollowingQueries.cs" />
-    <Compile Include="Queries\User\PinnedItemsQueries.cs" />
-    <Compile Include="Queries\User\StatusQueries.cs" />
-    <Compile Include="Models\RepositoryBlockItem.cs" />
-    <Compile Include="Models\UserBlockItem.cs" />
+    <Compile Include="Queries\Organizations\RepositoryQueries.cs" />
+    <Compile Include="Queries\Organizations\OrganizationQueries.cs" />
+    <Compile Include="Queries\Repositories\BlobQueries.cs" />
+    <Compile Include="Queries\Repositories\IssueQueries.cs" />
+    <Compile Include="Queries\Repositories\PullRequestQueries.cs" />
+    <Compile Include="Queries\Repositories\CommitQueries.cs" />
+    <Compile Include="Queries\Repositories\RepoHeaderQueries.cs" />
+    <Compile Include="Queries\Repositories\RepositoryQueries.cs" />
+    <Compile Include="Queries\Users\DiscussionQueries.cs" />
+    <Compile Include="Queries\Users\IssueQueries.cs" />
+    <Compile Include="Queries\Users\NotificationQueries.cs" />
+    <Compile Include="Queries\Users\OrganizationQueries.cs" />
+    <Compile Include="Queries\Users\PullRequestQueries.cs" />
+    <Compile Include="Queries\Users\RepositoryQueries.cs" />
+    <Compile Include="Queries\Users\StarredRepoQueries.cs" />
+    <Compile Include="Queries\Users\FollowersQueries.cs" />
+    <Compile Include="Queries\Users\FollowingQueries.cs" />
+    <Compile Include="Queries\Users\PinnedItemsQueries.cs" />
+    <Compile Include="Queries\Users\StatusQueries.cs" />
+    <Compile Include="Models\Repository.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Queries\User\UserQueries.cs" />
-    <Compile Include="Queries\User\ViewerQueries.cs" />
+    <Compile Include="Queries\Users\UserQueries.cs" />
+    <Compile Include="Queries\Users\ViewerQueries.cs" />
     <EmbeddedResource Include="Properties\Default.rd.xml" />
   </ItemGroup>
   <ItemGroup>
@@ -170,7 +172,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Auth\" />
+    <Folder Include="Mutations\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

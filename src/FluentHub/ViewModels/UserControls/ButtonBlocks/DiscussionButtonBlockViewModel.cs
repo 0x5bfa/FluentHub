@@ -12,8 +12,8 @@ namespace FluentHub.ViewModels.UserControls.ButtonBlocks
 {
     public class DiscussionButtonBlockViewModel : INotifyPropertyChanged
     {
-        private DiscussionOverviewItem discussionItem;
-        public DiscussionOverviewItem DiscussionItem { get => discussionItem; set => SetProperty(ref discussionItem, value); }
+        private Discussion discussionItem;
+        public Discussion DiscussionItem { get => discussionItem; set => SetProperty(ref discussionItem, value); }
 
         private string nameWithOwner;
         public string NameWithOwner { get => nameWithOwner; set => SetProperty(ref nameWithOwner, value); }

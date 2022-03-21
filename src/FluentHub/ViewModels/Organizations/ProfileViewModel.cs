@@ -1,4 +1,4 @@
-﻿using FluentHub.Octokit.Queries.Organization;
+﻿using FluentHub.Octokit.Queries.Organizations;
 using FluentHub.Octokit.Models;
 using Serilog;
 using System;
@@ -13,8 +13,8 @@ namespace FluentHub.ViewModels.Organizations
 {
     public class ProfileViewModel : INotifyPropertyChanged
     {
-        private OrganizationOverviewItem organization;
-        public OrganizationOverviewItem Organization
+        private Organization organization;
+        public Organization Organization
         {
             get => organization;
             private set => SetProperty(ref organization, value);

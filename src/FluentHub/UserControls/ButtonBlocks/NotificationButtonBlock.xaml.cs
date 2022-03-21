@@ -21,7 +21,7 @@ namespace FluentHub.UserControls.ButtonBlocks
         #region dprops
         public static readonly DependencyProperty ViewModelProperty
             = DependencyProperty.Register(
-                  nameof(Octokit.Notification),
+                  nameof(global::Octokit.Notification),
                   typeof(NotificationButtonBlockViewModel),
                   typeof(NotificationButtonBlock),
                   new PropertyMetadata(null)

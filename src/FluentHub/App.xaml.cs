@@ -1,5 +1,5 @@
 ﻿using FluentHub.Helpers;
-using FluentHub.Octokit.Queries.User;
+using FluentHub.Octokit.Queries.Users;
 using FluentHub.Services;
 using FluentHub.Services.Auth;
 using FluentHub.Services.Navigation;

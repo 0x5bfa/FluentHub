@@ -12,7 +12,7 @@ namespace FluentHub.ViewModels.UserControls.ButtonBlocks
 {
     public class OrgButtonBlockViewModel : INotifyPropertyChanged
     {
-        public OrganizationOverviewItem OrgItem { get; set; } = new();
+        public Organization OrgItem { get; set; } = new();
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
