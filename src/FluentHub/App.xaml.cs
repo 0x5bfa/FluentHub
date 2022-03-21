@@ -49,10 +49,10 @@ namespace FluentHub
         public App()
         {
             InitializeComponent();
+
             Suspending += OnSuspending;
 
             Services = ConfigureServices();
-
 
             if (Settings.SetupCompleted == true)
             {
