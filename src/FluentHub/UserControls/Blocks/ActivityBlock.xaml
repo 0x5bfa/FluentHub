@@ -107,7 +107,7 @@
                 <TextBlock
                     VerticalAlignment="Center"
                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Style="{StaticResource BodyTextBlockStyle}"
                     Text="{x:Bind ViewModel.UpdatedAtHumanized, Mode=OneWay}" />
             </StackPanel>
         </StackPanel>
