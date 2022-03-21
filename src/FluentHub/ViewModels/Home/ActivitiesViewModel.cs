@@ -1,4 +1,5 @@
 ﻿using Humanizer;
+using FluentHub.Octokit.Queries.Users;
 using FluentHub.ViewModels.UserControls.Blocks;
 using Octokit;
 using System;
@@ -20,29 +21,14 @@ namespace FluentHub.ViewModels.Home
         {
             IsActive = true;
 
-            // It takes too much time. but there is no event API in Octokit.GraphQl.NET.
-            ApiOptions options = new() { PageCount = 1, PageSize = 30, StartPage = 1 };
-            var events = await App.Client.Activity.Events.GetAllUserReceived(login, options);
+            ActivityQueries queries = new();
+            var response = await queries.GetAll(login);
 
-            foreach (var item in events)
+            foreach (var res in response)
             {
                 ActivityBlockViewModel viewModel = new();
-
-                switch (item.Type)
-                {
-                    case "ForkEvent":
-                        viewModel.IsForkEvent = true;
-                        break;
-                    case "WatchEvent":
-                        viewModel.IsWatchEvent = true;
-                        break;
-                    case "PushEvent":
-                        viewModel.IsPushEvent = true;
-                        break;
-                }
-
-                viewModel.FullPayload = item;
-                viewModel.UpdatedAtHumanized = item.CreatedAt.Humanize();
+                viewModel.Payload = res;
+                viewModel.UpdatedAtHumanized = res.CreatedAt.Humanize();
 
                 EventItems.Add(viewModel);
             }

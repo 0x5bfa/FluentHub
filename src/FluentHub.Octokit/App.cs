@@ -12,15 +12,22 @@ namespace FluentHub.Octokit
 {
     internal class App
     {
-        private static ProductHeaderValue productInformation { get; set; }
+        private static ProductHeaderValue productInformation { get; set; } = new ProductHeaderValue("FluentHub", "1.0.0.0");
         public static Connection Connection { get; private set; }
+        public static global::Octokit.GitHubClient Client { get; private set; }
+            = new global::Octokit.GitHubClient(new global::Octokit.ProductHeaderValue("FluentHub"));
 
         public App()
         {
-            IntializeLogger();
+            if (Log.Logger == null)
+            {
+                IntializeLogger();
+            }
 
-            productInformation = new ProductHeaderValue("FluentHub", "1.0.0.0");
-            Connection = new Connection(productInformation, GetTokenFromApp());
+            if (Connection == null)
+            {
+                Connection= new Connection(productInformation, GetTokenFromApp());
+            }
         }
 
         public string GetTokenFromApp()
