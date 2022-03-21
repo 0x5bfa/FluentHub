@@ -1,22 +1,8 @@
-﻿using FluentHub.Helpers;
-using FluentHub.ViewModels;
-using FluentHub.ViewModels.AppSettings;
-using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Globalization;
-using Windows.UI.Xaml;
+﻿using FluentHub.Services;
+using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Views.AppSettings
 {
@@ -24,12 +10,22 @@ namespace FluentHub.Views.AppSettings
     {
         public AppearancePage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
         }
+        private readonly INavigationService navigationService;
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            Helpers.NavigationHelpers.AddPageInfoToTabItem($"Appearance", "Appearance settings", "fluenthub://settings/appearance", "\uE713");
+            //Helpers.NavigationHelpers.AddPageInfoToTabItem($"Appearance", "Appearance settings", "fluenthub://settings/appearance", "\uE713");
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = "Appearance";
+            currentItem.Description = "Appearance settings";
+            currentItem.Url = "fluenthub://settings/appearance";
+            currentItem.Icon = new muxc.FontIconSource
+            {
+                Glyph = "\uE713",
+            };
         }
     }
 }

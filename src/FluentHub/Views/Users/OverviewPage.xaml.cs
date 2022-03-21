@@ -1,18 +1,8 @@
-﻿using Serilog;
-using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using FluentHub.Services;
+using Microsoft.Extensions.DependencyInjection;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.Storage;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub.Views.Users
@@ -21,14 +11,25 @@ namespace FluentHub.Views.Users
     {
         public OverviewPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
         }
+
+        private readonly INavigationService navigationService;
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             string login = e.Parameter as string;
 
-            Helpers.NavigationHelpers.AddPageInfoToTabItem($"{login}'s overview", $"https://github.com/{login}?tab=overview", $"https://github.com/{login}?tab=overview", "\uE77B");
+            //Helpers.NavigationHelpers.AddPageInfoToTabItem($"{login}'s overview", $"https://github.com/{login}?tab=overview", $"https://github.com/{login}?tab=overview", "\uE77B");
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = $"{login}'s overview";
+            currentItem.Description = "";
+            currentItem.Url = $"https://github.com/{login}?tab=overview";
+            currentItem.Icon = new Microsoft.UI.Xaml.Controls.FontIconSource
+            {
+                Glyph = "\uE77B"
+            };
 
             await ViewModel.GetPinnedRepos(login);
             await ViewModel.GetSpecialRepoId(login);
@@ -39,7 +40,7 @@ namespace FluentHub.Views.Users
 
         private void UpdateVisibility()
         {
-            if (ViewModel.PinnedRepos.Count() != 0)
+            if (ViewModel.PinnedRepos.Any())
             {
                 UserPinnedItemsBlock.Visibility = Visibility.Visible;
             }

@@ -1,19 +1,10 @@
-﻿using FluentHub.ViewModels;
+﻿using FluentHub.Services;
 using FluentHub.Views.Home;
+using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel.Core;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub.Views
@@ -22,46 +13,37 @@ namespace FluentHub.Views
     {
         public MainPage()
         {
-            this.InitializeComponent();
-
-            App.MainViewModel.MainFrame.Navigating += ViewModelMainFrame_Navigating;
-            CoreApplication.GetCurrentView().TitleBar.LayoutMetricsChanged += TitleBar_LayoutMetricsChanged;
+            InitializeComponent();
+            CoreApplication.GetCurrentView().TitleBar.LayoutMetricsChanged += OnTitleBarLayoutMetricsChanged;
+            navigationService = App.Current.Services.GetService<INavigationService>();
         }
 
-        private void TitleBar_LayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
+        private readonly INavigationService navigationService;
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            RightPaddingColumn.Width = new GridLength(sender.SystemOverlayRightInset);
+            navigationService.Configure(TabView, MainFrame, typeof(UserHomePage));
+            navigationService.Navigate<UserHomePage>();
         }
 
-        private void ViewModelMainFrame_Navigating(object sender, NavigatingCancelEventArgs e)
-        {
-            MainFrame.Navigate(e.SourcePageType, e.Parameter);
+        private void OnTitleBarLayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
+            => RightPaddingColumn.Width = new GridLength(sender.SystemOverlayRightInset);
 
-            e.Cancel = true;
-        }
+        private void DragArea_Loaded(object sender, RoutedEventArgs e) => Window.Current.SetTitleBar(DragArea);
 
-        private void DragArea_Loaded(object sender, RoutedEventArgs e)
-        {
-            Window.Current.SetTitleBar(DragArea);
-        }
-
-        private void HomeButton_Click(object sender, RoutedEventArgs e)
-        {
-            App.MainViewModel.MainFrame.Navigate(typeof(UserHomePage));
-        }
-
-        private void ToolbarAppSettingsButton_Click(object sender, RoutedEventArgs e)
-        {
-        }
-
+        private void HomeButton_Click(object sender, RoutedEventArgs e) => navigationService.Navigate<UserHomePage>();
+        private void GoBack() => navigationService.GoBack();
+        private void GoForward() => navigationService.GoForward();
         private async void ShareWithBrowserMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
-            await Windows.System.Launcher.LaunchUriAsync(new Uri(App.MainViewModel.CurrentPageUrl));
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            var result = await Windows.System.Launcher.LaunchUriAsync(new Uri(currentItem.Url));
+            System.Diagnostics.Debug.WriteLine("LaunchUriAsync({0}) - result:{1}", currentItem.Url, result);
         }
 
         private void SettingsMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
-            App.MainViewModel.MainFrame.Navigate(typeof(AppSettings.MainSettingsPage));
+            navigationService.Navigate<AppSettings.MainSettingsPage>();
         }
 
         private void SignOutMenuFlyoutItem_Click(object sender, RoutedEventArgs e)

@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
+﻿using FluentHub.Services;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Toolkit.Uwp;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub.Views.Users
@@ -19,14 +10,26 @@ namespace FluentHub.Views.Users
     {
         public IssuesPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
         }
+
+        private readonly INavigationService navigationService;
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             string login = e.Parameter as string;
 
-            Helpers.NavigationHelpers.AddPageInfoToTabItem($"Issues", "Viewer's issues", $"https://github.com/issues", "\uE9EA", true);
+            //Helpers.NavigationHelpers.AddPageInfoToTabItem($"Issues", "Viewer's issues", $"https://github.com/issues", "\uE737");
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = "Issues".GetLocalized();
+            currentItem.Description = "Viewer's issues";
+            currentItem.Url = $"https://github.com/issues";
+            currentItem.Icon = new Microsoft.UI.Xaml.Controls.FontIconSource
+            {
+                Glyph = "\uE9EA",
+                FontFamily = new Windows.UI.Xaml.Media.FontFamily("/Assets/Glyphs/Octions.ttf#octions")
+            };
 
             await ViewModel.GetRepoIssues(login);
         }

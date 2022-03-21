@@ -1,20 +1,9 @@
 ﻿using FluentHub.OctokitEx.Models;
+using FluentHub.Services;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
-using Octokit;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub.UserControls.ButtonBlocks
 {
@@ -35,14 +24,12 @@ namespace FluentHub.UserControls.ButtonBlocks
         }
         #endregion
 
-        public UserButtonBlock()
-        {
-            this.InitializeComponent();
-        }
+        public UserButtonBlock() => InitializeComponent();
 
         private void UserButtonBlockButton_Click(object sender, RoutedEventArgs e)
         {
-            App.MainViewModel.MainFrame.Navigate(typeof(Views.Users.ProfilePage), ViewModel.User.Login);
+            var service = App.Current.Services.GetRequiredService<INavigationService>();
+            service.Navigate<Views.Users.ProfilePage>(ViewModel.User.Login);
         }
     }
 }

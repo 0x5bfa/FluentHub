@@ -2,32 +2,26 @@
 using FluentHub.OctokitEx.Queries.User;
 using FluentHub.Services;
 using FluentHub.Services.Auth;
+using FluentHub.Services.Navigation;
 using FluentHub.ViewModels;
 using FluentHub.Views;
 using FluentHub.Views.SignIn;
+using Microsoft.Extensions.DependencyInjection;
 using Octokit;
 using Serilog;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Storage;
 using Windows.UI;
 using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub
@@ -37,8 +31,6 @@ namespace FluentHub
         Frame rootFrame = Window.Current.Content as Frame;
 
         public static GitHubClient Client { get; private set; } = new GitHubClient(new ProductHeaderValue("FluentHub"));
-
-        public static MainViewModel MainViewModel { get; private set; } = new MainViewModel();
 
         public static SettingsViewModel Settings { get; private set; } = new SettingsViewModel();
 
@@ -56,8 +48,11 @@ namespace FluentHub
 
         public App()
         {
-            this.InitializeComponent();
-            this.Suspending += OnSuspending;
+            InitializeComponent();
+            Suspending += OnSuspending;
+
+            Services = ConfigureServices();
+
 
             if (Settings.SetupCompleted == true)
             {
@@ -78,6 +73,26 @@ namespace FluentHub
 
             IntializeLogger();
             Log.Information("FluentHub has been launched.");
+        }
+
+        /// <summary>
+		/// Gets the current <see cref="App"/> instance in use
+		/// </summary>
+		public new static App Current => (App)Windows.UI.Xaml.Application.Current;
+
+        /// <summary>
+        /// Gets the <see cref="IServiceProvider"/> instance to resolve application services.
+        /// </summary>
+        public IServiceProvider Services { get; }
+
+        /// <summary>
+        /// Configures the services for the application.
+        /// </summary>
+        private static IServiceProvider ConfigureServices()
+        {
+            return new ServiceCollection()
+                .AddSingleton<INavigationService, NavigationService>()                
+                .BuildServiceProvider();
         }
 
         private async Task GetViewerLoginName()
