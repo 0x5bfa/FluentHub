@@ -148,6 +148,9 @@
     <Compile Include="Services\Navigation\PageNavigationEntry.cs" />
     <Compile Include="Services\Navigation\NavigationService.cs" />
     <Compile Include="Services\Navigation\TabViewSelectionChangedEventArgs.cs" />
+    <Compile Include="UserControls\Blocks\CommitActivityBlock.xaml.cs">
+      <DependentUpon>CommitActivityBlock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\TabViewControl\TabItem.cs" />
     <Compile Include="Services\Auth\AppCredentials.cs" />
     <Compile Include="Services\Auth\RequestAuthorization.cs" />
@@ -520,6 +523,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Blocks\ActivityBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Blocks\CommitActivityBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

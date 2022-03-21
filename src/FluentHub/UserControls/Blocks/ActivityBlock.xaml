@@ -57,22 +57,6 @@
             </Button>
             <StackPanel Orientation="Horizontal" Spacing="4">
                 <StackPanel
-                    x:Name="PushEventMessageBlock"
-                    VerticalAlignment="Center"
-                    x:Load="{x:Bind ViewModel.Payload.IsPushEvent, Mode=OneWay}"
-                    Orientation="Horizontal"
-                    Spacing="4">
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Style="{StaticResource BodyTextBlockStyle}"
-                        Text="pushed to" />
-                    <Button
-                        Content="{x:Bind ViewModel.Payload.PushEventPayload.Repository.Name, Mode=OneWay}"
-                        FontWeight="SemiBold"
-                        IsEnabled="False"
-                        Style="{StaticResource LinkLikeButtonStyle}" />
-                </StackPanel>
-                <StackPanel
                     x:Name="ForkEventMessageBlock"
                     VerticalAlignment="Center"
                     x:Load="{x:Bind ViewModel.Payload.IsForkEvent, Mode=OneWay}"
@@ -83,9 +67,16 @@
                         Style="{StaticResource BodyTextBlockStyle}"
                         Text="forked" />
                     <Button
+                        Content="{x:Bind ViewModel.Payload.ForkEventPayload.Forkee.FullName, Mode=OneWay}"
+                        FontWeight="SemiBold"
+                        Style="{StaticResource LinkLikeButtonStyle}" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Text="from" />
+                    <Button
                         Content="{x:Bind ViewModel.Payload.Repository.Name, Mode=OneWay}"
                         FontWeight="SemiBold"
-                        IsEnabled="False"
                         Style="{StaticResource LinkLikeButtonStyle}" />
                 </StackPanel>
                 <StackPanel
@@ -101,7 +92,45 @@
                     <Button
                         Content="{x:Bind ViewModel.Payload.Repository.Name, Mode=OneWay}"
                         FontWeight="SemiBold"
+                        Style="{StaticResource LinkLikeButtonStyle}" />
+                </StackPanel>
+                <StackPanel
+                    x:Name="PushEventMessageBlock"
+                    VerticalAlignment="Center"
+                    x:Load="{x:Bind ViewModel.Payload.IsPushEvent, Mode=OneWay}"
+                    Orientation="Horizontal"
+                    Spacing="4">
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Text="pushed to" />
+                    <Button
+                        Content="{x:Bind ViewModel.Payload.Repository.Name, Mode=OneWay}"
+                        FontWeight="SemiBold"
+                        Style="{StaticResource LinkLikeButtonStyle}" />
+                </StackPanel>
+                <StackPanel
+                    x:Name="ReleaseEventMessageBlock"
+                    VerticalAlignment="Center"
+                    x:Load="{x:Bind ViewModel.Payload.IsReleaseEvent, Mode=OneWay}"
+                    Orientation="Horizontal"
+                    Spacing="4">
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Text="released" />
+                    <Button
+                        Content="{x:Bind ViewModel.Payload.ReleaseEventPayload.Release.Name, Mode=OneWay}"
+                        FontWeight="SemiBold"
                         IsEnabled="False"
+                        Style="{StaticResource LinkLikeButtonStyle}" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Text="of" />
+                    <Button
+                        Content="{x:Bind ViewModel.Payload.Repository.Name, Mode=OneWay}"
+                        FontWeight="SemiBold"
                         Style="{StaticResource LinkLikeButtonStyle}" />
                 </StackPanel>
                 <TextBlock
