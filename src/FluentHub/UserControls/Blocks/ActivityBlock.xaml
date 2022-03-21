@@ -140,7 +140,10 @@
                     Text="{x:Bind ViewModel.UpdatedAtHumanized, Mode=OneWay}" />
             </StackPanel>
         </StackPanel>
-        <Grid Grid.Row="1" Margin="32,8,0,8">
+        <Grid
+            Grid.Row="1"
+            Margin="32,8,0,8"
+            Visibility="Collapsed">
             <Button Height="32" HorizontalAlignment="Stretch" />
         </Grid>
         <MenuFlyoutSeparator Grid.Row="2" Margin="0,8,0,0" />
