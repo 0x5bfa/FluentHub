@@ -7,8 +7,8 @@
     <ProjectGuid>{893EDCC9-4345-4F49-A13F-1A426A7BA432}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FluentHub.OctokitEx</RootNamespace>
-    <AssemblyName>FluentHub.OctokitEx</AssemblyName>
+    <RootNamespace>FluentHub.Octokit</RootNamespace>
+    <AssemblyName>FluentHub.Octokit</AssemblyName>
     <DefaultLanguage>ja-JP</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.22000.0</TargetPlatformVersion>

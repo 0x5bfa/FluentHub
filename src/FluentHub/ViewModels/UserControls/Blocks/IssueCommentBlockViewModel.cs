@@ -1,6 +1,6 @@
 ﻿using FluentHub.Helpers;
 using FluentHub.Models.Items;
-using FluentHub.Services.OctokitEx;
+using FluentHub.Services.Octokit;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

@@ -1,5 +1,5 @@
 ﻿using Humanizer;
-using FluentHub.OctokitEx.Queries.Repository;
+using FluentHub.Octokit.Queries.Repository;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
 using System;
 using System.Collections.Generic;

@@ -1,6 +1,6 @@
 ﻿using FluentHub.Helpers;
 using FluentHub.Models.Items;
-using FluentHub.OctokitEx.Queries.Repository;
+using FluentHub.Octokit.Queries.Repository;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;

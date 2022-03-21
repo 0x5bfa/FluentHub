@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FluentHub.OctokitEx.Queries.User
+namespace FluentHub.Octokit.Queries.User
 {
     public class ViewerQueries
     {

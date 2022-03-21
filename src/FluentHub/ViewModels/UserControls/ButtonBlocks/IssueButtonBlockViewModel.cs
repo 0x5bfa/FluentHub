@@ -1,5 +1,5 @@
 ﻿using FluentHub.Helpers;
-using FluentHub.OctokitEx.Models;
+using FluentHub.Octokit.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

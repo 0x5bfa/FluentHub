@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FluentHub.OctokitEx.Queries.Organization
+namespace FluentHub.Octokit.Queries.Organization
 {
     public class RepositoryQueries
     {

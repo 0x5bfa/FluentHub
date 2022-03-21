@@ -1,5 +1,5 @@
 ﻿using FluentHub.Models.Items;
-using FluentHub.OctokitEx.Queries.Repository;
+using FluentHub.Octokit.Queries.Repository;
 using Humanizer;
 using System;
 using System.Collections.Generic;

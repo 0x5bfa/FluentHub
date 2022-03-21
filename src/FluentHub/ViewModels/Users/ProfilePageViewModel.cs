@@ -1,5 +1,5 @@
-﻿using FluentHub.OctokitEx.Models;
-using FluentHub.OctokitEx.Queries.User;
+﻿using FluentHub.Octokit.Models;
+using FluentHub.Octokit.Queries.User;
 using Serilog;
 using System;
 using System.Collections.Generic;

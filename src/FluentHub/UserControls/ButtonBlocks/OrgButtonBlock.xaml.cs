@@ -1,4 +1,4 @@
-﻿using FluentHub.OctokitEx.Models;
+﻿using FluentHub.Octokit.Models;
 using FluentHub.Services;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
 using Microsoft.Extensions.DependencyInjection;

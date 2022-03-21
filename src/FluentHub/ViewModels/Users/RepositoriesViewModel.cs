@@ -1,4 +1,4 @@
-﻿using FluentHub.OctokitEx.Queries.User;
+﻿using FluentHub.Octokit.Queries.User;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
 using Octokit;
 using System;

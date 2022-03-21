@@ -1,4 +1,4 @@
-﻿using FluentHub.OctokitEx.Models;
+﻿using FluentHub.Octokit.Models;
 using Octokit.GraphQL;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FluentHub.OctokitEx.Queries.Organization
+namespace FluentHub.Octokit.Queries.Organization
 {
     public class OrganizationQueries
     {

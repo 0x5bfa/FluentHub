@@ -1,5 +1,5 @@
-﻿using FluentHub.OctokitEx.Models;
-using FluentHub.OctokitEx.Queries.Repository;
+﻿using FluentHub.Octokit.Models;
+using FluentHub.Octokit.Queries.Repository;
 using FluentHub.ViewModels.Repositories;
 using Humanizer;
 using System;

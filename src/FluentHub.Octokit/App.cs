@@ -8,7 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.Storage;
 
-namespace FluentHub.OctokitEx
+namespace FluentHub.Octokit
 {
     internal class App
     {
@@ -60,7 +60,7 @@ namespace FluentHub.OctokitEx
                 .WriteTo.File(logFilePath, rollingInterval: RollingInterval.Day)
                 .CreateLogger();
 
-            Log.Debug("Initialized logger in FluentHub.OctokitEx.");
+            Log.Debug("Initialized logger in FluentHub.Octokit.");
         }
     }
 }

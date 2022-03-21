@@ -2,11 +2,11 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("FluentHub.OctokitEx")]
+[assembly: AssemblyTitle("FluentHub.Octokit")]
 [assembly: AssemblyDescription("Octokit.NET extensions for FluentHub")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("fluenthub-community")]
-[assembly: AssemblyProduct("FluentHub.OctokitEx")]
+[assembly: AssemblyProduct("FluentHub.Octokit")]
 [assembly: AssemblyCopyright("Copyright © 2022 fluenthub-community")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

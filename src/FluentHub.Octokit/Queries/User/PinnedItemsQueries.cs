@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FluentHub.OctokitEx.Queries
+namespace FluentHub.Octokit.Queries
 {
     public class PinnedItemsQueries
     {

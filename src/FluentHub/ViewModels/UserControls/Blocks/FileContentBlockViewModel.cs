@@ -1,5 +1,5 @@
 ﻿using FluentHub.Helpers;
-using FluentHub.OctokitEx.Queries.Repository;
+using FluentHub.Octokit.Queries.Repository;
 using FluentHub.ViewModels.Repositories;
 using System;
 using System.Collections.Generic;

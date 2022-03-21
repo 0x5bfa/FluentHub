@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Directives xmlns="http://schemas.microsoft.com/netfx/2013/01/metadata">
-    <Library Name="OctokitExtensions">
+    <Library Name="Octokittensions">
 
         <!-- Add your application specific runtime directives here. -->
 
