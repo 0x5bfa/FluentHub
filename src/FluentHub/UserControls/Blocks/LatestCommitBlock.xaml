@@ -111,12 +111,18 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{x:Bind ViewModel.CommitMessageHeadline, Mode=OneWay}" />
+            <TextBlock
+                IsTextSelectionEnabled="True"
+                Style="{StaticResource BodyStrongTextBlockStyle}"
+                Text="{x:Bind ViewModel.CommitMessageHeadline, Mode=OneWay}" />
             <TextBlock
                 Grid.Row="1"
                 Margin="0,6,0,0"
+                FontFamily="Cascadia Code"
+                FontWeight="ExtraLight"
                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                Style="{StaticResource BodyTextBlockStyle}"
+                IsTextSelectionEnabled="True"
+                Style="{StaticResource CaptionTextBlockStyle}"
                 Text="{x:Bind ViewModel.SubCommitMessages, Mode=OneWay}" />
         </Grid>
     </Grid>

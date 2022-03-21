@@ -1,4 +1,5 @@
-﻿using Octokit;
+﻿using FluentHub.Octokit.Models;
+using FluentHub.Octokit.Queries.Users;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -16,25 +17,26 @@ namespace FluentHub.ViewModels.Users
 {
     public class ProfilePageViewModel : INotifyPropertyChanged
     {
-        private User user = new();
-        public User User
+        private UserOverviewItem userItem;
+        public UserOverviewItem UserItem
         {
-            get => user;
-            private set => SetProperty(ref user, value);
+            get => userItem;
+            private set => SetProperty(ref userItem, value);
         }
 
-        public async Task<bool> GetUser(string login)
+        private bool isNotViewer;
+        public bool IsNotViewer
         {
-            try
-            {
-                User = await App.Client.User.Get(login);
-                return true;
-            }
-            catch (ApiException apiEx)
-            {
-                Log.Error(apiEx, apiEx.Message);
-                return false;
-            }
+            get => isNotViewer;
+            set => SetProperty(ref isNotViewer, value);
+        }
+
+        public async Task GetUser(string login)
+        {
+            UserQueries queries = new();
+            UserItem = await queries.GetOverview(login);
+
+            if (!UserItem.IsViewer) IsNotViewer = true;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

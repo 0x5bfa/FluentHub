@@ -1,18 +1,11 @@
-﻿using FluentHub.Services.OctokitEx;
+﻿using FluentHub.Services;
+using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Views.Organizations
 {
@@ -20,15 +13,30 @@ namespace FluentHub.Views.Organizations
     {
         public OverviewPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
         }
+        private readonly INavigationService navigationService;
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            string orgName = e.Parameter as string;
+            string org = e.Parameter as string;
 
-            await ViewModel.GetPinnedRepos(orgName);
-            OrgPageFrame.Navigate(typeof(RepositoriesPage), orgName);
+            //Helpers.NavigationHelpers.AddPageInfoToTabItem($"{org}", $"{org}'s overview", $"https://github.com/{org}", "\uEA27", true);
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = $"{org}";
+            currentItem.Description = $"{org}'s overview";
+            currentItem.Url = $"https://github.com/{org}";
+            currentItem.Icon = new muxc.FontIconSource
+            {
+                Glyph = "\uEA27",
+                FontFamily = new Windows.UI.Xaml.Media.FontFamily("/Assets/Glyphs/Octions.ttf#octions")
+            };
+
+            await ViewModel.GetPinnedRepos(org);
+
+            // Avoid duplicates
+            OrgPageFrame.Navigate(typeof(RepositoriesPage), org);
 
             UpdateVisibility();
 

@@ -1,20 +1,10 @@
-﻿using FluentHub.OctokitEx.Models;
+﻿using FluentHub.Octokit.Models;
+using FluentHub.Services;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
 using FluentHub.Views.Repositories;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub.UserControls.ButtonBlocks
 {
@@ -23,12 +13,11 @@ namespace FluentHub.UserControls.ButtonBlocks
         #region dprops
         public static readonly DependencyProperty ViewModelProperty
             = DependencyProperty.Register(
-                  nameof(IssueOverviewItem),
+                  nameof(Issue),
                   typeof(IssueButtonBlockViewModel),
                   typeof(IssueButtonBlock),
                   new PropertyMetadata(null)
                 );
-
         public IssueButtonBlockViewModel ViewModel
         {
             get => (IssueButtonBlockViewModel)GetValue(ViewModelProperty);
@@ -36,21 +25,26 @@ namespace FluentHub.UserControls.ButtonBlocks
             {
                 SetValue(ViewModelProperty, value);
                 this.DataContext = ViewModel;
+                ViewModel.SetStateContents();
             }
         }
         #endregion
-
+       
         public IssueButtonBlock()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
         }
+
+        private readonly INavigationService navigationService;
 
         private async void IssueBlockButton_Click(object sender, RoutedEventArgs e)
         {
             var repo = await App.Client.Repository.Get(ViewModel.IssueItem.Owner, ViewModel.IssueItem.Name);
 
             string param = repo.Id + "/" + ViewModel.IssueItem.Number;
-            App.MainViewModel.RepoMainFrame.Navigate(typeof(IssuePage), param);
+            navigationService.Navigate<IssuePage>(param);
+            //App.MainViewModel.RepoMainFrame.Navigate(typeof(IssuePage), param);
         }
     }
 }

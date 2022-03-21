@@ -1,17 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
+﻿using FluentHub.Services;
+using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Views.Organizations
 {
@@ -19,12 +10,27 @@ namespace FluentHub.Views.Organizations
     {
         public RepositoriesPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
         }
+        private readonly INavigationService navigationService;
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            ViewModel.GetUserRepos(e.Parameter as string);
+            string org = e.Parameter as string;
+
+            //Helpers.NavigationHelpers.AddPageInfoToTabItem($"{org}", $"{org}'s repositoryes", $"https://github.com/orgs/{org}/repositories", "\uEA27", true);
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = $"{org}";
+            currentItem.Description = $"{org}'s repositories";
+            currentItem.Url = $"https://github.com/orgs/{org}/repositories";
+            currentItem.Icon = new muxc.FontIconSource
+            {
+                Glyph = "\uEA27",
+                FontFamily = new Windows.UI.Xaml.Media.FontFamily("/Assets/Glyphs/Octions.ttf#octions")
+            };
+
+            ViewModel.GetUserRepos(org);
 
             base.OnNavigatedTo(e);
         }

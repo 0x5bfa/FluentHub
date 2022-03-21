@@ -1,4 +1,4 @@
-﻿using FluentHub.OctokitEx.Queries;
+﻿using FluentHub.Octokit.Queries.Users;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
 using Serilog;
 using System;
@@ -24,7 +24,7 @@ namespace FluentHub.ViewModels.Organizations
             IsActive = true;
 
             PinnedItemsQueries queries = new();
-            var PinnedItems = await queries.Get(org, false);
+            var PinnedItems = await queries.GetOverviewAll(org, false);
 
             foreach (var item in PinnedItems)
             {

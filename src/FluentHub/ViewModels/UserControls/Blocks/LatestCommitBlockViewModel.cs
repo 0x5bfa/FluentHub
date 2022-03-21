@@ -1,5 +1,5 @@
-﻿using FluentHub.OctokitEx.Models;
-using FluentHub.OctokitEx.Queries.Repository;
+﻿using FluentHub.Octokit.Models;
+using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.ViewModels.Repositories;
 using Humanizer;
 using System;
@@ -19,8 +19,8 @@ namespace FluentHub.ViewModels.UserControls.Blocks
         private CommonRepoViewModel commonRepoViewModel;
         public CommonRepoViewModel CommonRepoViewModel { get => commonRepoViewModel; set => SetProperty(ref commonRepoViewModel, value); }
 
-        private CommitOverviewItem commitOverviewItem;
-        public CommitOverviewItem CommitOverviewItem { get => commitOverviewItem; set => SetProperty(ref commitOverviewItem, value); }
+        private Commit commitOverviewItem;
+        public Commit CommitOverviewItem { get => commitOverviewItem; set => SetProperty(ref commitOverviewItem, value); }
 
         private string commitUpdatedAtHumanized;
         public string CommitUpdatedAtHumanized { get => commitUpdatedAtHumanized; set => SetProperty(ref commitUpdatedAtHumanized, value); }
@@ -38,8 +38,8 @@ namespace FluentHub.ViewModels.UserControls.Blocks
         {
             if (CommonRepoViewModel == null) return;
 
-            LatestCommitQueries queries = new();
-            CommitOverviewItem = await queries.Get(CommonRepoViewModel.Name, CommonRepoViewModel.Owner, CommonRepoViewModel.BranchName, CommonRepoViewModel.Path);
+            CommitQueries queries = new();
+            CommitOverviewItem = await queries.GetOverview(CommonRepoViewModel.Name, CommonRepoViewModel.Owner, CommonRepoViewModel.BranchName, CommonRepoViewModel.Path);
 
             CommitUpdatedAtHumanized = CommitOverviewItem.CommittedDate.Humanize();
 
@@ -51,7 +51,7 @@ namespace FluentHub.ViewModels.UserControls.Blocks
             {
                 HasMoreCommitMessage = true;
 
-                if(commitMessageLines[1] == "\n")
+                if(commitMessageLines[1] == "")
                 {
                     var messageTextLinesList = commitMessageLines.ToList();
                     messageTextLinesList.RemoveAt(1);

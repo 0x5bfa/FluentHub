@@ -1,5 +1,5 @@
-﻿using FluentHub.OctokitEx.Queries.Organization;
-using FluentHub.OctokitEx.Models;
+﻿using FluentHub.Octokit.Queries.Organizations;
+using FluentHub.Octokit.Models;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -13,8 +13,8 @@ namespace FluentHub.ViewModels.Organizations
 {
     public class ProfileViewModel : INotifyPropertyChanged
     {
-        private OrganizationOverviewItem organization;
-        public OrganizationOverviewItem Organization
+        private Organization organization;
+        public Organization Organization
         {
             get => organization;
             private set => SetProperty(ref organization, value);
@@ -25,7 +25,7 @@ namespace FluentHub.ViewModels.Organizations
             try
             {
                 OrganizationQueries queries = new();
-                Organization = await queries.Get(org);
+                Organization = await queries.GetOverview(org);
             }
             catch (Exception ex)
             {

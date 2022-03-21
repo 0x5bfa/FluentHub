@@ -1,5 +1,5 @@
 ﻿using FluentHub.Helpers;
-using FluentHub.Services.OctokitEx;
+using FluentHub.Services.Octokit;
 using Octokit;
 using System;
 using System.Collections.Generic;

@@ -1,6 +1,6 @@
 ﻿using Humanizer;
 using FluentHub.Helpers;
-using FluentHub.OctokitEx.Models;
+using FluentHub.Octokit.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,8 +14,8 @@ namespace FluentHub.ViewModels.UserControls.ButtonBlocks
 {
     public class RepoButtonBlockViewModel : INotifyPropertyChanged
     {
-        private RepositoryBlockItem item;
-        public RepositoryBlockItem Item { get => item; set => SetProperty(ref item, value); }
+        private Repository item;
+        public Repository Item { get => item; set => SetProperty(ref item, value); }
 
         private Brush primaryLangColor;
         public Brush PrimaryLangColor { get => primaryLangColor; set => SetProperty(ref primaryLangColor, value); }

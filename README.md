@@ -3,10 +3,8 @@
   <h1 align="center">FluentHub</h1>
 </p>
 
-[![Build Status](https://dev.azure.com/fluenthub-community/FluentHub/_apis/build/status/Build%20Pipeline?branchName=main)](https://dev.azure.com/fluenthub-community/FluentHub/_build/latest?definitionId=1&branchName=main)
-[![CodeFactor](https://www.codefactor.io/repository/github/fluenthub-community/fluenthub/badge)](https://www.codefactor.io/repository/github/fluenthub-community/fluenthub)
-![License](https://img.shields.io/github/license/fluenthub-community/FluentHub)
-![RepoSize](https://img.shields.io/github/repo-size/fluenthub-community/FluentHub)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/fluenthub-community/fluenthub)
+[![Build Status](https://dev.azure.com/fluenthub-community/FluentHub/_apis/build/status/Build%20Pipeline%20(x64)?branchName=main)](https://dev.azure.com/fluenthub-community/FluentHub/_build/latest?definitionId=5&branchName=main)
 
 ## What is FluentHub?
 
@@ -17,7 +15,7 @@ Please contribute to make this project better(please follow [this coding guidlin
 > **Warning**</br> This project is in dev stage. Expect regular breaking changes.</br>
 > We don't have logos(stable/dev) [that can be used in the store version](https://github.com/logos). Logos/mockups are especially welcome😊
 
-![image](https://user-images.githubusercontent.com/62196528/156875118-f58c4acb-46de-478b-8b5b-9733b466d6b2.png)
+![image](https://user-images.githubusercontent.com/62196528/159022004-d7228fc5-2d97-4f92-9fde-34f1f2b6f08e.png)
 
 ## Building from source
 

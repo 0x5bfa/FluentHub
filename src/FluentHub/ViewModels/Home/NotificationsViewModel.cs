@@ -26,18 +26,14 @@ namespace FluentHub.ViewModels.Home
 
             NotificationsRequest request = new NotificationsRequest();
             request.All = true;
-            ApiOptions options = new() { PageCount = 1, PageSize = 30, StartPage = 1 };
+            ApiOptions options = new() { PageCount = 1, PageSize = 50, StartPage = 1 };
             var notifications = await App.Client.Activity.Notifications.GetAllForCurrent(request, options);
 
             foreach (var item in notifications)
             {
                 NotificationButtonBlockViewModel viewModel = new();
-                NotificationListItem listItem = new();
 
-                listItem.SubjectTitle = item.Subject.Title;
-                listItem.Unread = item.Unread ? Windows.UI.Xaml.Visibility.Visible : Windows.UI.Xaml.Visibility.Collapsed;
-                listItem.FormattedNotifiedReason = item.Reason;
-                viewModel.NotificationItem = listItem;
+                viewModel.NotificationItem = item;
                 viewModel.UpdatedAtHumanized = DateTimeOffset.Parse(item.UpdatedAt).Humanize();
                 viewModel.NameWithOwner = item.Repository.Owner.Login + " / " + item.Repository.Name;
 

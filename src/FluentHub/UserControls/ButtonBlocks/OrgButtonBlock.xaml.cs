@@ -1,19 +1,9 @@
-﻿using FluentHub.OctokitEx.Models;
+﻿using FluentHub.Octokit.Models;
+using FluentHub.Services;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub.UserControls.ButtonBlocks
 {
@@ -22,7 +12,7 @@ namespace FluentHub.UserControls.ButtonBlocks
         #region dprops
         public static readonly DependencyProperty ViewModelProperty
             = DependencyProperty.Register(
-                  nameof(OrganizationOverviewItem),
+                  nameof(Organization),
                   typeof(IssueButtonBlockViewModel),
                   typeof(OrgButtonBlock),
                   new PropertyMetadata(null)
@@ -34,19 +24,17 @@ namespace FluentHub.UserControls.ButtonBlocks
             set
             {
                 SetValue(ViewModelProperty, value);
-                this.DataContext = ViewModel;
+                DataContext = ViewModel;
             }
         }
         #endregion
 
-        public OrgButtonBlock()
-        {
-            this.InitializeComponent();
-        }
+        public OrgButtonBlock() => InitializeComponent();
 
         private void OrganizationOverviewButton_Click(object sender, RoutedEventArgs e)
         {
-            App.MainViewModel.MainFrame.Navigate(typeof(Views.Organizations.ProfilePage), ViewModel.OrgItem.Login);
+            var service = App.Current.Services.GetRequiredService<INavigationService>();
+            service.Navigate<Views.Organizations.ProfilePage>(ViewModel.OrgItem.Login);
         }
     }
 }

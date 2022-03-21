@@ -1,5 +1,6 @@
 ﻿using FluentHub.Helpers;
-using FluentHub.OctokitEx.Queries.Repository;
+using FluentHub.Octokit.Models;
+using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.ViewModels.Repositories;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
 using Octokit;
@@ -15,33 +16,14 @@ namespace FluentHub.ViewModels.UserControls.Blocks
 {
     public class ActivityBlockViewModel : INotifyPropertyChanged
     {
-        private bool isForkEvent;
-        public bool IsForkEvent { get => isForkEvent; set => SetProperty(ref isForkEvent, value); }
+        private Octokit.Models.Activity payload;
+        public Octokit.Models.Activity Payload { get => payload; set => SetProperty(ref payload, value); }
 
-        private bool isWatchEvent;
-        public bool IsWatchEvent { get => isWatchEvent; set => SetProperty(ref isWatchEvent, value); }
-
-        private string avatarUrl;
-        public string AvatarUrl { get => avatarUrl; set => SetProperty(ref avatarUrl, value); }
-
-        private string actor;
-        public string Actor { get => actor; set => SetProperty(ref actor, value); }
-
-        public Activity FullPayload { get; set; }
-
-        public RepoButtonBlockViewModel RepoButtonBlockViewModel { get; set; } = new();
-
-        public UserButtonBlockViewModel UserButtonBlockViewModel { get; set; } = new();
+        private string updatedAtHumanized;
+        public string UpdatedAtHumanized { get => updatedAtHumanized; set => SetProperty(ref updatedAtHumanized, value); }
 
         public async Task GetPayloadContents()
         {
-            if (isForkEvent || isWatchEvent)
-            {
-                RepoButtonBlockViewModel.DisplayDetails = false;
-                RepositoryOverviewQueries queries = new();
-                var response = await queries.Get(FullPayload.Repo.Name.Split("/")[0], FullPayload.Repo.Name.Split("/")[1]);
-                RepoButtonBlockViewModel.Item = response;
-            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

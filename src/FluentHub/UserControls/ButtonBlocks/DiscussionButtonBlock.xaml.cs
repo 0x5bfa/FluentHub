@@ -1,4 +1,4 @@
-﻿using FluentHub.OctokitEx.Models;
+﻿using FluentHub.Octokit.Models;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
 using System;
 using System.Collections.Generic;
@@ -22,7 +22,7 @@ namespace FluentHub.UserControls.ButtonBlocks
         #region dprops
         public static readonly DependencyProperty ViewModelProperty
             = DependencyProperty.Register(
-                  nameof(DiscussionOverviewItem),
+                  nameof(Discussion),
                   typeof(DiscussionButtonBlockViewModel),
                   typeof(DiscussionButtonBlock),
                   new PropertyMetadata(null)

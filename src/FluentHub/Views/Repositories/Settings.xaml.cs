@@ -21,5 +21,10 @@ namespace FluentHub.Views.Repositories
         {
             this.InitializeComponent();
         }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            //Helpers.NavigationHelpers.AddPageInfoToTabItem($"Settings • {CommonRepoViewModel.Owner}/{CommonRepoViewModel.Name}", $"Settings • {CommonRepoViewModel.Owner}/{CommonRepoViewModel.Name}", $"https://github.com/{CommonRepoViewModel.Owner}/{CommonRepoViewModel.Name}/settings", "\uEA52", true);
+        }
     }
 }

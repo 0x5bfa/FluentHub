@@ -1,16 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
+﻿using FluentHub.Services;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Toolkit.Uwp;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub.Views.Users
@@ -19,12 +10,26 @@ namespace FluentHub.Views.Users
     {
         public FollowersPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
         }
+
+        private readonly INavigationService navigationService;
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            await ViewModel.GetFollowersList(e.Parameter as string);
+            string login = e.Parameter as string;
+
+            //Helpers.NavigationHelpers.AddPageInfoToTabItem($"Followers", $"{login}'s followers", $"https://github.com/{login}?tab=followers", "\uE737");
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = $"Followers".GetLocalized();
+            currentItem.Description = $"{login}'s followers";
+            currentItem.Url = $"https://gihtub.com/{login}?tab=followers";
+            currentItem.Icon = new Microsoft.UI.Xaml.Controls.FontIconSource
+            {
+                Glyph = "\uE737"
+            };
+            await ViewModel.GetFollowersList(login);
 
             base.OnNavigatedTo(e);
         }

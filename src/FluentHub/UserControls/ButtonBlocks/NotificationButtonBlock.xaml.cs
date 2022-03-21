@@ -1,5 +1,4 @@
-﻿using FluentHub.Models.Items;
-using FluentHub.ViewModels.UserControls.ButtonBlocks;
+﻿using FluentHub.ViewModels.UserControls.ButtonBlocks;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -22,7 +21,7 @@ namespace FluentHub.UserControls.ButtonBlocks
         #region dprops
         public static readonly DependencyProperty ViewModelProperty
             = DependencyProperty.Register(
-                  nameof(NotificationListItem),
+                  nameof(global::Octokit.Notification),
                   typeof(NotificationButtonBlockViewModel),
                   typeof(NotificationButtonBlock),
                   new PropertyMetadata(null)
@@ -42,6 +41,11 @@ namespace FluentHub.UserControls.ButtonBlocks
         public NotificationButtonBlock()
         {
             this.InitializeComponent();
+        }
+
+        private async void OnUserControlLoaded(object sender, RoutedEventArgs e)
+        {
+            await ViewModel.SetStateContents();
         }
     }
 }

@@ -1,19 +1,13 @@
 ﻿using FluentHub.Models.Items;
+using FluentHub.Services;
 using FluentHub.ViewModels.Repositories;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
+using muxc = Microsoft.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using FluentHub.Services.Navigation;
 
 namespace FluentHub.Views.Repositories.Layouts
 {
@@ -24,11 +18,34 @@ namespace FluentHub.Views.Repositories.Layouts
         public DetailsLayoutView()
         {
             this.InitializeComponent();
+            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
         }
+
+        private readonly INavigationService navigationService;
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             CommonRepoViewModel = e.Parameter as CommonRepoViewModel;
+
+            // CommonRepoViewModel.Path.Remove() means remove the slash
+            /*
+            Helpers.NavigationHelpers.AddPageInfoToTabItem($"{CommonRepoViewModel.Path.Remove(0, 1)} at {CommonRepoViewModel.BranchName} • {CommonRepoViewModel.Owner}/{CommonRepoViewModel.Name}",
+                                                           "{org}'s overview",
+                                                           $"https://github.com/{CommonRepoViewModel.Owner}/{CommonRepoViewModel.Name}/tree/{CommonRepoViewModel.BranchName}{CommonRepoViewModel.Path}",
+                                                           "\uEA52",
+                                                           true);
+            */
+
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = $"{CommonRepoViewModel.Path.Remove(0, 1)} at {CommonRepoViewModel.BranchName} • {CommonRepoViewModel.Owner}/{CommonRepoViewModel.Name}";
+            currentItem.Description = "{org}'s overview";
+            currentItem.Url = $"https://github.com/{CommonRepoViewModel.Owner}/{CommonRepoViewModel.Name}/tree/{CommonRepoViewModel.BranchName}{CommonRepoViewModel.Path}";
+            currentItem.Icon = new muxc.FontIconSource
+            {
+                Glyph = "\uEA52",
+                FontFamily = new Windows.UI.Xaml.Media.FontFamily("/Assets/Glyphs/Octions.ttf#octions")
+            };
+
             ViewModel.CommonRepoViewModel = CommonRepoViewModel;
         }
 
@@ -76,8 +93,8 @@ namespace FluentHub.Views.Repositories.Layouts
             {
                 commonRepoViewModel.Path = CommonRepoViewModel.Path + tagItem[1] + "/";
             }
-
-            App.MainViewModel.RepoMainFrame.Navigate(typeof(CodePage), commonRepoViewModel);
+            navigationService.Navigate<CodePage>(commonRepoViewModel);
+            //App.MainViewModel.RepoMainFrame.Navigate(typeof(CodePage), commonRepoViewModel);
         }
     }
 }

@@ -26,7 +26,7 @@
             <ColumnDefinition Width="Auto" />
         </Grid.ColumnDefinitions>
         <ComboBox IsEditable="False" IsEnabled="False">
-            <ComboBoxItem Content="main" IsSelected="True" />
+            <ComboBoxItem Content="{x:Bind ViewModel.CommonRepoViewModel.BranchName, Mode=OneWay}" IsSelected="True" />
         </ComboBox>
         <Button
             Grid.Column="1"
@@ -96,9 +96,7 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-
                     <TextBlock Text="Clone" />
-
                     <muxc:AnimatedIcon
                         x:Name="ChevronIcon"
                         Grid.Column="1"

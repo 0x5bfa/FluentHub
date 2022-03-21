@@ -1,5 +1,5 @@
 ﻿using Humanizer;
-using FluentHub.OctokitEx.Queries.User;
+using FluentHub.Octokit.Queries.Users;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
 using System;
 using System.Collections.Generic;
@@ -23,8 +23,8 @@ namespace FluentHub.ViewModels.Users
         {
             IsActive = true;
 
-            EnumDiscussionOverviewsQueries queries = new();
-            var items = await queries.Get(login);
+            DiscussionQueries queries = new();
+            var items = await queries.GetOverviewAll(login);
 
             foreach (var item in items)
             {
