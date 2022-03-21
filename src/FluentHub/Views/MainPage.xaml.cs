@@ -1,6 +1,5 @@
 ﻿using FluentHub.Helpers;
-using FluentHub.Views.Home;
-﻿using FluentHub.Services;
+using FluentHub.Services;
 using FluentHub.Views.Home;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -17,6 +16,7 @@ namespace FluentHub.Views
         {
             InitializeComponent();
             CoreApplication.GetCurrentView().TitleBar.LayoutMetricsChanged += TitleBar_LayoutMetricsChanged;
+            navigationService = App.Current.Services.GetService<INavigationService>();
         }
         private readonly INavigationService navigationService;
 
@@ -26,13 +26,12 @@ namespace FluentHub.Views
             navigationService.Navigate<UserHomePage>();
 
             // Configure Jumplist
-            await JumpListHelper.ConfigureDefaultJumpListAsync();                    
+            await JumpListHelper.ConfigureDefaultJumpListAsync();
         }
 
         private void TitleBar_LayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
         {
-            CoreApplication.GetCurrentView().TitleBar.LayoutMetricsChanged += OnTitleBarLayoutMetricsChanged;
-            navigationService = App.Current.Services.GetService<INavigationService>();
+            CoreApplication.GetCurrentView().TitleBar.LayoutMetricsChanged += OnTitleBarLayoutMetricsChanged;            
         }
 
         private void OnTitleBarLayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
