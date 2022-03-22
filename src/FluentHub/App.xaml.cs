@@ -2,7 +2,6 @@
 using FluentHub.Octokit.Authorization;
 using FluentHub.Octokit.Queries.Users;
 using FluentHub.Services;
-using FluentHub.Services.Auth;
 using FluentHub.Services.Navigation;
 using FluentHub.ViewModels;
 using FluentHub.Views;
