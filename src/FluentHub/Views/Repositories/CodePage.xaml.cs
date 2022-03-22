@@ -1,5 +1,4 @@
 ﻿using Humanizer;
-using FluentHub.Services.Octokit;
 using Octokit;
 using System;
 using System.Collections.Generic;

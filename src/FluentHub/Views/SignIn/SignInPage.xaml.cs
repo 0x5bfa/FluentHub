@@ -1,4 +1,5 @@
-﻿using FluentHub.Services.Auth;
+﻿using FluentHub.Octokit.Authorization;
+using FluentHub.Services.Auth;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -32,7 +33,7 @@ namespace FluentHub.Views.SignIn
 
         private async void ContinueButton_Click(object sender, RoutedEventArgs e)
         {
-            RequestAuthorization request = new RequestAuthorization();
+            AuthorizationService request = new();
             _ = await request.RequestGitHubIdentity();
 
             App.Settings.SetupProgress = true;

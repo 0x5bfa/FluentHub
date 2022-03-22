@@ -1,4 +1,5 @@
 ﻿using FluentHub.Helpers;
+using FluentHub.Octokit.Authorization;
 using FluentHub.Octokit.Queries.Users;
 using FluentHub.Services;
 using FluentHub.Services.Auth;
@@ -175,13 +176,18 @@ namespace FluentHub
 
             if (code != null)
             {
-                RequestAuthorization auth = new RequestAuthorization();
+                AuthorizationService authService = new();
 
                 // Request token with code
-                bool status = await auth.RequestOAuthToken(code);
+                bool status = await authService.RequestOAuthToken(code);
+
+                // temp: copy credentials to main thread app (will be removed)
+                App.Client.Credentials = new global::Octokit.Credentials(Settings.AccessToken);
 
                 if (status)
                 {
+                    App.Settings.SetupCompleted = true;
+
                     User user = await Client.User.Current();
                     SignedInUserName = user.Login;
                     Settings.AccountsNamesJoinedSlashes += ("/" + user.Login);

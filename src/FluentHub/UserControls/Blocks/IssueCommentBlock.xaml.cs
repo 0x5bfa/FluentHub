@@ -1,5 +1,4 @@
 ﻿using FluentHub.Helpers;
-using FluentHub.Services.Octokit;
 using FluentHub.ViewModels.UserControls.Blocks;
 using System;
 using System.Collections.Generic;
