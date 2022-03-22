@@ -1,5 +1,4 @@
 ﻿using FluentHub.Octokit.Authorization;
-using FluentHub.Services.Auth;
 using System;
 using System.Collections.Generic;
 using System.IO;
