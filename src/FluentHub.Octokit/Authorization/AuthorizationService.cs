@@ -1,8 +1,5 @@
 ﻿using Serilog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.Data.Xml.Dom;
 using Windows.Storage;
@@ -15,11 +12,11 @@ namespace FluentHub.Octokit.Authorization
         private string ClientId { get; set; }
         private string ClientSecret { get; set; }
 
-        public async Task<bool> RequestGitHubIdentity()
+        public async Task<bool> RequestGitHubIdentityAsync()
         {
             try
             {
-                await GetAppCredentials();
+                await LoadAppCredentialsAsync();
 
                 global::Octokit.OauthLoginRequest request = new(ClientId)
                 {
@@ -57,11 +54,11 @@ namespace FluentHub.Octokit.Authorization
             }
         }
 
-        public async Task<bool> RequestOAuthToken(string code)
+        public async Task<bool> RequestOAuthTokenAsync(string code)
         {
             try
             {
-                await GetAppCredentials();
+                await LoadAppCredentialsAsync();
 
                 var request = new global::Octokit.OauthTokenRequest(ClientId, ClientSecret, code);
                 var token = await App.Client.Oauth.CreateAccessToken(request);
@@ -88,7 +85,7 @@ namespace FluentHub.Octokit.Authorization
             }
         }
 
-        private async Task GetAppCredentials()
+        private async Task LoadAppCredentialsAsync()
         {
             var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///AppCredentials.config"));
 

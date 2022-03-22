@@ -81,7 +81,7 @@ namespace FluentHub.UserControls.Blocks
 
             string missedPath = "https://raw.githubusercontent.com/" + repo.Owner.Login + "/" + repo.Name + "/" + repo.DefaultBranch + "/";
 
-            string html = await markdown.GetHtml(readme.Content, missedPath, ThemeHelper.ActualTheme.ToString().ToLower());
+            string html = await markdown.GetHtmlAsync(readme.Content, missedPath, ThemeHelper.ActualTheme.ToString().ToLower());
 
             ReadmeWebView.NavigateToString(html);
 

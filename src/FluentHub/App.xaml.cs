@@ -178,7 +178,7 @@ namespace FluentHub
                 AuthorizationService authService = new();
 
                 // Request token with code
-                bool status = await authService.RequestOAuthToken(code);
+                bool status = await authService.RequestOAuthTokenAsync(code);
 
                 // temp: copy credentials to main thread app (will be removed)
                 App.Client.Credentials = new global::Octokit.Credentials(Settings.AccessToken);

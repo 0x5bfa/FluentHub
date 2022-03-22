@@ -1,7 +1,5 @@
 ﻿using Serilog;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -18,7 +16,7 @@ namespace FluentHub.Octokit.Queries
         /// <param name="markdown">Raw markdown string</param>
         /// <param name="missedPath">Correct the relative paths</param>
         /// <param name="theme">"light": Light theme, "dark": Dark theme</param>
-        public async Task<string> GetHtml(string markdown, string missedPath, string theme)
+        public async Task<string> GetHtmlAsync(string markdown, string missedPath, string theme)
         {
             if (string.IsNullOrEmpty(markdown)) return null;
 
