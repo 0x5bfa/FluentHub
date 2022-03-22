@@ -152,8 +152,6 @@
       <DependentUpon>CommitActivityBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\TabViewControl\TabItem.cs" />
-    <Compile Include="Services\Auth\AppCredentials.cs" />
-    <Compile Include="Services\Auth\RequestAuthorization.cs" />
     <Compile Include="UserControls\Blocks\ActivityBlock.xaml.cs">
       <DependentUpon>ActivityBlock.xaml</DependentUpon>
     </Compile>
