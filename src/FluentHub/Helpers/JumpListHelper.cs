@@ -48,7 +48,7 @@ namespace FluentHub.Helpers
             if (JumpList.IsSupported())
             {
                 var jumpList = await JumpList.LoadCurrentAsync();
-                var iconPrefix = "ms-appx:///Assets/JumpListIcons";
+                var iconPrefix = "ms-appx:///Assets/Icons";
                 var textPrefix = "ms-resource:///Resources";
                 var preferredIndex = 0;
                 AddOrInsert(jumpList, CreateJumpListItem("Profile",

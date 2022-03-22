@@ -29,7 +29,7 @@ namespace FluentHub.Views.Users
             currentItem.Url = $"https://github.com/{login}?tab=stars";
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/JumpListIcons/Starred.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Starred.png"))
             };
 
             ViewModel.GetUserStarredRepos(login);

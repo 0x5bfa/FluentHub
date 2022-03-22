@@ -29,7 +29,7 @@ namespace FluentHub.Views.Users
             currentItem.Url = $"https://github.com/{login}?tab=repositories";
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/JumpListIcons/Discussions.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.png"))
             };
 
             await ViewModel.GetUserRepos(login);
