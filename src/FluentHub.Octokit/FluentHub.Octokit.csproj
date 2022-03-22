@@ -133,6 +133,7 @@
     <Compile Include="Models\Organization.cs" />
     <Compile Include="Models\PullRequest.cs" />
     <Compile Include="Models\UserOverviewItem.cs" />
+    <Compile Include="Queries\MarkdownQueries.cs" />
     <Compile Include="Queries\Organizations\RepositoryQueries.cs" />
     <Compile Include="Queries\Organizations\OrganizationQueries.cs" />
     <Compile Include="Queries\Repositories\BlobQueries.cs" />

@@ -16,6 +16,7 @@ namespace FluentHub.Octokit
         public static Connection Connection { get; private set; }
         public static global::Octokit.GitHubClient Client { get; private set; }
             = new global::Octokit.GitHubClient(new global::Octokit.ProductHeaderValue("FluentHub"));
+        public static string AccessToken { get; private set; }
 
         public App()
         {
@@ -36,20 +37,9 @@ namespace FluentHub.Octokit
             {
                 ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
 
-                if (localSettings.Values["AccessToken"] == null)
-                {
-                    localSettings.Values["AccessToken"] = "";
-                }
+                string value = localSettings.Values["AccessToken"] as string;
 
-                object value = localSettings.Values["AccessToken"];
-
-                // Check type mismatch
-                if (!(value is string))
-                {
-                    throw new ArgumentException("Type mismatch for \"" + "AccessToken" + "\" in local store. Got " + value.GetType());
-                }
-
-                return (string)value;
+                return AccessToken = value;
             }
             catch (Exception ex)
             {
