@@ -22,9 +22,6 @@
     </Page.Resources>
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
         <muxc:NavigationView
             x:Name="HomeNavView"
             AlwaysShowHeader="True"

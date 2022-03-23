@@ -43,7 +43,6 @@
                         CornerRadius="{StaticResource ControlCornerRadius}"
                         Header="{x:Bind NavigationHistory.CurrentItem.Header, Mode=OneWay}"
                         IconSource="{x:Bind NavigationHistory.CurrentItem.Icon, Mode=OneWay}"
-                        Style="{ThemeResource TabViewItemStyle}"
                         ToolTipService.ToolTip="{x:Bind NavigationHistory.CurrentItem.Description, Mode=OneWay}" />
                 </DataTemplate>
             </muxc:TabView.TabItemTemplate>
@@ -51,14 +50,15 @@
         <Button
             Grid.Column="1"
             Width="32"
-            Height="32"
+            Height="28"
+            Margin="0,0,0,2"
             Padding="8"
             HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
             Background="Transparent"
-            BorderThickness="0"
+            BorderBrush="Transparent"
             Click="AddNewTabButton_Click"
             IsEnabled="True"
-            Style="{StaticResource ClearButtonStyle}"
             ToolTipService.ToolTip="New tab">
             <Button.Content>
                 <FontIcon FontSize="12" Glyph="&#xE710;" />
