@@ -42,7 +42,7 @@ namespace FluentHub.UserControls.Blocks
 
         private async void OnUserControlLoaded(object sender, RoutedEventArgs e)
         {
-            await ViewModel?.GetPayloadContents();
+            await ViewModel?.GetPayloadContentsAsync();
         }
     }
 }

@@ -41,7 +41,7 @@ namespace FluentHub.ViewModels.UserControls.Blocks
 
             var repo = await App.Client.Repository.Get(RepositoryId);
 
-            var html = await markdown.GetHtml(IssueComment.Body, repo.HtmlUrl, ThemeHelper.ActualTheme.ToString().ToLower());
+            var html = await markdown.GetHtmlAsync(IssueComment.Body, repo.HtmlUrl, ThemeHelper.ActualTheme.ToString().ToLower());
 
             webView.NavigateToString(html);
         }
