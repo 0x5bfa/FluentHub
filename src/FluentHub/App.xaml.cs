@@ -54,23 +54,6 @@ namespace FluentHub
 
             Services = ConfigureServices();
 
-            if (Settings.SetupCompleted == true)
-            {
-                if (Settings.Get("AccessToken", "") != "")
-                {
-                    Client.Credentials = new Credentials(Settings.Get("AccessToken", ""));
-
-                    _ = GetViewerLoginName();
-                }
-                else
-                {
-                    Settings.SetupProgress = false;
-                    Settings.SetupCompleted = false;
-
-                    rootFrame.Navigate(typeof(IntroPage));
-                }
-            }
-
             IntializeLogger();
             Log.Information("FluentHub has been launched.");
         }
@@ -103,7 +86,7 @@ namespace FluentHub
 
         private void IntializeLogger()
         {
-            string logFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "Logs/Log.txt");
+            string logFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "FluentHub.Logs/Log.txt");
 
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
@@ -114,7 +97,7 @@ namespace FluentHub
             Log.Debug("Initialized logger in FluentHub.");
         }
 
-        protected override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
             CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
             ApplicationView.GetForCurrentView().TitleBar.ButtonBackgroundColor = Colors.Transparent;
@@ -140,11 +123,17 @@ namespace FluentHub
                 {
                     if (Settings.SetupCompleted == true)
                     {
-                        Settings.AccountsNamesJoinedSlashes += ("/" + SignedInUserName);
+                        // temp: copy credentials to main thread app (will be removed)
+                        Client.Credentials = new Credentials(Settings.AccessToken);
+                        await GetViewerLoginName();
+
                         rootFrame.Navigate(typeof(MainPage), e.Arguments);
                     }
                     else
                     {
+                        Settings.SetupProgress = false;
+                        Settings.SetupCompleted = false;
+
                         rootFrame.Navigate(typeof(IntroPage), e.Arguments);
                     }
                 }
@@ -176,8 +165,6 @@ namespace FluentHub
             if (code != null)
             {
                 AuthorizationService authService = new();
-
-                // Request token with code
                 bool status = await authService.RequestOAuthTokenAsync(code);
 
                 // temp: copy credentials to main thread app (will be removed)
@@ -186,10 +173,7 @@ namespace FluentHub
                 if (status)
                 {
                     App.Settings.SetupCompleted = true;
-
-                    User user = await Client.User.Current();
-                    SignedInUserName = user.Login;
-                    Settings.AccountsNamesJoinedSlashes += ("/" + user.Login);
+                    await GetViewerLoginName();
 
                     rootFrame.Navigate(typeof(MainPage));
                 }

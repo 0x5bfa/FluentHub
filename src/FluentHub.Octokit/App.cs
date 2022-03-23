@@ -12,7 +12,7 @@ namespace FluentHub.Octokit
 {
     internal class App
     {
-        private static ProductHeaderValue productInformation { get; set; } = new ProductHeaderValue("FluentHub", "1.0.0.0");
+        private static ProductHeaderValue productInformation { get; set; } = new ProductHeaderValue("FluentHub");
         public static Connection Connection { get; private set; }
         public static global::Octokit.GitHubClient Client { get; private set; }
             = new global::Octokit.GitHubClient(new global::Octokit.ProductHeaderValue("FluentHub"));
@@ -50,7 +50,7 @@ namespace FluentHub.Octokit
 
         private void IntializeLogger()
         {
-            string logFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "Logs/Log.txt");
+            string logFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "FluentHub.Octokit.Logs/Log.txt");
 
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
