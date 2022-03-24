@@ -40,7 +40,6 @@
                 <DataTemplate x:DataType="item:TabItem">
                     <muxc:TabViewItem
                         Padding="2,0,2,2"
-                        CornerRadius="{StaticResource ControlCornerRadius}"
                         Header="{x:Bind NavigationHistory.CurrentItem.Header, Mode=OneWay}"
                         IconSource="{x:Bind NavigationHistory.CurrentItem.Icon, Mode=OneWay}"
                         ToolTipService.ToolTip="{x:Bind NavigationHistory.CurrentItem.Description, Mode=OneWay}" />

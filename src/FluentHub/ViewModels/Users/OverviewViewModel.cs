@@ -1,4 +1,5 @@
 ﻿using FluentHub.Octokit.Queries.Users;
+using FluentHub.ViewModels.UserControls.Blocks;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
 using Serilog;
 using System;
@@ -19,8 +20,11 @@ namespace FluentHub.ViewModels.Users
         private long userSpecialReadmeRepoId;
         public long UserSpecialReadmeRepoId { get => userSpecialReadmeRepoId; set => SetProperty(ref userSpecialReadmeRepoId, value); }
 
-        private bool hasUserSpecialReadmeRepoId;
-        public bool HasUserSpecialReadmeRepoId { get => hasUserSpecialReadmeRepoId; set => SetProperty(ref hasUserSpecialReadmeRepoId, value); }
+        private bool hasUserSpecialReadmeRepo;
+        public bool HasUserSpecialReadmeRepo { get => hasUserSpecialReadmeRepo; set => SetProperty(ref hasUserSpecialReadmeRepo, value); }
+
+        private ReadmeContentBlockViewModel readmeBlockViewModel;
+        public ReadmeContentBlockViewModel ReadmeBlockViewModel { get => readmeBlockViewModel; set => SetProperty(ref readmeBlockViewModel, value); }
 
         private bool isActive;
         public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
@@ -42,22 +46,11 @@ namespace FluentHub.ViewModels.Users
                 PinnedRepos.Add(viewModel);
             }
 
-            IsActive = false;
-        }
+            ReadmeBlockViewModel = new();
+            ReadmeBlockViewModel.Owner = login;
+            ReadmeBlockViewModel.RepoName = login;
 
-        public async Task GetSpecialRepoId(string login)
-        {
-            try
-            {
-                var repo = await App.Client.Repository.Get(login, login);
-                UserSpecialReadmeRepoId = repo.Id;
-                HasUserSpecialReadmeRepoId = true;
-            }
-            catch
-            {
-                HasUserSpecialReadmeRepoId = false;
-                return;
-            }
+            IsActive = false;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
