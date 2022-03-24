@@ -45,7 +45,6 @@ namespace FluentHub.UserControls.ButtonBlocks
             string param = repo.Id + "/" + ViewModel.IssueItem.Number;
             navigationService.Navigate<IssuePage>(param);
             //App.MainViewModel.RepoMainFrame.Navigate(typeof(IssuePage), param);
-
         }
     }
 }

@@ -12,15 +12,23 @@ namespace FluentHub.Octokit
 {
     internal class App
     {
-        private static ProductHeaderValue productInformation { get; set; }
+        private static ProductHeaderValue productInformation { get; set; } = new ProductHeaderValue("FluentHub");
         public static Connection Connection { get; private set; }
+        public static global::Octokit.GitHubClient Client { get; private set; }
+            = new global::Octokit.GitHubClient(new global::Octokit.ProductHeaderValue("FluentHub"));
+        public static string AccessToken { get; private set; }
 
         public App()
         {
-            IntializeLogger();
+            if (Log.Logger == null)
+            {
+                IntializeLogger();
+            }
 
-            productInformation = new ProductHeaderValue("FluentHub", "1.0.0.0");
-            Connection = new Connection(productInformation, GetTokenFromApp());
+            if (Connection == null)
+            {
+                Connection= new Connection(productInformation, GetTokenFromApp());
+            }
         }
 
         public string GetTokenFromApp()
@@ -29,20 +37,9 @@ namespace FluentHub.Octokit
             {
                 ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
 
-                if (localSettings.Values["AccessToken"] == null)
-                {
-                    localSettings.Values["AccessToken"] = "";
-                }
+                string value = localSettings.Values["AccessToken"] as string;
 
-                object value = localSettings.Values["AccessToken"];
-
-                // Check type mismatch
-                if (!(value is string))
-                {
-                    throw new ArgumentException("Type mismatch for \"" + "AccessToken" + "\" in local store. Got " + value.GetType());
-                }
-
-                return (string)value;
+                return AccessToken = value;
             }
             catch (Exception ex)
             {
@@ -53,7 +50,7 @@ namespace FluentHub.Octokit
 
         private void IntializeLogger()
         {
-            string logFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "Logs/Log.txt");
+            string logFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "FluentHub.Octokit.Logs/Log.txt");
 
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()

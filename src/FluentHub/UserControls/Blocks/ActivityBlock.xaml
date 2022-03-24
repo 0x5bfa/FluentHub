@@ -2,6 +2,7 @@
     x:Class="FluentHub.UserControls.Blocks.ActivityBlock"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:b="using:FluentHub.UserControls.Blocks"
     xmlns:bb="using:FluentHub.UserControls.ButtonBlocks"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:FluentHub.UserControls.Blocks"
@@ -9,6 +10,7 @@
     xmlns:vm="using:FluentHub.ViewModels.UserControls.Blocks"
     d:DesignHeight="300"
     d:DesignWidth="400"
+    Loaded="OnUserControlLoaded"
     mc:Ignorable="d">
 
     <UserControl.DataContext>
@@ -47,35 +49,19 @@
                 <Image
                     Width="28"
                     Height="28"
-                    Source="{x:Bind ViewModel.FullPayload.Actor.AvatarUrl, Mode=OneWay}" />
+                    Source="{x:Bind ViewModel.Payload.Actor.AvatarUrl, Mode=OneWay}" />
             </Border>
             <Button Style="{StaticResource LinkLikeButtonStyle}">
                 <TextBlock
                     VerticalAlignment="Center"
                     Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="{x:Bind ViewModel.FullPayload.Actor.Login, Mode=OneWay}" />
+                    Text="{x:Bind ViewModel.Payload.Actor.Login, Mode=OneWay}" />
             </Button>
             <StackPanel Orientation="Horizontal" Spacing="4">
                 <StackPanel
-                    x:Name="PushEventMessageBlock"
-                    VerticalAlignment="Center"
-                    x:Load="{x:Bind ViewModel.IsPushEvent, Mode=OneWay}"
-                    Orientation="Horizontal"
-                    Spacing="4">
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Style="{StaticResource BodyTextBlockStyle}"
-                        Text="pushed to" />
-                    <Button
-                        Content="{x:Bind ViewModel.FullPayload.Repo.Name, Mode=OneWay}"
-                        FontWeight="SemiBold"
-                        IsEnabled="False"
-                        Style="{StaticResource LinkLikeButtonStyle}" />
-                </StackPanel>
-                <StackPanel
                     x:Name="ForkEventMessageBlock"
                     VerticalAlignment="Center"
-                    x:Load="{x:Bind ViewModel.IsForkEvent, Mode=OneWay}"
+                    x:Load="{x:Bind ViewModel.Payload.IsForkEvent, Mode=OneWay}"
                     Orientation="Horizontal"
                     Spacing="4">
                     <TextBlock
@@ -83,15 +69,22 @@
                         Style="{StaticResource BodyTextBlockStyle}"
                         Text="forked" />
                     <Button
-                        Content="{x:Bind ViewModel.FullPayload.Repo.Name, Mode=OneWay}"
+                        Content="{x:Bind ViewModel.Payload.ForkEventPayload.Forkee.FullName, Mode=OneWay}"
                         FontWeight="SemiBold"
-                        IsEnabled="False"
+                        Style="{StaticResource LinkLikeButtonStyle}" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Text="from" />
+                    <Button
+                        Content="{x:Bind ViewModel.Payload.Repository.Name, Mode=OneWay}"
+                        FontWeight="SemiBold"
                         Style="{StaticResource LinkLikeButtonStyle}" />
                 </StackPanel>
                 <StackPanel
                     x:Name="WatchEventMessageBlock"
                     VerticalAlignment="Center"
-                    x:Load="{x:Bind ViewModel.IsWatchEvent, Mode=OneWay}"
+                    x:Load="{x:Bind ViewModel.Payload.IsWatchEvent, Mode=OneWay}"
                     Orientation="Horizontal"
                     Spacing="4">
                     <TextBlock
@@ -99,9 +92,47 @@
                         Style="{StaticResource BodyTextBlockStyle}"
                         Text="starred" />
                     <Button
-                        Content="{x:Bind ViewModel.FullPayload.Repo.Name, Mode=OneWay}"
+                        Content="{x:Bind ViewModel.Payload.Repository.Name, Mode=OneWay}"
+                        FontWeight="SemiBold"
+                        Style="{StaticResource LinkLikeButtonStyle}" />
+                </StackPanel>
+                <StackPanel
+                    x:Name="PushEventMessageBlock"
+                    VerticalAlignment="Center"
+                    x:Load="{x:Bind ViewModel.Payload.IsPushEvent, Mode=OneWay}"
+                    Orientation="Horizontal"
+                    Spacing="4">
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Text="pushed to" />
+                    <Button
+                        Content="{x:Bind ViewModel.Payload.Repository.Name, Mode=OneWay}"
+                        FontWeight="SemiBold"
+                        Style="{StaticResource LinkLikeButtonStyle}" />
+                </StackPanel>
+                <StackPanel
+                    x:Name="ReleaseEventMessageBlock"
+                    VerticalAlignment="Center"
+                    x:Load="{x:Bind ViewModel.Payload.IsReleaseEvent, Mode=OneWay}"
+                    Orientation="Horizontal"
+                    Spacing="4">
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Text="released" />
+                    <Button
+                        Content="{x:Bind ViewModel.Payload.ReleaseEventPayload.Release.Name, Mode=OneWay}"
                         FontWeight="SemiBold"
                         IsEnabled="False"
+                        Style="{StaticResource LinkLikeButtonStyle}" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Text="of" />
+                    <Button
+                        Content="{x:Bind ViewModel.Payload.Repository.Name, Mode=OneWay}"
+                        FontWeight="SemiBold"
                         Style="{StaticResource LinkLikeButtonStyle}" />
                 </StackPanel>
                 <TextBlock
@@ -112,15 +143,20 @@
             </StackPanel>
         </StackPanel>
         <Grid Grid.Row="1" Margin="32,8,0,8">
-            <Button Height="32" HorizontalAlignment="Stretch" />
-            <!--<bb:RepoButtonBlock
-                x:Name="ForkedRepoButtonBlock"
-                x:Load="{x:Bind ViewModel.IsForkEvent, Mode=OneWay}"
-                ViewModel="{x:Bind ViewModel.RepoButtonBlockViewModel, Mode=OneWay}" />
             <bb:RepoButtonBlock
-                x:Name="WatchedRepoButtonBlock"
-                x:Load="{x:Bind ViewModel.IsWatchEvent, Mode=OneWay}"
-                ViewModel="{x:Bind ViewModel.RepoButtonBlockViewModel, Mode=OneWay}" />-->
+                x:Name="ForkedRepositoryBlock"
+                VerticalAlignment="Stretch"
+                x:Load="{x:Bind ViewModel.Payload.IsForkEvent, Mode=OneWay}"
+                ViewModel="{x:Bind ViewModel.RepoBlockViewModel, Mode=OneWay}" />
+            <bb:RepoButtonBlock
+                x:Name="WatchedRepositoryBlock"
+                VerticalAlignment="Stretch"
+                x:Load="{x:Bind ViewModel.Payload.IsWatchEvent, Mode=OneWay}"
+                ViewModel="{x:Bind ViewModel.RepoBlockViewModel, Mode=OneWay}" />
+            <b:CommitActivityBlock
+                x:Name="PushedCommitBlock"
+                x:Load="{x:Bind ViewModel.Payload.IsPushEvent}"
+                ViewModel="{x:Bind ViewModel.CommitBlockViewModel}" />
         </Grid>
         <MenuFlyoutSeparator Grid.Row="2" Margin="0,8,0,0" />
     </Grid>

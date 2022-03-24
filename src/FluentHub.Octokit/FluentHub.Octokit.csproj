@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" DefaultTargets="Build"
+  xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -123,14 +124,18 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="Authorization\AuthorizationService.cs" />
+    <Compile Include="Models\ApiOptions.cs" />
     <Compile Include="Models\Commit.cs" />
     <Compile Include="Models\Discussion.cs" />
+    <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Issue.cs" />
     <Compile Include="Models\Label.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\Organization.cs" />
     <Compile Include="Models\PullRequest.cs" />
     <Compile Include="Models\UserOverviewItem.cs" />
+    <Compile Include="Queries\MarkdownQueries.cs" />
     <Compile Include="Queries\Organizations\RepositoryQueries.cs" />
     <Compile Include="Queries\Organizations\OrganizationQueries.cs" />
     <Compile Include="Queries\Repositories\BlobQueries.cs" />
@@ -140,6 +145,7 @@
     <Compile Include="Queries\Repositories\RepoHeaderQueries.cs" />
     <Compile Include="Queries\Repositories\RepositoryQueries.cs" />
     <Compile Include="Queries\Users\DiscussionQueries.cs" />
+    <Compile Include="Queries\Users\ActivityQueries.cs" />
     <Compile Include="Queries\Users\IssueQueries.cs" />
     <Compile Include="Queries\Users\NotificationQueries.cs" />
     <Compile Include="Queries\Users\OrganizationQueries.cs" />

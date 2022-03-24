@@ -46,7 +46,6 @@ namespace FluentHub.Views.Repositories.Layouts
                 FontFamily = new Windows.UI.Xaml.Media.FontFamily("/Assets/Glyphs/Octions.ttf#octions")
             };
 
-
             ViewModel.CommonRepoViewModel = CommonRepoViewModel;
         }
 

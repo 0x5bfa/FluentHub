@@ -1,60 +1,54 @@
-﻿using FluentHub.Helpers;
-using FluentHub.Octokit.Queries.Repositories;
-using FluentHub.ViewModels.Repositories;
+﻿using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
-using Octokit;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
 using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.UserControls.Blocks
 {
-    public class ActivityBlockViewModel : INotifyPropertyChanged
+    public class ActivityBlockViewModel : ObservableObject
     {
-        public Activity FullPayload { get; set; }
-
-        private bool isForkEvent;
-        public bool IsForkEvent { get => isForkEvent; set => SetProperty(ref isForkEvent, value); }
-
-        private bool isWatchEvent;
-        public bool IsWatchEvent { get => isWatchEvent; set => SetProperty(ref isWatchEvent, value); }
-
-        private bool isPushEvent;
-        public bool IsPushEvent { get => isPushEvent; set => SetProperty(ref isPushEvent, value); }
+        private Octokit.Models.Activity payload;
+        public Octokit.Models.Activity Payload { get => payload; set => SetProperty(ref payload, value); }
 
         private string updatedAtHumanized;
         public string UpdatedAtHumanized { get => updatedAtHumanized; set => SetProperty(ref updatedAtHumanized, value); }
 
-        public RepoButtonBlockViewModel RepoButtonBlockViewModel { get; set; } = new();
+        private RepoButtonBlockViewModel repoBlockViewModel;
+        public RepoButtonBlockViewModel RepoBlockViewModel { get => repoBlockViewModel; set => SetProperty(ref repoBlockViewModel, value); }
 
-        public UserButtonBlockViewModel UserButtonBlockViewModel { get; set; } = new();
+        private UserButtonBlockViewModel userBlockViewModel;
+        public UserButtonBlockViewModel UserBlockViewModel { get => userBlockViewModel; set => SetProperty(ref userBlockViewModel, value); }
 
-        public async Task GetPayloadContents()
+        private CommitActivityBlockViewModel commitBlockViewModel;
+        public CommitActivityBlockViewModel CommitBlockViewModel { get => commitBlockViewModel; set => SetProperty(ref commitBlockViewModel, value); }
+
+        public async Task GetPayloadContentsAsync()
         {
-            if (isForkEvent || isWatchEvent)
+            if (Payload.IsForkEvent)
             {
-                RepoButtonBlockViewModel.DisplayDetails = false;
+                RepoBlockViewModel = new();
+                RepoBlockViewModel.DisplayDetails = false;
+                RepoBlockViewModel.DisplayStarButton = true;
+
                 RepositoryQueries queries = new();
-                var response = await queries.GetOverview(FullPayload.Repo.Name.Split("/")[0], FullPayload.Repo.Name.Split("/")[1]);
-                RepoButtonBlockViewModel.Item = response;
+                var repo = await queries.GetOverview(Payload.Repository.Name.Split("/")[1], Payload.Repository.Name.Split("/")[0]);
+                RepoBlockViewModel.Item = repo;
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
-        {
-            if (!Equals(field, newValue))
+            else if (Payload.IsWatchEvent)
             {
-                field = newValue;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-                return true;
-            }
+                RepoBlockViewModel = new();
+                RepoBlockViewModel.DisplayDetails = false;
+                RepoBlockViewModel.DisplayStarButton = true;
 
-            return false;
+                RepositoryQueries queries = new();
+                var repo = await queries.GetOverview(Payload.Repository.Name.Split("/")[1], Payload.Repository.Name.Split("/")[0]);
+                RepoBlockViewModel.Item = repo;
+            }
+            else if (Payload.IsPushEvent)
+            {
+                CommitBlockViewModel = new();
+                CommitBlockViewModel.Ssh = Payload.PushEventPayload.Head;
+            }
         }
     }
 }

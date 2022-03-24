@@ -16,18 +16,14 @@ using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub.UserControls.Blocks
 {
-    public sealed partial class ActivityBlock : UserControl
+    public sealed partial class CommitActivityBlock : UserControl
     {
-        public static readonly DependencyProperty ViewModelProperty =
-       DependencyProperty.Register(
-           nameof(ViewModel),
-           typeof(ActivityBlockViewModel),
-           typeof(ActivityBlock),
-           new PropertyMetadata(0));
+        public static readonly DependencyProperty ViewModelProperty
+            = DependencyProperty.Register(nameof(ViewModel), typeof(CommitActivityBlockViewModel), typeof(CommitActivityBlock), new PropertyMetadata(0));
 
-        public ActivityBlockViewModel ViewModel
+        public CommitActivityBlockViewModel ViewModel
         {
-            get => (ActivityBlockViewModel)GetValue(ViewModelProperty);
+            get => (CommitActivityBlockViewModel)GetValue(ViewModelProperty);
             set
             {
                 SetValue(ViewModelProperty, value);
@@ -35,14 +31,9 @@ namespace FluentHub.UserControls.Blocks
             }
         }
 
-        public ActivityBlock()
+        public CommitActivityBlock()
         {
             this.InitializeComponent();
-        }
-
-        private async void OnUserControlLoaded(object sender, RoutedEventArgs e)
-        {
-            await ViewModel?.GetPayloadContentsAsync();
         }
     }
 }

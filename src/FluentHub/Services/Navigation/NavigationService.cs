@@ -64,7 +64,7 @@ namespace FluentHub.Services.Navigation
             }
         }
 
-        public void Navigate(Type page, object parameter)
+        public void Navigate(Type page, object parameter = null)
         {
             EnsureConfigured();
 

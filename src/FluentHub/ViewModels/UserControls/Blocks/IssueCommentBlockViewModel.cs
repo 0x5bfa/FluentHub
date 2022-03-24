@@ -1,6 +1,5 @@
 ﻿using FluentHub.Helpers;
 using FluentHub.Models.Items;
-using FluentHub.Services.Octokit;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -38,13 +37,13 @@ namespace FluentHub.ViewModels.UserControls.Blocks
 
         public async Task SetWebViewContentsAsync(WebView webView)
         {
-            Markdown markdown = new();
+            Octokit.Queries.MarkdownQueries markdown = new();
 
             var repo = await App.Client.Repository.Get(RepositoryId);
 
-            var BodyHtml = await markdown.GetHtml(IssueComment.Body, repo.HtmlUrl);
+            var html = await markdown.GetHtmlAsync(IssueComment.Body, repo.HtmlUrl, ThemeHelper.ActualTheme.ToString().ToLower());
 
-            webView.NavigateToString(BodyHtml);
+            webView.NavigateToString(html);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

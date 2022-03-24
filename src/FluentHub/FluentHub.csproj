@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" DefaultTargets="Build"
+  xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -150,15 +151,10 @@
     <Compile Include="Services\Navigation\PageNavigationEntry.cs" />
     <Compile Include="Services\Navigation\NavigationService.cs" />
     <Compile Include="Services\Navigation\TabViewSelectionChangedEventArgs.cs" />
+    <Compile Include="UserControls\Blocks\CommitActivityBlock.xaml.cs">
+      <DependentUpon>CommitActivityBlock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\TabViewControl\TabItem.cs" />
-    <Compile Include="Services\Auth\AppCredentials.cs" />
-    <Compile Include="Services\Auth\RequestAuthorization.cs" />
-    <Compile Include="Services\OctokitEx\DevProgramMember.cs" />
-    <Compile Include="Services\OctokitEx\Markdown.cs" />
-    <Compile Include="Services\OctokitEx\PullCheckStatus.cs" />
-    <Compile Include="Services\OctokitEx\PullReviewStatus.cs" />
-    <Compile Include="Services\OctokitEx\UserPinnedItems.cs" />
-    <Compile Include="Services\OctokitEx\UserStarredItems.cs" />
     <Compile Include="UserControls\Blocks\ActivityBlock.xaml.cs">
       <DependentUpon>ActivityBlock.xaml</DependentUpon>
     </Compile>
@@ -243,6 +239,7 @@
     <Compile Include="ViewModels\SettingsManager.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\ActivityBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Blocks\CommitActivityBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\FileContentBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\FileNavigationBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\DiscussionButtonBlockViewModel.cs" />
@@ -588,6 +585,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\Blocks\CommitActivityBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+
     <Page Include="UserControls\Blocks\FileNavigationBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

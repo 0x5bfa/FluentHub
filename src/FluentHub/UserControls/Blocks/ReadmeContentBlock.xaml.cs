@@ -1,5 +1,4 @@
 ﻿using FluentHub.Helpers;
-using FluentHub.Services.Octokit;
 using Octokit;
 using System;
 using System.Collections.Generic;
@@ -67,7 +66,7 @@ namespace FluentHub.UserControls.Blocks
 
             var repo = await App.Client.Repository.Get(RepositoryId);
 
-            Markdown markdown = new Markdown();
+            Octokit.Queries.MarkdownQueries markdown = new();
 
             Readme readme;
 
@@ -80,11 +79,11 @@ namespace FluentHub.UserControls.Blocks
                 return;
             }
 
-            string missingBasePath = "https://raw.githubusercontent.com/" + repo.Owner.Login + "/" + repo.Name + "/" + repo.DefaultBranch + "/";
+            string missedPath = "https://raw.githubusercontent.com/" + repo.Owner.Login + "/" + repo.Name + "/" + repo.DefaultBranch + "/";
 
-            string result = await markdown.GetHtml(readme.Content, missingBasePath);
+            string html = await markdown.GetHtmlAsync(readme.Content, missedPath, ThemeHelper.ActualTheme.ToString().ToLower());
 
-            ReadmeWebView.NavigateToString(result);
+            ReadmeWebView.NavigateToString(html);
 
             ReadmeBlock.Visibility = Visibility.Visible;
         }

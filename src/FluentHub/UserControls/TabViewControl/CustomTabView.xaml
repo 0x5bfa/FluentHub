@@ -13,20 +13,6 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary>
-                    <MenuFlyout x:Key="TabFlyout" x:Name="TabItemContextMenu">
-                        <MenuFlyoutItem Text="New tab">
-                            <MenuFlyoutItem.Icon>
-                                <FontIcon Glyph="&#xF164;" />
-                            </MenuFlyoutItem.Icon>
-                        </MenuFlyoutItem>
-                        <MenuFlyoutItem Text="Duplicate tab">
-                            <MenuFlyoutItem.Icon>
-                                <FontIcon Glyph="&#xECCD;" />
-                            </MenuFlyoutItem.Icon>
-                        </MenuFlyoutItem>
-                    </MenuFlyout>
-                </ResourceDictionary>
                 <ResourceDictionary Source="/ResourceDictionaries/TabView_themeresources.xaml" />
                 <ResourceDictionary Source="/ResourceDictionaries/TabViewItem_shared.xaml" />
             </ResourceDictionary.MergedDictionaries>
@@ -53,11 +39,9 @@
                 <DataTemplate x:DataType="item:TabItem">
                     <muxc:TabViewItem
                         Padding="2,0,2,2"
-                        ContextFlyout="{StaticResource TabFlyout}"
                         CornerRadius="{StaticResource ControlCornerRadius}"
                         Header="{x:Bind NavigationHistory.CurrentItem.Header, Mode=OneWay}"
                         IconSource="{x:Bind NavigationHistory.CurrentItem.Icon, Mode=OneWay}"
-                        Style="{ThemeResource TabViewItemStyle}"
                         ToolTipService.ToolTip="{x:Bind NavigationHistory.CurrentItem.Description, Mode=OneWay}" />
                 </DataTemplate>
             </muxc:TabView.TabItemTemplate>
@@ -65,9 +49,11 @@
         <Button
             Grid.Column="1"
             Width="32"
-            Height="32"
+            Height="28"
+            Margin="0,0,0,2"
             Padding="8"
             HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
             Background="Transparent"
             BorderThickness="0"
             Click="OnAddNewTabButtonClick"
