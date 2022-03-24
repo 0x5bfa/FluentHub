@@ -1,10 +1,7 @@
 ﻿using FluentHub.Helpers;
 using FluentHub.Octokit.Queries.Users;
 using FluentHub.Services;
-using FluentHub.Services.Auth;
 using FluentHub.Octokit.Authorization;
-using FluentHub.Octokit.Queries.Users;
-using FluentHub.Services;
 using FluentHub.Services.Navigation;
 using FluentHub.ViewModels;
 using FluentHub.Views;
@@ -146,14 +143,14 @@ namespace FluentHub
                         Client.Credentials = new Credentials(Settings.AccessToken);
                         await GetViewerLoginName();
 
-                        rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                        rootFrame.Navigate(typeof(MainPage), args.Arguments);
                     }
                     else
                     {
                         Settings.SetupProgress = false;
                         Settings.SetupCompleted = false;
 
-                        rootFrame.Navigate(typeof(IntroPage), e.Arguments);
+                        rootFrame.Navigate(typeof(IntroPage), args.Arguments);
                     }
                 }
 
@@ -223,16 +220,20 @@ namespace FluentHub
 
             if (eventArgs.Uri.Query.Contains("code"))
             {
-                AuthorizationService authService = new();
-                bool status = await authService.RequestOAuthTokenAsync(code);
-
-                // temp: copy credentials to main thread app (will be removed)
-                App.Client.Credentials = new global::Octokit.Credentials(Settings.AccessToken);
+                string code = new WwwFormUrlDecoder(eventArgs.Uri.Query).GetFirstValueByName("code");
 
                 if (code != null)
                 {
-                    App.Settings.SetupCompleted = true;
-                    await GetViewerLoginName();
+                    AuthorizationService authService = new();
+                    bool status = await authService.RequestOAuthTokenAsync(code);
+
+                    // temp: copy credentials to main thread app (will be removed)
+                    App.Client.Credentials = new global::Octokit.Credentials(Settings.AccessToken);
+
+                    if (status)
+                    {
+                        App.Settings.SetupCompleted = true;
+                        await GetViewerLoginName();
 
                         rootFrame.Navigate(typeof(MainPage));
                     }
@@ -243,7 +244,7 @@ namespace FluentHub
                 HandleUriActivation(eventArgs.Uri, true);
             }
         }
-
+        
         void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
