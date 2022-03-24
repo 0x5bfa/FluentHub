@@ -29,6 +29,11 @@ namespace FluentHub.Views
             await JumpListHelper.ConfigureDefaultJumpListAsync();
         }
 
+        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        {
+            navigationService.Disconnect();
+        }
+
         private void TitleBar_LayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
         {
             CoreApplication.GetCurrentView().TitleBar.LayoutMetricsChanged += OnTitleBarLayoutMetricsChanged;            

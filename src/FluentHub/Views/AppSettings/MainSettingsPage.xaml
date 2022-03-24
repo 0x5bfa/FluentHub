@@ -71,10 +71,7 @@
                         QueryIcon="Find" />
                 </muxc:NavigationView.AutoSuggestBox>
                 <muxc:NavigationView.MenuItems>
-                    <muxc:NavigationViewItem
-                        x:Uid="SettingsNavViewItemAppearance"
-                        IsSelected="True"
-                        Tag="Appearance">
+                    <muxc:NavigationViewItem x:Uid="SettingsNavViewItemAppearance" Tag="appearance">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon Glyph="&#xE790;" />
                         </muxc:NavigationViewItem.Icon>
@@ -82,14 +79,14 @@
                     <muxc:NavigationViewItem
                         x:Name="SettingsNavViewItemAccount"
                         x:Uid="SettingsNavViewItemAccount"
-                        Tag="Accounts">
+                        Tag="accounts">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon Glyph="&#xE77B;" />
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
                 </muxc:NavigationView.MenuItems>
                 <muxc:NavigationView.FooterMenuItems>
-                    <muxc:NavigationViewItem x:Uid="SettingsNavViewItemAbout" Tag="About">
+                    <muxc:NavigationViewItem x:Uid="SettingsNavViewItemAbout" Tag="about">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon Glyph="&#xE946;" />
                         </muxc:NavigationViewItem.Icon>
