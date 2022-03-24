@@ -10,6 +10,7 @@ namespace FluentHub.Services.Navigation
         private Frame _frame;
         public ITabView TabView { get; private set; }
         public Type NewTabPage { get; set; }
+        public bool IsConfigured { get; private set; }
 
         public void Configure(ITabView tabView!!, Frame frame!!, Type newTabPage)
         {
@@ -18,6 +19,7 @@ namespace FluentHub.Services.Navigation
             _frame = frame;
             NewTabPage = newTabPage;
             SubscribeEvents();
+            IsConfigured = true;
         }
 
         private void OnTabViewSelectionChanged(object sender, TabViewSelectionChangedEventArgs e)
@@ -165,10 +167,19 @@ namespace FluentHub.Services.Navigation
 
         private void EnsureConfigured()
         {
-            if (TabView == null || _frame == null)
+            if (!IsConfigured)
             {
                 throw new InvalidOperationException("The Navigation Service has not been configured. Call INavigationService.Configure first");
             }
+        }
+
+        public void Disconnect()
+        {
+            UnsubscribeEvents();
+            TabView = null;
+            _frame = null;
+            NewTabPage = null;
+            IsConfigured = false;
         }
     }
 }

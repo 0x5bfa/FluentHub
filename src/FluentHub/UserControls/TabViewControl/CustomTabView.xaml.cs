@@ -36,6 +36,19 @@ namespace FluentHub.UserControls.TabViewControl
                                         typeof(ITabItemView),
                                         typeof(CustomTabView),
                                         new PropertyMetadata(null));
+
+        public int SelectedIndex
+        {
+            get => (int)GetValue(SelectedIndexProperty);
+            set => SetValue(SelectedIndexProperty, value);
+        }
+        public static readonly DependencyProperty SelectedIndexProperty =
+            DependencyProperty.Register("SelectedIndex",
+                                        typeof(int),
+                                        typeof(CustomTabView),
+                                        new PropertyMetadata(-1));
+
+
         public string Title
         {
             get => (string)GetValue(TitleProperty);
@@ -49,8 +62,8 @@ namespace FluentHub.UserControls.TabViewControl
 
         private static void OnTitleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var view = ApplicationView.GetForCurrentView();           
-            view.Title = e.NewValue?.ToString() ?? "";            
+            var view = ApplicationView.GetForCurrentView();
+            view.Title = e.NewValue?.ToString() ?? "";
         }
 
         public ReadOnlyObservableCollection<ITabItemView> Items { get; }
