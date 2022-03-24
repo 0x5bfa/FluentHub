@@ -5,6 +5,7 @@
 
 ![GitHub release (latest by date)](https://img.shields.io/github/v/release/fluenthub-community/fluenthub)
 [![Build Status](https://dev.azure.com/fluenthub-community/FluentHub/_apis/build/status/Build%20Pipeline%20(x64)?branchName=main)](https://dev.azure.com/fluenthub-community/FluentHub/_build/latest?definitionId=5&branchName=main)
+[![Discord](https://img.shields.io/discord/935562861701390336?color=orange&label=Discord)](https://discord.com/channels/935562861701390336)
 
 ## What is FluentHub?
 
