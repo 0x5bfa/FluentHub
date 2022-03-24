@@ -35,7 +35,7 @@ namespace FluentHub.UserControls.TabViewControl
             DependencyProperty.Register("SelectedItem",
                                         typeof(ITabItemView),
                                         typeof(CustomTabView),
-                                        new PropertyMetadata(null));
+                                        new PropertyMetadata(null, OnSelectedItemChanged));
 
         public int SelectedIndex
         {
@@ -48,7 +48,6 @@ namespace FluentHub.UserControls.TabViewControl
                                         typeof(CustomTabView),
                                         new PropertyMetadata(-1));
 
-
         public string Title
         {
             get => (string)GetValue(TitleProperty);
@@ -60,6 +59,12 @@ namespace FluentHub.UserControls.TabViewControl
                                         typeof(CustomTabView),
                                         new PropertyMetadata(null, OnTitleChanged));
 
+        private static void OnSelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
+        {
+            var newItem = e.NewValue as ITabItemView;
+            var oldItem = e.OldValue as ITabItemView;
+            ((CustomTabView)d).OnSelectionChanged(newItem, oldItem);
+        }
         private static void OnTitleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
             var view = ApplicationView.GetForCurrentView();
@@ -92,7 +97,7 @@ namespace FluentHub.UserControls.TabViewControl
             _items.Add(item);
             if (setAsSelected)
             {
-                MainTabView.SelectedItem = item;
+                SelectedItem = item;
             }
             return item;
         }
@@ -107,7 +112,7 @@ namespace FluentHub.UserControls.TabViewControl
             {
                 int newSelectedItemIndex = -1;
 
-                if (index == MainTabView.SelectedIndex) // Removing the current tab
+                if (index == SelectedIndex) // Removing the current tab
                 {
                     if (index == _items.Count - 1) // Select the previous tab if the current item is the last tab
                     {
@@ -128,7 +133,7 @@ namespace FluentHub.UserControls.TabViewControl
 
                 if (newSelectedItemIndex >= 0)
                 {
-                    MainTabView.SelectedIndex = newSelectedItemIndex;
+                    SelectedIndex = newSelectedItemIndex;
                 }
                 return true;
             }
@@ -136,66 +141,25 @@ namespace FluentHub.UserControls.TabViewControl
         }
         #endregion
 
-        #region event handlers
-        private void OnMainTabViewSelectionChanged(object sender, SelectionChangedEventArgs e)
+        #region private methods
+        private void OnSelectionChanged(ITabItemView newItem, ITabItemView oldItem)
         {
-            var newItem = e.AddedItems.FirstOrDefault() as ITabItemView;
-            var oldItem = e.RemovedItems.FirstOrDefault() as ITabItemView;
-            NavigationTransitionInfo transitionInfo;
-
-            /*
-            if (newItem is null || oldItem is null)
-            {
-                transitionInfo = new SlideNavigationTransitionInfo
-                {
-                    Effect = SlideNavigationTransitionEffect.FromRight
-                };
-            }
-            else
-            {
-                var oldItemIndex = _items.IndexOf(oldItem);
-                var newItemIndex = _items.IndexOf(newItem);
-                transitionInfo = new SlideNavigationTransitionInfo
-                {
-                    Effect = (oldItemIndex - newItemIndex) switch
-                    {
-                        > 0 => SlideNavigationTransitionEffect.FromLeft,
-                        < 0 => SlideNavigationTransitionEffect.FromRight,
-                        _ => SlideNavigationTransitionEffect.FromBottom
-                    }
-                };
-            }
-            */
-            transitionInfo = new SuppressNavigationTransitionInfo();
-            var args = new TabViewSelectionChangedEventArgs(newItem, oldItem, transitionInfo);
+            SuppressNavigationTransitionInfo transitionInfo = new();
+            TabViewSelectionChangedEventArgs args = new(newItem, oldItem, transitionInfo);
             SelectionChanged?.Invoke(this, args);
         }
+        #endregion
 
-        private void OnMainTabViewTabCloseRequested(muxc.TabView sender, muxc.TabViewTabCloseRequestedEventArgs args) => CloseTab(args.Item as ITabItemView);
+        #region event handlers
+        private void OnMainTabViewTabCloseRequested(muxc.TabView sender,
+                                                    muxc.TabViewTabCloseRequestedEventArgs args)
+            => CloseTab(args.Item as ITabItemView);
 
-        private void OnMainTabViewLoaded(object sender, RoutedEventArgs e)
-        {
-            /*
-            MainPageViewModel.AddNewTabByPath($"/{App.SignedInUserName}");
-            App.MainViewModel.MainFrame.Navigate(typeof(UserHomePage));
-            var iconSource = new muxc.FontIconSource();
-            iconSource.Glyph = "\uE737";
-            App.MainViewModel.MainTabItems[App.MainViewModel.SelectedTabIndex].IconSource = iconSource;
-            App.MainViewModel.MainTabItems[App.MainViewModel.SelectedTabIndex].Header = "FluentHub";
-            */
-        }
-
-        private void AddNewTabButton_Click(object sender, RoutedEventArgs e)
+        private void OnAddNewTabButtonClick(object sender, RoutedEventArgs e)
         {
             var item = new TabItem();
             _items.Add(item);
             SelectedItem = item;
-            /*
-            TabItemAdding = true;
-            MainPageViewModel.AddNewTabByPath($"/{App.SignedInUserName}");
-            App.MainViewModel.MainFrame.Navigate(typeof(UserHomePage));
-            App.MainViewModel.SelectedTabIndex = MainTabView.SelectedIndex = App.MainViewModel.MainTabItems.Count() - 1;
-            */
         }
         #endregion
 
