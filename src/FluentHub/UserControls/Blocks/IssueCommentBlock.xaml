@@ -96,6 +96,7 @@
             <WebView
                 x:Name="CommentWebView"
                 Grid.Row="2"
+                Margin="4"
                 DefaultBackgroundColor="Transparent"
                 NavigationCompleted="CommentWebView_NavigationCompleted" />
         </Grid>

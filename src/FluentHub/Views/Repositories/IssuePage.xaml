@@ -64,25 +64,15 @@
                 <label:StateLabel x:Name="StatusLabel" Status="IssueDraft" />
             </StackPanel>
         </Grid>
-        <Grid
-            Grid.Row="1"
-            Margin="12,4,12,0"
-            ColumnSpacing="12">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*" />
-                <ColumnDefinition
-                    Width="*"
-                    MinWidth="180"
-                    MaxWidth="300" />
-            </Grid.ColumnDefinitions>
+        <Grid Grid.Row="1">
             <MenuFlyoutSeparator
                 Grid.ColumnSpan="2"
-                Margin="0,-1"
+                Margin="0,0"
                 VerticalAlignment="Top" />
-            <ScrollViewer>
+            <ScrollViewer Padding="12,2,12,0">
                 <StackPanel x:Name="IssueContentPanel" />
             </ScrollViewer>
-            <ScrollViewer Grid.Column="1">
+            <!--<ScrollViewer Grid.Column="1">
                 <Grid
                     Margin="0,20,0,12"
                     Padding="12"
@@ -287,7 +277,7 @@
                         </Button>
                     </Grid>
                 </Grid>
-            </ScrollViewer>
+            </ScrollViewer>-->
         </Grid>
     </Grid>
 </Page>
