@@ -71,7 +71,6 @@
             x:Name="UserSpecialReadmeBlock"
             Grid.Row="1"
             VerticalAlignment="Top"
-            x:Load="{x:Bind ViewModel.HasUserSpecialReadmeRepo, Mode=OneWay}"
             ViewModel="{x:Bind ViewModel.ReadmeBlockViewModel, Mode=OneWay}" />
         <muxc:ProgressRing
             x:Name="LoadingProgressRing"

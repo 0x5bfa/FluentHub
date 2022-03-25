@@ -9,6 +9,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace FluentHub.ViewModels.UserControls.Blocks
@@ -36,6 +37,9 @@ namespace FluentHub.ViewModels.UserControls.Blocks
         private string htmlText;
         public string HtmlText { get => htmlText; set => SetProperty(ref htmlText, value); }
 
+        private Visibility hasReadme;
+        public Visibility HasReadme { get => hasReadme; set => SetProperty(ref hasReadme, value); }
+
         public void GetMarkdownContent(ref WebView webView)
         {
             // Do not wait
@@ -46,12 +50,14 @@ namespace FluentHub.ViewModels.UserControls.Blocks
         {
             try
             {
+                HasReadme = Visibility.Collapsed;
                 var repo = await App.Client.Repository.Get(Owner, RepoName);
 
                 MarkdownQueries markdown = new();
 
                 global::Octokit.Readme readme = await App.Client.Repository.Content.GetReadme(repo.Id);
                 FileName = readme.Name;
+                HasReadme = Visibility.Visible;
 
                 string missedPath = "https://raw.githubusercontent.com/" + repo.Owner.Login + "/" + repo.Name + "/" + repo.DefaultBranch + "/";
                 HtmlText = await markdown.GetHtmlAsync(readme.Content, missedPath, ThemeHelper.ActualTheme.ToString().ToLower());

@@ -20,9 +20,6 @@ namespace FluentHub.ViewModels.Users
         private long userSpecialReadmeRepoId;
         public long UserSpecialReadmeRepoId { get => userSpecialReadmeRepoId; set => SetProperty(ref userSpecialReadmeRepoId, value); }
 
-        private bool hasUserSpecialReadmeRepo;
-        public bool HasUserSpecialReadmeRepo { get => hasUserSpecialReadmeRepo; set => SetProperty(ref hasUserSpecialReadmeRepo, value); }
-
         private ReadmeContentBlockViewModel readmeBlockViewModel;
         public ReadmeContentBlockViewModel ReadmeBlockViewModel { get => readmeBlockViewModel; set => SetProperty(ref readmeBlockViewModel, value); }
 
@@ -46,9 +43,10 @@ namespace FluentHub.ViewModels.Users
                 PinnedRepos.Add(viewModel);
             }
 
-            ReadmeBlockViewModel = new();
-            ReadmeBlockViewModel.Owner = login;
-            ReadmeBlockViewModel.RepoName = login;
+            ReadmeContentBlockViewModel readmeViewModel = new();
+            readmeViewModel.Owner = login;
+            readmeViewModel.RepoName = login;
+            ReadmeBlockViewModel = readmeViewModel;
 
             IsActive = false;
         }
