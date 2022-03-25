@@ -1,4 +1,4 @@
-﻿using FluentHub.Helpers;
+using FluentHub.Helpers;
 using FluentHub.Services;
 using FluentHub.Views.Home;
 using Microsoft.Extensions.DependencyInjection;
@@ -36,7 +36,7 @@ namespace FluentHub.Views
 
         private void TitleBar_LayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
         {
-            CoreApplication.GetCurrentView().TitleBar.LayoutMetricsChanged += OnTitleBarLayoutMetricsChanged;            
+            CoreApplication.GetCurrentView().TitleBar.LayoutMetricsChanged += OnTitleBarLayoutMetricsChanged;
         }
 
         private void OnTitleBarLayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)

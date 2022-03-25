@@ -36,18 +36,12 @@
             </Grid.ColumnDefinitions>
             <Grid
                 x:Name="DragArea"
-                Grid.Column="0"
                 Grid.ColumnSpan="2"
-                Height="40"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Top"
                 Background="Transparent"
                 Loaded="DragArea_Loaded" />
-            <uc:CustomTabView
-                x:Name="TabView"
-                Title="{x:Bind TabView.SelectedItem.NavigationHistory.CurrentItem.Header, Mode=OneWay}"
-                Grid.Column="0"
-                Height="40" />
+            <uc:CustomTabView x:Name="TabView" Title="{x:Bind TabView.SelectedItem.NavigationHistory.CurrentItem.Header, Mode=OneWay}" />
         </Grid>
         <Grid
             Grid.Row="1"

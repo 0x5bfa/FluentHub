@@ -139,6 +139,7 @@
     <Compile Include="Queries\Organizations\RepositoryQueries.cs" />
     <Compile Include="Queries\Organizations\OrganizationQueries.cs" />
     <Compile Include="Queries\Repositories\BlobQueries.cs" />
+    <Compile Include="Queries\Repositories\IssueEventQueries.cs" />
     <Compile Include="Queries\Repositories\IssueQueries.cs" />
     <Compile Include="Queries\Repositories\PullRequestQueries.cs" />
     <Compile Include="Queries\Repositories\CommitQueries.cs" />

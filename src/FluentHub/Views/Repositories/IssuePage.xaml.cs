@@ -49,11 +49,11 @@ namespace FluentHub.Views.Repositories
 
             await SetIssueContent();
 
-            await SetIssueReviewers();
+            //await SetIssueReviewers();
 
-            SetIssueAssignees();
+            //SetIssueAssignees();
 
-            SetIssueLabels();
+            //SetIssueLabels();
         }
 
         private async Task SetLabelContent()
@@ -208,23 +208,23 @@ namespace FluentHub.Views.Repositories
             }
         }
 
-        private void SetIssueAssignees()
-        {
-            foreach (var assignees in Issue.Assignees)
-            {
-                TextBlock textBlock = new();
-                textBlock.Text = assignees.Login;
-                AssigneesListBlock.Children.Add(textBlock);
-            }
+        //private void SetIssueAssignees()
+        //{
+        //    foreach (var assignees in Issue.Assignees)
+        //    {
+        //        TextBlock textBlock = new();
+        //        textBlock.Text = assignees.Login;
+        //        AssigneesListBlock.Children.Add(textBlock);
+        //    }
 
-            if (AssigneesListBlock.Children.Count == 0)
-            {
-                TextBlock textBlock = new();
-                textBlock.Text = "No assignees";
-                textBlock.FontStyle = Windows.UI.Text.FontStyle.Italic;
-                AssigneesListBlock.Children.Add(textBlock);
-            }
-        }
+        //    if (AssigneesListBlock.Children.Count == 0)
+        //    {
+        //        TextBlock textBlock = new();
+        //        textBlock.Text = "No assignees";
+        //        textBlock.FontStyle = Windows.UI.Text.FontStyle.Italic;
+        //        AssigneesListBlock.Children.Add(textBlock);
+        //    }
+        //}
 
         private void SetIssueBody()
         {
@@ -251,50 +251,50 @@ namespace FluentHub.Views.Repositories
             IssueContentPanel.Children.Add(commentBlock);
         }
 
-        private void SetIssueLabels()
-        {
-            foreach (var label in Issue.Labels)
-            {
-                LabelSimpleItem labelItem = new();
+        //private void SetIssueLabels()
+        //{
+        //    foreach (var label in Issue.Labels)
+        //    {
+        //        LabelSimpleItem labelItem = new();
 
-                labelItem.ColorBrush = ColorHelpers.HexCodeToSolidColorBrush(label.Color);
+        //        labelItem.ColorBrush = ColorHelpers.HexCodeToSolidColorBrush(label.Color);
 
-                labelItem.LabelText = label.Name;
+        //        labelItem.LabelText = label.Name;
 
-                _items.Add(labelItem);
-            }
-        }
+        //        _items.Add(labelItem);
+        //    }
+        //}
 
-        private async Task SetIssueReviewers()
-        {
-            if (Issue.PullRequest == null)
-            {
-                TextBlock textBlock = new();
-                textBlock.Text = "No reviewers";
-                textBlock.FontStyle = Windows.UI.Text.FontStyle.Italic;
-                ReviewersListBlock.Children.Add(textBlock);
+        //private async Task SetIssueReviewers()
+        //{
+        //    if (Issue.PullRequest == null)
+        //    {
+        //        TextBlock textBlock = new();
+        //        textBlock.Text = "No reviewers";
+        //        textBlock.FontStyle = Windows.UI.Text.FontStyle.Italic;
+        //        ReviewersListBlock.Children.Add(textBlock);
 
-                return;
-            }
+        //        return;
+        //    }
 
-            PullRequest pr = await App.Client.PullRequest.Get(RepoId, IssueNumber);
+        //    PullRequest pr = await App.Client.PullRequest.Get(RepoId, IssueNumber);
 
-            if (pr.RequestedReviewers.Count != 0)
-            {
-                foreach (var reviewer in pr.RequestedReviewers)
-                {
-                    TextBlock textBlock = new();
-                    textBlock.Text = reviewer.Login;
-                    ReviewersListBlock.Children.Add(textBlock);
-                }
-            }
-            else
-            {
-                TextBlock textBlock = new();
-                textBlock.Text = "No reviewers";
-                textBlock.FontStyle = Windows.UI.Text.FontStyle.Italic;
-                ReviewersListBlock.Children.Add(textBlock);
-            }
-        }
+        //    if (pr.RequestedReviewers.Count != 0)
+        //    {
+        //        foreach (var reviewer in pr.RequestedReviewers)
+        //        {
+        //            TextBlock textBlock = new();
+        //            textBlock.Text = reviewer.Login;
+        //            ReviewersListBlock.Children.Add(textBlock);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        TextBlock textBlock = new();
+        //        textBlock.Text = "No reviewers";
+        //        textBlock.FontStyle = Windows.UI.Text.FontStyle.Italic;
+        //        ReviewersListBlock.Children.Add(textBlock);
+        //    }
+        //}
     }
 }

@@ -20,7 +20,7 @@ namespace FluentHub.Views.AppSettings
         private readonly INavigationService navigationService;
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
-        {            
+        {
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Settings";
             currentItem.Description = "FluentHub settings";
@@ -46,7 +46,7 @@ namespace FluentHub.Views.AppSettings
         private void SettingsNavView_SelectionChanged(muxc.NavigationView sender, muxc.NavigationViewSelectionChangedEventArgs args)
         {
             switch (args.SelectedItemContainer?.Tag?.ToString())
-            {                
+            {
                 case "appearance":
                     SettingsContentFrame.Navigate(typeof(AppearancePage));
                     NavViewFrameTitleTextBlock.Text = "Appearance";

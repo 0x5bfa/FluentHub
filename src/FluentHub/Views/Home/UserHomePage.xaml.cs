@@ -12,7 +12,7 @@ namespace FluentHub.Views.Home
         public UserHomePage() => InitializeComponent();
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
-        {            
+        {
             var defaultItem = HomeNavView
                                 .MenuItems
                                 .OfType<muxc.NavigationViewItem>()

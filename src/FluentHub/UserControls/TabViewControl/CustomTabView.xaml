@@ -26,7 +26,7 @@
         </Grid.ColumnDefinitions>
         <muxc:TabView
             x:Name="MainTabView"
-            Margin="4,0"
+            Margin="4,0,4,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Stretch"
             Background="Transparent"
@@ -38,8 +38,7 @@
             <muxc:TabView.TabItemTemplate>
                 <DataTemplate x:DataType="item:TabItem">
                     <muxc:TabViewItem
-                        Padding="2,0,2,2"
-                        CornerRadius="{StaticResource ControlCornerRadius}"
+                        Padding="2,0"
                         Header="{x:Bind NavigationHistory.CurrentItem.Header, Mode=OneWay}"
                         IconSource="{x:Bind NavigationHistory.CurrentItem.Icon, Mode=OneWay}"
                         ToolTipService.ToolTip="{x:Bind NavigationHistory.CurrentItem.Description, Mode=OneWay}" />
@@ -50,15 +49,14 @@
             Grid.Column="1"
             Width="32"
             Height="28"
-            Margin="0,0,0,2"
+            Margin="0,0,0,4"
             Padding="8"
             HorizontalAlignment="Left"
             VerticalAlignment="Bottom"
             Background="Transparent"
-            BorderThickness="0"
+            BorderBrush="Transparent"
             Click="OnAddNewTabButtonClick"
             IsEnabled="True"
-            Style="{StaticResource ClearButtonStyle}"
             ToolTipService.ToolTip="New tab">
             <Button.Content>
                 <FontIcon FontSize="12" Glyph="&#xE710;" />

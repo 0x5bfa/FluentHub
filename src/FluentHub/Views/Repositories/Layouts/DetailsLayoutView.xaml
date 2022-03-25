@@ -10,7 +10,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:vm="using:FluentHub.ViewModels.Repositories.Layouts"
-    Loaded="Page_Loaded"
+    Loaded="OnPageLoaded"
     mc:Ignorable="d">
 
     <Page.DataContext>
@@ -19,7 +19,7 @@
 
     <Grid>
         <ScrollViewer>
-            <Grid Margin="12">
+            <Grid Margin="12,0" ColumnSpacing="12">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="256" />
@@ -32,10 +32,11 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <contents:FileNavigationBlock CommonRepoViewModel="{x:Bind ViewModel.CommonRepoViewModel, Mode=OneWay}" />
+                    <contents:FileNavigationBlock Margin="0,12,0,0" CommonRepoViewModel="{x:Bind ViewModel.CommonRepoViewModel, Mode=OneWay}" />
                     <Grid
                         x:Name="DirListViewContentGrid"
                         Grid.Row="1"
+                        Margin="0,12,0,0"
                         x:Load="{x:Bind ViewModel.CommonRepoViewModel.IsDir, Mode=OneWay}"
                         Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
@@ -123,13 +124,14 @@
                         x:Name="RepoReadmeBlock"
                         Grid.Row="4"
                         Margin="0,12,0,0"
-                        x:Load="{x:Bind ViewModel.CommonRepoViewModel.IsRootDir, Mode=OneWay}" />
+                        x:Load="{x:Bind ViewModel.CommonRepoViewModel.IsRootDir, Mode=OneWay}"
+                        ViewModel="{x:Bind ViewModel.ReadmeBlockViewModel, Mode=OneWay}" />
                 </Grid>
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <StackPanel Spacing="12">
+                    <StackPanel Margin="0,12,0,0" Spacing="12">
                         <Grid>
                             <TextBlock
                                 VerticalAlignment="Center"
@@ -142,7 +144,8 @@
                                 Padding="0"
                                 HorizontalAlignment="Right"
                                 Background="Transparent"
-                                BorderThickness="0">
+                                BorderThickness="0"
+                                IsEnabled="False">
                                 <muxc:AnimatedIcon x:Name="SettingAnimatedIcon" Height="16">
                                     <muxc:AnimatedIcon.Source>
                                         <animatedvisuals:AnimatedSettingsVisualSource />

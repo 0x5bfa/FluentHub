@@ -242,6 +242,7 @@
     <Compile Include="ViewModels\UserControls\Blocks\CommitActivityBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\FileContentBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\FileNavigationBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Blocks\ReadmeContentBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\DiscussionButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\IssueButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\NotificationButtonBlockViewModel.cs" />
@@ -589,7 +590,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-
     <Page Include="UserControls\Blocks\FileNavigationBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
