@@ -61,7 +61,7 @@
   font-weight: 600;
   padding-bottom: .3em;
   font-size: 2em;
-  border-bottom: 1px solid rgba(255,255,255,0.40);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
 .markdown-body mark {
@@ -246,7 +246,7 @@
   font-weight: 600;
   padding-bottom: .3em;
   font-size: 1.5em;
-  border-bottom: 1px solid rgba(255,255,255,0.40);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
 .markdown-body h3 {
@@ -767,7 +767,7 @@
 }
 
 .markdown-body pre code {
-  font-size: 100%;
+  font-size: 14px;
 }
 
 .markdown-body pre>code {

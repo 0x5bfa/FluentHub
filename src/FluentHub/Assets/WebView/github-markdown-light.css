@@ -60,7 +60,7 @@
   font-weight: 600;
   padding-bottom: .3em;
   font-size: 2em;
-  border-bottom: 1px solid rgba(255,255,255,0.21);
+  border-bottom: 1px solid hsla(210,18%,87%,1);
 }
 
 .markdown-body mark {
@@ -99,7 +99,7 @@
 .markdown-body kbd,
 .markdown-body pre,
 .markdown-body samp {
-  font-family: monospace,monospace;
+  font-family: monospace;
   font-size: 14px;
 }
 
@@ -245,7 +245,7 @@
   font-weight: 600;
   padding-bottom: .3em;
   font-size: 1.5em;
-  border-bottom: 1px solid rgba(255,255,255,0.21);
+  border-bottom: 1px solid hsla(210,18%,87%,1);
 }
 
 .markdown-body h3 {
@@ -766,7 +766,7 @@
 }
 
 .markdown-body pre code {
-  font-size: 100%;
+  font-size: 14px;
 }
 
 .markdown-body pre>code {
@@ -791,7 +791,7 @@
 .markdown-body pre {
   padding: 16px;
   overflow: auto;
-  font-size: 14px;
+  font-size: 85%;
   line-height: 1.45;
   background-color: #f6f8fa;
   border-radius: 6px;
