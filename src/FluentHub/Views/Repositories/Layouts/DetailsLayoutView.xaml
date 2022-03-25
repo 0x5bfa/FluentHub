@@ -22,7 +22,6 @@
             <Grid Margin="12,0,12,12" ColumnSpacing="12">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="256" />
                 </Grid.ColumnDefinitions>
                 <Grid>
                     <Grid.RowDefinitions>
@@ -127,7 +126,7 @@
                         x:Load="{x:Bind ViewModel.CommonRepoViewModel.IsRootDir, Mode=OneWay}"
                         ViewModel="{x:Bind ViewModel.ReadmeBlockViewModel, Mode=OneWay}" />
                 </Grid>
-                <Grid Grid.Column="1">
+                <!--<Grid Grid.Column="1" Width="256">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
@@ -158,7 +157,7 @@
                         </Grid>
                         <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="A fluent GitHub app for Windows" />
                     </StackPanel>
-                </Grid>
+                </Grid>-->
             </Grid>
         </ScrollViewer>
         <muxc:ProgressRing

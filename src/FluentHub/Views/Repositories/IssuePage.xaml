@@ -26,7 +26,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <StackPanel
+            <!--<StackPanel
                 Margin="0,0,0,8"
                 Orientation="Horizontal"
                 Spacing="8">
@@ -40,7 +40,7 @@
                 <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="fluenthub-community" />
                 <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
                 <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="FluentHub" />
-            </StackPanel>
+            </StackPanel>-->
             <StackPanel
                 Grid.Row="1"
                 Orientation="Horizontal"
@@ -58,7 +58,7 @@
             </StackPanel>
             <StackPanel
                 Grid.Row="2"
-                Margin="0,4"
+                Margin="0,4,0,8"
                 Orientation="Horizontal"
                 Spacing="4">
                 <label:StateLabel x:Name="StatusLabel" Status="IssueDraft" />
