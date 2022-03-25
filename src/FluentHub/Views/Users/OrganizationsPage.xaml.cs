@@ -1,7 +1,9 @@
 ﻿using FluentHub.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Uwp;
+using System;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub.Views.Users
@@ -25,10 +27,9 @@ namespace FluentHub.Views.Users
             currentItem.Header = "Organizations".GetLocalized();
             currentItem.Description = "Viewer's organizations";
             currentItem.Url = $"https://ghitub.com/organizations";
-            currentItem.Icon = new Microsoft.UI.Xaml.Controls.FontIconSource
+            currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
             {
-                Glyph = "\uEA27F",
-                FontFamily = new Windows.UI.Xaml.Media.FontFamily("/Assets/Glyphs/Octions.ttf#octions")
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Organizations.png"))
             };
             await ViewModel.GetUserOrganizations(login);
         }

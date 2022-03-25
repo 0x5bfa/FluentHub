@@ -31,9 +31,8 @@
             VerticalAlignment="Stretch"
             Background="Transparent"
             IsAddTabButtonVisible="False"
-            Loaded="OnMainTabViewLoaded"
+            SelectedIndex="{x:Bind SelectedIndex, Mode=TwoWay}"
             SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
-            SelectionChanged="OnMainTabViewSelectionChanged"
             TabCloseRequested="OnMainTabViewTabCloseRequested"
             TabItemsSource="{x:Bind Items}">
             <muxc:TabView.TabItemTemplate>
@@ -56,7 +55,7 @@
             VerticalAlignment="Bottom"
             Background="Transparent"
             BorderBrush="Transparent"
-            Click="AddNewTabButton_Click"
+            Click="OnAddNewTabButtonClick"
             IsEnabled="True"
             ToolTipService.ToolTip="New tab">
             <Button.Content>

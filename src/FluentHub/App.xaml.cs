@@ -1,7 +1,7 @@
 ﻿using FluentHub.Helpers;
-using FluentHub.Octokit.Authorization;
 using FluentHub.Octokit.Queries.Users;
 using FluentHub.Services;
+using FluentHub.Octokit.Authorization;
 using FluentHub.Services.Navigation;
 using FluentHub.ViewModels;
 using FluentHub.Views;
@@ -51,7 +51,22 @@ namespace FluentHub
             InitializeComponent();
 
             Suspending += OnSuspending;
-
+#if DEBUG
+            UnhandledException += async (s, e) =>
+            {
+                e.Handled = true;
+                try
+                {
+                    await new ContentDialog
+                    {
+                        Title = "Unhandled exception",
+                        Content = e.Exception,
+                        CloseButtonText = "Close"
+                    }.ShowAsync();
+                }
+                catch { }
+            };
+#endif
             Services = ConfigureServices();
 
             IntializeLogger();
@@ -74,7 +89,7 @@ namespace FluentHub
         private static IServiceProvider ConfigureServices()
         {
             return new ServiceCollection()
-                .AddSingleton<INavigationService, NavigationService>()                
+                .AddSingleton<INavigationService, NavigationService>()
                 .BuildServiceProvider();
         }
 
@@ -97,19 +112,20 @@ namespace FluentHub
             Log.Debug("Initialized logger in FluentHub.");
         }
 
-        protected override async void OnLaunched(LaunchActivatedEventArgs e)
+        protected override async void OnLaunched(LaunchActivatedEventArgs args)
         {
             CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
             ApplicationView.GetForCurrentView().TitleBar.ButtonBackgroundColor = Colors.Transparent;
             ApplicationView.GetForCurrentView().TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-
+            bool openInNewTab = true;
             if (rootFrame == null)
             {
+                openInNewTab = false;
                 rootFrame = new Frame();
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
+                if (args.PreviousExecutionState == ApplicationExecutionState.Terminated)
                 {
                     //TODO: Load state from previously suspended application
                 }
@@ -117,7 +133,7 @@ namespace FluentHub
                 Window.Current.Content = rootFrame;
             }
 
-            if (e.PrelaunchActivated == false)
+            if (args.PrelaunchActivated == false)
             {
                 if (rootFrame.Content == null)
                 {
@@ -127,19 +143,24 @@ namespace FluentHub
                         Client.Credentials = new Credentials(Settings.AccessToken);
                         await GetViewerLoginName();
 
-                        rootFrame.Navigate(typeof(MainPage), e.Arguments);
+                        rootFrame.Navigate(typeof(MainPage), args.Arguments);
                     }
                     else
                     {
                         Settings.SetupProgress = false;
                         Settings.SetupCompleted = false;
 
-                        rootFrame.Navigate(typeof(IntroPage), e.Arguments);
+                        rootFrame.Navigate(typeof(IntroPage), args.Arguments);
                     }
                 }
 
                 ThemeHelper.Initialize();
                 Window.Current.Activate();
+            }
+            if (!string.IsNullOrWhiteSpace(args.Arguments)
+                && Uri.TryCreate(args.Arguments, UriKind.RelativeOrAbsolute, out var uri))
+            {
+                HandleUriActivation(uri, openInNewTab);
             }
         }
 
@@ -154,32 +175,76 @@ namespace FluentHub
             }
         }
 
-        private async Task HandleProtocolActivationArguments(IActivatedEventArgs args)
+        private void HandleUriActivation(Uri uri!!, bool openInTab)
         {
-            ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
-
-            if (string.IsNullOrEmpty(eventArgs.Uri.Query)) return;
-
-            string code = new WwwFormUrlDecoder(eventArgs.Uri.Query).GetFirstValueByName("code");
-
-            if (code != null)
+            var ns = Services.GetRequiredService<INavigationService>();
+            if (ns.IsConfigured)
             {
-                AuthorizationService authService = new();
-                bool status = await authService.RequestOAuthTokenAsync(code);
-
-                // temp: copy credentials to main thread app (will be removed)
-                App.Client.Credentials = new global::Octokit.Credentials(Settings.AccessToken);
-
-                if (status)
+                Type page = null;
+                object param = null;
+                switch (uri.Authority.ToLower())
                 {
-                    App.Settings.SetupCompleted = true;
-                    await GetViewerLoginName();
+                    case "profile":
+                    case "notifications":
+                    case "activities":
+                    case "issues":
+                    case "pullrequests":
+                    case "discussions":
+                    case "repositories":
+                    case "organizations":
+                    case "starred":
+                        page = typeof(Views.Home.UserHomePage);
+                        param = uri.Authority;
+                        break;
 
-                    rootFrame.Navigate(typeof(MainPage));
+                    case "settings":
+                        page = typeof(Views.AppSettings.MainSettingsPage);
+                        if (uri.Query.Contains("page"))
+                            param = new WwwFormUrlDecoder(uri.Query).GetFirstValueByName("page");
+                        break;
+                }
+
+                if (page != null)
+                {
+                    if (openInTab)
+                        ns.OpenTab(page, param);
+                    else
+                        ns.Navigate(page, param);
                 }
             }
         }
 
+        private async Task HandleProtocolActivationArguments(IActivatedEventArgs args)
+        {
+            ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
+
+            if (eventArgs.Uri.Query.Contains("code"))
+            {
+                string code = new WwwFormUrlDecoder(eventArgs.Uri.Query).GetFirstValueByName("code");
+
+                if (code != null)
+                {
+                    AuthorizationService authService = new();
+                    bool status = await authService.RequestOAuthTokenAsync(code);
+
+                    // temp: copy credentials to main thread app (will be removed)
+                    App.Client.Credentials = new global::Octokit.Credentials(Settings.AccessToken);
+
+                    if (status)
+                    {
+                        App.Settings.SetupCompleted = true;
+                        await GetViewerLoginName();
+
+                        rootFrame.Navigate(typeof(MainPage));
+                    }
+                }
+            }
+            else
+            {
+                HandleUriActivation(eventArgs.Uri, true);
+            }
+        }
+        
         void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             throw new Exception("Failed to load Page " + e.SourcePageType.FullName);

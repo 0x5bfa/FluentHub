@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" DefaultTargets="Build"
+  xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -128,10 +129,12 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\SettingsControlConverter.cs" />
+    <Compile Include="Extensions\IEnumerableExt.cs" />
     <Compile Include="Helpers\Base64Helpers.cs" />
     <Compile Include="Helpers\BlobDetailsHelpers.cs" />
     <Compile Include="Helpers\ColorHelpers.cs" />
     <Compile Include="Helpers\InternetConnectionHelpers.cs" />
+    <Compile Include="Helpers\JumpListHelper.cs" />
     <Compile Include="Helpers\LanguageColorHelpers.cs" />
     <Compile Include="Helpers\MentionHelpers.cs" />
     <Compile Include="Helpers\ResourceHelper.cs" />
@@ -469,6 +472,69 @@
     <Content Include="Assets\AppTiles\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\AppTiles\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\AppTiles\Wide310x150Logo.scale-400.png" />
+    <Content Include="Assets\Icons\Activities.targetsize-16.png" />
+    <Content Include="Assets\Icons\Activities.targetsize-20.png" />
+    <Content Include="Assets\Icons\Activities.targetsize-24.png" />
+    <Content Include="Assets\Icons\Activities.targetsize-32.png" />
+    <Content Include="Assets\Icons\Activities.targetsize-48.png" />
+    <Content Include="Assets\Icons\Activities.targetsize-64.png" />
+    <Content Include="Assets\Icons\Activities.targetsize-96.png" />
+    <Content Include="Assets\Icons\Discussions.targetsize-16.png" />
+    <Content Include="Assets\Icons\Discussions.targetsize-20.png" />
+    <Content Include="Assets\Icons\Discussions.targetsize-24.png" />
+    <Content Include="Assets\Icons\Discussions.targetsize-32.png" />
+    <Content Include="Assets\Icons\Discussions.targetsize-48.png" />
+    <Content Include="Assets\Icons\Discussions.targetsize-64.png" />
+    <Content Include="Assets\Icons\Discussions.targetsize-96.png" />
+    <Content Include="Assets\Icons\Issues.targetsize-16.png" />
+    <Content Include="Assets\Icons\Issues.targetsize-20.png" />
+    <Content Include="Assets\Icons\Issues.targetsize-24.png" />
+    <Content Include="Assets\Icons\Issues.targetsize-32.png" />
+    <Content Include="Assets\Icons\Issues.targetsize-48.png" />
+    <Content Include="Assets\Icons\Issues.targetsize-64.png" />
+    <Content Include="Assets\Icons\Issues.targetsize-96.png" />
+    <Content Include="Assets\Icons\Notifications.targetsize-16.png" />
+    <Content Include="Assets\Icons\Notifications.targetsize-20.png" />
+    <Content Include="Assets\Icons\Notifications.targetsize-24.png" />
+    <Content Include="Assets\Icons\Notifications.targetsize-32.png" />
+    <Content Include="Assets\Icons\Notifications.targetsize-48.png" />
+    <Content Include="Assets\Icons\Notifications.targetsize-64.png" />
+    <Content Include="Assets\Icons\Notifications.targetsize-96.png" />
+    <Content Include="Assets\Icons\Organizations.targetsize-16.png" />
+    <Content Include="Assets\Icons\Organizations.targetsize-20.png" />
+    <Content Include="Assets\Icons\Organizations.targetsize-24.png" />
+    <Content Include="Assets\Icons\Organizations.targetsize-32.png" />
+    <Content Include="Assets\Icons\Organizations.targetsize-48.png" />
+    <Content Include="Assets\Icons\Organizations.targetsize-64.png" />
+    <Content Include="Assets\Icons\Organizations.targetsize-96.png" />
+    <Content Include="Assets\Icons\Profile.targetsize-16.png" />
+    <Content Include="Assets\Icons\Profile.targetsize-20.png" />
+    <Content Include="Assets\Icons\Profile.targetsize-24.png" />
+    <Content Include="Assets\Icons\Profile.targetsize-32.png" />
+    <Content Include="Assets\Icons\Profile.targetsize-48.png" />
+    <Content Include="Assets\Icons\Profile.targetsize-64.png" />
+    <Content Include="Assets\Icons\Profile.targetsize-96.png" />
+    <Content Include="Assets\Icons\PullRequests.targetsize-16.png" />
+    <Content Include="Assets\Icons\PullRequests.targetsize-20.png" />
+    <Content Include="Assets\Icons\PullRequests.targetsize-24.png" />
+    <Content Include="Assets\Icons\PullRequests.targetsize-32.png" />
+    <Content Include="Assets\Icons\PullRequests.targetsize-48.png" />
+    <Content Include="Assets\Icons\PullRequests.targetsize-64.png" />
+    <Content Include="Assets\Icons\PullRequests.targetsize-96.png" />
+    <Content Include="Assets\Icons\Repositories.targetsize-16.png" />
+    <Content Include="Assets\Icons\Repositories.targetsize-20.png" />
+    <Content Include="Assets\Icons\Repositories.targetsize-24.png" />
+    <Content Include="Assets\Icons\Repositories.targetsize-32.png" />
+    <Content Include="Assets\Icons\Repositories.targetsize-48.png" />
+    <Content Include="Assets\Icons\Repositories.targetsize-64.png" />
+    <Content Include="Assets\Icons\Repositories.targetsize-96.png" />
+    <Content Include="Assets\Icons\Starred.targetsize-16.png" />
+    <Content Include="Assets\Icons\Starred.targetsize-20.png" />
+    <Content Include="Assets\Icons\Starred.targetsize-24.png" />
+    <Content Include="Assets\Icons\Starred.targetsize-32.png" />
+    <Content Include="Assets\Icons\Starred.targetsize-48.png" />
+    <Content Include="Assets\Icons\Starred.targetsize-64.png" />
+    <Content Include="Assets\Icons\Starred.targetsize-96.png" />
     <Content Include="Assets\WebView\index.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

@@ -1,7 +1,9 @@
 ﻿using FluentHub.Services;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Uwp;
+using System;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub.Views.Users
@@ -23,10 +25,9 @@ namespace FluentHub.Views.Users
             currentItem.Header = "Discussions".GetLocalized();
             currentItem.Description = "Viewer's discussions";
             currentItem.Url = "https://github.com/discussions";
-            currentItem.Icon = new Microsoft.UI.Xaml.Controls.FontIconSource
+            currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
             {
-                Glyph = "\uE95D",
-                FontFamily = new Windows.UI.Xaml.Media.FontFamily("/Assets/Glyphs/Octions.ttf#octions")
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Discussions.png"))
             };
 
             await ViewModel.GetUserDiscussions(e.Parameter as string);
