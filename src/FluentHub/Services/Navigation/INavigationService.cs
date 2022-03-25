@@ -20,6 +20,6 @@ namespace FluentHub.Services
         void GoBack();
         void GoForward();
         bool CanGoBack();
-        bool CanGoForward();        
+        bool CanGoForward();
     }
 }

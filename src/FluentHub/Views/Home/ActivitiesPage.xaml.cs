@@ -16,11 +16,9 @@ namespace FluentHub.Views.Home
 
         private readonly INavigationService navigationService;
 
-
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             // save navigation info
-
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Activities";
             currentItem.Description = "Viewer's activities";
