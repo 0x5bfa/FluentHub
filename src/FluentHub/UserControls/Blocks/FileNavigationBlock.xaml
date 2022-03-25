@@ -15,7 +15,7 @@
         <vm:FileNavigationBlockViewModel x:Name="ViewModel" />
     </UserControl.DataContext>
 
-    <Grid Margin="12,0" ColumnSpacing="8">
+    <Grid ColumnSpacing="8">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="Auto" />

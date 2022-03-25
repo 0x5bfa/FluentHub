@@ -64,9 +64,10 @@ namespace FluentHub.ViewModels.Repositories.Layouts
             Items.Clear();
             foreach (var orderedItem in orderedByItemType) Items.Add(orderedItem);
 
-            ReadmeBlockViewModel = new();
-            ReadmeBlockViewModel.Owner = CommonRepoViewModel.Owner;
-            ReadmeBlockViewModel.RepoName = CommonRepoViewModel.Name;
+            ReadmeContentBlockViewModel readmeViewModel = new();
+            readmeViewModel.Owner = CommonRepoViewModel.Owner;
+            readmeViewModel.RepoName = CommonRepoViewModel.Name;
+            ReadmeBlockViewModel = readmeViewModel;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

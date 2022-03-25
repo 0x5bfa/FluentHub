@@ -36,7 +36,7 @@ namespace FluentHub.UserControls.Blocks
             {
                 SetValue(ViewMoedelProperty, value);
                 this.DataContext = ViewModel;
-                ViewModel.GetMarkdownContent(ref ReadmeWebView);
+                ViewModel?.GetMarkdownContent(ref ReadmeWebView);
             }
         }
         #endregion

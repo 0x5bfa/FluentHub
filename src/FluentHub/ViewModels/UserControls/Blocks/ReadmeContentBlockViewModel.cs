@@ -15,7 +15,7 @@ namespace FluentHub.ViewModels.UserControls.Blocks
 {
     public class ReadmeContentBlockViewModel : INotifyPropertyChanged
     {
-        private string fileName = "README.md";
+        private string fileName;
         public string FileName { get => fileName; set => SetProperty(ref fileName, value); }
 
         //private string filePath = "";
@@ -42,7 +42,7 @@ namespace FluentHub.ViewModels.UserControls.Blocks
             _ = GetMarkdownContentAsync(webView);
         }
 
-        public async Task GetMarkdownContentAsync(WebView webView!!)
+        public async Task GetMarkdownContentAsync(WebView webView)
         {
             try
             {

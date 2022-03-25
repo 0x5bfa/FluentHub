@@ -51,7 +51,8 @@
         <muxc:ProgressBar
             x:Name="ReadmeLoadingProgressBar"
             Grid.Row="1"
-            IsIndeterminate="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
+            x:Load="{x:Bind ViewModel.IsActive, Mode=OneWay}"
+            IsIndeterminate="True" />
         <WebView
             x:Name="ReadmeWebView"
             Grid.Row="2"
