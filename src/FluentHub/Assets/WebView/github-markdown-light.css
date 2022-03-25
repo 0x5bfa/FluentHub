@@ -1,13 +1,12 @@
 .markdown-body {
-  -ms-text-size-adjust: 100%;
-  -webkit-text-size-adjust: 100%;
-  margin: 0px;
-  color: #24292f;
-  background-color: transparent;
-  font-family: "Segoe UI Variable Text","Segoe UI",Arial,sans-serif,"Segoe UI Emoji";
-  font-size: 14px;
-  line-height: 1.5;
-  word-wrap: break-word;
+-ms-text-size-adjust: 100%;
+-webkit-text-size-adjust: 100%;
+color: #24292f;
+background-color: transparent;
+font-family: "Segoe UI Variable Text","Segoe UI",Arial,sans-serif,"Segoe UI Emoji";
+font-size: 14px;
+line-height: 1.5;
+word-wrap: break-word;
 }
 
 .markdown-body .octicon {

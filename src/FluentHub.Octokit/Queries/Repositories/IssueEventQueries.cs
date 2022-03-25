@@ -12,7 +12,6 @@ namespace FluentHub.Octokit.Queries.Repositories
 
         public void GetAll(string owner, string name, int number)
         {
-
         }
     }
 }
