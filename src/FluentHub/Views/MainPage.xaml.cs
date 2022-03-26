@@ -17,7 +17,9 @@ namespace FluentHub.Views
         public MainPage()
         {
             InitializeComponent();
-            CoreApplication.GetCurrentView().TitleBar.LayoutMetricsChanged += (CoreApplicationViewTitleBar sender, _) => RightPaddingColumn.Width = new GridLength(sender.SystemOverlayRightInset);
+            CoreApplication.GetCurrentView().TitleBar.LayoutMetricsChanged += (CoreApplicationViewTitleBar sender, object args) => RightPaddingColumn.Width = new GridLength(sender.SystemOverlayRightInset);
+            DragArea.Loaded += (_, _) => Window.Current.SetTitleBar(DragArea);
+
             navigationService = App.Current.Services.GetService<INavigationService>();
 
             // Handle BackRequested event
@@ -59,8 +61,6 @@ namespace FluentHub.Views
         {
             navigationService.Disconnect();
         }
-
-        private void DragArea_Loaded(object sender, RoutedEventArgs e) => Window.Current.SetTitleBar(DragArea);
 
         private void HomeButton_Click(object sender, RoutedEventArgs e) => navigationService.Navigate<UserHomePage>();
 

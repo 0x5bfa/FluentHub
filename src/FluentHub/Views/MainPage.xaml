@@ -72,8 +72,7 @@
                 Height="40"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Top"
-                Background="Transparent"
-                Loaded="DragArea_Loaded" />
+                Background="Transparent" />
             <uc:CustomTabView
                 x:Name="TabView"
                 Title="{x:Bind TabView.SelectedItem.NavigationHistory.CurrentItem.Header, Mode=OneWay}"
