@@ -14,6 +14,8 @@ namespace FluentHub.Views
 {
     public sealed partial class MainPage : Page
     {
+        private readonly INavigationService navigationService;
+
         public MainPage()
         {
             InitializeComponent();
@@ -31,6 +33,7 @@ namespace FluentHub.Views
                     e.Handled = true;
                 }
             };
+
             // Handle mouse button events (back and forward)
             Window.Current.CoreWindow.PointerPressed += (s, e) =>
             {
@@ -46,7 +49,6 @@ namespace FluentHub.Views
                 }
             };
         }
-        private readonly INavigationService navigationService;
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -61,12 +63,6 @@ namespace FluentHub.Views
         {
             navigationService.Disconnect();
         }
-
-        private void HomeButton_Click(object sender, RoutedEventArgs e) => navigationService.Navigate<UserHomePage>();
-
-        private void GoBack() => navigationService.GoBack();
-
-        private void GoForward() => navigationService.GoForward();
 
         private async void ShareWithBrowserMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
@@ -85,57 +81,6 @@ namespace FluentHub.Views
             // Temporary treatment (Deletion requested credentials must be deleted)
             Frame rootFrame = Window.Current.Content as Frame;
             rootFrame.Navigate(typeof(SignIn.IntroPage));
-        }
-
-        private void OnKeyboardAcceleratorInvoked(KeyboardAccelerator sender, KeyboardAcceleratorInvokedEventArgs args)
-        {
-            var handled = true;
-            var ka = args.KeyboardAccelerator;
-            switch (ka.Key)
-            {
-                case VirtualKey.T when ka.Modifiers == VirtualKeyModifiers.Control:
-                    navigationService.OpenTab<UserHomePage>();
-                    break;
-
-                case VirtualKey.W when ka.Modifiers == VirtualKeyModifiers.Control:
-                    navigationService.CloseTab(navigationService.TabView.SelectedItem.Guid);
-                    break;
-
-                case VirtualKey.Tab when ka.Modifiers == VirtualKeyModifiers.Control:
-                    if (navigationService.TabView.SelectedIndex == navigationService.TabView.Items.Count - 1)
-                    {
-                        navigationService.TabView.SelectedIndex = 0;
-                    }
-                    else
-                    {
-                        navigationService.TabView.SelectedIndex++;
-                    }
-                    break;
-
-                case VirtualKey.Tab when ka.Modifiers == (VirtualKeyModifiers.Shift | VirtualKeyModifiers.Control):
-                    if (navigationService.TabView.SelectedIndex == 0)
-                    {
-                        navigationService.TabView.SelectedIndex = navigationService.TabView.Items.Count - 1;
-                    }
-                    else
-                    {
-                        navigationService.TabView.SelectedIndex--;
-                    }
-                    break;
-
-                case VirtualKey.Left when ka.Modifiers == VirtualKeyModifiers.Menu && navigationService.CanGoBack():
-                    navigationService.GoBack();
-                    break;
-
-                case VirtualKey.Right when ka.Modifiers == VirtualKeyModifiers.Menu && navigationService.CanGoForward():
-                    navigationService.GoForward();
-                    break;
-
-                default:
-                    handled = false;
-                    break;
-            }
-            args.Handled = handled;
         }
     }
 }

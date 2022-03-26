@@ -56,6 +56,7 @@ namespace FluentHub
                         CloseButtonText = "Close"
                     }.ShowAsync();
                 }
+                catch { }
             };
 #endif
             Services = ConfigureServices();
