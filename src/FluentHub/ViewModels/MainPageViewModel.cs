@@ -15,6 +15,7 @@ namespace FluentHub.ViewModels
     {
         private readonly INavigationService navigationService;
 
+        #region commands
         public ICommand AddNewTabAcceleratorCommand { get; private set; }
         public ICommand CloseTabAcceleratorCommand { get; private set; }
         public ICommand GoToNextTabAcceleratorCommand { get; private set; }
@@ -25,6 +26,7 @@ namespace FluentHub.ViewModels
         public ICommand GoBackCommand { get; private set; }
         public ICommand GoForwardCommand { get; private set; }
         public ICommand GoHomeCommand { get; private set; }
+        #endregion
 
         public MainPageViewModel()
         {
@@ -42,6 +44,7 @@ namespace FluentHub.ViewModels
             GoHomeCommand = new RelayCommand(GoHome);
         }
 
+        #region command-methods
         private void AddNewTabAccelerator(KeyboardAcceleratorInvokedEventArgs e)
         {
             navigationService.OpenTab<Views.Home.UserHomePage>();
@@ -108,6 +111,8 @@ namespace FluentHub.ViewModels
         {
             navigationService.Navigate<Views.Home.UserHomePage>();
         }
+        #endregion
+
 
     }
 }
