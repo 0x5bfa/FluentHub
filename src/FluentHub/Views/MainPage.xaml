@@ -24,8 +24,8 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="50" />
-            <RowDefinition Height="42" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
@@ -36,9 +36,8 @@
             </Grid.ColumnDefinitions>
             <Grid
                 x:Name="DragArea"
-                Grid.Column="0"
                 Grid.ColumnSpan="2"
-                Height="50"
+                Height="40"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Top"
                 Background="Transparent"
@@ -46,24 +45,29 @@
             <uc:CustomTabView
                 x:Name="TabView"
                 Title="{x:Bind TabView.SelectedItem.NavigationHistory.CurrentItem.Header, Mode=OneWay}"
-                Grid.Column="0" />
+                Height="43" />
         </Grid>
         <Grid
             Grid.Row="1"
-            Padding="8,0,8,8"
+            Height="50"
+            Padding="8,0,8,0"
+            Background="{ThemeResource TabViewItemHeaderBackgroundSelected}"
             ColumnSpacing="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            <Grid Grid.Column="0">
+            <Grid>
                 <StackPanel Orientation="Horizontal" Spacing="4">
                     <Button
                         x:Uid="ToobarBackButton"
                         Width="36"
-                        Height="36"
+                        Height="32"
+                        Padding="0"
+                        VerticalAlignment="Center"
                         Background="Transparent"
+                        BorderBrush="Transparent"
                         Click="{x:Bind GoBack}"
                         IsEnabled="{Binding SelectedItem.NavigationHistory.CanGoBack, ElementName=TabView, FallbackValue=false}"
                         Style="{StaticResource ClearButtonStyle}">
@@ -72,8 +76,11 @@
                     <Button
                         x:Uid="ToobarForwardButton"
                         Width="36"
-                        Height="36"
+                        Height="32"
+                        Padding="0"
+                        VerticalAlignment="Center"
                         Background="Transparent"
+                        BorderBrush="Transparent"
                         Click="{x:Bind GoForward}"
                         IsEnabled="{Binding SelectedItem.NavigationHistory.CanGoForward, ElementName=TabView, FallbackValue=false}"
                         Style="{StaticResource ClearButtonStyle}">
@@ -82,8 +89,11 @@
                     <Button
                         x:Uid="ToobarRefreshButton"
                         Width="36"
-                        Height="36"
+                        Height="32"
+                        Padding="0"
+                        VerticalAlignment="Center"
                         Background="Transparent"
+                        BorderBrush="Transparent"
                         IsEnabled="False"
                         Style="{StaticResource ClearButtonStyle}">
                         <FontIcon FontSize="14" Glyph="&#xE72C;" />
@@ -91,22 +101,25 @@
                     <Button
                         x:Uid="ToobarHomeButton"
                         Width="36"
-                        Height="36"
+                        Height="32"
+                        Padding="0"
+                        VerticalAlignment="Center"
                         Background="Transparent"
+                        BorderBrush="Transparent"
                         Click="HomeButton_Click"
                         Style="{StaticResource ClearButtonStyle}">
                         <FontIcon FontSize="14" Glyph="&#xE80F;" />
                     </Button>
                 </StackPanel>
             </Grid>
-            <Grid Grid.Column="1">
+            <Grid Grid.Column="1" VerticalAlignment="Center">
                 <TextBox
                     HorizontalAlignment="Stretch"
                     VerticalAlignment="Top"
                     IsEnabled="False"
                     Text="{x:Bind TabView.SelectedItem.NavigationHistory.CurrentItem.Url, Mode=OneWay}" />
             </Grid>
-            <Grid Grid.Column="2">
+            <Grid Grid.Column="2" VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal" Spacing="2">
                     <Button
                         x:Name="ToolbarAppSettingsButton"
@@ -139,12 +152,12 @@
             <Border
                 Grid.ColumnSpan="3"
                 Height="1"
-                Margin="-8,0,-8,-9"
+                Margin="-8,0,-8,0"
                 VerticalAlignment="Bottom"
                 BorderBrush="{ThemeResource ControlStrokeColorDefault}"
                 BorderThickness="1" />
         </Grid>
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="2" Margin="0,-1,0,0">
             <Frame x:Name="MainFrame" />
         </Grid>
     </Grid>

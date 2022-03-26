@@ -11,6 +11,7 @@ namespace FluentHub.Helpers
 {
     public class MentionHelpers
     {
+        /*
         public async Task<Uri> GetUserUrlFromMention(string mention)
         {
             try
@@ -71,5 +72,6 @@ namespace FluentHub.Helpers
                 textBlock.Inlines.Add(new Run() { Text = " " });
             }
         }
+        */
     }
 }

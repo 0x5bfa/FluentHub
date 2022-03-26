@@ -25,7 +25,7 @@ namespace FluentHub.Views.AppSettings
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Accounts";
             currentItem.Description = "Users signed in FluentHub";
-            currentItem.Url = "fluenthub://settings/accounts";
+            currentItem.Url = "fluenthub://settings?page=accounts";
             currentItem.Icon = new muxc.FontIconSource
             {
                 Glyph = "\uE713",

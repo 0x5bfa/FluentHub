@@ -26,7 +26,25 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
-            <StackPanel Orientation="Horizontal" Spacing="8">
+            <!--<StackPanel
+                Margin="0,0,0,8"
+                Orientation="Horizontal"
+                Spacing="8">
+                <Border
+                    Width="18"
+                    Height="18"
+                    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                    CornerRadius="10">
+                    <Image Source="https://avatars.githubusercontent.com/u/62196528" />
+                </Border>
+                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="fluenthub-community" />
+                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
+                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="FluentHub" />
+            </StackPanel>-->
+            <StackPanel
+                Grid.Row="1"
+                Orientation="Horizontal"
+                Spacing="8">
                 <TextBlock
                     x:Name="IssueTitleTextBlock"
                     FontWeight="Normal"
@@ -39,32 +57,22 @@
                     Text="#30" />
             </StackPanel>
             <StackPanel
-                Grid.Row="1"
-                Margin="0,8"
+                Grid.Row="2"
+                Margin="0,4,0,8"
                 Orientation="Horizontal"
                 Spacing="4">
                 <label:StateLabel x:Name="StatusLabel" Status="IssueDraft" />
             </StackPanel>
         </Grid>
-        <Grid
-            Grid.Row="1"
-            Margin="18,4,18,0"
-            ColumnSpacing="12">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="2*" />
-                <ColumnDefinition
-                    Width="*"
-                    MinWidth="180"
-                    MaxWidth="300" />
-            </Grid.ColumnDefinitions>
+        <Grid Grid.Row="1">
             <MenuFlyoutSeparator
                 Grid.ColumnSpan="2"
-                Margin="0,-1"
+                Margin="0,0"
                 VerticalAlignment="Top" />
-            <ScrollViewer>
+            <ScrollViewer Padding="12,2,12,0">
                 <StackPanel x:Name="IssueContentPanel" />
             </ScrollViewer>
-            <ScrollViewer Grid.Column="1">
+            <!--<ScrollViewer Grid.Column="1">
                 <Grid
                     Margin="0,20,0,12"
                     Padding="12"
@@ -269,7 +277,7 @@
                         </Button>
                     </Grid>
                 </Grid>
-            </ScrollViewer>
+            </ScrollViewer>-->
         </Grid>
     </Grid>
 </Page>

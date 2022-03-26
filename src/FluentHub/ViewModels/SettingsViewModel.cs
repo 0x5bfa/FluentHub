@@ -23,6 +23,8 @@ namespace FluentHub.ViewModels
                 DefaultLanguages.Add(new DefaultLanguageModel(lang));
             }
         }
+
+        #region signin
         public bool SetupCompleted
         {
             get => Get(nameof(SetupCompleted), false);
@@ -34,35 +36,18 @@ namespace FluentHub.ViewModels
             get => Get(nameof(SetupProgress), false);
             set => Set(nameof(SetupProgress), value);
         }
+        #endregion
 
-        public string AccessToken
-        {
-            get => Get(nameof(AccessToken), "");
-            set => Set(nameof(AccessToken), value);
-        }
-
+        #region appsettings
         public string AppTheme
         {
             get => Get(nameof(AppTheme), "Default");
             set => Set(nameof(AppTheme), value);
         }
 
-        public string LastOpenedPageFrame
-        {
-            get => Get(nameof(LastOpenedPageFrame), nameof(Views.Home.UserHomePage));
-            set => Set(nameof(LastOpenedPageFrame), value);
-        }
-
         public string AppVersion
         {
             get => Get(nameof(AppVersion), "Unknown version");
-            set => Set(nameof(AppVersion), value);
-        }
-
-        // will be replaced by a account list json file
-        public string AccountsNamesJoinedSlashes
-        {
-            get => Get(nameof(AppVersion), $"{App.SignedInUserName}");
             set => Set(nameof(AppVersion), value);
         }
 
@@ -75,5 +60,20 @@ namespace FluentHub.ViewModels
         }
 
         public DefaultLanguageModel CurrentLanguage { get; set; } = new DefaultLanguageModel(ApplicationLanguages.PrimaryLanguageOverride);
+        #endregion
+
+        #region onthers
+        public string AccessToken
+        {
+            get => Get(nameof(AccessToken), "");
+            set => Set(nameof(AccessToken), value);
+        }
+
+        public string LastOpenedPageFrame
+        {
+            get => Get(nameof(LastOpenedPageFrame), nameof(Views.Home.UserHomePage));
+            set => Set(nameof(LastOpenedPageFrame), value);
+        }
+        #endregion
     }
 }

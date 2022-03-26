@@ -1,5 +1,5 @@
 ﻿using FluentHub.Helpers;
-using FluentHub.Services.Octokit;
+using FluentHub.ViewModels.UserControls.Blocks;
 using Octokit;
 using System;
 using System.Collections.Generic;
@@ -20,39 +20,24 @@ namespace FluentHub.UserControls.Blocks
 {
     public sealed partial class ReadmeContentBlock : UserControl
     {
-        #region RepositoryIdProperty
-        public static readonly DependencyProperty RepositoryIdProperty
+        #region propdp
+        public static readonly DependencyProperty ViewMoedelProperty
         = DependencyProperty.Register(
-              nameof(RepositoryId),
-              typeof(long),
+              nameof(ViewModel),
+              typeof(ReadmeContentBlockViewModel),
               typeof(ReadmeContentBlock),
               new PropertyMetadata(null)
             );
 
-        public long RepositoryId
+        public ReadmeContentBlockViewModel ViewModel
         {
-            get => (long)GetValue(RepositoryIdProperty);
+            get => (ReadmeContentBlockViewModel)GetValue(ViewMoedelProperty);
             set
             {
-                SetValue(RepositoryIdProperty, value);
-                LoadContents();
+                SetValue(ViewMoedelProperty, value);
+                this.DataContext = ViewModel;
+                ViewModel?.GetMarkdownContent(ref ReadmeWebView);
             }
-        }
-        #endregion
-
-        #region RepositoryPathProperty
-        public static readonly DependencyProperty RepositoryPathProperty
-        = DependencyProperty.Register(
-              nameof(RepositoryPath),
-              typeof(string),
-              typeof(ReadmeContentBlock),
-              new PropertyMetadata(null)
-            );
-
-        public string RepositoryPath
-        {
-            get => (string)GetValue(RepositoryPathProperty);
-            set => SetValue(RepositoryPathProperty, value);
         }
         #endregion
 
@@ -61,40 +46,9 @@ namespace FluentHub.UserControls.Blocks
             this.InitializeComponent();
         }
 
-        private async void LoadContents()
-        {
-            if (RepositoryId == 0) return;
-
-            var repo = await App.Client.Repository.Get(RepositoryId);
-
-            Markdown markdown = new Markdown();
-
-            Readme readme;
-
-            try
-            {
-                readme = await App.Client.Repository.Content.GetReadme(RepositoryId);
-            }
-            catch
-            {
-                return;
-            }
-
-            string missingBasePath = "https://raw.githubusercontent.com/" + repo.Owner.Login + "/" + repo.Name + "/" + repo.DefaultBranch + "/";
-
-            string result = await markdown.GetHtml(readme.Content, missingBasePath);
-
-            ReadmeWebView.NavigateToString(result);
-
-            ReadmeBlock.Visibility = Visibility.Visible;
-        }
-
         private void ReadmeWebView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
         {
             WebViewHelpers.DisableWebViewVerticalScrolling(ref ReadmeWebView);
-
-            ReadmeLoadingProgressBar.IsIndeterminate = false;
-            ReadmeLoadingProgressBar.Visibility = Visibility.Collapsed;
         }
 
         private void ReadmeWebView_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)

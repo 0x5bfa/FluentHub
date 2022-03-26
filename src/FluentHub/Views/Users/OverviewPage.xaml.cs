@@ -32,7 +32,6 @@ namespace FluentHub.Views.Users
             };
 
             await ViewModel.GetPinnedRepos(login);
-            await ViewModel.GetSpecialRepoId(login);
             UpdateVisibility();
 
             base.OnNavigatedTo(e);

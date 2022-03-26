@@ -31,7 +31,6 @@ namespace FluentHub.UserControls.Blocks
             set
             {
                 SetValue(ViewModelProperty, value);
-                //_ = ViewModel?.GetPayloadContents();
                 this.DataContext = ViewModel;
             }
         }
@@ -39,6 +38,11 @@ namespace FluentHub.UserControls.Blocks
         public ActivityBlock()
         {
             this.InitializeComponent();
+        }
+
+        private async void OnUserControlLoaded(object sender, RoutedEventArgs e)
+        {
+            await ViewModel?.GetPayloadContentsAsync();
         }
     }
 }

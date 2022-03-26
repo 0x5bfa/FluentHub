@@ -26,15 +26,7 @@ namespace FluentHub.Views.Repositories.Layouts
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             CommonRepoViewModel = e.Parameter as CommonRepoViewModel;
-
-            // CommonRepoViewModel.Path.Remove() means remove the slash
-            /*
-            Helpers.NavigationHelpers.AddPageInfoToTabItem($"{CommonRepoViewModel.Path.Remove(0, 1)} at {CommonRepoViewModel.BranchName} • {CommonRepoViewModel.Owner}/{CommonRepoViewModel.Name}",
-                                                           "{org}'s overview",
-                                                           $"https://github.com/{CommonRepoViewModel.Owner}/{CommonRepoViewModel.Name}/tree/{CommonRepoViewModel.BranchName}{CommonRepoViewModel.Path}",
-                                                           "\uEA52",
-                                                           true);
-            */
+            ViewModel.CommonRepoViewModel = CommonRepoViewModel;
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = $"{CommonRepoViewModel.Path.Remove(0, 1)} at {CommonRepoViewModel.BranchName} • {CommonRepoViewModel.Owner}/{CommonRepoViewModel.Name}";
@@ -45,11 +37,9 @@ namespace FluentHub.Views.Repositories.Layouts
                 Glyph = "\uEA52",
                 FontFamily = new Windows.UI.Xaml.Media.FontFamily("/Assets/Glyphs/Octions.ttf#octions")
             };
-
-            ViewModel.CommonRepoViewModel = CommonRepoViewModel;
         }
 
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
+        private async void OnPageLoaded(object sender, RoutedEventArgs e)
         {
             if (CommonRepoViewModel.IsFile == true)
             {
@@ -59,11 +49,6 @@ namespace FluentHub.Views.Repositories.Layouts
             }
 
             await ViewModel.EnumRepositoryContents();
-
-            if (RepoReadmeBlock != null)
-            {
-                RepoReadmeBlock.RepositoryId = CommonRepoViewModel.RepositoryId;
-            }
 
             DirListViewLoadingProgreeBar.IsIndeterminate = false;
             DirListViewLoadingProgreeBar.Visibility = Visibility.Collapsed;

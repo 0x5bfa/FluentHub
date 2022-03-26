@@ -1,4 +1,5 @@
 ﻿using FluentHub.Models.Items;
+using FluentHub.ViewModels.UserControls.Blocks;
 using FluentHub.Octokit.Queries.Repositories;
 using Humanizer;
 using System;
@@ -19,6 +20,9 @@ namespace FluentHub.ViewModels.Repositories.Layouts
         private CommonRepoViewModel commonRepoViewModel;
         public CommonRepoViewModel CommonRepoViewModel { get => commonRepoViewModel; set => SetProperty(ref commonRepoViewModel, value); }
 
+        private ReadmeContentBlockViewModel readmeBlockViewModel;
+        public ReadmeContentBlockViewModel ReadmeBlockViewModel { get => readmeBlockViewModel; set => SetProperty(ref readmeBlockViewModel, value); }
+
         public async Task EnumRepositoryContents()
         {
             CommitQueries queries = new();
@@ -38,7 +42,6 @@ namespace FluentHub.ViewModels.Repositories.Layouts
             {
                 DetailsLayoutListViewItem listItem = new();
 
-                // object's icon
                 if (overview.ObjectType == "tree")
                 {
                     listItem.ObjectTypeIconGlyph = "\uE9A0";
@@ -50,22 +53,21 @@ namespace FluentHub.ViewModels.Repositories.Layouts
                     listItem.ObjectTag = "blob/" + overview.FileName;
                 }
 
-                // object's name
                 listItem.ObjectName = overview.FileName;
-
-                // object's commit message headline
                 listItem.ObjectLatestCommitMessage = overview.CommitMessage.Split("\n")[0];
-
-                // object's committed date
                 listItem.ObjectUpdatedAtHumanized = overview.CommittedDate.Humanize();
 
                 Items.Add(listItem);
             }
 
-            // Order by item type(tree or blob)
             var orderedByItemType = new ObservableCollection<DetailsLayoutListViewItem>(Items.OrderByDescending(x => x.ObjectTypeIconGlyph));
             Items.Clear();
             foreach (var orderedItem in orderedByItemType) Items.Add(orderedItem);
+
+            ReadmeContentBlockViewModel readmeViewModel = new();
+            readmeViewModel.Owner = CommonRepoViewModel.Owner;
+            readmeViewModel.RepoName = CommonRepoViewModel.Name;
+            ReadmeBlockViewModel = readmeViewModel;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

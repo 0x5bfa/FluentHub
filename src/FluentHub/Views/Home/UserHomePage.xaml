@@ -22,9 +22,6 @@
     </Page.Resources>
 
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
         <muxc:NavigationView
             x:Name="HomeNavView"
             AlwaysShowHeader="True"
@@ -37,26 +34,23 @@
             SelectionChanged="HomeNavView_SelectionChanged">
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItemHeader x:Uid="HomeNavViewHeaderProfile" />
-                <muxc:NavigationViewItem
-                    x:Uid="HomeNavViewItemProfile"
-                    IsSelected="True"
-                    Tag="Profile">
+                <muxc:NavigationViewItem x:Uid="HomeNavViewItemProfile" Tag="profile">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE77B;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem x:Uid="HomeNavViewItemNotifications" Tag="Notifications">
+                <muxc:NavigationViewItem x:Uid="HomeNavViewItemNotifications" Tag="notifications">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xEA8F;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem x:Uid="HomeNavViewItemActivities" Tag="Activities">
+                <muxc:NavigationViewItem x:Uid="HomeNavViewItemActivities" Tag="activities">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xECAD;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
                 <muxc:NavigationViewItemHeader x:Uid="HomeNavViewHeaderMyWork" />
-                <muxc:NavigationViewItem Tag="Issues">
+                <muxc:NavigationViewItem Tag="issues">
                     <muxc:NavigationViewItem.Content>
                         <StackPanel Orientation="Horizontal" Spacing="16">
                             <Border
@@ -74,7 +68,7 @@
                         </StackPanel>
                     </muxc:NavigationViewItem.Content>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem Tag="Pulls">
+                <muxc:NavigationViewItem Tag="pullrequests">
                     <muxc:NavigationViewItem.Content>
                         <StackPanel Orientation="Horizontal" Spacing="16">
                             <Border
@@ -92,7 +86,7 @@
                         </StackPanel>
                     </muxc:NavigationViewItem.Content>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem Tag="Discussions">
+                <muxc:NavigationViewItem Tag="discussions">
                     <muxc:NavigationViewItem.Content>
                         <StackPanel Orientation="Horizontal" Spacing="16">
                             <Border
@@ -110,7 +104,7 @@
                         </StackPanel>
                     </muxc:NavigationViewItem.Content>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem Tag="Repositories">
+                <muxc:NavigationViewItem Tag="repositories">
                     <muxc:NavigationViewItem.Content>
                         <StackPanel Orientation="Horizontal" Spacing="16">
                             <Border
@@ -128,7 +122,7 @@
                         </StackPanel>
                     </muxc:NavigationViewItem.Content>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem Tag="Organizations">
+                <muxc:NavigationViewItem Tag="organizations">
                     <muxc:NavigationViewItem.Content>
                         <StackPanel Orientation="Horizontal" Spacing="16">
                             <Border
@@ -146,7 +140,7 @@
                         </StackPanel>
                     </muxc:NavigationViewItem.Content>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem Tag="Starred">
+                <muxc:NavigationViewItem Tag="starred">
                     <muxc:NavigationViewItem.Content>
                         <StackPanel Orientation="Horizontal" Spacing="16">
                             <Border

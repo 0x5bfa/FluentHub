@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentHub.ViewModels.UserControls.Blocks;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,12 +14,23 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// ユーザー コントロールの項目テンプレートについては、https://go.microsoft.com/fwlink/?LinkId=234236 を参照してください
-
 namespace FluentHub.UserControls.Blocks
 {
     public sealed partial class CommitActivityBlock : UserControl
     {
+        public static readonly DependencyProperty ViewModelProperty
+            = DependencyProperty.Register(nameof(ViewModel), typeof(CommitActivityBlockViewModel), typeof(CommitActivityBlock), new PropertyMetadata(0));
+
+        public CommitActivityBlockViewModel ViewModel
+        {
+            get => (CommitActivityBlockViewModel)GetValue(ViewModelProperty);
+            set
+            {
+                SetValue(ViewModelProperty, value);
+                this.DataContext = ViewModel;
+            }
+        }
+
         public CommitActivityBlock()
         {
             this.InitializeComponent();

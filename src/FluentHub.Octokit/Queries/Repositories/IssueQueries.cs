@@ -114,5 +114,35 @@ namespace FluentHub.Octokit.Queries.Repositories
 
             return item;
         }
+
+        public async Task Get(string owner, string name, int number)
+        {
+            #region queries
+            var query = new Query()
+                .Repository(name, owner)
+                .Issue(number: number)
+                .Select(x => new
+                {
+                    AuthorAvatarUrl = x.Author.AvatarUrl(100),
+                    AuthorLoginName = x.Author.Login,
+                    x.AuthorAssociation,
+                    x.BodyHTML,
+                    x.Closed,
+                    x.IsPinned,
+                    x.Number,
+                    x.Locked,
+                    x.State,
+                    x.Title,
+                })
+                .Compile();
+            #endregion
+
+            var response = await App.Connection.Run(query);
+        }
+
+        public void GetDetails(string owner, string name, int number)
+        {
+
+        }
     }
 }

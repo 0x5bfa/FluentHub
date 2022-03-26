@@ -1,6 +1,7 @@
 ﻿using FluentHub.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
@@ -20,31 +21,41 @@ namespace FluentHub.Views.AppSettings
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            //Helpers.NavigationHelpers.AddPageInfoToTabItem($"Settings", "FluentHub settings", "fluenthub://settings/appearance", "\uE713");
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Settings";
             currentItem.Description = "FluentHub settings";
-            currentItem.Url = "fluenthub://settings/appearance";
+            currentItem.Url = "fluenthub://settings";
             currentItem.Icon = new muxc.FontIconSource
             {
                 Glyph = "\uE713"
             };
+
+            var defaultItem = SettingsNavView
+                                    .MenuItems
+                                    .OfType<muxc.NavigationViewItem>()
+                                    .FirstOrDefault();
+
+            SettingsNavView.SelectedItem = SettingsNavView
+                                                .MenuItems
+                                                .Concat(SettingsNavView.FooterMenuItems)
+                                                .OfType<muxc.NavigationViewItem>()
+                                                .FirstOrDefault(x => string.Compare(x.Tag.ToString(), e.Parameter?.ToString(), true) == 0)
+                                                ?? defaultItem;
         }
 
         private void SettingsNavView_SelectionChanged(muxc.NavigationView sender, muxc.NavigationViewSelectionChangedEventArgs args)
         {
-            switch (args.SelectedItemContainer.Tag.ToString())
+            switch (args.SelectedItemContainer?.Tag?.ToString())
             {
-                default:
-                case "Appearance":
+                case "appearance":
                     SettingsContentFrame.Navigate(typeof(AppearancePage));
                     NavViewFrameTitleTextBlock.Text = "Appearance";
                     break;
-                case "About":
+                case "about":
                     SettingsContentFrame.Navigate(typeof(AboutPage));
                     NavViewFrameTitleTextBlock.Text = "About";
                     break;
-                case "Accounts":
+                case "accounts":
                     SettingsContentFrame.Navigate(typeof(AccountsPage));
                     NavViewFrameTitleTextBlock.Text = "Accounts";
                     break;
