@@ -7,8 +7,40 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:FluentHub.UserControls.TabViewControl"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
+    KeyTipPlacementMode="Hidden"
+    KeyboardAcceleratorPlacementMode="Hidden"
     mc:Ignorable="d">
+    <Page.KeyboardAccelerators>
+        <KeyboardAccelerator
+            Key="T"
+            Invoked="OnKeyboardAcceleratorInvoked"
+            Modifiers="Control" />
 
+        <KeyboardAccelerator
+            Key="W"
+            Invoked="OnKeyboardAcceleratorInvoked"
+            Modifiers="Control" />
+
+        <KeyboardAccelerator
+            Key="Tab"
+            Invoked="OnKeyboardAcceleratorInvoked"
+            Modifiers="Control" />
+
+        <KeyboardAccelerator
+            Key="Tab"
+            Invoked="OnKeyboardAcceleratorInvoked"
+            Modifiers="Control,Shift" />
+
+        <KeyboardAccelerator
+            Key="Left"
+            Invoked="OnKeyboardAcceleratorInvoked"
+            Modifiers="Menu" />
+
+        <KeyboardAccelerator
+            Key="Right"
+            Invoked="OnKeyboardAcceleratorInvoked"
+            Modifiers="Menu" />
+    </Page.KeyboardAccelerators>
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
