@@ -15,7 +15,7 @@ namespace FluentHub.Views
         public MainPage()
         {
             InitializeComponent();
-            CoreApplication.GetCurrentView().TitleBar.LayoutMetricsChanged += TitleBar_LayoutMetricsChanged;
+            CoreApplication.GetCurrentView().TitleBar.LayoutMetricsChanged += (CoreApplicationViewTitleBar sender, _) => RightPaddingColumn.Width = new GridLength(sender.SystemOverlayRightInset);
             navigationService = App.Current.Services.GetService<INavigationService>();
         }
         private readonly INavigationService navigationService;
@@ -34,19 +34,14 @@ namespace FluentHub.Views
             navigationService.Disconnect();
         }
 
-        private void TitleBar_LayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
-        {
-            CoreApplication.GetCurrentView().TitleBar.LayoutMetricsChanged += OnTitleBarLayoutMetricsChanged;
-        }
-
-        private void OnTitleBarLayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
-            => RightPaddingColumn.Width = new GridLength(sender.SystemOverlayRightInset);
-
         private void DragArea_Loaded(object sender, RoutedEventArgs e) => Window.Current.SetTitleBar(DragArea);
 
         private void HomeButton_Click(object sender, RoutedEventArgs e) => navigationService.Navigate<UserHomePage>();
+
         private void GoBack() => navigationService.GoBack();
+
         private void GoForward() => navigationService.GoForward();
+
         private async void ShareWithBrowserMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;

@@ -862,6 +862,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dialogs\" />
+    <Folder Include="Views\HttpResponses\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Glyphs\SegoeFluentIconsNormal.ttf" />

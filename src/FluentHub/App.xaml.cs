@@ -34,15 +34,7 @@ namespace FluentHub
 
         public static SettingsViewModel Settings { get; private set; } = new SettingsViewModel();
 
-        public static string DefaultHost { get; private set; } = "https://github.com";
-
-        public static string RestApiEndPoint { get; private set; } = "https://api.github.com";
-
-        public static string GraphQlApiEndPoint { get; private set; } = "https://api.github.com/graphql";
-
         public static string SignedInUserName { get; private set; }
-
-        private static InternetConnectionHelpers internetConnection = new InternetConnectionHelpers();
 
         public static string AppVersion = $"{Package.Current.Id.Version.Major}.{Package.Current.Id.Version.Minor}.{Package.Current.Id.Version.Build}.{Package.Current.Id.Version.Revision}";
 
@@ -59,12 +51,11 @@ namespace FluentHub
                 {
                     await new ContentDialog
                     {
-                        Title = "Unhandled exception",
+                        Title = "Unhandled exception occured",
                         Content = e.Exception,
                         CloseButtonText = "Close"
                     }.ShowAsync();
                 }
-                catch { }
             };
 #endif
             Services = ConfigureServices();
@@ -117,7 +108,9 @@ namespace FluentHub
             CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
             ApplicationView.GetForCurrentView().TitleBar.ButtonBackgroundColor = Colors.Transparent;
             ApplicationView.GetForCurrentView().TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+
             bool openInNewTab = true;
+
             if (rootFrame == null)
             {
                 openInNewTab = false;
@@ -178,6 +171,7 @@ namespace FluentHub
         private void HandleUriActivation(Uri uri!!, bool openInTab)
         {
             var ns = Services.GetRequiredService<INavigationService>();
+
             if (ns.IsConfigured)
             {
                 Type page = null;
@@ -196,7 +190,6 @@ namespace FluentHub
                         page = typeof(Views.Home.UserHomePage);
                         param = uri.Authority;
                         break;
-
                     case "settings":
                         page = typeof(Views.AppSettings.MainSettingsPage);
                         if (uri.Query.Contains("page"))
@@ -218,6 +211,7 @@ namespace FluentHub
         {
             ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
 
+            // fluenthub://?code=[code]
             if (eventArgs.Uri.Query.Contains("code"))
             {
                 string code = new WwwFormUrlDecoder(eventArgs.Uri.Query).GetFirstValueByName("code");

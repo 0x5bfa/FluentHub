@@ -1,4 +1,5 @@
 ﻿using Octokit.GraphQL;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,11 +14,18 @@ namespace FluentHub.Octokit.Queries.Users
 
         public async Task<string> GetLoginName()
         {
-            var query = new Query().Viewer.Select(x => x.Login);
+            try
+            {
+                var query = new Query().Viewer.Select(x => x.Login);
 
-            var result = await App.Connection.Run(query);
-
-            return result;
+                var result = await App.Connection.Run(query);
+                return result;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, ex.Message);
+                return null;
+            }
         }
     }
 }
