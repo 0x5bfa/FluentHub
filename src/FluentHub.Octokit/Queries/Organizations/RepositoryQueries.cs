@@ -14,55 +14,67 @@ namespace FluentHub.Octokit.Queries.Organizations
 
         public async Task<List<Models.Repository>> GetOverviewAll(string org)
         {
-            var query = new Query()
-                    .Organization(org)
-                    .Repositories(first: 30)
-                    .Nodes
-                    .Select(x => new
-                    {
-                        x.Name,
-                        x.Description,
-                        Owner = x.Owner.Select(y => y.Login).Single(),
-                        PrimaryLanguage = x.Languages(1, null, null, null, null).Nodes.Select(language => new { language.Name, language.Color }).ToList(),
-                        x.StargazerCount,
-                        LicenseName = x.LicenseInfo.Select(license => license.Name).Single(),
-                        x.ForkCount,
-                        IssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
-                        PullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
-                        x.UpdatedAt,
-                    })
-                    .Compile();
-
             List<Models.Repository> items = new();
 
-            var result = await App.Connection.Run(query);
-
-            foreach (var res in result)
+            try
             {
-                Models.Repository item = new();
+                #region query
+                var query = new Query()
+                        .Organization(org)
+                        .Repositories(first: 30)
+                        .Nodes
+                        .Select(x => new
+                        {
+                            x.Name,
+                            x.Description,
+                            Owner = x.Owner.Select(y => y.Login).Single(),
+                            PrimaryLanguage = x.Languages(1, null, null, null, null).Nodes.Select(language => new { language.Name, language.Color }).ToList(),
+                            x.StargazerCount,
+                            LicenseName = x.LicenseInfo.Select(license => license.Name).Single(),
+                            x.ForkCount,
+                            IssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
+                            PullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
+                            x.UpdatedAt,
+                        })
+                        .Compile();
+                #endregion
 
-                item.Description = res.Description;
+                var result = await App.Connection.Run(query);
 
-                if (res.PrimaryLanguage != null && res.PrimaryLanguage.Count() != 0)
+                #region copying
+                foreach (var res in result)
                 {
-                    item.PrimaryLangName = res.PrimaryLanguage[0].Name;
-                    item.PrimaryLangColor = res.PrimaryLanguage[0].Color;
+                    Models.Repository item = new();
+
+                    item.Description = res.Description;
+
+                    if (res.PrimaryLanguage != null && res.PrimaryLanguage.Count() != 0)
+                    {
+                        item.PrimaryLangName = res.PrimaryLanguage[0].Name;
+                        item.PrimaryLangColor = res.PrimaryLanguage[0].Color;
+                    }
+
+                    item.Owner = res.Owner;
+                    item.Name = res.Name;
+                    item.StargazerCount = res.StargazerCount;
+
+                    item.LicenseName = res.LicenseName;
+                    item.ForkCount = res.ForkCount;
+                    item.IssueCount = res.IssueCount;
+                    item.PullCount = res.PullCount;
+                    item.UpdatedAt = res.UpdatedAt;
+
+                    items.Add(item);
                 }
+                #endregion
 
-                item.Owner = res.Owner;
-                item.Name = res.Name;
-                item.StargazerCount = res.StargazerCount;
-
-                item.LicenseName = res.LicenseName;
-                item.ForkCount = res.ForkCount;
-                item.IssueCount = res.IssueCount;
-                item.PullCount = res.PullCount;
-                item.UpdatedAt = res.UpdatedAt;
-
-                items.Add(item);
+                return items;
             }
-
-            return items;
+            catch (Exception ex)
+            {
+                Log.Error(ex, ex.Message);
+                return items;
+            }
         }
     }
 }
