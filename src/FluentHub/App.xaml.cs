@@ -101,6 +101,7 @@ namespace FluentHub
                 // ViewModels
                 .AddSingleton<MainPageViewModel>()
                 .AddTransient<ViewModels.AppSettings.AboutViewModel>()
+                .AddTransient<ViewModels.AppSettings.AppearanceViewModel>()
                 .BuildServiceProvider();
         }
 
