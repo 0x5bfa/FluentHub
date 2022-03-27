@@ -44,9 +44,11 @@ namespace FluentHub
 
             Suspending += OnSuspending;
 
-#if DEBUG
+
             UnhandledException += async (s, e) =>
             {
+                Services.GetService<ILogger>()?.Fatal(e.Exception, "Unhandled exception");
+#if DEBUG
                 e.Handled = true;
                 try
                 {
@@ -58,8 +60,8 @@ namespace FluentHub
                     }.ShowAsync();
                 }
                 catch { }
-            };
 #endif
+            };
             Services = ConfigureServices();
 
             IntializeLogger();
@@ -132,7 +134,7 @@ namespace FluentHub
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
-                Window.Current.Content = rootFrame;
+                Window.Current.Content = rootFrame;                
             }
 
             if (rootFrame.Content == null)
@@ -185,8 +187,11 @@ namespace FluentHub
             }
         }
 
-        private async Task HandleUriActivationAsync(Uri uri, bool openInTab)
+        private async Task HandleUriActivationAsync(Uri uri, bool openInNewTab)
         {
+            var logger = Services.GetService<ILogger>();
+            logger?.Debug("HandleUriActivationAsync: {uri}", uri);            
+
             Type page = null;
             object param = null;
             switch (uri.Authority.ToLower())
@@ -231,7 +236,7 @@ namespace FluentHub
             {
                 if (page != null)
                 {
-                    if (openInTab)
+                    if (openInNewTab)
                         ns.OpenTab(page, param);
                     else
                         ns.Navigate(page, param);
