@@ -1,11 +1,6 @@
 ﻿using FluentHub.Services;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.Input;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Serilog;
 using System.Windows.Input;
 using Windows.UI.Xaml.Input;
 
@@ -13,7 +8,26 @@ namespace FluentHub.ViewModels
 {
     public class MainPageViewModel
     {
-        private readonly INavigationService navigationService;
+        public MainPageViewModel(INavigationService navigationService!!)
+        {
+            _navigationService = navigationService;            
+
+            AddNewTabAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(AddNewTabAccelerator);
+            CloseTabAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(CloseTabAccelerator);
+            GoToNextTabAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(GoToNextTabAccelerator);
+            GoToPreviousTabAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(GoToPreviousTabAccelerator);
+            AddNewTabWithMouseAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(AddNewTabWithMouseAccelerator);
+            CloseTabWithMouseAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(CloseTabWithMouseAccelerator);
+
+            GoBackCommand = new RelayCommand(GoBack);
+            GoForwardCommand = new RelayCommand(GoForward);
+            GoHomeCommand = new RelayCommand(GoHome);
+        }
+
+        #region fields        
+        private readonly INavigationService _navigationService;
+        private readonly ILogger _logger;
+        #endregion
 
         #region commands
         public ICommand AddNewTabAcceleratorCommand { get; private set; }
@@ -28,44 +42,28 @@ namespace FluentHub.ViewModels
         public ICommand GoHomeCommand { get; private set; }
         #endregion
 
-        public MainPageViewModel()
-        {
-            navigationService = App.Current.Services.GetService<INavigationService>();
-
-            AddNewTabAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(AddNewTabAccelerator);
-            CloseTabAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(CloseTabAccelerator);
-            GoToNextTabAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(GoToNextTabAccelerator);
-            GoToPreviousTabAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(GoToPreviousTabAccelerator);
-            AddNewTabWithMouseAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(AddNewTabWithMouseAccelerator);
-            CloseTabWithMouseAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(CloseTabWithMouseAccelerator);
-
-            GoBackCommand = new RelayCommand(GoBack);
-            GoForwardCommand = new RelayCommand(GoForward);
-            GoHomeCommand = new RelayCommand(GoHome);
-        }
-
         #region command-methods
         private void AddNewTabAccelerator(KeyboardAcceleratorInvokedEventArgs e)
         {
-            navigationService.OpenTab<Views.Home.UserHomePage>();
+            _navigationService.OpenTab<Views.Home.UserHomePage>();
             e.Handled = true;
         }
 
         private void CloseTabAccelerator(KeyboardAcceleratorInvokedEventArgs e)
         {
-            navigationService.CloseTab(navigationService.TabView.SelectedItem.Guid);
+            _navigationService.CloseTab(_navigationService.TabView.SelectedItem.Guid);
             e.Handled = true;
         }
 
         private void GoToNextTabAccelerator(KeyboardAcceleratorInvokedEventArgs e)
         {
-            if (navigationService.TabView.SelectedIndex == navigationService.TabView.Items.Count - 1)
+            if (_navigationService.TabView.SelectedIndex == _navigationService.TabView.Items.Count - 1)
             {
-                navigationService.TabView.SelectedIndex = 0;
+                _navigationService.TabView.SelectedIndex = 0;
             }
             else
             {
-                navigationService.TabView.SelectedIndex++;
+                _navigationService.TabView.SelectedIndex++;
             }
 
             e.Handled = true;
@@ -73,13 +71,13 @@ namespace FluentHub.ViewModels
 
         private void GoToPreviousTabAccelerator(KeyboardAcceleratorInvokedEventArgs e)
         {
-            if (navigationService.TabView.SelectedIndex == navigationService.TabView.Items.Count - 1)
+            if (_navigationService.TabView.SelectedIndex == _navigationService.TabView.Items.Count - 1)
             {
-                navigationService.TabView.SelectedIndex = 0;
+                _navigationService.TabView.SelectedIndex = 0;
             }
             else
             {
-                navigationService.TabView.SelectedIndex--;
+                _navigationService.TabView.SelectedIndex--;
             }
 
             e.Handled = true;
@@ -87,32 +85,30 @@ namespace FluentHub.ViewModels
 
         private void AddNewTabWithMouseAccelerator(KeyboardAcceleratorInvokedEventArgs e)
         {
-            navigationService.OpenTab<Views.Home.UserHomePage>();
+            _navigationService.OpenTab<Views.Home.UserHomePage>();
             e.Handled = true;
         }
 
         private void CloseTabWithMouseAccelerator(KeyboardAcceleratorInvokedEventArgs e)
         {
-            navigationService.CloseTab(navigationService.TabView.SelectedItem.Guid);
+            _navigationService.CloseTab(_navigationService.TabView.SelectedItem.Guid);
             e.Handled = true;
         }
 
         private void GoBack()
         {
-            navigationService.GoBack();
+            _navigationService.GoBack();
         }
 
         private void GoForward()
         {
-            navigationService.GoForward();
+            _navigationService.GoForward();
         }
 
         private void GoHome()
         {
-            navigationService.Navigate<Views.Home.UserHomePage>();
+            _navigationService.Navigate<Views.Home.UserHomePage>();
         }
         #endregion
-
-
     }
 }

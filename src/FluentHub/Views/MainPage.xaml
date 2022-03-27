@@ -8,15 +8,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:FluentHub.UserControls.TabViewControl"
-    xmlns:vm="using:FluentHub.ViewModels"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     KeyTipPlacementMode="Hidden"
     KeyboardAcceleratorPlacementMode="Hidden"
     mc:Ignorable="d">
 
-    <Page.DataContext>
-        <vm:MainPageViewModel x:Name="ViewModel" />
-    </Page.DataContext>
     <Page.KeyboardAccelerators>
         <KeyboardAccelerator Key="T" Modifiers="Control">
             <i:Interaction.Behaviors>
@@ -49,14 +45,14 @@
         <KeyboardAccelerator Key="Left" Modifiers="Menu">
             <i:Interaction.Behaviors>
                 <icore:EventTriggerBehavior EventName="Invoked">
-                    <icore:InvokeCommandAction Command="{x:Bind ViewModel.AddNewTabWithMouseAcceleratorCommand}" />
+                    <icore:InvokeCommandAction Command="{x:Bind ViewModel.GoBackCommand}" />
                 </icore:EventTriggerBehavior>
             </i:Interaction.Behaviors>
         </KeyboardAccelerator>
         <KeyboardAccelerator Key="Right" Modifiers="Menu">
             <i:Interaction.Behaviors>
                 <icore:EventTriggerBehavior EventName="Invoked">
-                    <icore:InvokeCommandAction Command="{x:Bind ViewModel.CloseTabWithMouseAcceleratorCommand}" />
+                    <icore:InvokeCommandAction Command="{x:Bind ViewModel.GoForwardCommand}" />
                 </icore:EventTriggerBehavior>
             </i:Interaction.Behaviors>
         </KeyboardAccelerator>

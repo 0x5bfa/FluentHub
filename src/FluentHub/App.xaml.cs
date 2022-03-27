@@ -1,7 +1,7 @@
 ﻿using FluentHub.Helpers;
+using FluentHub.Octokit.Authorization;
 using FluentHub.Octokit.Queries.Users;
 using FluentHub.Services;
-using FluentHub.Octokit.Authorization;
 using FluentHub.Services.Navigation;
 using FluentHub.ViewModels;
 using FluentHub.Views;
@@ -81,8 +81,24 @@ namespace FluentHub
         /// </summary>
         private static IServiceProvider ConfigureServices()
         {
+            string logFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "logs", "Log.log");
+            var logger =  new LoggerConfiguration()
+                                    .MinimumLevel
+#if DEBUG
+                                    .Verbose()
+#else
+                                    .Error()
+#endif
+
+                                    .WriteTo
+                                    .File(logFilePath, rollingInterval: RollingInterval.Day)
+                                    .CreateLogger();
+
             return new ServiceCollection()
                 .AddSingleton<INavigationService, NavigationService>()
+                .AddSingleton<ILogger>(logger)
+                // ViewModels
+                .AddSingleton<MainPageViewModel>()
                 .BuildServiceProvider();
         }
 
@@ -240,7 +256,7 @@ namespace FluentHub
                 HandleUriActivation(eventArgs.Uri, true);
             }
         }
-        
+
         void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
         {
             throw new Exception("Failed to load Page " + e.SourcePageType.FullName);

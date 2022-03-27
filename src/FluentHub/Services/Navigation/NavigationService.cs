@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -7,6 +8,11 @@ namespace FluentHub.Services.Navigation
 {
     public class NavigationService : INavigationService
     {
+        public NavigationService(ILogger logger = null)
+        {
+            _logger = logger;
+        }
+        private readonly ILogger _logger;
         private Frame _frame;
         public ITabView TabView { get; private set; }
         public Type NewTabPage { get; set; }
@@ -20,10 +26,12 @@ namespace FluentHub.Services.Navigation
             NewTabPage = newTabPage;
             SubscribeEvents();
             IsConfigured = true;
+            _logger?.Information("NavigationService configured");
         }
 
         private void OnTabViewSelectionChanged(object sender, TabViewSelectionChangedEventArgs e)
         {
+            _logger?.Information("NavigationService.OnTabViewSelectionChanged  [Guid: {@Guid}]", e.NewSelectedItem?.Guid);
             if (e.NewSelectedItem is ITabItemView item)
             {
                 var currentHistoryItem = item.NavigationHistory.CurrentItem;
@@ -44,8 +52,6 @@ namespace FluentHub.Services.Navigation
                         _frame.Navigate(currentHistoryItem.PageStackEntry.SourcePageType,
                                         currentHistoryItem.PageStackEntry.Parameter,
                                         e.RecommendedNavigationTransitionInfo);
-
-
 
                         for (int i = 0; i < item.NavigationHistory.CurrentItemIndex; i++)
                         {
@@ -140,6 +146,11 @@ namespace FluentHub.Services.Navigation
                     history.GoForward();
                     break;
             }
+            _logger?.Information(
+                    "NavigationService.OnFrameNavigating [Page: {@SourcePageType}, Parameter: {@Parameter}, NavigationMode: {@NavigationMode}]",
+                    e.SourcePageType,
+                    e.Parameter,
+                    e.NavigationMode);
         }
         private void SubscribeEvents()
         {
@@ -169,7 +180,9 @@ namespace FluentHub.Services.Navigation
         {
             if (!IsConfigured)
             {
-                throw new InvalidOperationException("The Navigation Service has not been configured. Call INavigationService.Configure first");
+                var message = "The Navigation Service has not been configured. Call INavigationService.Configure first";
+                _logger?.Error(message);
+                throw new InvalidOperationException(message);
             }
         }
 
@@ -180,6 +193,7 @@ namespace FluentHub.Services.Navigation
             _frame = null;
             NewTabPage = null;
             IsConfigured = false;
+            _logger?.Information("NavigationService disconnected");
         }
     }
 }
