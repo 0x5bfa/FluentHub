@@ -54,7 +54,7 @@ namespace FluentHub
                     await new ContentDialog
                     {
                         Title = "Unhandled exception occured",
-                        Content = e.Exception,
+                        Content = e.Message,
                         CloseButtonText = "Close"
                     }.ShowAsync();
                 }
@@ -95,12 +95,14 @@ namespace FluentHub
                                     .CreateLogger();
 
             return new ServiceCollection()
+                .AddSingleton<IGitHubClient>(App.Client)
                 .AddSingleton<INavigationService, NavigationService>()
                 .AddSingleton<ILogger>(logger)
                 // ViewModels
                 .AddSingleton<MainPageViewModel>()
                 .AddTransient<ViewModels.AppSettings.AboutViewModel>()
                 .AddTransient<ViewModels.AppSettings.AppearanceViewModel>()
+                .AddTransient<ViewModels.Home.NotificationsViewModel>()
                 .BuildServiceProvider();
         }
 
