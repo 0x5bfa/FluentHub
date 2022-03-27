@@ -15,14 +15,14 @@ Ensure you have these packages:
 
 1. Set some values on [this site](https://github.com/settings/applications/new):
 
-Name|Value
----|---
-Application name|`FluentHub`<br/>
-Homepage URL|`https://github.com/fluenthub-community/FluentHub`<br/>
-Application description|*Optional*<br/>
-Authorization callback URL|`fluenthub://`<br/>
-Application logo|Use [this](https://github.com/fluenthub-community/FluentHub/blob/main/src/FluentHub/Assets/AppTiles/StoreLogo.scale-400.png)<br/>
-Badge background color|`#FFFFFF` or your favorite color<br/>
+Name|Value|Requred
+---|---|---
+Application name|`FluentHub`|True
+Homepage URL|`https://github.com/fluenthub-community/FluentHub`|True
+Application description|A fluent GitHub app for Windows|False
+Authorization callback URL|`fluenthub://auth`|True
+Application logo|Use [this](https://github.com/fluenthub-community/FluentHub/blob/main/src/FluentHub/Assets/AppTiles/StoreLogo.scale-400.png)|True
+Badge background color|`#FFFFFF`|True (but whatever)
 
 2. Create a file named `AppCredentials.config` in the root of your FluentHub repo with Solution Explorer
 3. change `id` and `secret` node value.
