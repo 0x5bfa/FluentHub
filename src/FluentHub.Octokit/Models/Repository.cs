@@ -10,6 +10,8 @@ namespace FluentHub.Octokit.Models
     {
         public string Name { get; set; }
 
+        public string OwnerAvatarUrl { get; set; }
+
         public string Owner { get; set; }
 
         public string Description { get; set; }
@@ -27,6 +29,10 @@ namespace FluentHub.Octokit.Models
         public int PullCount { get; set; }
 
         public int StargazerCount { get; set; }
+
+        public int WatcherCount { get; set; }
+
+        public string DefaultBranchName { get; set; }
 
         public DateTimeOffset UpdatedAt { get; set; }
     }

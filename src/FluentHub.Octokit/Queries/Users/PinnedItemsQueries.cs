@@ -1,5 +1,6 @@
 ﻿using Octokit.GraphQL;
 using Octokit.GraphQL.Model;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,68 +15,110 @@ namespace FluentHub.Octokit.Queries.Users
 
         public async Task<List<Models.Repository>> GetOverviewAll(string login, bool isUser)
         {
-            var usersQuery = new Query()
-                    .User(login)
-                    .PinnedItems(first: 6)
-                    .Nodes
-                    .OfType<Repository>()
-                    .Select(x => new
-                    {
-                        x.Name,
-                        x.Description,
-                        Owner = x.Owner.Select(y => y.Login).Single(),
-                        PrimaryLanguage = 
-                        x.Languages(1, null, null, null, null)
-                        .Nodes
-                        .Select(language => new
-                        {
-                            language.Name, language.Color
-                        }).ToList(),
-                        x.StargazerCount,
-                    })
-                    .Compile();
-
-            var orgsQuery = new Query()
-                    .Organization(login)
-                    .PinnedItems(first: 6)
-                    .Nodes
-                    .OfType<Repository>()
-                    .Select(x => new
-                    {
-                        x.Name,
-                        x.Description,
-                        Owner = x.Owner.Select(y => y.Login).Single(),
-                        PrimaryLanguage =
-                        x.Languages(1, null, null, null, null)
-                        .Nodes
-                        .Select(language => new
-                        {
-                            language.Name,
-                            language.Color
-                        }).ToList(),
-                        x.StargazerCount,
-                    })
-                    .Compile();
-
-            var result = await App.Connection.Run(isUser ? usersQuery : orgsQuery);
-
-            List<Models.Repository> items = new();
-
-            foreach (var res in result)
+            try
             {
-                Models.Repository item = new();
+                #region userquery
+                var usersQuery = new Query()
+                        .User(login)
+                        .PinnedItems(first: 6)
+                        .Nodes
+                        .OfType<Repository>()
+                        .Select(x => new
+                        {
+                            x.Name,
+                            x.Description,
+                            Owner = x.Owner.Select(y => new
+                            {
+                                AvatarUrl = y.AvatarUrl(100),
+                                y.Login,
+                            }).Single(),
 
-                item.Description = res.Description;
-                item.PrimaryLangName = res.PrimaryLanguage[0].Name;
-                item.PrimaryLangColor = res.PrimaryLanguage[0].Color;
-                item.Owner = res.Owner;
-                item.Name = res.Name;
-                item.StargazerCount = res.StargazerCount;
+                            PrimaryLanguage = x.Languages(1, null, null, null, null).Nodes.Select(language => new { language.Name, language.Color }).ToList(),
+                            x.StargazerCount,
 
-                items.Add(item);
+                            LicenseName = x.LicenseInfo.Select(license => license.Name).Single(),
+                            x.ForkCount,
+                            IssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
+                            PullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
+                            x.UpdatedAt,
+
+                            WatcherCount = x.Watchers(null, null, null, null).TotalCount,
+                            DefaultBranchName = x.DefaultBranchRef.Name,
+                        })
+                        .Compile();
+                #endregion
+
+                #region orgquery
+                var orgsQuery = new Query()
+                        .Organization(login)
+                        .PinnedItems(first: 6)
+                        .Nodes
+                        .OfType<Repository>()
+                        .Select(x => new
+                        {
+                            x.Name,
+                            x.Description,
+                            Owner = x.Owner.Select(y => new
+                            {
+                                AvatarUrl = y.AvatarUrl(100),
+                                y.Login,
+                            }).Single(),
+
+                            PrimaryLanguage = x.Languages(1, null, null, null, null).Nodes.Select(language => new { language.Name, language.Color }).ToList(),
+                            x.StargazerCount,
+
+                            LicenseName = x.LicenseInfo.Select(license => license.Name).Single(),
+                            x.ForkCount,
+                            IssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
+                            PullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
+                            x.UpdatedAt,
+
+                            WatcherCount = x.Watchers(null, null, null, null).TotalCount,
+                            DefaultBranchName = x.DefaultBranchRef.Name,
+                        })
+                        .Compile();
+                #endregion
+
+                var result = await App.Connection.Run(isUser ? usersQuery : orgsQuery);
+
+                #region copying
+                List<Models.Repository> items = new();
+
+                foreach (var res in result)
+                {
+                    Models.Repository item = new();
+
+                    if (res.PrimaryLanguage != null && res.PrimaryLanguage.Count() != 0)
+                    {
+                        item.PrimaryLangName = res.PrimaryLanguage[0].Name;
+                        item.PrimaryLangColor = res.PrimaryLanguage[0].Color;
+                    }
+
+                    item.Name = res.Name;
+                    item.Owner = res.Owner.Login;
+                    item.OwnerAvatarUrl = res.Owner.AvatarUrl;
+                    item.Description = res.Description;
+                    item.StargazerCount = res.StargazerCount;
+
+                    item.LicenseName = res.LicenseName;
+                    item.ForkCount = res.ForkCount;
+                    item.IssueCount = res.IssueCount;
+                    item.PullCount = res.PullCount;
+                    item.UpdatedAt = res.UpdatedAt;
+                    item.WatcherCount = res.WatcherCount;
+                    item.DefaultBranchName = res.DefaultBranchName;
+
+                    items.Add(item);
+                }
+                #endregion
+
+                return items;
             }
-
-            return items;
+            catch (Exception ex)
+            {
+                Log.Error(ex, ex.Message);
+                return null;
+            }
         }
     }
 }

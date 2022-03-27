@@ -3,12 +3,11 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:flyout="using:FluentHub.UserControls.Flyouts"
     xmlns:helpers="using:FluentHub.Helpers"
+    xmlns:hovercards="using:FluentHub.UserControls.Flyouts"
     xmlns:local="using:FluentHub.Views.Repositories"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    Loaded="Page_Loaded"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -18,9 +17,6 @@
                     <StaticResource x:Key="NavigationViewContentBackground" ResourceKey="SystemControlPageBackgroundTransparentBrush" />
                     <Thickness x:Key="NavigationViewTopPaneHeight">40</Thickness>
                     <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
-                    <Style TargetType="ToolTip">
-                        <Setter Property="Placement" Value="Right" />
-                    </Style>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -32,21 +28,13 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid Margin="20,20,20,12">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                 <Button
                     Grid.Column="1"
                     Padding="2,0"
                     HorizontalAlignment="Left"
                     Background="Transparent"
-                    Click="OwnerButton_Click"
+                    Click="OnRepoOwnerButtonClick"
                     FontWeight="Normal"
                     Style="{StaticResource LinkLikeButtonStyle}">
                     <StackPanel Orientation="Horizontal" Spacing="8">
@@ -56,55 +44,36 @@
                             Height="26"
                             Background="{ThemeResource ExpanderHeaderBackground}"
                             CornerRadius="13">
-                            <Image x:Name="RepoOwnerAvatar" />
+                            <Image x:Name="RepoOwnerAvatar" Source="{x:Bind ViewModel.Repository.OwnerAvatarUrl, Mode=OneWay}" />
                         </Border>
                         <TextBlock
                             x:Name="RepoOwnerName"
                             VerticalAlignment="Center"
                             FontWeight="Normal"
                             Style="{StaticResource SubtitleTextBlockStyle}"
-                            Text="fluenthub-uwp" />
+                            Text="{x:Bind ViewModel.Repository.Owner, Mode=OneWay}" />
                     </StackPanel>
-                    <ToolTipService.ToolTip>
-                        <flyout:OrganizationCardFlyout />
-                    </ToolTipService.ToolTip>
                 </Button>
                 <TextBlock
-                    Margin="4,0"
+                    Margin="2,0"
                     VerticalAlignment="Center"
                     Style="{StaticResource SubtitleTextBlockStyle}"
                     Text="/" />
-                <Button
+                <TextBlock
+                    x:Name="RepoName"
                     Grid.Column="3"
-                    Padding="2,0"
-                    HorizontalAlignment="Left"
+                    Margin="2,0"
                     VerticalAlignment="Center"
-                    Background="Transparent"
                     FontWeight="Normal"
-                    Style="{StaticResource LinkLikeButtonStyle}">
-                    <TextBlock
-                        x:Name="RepoName"
-                        Style="{StaticResource SubtitleTextBlockStyle}"
-                        Text="FluentHub" />
-                </Button>
+                    Style="{StaticResource SubtitleTextBlockStyle}"
+                    Text="{x:Bind ViewModel.Repository.Name, Mode=OneWay}" />
             </StackPanel>
             <StackPanel
-                Grid.Column="5"
+                HorizontalAlignment="Right"
                 VerticalAlignment="Top"
                 Orientation="Horizontal"
                 Spacing="6">
-                <muxc:DropDownButton
-                    x:Name="RepoWatchCombbox"
-                    Grid.Column="2"
-                    IsEnabled="False">
-                    <muxc:DropDownButton.Flyout>
-                        <MenuFlyout Placement="BottomEdgeAlignedLeft">
-                            <muxc:RadioMenuFlyoutItem IsChecked="True" Text="Participating and @mentions" />
-                            <muxc:RadioMenuFlyoutItem IsChecked="True" Text="All activity" />
-                            <muxc:RadioMenuFlyoutItem IsChecked="True" Text="Ignore" />
-                            <muxc:RadioMenuFlyoutItem IsChecked="True" Text="Custom" />
-                        </MenuFlyout>
-                    </muxc:DropDownButton.Flyout>
+                <muxc:DropDownButton x:Name="RepoWatchCombbox" IsEnabled="False">
                     <muxc:DropDownButton.Content>
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <FontIcon
@@ -112,11 +81,11 @@
                                 FontSize="14"
                                 Glyph="&#xE98B;" />
                             <TextBlock x:Name="RepoWatchCombboxWatchTextBlock" Text="{helpers:ResourceString Name=RepoWatchCombboxWatch}" />
-                            <muxc:InfoBadge x:Name="WatchersCountBadge" Value="0" />
+                            <muxc:InfoBadge x:Name="WatchersCountBadge" Value="{x:Bind ViewModel.Repository.WatcherCount, Mode=OneWay}" />
                         </StackPanel>
                     </muxc:DropDownButton.Content>
                 </muxc:DropDownButton>
-                <Button Grid.Column="3" IsEnabled="False">
+                <Button IsEnabled="False">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <FontIcon
@@ -124,16 +93,16 @@
                                 FontSize="14"
                                 Glyph="&#xea55;" />
                             <TextBlock x:Uid="RepoForkButtonTextBlock" />
-                            <muxc:InfoBadge x:Name="ForksCountBadge" Value="0" />
+                            <muxc:InfoBadge x:Name="ForksCountBadge" Value="{x:Bind ViewModel.Repository.ForkCount, Mode=OneWay}" />
                         </StackPanel>
                     </Button.Content>
                 </Button>
-                <muxc:SplitButton Grid.Column="4" IsEnabled="False">
+                <muxc:SplitButton IsEnabled="False">
                     <muxc:SplitButton.Content>
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <FontIcon FontSize="14" Glyph="&#xE734;" />
                             <TextBlock x:Uid="RepoStarSplitButtonTextBlock" />
-                            <muxc:InfoBadge x:Name="StargazersCountBadge" Value="0" />
+                            <muxc:InfoBadge x:Name="StargazersCountBadge" Value="{x:Bind ViewModel.Repository.StargazerCount, Mode=OneWay}" />
                         </StackPanel>
                     </muxc:SplitButton.Content>
                 </muxc:SplitButton>

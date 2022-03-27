@@ -210,7 +210,6 @@ namespace FluentHub
                     if (uri.Query.Contains("page"))
                         param = new WwwFormUrlDecoder(uri.Query).GetFirstValueByName("page");
                     break;
-
                 case "auth" when uri.Query.Contains("code"): // fluenthub://auth?code=[code]
                     var code = new WwwFormUrlDecoder(uri.Query).GetFirstValueByName("code");
                     AuthorizationService authService = new();

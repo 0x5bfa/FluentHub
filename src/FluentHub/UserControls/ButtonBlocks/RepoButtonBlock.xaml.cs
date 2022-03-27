@@ -42,11 +42,10 @@ namespace FluentHub.UserControls.ButtonBlocks
             }
         }
 
-        private async void RepoBlockButton_Click(object sender, RoutedEventArgs e)
+        private void RepoBlockButton_Click(object sender, RoutedEventArgs e)
         {
-            var repo = await App.Client.Repository.Get(ViewModel.Item.Owner, ViewModel.Item.Name);
             var service = App.Current.Services.GetRequiredService<INavigationService>();
-            service.Navigate<Views.Repositories.OverviewPage>(repo.Id.ToString());
+            service.Navigate<Views.Repositories.OverviewPage>(ViewModel.Item);
         }
     }
 }
