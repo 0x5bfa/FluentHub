@@ -50,7 +50,7 @@ namespace FluentHub.Octokit
 
         private void IntializeLogger()
         {
-            string logFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "FluentHub.Octokit.Logs/Log.txt");
+            string logFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "FluentHub.Octokit.Logs/Log.log");
             string template = "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz}|{Level:u4}|{Message:lj}{NewLine}{Exception}";
 
             Log.Logger = new LoggerConfiguration()

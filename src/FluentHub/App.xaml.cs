@@ -83,7 +83,7 @@ namespace FluentHub
         /// </summary>
         private static IServiceProvider ConfigureServices()
         {
-            string logFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "logs", "Log.log");
+            string logFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "FluentHub.Logs/Log.log");
             var logger = new LoggerConfiguration()
                                     .MinimumLevel
 #if DEBUG
@@ -91,7 +91,6 @@ namespace FluentHub
 #else
                                     .Error()
 #endif
-
                                     .WriteTo
                                     .File(logFilePath, rollingInterval: RollingInterval.Day)
                                     .CreateLogger();
@@ -112,7 +111,7 @@ namespace FluentHub
 
         private void IntializeLogger()
         {
-            string logFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "FluentHub.Logs/Log.txt");
+            string logFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "FluentHub.Logs/Log.log");
 
             string template = "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz}|{Level:u4}|{Message:lj}{NewLine}{Exception}";
 
