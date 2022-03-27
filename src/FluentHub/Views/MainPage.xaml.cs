@@ -3,9 +3,11 @@ using FluentHub.Services;
 using FluentHub.ViewModels;
 using FluentHub.Views.Home;
 using Microsoft.Extensions.DependencyInjection;
+using Serilog;
 using System;
 using Windows.ApplicationModel.Core;
 using Windows.System;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -14,49 +16,48 @@ namespace FluentHub.Views
 {
     public sealed partial class MainPage : Page
     {
+        #region constructor
         public MainPage()
         {
             InitializeComponent();
-            CoreApplication.GetCurrentView().TitleBar.LayoutMetricsChanged += (CoreApplicationViewTitleBar sender, object args) => RightPaddingColumn.Width = new GridLength(sender.SystemOverlayRightInset);
-            DragArea.Loaded += (_, _) => Window.Current.SetTitleBar(DragArea);
 
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<MainPageViewModel>();
-            navigationService = provider.GetRequiredService<INavigationService>();
+            NavigationService = provider.GetRequiredService<INavigationService>();
+            Logger = provider.GetService<ILogger>();
+        }
+        #endregion
 
-            // Handle BackRequested event
-            Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += (s, e) =>
-            {
-                if (navigationService.CanGoBack())
-                {
-                    navigationService.GoBack();
-                    e.Handled = true;
-                }
-            };
+        #region properties
+        public MainPageViewModel ViewModel { get; }
+        private INavigationService NavigationService { get; }
+        public ILogger Logger { get; }
+        #endregion
 
-            // Handle mouse button events (back and forward)
-            Window.Current.CoreWindow.PointerPressed += (s, e) =>
-            {
-                if (e.CurrentPoint.Properties.IsXButton1Pressed && navigationService.CanGoBack()) // Mouse back button pressed
-                {
-                    navigationService.GoBack();
-                    e.Handled = true;
-                }
-                else if (e.CurrentPoint.Properties.IsXButton2Pressed && navigationService.CanGoForward()) // Mouse forward button pressed
-                {
-                    navigationService.GoForward();
-                    e.Handled = true;
-                }
-            };
+        #region methods
+        private void SubscribeEvents()
+        {
+            var titleBar = CoreApplication.GetCurrentView().TitleBar;
+            titleBar.LayoutMetricsChanged += OnTitleBarLayoutMetricsChanged;
+            SystemNavigationManager.GetForCurrentView().BackRequested += OnAppBackRequested;
+            Window.Current.CoreWindow.PointerPressed += OnWindowPointerPressed;
         }
 
-        public MainPageViewModel ViewModel { get; }
-        private readonly INavigationService navigationService;
+        private void UnsubscribeEvents()
+        {
+            var titleBar = CoreApplication.GetCurrentView().TitleBar;
+            titleBar.LayoutMetricsChanged -= OnTitleBarLayoutMetricsChanged;
+            SystemNavigationManager.GetForCurrentView().BackRequested -= OnAppBackRequested;
+            Window.Current.CoreWindow.PointerPressed -= OnWindowPointerPressed;
+        }
+        #endregion
 
+        #region event handlers
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            navigationService.Configure(TabView, MainFrame, typeof(UserHomePage));
-            navigationService.Navigate<UserHomePage>();
+            SubscribeEvents();
+            NavigationService.Configure(TabView, MainFrame, typeof(UserHomePage));
+            NavigationService.Navigate<UserHomePage>();
 
             // Configure Jumplist
             await JumpListHelper.ConfigureDefaultJumpListAsync();
@@ -64,26 +65,69 @@ namespace FluentHub.Views
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
-            navigationService.Disconnect();
+            UnsubscribeEvents();
+            NavigationService.Disconnect();
         }
+        private void OnTitleBarLayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
+           => RightPaddingColumn.Width = new GridLength(sender.SystemOverlayRightInset);
+
+        private void OnAppBackRequested(object sender, BackRequestedEventArgs e)
+        {
+            if (NavigationService.CanGoBack())
+            {
+                NavigationService.GoBack();
+                e.Handled = true;
+            }
+            Logger?.Debug("SystemNavigationManager.GetForCurrentView().BackRequested fired, [handled: {0}]", e.Handled);
+        }
+        private void OnWindowPointerPressed(CoreWindow sender, PointerEventArgs e)
+        {
+            // Mouse back button pressed
+            if (e.CurrentPoint.Properties.IsXButton1Pressed)
+            {
+                bool canGoBack = NavigationService.CanGoBack();
+                if (canGoBack)
+                {
+                    NavigationService.GoBack();
+                    e.Handled = true;
+                }
+                Logger?.Debug("CoreWindow.PointerPressed [button: {0}, canGoBack: {1}]",
+                    e.CurrentPoint.Properties.PointerUpdateKind,
+                    canGoBack);
+            }
+            // Mouse forward button pressed
+            else if (e.CurrentPoint.Properties.IsXButton2Pressed)
+            {
+                bool canGoForward = NavigationService.CanGoForward();
+                if (canGoForward)
+                {
+                    NavigationService.GoForward();
+                    e.Handled = true;
+                }
+                Logger?.Debug("CoreWindow.PointerPressed [button: {0}, CanGoForward: {1}]",
+                    e.CurrentPoint.Properties.PointerUpdateKind,
+                    canGoForward);
+            }
+        }
+
+        private void OnDragAreaLoaded(object sender, RoutedEventArgs e) => Window.Current.SetTitleBar(DragArea);
 
         private async void ShareWithBrowserMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            var currentItem = NavigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             var result = await Launcher.LaunchUriAsync(new Uri(currentItem.Url));
-            System.Diagnostics.Debug.WriteLine("LaunchUriAsync({0}) - result:{1}", currentItem.Url, result);
+            Logger?.Debug("Launcher.LaunchUriAsync fired, [result: {0}]", result);
         }
 
         private void SettingsMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
-        {
-            navigationService.Navigate<AppSettings.MainSettingsPage>();
-        }
+            => NavigationService.Navigate<AppSettings.MainSettingsPage>();
 
         private void SignOutMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
             // Temporary treatment (Deletion requested credentials must be deleted)
-            Frame rootFrame = Window.Current.Content as Frame;
+            Frame rootFrame = (Frame)Window.Current.Content;
             rootFrame.Navigate(typeof(SignIn.IntroPage));
         }
+        #endregion
     }
 }
