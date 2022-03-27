@@ -12,9 +12,7 @@
     xmlns:vm="using:FluentHub.ViewModels.Users"
     mc:Ignorable="d">
 
-    <Page.DataContext>
-        <vm:ProfilePageViewModel x:Name="ViewModel" />
-    </Page.DataContext>
+
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

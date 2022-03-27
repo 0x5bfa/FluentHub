@@ -1,4 +1,5 @@
 ﻿using FluentHub.Services;
+using FluentHub.ViewModels.Users;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using Windows.UI.Xaml;
@@ -13,16 +14,21 @@ namespace FluentHub.Views.Users
         public ProfilePage()
         {
             InitializeComponent();
-            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
+
+            var provider = App.Current.Services;
+            ViewModel = provider.GetRequiredService<ProfilePageViewModel>();
+            navigationService = provider.GetRequiredService<INavigationService>();
         }
+
         private readonly INavigationService navigationService;
 
         private string login;
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+
+        public ProfilePageViewModel ViewModel { get; }
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             login = e.Parameter as string;
 
-            //Helpers.NavigationHelpers.AddPageInfoToTabItem($"{login}'s profile", $"https://github.com/{login}", $"https://github.com/{login}", "\uE77B");
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = $"{login}'s profile";
             currentItem.Description = $"{login}'s profile";
@@ -32,7 +38,9 @@ namespace FluentHub.Views.Users
                 Glyph = "\uE77B"
             };
 
-            await ViewModel.GetUser(login);
+            var command = ViewModel.LoadUserCommand;
+            if (command.CanExecute(login))
+                command.Execute(login);
             UpdateVisibility();
 
             base.OnNavigatedTo(e);
