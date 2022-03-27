@@ -1,5 +1,6 @@
 using FluentHub.Helpers;
 using FluentHub.Services;
+using FluentHub.ViewModels;
 using FluentHub.Views.Home;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -7,22 +8,21 @@ using Windows.ApplicationModel.Core;
 using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub.Views
 {
     public sealed partial class MainPage : Page
     {
-        private readonly INavigationService navigationService;
-
         public MainPage()
         {
             InitializeComponent();
             CoreApplication.GetCurrentView().TitleBar.LayoutMetricsChanged += (CoreApplicationViewTitleBar sender, object args) => RightPaddingColumn.Width = new GridLength(sender.SystemOverlayRightInset);
             DragArea.Loaded += (_, _) => Window.Current.SetTitleBar(DragArea);
 
-            navigationService = App.Current.Services.GetService<INavigationService>();
+            var provider = App.Current.Services;
+            ViewModel = provider.GetRequiredService<MainPageViewModel>();
+            navigationService = provider.GetRequiredService<INavigationService>();
 
             // Handle BackRequested event
             Windows.UI.Core.SystemNavigationManager.GetForCurrentView().BackRequested += (s, e) =>
@@ -49,6 +49,9 @@ namespace FluentHub.Views
                 }
             };
         }
+
+        public MainPageViewModel ViewModel { get; }
+        private readonly INavigationService navigationService;
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
