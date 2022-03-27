@@ -16,7 +16,7 @@ Ensure you have these packages:
 1. Set some values on [this site](https://github.com/settings/applications/new):
 
 Name|Value|Requred
----|---
+---|---|---
 Application name|`FluentHub`|True
 Homepage URL|`https://github.com/fluenthub-community/FluentHub`|True
 Application description|A fluent GitHub app for Windows|False
