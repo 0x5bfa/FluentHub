@@ -82,7 +82,7 @@ namespace FluentHub
         private static IServiceProvider ConfigureServices()
         {
             string logFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "logs", "Log.log");
-            var logger =  new LoggerConfiguration()
+            var logger = new LoggerConfiguration()
                                     .MinimumLevel
 #if DEBUG
                                     .Verbose()
@@ -121,100 +121,117 @@ namespace FluentHub
             Log.Debug("Initialized logger in FluentHub.");
         }
 
-        protected override async void OnLaunched(LaunchActivatedEventArgs args)
+        private async Task InitializeAsync()
         {
             CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
             ApplicationView.GetForCurrentView().TitleBar.ButtonBackgroundColor = Colors.Transparent;
             ApplicationView.GetForCurrentView().TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
 
-            bool openInNewTab = true;
-
             if (rootFrame == null)
             {
-                openInNewTab = false;
                 rootFrame = new Frame();
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
-                if (args.PreviousExecutionState == ApplicationExecutionState.Terminated)
-                {
-                    //TODO: Load state from previously suspended application
-                }
-
                 Window.Current.Content = rootFrame;
             }
 
-            if (args.PrelaunchActivated == false)
+
+            if (rootFrame.Content == null)
             {
-                if (rootFrame.Content == null)
+                if (Settings.SetupCompleted == true)
                 {
-                    if (Settings.SetupCompleted == true)
-                    {
-                        // temp: copy credentials to main thread app (will be removed)
-                        Client.Credentials = new Credentials(Settings.AccessToken);
-                        await GetViewerLoginName();
+                    // temp: copy credentials to main thread app (will be removed)
+                    Client.Credentials = new Credentials(Settings.AccessToken);
+                    await GetViewerLoginName();
 
-                        rootFrame.Navigate(typeof(MainPage), args.Arguments);
-                    }
-                    else
-                    {
-                        Settings.SetupProgress = false;
-                        Settings.SetupCompleted = false;
+                    rootFrame.Navigate(typeof(MainPage));
+                }
+                else
+                {
+                    Settings.SetupProgress = false;
+                    Settings.SetupCompleted = false;
 
-                        rootFrame.Navigate(typeof(IntroPage), args.Arguments);
-                    }
+                    rootFrame.Navigate(typeof(IntroPage));
                 }
 
                 ThemeHelper.Initialize();
                 Window.Current.Activate();
             }
-            if (!string.IsNullOrWhiteSpace(args.Arguments)
-                && Uri.TryCreate(args.Arguments, UriKind.RelativeOrAbsolute, out var uri))
+        }
+
+        protected override async void OnLaunched(LaunchActivatedEventArgs args)
+        {
+            bool openInNewTab = false;
+            if (rootFrame is null)
             {
-                HandleUriActivation(uri, openInNewTab);
+                openInNewTab = true;
+            }
+            await InitializeAsync();
+
+            if (!string.IsNullOrWhiteSpace(args.Arguments) && Uri.TryCreate(args.Arguments, UriKind.RelativeOrAbsolute, out var uri))
+            {
+                await HandleUriActivationAsync(uri, openInNewTab);
             }
         }
 
         protected async override void OnActivated(IActivatedEventArgs args)
         {
-            if (args.Kind == ActivationKind.Protocol)
+            await InitializeAsync();
+            switch (args.Kind)
             {
-                if (args.PreviousExecutionState == ApplicationExecutionState.Running)
-                {
-                    await HandleProtocolActivationArguments(args);
-                }
+                case ActivationKind.Protocol:
+                    var protocolArgs = (ProtocolActivatedEventArgs)args;
+                    await HandleUriActivationAsync(protocolArgs.Uri, true);
+                    break;
             }
         }
 
-        private void HandleUriActivation(Uri uri!!, bool openInTab)
+        private async Task HandleUriActivationAsync(Uri uri, bool openInTab)
         {
-            var ns = Services.GetRequiredService<INavigationService>();
+            Type page = null;
+            object param = null;
+            switch (uri.Authority.ToLower())
+            {
+                case "profile":
+                case "notifications":
+                case "activities":
+                case "issues":
+                case "pullrequests":
+                case "discussions":
+                case "repositories":
+                case "organizations":
+                case "starred":
+                    page = typeof(Views.Home.UserHomePage);
+                    param = uri.Authority;
+                    break;
+                case "settings":
+                    page = typeof(Views.AppSettings.MainSettingsPage);
+                    if (uri.Query.Contains("page"))
+                        param = new WwwFormUrlDecoder(uri.Query).GetFirstValueByName("page");
+                    break;
 
+                case "auth" when uri.Query.Contains("code"): // fluenthub://auth?code=[code]
+                    var code = new WwwFormUrlDecoder(uri.Query).GetFirstValueByName("code");
+                    AuthorizationService authService = new();
+                    bool status = await authService.RequestOAuthTokenAsync(code);
+
+                    // temp: copy credentials to main thread app (will be removed)
+                    Client.Credentials = new Credentials(Settings.AccessToken);
+
+                    if (status)
+                    {
+                        Settings.SetupCompleted = true;
+                        await GetViewerLoginName();
+
+                        rootFrame.Navigate(typeof(MainPage));
+                    }
+                    return;
+            }
+
+            var ns = Services.GetRequiredService<INavigationService>();
             if (ns.IsConfigured)
             {
-                Type page = null;
-                object param = null;
-                switch (uri.Authority.ToLower())
-                {
-                    case "profile":
-                    case "notifications":
-                    case "activities":
-                    case "issues":
-                    case "pullrequests":
-                    case "discussions":
-                    case "repositories":
-                    case "organizations":
-                    case "starred":
-                        page = typeof(Views.Home.UserHomePage);
-                        param = uri.Authority;
-                        break;
-                    case "settings":
-                        page = typeof(Views.AppSettings.MainSettingsPage);
-                        if (uri.Query.Contains("page"))
-                            param = new WwwFormUrlDecoder(uri.Query).GetFirstValueByName("page");
-                        break;
-                }
-
                 if (page != null)
                 {
                     if (openInTab)
@@ -222,38 +239,6 @@ namespace FluentHub
                     else
                         ns.Navigate(page, param);
                 }
-            }
-        }
-
-        private async Task HandleProtocolActivationArguments(IActivatedEventArgs args)
-        {
-            ProtocolActivatedEventArgs eventArgs = args as ProtocolActivatedEventArgs;
-
-            // fluenthub://?code=[code]
-            if (eventArgs.Uri.Query.Contains("code"))
-            {
-                string code = new WwwFormUrlDecoder(eventArgs.Uri.Query).GetFirstValueByName("code");
-
-                if (code != null)
-                {
-                    AuthorizationService authService = new();
-                    bool status = await authService.RequestOAuthTokenAsync(code);
-
-                    // temp: copy credentials to main thread app (will be removed)
-                    App.Client.Credentials = new global::Octokit.Credentials(Settings.AccessToken);
-
-                    if (status)
-                    {
-                        App.Settings.SetupCompleted = true;
-                        await GetViewerLoginName();
-
-                        rootFrame.Navigate(typeof(MainPage));
-                    }
-                }
-            }
-            else
-            {
-                HandleUriActivation(eventArgs.Uri, true);
             }
         }
 
