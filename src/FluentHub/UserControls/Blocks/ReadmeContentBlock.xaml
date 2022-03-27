@@ -12,10 +12,6 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <UserControl.DataContext>
-        <vm:ReadmeContentBlockViewModel />
-    </UserControl.DataContext>
-
     <Grid
         x:Name="ReadmeBlock"
         Grid.Row="1"

@@ -232,9 +232,12 @@
     <Compile Include="ViewModels\Repositories\CodePageViewModel.cs" />
     <Compile Include="ViewModels\Repositories\CommonRepoViewModel.cs" />
     <Compile Include="ViewModels\Repositories\IssuesViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\IssueViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Layouts\DetailsLayoutViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Layouts\TreeLayoutViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\OverviewViewModel.cs" />
     <Compile Include="ViewModels\Repositories\PullRequestsViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\PullRequestViewModel.cs" />
     <Compile Include="ViewModels\SettingsManager.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\ActivityBlockViewModel.cs" />
@@ -275,6 +278,9 @@
     </Compile>
     <Compile Include="Views\AppSettings\AppearancePage.xaml.cs">
       <DependentUpon>AppearancePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\PullRequestPage.xaml.cs">
+      <DependentUpon>PullRequestPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Searches\MainSearchPage.xaml.cs">
       <DependentUpon>MainSearchPage.xaml</DependentUpon>
@@ -693,6 +699,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Repositories\PullRequestPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Searches\MainSearchPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -866,7 +876,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Dialogs\" />
-    <Folder Include="Views\HttpResponses\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Glyphs\SegoeFluentIconsNormal.ttf" />

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FluentHub.Octokit.Logger
+namespace FluentHub.ViewModels.Repositories
 {
-    internal class ILogWriter
+    internal class PullRequestViewModel
     {
     }
 }

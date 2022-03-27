@@ -63,7 +63,7 @@ namespace FluentHub
             Services = ConfigureServices();
 
             IntializeLogger();
-            Log.Information("FluentHub has been launched.");
+            Log.Debug("Initialized Fluenthub.");
         }
 
         /// <summary>
@@ -112,13 +112,12 @@ namespace FluentHub
         {
             string logFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "FluentHub.Logs/Log.txt");
 
+            string template = "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz}|{Level:u4}|{Message:lj}{NewLine}{Exception}";
+
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
-                .WriteTo
-                .File(logFilePath, rollingInterval: RollingInterval.Day)
+                .WriteTo.File(logFilePath, rollingInterval: RollingInterval.Day, outputTemplate: template)
                 .CreateLogger();
-
-            Log.Debug("Initialized logger in FluentHub.");
         }
 
         private async Task InitializeAsync()
@@ -135,7 +134,6 @@ namespace FluentHub
 
                 Window.Current.Content = rootFrame;
             }
-
 
             if (rootFrame.Content == null)
             {
@@ -210,7 +208,6 @@ namespace FluentHub
                     if (uri.Query.Contains("page"))
                         param = new WwwFormUrlDecoder(uri.Query).GetFirstValueByName("page");
                     break;
-
                 case "auth" when uri.Query.Contains("code"): // fluenthub://auth?code=[code]
                     var code = new WwwFormUrlDecoder(uri.Query).GetFirstValueByName("code");
                     AuthorizationService authService = new();
