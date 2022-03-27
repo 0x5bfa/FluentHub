@@ -57,8 +57,6 @@ namespace FluentHub.Octokit
                 .MinimumLevel.Debug()
                 .WriteTo.File(logFilePath, rollingInterval: RollingInterval.Day, outputTemplate: template)
                 .CreateLogger();
-
-            Log.Debug("Initialized logger in FluentHub.Octokit.");
         }
     }
 }
