@@ -1,9 +1,4 @@
-﻿using Octokit.GraphQL;
-using Octokit.GraphQL.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace FluentHub.Octokit.Queries.Users
@@ -12,7 +7,7 @@ namespace FluentHub.Octokit.Queries.Users
     {
         public ActivityQueries() => new App();
 
-        public async Task<List<Models.Activity>> GetAll(string login)
+        public async Task<List<Models.Activity>> GetAllAsync(string login)
         {
             global::Octokit.ApiOptions options = new() { PageCount = 1, PageSize = 30, StartPage = 1 };
             var events = await App.Client.Activity.Events.GetAllUserReceived(login, options);

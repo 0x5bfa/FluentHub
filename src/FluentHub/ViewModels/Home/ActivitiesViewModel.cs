@@ -1,55 +1,55 @@
-﻿using Humanizer;
-using FluentHub.Octokit.Queries.Users;
+﻿using FluentHub.Octokit.Queries.Users;
 using FluentHub.ViewModels.UserControls.Blocks;
+using Humanizer;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
 using Octokit;
+using Serilog;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.Home
 {
-    public class ActivitiesViewModel : INotifyPropertyChanged
+    public class ActivitiesViewModel : ObservableObject
     {
-        public ObservableCollection<ActivityBlockViewModel> EventItems { get; set; } = new();
-
-        public async Task GetAllActivityForCurrent(string login)
+        public ActivitiesViewModel(ILogger logger = null)
         {
-            IsActive = true;
+            _logger = logger;
+            _activities = new();
+            Activities = new(_activities);
 
-            ActivityQueries queries = new();
-            var response = await queries.GetAll(login);
-
-            foreach (var res in response)
-            {
-                ActivityBlockViewModel viewModel = new();
-                viewModel.Payload = res;
-                viewModel.UpdatedAtHumanized = res.CreatedAt.Humanize();
-
-                EventItems.Add(viewModel);
-            }
-
-            IsActive = false;
+            RefreshActivitiesCommand = new AsyncRelayCommand<string>(RefreshActivitiesAsync, CanRefreshActivities);
         }
 
-        private bool isActive;
-        public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
+        private readonly ILogger _logger;
+        private readonly ObservableCollection<ActivityBlockViewModel> _activities;
+        public ReadOnlyObservableCollection<ActivityBlockViewModel> Activities { get; }
+        public IAsyncRelayCommand<string> RefreshActivitiesCommand { get; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
+        private bool CanRefreshActivities(string username) => !string.IsNullOrEmpty(username);
+
+        private async Task RefreshActivitiesAsync(string username)
         {
-            if (!Equals(field, newValue))
+            try
             {
-                field = newValue;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-                return true;
-            }
+                ActivityQueries queries = new();
 
-            return false;
+                var requestResult = await queries.GetAllAsync(username);
+                foreach (var item in requestResult)
+                {
+                    ActivityBlockViewModel viewModel = new()
+                    {
+                        Payload = item,
+                        UpdatedAtHumanized = item.CreatedAt.Humanize()
+                    };
+                    _activities.Add(viewModel);
+                }
+            }
+            catch (Exception e)
+            {
+                _logger?.Error(e, "RefreshActivitiesAsync");
+            }
         }
     }
 }

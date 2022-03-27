@@ -1,6 +1,6 @@
 ﻿using FluentHub.Services;
+using FluentHub.ViewModels.Home;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Toolkit.Uwp;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -11,12 +11,16 @@ namespace FluentHub.Views.Home
         public ActivitiesPage()
         {
             InitializeComponent();
-            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
+
+            var provider = App.Current.Services;
+            ViewModel = provider.GetRequiredService<ActivitiesViewModel>();
+            navigationService = provider.GetRequiredService<INavigationService>();
         }
 
         private readonly INavigationService navigationService;
+        public ActivitiesViewModel ViewModel { get; }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             // save navigation info
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
@@ -27,10 +31,11 @@ namespace FluentHub.Views.Home
             {
                 Glyph = "\uECAD"
             };
-
-            //"Viewer's activities", "https://github.com", "\uECAD");
-
-            await ViewModel.GetAllActivityForCurrent(e.Parameter as string);
+            
+            var param = e.Parameter as string;
+            var command = ViewModel.RefreshActivitiesCommand;
+            if (command.CanExecute(param))
+                command.Execute(param);
         }
     }
 }

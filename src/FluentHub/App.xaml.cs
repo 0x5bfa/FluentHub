@@ -103,6 +103,7 @@ namespace FluentHub
                 .AddTransient<ViewModels.AppSettings.AboutViewModel>()
                 .AddTransient<ViewModels.AppSettings.AppearanceViewModel>()
                 .AddTransient<ViewModels.Home.NotificationsViewModel>()
+                .AddTransient<ViewModels.Home.ActivitiesViewModel>()
                 .BuildServiceProvider();
         }
 
