@@ -100,6 +100,7 @@ namespace FluentHub
                 .AddSingleton<ILogger>(logger)
                 // ViewModels
                 .AddSingleton<MainPageViewModel>()
+                .AddTransient<ViewModels.AppSettings.AboutViewModel>()
                 .BuildServiceProvider();
         }
 
