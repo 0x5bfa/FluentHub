@@ -36,6 +36,18 @@
                     Style="{StaticResource BodyStrongTextBlockStyle}"
                     Text="Notifications" />
             </StackPanel>
+
+            <muxc:InfoBar
+                Title="Something went wrong"
+                IsClosable="False" Grid.Row="1"
+                IsOpen="{x:Bind ViewModel.RefreshNotificationsCommand.ExecutionTask.IsFaulted, Mode=OneWay}"
+                Message="{x:Bind ViewModel.RefreshNotificationsCommand.ExecutionTask.Exception.InnerException.Message, Mode=OneWay}"
+                Severity="Error">
+                <muxc:InfoBar.ActionButton>
+                    <HyperlinkButton Command="{x:Bind ViewModel.RefreshNotificationsCommand}" Content="Refresh" />
+                </muxc:InfoBar.ActionButton>
+            </muxc:InfoBar>
+
             <muxc:ItemsRepeater Grid.Row="1" ItemsSource="{x:Bind ViewModel.NotificationItems, Mode=OneWay}">
                 <DataTemplate x:DataType="bbvm:NotificationButtonBlockViewModel">
                     <block:NotificationButtonBlock ViewModel="{x:Bind}" />

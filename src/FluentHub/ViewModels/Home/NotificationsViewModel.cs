@@ -81,6 +81,7 @@ namespace FluentHub.ViewModels.Home
             catch (Exception ex)
             {
                 _logger?.Error(ex, "RefreshNotificationsAsync");
+                throw;
             }
         }
         #endregion
