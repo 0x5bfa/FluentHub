@@ -21,7 +21,6 @@ namespace FluentHub.ViewModels.Repositories
 
         public void Get()
         {
-
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -136,7 +136,6 @@ namespace FluentHub
                 Window.Current.Content = rootFrame;
             }
 
-
             if (rootFrame.Content == null)
             {
                 if (Settings.SetupCompleted == true)
