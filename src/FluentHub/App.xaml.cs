@@ -44,7 +44,6 @@ namespace FluentHub
 
             Suspending += OnSuspending;
 
-
             UnhandledException += async (s, e) =>
             {
                 Services.GetService<ILogger>()?.Fatal(e.Exception, "Unhandled exception");
@@ -135,7 +134,7 @@ namespace FluentHub
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
-                Window.Current.Content = rootFrame;                
+                Window.Current.Content = rootFrame;
             }
 
             if (rootFrame.Content == null)
@@ -191,7 +190,7 @@ namespace FluentHub
         private async Task HandleUriActivationAsync(Uri uri, bool openInNewTab)
         {
             var logger = Services.GetService<ILogger>();
-            logger?.Debug("HandleUriActivationAsync: {uri}", uri);            
+            logger?.Debug("HandleUriActivationAsync: {uri}", uri);
 
             Type page = null;
             object param = null;
