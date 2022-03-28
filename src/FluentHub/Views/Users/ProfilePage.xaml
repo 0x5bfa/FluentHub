@@ -2,15 +2,12 @@
     x:Class="FluentHub.Views.Users.ProfilePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:FluentHub.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="using:FluentHub.Helpers"
-    xmlns:item="using:FluentHub.Models.Items"
-    xmlns:labels="using:FluentHub.UserControls.Labels"
-    xmlns:local="using:FluentHub.Views.Users"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:vm="using:FluentHub.ViewModels.Users"
     mc:Ignorable="d">
 
 
@@ -36,6 +33,7 @@
                     <StaticResource x:Key="NavigationViewContentBackground" ResourceKey="SystemControlPageBackgroundTransparentBrush" />
                     <Thickness x:Key="NavigationViewTopPaneHeight">40</Thickness>
                     <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
+                    <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -84,48 +82,50 @@
                         Margin="12,0,0,0"
                         VerticalAlignment="Center">
                         <TextBlock
-                            x:Name="LoginNameTextBlock"
                             VerticalAlignment="Center"
                             FontWeight="SemiBold"
                             Style="{StaticResource SubtitleTextBlockStyle}"
-                            Text="{x:Bind ViewModel.UserItem.Login, Mode=OneWay}" />
+                            Text="{x:Bind ViewModel.UserItem.Login, Mode=OneWay}"
+                            Visibility="{x:Bind ViewModel.UserItem.Login, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
                         <TextBlock
-                            x:Name="UserNameTextBlock"
                             VerticalAlignment="Center"
                             FontSize="13"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{ThemeResource CaptionTextBlockStyle}"
-                            Text="{x:Bind ViewModel.UserItem.Name, Mode=OneWay}" />
+                            Text="{x:Bind ViewModel.UserItem.Name, Mode=OneWay}"
+                            Visibility="{x:Bind ViewModel.UserItem.Name, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
                         <TextBlock
                             x:Name="UserBioTextBlock"
                             MaxLines="2"
                             Style="{ThemeResource BodyTextBlockStyle}"
                             Text="{x:Bind ViewModel.UserItem.Bio, Mode=OneWay}"
                             TextTrimming="CharacterEllipsis"
-                            Visibility="Collapsed">
+                            Visibility="{x:Bind ViewModel.UserItem.Bio, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
                             <ToolTipService.ToolTip>
                                 <ToolTip Content="{x:Bind UserBioTextBlock.Text, Mode=OneWay}" IsEnabled="{x:Bind UserBioTextBlock.IsTextTrimmed, Mode=OneWay}" />
                             </ToolTipService.ToolTip>
                         </TextBlock>
                     </StackPanel>
-                    <StackPanel
+
+                    <toolkit:SwitchPresenter
                         Grid.Column="2"
                         VerticalAlignment="Top"
-                        Orientation="Horizontal"
-                        Spacing="8">
-                        <Button
-                            x:Name="FollowButton"
-                            x:Uid="FollowButton"
-                            Width="120"
-                            x:Load="{x:Bind ViewModel.IsNotViewer, Mode=OneWay}"
-                            IsEnabled="False" />
-                        <Button
-                            x:Name="EditProfileButton"
-                            x:Uid="EditProfileButton"
-                            Width="120"
-                            x:Load="{x:Bind ViewModel.UserItem.IsViewer, Mode=OneWay}"
-                            IsEnabled="False" />
-                    </StackPanel>
+                        TargetType="x:Boolean"
+                        Value="{x:Bind ViewModel.UserItem.IsViewer, Mode=OneWay}">
+                        <toolkit:Case Value="False">
+                            <Button
+                                x:Uid="FollowButton"
+                                Width="120"
+                                IsEnabled="False" />
+                        </toolkit:Case>
+                        <toolkit:Case Value="True">
+                            <Button
+                                x:Uid="EditProfileButton"
+                                Width="120"
+                                IsEnabled="False" />
+                        </toolkit:Case>
+                    </toolkit:SwitchPresenter>
+
                 </Grid>
                 <toolkit:WrapPanel
                     Grid.Row="1"
@@ -134,12 +134,11 @@
                     HorizontalSpacing="6"
                     Orientation="Horizontal">
                     <StackPanel
-                        x:Name="CompanyBlock"
                         Margin="0,0,12,0"
                         HorizontalAlignment="Left"
                         Orientation="Horizontal"
                         Spacing="6"
-                        Visibility="Collapsed">
+                        Visibility="{x:Bind ViewModel.UserItem.Company, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
                         <FontIcon
                             VerticalAlignment="Center"
                             FontFamily="{StaticResource Octions}"
@@ -147,18 +146,16 @@
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Glyph="&#xEA27;" />
                         <TextBlock
-                            x:Name="CompanyLinkTextBlock"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Text="{x:Bind ViewModel.UserItem.Company, Mode=OneWay}" />
                     </StackPanel>
                     <StackPanel
-                        x:Name="LocationBlock"
                         Margin="0,0,12,0"
                         HorizontalAlignment="Left"
                         Orientation="Horizontal"
                         Spacing="6"
-                        Visibility="Collapsed">
+                        Visibility="{x:Bind ViewModel.UserItem.Location, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
                         <FontIcon
                             VerticalAlignment="Center"
                             FontFamily="{StaticResource Octions}"
@@ -166,18 +163,16 @@
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Glyph="&#xEA03;" />
                         <TextBlock
-                            x:Name="LocationTextBlock"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{ThemeResource BodyTextBlockStyle}"
                             Text="{x:Bind ViewModel.UserItem.Location, Mode=OneWay}" />
                     </StackPanel>
                     <StackPanel
-                        x:Name="LinkBlock"
                         Margin="0,0,12,0"
                         Orientation="Horizontal"
                         Spacing="2"
-                        Visibility="Collapsed">
+                        Visibility="{x:Bind ViewModel.UserItem.WebsiteUrl, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
                         <FontIcon
                             VerticalAlignment="Center"
                             FontFamily="{StaticResource Octions}"
@@ -185,10 +180,10 @@
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Glyph="&#xE9FB;" />
                         <HyperlinkButton
-                            x:Name="LinkButton"
                             Padding="4"
                             Content="{x:Bind ViewModel.UserItem.WebsiteUrl, Mode=OneWay}"
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" />
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            NavigateUri="{x:Bind ViewModel.UserItem.WebsiteUrl, Mode=OneWay}" />
                     </StackPanel>
                     <StackPanel
                         x:Name="DeveloperProgramMemberBlock"
@@ -224,13 +219,11 @@
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal" Spacing="6">
                                     <TextBlock
-                                        x:Name="FollowerCount"
                                         VerticalAlignment="Center"
                                         FontWeight="SemiBold"
                                         Style="{ThemeResource BodyTextBlockStyle}"
                                         Text="{x:Bind ViewModel.UserItem.FollowersTotalCount, Mode=OneWay}" />
                                     <TextBlock
-                                        x:Uid="UserFollowersCountTextBlock"
                                         VerticalAlignment="Center"
                                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                         Style="{ThemeResource BodyTextBlockStyle}"
@@ -252,13 +245,11 @@
                             <Button.Content>
                                 <StackPanel Orientation="Horizontal" Spacing="6">
                                     <TextBlock
-                                        x:Name="FollowingCount"
                                         VerticalAlignment="Center"
                                         FontWeight="SemiBold"
                                         Style="{ThemeResource BodyTextBlockStyle}"
                                         Text="{x:Bind ViewModel.UserItem.FollowingTotalCount, Mode=OneWay}" />
                                     <TextBlock
-                                        x:Uid="UserFollowingCountTextBlock"
                                         VerticalAlignment="Center"
                                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                         Style="{ThemeResource BodyTextBlockStyle}"
