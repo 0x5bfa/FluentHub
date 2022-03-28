@@ -849,35 +849,16 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\en-US\Resources.resw">
-      <SubType>Designer</SubType>
-    </PRIResource>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Assets\Glyphs\Octions.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AppCredentials.config" />
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\ja-JP\Resources.resw" />
-  </ItemGroup>
-  <ItemGroup>
-    <XliffResource Include="MultilingualResources\FluentHub.es-ES.xlf" />
-    <XliffResource Include="MultilingualResources\FluentHub.ja-JP.xlf" />
-    <XliffResource Include="MultilingualResources\FluentHub.zh-CN.xlf" />
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Dialogs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Glyphs\SegoeFluentIconsNormal.ttf" />
-  </ItemGroup>
-  <ItemGroup>
-    <PRIResource Include="Strings\es-ES\Resources.resw" />
-  </ItemGroup>
-  <ItemGroup>
-    <PRIResource Include="Strings\zh-CN\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FluentHub.Octokit\FluentHub.Octokit.csproj">

@@ -4,31 +4,14 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="using:FluentHub.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:helpers="using:FluentHub.Helpers"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
 
-
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary>
-                    <Style
-                        x:Key="ButtonSettingsBlockStyle"
-                        BasedOn="{StaticResource DefaultButtonStyle}"
-                        TargetType="Button">
-                        <Setter Property="Background" Value="{ThemeResource ExpanderHeaderBackground}" />
-                        <Setter Property="BorderBrush" Value="{ThemeResource ExpanderHeaderBorderBrush}" />
-                        <Setter Property="BorderThickness" Value="{ThemeResource ExpanderHeaderBorderThickness}" />
-                        <Setter Property="HorizontalAlignment" Value="Stretch" />
-                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                        <Setter Property="Padding" Value="{StaticResource ExpanderContentPadding}" />
-                        <Setter Property="MinHeight" Value="{StaticResource ExpanderMinHeight}" />
-                        <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
-                    </Style>
-                </ResourceDictionary>
                 <ResourceDictionary>
                     <StaticResource x:Key="NavigationViewContentBackground" ResourceKey="SystemControlPageBackgroundTransparentBrush" />
                     <Thickness x:Key="NavigationViewTopPaneHeight">40</Thickness>
@@ -114,14 +97,14 @@
                         Value="{x:Bind ViewModel.UserItem.IsViewer, Mode=OneWay}">
                         <toolkit:Case Value="False">
                             <Button
-                                x:Uid="FollowButton"
                                 Width="120"
+                                Content="Follow"
                                 IsEnabled="False" />
                         </toolkit:Case>
                         <toolkit:Case Value="True">
                             <Button
-                                x:Uid="EditProfileButton"
                                 Width="120"
+                                Content="Edit profile"
                                 IsEnabled="False" />
                         </toolkit:Case>
                     </toolkit:SwitchPresenter>
@@ -291,7 +274,7 @@
                     <muxc:NavigationView.MenuItems>
                         <muxc:NavigationViewItem
                             x:Name="UserNavViewItemOverview"
-                            x:Uid="UserNavViewItemOverview"
+                            Content="Overview"
                             IsSelected="True"
                             Tag="Overview">
                             <muxc:NavigationViewItem.Icon>
@@ -303,7 +286,7 @@
                         </muxc:NavigationViewItem>
                         <muxc:NavigationViewItem
                             x:Name="UserNavViewItemRepositories"
-                            x:Uid="UserNavViewItemRepositories"
+                            Content="Repositories"
                             Tag="Repositories">
                             <muxc:NavigationViewItem.Icon>
                                 <FontIcon
@@ -314,7 +297,7 @@
                         </muxc:NavigationViewItem>
                         <muxc:NavigationViewItem
                             x:Name="UserNavViewItemStarred"
-                            Content="{helpers:ResourceString Name=Starred}"
+                            Content="Stars"
                             Tag="Stars">
                             <muxc:NavigationViewItem.Icon>
                                 <FontIcon
@@ -325,7 +308,7 @@
                         </muxc:NavigationViewItem>
                         <muxc:NavigationViewItem
                             x:Name="UserNavViewItemFollowers"
-                            Content="{helpers:ResourceString Name=Followers}"
+                            Content="Followers"
                             Tag="Followers">
                             <muxc:NavigationViewItem.Icon>
                                 <FontIcon
@@ -336,7 +319,7 @@
                         </muxc:NavigationViewItem>
                         <muxc:NavigationViewItem
                             x:Name="UserNavViewItemFollowing"
-                            Content="{helpers:ResourceString Name=Following}"
+                            Content="Following"
                             Tag="Following">
                             <muxc:NavigationViewItem.Icon>
                                 <FontIcon

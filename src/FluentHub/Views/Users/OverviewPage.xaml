@@ -6,8 +6,6 @@
     xmlns:block="using:FluentHub.UserControls.ButtonBlocks"
     xmlns:contents="using:FluentHub.UserControls.Blocks"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:helpers="using:FluentHub.Helpers"
-    xmlns:item="using:FluentHub.Models.Items"
     xmlns:local="using:FluentHub.Views.Users"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -40,7 +38,6 @@
                     FontSize="16"
                     Glyph="&#xEA3E;" />
                 <TextBlock
-                    x:Uid="UserPinnedItemsTextBlock"
                     FontSize="14"
                     Style="{StaticResource BodyStrongTextBlockStyle}"
                     Text="Pinned repositories" />

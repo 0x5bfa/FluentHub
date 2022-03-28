@@ -76,7 +76,6 @@
         </Grid.RowDefinitions>
         <Grid>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition x:Name="RightPaddingColumn" Width="0" />
             </Grid.ColumnDefinitions>
@@ -104,7 +103,6 @@
             <Grid>
                 <StackPanel Orientation="Horizontal" Spacing="4">
                     <Button
-                        x:Uid="ToobarBackButton"
                         Width="36"
                         Height="32"
                         Padding="0"
@@ -113,11 +111,11 @@
                         BorderBrush="Transparent"
                         Command="{x:Bind ViewModel.GoBackCommand, Mode=OneWay}"
                         IsEnabled="{Binding SelectedItem.NavigationHistory.CanGoBack, ElementName=TabView, FallbackValue=false}"
-                        Style="{StaticResource ClearButtonStyle}">
+                        Style="{StaticResource ClearButtonStyle}"
+                        ToolTipService.ToolTip="Back">
                         <FontIcon FontSize="14" Glyph="&#xE72B;" />
                     </Button>
                     <Button
-                        x:Uid="ToobarForwardButton"
                         Width="36"
                         Height="32"
                         Padding="0"
@@ -126,11 +124,11 @@
                         BorderBrush="Transparent"
                         Command="{x:Bind ViewModel.GoForwardCommand, Mode=OneWay}"
                         IsEnabled="{Binding SelectedItem.NavigationHistory.CanGoForward, ElementName=TabView, FallbackValue=false}"
-                        Style="{StaticResource ClearButtonStyle}">
+                        Style="{StaticResource ClearButtonStyle}"
+                        ToolTipService.ToolTip="Forward">
                         <FontIcon FontSize="14" Glyph="&#xE72A;" />
                     </Button>
                     <Button
-                        x:Uid="ToobarRefreshButton"
                         Width="36"
                         Height="32"
                         Padding="0"
@@ -138,11 +136,11 @@
                         Background="Transparent"
                         BorderBrush="Transparent"
                         IsEnabled="False"
-                        Style="{StaticResource ClearButtonStyle}">
+                        Style="{StaticResource ClearButtonStyle}"
+                        ToolTipService.ToolTip="Refresh">
                         <FontIcon FontSize="14" Glyph="&#xE72C;" />
                     </Button>
                     <Button
-                        x:Uid="ToobarHomeButton"
                         Width="36"
                         Height="32"
                         Padding="0"
@@ -150,7 +148,8 @@
                         Background="Transparent"
                         BorderBrush="Transparent"
                         Command="{x:Bind ViewModel.GoHomeCommand, Mode=OneWay}"
-                        Style="{StaticResource ClearButtonStyle}">
+                        Style="{StaticResource ClearButtonStyle}"
+                        ToolTipService.ToolTip="Home">
                         <FontIcon FontSize="14" Glyph="&#xE80F;" />
                     </Button>
                 </StackPanel>
@@ -166,12 +165,12 @@
                 <StackPanel Orientation="Horizontal" Spacing="2">
                     <Button
                         x:Name="ToolbarAppSettingsButton"
-                        x:Uid="ToolbarAppSettingsButton"
                         Width="36"
                         Height="32"
                         Background="Transparent"
                         CornerRadius="8"
-                        Style="{StaticResource ClearButtonStyle}">
+                        Style="{StaticResource ClearButtonStyle}"
+                        ToolTipService.ToolTip="More">
                         <FontIcon FontSize="14" Glyph="&#xE712;" />
                         <Button.Flyout>
                             <MenuFlyout Placement="BottomEdgeAlignedRight">
