@@ -3,7 +3,7 @@
   <h1 align="center">FluentHub</h1>
 </p>
 
-![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/fluenthub-community/fluenthub?include_prereleases)
+[![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/fluenthub-community/fluenthub?include_prereleases)](https://github.com/fluenthub-community/FluentHub/releases)
 [![Discord](https://img.shields.io/discord/935562861701390336?color=orange&label=Discord)](https://discord.com/channels/935562861701390336)
 [![Build Status](https://dev.azure.com/fluenthub-community/FluentHub/_apis/build/status/Build%20Pipeline%20(x64)?branchName=main)](https://dev.azure.com/fluenthub-community/FluentHub/_build/latest?definitionId=5&branchName=main)
 
