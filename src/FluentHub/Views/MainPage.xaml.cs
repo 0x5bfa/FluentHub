@@ -68,6 +68,7 @@ namespace FluentHub.Views
             UnsubscribeEvents();
             NavigationService.Disconnect();
         }
+
         private void OnTitleBarLayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
            => RightPaddingColumn.Width = new GridLength(sender.SystemOverlayRightInset);
 
