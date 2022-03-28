@@ -1,4 +1,5 @@
 ﻿using FluentHub.Services;
+using FluentHub.ViewModels.Home;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Uwp;
 using Windows.UI.Xaml.Controls;
@@ -11,12 +12,16 @@ namespace FluentHub.Views.Home
         public NotificationsPage()
         {
             InitializeComponent();
-            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
+
+            var provider = App.Current.Services;
+            ViewModel = provider.GetRequiredService<NotificationsViewModel>();             
+            navigationService = provider.GetRequiredService<INavigationService>();
         }
 
         private readonly INavigationService navigationService;
+        public NotificationsViewModel ViewModel { get; }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             //Helpers.NavigationHelpers.AddPageInfoToTabItem("Notifications", "Viewer's notifications", "https://github.com/notifications", "\uEA8F");
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
@@ -28,7 +33,10 @@ namespace FluentHub.Views.Home
                 Glyph = "\uEA8F"
             };
 
-            await ViewModel.GetNotifications();
+            var command = ViewModel.RefreshNotificationsCommand;
+
+            if (command.CanExecute(null))
+                command.Execute(null);
         }
     }
 }

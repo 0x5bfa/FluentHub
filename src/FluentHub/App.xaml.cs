@@ -44,7 +44,6 @@ namespace FluentHub
 
             Suspending += OnSuspending;
 
-
             UnhandledException += async (s, e) =>
             {
                 Services.GetService<ILogger>()?.Fatal(e.Exception, "Unhandled exception");
@@ -55,7 +54,7 @@ namespace FluentHub
                     await new ContentDialog
                     {
                         Title = "Unhandled exception occured",
-                        Content = e.Exception,
+                        Content = e.Message,
                         CloseButtonText = "Close"
                     }.ShowAsync();
                 }
@@ -96,11 +95,16 @@ namespace FluentHub
                                     .CreateLogger();
 
             return new ServiceCollection()
+                .AddSingleton<IGitHubClient>(App.Client)
                 .AddSingleton<INavigationService, NavigationService>()
                 .AddSingleton<ILogger>(logger)
                 // ViewModels
                 .AddSingleton<MainPageViewModel>()
                 .AddTransient<ViewModels.AppSettings.AboutViewModel>()
+                .AddTransient<ViewModels.AppSettings.AppearanceViewModel>()
+                .AddTransient<ViewModels.Home.NotificationsViewModel>()
+                .AddTransient<ViewModels.Home.ActivitiesViewModel>()
+                .AddTransient<ViewModels.Users.ProfilePageViewModel>()
                 .BuildServiceProvider();
         }
 
@@ -190,7 +194,7 @@ namespace FluentHub
         private async Task HandleUriActivationAsync(Uri uri, bool openInNewTab)
         {
             var logger = Services.GetService<ILogger>();
-            logger?.Debug("HandleUriActivationAsync: {uri}", uri);            
+            logger?.Debug("HandleUriActivationAsync: {uri}", uri);
 
             Type page = null;
             object param = null;

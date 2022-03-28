@@ -12,44 +12,54 @@ using System.Threading.Tasks;
 using Windows.UI;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
+using Microsoft.Toolkit.Mvvm.Input;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
 
 namespace FluentHub.ViewModels.Users
 {
-    public class ProfilePageViewModel : INotifyPropertyChanged
+    public class ProfilePageViewModel : ObservableObject
     {
-        private UserOverviewItem userItem;
+        public ProfilePageViewModel(ILogger logger = null)
+        {
+            _logger = logger;
+
+            LoadUserCommand = new AsyncRelayCommand<string>(LoadUserAsync, CanLoadUser);
+        }
+
+        private readonly ILogger _logger;
+        private UserOverviewItem _userItem;
+        private bool _isNotViewer;
         public UserOverviewItem UserItem
         {
-            get => userItem;
-            private set => SetProperty(ref userItem, value);
+            get => _userItem;
+            private set => SetProperty(ref _userItem, value);
         }
-
-        private bool isNotViewer;
         public bool IsNotViewer
         {
-            get => isNotViewer;
-            set => SetProperty(ref isNotViewer, value);
+            get => _isNotViewer;
+            set => SetProperty(ref _isNotViewer, value);
         }
 
-        public async Task GetUser(string login)
-        {
-            UserQueries queries = new();
-            UserItem = await queries.GetOverview(login);
+        public IAsyncRelayCommand<string> LoadUserCommand { get; }
 
-            if (!UserItem.IsViewer) IsNotViewer = true;
-        }
+        private bool CanLoadUser(string username) => !string.IsNullOrEmpty(username);
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
+        private async Task LoadUserAsync(string username)
         {
-            if (!Equals(field, newValue))
+            try
             {
-                field = newValue;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-                return true;
-            }
+                UserQueries queries = new();
+                UserItem = await queries.GetOverview(username);
 
-            return false;
+                if (!UserItem.IsViewer)
+                    IsNotViewer = true;
+            }
+            catch (Exception ex)
+            {
+                _logger?.Error(ex, "Failed to load user.");
+                UserItem = new UserOverviewItem();
+                IsNotViewer = false;
+            }
         }
     }
 }

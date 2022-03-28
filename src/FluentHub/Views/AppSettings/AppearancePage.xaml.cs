@@ -1,4 +1,5 @@
 ﻿using FluentHub.Services;
+using FluentHub.ViewModels.AppSettings;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -11,13 +12,17 @@ namespace FluentHub.Views.AppSettings
         public AppearancePage()
         {
             InitializeComponent();
-            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
+
+            var provider = App.Current.Services;
+            ViewModel = provider.GetRequiredService<AppearanceViewModel>();
+            navigationService = provider.GetRequiredService<INavigationService>();            
         }
+
         private readonly INavigationService navigationService;
+        public AppearanceViewModel ViewModel { get; }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            //Helpers.NavigationHelpers.AddPageInfoToTabItem($"Appearance", "Appearance settings", "fluenthub://settings/appearance", "\uE713");
+        {            
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Appearance";
             currentItem.Description = "Appearance settings";

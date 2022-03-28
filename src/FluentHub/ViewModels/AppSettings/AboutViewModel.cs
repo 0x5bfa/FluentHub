@@ -14,7 +14,7 @@ namespace FluentHub.ViewModels.AppSettings
     {
         public AboutViewModel(ILogger logger = null)
         {
-            _logger = logger; ;
+            _logger = logger;
 
             CopyVersionCommand = new RelayCommand(ExecuteCopyVersionCommand);
             OpenLogsCommand = new AsyncRelayCommand(ExecuteOpenLogsCommandAsync);
@@ -36,8 +36,6 @@ namespace FluentHub.ViewModels.AppSettings
                 return $"{App.AppVersion} | {architecture} | {buildConfiguration}";
             }
         }
-
-
 
         internal IRelayCommand CopyVersionCommand { get; }
 

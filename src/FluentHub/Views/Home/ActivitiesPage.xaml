@@ -5,17 +5,11 @@
     xmlns:block="using:FluentHub.UserControls.Blocks"
     xmlns:bvm="using:FluentHub.ViewModels.UserControls.Blocks"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="using:FluentHub.Views.Home"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:vm="using:FluentHub.ViewModels.Home"
     mc:Ignorable="d">
 
-    <Page.DataContext>
-        <vm:ActivitiesViewModel x:Name="ViewModel" />
-    </Page.DataContext>
-
-    <ScrollViewer>
+    <ScrollViewer VerticalScrollBarVisibility="Auto">
         <Grid Margin="12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -35,14 +29,14 @@
             <muxc:ItemsRepeater
                 Grid.Row="1"
                 Margin="0,8,0,0"
-                ItemsSource="{x:Bind ViewModel.EventItems, Mode=OneWay}">
+                ItemsSource="{x:Bind ViewModel.Activities, Mode=OneWay}">
                 <DataTemplate x:DataType="bvm:ActivityBlockViewModel">
                     <Grid>
                         <block:ActivityBlock ViewModel="{x:Bind}" />
                     </Grid>
                 </DataTemplate>
             </muxc:ItemsRepeater>
-            <muxc:ProgressRing Grid.RowSpan="2" IsActive="{x:Bind ViewModel.IsActive, Mode=OneWay}" />
+            <muxc:ProgressRing Grid.RowSpan="2" IsActive="{x:Bind ViewModel.RefreshActivitiesCommand.IsRunning, Mode=OneWay}" />
         </Grid>
     </ScrollViewer>
 </Page>
