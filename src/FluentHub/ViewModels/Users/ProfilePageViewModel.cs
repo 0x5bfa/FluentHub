@@ -40,7 +40,7 @@ namespace FluentHub.ViewModels.Users
             set => SetProperty(ref _isNotViewer, value);
         }
 
-        public IAsyncRelayCommand<string> LoadUserCommand { get; }
+        public IAsyncRelayCommand LoadUserCommand { get; }
 
         private bool CanLoadUser(string username) => !string.IsNullOrEmpty(username);
 
@@ -59,6 +59,7 @@ namespace FluentHub.ViewModels.Users
                 _logger?.Error(ex, "Failed to load user.");
                 UserItem = new UserOverviewItem();
                 IsNotViewer = false;
+                throw;
             }
         }
     }

@@ -30,7 +30,7 @@ namespace FluentHub.ViewModels.Users
         private bool CanRefreshRepositories(string username) => !string.IsNullOrEmpty(username);
 
         private async Task RefreshRepositoriesAsync(string username)
-        {            
+        {
             try
             {
                 StarredRepoQueries queries = new();

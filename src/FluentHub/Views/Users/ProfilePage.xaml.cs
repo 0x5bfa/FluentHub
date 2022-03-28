@@ -21,41 +21,38 @@ namespace FluentHub.Views.Users
         }
 
         private readonly INavigationService navigationService;
-
-        private string login;
-
         public ProfilePageViewModel ViewModel { get; }
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            login = e.Parameter as string;
+            DataContext = e.Parameter;
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = $"{login}'s profile";
-            currentItem.Description = $"{login}'s profile";
-            currentItem.Url = $"https://github.com/{login}";
+            currentItem.Header = $"{DataContext}'s profile";
+            currentItem.Description = $"{DataContext}'s profile";
+            currentItem.Url = $"https://github.com/{DataContext}";
             currentItem.Icon = new muxc.FontIconSource
             {
                 Glyph = "\uE77B"
             };
 
+            // This is a workaround. TODO: Implement ItemToVisibility converter
+            // Wait for the command to finish executing before updating visibility
             var command = ViewModel.LoadUserCommand;
-            if (command.CanExecute(login))
-                command.Execute(login);
-            UpdateVisibility();
-
-            base.OnNavigatedTo(e);
+            if (command.CanExecute(DataContext))
+                await command.ExecuteAsync(DataContext);
+            UpdateVisibility();            
         }
 
         private void UserNavView_SelectionChanged(muxc.NavigationView sender, muxc.NavigationViewSelectionChangedEventArgs args)
         {
             _ = args.SelectedItemContainer.Tag.ToString() switch
             {
-                "Overview" => UserNavViewContent.Navigate(typeof(OverviewPage), login, args.RecommendedNavigationTransitionInfo),
-                "Repositories" => UserNavViewContent.Navigate(typeof(RepositoriesPage), login, args.RecommendedNavigationTransitionInfo),
-                "Stars" => UserNavViewContent.Navigate(typeof(StarredReposPage), login, args.RecommendedNavigationTransitionInfo),
-                "Followers" => UserNavViewContent.Navigate(typeof(FollowersPage), login, args.RecommendedNavigationTransitionInfo),
-                "Following" => UserNavViewContent.Navigate(typeof(FollowingPage), login, args.RecommendedNavigationTransitionInfo),
-                _ => UserNavViewContent.Navigate(typeof(OverviewPage), login, args.RecommendedNavigationTransitionInfo)
+                "Overview" => UserNavViewContent.Navigate(typeof(OverviewPage), DataContext, args.RecommendedNavigationTransitionInfo),
+                "Repositories" => UserNavViewContent.Navigate(typeof(RepositoriesPage), DataContext, args.RecommendedNavigationTransitionInfo),
+                "Stars" => UserNavViewContent.Navigate(typeof(StarredReposPage), DataContext, args.RecommendedNavigationTransitionInfo),
+                "Followers" => UserNavViewContent.Navigate(typeof(FollowersPage), DataContext, args.RecommendedNavigationTransitionInfo),
+                "Following" => UserNavViewContent.Navigate(typeof(FollowingPage), DataContext, args.RecommendedNavigationTransitionInfo),
+                _ => UserNavViewContent.Navigate(typeof(OverviewPage), DataContext, args.RecommendedNavigationTransitionInfo)
             };
         }
 

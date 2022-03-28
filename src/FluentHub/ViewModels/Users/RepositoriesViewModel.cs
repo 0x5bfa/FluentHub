@@ -31,7 +31,6 @@ namespace FluentHub.ViewModels.Users
 
         private async Task RefreshRepositoriesAsync(string username)
         {
-            
             try
             {
                 RepositoryQueries queries = new();
