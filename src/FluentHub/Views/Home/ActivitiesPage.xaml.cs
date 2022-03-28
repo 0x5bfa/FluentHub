@@ -17,12 +17,13 @@ namespace FluentHub.Views.Home
             navigationService = provider.GetRequiredService<INavigationService>();
         }
 
-        private readonly INavigationService navigationService;
         public ActivitiesViewModel ViewModel { get; }
+        private readonly INavigationService navigationService;        
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
-        {            
-            // save navigation info
+        {
+            DataContext = e.Parameter;
+
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Activities";
             currentItem.Description = "Viewer's activities";
@@ -31,11 +32,10 @@ namespace FluentHub.Views.Home
             {
                 Glyph = "\uECAD"
             };
-            
-            var param = DataContext = e.Parameter as string;
+                        
             var command = ViewModel.RefreshActivitiesCommand;
-            if (command.CanExecute(param))
-                command.Execute(param);
+            if (command.CanExecute(DataContext))
+                command.Execute(DataContext);
         }
     }
 }

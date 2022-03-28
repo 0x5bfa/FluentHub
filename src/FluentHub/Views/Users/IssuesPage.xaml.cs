@@ -14,6 +14,7 @@ namespace FluentHub.Views.Users
         public IssuesPage()
         {
             InitializeComponent();
+            
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<IssuesViewModel>();
             navigationService = provider.GetRequiredService<INavigationService>();
@@ -21,9 +22,11 @@ namespace FluentHub.Views.Users
 
         private readonly INavigationService navigationService;
         public IssuesViewModel ViewModel { get; }
-        
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
-        {            
+        {
+            DataContext = e.Parameter;
+
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Issues".GetLocalized();
             currentItem.Description = "Viewer's issues";
@@ -33,10 +36,9 @@ namespace FluentHub.Views.Users
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Issues.png"))
             };
 
-            var param = DataContext = e.Parameter as string;
             var command = ViewModel.RefreshIssuesCommand;
-            if (command.CanExecute(param))
-                command.Execute(param);            
+            if (command.CanExecute(DataContext))
+                command.Execute(DataContext);
         }
     }
 }

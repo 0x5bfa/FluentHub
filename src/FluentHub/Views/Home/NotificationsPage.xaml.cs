@@ -14,7 +14,7 @@ namespace FluentHub.Views.Home
             InitializeComponent();
 
             var provider = App.Current.Services;
-            ViewModel = provider.GetRequiredService<NotificationsViewModel>();             
+            ViewModel = provider.GetRequiredService<NotificationsViewModel>();
             navigationService = provider.GetRequiredService<INavigationService>();
         }
 
@@ -23,7 +23,8 @@ namespace FluentHub.Views.Home
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            //Helpers.NavigationHelpers.AddPageInfoToTabItem("Notifications", "Viewer's notifications", "https://github.com/notifications", "\uEA8F");
+            DataContext = e.Parameter;
+
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "HomeNavViewItemNotifications/Content".GetLocalized();
             currentItem.Description = "Viewer's notifications";
@@ -34,9 +35,8 @@ namespace FluentHub.Views.Home
             };
 
             var command = ViewModel.RefreshNotificationsCommand;
-
-            if (command.CanExecute(null))
-                command.Execute(null);
+            if (command.CanExecute(DataContext))
+                command.Execute(DataContext);
         }
     }
 }

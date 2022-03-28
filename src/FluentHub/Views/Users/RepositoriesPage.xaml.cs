@@ -1,4 +1,5 @@
 ﻿using FluentHub.Services;
+using FluentHub.ViewModels.Users;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Uwp;
 using System;
@@ -13,28 +14,31 @@ namespace FluentHub.Views.Users
         public RepositoriesPage()
         {
             InitializeComponent();
-            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
+
+            var provider = App.Current.Services;
+            ViewModel = provider.GetRequiredService<RepositoriesViewModel>();
+            navigationService = provider.GetRequiredService<INavigationService>();
         }
 
+        public RepositoriesViewModel ViewModel { get; }
         private readonly INavigationService navigationService;
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            string login = e.Parameter as string;
+            DataContext = e.Parameter;
 
-            //Helpers.NavigationHelpers.AddPageInfoToTabItem($"Repositories", $"{login}'s repositories", $"https://github.com/{login}?tab=repositories", "\uE737");
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = $"Repositories".GetLocalized();
-            currentItem.Description = $"{login}'s repositories";
-            currentItem.Url = $"https://github.com/{login}?tab=repositories";
+            currentItem.Description = $"{DataContext}'s repositories";
+            currentItem.Url = $"https://github.com/{DataContext}?tab=repositories";
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.png"))
             };
 
-            await ViewModel.GetUserRepos(login);
-
-            base.OnNavigatedTo(e);
+            var command = ViewModel.RefreshRepositoriesCommand;
+            if (command.CanExecute(DataContext))
+                command.Execute(DataContext);
         }
     }
 }
