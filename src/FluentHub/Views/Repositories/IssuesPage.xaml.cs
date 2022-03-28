@@ -24,10 +24,8 @@ namespace FluentHub.Views.Repositories
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            long repositoryId = Convert.ToInt64(e.Parameter as string);
-
-            var repo = await App.Client.Repository.Get(repositoryId);
-            await ViewModel.GetRepoIssues(repo.Name, repo.Owner.Login);
+            var nameWithOwner = e.Parameter as string;
+            await ViewModel.GetRepoIssues(nameWithOwner.Split("/")[0], nameWithOwner.Split("/")[1]);
         }
     }
 }

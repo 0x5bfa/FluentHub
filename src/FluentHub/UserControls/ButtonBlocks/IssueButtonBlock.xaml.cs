@@ -10,7 +10,7 @@ namespace FluentHub.UserControls.ButtonBlocks
 {
     public sealed partial class IssueButtonBlock : UserControl
     {
-        #region dprops
+        #region propdp
         public static readonly DependencyProperty ViewModelProperty
             = DependencyProperty.Register(
                   nameof(Issue),
@@ -18,6 +18,7 @@ namespace FluentHub.UserControls.ButtonBlocks
                   typeof(IssueButtonBlock),
                   new PropertyMetadata(null)
                 );
+
         public IssueButtonBlockViewModel ViewModel
         {
             get => (IssueButtonBlockViewModel)GetValue(ViewModelProperty);
@@ -38,13 +39,10 @@ namespace FluentHub.UserControls.ButtonBlocks
 
         private readonly INavigationService navigationService;
 
-        private async void IssueBlockButton_Click(object sender, RoutedEventArgs e)
+        private void OnIssueBlockButtonClick(object sender, RoutedEventArgs e)
         {
-            var repo = await App.Client.Repository.Get(ViewModel.IssueItem.Owner, ViewModel.IssueItem.Name);
-
-            string param = repo.Id + "/" + ViewModel.IssueItem.Number;
+            string param = ViewModel.IssueItem.Owner + "/" + ViewModel.IssueItem.Name + "/" + ViewModel.IssueItem.Number;
             navigationService.Navigate<IssuePage>(param);
-            //App.MainViewModel.RepoMainFrame.Navigate(typeof(IssuePage), param);
         }
     }
 }
