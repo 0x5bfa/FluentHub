@@ -12,7 +12,7 @@ namespace FluentHub.Octokit.Queries.Users
     {
         public StarredRepoQueries() => new App();
 
-        public async Task<List<Models.Repository>> GetOverviewAll(string login)
+        public async Task<List<Models.Repository>> GetOverviewAllAsync(string login)
         {
             try
             {

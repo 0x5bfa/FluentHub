@@ -19,12 +19,14 @@ namespace FluentHub.Views.Users
             ViewModel = provider.GetRequiredService<PullRequestsViewModel>();
             navigationService = provider.GetRequiredService<INavigationService>();
         }
-
-        public PullRequestsViewModel ViewModel { get; }
+        
         private readonly INavigationService navigationService;
+        public PullRequestsViewModel ViewModel { get; }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            DataContext = e.Parameter;
+
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "PullRequests".GetLocalized();
             currentItem.Description = "Viewer's pull requests";
@@ -34,7 +36,6 @@ namespace FluentHub.Views.Users
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/PullRequests.png"))
             };
 
-            DataContext = e.Parameter;
             var command = ViewModel.RefreshPullRequestsCommand;
             if (command.CanExecute(DataContext))
                 command.Execute(DataContext);

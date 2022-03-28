@@ -20,11 +20,13 @@ namespace FluentHub.Views.Users
             navigationService = provider.GetRequiredService<INavigationService>();
         }
 
-        public DiscussionsViewModel ViewModel { get; }
         private readonly INavigationService navigationService;
+        public DiscussionsViewModel ViewModel { get; }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            DataContext = e.Parameter;
+
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Discussions".GetLocalized();
             currentItem.Description = "Viewer's discussions";
@@ -34,7 +36,6 @@ namespace FluentHub.Views.Users
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Discussions.png"))
             };
 
-            DataContext = e.Parameter;
             var command = ViewModel.RefreshDiscussionsCommand;
             if (command.CanExecute(DataContext))
                 command.Execute(DataContext);

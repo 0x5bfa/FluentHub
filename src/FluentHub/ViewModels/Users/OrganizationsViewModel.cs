@@ -1,53 +1,57 @@
-﻿using Humanizer;
-using FluentHub.Octokit.Queries.Users;
+﻿using FluentHub.Octokit.Queries.Users;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
+using Serilog;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.Users
 {
-    public class OrganizationsViewModel : INotifyPropertyChanged
+    public class OrganizationsViewModel : ObservableObject
     {
-        public ObservableCollection<OrgButtonBlockViewModel> OrgItems { get; private set; } = new();
-
-        private bool isActive;
-        public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
-
-        public async Task GetUserOrganizations(string login)
+        public OrganizationsViewModel(ILogger logger = null)
         {
-            IsActive = true;
+            _logger = logger;
 
-            OrganizationQueries queries = new();
-            var items = await queries.GetOverviewAll(login);
+            _organizations = new();
+            Organizations = new(_organizations);
 
-            foreach (var item in items)
-            {
-                OrgButtonBlockViewModel viewModel = new();
-                viewModel.OrgItem = item;
-
-                OrgItems.Add(viewModel);
-            }
-
-            IsActive = false;
+            RefreshOrganizationsCommand = new AsyncRelayCommand<string>(RefreshOrganizationsAsync, CanRefreshOrganizations);
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
-        {
-            if (!Equals(field, newValue))
-            {
-                field = newValue;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-                return true;
-            }
+        private readonly ILogger _logger;
+        private readonly ObservableCollection<OrgButtonBlockViewModel> _organizations;
+        public ReadOnlyObservableCollection<OrgButtonBlockViewModel> Organizations { get; }
 
-            return false;
+        public IAsyncRelayCommand RefreshOrganizationsCommand { get; }
+
+        private bool CanRefreshOrganizations(string username) => !string.IsNullOrEmpty(username);
+
+        private async Task RefreshOrganizationsAsync(string username)
+        {            
+            try
+            {
+                OrganizationQueries queries = new();
+                var items = await queries.GetOverviewAllAsync(username);
+
+                _organizations.Clear();
+                foreach (var item in items)
+                {
+                    OrgButtonBlockViewModel viewModel = new()
+                    {
+                        OrgItem = item
+                    };
+
+                    _organizations.Add(viewModel);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger?.Error(ex, "RefreshOrganizationsAsync");
+                throw;
+            }
         }
     }
 }

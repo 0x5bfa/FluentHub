@@ -1,55 +1,59 @@
 ﻿using FluentHub.Octokit.Queries.Users;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
-using Octokit;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
+using Serilog;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.Users
 {
-    public class StarredReposViewModel : INotifyPropertyChanged
+    public class StarredReposViewModel : ObservableObject
     {
-        public ObservableCollection<RepoButtonBlockViewModel> Items { get; private set; } = new();
-
-        public async void GetUserStarredRepos(string login)
+        public StarredReposViewModel(ILogger logger = null)
         {
-            IsActive = true;
+            _logger = logger;
 
-            StarredRepoQueries queries = new();
-            var items = await queries.GetOverviewAll(login);
+            _repositories = new();
+            Repositories = new(_repositories);
 
-            foreach (var item in items)
-            {
-                RepoButtonBlockViewModel viewModel = new();
-                viewModel.Item = item;
-                viewModel.DisplayDetails = true;
-                viewModel.DisplayStarButton = true;
-
-                Items.Add(viewModel);
-            }
-
-            IsActive = false;
+            RefreshRepositoriesCommand = new AsyncRelayCommand<string>(RefreshRepositoriesAsync, CanRefreshRepositories);
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
-        {
-            if (!Equals(field, newValue))
+        private readonly ILogger _logger;
+        private readonly ObservableCollection<RepoButtonBlockViewModel> _repositories;
+        public ReadOnlyObservableCollection<RepoButtonBlockViewModel> Repositories { get; }
+
+        public IAsyncRelayCommand RefreshRepositoriesCommand { get; }
+
+        private bool CanRefreshRepositories(string username) => !string.IsNullOrEmpty(username);
+
+        private async Task RefreshRepositoriesAsync(string username)
+        {            
+            try
             {
-                field = newValue;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-                return true;
+                StarredRepoQueries queries = new();
+                var items = await queries.GetOverviewAllAsync(username);
+
+                _repositories.Clear();
+                foreach (var item in items)
+                {
+                    RepoButtonBlockViewModel viewModel = new()
+                    {
+                        Item = item,
+                        DisplayDetails = true,
+                        DisplayStarButton = false
+                    };
+
+                    _repositories.Add(viewModel);
+                }
             }
-
-            return false;
+            catch (Exception ex)
+            {
+                _logger?.Error(ex, "RefreshRepositoriesAsync");
+                throw;
+            }
         }
-
-        private bool isActive;
-        public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
     }
 }
