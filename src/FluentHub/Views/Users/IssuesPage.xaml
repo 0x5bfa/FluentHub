@@ -48,11 +48,9 @@
         </muxc:InfoBar>
 
         <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
-            <muxc:ItemsRepeater Margin="18,4,18,18" ItemsSource="{x:Bind ViewModel.IssueItems, Mode=OneWay}">
+            <muxc:ItemsRepeater Margin="18,4,18,18" ItemsSource="{x:Bind ViewModel.IssueItems}">
                 <DataTemplate x:DataType="bbvm:IssueButtonBlockViewModel">
-                    <Grid>
-                        <block:IssueButtonBlock VerticalAlignment="Stretch" ViewModel="{x:Bind}" />
-                    </Grid>
+                    <block:IssueButtonBlock VerticalAlignment="Stretch" ViewModel="{x:Bind}" />
                 </DataTemplate>
             </muxc:ItemsRepeater>
         </ScrollViewer>

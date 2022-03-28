@@ -106,6 +106,7 @@ namespace FluentHub
                 .AddTransient<ViewModels.Home.ActivitiesViewModel>()
                 .AddTransient<ViewModels.Users.ProfilePageViewModel>()
                 .AddTransient<ViewModels.Users.IssuesViewModel>()
+                .AddTransient<ViewModels.Users.PullRequestsViewModel>()
                 .BuildServiceProvider();
         }
 

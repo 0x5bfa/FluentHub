@@ -1,55 +1,60 @@
-﻿using Humanizer;
-using FluentHub.Octokit.Queries.Users;
+﻿using FluentHub.Octokit.Queries.Users;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
+using Humanizer;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
+using Serilog;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.Users
 {
-    public class PullRequestsViewModel : INotifyPropertyChanged
+    public class PullRequestsViewModel : ObservableObject
     {
-        public ObservableCollection<PullButtonBlockViewModel> PullItems { get; private set; } = new();
-
-        private bool isActive;
-        public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
-
-        public async Task GetRepoPRs(string login)
+        public PullRequestsViewModel(ILogger logger = null)
         {
-            IsActive = true;
+            _logger = logger;
 
-            PullRequestQueries queries = new();
-            var items = await queries.GetOverviewAll(login);
+            _pullRequests = new();
+            PullItems = new(_pullRequests);
 
-            foreach (var item in items)
-            {
-                PullButtonBlockViewModel viewModel = new();
-                viewModel.PullItem = item;
-                viewModel.NameWithOwner = item.Owner + " / " + item.Name + " #" + item.Number;
-                viewModel.UpdatedAtHumanized = item.UpdatedAt.Humanize();
-
-                PullItems.Add(viewModel);
-            }
-
-            IsActive = false;
+            RefreshPullRequestsCommand = new AsyncRelayCommand<string>(RefreshPullRequestsAsync, CanRefreshPullRequests);
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
-        {
-            if (!Equals(field, newValue))
-            {
-                field = newValue;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-                return true;
-            }
+        private readonly ILogger _logger;
+        private readonly ObservableCollection<PullButtonBlockViewModel> _pullRequests;
+        public ReadOnlyObservableCollection<PullButtonBlockViewModel> PullItems { get; }
 
-            return false;
+        public IAsyncRelayCommand RefreshPullRequestsCommand { get; }
+
+        private bool CanRefreshPullRequests(string username) => !string.IsNullOrEmpty(username);
+
+        private async Task RefreshPullRequestsAsync(string username)
+        {
+            try
+            {
+                PullRequestQueries queries = new();
+                var items = await queries.GetOverviewAllAsync(username);
+
+                _pullRequests.Clear();
+                foreach (var item in items)
+                {
+                    PullButtonBlockViewModel viewModel = new()
+                    {
+                        PullItem = item,
+                        NameWithOwner = $"{item.Owner} / {item.Name} #{item.Number}",
+                        UpdatedAtHumanized = item.UpdatedAt.Humanize()
+                    };
+
+                    _pullRequests.Add(viewModel);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger?.Error(ex, "RefreshPullRequestsAsync");
+                throw;
+            }
         }
     }
 }

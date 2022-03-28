@@ -1,10 +1,7 @@
-﻿using FluentHub.Octokit.Models;
-using Octokit.GraphQL;
+﻿using Octokit.GraphQL;
 using Octokit.GraphQL.Model;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace FluentHub.Octokit.Queries.Users
@@ -13,7 +10,7 @@ namespace FluentHub.Octokit.Queries.Users
     {
         public PullRequestQueries() => new App();
 
-        public async Task<List<Models.PullRequest>> GetOverviewAll(string login)
+        public async Task<List<Models.PullRequest>> GetOverviewAllAsync(string login)
         {
             IssueOrder order = new() { Direction = OrderDirection.Desc, Field = IssueOrderField.CreatedAt };
 

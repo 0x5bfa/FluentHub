@@ -55,7 +55,7 @@
         </muxc:InfoBar>
 
         <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
-            <muxc:ItemsRepeater Margin="18,4,18,18" ItemsSource="{x:Bind ViewModel.NotificationItems, Mode=OneWay}">
+            <muxc:ItemsRepeater Margin="18,4,18,18" ItemsSource="{x:Bind ViewModel.NotificationItems}">
                 <DataTemplate x:DataType="bbvm:NotificationButtonBlockViewModel">
                     <block:NotificationButtonBlock ViewModel="{x:Bind}" />
                 </DataTemplate>
