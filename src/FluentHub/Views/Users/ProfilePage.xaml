@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="using:FluentHub.Helpers"
     xmlns:item="using:FluentHub.Models.Items"
+    xmlns:labels="using:FluentHub.UserControls.Labels"
     xmlns:local="using:FluentHub.Views.Users"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -49,9 +50,6 @@
             </Grid.RowDefinitions>
             <Grid Margin="18,18,18,12">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -269,6 +267,21 @@
                             </Button.Content>
                         </Button>
                     </StackPanel>
+                </toolkit:WrapPanel>
+                <toolkit:WrapPanel
+                    Grid.Row="2"
+                    Margin="0,4,0,0"
+                    HorizontalAlignment="Stretch"
+                    HorizontalSpacing="6"
+                    Orientation="Horizontal">
+                    <!--<labels:LabelControl
+                        IsOutlineEnable="True"
+                        LabelBackground="#8256d0"
+                        LabelText="PRO" />
+                    <labels:LabelControl
+                        IsOutlineEnable="True"
+                        LabelBackground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        LabelText="Bounty hunter" />-->
                 </toolkit:WrapPanel>
             </Grid>
             <Grid
