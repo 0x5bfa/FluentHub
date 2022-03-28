@@ -21,7 +21,7 @@ namespace FluentHub.Views.Home
         public ActivitiesViewModel ViewModel { get; }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
+        {            
             // save navigation info
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Activities";
@@ -32,7 +32,7 @@ namespace FluentHub.Views.Home
                 Glyph = "\uECAD"
             };
             
-            var param = e.Parameter as string;
+            var param = DataContext = e.Parameter as string;
             var command = ViewModel.RefreshActivitiesCommand;
             if (command.CanExecute(param))
                 command.Execute(param);

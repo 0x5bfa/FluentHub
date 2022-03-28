@@ -39,7 +39,8 @@
 
             <muxc:InfoBar
                 Title="Something went wrong"
-                IsClosable="False" Grid.Row="1"
+                Grid.Row="1"
+                IsClosable="False"
                 IsOpen="{x:Bind ViewModel.RefreshNotificationsCommand.ExecutionTask.IsFaulted, Mode=OneWay}"
                 Message="{x:Bind ViewModel.RefreshNotificationsCommand.ExecutionTask.Exception.InnerException.Message, Mode=OneWay}"
                 Severity="Error">
