@@ -17,10 +17,9 @@
                             <!--  Corner Radius  -->
                             <CornerRadius x:Key="ControlCornerRadius">4</CornerRadius>
                             <CornerRadius x:Key="OverlayCornerRadius">8</CornerRadius>
-                            <CornerRadius x:Key="NavToolbarCornerRadius">0,0,0,8</CornerRadius>
                             <!--  Tabs  -->
                             <SolidColorBrush x:Key="TabViewItemHeaderBackground" Color="{StaticResource SubtleFillColorTransparent}" />
-                            <SolidColorBrush x:Key="TabViewItemHeaderBackgroundSelected" Color="{StaticResource ControlFillColorDefault}" />
+                            <SolidColorBrush x:Key="TabViewItemHeaderBackgroundSelected" Color="{StaticResource LayerFillColorDefault}" />
                             <SolidColorBrush x:Key="TabViewItemHeaderBackgroundPressed" Color="{StaticResource SubtleFillColorTertiary}" />
                             <SolidColorBrush x:Key="TabViewItemHeaderBackgroundPointerOver" Color="{StaticResource SubtleFillColorSecondary}" />
                             <SolidColorBrush x:Key="TabViewItemSeparator" Color="{StaticResource DividerStrokeColorDefault}" />
@@ -34,7 +33,7 @@
                             <CornerRadius x:Key="OverlayCornerRadius">8</CornerRadius>
                             <!--  Tabs  -->
                             <SolidColorBrush x:Key="TabViewItemHeaderBackground" Color="{StaticResource SubtleFillColorTransparent}" />
-                            <SolidColorBrush x:Key="TabViewItemHeaderBackgroundSelected" Color="{StaticResource ControlFillColorDefault}" />
+                            <SolidColorBrush x:Key="TabViewItemHeaderBackgroundSelected" Color="{StaticResource LayerFillColorDefault}" />
                             <SolidColorBrush x:Key="TabViewItemHeaderBackgroundPressed" Color="{StaticResource SubtleFillColorTertiary}" />
                             <SolidColorBrush x:Key="TabViewItemHeaderBackgroundPointerOver" Color="{StaticResource SubtleFillColorSecondary}" />
                             <SolidColorBrush x:Key="TabViewItemSeparator" Color="{StaticResource DividerStrokeColorDefault}" />
@@ -42,24 +41,13 @@
                             <SolidColorBrush x:Key="TabContainerFillColorSecondary" Color="{StaticResource SolidBackgroundFillColorSecondary}" />
                         </ResourceDictionary>
                         <ResourceDictionary x:Key="HighContrast">
-                            <SolidColorBrush x:Key="ApplicationPageBackgroundThemeBrush" Color="{StaticResource SystemColorWindowColor}" />
-                            <StaticResource x:Key="SolidBackgroundFillColorBase" ResourceKey="SystemColorWindowColor" />
-                            <StaticResource x:Key="SolidBackgroundFillColorSecondary" ResourceKey="SystemColorWindowColor" />
-                            <StaticResource x:Key="SolidBackgroundFillColorTertiary" ResourceKey="SystemColorWindowColor" />
-                            <StaticResource x:Key="SolidBackgroundFillColorQuarternary" ResourceKey="SystemColorWindowColor" />
-                            <StaticResource x:Key="ControlStrokeColorDefault" ResourceKey="SystemColorWindowTextColor" />
-                            <StaticResource x:Key="ControlStrokeColorSecondary" ResourceKey="SystemColorWindowTextColor" />
-                            <SolidColorBrush x:Key="SolidBackgroundFillColorBaseBrush" Color="{StaticResource SystemColorWindowColor}" />
-                            <SolidColorBrush x:Key="SolidBackgroundFillColorSecondaryBrush" Color="{StaticResource SystemColorWindowColor}" />
-                            <SolidColorBrush x:Key="SolidBackgroundFillColorTertiaryBrush" Color="{StaticResource SystemColorWindowColor}" />
-                            <SolidColorBrush x:Key="SolidBackgroundFillColorQuarternaryBrush" Color="{StaticResource SystemColorWindowColor}" />
                             <Color x:Key="SolidBackgroundAcrylic">#2C2C2C</Color>
                             <!--  Corner Radius  -->
                             <CornerRadius x:Key="ControlCornerRadius">4</CornerRadius>
                             <CornerRadius x:Key="OverlayCornerRadius">8</CornerRadius>
                             <!--  Tabs  -->
                             <SolidColorBrush x:Key="TabViewItemHeaderBackground" Color="{StaticResource SystemColorWindowColor}" />
-                            <SolidColorBrush x:Key="TabViewItemHeaderBackgroundSelected" Color="{StaticResource SystemColorHighlightColor}" />
+                            <SolidColorBrush x:Key="TabViewItemHeaderBackgroundSelected" Color="{StaticResource LayerFillColorDefault}" />
                             <SolidColorBrush x:Key="TabViewItemHeaderBackgroundPressed" Color="{StaticResource SystemColorHighlightColor}" />
                             <SolidColorBrush x:Key="TabViewItemHeaderBackgroundPointerOver" Color="{StaticResource SystemColorHighlightColor}" />
                             <SolidColorBrush x:Key="TabViewItemSeparator" Color="{StaticResource SystemColorGrayTextColor}" />
@@ -67,8 +55,8 @@
                             <SolidColorBrush x:Key="TabContainerFillColorSecondary" Color="{StaticResource SolidBackgroundFillColorSecondary}" />
                         </ResourceDictionary>
                     </ResourceDictionary.ThemeDictionaries>
+                    <!--<Thickness x:Key="TabViewSelectedItemBorderThickness">0</Thickness>-->
                 </ResourceDictionary>
-
                 <ResourceDictionary>
                     <Color x:Key="IssuesIconsBackground">#40d563</Color>
                     <Color x:Key="PRsIconsBackground">#2e8ffe</Color>
@@ -76,14 +64,10 @@
                     <Color x:Key="ReposIconsBackground">#41434e</Color>
                     <Color x:Key="OrgsIconsBackground">#fe8a38</Color>
                     <Color x:Key="StaredIconsBackground">#fecb1a</Color>
-                    <CornerRadius x:Key="OrganizationAvatarCornerRadius">6</CornerRadius>
                 </ResourceDictionary>
-
                 <ResourceDictionary Source="/ResourceDictionaries/ClearButtonStyle.xaml" />
                 <ResourceDictionary Source="/ResourceDictionaries/LinkLikeButtonStyle.xaml" />
-
                 <ResourceDictionary Source="/ResourceDictionaries/TextBlockStyles.xaml" />
-
                 <ResourceDictionary>
                     <Style TargetType="FontIcon">
                         <Setter Property="FontFamily" Value="{StaticResource FluentIcons}" />

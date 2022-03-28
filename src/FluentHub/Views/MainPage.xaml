@@ -64,8 +64,6 @@
                     <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
                     <CornerRadius x:Key="NavigationViewContentGridCornerRadius">0</CornerRadius>
                 </ResourceDictionary>
-                <ResourceDictionary Source="/ResourceDictionaries/TabView_themeresources.xaml" />
-                <ResourceDictionary Source="/ResourceDictionaries/TabViewItem_shared.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
@@ -76,7 +74,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0">
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
@@ -85,21 +83,18 @@
             <Grid
                 x:Name="DragArea"
                 Grid.ColumnSpan="2"
-                Height="40"
+                Height="36"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Top"
                 Background="Transparent"
                 Loaded="OnDragAreaLoaded" />
-            <uc:CustomTabView
-                x:Name="TabView"
-                Title="{x:Bind TabView.SelectedItem.NavigationHistory.CurrentItem.Header, Mode=OneWay}"
-                Height="43" />
+            <uc:CustomTabView x:Name="TabView" Title="{x:Bind TabView.SelectedItem.NavigationHistory.CurrentItem.Header, Mode=OneWay}" />
         </Grid>
         <Grid
             Grid.Row="1"
             Height="50"
-            Padding="8,0,8,0"
-            Background="{ThemeResource TabViewItemHeaderBackgroundSelected}"
+            Padding="8,0"
+            Background="{StaticResource LayerFillColorDefault}"
             ColumnSpacing="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -200,7 +195,7 @@
             <Border
                 Grid.ColumnSpan="3"
                 Height="1"
-                Margin="-8,0,-8,0"
+                Margin="-8,0"
                 VerticalAlignment="Bottom"
                 BorderBrush="{ThemeResource ControlStrokeColorDefault}"
                 BorderThickness="1" />
