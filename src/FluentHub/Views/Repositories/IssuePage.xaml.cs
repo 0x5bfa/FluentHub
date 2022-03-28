@@ -15,6 +15,7 @@ namespace FluentHub.Views.Repositories
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            // [owner]/[name]/[number]
             var param = (e.Parameter as string).Split("/");
         }
     }

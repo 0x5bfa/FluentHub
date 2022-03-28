@@ -24,12 +24,8 @@ namespace FluentHub.Views.Repositories
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            long repositoryId = Convert.ToInt64(e.Parameter as string);
-
-            //Helpers.NavigationHelpers.AddPageInfoToTabItem($"Pull requests • {CommonRepoViewModel.Owner}/{CommonRepoViewModel.Name}", $"Pull requests • {CommonRepoViewModel.Owner}/{CommonRepoViewModel.Name}", $"https://github.com/{CommonRepoViewModel.Owner}/{CommonRepoViewModel.Name}/pulls", "\uE9BF", true);
-
-            var repo = await App.Client.Repository.Get(repositoryId);
-            await ViewModel.GetRepoPRs(repo.Name, repo.Owner.Login);
+            var nameWithOwner = e.Parameter as string;
+            await ViewModel.GetRepoPRs(nameWithOwner.Split("/")[0], nameWithOwner.Split("/")[1]);
         }
     }
 }

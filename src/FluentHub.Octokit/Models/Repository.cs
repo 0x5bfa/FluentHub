@@ -14,6 +14,8 @@ namespace FluentHub.Octokit.Models
 
         public string Owner { get; set; }
 
+        public bool OwnerIsUser { get; set; }
+
         public string Description { get; set; }
 
         public string PrimaryLangName { get; set; }

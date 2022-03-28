@@ -26,9 +26,19 @@ namespace FluentHub.Views.Repositories
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            Repository = e.Parameter as Octokit.Models.Repository;
-            ViewModel.Repository = Repository;
+            ViewModel.Repository = Repository = e.Parameter as Octokit.Models.Repository;
             this.DataContext = ViewModel;
+
+            // Initialize frame
+            var commonRepoViewModel = new CommonRepoViewModel()
+            {
+                IsRootDir = true,
+                Name = Repository.Name,
+                Owner = Repository.Owner,
+                BranchName = Repository.DefaultBranchName,
+            };
+
+            RepoPageNavViewFrame.Navigate(typeof(CodePage), commonRepoViewModel);
         }
 
         private void RepoPageNavView_ItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)

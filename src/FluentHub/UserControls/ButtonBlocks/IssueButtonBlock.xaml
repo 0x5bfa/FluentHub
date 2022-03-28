@@ -36,7 +36,7 @@
             x:Name="IssueBlockButton"
             Margin="0,3,0,0"
             Padding="18,12"
-            Click="IssueBlockButton_Click"
+            Click="OnIssueBlockButtonClick"
             Style="{StaticResource ContentBlockButtonStyle}">
             <Grid ColumnSpacing="6">
                 <Grid.ColumnDefinitions>
