@@ -1,55 +1,57 @@
-﻿using Humanizer;
-using FluentHub.Octokit.Queries.Users;
+﻿using FluentHub.Octokit.Queries.Users;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
+using Humanizer;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
+using Serilog;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
-
 namespace FluentHub.ViewModels.Users
 {
-    public class DiscussionsViewModel : INotifyPropertyChanged
+    public class DiscussionsViewModel : ObservableObject
     {
-        public ObservableCollection<DiscussionButtonBlockViewModel> DiscussionItems { get; private set; } = new();
-
-        private bool isActive;
-        public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
-
-        public async Task GetUserDiscussions(string login)
+        public DiscussionsViewModel(ILogger logger = null)
         {
-            IsActive = true;
+            _logger = logger;
+            _discussions = new();
+            DiscussionItems = new(_discussions);
 
-            DiscussionQueries queries = new();
-            var items = await queries.GetOverviewAll(login);
-
-            foreach (var item in items)
-            {
-                DiscussionButtonBlockViewModel viewModel = new();
-                viewModel.NameWithOwner = item.Owner + " / " + item.Name + " #" + item.Number;
-                viewModel.UpdatedAtHumanized = item.UpdatedAt.Humanize();
-                viewModel.DiscussionItem = item;
-
-                DiscussionItems.Add(viewModel);
-            }
-
-            IsActive = false;
+            RefreshDiscussionsCommand = new AsyncRelayCommand<string>(RefreshDiscussionsAsync, CanRefreshDiscussions);
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
-        {
-            if (!Equals(field, newValue))
-            {
-                field = newValue;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-                return true;
-            }
+        private readonly ILogger _logger;
+        private readonly ObservableCollection<DiscussionButtonBlockViewModel> _discussions;
+        public ReadOnlyObservableCollection<DiscussionButtonBlockViewModel> DiscussionItems { get; }
+        public IAsyncRelayCommand RefreshDiscussionsCommand { get; }
 
-            return false;
+        private bool CanRefreshDiscussions(string username) => !string.IsNullOrEmpty(username);
+
+        private async Task RefreshDiscussionsAsync(string username)
+        {
+            try
+            {
+                DiscussionQueries queries = new();
+                var items = await queries.GetOverviewAllAsync(username);
+
+                _discussions.Clear();
+                foreach (var item in items)
+                {
+                    DiscussionButtonBlockViewModel viewModel = new()
+                    {
+                        DiscussionItem = item,
+                        NameWithOwner = $"{item.Owner} / {item.Name} #{item.Number}",
+                        UpdatedAtHumanized = item.UpdatedAt.Humanize()
+                    };
+
+                    _discussions.Add(viewModel);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger?.Error(ex, "RefreshDiscussionsAsync");
+                throw;
+            }
         }
     }
 }

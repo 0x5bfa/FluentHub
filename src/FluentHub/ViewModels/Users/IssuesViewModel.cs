@@ -23,7 +23,7 @@ namespace FluentHub.ViewModels.Users
 
         private readonly ILogger _logger;
 
-        private ObservableCollection<IssueButtonBlockViewModel> _issueItems;
+        private readonly ObservableCollection<IssueButtonBlockViewModel> _issueItems;
 
         public ReadOnlyObservableCollection<IssueButtonBlockViewModel> IssueItems { get; }
 
@@ -50,7 +50,6 @@ namespace FluentHub.ViewModels.Users
 
                     _issueItems.Add(viewModel);
                 }
-
             }
             catch (Exception ex)
             {

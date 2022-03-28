@@ -1,4 +1,5 @@
 ﻿using FluentHub.Services;
+using FluentHub.ViewModels.Users;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Uwp;
 using System;
@@ -13,14 +14,17 @@ namespace FluentHub.Views.Users
         public DiscussionsPage()
         {
             InitializeComponent();
-            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
+
+            var provider = App.Current.Services;
+            ViewModel = provider.GetRequiredService<DiscussionsViewModel>();
+            navigationService = provider.GetRequiredService<INavigationService>();
         }
 
+        public DiscussionsViewModel ViewModel { get; }
         private readonly INavigationService navigationService;
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            //Helpers.NavigationHelpers.AddPageInfoToTabItem($"Discussions", "Viewer's discussions", $"https://github.com/discussions", "\uE737");
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Discussions".GetLocalized();
             currentItem.Description = "Viewer's discussions";
@@ -30,7 +34,10 @@ namespace FluentHub.Views.Users
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Discussions.png"))
             };
 
-            await ViewModel.GetUserDiscussions(e.Parameter as string);
+            DataContext = e.Parameter;
+            var command = ViewModel.RefreshDiscussionsCommand;
+            if (command.CanExecute(DataContext))
+                command.Execute(DataContext);
         }
     }
 }
