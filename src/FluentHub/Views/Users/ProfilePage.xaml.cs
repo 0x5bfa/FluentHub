@@ -1,7 +1,6 @@
 ﻿using FluentHub.Services;
 using FluentHub.ViewModels.Users;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -22,7 +21,7 @@ namespace FluentHub.Views.Users
 
         private readonly INavigationService navigationService;
         public ProfilePageViewModel ViewModel { get; }
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             DataContext = e.Parameter;
 
@@ -35,12 +34,9 @@ namespace FluentHub.Views.Users
                 Glyph = "\uE77B"
             };
 
-            // This is a workaround. TODO: Implement ItemToVisibility converter
-            // Wait for the command to finish executing before updating visibility
             var command = ViewModel.LoadUserCommand;
             if (command.CanExecute(DataContext))
-                await command.ExecuteAsync(DataContext);
-            UpdateVisibility();            
+                command.Execute(DataContext);
         }
 
         private void UserNavView_SelectionChanged(muxc.NavigationView sender, muxc.NavigationViewSelectionChangedEventArgs args)
@@ -54,31 +50,6 @@ namespace FluentHub.Views.Users
                 "Following" => UserNavViewContent.Navigate(typeof(FollowingPage), DataContext, args.RecommendedNavigationTransitionInfo),
                 _ => UserNavViewContent.Navigate(typeof(OverviewPage), DataContext, args.RecommendedNavigationTransitionInfo)
             };
-        }
-
-        private void UpdateVisibility()
-        {
-            if (!string.IsNullOrEmpty(CompanyLinkTextBlock.Text))
-            {
-                CompanyBlock.Visibility = Visibility.Visible;
-            }
-
-            if (!string.IsNullOrEmpty(UserBioTextBlock.Text))
-            {
-                UserBioTextBlock.Visibility = Visibility.Visible;
-            }
-
-            if (!string.IsNullOrEmpty(LocationTextBlock.Text))
-            {
-                LocationBlock.Visibility = Visibility.Visible;
-            }
-
-            if (!string.IsNullOrEmpty(LinkButton.Content as string))
-            {
-                var uri = new UriBuilder(LinkButton.Content as string).Uri;
-                LinkButton.NavigateUri = uri;
-                LinkBlock.Visibility = Visibility.Visible;
-            }
         }
 
         private void UserFollowersButton_Click(object sender, RoutedEventArgs e)
