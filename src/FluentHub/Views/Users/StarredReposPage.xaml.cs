@@ -1,4 +1,5 @@
 ﻿using FluentHub.Services;
+using FluentHub.ViewModels.Users;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Uwp;
 using System;
@@ -13,28 +14,31 @@ namespace FluentHub.Views.Users
         public StarredReposPage()
         {
             InitializeComponent();
-            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
+
+            var provider = App.Current.Services;
+            ViewModel = provider.GetRequiredService<StarredReposViewModel>();
+            navigationService = provider.GetRequiredService<INavigationService>();
         }
 
         private readonly INavigationService navigationService;
+        public StarredReposViewModel ViewModel { get; }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            string login = e.Parameter as string;
+            DataContext = e.Parameter;
 
-            //Helpers.NavigationHelpers.AddPageInfoToTabItem($"Stars", $"{login}'s stars", $"https://github.com/{login}?tab=stars", "\uE737");
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = $"Starred".GetLocalized();
-            currentItem.Description = $"{login}'s stars";
-            currentItem.Url = $"https://github.com/{login}?tab=stars";
+            currentItem.Description = $"{DataContext}'s stars";
+            currentItem.Url = $"https://github.com/{DataContext}?tab=stars";
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Starred.png"))
             };
 
-            ViewModel.GetUserStarredRepos(login);
-
-            base.OnNavigatedTo(e);
+            var command = ViewModel.RefreshRepositoriesCommand;
+            if (command.CanExecute(DataContext))
+                command.Execute(DataContext);
         }
     }
 }

@@ -20,8 +20,8 @@ namespace FluentHub.Views.Users
             navigationService = provider.GetRequiredService<INavigationService>();
         }
 
-        public DiscussionsViewModel ViewModel { get; }
         private readonly INavigationService navigationService;
+        public DiscussionsViewModel ViewModel { get; }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -35,7 +35,7 @@ namespace FluentHub.Views.Users
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Discussions.png"))
             };
-            
+
             var command = ViewModel.RefreshDiscussionsCommand;
             if (command.CanExecute(DataContext))
                 command.Execute(DataContext);

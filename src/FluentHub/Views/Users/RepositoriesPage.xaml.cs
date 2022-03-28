@@ -19,9 +19,9 @@ namespace FluentHub.Views.Users
             ViewModel = provider.GetRequiredService<RepositoriesViewModel>();
             navigationService = provider.GetRequiredService<INavigationService>();
         }
-
-        public RepositoriesViewModel ViewModel { get; }
+        
         private readonly INavigationService navigationService;
+        public RepositoriesViewModel ViewModel { get; }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {

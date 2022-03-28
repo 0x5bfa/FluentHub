@@ -17,8 +17,8 @@ namespace FluentHub.Views.Home
             navigationService = provider.GetRequiredService<INavigationService>();
         }
 
+        private readonly INavigationService navigationService;
         public ActivitiesViewModel ViewModel { get; }
-        private readonly INavigationService navigationService;        
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -32,7 +32,7 @@ namespace FluentHub.Views.Home
             {
                 Glyph = "\uECAD"
             };
-                        
+
             var command = ViewModel.RefreshActivitiesCommand;
             if (command.CanExecute(DataContext))
                 command.Execute(DataContext);

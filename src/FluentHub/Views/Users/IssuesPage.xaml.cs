@@ -14,7 +14,7 @@ namespace FluentHub.Views.Users
         public IssuesPage()
         {
             InitializeComponent();
-            
+
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<IssuesViewModel>();
             navigationService = provider.GetRequiredService<INavigationService>();
