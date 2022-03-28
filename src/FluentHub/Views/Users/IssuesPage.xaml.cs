@@ -1,4 +1,5 @@
 ﻿using FluentHub.Services;
+using FluentHub.ViewModels.Users;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Uwp;
 using System;
@@ -13,16 +14,16 @@ namespace FluentHub.Views.Users
         public IssuesPage()
         {
             InitializeComponent();
-            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
+            var provider = App.Current.Services;
+            ViewModel = provider.GetRequiredService<IssuesViewModel>();
+            navigationService = provider.GetRequiredService<INavigationService>();
         }
 
         private readonly INavigationService navigationService;
-
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
-        {
-            string login = e.Parameter as string;
-
-            //Helpers.NavigationHelpers.AddPageInfoToTabItem($"Issues", "Viewer's issues", $"https://github.com/issues", "\uE737");
+        public IssuesViewModel ViewModel { get; }
+        
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {            
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Issues".GetLocalized();
             currentItem.Description = "Viewer's issues";
@@ -32,7 +33,10 @@ namespace FluentHub.Views.Users
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Issues.png"))
             };
 
-            await ViewModel.GetRepoIssues(login);
+            var param = DataContext = e.Parameter as string;
+            var command = ViewModel.RefreshIssuesCommand;
+            if (command.CanExecute(param))
+                command.Execute(param);            
         }
     }
 }
