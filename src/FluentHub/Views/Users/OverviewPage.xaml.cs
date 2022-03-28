@@ -21,9 +21,8 @@ namespace FluentHub.Views.Users
         {
             string login = e.Parameter as string;
 
-            //Helpers.NavigationHelpers.AddPageInfoToTabItem($"{login}'s overview", $"https://github.com/{login}?tab=overview", $"https://github.com/{login}?tab=overview", "\uE77B");
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = $"{login}'s overview";
+            currentItem.Header = $"{login}";
             currentItem.Description = "";
             currentItem.Url = $"https://github.com/{login}?tab=overview";
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.FontIconSource

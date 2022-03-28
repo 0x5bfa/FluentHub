@@ -134,7 +134,7 @@ namespace FluentHub
 
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
-                Window.Current.Content = rootFrame;                
+                Window.Current.Content = rootFrame;
             }
 
             if (rootFrame.Content == null)
