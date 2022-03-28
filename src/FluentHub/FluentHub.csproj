@@ -128,7 +128,6 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\ObjectToBoolConverter.cs" />
-    <Compile Include="Converters\NullOrEmptyToVisibility.cs" />
     <Compile Include="Converters\SettingsControlConverter.cs" />
     <Compile Include="Extensions\IEnumerableExt.cs" />
     <Compile Include="Helpers\BlobDetailsHelpers.cs" />
