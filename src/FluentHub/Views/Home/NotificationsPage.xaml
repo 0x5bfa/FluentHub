@@ -9,51 +9,59 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
 
-    <ScrollViewer>
-        <Grid Margin="12">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <StackPanel Margin="4,0" Orientation="Horizontal">
-                <Grid>
-                    <FontIcon
-                        HorizontalAlignment="Left"
-                        FontSize="16"
-                        Glyph="&#xEA8F;" />
-                    <muxc:InfoBadge
-                        Margin="8,0,0,18"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Top"
-                        d:Opacity="1"
-                        d:Value="5"
-                        Opacity="{x:Bind ViewModel.UnreadCount, Mode=OneWay}"
-                        Value="{x:Bind ViewModel.UnreadCount, Mode=OneWay}" />
-                </Grid>
-                <TextBlock
-                    VerticalAlignment="Center"
-                    FontSize="14"
-                    Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="Notifications" />
-            </StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-            <muxc:InfoBar
-                Title="Something went wrong"
-                IsClosable="False" Grid.Row="1"
-                IsOpen="{x:Bind ViewModel.RefreshNotificationsCommand.ExecutionTask.IsFaulted, Mode=OneWay}"
-                Message="{x:Bind ViewModel.RefreshNotificationsCommand.ExecutionTask.Exception.InnerException.Message, Mode=OneWay}"
-                Severity="Error">
-                <muxc:InfoBar.ActionButton>
-                    <HyperlinkButton Command="{x:Bind ViewModel.RefreshNotificationsCommand}" Content="Refresh" />
-                </muxc:InfoBar.ActionButton>
-            </muxc:InfoBar>
+        <StackPanel
+            Margin="18,0,18,4"
+            Orientation="Horizontal"
+            Spacing="8">
+            <Grid>
+                <FontIcon
+                    HorizontalAlignment="Left"
+                    FontSize="16"
+                    Glyph="&#xEA8F;" />
+                <muxc:InfoBadge
+                    Margin="8,0,0,18"
+                    HorizontalAlignment="Right"
+                    VerticalAlignment="Top"
+                    d:Opacity="1"
+                    d:Value="5"
+                    Opacity="{x:Bind ViewModel.UnreadCount, Mode=OneWay}"
+                    Value="{x:Bind ViewModel.UnreadCount, Mode=OneWay}" />
+            </Grid>
+            <TextBlock
+                VerticalAlignment="Center"
+                FontSize="14"
+                Style="{StaticResource BodyStrongTextBlockStyle}"
+                Text="Notifications" />
+        </StackPanel>
 
-            <muxc:ItemsRepeater Grid.Row="1" ItemsSource="{x:Bind ViewModel.NotificationItems, Mode=OneWay}">
+        <muxc:InfoBar
+            Title="Something went wrong"
+            Grid.Row="1"
+            Margin="18,0"
+            IsClosable="False"
+            IsOpen="{x:Bind ViewModel.RefreshNotificationsCommand.ExecutionTask.IsFaulted, Mode=OneWay}"
+            Message="{x:Bind ViewModel.RefreshNotificationsCommand.ExecutionTask.Exception.InnerException.Message, Mode=OneWay}"
+            Severity="Error">
+            <muxc:InfoBar.ActionButton>
+                <HyperlinkButton Command="{x:Bind ViewModel.RefreshNotificationsCommand}" Content="Refresh" />
+            </muxc:InfoBar.ActionButton>
+        </muxc:InfoBar>
+
+        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+            <muxc:ItemsRepeater Margin="18,4,18,18" ItemsSource="{x:Bind ViewModel.NotificationItems, Mode=OneWay}">
                 <DataTemplate x:DataType="bbvm:NotificationButtonBlockViewModel">
                     <block:NotificationButtonBlock ViewModel="{x:Bind}" />
                 </DataTemplate>
             </muxc:ItemsRepeater>
-            <muxc:ProgressRing Grid.RowSpan="2" IsActive="{x:Bind ViewModel.RefreshNotificationsCommand.IsRunning, Mode=OneWay}" />
-        </Grid>
-    </ScrollViewer>
+        </ScrollViewer>
+
+        <muxc:ProgressRing Grid.RowSpan="3" IsActive="{x:Bind ViewModel.RefreshNotificationsCommand.IsRunning, Mode=OneWay}" />
+    </Grid>
 </Page>

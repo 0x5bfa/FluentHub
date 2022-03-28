@@ -25,12 +25,12 @@ namespace FluentHub.ViewModels.Home
         private readonly ILogger _logger;
         private readonly ObservableCollection<ActivityBlockViewModel> _activities;
         public ReadOnlyObservableCollection<ActivityBlockViewModel> Activities { get; }
-        public IAsyncRelayCommand<string> RefreshActivitiesCommand { get; }
+        public IAsyncRelayCommand RefreshActivitiesCommand { get; }
 
         private bool CanRefreshActivities(string username) => !string.IsNullOrEmpty(username);
 
         private async Task RefreshActivitiesAsync(string username)
-        {
+        {            
             try
             {
                 ActivityQueries queries = new();
@@ -49,6 +49,7 @@ namespace FluentHub.ViewModels.Home
             catch (Exception e)
             {
                 _logger?.Error(e, "RefreshActivitiesAsync");
+                throw;
             }
         }
     }

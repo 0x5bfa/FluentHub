@@ -13,7 +13,7 @@ namespace FluentHub.Octokit.Queries.Users
     {
         public IssueQueries() => new App();
 
-        public async Task<List<Models.Issue>> GetOverviewAll(string login)
+        public async Task<List<Models.Issue>> GetOverviewAllAsync(string login)
         {
             IssueOrder order = new() { Direction = OrderDirection.Desc, Field = IssueOrderField.CreatedAt };
 
