@@ -7,6 +7,7 @@ using FluentHub.ViewModels;
 using FluentHub.Views;
 using FluentHub.Views.SignIn;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Toolkit.Mvvm.Messaging;
 using Octokit;
 using Serilog;
 using System;
@@ -88,6 +89,7 @@ namespace FluentHub
                 .AddSingleton<IGitHubClient>(App.Client)
                 .AddSingleton<INavigationService, NavigationService>()
                 .AddSingleton<ILogger>(logger)
+                .AddSingleton<IMessenger>(StrongReferenceMessenger.Default)
                 // ViewModels
                 .AddSingleton<MainPageViewModel>()
                 .AddTransient<ViewModels.AppSettings.AboutViewModel>()
