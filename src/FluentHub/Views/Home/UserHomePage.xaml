@@ -33,20 +33,29 @@
             SelectionChanged="HomeNavView_SelectionChanged">
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItemHeader Content="Profile" />
-                <muxc:NavigationViewItem Content="Profile" Tag="profile">
-                    <muxc:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE77B;" />
-                    </muxc:NavigationViewItem.Icon>
+                <muxc:NavigationViewItem Tag="profile">
+                    <muxc:NavigationViewItem.Content>
+                        <StackPanel Orientation="Horizontal" Spacing="12">
+                            <muxc:ImageIcon Source="/Assets/Icons/Profile.png" />
+                            <TextBlock VerticalAlignment="Center" Text="Profile" />
+                        </StackPanel>
+                    </muxc:NavigationViewItem.Content>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem Content="Notifications" Tag="notifications">
-                    <muxc:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xEA8F;" />
-                    </muxc:NavigationViewItem.Icon>
+                <muxc:NavigationViewItem Tag="notifications">
+                    <muxc:NavigationViewItem.Content>
+                        <StackPanel Orientation="Horizontal" Spacing="12">
+                            <muxc:ImageIcon Source="/Assets/Icons/Notifications.png" />
+                            <TextBlock VerticalAlignment="Center" Text="Notifications" />
+                        </StackPanel>
+                    </muxc:NavigationViewItem.Content>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem Content="Activities" Tag="activities">
-                    <muxc:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xECAD;" />
-                    </muxc:NavigationViewItem.Icon>
+                <muxc:NavigationViewItem Tag="activities">
+                    <muxc:NavigationViewItem.Content>
+                        <StackPanel Orientation="Horizontal" Spacing="12">
+                            <muxc:ImageIcon Source="/Assets/Icons/Activities.png" />
+                            <TextBlock VerticalAlignment="Center" Text="Activities" />
+                        </StackPanel>
+                    </muxc:NavigationViewItem.Content>
                 </muxc:NavigationViewItem>
                 <muxc:NavigationViewItemHeader Content="My Work" />
                 <muxc:NavigationViewItem Tag="issues">
