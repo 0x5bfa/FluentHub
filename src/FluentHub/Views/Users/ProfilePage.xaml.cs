@@ -1,8 +1,10 @@
 ﻿using FluentHub.Services;
 using FluentHub.ViewModels.Users;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using muxc = Microsoft.UI.Xaml.Controls;
 
@@ -29,9 +31,9 @@ namespace FluentHub.Views.Users
             currentItem.Header = $"{DataContext}'s profile";
             currentItem.Description = $"{DataContext}'s profile";
             currentItem.Url = $"https://github.com/{DataContext}";
-            currentItem.Icon = new muxc.FontIconSource
+            currentItem.Icon = new muxc.ImageIconSource
             {
-                Glyph = "\uE77B"
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Profile.png"))
             };
 
             var command = ViewModel.LoadUserCommand;

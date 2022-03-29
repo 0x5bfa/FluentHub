@@ -2,8 +2,12 @@
 using FluentHub.ViewModels.Home;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Uwp;
+using System;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Views.Home
 {
@@ -26,12 +30,12 @@ namespace FluentHub.Views.Home
             DataContext = e.Parameter;
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = "HomeNavViewItemNotifications/Content".GetLocalized();
+            currentItem.Header = "Notifications";
             currentItem.Description = "Viewer's notifications";
             currentItem.Url = "https://github.com/notifications";
-            currentItem.Icon = new Microsoft.UI.Xaml.Controls.FontIconSource
+            currentItem.Icon = new muxc.ImageIconSource
             {
-                Glyph = "\uEA8F"
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Notifications.png"))
             };
 
             var command = ViewModel.RefreshNotificationsCommand;

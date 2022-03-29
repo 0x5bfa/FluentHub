@@ -1,9 +1,12 @@
 ﻿using FluentHub.Services;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Views.Users
 {
@@ -25,9 +28,9 @@ namespace FluentHub.Views.Users
             currentItem.Header = $"{login}";
             currentItem.Description = "";
             currentItem.Url = $"https://github.com/{login}?tab=overview";
-            currentItem.Icon = new Microsoft.UI.Xaml.Controls.FontIconSource
+            currentItem.Icon = new muxc.ImageIconSource
             {
-                Glyph = "\uE77B"
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Profile.png"))
             };
 
             await ViewModel.GetPinnedRepos(login);
