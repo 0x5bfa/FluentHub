@@ -1,8 +1,8 @@
-﻿using FluentHub.Octokit.Queries.Users;
+﻿using FluentHub.Backend;
+using FluentHub.Octokit.Queries.Users;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
-using Serilog;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -30,7 +30,7 @@ namespace FluentHub.ViewModels.Users
         private bool CanRefreshOrganizations(string username) => !string.IsNullOrEmpty(username);
 
         private async Task RefreshOrganizationsAsync(string username)
-        {            
+        {
             try
             {
                 OrganizationQueries queries = new();
@@ -51,7 +51,7 @@ namespace FluentHub.ViewModels.Users
             }
             catch (Exception ex)
             {
-                _logger?.Error(ex, "RefreshOrganizationsAsync");
+                _logger?.Error("RefreshOrganizationsAsync", ex);
                 throw;
             }
         }

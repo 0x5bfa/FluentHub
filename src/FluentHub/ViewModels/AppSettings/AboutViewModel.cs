@@ -1,5 +1,5 @@
-﻿using Microsoft.Toolkit.Mvvm.Input;
-using Serilog;
+﻿using FluentHub.Backend;
+using Microsoft.Toolkit.Mvvm.Input;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -65,7 +65,7 @@ namespace FluentHub.ViewModels.AppSettings
         {
             string logsFolder = Path.Combine(ApplicationData.Current.LocalFolder.Path, "FluentHub.Logs");
             var result = await Launcher.LaunchFolderPathAsync(logsFolder);
-            _logger?.Information($"Open logs folder result: {result}");
+            _logger?.Info("Open logs folder result: {0}", result);
         }
     }
 }

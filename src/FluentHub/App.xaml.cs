@@ -26,7 +26,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub
-{
+{    
     sealed partial class App : Windows.UI.Xaml.Application
     {
         Frame rootFrame = Window.Current.Content as Frame;
@@ -86,7 +86,7 @@ namespace FluentHub
             return new ServiceCollection()
                 .AddSingleton<IGitHubClient>(App.Client)
                 .AddSingleton<INavigationService, NavigationService>()
-                //.AddSingleton<ILogger>(logger)
+                //.AddSingleton<ILogger>(logger)                
                 .AddSingleton<IMessenger>(StrongReferenceMessenger.Default)
                 // ViewModels
                 .AddSingleton<MainPageViewModel>()

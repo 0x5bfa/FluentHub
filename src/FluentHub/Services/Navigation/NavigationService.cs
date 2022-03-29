@@ -1,4 +1,4 @@
-﻿using Serilog;
+﻿using FluentHub.Backend;
 using System;
 using System.Linq;
 using Windows.UI.Xaml.Controls;
@@ -8,16 +8,22 @@ namespace FluentHub.Services.Navigation
 {
     public class NavigationService : INavigationService
     {
-        public NavigationService(ILogger logger = null)
-        {
-            _logger = logger;
-        }
+        #region constructor
+        public NavigationService(ILogger logger = null) => _logger = logger;
+        #endregion
+
+        #region fields
         private readonly ILogger _logger;
         private Frame _frame;
+        #endregion
+
+        #region properties
         public ITabView TabView { get; private set; }
         public Type NewTabPage { get; set; }
         public bool IsConfigured { get; private set; }
+        #endregion
 
+        #region methods
         public void Configure(ITabView tabView!!, Frame frame!!, Type newTabPage)
         {
             UnsubscribeEvents();
@@ -26,49 +32,8 @@ namespace FluentHub.Services.Navigation
             NewTabPage = newTabPage;
             SubscribeEvents();
             IsConfigured = true;
-            _logger?.Information("NavigationService configured");
-        }
-
-        private void OnTabViewSelectionChanged(object sender, TabViewSelectionChangedEventArgs e)
-        {
-            _logger?.Information("NavigationService.OnTabViewSelectionChanged  [Guid: {@Guid}]", e.NewSelectedItem?.Guid);
-            if (e.NewSelectedItem is ITabItemView item)
-            {
-                var currentHistoryItem = item.NavigationHistory.CurrentItem;
-                if (currentHistoryItem == null) // No navigation history, go to new tab page
-                {
-                    if (NewTabPage != null)
-                    {
-                        _frame.Navigate(NewTabPage, null, e.RecommendedNavigationTransitionInfo);
-                    }
-                }
-                else
-                {
-                    try
-                    {
-                        _frame.Navigating -= OnFrameNavigating;
-                        _frame.ForwardStack.Clear();
-                        _frame.BackStack.Clear();
-                        _frame.Navigate(currentHistoryItem.PageStackEntry.SourcePageType,
-                                        currentHistoryItem.PageStackEntry.Parameter,
-                                        e.RecommendedNavigationTransitionInfo);
-
-                        for (int i = 0; i < item.NavigationHistory.CurrentItemIndex; i++)
-                        {
-                            _frame.BackStack.Add(item.NavigationHistory[i].PageStackEntry);
-                        }
-                        for (int i = item.NavigationHistory.CurrentItemIndex + 1; i < item.NavigationHistory.Items.Count; i++)
-                        {
-                            _frame.ForwardStack.Add(item.NavigationHistory[i].PageStackEntry);
-                        }
-                    }
-                    finally
-                    {
-                        _frame.Navigating += OnFrameNavigating;
-                    }
-                }
-            }
-        }
+            _logger?.Info("NavigationService configured");
+        }        
 
         public void Navigate(Type page, object parameter = null)
         {
@@ -127,31 +92,7 @@ namespace FluentHub.Services.Navigation
         {
             EnsureConfigured();
             return _frame.CanGoForward;
-        }
-
-        private void OnFrameNavigating(object sender, NavigatingCancelEventArgs e)
-        {
-            var history = TabView.SelectedItem.NavigationHistory;
-            switch (e.NavigationMode)
-            {
-                case NavigationMode.New:
-                    history.NavigateTo(new PageNavigationEntry(e.SourcePageType, e.Parameter, e.NavigationTransitionInfo), history.CurrentItemIndex + 1);
-                    break;
-
-                case NavigationMode.Back:
-                    history.GoBack();
-                    break;
-
-                case NavigationMode.Forward:
-                    history.GoForward();
-                    break;
-            }
-            _logger?.Information(
-                    "NavigationService.OnFrameNavigating [Page: {@SourcePageType}, Parameter: {@Parameter}, NavigationMode: {@NavigationMode}]",
-                    e.SourcePageType,
-                    e.Parameter,
-                    e.NavigationMode);
-        }
+        }        
         private void SubscribeEvents()
         {
             if (TabView != null)
@@ -193,7 +134,73 @@ namespace FluentHub.Services.Navigation
             _frame = null;
             NewTabPage = null;
             IsConfigured = false;
-            _logger?.Information("NavigationService disconnected");
+            _logger?.Info("NavigationService disconnected");
         }
+        #endregion
+
+        #region event handlers
+        private void OnTabViewSelectionChanged(object sender, TabViewSelectionChangedEventArgs e)
+        {
+            _logger?.Info("NavigationService.OnTabViewSelectionChanged  [Guid: {0}]", e.NewSelectedItem?.Guid);
+            if (e.NewSelectedItem is ITabItemView item)
+            {
+                var currentHistoryItem = item.NavigationHistory.CurrentItem;
+                if (currentHistoryItem == null) // No navigation history, go to new tab page
+                {
+                    if (NewTabPage != null)
+                    {
+                        _frame.Navigate(NewTabPage, null, e.RecommendedNavigationTransitionInfo);
+                    }
+                }
+                else
+                {
+                    try
+                    {
+                        _frame.Navigating -= OnFrameNavigating;
+                        _frame.ForwardStack.Clear();
+                        _frame.BackStack.Clear();
+                        _frame.Navigate(currentHistoryItem.PageStackEntry.SourcePageType,
+                                        currentHistoryItem.PageStackEntry.Parameter,
+                                        e.RecommendedNavigationTransitionInfo);
+
+                        for (int i = 0; i < item.NavigationHistory.CurrentItemIndex; i++)
+                        {
+                            _frame.BackStack.Add(item.NavigationHistory[i].PageStackEntry);
+                        }
+                        for (int i = item.NavigationHistory.CurrentItemIndex + 1; i < item.NavigationHistory.Items.Count; i++)
+                        {
+                            _frame.ForwardStack.Add(item.NavigationHistory[i].PageStackEntry);
+                        }
+                    }
+                    finally
+                    {
+                        _frame.Navigating += OnFrameNavigating;
+                    }
+                }
+            }
+        }
+        private void OnFrameNavigating(object sender, NavigatingCancelEventArgs e)
+        {
+            var history = TabView.SelectedItem.NavigationHistory;
+            switch (e.NavigationMode)
+            {
+                case NavigationMode.New:
+                    history.NavigateTo(new PageNavigationEntry(e.SourcePageType, e.Parameter, e.NavigationTransitionInfo), history.CurrentItemIndex + 1);
+                    break;
+
+                case NavigationMode.Back:
+                    history.GoBack();
+                    break;
+
+                case NavigationMode.Forward:
+                    history.GoForward();
+                    break;
+            }
+            _logger?.Info("NavigationService.OnFrameNavigating [Page: {0}, Parameter: {1}, NavigationMode: {2}]",
+                          e.SourcePageType,
+                          e.Parameter,
+                          e.NavigationMode);
+        }
+        #endregion
     }
 }

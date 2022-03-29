@@ -1,12 +1,13 @@
-﻿using FluentHub.Octokit.Queries.Users;
+﻿using FluentHub.Backend;
+using FluentHub.Octokit.Queries.Users;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
 using Humanizer;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
-using Serilog;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+
 namespace FluentHub.ViewModels.Users
 {
     public class DiscussionsViewModel : ObservableObject
@@ -51,7 +52,7 @@ namespace FluentHub.ViewModels.Users
             }
             catch (Exception ex)
             {
-                _logger?.Error(ex, "RefreshDiscussionsAsync");
+                _logger?.Error("RefreshDiscussionsAsync", ex);
                 throw;
             }
         }

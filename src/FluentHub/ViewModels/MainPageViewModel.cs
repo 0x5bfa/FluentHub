@@ -1,9 +1,9 @@
-﻿using FluentHub.Models;
+﻿using FluentHub.Backend;
+using FluentHub.Models;
 using FluentHub.Services;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
-using Serilog;
 using System;
 using System.Windows.Input;
 using Windows.UI.Xaml.Input;
@@ -136,14 +136,14 @@ namespace FluentHub.ViewModels
                 // Show the message in the UI
                 LastNotification = message;
                 // Show the message in the app
-                _logger?.Information("InApp notification received: {@message}", message);
+                _logger?.Info("InApp notification received: {0}", message);
             }
 
             // Check if the message method contains the Toast value (multivalue enum)
             if (message.Method.HasFlag(UserNotificationMethod.Toast))
             {
                 // Show the message in the toast
-                _logger?.Information("Toast notification received: {@message}", message);
+                _logger?.Info("Toast notification received: {0}", message);
                 throw new NotImplementedException("Toast notifications are not implemented yet");
             }
         }

@@ -1,19 +1,10 @@
-﻿using FluentHub.Octokit.Models;
+﻿using FluentHub.Backend;
+using FluentHub.Octokit.Models;
 using FluentHub.Octokit.Queries.Users;
-using Serilog;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
-using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
+using System;
+using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.Users
 {
@@ -63,7 +54,7 @@ namespace FluentHub.ViewModels.Users
             }
             catch (Exception ex)
             {
-                _logger?.Error(ex, "Failed to load user.");
+                _logger?.Error("Failed to load user.", ex);
                 UserItem = new User();
                 IsNotViewer = false;
                 throw;

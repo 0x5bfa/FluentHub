@@ -1,12 +1,13 @@
-﻿using FluentHub.ViewModels.UserControls.ButtonBlocks;
+﻿using FluentHub.Backend;
+using FluentHub.ViewModels.UserControls.ButtonBlocks;
 using Humanizer;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Octokit;
-using Serilog;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+
 namespace FluentHub.ViewModels.Home
 {
     public class NotificationsViewModel : ObservableObject
@@ -80,7 +81,7 @@ namespace FluentHub.ViewModels.Home
             }
             catch (Exception ex)
             {
-                _logger?.Error(ex, "RefreshNotificationsAsync");
+                _logger?.Error("RefreshNotificationsAsync", ex);
                 throw;
             }
         }

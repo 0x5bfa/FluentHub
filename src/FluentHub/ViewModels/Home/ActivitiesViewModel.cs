@@ -1,10 +1,9 @@
-﻿using FluentHub.Octokit.Queries.Users;
+﻿using FluentHub.Backend;
+using FluentHub.Octokit.Queries.Users;
 using FluentHub.ViewModels.UserControls.Blocks;
 using Humanizer;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
-using Octokit;
-using Serilog;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -30,7 +29,7 @@ namespace FluentHub.ViewModels.Home
         private bool CanRefreshActivities(string username) => !string.IsNullOrEmpty(username);
 
         private async Task RefreshActivitiesAsync(string username)
-        {            
+        {
             try
             {
                 ActivityQueries queries = new();
@@ -49,9 +48,9 @@ namespace FluentHub.ViewModels.Home
                     _activities.Add(viewModel);
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                _logger?.Error(e, "RefreshActivitiesAsync");
+                _logger?.Error("RefreshActivitiesAsync", ex);
                 throw;
             }
         }

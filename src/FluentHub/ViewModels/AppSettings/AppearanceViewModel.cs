@@ -1,8 +1,8 @@
-﻿using FluentHub.Helpers;
+﻿using FluentHub.Backend;
+using FluentHub.Helpers;
 using FluentHub.Models;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Uwp;
-using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -54,7 +54,7 @@ namespace FluentHub.ViewModels.AppSettings
                 if (SetProperty(ref _selectedThemeIndex, value))
                 {
                     ThemeHelper.RootTheme = (ElementTheme)value;
-                    _logger?.Information("Theme changed to {Theme}", ThemeHelper.RootTheme);
+                    _logger?.Info("Theme changed to {0}", ThemeHelper.RootTheme);
                 }
             }
         }
@@ -67,7 +67,7 @@ namespace FluentHub.ViewModels.AppSettings
                 if (SetProperty(ref _selectedLanguageIndex, value))
                 {
                     App.Settings.DefaultLanguage = DefaultLanguages[value];
-                    _logger?.Information("Language changed to {Language}", App.Settings.DefaultLanguage);
+                    _logger?.Info("Language changed to {0}", App.Settings.DefaultLanguage);
 
                     ShowRestartMessage = App.Settings.CurrentLanguage.ID != DefaultLanguages[value].ID;
                 }
