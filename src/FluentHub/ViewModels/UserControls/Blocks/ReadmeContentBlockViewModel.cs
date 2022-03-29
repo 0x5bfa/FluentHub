@@ -1,6 +1,7 @@
 ﻿using FluentHub.Helpers;
 using FluentHub.Octokit.Queries;
 using FluentHub.Octokit.Queries.Repositories;
+using FluentHub.ViewModels.Repositories;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -16,33 +17,26 @@ namespace FluentHub.ViewModels.UserControls.Blocks
 {
     public class ReadmeContentBlockViewModel : INotifyPropertyChanged
     {
+        private RepoContextViewModel repoContextViewModel;
+        public RepoContextViewModel RepoContextViewModel { get; set; }
+
         private string fileName;
         public string FileName { get => fileName; set => SetProperty(ref fileName, value); }
-
-        //private string filePath = "";
-        //public string FilePath { get => filePath; set => SetProperty(ref filePath, value); }
-
-        private string owner;
-        public string Owner { get => owner; set => SetProperty(ref owner, value); }
-
-        private string repoName;
-        public string RepoName { get => repoName; set => SetProperty(ref repoName, value); }
 
         private bool isActive;
         public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
 
-        //private string markdownText;
-        //public string MarkdownText { get => markdownText; set => SetProperty(ref markdownText, value); }
+        private string markdownText;
+        public string MarkdownText { get => markdownText; set => SetProperty(ref markdownText, value); }
 
         private string htmlText;
         public string HtmlText { get => htmlText; set => SetProperty(ref htmlText, value); }
 
-        private Visibility hasReadme;
+        private Visibility hasReadme = Visibility.Collapsed;
         public Visibility HasReadme { get => hasReadme; set => SetProperty(ref hasReadme, value); }
 
         public void GetMarkdownContent(ref WebView webView)
         {
-            // Do not wait
             _ = GetMarkdownContentAsync(webView);
         }
 
@@ -51,7 +45,7 @@ namespace FluentHub.ViewModels.UserControls.Blocks
             try
             {
                 HasReadme = Visibility.Collapsed;
-                var repo = await App.Client.Repository.Get(Owner, RepoName);
+                 var repo = await App.Client.Repository.Get(RepoContextViewModel.Owner, RepoContextViewModel.Name);
 
                 MarkdownQueries markdown = new();
 

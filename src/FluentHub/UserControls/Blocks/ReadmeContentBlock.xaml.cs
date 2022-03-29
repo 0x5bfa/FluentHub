@@ -1,4 +1,5 @@
 ﻿using FluentHub.Helpers;
+using FluentHub.ViewModels.Repositories;
 using FluentHub.ViewModels.UserControls.Blocks;
 using Octokit;
 using System;
@@ -21,22 +22,24 @@ namespace FluentHub.UserControls.Blocks
     public sealed partial class ReadmeContentBlock : UserControl
     {
         #region propdp
-        public static readonly DependencyProperty ViewMoedelProperty
-        = DependencyProperty.Register(
-              nameof(ViewModel),
-              typeof(ReadmeContentBlockViewModel),
-              typeof(ReadmeContentBlock),
-              new PropertyMetadata(null)
-            );
+        public static readonly DependencyProperty ContextViewModelProperty =
+            DependencyProperty.Register(
+                nameof(ContextViewModel),
+                typeof(RepoContextViewModel),
+                typeof(ReadmeContentBlock),
+                null);
 
-        public ReadmeContentBlockViewModel ViewModel
+        public RepoContextViewModel ContextViewModel
         {
-            get => (ReadmeContentBlockViewModel)GetValue(ViewMoedelProperty);
+            get => (RepoContextViewModel)GetValue(ContextViewModelProperty);
             set
             {
-                SetValue(ViewMoedelProperty, value);
-                this.DataContext = ViewModel;
-                ViewModel?.GetMarkdownContent(ref ReadmeWebView);
+                SetValue(ContextViewModelProperty, value);
+                if (ContextViewModel != null)
+                {
+                    ViewModel.RepoContextViewModel = ContextViewModel;
+                    ViewModel.GetMarkdownContent(ref ReadmeWebView);
+                }
             }
         }
         #endregion
@@ -54,6 +57,10 @@ namespace FluentHub.UserControls.Blocks
         private void ReadmeWebView_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
         {
             if (args.Uri != null) args.Cancel = true;
+        }
+
+        private void OnReadmeContentBlockLoaded(object sender, RoutedEventArgs e)
+        {
         }
     }
 }

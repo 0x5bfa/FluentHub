@@ -118,13 +118,13 @@
                         Grid.Row="3"
                         Margin="0,12,0,0"
                         x:Load="{x:Bind ViewModel.ContextViewModel.IsFile, Mode=OneWay}"
-                        CommonRepoViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
+                        ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
                     <contents:ReadmeContentBlock
                         x:Name="RepoReadmeBlock"
                         Grid.Row="4"
                         Margin="0,12,0,0"
                         x:Load="{x:Bind ViewModel.ContextViewModel.IsRootDir, Mode=OneWay}"
-                        ViewModel="{x:Bind ViewModel.ReadmeBlockViewModel, Mode=OneWay}" />
+                        ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
                 </Grid>
                 <!--<Grid Grid.Column="1" Width="256">
                     <Grid.RowDefinitions>

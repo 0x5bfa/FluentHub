@@ -1,4 +1,5 @@
 ﻿using FluentHub.Octokit.Queries.Users;
+using FluentHub.ViewModels.Repositories;
 using FluentHub.ViewModels.UserControls.Blocks;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
 using Serilog;
@@ -20,8 +21,8 @@ namespace FluentHub.ViewModels.Users
         private long userSpecialReadmeRepoId;
         public long UserSpecialReadmeRepoId { get => userSpecialReadmeRepoId; set => SetProperty(ref userSpecialReadmeRepoId, value); }
 
-        private ReadmeContentBlockViewModel readmeBlockViewModel;
-        public ReadmeContentBlockViewModel ReadmeBlockViewModel { get => readmeBlockViewModel; set => SetProperty(ref readmeBlockViewModel, value); }
+        private RepoContextViewModel contextViewModel;
+        public RepoContextViewModel ContextViewModel { get => contextViewModel; set => SetProperty(ref contextViewModel, value); }
 
         private bool isActive;
         public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
@@ -33,7 +34,11 @@ namespace FluentHub.ViewModels.Users
             PinnedItemsQueries queries = new();
             var items = await queries.GetAllAsync(login, true);
 
-            if (items == null) return;
+            if (items == null)
+            {
+                IsActive = false;
+                return;
+            }
 
             foreach (var item in items)
             {
@@ -45,10 +50,10 @@ namespace FluentHub.ViewModels.Users
                 PinnedRepos.Add(viewModel);
             }
 
-            ReadmeContentBlockViewModel readmeViewModel = new();
-            readmeViewModel.Owner = login;
-            readmeViewModel.RepoName = login;
-            ReadmeBlockViewModel = readmeViewModel;
+            RepoContextViewModel readmeRepoViewModel = new();
+            readmeRepoViewModel.Owner = login;
+            readmeRepoViewModel.Name = login;
+            ContextViewModel = readmeRepoViewModel;
 
             IsActive = false;
         }

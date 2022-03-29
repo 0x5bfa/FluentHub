@@ -20,9 +20,6 @@ namespace FluentHub.ViewModels.Repositories.Layouts
         private RepoContextViewModel contextViewModel;
         public RepoContextViewModel ContextViewModel { get => contextViewModel; set => SetProperty(ref contextViewModel, value); }
 
-        private ReadmeContentBlockViewModel readmeBlockViewModel;
-        public ReadmeContentBlockViewModel ReadmeBlockViewModel { get => readmeBlockViewModel; set => SetProperty(ref readmeBlockViewModel, value); }
-
         public async Task EnumRepositoryContents()
         {
             CommitQueries queries = new();
@@ -64,11 +61,6 @@ namespace FluentHub.ViewModels.Repositories.Layouts
             var orderedByItemType = new ObservableCollection<DetailsLayoutListViewItem>(Items.OrderByDescending(x => x.ObjectTypeIconGlyph));
             Items.Clear();
             foreach (var orderedItem in orderedByItemType) Items.Add(orderedItem);
-
-            ReadmeContentBlockViewModel readmeViewModel = new();
-            readmeViewModel.Owner = ContextViewModel.Owner;
-            readmeViewModel.RepoName = ContextViewModel.Name;
-            ReadmeBlockViewModel = readmeViewModel;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
