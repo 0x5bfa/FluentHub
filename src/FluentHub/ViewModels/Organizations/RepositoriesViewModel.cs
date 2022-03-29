@@ -26,6 +26,8 @@ namespace FluentHub.ViewModels.Organizations
             RepositoryQueries queries = new();
             var items = await queries.GetAllAsync(org);
 
+            if (items == null) return;
+
             foreach (var item in items)
             {
                 RepoButtonBlockViewModel viewModel = new();

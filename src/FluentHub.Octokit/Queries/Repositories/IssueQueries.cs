@@ -1,6 +1,7 @@
 ﻿using FluentHub.Octokit.Models;
 using Octokit.GraphQL;
 using Octokit.GraphQL.Model;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,40 +16,101 @@ namespace FluentHub.Octokit.Queries.Repositories
 
         public async Task<List<Models.Issue>> GetOverviewAll(string name, string owner)
         {
-            IssueOrder order = new() { Direction = OrderDirection.Desc, Field = IssueOrderField.CreatedAt };
-
-            #region queries
-            var query = new Query()
-                .Repository(name, owner)
-                .Issues(first: 30, orderBy: order)
-                .Nodes
-                .Select(x => new
-                {
-                    x.Closed,
-                    Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new
-                    {
-                        y.Color,
-                        y.Name,
-                    }).ToList(),
-                    x.Number,
-                    x.Title,
-                    x.UpdatedAt,
-                })
-                .Compile();
-            #endregion
-
-            var response = await App.Connection.Run(query);
-
-            List<Models.Issue> items = new();
-
-            foreach (var res in response)
+            try
             {
+                IssueOrder order = new() { Direction = OrderDirection.Desc, Field = IssueOrderField.CreatedAt };
+
+                #region queries
+                var query = new Query()
+                    .Repository(name, owner)
+                    .Issues(first: 30, orderBy: order)
+                    .Nodes
+                    .Select(x => new
+                    {
+                        x.Closed,
+                        Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new
+                        {
+                            y.Color,
+                            y.Name,
+                        }).ToList(),
+                        x.Number,
+                        x.Title,
+                        x.UpdatedAt,
+                    })
+                    .Compile();
+                #endregion
+
+                var response = await App.Connection.Run(query);
+
+                #region copying
+                List<Models.Issue> items = new();
+
+                foreach (var res in response)
+                {
+                    Models.Issue item = new();
+                    item.Labels = new();
+
+                    item.IsClosed = res.Closed;
+
+                    foreach (var label in res.Labels)
+                    {
+                        Models.Label labels = new();
+                        labels.Color = label.Color;
+                        labels.Name = label.Name;
+
+                        item.Labels.Add(labels);
+                    }
+
+                    item.Number = res.Number;
+                    item.Title = res.Title;
+                    item.UpdatedAt = res.UpdatedAt;
+
+                    item.Name = name;
+                    item.Owner = owner;
+
+                    items.Add(item);
+                }
+                #endregion
+
+                return items;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, ex.Message);
+                return null;
+            }
+        }
+
+        public async Task<Models.Issue> GetOverview(string owner, string name, int number)
+        {
+            try
+            {
+                #region query
+                var query = new Query()
+                    .Repository(name, owner)
+                    .Issue(number)
+                    .Select(x => new
+                    {
+                        x.Closed,
+                        Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new
+                        {
+                            y.Color,
+                            y.Name,
+                        }).ToList(),
+                        x.Number,
+                        x.Title,
+                        x.UpdatedAt,
+                    })
+                    .Compile();
+                #endregion
+
+                var response = await App.Connection.Run(query);
+
+                #region copying
                 Models.Issue item = new();
                 item.Labels = new();
-
-                item.IsClosed = res.Closed;
-
-                foreach(var label in res.Labels)
+                item.IsClosed = response.Closed;
+                foreach (var label in response.Labels)
                 {
                     Models.Label labels = new();
                     labels.Color = label.Color;
@@ -56,93 +118,57 @@ namespace FluentHub.Octokit.Queries.Repositories
 
                     item.Labels.Add(labels);
                 }
-
-                item.Number = res.Number;
-                item.Title = res.Title;
-                item.UpdatedAt = res.UpdatedAt;
-
+                item.Number = response.Number;
+                item.Title = response.Title;
+                item.UpdatedAt = response.UpdatedAt;
                 item.Name = name;
                 item.Owner = owner;
+                #endregion
 
-                items.Add(item);
+                return item;
             }
-
-            return items;
-        }
-
-        public async Task<Models.Issue> GetOverview(string owner, string name, int number)
-        {
-            #region query
-            var query = new Query()
-                .Repository(name, owner)
-                .Issue(number)
-                .Select(x => new
-                {
-                    x.Closed,
-                    Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new
-                    {
-                        y.Color,
-                        y.Name,
-                    }).ToList(),
-                    x.Number,
-                    x.Title,
-                    x.UpdatedAt,
-                })
-                .Compile();
-            #endregion
-
-            var response = await App.Connection.Run(query);
-
-            #region copying
-            Models.Issue item = new();
-            item.Labels = new();
-            item.IsClosed = response.Closed;
-            foreach (var label in response.Labels)
+            catch (Exception ex)
             {
-                Models.Label labels = new();
-                labels.Color = label.Color;
-                labels.Name = label.Name;
-
-                item.Labels.Add(labels);
+                Log.Error(ex, ex.Message);
+                return null;
             }
-            item.Number = response.Number;
-            item.Title = response.Title;
-            item.UpdatedAt = response.UpdatedAt;
-            item.Name = name;
-            item.Owner = owner;
-            #endregion
-
-            return item;
         }
 
         public async Task Get(string owner, string name, int number)
         {
-            #region queries
-            var query = new Query()
-                .Repository(name, owner)
-                .Issue(number: number)
-                .Select(x => new
-                {
-                    AuthorAvatarUrl = x.Author.AvatarUrl(100),
-                    AuthorLoginName = x.Author.Login,
-                    x.AuthorAssociation,
-                    x.BodyHTML,
-                    x.Closed,
-                    x.IsPinned,
-                    x.Number,
-                    x.Locked,
-                    x.State,
-                    x.Title,
-                })
-                .Compile();
-            #endregion
+            try
+            {
+                #region queries
+                var query = new Query()
+                    .Repository(name, owner)
+                    .Issue(number: number)
+                    .Select(x => new
+                    {
+                        AuthorAvatarUrl = x.Author.AvatarUrl(100),
+                        AuthorLoginName = x.Author.Login,
+                        x.AuthorAssociation,
+                        x.BodyHTML,
+                        x.Closed,
+                        x.IsPinned,
+                        x.Number,
+                        x.Locked,
+                        x.State,
+                        x.Title,
+                    })
+                    .Compile();
+                #endregion
 
-            var response = await App.Connection.Run(query);
+                var response = await App.Connection.Run(query);
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, ex.Message);
+                return;
+            }
         }
 
         public void GetDetails(string owner, string name, int number)
         {
-
         }
     }
 }

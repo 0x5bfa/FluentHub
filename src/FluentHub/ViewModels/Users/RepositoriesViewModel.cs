@@ -27,14 +27,16 @@ namespace FluentHub.ViewModels.Users
 
         public IAsyncRelayCommand RefreshRepositoriesCommand { get; }
 
-        private bool CanRefreshRepositories(string username) => !string.IsNullOrEmpty(username);
+        private bool CanRefreshRepositories(string login) => !string.IsNullOrEmpty(login);
 
-        private async Task RefreshRepositoriesAsync(string username)
+        private async Task RefreshRepositoriesAsync(string login)
         {
             try
             {
                 RepositoryQueries queries = new();
-                var items = await queries.GetAllAsync(username);
+                var items = await queries.GetAllAsync(login);
+
+                if (items == null) return;
 
                 _repositories.Clear();
                 foreach (var item in items)

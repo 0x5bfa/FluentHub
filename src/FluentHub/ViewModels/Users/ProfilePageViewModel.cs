@@ -52,7 +52,9 @@ namespace FluentHub.ViewModels.Users
             try
             {
                 UserQueries queries = new();
-                UserItem = await queries.GetOverview(username);
+                UserItem = await queries.GetAsync(username);
+
+                if (UserItem == null) return;
 
                 BuiltWebsiteUrl = new UriBuilder(UserItem.WebsiteUrl).Uri;
 

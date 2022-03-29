@@ -37,6 +37,8 @@ namespace FluentHub.ViewModels.Users
                 PullRequestQueries queries = new();
                 var items = await queries.GetOverviewAllAsync(username);
 
+                if (items == null) return;
+
                 _pullRequests.Clear();
                 foreach (var item in items)
                 {

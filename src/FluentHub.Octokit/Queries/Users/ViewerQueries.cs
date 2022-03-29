@@ -10,13 +10,13 @@ namespace FluentHub.Octokit.Queries.Users
 {
     public class ViewerQueries
     {
-        public ViewerQueries() { _ = new App(); }
+        public ViewerQueries() => new App();
 
         public async Task<string> GetLoginName()
         {
             try
             {
-                var query = new Query().Viewer.Select(x => x.Login);
+                var query = new Query().Viewer.Select(x => x.Login).Compile();
 
                 var result = await App.Connection.Run(query);
                 return result;

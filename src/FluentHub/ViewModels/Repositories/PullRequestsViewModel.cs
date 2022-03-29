@@ -27,6 +27,8 @@ namespace FluentHub.ViewModels.Repositories
             PullRequestQueries queries = new();
             var items = await queries.GetOverviewAll(name, owner);
 
+            if (items == null) return;
+
             foreach (var item in items)
             {
                 PullButtonBlockViewModel viewModel = new();

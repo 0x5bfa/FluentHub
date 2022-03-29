@@ -35,7 +35,7 @@ namespace FluentHub.ViewModels.UserControls.Blocks
         public async Task GetFileContent()
         {
             BlobQueries queries = new();
-            var content = await queries.Get(
+            var content = await queries.GetAsync(
                 CommonRepoViewModel.Name,
                 CommonRepoViewModel.Owner,
                 CommonRepoViewModel.BranchName,

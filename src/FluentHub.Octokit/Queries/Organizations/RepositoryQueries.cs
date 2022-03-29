@@ -14,8 +14,6 @@ namespace FluentHub.Octokit.Queries.Organizations
 
         public async Task<List<Models.Repository>> GetAllAsync(string org)
         {
-            List<Models.Repository> items = new();
-
             try
             {
                 #region query
@@ -51,6 +49,8 @@ namespace FluentHub.Octokit.Queries.Organizations
                 var result = await App.Connection.Run(query);
 
                 #region copying
+                List<Models.Repository> items = new();
+
                 foreach (var res in result)
                 {
                     Models.Repository item = new();
@@ -89,7 +89,7 @@ namespace FluentHub.Octokit.Queries.Organizations
             catch (Exception ex)
             {
                 Log.Error(ex, ex.Message);
-                return items;
+                return null;
             }
         }
     }

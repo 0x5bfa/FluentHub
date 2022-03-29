@@ -25,6 +25,8 @@ namespace FluentHub.ViewModels.Users
             FollowersQueries client = new();
             var followers = await client.GetAllAsync(login);
 
+            if (followers == null) return;
+
             foreach (var user in followers)
             {
                 UserButtonBlockViewModel viewModel = new() { User = user };

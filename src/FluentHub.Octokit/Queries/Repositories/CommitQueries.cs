@@ -1,5 +1,6 @@
 ﻿using Octokit.GraphQL;
 using Octokit.GraphQL.Model;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,109 +15,132 @@ namespace FluentHub.Octokit.Queries.Repositories
 
         public async Task<Models.Commit> GetOverview(string name, string owner, string branchName, string path)
         {
-            path = path.Remove(0, 1);
+            try
+            {
+                path = path.Remove(0, 1);
 
-            if (string.IsNullOrEmpty(path)) path = ".";
+                if (string.IsNullOrEmpty(path)) path = ".";
 
-            var query = new Query()
-                    .Repository(name, owner)
-                    .Ref(branchName)
-                    .Target
-                    .Cast<Commit>()
-                    .History(first: 1, path: path)
-                    .Select(x => new
-                    {
-                        CommitSummary = x.Nodes.Select(y => new
+                #region query
+                var query = new Query()
+                        .Repository(name, owner)
+                        .Ref(branchName)
+                        .Target
+                        .Cast<Commit>()
+                        .History(first: 1, path: path)
+                        .Select(x => new
                         {
-                            y.AbbreviatedOid,
-                            AuthorAvatarUrl = y.Author.AvatarUrl(100),
-                            y.Author.User.Login,
-                            y.CommittedDate,
-                            y.Message,
-                        }).ToList(),
-                        x.TotalCount,
-                    })
-                    .Compile();
+                            CommitSummary = x.Nodes.Select(y => new
+                            {
+                                y.AbbreviatedOid,
+                                AuthorAvatarUrl = y.Author.AvatarUrl(100),
+                                y.Author.User.Login,
+                                y.CommittedDate,
+                                y.Message,
+                            }).ToList(),
+                            x.TotalCount,
+                        })
+                        .Compile();
+                #endregion
 
-            var result = await App.Connection.Run(query);
+                var result = await App.Connection.Run(query);
 
-            Models.Commit item = new();
-            item.AbbreviatedOid = result.CommitSummary[0].AbbreviatedOid;
-            item.AuthorAvatarUrl = result.CommitSummary[0].AuthorAvatarUrl;
-            item.AuthorName = result.CommitSummary[0].Login;
-            item.CommitMessage = result.CommitSummary[0].Message;
-            item.CommittedDate = result.CommitSummary[0].CommittedDate;
-            item.TotalCount = result.TotalCount;
+                #region copying
+                Models.Commit item = new();
+                item.AbbreviatedOid = result.CommitSummary[0].AbbreviatedOid;
+                item.AuthorAvatarUrl = result.CommitSummary[0].AuthorAvatarUrl;
+                item.AuthorName = result.CommitSummary[0].Login;
+                item.CommitMessage = result.CommitSummary[0].Message;
+                item.CommittedDate = result.CommitSummary[0].CommittedDate;
+                item.TotalCount = result.TotalCount;
+                #endregion
 
-            return item;
+                return item;
+            }
+            catch (Exception ex)
+            {
+                Log.Error(ex, ex.Message);
+                return null;
+            }
         }
 
         public async Task<List<Models.Commit>> GetOverviewAllFilesAndLatestCommit(string name, string owner, string branchName, string path)
         {
-            path = path.Remove(0, 1);
-
-            // query to get file info
-            var queryToGetFileInfo = new Query()
-                .Repository(name, owner)
-                .Object(expression: branchName + ":" + path)
-                .Cast<Tree>()
-                .Entries
-                .Select(x => new
-                {
-                    x.Name,
-                    x.Path,
-                    x.Type,
-                })
-                .Compile();
-
-            var response1 = await App.Connection.Run(queryToGetFileInfo);
-
-            List<Models.Commit> items = new();
-
-            foreach (var res1 in response1)
+            try
             {
-                Models.Commit item = new();
+                path = path.Remove(0, 1);
 
-                item.FileName = res1.Name;
-                item.FilePath = res1.Path;
-                item.ObjectType = res1.Type;
-
-                // query to get its file's latest commit
-                var queryToGetLatestCommit = new Query()
+                #region query
+                var queryToGetFileInfo = new Query()
                     .Repository(name, owner)
-                    .Ref(branchName)
-                    .Target
-                    .Cast<Commit>()
-                    .History(first: 1, path: res1.Path)
+                    .Object(expression: branchName + ":" + path)
+                    .Cast<Tree>()
+                    .Entries
                     .Select(x => new
                     {
-                        CommitSummary = x.Nodes.Select(y => new
-                        {
-                            y.AbbreviatedOid,
-                            AuthorAvatarUrl = y.Author.AvatarUrl(100),
-                            y.Author.Name,
-                            y.CommittedDate,
-                            y.Message,
-                        }).ToList(),
-                        x.TotalCount,
+                        x.Name,
+                        x.Path,
+                        x.Type,
                     })
                     .Compile();
+                #endregion
 
-                var response2 = await App.Connection.Run(queryToGetLatestCommit);
+                var response1 = await App.Connection.Run(queryToGetFileInfo);
 
-                var res2 = response2.CommitSummary.ToList()[0];
+                #region copying
+                List<Models.Commit> items = new();
 
-                item.TotalCount = response2.TotalCount;
-                item.AbbreviatedOid = res2.AbbreviatedOid;
-                item.AuthorAvatarUrl = res2.AuthorAvatarUrl;
-                item.AuthorName = res2.Name;
-                item.CommitMessage = res2.Message;
-                item.CommittedDate = res2.CommittedDate;
+                foreach (var res1 in response1)
+                {
+                    Models.Commit item = new();
 
-                items.Add(item);
+                    item.FileName = res1.Name;
+                    item.FilePath = res1.Path;
+                    item.ObjectType = res1.Type;
+
+                    // query to get its file's latest commit
+                    var queryToGetLatestCommit = new Query()
+                        .Repository(name, owner)
+                        .Ref(branchName)
+                        .Target
+                        .Cast<Commit>()
+                        .History(first: 1, path: res1.Path)
+                        .Select(x => new
+                        {
+                            CommitSummary = x.Nodes.Select(y => new
+                            {
+                                y.AbbreviatedOid,
+                                AuthorAvatarUrl = y.Author.AvatarUrl(100),
+                                y.Author.Name,
+                                y.CommittedDate,
+                                y.Message,
+                            }).ToList(),
+                            x.TotalCount,
+                        })
+                        .Compile();
+
+                    var response2 = await App.Connection.Run(queryToGetLatestCommit);
+
+                    var res2 = response2.CommitSummary.ToList()[0];
+
+                    item.TotalCount = response2.TotalCount;
+                    item.AbbreviatedOid = res2.AbbreviatedOid;
+                    item.AuthorAvatarUrl = res2.AuthorAvatarUrl;
+                    item.AuthorName = res2.Name;
+                    item.CommitMessage = res2.Message;
+                    item.CommittedDate = res2.CommittedDate;
+
+                    items.Add(item);
+                }
+                #endregion
+
+                return items;
             }
-
-            return items;
+            catch (Exception ex)
+            {
+                Log.Error(ex, ex.Message);
+                return null;
+            }
         }
     }
 }

@@ -14,7 +14,7 @@ namespace FluentHub.Octokit.Queries.Users
     {
         public UserQueries() => new App();
 
-        public async Task<Models.User> GetOverview(string login)
+        public async Task<Models.User> GetAsync(string login)
         {
             try
             {
@@ -48,9 +48,9 @@ namespace FluentHub.Octokit.Queries.Users
 
                 var response = await App.Connection.Run(query);
 
+                #region copying
                 Models.User item = new();
 
-                #region copying
                 item.AvatarUrl = response.AvatarUrl;
                 item.Bio = response.Bio;
                 item.Company = response.Company;

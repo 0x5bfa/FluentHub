@@ -34,6 +34,8 @@ namespace FluentHub.ViewModels.Users
                 DiscussionQueries queries = new();
                 var items = await queries.GetOverviewAllAsync(username);
 
+                if (items == null) return;
+
                 _discussions.Clear();
                 foreach (var item in items)
                 {
