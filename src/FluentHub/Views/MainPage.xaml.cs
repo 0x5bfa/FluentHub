@@ -1,4 +1,5 @@
 using FluentHub.Helpers;
+using FluentHub.Models;
 using FluentHub.Services;
 using FluentHub.ViewModels;
 using FluentHub.Views.Home;
@@ -49,6 +50,18 @@ namespace FluentHub.Views
             titleBar.LayoutMetricsChanged -= OnTitleBarLayoutMetricsChanged;
             SystemNavigationManager.GetForCurrentView().BackRequested -= OnAppBackRequested;
             Window.Current.CoreWindow.PointerPressed -= OnWindowPointerPressed;
+        }
+
+        private Microsoft.UI.Xaml.Controls.InfoBarSeverity UserNotificationToInfoBarSeverity(UserNotificationType type)
+        {
+            return type switch
+            {
+                UserNotificationType.Info => Microsoft.UI.Xaml.Controls.InfoBarSeverity.Informational,
+                UserNotificationType.Success => Microsoft.UI.Xaml.Controls.InfoBarSeverity.Success,
+                UserNotificationType.Warning => Microsoft.UI.Xaml.Controls.InfoBarSeverity.Warning,
+                UserNotificationType.Error => Microsoft.UI.Xaml.Controls.InfoBarSeverity.Error,
+                _ => throw new ArgumentOutOfRangeException(nameof(type), type, null),
+            };
         }
         #endregion
 

@@ -1,9 +1,9 @@
 ﻿namespace FluentHub.Models
 {
     public enum UserNotificationType
-    {
-        None,
+    {        
         Info,
+        Success,
         Warning,
         Error
     }

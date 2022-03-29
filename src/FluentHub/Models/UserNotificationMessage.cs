@@ -14,8 +14,8 @@
             Method = method;
         }
         public UserNotificationType Type { get; }
-        public string Title { get; }
-        public string Message { get; }
         public UserNotificationMethod Method { get; }
+        public string Title { get; }
+        public string Message { get; }        
     }
 }

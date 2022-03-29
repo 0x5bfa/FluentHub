@@ -8,7 +8,7 @@ namespace FluentHub.Models
     {
         None = 0,
         InApp = 1,
-        Push = 2,
-        All = InApp | Push
+        Toast = 2,
+        All = InApp | Toast
     }
 }

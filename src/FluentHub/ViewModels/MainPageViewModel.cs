@@ -1,16 +1,25 @@
-﻿using FluentHub.Services;
+﻿using FluentHub.Models;
+using FluentHub.Services;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
+using Microsoft.Toolkit.Mvvm.Messaging;
 using Serilog;
+using System;
 using System.Windows.Input;
 using Windows.UI.Xaml.Input;
 
 namespace FluentHub.ViewModels
 {
-    public class MainPageViewModel
+    public class MainPageViewModel : ObservableObject
     {
-        public MainPageViewModel(INavigationService navigationService!!)
+        public MainPageViewModel(INavigationService navigationService!!, IMessenger notificationMessenger = null, ILogger logger = null)
         {
-            _navigationService = navigationService;            
+            _navigationService = navigationService;
+            _messenger = notificationMessenger;
+            _logger = logger;
+
+            if (_messenger != null)
+                _messenger.Register<UserNotificationMessage>(this, OnNewNotificationReceived);
 
             AddNewTabAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(AddNewTabAccelerator);
             CloseTabAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(CloseTabAccelerator);
@@ -26,8 +35,16 @@ namespace FluentHub.ViewModels
 
         #region fields        
         private readonly INavigationService _navigationService;
+        private readonly IMessenger _messenger;
         private readonly ILogger _logger;
+
+        private UserNotificationMessage _lastNotification;
         #endregion
+
+        #region properties
+        public UserNotificationMessage LastNotification { get => _lastNotification; private set => SetProperty(ref _lastNotification, value); }
+        #endregion
+
 
         #region commands
         public ICommand AddNewTabAcceleratorCommand { get; private set; }
@@ -110,5 +127,25 @@ namespace FluentHub.ViewModels
             _navigationService.Navigate<Views.Home.UserHomePage>();
         }
         #endregion
+
+        private void OnNewNotificationReceived(object recipient, UserNotificationMessage message)
+        {
+            // Check if the message method contains the InApp value (multivalue enum)
+            if (message.Method.HasFlag(UserNotificationMethod.InApp))
+            {
+                // Show the message in the UI
+                LastNotification = message;
+                // Show the message in the app
+                _logger?.Information("InApp notification received: {@message}", message);
+            }
+
+            // Check if the message method contains the Toast value (multivalue enum)
+            if (message.Method.HasFlag(UserNotificationMethod.Toast))
+            {
+                // Show the message in the toast
+                _logger?.Information("Toast notification received: {@message}", message);
+                throw new NotImplementedException("Toast notifications are not implemented yet");
+            }
+        }
     }
 }
