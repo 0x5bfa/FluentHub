@@ -1,6 +1,7 @@
 ﻿using FluentHub.Octokit.Models;
 using Octokit.GraphQL;
 using Octokit.GraphQL.Model;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -75,6 +76,7 @@ namespace FluentHub.Octokit.Queries.Users
             }
             catch (Exception ex)
             {
+                Log.Error(ex, ex.Message);
                 return null;
             }
         }

@@ -40,6 +40,9 @@ namespace FluentHub.ViewModels.Users
             set => SetProperty(ref _isNotViewer, value);
         }
 
+        private Uri _builtWebsiteUrl;
+        public Uri BuiltWebsiteUrl { get => _builtWebsiteUrl; set => SetProperty(ref _builtWebsiteUrl, value); }
+
         public IAsyncRelayCommand LoadUserCommand { get; }
 
         private bool CanLoadUser(string username) => !string.IsNullOrEmpty(username);
@@ -50,6 +53,8 @@ namespace FluentHub.ViewModels.Users
             {
                 UserQueries queries = new();
                 UserItem = await queries.GetOverview(username);
+
+                BuiltWebsiteUrl = new UriBuilder(UserItem.WebsiteUrl).Uri;
 
                 if (!UserItem.IsViewer)
                     IsNotViewer = true;
