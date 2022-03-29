@@ -28,7 +28,7 @@ namespace FluentHub.Views.Users
             DataContext = e.Parameter;
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = "Issues".GetLocalized();
+            currentItem.Header = "Issues";
             currentItem.Description = "Viewer's issues";
             currentItem.Url = $"https://github.com/issues";
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource

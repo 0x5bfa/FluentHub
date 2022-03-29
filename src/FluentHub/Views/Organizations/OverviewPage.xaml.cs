@@ -22,7 +22,6 @@ namespace FluentHub.Views.Organizations
         {
             string org = e.Parameter as string;
 
-            //Helpers.NavigationHelpers.AddPageInfoToTabItem($"{org}", $"{org}'s overview", $"https://github.com/{org}", "\uEA27", true);
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = $"{org}";
             currentItem.Description = $"{org}'s overview";

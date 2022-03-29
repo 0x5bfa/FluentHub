@@ -18,17 +18,17 @@ namespace FluentHub.UserControls.Blocks
 {
     public sealed partial class FileContentBlock : UserControl
     {
-        public static readonly DependencyProperty CommonRepoViewModelProperty =
+        public static readonly DependencyProperty ContextViewModelProperty =
             DependencyProperty.Register(
-                nameof(CommonRepoViewModel),
+                nameof(ContextViewModel),
                 typeof(RepoContextViewModel),
                 typeof(FileContentBlock),
                 new PropertyMetadata(0));
 
-        public RepoContextViewModel CommonRepoViewModel
+        public RepoContextViewModel ContextViewModel
         {
-            get { return (RepoContextViewModel)GetValue(CommonRepoViewModelProperty); }
-            set { SetValue(CommonRepoViewModelProperty, value); }
+            get { return (RepoContextViewModel)GetValue(ContextViewModelProperty); }
+            set { SetValue(ContextViewModelProperty, value); }
         }
 
         public FileContentBlock()
@@ -38,7 +38,7 @@ namespace FluentHub.UserControls.Blocks
 
         private async void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
-            ViewModel.CommonRepoViewModel = CommonRepoViewModel;
+            ViewModel.CommonRepoViewModel = ContextViewModel;
             await ViewModel.GetFileContent();
         }
     }

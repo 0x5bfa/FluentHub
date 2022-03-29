@@ -28,7 +28,7 @@ namespace FluentHub.Views.Users
             DataContext = e.Parameter;
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = $"Starred".GetLocalized();
+            currentItem.Header = $"Stars";
             currentItem.Description = $"{DataContext}'s stars";
             currentItem.Url = $"https://github.com/{DataContext}?tab=stars";
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource

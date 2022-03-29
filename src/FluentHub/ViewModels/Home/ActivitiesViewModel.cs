@@ -35,8 +35,11 @@ namespace FluentHub.ViewModels.Home
             {
                 ActivityQueries queries = new();
 
-                var requestResult = await queries.GetAllAsync(username);
-                foreach (var item in requestResult)
+                var items = await queries.GetAllAsync(username);
+
+                if (items == null) return;
+
+                foreach (var item in items)
                 {
                     ActivityBlockViewModel viewModel = new()
                     {
