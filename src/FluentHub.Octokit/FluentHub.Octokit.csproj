@@ -133,7 +133,7 @@
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\Organization.cs" />
     <Compile Include="Models\PullRequest.cs" />
-    <Compile Include="Models\UserOverviewItem.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Queries\MarkdownQueries.cs" />
     <Compile Include="Queries\Organizations\RepositoryQueries.cs" />
     <Compile Include="Queries\Organizations\OrganizationQueries.cs" />
@@ -157,7 +157,6 @@
     <Compile Include="Queries\Users\PinnedItemsQueries.cs" />
     <Compile Include="Queries\Users\StatusQueries.cs" />
     <Compile Include="Models\Repository.cs" />
-    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\Users\UserQueries.cs" />
     <Compile Include="Queries\Users\ViewerQueries.cs" />
@@ -179,6 +178,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Mutations\" />
+    <Folder Include="Queries\Edges\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

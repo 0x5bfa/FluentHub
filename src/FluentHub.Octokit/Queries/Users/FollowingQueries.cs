@@ -1,4 +1,5 @@
 ﻿using Octokit.GraphQL;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,38 +12,58 @@ namespace FluentHub.Octokit.Queries.Users
     {
         public FollowingQueries() => new App();
 
-        public async Task<List<Models.UserOverviewItem>> GetOverview(string login)
+        public async Task<List<Models.User>> GetAllAsync(string login)
         {
-            var query = new Query()
-                    .User(login)
-                    .Following(first: 30)
-                    .Nodes
-                    .Select(x => new
-                    {
-                        AvatarUrl = x.AvatarUrl(100),
-                        x.Name,
-                        x.Bio,
-                        x.Login,
-                    })
-                    .Compile();
-
-            List<Models.UserOverviewItem> formattedFollowingList = new();
-
-            var result = await App.Connection.Run(query);
-
-            foreach (var res in result)
+            try
             {
-                Models.UserOverviewItem item = new();
+                #region query
+                var query = new Query()
+                        .User(login)
+                        .Following(first: 30)
+                        .Nodes
+                        .Select(x => new
+                        {
+                            AvatarUrl = x.AvatarUrl(100),
+                            x.Name,
+                            x.Bio,
+                            x.Login,
+                            x.Id,
+                        })
+                        .Compile();
+                #endregion
 
-                item.AvatarUrl = res.AvatarUrl;
-                item.Name = res.Name;
-                item.Login = res.Login;
-                item.Bio = res.Bio;
+                var result = await App.Connection.Run(query);
 
-                formattedFollowingList.Add(item);
+                #region copying
+                List<Models.User> formattedFollowingList = new();
+
+                foreach (var res in result)
+                {
+                    Models.User item = new();
+
+                    item.AvatarUrl = res.AvatarUrl;
+                    item.Name = res.Name;
+                    item.Login = res.Login;
+                    item.Bio = res.Bio;
+
+                    // If user is organization, id starts with "O_"
+                    if (res.Id.ToString()[0] == 'O' && res.Id.ToString()[0] == '_')
+                    {
+                        item.IsOrganization = true;
+                    }
+
+                    formattedFollowingList.Add(item);
+                }
+                #endregion
+
+                Log.Information($"FollowingQueries.GetAllAsync(login: {login}) was completed successfully.");
+                return formattedFollowingList;
             }
-
-            return formattedFollowingList;
+            catch (Exception ex)
+            {
+                Log.Error(ex, ex.Message);
+                return null;
+            }
         }
     }
 }

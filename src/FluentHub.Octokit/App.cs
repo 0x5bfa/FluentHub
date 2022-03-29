@@ -17,10 +17,11 @@ namespace FluentHub.Octokit
         public static global::Octokit.GitHubClient Client { get; private set; }
             = new global::Octokit.GitHubClient(new global::Octokit.ProductHeaderValue("FluentHub"));
         public static string AccessToken { get; private set; }
+        public static bool InitializedLogger { get; private set; }
 
         public App()
         {
-            if (Log.Logger == null)
+            if (InitializedLogger == false)
             {
                 IntializeLogger();
             }
@@ -51,12 +52,13 @@ namespace FluentHub.Octokit
         private void IntializeLogger()
         {
             string logFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "FluentHub.Octokit.Logs/Log.log");
-            string template = "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz}|{Level:u4}|{Message:lj}{NewLine}{Exception}";
 
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
-                .WriteTo.File(logFilePath, rollingInterval: RollingInterval.Day, outputTemplate: template)
+                .WriteTo.File(path: logFilePath, rollingInterval: RollingInterval.Day)
                 .CreateLogger();
+
+            InitializedLogger = true;
         }
     }
 }

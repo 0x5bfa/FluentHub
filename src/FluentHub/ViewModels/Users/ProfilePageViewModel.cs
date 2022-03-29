@@ -27,9 +27,9 @@ namespace FluentHub.ViewModels.Users
         }
 
         private readonly ILogger _logger;
-        private UserOverviewItem _userItem;
+        private User _userItem;
         private bool _isNotViewer;
-        public UserOverviewItem UserItem
+        public User UserItem
         {
             get => _userItem;
             private set => SetProperty(ref _userItem, value);
@@ -57,7 +57,7 @@ namespace FluentHub.ViewModels.Users
             catch (Exception ex)
             {
                 _logger?.Error(ex, "Failed to load user.");
-                UserItem = new UserOverviewItem();
+                UserItem = new User();
                 IsNotViewer = false;
                 throw;
             }

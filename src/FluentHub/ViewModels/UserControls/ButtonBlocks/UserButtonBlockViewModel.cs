@@ -12,8 +12,8 @@ namespace FluentHub.ViewModels.UserControls.ButtonBlocks
 {
     public class UserButtonBlockViewModel : INotifyPropertyChanged
     {
-        private Octokit.Models.UserOverviewItem user;
-        public Octokit.Models.UserOverviewItem User
+        private Octokit.Models.User user;
+        public Octokit.Models.User User
         {
             get => user;
             set

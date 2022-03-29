@@ -82,17 +82,7 @@ namespace FluentHub
         /// </summary>
         private static IServiceProvider ConfigureServices()
         {
-            string logFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "FluentHub.Logs/Log.log");
-            var logger = new LoggerConfiguration()
-                                    .MinimumLevel
-#if DEBUG
-                                    .Verbose()
-#else
-                                    .Error()
-#endif
-                                    .WriteTo
-                                    .File(logFilePath, rollingInterval: RollingInterval.Day)
-                                    .CreateLogger();
+            var logger = IntializeLogger();
 
             return new ServiceCollection()
                 .AddSingleton<IGitHubClient>(App.Client)
@@ -120,16 +110,22 @@ namespace FluentHub
             SignedInUserName = await queries.GetLoginName();
         }
 
-        private void IntializeLogger()
+        private static ILogger IntializeLogger()
         {
             string logFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "FluentHub.Logs/Log.log");
 
-            string template = "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz}|{Level:u4}|{Message:lj}{NewLine}{Exception}";
-
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Debug()
-                .WriteTo.File(logFilePath, rollingInterval: RollingInterval.Day, outputTemplate: template)
+            var logger = Log.Logger = new LoggerConfiguration()
+                .MinimumLevel
+#if DEBUG
+                .Verbose()
+#else
+                .Error()
+#endif
+                .WriteTo
+                .File(logFilePath, rollingInterval: RollingInterval.Day)
                 .CreateLogger();
+
+            return logger;
         }
 
         private async Task InitializeAsync()

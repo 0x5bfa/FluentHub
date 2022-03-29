@@ -11,7 +11,7 @@ namespace FluentHub.UserControls.ButtonBlocks
     {
         #region properties
         public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(UserOverviewItem), typeof(UserButtonBlockViewModel), typeof(UserButtonBlock), new PropertyMetadata(null));
+            DependencyProperty.Register(nameof(User), typeof(UserButtonBlockViewModel), typeof(UserButtonBlock), new PropertyMetadata(null));
 
         public UserButtonBlockViewModel ViewModel
         {
