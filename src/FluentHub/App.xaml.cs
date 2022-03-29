@@ -26,7 +26,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub
-{    
+{
     sealed partial class App : Windows.UI.Xaml.Application
     {
         Frame rootFrame = Window.Current.Content as Frame;
@@ -62,9 +62,9 @@ namespace FluentHub
                 catch { }
 #endif
             };
-            Services = ConfigureServices();
 
-            IntializeLogger();
+            Log.Logger = GetSerilogLogger();
+            Services = ConfigureServices();
             Log.Debug("Initialized Fluenthub.");
         }
 
@@ -86,7 +86,7 @@ namespace FluentHub
             return new ServiceCollection()
                 .AddSingleton<IGitHubClient>(App.Client)
                 .AddSingleton<INavigationService, NavigationService>()
-                //.AddSingleton<ILogger>(logger)                
+                .AddSingleton<FluentHub.Backend.ILogger>(new Utils.SerilogWrapperLogger(Log.Logger))
                 .AddSingleton<IMessenger>(StrongReferenceMessenger.Default)
                 // ViewModels
                 .AddSingleton<MainPageViewModel>()
@@ -110,11 +110,11 @@ namespace FluentHub
             SignedInUserName = await queries.GetLoginName();
         }
 
-        private static ILogger IntializeLogger()
+        private static ILogger GetSerilogLogger()
         {
             string logFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "FluentHub.Logs/Log.log");
 
-            var logger = Log.Logger = new LoggerConfiguration()
+            var logger = new LoggerConfiguration()
                 .MinimumLevel
 #if DEBUG
                 .Verbose()
