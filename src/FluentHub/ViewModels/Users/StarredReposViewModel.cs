@@ -34,7 +34,7 @@ namespace FluentHub.ViewModels.Users
             try
             {
                 StarredRepoQueries queries = new();
-                var items = await queries.GetOverviewAllAsync(username);
+                var items = await queries.GetAllAsync(username);
 
                 _repositories.Clear();
                 foreach (var item in items)

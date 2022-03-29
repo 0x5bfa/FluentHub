@@ -20,31 +20,30 @@ namespace FluentHub.UserControls
 {
     public sealed partial class GitCloneFlyout : UserControl
     {
-        public static readonly DependencyProperty CommonRepoViewModelProperty =
+        #region propdp
+        public static readonly DependencyProperty ViewModelProperty =
             DependencyProperty.Register(
-                nameof(CommonRepoViewModel),
-                typeof(CommonRepoViewModel),
+                nameof(ViewModel),
+                typeof(RepoContextViewModel),
                 typeof(GitCloneFlyout),
                 new PropertyMetadata(0));
 
-        public CommonRepoViewModel CommonRepoViewModel
+        public RepoContextViewModel ViewModel
         {
-            get { return (CommonRepoViewModel)GetValue(CommonRepoViewModelProperty); }
-            set { SetValue(CommonRepoViewModelProperty, value); }
+            get => (RepoContextViewModel)GetValue(ViewModelProperty);
+            set
+            {
+                SetValue(ViewModelProperty, value);
+                DataContext = ViewModel;
+            }
         }
+        #endregion
 
-        Repository Repository;
+        public GitCloneFlyout() => InitializeComponent();
 
-        public GitCloneFlyout()
+        private void OnGitCloneFlyoutLoaded(object sender, RoutedEventArgs e)
         {
-            this.InitializeComponent();
-        }
-
-        private async void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            Repository = await App.Client.Repository.Get(CommonRepoViewModel.Owner, CommonRepoViewModel.Name);
-
-            CloneUriTextBox.Text = Repository.CloneUrl;
+            CloneUriTextBox.Text = ViewModel.Repository.CloneUrl;
             CloneDescriptionTextBlock.Text = "Use Git or checkout with SVN using the web URL.";
         }
 
@@ -53,15 +52,15 @@ namespace FluentHub.UserControls
             switch (args.InvokedItemContainer.Tag.ToString())
             {
                 case "Https":
-                    CloneUriTextBox.Text = Repository.CloneUrl;
+                    CloneUriTextBox.Text = ViewModel.Repository.CloneUrl;
                     CloneDescriptionTextBlock.Text = "Use Git or checkout with SVN using the web URL.";
                     break;
                 case "Ssh":
-                    CloneUriTextBox.Text = Repository.SshUrl;
+                    CloneUriTextBox.Text = ViewModel.Repository.SshUrl;
                     CloneDescriptionTextBlock.Text = "Use a password-protected SSH key.";
                     break;
                 case "GitHubCli":
-                    CloneUriTextBox.Text = Repository.GitUrl;
+                    CloneUriTextBox.Text = ViewModel.Repository.GitUrl;
                     CloneDescriptionTextBlock.Text = "Work fast with our official CLI.";
                     break;
             }

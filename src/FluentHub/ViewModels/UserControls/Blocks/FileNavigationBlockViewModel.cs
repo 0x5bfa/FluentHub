@@ -15,8 +15,8 @@ namespace FluentHub.ViewModels.UserControls.Blocks
 {
     public class FileNavigationBlockViewModel : INotifyPropertyChanged
     {
-        private CommonRepoViewModel commonRepoViewModel;
-        public CommonRepoViewModel CommonRepoViewModel
+        private RepoContextViewModel commonRepoViewModel;
+        public RepoContextViewModel CommonRepoViewModel
         {
             get => commonRepoViewModel;
             set => SetProperty(ref commonRepoViewModel, value);

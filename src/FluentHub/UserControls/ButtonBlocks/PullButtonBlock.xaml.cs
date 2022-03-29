@@ -40,11 +40,8 @@ namespace FluentHub.UserControls.ButtonBlocks
         private readonly INavigationService navigationService;
         private async void IssueBlockButton_Click(object sender, RoutedEventArgs e)
         {
-            var repo = await App.Client.Repository.Get(ViewModel.PullItem.Owner, ViewModel.PullItem.Name);
-
-            string param = repo.Id + "/" + ViewModel.PullItem.Number;
-            navigationService.Navigate<IssuePage>(param);
-            //App.MainViewModel.RepoMainFrame.Navigate(typeof(IssuePage), param);
+            string param = ViewModel.PullItem.Owner + "/" + ViewModel.PullItem.Name + "/" + ViewModel.PullItem.Number;
+            navigationService.Navigate<PullRequestPage>(param);
         }
     }
 }

@@ -13,8 +13,8 @@ namespace FluentHub.ViewModels.UserControls.Blocks
 {
     public class FileContentBlockViewModel : INotifyPropertyChanged
     {
-        private CommonRepoViewModel commonRepoViewModel;
-        public CommonRepoViewModel CommonRepoViewModel
+        private RepoContextViewModel commonRepoViewModel;
+        public RepoContextViewModel CommonRepoViewModel
         {
             get => commonRepoViewModel;
             set => SetProperty(ref commonRepoViewModel, value);

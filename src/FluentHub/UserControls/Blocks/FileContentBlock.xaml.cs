@@ -21,13 +21,13 @@ namespace FluentHub.UserControls.Blocks
         public static readonly DependencyProperty CommonRepoViewModelProperty =
             DependencyProperty.Register(
                 nameof(CommonRepoViewModel),
-                typeof(CommonRepoViewModel),
+                typeof(RepoContextViewModel),
                 typeof(FileContentBlock),
                 new PropertyMetadata(0));
 
-        public CommonRepoViewModel CommonRepoViewModel
+        public RepoContextViewModel CommonRepoViewModel
         {
-            get { return (CommonRepoViewModel)GetValue(CommonRepoViewModelProperty); }
+            get { return (RepoContextViewModel)GetValue(CommonRepoViewModelProperty); }
             set { SetValue(CommonRepoViewModelProperty, value); }
         }
 

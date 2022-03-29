@@ -14,7 +14,7 @@ namespace FluentHub.Octokit.Queries.Repositories
     {
         public RepositoryQueries() => new App();
 
-        public async Task<Models.Repository> GetOverview(string name, string owner)
+        public async Task<Models.Repository> Get(string name, string owner)
         {
             try
             {

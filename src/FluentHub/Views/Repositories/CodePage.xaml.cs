@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentHub.ViewModels.Repositories;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,14 +14,11 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-using FluentHub.ViewModels.Repositories;
 
 namespace FluentHub.Views.Repositories
 {
     public sealed partial class CodePage : Page
     {
-        private CommonRepoViewModel CommonRepoViewModel { get; set; }
-
         public CodePage()
         {
             this.InitializeComponent();
@@ -28,9 +26,7 @@ namespace FluentHub.Views.Repositories
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            CommonRepoViewModel = e.Parameter as CommonRepoViewModel;
-
-            CodeViewLayout.Navigate(typeof(Layouts.DetailsLayoutView), CommonRepoViewModel);
+            CodeViewLayout.Navigate(typeof(Layouts.DetailsLayoutView), e.Parameter as RepoContextViewModel);
         }
     }
 }

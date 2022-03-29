@@ -1,18 +1,18 @@
 ﻿using FluentHub.Services;
 using FluentHub.ViewModels.Repositories;
 using Microsoft.Extensions.DependencyInjection;
-using Octokit;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Views.Repositories
 {
-    public sealed partial class OverviewPage : Windows.UI.Xaml.Controls.Page
+    public sealed partial class OverviewPage : Page
     {
         public OverviewPage()
         {
@@ -30,15 +30,16 @@ namespace FluentHub.Views.Repositories
             this.DataContext = ViewModel;
 
             // Initialize frame
-            var commonRepoViewModel = new CommonRepoViewModel()
+            var repoContextViewModel = new RepoContextViewModel()
             {
+                Repository = Repository,
                 IsRootDir = true,
                 Name = Repository.Name,
                 Owner = Repository.Owner,
                 BranchName = Repository.DefaultBranchName,
             };
 
-            RepoPageNavViewFrame.Navigate(typeof(CodePage), commonRepoViewModel);
+            RepoPageNavViewFrame.Navigate(typeof(CodePage), repoContextViewModel);
         }
 
         private void RepoPageNavView_ItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
@@ -47,15 +48,16 @@ namespace FluentHub.Views.Repositories
             {
                 case "Code":
                     {
-                        var commonRepoViewModel = new CommonRepoViewModel()
+                        var repoContextViewModel = new RepoContextViewModel()
                         {
+                            Repository = Repository,
                             IsRootDir = true,
                             Name = Repository.Name,
                             Owner = Repository.Owner,
                             BranchName = Repository.DefaultBranchName,
                         };
 
-                        RepoPageNavViewFrame.Navigate(typeof(CodePage), commonRepoViewModel);
+                        RepoPageNavViewFrame.Navigate(typeof(CodePage), repoContextViewModel);
                         break;
                     }
                 case "Issues":

@@ -31,12 +31,12 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <contents:FileNavigationBlock Margin="0,12,0,0" CommonRepoViewModel="{x:Bind ViewModel.CommonRepoViewModel, Mode=OneWay}" />
+                    <contents:FileNavigationBlock Margin="0,12,0,0" CommonRepoViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
                     <Grid
                         x:Name="DirListViewContentGrid"
                         Grid.Row="1"
                         Margin="0,12,0,0"
-                        x:Load="{x:Bind ViewModel.CommonRepoViewModel.IsDir, Mode=OneWay}"
+                        x:Load="{x:Bind ViewModel.ContextViewModel.IsDir, Mode=OneWay}"
                         Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                         BorderThickness="1"
@@ -46,7 +46,7 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-                        <contents:LatestCommitBlock x:Name="LatastCommitBlock" CommonRepoViewModel="{x:Bind ViewModel.CommonRepoViewModel, Mode=OneWay}" />
+                        <contents:LatestCommitBlock x:Name="LatastCommitBlock" CommonRepoViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
                         <MenuFlyoutSeparator Grid.Row="1" />
                         <ListView
                             x:Name="DirListView"
@@ -106,24 +106,24 @@
                         x:Name="BlobContentGrid"
                         Grid.Row="2"
                         Margin="0,12,0,0"
-                        x:Load="{x:Bind ViewModel.CommonRepoViewModel.IsFile, Mode=OneWay}"
+                        x:Load="{x:Bind ViewModel.ContextViewModel.IsFile, Mode=OneWay}"
                         Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                         BorderThickness="1"
                         CornerRadius="4">
-                        <contents:LatestCommitBlock x:Name="BlobLatastCommitBlock" CommonRepoViewModel="{x:Bind ViewModel.CommonRepoViewModel, Mode=OneWay}" />
+                        <contents:LatestCommitBlock x:Name="BlobLatastCommitBlock" CommonRepoViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
                     </Grid>
                     <contents:FileContentBlock
                         x:Name="BlobContentBlock"
                         Grid.Row="3"
                         Margin="0,12,0,0"
-                        x:Load="{x:Bind ViewModel.CommonRepoViewModel.IsFile, Mode=OneWay}"
-                        CommonRepoViewModel="{x:Bind ViewModel.CommonRepoViewModel, Mode=OneWay}" />
+                        x:Load="{x:Bind ViewModel.ContextViewModel.IsFile, Mode=OneWay}"
+                        CommonRepoViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
                     <contents:ReadmeContentBlock
                         x:Name="RepoReadmeBlock"
                         Grid.Row="4"
                         Margin="0,12,0,0"
-                        x:Load="{x:Bind ViewModel.CommonRepoViewModel.IsRootDir, Mode=OneWay}"
+                        x:Load="{x:Bind ViewModel.ContextViewModel.IsRootDir, Mode=OneWay}"
                         ViewModel="{x:Bind ViewModel.ReadmeBlockViewModel, Mode=OneWay}" />
                 </Grid>
                 <!--<Grid Grid.Column="1" Width="256">
@@ -161,7 +161,7 @@
             </Grid>
         </ScrollViewer>
         <muxc:ProgressRing
-            x:Name="DirListViewLoadingProgreeBar"
+            x:Name="DirListViewLoadingProgressBar"
             Margin="0,12,0,0"
             IsIndeterminate="True" />
     </Grid>

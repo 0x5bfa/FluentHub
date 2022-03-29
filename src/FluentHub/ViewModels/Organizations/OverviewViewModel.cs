@@ -24,7 +24,7 @@ namespace FluentHub.ViewModels.Organizations
             IsActive = true;
 
             PinnedItemsQueries queries = new();
-            var PinnedItems = await queries.GetOverviewAll(org, false);
+            var PinnedItems = await queries.GetAllAsync(org, false);
 
             foreach (var item in PinnedItems)
             {

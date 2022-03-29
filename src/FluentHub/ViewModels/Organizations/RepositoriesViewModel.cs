@@ -24,7 +24,7 @@ namespace FluentHub.ViewModels.Organizations
             IsActive = true;
 
             RepositoryQueries queries = new();
-            var items = await queries.GetOverviewAll(org);
+            var items = await queries.GetAllAsync(org);
 
             foreach (var item in items)
             {

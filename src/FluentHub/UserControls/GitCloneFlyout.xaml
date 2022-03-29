@@ -8,7 +8,7 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
-    Loaded="UserControl_Loaded"
+    Loaded="OnGitCloneFlyoutLoaded"
     mc:Ignorable="d">
 
     <UserControl.Resources>

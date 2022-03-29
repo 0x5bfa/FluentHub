@@ -9,7 +9,7 @@ namespace FluentHub.UserControls.ButtonBlocks
 {
     public sealed partial class UserButtonBlock : UserControl
     {
-        #region properties
+        #region propdp
         public static readonly DependencyProperty ViewModelProperty =
             DependencyProperty.Register(nameof(User), typeof(UserButtonBlockViewModel), typeof(UserButtonBlock), new PropertyMetadata(null));
 
@@ -29,7 +29,15 @@ namespace FluentHub.UserControls.ButtonBlocks
         private void UserButtonBlockButton_Click(object sender, RoutedEventArgs e)
         {
             var service = App.Current.Services.GetRequiredService<INavigationService>();
-            service.Navigate<Views.Users.ProfilePage>(ViewModel.User.Login);
+
+            if (ViewModel.User.IsOrganization)
+            {
+                service.Navigate<Views.Organizations.ProfilePage>(ViewModel.User.Login);
+            }
+            else
+            {
+                service.Navigate<Views.Users.ProfilePage>(ViewModel.User.Login);
+            }
         }
     }
 }

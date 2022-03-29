@@ -13,7 +13,7 @@ namespace FluentHub.Octokit.Queries.Users
     {
         public PinnedItemsQueries() => new App();
 
-        public async Task<List<Models.Repository>> GetOverviewAll(string login, bool isUser)
+        public async Task<List<Models.Repository>> GetAllAsync(string login, bool isUser)
         {
             try
             {
@@ -87,6 +87,7 @@ namespace FluentHub.Octokit.Queries.Users
                 foreach (var res in result)
                 {
                     Models.Repository item = new();
+                    var repository = await App.Client.Repository.Get(res.Owner.Login, res.Name);
 
                     if (res.PrimaryLanguage != null && res.PrimaryLanguage.Count() != 0)
                     {
@@ -107,6 +108,10 @@ namespace FluentHub.Octokit.Queries.Users
                     item.UpdatedAt = res.UpdatedAt;
                     item.WatcherCount = res.WatcherCount;
                     item.DefaultBranchName = res.DefaultBranchName;
+
+                    item.CloneUrl = repository.CloneUrl;
+                    item.SshUrl = repository.SshUrl;
+                    item.GitUrl = repository.GitUrl;
 
                     items.Add(item);
                 }

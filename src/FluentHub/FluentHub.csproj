@@ -234,7 +234,7 @@
     <Compile Include="ViewModels\Organizations\ProfileViewModel.cs" />
     <Compile Include="ViewModels\Organizations\RepositoriesViewModel.cs" />
     <Compile Include="ViewModels\Repositories\CodePageViewModel.cs" />
-    <Compile Include="ViewModels\Repositories\CommonRepoViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\RepoContextViewModel.cs" />
     <Compile Include="ViewModels\Repositories\IssuesViewModel.cs" />
     <Compile Include="ViewModels\Repositories\IssueViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Layouts\DetailsLayoutViewModel.cs" />
