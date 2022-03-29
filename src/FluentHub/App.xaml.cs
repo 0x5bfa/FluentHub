@@ -83,12 +83,10 @@ namespace FluentHub
         /// </summary>
         private static IServiceProvider ConfigureServices()
         {
-            var logger = IntializeLogger();
-
             return new ServiceCollection()
                 .AddSingleton<IGitHubClient>(App.Client)
                 .AddSingleton<INavigationService, NavigationService>()
-                .AddSingleton<ILogger>(logger)
+                //.AddSingleton<ILogger>(logger)
                 .AddSingleton<IMessenger>(StrongReferenceMessenger.Default)
                 // ViewModels
                 .AddSingleton<MainPageViewModel>()
