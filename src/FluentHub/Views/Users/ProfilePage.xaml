@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:uc="using:FluentHub.UserControls"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -45,21 +46,7 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
-                    <Border
-                        Grid.RowSpan="1"
-                        Width="84"
-                        Height="84"
-                        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                        CornerRadius="42">
-                        <Image x:Name="UserAvatorImage">
-                            <Image.Source>
-                                <BitmapImage
-                                    DecodePixelHeight="128"
-                                    DecodePixelWidth="128"
-                                    UriSource="{x:Bind ViewModel.UserItem.AvatarUrl, Mode=OneWay}" />
-                            </Image.Source>
-                        </Image>
-                    </Border>
+                    <uc:AvatarControl AvatarUrl="{x:Bind ViewModel.UserItem.AvatarUrl, Mode=OneWay}" WidthAndHeight="84" />
                     <StackPanel
                         Grid.Column="1"
                         Margin="12,0,0,0"

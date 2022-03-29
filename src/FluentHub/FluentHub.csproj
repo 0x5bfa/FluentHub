@@ -150,6 +150,9 @@
     <Compile Include="Services\Navigation\PageNavigationEntry.cs" />
     <Compile Include="Services\Navigation\NavigationService.cs" />
     <Compile Include="Services\Navigation\TabViewSelectionChangedEventArgs.cs" />
+    <Compile Include="UserControls\AvatarControl.xaml.cs">
+      <DependentUpon>AvatarControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Blocks\CommitActivityBlock.xaml.cs">
       <DependentUpon>CommitActivityBlock.xaml</DependentUpon>
     </Compile>
@@ -577,6 +580,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Themes\Default\DefaultThemeResourcesAny.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\AvatarControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

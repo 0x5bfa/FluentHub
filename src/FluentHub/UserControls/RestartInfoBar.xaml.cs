@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Serilog;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -27,7 +28,8 @@ namespace FluentHub.UserControls
 
         private async void RestartButton_Click(object sender, RoutedEventArgs e)
         {
-            await CoreApplication.RequestRestartAsync("Application Restart Programmatically ");
+            await CoreApplication.RequestRestartAsync("Application was restarted to apply settings.");
+            Log.Debug("Application was restared by user.");
         }
     }
 }
