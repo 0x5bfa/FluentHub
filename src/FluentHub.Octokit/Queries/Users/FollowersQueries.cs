@@ -47,7 +47,7 @@ namespace FluentHub.Octokit.Queries.Users
                     item.Bio = res.Bio;
 
                     // If user is organization, id starts with "O_"
-                    if (res.Id.ToString()[0] == 'O' && res.Id.ToString()[0] == '_')
+                    if (res.Id.ToString()[0] == 'O' && res.Id.ToString()[1] == '_')
                     {
                         item.IsOrganization = true;
                     }

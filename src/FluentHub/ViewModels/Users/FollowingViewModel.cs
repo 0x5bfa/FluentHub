@@ -25,7 +25,11 @@ namespace FluentHub.ViewModels.Users
             FollowingQueries client = new();
             var following = await client.GetAllAsync(login);
 
-            if (following == null) return;
+            if (following == null)
+            {
+                IsActive = false;
+                return;
+            }
 
             foreach (var user in following)
             {
