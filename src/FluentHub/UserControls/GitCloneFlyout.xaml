@@ -81,7 +81,10 @@
                 Grid.ColumnSpan="2"
                 Margin="0,8,0,0"
                 Spacing="8">
-                <Button HorizontalAlignment="Stretch" IsEnabled="False">
+                <Button
+                    HorizontalAlignment="Stretch"
+                    Click="GitHubDeskButton_Click"
+                    IsEnabled="True">
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <FontIcon
                             Height="18"
@@ -91,14 +94,18 @@
                         <TextBlock Text="Open with GitHub Desktop" />
                     </StackPanel>
                 </Button>
-                <Button HorizontalAlignment="Stretch" IsEnabled="False">
+                <Button
+                    HorizontalAlignment="Stretch"
+                    Click="OpenVSButton_Click"
+                    IsEnabled="True">
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <TextBlock Text="Open with Visual Studio" />
                     </StackPanel>
                 </Button>
                 <Button
                     HorizontalAlignment="Stretch"
-                    IsEnabled="False"
+                    Click="DownloadZipButton_Click"
+                    IsEnabled="True"
                     Style="{ThemeResource AccentButtonStyle}">
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <FontIcon

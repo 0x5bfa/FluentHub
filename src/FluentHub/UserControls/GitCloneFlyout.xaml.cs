@@ -39,12 +39,26 @@ namespace FluentHub.UserControls
         }
         #endregion
 
+        private string _repoGitUrl { get; set; }
+
+        private string _repoUrl { get; set; }
+
         public GitCloneFlyout() => InitializeComponent();
 
         private void OnGitCloneFlyoutLoaded(object sender, RoutedEventArgs e)
         {
             CloneUriTextBox.Text = ViewModel.Repository.CloneUrl;
             CloneDescriptionTextBlock.Text = "Use Git or checkout with SVN using the web URL.";
+
+            string RepoURL = ViewModel.Repository.CloneUrl;
+            _repoGitUrl = RepoURL;
+
+            string input = _repoGitUrl;
+            int index = input.LastIndexOf(".");
+            if (index >= 0)
+                input = input.Substring(0, index);
+
+            _repoUrl = input;
         }
 
         private void GitCloneFlyoutNavView_ItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
@@ -71,6 +85,63 @@ namespace FluentHub.UserControls
             var dp = new Windows.ApplicationModel.DataTransfer.DataPackage();
             dp.SetText(CloneUriTextBox.Text);
             Windows.ApplicationModel.DataTransfer.Clipboard.SetContent(dp);
+        }
+
+        private async void OpenVSButton_Click(object sender, RoutedEventArgs e)
+        {
+            string encodedURL = Uri.EscapeDataString(_repoGitUrl);
+            string openVS_URL = "git-client://clone?repo=" + encodedURL;
+
+            var uri = new Uri(openVS_URL);
+
+            var success = await Windows.System.Launcher.LaunchUriAsync(uri);
+
+            if (success)
+            {
+                Console.WriteLine("Add to LOG it successed");
+            }
+            else
+            {
+                Console.WriteLine("Add to LOG it failed");
+            }
+        }
+
+        private async void DownloadZipButton_Click(object sender, RoutedEventArgs e)
+        {
+            string downloadZip = _repoUrl + "/archive/refs/heads/main.zip"; //Just made it with the main branch
+
+            var uri = new Uri(downloadZip);
+
+            var success = await Windows.System.Launcher.LaunchUriAsync(uri);
+
+            if (success)
+            {
+                Console.WriteLine("Add to LOG it successed");
+            }
+            else
+            {
+                Console.WriteLine("Add to LOG it failed");
+            }
+
+        }
+
+        private async void GitHubDeskButton_Click(object sender, RoutedEventArgs e)
+        {
+            string gitHubDeskUrl = "x-github-client://openRepo" + _repoUrl;
+
+            var uri = new Uri(gitHubDeskUrl);
+
+            var success = await Windows.System.Launcher.LaunchUriAsync(uri);
+
+            if (success)
+            {
+                Console.WriteLine("Add to LOG it successed");
+            }
+            else
+            {
+                Console.WriteLine("Add to LOG it failed");
+            }
+
         }
     }
 }
