@@ -26,7 +26,11 @@ namespace FluentHub.ViewModels.Organizations
             RepositoryQueries queries = new();
             var items = await queries.GetAllAsync(org);
 
-            if (items == null) return;
+            if (items == null)
+            {
+                IsActive = false;
+                return;
+            }
 
             foreach (var item in items)
             {
