@@ -230,6 +230,7 @@
       <DependentUpon>TitleBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\NavigationHistory.cs" />
+    <Compile Include="Utils\SerilogWrapperLogger.cs" />
     <Compile Include="ViewModels\AppSettings\AboutViewModel.cs" />
     <Compile Include="ViewModels\AppSettings\AppearanceViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
