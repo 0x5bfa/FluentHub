@@ -116,6 +116,14 @@
                         <TextBlock Text="Download zip" />
                     </StackPanel>
                 </Button>
+                <Button
+                    HorizontalAlignment="Stretch"
+                    Click="CopyGitCommand_Click"
+                    IsEnabled="True">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock Text="Copy Git clone command" />
+                    </StackPanel>
+                </Button>
             </StackPanel>
         </Grid>
     </StackPanel>

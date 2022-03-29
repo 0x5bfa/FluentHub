@@ -143,5 +143,12 @@ namespace FluentHub.UserControls
             }
 
         }
+
+        private async void CopyGitCommand_Click(object sender, RoutedEventArgs e)
+        {
+            var dp = new Windows.ApplicationModel.DataTransfer.DataPackage();
+            dp.SetText("git clone" + CloneUriTextBox.Text);
+            Windows.ApplicationModel.DataTransfer.Clipboard.SetContent(dp);
+        }
     }
 }
