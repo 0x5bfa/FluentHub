@@ -15,8 +15,6 @@ namespace FluentHub.Octokit.Queries.Organizations
 
         public async Task<Models.Organization> GetOverview(string org)
         {
-            try
-            {
                 #region query
                 var query = new Query()
                         .Organization(org)
@@ -49,12 +47,6 @@ namespace FluentHub.Octokit.Queries.Organizations
                 #endregion
 
                 return item;
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex, ex.Message);
-                return null;
-            }
         }
     }
 }
