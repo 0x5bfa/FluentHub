@@ -4,7 +4,6 @@
   xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
   xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
-  xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5"
   IgnorableNamespaces="uap mp">
 
   <Identity
@@ -48,15 +47,6 @@
             <uap:DisplayName>FluentHub - GitHub Desktop Client</uap:DisplayName>
           </uap:Protocol>
         </uap:Extension>
-        <uap5:Extension
-          Category="windows.startupTask"
-          Executable="$targetnametoken$.exe"
-          EntryPoint="FluentHub.App">
-          <uap5:StartupTask
-            TaskId="1130"
-            Enabled="true"
-            DisplayName="FluentHub" />
-        </uap5:Extension>
       </Extensions>
     </Application>
   </Applications>
