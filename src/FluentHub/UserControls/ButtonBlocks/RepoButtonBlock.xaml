@@ -4,10 +4,10 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="using:FluentHub.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="using:FluentHub.UserControls.ButtonBlocks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="300"
+    d:DesignHeight="180"
     d:DesignWidth="400"
+    DataContext="{x:Bind ViewModel, Mode=OneWay}"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -35,7 +35,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" d:CornerRadius="8">
         <Button
             x:Name="RepoBlockButton"
             Margin="0,3,0,0"
