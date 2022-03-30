@@ -16,70 +16,62 @@ namespace FluentHub.Octokit.Queries.Users
 
         public async Task<List<Models.Issue>> GetOverviewAllAsync(string login)
         {
-            try
-            {
-                IssueOrder order = new() { Direction = OrderDirection.Desc, Field = IssueOrderField.CreatedAt };
+            IssueOrder order = new() { Direction = OrderDirection.Desc, Field = IssueOrderField.CreatedAt };
 
-                #region queries
-                var query = new Query()
-                    .User(login)
-                    .Issues(first: 30, orderBy: order)
-                    .Nodes
-                    .Select(x => new
-                    {
-                        x.Closed,
-                        Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new
-                        {
-                            y.Color,
-                            y.Name,
-                        }).ToList(),
-                        x.Repository.Name,
-                        x.Repository.Owner.Login,
-                        x.Number,
-                        x.Title,
-                        x.UpdatedAt,
-                    })
-                    .Compile();
-                #endregion
-
-                var response = await App.Connection.Run(query);
-
-                #region copying
-                List<Models.Issue> items = new();
-
-                foreach (var res in response)
+            #region queries
+            var query = new Query()
+                .User(login)
+                .Issues(first: 30, orderBy: order)
+                .Nodes
+                .Select(x => new
                 {
-                    Models.Issue item = new();
-                    item.Labels = new();
-
-                    item.IsClosed = res.Closed;
-
-                    foreach (var label in res.Labels)
+                    x.Closed,
+                    Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new
                     {
-                        Models.Label labels = new();
-                        labels.Color = label.Color;
-                        labels.Name = label.Name;
+                        y.Color,
+                        y.Name,
+                    }).ToList(),
+                    x.Repository.Name,
+                    x.Repository.Owner.Login,
+                    x.Number,
+                    x.Title,
+                    x.UpdatedAt,
+                })
+                .Compile();
+            #endregion
 
-                        item.Labels.Add(labels);
-                    }
+            var response = await App.Connection.Run(query);
 
-                    item.Number = res.Number;
-                    item.Title = res.Title;
-                    item.UpdatedAt = res.UpdatedAt;
-                    item.Name = res.Name;
-                    item.Owner = res.Login;
+            #region copying
+            List<Models.Issue> items = new();
 
-                    items.Add(item);
-                }
-                #endregion
-
-                return items;
-            }
-            catch (Exception ex)
+            foreach (var res in response)
             {
-                Log.Error(ex, ex.Message);
-                return null;
+                Models.Issue item = new();
+                item.Labels = new();
+
+                item.IsClosed = res.Closed;
+
+                foreach (var label in res.Labels)
+                {
+                    Models.Label labels = new();
+                    labels.Color = label.Color;
+                    labels.Name = label.Name;
+
+                    item.Labels.Add(labels);
+                }
+
+                item.Number = res.Number;
+                item.Title = res.Title;
+                item.UpdatedAt = res.UpdatedAt;
+                item.Name = res.Name;
+                item.Owner = res.Login;
+
+                items.Add(item);
             }
+            #endregion
+
+            return items;
         }
     }
 }

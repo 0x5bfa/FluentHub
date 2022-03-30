@@ -14,19 +14,17 @@ namespace FluentHub.Octokit.Queries.Organizations
 
         public async Task<List<Models.Repository>> GetAllAsync(string org)
         {
-            try
-            {
-                #region query
-                var query = new Query()
-                        .Organization(org)
-                        .Repositories(first: 30)
-                        .Nodes
-                        .Select(x => new
-                        {
-                            x.Name,
-                            x.Description,
-                            OwnerAvatarUrl = x.Owner.AvatarUrl(100),
-                            OwnerLoginName = x.Owner.Login,
+            #region query
+            var query = new Query()
+                    .Organization(org)
+                    .Repositories(first: 30)
+                    .Nodes
+                    .Select(x => new
+                    {
+                        x.Name,
+                        x.Description,
+                        OwnerAvatarUrl = x.Owner.AvatarUrl(100),
+                        OwnerLoginName = x.Owner.Login,
 
                             //PrimaryLanguageName = x.PrimaryLanguage.Name,
                             //PrimaryLanguageColor = x.PrimaryLanguage.Color,
@@ -34,58 +32,52 @@ namespace FluentHub.Octokit.Queries.Organizations
 
                             //LicenseName = x.LicenseInfo.Name,
                             x.ForkCount,
-                            IssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
-                            PullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
-                            x.UpdatedAt,
+                        IssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
+                        PullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
+                        x.UpdatedAt,
 
-                            WatcherCount = x.Watchers(null, null, null, null).TotalCount,
-                            DefaultBranchName = x.DefaultBranchRef.Name,
-                        })
-                        .Compile();
-                #endregion
+                        WatcherCount = x.Watchers(null, null, null, null).TotalCount,
+                        DefaultBranchName = x.DefaultBranchRef.Name,
+                    })
+                    .Compile();
+            #endregion
 
-                var result = await App.Connection.Run(query);
+            var result = await App.Connection.Run(query);
 
-                #region copying
-                List<Models.Repository> items = new();
+            #region copying
+            List<Models.Repository> items = new();
 
-                foreach (var res in result)
-                {
-                    Models.Repository item = new();
-                    var repository = await App.Client.Repository.Get(res.OwnerLoginName, res.Name);
-
-                    item.Name = res.Name;
-                    item.Owner = res.OwnerLoginName;
-                    item.OwnerAvatarUrl = res.OwnerAvatarUrl;
-                    item.Description = res.Description;
-                    item.StargazerCount = res.StargazerCount;
-
-                    //item.PrimaryLangName = res.PrimaryLanguageName;
-                    //item.PrimaryLangColor = res.PrimaryLanguageColor;
-
-                    //item.LicenseName = res.LicenseName;
-                    item.ForkCount = res.ForkCount;
-                    item.IssueCount = res.IssueCount;
-                    item.PullCount = res.PullCount;
-                    item.UpdatedAt = res.UpdatedAt;
-                    item.WatcherCount = res.WatcherCount;
-                    item.DefaultBranchName = res.DefaultBranchName;
-
-                    item.CloneUrl = repository.CloneUrl;
-                    item.SshUrl = repository.SshUrl;
-                    item.GitUrl = repository.GitUrl;
-
-                    items.Add(item);
-                }
-                #endregion
-
-                return items;
-            }
-            catch (Exception ex)
+            foreach (var res in result)
             {
-                Log.Error(ex, ex.Message);
-                return null;
+                Models.Repository item = new();
+                var repository = await App.Client.Repository.Get(res.OwnerLoginName, res.Name);
+
+                item.Name = res.Name;
+                item.Owner = res.OwnerLoginName;
+                item.OwnerAvatarUrl = res.OwnerAvatarUrl;
+                item.Description = res.Description;
+                item.StargazerCount = res.StargazerCount;
+
+                //item.PrimaryLangName = res.PrimaryLanguageName;
+                //item.PrimaryLangColor = res.PrimaryLanguageColor;
+
+                //item.LicenseName = res.LicenseName;
+                item.ForkCount = res.ForkCount;
+                item.IssueCount = res.IssueCount;
+                item.PullCount = res.PullCount;
+                item.UpdatedAt = res.UpdatedAt;
+                item.WatcherCount = res.WatcherCount;
+                item.DefaultBranchName = res.DefaultBranchName;
+
+                item.CloneUrl = repository.CloneUrl;
+                item.SshUrl = repository.SshUrl;
+                item.GitUrl = repository.GitUrl;
+
+                items.Add(item);
             }
+            #endregion
+
+            return items;
         }
     }
 }

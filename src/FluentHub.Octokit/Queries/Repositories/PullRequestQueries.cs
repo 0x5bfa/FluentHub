@@ -16,121 +16,105 @@ namespace FluentHub.Octokit.Queries.Repositories
 
         public async Task<List<Models.PullRequest>> GetOverviewAll(string name, string owner)
         {
-            try
-            {
-                IssueOrder order = new() { Direction = OrderDirection.Desc, Field = IssueOrderField.CreatedAt };
+            IssueOrder order = new() { Direction = OrderDirection.Desc, Field = IssueOrderField.CreatedAt };
 
-                #region queries
-                var query = new Query()
-                    .Repository(name, owner)
-                    .PullRequests(first: 30, orderBy: order)
-                    .Nodes
-                    .Select(x => new
-                    {
-                        x.Closed,
-                        x.Merged,
-                        x.IsDraft,
-                        Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new
-                        {
-                            y.Color,
-                            y.Name,
-                        }).ToList(),
-                        x.Number,
-                        x.Title,
-                        x.UpdatedAt,
-                    })
-                    .Compile();
-                #endregion
-
-                var response = await App.Connection.Run(query);
-
-                #region copying
-                List<Models.PullRequest> items = new();
-
-                foreach (var res in response)
+            #region queries
+            var query = new Query()
+                .Repository(name, owner)
+                .PullRequests(first: 30, orderBy: order)
+                .Nodes
+                .Select(x => new
                 {
-                    Models.PullRequest item = new();
-                    item.Labels = new();
-
-                    item.IsClosed = res.Closed;
-                    item.IsMerged = res.Merged;
-                    item.IsDraft = res.IsDraft;
-
-                    foreach (var label in res.Labels)
+                    x.Closed,
+                    x.Merged,
+                    x.IsDraft,
+                    Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new
                     {
-                        Models.Label labels = new();
-                        labels.Color = label.Color;
-                        labels.Name = label.Name;
+                        y.Color,
+                        y.Name,
+                    }).ToList(),
+                    x.Number,
+                    x.Title,
+                    x.UpdatedAt,
+                })
+                .Compile();
+            #endregion
 
-                        item.Labels.Add(labels);
-                    }
+            var response = await App.Connection.Run(query);
 
-                    item.Number = res.Number;
-                    item.Title = res.Title;
-                    item.UpdatedAt = res.UpdatedAt;
+            #region copying
+            List<Models.PullRequest> items = new();
 
-                    item.Name = name;
-                    item.Owner = owner;
-
-                    items.Add(item);
-                }
-                #endregion
-
-                return items;
-            }
-            catch (Exception ex)
+            foreach (var res in response)
             {
-                Log.Error(ex, ex.Message);
-                return null;
+                Models.PullRequest item = new();
+                item.Labels = new();
+
+                item.IsClosed = res.Closed;
+                item.IsMerged = res.Merged;
+                item.IsDraft = res.IsDraft;
+
+                foreach (var label in res.Labels)
+                {
+                    Models.Label labels = new();
+                    labels.Color = label.Color;
+                    labels.Name = label.Name;
+
+                    item.Labels.Add(labels);
+                }
+
+                item.Number = res.Number;
+                item.Title = res.Title;
+                item.UpdatedAt = res.UpdatedAt;
+
+                item.Name = name;
+                item.Owner = owner;
+
+                items.Add(item);
             }
+            #endregion
+
+            return items;
         }
 
         public async Task<Models.PullRequest> GetOverview(string owner, string name, int number)
         {
-            try
-            {
-                #region queries
-                var query = new Query()
-                    .Repository(name, owner)
-                    .PullRequest(number)
-                    .Select(x => new
+            #region queries
+            var query = new Query()
+                .Repository(name, owner)
+                .PullRequest(number)
+                .Select(x => new
+                {
+                    x.Closed,
+                    x.Merged,
+                    x.IsDraft,
+                    Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new
                     {
-                        x.Closed,
-                        x.Merged,
-                        x.IsDraft,
-                        Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new
-                        {
-                            y.Color,
-                            y.Name,
-                        }).ToList(),
-                        x.Number,
-                        x.Title,
-                        x.UpdatedAt,
-                    })
-                    .Compile();
-                #endregion
+                        y.Color,
+                        y.Name,
+                    }).ToList(),
+                    x.Number,
+                    x.Title,
+                    x.UpdatedAt,
+                })
+                .Compile();
+            #endregion
 
-                var response = await App.Connection.Run(query);
+            var response = await App.Connection.Run(query);
 
-                #region copying
-                Models.PullRequest item = new();
-                item.IsClosed = response.Closed;
-                item.IsMerged = response.Merged;
-                item.IsDraft = response.IsDraft;
-                item.Number = response.Number;
-                item.Title = response.Title;
-                item.UpdatedAt = response.UpdatedAt;
-                item.Name = name;
-                item.Owner = owner;
-                #endregion
+            #region copying
+            Models.PullRequest item = new();
+            item.IsClosed = response.Closed;
+            item.IsMerged = response.Merged;
+            item.IsDraft = response.IsDraft;
+            item.Number = response.Number;
+            item.Title = response.Title;
+            item.UpdatedAt = response.UpdatedAt;
+            item.Name = name;
+            item.Owner = owner;
+            #endregion
 
-                return item;
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex, ex.Message);
-                return null;
-            }
+            return item;
         }
     }
 }
