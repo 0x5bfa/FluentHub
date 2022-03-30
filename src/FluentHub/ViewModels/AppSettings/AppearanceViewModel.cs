@@ -23,9 +23,9 @@ namespace FluentHub.ViewModels.AppSettings
 
             Themes = new List<string>()
             {
-                "UseSystemSetting".GetLocalized(),
-                "ThemeLight".GetLocalized(),
-                "ThemeDark".GetLocalized(),
+                "Use system setting",
+                "Light theme",
+                "Dark theme",
             }.AsReadOnly();
 
             DefaultLanguages = App

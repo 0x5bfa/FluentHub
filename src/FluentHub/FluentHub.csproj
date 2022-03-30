@@ -132,6 +132,7 @@
     <Compile Include="Extensions\IEnumerableExt.cs" />
     <Compile Include="Helpers\BlobDetailsHelpers.cs" />
     <Compile Include="Helpers\ColorHelpers.cs" />
+    <Compile Include="Helpers\FileTypeHelper.cs" />
     <Compile Include="Helpers\InternetConnectionHelpers.cs" />
     <Compile Include="Helpers\JumpListHelper.cs" />
     <Compile Include="Helpers\LanguageColorHelpers.cs" />
@@ -825,12 +826,6 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="GraphQL.Client">
-      <Version>4.0.2</Version>
-    </PackageReference>
-    <PackageReference Include="GraphQL.Client.Serializer.Newtonsoft">
-      <Version>4.0.2</Version>
-    </PackageReference>
     <PackageReference Include="Humanizer">
       <Version>2.8.25</Version>
     </PackageReference>

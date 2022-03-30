@@ -86,7 +86,7 @@
             <Grid
                 x:Name="DragArea"
                 Grid.ColumnSpan="2"
-                Height="36"
+                Height="40"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Top"
                 Background="Transparent"

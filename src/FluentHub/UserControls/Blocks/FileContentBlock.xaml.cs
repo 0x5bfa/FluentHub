@@ -1,4 +1,9 @@
-﻿using FluentHub.ViewModels.Repositories;
+﻿using ColorCode;
+using ColorCode.Common;
+using ColorCode.Styling;
+using ColorCode.UWP.Common;
+using FluentHub.Helpers;
+using FluentHub.ViewModels.Repositories;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,6 +19,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
+using Windows.Storage;
+using Windows.Storage.Pickers;
 namespace FluentHub.UserControls.Blocks
 {
     public sealed partial class FileContentBlock : UserControl
@@ -40,6 +47,29 @@ namespace FluentHub.UserControls.Blocks
         {
             ViewModel.CommonRepoViewModel = ContextViewModel;
             await ViewModel.GetFileContent();
+            Render();
+        }
+
+        private void Render()
+        {
+            ColorCodeBlock.Blocks.Clear();
+            ColorCodeBlock.Visibility = Visibility.Collapsed;
+            PlainCodeBlock.Visibility = Visibility.Collapsed;
+            var formatter = new RichTextBlockFormatter(ThemeHelper.ActualTheme);
+            var extension = Path.GetExtension(ViewModel.CommonRepoViewModel.Path.Remove(0, 1)).Remove(0,1);
+            var fileType = FileTypeHelper.GetFileTypeStringId(extension);
+
+            if (!string.IsNullOrEmpty(fileType))
+            {
+                ILanguage lang = Languages.FindById(fileType);
+                formatter.FormatRichTextBlock(ViewModel.BlobContent, lang, ColorCodeBlock);
+                ColorCodeBlock.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                PlainCodeBlock.Text = ViewModel.BlobContent;
+                PlainCodeBlock.Visibility = Visibility.Visible;
+            }
         }
     }
 }
