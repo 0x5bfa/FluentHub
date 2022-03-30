@@ -31,7 +31,7 @@ namespace FluentHub.ViewModels.Users
         {
             IsActive = true;
 
-            PinnedItemsQueries queries = new();
+            PinnedItemQueries queries = new();
             var items = await queries.GetAllAsync(login, true);
 
             if (items == null)

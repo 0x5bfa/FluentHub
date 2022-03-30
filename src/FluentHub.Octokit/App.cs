@@ -24,11 +24,13 @@ namespace FluentHub.Octokit
             if (InitializedLogger == false)
             {
                 IntializeLogger();
+                AccessToken = GetTokenFromApp();
             }
 
             if (Connection == null)
             {
-                Connection= new Connection(productInformation, GetTokenFromApp());
+                Connection= new Connection(productInformation, AccessToken);
+                Client.Credentials = new global::Octokit.Credentials(AccessToken);
             }
         }
 

@@ -142,7 +142,6 @@
     <Compile Include="Queries\Repositories\IssueQueries.cs" />
     <Compile Include="Queries\Repositories\PullRequestQueries.cs" />
     <Compile Include="Queries\Repositories\CommitQueries.cs" />
-    <Compile Include="Queries\Repositories\RepoHeaderQueries.cs" />
     <Compile Include="Queries\Repositories\RepositoryQueries.cs" />
     <Compile Include="Queries\Users\DiscussionQueries.cs" />
     <Compile Include="Queries\Users\ActivityQueries.cs" />
@@ -154,7 +153,7 @@
     <Compile Include="Queries\Users\StarredRepoQueries.cs" />
     <Compile Include="Queries\Users\FollowersQueries.cs" />
     <Compile Include="Queries\Users\FollowingQueries.cs" />
-    <Compile Include="Queries\Users\PinnedItemsQueries.cs" />
+    <Compile Include="Queries\Users\PinnedItemQueries.cs" />
     <Compile Include="Queries\Users\StatusQueries.cs" />
     <Compile Include="Models\Repository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

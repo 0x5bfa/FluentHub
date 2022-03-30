@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+#nullable enable
+
 namespace FluentHub.Octokit.Queries.Users
 {
     public class StarredRepoQueries
@@ -25,16 +27,14 @@ namespace FluentHub.Octokit.Queries.Users
                         {
                             x.Name,
                             x.Description,
-                            Owner = x.Owner.Select(y => new
-                            {
-                                AvatarUrl = y.AvatarUrl(100),
-                                y.Login,
-                            }).Single(),
+                            OwnerAvatarUrl = x.Owner.AvatarUrl(100),
+                            OwnerLoginName = x.Owner.Login,
 
-                            PrimaryLanguage = x.Languages(1, null, null, null, null).Nodes.Select(language => new { language.Name, language.Color }).ToList(),
+                            //PrimaryLanguageName = x.PrimaryLanguage.Name,
+                            //PrimaryLanguageColor = x.PrimaryLanguage.Color,
                             x.StargazerCount,
 
-                            LicenseName = x.LicenseInfo.Select(license => license.Name).Single(),
+                            //LicenseName = x.LicenseInfo.Name,
                             x.ForkCount,
                             IssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
                             PullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
@@ -54,21 +54,18 @@ namespace FluentHub.Octokit.Queries.Users
                 foreach (var res in result)
                 {
                     Models.Repository item = new();
-                    var repository = await App.Client.Repository.Get(res.Owner.Login, res.Name);
-
-                    if (res.PrimaryLanguage != null && res.PrimaryLanguage.Count() != 0)
-                    {
-                        item.PrimaryLangName = res.PrimaryLanguage[0].Name;
-                        item.PrimaryLangColor = res.PrimaryLanguage[0].Color;
-                    }
+                    var repository = await App.Client.Repository.Get(res.OwnerLoginName, res.Name);
 
                     item.Name = res.Name;
-                    item.Owner = res.Owner.Login;
-                    item.OwnerAvatarUrl = res.Owner.AvatarUrl;
+                    item.Owner = res.OwnerLoginName;
+                    item.OwnerAvatarUrl = res.OwnerAvatarUrl;
                     item.Description = res.Description;
                     item.StargazerCount = res.StargazerCount;
 
-                    item.LicenseName = res.LicenseName;
+                    //item.PrimaryLangName = res.PrimaryLanguageName;
+                    //item.PrimaryLangColor = res.PrimaryLanguageColor;
+
+                    //item.LicenseName = res.LicenseName;
                     item.ForkCount = res.ForkCount;
                     item.IssueCount = res.IssueCount;
                     item.PullCount = res.PullCount;

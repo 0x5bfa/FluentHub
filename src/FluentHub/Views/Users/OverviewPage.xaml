@@ -79,7 +79,7 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             Style="{StaticResource BodyStrongTextBlockStyle}"
-            Text="There is no overview. Contribution graph will be comming soon!"
+            Text="There is no overview. Contribution graph will be comming soon."
             Visibility="Collapsed" />
     </Grid>
 </Page>

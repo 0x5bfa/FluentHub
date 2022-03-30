@@ -23,7 +23,7 @@ namespace FluentHub.ViewModels.Organizations
         {
             IsActive = true;
 
-            PinnedItemsQueries queries = new();
+            PinnedItemQueries queries = new();
             var items = await queries.GetAllAsync(org, false);
 
             if (items == null)

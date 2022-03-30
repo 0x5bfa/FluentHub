@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+#nullable enable
+
 namespace FluentHub.Octokit.Queries.Users
 {
     public class RepositoryQueries
@@ -29,9 +31,9 @@ namespace FluentHub.Octokit.Queries.Users
                             {
                                 AvatarUrl = y.AvatarUrl(100),
                                 y.Login,
-                            }).Single(),
+                            }),
 
-                            PrimaryLanguage = x.Languages(1, null, null, null, null).Nodes.Select(language => new { language.Name, language.Color }).ToList(),
+                            PrimaryLanguage = x.PrimaryLanguage.Select(language => new { language.Name, language.Color }),
                             x.StargazerCount,
 
                             LicenseName = x.LicenseInfo.Select(license => license.Name).Single(),
@@ -54,17 +56,14 @@ namespace FluentHub.Octokit.Queries.Users
                 foreach (var res in result)
                 {
                     Models.Repository item = new();
-                    var repository = await App.Client.Repository.Get(res.Owner.Login, res.Name);
+                    var repository = await App.Client.Repository.Get(res.Owner?.Single().Login, res.Name);
 
-                    if (res.PrimaryLanguage != null && res.PrimaryLanguage.Count() != 0)
-                    {
-                        item.PrimaryLangName = res.PrimaryLanguage[0].Name;
-                        item.PrimaryLangColor = res.PrimaryLanguage[0].Color;
-                    }
+                    item.PrimaryLangName = res.PrimaryLanguage?.Single().Name;
+                    item.PrimaryLangColor = res.PrimaryLanguage?.Single().Color;
 
                     item.Name = res.Name;
-                    item.Owner = res.Owner.Login;
-                    item.OwnerAvatarUrl = res.Owner.AvatarUrl;
+                    item.Owner = res.Owner?.Single().Login;
+                    item.OwnerAvatarUrl = res.Owner?.Single().Login;
                     item.Description = res.Description;
                     item.StargazerCount = res.StargazerCount;
 

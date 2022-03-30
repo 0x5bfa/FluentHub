@@ -35,8 +35,7 @@ namespace FluentHub.UserControls.ButtonBlocks
                 LanguageBlock.Visibility = Visibility.Collapsed;
             }
 
-            // does not work property
-            if (LicenseBlock != null && string.IsNullOrEmpty(ViewModel?.Item.LicenseName))
+            if (string.IsNullOrEmpty(ViewModel?.Item.LicenseName))
             {
                 LicenseBlock.Visibility = Visibility.Collapsed;
             }
