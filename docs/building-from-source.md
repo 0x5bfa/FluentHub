@@ -24,6 +24,8 @@ Authorization callback URL|`fluenthub://auth`|True
 Application logo|Use [this](https://github.com/fluenthub-community/FluentHub/blob/main/src/FluentHub/Assets/AppTiles/StoreLogo.scale-400.png)|True
 Badge background color|`#FFFFFF`|True (but whatever)
 
+**WARNING!**. For the security of our users and app, we are probably changing this method soon by retrieving these values directly from an own-made [API](https://github.com/fluenthub-community/FluentHub_CredentialsAPI) that's going to be open sourced but by the moment, it's a private template. For now, we're keeping this method until the API fully tested and functional for production.
+
 2. Create a file named `AppCredentials.config` in the root of your FluentHub repo with Solution Explorer
 3. change `id` and `secret` node value.
 
