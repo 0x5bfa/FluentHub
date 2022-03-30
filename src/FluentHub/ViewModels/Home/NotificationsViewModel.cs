@@ -51,7 +51,7 @@ namespace FluentHub.ViewModels.Home
         private async Task RefreshNotificationsAsync()
         {
             try
-            {
+            {                
                 NotificationsRequest request = new()
                 {
                     All = true
@@ -91,10 +91,7 @@ namespace FluentHub.ViewModels.Home
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
                     _messenger.Send(notification);
                 }
-                else
-                {
-                    throw;                    
-                }
+                throw;
             }
         }
         #endregion

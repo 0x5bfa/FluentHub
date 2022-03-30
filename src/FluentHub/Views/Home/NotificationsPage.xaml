@@ -7,6 +7,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
 
     <Grid>
@@ -41,19 +42,6 @@
                 Text="Notifications" />
         </StackPanel>
 
-        <muxc:InfoBar
-            Title="Something went wrong"
-            Grid.Row="1"
-            Margin="18,0"
-            IsClosable="False"
-            IsOpen="{x:Bind ViewModel.RefreshNotificationsCommand.ExecutionTask.IsFaulted, Mode=OneWay}"
-            Message="{x:Bind ViewModel.RefreshNotificationsCommand.ExecutionTask.Exception.InnerException.Message, Mode=OneWay}"
-            Severity="Error">
-            <muxc:InfoBar.ActionButton>
-                <HyperlinkButton Command="{x:Bind ViewModel.RefreshNotificationsCommand}" Content="Refresh" />
-            </muxc:InfoBar.ActionButton>
-        </muxc:InfoBar>
-
         <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
             <muxc:ItemsRepeater Margin="18,4,18,18" ItemsSource="{x:Bind ViewModel.NotificationItems}">
                 <DataTemplate x:DataType="bbvm:NotificationButtonBlockViewModel">
@@ -62,6 +50,43 @@
             </muxc:ItemsRepeater>
         </ScrollViewer>
 
-        <muxc:ProgressRing Grid.RowSpan="3" IsActive="{x:Bind ViewModel.RefreshNotificationsCommand.IsRunning, Mode=OneWay}" />
+
+
+        <toolkit:SwitchPresenter
+            Grid.RowSpan="3"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            TargetType="x:Boolean"
+            Value="{x:Bind ViewModel.RefreshNotificationsCommand.IsRunning, Mode=OneWay}">
+
+            <toolkit:Case Value="True">
+                <muxc:ProgressRing IsActive="True" />
+            </toolkit:Case>
+
+            <toolkit:Case Value="False">
+                <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.RefreshNotificationsCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
+                    <toolkit:Case Value="True">
+                        <Button
+                            MinWidth="100"
+                            Command="{x:Bind ViewModel.RefreshNotificationsCommand}"
+                            Style="{ThemeResource AccentButtonStyle}">
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <FontIcon FontSize="16" Glyph="&#xE149;" />
+                                <TextBlock Text="Refresh" />
+                            </StackPanel>
+                        </Button>
+                    </toolkit:Case>
+
+                    <toolkit:Case Value="False">
+                        <toolkit:SwitchPresenter TargetType="x:Int32" Value="{x:Bind ViewModel.NotificationItems.Count, Mode=OneWay}">
+                            <toolkit:Case Value="0">
+                                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="No items available" />
+                            </toolkit:Case>
+                        </toolkit:SwitchPresenter>
+                    </toolkit:Case>
+                </toolkit:SwitchPresenter>
+            </toolkit:Case>
+
+        </toolkit:SwitchPresenter>
     </Grid>
 </Page>
