@@ -1,26 +1,30 @@
 <p align="center">
-  <img alt="Logo" src="src/FluentHub/Assets/AppTilesDev/StoreLogo.scale-400.png" width="100px" />
-  <h1 align="center">FluentHub</h1>
+  <img width="128" align="center" src="src/FluentHub/Assets/AppTiles/StoreLogo.scale-400.png">
+</p>
+<h1 align="center">
+  FluentHub Dev
+</h1>
+<p align="center">
+  A powerful yet fluent GitHub Oauth client app made with Fluent Design and WinUI 2.7.
 </p>
 
-[![GitHub release (latest by date including pre-releases)](https://img.shields.io/github/v/release/fluenthub-community/fluenthub?include_prereleases)](https://github.com/fluenthub-community/FluentHub/releases)
-[![Discord](https://img.shields.io/discord/935562861701390336?color=orange&label=Discord)](https://discord.com/channels/935562861701390336)
-[![Build Status](https://dev.azure.com/fluenthub-community/FluentHub/_apis/build/status/Build%20Pipeline%20(x64)?branchName=main)](https://dev.azure.com/fluenthub-community/FluentHub/_build/latest?definitionId=5&branchName=main)
-
-## What is FluentHub?
-
-FluentHub is a GitHub client app with a fluent and powerful design.
-
-Please contribute to make this project better(please follow [this coding guidlines](docs/code-style.md)).
-
-> **Warning**</br> This project is in dev stage. Expect regular breaking changes.</br>
-> We don't have logos(stable/dev) [that can be used in the store version](https://github.com/logos). Logos/mockups are especially welcome😊
+<p align="center">
+  <a style="text-decoration:none" href="https://github.com/fluenthub-community/FluentHub/releases">
+    <img src="https://img.shields.io/github/v/release/fluenthub-community/fluenthub?include_prereleases&style=flat-square" alt="Release" />
+  </a>
+  <a style="text-decoration:none" href="https://discord.com/channels/935562861701390336">
+    <img src="https://img.shields.io/discord/935562861701390336?color=blue&label=Discord&style=flat-square" alt="Discord" />
+  </a>
+  <a style="text-decoration:none">
+    <img src="https://img.shields.io/badge/Platform-Windows-red?style=flat-square" alt="Platform" />
+  </a>
+</p>
 
 ![image](https://user-images.githubusercontent.com/62196528/160380436-ab822a43-ca2c-427d-b41c-a6d6700bd999.png)
 
 ## Building from source
 
-If you want to build this project, you need to take a look at [this instructions](docs/building-from-source.md).
+If you build this project, you need to take a look at [this instructions](docs/building-from-source.md).
 
 ## Privacy
 

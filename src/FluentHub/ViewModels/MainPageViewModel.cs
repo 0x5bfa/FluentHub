@@ -4,8 +4,11 @@ using FluentHub.Services;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
+using Microsoft.Toolkit.Uwp;
 using System;
 using System.Windows.Input;
+using Windows.System;
+using Windows.UI.Core;
 using Windows.UI.Xaml.Input;
 
 namespace FluentHub.ViewModels
@@ -14,12 +17,14 @@ namespace FluentHub.ViewModels
     {
         public MainPageViewModel(INavigationService navigationService!!, IMessenger notificationMessenger = null, ILogger logger = null)
         {
+            _dispatcher = DispatcherQueue.GetForCurrentThread(); // To Access the UI thread later.
             _navigationService = navigationService;
             _messenger = notificationMessenger;
             _logger = logger;
 
             if (_messenger != null)
                 _messenger.Register<UserNotificationMessage>(this, OnNewNotificationReceived);
+            
 
             AddNewTabAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(AddNewTabAccelerator);
             CloseTabAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(CloseTabAccelerator);
@@ -33,7 +38,8 @@ namespace FluentHub.ViewModels
             GoHomeCommand = new RelayCommand(GoHome);
         }
 
-        #region fields        
+        #region fields
+        private readonly DispatcherQueue _dispatcher;
         private readonly INavigationService _navigationService;
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
@@ -128,13 +134,14 @@ namespace FluentHub.ViewModels
         }
         #endregion
 
-        private void OnNewNotificationReceived(object recipient, UserNotificationMessage message)
+        private async void OnNewNotificationReceived(object recipient, UserNotificationMessage message)
         {
             // Check if the message method contains the InApp value (multivalue enum)
             if (message.Method.HasFlag(UserNotificationMethod.InApp))
             {
                 // Show the message in the UI
-                LastNotification = message;
+                // using the dispatcher to access the UI thread
+                await _dispatcher.EnqueueAsync(() => LastNotification = message);
                 // Show the message in the app
                 _logger?.Info("InApp notification received: {0}", message);
             }
