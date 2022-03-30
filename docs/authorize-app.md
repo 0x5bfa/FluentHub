@@ -25,7 +25,10 @@ The ways to sign in to FluentHub with GitHub
     ![image](https://user-images.githubusercontent.com/62196528/160757448-339c83b0-8217-44fa-afe6-ed41386552bd.png)
 
 5. A pop-up window will open asking if you want to open the app from your browser.
-6. You are good to go!
+
+    ![image](https://user-images.githubusercontent.com/62196528/160758671-d1a149e9-4e39-442c-b534-50ba85d2a116.png)
+
+7. You are good to go!
 
 ## Username/password authorization
 
