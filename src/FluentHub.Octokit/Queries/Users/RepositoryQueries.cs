@@ -23,16 +23,14 @@ namespace FluentHub.Octokit.Queries.Users
                     {
                         x.Name,
                         x.Description,
-                        Owner = x.Owner.Select(y => new
-                        {
-                            AvatarUrl = y.AvatarUrl(100),
-                            y.Login,
-                        }),
+                        OwnerAvatarUrl = x.Owner.AvatarUrl(100),
+                        OwnerLoginName = x.Owner.Login,
 
-                        PrimaryLanguage = x.PrimaryLanguage.Select(language => new { language.Name, language.Color }),
+                        //PrimaryLanguageName = x.PrimaryLanguage.Name,
+                        //PrimaryLanguageColor = x.PrimaryLanguage.Color,
                         x.StargazerCount,
 
-                        LicenseName = x.LicenseInfo.Select(license => license.Name).Single(),
+                        //LicenseName = x.LicenseInfo.Name,
                         x.ForkCount,
                         IssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
                         PullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
@@ -52,28 +50,23 @@ namespace FluentHub.Octokit.Queries.Users
             foreach (var res in result)
             {
                 Models.Repository item = new();
-                var repository = await App.Client.Repository.Get(res.Owner?.Single().Login, res.Name);
-
-                item.PrimaryLangName = res.PrimaryLanguage?.Single().Name;
-                item.PrimaryLangColor = res.PrimaryLanguage?.Single().Color;
 
                 item.Name = res.Name;
-                item.Owner = res.Owner?.Single().Login;
-                item.OwnerAvatarUrl = res.Owner?.Single().Login;
+                item.Owner = res.OwnerLoginName;
+                item.OwnerAvatarUrl = res.OwnerAvatarUrl;
                 item.Description = res.Description;
                 item.StargazerCount = res.StargazerCount;
 
-                item.LicenseName = res.LicenseName;
+                //item.PrimaryLangName = res.PrimaryLanguageName;
+                //item.PrimaryLangColor = res.PrimaryLanguageColor;
+
+                //item.LicenseName = res.LicenseName;
                 item.ForkCount = res.ForkCount;
                 item.IssueCount = res.IssueCount;
                 item.PullCount = res.PullCount;
                 item.UpdatedAt = res.UpdatedAt;
                 item.WatcherCount = res.WatcherCount;
                 item.DefaultBranchName = res.DefaultBranchName;
-
-                item.CloneUrl = repository.CloneUrl;
-                item.SshUrl = repository.SshUrl;
-                item.GitUrl = repository.GitUrl;
 
                 items.Add(item);
             }

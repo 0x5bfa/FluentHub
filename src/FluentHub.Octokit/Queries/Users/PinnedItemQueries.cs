@@ -28,12 +28,12 @@ namespace FluentHub.Octokit.Queries.Users
                         OwnerAvatarUrl = x.Owner.AvatarUrl(100),
                         OwnerLoginName = x.Owner.Login,
 
-                            //PrimaryLanguageName = x.PrimaryLanguage.Name,
-                            //PrimaryLanguageColor = x.PrimaryLanguage.Color,
-                            x.StargazerCount,
+                        //PrimaryLanguageName = x.PrimaryLanguage.Name,
+                        //PrimaryLanguageColor = x.PrimaryLanguage.Color,
+                        x.StargazerCount,
 
-                            //LicenseName = x.LicenseInfo.Name,
-                            x.ForkCount,
+                        //LicenseName = x.LicenseInfo.Name,
+                        x.ForkCount,
                         IssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
                         PullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
                         x.UpdatedAt,
@@ -57,12 +57,12 @@ namespace FluentHub.Octokit.Queries.Users
                         OwnerAvatarUrl = x.Owner.AvatarUrl(100),
                         OwnerLoginName = x.Owner.Login,
 
-                            //PrimaryLanguageName = x.PrimaryLanguage.Name,
-                            //PrimaryLanguageColor = x.PrimaryLanguage.Color,
-                            x.StargazerCount,
+                        //PrimaryLanguageName = x.PrimaryLanguage.Name,
+                        //PrimaryLanguageColor = x.PrimaryLanguage.Color,
+                        x.StargazerCount,
 
-                            //LicenseName = x.LicenseInfo.Name,
-                            x.ForkCount,
+                        //LicenseName = x.LicenseInfo.Name,
+                        x.ForkCount,
                         IssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
                         PullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
                         x.UpdatedAt,
@@ -81,7 +81,6 @@ namespace FluentHub.Octokit.Queries.Users
             foreach (var res in result)
             {
                 Models.Repository item = new();
-                var repository = await App.Client.Repository.Get(res.OwnerLoginName, res.Name);
 
                 item.Name = res.Name;
                 item.Owner = res.OwnerLoginName;
@@ -99,10 +98,6 @@ namespace FluentHub.Octokit.Queries.Users
                 item.UpdatedAt = res.UpdatedAt;
                 item.WatcherCount = res.WatcherCount;
                 item.DefaultBranchName = res.DefaultBranchName;
-
-                item.CloneUrl = repository.CloneUrl;
-                item.SshUrl = repository.SshUrl;
-                item.GitUrl = repository.GitUrl;
 
                 items.Add(item);
             }

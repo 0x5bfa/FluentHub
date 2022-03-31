@@ -40,6 +40,19 @@
                 <muxc:NavigationViewItem Content="SSH" Tag="Ssh" />
                 <muxc:NavigationViewItem Content="GitHub CLI" Tag="GitHubCli" />
             </muxc:NavigationView.MenuItems>
+            <muxc:NavigationView.PaneFooter>
+                <Button
+                    Margin="0,0,4,0"
+                    HorizontalAlignment="Stretch"
+                    Click="CopyGitCommand_Click"
+                    IsEnabled="True"
+                    ToolTipService.ToolTip="Copy git clone command">
+                    <StackPanel Orientation="Horizontal" Spacing="6">
+                        <FontIcon FontSize="16" Glyph="&#xE756;" />
+                        <TextBlock Text="Git" />
+                    </StackPanel>
+                </Button>
+            </muxc:NavigationView.PaneFooter>
         </muxc:NavigationView>
         <MenuFlyoutSeparator Margin="-8,8" />
         <Grid ColumnSpacing="8" RowSpacing="8">
@@ -61,11 +74,12 @@
                     <Button
                         x:Name="CopyButton"
                         Grid.Column="1"
-                        Click="CopyButton_Click">
-                        <FontIcon
-                            Height="18"
-                            FontSize="14"
-                            Glyph="&#xe8c8;" />
+                        Width="36"
+                        Height="32"
+                        Padding="0"
+                        Click="CopyButton_Click"
+                        ToolTipService.ToolTip="Copy">
+                        <FontIcon FontSize="16" Glyph="&#xE8c8;" />
                     </Button>
                 </Grid>
                 <TextBlock
@@ -87,7 +101,6 @@
                     IsEnabled="True">
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <FontIcon
-                            Height="18"
                             FontFamily="{StaticResource Octions}"
                             FontSize="14"
                             Glyph="&#xE970;" />
@@ -109,19 +122,10 @@
                     Style="{ThemeResource AccentButtonStyle}">
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <FontIcon
-                            Height="18"
                             FontFamily="{StaticResource Octions}"
                             FontSize="14"
                             Glyph="&#xE9A7;" />
                         <TextBlock Text="Download zip" />
-                    </StackPanel>
-                </Button>
-                <Button
-                    HorizontalAlignment="Stretch"
-                    Click="CopyGitCommand_Click"
-                    IsEnabled="True">
-                    <StackPanel Orientation="Horizontal" Spacing="8">
-                        <TextBlock Text="Copy Git clone command" />
                     </StackPanel>
                 </Button>
             </StackPanel>

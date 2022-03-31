@@ -36,15 +36,6 @@ namespace FluentHub.Octokit.Models
 
         public string DefaultBranchName { get; set; }
 
-        public string CloneUrl { get; set; }
-
-        public string SshUrl { get; set; }
-
-        public string GitUrl { get; set; }
-
         public DateTimeOffset UpdatedAt { get; set; }
-
-        // Used to change repository's branch
-        public string CurrentBranch { get; set; }
     }
 }
