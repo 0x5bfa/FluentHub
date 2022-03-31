@@ -31,7 +31,7 @@
         </StackPanel>
 
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-            <muxc:ItemsRepeater Margin="18,4,18,18" ItemsSource="{x:Bind ViewModel.Activities}">
+            <muxc:ItemsRepeater Margin="12,0,12,30" ItemsSource="{x:Bind ViewModel.Activities}">
                 <DataTemplate x:DataType="bvm:ActivityBlockViewModel">
                     <block:ActivityBlock ViewModel="{x:Bind}" />
                 </DataTemplate>
@@ -44,10 +44,6 @@
             VerticalAlignment="Center"
             TargetType="x:Boolean"
             Value="{x:Bind ViewModel.RefreshActivitiesCommand.IsRunning, Mode=OneWay}">
-
-            <toolkit:Case Value="True">
-                <muxc:ProgressRing IsActive="True" />
-            </toolkit:Case>
 
             <toolkit:Case Value="False">
                 <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.RefreshActivitiesCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
@@ -76,5 +72,6 @@
 
         </toolkit:SwitchPresenter>
 
+        <muxc:ProgressRing Grid.RowSpan="2" IsActive="{x:Bind ViewModel.RefreshActivitiesCommand.IsRunning, Mode=OneWay}" />
     </Grid>
 </Page>

@@ -8,12 +8,14 @@ using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
 using System.Collections.ObjectModel;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.Home
 {
     public class ActivitiesViewModel : ObservableObject
     {
+        #region constructor
         public ActivitiesViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _messenger = messenger;
@@ -23,16 +25,22 @@ namespace FluentHub.ViewModels.Home
 
             RefreshActivitiesCommand = new AsyncRelayCommand<string>(RefreshActivitiesAsync, CanRefreshActivities);
         }
+        #endregion
 
+        #region fields
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
         private readonly ObservableCollection<ActivityBlockViewModel> _activities;
+        #endregion
+
+        #region properties
         public ReadOnlyObservableCollection<ActivityBlockViewModel> Activities { get; }
         public IAsyncRelayCommand RefreshActivitiesCommand { get; }
+        #endregion
 
+        #region methods
         private bool CanRefreshActivities(string username) => !string.IsNullOrEmpty(username);
-
-        private async Task RefreshActivitiesAsync(string username)
+        private async Task RefreshActivitiesAsync(string username, CancellationToken token)
         {
             try
             {
@@ -52,6 +60,7 @@ namespace FluentHub.ViewModels.Home
                     _activities.Add(viewModel);
                 }
             }
+            catch (OperationCanceledException) { }
             catch (Exception ex)
             {
                 _logger?.Error("RefreshActivitiesAsync", ex);
@@ -63,5 +72,6 @@ namespace FluentHub.ViewModels.Home
                 throw;
             }
         }
+        #endregion
     }
 }

@@ -1,7 +1,6 @@
 ﻿using FluentHub.Services;
 using FluentHub.ViewModels.Users;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Toolkit.Uwp;
 using System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;

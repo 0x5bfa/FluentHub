@@ -8,12 +8,14 @@ using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
 using System.Collections.ObjectModel;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.Users
 {
     public class DiscussionsViewModel : ObservableObject
     {
+        #region constructor        
         public DiscussionsViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _messenger = messenger;
@@ -23,16 +25,23 @@ namespace FluentHub.ViewModels.Users
 
             RefreshDiscussionsCommand = new AsyncRelayCommand<string>(RefreshDiscussionsAsync, CanRefreshDiscussions);
         }
+        #endregion
 
+        #region fields
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
         private readonly ObservableCollection<DiscussionButtonBlockViewModel> _discussions;
+        #endregion
+
+        #region properties        
         public ReadOnlyObservableCollection<DiscussionButtonBlockViewModel> DiscussionItems { get; }
         public IAsyncRelayCommand RefreshDiscussionsCommand { get; }
+        #endregion
 
+        #region methods        
         private bool CanRefreshDiscussions(string username) => !string.IsNullOrEmpty(username);
 
-        private async Task RefreshDiscussionsAsync(string username)
+        private async Task RefreshDiscussionsAsync(string username, CancellationToken token)
         {
             try
             {
@@ -54,6 +63,7 @@ namespace FluentHub.ViewModels.Users
                     _discussions.Add(viewModel);
                 }
             }
+            catch (OperationCanceledException) { }
             catch (Exception ex)
             {
                 _logger?.Error("RefreshDiscussionsAsync", ex);
@@ -65,5 +75,6 @@ namespace FluentHub.ViewModels.Users
                 throw;
             }
         }
+        #endregion
     }
 }

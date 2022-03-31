@@ -33,14 +33,12 @@
         </StackPanel>
 
         <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
-            <muxc:ItemsRepeater Margin="12,2,12,12" ItemsSource="{x:Bind ViewModel.Repositories}">
+            <muxc:ItemsRepeater Margin="12,0,12,30" ItemsSource="{x:Bind ViewModel.Repositories}">
                 <DataTemplate x:DataType="bbvm:RepoButtonBlockViewModel">
-                    <Grid>
-                        <block:RepoButtonBlock
-                            x:Name="RepositoryBlock"
-                            VerticalAlignment="Stretch"
-                            ViewModel="{x:Bind}" />
-                    </Grid>
+                    <block:RepoButtonBlock
+                        x:Name="RepositoryBlock"
+                        VerticalAlignment="Stretch"
+                        ViewModel="{x:Bind}" />
                 </DataTemplate>
             </muxc:ItemsRepeater>
         </ScrollViewer>
@@ -51,10 +49,6 @@
             VerticalAlignment="Center"
             TargetType="x:Boolean"
             Value="{x:Bind ViewModel.RefreshRepositoriesCommand.IsRunning, Mode=OneWay}">
-
-            <toolkit:Case Value="True">
-                <muxc:ProgressRing IsActive="True" />
-            </toolkit:Case>
 
             <toolkit:Case Value="False">
                 <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.RefreshRepositoriesCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
@@ -82,5 +76,7 @@
             </toolkit:Case>
 
         </toolkit:SwitchPresenter>
+
+        <muxc:ProgressRing Grid.RowSpan="2" IsActive="{x:Bind ViewModel.RefreshRepositoriesCommand.IsRunning, Mode=OneWay}" />
     </Grid>
 </Page>

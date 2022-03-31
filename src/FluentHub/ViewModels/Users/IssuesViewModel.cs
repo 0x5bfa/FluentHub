@@ -8,33 +8,39 @@ using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
 using System.Collections.ObjectModel;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.Users
 {
     public class IssuesViewModel : ObservableObject
     {
+        #region constructor
         public IssuesViewModel(IMessenger messenger = null, ILogger logger = null)
         {
+            _messenger = messenger;
             _logger = logger;
-
             _issueItems = new();
             IssueItems = new(_issueItems);
 
             RefreshIssuesCommand = new AsyncRelayCommand<string>(RefreshIssuesAsync, CanRefreshIssues);
         }
+        #endregion
 
-        private readonly ILogger _logger;
+        #region fields
         private readonly IMessenger _messenger;
+        private readonly ILogger _logger;
         private readonly ObservableCollection<IssueButtonBlockViewModel> _issueItems;
+        #endregion
 
+        #region properties        
         public ReadOnlyObservableCollection<IssueButtonBlockViewModel> IssueItems { get; }
-
         public IAsyncRelayCommand RefreshIssuesCommand { get; }
+        #endregion
 
+        #region methods
         private bool CanRefreshIssues(string username) => !string.IsNullOrEmpty(username);
-
-        private async Task RefreshIssuesAsync(string username)
+        private async Task RefreshIssuesAsync(string username, CancellationToken token)
         {
             try
             {
@@ -56,6 +62,7 @@ namespace FluentHub.ViewModels.Users
                     _issueItems.Add(viewModel);
                 }
             }
+            catch (OperationCanceledException) { }
             catch (Exception ex)
             {
                 _logger?.Error("RefreshIssuesAsync", ex);
@@ -67,5 +74,6 @@ namespace FluentHub.ViewModels.Users
                 throw;
             }
         }
+        #endregion
     }
 }

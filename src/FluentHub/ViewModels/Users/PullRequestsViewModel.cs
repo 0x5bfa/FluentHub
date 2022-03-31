@@ -8,12 +8,14 @@ using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
 using System.Collections.ObjectModel;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.Users
 {
     public class PullRequestsViewModel : ObservableObject
     {
+        #region constructor
         public PullRequestsViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _messenger = messenger;
@@ -23,17 +25,22 @@ namespace FluentHub.ViewModels.Users
 
             RefreshPullRequestsCommand = new AsyncRelayCommand<string>(RefreshPullRequestsAsync, CanRefreshPullRequests);
         }
+        #endregion
 
+        #region fields
         private readonly IMessenger _messenger;
-        private readonly ILogger _logger;        
+        private readonly ILogger _logger;
         private readonly ObservableCollection<PullButtonBlockViewModel> _pullRequests;
+        #endregion
+
+        #region properties
         public ReadOnlyObservableCollection<PullButtonBlockViewModel> PullItems { get; }
-
         public IAsyncRelayCommand RefreshPullRequestsCommand { get; }
+        #endregion
 
+        #region methods
         private bool CanRefreshPullRequests(string username) => !string.IsNullOrEmpty(username);
-
-        private async Task RefreshPullRequestsAsync(string username)
+        private async Task RefreshPullRequestsAsync(string username, CancellationToken token)
         {
             try
             {
@@ -55,6 +62,7 @@ namespace FluentHub.ViewModels.Users
                     _pullRequests.Add(viewModel);
                 }
             }
+            catch (OperationCanceledException) { }
             catch (Exception ex)
             {
                 _logger?.Error("RefreshPullRequestsAsync", ex);
@@ -66,5 +74,6 @@ namespace FluentHub.ViewModels.Users
                 throw;
             }
         }
+        #endregion
     }
 }
