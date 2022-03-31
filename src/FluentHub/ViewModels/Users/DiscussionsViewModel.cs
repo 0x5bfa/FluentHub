@@ -62,10 +62,6 @@ namespace FluentHub.ViewModels.Users
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
                     _messenger.Send(notification);
                 }
-                else
-                {
-                    throw;
-                }
                 throw;
             }
         }
