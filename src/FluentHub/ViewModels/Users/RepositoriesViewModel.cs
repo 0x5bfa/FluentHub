@@ -15,14 +15,15 @@ namespace FluentHub.ViewModels.Users
     {
         public RepositoriesViewModel(IMessenger messenger = null, ILogger logger = null)
         {
+            _messenger = messenger;
             _logger = logger;
-
             _repositories = new();
             Repositories = new(_repositories);
 
             RefreshRepositoriesCommand = new AsyncRelayCommand<string>(RefreshRepositoriesAsync, CanRefreshRepositories);
         }
 
+        private readonly IMessenger _messenger;
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
         private readonly ObservableCollection<RepoButtonBlockViewModel> _repositories;
