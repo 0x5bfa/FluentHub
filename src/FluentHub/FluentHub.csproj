@@ -149,7 +149,7 @@
     <Compile Include="Models\UserNotificationMethod.cs" />
     <Compile Include="Models\UserNotificationType.cs" />
     <Compile Include="Services\Navigation\INavigationService.cs" />
-    <Compile Include="Services\Navigation\ITabItemView.cs" />
+    <Compile Include="Services\Navigation\ITabViewItem.cs" />
     <Compile Include="Services\Navigation\ITabView.cs" />
     <Compile Include="Services\Navigation\PageNavigationEntry.cs" />
     <Compile Include="Services\Navigation\NavigationService.cs" />

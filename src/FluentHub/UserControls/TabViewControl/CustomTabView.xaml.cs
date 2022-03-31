@@ -16,24 +16,24 @@ namespace FluentHub.UserControls.TabViewControl
         public CustomTabView()
         {
             InitializeComponent();
-            _items = new ObservableCollection<ITabItemView>();
-            Items = new ReadOnlyObservableCollection<ITabItemView>(_items);
+            _items = new ObservableCollection<ITabViewItem>();
+            Items = new ReadOnlyObservableCollection<ITabViewItem>(_items);
         }
         #endregion
 
         #region fields
-        private readonly ObservableCollection<ITabItemView> _items;
+        private readonly ObservableCollection<ITabViewItem> _items;
         #endregion
 
         #region properties
-        public ITabItemView SelectedItem
+        public ITabViewItem SelectedItem
         {
-            get => (ITabItemView)GetValue(SelectedItemProperty);
+            get => (ITabViewItem)GetValue(SelectedItemProperty);
             set => SetValue(SelectedItemProperty, value);
         }
         public static readonly DependencyProperty SelectedItemProperty =
             DependencyProperty.Register("SelectedItem",
-                                        typeof(ITabItemView),
+                                        typeof(ITabViewItem),
                                         typeof(CustomTabView),
                                         new PropertyMetadata(null, OnSelectedItemChanged));
 
@@ -61,8 +61,8 @@ namespace FluentHub.UserControls.TabViewControl
 
         private static void OnSelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var newItem = e.NewValue as ITabItemView;
-            var oldItem = e.OldValue as ITabItemView;
+            var newItem = e.NewValue as ITabViewItem;
+            var oldItem = e.OldValue as ITabViewItem;
             ((CustomTabView)d).OnSelectionChanged(newItem, oldItem);
         }
         private static void OnTitleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -71,11 +71,11 @@ namespace FluentHub.UserControls.TabViewControl
             view.Title = e.NewValue?.ToString() ?? "";
         }
 
-        public ReadOnlyObservableCollection<ITabItemView> Items { get; }
+        public ReadOnlyObservableCollection<ITabViewItem> Items { get; }
         #endregion
 
         #region public methods
-        public ITabItemView OpenTab(Type page!!, object parameter = null, bool setAsSelected = true)
+        public ITabViewItem OpenTab(Type page!!, object parameter = null, bool setAsSelected = true)
         {
             var transitionInfo = new SlideNavigationTransitionInfo
             {
@@ -102,7 +102,7 @@ namespace FluentHub.UserControls.TabViewControl
             return item;
         }
 
-        public bool CloseTab(ITabItemView tabItem) => tabItem is not null && CloseTab(_items.IndexOf(tabItem));
+        public bool CloseTab(ITabViewItem tabItem) => tabItem is not null && CloseTab(_items.IndexOf(tabItem));
 
         public bool CloseTab(Guid guid) => CloseTab(_items.FirstOrDefault(x => x.Guid == guid));
 
@@ -142,7 +142,7 @@ namespace FluentHub.UserControls.TabViewControl
         #endregion
 
         #region private methods
-        private void OnSelectionChanged(ITabItemView newItem, ITabItemView oldItem)
+        private void OnSelectionChanged(ITabViewItem newItem, ITabViewItem oldItem)
         {
             SuppressNavigationTransitionInfo transitionInfo = new();
             TabViewSelectionChangedEventArgs args = new(newItem, oldItem, transitionInfo);
@@ -153,7 +153,7 @@ namespace FluentHub.UserControls.TabViewControl
         #region event handlers
         private void OnMainTabViewTabCloseRequested(muxc.TabView sender,
                                                     muxc.TabViewTabCloseRequestedEventArgs args)
-            => CloseTab(args.Item as ITabItemView);
+            => CloseTab(args.Item as ITabViewItem);
 
         private void OnAddNewTabButtonClick(object sender, RoutedEventArgs e)
         {

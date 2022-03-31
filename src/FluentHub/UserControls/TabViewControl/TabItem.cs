@@ -5,7 +5,7 @@ using System;
 
 namespace FluentHub.UserControls.TabViewControl
 {
-    public class TabItem : ObservableObject, ITabItemView
+    public class TabItem : ObservableObject, ITabViewItem
     {
         public TabItem()
         {

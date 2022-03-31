@@ -142,7 +142,7 @@ namespace FluentHub.Services.Navigation
         private void OnTabViewSelectionChanged(object sender, TabViewSelectionChangedEventArgs e)
         {
             _logger?.Info("NavigationService.OnTabViewSelectionChanged  [Guid: {0}]", e.NewSelectedItem?.Guid);
-            if (e.NewSelectedItem is ITabItemView item)
+            if (e.NewSelectedItem is ITabViewItem item)
             {
                 var currentHistoryItem = item.NavigationHistory.CurrentItem;
                 if (currentHistoryItem == null) // No navigation history, go to new tab page
