@@ -1,5 +1,6 @@
 ﻿using Octokit.GraphQL;
 using Octokit.GraphQL.Model;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,14 +13,14 @@ namespace FluentHub.Octokit.Queries.Repositories
     {
         public BlobQueries() => new App();
 
-        public async Task<(string, long)> Get(string name, string owner, string branch, string path)
+        public async Task<(string, long)> GetAsync(string name, string owner, string branch, string path)
         {
             // Remove slash
             path = path.Remove(0, 1);
 
             var queryToGetFileInfo = new Query()
                 .Repository(name, owner)
-                .Object(expression: branch+ ":" + path)
+                .Object(expression: branch + ":" + path)
                 .Cast<Blob>().Select(x => new
                 {
                     x.Text,

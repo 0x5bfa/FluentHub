@@ -115,11 +115,18 @@
                 HorizontalScrollMode="Enabled"
                 VerticalScrollBarVisibility="Disabled"
                 VerticalScrollMode="Disabled">
-                <TextBlock
-                    FontFamily="Cascadia Code"
-                    FontWeight="SemiLight"
-                    IsTextSelectionEnabled="True"
-                    Text="{x:Bind ViewModel.BlobContent, Mode=OneWay}" />
+                <Grid>
+                    <RichTextBlock
+                        x:Name="ColorCodeBlock"
+                        FontFamily="Cascadia Code"
+                        FontWeight="SemiLight"
+                        IsTextSelectionEnabled="True" />
+                    <TextBlock
+                        x:Name="PlainCodeBlock"
+                        FontFamily="Cascadia Code"
+                        FontWeight="SemiLight"
+                        IsTextSelectionEnabled="True" />
+                </Grid>
             </ScrollViewer>
         </Grid>
     </Grid>

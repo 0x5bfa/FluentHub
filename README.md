@@ -1,36 +1,46 @@
 <p align="center">
-  <img alt="Logo" src="src/FluentHub/Assets/AppTilesDev/StoreLogo.scale-400.png" width="100px" />
-  <h1 align="center">FluentHub</h1>
+  <img width="128" align="center" src="src/FluentHub/Assets/AppTiles/StoreLogo.scale-400.png">
+</p>
+<h1 align="center">
+  FluentHub Dev
+</h1>
+<p align="center">
+  A powerful yet fluent GitHub Oauth client app made with Fluent Design and WinUI 2.7.
 </p>
 
-![GitHub release (latest by date)](https://img.shields.io/github/v/release/fluenthub-community/fluenthub)
-[![Build Status](https://dev.azure.com/fluenthub-community/FluentHub/_apis/build/status/Build%20Pipeline%20(x64)?branchName=main)](https://dev.azure.com/fluenthub-community/FluentHub/_build/latest?definitionId=5&branchName=main)
-[![Discord](https://img.shields.io/discord/935562861701390336?color=orange&label=Discord)](https://discord.com/channels/935562861701390336)
+<p align="center">
+  <a style="text-decoration:none" href="https://github.com/fluenthub-community/FluentHub/releases">
+    <img src="https://img.shields.io/github/v/release/fluenthub-community/fluenthub?include_prereleases&style=flat-square" alt="Release" />
+  </a>
+  <a style="text-decoration:none" href="https://discord.com/channels/935562861701390336">
+    <img src="https://img.shields.io/discord/935562861701390336?color=blue&label=Discord&style=flat-square" alt="Discord" />
+  </a>
+  <a style="text-decoration:none">
+    <img src="https://img.shields.io/badge/Platform-Windows-red?style=flat-square" alt="Platform" />
+  </a>
+</p>
 
-## What is FluentHub?
+![image](https://user-images.githubusercontent.com/62196528/160380436-ab822a43-ca2c-427d-b41c-a6d6700bd999.png)
 
-FluentHub is a GitHub client app with a fluent and powerful design.
+## Build
 
-Please contribute to make this project better(please follow [this coding guidlines](docs/code-style.md)).
+- [Build from source](docs/build-from-source.md)
+- Authentication methods may change unexpectedly
+- Expect regular breaking changes.
 
-> **Warning**</br> This project is in dev stage. Expect regular breaking changes.</br>
-> We don't have logos(stable/dev) [that can be used in the store version](https://github.com/logos). Logos/mockups are especially welcome😊
+## FAQ
 
-![image](https://user-images.githubusercontent.com/62196528/159022004-d7228fc5-2d97-4f92-9fde-34f1f2b6f08e.png)
+Any questions? Ask on our [Discord server](https://discord.com/channels/935562861701390336).
 
-## Building from source
+## Contributing
 
-If you want to build this project, you need to take a look at [this instructions](docs/building-from-source.md).
+- [How to contribute?](docs/CONTRIBUTING.md)
+- Have any concepts/bugs? let us know in GitHub [issue](https://github.com/fluenthub-community/FluentHub/issues)/[PR](https://github.com/fluenthub-community/FluentHub/pulls).
 
 ## Privacy
 
 We may use the App Center to track the settings used, find bugs and fix crashes. The information sent to the App Center is anonymous and does not contain any user or contextual data.
 
-## Our goals
-
-- Our goal is not to imitate the GitHub UI, but to provide a Fluent Design compliant UI and a more experience.
-- Some pages on GitHub have a potential bug that loads all the information(such as file changes, issue, PR pages) and slows down your browser. We will subdivide our data so that we provide more data when users need it.
-
 ## Translations
 
-Before updating localize resources, follow [this instructions](docs/translations.md).
+- [how to provide resources](docs/translations.md).

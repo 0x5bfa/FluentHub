@@ -16,8 +16,8 @@ namespace FluentHub.ViewModels.UserControls.Blocks
 {
     public class LatestCommitBlockViewModel : INotifyPropertyChanged
     {
-        private CommonRepoViewModel commonRepoViewModel;
-        public CommonRepoViewModel CommonRepoViewModel { get => commonRepoViewModel; set => SetProperty(ref commonRepoViewModel, value); }
+        private RepoContextViewModel commonRepoViewModel;
+        public RepoContextViewModel CommonRepoViewModel { get => commonRepoViewModel; set => SetProperty(ref commonRepoViewModel, value); }
 
         private Commit commitOverviewItem;
         public Commit CommitOverviewItem { get => commitOverviewItem; set => SetProperty(ref commitOverviewItem, value); }

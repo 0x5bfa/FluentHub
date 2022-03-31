@@ -31,7 +31,7 @@ namespace FluentHub.ViewModels.UserControls.Blocks
                 RepoBlockViewModel.DisplayStarButton = true;
 
                 RepositoryQueries queries = new();
-                var repo = await queries.GetOverview(Payload.Repository.Name.Split("/")[1], Payload.Repository.Name.Split("/")[0]);
+                var repo = await queries.Get(Payload.Repository.Name.Split("/")[1], Payload.Repository.Name.Split("/")[0]);
                 RepoBlockViewModel.Item = repo;
             }
             else if (Payload.IsWatchEvent)
@@ -41,7 +41,7 @@ namespace FluentHub.ViewModels.UserControls.Blocks
                 RepoBlockViewModel.DisplayStarButton = true;
 
                 RepositoryQueries queries = new();
-                var repo = await queries.GetOverview(Payload.Repository.Name.Split("/")[1], Payload.Repository.Name.Split("/")[0]);
+                var repo = await queries.Get(Payload.Repository.Name.Split("/")[1], Payload.Repository.Name.Split("/")[0]);
                 RepoBlockViewModel.Item = repo;
             }
             else if (Payload.IsPushEvent)

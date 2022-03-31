@@ -15,14 +15,14 @@ Ensure you have these packages:
 
 1. Set some values on [this site](https://github.com/settings/applications/new):
 
-Name|Value
----|---
-Application name|`FluentHub`<br/>
-Homepage URL|`https://github.com/fluenthub-community/FluentHub`<br/>
-Application description|*Optional*<br/>
-Authorization callback URL|`fluenthub://`<br/>
-Application logo|Use [this](https://github.com/fluenthub-community/FluentHub/blob/main/src/FluentHub/Assets/AppTiles/StoreLogo.scale-400.png)<br/>
-Badge background color|`#FFFFFF` or your favorite color<br/>
+Name|Value|Requred
+---|---|---
+Application name|`FluentHub`|True
+Homepage URL|`https://github.com/fluenthub-community/FluentHub`|True
+Application description|A fluent GitHub app for Windows|False
+Authorization callback URL|`fluenthub://auth`|True
+Application logo|Use [this](https://github.com/fluenthub-community/FluentHub/blob/main/src/FluentHub/Assets/AppTiles/StoreLogo.scale-400.png)|True
+Badge background color|`#FFFFFF`|True (but whatever)
 
 **WARNING!**. For the security of our users and app, we are probably changing this method soon by retrieving these values directly from an own-made [API](https://github.com/fluenthub-community/FluentHub_CredentialsAPI) that's going to be open sourced but by the moment, it's a private template. For now, we're keeping this method until the API fully tested and functional for production.
 

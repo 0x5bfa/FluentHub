@@ -1,13 +1,7 @@
-﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
+﻿using FluentHub.Backend;
 using Microsoft.Toolkit.Mvvm.Input;
-using Serilog;
-using Serilog.Core;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Reflection;
-using System.Text;
 using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.DataTransfer;
@@ -18,6 +12,15 @@ namespace FluentHub.ViewModels.AppSettings
 {
     public class AboutViewModel
     {
+        public AboutViewModel(ILogger logger = null)
+        {
+            _logger = logger;
+
+            CopyVersionCommand = new RelayCommand(ExecuteCopyVersionCommand);
+            OpenLogsCommand = new AsyncRelayCommand(ExecuteOpenLogsCommandAsync);
+        }
+
+        private readonly ILogger _logger;
         public string Version
         {
             get
@@ -32,12 +35,6 @@ namespace FluentHub.ViewModels.AppSettings
 
                 return $"{App.AppVersion} | {architecture} | {buildConfiguration}";
             }
-        }
-
-        public AboutViewModel()
-        {
-            CopyVersionCommand = new RelayCommand(ExecuteCopyVersionCommand);
-            OpenLogsCommand = new AsyncRelayCommand(ExecuteOpenLogsCommandAsync);
         }
 
         internal IRelayCommand CopyVersionCommand { get; }
@@ -58,7 +55,7 @@ namespace FluentHub.ViewModels.AppSettings
             }
             catch (Exception ex)
             {
-                Log.Warning($"Failed to copy data from copy version command, version: ${Version}", ex);
+                _logger?.Error($"Failed to copy data from copy version command, version: ${Version}", ex);
             }
         }
 
@@ -66,8 +63,9 @@ namespace FluentHub.ViewModels.AppSettings
 
         private async Task ExecuteOpenLogsCommandAsync()
         {
-            string logsFolder = Path.Combine(ApplicationData.Current.LocalFolder.Path, "Logs");
-            await Launcher.LaunchFolderPathAsync(logsFolder);
+            string logsFolder = Path.Combine(ApplicationData.Current.LocalFolder.Path, "FluentHub.Logs");
+            var result = await Launcher.LaunchFolderPathAsync(logsFolder);
+            _logger?.Info("Open logs folder result: {0}", result);
         }
     }
 }

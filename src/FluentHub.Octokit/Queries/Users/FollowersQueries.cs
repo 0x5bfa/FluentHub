@@ -12,8 +12,9 @@ namespace FluentHub.Octokit.Queries.Users
     {
         public FollowersQueries() => new App();
 
-        public async Task<List<Models.UserOverviewItem>> GetOverview(string login)
+        public async Task<List<Models.User>> GetAllAsync(string login)
         {
+            #region query
             var query = new Query()
                     .User(login)
                     .Followers(first: 30)
@@ -24,24 +25,79 @@ namespace FluentHub.Octokit.Queries.Users
                         x.Name,
                         x.Bio,
                         x.Login,
+                        x.Id,
                     })
                     .Compile();
-
-            List<Models.UserOverviewItem> formattedFollowersList = new();
+            #endregion
 
             var result = await App.Connection.Run(query);
 
+            #region copying
+            List<Models.User> formattedFollowersList = new();
+
             foreach (var res in result)
             {
-                Models.UserOverviewItem item = new();
+                Models.User item = new();
 
                 item.AvatarUrl = res.AvatarUrl;
                 item.Name = res.Name;
                 item.Login = res.Login;
                 item.Bio = res.Bio;
 
+                // If user is organization, id starts with "O_"
+                if (res.Id.ToString()[0] == 'O' && res.Id.ToString()[1] == '_')
+                {
+                    item.IsOrganization = true;
+                }
+
                 formattedFollowersList.Add(item);
             }
+            #endregion
+
+            return formattedFollowersList;
+        }
+
+        public async Task<List<Models.User>> GetAllAsync()
+        {
+            #region query
+            var query = new Query()
+                    .Viewer
+                    .Followers(first: 30)
+                    .Nodes
+                    .Select(x => new
+                    {
+                        AvatarUrl = x.AvatarUrl(100),
+                        x.Name,
+                        x.Bio,
+                        x.Login,
+                        x.Id,
+                    })
+                    .Compile();
+            #endregion
+
+            var result = await App.Connection.Run(query);
+
+            #region copying
+            List<Models.User> formattedFollowersList = new();
+
+            foreach (var res in result)
+            {
+                Models.User item = new();
+
+                item.AvatarUrl = res.AvatarUrl;
+                item.Name = res.Name;
+                item.Login = res.Login;
+                item.Bio = res.Bio;
+
+                // If user is organization, id starts with "O_"
+                if (res.Id.ToString()[0] == 'O' && res.Id.ToString()[1] == '_')
+                {
+                    item.IsOrganization = true;
+                }
+
+                formattedFollowersList.Add(item);
+            }
+            #endregion
 
             return formattedFollowersList;
         }

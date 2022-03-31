@@ -1,6 +1,7 @@
 ﻿using FluentHub.Octokit.Models;
 using Octokit.GraphQL;
 using Octokit.GraphQL.Model;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +14,8 @@ namespace FluentHub.Octokit.Queries.Repositories
     {
         public IssueEventQueries() => new App();
 
-        public void GetAll(string owner, string name, int number)
-        {
-        }
+        //public void GetAll(string owner, string name, int number)
+        //{
+        //}
     }
 }

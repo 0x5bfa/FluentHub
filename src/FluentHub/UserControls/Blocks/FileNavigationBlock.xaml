@@ -124,7 +124,7 @@
                             <Setter Property="CornerRadius" Value="{StaticResource OverlayCornerRadius}" />
                         </Style>
                     </Flyout.FlyoutPresenterStyle>
-                    <uc:GitCloneFlyout CommonRepoViewModel="{x:Bind ViewModel.CommonRepoViewModel}" />
+                    <uc:GitCloneFlyout ViewModel="{x:Bind ViewModel.CommonRepoViewModel}" />
                 </Flyout>
             </muxc:DropDownButton.Flyout>
         </muxc:DropDownButton>

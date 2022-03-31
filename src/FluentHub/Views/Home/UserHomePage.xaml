@@ -3,7 +3,6 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:helpers="using:FluentHub.Helpers"
     xmlns:local="using:FluentHub.Views.Home"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -33,23 +32,28 @@
             OpenPaneLength="250"
             SelectionChanged="HomeNavView_SelectionChanged">
             <muxc:NavigationView.MenuItems>
-                <muxc:NavigationViewItemHeader x:Uid="HomeNavViewHeaderProfile" />
-                <muxc:NavigationViewItem x:Uid="HomeNavViewItemProfile" Tag="profile">
+                <muxc:NavigationViewItemHeader Content="Profile" />
+
+                <muxc:NavigationViewItem Content="Profile" Tag="profile">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE77B;" />
+                        <muxc:ImageIcon Source="/Assets/Icons/Profile.png" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem x:Uid="HomeNavViewItemNotifications" Tag="notifications">
+
+                <muxc:NavigationViewItem Content="Notifications" Tag="notifications">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xEA8F;" />
+                        <muxc:ImageIcon Source="/Assets/Icons/Notifications.png" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem x:Uid="HomeNavViewItemActivities" Tag="activities">
+
+                <muxc:NavigationViewItem Content="Activities" Tag="activities">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xECAD;" />
+                        <muxc:ImageIcon Source="/Assets/Icons/Activities.png" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
-                <muxc:NavigationViewItemHeader x:Uid="HomeNavViewHeaderMyWork" />
+
+                <muxc:NavigationViewItemHeader Content="My Work" />
+
                 <muxc:NavigationViewItem Tag="issues">
                     <muxc:NavigationViewItem.Content>
                         <StackPanel Orientation="Horizontal" Spacing="16">
@@ -64,7 +68,7 @@
                                     Foreground="White"
                                     Glyph="&#xE9EA;" />
                             </Border>
-                            <TextBlock VerticalAlignment="Center" Text="{helpers:ResourceString Name=Issues}" />
+                            <TextBlock VerticalAlignment="Center" Text="Issues" />
                         </StackPanel>
                     </muxc:NavigationViewItem.Content>
                 </muxc:NavigationViewItem>
@@ -82,7 +86,7 @@
                                     Foreground="White"
                                     Glyph="&#xE9BF;" />
                             </Border>
-                            <TextBlock VerticalAlignment="Center" Text="{helpers:ResourceString Name=PullRequests}" />
+                            <TextBlock VerticalAlignment="Center" Text="Pull Requests" />
                         </StackPanel>
                     </muxc:NavigationViewItem.Content>
                 </muxc:NavigationViewItem>
@@ -100,7 +104,7 @@
                                     Foreground="White"
                                     Glyph="&#xE95D;" />
                             </Border>
-                            <TextBlock VerticalAlignment="Center" Text="{helpers:ResourceString Name=Discussions}" />
+                            <TextBlock VerticalAlignment="Center" Text="Discussions" />
                         </StackPanel>
                     </muxc:NavigationViewItem.Content>
                 </muxc:NavigationViewItem>
@@ -118,7 +122,7 @@
                                     Foreground="White"
                                     Glyph="&#xEA52;" />
                             </Border>
-                            <TextBlock VerticalAlignment="Center" Text="{helpers:ResourceString Name=Repositories}" />
+                            <TextBlock VerticalAlignment="Center" Text="Repositories" />
                         </StackPanel>
                     </muxc:NavigationViewItem.Content>
                 </muxc:NavigationViewItem>
@@ -136,7 +140,7 @@
                                     Foreground="White"
                                     Glyph="&#xEA27;" />
                             </Border>
-                            <TextBlock VerticalAlignment="Center" Text="{helpers:ResourceString Name=Organizations}" />
+                            <TextBlock VerticalAlignment="Center" Text="Organizations" />
                         </StackPanel>
                     </muxc:NavigationViewItem.Content>
                 </muxc:NavigationViewItem>
@@ -154,7 +158,7 @@
                                     Foreground="White"
                                     Glyph="&#xEA94;" />
                             </Border>
-                            <TextBlock VerticalAlignment="Center" Text="{helpers:ResourceString Name=Starred}" />
+                            <TextBlock VerticalAlignment="Center" Text="Stars" />
                         </StackPanel>
                     </muxc:NavigationViewItem.Content>
                 </muxc:NavigationViewItem>
@@ -177,7 +181,7 @@
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>
-                <VisualState x:Name="smallScreen">
+                <VisualState x:Name="SmallScreen">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="0" />
                     </VisualState.StateTriggers>
@@ -185,8 +189,7 @@
                         <Setter Target="HomeNavView.PaneDisplayMode" Value="Top" />
                     </VisualState.Setters>
                 </VisualState>
-
-                <VisualState x:Name="bigScreen">
+                <VisualState x:Name="BigScreen">
                     <VisualState.StateTriggers>
                         <AdaptiveTrigger MinWindowWidth="{StaticResource CompactModeThresholdWidth}" />
                     </VisualState.StateTriggers>

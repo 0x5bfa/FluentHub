@@ -12,8 +12,9 @@ namespace FluentHub.Octokit.Queries.Users
     {
         public StarredRepoQueries() => new App();
 
-        public async Task<List<Models.Repository>> GetOverviewAll(string login)
+        public async Task<List<Models.Repository>> GetAllAsync(string login)
         {
+            #region query
             var query = new Query()
                     .User(login)
                     .StarredRepositories(first: 30)
@@ -22,45 +23,117 @@ namespace FluentHub.Octokit.Queries.Users
                     {
                         x.Name,
                         x.Description,
-                        Owner = x.Owner.Select(y => y.Login).Single(),
-                        PrimaryLanguage = x.Languages(1, null, null, null, null).Nodes.Select(language => new { language.Name, language.Color }).ToList(),
+                        OwnerAvatarUrl = x.Owner.AvatarUrl(100),
+                        OwnerLoginName = x.Owner.Login,
+
+                        //PrimaryLanguageName = x.PrimaryLanguage.Name,
+                        //PrimaryLanguageColor = x.PrimaryLanguage.Color,
                         x.StargazerCount,
-                        LicenseName = x.LicenseInfo.Select(license => license.Name).Single(),
+
+                        //LicenseName = x.LicenseInfo.Name,
                         x.ForkCount,
                         IssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
                         PullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
                         x.UpdatedAt,
+
+                        WatcherCount = x.Watchers(null, null, null, null).TotalCount,
+                        DefaultBranchName = x.DefaultBranchRef.Name,
                     })
                     .Compile();
-
-            List<Models.Repository> items = new();
+            #endregion
 
             var result = await App.Connection.Run(query);
+
+            #region copying
+            List<Models.Repository> items = new();
 
             foreach (var res in result)
             {
                 Models.Repository item = new();
 
-                item.Description = res.Description;
-
-                if (res.PrimaryLanguage != null && res.PrimaryLanguage.Count() != 0)
-                {
-                    item.PrimaryLangName = res.PrimaryLanguage[0].Name;
-                    item.PrimaryLangColor = res.PrimaryLanguage[0].Color;
-                }
-
-                item.Owner = res.Owner;
                 item.Name = res.Name;
+                item.Owner = res.OwnerLoginName;
+                item.OwnerAvatarUrl = res.OwnerAvatarUrl;
+                item.Description = res.Description;
                 item.StargazerCount = res.StargazerCount;
 
-                item.LicenseName = res.LicenseName;
+                //item.PrimaryLangName = res.PrimaryLanguageName;
+                //item.PrimaryLangColor = res.PrimaryLanguageColor;
+
+                //item.LicenseName = res.LicenseName;
                 item.ForkCount = res.ForkCount;
                 item.IssueCount = res.IssueCount;
                 item.PullCount = res.PullCount;
                 item.UpdatedAt = res.UpdatedAt;
+                item.WatcherCount = res.WatcherCount;
+                item.DefaultBranchName = res.DefaultBranchName;
 
                 items.Add(item);
             }
+            #endregion
+
+            return items;
+        }
+
+        public async Task<List<Models.Repository>> GetAllAsync()
+        {
+            #region query
+            var query = new Query()
+                    .Viewer
+                    .StarredRepositories(first: 30)
+                    .Nodes
+                    .Select(x => new
+                    {
+                        x.Name,
+                        x.Description,
+                        OwnerAvatarUrl = x.Owner.AvatarUrl(100),
+                        OwnerLoginName = x.Owner.Login,
+
+                        //PrimaryLanguageName = x.PrimaryLanguage.Name,
+                        //PrimaryLanguageColor = x.PrimaryLanguage.Color,
+                        x.StargazerCount,
+
+                        //LicenseName = x.LicenseInfo.Name,
+                        x.ForkCount,
+                        IssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
+                        PullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
+                        x.UpdatedAt,
+
+                        WatcherCount = x.Watchers(null, null, null, null).TotalCount,
+                        DefaultBranchName = x.DefaultBranchRef.Name,
+                    })
+                    .Compile();
+            #endregion
+
+            var result = await App.Connection.Run(query);
+
+            #region copying
+            List<Models.Repository> items = new();
+
+            foreach (var res in result)
+            {
+                Models.Repository item = new();
+
+                item.Name = res.Name;
+                item.Owner = res.OwnerLoginName;
+                item.OwnerAvatarUrl = res.OwnerAvatarUrl;
+                item.Description = res.Description;
+                item.StargazerCount = res.StargazerCount;
+
+                //item.PrimaryLangName = res.PrimaryLanguageName;
+                //item.PrimaryLangColor = res.PrimaryLanguageColor;
+
+                //item.LicenseName = res.LicenseName;
+                item.ForkCount = res.ForkCount;
+                item.IssueCount = res.IssueCount;
+                item.PullCount = res.PullCount;
+                item.UpdatedAt = res.UpdatedAt;
+                item.WatcherCount = res.WatcherCount;
+                item.DefaultBranchName = res.DefaultBranchName;
+
+                items.Add(item);
+            }
+            #endregion
 
             return items;
         }

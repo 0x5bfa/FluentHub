@@ -23,10 +23,16 @@ namespace FluentHub.ViewModels.Organizations
         {
             IsActive = true;
 
-            PinnedItemsQueries queries = new();
-            var PinnedItems = await queries.GetOverviewAll(org, false);
+            PinnedItemQueries queries = new();
+            var items = await queries.GetAllAsync(org, false);
 
-            foreach (var item in PinnedItems)
+            if (items == null)
+            {
+                IsActive = false;
+                return;
+            }
+
+            foreach (var item in items)
             {
                 RepoButtonBlockViewModel viewModel = new();
                 viewModel.Item = item;

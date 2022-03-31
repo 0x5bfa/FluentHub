@@ -8,7 +8,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="300"
     d:DesignWidth="400"
-    Loaded="UserControl_Loaded"
+    Loaded="OnLabelControlLoaded"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -17,20 +17,6 @@
         <converters:NullToTrueConverter x:Key="NullToTrueConverter" Inverse="False" />
         <converters:StringNullOrWhiteSpaceToTrueConverter x:Key="StringNullOrWhiteSpaceToFalseConverter" Inverse="True" />
         <converters:StringNullOrWhiteSpaceToTrueConverter x:Key="StringNullOrWhiteSpaceToTrueConverter" Inverse="False" />
-
-        <Style
-            x:Key="ButtonSettingsBlockStyle"
-            BasedOn="{StaticResource DefaultButtonStyle}"
-            TargetType="Button">
-            <Setter Property="Background" Value="{ThemeResource ExpanderHeaderBackground}" />
-            <Setter Property="BorderBrush" Value="{ThemeResource ExpanderHeaderBorderBrush}" />
-            <Setter Property="BorderThickness" Value="{ThemeResource ExpanderHeaderBorderThickness}" />
-            <Setter Property="HorizontalAlignment" Value="Stretch" />
-            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-            <Setter Property="Padding" Value="{StaticResource ExpanderContentPadding}" />
-            <Setter Property="MinHeight" Value="{StaticResource ExpanderMinHeight}" />
-            <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
-        </Style>
     </UserControl.Resources>
 
     <Grid Height="22" HorizontalAlignment="Left">

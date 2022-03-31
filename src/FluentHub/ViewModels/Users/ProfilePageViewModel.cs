@@ -1,55 +1,76 @@
-﻿using FluentHub.Octokit.Models;
+﻿using FluentHub.Backend;
+using FluentHub.Octokit.Models;
+using FluentHub.Models;
 using FluentHub.Octokit.Queries.Users;
-using Serilog;
+using FluentHub.ViewModels.UserControls.ButtonBlocks;
+using Humanizer;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
+using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
 using System.Threading.Tasks;
-using Windows.UI;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
 
 namespace FluentHub.ViewModels.Users
 {
-    public class ProfilePageViewModel : INotifyPropertyChanged
+    public class ProfilePageViewModel : ObservableObject
     {
-        private UserOverviewItem userItem;
-        public UserOverviewItem UserItem
+        public ProfilePageViewModel(IMessenger messenger = null, ILogger logger = null)
         {
-            get => userItem;
-            private set => SetProperty(ref userItem, value);
+            _logger = logger;
+            _messenger = messenger;
+            RefreshUserCommand = new AsyncRelayCommand<string>(LoadUserAsync);
         }
 
-        private bool isNotViewer;
+        private readonly ILogger _logger;
+        private readonly IMessenger _messenger;
+        private User _userItem;
+        private bool _isNotViewer;
+        public User UserItem
+        {
+            get => _userItem;
+            private set => SetProperty(ref _userItem, value);
+        }
         public bool IsNotViewer
         {
-            get => isNotViewer;
-            set => SetProperty(ref isNotViewer, value);
+            get => _isNotViewer;
+            set => SetProperty(ref _isNotViewer, value);
         }
 
-        public async Task GetUser(string login)
-        {
-            UserQueries queries = new();
-            UserItem = await queries.GetOverview(login);
+        private Uri _builtWebsiteUrl;
+        public Uri BuiltWebsiteUrl { get => _builtWebsiteUrl; set => SetProperty(ref _builtWebsiteUrl, value); }
 
-            if (!UserItem.IsViewer) IsNotViewer = true;
-        }
+        public IAsyncRelayCommand RefreshUserCommand { get; }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
+        private async Task LoadUserAsync(string login)
         {
-            if (!Equals(field, newValue))
+            try
             {
-                field = newValue;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-                return true;
-            }
+                UserQueries queries = new();
+                UserItem = login == null ?
+                    await queries.GetAsync() :
+                    await queries.GetAsync(login);
 
-            return false;
+                if (UserItem == null) return;
+
+                BuiltWebsiteUrl = new UriBuilder(UserItem.WebsiteUrl).Uri;
+
+                if (!UserItem.IsViewer)
+                    IsNotViewer = true;
+            }
+            catch (Exception ex)
+            {
+                _logger?.Error("Failed to load user.", ex);
+                UserItem = new User();
+                IsNotViewer = false;
+                if (_messenger != null)
+                {
+                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+                    _messenger.Send(notification);
+                }
+                throw;
+            }
         }
     }
 }

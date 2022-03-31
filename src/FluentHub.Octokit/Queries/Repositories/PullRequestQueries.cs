@@ -1,6 +1,7 @@
 ﻿using FluentHub.Octokit.Models;
 using Octokit.GraphQL;
 using Octokit.GraphQL.Model;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 
         public async Task<List<Models.PullRequest>> GetOverviewAll(string name, string owner)
         {
-            IssueOrder order = new() { Direction = OrderDirection.Desc, Field = IssueOrderField.CreatedAt};
+            IssueOrder order = new() { Direction = OrderDirection.Desc, Field = IssueOrderField.CreatedAt };
 
             #region queries
             var query = new Query()
@@ -41,6 +42,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 
             var response = await App.Connection.Run(query);
 
+            #region copying
             List<Models.PullRequest> items = new();
 
             foreach (var res in response)
@@ -70,6 +72,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 
                 items.Add(item);
             }
+            #endregion
 
             return items;
         }

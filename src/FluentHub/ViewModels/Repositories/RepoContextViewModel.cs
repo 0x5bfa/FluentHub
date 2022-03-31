@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.Repositories
 {
-    public class CommonRepoViewModel : INotifyPropertyChanged
+    public class RepoContextViewModel : INotifyPropertyChanged
     {
-        public long RepositoryId { get; set; }
+        // Repository information
+        public Octokit.Models.Repository Repository { get; set; }
 
         public string Name { get; set; }
 

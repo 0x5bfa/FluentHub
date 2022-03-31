@@ -1,6 +1,6 @@
 ﻿using FluentHub.Services;
+using FluentHub.ViewModels.Users;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Toolkit.Uwp;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -11,28 +11,31 @@ namespace FluentHub.Views.Users
         public FollowingPage()
         {
             InitializeComponent();
-            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
+
+            var provider = App.Current.Services;
+            ViewModel = provider.GetRequiredService<FollowingViewModel>();
+            navigationService = provider.GetRequiredService<INavigationService>();
         }
 
         private readonly INavigationService navigationService;
+        public FollowingViewModel ViewModel { get; }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            string login = e.Parameter as string;
+            DataContext = e.Parameter;
 
-            //Helpers.NavigationHelpers.AddPageInfoToTabItem($"Following", $"{login}'s followers", $"https://github.com/{login}?tab=following", "\uE737");
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = $"Following".GetLocalized();
-            currentItem.Description = $"{login}'s followers";
-            currentItem.Url = $"https://github.com/{login}?tab=following";
+            currentItem.Header = $"Following";
+            currentItem.Description = $"{DataContext}'s followers";
+            currentItem.Url = $"https://github.com/{DataContext}?tab=following";
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.FontIconSource
             {
                 Glyph = "\uE737"
             };
 
-            await ViewModel.GetFollowingList(login);
-
-            base.OnNavigatedTo(e);
+            var command = ViewModel.RefreshFollowingCommand;
+            if (command.CanExecute(DataContext))
+                await command.ExecuteAsync(DataContext);
         }
     }
 }

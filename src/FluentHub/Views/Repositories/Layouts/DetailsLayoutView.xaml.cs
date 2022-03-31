@@ -13,7 +13,7 @@ namespace FluentHub.Views.Repositories.Layouts
 {
     public sealed partial class DetailsLayoutView : Page
     {
-        private CommonRepoViewModel CommonRepoViewModel { get; set; }
+        private RepoContextViewModel ContextViewModel { get; set; }
 
         public DetailsLayoutView()
         {
@@ -25,13 +25,36 @@ namespace FluentHub.Views.Repositories.Layouts
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            CommonRepoViewModel = e.Parameter as CommonRepoViewModel;
-            ViewModel.CommonRepoViewModel = CommonRepoViewModel;
+            ContextViewModel = e.Parameter as RepoContextViewModel;
+            ViewModel.ContextViewModel = ContextViewModel;
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = $"{CommonRepoViewModel.Path.Remove(0, 1)} at {CommonRepoViewModel.BranchName} • {CommonRepoViewModel.Owner}/{CommonRepoViewModel.Name}";
-            currentItem.Description = "{org}'s overview";
-            currentItem.Url = $"https://github.com/{CommonRepoViewModel.Owner}/{CommonRepoViewModel.Name}/tree/{CommonRepoViewModel.BranchName}{CommonRepoViewModel.Path}";
+
+            string header;
+            if (string.IsNullOrEmpty(ContextViewModel.Path.Remove(0, 1)))
+            {
+                // Root
+                header = $"{ContextViewModel.Owner}/{ContextViewModel.Name}";
+            }
+            else
+            {
+                header = $"{ContextViewModel.Name}/{ContextViewModel.Path.Remove(0, 1)} at {ContextViewModel.BranchName} • {ContextViewModel.Owner}/{ContextViewModel.Name}";
+            }
+
+            currentItem.Header = header;
+            currentItem.Description = currentItem.Header;
+
+            string url;
+            if (ContextViewModel.IsFile)
+            {
+                url = $"https://github.com/{ContextViewModel.Owner}/{ContextViewModel.Name}/blob/{ContextViewModel.BranchName}{ContextViewModel.Path}";
+            }
+            else
+            {
+                url = $"https://github.com/{ContextViewModel.Owner}/{ContextViewModel.Name}/tree/{ContextViewModel.BranchName}{ContextViewModel.Path}";
+            }
+
+            currentItem.Url = url;
             currentItem.Icon = new muxc.FontIconSource
             {
                 Glyph = "\uEA52",
@@ -41,27 +64,27 @@ namespace FluentHub.Views.Repositories.Layouts
 
         private async void OnPageLoaded(object sender, RoutedEventArgs e)
         {
-            if (CommonRepoViewModel.IsFile == true)
+            if (ContextViewModel.IsFile == true)
             {
-                DirListViewLoadingProgreeBar.IsIndeterminate = false;
-                DirListViewLoadingProgreeBar.Visibility = Visibility.Collapsed;
+                DirListViewLoadingProgressBar.IsIndeterminate = false;
+                DirListViewLoadingProgressBar.Visibility = Visibility.Collapsed;
                 return;
             }
 
             await ViewModel.EnumRepositoryContents();
 
-            DirListViewLoadingProgreeBar.IsIndeterminate = false;
-            DirListViewLoadingProgreeBar.Visibility = Visibility.Collapsed;
+            DirListViewLoadingProgressBar.IsIndeterminate = false;
+            DirListViewLoadingProgressBar.Visibility = Visibility.Collapsed;
         }
 
         private void DirListView_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
-            var commonRepoViewModel = new CommonRepoViewModel()
+            var repoContextViewModel = new RepoContextViewModel()
             {
-                Name = CommonRepoViewModel.Name,
-                Owner = CommonRepoViewModel.Owner,
-                RepositoryId = CommonRepoViewModel.RepositoryId,
-                BranchName = CommonRepoViewModel.BranchName,
+                Repository = ContextViewModel.Repository,
+                Name = ContextViewModel.Name,
+                Owner = ContextViewModel.Owner,
+                BranchName = ContextViewModel.BranchName,
                 IsRootDir = false,
             };
 
@@ -71,15 +94,15 @@ namespace FluentHub.Views.Repositories.Layouts
 
             if (tagItem[0] != "tree")
             {
-                commonRepoViewModel.IsFile = true;
-                commonRepoViewModel.Path = CommonRepoViewModel.Path + tagItem[1];
+                repoContextViewModel.IsFile = true;
+                repoContextViewModel.Path = ContextViewModel.Path + tagItem[1];
             }
             else // tree
             {
-                commonRepoViewModel.Path = CommonRepoViewModel.Path + tagItem[1] + "/";
+                repoContextViewModel.Path = ContextViewModel.Path + tagItem[1] + "/";
             }
-            navigationService.Navigate<CodePage>(commonRepoViewModel);
-            //App.MainViewModel.RepoMainFrame.Navigate(typeof(CodePage), commonRepoViewModel);
+
+            navigationService.Navigate<CodePage>(repoContextViewModel);
         }
     }
 }

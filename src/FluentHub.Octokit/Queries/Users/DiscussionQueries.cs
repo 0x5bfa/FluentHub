@@ -1,6 +1,7 @@
 ﻿using FluentHub.Octokit.Models;
 using Octokit.GraphQL;
 using Octokit.GraphQL.Model;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +14,8 @@ namespace FluentHub.Octokit.Queries.Users
     {
         public DiscussionQueries() => new App();
 
-        public async Task<List<Models.Discussion>> GetOverviewAll(string login)
+        public async Task<List<Models.Discussion>> GetAllAsync(string login)
         {
-            IssueOrder order = new() { Direction = OrderDirection.Desc, Field = IssueOrderField.CreatedAt };
-
             #region queries
             var query = new Query()
                 .User(login)
@@ -42,6 +41,7 @@ namespace FluentHub.Octokit.Queries.Users
 
             var response = await App.Connection.Run(query);
 
+            #region copy
             List<Models.Discussion> items = new();
 
             foreach (var res in response)
@@ -60,6 +60,58 @@ namespace FluentHub.Octokit.Queries.Users
 
                 items.Add(item);
             }
+            #endregion
+
+            return items;
+        }
+
+        public async Task<List<Models.Discussion>> GetAllAsync()
+        {
+            #region queries
+            var query = new Query()
+                .Viewer
+                .RepositoryDiscussions(first: 30)
+                .Nodes
+                .Select(x => new
+                {
+                    x.Title,
+                    x.Repository.Name,
+                    x.Repository.Owner.Login,
+                    x.Number,
+                    x.UpvoteCount,
+                    x.Comments(null, null, null, null).TotalCount,
+                    Category = x.Category.Select(y => new
+                    {
+                        y.Name,
+                        y.Emoji,
+                    }).Single(),
+                    x.UpdatedAt,
+                })
+                .Compile();
+            #endregion
+
+            var response = await App.Connection.Run(query);
+
+            #region copy
+            List<Models.Discussion> items = new();
+
+            foreach (var res in response)
+            {
+                Models.Discussion item = new();
+
+                item.Title = res.Title;
+                item.Name = res.Name;
+                item.Owner = res.Login;
+                item.Number = res.Number;
+                item.UpvoteCount = res.UpvoteCount;
+                item.TotalCommentCount = res.TotalCount;
+                item.CategoryName = res.Category.Name;
+                item.CategoryEmoji = res.Category.Emoji;
+                item.UpdatedAt = res.UpdatedAt;
+
+                items.Add(item);
+            }
+            #endregion
 
             return items;
         }

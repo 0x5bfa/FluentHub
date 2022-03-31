@@ -1,55 +1,84 @@
-﻿using FluentHub.Octokit.Queries.Users;
+﻿using FluentHub.Backend;
+using FluentHub.Octokit.Models;
+using FluentHub.Models;
+using FluentHub.Octokit.Queries.Users;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
-using Octokit;
+using Humanizer;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
+using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.Users
 {
-    public class RepositoriesViewModel : INotifyPropertyChanged
+    public class RepositoriesViewModel : ObservableObject
     {
-        public ObservableCollection<RepoButtonBlockViewModel> Items { get; private set; } = new();
-
-        private bool isActive;
-        public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
-
-        public async Task GetUserRepos(string login)
+        #region constructor
+        public RepositoriesViewModel(IMessenger messenger = null, ILogger logger = null)
         {
-            IsActive = true;
+            _messenger = messenger;
+            _logger = logger;
+            _repositories = new();
+            Repositories = new(_repositories);
 
-            RepositoryQueries queries = new();
-            var items = await queries.GetOverviewAll(login);
-
-            foreach (var item in items)
-            {
-                RepoButtonBlockViewModel viewModel = new();
-                viewModel.Item = item;
-                viewModel.DisplayDetails = true;
-                viewModel.DisplayStarButton = true;
-
-                Items.Add(viewModel);
-            }
-
-            IsActive = false;
+            RefreshRepositoriesCommand = new AsyncRelayCommand<string>(RefreshRepositoriesAsync);
         }
+        #endregion
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
+        #region fields
+        private readonly IMessenger _messenger;
+        private readonly ILogger _logger;
+        private readonly ObservableCollection<RepoButtonBlockViewModel> _repositories;
+        #endregion
+
+        #region properties
+        public ReadOnlyObservableCollection<RepoButtonBlockViewModel> Repositories { get; }
+        public IAsyncRelayCommand RefreshRepositoriesCommand { get; }
+        #endregion
+
+        #region methods
+        private async Task RefreshRepositoriesAsync(string login, CancellationToken token)
         {
-            if (!Equals(field, newValue))
+            try
             {
-                field = newValue;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-                return true;
-            }
+                RepositoryQueries queries = new();
+                List<Repository> items;
 
-            return false;
+                items = login == null ?
+                    await queries.GetAllAsync() :
+                    await queries.GetAllAsync(login);
+
+                if (items == null) return;
+
+                _repositories.Clear();
+                foreach (var item in items)
+                {
+                    RepoButtonBlockViewModel viewModel = new()
+                    {
+                        Item = item,
+                        DisplayDetails = true,
+                        DisplayStarButton = true
+                    };
+
+                    _repositories.Add(viewModel);
+                }
+            }
+            catch (OperationCanceledException) { }
+            catch (Exception ex)
+            {
+                _logger?.Error("RefreshRepositoriesAsync", ex);
+                if (_messenger != null)
+                {
+                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+                    _messenger.Send(notification);
+                }
+                throw;
+            }
         }
+        #endregion
     }
 }

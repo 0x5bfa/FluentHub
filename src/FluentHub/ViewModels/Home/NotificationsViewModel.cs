@@ -1,59 +1,100 @@
-﻿using FluentHub.ViewModels.UserControls.ButtonBlocks;
+﻿using FluentHub.Backend;
+using FluentHub.Models;
+using FluentHub.ViewModels.UserControls.ButtonBlocks;
 using Humanizer;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
+using Microsoft.Toolkit.Mvvm.Messaging;
 using Octokit;
-using FluentHub.Models.Items;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.Home
 {
-    public class NotificationsViewModel : INotifyPropertyChanged
+    public class NotificationsViewModel : ObservableObject
     {
-        public ObservableCollection<NotificationButtonBlockViewModel> NotificationItems { get; set; } = new();
-
-        private bool isActive;
-        public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
-
-        public async Task GetNotifications()
+        #region constructor
+        public NotificationsViewModel(IGitHubClient client!!, IMessenger messenger = null, ILogger logger = null)
         {
-            IsActive = true;
+            _client = client;
+            _messenger = messenger;
+            _logger = logger;
+            _notifications = new();
+            _unreadCount = 0;
+            NotificationItems = new(_notifications);
 
-            NotificationsRequest request = new NotificationsRequest();
-            request.All = true;
-            ApiOptions options = new() { PageCount = 1, PageSize = 50, StartPage = 1 };
-            var notifications = await App.Client.Activity.Notifications.GetAllForCurrent(request, options);
-
-            foreach (var item in notifications)
-            {
-                NotificationButtonBlockViewModel viewModel = new();
-
-                viewModel.NotificationItem = item;
-                viewModel.UpdatedAtHumanized = DateTimeOffset.Parse(item.UpdatedAt).Humanize();
-                viewModel.NameWithOwner = item.Repository.Owner.Login + " / " + item.Repository.Name;
-
-                NotificationItems.Add(viewModel);
-            }
-
-            IsActive = false;
+            RefreshNotificationsCommand = new AsyncRelayCommand(RefreshNotificationsAsync);
         }
+        #endregion
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
+        #region fields
+        private readonly IGitHubClient _client;
+        private readonly IMessenger _messenger;
+        private readonly ILogger _logger;
+        private readonly ObservableCollection<NotificationButtonBlockViewModel> _notifications;
+        private int _unreadCount;
+        #endregion
+
+        #region properties
+        public ReadOnlyObservableCollection<NotificationButtonBlockViewModel> NotificationItems { get; }
+        public IAsyncRelayCommand RefreshNotificationsCommand { get; }
+        public int UnreadCount
         {
-            if (!Equals(field, newValue))
-            {
-                field = newValue;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-                return true;
-            }
-
-            return false;
+            get => _unreadCount;
+            set => SetProperty(ref _unreadCount, value);
         }
+        #endregion
+
+        #region methods
+        private async Task RefreshNotificationsAsync(CancellationToken token)
+        {
+            try
+            {
+                NotificationsRequest request = new()
+                {
+                    All = true
+                };
+                ApiOptions requestOptions = new()
+                {
+                    PageCount = 1,
+                    PageSize = 50,
+                    StartPage = 1
+                };
+
+                var requestResult = await _client.Activity.Notifications.GetAllForCurrent(request, requestOptions);
+
+                _notifications.Clear();
+                UnreadCount = 0;
+                foreach (var item in requestResult)
+                {
+                    NotificationButtonBlockViewModel viewModel = new()
+                    {
+                        NotificationItem = item,
+                        UpdatedAtHumanized = DateTimeOffset.Parse(item.UpdatedAt).Humanize(),
+                        NameWithOwner = item.Repository.Owner.Login + "/" + item.Repository.Name
+                    };
+
+                    _notifications.Add(viewModel);
+                    if (item.Unread)
+                    {
+                        UnreadCount++;
+                    }
+                }
+            }
+            catch (OperationCanceledException) { }
+            catch (Exception ex)
+            {
+                _logger?.Error("RefreshNotificationsAsync", ex);
+                if (_messenger != null)
+                {
+                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+                    _messenger.Send(notification);
+                }
+                throw;
+            }
+        }
+        #endregion
     }
 }

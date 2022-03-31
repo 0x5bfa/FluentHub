@@ -1,6 +1,6 @@
 ﻿using FluentHub.Services;
+using FluentHub.ViewModels.Users;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Toolkit.Uwp;
 using System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
@@ -13,16 +13,21 @@ namespace FluentHub.Views.Users
         public DiscussionsPage()
         {
             InitializeComponent();
-            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
+
+            var provider = App.Current.Services;
+            ViewModel = provider.GetRequiredService<DiscussionsViewModel>();
+            navigationService = provider.GetRequiredService<INavigationService>();
         }
 
         private readonly INavigationService navigationService;
+        public DiscussionsViewModel ViewModel { get; }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            //Helpers.NavigationHelpers.AddPageInfoToTabItem($"Discussions", "Viewer's discussions", $"https://github.com/discussions", "\uE737");
+            DataContext = e.Parameter;
+
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = "Discussions".GetLocalized();
+            currentItem.Header = "Discussions";
             currentItem.Description = "Viewer's discussions";
             currentItem.Url = "https://github.com/discussions";
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
@@ -30,7 +35,9 @@ namespace FluentHub.Views.Users
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Discussions.png"))
             };
 
-            await ViewModel.GetUserDiscussions(e.Parameter as string);
+            var command = ViewModel.RefreshDiscussionsCommand;
+            if (command.CanExecute(DataContext))
+                command.Execute(DataContext);
         }
     }
 }

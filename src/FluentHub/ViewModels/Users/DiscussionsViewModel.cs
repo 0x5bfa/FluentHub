@@ -1,55 +1,86 @@
-﻿using Humanizer;
+﻿using FluentHub.Backend;
+using FluentHub.Octokit.Models;
+using FluentHub.Models;
 using FluentHub.Octokit.Queries.Users;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
+using Humanizer;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
+using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.Users
 {
-    public class DiscussionsViewModel : INotifyPropertyChanged
+    public class DiscussionsViewModel : ObservableObject
     {
-        public ObservableCollection<DiscussionButtonBlockViewModel> DiscussionItems { get; private set; } = new();
-
-        private bool isActive;
-        public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
-
-        public async Task GetUserDiscussions(string login)
+        #region constructor        
+        public DiscussionsViewModel(IMessenger messenger = null, ILogger logger = null)
         {
-            IsActive = true;
+            _messenger = messenger;
+            _logger = logger;
+            _discussions = new();
+            DiscussionItems = new(_discussions);
 
-            DiscussionQueries queries = new();
-            var items = await queries.GetOverviewAll(login);
-
-            foreach (var item in items)
-            {
-                DiscussionButtonBlockViewModel viewModel = new();
-                viewModel.NameWithOwner = item.Owner + " / " + item.Name + " #" + item.Number;
-                viewModel.UpdatedAtHumanized = item.UpdatedAt.Humanize();
-                viewModel.DiscussionItem = item;
-
-                DiscussionItems.Add(viewModel);
-            }
-
-            IsActive = false;
+            RefreshDiscussionsCommand = new AsyncRelayCommand<string>(RefreshDiscussionsAsync);
         }
+        #endregion
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
+        #region fields
+        private readonly IMessenger _messenger;
+        private readonly ILogger _logger;
+        private readonly ObservableCollection<DiscussionButtonBlockViewModel> _discussions;
+        #endregion
+
+        #region properties        
+        public ReadOnlyObservableCollection<DiscussionButtonBlockViewModel> DiscussionItems { get; }
+        public IAsyncRelayCommand RefreshDiscussionsCommand { get; }
+        #endregion
+
+        #region methods        
+        private bool CanRefreshDiscussions(string username) => !string.IsNullOrEmpty(username);
+
+        private async Task RefreshDiscussionsAsync(string login, CancellationToken token)
         {
-            if (!Equals(field, newValue))
+            try
             {
-                field = newValue;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-                return true;
-            }
+                DiscussionQueries queries = new();
+                List<Discussion> items;
 
-            return false;
+                items = login == null ?
+                    await queries.GetAllAsync() :
+                    await queries.GetAllAsync(login);
+
+                if (items == null) return;
+
+                _discussions.Clear();
+                foreach (var item in items)
+                {
+                    DiscussionButtonBlockViewModel viewModel = new()
+                    {
+                        DiscussionItem = item,
+                        NameWithOwner = $"{item.Owner} / {item.Name} #{item.Number}",
+                        UpdatedAtHumanized = item.UpdatedAt.Humanize()
+                    };
+
+                    _discussions.Add(viewModel);
+                }
+            }
+            catch (OperationCanceledException) { }
+            catch (Exception ex)
+            {
+                _logger?.Error("RefreshDiscussionsAsync", ex);
+                if (_messenger != null)
+                {
+                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+                    _messenger.Send(notification);
+                }
+                throw;
+            }
         }
+        #endregion
     }
 }

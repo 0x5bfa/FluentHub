@@ -1,6 +1,6 @@
 ﻿using FluentHub.Services;
+using FluentHub.ViewModels.Users;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Toolkit.Uwp;
 using System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
@@ -13,25 +13,31 @@ namespace FluentHub.Views.Users
         public OrganizationsPage()
         {
             InitializeComponent();
-            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
+
+            var provider = App.Current.Services;
+            ViewModel = provider.GetRequiredService<OrganizationsViewModel>();
+            navigationService = provider.GetRequiredService<INavigationService>();
         }
 
         private readonly INavigationService navigationService;
+        public OrganizationsViewModel ViewModel { get; }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            string login = e.Parameter as string;
+            DataContext = e.Parameter;
 
-            //Helpers.NavigationHelpers.AddPageInfoToTabItem($"Organizations", "Viewer's organizations", $"https://github.com/organizations", "\uE737");
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = "Organizations".GetLocalized();
+            currentItem.Header = "Organizations";
             currentItem.Description = "Viewer's organizations";
             currentItem.Url = $"https://ghitub.com/organizations";
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Organizations.png"))
             };
-            await ViewModel.GetUserOrganizations(login);
+
+            var command = ViewModel.RefreshOrganizationsCommand;
+            if (command.CanExecute(DataContext))
+                command.Execute(DataContext);
         }
     }
 }

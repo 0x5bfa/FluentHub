@@ -12,12 +12,54 @@ namespace FluentHub.Octokit.Queries.Users
     {
         public StatusQueries() => new App();
 
-        public async Task<UserStatus> Get(string login)
+        public async Task<Models.UserStatus> GetAsync(string login)
         {
-            var query = new Query().User(login).Status;
+            var query = new Query()
+                .User(login)
+                .Status
+                .Select(x => new
+                {
+                    x.Emoji,
+                    x.ExpiresAt,
+                    x.Message,
+                    x.UpdatedAt,
+                });
 
             var result = await App.Connection.Run(query);
-            return result;
+
+            Models.UserStatus item = new();
+
+            item.Emoji = result.Emoji;
+            item.ExpiresAt = result.ExpiresAt;
+            item.Message = result.Message;
+            item.UpdatedAt = result.UpdatedAt;
+
+            return item;
+        }
+
+        public async Task<Models.UserStatus> GetAsync()
+        {
+            var query = new Query()
+                .Viewer
+                .Status
+                .Select(x => new
+                {
+                    x.Emoji,
+                    x.ExpiresAt,
+                    x.Message,
+                    x.UpdatedAt,
+                });
+
+            var result = await App.Connection.Run(query);
+
+            Models.UserStatus item = new();
+
+            item.Emoji = result.Emoji;
+            item.ExpiresAt = result.ExpiresAt;
+            item.Message = result.Message;
+            item.UpdatedAt = result.UpdatedAt;
+
+            return item;
         }
     }
 }

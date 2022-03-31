@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" DefaultTargets="Build"
-  xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -134,7 +133,8 @@
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\Organization.cs" />
     <Compile Include="Models\PullRequest.cs" />
-    <Compile Include="Models\UserOverviewItem.cs" />
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserStatus.cs" />
     <Compile Include="Queries\MarkdownQueries.cs" />
     <Compile Include="Queries\Organizations\RepositoryQueries.cs" />
     <Compile Include="Queries\Organizations\OrganizationQueries.cs" />
@@ -143,7 +143,6 @@
     <Compile Include="Queries\Repositories\IssueQueries.cs" />
     <Compile Include="Queries\Repositories\PullRequestQueries.cs" />
     <Compile Include="Queries\Repositories\CommitQueries.cs" />
-    <Compile Include="Queries\Repositories\RepoHeaderQueries.cs" />
     <Compile Include="Queries\Repositories\RepositoryQueries.cs" />
     <Compile Include="Queries\Users\DiscussionQueries.cs" />
     <Compile Include="Queries\Users\ActivityQueries.cs" />
@@ -155,14 +154,12 @@
     <Compile Include="Queries\Users\StarredRepoQueries.cs" />
     <Compile Include="Queries\Users\FollowersQueries.cs" />
     <Compile Include="Queries\Users\FollowingQueries.cs" />
-    <Compile Include="Queries\Users\PinnedItemsQueries.cs" />
+    <Compile Include="Queries\Users\PinnedItemQueries.cs" />
     <Compile Include="Queries\Users\StatusQueries.cs" />
     <Compile Include="Models\Repository.cs" />
-    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\Users\UserQueries.cs" />
-    <Compile Include="Queries\Users\ViewerQueries.cs" />
-    <EmbeddedResource Include="Properties\Default.rd.xml" />
+    <EmbeddedResource Include="Properties\FluentHub.Octokit.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
@@ -180,6 +177,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Mutations\" />
+    <Folder Include="Queries\Edges\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

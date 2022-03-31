@@ -20,12 +20,14 @@ namespace FluentHub.ViewModels.Repositories
         private bool isActive;
         public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
 
-        public async Task GetRepoPRs(string name, string owner)
+        public async Task GetRepoPRs(string owner, string name)
         {
             IsActive = true;
 
             PullRequestQueries queries = new();
             var items = await queries.GetOverviewAll(name, owner);
+
+            if (items == null) return;
 
             foreach (var item in items)
             {

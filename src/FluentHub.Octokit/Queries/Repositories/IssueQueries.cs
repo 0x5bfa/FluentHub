@@ -1,6 +1,7 @@
 ﻿using FluentHub.Octokit.Models;
 using Octokit.GraphQL;
 using Octokit.GraphQL.Model;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -39,6 +40,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 
             var response = await App.Connection.Run(query);
 
+            #region copying
             List<Models.Issue> items = new();
 
             foreach (var res in response)
@@ -48,7 +50,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 
                 item.IsClosed = res.Closed;
 
-                foreach(var label in res.Labels)
+                foreach (var label in res.Labels)
                 {
                     Models.Label labels = new();
                     labels.Color = label.Color;
@@ -66,6 +68,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 
                 items.Add(item);
             }
+            #endregion
 
             return items;
         }
@@ -142,7 +145,6 @@ namespace FluentHub.Octokit.Queries.Repositories
 
         public void GetDetails(string owner, string name, int number)
         {
-
         }
     }
 }

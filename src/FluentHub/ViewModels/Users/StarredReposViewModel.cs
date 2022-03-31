@@ -1,55 +1,85 @@
-﻿using FluentHub.Octokit.Queries.Users;
+﻿using FluentHub.Backend;
+using FluentHub.Octokit.Models;
+using FluentHub.Models;
+using FluentHub.Octokit.Queries.Users;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
-using Octokit;
+using Humanizer;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
+using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.Users
 {
-    public class StarredReposViewModel : INotifyPropertyChanged
+    public class StarredReposViewModel : ObservableObject
     {
-        public ObservableCollection<RepoButtonBlockViewModel> Items { get; private set; } = new();
-
-        public async void GetUserStarredRepos(string login)
+        #region constructor        
+        public StarredReposViewModel(IMessenger messenger = null, ILogger logger = null)
         {
-            IsActive = true;
+            _messenger = messenger;
+            _logger = logger;
+            _messenger = messenger;
+            _repositories = new();
+            Repositories = new(_repositories);
 
-            StarredRepoQueries queries = new();
-            var items = await queries.GetOverviewAll(login);
-
-            foreach (var item in items)
-            {
-                RepoButtonBlockViewModel viewModel = new();
-                viewModel.Item = item;
-                viewModel.DisplayDetails = true;
-                viewModel.DisplayStarButton = true;
-
-                Items.Add(viewModel);
-            }
-
-            IsActive = false;
+            RefreshRepositoriesCommand = new AsyncRelayCommand<string>(RefreshRepositoriesAsync);
         }
+        #endregion
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
+        #region fields
+        private readonly IMessenger _messenger;
+        private readonly ILogger _logger;
+        private readonly ObservableCollection<RepoButtonBlockViewModel> _repositories;
+        #endregion
+
+        #region properties        
+        public ReadOnlyObservableCollection<RepoButtonBlockViewModel> Repositories { get; }
+        public IAsyncRelayCommand RefreshRepositoriesCommand { get; }
+        #endregion
+
+        #region methods
+        private async Task RefreshRepositoriesAsync(string login, CancellationToken token)
         {
-            if (!Equals(field, newValue))
+            try
             {
-                field = newValue;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-                return true;
+                StarredRepoQueries queries = new();
+                List<Repository> items;
+
+                items = login == null ?
+                    await queries.GetAllAsync() :
+                    await queries.GetAllAsync(login);
+
+                if (items == null) return;
+
+                _repositories.Clear();
+                foreach (var item in items)
+                {
+                    RepoButtonBlockViewModel viewModel = new()
+                    {
+                        Item = item,
+                        DisplayDetails = true,
+                        DisplayStarButton = false
+                    };
+
+                    _repositories.Add(viewModel);
+                }
             }
-
-            return false;
+            catch (OperationCanceledException) { }
+            catch (Exception ex)
+            {
+                _logger?.Error("RefreshRepositoriesAsync", ex);
+                if (_messenger != null)
+                {
+                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+                    _messenger.Send(notification);
+                }
+                throw;
+            }
         }
-
-        private bool isActive;
-        public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
+        #endregion
     }
 }

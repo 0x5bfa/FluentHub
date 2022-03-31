@@ -1,5 +1,6 @@
 ﻿using Octokit.GraphQL;
 using Octokit.GraphQL.Model;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 
             if (string.IsNullOrEmpty(path)) path = ".";
 
+            #region query
             var query = new Query()
                     .Repository(name, owner)
                     .Ref(branchName)
@@ -37,9 +39,11 @@ namespace FluentHub.Octokit.Queries.Repositories
                         x.TotalCount,
                     })
                     .Compile();
+            #endregion
 
             var result = await App.Connection.Run(query);
 
+            #region copying
             Models.Commit item = new();
             item.AbbreviatedOid = result.CommitSummary[0].AbbreviatedOid;
             item.AuthorAvatarUrl = result.CommitSummary[0].AuthorAvatarUrl;
@@ -47,6 +51,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             item.CommitMessage = result.CommitSummary[0].Message;
             item.CommittedDate = result.CommitSummary[0].CommittedDate;
             item.TotalCount = result.TotalCount;
+            #endregion
 
             return item;
         }
@@ -55,7 +60,7 @@ namespace FluentHub.Octokit.Queries.Repositories
         {
             path = path.Remove(0, 1);
 
-            // query to get file info
+            #region query
             var queryToGetFileInfo = new Query()
                 .Repository(name, owner)
                 .Object(expression: branchName + ":" + path)
@@ -68,9 +73,11 @@ namespace FluentHub.Octokit.Queries.Repositories
                     x.Type,
                 })
                 .Compile();
+            #endregion
 
             var response1 = await App.Connection.Run(queryToGetFileInfo);
 
+            #region copying
             List<Models.Commit> items = new();
 
             foreach (var res1 in response1)
@@ -115,6 +122,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 
                 items.Add(item);
             }
+            #endregion
 
             return items;
         }

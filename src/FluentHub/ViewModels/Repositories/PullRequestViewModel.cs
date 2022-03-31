@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FluentHub.Helpers
+namespace FluentHub.ViewModels.Repositories
 {
-    public static class Base64Helpers
+    internal class PullRequestViewModel
     {
     }
 }

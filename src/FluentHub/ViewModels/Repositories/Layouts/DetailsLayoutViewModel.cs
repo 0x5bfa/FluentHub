@@ -17,25 +17,23 @@ namespace FluentHub.ViewModels.Repositories.Layouts
     {
         public ObservableCollection<DetailsLayoutListViewItem> Items { get; private set; } = new();
 
-        private CommonRepoViewModel commonRepoViewModel;
-        public CommonRepoViewModel CommonRepoViewModel { get => commonRepoViewModel; set => SetProperty(ref commonRepoViewModel, value); }
-
-        private ReadmeContentBlockViewModel readmeBlockViewModel;
-        public ReadmeContentBlockViewModel ReadmeBlockViewModel { get => readmeBlockViewModel; set => SetProperty(ref readmeBlockViewModel, value); }
+        private RepoContextViewModel contextViewModel;
+        public RepoContextViewModel ContextViewModel { get => contextViewModel; set => SetProperty(ref contextViewModel, value); }
 
         public async Task EnumRepositoryContents()
         {
             CommitQueries queries = new();
-            var fileOverviews = await queries.GetOverviewAllFilesAndLatestCommit(CommonRepoViewModel.Name,
-                    CommonRepoViewModel.Owner,
-                    CommonRepoViewModel.BranchName,
-                    CommonRepoViewModel.Path);
+            var fileOverviews = await queries.GetOverviewAllFilesAndLatestCommit(
+                ContextViewModel.Name,
+                ContextViewModel.Owner,
+                ContextViewModel.BranchName,
+                ContextViewModel.Path);
 
-            CommonRepoViewModel.IsDir = true;
+            ContextViewModel.IsDir = true;
 
-            if (CommonRepoViewModel.Path == "/")
+            if (ContextViewModel.Path == "/")
             {
-                CommonRepoViewModel.IsRootDir = true;
+                ContextViewModel.IsRootDir = true;
             }
 
             foreach (var overview in fileOverviews)
@@ -63,11 +61,6 @@ namespace FluentHub.ViewModels.Repositories.Layouts
             var orderedByItemType = new ObservableCollection<DetailsLayoutListViewItem>(Items.OrderByDescending(x => x.ObjectTypeIconGlyph));
             Items.Clear();
             foreach (var orderedItem in orderedByItemType) Items.Add(orderedItem);
-
-            ReadmeContentBlockViewModel readmeViewModel = new();
-            readmeViewModel.Owner = CommonRepoViewModel.Owner;
-            readmeViewModel.RepoName = CommonRepoViewModel.Name;
-            ReadmeBlockViewModel = readmeViewModel;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

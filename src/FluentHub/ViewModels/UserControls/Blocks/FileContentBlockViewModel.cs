@@ -13,8 +13,8 @@ namespace FluentHub.ViewModels.UserControls.Blocks
 {
     public class FileContentBlockViewModel : INotifyPropertyChanged
     {
-        private CommonRepoViewModel commonRepoViewModel;
-        public CommonRepoViewModel CommonRepoViewModel
+        private RepoContextViewModel commonRepoViewModel;
+        public RepoContextViewModel CommonRepoViewModel
         {
             get => commonRepoViewModel;
             set => SetProperty(ref commonRepoViewModel, value);
@@ -35,7 +35,7 @@ namespace FluentHub.ViewModels.UserControls.Blocks
         public async Task GetFileContent()
         {
             BlobQueries queries = new();
-            var content = await queries.Get(
+            var content = await queries.GetAsync(
                 CommonRepoViewModel.Name,
                 CommonRepoViewModel.Owner,
                 CommonRepoViewModel.BranchName,

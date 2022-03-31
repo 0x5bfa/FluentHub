@@ -18,35 +18,17 @@ namespace FluentHub.UserControls.ButtonBlocks
             get => (RepoButtonBlockViewModel)GetValue(ViewModelProperty);
             set
             {
-                SetValue(ViewModelProperty, value);
-                this.DataContext = ViewModel;
-                ViewModel?.GetColorBrush();
-                UpdateVisibility();
+                SetValue(ViewModelProperty, value);                
+                ViewModel?.GetColorBrush();        
             }
         }
         #endregion
 
-        public RepoButtonBlock() => InitializeComponent();
-
-        public void UpdateVisibility()
+        public RepoButtonBlock() => InitializeComponent();      
+        private void RepoBlockButton_Click(object sender, RoutedEventArgs e)
         {
-            if (ViewModel?.Item?.PrimaryLangName == null)
-            {
-                LanguageBlock.Visibility = Visibility.Collapsed;
-            }
-
-            // does not work property
-            if (LicenseBlock != null && string.IsNullOrEmpty(ViewModel?.Item.LicenseName))
-            {
-                LicenseBlock.Visibility = Visibility.Collapsed;
-            }
-        }
-
-        private async void RepoBlockButton_Click(object sender, RoutedEventArgs e)
-        {
-            var repo = await App.Client.Repository.Get(ViewModel.Item.Owner, ViewModel.Item.Name);
             var service = App.Current.Services.GetRequiredService<INavigationService>();
-            service.Navigate<Views.Repositories.OverviewPage>(repo.Id.ToString());
+            service.Navigate<Views.Repositories.OverviewPage>(ViewModel.Item);
         }
     }
 }

@@ -26,10 +26,7 @@ namespace FluentHub.ViewModels.UserControls.Blocks
         public IssueCommentItem IssueComment
         {
             get => issueComment;
-            set
-            {
-                SetProperty(ref issueComment, value);
-            }
+            set => SetProperty(ref issueComment, value);
         }
 
         private string bodyHtml;

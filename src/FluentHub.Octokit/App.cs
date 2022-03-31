@@ -17,17 +17,20 @@ namespace FluentHub.Octokit
         public static global::Octokit.GitHubClient Client { get; private set; }
             = new global::Octokit.GitHubClient(new global::Octokit.ProductHeaderValue("FluentHub"));
         public static string AccessToken { get; private set; }
+        public static bool InitializedLogger { get; private set; }
 
         public App()
         {
-            if (Log.Logger == null)
+            if (InitializedLogger == false)
             {
                 IntializeLogger();
+                AccessToken = GetTokenFromApp();
             }
 
             if (Connection == null)
             {
-                Connection= new Connection(productInformation, GetTokenFromApp());
+                Connection= new Connection(productInformation, AccessToken);
+                Client.Credentials = new global::Octokit.Credentials(AccessToken);
             }
         }
 
@@ -50,14 +53,14 @@ namespace FluentHub.Octokit
 
         private void IntializeLogger()
         {
-            string logFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "FluentHub.Octokit.Logs/Log.txt");
+            string logFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "FluentHub.Octokit.Logs/Log.log");
 
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
-                .WriteTo.File(logFilePath, rollingInterval: RollingInterval.Day)
+                .WriteTo.File(path: logFilePath, rollingInterval: RollingInterval.Day)
                 .CreateLogger();
 
-            Log.Debug("Initialized logger in FluentHub.Octokit.");
+            InitializedLogger = true;
         }
     }
 }

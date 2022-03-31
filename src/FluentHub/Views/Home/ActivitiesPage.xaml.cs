@@ -1,8 +1,12 @@
 ﻿using FluentHub.Services;
+using FluentHub.ViewModels.Home;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Toolkit.Uwp;
+using System;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Views.Home
 {
@@ -11,26 +15,31 @@ namespace FluentHub.Views.Home
         public ActivitiesPage()
         {
             InitializeComponent();
-            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
+
+            var provider = App.Current.Services;
+            ViewModel = provider.GetRequiredService<ActivitiesViewModel>();
+            navigationService = provider.GetRequiredService<INavigationService>();
         }
 
         private readonly INavigationService navigationService;
+        public ActivitiesViewModel ViewModel { get; }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            // save navigation info
+            DataContext = e.Parameter;
+
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Activities";
             currentItem.Description = "Viewer's activities";
             currentItem.Url = "https://github.com";
-            currentItem.Icon = new Microsoft.UI.Xaml.Controls.FontIconSource
+            currentItem.Icon = new muxc.ImageIconSource
             {
-                Glyph = "\uECAD"
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Activities.png"))
             };
 
-            //"Viewer's activities", "https://github.com", "\uECAD");
-
-            await ViewModel.GetAllActivityForCurrent(e.Parameter as string);
+            var command = ViewModel.RefreshActivitiesCommand;
+            if (command.CanExecute(DataContext))
+                command.Execute(DataContext);
         }
     }
 }
