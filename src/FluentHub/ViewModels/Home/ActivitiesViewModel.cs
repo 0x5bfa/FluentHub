@@ -1,4 +1,5 @@
 ﻿using FluentHub.Backend;
+using FluentHub.Octokit.Models;
 using FluentHub.Models;
 using FluentHub.Octokit.Queries.Users;
 using FluentHub.ViewModels.UserControls.Blocks;
@@ -9,6 +10,7 @@ using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace FluentHub.ViewModels.Home
 {
@@ -17,10 +19,11 @@ namespace FluentHub.ViewModels.Home
         public ActivitiesViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _logger = logger;
+            _messenger = messenger;
             _activities = new();
             Activities = new(_activities);
 
-            RefreshActivitiesCommand = new AsyncRelayCommand<string>(RefreshActivitiesAsync, CanRefreshActivities);
+            RefreshActivitiesCommand = new AsyncRelayCommand<string>(RefreshActivitiesAsync);
         }
 
         private readonly IMessenger _messenger;
@@ -29,15 +32,16 @@ namespace FluentHub.ViewModels.Home
         public ReadOnlyObservableCollection<ActivityBlockViewModel> Activities { get; }
         public IAsyncRelayCommand RefreshActivitiesCommand { get; }
 
-        private bool CanRefreshActivities(string username) => !string.IsNullOrEmpty(username);
-
-        private async Task RefreshActivitiesAsync(string username)
+        private async Task RefreshActivitiesAsync(string login)
         {
             try
             {
                 ActivityQueries queries = new();
+                List<Activity> items;
 
-                var items = await queries.GetAllAsync(username);
+                items = login == null ?
+                    await queries.GetAllAsync() :
+                    await queries.GetAllAsync(login);
 
                 if (items == null) return;
 

@@ -36,6 +36,7 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
+
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -46,7 +47,9 @@
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
+
                     <uc:AvatarControl AvatarUrl="{x:Bind ViewModel.UserItem.AvatarUrl, Mode=OneWay}" WidthAndHeight="84" />
+
                     <StackPanel
                         Grid.Column="1"
                         Margin="12,0,0,0"
@@ -97,6 +100,7 @@
                     </toolkit:SwitchPresenter>
 
                 </Grid>
+
                 <toolkit:WrapPanel
                     Grid.Row="1"
                     Margin="0,12,0,0"
@@ -173,7 +177,7 @@
                             Style="{ThemeResource BodyTextBlockStyle}"
                             Text="Developer Program Member" />
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Orientation="Horizontal" Visibility="{x:Bind ViewModel.UserItem.FollowersTotalCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
                         <FontIcon
                             Margin="0,0,4,0"
                             VerticalAlignment="Center"
@@ -229,6 +233,7 @@
                         </Button>
                     </StackPanel>
                 </toolkit:WrapPanel>
+
                 <toolkit:WrapPanel
                     Grid.Row="2"
                     Margin="0,4,0,0"
@@ -244,6 +249,32 @@
                         LabelBackground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         LabelText="Bounty hunter" />-->
                 </toolkit:WrapPanel>
+
+                <toolkit:SwitchPresenter
+                    Grid.RowSpan="3"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    TargetType="x:Boolean"
+                    Value="{x:Bind ViewModel.RefreshUserCommand.IsRunning, Mode=OneWay}">
+
+                    <toolkit:Case Value="True">
+                        <muxc:ProgressRing IsActive="True" />
+                    </toolkit:Case>
+
+                    <toolkit:Case Value="False">
+                        <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.RefreshUserCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
+                            <toolkit:Case Value="True">
+                                <HyperlinkButton Command="{x:Bind ViewModel.RefreshUserCommand}">
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <FontIcon FontSize="16" Glyph="&#xE149;" />
+                                        <TextBlock Text="Refresh" />
+                                    </StackPanel>
+                                </HyperlinkButton>
+                            </toolkit:Case>
+                        </toolkit:SwitchPresenter>
+                    </toolkit:Case>
+
+                </toolkit:SwitchPresenter>
             </Grid>
             <Grid
                 Grid.Row="1"
@@ -321,7 +352,7 @@
             <Frame
                 x:Name="UserNavViewContent"
                 Grid.Row="2"
-                Margin="-12,0,-12,0" />
+                Margin="-12,0" />
         </Grid>
     </ScrollViewer>
 </Page>

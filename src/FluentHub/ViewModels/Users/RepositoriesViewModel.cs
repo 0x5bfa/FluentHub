@@ -1,11 +1,14 @@
 ﻿using FluentHub.Backend;
+using FluentHub.Octokit.Models;
 using FluentHub.Models;
 using FluentHub.Octokit.Queries.Users;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
+using Humanizer;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
@@ -20,7 +23,7 @@ namespace FluentHub.ViewModels.Users
             _repositories = new();
             Repositories = new(_repositories);
 
-            RefreshRepositoriesCommand = new AsyncRelayCommand<string>(RefreshRepositoriesAsync, CanRefreshRepositories);
+            RefreshRepositoriesCommand = new AsyncRelayCommand<string>(RefreshRepositoriesAsync);
         }
 
         private readonly IMessenger _messenger;
@@ -30,14 +33,16 @@ namespace FluentHub.ViewModels.Users
 
         public IAsyncRelayCommand RefreshRepositoriesCommand { get; }
 
-        private bool CanRefreshRepositories(string login) => !string.IsNullOrEmpty(login);
-
         private async Task RefreshRepositoriesAsync(string login)
         {
             try
             {
                 RepositoryQueries queries = new();
-                var items = await queries.GetAllAsync(login);
+                List<Repository> items;
+
+                items = login == null ?
+                    await queries.GetAllAsync() :
+                    await queries.GetAllAsync(login);
 
                 if (items == null) return;
 

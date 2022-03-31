@@ -1,4 +1,5 @@
 ﻿using FluentHub.Backend;
+using FluentHub.Octokit.Models;
 using FluentHub.Models;
 using FluentHub.Octokit.Queries.Users;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
@@ -7,6 +8,7 @@ using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
@@ -17,11 +19,11 @@ namespace FluentHub.ViewModels.Users
         public PullRequestsViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _logger = logger;
-
+            _messenger = messenger;
             _pullRequests = new();
             PullItems = new(_pullRequests);
 
-            RefreshPullRequestsCommand = new AsyncRelayCommand<string>(RefreshPullRequestsAsync, CanRefreshPullRequests);
+            RefreshPullRequestsCommand = new AsyncRelayCommand<string>(RefreshPullRequestsAsync);
         }
 
         private readonly ILogger _logger;
@@ -31,14 +33,16 @@ namespace FluentHub.ViewModels.Users
 
         public IAsyncRelayCommand RefreshPullRequestsCommand { get; }
 
-        private bool CanRefreshPullRequests(string username) => !string.IsNullOrEmpty(username);
-
-        private async Task RefreshPullRequestsAsync(string username)
+        private async Task RefreshPullRequestsAsync(string login)
         {
             try
             {
                 PullRequestQueries queries = new();
-                var items = await queries.GetOverviewAllAsync(username);
+                List<PullRequest> items;
+
+                items = login == null ?
+                    await queries.GetAllAsync() :
+                    await queries.GetAllAsync(login);
 
                 if (items == null) return;
 

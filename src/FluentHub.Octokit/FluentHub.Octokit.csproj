@@ -134,6 +134,7 @@
     <Compile Include="Models\Organization.cs" />
     <Compile Include="Models\PullRequest.cs" />
     <Compile Include="Models\User.cs" />
+    <Compile Include="Models\UserStatus.cs" />
     <Compile Include="Queries\MarkdownQueries.cs" />
     <Compile Include="Queries\Organizations\RepositoryQueries.cs" />
     <Compile Include="Queries\Organizations\OrganizationQueries.cs" />
@@ -158,7 +159,6 @@
     <Compile Include="Models\Repository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\Users\UserQueries.cs" />
-    <Compile Include="Queries\Users\ViewerQueries.cs" />
     <EmbeddedResource Include="Properties\FluentHub.Octokit.rd.xml" />
   </ItemGroup>
   <ItemGroup>

@@ -39,7 +39,7 @@ namespace FluentHub.Converters
             }
 
             if (value is string s)
-                return string.IsNullOrWhiteSpace(s) ? falseValue : trueValue;
+                return string.IsNullOrWhiteSpace(s) || string.IsNullOrEmpty(s) ? falseValue : trueValue;
 
             var type = value.GetType();
             if (type.IsValueType)

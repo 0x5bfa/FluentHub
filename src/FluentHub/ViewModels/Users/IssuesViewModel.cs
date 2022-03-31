@@ -1,5 +1,6 @@
 ﻿using FluentHub.Backend;
 using FluentHub.Models;
+using FluentHub.Octokit.Models;
 using FluentHub.Octokit.Queries.Users;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
 using Humanizer;
@@ -7,6 +8,7 @@ using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
@@ -14,32 +16,41 @@ namespace FluentHub.ViewModels.Users
 {
     public class IssuesViewModel : ObservableObject
     {
+        #region constructor
         public IssuesViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _logger = logger;
-
+            _messenger = messenger;
             _issueItems = new();
             IssueItems = new(_issueItems);
 
-            RefreshIssuesCommand = new AsyncRelayCommand<string>(RefreshIssuesAsync, CanRefreshIssues);
+            RefreshIssuesCommand = new AsyncRelayCommand<string>(RefreshIssuesAsync);
         }
+        #endregion
 
+        #region fields
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
         private readonly ObservableCollection<IssueButtonBlockViewModel> _issueItems;
+        #endregion
 
+        #region properties
         public ReadOnlyObservableCollection<IssueButtonBlockViewModel> IssueItems { get; }
 
         public IAsyncRelayCommand RefreshIssuesCommand { get; }
+        #endregion
 
-        private bool CanRefreshIssues(string username) => !string.IsNullOrEmpty(username);
-
-        private async Task RefreshIssuesAsync(string username)
+        #region methods
+        private async Task RefreshIssuesAsync(string login)
         {
             try
             {
                 IssueQueries queries = new();
-                var items = await queries.GetOverviewAllAsync(username);
+                List<Issue> items;
+
+                items = login == null ?
+                    await queries.GetAllAsync() :
+                    await queries.GetAllAsync(login);
 
                 if (items == null) return;
 
@@ -67,5 +78,6 @@ namespace FluentHub.ViewModels.Users
                 throw;
             }
         }
+        #endregion
     }
 }

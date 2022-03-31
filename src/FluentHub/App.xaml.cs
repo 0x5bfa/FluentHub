@@ -94,20 +94,17 @@ namespace FluentHub
                 .AddTransient<ViewModels.AppSettings.AppearanceViewModel>()
                 .AddTransient<ViewModels.Home.NotificationsViewModel>()
                 .AddTransient<ViewModels.Home.ActivitiesViewModel>()
+                .AddTransient<ViewModels.Users.FollowersViewModel>()
+                .AddTransient<ViewModels.Users.FollowingViewModel>()
                 .AddTransient<ViewModels.Users.ProfilePageViewModel>()
                 .AddTransient<ViewModels.Users.IssuesViewModel>()
+                .AddTransient<ViewModels.Users.OverviewViewModel>()
                 .AddTransient<ViewModels.Users.PullRequestsViewModel>()
                 .AddTransient<ViewModels.Users.DiscussionsViewModel>()
                 .AddTransient<ViewModels.Users.RepositoriesViewModel>()
                 .AddTransient<ViewModels.Users.OrganizationsViewModel>()
                 .AddTransient<ViewModels.Users.StarredReposViewModel>()
                 .BuildServiceProvider();
-        }
-
-        private async Task GetViewerLoginName()
-        {
-            ViewerQueries queries = new();
-            SignedInUserName = await queries.GetLoginName();
         }
 
         private static ILogger GetSerilogLogger()
@@ -149,7 +146,6 @@ namespace FluentHub
                 {
                     // temp: copy credentials to main thread app (will be removed)
                     Client.Credentials = new Credentials(Settings.AccessToken);
-                    await GetViewerLoginName();
 
                     rootFrame.Navigate(typeof(MainPage));
                 }
@@ -230,7 +226,6 @@ namespace FluentHub
                     if (status)
                     {
                         Settings.SetupCompleted = true;
-                        await GetViewerLoginName();
 
                         rootFrame.Navigate(typeof(MainPage));
                     }

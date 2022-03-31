@@ -1,11 +1,15 @@
 ﻿using FluentHub.Backend;
-using FluentHub.Models;
 using FluentHub.Octokit.Models;
+using FluentHub.Models;
 using FluentHub.Octokit.Queries.Users;
+using FluentHub.ViewModels.UserControls.ButtonBlocks;
+using Humanizer;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.Users
@@ -15,8 +19,8 @@ namespace FluentHub.ViewModels.Users
         public ProfilePageViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _logger = logger;
-
-            LoadUserCommand = new AsyncRelayCommand<string>(LoadUserAsync, CanLoadUser);
+            _messenger = messenger;
+            RefreshUserCommand = new AsyncRelayCommand<string>(LoadUserAsync);
         }
 
         private readonly ILogger _logger;
@@ -37,16 +41,14 @@ namespace FluentHub.ViewModels.Users
         private Uri _builtWebsiteUrl;
         public Uri BuiltWebsiteUrl { get => _builtWebsiteUrl; set => SetProperty(ref _builtWebsiteUrl, value); }
 
-        public IAsyncRelayCommand LoadUserCommand { get; }
+        public IAsyncRelayCommand RefreshUserCommand { get; }
 
-        private bool CanLoadUser(string username) => !string.IsNullOrEmpty(username);
-
-        private async Task LoadUserAsync(string username)
+        private async Task LoadUserAsync(string login)
         {
             try
             {
                 UserQueries queries = new();
-                UserItem = await queries.GetAsync(username);
+                UserItem = await queries.GetAsync(login);
 
                 if (UserItem == null) return;
 

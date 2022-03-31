@@ -36,7 +36,7 @@ namespace FluentHub.Views.Users
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Profile.png"))
             };
 
-            var command = ViewModel.LoadUserCommand;
+            var command = ViewModel.RefreshUserCommand;
             if (command.CanExecute(DataContext))
                 command.Execute(DataContext);
         }

@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:bbvm="using:FluentHub.ViewModels.UserControls.ButtonBlocks"
     xmlns:block="using:FluentHub.UserControls.ButtonBlocks"
+    xmlns:converters="using:FluentHub.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -32,22 +33,6 @@
                 Text="Discussions" />
         </StackPanel>
 
-        <muxc:InfoBar
-            Title="Something went wrong"
-            Grid.Row="1"
-            Margin="12,0"
-            IsClosable="False"
-            IsOpen="{x:Bind ViewModel.RefreshDiscussionsCommand.ExecutionTask.IsFaulted, Mode=OneWay}"
-            Message="{x:Bind ViewModel.RefreshDiscussionsCommand.ExecutionTask.Exception.InnerException.Message, Mode=OneWay}"
-            Severity="Error">
-            <muxc:InfoBar.ActionButton>
-                <HyperlinkButton
-                    Command="{x:Bind ViewModel.RefreshDiscussionsCommand}"
-                    CommandParameter="{Binding}"
-                    Content="Refresh" />
-            </muxc:InfoBar.ActionButton>
-        </muxc:InfoBar>
-
         <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto">
             <muxc:ItemsRepeater Margin="12,2,12,12" ItemsSource="{x:Bind ViewModel.DiscussionItems, Mode=OneWay}">
                 <DataTemplate x:DataType="bbvm:DiscussionButtonBlockViewModel">
@@ -64,15 +49,32 @@
             VerticalAlignment="Center"
             TargetType="x:Boolean"
             Value="{x:Bind ViewModel.RefreshDiscussionsCommand.IsRunning, Mode=OneWay}">
+
+            <toolkit:Case Value="True">
+                <muxc:ProgressRing IsActive="True" />
+            </toolkit:Case>
+
             <toolkit:Case Value="False">
-                <toolkit:SwitchPresenter TargetType="x:Int32" Value="{x:Bind ViewModel.DiscussionItems.Count, Mode=OneWay}">
-                    <toolkit:Case Value="0">
-                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="No items available." />
+                <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.RefreshDiscussionsCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
+                    <toolkit:Case Value="True">
+                        <HyperlinkButton Command="{x:Bind ViewModel.RefreshDiscussionsCommand}">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon FontSize="16" Glyph="&#xE149;" />
+                                <TextBlock Text="Refresh" />
+                            </StackPanel>
+                        </HyperlinkButton>
+                    </toolkit:Case>
+
+                    <toolkit:Case Value="False">
+                        <toolkit:SwitchPresenter TargetType="x:Int32" Value="{x:Bind ViewModel.DiscussionItems.Count, Mode=OneWay}">
+                            <toolkit:Case Value="0">
+                                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="No items available" />
+                            </toolkit:Case>
+                        </toolkit:SwitchPresenter>
                     </toolkit:Case>
                 </toolkit:SwitchPresenter>
             </toolkit:Case>
-        </toolkit:SwitchPresenter>
 
-        <muxc:ProgressRing Grid.RowSpan="3" IsActive="{x:Bind ViewModel.RefreshDiscussionsCommand.IsRunning, Mode=OneWay}" />
+        </toolkit:SwitchPresenter>
     </Grid>
 </Page>

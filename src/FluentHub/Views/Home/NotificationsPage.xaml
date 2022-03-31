@@ -41,6 +41,7 @@
                 Style="{StaticResource BodyStrongTextBlockStyle}"
                 Text="Notifications" />
         </StackPanel>
+
         <StackPanel
             Margin="16,12,16,4"
             HorizontalAlignment="Right"
@@ -83,15 +84,12 @@
             <toolkit:Case Value="False">
                 <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.RefreshNotificationsCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
                     <toolkit:Case Value="True">
-                        <Button
-                            MinWidth="100"
-                            Command="{x:Bind ViewModel.RefreshNotificationsCommand}"
-                            Style="{ThemeResource AccentButtonStyle}">
+                        <HyperlinkButton Command="{x:Bind ViewModel.RefreshNotificationsCommand}">
                             <StackPanel Orientation="Horizontal" Spacing="8">
                                 <FontIcon FontSize="16" Glyph="&#xE149;" />
                                 <TextBlock Text="Refresh" />
                             </StackPanel>
-                        </Button>
+                        </HyperlinkButton>
                     </toolkit:Case>
 
                     <toolkit:Case Value="False">

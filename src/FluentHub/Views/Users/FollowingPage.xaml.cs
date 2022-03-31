@@ -1,4 +1,5 @@
 ﻿using FluentHub.Services;
+using FluentHub.ViewModels.Users;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Uwp;
 using Windows.UI.Xaml.Controls;
@@ -11,27 +12,31 @@ namespace FluentHub.Views.Users
         public FollowingPage()
         {
             InitializeComponent();
+
+            var provider = App.Current.Services;
+            ViewModel = provider.GetRequiredService<FollowingViewModel>();
             navigationService = App.Current.Services.GetRequiredService<INavigationService>();
         }
 
         private readonly INavigationService navigationService;
+        public FollowingViewModel ViewModel { get; }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            string login = e.Parameter as string;
+            DataContext = e.Parameter;
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = $"Following";
-            currentItem.Description = $"{login}'s followers";
-            currentItem.Url = $"https://github.com/{login}?tab=following";
+            currentItem.Description = $"{DataContext}'s followers";
+            currentItem.Url = $"https://github.com/{DataContext}?tab=following";
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.FontIconSource
             {
                 Glyph = "\uE737"
             };
 
-            await ViewModel.GetFollowingList(login);
-
-            base.OnNavigatedTo(e);
+            var command = ViewModel.RefreshFollowingCommand;
+            if (command.CanExecute(DataContext))
+                command.Execute(DataContext);
         }
     }
 }

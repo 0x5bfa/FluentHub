@@ -14,7 +14,7 @@ namespace FluentHub.ViewModels.Home
 {
     public class NotificationsViewModel : ObservableObject
     {
-        #region constructor        
+        #region constructor
         public NotificationsViewModel(IGitHubClient client!!, IMessenger messenger = null, ILogger logger = null)
         {
             _client = client;
@@ -51,7 +51,7 @@ namespace FluentHub.ViewModels.Home
         private async Task RefreshNotificationsAsync()
         {
             try
-            {                
+            {
                 NotificationsRequest request = new()
                 {
                     All = true

@@ -1,11 +1,14 @@
 ﻿using FluentHub.Backend;
+using FluentHub.Octokit.Models;
 using FluentHub.Models;
 using FluentHub.Octokit.Queries.Users;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
+using Humanizer;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
@@ -16,11 +19,11 @@ namespace FluentHub.ViewModels.Users
         public OrganizationsViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _logger = logger;
-
+            _messenger = messenger;
             _organizations = new();
             Organizations = new(_organizations);
 
-            RefreshOrganizationsCommand = new AsyncRelayCommand<string>(RefreshOrganizationsAsync, CanRefreshOrganizations);
+            RefreshOrganizationsCommand = new AsyncRelayCommand<string>(RefreshOrganizationsAsync);
         }
 
         private readonly ILogger _logger;
@@ -30,14 +33,16 @@ namespace FluentHub.ViewModels.Users
 
         public IAsyncRelayCommand RefreshOrganizationsCommand { get; }
 
-        private bool CanRefreshOrganizations(string username) => !string.IsNullOrEmpty(username);
-
-        private async Task RefreshOrganizationsAsync(string username)
+        private async Task RefreshOrganizationsAsync(string login)
         {
             try
             {
                 OrganizationQueries queries = new();
-                var items = await queries.GetAllAsync(username);
+                List<Organization> items;
+
+                items = login == null ?
+                    await queries.GetAllAsync() :
+                    await queries.GetAllAsync(login);
 
                 if (items == null) return;
 

@@ -1,4 +1,5 @@
 ﻿using FluentHub.Backend;
+using FluentHub.Octokit.Models;
 using FluentHub.Models;
 using FluentHub.Octokit.Queries.Users;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
@@ -7,6 +8,7 @@ using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 
@@ -21,7 +23,7 @@ namespace FluentHub.ViewModels.Users
             _discussions = new();
             DiscussionItems = new(_discussions);
 
-            RefreshDiscussionsCommand = new AsyncRelayCommand<string>(RefreshDiscussionsAsync, CanRefreshDiscussions);
+            RefreshDiscussionsCommand = new AsyncRelayCommand<string>(RefreshDiscussionsAsync);
         }
 
         private readonly IMessenger _messenger;
@@ -32,12 +34,16 @@ namespace FluentHub.ViewModels.Users
 
         private bool CanRefreshDiscussions(string username) => !string.IsNullOrEmpty(username);
 
-        private async Task RefreshDiscussionsAsync(string username)
+        private async Task RefreshDiscussionsAsync(string login)
         {
             try
             {
                 DiscussionQueries queries = new();
-                var items = await queries.GetOverviewAllAsync(username);
+                List<Discussion> items;
+
+                items = login == null ?
+                    await queries.GetAllAsync() :
+                    await queries.GetAllAsync(login);
 
                 if (items == null) return;
 
