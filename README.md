@@ -22,19 +22,25 @@
 
 ![image](https://user-images.githubusercontent.com/62196528/160380436-ab822a43-ca2c-427d-b41c-a6d6700bd999.png)
 
-## Building from source
+## Build
 
-If you build this project, you need to take a look at [this instructions](docs/building-from-source.md).
+- [Build from source](docs/build-from-source.md)
+- Authentication methods may change unexpectedly
+- Expect regular breaking changes.
+
+## FAQ
+
+Any questions? Ask on our [Discord server](https://discord.com/channels/935562861701390336).
+
+## Contributing
+
+- [How to contribute?](docs/CONTRIBUTING.md)
+- Have any concepts/bugs? let us know in GitHub [issue](https://github.com/fluenthub-community/FluentHub/issues)/[PR](https://github.com/fluenthub-community/FluentHub/pulls).
 
 ## Privacy
 
 We may use the App Center to track the settings used, find bugs and fix crashes. The information sent to the App Center is anonymous and does not contain any user or contextual data.
 
-## Our goals
-
-- Our goal is not to imitate the GitHub UI, but to provide a Fluent Design compliant UI and a more experience.
-- Some pages on GitHub have a potential bug that loads all the information(such as file changes, issue, PR pages) and slows down your browser. We will subdivide our data so that we provide more data when users need it.
-
 ## Translations
 
-Before updating localize resources, follow [this instructions](docs/translations.md).
+- [how to provide resources](docs/translations.md).
