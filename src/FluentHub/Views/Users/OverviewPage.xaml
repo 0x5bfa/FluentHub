@@ -13,7 +13,7 @@
     xmlns:vm="using:FluentHub.ViewModels.Users"
     mc:Ignorable="d">
 
-    <Grid RowSpacing="12">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -36,7 +36,7 @@
 
         <ScrollViewer
             Grid.Row="1"
-            Margin="0,4,0,0"
+            Margin="12,4,12,0"
             HorizontalScrollBarVisibility="Hidden"
             VerticalScrollBarVisibility="Disabled"
             VerticalScrollMode="Disabled">
@@ -57,6 +57,7 @@
         <contents:ReadmeContentBlock
             x:Name="UserSpecialReadmeBlock"
             Grid.Row="1"
+            Margin="12,12,12,12"
             VerticalAlignment="Top"
             ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
 

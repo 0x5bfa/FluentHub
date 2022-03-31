@@ -48,7 +48,9 @@ namespace FluentHub.ViewModels.Users
             try
             {
                 UserQueries queries = new();
-                UserItem = await queries.GetAsync(login);
+                UserItem = login == null ?
+                    await queries.GetAsync() :
+                    await queries.GetAsync(login);
 
                 if (UserItem == null) return;
 
