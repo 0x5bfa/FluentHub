@@ -8,6 +8,7 @@ using Microsoft.Toolkit.Mvvm.Messaging;
 using Octokit;
 using System;
 using System.Collections.ObjectModel;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.Home
@@ -38,7 +39,6 @@ namespace FluentHub.ViewModels.Home
 
         #region properties
         public ReadOnlyObservableCollection<NotificationButtonBlockViewModel> NotificationItems { get; }
-
         public IAsyncRelayCommand RefreshNotificationsCommand { get; }
         public int UnreadCount
         {
@@ -48,7 +48,7 @@ namespace FluentHub.ViewModels.Home
         #endregion
 
         #region methods
-        private async Task RefreshNotificationsAsync()
+        private async Task RefreshNotificationsAsync(CancellationToken token)
         {
             try
             {
@@ -83,6 +83,7 @@ namespace FluentHub.ViewModels.Home
                     }
                 }
             }
+            catch (OperationCanceledException) { }
             catch (Exception ex)
             {
                 _logger?.Error("RefreshNotificationsAsync", ex);

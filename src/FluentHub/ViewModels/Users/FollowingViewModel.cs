@@ -10,6 +10,7 @@ using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.Users
@@ -41,7 +42,7 @@ namespace FluentHub.ViewModels.Users
         #endregion
 
         #region methods
-        private async Task RefreshFollowing(string login)
+        private async Task RefreshFollowing(string login, CancellationToken token)
         {
             try
             {

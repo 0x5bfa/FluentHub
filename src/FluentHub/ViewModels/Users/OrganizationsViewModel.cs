@@ -10,14 +10,17 @@ using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.Users
 {
     public class OrganizationsViewModel : ObservableObject
     {
+        #region constructor
         public OrganizationsViewModel(IMessenger messenger = null, ILogger logger = null)
         {
+            _messenger = messenger;
             _logger = logger;
             _messenger = messenger;
             _organizations = new();
@@ -25,15 +28,22 @@ namespace FluentHub.ViewModels.Users
 
             RefreshOrganizationsCommand = new AsyncRelayCommand<string>(RefreshOrganizationsAsync);
         }
+        #endregion
 
-        private readonly ILogger _logger;
+        #region fields
         private readonly IMessenger _messenger;
+        private readonly ILogger _logger;
         private readonly ObservableCollection<OrgButtonBlockViewModel> _organizations;
+        #endregion
+
+        #region properties
         public ReadOnlyObservableCollection<OrgButtonBlockViewModel> Organizations { get; }
 
         public IAsyncRelayCommand RefreshOrganizationsCommand { get; }
+        #endregion
 
-        private async Task RefreshOrganizationsAsync(string login)
+        #region methods
+        private async Task RefreshOrganizationsAsync(string login, CancellationToken token)
         {
             try
             {
@@ -55,8 +65,9 @@ namespace FluentHub.ViewModels.Users
                     };
 
                     _organizations.Add(viewModel);
-                }
+                }                
             }
+            catch (OperationCanceledException) { }
             catch (Exception ex)
             {
                 _logger?.Error("RefreshOrganizationsAsync", ex);
@@ -68,5 +79,6 @@ namespace FluentHub.ViewModels.Users
                 throw;
             }
         }
+        #endregion
     }
 }

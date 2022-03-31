@@ -10,6 +10,7 @@ using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.Users
@@ -19,6 +20,7 @@ namespace FluentHub.ViewModels.Users
         #region constructor
         public IssuesViewModel(IMessenger messenger = null, ILogger logger = null)
         {
+            _messenger = messenger;
             _logger = logger;
             _messenger = messenger;
             _issueItems = new();
@@ -36,12 +38,10 @@ namespace FluentHub.ViewModels.Users
 
         #region properties
         public ReadOnlyObservableCollection<IssueButtonBlockViewModel> IssueItems { get; }
-
         public IAsyncRelayCommand RefreshIssuesCommand { get; }
         #endregion
-
         #region methods
-        private async Task RefreshIssuesAsync(string login)
+        private async Task RefreshIssuesAsync(string login, CancellationToken token)
         {
             try
             {
@@ -67,6 +67,7 @@ namespace FluentHub.ViewModels.Users
                     _issueItems.Add(viewModel);
                 }
             }
+            catch (OperationCanceledException) { }
             catch (Exception ex)
             {
                 _logger?.Error("RefreshIssuesAsync", ex);

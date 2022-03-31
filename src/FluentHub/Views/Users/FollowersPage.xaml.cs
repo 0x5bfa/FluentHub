@@ -1,7 +1,6 @@
 ﻿using FluentHub.Services;
 using FluentHub.ViewModels.Users;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Toolkit.Uwp;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -15,7 +14,7 @@ namespace FluentHub.Views.Users
 
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<FollowersViewModel>();
-            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
+            navigationService = provider.GetRequiredService<INavigationService>();
         }
 
         private readonly INavigationService navigationService;

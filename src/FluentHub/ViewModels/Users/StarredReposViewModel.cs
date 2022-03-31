@@ -10,14 +10,17 @@ using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.Users
 {
     public class StarredReposViewModel : ObservableObject
     {
+        #region constructor        
         public StarredReposViewModel(IMessenger messenger = null, ILogger logger = null)
         {
+            _messenger = messenger;
             _logger = logger;
             _messenger = messenger;
             _repositories = new();
@@ -25,15 +28,21 @@ namespace FluentHub.ViewModels.Users
 
             RefreshRepositoriesCommand = new AsyncRelayCommand<string>(RefreshRepositoriesAsync);
         }
+        #endregion
 
+        #region fields
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
         private readonly ObservableCollection<RepoButtonBlockViewModel> _repositories;
+        #endregion
+
+        #region properties        
         public ReadOnlyObservableCollection<RepoButtonBlockViewModel> Repositories { get; }
-
         public IAsyncRelayCommand RefreshRepositoriesCommand { get; }
+        #endregion
 
-        private async Task RefreshRepositoriesAsync(string login)
+        #region methods
+        private async Task RefreshRepositoriesAsync(string login, CancellationToken token)
         {
             try
             {
@@ -59,6 +68,7 @@ namespace FluentHub.ViewModels.Users
                     _repositories.Add(viewModel);
                 }
             }
+            catch (OperationCanceledException) { }
             catch (Exception ex)
             {
                 _logger?.Error("RefreshRepositoriesAsync", ex);
@@ -70,5 +80,6 @@ namespace FluentHub.ViewModels.Users
                 throw;
             }
         }
+        #endregion
     }
 }
