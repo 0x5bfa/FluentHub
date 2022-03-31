@@ -56,7 +56,7 @@
 
         <contents:ReadmeContentBlock
             x:Name="UserSpecialReadmeBlock"
-            Grid.Row="1"
+            Grid.Row="2"
             Margin="12,12,12,12"
             VerticalAlignment="Top"
             ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
