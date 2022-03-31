@@ -76,7 +76,7 @@
     <value>Organizações</value>
   </data>
   <data name="PreviewTitle.Text" xml:space="preserve">
-    <value>PRÉ-VISUALIZAÇÃO</value>
+    <value>PREVIEW</value>
   </data>
   <data name="PullRequests" xml:space="preserve">
     <value>Pedidos de Puxada</value>
