@@ -855,11 +855,9 @@
     <Content Include="AppCredentials.config" />
   </ItemGroup>
   <ItemGroup>
-    <PRIResource Include="Strings\ja-JP\Resources.resw" />
-  </ItemGroup>
-  <ItemGroup>
     <XliffResource Include="MultilingualResources\FluentHub.es-ES.xlf" />
     <XliffResource Include="MultilingualResources\FluentHub.ja-JP.xlf" />
+    <XliffResource Include="MultilingualResources\FluentHub.pt-PT.xlf" />
     <XliffResource Include="MultilingualResources\FluentHub.zh-CN.xlf" />
   </ItemGroup>
   <ItemGroup>
@@ -870,6 +868,12 @@
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Strings\es-ES\Resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\ja-JP\Resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <PRIResource Include="Strings\pt-PT\Resources.resw" />
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Strings\zh-CN\Resources.resw" />
