@@ -101,6 +101,7 @@ namespace FluentHub
                 .AddTransient<ViewModels.Users.RepositoriesViewModel>()
                 .AddTransient<ViewModels.Users.OrganizationsViewModel>()
                 .AddTransient<ViewModels.Users.StarredReposViewModel>()
+                .AddTransient<ViewModels.Users.FollowersViewModel>()
                 .BuildServiceProvider();
         }
 

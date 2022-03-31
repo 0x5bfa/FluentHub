@@ -1,55 +1,71 @@
-﻿using FluentHub.Octokit.Queries.Users;
+﻿using FluentHub.Backend;
+using FluentHub.Models;
+using FluentHub.Octokit.Queries.Users;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
+using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.Users
 {
-    public class FollowersViewModel : INotifyPropertyChanged
+    public class FollowersViewModel : ObservableObject
     {
-        public ObservableCollection<UserButtonBlockViewModel> FollowersItems = new();
-
-        private bool isActive;
-        public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
-
-        public async Task GetFollowersList(string login)
+        #region constructor
+        public FollowersViewModel(IMessenger messenger = null, ILogger logger = null)
         {
-            IsActive = true;
-
-            FollowersQueries client = new();
-            var followers = await client.GetAllAsync(login);
-
-            if (followers == null)
-            {
-                IsActive = false;
-                return;
-            }
-
-            foreach (var user in followers)
-            {
-                UserButtonBlockViewModel viewModel = new() { User = user };
-                FollowersItems.Add(viewModel);
-            }
-
-            IsActive = false;
+            _messenger = messenger;
+            _logger = logger;
+            _followerItems = new();
+            FollowerItems = new(_followerItems);
+            RefreshFollowersCommand = new AsyncRelayCommand<string>(RefreshFollowersAsync, CanRefreshFollowers);
         }
+        #endregion
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
+        #region fields
+        private readonly IMessenger _messenger;
+        private readonly ILogger _logger;
+        private readonly ObservableCollection<UserButtonBlockViewModel> _followerItems;
+        #endregion
+
+        #region properties
+        public ReadOnlyObservableCollection<UserButtonBlockViewModel> FollowerItems { get; }
+        public IAsyncRelayCommand RefreshFollowersCommand { get; }
+        #endregion
+
+        #region methods
+        private bool CanRefreshFollowers(string username) => !string.IsNullOrEmpty(username);
+        private async Task RefreshFollowersAsync(string username, CancellationToken token)
         {
-            if (!Equals(field, newValue))
+            try
             {
-                field = newValue;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-                return true;
+                FollowersQueries client = new();
+                var followers = await client.GetAllAsync(username);
+
+                foreach (var user in followers)
+                {
+                    UserButtonBlockViewModel viewModel = new()
+                    {
+                        User = user
+                    };
+                    _followerItems.Add(viewModel);
+                }
             }
-            return false;
+            catch (OperationCanceledException) { }
+            catch (Exception ex)
+            {
+                _logger?.Error("RefreshFollowersAsync", ex);
+                if (_messenger != null)
+                {
+                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+                    _messenger.Send(notification);
+                }
+                throw;
+            }
         }
+        #endregion        
     }
 }

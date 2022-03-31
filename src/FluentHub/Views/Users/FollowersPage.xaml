@@ -5,23 +5,20 @@
     xmlns:bbvm="using:FluentHub.ViewModels.UserControls.ButtonBlocks"
     xmlns:buttonblock="using:FluentHub.UserControls.ButtonBlocks"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="using:FluentHub.Views.Users"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:vm="using:FluentHub.ViewModels.Users"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
 
-    <Page.DataContext>
-        <vm:FollowersViewModel x:Name="ViewModel" />
-    </Page.DataContext>
-
-    <Grid Margin="12">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="35" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+
         <StackPanel
-            Margin="4,0"
+            Margin="16,0"
+            VerticalAlignment="Center"
             Orientation="Horizontal"
             Spacing="8">
             <FontIcon
@@ -33,9 +30,9 @@
                 Style="{StaticResource BodyStrongTextBlockStyle}"
                 Text="Followers" />
         </StackPanel>
-        <muxc:ProgressRing Grid.RowSpan="2" IsActive="{Binding IsActive}" />
-        <Grid Grid.Row="1">
-            <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.FollowersItems, Mode=OneWay}">
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+            <muxc:ItemsRepeater Margin="12,0,12,30" ItemsSource="{x:Bind ViewModel.FollowerItems}">
                 <DataTemplate x:DataType="bbvm:UserButtonBlockViewModel">
                     <buttonblock:UserButtonBlock
                         x:Name="RepositoryBlock"
@@ -43,6 +40,42 @@
                         ViewModel="{x:Bind}" />
                 </DataTemplate>
             </muxc:ItemsRepeater>
-        </Grid>
+        </ScrollViewer>
+
+        <toolkit:SwitchPresenter
+            Grid.RowSpan="2"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            TargetType="x:Boolean"
+            Value="{x:Bind ViewModel.RefreshFollowersCommand.IsRunning, Mode=OneWay}">
+
+            <toolkit:Case Value="False">
+                <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.RefreshFollowersCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
+                    <toolkit:Case Value="True">
+                        <Button
+                            MinWidth="100"
+                            Command="{x:Bind ViewModel.RefreshFollowersCommand}"
+                            CommandParameter="{Binding}"
+                            Style="{ThemeResource AccentButtonStyle}">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon FontSize="16" Glyph="&#xE149;" />
+                                <TextBlock Text="Refresh" />
+                            </StackPanel>
+                        </Button>
+                    </toolkit:Case>
+
+                    <toolkit:Case Value="False">
+                        <toolkit:SwitchPresenter TargetType="x:Int32" Value="{x:Bind ViewModel.FollowerItems.Count, Mode=OneWay}">
+                            <toolkit:Case Value="0">
+                                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="No items available" />
+                            </toolkit:Case>
+                        </toolkit:SwitchPresenter>
+                    </toolkit:Case>
+                </toolkit:SwitchPresenter>
+            </toolkit:Case>
+
+        </toolkit:SwitchPresenter>
+
+        <muxc:ProgressRing Grid.RowSpan="2" IsActive="{x:Bind ViewModel.RefreshFollowersCommand.IsRunning, Mode=OneWay}" />
     </Grid>
 </Page>

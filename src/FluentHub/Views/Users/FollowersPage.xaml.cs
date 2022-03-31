@@ -1,6 +1,6 @@
 ﻿using FluentHub.Services;
+using FluentHub.ViewModels.Users;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Toolkit.Uwp;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -11,26 +11,31 @@ namespace FluentHub.Views.Users
         public FollowersPage()
         {
             InitializeComponent();
-            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
+
+            var provider = App.Current.Services;
+            ViewModel = provider.GetRequiredService<FollowersViewModel>();
+            navigationService = provider.GetRequiredService<INavigationService>();
         }
 
         private readonly INavigationService navigationService;
+        public FollowersViewModel ViewModel { get; }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            string login = e.Parameter as string;
+            DataContext = e.Parameter;
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = $"Followers";
-            currentItem.Description = $"{login}'s followers";
-            currentItem.Url = $"https://gihtub.com/{login}?tab=followers";
+            currentItem.Description = $"{DataContext}'s followers";
+            currentItem.Url = $"https://gihtub.com/{DataContext}?tab=followers";
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.FontIconSource
             {
                 Glyph = "\uE737"
             };
-            await ViewModel.GetFollowersList(login);
 
-            base.OnNavigatedTo(e);
+            var command = ViewModel.RefreshFollowersCommand;
+            if (command.CanExecute(DataContext))
+                command.Execute(DataContext);
         }
     }
 }
