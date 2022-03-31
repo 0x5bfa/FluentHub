@@ -23,16 +23,14 @@ namespace FluentHub.Octokit.Queries.Repositories
                 {
                     x.Name,
                     x.Description,
-                    Owner = x.Owner.Select(y => new
-                    {
-                        AvatarUrl = y.AvatarUrl(100),
-                        y.Login,
-                    }).Single(),
+                    OwnerAvatarUrl = x.Owner.AvatarUrl(100),
+                    OwnerLoginName = x.Owner.Login,
 
-                    PrimaryLanguage = x.Languages(1, null, null, null, null).Nodes.Select(language => new { language.Name, language.Color }).ToList(),
+                    //PrimaryLanguageName = x.PrimaryLanguage.Name,
+                    //PrimaryLanguageColor = x.PrimaryLanguage.Color,
                     x.StargazerCount,
 
-                    LicenseName = x.LicenseInfo.Select(license => license.Name).Single(),
+                    //LicenseName = x.LicenseInfo.Name,
                     x.ForkCount,
                     IssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
                     PullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
@@ -49,19 +47,16 @@ namespace FluentHub.Octokit.Queries.Repositories
             #region copying
             Models.Repository item = new();
 
-            if (response.PrimaryLanguage != null && response.PrimaryLanguage.Count() != 0)
-            {
-                item.PrimaryLangName = response.PrimaryLanguage[0].Name;
-                item.PrimaryLangColor = response.PrimaryLanguage[0].Color;
-            }
-
             item.Name = response.Name;
-            item.Owner = response.Owner.Login;
-            item.OwnerAvatarUrl = response.Owner.AvatarUrl;
+            item.Owner = response.OwnerLoginName;
+            item.OwnerAvatarUrl = response.OwnerAvatarUrl;
             item.Description = response.Description;
             item.StargazerCount = response.StargazerCount;
 
-            item.LicenseName = response.LicenseName;
+            //item.PrimaryLangName = response.PrimaryLanguageName;
+            //item.PrimaryLangColor = response.PrimaryLanguageColor;
+
+            //item.LicenseName = res.LicenseName;
             item.ForkCount = response.ForkCount;
             item.IssueCount = response.IssueCount;
             item.PullCount = response.PullCount;

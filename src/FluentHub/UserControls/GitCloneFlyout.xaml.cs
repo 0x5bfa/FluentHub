@@ -1,5 +1,5 @@
 ﻿using FluentHub.ViewModels.Repositories;
-using Octokit;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -40,18 +40,24 @@ namespace FluentHub.UserControls
         #endregion
 
         private string _repoGitUrl { get; set; }
-
         private string _repoUrl { get; set; }
+
+        private string _cloneUrl;
+        private string _sshUrl;
+        private string _gitUrl;
 
         public GitCloneFlyout() => InitializeComponent();
 
         private void OnGitCloneFlyoutLoaded(object sender, RoutedEventArgs e)
         {
-            CloneUriTextBox.Text = ViewModel.Repository.CloneUrl;
+            _cloneUrl = $"https;//github.com/{ViewModel.Repository.Owner}/{ViewModel.Repository.Name}.git";
+            _sshUrl = $"git@github.com:{ViewModel.Repository.Owner}/{ViewModel.Repository.Name}.git";
+            _gitUrl = $"gh repo clone {ViewModel.Repository.Owner}/{ViewModel.Repository.Name}";
+
+            CloneUriTextBox.Text = _cloneUrl;
             CloneDescriptionTextBlock.Text = "Use Git or checkout with SVN using the web URL.";
 
-            string RepoURL = ViewModel.Repository.CloneUrl;
-            _repoGitUrl = RepoURL;
+            _repoGitUrl = _cloneUrl;
 
             string input = _repoGitUrl;
             int index = input.LastIndexOf(".");
@@ -66,15 +72,15 @@ namespace FluentHub.UserControls
             switch (args.InvokedItemContainer.Tag.ToString())
             {
                 case "Https":
-                    CloneUriTextBox.Text = ViewModel.Repository.CloneUrl;
+                    CloneUriTextBox.Text = _cloneUrl;
                     CloneDescriptionTextBlock.Text = "Use Git or checkout with SVN using the web URL.";
                     break;
                 case "Ssh":
-                    CloneUriTextBox.Text = ViewModel.Repository.SshUrl;
+                    CloneUriTextBox.Text = _sshUrl;
                     CloneDescriptionTextBlock.Text = "Use a password-protected SSH key.";
                     break;
                 case "GitHubCli":
-                    CloneUriTextBox.Text = ViewModel.Repository.GitUrl;
+                    CloneUriTextBox.Text = _gitUrl;
                     CloneDescriptionTextBlock.Text = "Work fast with our official CLI.";
                     break;
             }
@@ -122,7 +128,6 @@ namespace FluentHub.UserControls
             {
                 Console.WriteLine("Add to LOG it failed");
             }
-
         }
 
         private async void GitHubDeskButton_Click(object sender, RoutedEventArgs e)
@@ -133,18 +138,13 @@ namespace FluentHub.UserControls
 
             var success = await Windows.System.Launcher.LaunchUriAsync(uri);
 
-            if (success)
+            if (!success)
             {
-                Console.WriteLine("Add to LOG it successed");
+                Log.Warning($"Cannot open GitHub Desktop with uri \"" + gitHubDeskUrl + "\"");
             }
-            else
-            {
-                Console.WriteLine("Add to LOG it failed");
-            }
-
         }
 
-        private async void CopyGitCommand_Click(object sender, RoutedEventArgs e)
+        private void CopyGitCommand_Click(object sender, RoutedEventArgs e)
         {
             var dp = new Windows.ApplicationModel.DataTransfer.DataPackage();
             dp.SetText("git clone" + " " + CloneUriTextBox.Text);
