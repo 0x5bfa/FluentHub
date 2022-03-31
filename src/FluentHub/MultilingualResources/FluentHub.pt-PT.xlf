@@ -92,7 +92,7 @@
         </trans-unit>
         <trans-unit id="PreviewTitle.Text" translate="yes" xml:space="preserve">
           <source>PREVIEW</source>
-          <target state="translated">PRÉ-VISUALIZAÇÃO</target>
+          <target state="translated">PREVIEW</target>
         </trans-unit>
         <trans-unit id="PullRequests" translate="yes" xml:space="preserve">
           <source>Pull Requests</source>
