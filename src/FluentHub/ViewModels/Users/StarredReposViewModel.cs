@@ -11,7 +11,7 @@ namespace FluentHub.ViewModels.Users
 {
     public class StarredReposViewModel : ObservableObject
     {
-        public StarredReposViewModel(ILogger logger = null)
+        public StarredReposViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _logger = logger;
 
