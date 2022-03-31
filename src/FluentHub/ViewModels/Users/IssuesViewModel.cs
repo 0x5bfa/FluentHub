@@ -1,9 +1,11 @@
 ﻿using FluentHub.Backend;
+using FluentHub.Models;
 using FluentHub.Octokit.Queries.Users;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
 using Humanizer;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
+using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
@@ -12,7 +14,7 @@ namespace FluentHub.ViewModels.Users
 {
     public class IssuesViewModel : ObservableObject
     {
-        public IssuesViewModel(ILogger logger = null)
+        public IssuesViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _logger = logger;
 
@@ -23,7 +25,7 @@ namespace FluentHub.ViewModels.Users
         }
 
         private readonly ILogger _logger;
-
+        private readonly IMessenger _messenger;
         private readonly ObservableCollection<IssueButtonBlockViewModel> _issueItems;
 
         public ReadOnlyObservableCollection<IssueButtonBlockViewModel> IssueItems { get; }
@@ -57,6 +59,11 @@ namespace FluentHub.ViewModels.Users
             catch (Exception ex)
             {
                 _logger?.Error("RefreshIssuesAsync", ex);
+                if (_messenger != null)
+                {
+                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+                    _messenger.Send(notification);
+                }
                 throw;
             }
         }

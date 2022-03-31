@@ -1,8 +1,10 @@
 ﻿using FluentHub.Backend;
+using FluentHub.Models;
 using FluentHub.Octokit.Models;
 using FluentHub.Octokit.Queries.Users;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
+using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
 using System.Threading.Tasks;
 
@@ -10,7 +12,7 @@ namespace FluentHub.ViewModels.Users
 {
     public class ProfilePageViewModel : ObservableObject
     {
-        public ProfilePageViewModel(ILogger logger = null)
+        public ProfilePageViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _logger = logger;
 
@@ -18,6 +20,7 @@ namespace FluentHub.ViewModels.Users
         }
 
         private readonly ILogger _logger;
+        private readonly IMessenger _messenger;
         private User _userItem;
         private bool _isNotViewer;
         public User UserItem
@@ -57,6 +60,11 @@ namespace FluentHub.ViewModels.Users
                 _logger?.Error("Failed to load user.", ex);
                 UserItem = new User();
                 IsNotViewer = false;
+                if (_messenger != null)
+                {
+                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+                    _messenger.Send(notification);
+                }
                 throw;
             }
         }

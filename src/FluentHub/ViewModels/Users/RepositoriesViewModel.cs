@@ -24,7 +24,7 @@ namespace FluentHub.ViewModels.Users
         }
 
         private readonly IMessenger _messenger;
-        private readonly ILogger _logger;
+        private readonly ILogger _logger;        
         private readonly ObservableCollection<RepoButtonBlockViewModel> _repositories;
         public ReadOnlyObservableCollection<RepoButtonBlockViewModel> Repositories { get; }
 
