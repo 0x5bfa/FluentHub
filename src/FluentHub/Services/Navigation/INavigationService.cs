@@ -7,9 +7,8 @@ namespace FluentHub.Services
     public interface INavigationService
     {
         ITabView TabView { get; }
-        bool IsConfigured { get; }
-        Type NewTabPage { get; set; }
-        void Configure(ITabView tabView, Frame frame, Type newTabPage);
+        bool IsConfigured { get; }        
+        void Configure(ITabView tabView);
         void Disconnect();
         void Navigate(Type page, object parameter = null);
         void Navigate<T>(object parameter = null) where T : Page;
