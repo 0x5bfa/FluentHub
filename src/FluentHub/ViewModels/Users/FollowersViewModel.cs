@@ -47,15 +47,12 @@ namespace FluentHub.ViewModels.Users
             try
             {
                 FollowersQueries queries = new();
-                List<User> items;
-
-                items = login == null ?
-                    await queries.GetAllAsync() :
-                    await queries.GetAllAsync(login);
+                List<User> items = await queries.GetAllAsync(login);
 
                 if (items == null) return;
 
                 _followersItems.Clear();
+
                 foreach (var item in items)
                 {
                     UserButtonBlockViewModel viewModel = new()

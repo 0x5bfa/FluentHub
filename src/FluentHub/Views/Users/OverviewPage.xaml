@@ -56,12 +56,12 @@
             </muxc:ItemsRepeater>
         </ScrollViewer>
 
-        <blocks:UserContributionGraph Grid.Row="2" Margin="12,12,12,12" />
+        <!--<blocks:UserContributionGraph Grid.Row="2" Margin="12" />-->
 
         <contents:ReadmeContentBlock
             x:Name="UserSpecialReadmeBlock"
             Grid.Row="3"
-            Margin="12,12,12,12"
+            Margin="12"
             VerticalAlignment="Top"
             ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
 
