@@ -6,7 +6,6 @@
     xmlns:local="using:FluentHub.Views.AppSettings"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    Loaded="Page_Loaded"
     mc:Ignorable="d">
     <Page.Resources>
         <ResourceDictionary>
@@ -23,103 +22,119 @@
     </Page.Resources>
 
     <Grid>
-        <Grid>
-            <muxc:NavigationView
-                x:Name="SettingsNavView"
-                IsBackButtonVisible="Collapsed"
-                IsPaneOpen="True"
-                IsPaneToggleButtonVisible="False"
-                IsSettingsVisible="False"
-                IsTitleBarAutoPaddingEnabled="False"
-                OpenPaneLength="300"
-                PaneDisplayMode="Left"
-                SelectionChanged="SettingsNavView_SelectionChanged">
-                <muxc:NavigationView.PaneHeader>
-                    <Button
-                        Height="76"
-                        Margin="5,12"
-                        Padding="8,6"
-                        HorizontalAlignment="Stretch"
-                        HorizontalContentAlignment="Left"
-                        Background="Transparent"
-                        Click="Button_Click"
-                        Style="{StaticResource ClearButtonStyle}">
-                        <Grid ColumnSpacing="12">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Border
-                                Width="60"
-                                Height="60"
-                                HorizontalAlignment="Left"
-                                Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                                CornerRadius="30">
-                                <Image x:Name="AppSignedInUserAvatar" />
-                            </Border>
-                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                                <TextBlock x:Name="SignedInLoginName" Style="{StaticResource BodyStrongTextBlockStyle}" />
-                                <TextBlock x:Name="SignedInUserName" Style="{StaticResource CaptionTextBlockStyle}" />
-                            </StackPanel>
-                        </Grid>
-                    </Button>
-                </muxc:NavigationView.PaneHeader>
-                <muxc:NavigationView.AutoSuggestBox>
-                    <AutoSuggestBox
-                        Margin="0,0"
-                        PlaceholderText="Search app settings"
-                        QueryIcon="Find" />
-                </muxc:NavigationView.AutoSuggestBox>
-                <muxc:NavigationView.MenuItems>
-                    <muxc:NavigationViewItem Content="Appearance" Tag="appearance">
-                        <muxc:NavigationViewItem.Icon>
-                            <FontIcon Glyph="&#xE790;" />
-                        </muxc:NavigationViewItem.Icon>
-                    </muxc:NavigationViewItem>
-                    <muxc:NavigationViewItem
-                        x:Name="SettingsNavViewItemAccount"
-                        Content="Accounts"
-                        Tag="accounts">
-                        <muxc:NavigationViewItem.Icon>
-                            <FontIcon Glyph="&#xE77B;" />
-                        </muxc:NavigationViewItem.Icon>
-                    </muxc:NavigationViewItem>
-                </muxc:NavigationView.MenuItems>
-                <muxc:NavigationView.FooterMenuItems>
-                    <muxc:NavigationViewItem Content="About" Tag="about">
-                        <muxc:NavigationViewItem.Icon>
-                            <FontIcon Glyph="&#xE946;" />
-                        </muxc:NavigationViewItem.Icon>
-                    </muxc:NavigationViewItem>
-                </muxc:NavigationView.FooterMenuItems>
-                <muxc:NavigationView.Content>
-                    <Grid Margin="32,20,0,6" RowSpacing="16">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <TextBlock
-                            x:Name="NavViewFrameTitleTextBlock"
-                            Style="{StaticResource TitleTextBlockStyle}"
-                            Text="General" />
-                        <Frame
-                            x:Name="SettingsContentFrame"
-                            Grid.Row="1"
-                            Background="Transparent" />
+        <muxc:NavigationView
+            x:Name="SettingsNavView"
+            IsBackButtonVisible="Collapsed"
+            IsPaneOpen="True"
+            IsPaneToggleButtonVisible="False"
+            IsSettingsVisible="False"
+            IsTitleBarAutoPaddingEnabled="False"
+            OpenPaneLength="300"
+            PaneDisplayMode="Left"
+            SelectionChanged="SettingsNavView_SelectionChanged">
+            <muxc:NavigationView.PaneHeader>
+                <Button
+                    Height="76"
+                    Margin="5,12"
+                    Padding="8,6"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Left"
+                    Background="Transparent"
+                    Click="OnAccountButtonClick"
+                    IsEnabled="False"
+                    Style="{StaticResource ClearButtonStyle}">
+                    <Grid ColumnSpacing="12">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Border
+                            Width="60"
+                            Height="60"
+                            HorizontalAlignment="Left"
+                            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                            CornerRadius="30">
+                            <Image x:Name="AppSignedInUserAvatar" />
+                        </Border>
+                        <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                            <TextBlock x:Name="SignedInLoginName" Style="{StaticResource BodyStrongTextBlockStyle}" />
+                            <TextBlock x:Name="SignedInUserName" Style="{StaticResource CaptionTextBlockStyle}" />
+                        </StackPanel>
                     </Grid>
-                </muxc:NavigationView.Content>
-            </muxc:NavigationView>
-        </Grid>
+                </Button>
+            </muxc:NavigationView.PaneHeader>
+
+            <muxc:NavigationView.AutoSuggestBox>
+                <AutoSuggestBox
+                    Margin="0,0"
+                    IsEnabled="False"
+                    PlaceholderText="Search app settings"
+                    QueryIcon="Find" />
+            </muxc:NavigationView.AutoSuggestBox>
+
+            <muxc:NavigationView.MenuItems>
+
+                <muxc:NavigationViewItem Content="Appearance" Tag="appearance">
+                    <muxc:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE790;" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+
+                <muxc:NavigationViewItem
+                    x:Name="SettingsNavViewItemAccount"
+                    Content="Accounts"
+                    IsEnabled="False"
+                    Tag="accounts">
+                    <muxc:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE77B;" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+
+            </muxc:NavigationView.MenuItems>
+
+            <muxc:NavigationView.FooterMenuItems>
+                <muxc:NavigationViewItem Content="About" Tag="about">
+                    <muxc:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE946;" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+            </muxc:NavigationView.FooterMenuItems>
+
+            <muxc:NavigationView.Content>
+                <Grid Margin="32,20,0,6" RowSpacing="16">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock
+                        x:Name="NavViewFrameTitleTextBlock"
+                        Style="{StaticResource TitleTextBlockStyle}"
+                        Text="General" />
+                    <Frame
+                        x:Name="SettingsContentFrame"
+                        Grid.Row="1"
+                        Background="Transparent" />
+                </Grid>
+            </muxc:NavigationView.Content>
+        </muxc:NavigationView>
     </Grid>
 
     <VisualStateManager.VisualStateGroups>
         <VisualStateGroup>
-            <VisualState x:Name="Min">
+            <VisualState x:Name="SmallScreen">
                 <VisualState.StateTriggers>
-                    <AdaptiveTrigger MinWindowWidth="450" />
+                    <AdaptiveTrigger MinWindowWidth="0" />
                 </VisualState.StateTriggers>
                 <VisualState.Setters>
-                    <Setter Target="SettingsNavView.PaneDisplayMode" Value="LeftMinimal" />
+                    <Setter Target="SettingsNavView.PaneDisplayMode" Value="Top" />
+                </VisualState.Setters>
+            </VisualState>
+            <VisualState x:Name="BigScreen">
+                <VisualState.StateTriggers>
+                    <AdaptiveTrigger MinWindowWidth="{StaticResource CompactModeThresholdWidth}" />
+                </VisualState.StateTriggers>
+                <VisualState.Setters>
+                    <Setter Target="SettingsNavView.PaneDisplayMode" Value="Auto" />
                 </VisualState.Setters>
             </VisualState>
         </VisualStateGroup>
