@@ -160,6 +160,9 @@
     <Compile Include="UserControls\Blocks\CommitActivityBlock.xaml.cs">
       <DependentUpon>CommitActivityBlock.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Blocks\UserContributionGraph.xaml.cs">
+      <DependentUpon>UserContributionGraph.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\TabViewControl\TabItem.cs" />
     <Compile Include="UserControls\Blocks\ActivityBlock.xaml.cs">
       <DependentUpon>ActivityBlock.xaml</DependentUpon>
@@ -233,7 +236,9 @@
     <Compile Include="Utils\NavigationHistory.cs" />
     <Compile Include="Utils\SerilogWrapperLogger.cs" />
     <Compile Include="ViewModels\AppSettings\AboutViewModel.cs" />
+    <Compile Include="ViewModels\AppSettings\AccountsViewModel.cs" />
     <Compile Include="ViewModels\AppSettings\AppearanceViewModel.cs" />
+    <Compile Include="ViewModels\AppSettings\MainSettingsViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\Organizations\OverviewViewModel.cs" />
     <Compile Include="ViewModels\Organizations\ProfileViewModel.cs" />
@@ -601,6 +606,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Blocks\FileNavigationBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Blocks\UserContributionGraph.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -25,6 +25,12 @@ namespace FluentHub.ViewModels
         }
 
         #region signin
+        public string AccessToken
+        {
+            get => Get(nameof(AccessToken), "");
+            set => Set(nameof(AccessToken), value);
+        }
+
         public bool SetupCompleted
         {
             get => Get(nameof(SetupCompleted), false);
@@ -35,6 +41,12 @@ namespace FluentHub.ViewModels
         {
             get => Get(nameof(SetupProgress), false);
             set => Set(nameof(SetupProgress), value);
+        }
+
+        public string SignedInUserName
+        {
+            get => Get(nameof(SignedInUserName), "");
+            set => Set(nameof(SignedInUserName), value);
         }
         #endregion
 
@@ -62,13 +74,7 @@ namespace FluentHub.ViewModels
         public DefaultLanguageModel CurrentLanguage { get; set; } = new DefaultLanguageModel(ApplicationLanguages.PrimaryLanguageOverride);
         #endregion
 
-        #region onthers
-        public string AccessToken
-        {
-            get => Get(nameof(AccessToken), "");
-            set => Set(nameof(AccessToken), value);
-        }
-
+        #region others
         public string LastOpenedPageFrame
         {
             get => Get(nameof(LastOpenedPageFrame), nameof(Views.Home.UserHomePage));

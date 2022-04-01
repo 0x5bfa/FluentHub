@@ -34,7 +34,7 @@ namespace FluentHub.ViewModels.UserControls.Blocks
 
         public async Task SetWebViewContentsAsync(WebView webView)
         {
-            Octokit.Queries.MarkdownQueries markdown = new();
+            Octokit.Queries.Repositories.MarkdownQueries markdown = new();
 
             var repo = await App.Client.Repository.Get(RepositoryId);
 
