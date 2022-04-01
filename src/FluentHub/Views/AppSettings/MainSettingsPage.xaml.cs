@@ -17,6 +17,7 @@ namespace FluentHub.Views.AppSettings
             InitializeComponent();
             navigationService = App.Current.Services.GetRequiredService<INavigationService>();
         }
+
         private readonly INavigationService navigationService;
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -66,18 +67,7 @@ namespace FluentHub.Views.AppSettings
             }
         }
 
-        private async void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            var authedUser = await App.Client.User.Get(App.SignedInUserName);
-
-            AppSignedInUserAvatar.Source = new BitmapImage(new Uri(authedUser.AvatarUrl));
-
-            SignedInLoginName.Text = authedUser.Login;
-
-            SignedInUserName.Text = authedUser.Name;
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void OnAccountButtonClick(object sender, RoutedEventArgs e)
         {
             SettingsNavViewItemAccount.IsSelected = true;
             NavViewFrameTitleTextBlock.Text = "Accounts";

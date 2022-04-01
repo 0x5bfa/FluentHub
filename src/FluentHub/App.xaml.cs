@@ -35,8 +35,6 @@ namespace FluentHub
 
         public static SettingsViewModel Settings { get; private set; } = new SettingsViewModel();
 
-        public static string SignedInUserName { get; private set; }
-
         public static string AppVersion = $"{Package.Current.Id.Version.Major}.{Package.Current.Id.Version.Minor}.{Package.Current.Id.Version.Build}.{Package.Current.Id.Version.Revision}";
 
         public App()
@@ -127,7 +125,7 @@ namespace FluentHub
             return logger;
         }
 
-        private async Task InitializeAsync()
+        private void InitializeAsync()
         {
             CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
             ApplicationView.GetForCurrentView().TitleBar.ButtonBackgroundColor = Colors.Transparent;
@@ -167,11 +165,13 @@ namespace FluentHub
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
         {
             bool openInNewTab = false;
+
             if (rootFrame is null)
             {
                 openInNewTab = true;
             }
-            await InitializeAsync();
+
+            InitializeAsync();
 
             if (!string.IsNullOrWhiteSpace(args.Arguments) && Uri.TryCreate(args.Arguments, UriKind.RelativeOrAbsolute, out var uri))
             {
@@ -181,7 +181,8 @@ namespace FluentHub
 
         protected async override void OnActivated(IActivatedEventArgs args)
         {
-            await InitializeAsync();
+            InitializeAsync();
+
             switch (args.Kind)
             {
                 case ActivationKind.Protocol:
@@ -219,6 +220,7 @@ namespace FluentHub
                     break;
                 case "auth" when uri.Query.Contains("code"): // fluenthub://auth?code=[code]
                     var code = new WwwFormUrlDecoder(uri.Query).GetFirstValueByName("code");
+
                     AuthorizationService authService = new();
                     bool status = await authService.RequestOAuthTokenAsync(code);
 
@@ -231,6 +233,7 @@ namespace FluentHub
 
                         rootFrame.Navigate(typeof(MainPage));
                     }
+
                     return;
             }
 

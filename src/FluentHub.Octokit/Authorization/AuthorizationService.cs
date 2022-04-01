@@ -70,6 +70,12 @@ namespace FluentHub.Octokit.Authorization
                     ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
                     localSettings.Values["AccessToken"] = token.AccessToken;
 
+                    // Get viewer login name
+                    Octokit.Queries.Users.UserQueries queries = new();
+                    string login = await queries.GetViewerLogin();
+
+                    localSettings.Values["SignedInUserName"] = login;
+
                     // Success
                     return true;
                 }

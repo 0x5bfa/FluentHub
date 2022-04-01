@@ -30,7 +30,8 @@ namespace FluentHub.Views.Users
             currentItem.Url = $"https://gihtub.com/{DataContext}?tab=followers";
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.FontIconSource
             {
-                Glyph = "\uE737"
+                Glyph = "\uEA36",
+                FontFamily = new Windows.UI.Xaml.Media.FontFamily("/Assets/Glyphs/Octions.ttf#octions")
             };
 
             var command = ViewModel.RefreshFollowersCommand;

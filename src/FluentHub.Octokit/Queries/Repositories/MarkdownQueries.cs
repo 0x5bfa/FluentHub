@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using Windows.Storage;
 
-namespace FluentHub.Octokit.Queries
+namespace FluentHub.Octokit.Queries.Repositories
 {
     public class MarkdownQueries
     {
