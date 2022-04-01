@@ -1,4 +1,5 @@
-﻿using FluentHub.Services.Navigation;
+﻿#pragma warning disable IDE0045
+using FluentHub.Services.Navigation;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -16,13 +17,13 @@ namespace FluentHub.UserControls.TabViewControl
         public CustomTabView()
         {
             InitializeComponent();
-            _items = new ObservableCollection<ITabViewItem>();
-            Items = new ReadOnlyObservableCollection<ITabViewItem>(_items);
+            InternalItemsList = new ObservableCollection<ITabViewItem>();
+            Items = new ReadOnlyObservableCollection<ITabViewItem>(InternalItemsList);
         }
         #endregion
 
         #region fields
-        private readonly ObservableCollection<ITabViewItem> _items;
+        private ObservableCollection<ITabViewItem> InternalItemsList { get; }
         private Type _page;
         #endregion
 
@@ -79,14 +80,9 @@ namespace FluentHub.UserControls.TabViewControl
             get => _page;
             set
             {
-                if (value == null || value.IsSubclassOf(typeof(Page)))
-                {
-                    _page = value;
-                }
-                else
-                {
-                    throw new ArgumentException("NewTabPage must be a subclass of Page");
-                }
+                _page = value == null || value.IsSubclassOf(typeof(Page))
+                    ? value
+                    : throw new ArgumentException("NewTabPage must be a subclass of Page");
             }
         }
         #endregion
@@ -95,7 +91,7 @@ namespace FluentHub.UserControls.TabViewControl
         public ITabViewItem OpenTab(Type page = null, object parameter = null, bool setAsSelected = true)
         {
             ITabViewItem tab = new TabItem();
-            _items.Add(tab);
+            InternalItemsList.Add(tab);
             if (setAsSelected)
             {
                 SelectedItem = tab;
@@ -108,19 +104,19 @@ namespace FluentHub.UserControls.TabViewControl
             return tab;
         }
 
-        public bool CloseTab(ITabViewItem tabItem) => tabItem is not null && CloseTab(_items.IndexOf(tabItem));
+        public bool CloseTab(ITabViewItem tabItem) => tabItem is not null && CloseTab(InternalItemsList.IndexOf(tabItem));
 
-        public bool CloseTab(Guid guid) => CloseTab(_items.FirstOrDefault(x => x.Guid == guid));
+        public bool CloseTab(Guid guid) => CloseTab(InternalItemsList.FirstOrDefault(x => x.Guid == guid));
 
         public bool CloseTab(int index)
         {
-            if (index >= 0 && index < _items.Count)
+            if (index >= 0 && index < InternalItemsList.Count)
             {
                 int newSelectedItemIndex = -1;
 
                 if (index == SelectedIndex) // Removing the current tab
                 {
-                    if (index == _items.Count - 1) // Select the previous tab if the current item is the last tab
+                    if (index == InternalItemsList.Count - 1) // Select the previous tab if the current item is the last tab
                     {
                         newSelectedItemIndex = index - 1;
                     }
@@ -130,9 +126,9 @@ namespace FluentHub.UserControls.TabViewControl
                     }
                 }
 
-                _items.RemoveAt(index);
+                InternalItemsList.RemoveAt(index);
 
-                if (_items.Count == 0)
+                if (InternalItemsList.Count == 0)
                 {
                     App.CloseApp();
                 }
