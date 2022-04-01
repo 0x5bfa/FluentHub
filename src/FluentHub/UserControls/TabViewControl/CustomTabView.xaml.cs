@@ -23,6 +23,7 @@ namespace FluentHub.UserControls.TabViewControl
 
         #region fields
         private readonly ObservableCollection<ITabViewItem> _items;
+        private Type _page;
         #endregion
 
         #region properties
@@ -72,34 +73,39 @@ namespace FluentHub.UserControls.TabViewControl
         }
 
         public ReadOnlyObservableCollection<ITabViewItem> Items { get; }
+
+        public Type NewTabPage
+        {
+            get => _page;
+            set
+            {
+                if (value == null || value.IsSubclassOf(typeof(Page)))
+                {
+                    _page = value;
+                }
+                else
+                {
+                    throw new ArgumentException("NewTabPage must be a subclass of Page");
+                }
+            }
+        }
         #endregion
 
         #region public methods
-        public ITabViewItem OpenTab(Type page!!, object parameter = null, bool setAsSelected = true)
+        public ITabViewItem OpenTab(Type page = null, object parameter = null, bool setAsSelected = true)
         {
-            var transitionInfo = new SlideNavigationTransitionInfo
-            {
-                Effect = SlideNavigationTransitionEffect.FromRight
-            };
-
-            var item = new TabItem
-            {
-
-            };
-            item.NavigationHistory.NavigateTo(new(page, parameter, transitionInfo)
-            {
-                Icon = new muxc.FontIconSource
-                {
-                    Glyph = "\uE737"
-                }
-            });
-
-            _items.Add(item);
+            ITabViewItem tab = new TabItem();
+            _items.Add(tab);
             if (setAsSelected)
             {
-                SelectedItem = item;
+                SelectedItem = tab;
             }
-            return item;
+            page ??= NewTabPage;
+            if (page != null)
+            {
+                tab.Frame.Navigate(page, parameter, new SuppressNavigationTransitionInfo());
+            }
+            return tab;
         }
 
         public bool CloseTab(ITabViewItem tabItem) => tabItem is not null && CloseTab(_items.IndexOf(tabItem));
@@ -153,14 +159,9 @@ namespace FluentHub.UserControls.TabViewControl
         #region event handlers
         private void OnMainTabViewTabCloseRequested(muxc.TabView sender,
                                                     muxc.TabViewTabCloseRequestedEventArgs args)
-            => CloseTab(args.Item as ITabViewItem);
+            => CloseTab((ITabViewItem)args.Item);
 
-        private void OnAddNewTabButtonClick(object sender, RoutedEventArgs e)
-        {
-            var item = new TabItem();
-            _items.Add(item);
-            SelectedItem = item;
-        }
+        private void OnAddNewTabButtonClick(object sender, RoutedEventArgs e) => OpenTab();
         #endregion
 
         #region events
