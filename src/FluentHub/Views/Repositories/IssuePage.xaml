@@ -22,24 +22,26 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
             <StackPanel
                 Margin="0,0,0,8"
                 Orientation="Horizontal"
-                Spacing="8">
+                Spacing="3">
                 <Border
                     Width="18"
                     Height="18"
+                    Margin="0,0,5,0"
                     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                     CornerRadius="10">
                     <Image Source="https://avatars.githubusercontent.com/u/62196528" />
                 </Border>
-                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="fluenthub-community" />
-                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
-                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="FluentHub" />
+                <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="fluenthub-community" />
+                <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="/" />
+                <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="FluentHub" />
             </StackPanel>
             <StackPanel
                 Grid.Row="1"
@@ -48,21 +50,57 @@
                 <TextBlock
                     x:Name="IssueTitleTextBlock"
                     FontWeight="Normal"
-                    Style="{StaticResource TitleTextBlockStyle}" />
+                    Style="{StaticResource TitleTextBlockStyle}"
+                    Text="OAuth Access Restriction" />
                 <TextBlock
                     x:Name="IssueNumberTextBlock"
                     FontWeight="SemiLight"
                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                     Style="{StaticResource TitleTextBlockStyle}"
-                    Text="#30" />
+                    Text="#1" />
             </StackPanel>
             <StackPanel
                 Grid.Row="2"
                 Margin="0,4,0,8"
                 Orientation="Horizontal"
-                Spacing="4">
+                Spacing="8">
                 <label:StateLabel x:Name="StatusLabel" Status="IssueDraft" />
+                <label:LabelControl
+                    IsOutlineEnable="True"
+                    LabelBackground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    LabelText="Status">
+                    <label:LabelControl.Icon>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Foreground="#26a641"
+                            Glyph="&#xE934;" />
+                    </label:LabelControl.Icon>
+                </label:LabelControl>
+                <label:LabelControl
+                    IsOutlineEnable="True"
+                    LabelBackground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    LabelText="Checks">
+                    <label:LabelControl.Icon>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Foreground="#26a641"
+                            Glyph="&#xE934;" />
+                    </label:LabelControl.Icon>
+                </label:LabelControl>
             </StackPanel>
+            <Grid
+                Grid.RowSpan="3"
+                Grid.Column="1"
+                Margin="0,0,0,8">
+                <Button VerticalAlignment="Bottom">
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <FontIcon FontSize="16" Glyph="&#xE946;" />
+                        <TextBlock Text="Details" />
+                    </StackPanel>
+                </Button>
+            </Grid>
         </Grid>
         <MenuFlyoutSeparator Grid.Row="1" />
         <Grid Grid.Row="2">

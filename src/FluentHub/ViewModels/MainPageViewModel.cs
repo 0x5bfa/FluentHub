@@ -24,7 +24,6 @@ namespace FluentHub.ViewModels
 
             if (_messenger != null)
                 _messenger.Register<UserNotificationMessage>(this, OnNewNotificationReceived);
-            
 
             AddNewTabAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(AddNewTabAccelerator);
             CloseTabAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(CloseTabAccelerator);
@@ -50,7 +49,6 @@ namespace FluentHub.ViewModels
         #region properties
         public UserNotificationMessage LastNotification { get => _lastNotification; private set => SetProperty(ref _lastNotification, value); }
         #endregion
-
 
         #region commands
         public ICommand AddNewTabAcceleratorCommand { get; private set; }

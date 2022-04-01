@@ -131,5 +131,22 @@ namespace FluentHub.Octokit.Queries.Users
 
             return item;
         }
+
+        public async Task<string> GetViewerLogin()
+        {
+            #region query
+            var query = new Query()
+                .Viewer
+                .Select(x => new
+                {
+                    x.Login,
+                })
+                .Compile();
+            #endregion
+
+            var response = await App.Connection.Run(query);
+
+            return response.Login;
+        }
     }
 }
