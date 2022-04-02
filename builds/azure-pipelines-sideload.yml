@@ -1,0 +1,86 @@
+trigger: none
+pr: none
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+- group: BuildPipelineVariables
+- name: solution
+  value: '**/*.sln'
+- name: buildPlatform
+  value: 'x64'
+- name: buildConfiguration
+  value: 'Release'
+- name: appxPackageDir
+  value: '$(build.artifactStagingDirectory)\AppxPackages\\'
+
+steps:
+- task: PowerShell@2
+  displayName: 'Canonicalize package manifest'
+  inputs:
+    targetType: 'inline'
+    script: |
+      [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\FluentHub\Package.appxmanifest
+      $xmlDoc.Package.Identity.Name="FluentHub"
+      $xmlDoc.Package.Identity.Publisher="CN=FluentHub"
+      $xmlDoc.Package.Properties.DisplayName="FluentHub"
+      $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub"
+      $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub\Package.appxmanifest')
+    failOnStderr: true
+
+- task: DownloadSecureFile@1
+  displayName: Download credentials
+  name: CredentialSecureFile
+  inputs:
+    secureFile: AppCredentials.config
+
+- task: CopyFiles@2
+  displayName: Copy downloaded credentials
+  inputs:
+    SourceFolder: '$(Agent.TempDirectory)'
+    Contents: '$(CredentialSecureFile.secureFilePath)'
+    TargetFolder: '$(Build.SourcesDirectory)\src\FluentHub'
+
+- task: DownloadSecureFile@1
+  name: caCertificate
+  displayName: 'Download CA certificate'
+  inputs:
+    secureFile: '$(signingCert.secureFilePath)'
+
+- task: NuGetToolInstaller@1
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: VSBuild@1
+  inputs:
+    platform: 'x64'
+    solution: '$(solution)'
+    configuration: '$(buildConfiguration)'
+    msbuildArgs: '
+    /t:build;_GenerateAppxPackage
+    /p:AppxLogTelemetryFromSideloadingScript=False
+    /p:GenerateAppInstallerFile=True
+    /p:AppInstallerUri=$(build.artifactstagingdirectory)
+    /p:AppxBundlePlatforms="$(buildPlatform)"
+    /p:AppxPackageDir="$(appxPackageDir)"
+    /p:AppxBundle=Always
+    /p:UapAppxPackageBuildMode=Sideload
+    /p:AppxPackageSigningEnabled=true
+    /p:PackageCertificateThumbprint=""
+    /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"
+    /p:PackageCertificatePassword="$(signingCert.password)"'
+
+- task: CopyFiles@2
+  displayName: 'Copy generated artifacts'
+  inputs:
+    SourceFolder: '$(system.defaultworkingdirectory)'
+    Contents: '**\bin\$(BuildConfiguration)\**'
+    TargetFolder: '$(build.artifactstagingdirectory)'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish artifacts'
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)'
