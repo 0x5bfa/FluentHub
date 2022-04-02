@@ -1,39 +1,65 @@
-﻿using System;
+﻿using FluentHub.Backend;
+using FluentHub.Octokit.Models;
+using FluentHub.Models;
+using FluentHub.Octokit.Queries.Repositories;
+using FluentHub.ViewModels.UserControls.ButtonBlocks;
+using Humanizer;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
+using Microsoft.Toolkit.Mvvm.Messaging;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
+using System.Collections.ObjectModel;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.Repositories
 {
-    public class IssueViewModel : INotifyPropertyChanged
+    public class IssueViewModel : ObservableObject
     {
-        private string repoOwner;
-        public string RepoOwner { get => repoOwner; set => SetProperty(ref repoOwner, value); }
-
-        private string repoOwnerAvatar;
-        public string RepoOwnerAvatar { get => repoOwnerAvatar; set => SetProperty(ref repoOwnerAvatar, value); }
-
-        private string repoName;
-        public string RepoName { get => repoName; set => SetProperty(ref repoName, value); }
-
-        public void Get()
+        #region constructor
+        public IssueViewModel(IMessenger messenger = null, ILogger logger = null)
         {
+            _messenger = messenger;
+            _logger = logger;
+
+            RefreshIssuePageCommand = new AsyncRelayCommand<Issue>(RefreshIssuePageAsync);
         }
+        #endregion
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
+        #region fields
+        private readonly IMessenger _messenger;
+        private readonly ILogger _logger;
+        private Issue issueItem;
+        #endregion
+
+        #region properties
+        public Issue IssueItem { get => issueItem; private set => SetProperty(ref issueItem, value); }
+        public IAsyncRelayCommand RefreshIssuePageCommand { get; }
+        #endregion
+
+        #region methods
+        private async Task RefreshIssuePageAsync(Issue issue)
         {
-            if (!Equals(field, newValue))
+            try
             {
-                field = newValue;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-                return true;
-            }
+                // Load comments/events
+                IssueItem = issue;
 
-            return false;
+                //IssueQueries queries = new();
+                //var details = await queries.GetDetailsAsync(issue.OwnerLogin, issue.Name, issue.Number);
+            }
+            catch (Exception ex)
+            {
+                _logger?.Error("RefreshIssuePageAsync", ex);
+                if (_messenger != null)
+                {
+                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+                    _messenger.Send(notification);
+                }
+                throw;
+            }
         }
+        #endregion
     }
 }
