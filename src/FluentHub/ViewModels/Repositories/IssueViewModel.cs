@@ -46,8 +46,8 @@ namespace FluentHub.ViewModels.Repositories
                 // Load comments/events
                 IssueItem = issue;
 
-                //IssueQueries queries = new();
-                //var details = await queries.GetDetailsAsync(issue.OwnerLogin, issue.Name, issue.Number);
+                IssueEventQueries queries = new();
+                var eventsGroup = await queries.GetAllAsync(issue.OwnerLogin, issue.Name, issue.Number);
             }
             catch (Exception ex)
             {
