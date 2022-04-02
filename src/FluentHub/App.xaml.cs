@@ -93,6 +93,7 @@ namespace FluentHub
                 .AddTransient<ViewModels.Home.NotificationsViewModel>()
                 .AddTransient<ViewModels.Home.ActivitiesViewModel>()
                 .AddTransient<ViewModels.Repositories.IssueViewModel>()
+                .AddTransient<ViewModels.Repositories.PullRequestViewModel>()
                 .AddTransient<ViewModels.Users.FollowersViewModel>()
                 .AddTransient<ViewModels.Users.FollowingViewModel>()
                 .AddTransient<ViewModels.Users.ProfilePageViewModel>()

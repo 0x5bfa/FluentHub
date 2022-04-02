@@ -44,7 +44,6 @@ namespace FluentHub.Views.Repositories
             var command = ViewModel.RefreshIssuePageCommand;
             if (command.CanExecute(param))
                 command.Execute(param);
-
         }
 
         private async void OnViewDetailsButtonClick(object sender, RoutedEventArgs e)

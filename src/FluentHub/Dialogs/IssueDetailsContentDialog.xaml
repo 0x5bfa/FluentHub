@@ -7,18 +7,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     Title="Issue #1"
-    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
-    PrimaryButtonText="Button1"
-    SecondaryButtonClick="ContentDialog_SecondaryButtonClick"
-    SecondaryButtonText="Button2"
+    PrimaryButtonClick="OnCloseButtonClick"
+    PrimaryButtonText="Close"
     Style="{StaticResource DefaultContentDialogStyle}"
     mc:Ignorable="d">
 
     <ContentDialog.Resources>
         <ResourceDictionary>
-            <x:Double x:Key="ContentDialogMaxWidth">200</x:Double>
-            <!--<Thickness x:Key="ContentDialogPadding">0</Thickness>
-            <SolidColorBrush x:Key="ContentDialogTopOverlay" Color="Transparent" />-->
+            <x:Double x:Key="ContentDialogMaxHeight">480</x:Double>
         </ResourceDictionary>
     </ContentDialog.Resources>
 

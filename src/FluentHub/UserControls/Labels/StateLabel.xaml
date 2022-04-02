@@ -19,8 +19,11 @@
             <Grid
                 x:Name="LabelBackground"
                 HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                Opacity="0.20" />
+                VerticalAlignment="Stretch" />
+            <Border
+                x:Name="LabelBorder"
+                BorderThickness="0.5"
+                CornerRadius="4" />
             <StackPanel
                 Padding="12,0"
                 Orientation="Horizontal"
@@ -33,7 +36,7 @@
                 <TextBlock
                     x:Name="StateLabelTextBlock"
                     VerticalAlignment="Center"
-                    Style="{StaticResource BodyStrongTextBlockStyle}" />
+                    Style="{StaticResource BodyTextBlockStyle}" />
             </StackPanel>
         </Grid>
     </Grid>

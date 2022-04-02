@@ -10,8 +10,7 @@
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
 
-    <Grid>
-        <!--<label:LabelControl
+    <!--<label:LabelControl
             IsOutlineEnable="True"
             LabelBackground="{ThemeResource DividerStrokeColorDefaultBrush}"
             LabelText="Status">
@@ -35,5 +34,132 @@
                     Glyph="&#xE934;" />
             </label:LabelControl.Icon>
         </label:LabelControl>-->
+    <Grid>
+        <toolkit:SwitchPresenter
+            Grid.RowSpan="2"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            TargetType="x:Boolean"
+            Value="{x:Bind ViewModel.RefreshPullRequestPageCommand.IsRunning, Mode=OneWay}">
+
+            <toolkit:Case Value="True">
+                <muxc:ProgressRing IsActive="True" />
+            </toolkit:Case>
+
+            <toolkit:Case Value="False">
+                <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.RefreshPullRequestPageCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
+                    <toolkit:Case Value="True">
+                        <HyperlinkButton HorizontalAlignment="Center" Command="{x:Bind ViewModel.RefreshPullRequestPageCommand}">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon FontSize="16" Glyph="&#xE149;" />
+                                <TextBlock Text="Refresh" />
+                            </StackPanel>
+                        </HyperlinkButton>
+                    </toolkit:Case>
+
+                    <toolkit:Case Value="False">
+                        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <Grid Padding="24,18,24,0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel
+                                    Margin="0,0,0,8"
+                                    Orientation="Horizontal"
+                                    Spacing="3">
+                                    <Border
+                                        Width="18"
+                                        Height="18"
+                                        Margin="0,0,5,0"
+                                        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                                        CornerRadius="10">
+                                        <Image Source="{x:Bind ViewModel.PullItem.OwnerAvatarUrl, Mode=OneWay}" />
+                                    </Border>
+                                    <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="{x:Bind ViewModel.PullItem.OwnerLogin, Mode=OneWay}" />
+                                    <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="/" />
+                                    <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="{x:Bind ViewModel.PullItem.Name, Mode=OneWay}" />
+                                </StackPanel>
+                                <StackPanel
+                                    Grid.Row="1"
+                                    Orientation="Horizontal"
+                                    Spacing="8">
+                                    <TextBlock
+                                        x:Name="IssueTitleTextBlock"
+                                        FontWeight="Normal"
+                                        Style="{StaticResource TitleTextBlockStyle}"
+                                        Text="{x:Bind ViewModel.PullItem.Title, Mode=OneWay}" />
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock
+                                            FontWeight="SemiLight"
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Style="{StaticResource TitleTextBlockStyle}"
+                                            Text="#" />
+                                        <TextBlock
+                                            FontWeight="SemiLight"
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Style="{StaticResource TitleTextBlockStyle}"
+                                            Text="{x:Bind ViewModel.PullItem.Number, Mode=OneWay}" />
+                                    </StackPanel>
+                                </StackPanel>
+                                <StackPanel
+                                    Grid.Row="2"
+                                    Margin="0,16,0,8"
+                                    Orientation="Horizontal"
+                                    Spacing="8">
+                                    <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.PullItem.IsClosed, Mode=OneWay}">
+                                        <toolkit:Case Value="True">
+                                            <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.PullItem.IsMerged, Mode=OneWay}">
+                                                <toolkit:Case Value="True">
+                                                    <label:StateLabel Status="PullMerged" />
+                                                </toolkit:Case>
+                                                <toolkit:Case Value="False">
+                                                    <label:StateLabel Status="PullClosed" />
+                                                </toolkit:Case>
+                                            </toolkit:SwitchPresenter>
+                                        </toolkit:Case>
+                                        <toolkit:Case Value="False">
+                                            <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.PullItem.IsDraft, Mode=OneWay}">
+                                                <toolkit:Case Value="True">
+                                                    <label:StateLabel Status="PullDraft" />
+                                                </toolkit:Case>
+                                                <toolkit:Case Value="False">
+                                                    <label:StateLabel Status="PullOpened" />
+                                                </toolkit:Case>
+                                            </toolkit:SwitchPresenter>
+                                        </toolkit:Case>
+                                    </toolkit:SwitchPresenter>
+                                </StackPanel>
+                                <Grid
+                                    Grid.RowSpan="3"
+                                    Grid.Column="1"
+                                    Margin="0,0,0,8">
+                                    <Button VerticalAlignment="Bottom" Click="OnViewDetailsButtonClick">
+                                        <StackPanel Orientation="Horizontal" Spacing="4">
+                                            <FontIcon FontSize="16" Glyph="&#xE946;" />
+                                            <TextBlock Text="Details" />
+                                        </StackPanel>
+                                    </Button>
+                                </Grid>
+                            </Grid>
+                            <MenuFlyoutSeparator Grid.Row="1" />
+                            <ScrollViewer Grid.Row="2" Padding="12,2,12,0">
+                                <Border x:Name="IssueContentPanel" />
+                            </ScrollViewer>
+                        </Grid>
+                    </toolkit:Case>
+                </toolkit:SwitchPresenter>
+            </toolkit:Case>
+        </toolkit:SwitchPresenter>
     </Grid>
 </Page>
