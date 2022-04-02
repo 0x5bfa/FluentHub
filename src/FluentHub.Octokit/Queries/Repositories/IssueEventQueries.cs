@@ -22,6 +22,7 @@ namespace FluentHub.Octokit.Queries.Repositories
                 .Issue(number)
                 .Select(x => new
                 {
+                    #region comments
                     Comments = x.TimelineItems(10, null, null, null, null, null, null).Nodes.OfType<IssueComment>().Select(y => new
                     {
                         Author = y.Author.Select(author => new
@@ -39,7 +40,40 @@ namespace FluentHub.Octokit.Queries.Repositories
                                 ReactedUserName = reactionNode.User.Login,
                             }).ToList(),
                         }).Single(),
-                        //...
+                        y.LastEditedAt,
+                        y.MinimizedReason,
+                        y.IsMinimized,
+                        y.UpdatedAt,
+                        y.ViewerCanDelete,
+                        y.ViewerCanMinimize,
+                        y.ViewerCanReact,
+                        y.ViewerCanUpdate,
+                        y.ViewerDidAuthor,
+                    }).ToList(),
+                    #endregion
+
+                    LabeledEvents = x.TimelineItems(10, null, null, null, null, null, null).Nodes.OfType<LabeledEvent>().Select(y => new
+                    {
+                        Actor = y.Actor.Select(actor => new
+                        {
+                            actor.Login,
+                            AvatarUrl = actor.AvatarUrl(100),
+                        }).Single(),
+                        Labels = y.Label.Select(labels => new
+                        {
+                            labels.Color,
+                            labels.Name,
+                        }).Single(),
+                    }).ToList(),
+
+                    AssignedEvent = x.TimelineItems(10, null, null, null, null, null, null).Nodes.OfType<AssignedEvent>().Select(y => new
+                    {
+                        Actor = y.Actor.Select(actor => new
+                        {
+                            actor.Login,
+                            AvatarUrl = actor.AvatarUrl(100),
+                        }).Single(),
+                        y.Assignee,
                     }).ToList(),
                 })
                 .Compile();

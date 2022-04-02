@@ -20,7 +20,7 @@ namespace FluentHub.Views.Users
         private readonly INavigationService navigationService;
         public FollowingViewModel ViewModel { get; }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             DataContext = e.Parameter;
 
@@ -36,7 +36,7 @@ namespace FluentHub.Views.Users
 
             var command = ViewModel.RefreshFollowingCommand;
             if (command.CanExecute(DataContext))
-                await command.ExecuteAsync(DataContext);
+                command.ExecuteAsync(DataContext);
         }
     }
 }
