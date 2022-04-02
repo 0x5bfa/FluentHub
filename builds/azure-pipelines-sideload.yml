@@ -43,6 +43,13 @@ steps:
   inputs:
     secureFile: 'FluentHub.pfx'
 
+- task: CopyFiles@2
+  displayName: Copy downloaded CA
+  inputs:
+    SourceFolder: '$(Agent.TempDirectory)'
+    Contents: '$(SigningCertSecureFile.secureFilePath)'
+    TargetFolder: '$(Build.SourcesDirectory)\src\FluentHub'
+
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
@@ -65,7 +72,7 @@ steps:
     /p:UapAppxPackageBuildMode=Sideload
     /p:AppxPackageSigningEnabled=true
     /p:PackageCertificateThumbprint=""
-    /p:PackageCertificateKeyFile="$(SigningCertSecureFile.secureFilePath)"
+    /p:PackageCertificateKeyFile="$(Build.SourcesDirectory)\src\FluentHub\FluentHub.pfx"
     /p:PackageCertificatePassword="$(SigningCertSecureFile.password)"'
 
 - task: CopyFiles@2
