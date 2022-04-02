@@ -25,14 +25,19 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Grid x:Name="ImageGrid" Grid.Column="0">
+            <Grid
+                x:Name="ImageGrid"
+                Grid.Column="0"
+                Background="White">
                 <Image
+                    HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    Source="https://blog.ehcgroup.io/wp-content/uploads/2019/05/what-is-github-1-1.png"
+                    Source="/Assets/AppTiles/SplashScreen.scale-400.png"
                     Stretch="UniformToFill" />
             </Grid>
 
             <Grid x:Name="TextGrid" Grid.Column="1">
+
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -68,7 +73,16 @@
                     </Grid>
                 </Grid>
                 <Grid Grid.Row="1">
-                    
+                    <StackPanel
+                        Margin="0,24,0,0"
+                        HorizontalAlignment="Center"
+                        Orientation="Horizontal">
+                        <Button
+                            HorizontalAlignment="Center"
+                            Click="SetupButton_Click"
+                            Content="Start setup"
+                            Style="{ThemeResource AccentButtonStyle}" />
+                    </StackPanel>
                 </Grid>
             </Grid>
 
