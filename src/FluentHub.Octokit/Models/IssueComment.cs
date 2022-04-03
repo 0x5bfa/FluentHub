@@ -13,8 +13,8 @@ namespace FluentHub.Octokit.Models
         public string AuthorAvatarUrl { get; set; }
         public graphqlmodel.CommentAuthorAssociation AuthorAssociation { get; set; }
         public string BodyHtml { get; set; }
-        public List<Reaction> Reactions { get; set; }
-        public bool IsEdited { get; set; } // Different from original model "DateTimeOffset? LastEditedAt"
+        public Reaction Reactions { get; set; } = new();
+        public bool IsEdited { get; set; }
         public string MinimizedReason { get; set; }
         public bool IsMinimized { get; set; }
         public DateTimeOffset UpdatedAt { get; set; }

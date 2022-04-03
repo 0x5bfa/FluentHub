@@ -30,16 +30,17 @@ namespace FluentHub.Octokit.Queries.Repositories
                             author.Login,
                             AvatarUrl = author.AvatarUrl(100),
                         }).Single(),
-                        y.AuthorAssociation,
-                        y.BodyHTML,
-                        Reactions = y.Reactions(6, null, null, null, null, null).Select(reaction => new
+
+                        Reactions = y.Reactions(6, null, null, null, null, null).Nodes.Select(reaction => new
                         {
-                            reaction.ViewerHasReacted,
-                            Reactions = reaction.Nodes.Select(reactionNode => new {
+                            Reactions = reaction.Select(reactionNode => new {
                                 reactionNode.Content,
                                 ReactedUserName = reactionNode.User.Login,
-                            }).ToList(),
-                        }).Single(),
+                            }).Single(),
+                        }).ToList(),
+
+                        y.AuthorAssociation,
+                        y.BodyHTML,
                         y.LastEditedAt,
                         y.MinimizedReason,
                         y.IsMinimized,
@@ -75,16 +76,61 @@ namespace FluentHub.Octokit.Queries.Repositories
                 comment.IsMinimized = item.IsMinimized;
                 comment.MinimizedReason = item.MinimizedReason;
 
-                List<Reaction> reactions = new();
-                foreach (var reaction in item.Reactions.Reactions)
+                comment.Reactions = new();
+                foreach (var reaction in item.Reactions)
                 {
-                    Reaction reactionItem = new();
-                    reactionItem.Content = reaction.Content;
-                    reactionItem.ReactorLogin = reaction.ReactedUserName;
-
-                    reactions.Add(reactionItem);
+                    switch (reaction.Reactions.Content)
+                    {
+                        case graphqlmodel.ReactionContent.ThumbsUp:
+                            comment.Reactions.ThumbsDownCount++;
+                            comment.Reactions.ThumbsDownActors.Add(reaction.Reactions.ReactedUserName);
+                            if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
+                                comment.Reactions.ViewerReactThumbsUp = true;
+                            break;
+                        case graphqlmodel.ReactionContent.ThumbsDown:
+                            comment.Reactions.ThumbsDownCount++;
+                            comment.Reactions.ThumbsDownActors.Add(reaction.Reactions.ReactedUserName);
+                            if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
+                                comment.Reactions.ViewerReactThumbsDown = true;
+                            break;
+                        case graphqlmodel.ReactionContent.Laugh:
+                            comment.Reactions.LaughCount++;
+                            comment.Reactions.LaughActors.Add(reaction.Reactions.ReactedUserName);
+                            if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
+                                comment.Reactions.ViewerReactLaugh = true;
+                            break;
+                        case graphqlmodel.ReactionContent.Hooray:
+                            comment.Reactions.HoorayCount++;
+                            comment.Reactions.HoorayActors.Add(reaction.Reactions.ReactedUserName);
+                            if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
+                                comment.Reactions.ViewerReactHooray = true;
+                            break;
+                        case graphqlmodel.ReactionContent.Confused:
+                            comment.Reactions.ConfusedCount++;
+                            comment.Reactions.ConfusedActors.Add(reaction.Reactions.ReactedUserName);
+                            if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
+                                comment.Reactions.ViewerReactConfused = true;
+                            break;
+                        case graphqlmodel.ReactionContent.Heart:
+                            comment.Reactions.HeartCount++;
+                            comment.Reactions.HeartActors.Add(reaction.Reactions.ReactedUserName);
+                            if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
+                                comment.Reactions.ViewerReactHeart = true;
+                            break;
+                        case graphqlmodel.ReactionContent.Rocket:
+                            comment.Reactions.RocketCount++;
+                            comment.Reactions.RocketActors.Add(reaction.Reactions.ReactedUserName);
+                            if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
+                                comment.Reactions.ViewerReactRocket = true;
+                            break;
+                        case graphqlmodel.ReactionContent.Eyes:
+                            comment.Reactions.EyesCount++;
+                            comment.Reactions.EyesActors.Add(reaction.Reactions.ReactedUserName);
+                            if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
+                                comment.Reactions.ViewerReactEyes = true;
+                            break;
+                    }
                 }
-                comment.Reactions = reactions;
 
                 comment.UpdatedAt = item.UpdatedAt;
                 comment.ViewerCanDelete = item.ViewerCanDelete;
@@ -117,14 +163,13 @@ namespace FluentHub.Octokit.Queries.Repositories
                         AvatarUrl = author.AvatarUrl(100),
                     }).Single(),
 
-                    Reactions = x.Reactions(6, null, null, null, null, null).Select(reaction => new
+                    Reactions = x.Reactions(6, null, null, null, null, null).Nodes.Select(reaction => new
                     {
-                        reaction.ViewerHasReacted,
-                        Reactions = reaction.Nodes.Select(reactionNode => new {
+                        Reactions = reaction.Select(reactionNode => new {
                             reactionNode.Content,
                             ReactedUserName = reactionNode.User.Login,
-                        }).ToList(),
-                    }).Single(),
+                        }).Single(),
+                    }).ToList(),
 
                     x.AuthorAssociation,
                     x.BodyHTML,
@@ -145,16 +190,61 @@ namespace FluentHub.Octokit.Queries.Repositories
 
             IssueComment comment = new();
 
-            List<Reaction> reactions = new();
-            foreach (var reaction in response.Reactions.Reactions)
+            comment.Reactions = new();
+            foreach (var reaction in response.Reactions)
             {
-                Reaction reactionItem = new();
-                reactionItem.Content = reaction.Content;
-                reactionItem.ReactorLogin = reaction.ReactedUserName;
-
-                reactions.Add(reactionItem);
+                switch (reaction.Reactions.Content)
+                {
+                    case graphqlmodel.ReactionContent.ThumbsUp:
+                        comment.Reactions.ThumbsDownCount++;
+                        comment.Reactions.ThumbsDownActors.Add(reaction.Reactions.ReactedUserName);
+                        if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
+                            comment.Reactions.ViewerReactThumbsUp = true;
+                        break;
+                    case graphqlmodel.ReactionContent.ThumbsDown:
+                        comment.Reactions.ThumbsDownCount++;
+                        comment.Reactions.ThumbsDownActors.Add(reaction.Reactions.ReactedUserName);
+                        if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
+                            comment.Reactions.ViewerReactThumbsDown = true;
+                        break;
+                    case graphqlmodel.ReactionContent.Laugh:
+                        comment.Reactions.LaughCount++;
+                        comment.Reactions.LaughActors.Add(reaction.Reactions.ReactedUserName);
+                        if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
+                            comment.Reactions.ViewerReactLaugh = true;
+                        break;
+                    case graphqlmodel.ReactionContent.Hooray:
+                        comment.Reactions.HoorayCount++;
+                        comment.Reactions.HoorayActors.Add(reaction.Reactions.ReactedUserName);
+                        if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
+                            comment.Reactions.ViewerReactHooray = true;
+                        break;
+                    case graphqlmodel.ReactionContent.Confused:
+                        comment.Reactions.ConfusedCount++;
+                        comment.Reactions.ConfusedActors.Add(reaction.Reactions.ReactedUserName);
+                        if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
+                            comment.Reactions.ViewerReactConfused = true;
+                        break;
+                    case graphqlmodel.ReactionContent.Heart:
+                        comment.Reactions.HeartCount++;
+                        comment.Reactions.HeartActors.Add(reaction.Reactions.ReactedUserName);
+                        if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
+                            comment.Reactions.ViewerReactHeart = true;
+                        break;
+                    case graphqlmodel.ReactionContent.Rocket:
+                        comment.Reactions.RocketCount++;
+                        comment.Reactions.RocketActors.Add(reaction.Reactions.ReactedUserName);
+                        if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
+                            comment.Reactions.ViewerReactRocket = true;
+                        break;
+                    case graphqlmodel.ReactionContent.Eyes:
+                        comment.Reactions.EyesCount++;
+                        comment.Reactions.EyesActors.Add(reaction.Reactions.ReactedUserName);
+                        if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
+                            comment.Reactions.ViewerReactEyes = true;
+                        break;
+                }
             }
-            comment.Reactions = reactions;
 
             comment.AuthorAssociation = response.AuthorAssociation;
             comment.AuthorAvatarUrl = response.Author.AvatarUrl;

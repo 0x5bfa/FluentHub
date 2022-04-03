@@ -17,41 +17,40 @@ namespace FluentHub.Octokit
         public static global::Octokit.GitHubClient Client { get; private set; }
             = new global::Octokit.GitHubClient(new global::Octokit.ProductHeaderValue("FluentHub"));
         public static string AccessToken { get; private set; }
-        public static bool InitializedLogger { get; private set; }
+        public static bool InitializedOctokit { get; private set; }
+        public static string SignedInUserName { get; set; }
 
         public App()
         {
-            if (InitializedLogger == false)
+            if (InitializedOctokit == false)
             {
-                IntializeLogger();
-                AccessToken = GetTokenFromApp();
-            }
-
-            if (Connection == null)
-            {
-                Connection= new Connection(productInformation, AccessToken);
-                Client.Credentials = new global::Octokit.Credentials(AccessToken);
+                InitializeLogger();
+                InitializeOctokit();
             }
         }
 
-        public string GetTokenFromApp()
+        public void InitializeOctokit()
         {
             try
             {
                 ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
 
-                string value = localSettings.Values["AccessToken"] as string;
+                AccessToken = localSettings.Values["AccessToken"] as string;
+                SignedInUserName = localSettings.Values["SignedInUserName"] as string;
 
-                return AccessToken = value;
+                Connection = new Connection(productInformation, AccessToken);
+                Client.Credentials = new global::Octokit.Credentials(AccessToken);
+
+                InitializedOctokit = true;
             }
             catch (Exception ex)
             {
                 Log.Error(ex, ex.Message);
-                return null;
+                InitializedOctokit = false;
             }
         }
 
-        private void IntializeLogger()
+        private void InitializeLogger()
         {
             string logFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "FluentHub.Octokit.Logs/Log.log");
 
@@ -59,8 +58,6 @@ namespace FluentHub.Octokit
                 .MinimumLevel.Debug()
                 .WriteTo.File(path: logFilePath, rollingInterval: RollingInterval.Day)
                 .CreateLogger();
-
-            InitializedLogger = true;
         }
     }
 }

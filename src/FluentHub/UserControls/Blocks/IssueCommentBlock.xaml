@@ -23,7 +23,7 @@
     <Grid Grid.Row="3">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <Grid
@@ -33,6 +33,7 @@
             BorderThickness="1"
             CornerRadius="4">
             <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -88,36 +89,44 @@
                             <FontIcon FontSize="14" Glyph="&#xE170;" />
                         </Button.Content>
                         <Button.Flyout>
-                            <Flyout Placement="Bottom">
+                            <Flyout Placement="BottomEdgeAlignedRight">
                                 <Grid Margin="-8" RowSpacing="6">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
-                                    <TextBlock
-                                        Margin="4"
-                                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                                        Text="Pick your reaction!" />
-                                    <MenuFlyoutSeparator Grid.Row="1" Margin="-4,0,-4,4" />
                                     <StackPanel
                                         Grid.Row="2"
                                         Orientation="Horizontal"
                                         Spacing="6">
-                                        <Button Content="👍" />
-                                        <Button Content="👎" />
-                                        <Button Content="😄" />
-                                        <Button Content="🎉" />
-                                    </StackPanel>
-                                    <StackPanel
-                                        Grid.Row="3"
-                                        Orientation="Horizontal"
-                                        Spacing="6">
-                                        <Button Content="😕" />
-                                        <Button Content="❤️" />
-                                        <Button Content="🚀" />
-                                        <Button Content="👀" />
+                                        <ToggleButton
+                                            Content="👍"
+                                            IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactThumbsUp, Mode=OneWay}"
+                                            IsEnabled="False" />
+                                        <ToggleButton
+                                            Content="👎"
+                                            IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactThumbsDown, Mode=OneWay}"
+                                            IsEnabled="False" />
+                                        <ToggleButton
+                                            Content="😄"
+                                            IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactLaugh, Mode=OneWay}"
+                                            IsEnabled="False" />
+                                        <ToggleButton
+                                            Content="🎉"
+                                            IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactHooray, Mode=OneWay}"
+                                            IsEnabled="False" />
+                                        <ToggleButton
+                                            Content="😕"
+                                            IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactConfused, Mode=OneWay}"
+                                            IsEnabled="False" />
+                                        <ToggleButton
+                                            Content="❤️"
+                                            IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactHeart, Mode=OneWay}"
+                                            IsEnabled="False" />
+                                        <ToggleButton
+                                            Content="🚀"
+                                            IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactRocket, Mode=OneWay}"
+                                            IsEnabled="False" />
+                                        <ToggleButton
+                                            Content="👀"
+                                            IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactEyes, Mode=OneWay}"
+                                            IsEnabled="False" />
                                     </StackPanel>
                                 </Grid>
                             </Flyout>
@@ -154,6 +163,110 @@
                 Margin="4"
                 DefaultBackgroundColor="Transparent"
                 NavigationCompleted="OnCommentWebViewNavigationCompleted" />
+            <Grid Grid.Row="3" Margin="12">
+                <StackPanel Orientation="Horizontal" Spacing="6">
+                    <Button
+                        Width="36"
+                        Height="32"
+                        Background="Transparent"
+                        BorderThickness="0">
+                        <Button.Content>
+                            <FontIcon FontSize="14" Glyph="&#xE170;" />
+                        </Button.Content>
+                        <Button.Flyout>
+                            <Flyout Placement="TopEdgeAlignedLeft">
+                                <Grid Margin="-8" RowSpacing="6">
+                                    <StackPanel
+                                        Grid.Row="2"
+                                        Orientation="Horizontal"
+                                        Spacing="6">
+                                        <ToggleButton
+                                            Content="👍"
+                                            IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactThumbsUp, Mode=OneWay}"
+                                            IsEnabled="False" />
+                                        <ToggleButton
+                                            Content="👎"
+                                            IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactThumbsDown, Mode=OneWay}"
+                                            IsEnabled="False" />
+                                        <ToggleButton
+                                            Content="😄"
+                                            IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactLaugh, Mode=OneWay}"
+                                            IsEnabled="False" />
+                                        <ToggleButton
+                                            Content="🎉"
+                                            IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactHooray, Mode=OneWay}"
+                                            IsEnabled="False" />
+                                        <ToggleButton
+                                            Content="😕"
+                                            IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactConfused, Mode=OneWay}"
+                                            IsEnabled="False" />
+                                        <ToggleButton
+                                            Content="❤️"
+                                            IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactHeart, Mode=OneWay}"
+                                            IsEnabled="False" />
+                                        <ToggleButton
+                                            Content="🚀"
+                                            IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactRocket, Mode=OneWay}"
+                                            IsEnabled="False" />
+                                        <ToggleButton
+                                            Content="👀"
+                                            IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactEyes, Mode=OneWay}"
+                                            IsEnabled="False" />
+                                    </StackPanel>
+                                </Grid>
+                            </Flyout>
+                        </Button.Flyout>
+                    </Button>
+                    <ToggleButton IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactThumbsUp, Mode=OneWay}" IsEnabled="False">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="👍" />
+                            <TextBlock Text="{x:Bind ViewModel.IssueComment.Reactions.ThumbsUpCount, Mode=OneWay}" />
+                        </StackPanel>
+                    </ToggleButton>
+                    <ToggleButton IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactThumbsDown, Mode=OneWay}" IsEnabled="False">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="👎" />
+                            <TextBlock Text="{x:Bind ViewModel.IssueComment.Reactions.ThumbsDownCount, Mode=OneWay}" />
+                        </StackPanel>
+                    </ToggleButton>
+                    <ToggleButton IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactLaugh, Mode=OneWay}" IsEnabled="False">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="😄" />
+                            <TextBlock Text="{x:Bind ViewModel.IssueComment.Reactions.LaughCount, Mode=OneWay}" />
+                        </StackPanel>
+                    </ToggleButton>
+                    <ToggleButton IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactHooray, Mode=OneWay}" IsEnabled="False">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="🎉" />
+                            <TextBlock Text="{x:Bind ViewModel.IssueComment.Reactions.HoorayCount, Mode=OneWay}" />
+                        </StackPanel>
+                    </ToggleButton>
+                    <ToggleButton IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactConfused, Mode=OneWay}" IsEnabled="False">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="😕" />
+                            <TextBlock Text="{x:Bind ViewModel.IssueComment.Reactions.ConfusedCount, Mode=OneWay}" />
+                        </StackPanel>
+                    </ToggleButton>
+                    <ToggleButton IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactHeart, Mode=OneWay}" IsEnabled="False">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="❤️" />
+                            <TextBlock Text="{x:Bind ViewModel.IssueComment.Reactions.HeartCount, Mode=OneWay}" />
+                        </StackPanel>
+                    </ToggleButton>
+                    <ToggleButton IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactRocket, Mode=OneWay}" IsEnabled="False">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="🚀" />
+                            <TextBlock Text="{x:Bind ViewModel.IssueComment.Reactions.RocketCount, Mode=OneWay}" />
+                        </StackPanel>
+                    </ToggleButton>
+                    <ToggleButton IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactEyes, Mode=OneWay}" IsEnabled="False">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="👀" />
+                            <TextBlock Text="{x:Bind ViewModel.IssueComment.Reactions.EyesCount, Mode=OneWay}" />
+                        </StackPanel>
+                    </ToggleButton>
+                </StackPanel>
+            </Grid>
         </Grid>
         <Border
             Grid.Row="2"
