@@ -50,7 +50,7 @@ namespace FluentHub.UserControls
 
         private void OnGitCloneFlyoutLoaded(object sender, RoutedEventArgs e)
         {
-            _cloneUrl = $"https;//github.com/{ViewModel.Repository.Owner}/{ViewModel.Repository.Name}.git";
+            _cloneUrl = $"https://github.com/{ViewModel.Repository.Owner}/{ViewModel.Repository.Name}.git";
             _sshUrl = $"git@github.com:{ViewModel.Repository.Owner}/{ViewModel.Repository.Name}.git";
             _gitUrl = $"gh repo clone {ViewModel.Repository.Owner}/{ViewModel.Repository.Name}";
 
@@ -132,7 +132,7 @@ namespace FluentHub.UserControls
 
         private async void GitHubDeskButton_Click(object sender, RoutedEventArgs e)
         {
-            string gitHubDeskUrl = "x-github-client://openRepo" + _repoUrl;
+            string gitHubDeskUrl = "x-github-client://openRepo " + _repoUrl;
 
             var uri = new Uri(gitHubDeskUrl);
 

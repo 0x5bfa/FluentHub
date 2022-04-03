@@ -101,12 +101,12 @@
                                         Text="{x:Bind ViewModel.PullItem.Title, Mode=OneWay}" />
                                     <StackPanel Orientation="Horizontal">
                                         <TextBlock
-                                            FontWeight="SemiLight"
+                                            FontWeight="ExtraLight"
                                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                             Style="{StaticResource TitleTextBlockStyle}"
                                             Text="#" />
                                         <TextBlock
-                                            FontWeight="SemiLight"
+                                            FontWeight="ExtraLight"
                                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                             Style="{StaticResource TitleTextBlockStyle}"
                                             Text="{x:Bind ViewModel.PullItem.Number, Mode=OneWay}" />
@@ -152,7 +152,7 @@
                                     </Button>
                                 </Grid>
                             </Grid>
-                            <MenuFlyoutSeparator Grid.Row="1" />
+                            <MenuFlyoutSeparator Grid.Row="1" Margin="12,0" />
                             <ScrollViewer Grid.Row="2" Padding="12,2,12,0">
                                 <Border x:Name="IssueContentPanel" />
                             </ScrollViewer>

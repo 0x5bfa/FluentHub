@@ -1,5 +1,6 @@
 ﻿using FluentHub.Helpers;
-using FluentHub.Models.Items;
+using FluentHub.Octokit.Models;
+using FluentHub.Octokit.Queries.Repositories;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,32 +14,18 @@ namespace FluentHub.ViewModels.UserControls.Blocks
 {
     public class IssueCommentBlockViewModel : INotifyPropertyChanged
     {
-        private long repositoryId;
-        public long RepositoryId { get => repositoryId; set => SetProperty(ref repositoryId, value); }
-
-        private int issueNumber;
-        public int IssueNumber { get => issueNumber; set => SetProperty(ref issueNumber, value); }
-
-        private long commentId;
-        public long CommentId { get => commentId; set => SetProperty(ref commentId, value); }
-
-        private IssueCommentItem issueComment;
-        public IssueCommentItem IssueComment
+        private IssueComment issueComment;
+        public IssueComment IssueComment
         {
             get => issueComment;
             set => SetProperty(ref issueComment, value);
         }
 
-        private string bodyHtml;
-        public string BodyHtml { get => bodyHtml; set => SetProperty(ref bodyHtml, value); }
-
         public async Task SetWebViewContentsAsync(WebView webView)
         {
-            Octokit.Queries.Repositories.MarkdownQueries markdown = new();
+            MarkdownQueries markdown = new();
 
-            var repo = await App.Client.Repository.Get(RepositoryId);
-
-            var html = await markdown.GetHtmlAsync(IssueComment.Body, repo.HtmlUrl, ThemeHelper.ActualTheme.ToString().ToLower());
+            var html = await markdown.GetHtmlAsync(IssueComment.BodyHtml, IssueComment.Url, ThemeHelper.ActualTheme.ToString().ToLower());
 
             webView.NavigateToString(html);
         }

@@ -46,7 +46,7 @@ namespace FluentHub.UserControls.Labels
             switch (Status)
             {
                 case Status.IssueOpened: // #1a7f37 [github light color bind theme]
-                    LabelBackground.Background = ColorHelpers.HexCodeToSolidColorBrush("#40d563");
+                    LabelBackground.Background = ColorHelpers.HexCodeToSolidColorBrush("#57AB5A");
                     StateLabelFont.Glyph = "\uE9EA";
                     StateLabelTextBlock.Text = "Open";
                     break;
@@ -57,7 +57,7 @@ namespace FluentHub.UserControls.Labels
                     break;
 
                 case Status.PullOpened: // #1a7f37 [github light color bind theme]
-                    LabelBackground.Background = ColorHelpers.HexCodeToSolidColorBrush("#40d563");
+                    LabelBackground.Background = ColorHelpers.HexCodeToSolidColorBrush("#57AB5A");
                     StateLabelFont.Glyph = "\uE9BF";
                     StateLabelTextBlock.Text = "Open";
                     break;

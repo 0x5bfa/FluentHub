@@ -129,10 +129,12 @@
     <Compile Include="Models\Discussion.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Issue.cs" />
+    <Compile Include="Models\IssueComment.cs" />
     <Compile Include="Models\Label.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\Organization.cs" />
     <Compile Include="Models\PullRequest.cs" />
+    <Compile Include="Models\Reaction.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserStatus.cs" />
     <Compile Include="Queries\Repositories\MarkdownQueries.cs" />

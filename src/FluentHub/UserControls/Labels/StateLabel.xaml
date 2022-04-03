@@ -36,6 +36,7 @@
                 <TextBlock
                     x:Name="StateLabelTextBlock"
                     VerticalAlignment="Center"
+                    Foreground="White"
                     Style="{StaticResource BodyTextBlockStyle}" />
             </StackPanel>
         </Grid>
