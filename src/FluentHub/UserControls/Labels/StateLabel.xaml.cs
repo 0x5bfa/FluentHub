@@ -20,7 +20,7 @@ namespace FluentHub.UserControls.Labels
 {
     public sealed partial class StateLabel : UserControl
     {
-        #region StatusProperty
+        #region propdp
         public static readonly DependencyProperty StatusProperty
             = DependencyProperty.Register(
                   nameof(Status),
@@ -46,45 +46,33 @@ namespace FluentHub.UserControls.Labels
             switch (Status)
             {
                 case Status.IssueOpened: // #1a7f37 [github light color bind theme]
-                    LabelBackground.Background = ColorHelpers.HexCodeToSolidColorBrush("#16A34A");
-                    StateLabelTextBlock.Foreground = ColorHelpers.HexCodeToSolidColorBrush("#A5D6A7");
+                    LabelBackground.Background = ColorHelpers.HexCodeToSolidColorBrush("#57AB5A");
                     StateLabelFont.Glyph = "\uE9EA";
                     StateLabelTextBlock.Text = "Open";
                     break;
                 case Status.IssueClosed: // #8250df [github light color bind theme]
-                    LabelBackground.Background = ColorHelpers.HexCodeToSolidColorBrush("#9333EA");
-                    StateLabelTextBlock.Foreground = ColorHelpers.HexCodeToSolidColorBrush("#CE93D8");
+                    LabelBackground.Background = ColorHelpers.HexCodeToSolidColorBrush("#7548c7");
                     StateLabelFont.Glyph = "\uE9E6";
                     StateLabelTextBlock.Text = "Closed";
                     break;
-                case Status.IssueDraft: // #57606a [github light color bind theme]
-                    LabelBackground.Background = ColorHelpers.HexCodeToSolidColorBrush("#52525B");
-                    StateLabelTextBlock.Foreground = ColorHelpers.HexCodeToSolidColorBrush("#EEEEEE");
-                    StateLabelFont.Glyph = "\uE9E8";
-                    StateLabelTextBlock.Text = "Draft";
-                    break;
 
                 case Status.PullOpened: // #1a7f37 [github light color bind theme]
-                    LabelBackground.Background = ColorHelpers.HexCodeToSolidColorBrush("#16A34A");
-                    StateLabelTextBlock.Foreground = ColorHelpers.HexCodeToSolidColorBrush("#A5D6A7");
+                    LabelBackground.Background = ColorHelpers.HexCodeToSolidColorBrush("#57AB5A");
                     StateLabelFont.Glyph = "\uE9BF";
                     StateLabelTextBlock.Text = "Open";
                     break;
                 case Status.PullClosed: // #cf222e [github light color bind theme]
                     LabelBackground.Background = ColorHelpers.HexCodeToSolidColorBrush("#DC2626");
-                    StateLabelTextBlock.Foreground = ColorHelpers.HexCodeToSolidColorBrush("#EF9A9A");
                     StateLabelFont.Glyph = "\uE9C1";
                     StateLabelTextBlock.Text = "Closed";
                     break;
                 case Status.PullMerged: // #8250df [github light color bind theme]
-                    LabelBackground.Background = ColorHelpers.HexCodeToSolidColorBrush("#9333EA");
-                    StateLabelTextBlock.Foreground = ColorHelpers.HexCodeToSolidColorBrush("#CE93D8");
+                    LabelBackground.Background = ColorHelpers.HexCodeToSolidColorBrush("#7548c7");
                     StateLabelFont.Glyph = "\uE9BD";
                     StateLabelTextBlock.Text = "Marged";
                     break;
                 case Status.PullDraft: // #57606a [github light color bind theme]
                     LabelBackground.Background = ColorHelpers.HexCodeToSolidColorBrush("#52525B");
-                    StateLabelTextBlock.Foreground = ColorHelpers.HexCodeToSolidColorBrush("#EEEEEE");
                     StateLabelFont.Glyph = "\uE9C3";
                     StateLabelTextBlock.Text = "Draft";
                     break;
@@ -96,7 +84,6 @@ namespace FluentHub.UserControls.Labels
     {
         IssueOpened,
         IssueClosed,
-        IssueDraft,
         PullOpened,
         PullClosed,
         PullMerged,

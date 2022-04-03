@@ -1,30 +1,55 @@
-﻿using System;
+﻿using FluentHub.Services;
+using FluentHub.ViewModels.Repositories;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Collections.ObjectModel;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-
-// 空白ページの項目テンプレートについては、https://go.microsoft.com/fwlink/?LinkId=234238 を参照してください
 
 namespace FluentHub.Views.Repositories
 {
-    /// <summary>
-    /// それ自体で使用できる空白ページまたはフレーム内に移動できる空白ページ。
-    /// </summary>
     public sealed partial class PullRequestPage : Page
     {
         public PullRequestPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+
+            var provider = App.Current.Services;
+            ViewModel = provider.GetRequiredService<PullRequestViewModel>();
+            navigationService = provider.GetRequiredService<INavigationService>();
+        }
+
+        private readonly INavigationService navigationService;
+        public PullRequestViewModel ViewModel { get; }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            Octokit.Models.PullRequest param = e.Parameter as Octokit.Models.PullRequest;
+
+            DataContext = e.Parameter;
+
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = $"{param.Title} · Pull Request #{param.Number} · {param.OwnerLogin}/{param.Name}";
+            currentItem.Description = currentItem.Header;
+            currentItem.Url = $"https://github.com/{param.OwnerLogin}/{param.Name}/pull/{param.Number}";
+            currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
+            {
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/PullRequests.png"))
+            };
+
+            var command = ViewModel.RefreshPullRequestPageCommand;
+            if (command.CanExecute(param))
+                command.Execute(param);
+        }
+
+        private async void OnViewDetailsButtonClick(object sender, RoutedEventArgs e)
+        {
+            Dialogs.IssueDetailsContentDialog detailsContentDialog = new();
+            await detailsContentDialog.ShowAsync();
         }
     }
 }

@@ -41,8 +41,7 @@ namespace FluentHub.UserControls.ButtonBlocks
 
         private void OnIssueBlockButtonClick(object sender, RoutedEventArgs e)
         {
-            string param = ViewModel.IssueItem.Owner + "/" + ViewModel.IssueItem.Name + "/" + ViewModel.IssueItem.Number;
-            navigationService.Navigate<IssuePage>(param);
+            navigationService.Navigate<IssuePage>(ViewModel.IssueItem);
         }
     }
 }

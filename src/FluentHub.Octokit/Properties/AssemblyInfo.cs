@@ -3,7 +3,7 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 [assembly: AssemblyTitle("FluentHub.Octokit")]
-[assembly: AssemblyDescription("Octokit.NET extensions for FluentHub")]
+[assembly: AssemblyDescription("GitHub API connection for FluentHub")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("fluenthub-community")]
 [assembly: AssemblyProduct("FluentHub.Octokit")]

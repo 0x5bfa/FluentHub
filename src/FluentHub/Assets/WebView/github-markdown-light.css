@@ -58,7 +58,7 @@ word-wrap: break-word;
   margin: .67em 0;
   font-weight: 600;
   padding-bottom: .3em;
-  font-size: 2em;
+  font-size: 28px;
   border-bottom: 1px solid hsla(210,18%,87%,1);
 }
 
@@ -234,8 +234,8 @@ word-wrap: break-word;
 .markdown-body h4,
 .markdown-body h5,
 .markdown-body h6 {
-  margin-top: 24px;
-  margin-bottom: 16px;
+  margin-top: 18px;
+  margin-bottom: 12px;
   font-weight: 600;
   line-height: 1.25;
 }
@@ -243,28 +243,28 @@ word-wrap: break-word;
 .markdown-body h2 {
   font-weight: 600;
   padding-bottom: .3em;
-  font-size: 1.5em;
+  font-size: 24px;
   border-bottom: 1px solid hsla(210,18%,87%,1);
 }
 
 .markdown-body h3 {
   font-weight: 600;
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .markdown-body h4 {
   font-weight: 600;
-  font-size: 1em;
+  font-size: 14px;
 }
 
 .markdown-body h5 {
   font-weight: 600;
-  font-size: .875em;
+  font-size: 12px;
 }
 
 .markdown-body h6 {
   font-weight: 600;
-  font-size: .85em;
+  font-size: 12px;
   color: #57606a;
 }
 

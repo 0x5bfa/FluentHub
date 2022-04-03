@@ -10,16 +10,16 @@ using graphqlmodel = global::Octokit.GraphQL.Model;
 
 namespace FluentHub.Octokit.Queries.Repositories
 {
-    public class IssueEventQueries
+    public class PullRequestEventQueries
     {
-        public IssueEventQueries() => new App();
+        public PullRequestEventQueries() => new App();
 
         public async Task<List<IssueComment>> GetAllAsync(string owner, string name, int number)
         {
             #region queries
             var query = new Query()
                 .Repository(name, owner)
-                .Issue(number)
+                .PullRequest(number)
                 .Select(x => new
                 {
                     #region comments
@@ -30,8 +30,7 @@ namespace FluentHub.Octokit.Queries.Repositories
                             author.Login,
                             AvatarUrl = author.AvatarUrl(100),
                         }).Single(),
-                        y.AuthorAssociation,
-                        y.BodyHTML,
+
                         Reactions = y.Reactions(6, null, null, null, null, null).Nodes.Select(reaction => new
                         {
                             Reactions = reaction.Select(reactionNode => new {
@@ -39,6 +38,9 @@ namespace FluentHub.Octokit.Queries.Repositories
                                 ReactedUserName = reactionNode.User.Login,
                             }).Single(),
                         }).ToList(),
+
+                        y.AuthorAssociation,
+                        y.BodyHTML,
                         y.LastEditedAt,
                         y.MinimizedReason,
                         y.IsMinimized,
@@ -62,7 +64,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             #region copying
             List<IssueComment> issueComments = new();
 
-            foreach(var item in response.Comments)
+            foreach (var item in response.Comments)
             {
                 IssueComment comment = new();
 
@@ -75,7 +77,7 @@ namespace FluentHub.Octokit.Queries.Repositories
                 comment.MinimizedReason = item.MinimizedReason;
 
                 comment.Reactions = new();
-                foreach(var reaction in item.Reactions)
+                foreach (var reaction in item.Reactions)
                 {
                     switch (reaction.Reactions.Content)
                     {
@@ -152,7 +154,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             #region queries
             var query = new Query()
                 .Repository(name, owner)
-                .Issue(number)
+                .PullRequest(number)
                 .Select(x => new
                 {
                     Author = x.Author.Select(author => new

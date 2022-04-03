@@ -38,7 +38,7 @@ namespace FluentHub.Views.Repositories.Layouts
             }
             else
             {
-                header = $"{ContextViewModel.Name}/{ContextViewModel.Path.Remove(0, 1)} at {ContextViewModel.BranchName} • {ContextViewModel.Owner}/{ContextViewModel.Name}";
+                header = $"{ContextViewModel.Name}/{ContextViewModel.Path.Remove(0, 1)} at {ContextViewModel.BranchName} · {ContextViewModel.Owner}/{ContextViewModel.Name}";
             }
 
             currentItem.Header = header;

@@ -60,9 +60,9 @@ namespace FluentHub.Views.AppSettings
                     SettingsContentFrame.Navigate(typeof(AccountsPage));
                     NavViewFrameTitleTextBlock.Text = "Accounts";
                     break;
-                case "TextEditor":
-                    //SettingsContentFrame.Navigate(typeof(TextEditorPage));
-                    NavViewFrameTitleTextBlock.Text = "Text editor";
+                case "codepreview":
+                    SettingsContentFrame.Navigate(typeof(CodePreviewPage));
+                    NavViewFrameTitleTextBlock.Text = "Code Preview";
                     break;
             }
         }

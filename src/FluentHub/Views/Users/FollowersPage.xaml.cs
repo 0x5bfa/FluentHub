@@ -27,7 +27,7 @@ namespace FluentHub.Views.Users
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = $"Followers";
             currentItem.Description = $"{DataContext}'s followers";
-            currentItem.Url = $"https://gihtub.com/{DataContext}?tab=followers";
+            currentItem.Url = $"https://github.com/{DataContext}?tab=followers";
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.FontIconSource
             {
                 Glyph = "\uEA36",
