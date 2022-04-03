@@ -26,18 +26,24 @@ namespace FluentHub.Octokit.Queries.Users
                         OwnerAvatarUrl = x.Owner.AvatarUrl(100),
                         OwnerLoginName = x.Owner.Login,
 
-                        //PrimaryLanguageName = x.PrimaryLanguage.Name,
-                        //PrimaryLanguageColor = x.PrimaryLanguage.Color,
-                        x.StargazerCount,
+                        PrimaryLanguage = x.PrimaryLanguage.Select(y => new
+                        {
+                            y.Name,
+                            y.Color,
+                        }).SingleOrDefault(),
 
-                        //LicenseName = x.LicenseInfo.Name,
+                        x.StargazerCount,
                         x.ForkCount,
                         IssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
+                        OpenIssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
                         PullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
-                        x.UpdatedAt,
-
+                        OpenPullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
                         WatcherCount = x.Watchers(null, null, null, null).TotalCount,
+
+                        LicenseName = x.LicenseInfo.Select(y => y.Name).SingleOrDefault(),
+                        x.ViewerHasStarred,
                         DefaultBranchName = x.DefaultBranchRef.Name,
+                        x.UpdatedAt,
                     })
                     .Compile();
             #endregion
@@ -57,15 +63,16 @@ namespace FluentHub.Octokit.Queries.Users
                 item.Description = res.Description;
                 item.StargazerCount = res.StargazerCount;
 
-                //item.PrimaryLangName = res.PrimaryLanguageName;
-                //item.PrimaryLangColor = res.PrimaryLanguageColor;
+                item.PrimaryLangName = res.PrimaryLanguage?.Name;
+                item.PrimaryLangColor = res.PrimaryLanguage?.Color;
 
-                //item.LicenseName = res.LicenseName;
+                item.LicenseName = res.LicenseName;
                 item.ForkCount = res.ForkCount;
                 item.IssueCount = res.IssueCount;
                 item.PullCount = res.PullCount;
                 item.UpdatedAt = res.UpdatedAt;
                 item.WatcherCount = res.WatcherCount;
+                item.ViewerHasStarred = res.ViewerHasStarred;
                 item.DefaultBranchName = res.DefaultBranchName;
 
                 items.Add(item);
@@ -89,18 +96,24 @@ namespace FluentHub.Octokit.Queries.Users
                         OwnerAvatarUrl = x.Owner.AvatarUrl(100),
                         OwnerLoginName = x.Owner.Login,
 
-                        //PrimaryLanguageName = x.PrimaryLanguage.Name,
-                        //PrimaryLanguageColor = x.PrimaryLanguage.Color,
-                        x.StargazerCount,
+                        PrimaryLanguage = x.PrimaryLanguage.Select(y => new
+                        {
+                            y.Name,
+                            y.Color,
+                        }).SingleOrDefault(),
 
-                        //LicenseName = x.LicenseInfo.Name,
+                        x.StargazerCount,
                         x.ForkCount,
                         IssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
+                        OpenIssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
                         PullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
-                        x.UpdatedAt,
-
+                        OpenPullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
                         WatcherCount = x.Watchers(null, null, null, null).TotalCount,
+
+                        LicenseName = x.LicenseInfo.Select(y => y.Name).SingleOrDefault(),
+                        x.ViewerHasStarred,
                         DefaultBranchName = x.DefaultBranchRef.Name,
+                        x.UpdatedAt,
                     })
                     .Compile();
             #endregion
@@ -120,15 +133,16 @@ namespace FluentHub.Octokit.Queries.Users
                 item.Description = res.Description;
                 item.StargazerCount = res.StargazerCount;
 
-                //item.PrimaryLangName = res.PrimaryLanguageName;
-                //item.PrimaryLangColor = res.PrimaryLanguageColor;
+                item.PrimaryLangName = res.PrimaryLanguage?.Name;
+                item.PrimaryLangColor = res.PrimaryLanguage?.Color;
 
-                //item.LicenseName = res.LicenseName;
+                item.LicenseName = res.LicenseName;
                 item.ForkCount = res.ForkCount;
                 item.IssueCount = res.IssueCount;
                 item.PullCount = res.PullCount;
                 item.UpdatedAt = res.UpdatedAt;
                 item.WatcherCount = res.WatcherCount;
+                item.ViewerHasStarred = res.ViewerHasStarred;
                 item.DefaultBranchName = res.DefaultBranchName;
 
                 items.Add(item);

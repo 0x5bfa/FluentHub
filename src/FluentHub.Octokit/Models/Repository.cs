@@ -37,5 +37,7 @@ namespace FluentHub.Octokit.Models
         public string DefaultBranchName { get; set; }
 
         public DateTimeOffset UpdatedAt { get; set; }
+
+        public bool ViewerHasStarred { get; set; }
     }
 }
