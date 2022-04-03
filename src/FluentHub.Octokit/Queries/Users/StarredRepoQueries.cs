@@ -32,6 +32,10 @@ namespace FluentHub.Octokit.Queries.Users
                             y.Color,
                         }).SingleOrDefault(),
 
+                        LicenseName = x.LicenseInfo.Select(y => y.Name).SingleOrDefault(),
+                        DefaultBranchName = x.DefaultBranchRef.Name,
+                        x.HomepageUrl,
+
                         x.StargazerCount,
                         x.ForkCount,
                         IssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
@@ -39,10 +43,21 @@ namespace FluentHub.Octokit.Queries.Users
                         PullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
                         OpenPullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
                         WatcherCount = x.Watchers(null, null, null, null).TotalCount,
+                        HeadRefsCount = x.Refs("refs/heads/", null, null, null, null, null, null, null).TotalCount,
+                        ReleaseCount = x.Releases(null, null, null, null, null).TotalCount,
 
-                        LicenseName = x.LicenseInfo.Select(y => y.Name).SingleOrDefault(),
+                        x.ForkingAllowed,
+                        x.HasIssuesEnabled,
+                        x.HasProjectsEnabled,
+                        x.IsArchived,
+                        x.IsFork,
+                        x.IsInOrganization,
+                        x.IsPrivate,
+                        x.IsTemplate,
                         x.ViewerHasStarred,
-                        DefaultBranchName = x.DefaultBranchRef.Name,
+
+                        x.ViewerSubscription,
+
                         x.UpdatedAt,
                     })
                     .Compile();
@@ -61,19 +76,35 @@ namespace FluentHub.Octokit.Queries.Users
                 item.Owner = res.OwnerLoginName;
                 item.OwnerAvatarUrl = res.OwnerAvatarUrl;
                 item.Description = res.Description;
-                item.StargazerCount = res.StargazerCount;
 
                 item.PrimaryLangName = res.PrimaryLanguage?.Name;
                 item.PrimaryLangColor = res.PrimaryLanguage?.Color;
-
                 item.LicenseName = res.LicenseName;
+                item.DefaultBranchName = res.DefaultBranchName;
+                item.HomepageUrl = res.HomepageUrl;
+
+                item.StargazerCount = res.StargazerCount;
                 item.ForkCount = res.ForkCount;
                 item.IssueCount = res.IssueCount;
+                item.OpenIssueCount = res.OpenIssueCount;
                 item.PullCount = res.PullCount;
-                item.UpdatedAt = res.UpdatedAt;
+                item.OpenPullCount = res.OpenPullCount;
                 item.WatcherCount = res.WatcherCount;
+                item.HeadRefsCount = res.HeadRefsCount;
+                item.ReleaseCount = res.ReleaseCount;
+
                 item.ViewerHasStarred = res.ViewerHasStarred;
-                item.DefaultBranchName = res.DefaultBranchName;
+                item.HasIssuesEnabled = res.HasIssuesEnabled;
+                item.HasProjectsEnabled = res.HasProjectsEnabled;
+                item.IsArchived = res.IsArchived;
+                item.IsFork = res.IsFork;
+                item.IsInOrganization = res.IsInOrganization;
+                item.IsPrivate = res.IsPrivate;
+                item.IsTemplate = res.IsTemplate;
+
+                item.ViewerSubscription = res.ViewerSubscription;
+
+                item.UpdatedAt = res.UpdatedAt;
 
                 items.Add(item);
             }
@@ -102,6 +133,10 @@ namespace FluentHub.Octokit.Queries.Users
                             y.Color,
                         }).SingleOrDefault(),
 
+                        LicenseName = x.LicenseInfo.Select(y => y.Name).SingleOrDefault(),
+                        DefaultBranchName = x.DefaultBranchRef.Name,
+                        x.HomepageUrl,
+
                         x.StargazerCount,
                         x.ForkCount,
                         IssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
@@ -109,10 +144,21 @@ namespace FluentHub.Octokit.Queries.Users
                         PullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
                         OpenPullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
                         WatcherCount = x.Watchers(null, null, null, null).TotalCount,
+                        HeadRefsCount = x.Refs("refs/heads/", null, null, null, null, null, null, null).TotalCount,
+                        ReleaseCount = x.Releases(null, null, null, null, null).TotalCount,
 
-                        LicenseName = x.LicenseInfo.Select(y => y.Name).SingleOrDefault(),
+                        x.ForkingAllowed,
+                        x.HasIssuesEnabled,
+                        x.HasProjectsEnabled,
+                        x.IsArchived,
+                        x.IsFork,
+                        x.IsInOrganization,
+                        x.IsPrivate,
+                        x.IsTemplate,
                         x.ViewerHasStarred,
-                        DefaultBranchName = x.DefaultBranchRef.Name,
+
+                        x.ViewerSubscription,
+
                         x.UpdatedAt,
                     })
                     .Compile();
@@ -131,19 +177,35 @@ namespace FluentHub.Octokit.Queries.Users
                 item.Owner = res.OwnerLoginName;
                 item.OwnerAvatarUrl = res.OwnerAvatarUrl;
                 item.Description = res.Description;
-                item.StargazerCount = res.StargazerCount;
 
                 item.PrimaryLangName = res.PrimaryLanguage?.Name;
                 item.PrimaryLangColor = res.PrimaryLanguage?.Color;
-
                 item.LicenseName = res.LicenseName;
+                item.DefaultBranchName = res.DefaultBranchName;
+                item.HomepageUrl = res.HomepageUrl;
+
+                item.StargazerCount = res.StargazerCount;
                 item.ForkCount = res.ForkCount;
                 item.IssueCount = res.IssueCount;
+                item.OpenIssueCount = res.OpenIssueCount;
                 item.PullCount = res.PullCount;
-                item.UpdatedAt = res.UpdatedAt;
+                item.OpenPullCount = res.OpenPullCount;
                 item.WatcherCount = res.WatcherCount;
+                item.HeadRefsCount = res.HeadRefsCount;
+                item.ReleaseCount = res.ReleaseCount;
+
                 item.ViewerHasStarred = res.ViewerHasStarred;
-                item.DefaultBranchName = res.DefaultBranchName;
+                item.HasIssuesEnabled = res.HasIssuesEnabled;
+                item.HasProjectsEnabled = res.HasProjectsEnabled;
+                item.IsArchived = res.IsArchived;
+                item.IsFork = res.IsFork;
+                item.IsInOrganization = res.IsInOrganization;
+                item.IsPrivate = res.IsPrivate;
+                item.IsTemplate = res.IsTemplate;
+
+                item.ViewerSubscription = res.ViewerSubscription;
+
+                item.UpdatedAt = res.UpdatedAt;
 
                 items.Add(item);
             }

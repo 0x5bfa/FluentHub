@@ -32,6 +32,10 @@ namespace FluentHub.Octokit.Queries.Repositories
                         y.Color,
                     }).SingleOrDefault(),
 
+                    LicenseName = x.LicenseInfo.Select(y => y.Name).SingleOrDefault(),
+                    DefaultBranchName = x.DefaultBranchRef.Name,
+                    x.HomepageUrl,
+
                     x.StargazerCount,
                     x.ForkCount,
                     IssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
@@ -39,10 +43,21 @@ namespace FluentHub.Octokit.Queries.Repositories
                     PullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
                     OpenPullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
                     WatcherCount = x.Watchers(null, null, null, null).TotalCount,
+                    HeadRefsCount = x.Refs("refs/heads/", null, null, null, null, null, null, null).TotalCount,
+                    ReleaseCount = x.Releases(null, null, null, null, null).TotalCount,
 
-                    LicenseName = x.LicenseInfo.Select(y => y.Name).SingleOrDefault(),
+                    x.ForkingAllowed,
+                    x.HasIssuesEnabled,
+                    x.HasProjectsEnabled,
+                    x.IsArchived,
+                    x.IsFork,
+                    x.IsInOrganization,
+                    x.IsPrivate,
+                    x.IsTemplate,
                     x.ViewerHasStarred,
-                    DefaultBranchName = x.DefaultBranchRef.Name,
+
+                    x.ViewerSubscription,
+
                     x.UpdatedAt,
                 })
                 .Compile();
@@ -57,19 +72,35 @@ namespace FluentHub.Octokit.Queries.Repositories
             item.Owner = response.OwnerLoginName;
             item.OwnerAvatarUrl = response.OwnerAvatarUrl;
             item.Description = response.Description;
-            item.StargazerCount = response.StargazerCount;
 
             item.PrimaryLangName = response.PrimaryLanguage?.Name;
             item.PrimaryLangColor = response.PrimaryLanguage?.Color;
-
             item.LicenseName = response.LicenseName;
+            item.DefaultBranchName = response.DefaultBranchName;
+            item.HomepageUrl = response.HomepageUrl;
+
+            item.StargazerCount = response.StargazerCount;
             item.ForkCount = response.ForkCount;
             item.IssueCount = response.IssueCount;
+            item.OpenIssueCount = response.OpenIssueCount;
             item.PullCount = response.PullCount;
-            item.UpdatedAt = response.UpdatedAt;
+            item.OpenPullCount = response.OpenPullCount;
             item.WatcherCount = response.WatcherCount;
+            item.HeadRefsCount = response.HeadRefsCount;
+            item.ReleaseCount = response.ReleaseCount;
+
             item.ViewerHasStarred = response.ViewerHasStarred;
-            item.DefaultBranchName = response.DefaultBranchName;
+            item.HasIssuesEnabled = response.HasIssuesEnabled;
+            item.HasProjectsEnabled = response.HasProjectsEnabled;
+            item.IsArchived = response.IsArchived;
+            item.IsFork = response.IsFork;
+            item.IsInOrganization = response.IsInOrganization;
+            item.IsPrivate = response.IsPrivate;
+            item.IsTemplate = response.IsTemplate;
+
+            item.ViewerSubscription = response.ViewerSubscription;
+
+            item.UpdatedAt = response.UpdatedAt;
             #endregion
 
             return item;
