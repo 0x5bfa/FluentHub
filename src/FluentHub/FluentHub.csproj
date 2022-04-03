@@ -129,6 +129,9 @@
     </Compile>
     <Compile Include="Converters\ObjectToBoolConverter.cs" />
     <Compile Include="Converters\SettingsControlConverter.cs" />
+    <Compile Include="Dialogs\IssueDetailsContentDialog.xaml.cs">
+      <DependentUpon>IssueDetailsContentDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\IEnumerableExt.cs" />
     <Compile Include="Helpers\BlobDetailsHelpers.cs" />
     <Compile Include="Helpers\ColorHelpers.cs" />
@@ -286,6 +289,9 @@
     </Compile>
     <Compile Include="Views\AppSettings\AccountsPage.xaml.cs">
       <DependentUpon>AccountsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AppSettings\CodePreviewPage.xaml.cs">
+      <DependentUpon>CodePreviewPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AppSettings\MainSettingsPage.xaml.cs">
       <DependentUpon>MainSettingsPage.xaml</DependentUpon>
@@ -573,25 +579,39 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Dialogs\IssueDetailsContentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceDictionaries\CommonStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
     <Page Include="ResourceDictionaries\LinkLikeButtonStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="ResourceDictionaries\ClearButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="ResourceDictionaries\TextBlockStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="Themes\Default\DefaultThemeResources.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="Themes\Default\DefaultThemeResourcesAny.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="UserControls\AvatarControl.xaml">
       <SubType>Designer</SubType>
@@ -702,6 +722,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AppSettings\AccountsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AppSettings\CodePreviewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -868,9 +892,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="AppCredentials.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Dialogs\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Glyphs\SegoeFluentIconsNormal.ttf" />

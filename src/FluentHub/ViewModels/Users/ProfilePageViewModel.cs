@@ -16,33 +16,29 @@ namespace FluentHub.ViewModels.Users
 {
     public class ProfilePageViewModel : ObservableObject
     {
+        #region constructor
         public ProfilePageViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _logger = logger;
             _messenger = messenger;
             RefreshUserCommand = new AsyncRelayCommand<string>(LoadUserAsync);
         }
+        #endregion
 
+        #region fields
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
         private User _userItem;
-        private bool _isNotViewer;
-        public User UserItem
-        {
-            get => _userItem;
-            private set => SetProperty(ref _userItem, value);
-        }
-        public bool IsNotViewer
-        {
-            get => _isNotViewer;
-            set => SetProperty(ref _isNotViewer, value);
-        }
-
         private Uri _builtWebsiteUrl;
+        #endregion
+
+        #region properties
+        public User UserItem { get => _userItem; private set => SetProperty(ref _userItem, value); }
         public Uri BuiltWebsiteUrl { get => _builtWebsiteUrl; set => SetProperty(ref _builtWebsiteUrl, value); }
-
         public IAsyncRelayCommand RefreshUserCommand { get; }
+        #endregion
 
+        #region methods
         private async Task LoadUserAsync(string login)
         {
             try
@@ -54,16 +50,15 @@ namespace FluentHub.ViewModels.Users
 
                 if (UserItem == null) return;
 
-                BuiltWebsiteUrl = new UriBuilder(UserItem.WebsiteUrl).Uri;
-
-                if (!UserItem.IsViewer)
-                    IsNotViewer = true;
+                if (string.IsNullOrEmpty(UserItem.WebsiteUrl) is false)
+                {
+                    BuiltWebsiteUrl = new UriBuilder(UserItem.WebsiteUrl).Uri;
+                }
             }
             catch (Exception ex)
             {
                 _logger?.Error("Failed to load user.", ex);
                 UserItem = new User();
-                IsNotViewer = false;
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
@@ -72,5 +67,6 @@ namespace FluentHub.ViewModels.Users
                 throw;
             }
         }
+        #endregion
     }
 }

@@ -24,7 +24,7 @@ namespace FluentHub.ViewModels.Repositories
             IsActive = true;
 
             IssueQueries queries = new();
-            var items = await queries.GetOverviewAll(name, owner);
+            var items = await queries.GetAllAsync(name, owner);
 
             if (items == null) return;
 
@@ -32,7 +32,7 @@ namespace FluentHub.ViewModels.Repositories
             {
                 IssueButtonBlockViewModel viewModel = new();
                 viewModel.IssueItem = item;
-                viewModel.NameWithOwner = item.Owner + " / " + item.Name + " #" + item.Number;
+                viewModel.NameWithOwner = item.OwnerLogin + " / " + item.Name + " #" + item.Number;
                 viewModel.UpdatedAtHumanized = item.UpdatedAt.Humanize();
 
                 IssueItems.Add(viewModel);

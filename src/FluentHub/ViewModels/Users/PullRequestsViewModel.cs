@@ -61,7 +61,7 @@ namespace FluentHub.ViewModels.Users
                     PullButtonBlockViewModel viewModel = new()
                     {
                         PullItem = item,
-                        NameWithOwner = $"{item.Owner} / {item.Name} #{item.Number}",
+                        NameWithOwner = $"{item.OwnerLogin} / {item.Name} #{item.Number}",
                         UpdatedAtHumanized = item.UpdatedAt.Humanize()
                     };
 

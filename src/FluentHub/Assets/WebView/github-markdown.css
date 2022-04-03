@@ -100,8 +100,8 @@
   margin: 0;
   color: var(--color-fg-default);
   background-color: transparent;
-  font-family: "Segoe UI Variable Text","Segoe UI",Arial,sans-serif,"Segoe UI Emoji";
-  font-size: 16px;
+  font-family: "Segoe UI Variable Text","Segoe UI",Arial,sans-serif;
+  font-size: 14px;
   line-height: 1.5;
   word-wrap: break-word;
 }
@@ -155,7 +155,7 @@
   margin: .67em 0;
   font-weight: 600;
   padding-bottom: .3em;
-  font-size: 2em;
+  font-size: 28px;
   border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
@@ -207,11 +207,11 @@
   box-sizing: content-box;
   overflow: hidden;
   background: transparent;
-  border-bottom: 1px solid var(--color-border-muted);
+  border-bottom: 1px solid #30363d;
   height: .25em;
   padding: 0;
   margin: 24px 0;
-  background-color: var(--color-border-default);
+  background-color: solid #30363d;
   border: 0;
 }
 
@@ -314,7 +314,7 @@
 .markdown-body kbd {
   display: inline-block;
   padding: 3px 5px;
-  font: 11px ui-monospace,Consolas,monospace;
+  font: 11px "Fira Code",Consolas,ui-monospace,monospace;
   line-height: 10px;
   color: var(--color-fg-default);
   vertical-align: middle;
@@ -331,8 +331,8 @@
 .markdown-body h4,
 .markdown-body h5,
 .markdown-body h6 {
-  margin-top: 24px;
-  margin-bottom: 16px;
+  margin-top: 18px;
+  margin-bottom: 12px;
   font-weight: 600;
   line-height: 1.25;
 }
@@ -340,28 +340,28 @@
 .markdown-body h2 {
   font-weight: 600;
   padding-bottom: .3em;
-  font-size: 20px;
+  font-size: 24px;
   border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
 .markdown-body h3 {
   font-weight: 600;
-  font-size: 1.25em;
+  font-size: 18px;
 }
 
 .markdown-body h4 {
   font-weight: 600;
-  font-size: 1em;
+  font-size: 14px;
 }
 
 .markdown-body h5 {
   font-weight: 600;
-  font-size: .875em;
+  font-size: 12px;
 }
 
 .markdown-body h6 {
   font-weight: 600;
-  font-size: .85em;
+  font-size: 12px;
   color: var(--color-fg-muted);
 }
 
@@ -375,7 +375,7 @@
   margin: 0;
   padding: 0 1em;
   color: var(--color-fg-muted);
-  border-left: .25em solid var(--color-border-default);
+  border-left: .25em solid #30363d;
 }
 
 .markdown-body ul,
@@ -726,12 +726,12 @@
 .markdown-body table th,
 .markdown-body table td {
   padding: 6px 13px;
-  border: 1px solid var(--color-border-default);
+  border: 1px solid #30363d;
 }
 
 .markdown-body table tr {
   background-color: transparent;
-  border-top: 1px solid var(--color-border-muted);
+  border-top: 1px solid #30363d;
 }
 
 .markdown-body table tr:nth-child(2n) {

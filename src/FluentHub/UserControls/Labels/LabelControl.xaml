@@ -27,7 +27,8 @@
         <Grid
             BorderBrush="{x:Bind LabelBackground, Mode=OneWay}"
             BorderThickness="1"
-            CornerRadius="11" />
+            CornerRadius="11"
+            Opacity="0.6" />
         <Grid Padding="8,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />

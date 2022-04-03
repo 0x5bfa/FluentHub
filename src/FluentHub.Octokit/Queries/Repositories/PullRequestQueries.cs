@@ -14,7 +14,7 @@ namespace FluentHub.Octokit.Queries.Repositories
     {
         public PullRequestQueries() => new App();
 
-        public async Task<List<Models.PullRequest>> GetOverviewAll(string name, string owner)
+        public async Task<List<Models.PullRequest>> GetAllAsync(string name, string owner)
         {
             IssueOrder order = new() { Direction = OrderDirection.Desc, Field = IssueOrderField.CreatedAt };
 
@@ -25,14 +25,20 @@ namespace FluentHub.Octokit.Queries.Repositories
                 .Nodes
                 .Select(x => new
                 {
+                    OwnerAvatarUrl = x.Repository.Owner.AvatarUrl(100),
+                    OwnerLogin = x.Repository.Owner.Login,
+                    x.Repository.Name,
+
                     x.Closed,
                     x.Merged,
                     x.IsDraft,
+
                     Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new
                     {
                         y.Color,
                         y.Name,
                     }).ToList(),
+
                     x.Number,
                     x.Title,
                     x.UpdatedAt,
@@ -48,12 +54,8 @@ namespace FluentHub.Octokit.Queries.Repositories
             foreach (var res in response)
             {
                 Models.PullRequest item = new();
+
                 item.Labels = new();
-
-                item.IsClosed = res.Closed;
-                item.IsMerged = res.Merged;
-                item.IsDraft = res.IsDraft;
-
                 foreach (var label in res.Labels)
                 {
                     Models.Label labels = new();
@@ -63,12 +65,16 @@ namespace FluentHub.Octokit.Queries.Repositories
                     item.Labels.Add(labels);
                 }
 
+                item.IsClosed = res.Closed;
+                item.IsMerged = res.Merged;
+                item.IsDraft = res.IsDraft;
+
                 item.Number = res.Number;
                 item.Title = res.Title;
                 item.UpdatedAt = res.UpdatedAt;
-
-                item.Name = name;
-                item.Owner = owner;
+                item.Name = res.Name;
+                item.OwnerLogin = res.OwnerLogin;
+                item.OwnerAvatarUrl = res.OwnerAvatarUrl;
 
                 items.Add(item);
             }
@@ -77,7 +83,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             return items;
         }
 
-        public async Task<Models.PullRequest> GetOverview(string owner, string name, int number)
+        public async Task<Models.PullRequest> GetAsync(string owner, string name, int number)
         {
             #region queries
             var query = new Query()
@@ -85,14 +91,20 @@ namespace FluentHub.Octokit.Queries.Repositories
                 .PullRequest(number)
                 .Select(x => new
                 {
+                    OwnerAvatarUrl = x.Repository.Owner.AvatarUrl(100),
+                    OwnerLogin = x.Repository.Owner.Login,
+                    x.Repository.Name,
+
                     x.Closed,
                     x.Merged,
                     x.IsDraft,
+
                     Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new
                     {
                         y.Color,
                         y.Name,
                     }).ToList(),
+
                     x.Number,
                     x.Title,
                     x.UpdatedAt,
@@ -104,14 +116,27 @@ namespace FluentHub.Octokit.Queries.Repositories
 
             #region copying
             Models.PullRequest item = new();
+
+            item.Labels = new();
+            foreach (var label in response.Labels)
+            {
+                Models.Label labels = new();
+                labels.Color = label.Color;
+                labels.Name = label.Name;
+
+                item.Labels.Add(labels);
+            }
+
             item.IsClosed = response.Closed;
             item.IsMerged = response.Merged;
             item.IsDraft = response.IsDraft;
+
             item.Number = response.Number;
             item.Title = response.Title;
             item.UpdatedAt = response.UpdatedAt;
-            item.Name = name;
-            item.Owner = owner;
+            item.Name = response.Name;
+            item.OwnerLogin = response.OwnerLogin;
+            item.OwnerAvatarUrl = response.OwnerAvatarUrl;
             #endregion
 
             return item;

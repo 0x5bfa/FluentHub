@@ -65,9 +65,10 @@
                     <Color x:Key="OrgsIconsBackground">#fe8a38</Color>
                     <Color x:Key="StaredIconsBackground">#fecb1a</Color>
                 </ResourceDictionary>
-                <ResourceDictionary Source="/ResourceDictionaries/ClearButtonStyle.xaml" />
-                <ResourceDictionary Source="/ResourceDictionaries/LinkLikeButtonStyle.xaml" />
-                <ResourceDictionary Source="/ResourceDictionaries/TextBlockStyles.xaml" />
+                <ResourceDictionary Source="ms-appx:///ResourceDictionaries/CommonStyles.xaml" />
+                <ResourceDictionary Source="ms-appx:///ResourceDictionaries/ClearButtonStyle.xaml" />
+                <ResourceDictionary Source="ms-appx:///ResourceDictionaries/LinkLikeButtonStyle.xaml" />
+                <ResourceDictionary Source="ms-appx:///ResourceDictionaries/TextBlockStyles.xaml" />
                 <ResourceDictionary>
                     <Style TargetType="FontIcon">
                         <Setter Property="FontFamily" Value="{StaticResource FluentIcons}" />

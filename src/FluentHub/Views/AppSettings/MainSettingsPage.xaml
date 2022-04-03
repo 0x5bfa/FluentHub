@@ -13,9 +13,6 @@
                 <ResourceDictionary>
                     <StaticResource x:Key="NavigationViewContentBackground" ResourceKey="SystemControlPageBackgroundTransparentBrush" />
                     <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
-                    <Thickness x:Key="NavigationViewItemMargin">10,0,10,0</Thickness>
-                    <Thickness x:Key="NavigationViewCompactItemContentPresenterMargin">-10,0</Thickness>
-                    <x:Double x:Key="NavigationViewCompactPaneLength">48</x:Double>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -29,8 +26,7 @@
             IsPaneToggleButtonVisible="False"
             IsSettingsVisible="False"
             IsTitleBarAutoPaddingEnabled="False"
-            OpenPaneLength="300"
-            PaneDisplayMode="Left"
+            OpenPaneLength="270"
             SelectionChanged="SettingsNavView_SelectionChanged">
             <muxc:NavigationView.PaneHeader>
                 <Button
@@ -87,6 +83,15 @@
                     Tag="accounts">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE77B;" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+
+                <muxc:NavigationViewItem
+                    Content="Code Preview"
+                    IsEnabled="False"
+                    Tag="codepreview">
+                    <muxc:NavigationViewItem.Icon>
+                        <FontIcon Glyph="&#xE14C;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 

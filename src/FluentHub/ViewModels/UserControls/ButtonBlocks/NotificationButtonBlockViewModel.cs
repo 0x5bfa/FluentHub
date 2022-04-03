@@ -37,7 +37,7 @@ namespace FluentHub.ViewModels.UserControls.ButtonBlocks
                 {
                     case "Issue":
                         IssueQueries issueQueries = new();
-                        var issue = await issueQueries.GetOverview(
+                        var issue = await issueQueries.GetAsync(
                             NotificationItem.Repository.Owner.Login,
                             NotificationItem.Repository.Name,
                             Convert.ToInt32(NotificationItem.Subject.Url.Split("/")[NotificationItem.Subject.Url.Split("/").Count() - 1]));
@@ -55,7 +55,7 @@ namespace FluentHub.ViewModels.UserControls.ButtonBlocks
                         break;
                     case "PullRequest":
                         PullRequestQueries pullQueries = new();
-                        var pull = await pullQueries.GetOverview(
+                        var pull = await pullQueries.GetAsync(
                             NotificationItem.Repository.Owner.Login,
                             NotificationItem.Repository.Name,
                             Convert.ToInt32(NotificationItem.Subject.Url.Split("/")[NotificationItem.Subject.Url.Split("/").Count() - 1]));

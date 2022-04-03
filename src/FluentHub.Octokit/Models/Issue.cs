@@ -10,7 +10,9 @@ namespace FluentHub.Octokit.Models
     {
         public string Name { get; set; }
 
-        public string Owner { get; set; }
+        public string OwnerLogin { get; set; }
+
+        public string OwnerAvatarUrl { get; set; }
 
         public bool IsClosed { get; set; }
 

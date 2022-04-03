@@ -124,15 +124,18 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="Authorization\AuthorizationService.cs" />
+    <Compile Include="Helpers\UserTypeDetectionHelper.cs" />
     <Compile Include="Models\ApiOptions.cs" />
     <Compile Include="Models\Commit.cs" />
     <Compile Include="Models\Discussion.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Issue.cs" />
+    <Compile Include="Models\IssueComment.cs" />
     <Compile Include="Models\Label.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\Organization.cs" />
     <Compile Include="Models\PullRequest.cs" />
+    <Compile Include="Models\Reaction.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserStatus.cs" />
     <Compile Include="Queries\Repositories\MarkdownQueries.cs" />
@@ -141,6 +144,7 @@
     <Compile Include="Queries\Repositories\BlobQueries.cs" />
     <Compile Include="Queries\Repositories\IssueEventQueries.cs" />
     <Compile Include="Queries\Repositories\IssueQueries.cs" />
+    <Compile Include="Queries\Repositories\PullRequestEventQueries.cs" />
     <Compile Include="Queries\Repositories\PullRequestQueries.cs" />
     <Compile Include="Queries\Repositories\CommitQueries.cs" />
     <Compile Include="Queries\Repositories\RepositoryQueries.cs" />

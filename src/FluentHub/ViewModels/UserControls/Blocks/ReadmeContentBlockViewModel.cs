@@ -52,9 +52,10 @@ namespace FluentHub.ViewModels.UserControls.Blocks
                 global::Octokit.Readme readme = await App.Client.Repository.Content.GetReadme(repo.Id);
                 FileName = readme.Name;
                 HasReadme = Visibility.Visible;
+                string bodyHtml = await readme.GetHtmlContent();
 
                 string missedPath = "https://raw.githubusercontent.com/" + repo.Owner.Login + "/" + repo.Name + "/" + repo.DefaultBranch + "/";
-                HtmlText = await markdown.GetHtmlAsync(readme.Content, missedPath, ThemeHelper.ActualTheme.ToString().ToLower());
+                HtmlText = await markdown.GetHtmlAsync(bodyHtml, missedPath, ThemeHelper.ActualTheme.ToString().ToLower(), true);
                 webView.NavigateToString(HtmlText);
             }
             catch (Exception ex)

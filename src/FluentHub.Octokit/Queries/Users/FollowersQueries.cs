@@ -1,4 +1,5 @@
-﻿using Octokit.GraphQL;
+﻿using FluentHub.Octokit.Helpers;
+using Octokit.GraphQL;
 using Serilog;
 using System;
 using System.Collections.Generic;
@@ -44,11 +45,7 @@ namespace FluentHub.Octokit.Queries.Users
                 item.Login = res.Login;
                 item.Bio = res.Bio;
 
-                // If user is organization, id starts with "O_"
-                if (res.Id.ToString()[0] == 'O' && res.Id.ToString()[1] == '_')
-                {
-                    item.IsOrganization = true;
-                }
+                item.IsOrganization = UserTypeDetectionHelper.IsOrganization(res.Id);
 
                 formattedFollowersList.Add(item);
             }

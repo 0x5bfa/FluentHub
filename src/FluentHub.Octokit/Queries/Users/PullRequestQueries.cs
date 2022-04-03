@@ -23,19 +23,23 @@ namespace FluentHub.Octokit.Queries.Users
                 .Nodes
                 .Select(x => new
                 {
+                    OwnerAvatarUrl = x.Repository.Owner.AvatarUrl(100),
+                    OwnerLogin = x.Repository.Owner.Login,
+                    x.Repository.Name,
+
                     x.Closed,
                     x.Merged,
                     x.IsDraft,
+
                     Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new
                     {
                         y.Color,
                         y.Name,
                     }).ToList(),
+
                     x.Number,
                     x.Title,
                     x.UpdatedAt,
-                    x.Repository.Name,
-                    x.Repository.Owner.Login,
                 })
                 .Compile();
             #endregion
@@ -48,12 +52,8 @@ namespace FluentHub.Octokit.Queries.Users
             foreach (var res in response)
             {
                 Models.PullRequest item = new();
+
                 item.Labels = new();
-
-                item.IsClosed = res.Closed;
-                item.IsMerged = res.Merged;
-                item.IsDraft = res.IsDraft;
-
                 foreach (var label in res.Labels)
                 {
                     Models.Label labels = new();
@@ -63,11 +63,16 @@ namespace FluentHub.Octokit.Queries.Users
                     item.Labels.Add(labels);
                 }
 
+                item.IsClosed = res.Closed;
+                item.IsMerged = res.Merged;
+                item.IsDraft = res.IsDraft;
+
                 item.Number = res.Number;
                 item.Title = res.Title;
                 item.UpdatedAt = res.UpdatedAt;
                 item.Name = res.Name;
-                item.Owner = res.Login;
+                item.OwnerLogin = res.OwnerLogin;
+                item.OwnerAvatarUrl = res.OwnerAvatarUrl;
 
                 items.Add(item);
             }
@@ -87,19 +92,23 @@ namespace FluentHub.Octokit.Queries.Users
                 .Nodes
                 .Select(x => new
                 {
+                    OwnerAvatarUrl = x.Repository.Owner.AvatarUrl(100),
+                    OwnerLogin = x.Repository.Owner.Login,
+                    x.Repository.Name,
+
                     x.Closed,
                     x.Merged,
                     x.IsDraft,
+
                     Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new
                     {
                         y.Color,
                         y.Name,
                     }).ToList(),
+
                     x.Number,
                     x.Title,
                     x.UpdatedAt,
-                    x.Repository.Name,
-                    x.Repository.Owner.Login,
                 })
                 .Compile();
             #endregion
@@ -112,12 +121,8 @@ namespace FluentHub.Octokit.Queries.Users
             foreach (var res in response)
             {
                 Models.PullRequest item = new();
+
                 item.Labels = new();
-
-                item.IsClosed = res.Closed;
-                item.IsMerged = res.Merged;
-                item.IsDraft = res.IsDraft;
-
                 foreach (var label in res.Labels)
                 {
                     Models.Label labels = new();
@@ -127,11 +132,16 @@ namespace FluentHub.Octokit.Queries.Users
                     item.Labels.Add(labels);
                 }
 
+                item.IsClosed = res.Closed;
+                item.IsMerged = res.Merged;
+                item.IsDraft = res.IsDraft;
+
                 item.Number = res.Number;
                 item.Title = res.Title;
                 item.UpdatedAt = res.UpdatedAt;
                 item.Name = res.Name;
-                item.Owner = res.Login;
+                item.OwnerLogin = res.OwnerLogin;
+                item.OwnerAvatarUrl = res.OwnerAvatarUrl;
 
                 items.Add(item);
             }

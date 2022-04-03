@@ -10,7 +10,7 @@ namespace FluentHub.UserControls.ButtonBlocks
 {
     public sealed partial class PullButtonBlock : UserControl
     {
-        #region dprops
+        #region propdp
         public static readonly DependencyProperty ViewModelProperty
             = DependencyProperty.Register(
                   nameof(PullRequest),
@@ -38,10 +38,10 @@ namespace FluentHub.UserControls.ButtonBlocks
         }
 
         private readonly INavigationService navigationService;
-        private async void IssueBlockButton_Click(object sender, RoutedEventArgs e)
+
+        private void IssueBlockButton_Click(object sender, RoutedEventArgs e)
         {
-            string param = ViewModel.PullItem.Owner + "/" + ViewModel.PullItem.Name + "/" + ViewModel.PullItem.Number;
-            navigationService.Navigate<PullRequestPage>(param);
+            navigationService.Navigate<PullRequestPage>(ViewModel.PullItem);
         }
     }
 }
