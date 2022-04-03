@@ -50,6 +50,7 @@ namespace FluentHub.Octokit.Queries.Repositories
                         y.ViewerCanUpdate,
                         y.ViewerDidAuthor,
                         y.Url,
+                        y.CreatedAt,
                     }).ToList(),
                     #endregion
                 })
@@ -92,6 +93,7 @@ namespace FluentHub.Octokit.Queries.Repositories
                 comment.ViewerCanUpdate = item.ViewerCanUpdate;
                 comment.ViewerDidAuthor = item.ViewerDidAuthor;
                 comment.Url = item.Url;
+                comment.CreatedAt = item.CreatedAt;
 
                 issueComments.Add(comment);
             }
@@ -132,6 +134,7 @@ namespace FluentHub.Octokit.Queries.Repositories
                     x.ViewerCanUpdate,
                     x.ViewerDidAuthor,
                     x.Url,
+                    x.CreatedAt,
                 })
                 .Compile();
             #endregion
@@ -163,6 +166,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             comment.ViewerCanUpdate = response.ViewerCanUpdate;
             comment.ViewerDidAuthor = response.ViewerDidAuthor;
             comment.Url = response.Url;
+            comment.CreatedAt = response.CreatedAt;
 
             #endregion
 

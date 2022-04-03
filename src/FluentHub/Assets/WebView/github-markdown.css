@@ -207,11 +207,11 @@
   box-sizing: content-box;
   overflow: hidden;
   background: transparent;
-  border-bottom: 1px solid var(--color-border-muted);
+  border-bottom: 1px solid #30363d;
   height: .25em;
   padding: 0;
   margin: 24px 0;
-  background-color: var(--color-border-default);
+  background-color: solid #30363d;
   border: 0;
 }
 
@@ -375,7 +375,7 @@
   margin: 0;
   padding: 0 1em;
   color: var(--color-fg-muted);
-  border-left: .25em solid var(--color-border-default);
+  border-left: .25em solid #30363d;
 }
 
 .markdown-body ul,
@@ -726,12 +726,12 @@
 .markdown-body table th,
 .markdown-body table td {
   padding: 6px 13px;
-  border: 1px solid var(--color-border-default);
+  border: 1px solid #30363d;
 }
 
 .markdown-body table tr {
   background-color: transparent;
-  border-top: 1px solid var(--color-border-muted);
+  border-top: 1px solid #30363d;
 }
 
 .markdown-body table tr:nth-child(2n) {

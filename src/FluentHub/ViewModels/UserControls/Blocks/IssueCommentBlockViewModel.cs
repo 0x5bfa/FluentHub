@@ -1,6 +1,7 @@
 ﻿using FluentHub.Helpers;
 using FluentHub.Octokit.Models;
 using FluentHub.Octokit.Queries.Repositories;
+using Humanizer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,12 +22,15 @@ namespace FluentHub.ViewModels.UserControls.Blocks
             set => SetProperty(ref issueComment, value);
         }
 
+        private string createdAtHumanized;
+        public string CreatedAtHumanized { get => createdAtHumanized; set => SetProperty(ref createdAtHumanized, value); };
+
         public async Task SetWebViewContentsAsync(WebView webView)
         {
+            CreatedAtHumanized = IssueComment.CreatedAt.Humanize();
+
             MarkdownQueries markdown = new();
-
             var html = await markdown.GetHtmlAsync(IssueComment.BodyHtml, IssueComment.Url, ThemeHelper.ActualTheme.ToString().ToLower());
-
             webView.NavigateToString(html);
         }
 
