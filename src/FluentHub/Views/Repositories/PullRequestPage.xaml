@@ -64,6 +64,7 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
+
                             <Grid Padding="24,18,24,0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
@@ -74,6 +75,7 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
+
                                 <StackPanel
                                     Margin="0,0,0,8"
                                     Orientation="Horizontal"
@@ -90,6 +92,7 @@
                                     <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="/" />
                                     <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="{x:Bind ViewModel.PullItem.Name, Mode=OneWay}" />
                                 </StackPanel>
+
                                 <StackPanel
                                     Grid.Row="1"
                                     Orientation="Horizontal"
@@ -112,6 +115,7 @@
                                             Text="{x:Bind ViewModel.PullItem.Number, Mode=OneWay}" />
                                     </StackPanel>
                                 </StackPanel>
+
                                 <StackPanel
                                     Grid.Row="2"
                                     Margin="0,16,0,8"
@@ -123,16 +127,19 @@
                                                 <toolkit:Case Value="True">
                                                     <label:StateLabel Status="PullMerged" />
                                                 </toolkit:Case>
+
                                                 <toolkit:Case Value="False">
                                                     <label:StateLabel Status="PullClosed" />
                                                 </toolkit:Case>
                                             </toolkit:SwitchPresenter>
                                         </toolkit:Case>
+
                                         <toolkit:Case Value="False">
                                             <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.PullItem.IsDraft, Mode=OneWay}">
                                                 <toolkit:Case Value="True">
                                                     <label:StateLabel Status="PullDraft" />
                                                 </toolkit:Case>
+
                                                 <toolkit:Case Value="False">
                                                     <label:StateLabel Status="PullOpened" />
                                                 </toolkit:Case>
@@ -140,6 +147,7 @@
                                         </toolkit:Case>
                                     </toolkit:SwitchPresenter>
                                 </StackPanel>
+
                                 <Grid
                                     Grid.RowSpan="3"
                                     Grid.Column="1"
@@ -152,9 +160,13 @@
                                     </Button>
                                 </Grid>
                             </Grid>
+
                             <MenuFlyoutSeparator Grid.Row="1" Margin="12,0" />
+
                             <ScrollViewer Grid.Row="2" Padding="12,2,12,0">
-                                <Border x:Name="IssueContentPanel" />
+                                <StackPanel x:Name="PullRequestContentPanel">
+                                    <ItemsControl ItemsSource="{x:Bind ViewModel.CommentBlocks, Mode=OneWay}" />
+                                </StackPanel>
                             </ScrollViewer>
                         </Grid>
                     </toolkit:Case>

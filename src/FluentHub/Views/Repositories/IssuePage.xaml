@@ -42,6 +42,7 @@
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
+
                             <Grid Padding="24,18,24,0">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
@@ -52,6 +53,7 @@
                                     <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
+
                                 <StackPanel
                                     Margin="0,0,0,8"
                                     Orientation="Horizontal"
@@ -68,6 +70,7 @@
                                     <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="/" />
                                     <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="{x:Bind ViewModel.IssueItem.Name, Mode=OneWay}" />
                                 </StackPanel>
+
                                 <StackPanel
                                     Grid.Row="1"
                                     Orientation="Horizontal"
@@ -90,6 +93,7 @@
                                             Text="{x:Bind ViewModel.IssueItem.Number, Mode=OneWay}" />
                                     </StackPanel>
                                 </StackPanel>
+
                                 <StackPanel
                                     Grid.Row="2"
                                     Margin="0,16,0,8"
@@ -104,6 +108,7 @@
                                         </toolkit:Case>
                                     </toolkit:SwitchPresenter>
                                 </StackPanel>
+
                                 <Grid
                                     Grid.RowSpan="3"
                                     Grid.Column="1"
@@ -116,24 +121,14 @@
                                     </Button>
                                 </Grid>
                             </Grid>
-                            <MenuFlyoutSeparator Grid.Row="1" Margin="12,0" />
 
-                            <toolkit:SwitchPresenter
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                TargetType="x:Int32"
-                                Value="{x:Bind ViewModel.CommentBlocks.Count, Mode=OneWay}">
-                                <toolkit:Case Value="0">
-                                    <TextBlock Text="No comments available" />
-                                </toolkit:Case>
-                            </toolkit:SwitchPresenter>
+                            <MenuFlyoutSeparator Grid.Row="1" Margin="12,0" />
 
                             <ScrollViewer Grid.Row="2" Padding="12,0,12,0">
                                 <StackPanel x:Name="IssueContentPanel">
                                     <ItemsControl ItemsSource="{x:Bind ViewModel.CommentBlocks, Mode=OneWay}" />
                                 </StackPanel>
                             </ScrollViewer>
-
                         </Grid>
                     </toolkit:Case>
                 </toolkit:SwitchPresenter>

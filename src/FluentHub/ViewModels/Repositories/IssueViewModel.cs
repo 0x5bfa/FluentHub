@@ -4,8 +4,6 @@ using FluentHub.Models;
 using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.UserControls.Blocks;
 using FluentHub.ViewModels.UserControls.Blocks;
-using FluentHub.ViewModels.UserControls.ButtonBlocks;
-using Humanizer;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
@@ -26,8 +24,8 @@ namespace FluentHub.ViewModels.Repositories
         {
             _messenger = messenger;
             _logger = logger;
-            CommentBlocks = new();
 
+            CommentBlocks = new();
             RefreshIssuePageCommand = new AsyncRelayCommand<Issue>(RefreshIssuePageAsync);
         }
         #endregion

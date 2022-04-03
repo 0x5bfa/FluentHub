@@ -16,15 +16,15 @@ namespace FluentHub.Octokit.Queries.Repositories
         /// <param name="markdown">Raw markdown string</param>
         /// <param name="missedPath">Correct the relative paths</param>
         /// <param name="theme">"light": Light theme, "dark": Dark theme</param>
-        public async Task<string> GetHtmlAsync(string markdown, string missedPath, string theme)
+        public async Task<string> GetHtmlAsync(string markdown, string missedPath, string theme, bool isHtml)
         {
-            if (string.IsNullOrEmpty(markdown)) return null;
-
             StorageFile indexFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/WebView/index.html"));
             var indexHtml = await FileIO.ReadTextAsync(indexFile);
 
+            string body;
+
             // Get rwa html string
-            string body = GetRawHtml(markdown);
+            body = isHtml ? markdown : GetRawHtml(markdown);
 
             body = AddMissedLineBreaks(body);
 

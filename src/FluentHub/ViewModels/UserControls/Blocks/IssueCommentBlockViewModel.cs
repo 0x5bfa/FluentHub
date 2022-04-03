@@ -33,10 +33,11 @@ namespace FluentHub.ViewModels.UserControls.Blocks
         {
             CreatedAtHumanized = IssueComment.CreatedAt.Humanize();
 
-            AuthorAssociation = IssueComment.AuthorAssociation.Humanize();
+            string authorAssociation = IssueComment.AuthorAssociation.Humanize();
+            if (authorAssociation != "None") AuthorAssociation = authorAssociation;
 
             MarkdownQueries markdown = new();
-            var html = await markdown.GetHtmlAsync(IssueComment.BodyHtml, IssueComment.Url, ThemeHelper.ActualTheme.ToString().ToLower());
+            var html = await markdown.GetHtmlAsync(IssueComment.BodyHtml, IssueComment.Url, ThemeHelper.ActualTheme.ToString().ToLower(), true);
             webView.NavigateToString(html);
         }
 
