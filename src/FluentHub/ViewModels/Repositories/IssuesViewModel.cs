@@ -1,57 +1,82 @@
-﻿using Humanizer;
+﻿using FluentHub.Backend;
+using FluentHub.Models;
+using FluentHub.Octokit.Models;
 using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
+using Humanizer;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
+using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.Repositories
 {
-    public class IssuesViewModel : INotifyPropertyChanged
+    public class IssuesViewModel : ObservableObject
     {
-        public ObservableCollection<IssueButtonBlockViewModel> IssueItems { get; private set; } = new();
-
-        private bool isActive;
-        public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
-
-        public async Task GetRepoIssues(string owner, string name)
+        #region constructor
+        public IssuesViewModel(IMessenger messenger = null, ILogger logger = null)
         {
-            IsActive = true;
+            _messenger = messenger;
+            _logger = logger;
+            _messenger = messenger;
+            _issueItems = new();
+            IssueItems = new(_issueItems);
 
-            IssueQueries queries = new();
-            var items = await queries.GetAllAsync(name, owner);
-
-            if (items == null) return;
-
-            foreach (var item in items)
-            {
-                IssueButtonBlockViewModel viewModel = new();
-                viewModel.IssueItem = item;
-                viewModel.NameWithOwner = item.OwnerLogin + " / " + item.Name + " #" + item.Number;
-                viewModel.UpdatedAtHumanized = item.UpdatedAt.Humanize();
-
-                IssueItems.Add(viewModel);
-            }
-
-            IsActive = false;
+            RefreshIssuesPageCommand = new AsyncRelayCommand<string>(RefreshIssuesPageAsync);
         }
+        #endregion
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
+        #region fields
+        private readonly ILogger _logger;
+        private readonly IMessenger _messenger;
+        private readonly ObservableCollection<IssueButtonBlockViewModel> _issueItems;
+        #endregion
+
+        #region properties
+        public ReadOnlyObservableCollection<IssueButtonBlockViewModel> IssueItems { get; }
+        public IAsyncRelayCommand RefreshIssuesPageCommand { get; }
+        #endregion
+
+        #region methods
+        private async Task RefreshIssuesPageAsync(string nameWithOwner, CancellationToken token)
         {
-            if (!Equals(field, newValue))
+            try
             {
-                field = newValue;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-                return true;
-            }
+                IssueQueries queries = new();
+                List<Issue> items = await queries.GetAllAsync(nameWithOwner.Split("/")[1], nameWithOwner.Split("/")[0]);
 
-            return false;
+                if (items == null) return;
+
+                _issueItems.Clear();
+
+                foreach (var item in items)
+                {
+                    IssueButtonBlockViewModel viewModel = new()
+                    {
+                        IssueItem = item,
+                        NameWithOwner = item.OwnerLogin + "/" + item.Name + " #" + item.Number,
+                        UpdatedAtHumanized = item.UpdatedAt.Humanize()
+                    };
+
+                    _issueItems.Add(viewModel);
+                }
+            }
+            catch (OperationCanceledException) { }
+            catch (Exception ex)
+            {
+                _logger?.Error("RefreshIssuesPageAsync", ex);
+                if (_messenger != null)
+                {
+                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+                    _messenger.Send(notification);
+                }
+                throw;
+            }
         }
+        #endregion
     }
 }

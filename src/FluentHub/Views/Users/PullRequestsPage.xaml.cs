@@ -35,7 +35,7 @@ namespace FluentHub.Views.Users
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/PullRequests.png"))
             };
 
-            var command = ViewModel.RefreshPullRequestsCommand;
+            var command = ViewModel.RefreshPullRequestsPageCommand;
             if (command.CanExecute(DataContext))
                 command.Execute(DataContext);
         }

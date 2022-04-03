@@ -1,58 +1,82 @@
-﻿using Humanizer;
+﻿using FluentHub.Backend;
+using FluentHub.Octokit.Models;
+using FluentHub.Models;
 using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
-using Octokit;
+using Humanizer;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
+using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.Repositories
 {
-    public class PullRequestsViewModel : INotifyPropertyChanged
+    public class PullRequestsViewModel : ObservableObject
     {
-        public ObservableCollection<PullButtonBlockViewModel> PullItems { get; private set; } = new();
-
-        private bool isActive;
-        public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
-
-        public async Task GetRepoPRs(string owner, string name)
+        #region constructor
+        public PullRequestsViewModel(IMessenger messenger = null, ILogger logger = null)
         {
-            IsActive = true;
+            _messenger = messenger;
+            _logger = logger;
+            _messenger = messenger;
+            _pullRequests = new();
+            PullItems = new(_pullRequests);
 
-            PullRequestQueries queries = new();
-            var items = await queries.GetAllAsync(name, owner);
-
-            if (items == null) return;
-
-            foreach (var item in items)
-            {
-                PullButtonBlockViewModel viewModel = new();
-                viewModel.PullItem = item;
-                viewModel.NameWithOwner = item.OwnerLogin + " / " + item.Name + " #" + item.Number;
-                viewModel.UpdatedAtHumanized = item.UpdatedAt.Humanize();
-
-                PullItems.Add(viewModel);
-            }
-
-            IsActive = false;
+            RefreshPullRequestsPageCommand = new AsyncRelayCommand<string>(RefreshPullRequestsPageAsync);
         }
+        #endregion
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
+        #region fields
+        private readonly IMessenger _messenger;
+        private readonly ILogger _logger;
+        private readonly ObservableCollection<PullButtonBlockViewModel> _pullRequests;
+        #endregion
+
+        #region properties
+        public ReadOnlyObservableCollection<PullButtonBlockViewModel> PullItems { get; }
+        public IAsyncRelayCommand RefreshPullRequestsPageCommand { get; }
+        #endregion
+
+        #region methods
+        private async Task RefreshPullRequestsPageAsync(string nameWithOwner, CancellationToken token)
         {
-            if (!Equals(field, newValue))
+            try
             {
-                field = newValue;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-                return true;
-            }
+                PullRequestQueries queries = new();
+                List<PullRequest> items = await queries.GetAllAsync(nameWithOwner.Split("/")[1], nameWithOwner.Split("/")[0]);
 
-            return false;
+                if (items == null) return;
+
+                _pullRequests.Clear();
+
+                foreach (var item in items)
+                {
+                    PullButtonBlockViewModel viewModel = new()
+                    {
+                        PullItem = item,
+                        NameWithOwner = $"{item.OwnerLogin} / {item.Name} #{item.Number}",
+                        UpdatedAtHumanized = item.UpdatedAt.Humanize()
+                    };
+
+                    _pullRequests.Add(viewModel);
+                }
+            }
+            catch (OperationCanceledException) { }
+            catch (Exception ex)
+            {
+                _logger?.Error("RefreshPullRequestsAsync", ex);
+                if (_messenger != null)
+                {
+                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+                    _messenger.Send(notification);
+                }
+                throw;
+            }
         }
+        #endregion
     }
 }

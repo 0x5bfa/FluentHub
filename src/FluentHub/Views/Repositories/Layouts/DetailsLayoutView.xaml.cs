@@ -1,13 +1,15 @@
 ﻿using FluentHub.Models.Items;
 using FluentHub.Services;
+using FluentHub.Services.Navigation;
 using FluentHub.ViewModels.Repositories;
 using Microsoft.Extensions.DependencyInjection;
+using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using muxc = Microsoft.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
-using FluentHub.Services.Navigation;
+using Windows.UI.Xaml.Media.Imaging;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Views.Repositories.Layouts
 {
@@ -55,10 +57,9 @@ namespace FluentHub.Views.Repositories.Layouts
             }
 
             currentItem.Url = url;
-            currentItem.Icon = new muxc.FontIconSource
+            currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
             {
-                Glyph = "\uEA52",
-                FontFamily = new Windows.UI.Xaml.Media.FontFamily("/Assets/Glyphs/Octions.ttf#octions")
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.png"))
             };
         }
 
