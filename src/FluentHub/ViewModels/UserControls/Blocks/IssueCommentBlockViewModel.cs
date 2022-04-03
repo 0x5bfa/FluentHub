@@ -10,6 +10,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
+using graphqlmodel = global::Octokit.GraphQL.Model;
 
 namespace FluentHub.ViewModels.UserControls.Blocks
 {
@@ -23,11 +24,16 @@ namespace FluentHub.ViewModels.UserControls.Blocks
         }
 
         private string createdAtHumanized;
-        public string CreatedAtHumanized { get => createdAtHumanized; set => SetProperty(ref createdAtHumanized, value); };
+        public string CreatedAtHumanized { get => createdAtHumanized; set => SetProperty(ref createdAtHumanized, value); }
+
+        private string authorAssociation;
+        public string AuthorAssociation { get => authorAssociation; set => SetProperty(ref authorAssociation, value); }
 
         public async Task SetWebViewContentsAsync(WebView webView)
         {
             CreatedAtHumanized = IssueComment.CreatedAt.Humanize();
+
+            AuthorAssociation = IssueComment.AuthorAssociation.Humanize();
 
             MarkdownQueries markdown = new();
             var html = await markdown.GetHtmlAsync(IssueComment.BodyHtml, IssueComment.Url, ThemeHelper.ActualTheme.ToString().ToLower());
