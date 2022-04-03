@@ -9,20 +9,28 @@
     xmlns:local="using:FluentHub.Views.Repositories.Layouts"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:vm="using:FluentHub.ViewModels.Repositories.Layouts"
-    Loaded="OnPageLoaded"
     mc:Ignorable="d">
 
-    <Page.DataContext>
-        <vm:DetailsLayoutViewModel x:Name="ViewModel" />
-    </Page.DataContext>
-
     <Grid>
+        <toolkit:SwitchPresenter
+            Grid.RowSpan="2"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            TargetType="x:Boolean"
+            Value="{x:Bind ViewModel.RefreshDetailsLayoutPageCommand.IsRunning, Mode=OneWay}">
+            <toolkit:Case Value="True">
+                <muxc:ProgressRing IsActive="True" />
+            </toolkit:Case>
+        </toolkit:SwitchPresenter>
+
         <ScrollViewer>
             <Grid Margin="12,0,12,12" ColumnSpacing="12">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
+
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -31,7 +39,9 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
+
                     <contents:FileNavigationBlock Margin="0,12,0,0" CommonRepoViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
+
                     <Grid
                         x:Name="DirListViewContentGrid"
                         Grid.Row="1"
@@ -53,7 +63,7 @@
                             Grid.Row="2"
                             Margin="0,4"
                             HorizontalAlignment="Stretch"
-                            DoubleTapped="DirListView_DoubleTapped"
+                            DoubleTapped="OnDirListViewDoubleTapped"
                             ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
                             SelectionMode="Single">
                             <ListView.ItemContainerStyle>
@@ -102,6 +112,7 @@
                             </ListView.ItemTemplate>
                         </ListView>
                     </Grid>
+
                     <Grid
                         x:Name="BlobContentGrid"
                         Grid.Row="2"
@@ -113,12 +124,14 @@
                         CornerRadius="4">
                         <contents:LatestCommitBlock x:Name="BlobLatastCommitBlock" CommonRepoViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
                     </Grid>
+
                     <contents:FileContentBlock
                         x:Name="BlobContentBlock"
                         Grid.Row="3"
                         Margin="0,12,0,0"
                         x:Load="{x:Bind ViewModel.ContextViewModel.IsFile, Mode=OneWay}"
                         ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
+
                     <contents:ReadmeContentBlock
                         x:Name="RepoReadmeBlock"
                         Grid.Row="4"
@@ -126,6 +139,7 @@
                         x:Load="{x:Bind ViewModel.ContextViewModel.IsRootDir, Mode=OneWay}"
                         ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
                 </Grid>
+
                 <!--<Grid Grid.Column="1" Width="256">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -160,9 +174,5 @@
                 </Grid>-->
             </Grid>
         </ScrollViewer>
-        <muxc:ProgressRing
-            x:Name="DirListViewLoadingProgressBar"
-            Margin="0,12,0,0"
-            IsIndeterminate="True" />
     </Grid>
 </Page>

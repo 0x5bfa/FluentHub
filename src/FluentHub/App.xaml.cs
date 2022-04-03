@@ -92,6 +92,7 @@ namespace FluentHub
                 .AddTransient<ViewModels.AppSettings.AppearanceViewModel>()
                 .AddTransient<ViewModels.Home.NotificationsViewModel>()
                 .AddTransient<ViewModels.Home.ActivitiesViewModel>()
+                .AddTransient<ViewModels.Repositories.Layouts.DetailsLayoutViewModel>()
                 .AddTransient<ViewModels.Repositories.IssueViewModel>()
                 .AddTransient<ViewModels.Repositories.IssuesViewModel>()
                 .AddTransient<ViewModels.Repositories.PullRequestViewModel>()
