@@ -80,8 +80,8 @@ namespace FluentHub.Octokit.Queries.Repositories
                     switch (reaction.Reactions.Content)
                     {
                         case graphqlmodel.ReactionContent.ThumbsUp:
-                            comment.Reactions.ThumbsDownCount++;
-                            comment.Reactions.ThumbsDownActors.Add(reaction.Reactions.ReactedUserName);
+                            comment.Reactions.ThumbsUpCount++;
+                            comment.Reactions.ThumbsUpActors.Add(reaction.Reactions.ReactedUserName);
                             if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
                                 comment.Reactions.ViewerReactThumbsUp = true;
                             break;
@@ -194,8 +194,8 @@ namespace FluentHub.Octokit.Queries.Repositories
                 switch (reaction.Reactions.Content)
                 {
                     case graphqlmodel.ReactionContent.ThumbsUp:
-                        comment.Reactions.ThumbsDownCount++;
-                        comment.Reactions.ThumbsDownActors.Add(reaction.Reactions.ReactedUserName);
+                        comment.Reactions.ThumbsUpCount++;
+                        comment.Reactions.ThumbsUpActors.Add(reaction.Reactions.ReactedUserName);
                         if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
                             comment.Reactions.ViewerReactThumbsUp = true;
                         break;

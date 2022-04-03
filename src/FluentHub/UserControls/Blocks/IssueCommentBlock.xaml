@@ -20,12 +20,20 @@
         <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
     </UserControl.Resources>
 
-    <Grid Grid.Row="3">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+
+        <Border
+            Width="1.5"
+            Height="20"
+            Margin="28,0,0,0"
+            HorizontalAlignment="Left"
+            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+
         <Grid
             Grid.Row="1"
             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
@@ -38,6 +46,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
+
             <Grid Padding="12,8">
                 <StackPanel Orientation="Horizontal" Spacing="8">
                     <Border
@@ -47,27 +56,32 @@
                         CornerRadius="16">
                         <Image Source="{x:Bind ViewModel.IssueComment.AuthorAvatarUrl, Mode=OneWay}" />
                     </Border>
+
                     <TextBlock
                         VerticalAlignment="Center"
                         Style="{StaticResource BodyStrongTextBlockStyle}"
                         Text="{x:Bind ViewModel.IssueComment.AuthorLogin, Mode=OneWay}" />
+
                     <TextBlock
                         Margin="-2,0,-4,0"
                         VerticalAlignment="Center"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         Style="{StaticResource BodyTextBlockStyle}"
                         Text="•" />
+
                     <TextBlock
                         VerticalAlignment="Center"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         Style="{StaticResource BodyTextBlockStyle}"
                         Text="{x:Bind ViewModel.CreatedAtHumanized, Mode=OneWay}" />
+
                     <labels:LabelControl
                         x:Name="EditedLabel"
                         x:Load="{x:Bind ViewModel.IssueComment.IsEdited}"
                         IsOutlineEnable="True"
                         LabelBackground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         LabelText="Edited" />
+
                     <labels:LabelControl
                         x:Name="AssociationLabel"
                         x:Load="{x:Bind ViewModel.AuthorAssociation, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
@@ -75,6 +89,7 @@
                         LabelBackground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         LabelText="{x:Bind ViewModel.AuthorAssociation, Mode=OneWay}" />
                 </StackPanel>
+
                 <StackPanel
                     HorizontalAlignment="Right"
                     Orientation="Horizontal"
@@ -132,6 +147,7 @@
                             </Flyout>
                         </Button.Flyout>
                     </Button>
+
                     <Button
                         Width="36"
                         Height="32"
@@ -156,20 +172,22 @@
                     </Button>
                 </StackPanel>
             </Grid>
+
             <MenuFlyoutSeparator Grid.Row="1" />
+
             <WebView
                 x:Name="CommentWebView"
                 Grid.Row="2"
                 Margin="4"
                 DefaultBackgroundColor="Transparent"
                 NavigationCompleted="OnCommentWebViewNavigationCompleted" />
+
             <Grid Grid.Row="3" Margin="12">
                 <StackPanel Orientation="Horizontal" Spacing="6">
                     <Button
                         Width="36"
                         Height="32"
-                        Background="Transparent"
-                        BorderThickness="0">
+                        Padding="0">
                         <Button.Content>
                             <FontIcon FontSize="14" Glyph="&#xE170;" />
                         </Button.Content>
@@ -217,49 +235,89 @@
                             </Flyout>
                         </Button.Flyout>
                     </Button>
-                    <ToggleButton IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactThumbsUp, Mode=OneWay}" IsEnabled="False">
+
+                    <ToggleButton
+                        x:Name="ThumbsUpToggleButton"
+                        x:Load="{x:Bind ViewModel.IssueComment.Reactions.ThumbsUpCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                        IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactThumbsUp, Mode=OneWay}"
+                        IsEnabled="False">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="👍" />
                             <TextBlock Text="{x:Bind ViewModel.IssueComment.Reactions.ThumbsUpCount, Mode=OneWay}" />
                         </StackPanel>
                     </ToggleButton>
-                    <ToggleButton IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactThumbsDown, Mode=OneWay}" IsEnabled="False">
+
+                    <ToggleButton
+                        x:Name="ThumbsDownToggleButton"
+                        x:Load="{x:Bind ViewModel.IssueComment.Reactions.ThumbsDownCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                        IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactThumbsDown, Mode=OneWay}"
+                        IsEnabled="False">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="👎" />
                             <TextBlock Text="{x:Bind ViewModel.IssueComment.Reactions.ThumbsDownCount, Mode=OneWay}" />
                         </StackPanel>
                     </ToggleButton>
-                    <ToggleButton IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactLaugh, Mode=OneWay}" IsEnabled="False">
+
+                    <ToggleButton
+                        x:Name="LaughToggleButton"
+                        x:Load="{x:Bind ViewModel.IssueComment.Reactions.LaughCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                        IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactLaugh, Mode=OneWay}"
+                        IsEnabled="False">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="😄" />
                             <TextBlock Text="{x:Bind ViewModel.IssueComment.Reactions.LaughCount, Mode=OneWay}" />
                         </StackPanel>
                     </ToggleButton>
-                    <ToggleButton IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactHooray, Mode=OneWay}" IsEnabled="False">
+
+                    <ToggleButton
+                        x:Name="HoorayToggleButton"
+                        x:Load="{x:Bind ViewModel.IssueComment.Reactions.HoorayCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                        IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactHooray, Mode=OneWay}"
+                        IsEnabled="False">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="🎉" />
                             <TextBlock Text="{x:Bind ViewModel.IssueComment.Reactions.HoorayCount, Mode=OneWay}" />
                         </StackPanel>
                     </ToggleButton>
-                    <ToggleButton IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactConfused, Mode=OneWay}" IsEnabled="False">
+
+                    <ToggleButton
+                        x:Name="ConfusedToggleButton"
+                        x:Load="{x:Bind ViewModel.IssueComment.Reactions.ConfusedCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                        IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactConfused, Mode=OneWay}"
+                        IsEnabled="False">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="😕" />
                             <TextBlock Text="{x:Bind ViewModel.IssueComment.Reactions.ConfusedCount, Mode=OneWay}" />
                         </StackPanel>
                     </ToggleButton>
-                    <ToggleButton IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactHeart, Mode=OneWay}" IsEnabled="False">
+
+                    <ToggleButton
+                        x:Name="HeartToggleButton"
+                        x:Load="{x:Bind ViewModel.IssueComment.Reactions.HeartCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                        IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactHeart, Mode=OneWay}"
+                        IsEnabled="False">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="❤️" />
                             <TextBlock Text="{x:Bind ViewModel.IssueComment.Reactions.HeartCount, Mode=OneWay}" />
                         </StackPanel>
                     </ToggleButton>
-                    <ToggleButton IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactRocket, Mode=OneWay}" IsEnabled="False">
+
+                    <ToggleButton
+                        x:Name="RocketToggleButton"
+                        x:Load="{x:Bind ViewModel.IssueComment.Reactions.RocketCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                        IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactRocket, Mode=OneWay}"
+                        IsEnabled="False">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="🚀" />
                             <TextBlock Text="{x:Bind ViewModel.IssueComment.Reactions.RocketCount, Mode=OneWay}" />
                         </StackPanel>
                     </ToggleButton>
-                    <ToggleButton IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactEyes, Mode=OneWay}" IsEnabled="False">
+
+                    <ToggleButton
+                        x:Name="EyesToggleButton"
+                        x:Load="{x:Bind ViewModel.IssueComment.Reactions.EyesCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                        IsChecked="{x:Bind ViewModel.IssueComment.Reactions.ViewerReactEyes, Mode=OneWay}"
+                        IsEnabled="False">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="👀" />
                             <TextBlock Text="{x:Bind ViewModel.IssueComment.Reactions.EyesCount, Mode=OneWay}" />
@@ -268,15 +326,9 @@
                 </StackPanel>
             </Grid>
         </Grid>
+
         <Border
             Grid.Row="2"
-            Width="1.5"
-            Height="20"
-            Margin="28,0,0,0"
-            HorizontalAlignment="Left"
-            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
-        <Border
-            Grid.Row="0"
             Width="1.5"
             Height="20"
             Margin="28,0,0,0"
