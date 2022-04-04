@@ -72,7 +72,7 @@ namespace FluentHub.Octokit.Queries.Repositories
                 comment.AuthorAvatarUrl = item.Author.AvatarUrl;
                 comment.AuthorLogin = item.Author.Login;
                 comment.BodyHtml = item.BodyHTML;
-                comment.IsEdited = item.LastEditedAt == null ? true : false;
+                comment.IsEdited = item.LastEditedAt == null ? false : true;
                 comment.IsMinimized = item.IsMinimized;
                 comment.MinimizedReason = item.MinimizedReason;
 
@@ -250,7 +250,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             comment.AuthorAvatarUrl = response.Author.AvatarUrl;
             comment.AuthorLogin = response.Author.Login;
             comment.BodyHtml = response.BodyHTML;
-            comment.IsEdited = response.LastEditedAt == null ? true : false;
+            comment.IsEdited = response.LastEditedAt == null ? false : true;
             comment.UpdatedAt = response.UpdatedAt;
             comment.ViewerCanReact = response.ViewerCanReact;
             comment.ViewerCanUpdate = response.ViewerCanUpdate;
