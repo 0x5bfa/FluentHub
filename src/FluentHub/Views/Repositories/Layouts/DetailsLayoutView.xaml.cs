@@ -88,12 +88,13 @@ namespace FluentHub.Views.Repositories.Layouts
                 IsRootDir = false,
             };
 
-            DetailsLayoutListViewItem item = DirListView.SelectedItem as DetailsLayoutListViewItem;
+            var item = DirListView.SelectedItem as DetailsLayoutListViewItem;
 
             var tagItem = item.ObjectTag.Split("/");
 
             if (tagItem[0] == "tree")
             {
+                repoContextViewModel.IsSubDir = true;
                 repoContextViewModel.Path = ContextViewModel.Path + tagItem[1] + "/";
             }
             else // blob

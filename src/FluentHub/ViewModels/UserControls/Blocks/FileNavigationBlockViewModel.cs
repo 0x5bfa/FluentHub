@@ -15,11 +15,20 @@ namespace FluentHub.ViewModels.UserControls.Blocks
 {
     public class FileNavigationBlockViewModel : INotifyPropertyChanged
     {
-        private RepoContextViewModel commonRepoViewModel;
-        public RepoContextViewModel CommonRepoViewModel
+        private RepoContextViewModel contextViewModel;
+        public RepoContextViewModel ContextViewModel
         {
-            get => commonRepoViewModel;
-            set => SetProperty(ref commonRepoViewModel, value);
+            get => contextViewModel;
+            set => SetProperty(ref contextViewModel, value);
+        }
+
+        private List<string> branchNames;
+        public List<string> BranchNames { get => branchNames; set => SetProperty(ref branchNames, value); }
+
+        public async Task LoadBranchNames()
+        {
+            // temp workaround
+            BranchNames.Add(ContextViewModel.Repository.DefaultBranchName);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

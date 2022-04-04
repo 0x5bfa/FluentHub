@@ -62,9 +62,9 @@ namespace FluentHub.ViewModels.Repositories.Layouts
                 ContextViewModel.IsDir = true;
 
                 if (ContextViewModel.Path == "/")
-                {
                     ContextViewModel.IsRootDir = true;
-                }
+                else
+                    ContextViewModel.IsSubDir = true;
 
                 foreach (var overview in fileOverviews)
                 {
