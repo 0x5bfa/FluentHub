@@ -40,7 +40,7 @@
                         VerticalAlignment="Center"
                         FontWeight="SemiBold"
                         Style="{ThemeResource BodyTextBlockStyle}"
-                        Text="0" />
+                        Text="{x:Bind ViewModel.CommonRepoViewModel.Repository.HeadRefsCount, Mode=OneWay}" />
                     <TextBlock
                         VerticalAlignment="Center"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
@@ -61,7 +61,7 @@
                         VerticalAlignment="Center"
                         FontWeight="SemiBold"
                         Style="{ThemeResource BodyTextBlockStyle}"
-                        Text="0" />
+                        Text="{x:Bind ViewModel.CommonRepoViewModel.Repository.ReleaseCount, Mode=OneWay}" />
                     <TextBlock
                         VerticalAlignment="Center"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"

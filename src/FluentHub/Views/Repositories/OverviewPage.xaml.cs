@@ -76,6 +76,16 @@ namespace FluentHub.Views.Repositories
 
         private void OnRepoOwnerButtonClick(object sender, RoutedEventArgs e)
         {
+            var service = App.Current.Services.GetRequiredService<INavigationService>();
+
+            if (ViewModel.Repository.IsInOrganization)
+            {
+                service.Navigate<Views.Organizations.ProfilePage>(ViewModel.Repository.Owner);
+            }
+            else
+            {
+                service.Navigate<Views.Users.ProfilePage>(ViewModel.Repository.Owner);
+            }
         }
 
         private void OnRepositoryContentFrameNavigating(object sender, NavigatingCancelEventArgs e)

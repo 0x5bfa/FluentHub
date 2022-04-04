@@ -4,9 +4,11 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="using:FluentHub.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:labels="using:FluentHub.UserControls.Labels"
     xmlns:local="using:FluentHub.Views.Repositories"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:uc="using:FluentHub.UserControls"
     mc:Ignorable="d">
 
@@ -69,6 +71,29 @@
                     FontWeight="Normal"
                     Style="{StaticResource SubtitleTextBlockStyle}"
                     Text="{x:Bind ViewModel.Repository.Name, Mode=OneWay}" />
+
+                <toolkit:SwitchPresenter
+                    Grid.RowSpan="2"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    TargetType="x:Boolean"
+                    Value="{x:Bind ViewModel.Repository.IsPrivate, Mode=OneWay}">
+
+                    <toolkit:Case Value="True">
+                        <labels:LabelControl
+                            IsOutlineEnable="True"
+                            LabelBackground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            LabelText="Private" />
+                    </toolkit:Case>
+
+                    <toolkit:Case Value="False">
+                        <labels:LabelControl
+                            IsOutlineEnable="True"
+                            LabelBackground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            LabelText="Public" />
+                    </toolkit:Case>
+
+                </toolkit:SwitchPresenter>
             </StackPanel>
 
             <StackPanel
@@ -83,11 +108,14 @@
                                 FontFamily="{StaticResource Octions}"
                                 FontSize="14"
                                 Glyph="&#xE98B;" />
+
                             <TextBlock x:Name="RepoWatchCombboxWatchTextBlock" Text="Watch" />
+
                             <muxc:InfoBadge x:Name="WatchersCountBadge" Value="{x:Bind ViewModel.Repository.WatcherCount, Mode=OneWay}" />
                         </StackPanel>
                     </muxc:DropDownButton.Content>
                 </muxc:DropDownButton>
+
                 <Button IsEnabled="False">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal" Spacing="8">
@@ -95,16 +123,46 @@
                                 FontFamily="{StaticResource Octions}"
                                 FontSize="14"
                                 Glyph="&#xea55;" />
+
                             <TextBlock Text="Fork" />
+
                             <muxc:InfoBadge x:Name="ForksCountBadge" Value="{x:Bind ViewModel.Repository.ForkCount, Mode=OneWay}" />
                         </StackPanel>
                     </Button.Content>
                 </Button>
+
                 <muxc:SplitButton IsEnabled="False">
                     <muxc:SplitButton.Content>
                         <StackPanel Orientation="Horizontal" Spacing="8">
-                            <FontIcon FontSize="14" Glyph="&#xE734;" />
-                            <TextBlock Text="Stars" />
+                            <toolkit:SwitchPresenter
+                                Grid.RowSpan="2"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                TargetType="x:Boolean"
+                                Value="{x:Bind ViewModel.Repository.ViewerHasStarred, Mode=OneWay}">
+
+                                <toolkit:Case Value="True">
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <FontIcon
+                                            FontFamily="{StaticResource Octions}"
+                                            FontSize="16"
+                                            Glyph="&#xEA96;" />
+                                        <TextBlock Text="Unstar" />
+                                    </StackPanel>
+                                </toolkit:Case>
+
+                                <toolkit:Case Value="False">
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <FontIcon
+                                            FontFamily="{StaticResource Octions}"
+                                            FontSize="16"
+                                            Glyph="&#xEA94;" />
+                                        <TextBlock Text="Star" />
+                                    </StackPanel>
+                                </toolkit:Case>
+
+                            </toolkit:SwitchPresenter>
+
                             <muxc:InfoBadge x:Name="StargazersCountBadge" Value="{x:Bind ViewModel.Repository.StargazerCount, Mode=OneWay}" />
                         </StackPanel>
                     </muxc:SplitButton.Content>
