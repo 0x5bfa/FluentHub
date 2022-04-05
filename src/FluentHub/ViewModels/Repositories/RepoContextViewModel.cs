@@ -27,7 +27,7 @@ namespace FluentHub.ViewModels.Repositories
             get => isRootDir;
             set
             {
-                if (value == true) IsFile = false;
+                if (value) IsFile = false;
                 SetProperty(ref isRootDir, value);
             }
         }
@@ -38,7 +38,12 @@ namespace FluentHub.ViewModels.Repositories
             get => isFile;
             set
             {
-                if (value == true) IsRootDir = false;
+                if (value)
+                {
+                    IsRootDir = false;
+                    IsDir = false;
+                    IsSubDir = false;
+                }
                 SetProperty(ref isFile, value);
             }
         }
@@ -49,8 +54,23 @@ namespace FluentHub.ViewModels.Repositories
             get => isDir;
             set
             {
-                if (value == true) IsFile = false;
+                if (value) IsFile = false;
                 SetProperty(ref isDir, value);
+            }
+        }
+
+        private bool isSubDir;
+        public bool IsSubDir
+        {
+            get => isSubDir;
+            set
+            {
+                if (value)
+                {
+                    IsFile = false;
+                    IsRootDir = false;
+                }
+                SetProperty(ref isSubDir, value);
             }
         }
 

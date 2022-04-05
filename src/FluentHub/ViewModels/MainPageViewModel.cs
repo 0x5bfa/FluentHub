@@ -9,6 +9,7 @@ using System;
 using System.Windows.Input;
 using Windows.System;
 using Windows.UI.Core;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
 namespace FluentHub.ViewModels
@@ -48,6 +49,7 @@ namespace FluentHub.ViewModels
 
         #region properties
         public UserNotificationMessage LastNotification { get => _lastNotification; private set => SetProperty(ref _lastNotification, value); }
+        public static Frame RepositoryContentFrame { get; set; } = new();
         #endregion
 
         #region commands

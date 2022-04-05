@@ -5,11 +5,12 @@ namespace FluentHub.Services.Navigation
 {
     public interface ITabView
     {        
-        ITabItemView SelectedItem { get; set; }
+        ITabViewItem SelectedItem { get; set; }
         int SelectedIndex { get; set; }
-        ReadOnlyObservableCollection<ITabItemView> Items { get; }
-        ITabItemView OpenTab(Type page, object parameter = null, bool setAsSelected = true);
-        bool CloseTab(ITabItemView tab);
+        Type NewTabPage { get; set; }
+        ReadOnlyObservableCollection<ITabViewItem> Items { get; }
+        ITabViewItem OpenTab(Type page = null, object parameter = null, bool setAsSelected = true);
+        bool CloseTab(ITabViewItem tab);
         bool CloseTab(Guid tabId);
         bool CloseTab(int tabIndex);
         event EventHandler<TabViewSelectionChangedEventArgs> SelectionChanged;

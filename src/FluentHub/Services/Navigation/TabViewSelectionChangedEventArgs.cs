@@ -5,25 +5,25 @@ namespace FluentHub.Services.Navigation
 {
     public class TabViewSelectionChangedEventArgs : EventArgs
     {
-        public TabViewSelectionChangedEventArgs(ITabItemView newSelectedItem)
+        public TabViewSelectionChangedEventArgs(ITabViewItem newSelectedItem)
         {
             NewSelectedItem = newSelectedItem;
         }
-        public TabViewSelectionChangedEventArgs(ITabItemView newSelectedItem, ITabItemView oldSelectedItem)
+        public TabViewSelectionChangedEventArgs(ITabViewItem newSelectedItem, ITabViewItem oldSelectedItem)
         {
             NewSelectedItem = newSelectedItem;
             OldSelectedItem = oldSelectedItem;
         }
-        public TabViewSelectionChangedEventArgs(ITabItemView newSelectedItem,
-                                                ITabItemView oldSelectedItem,
+        public TabViewSelectionChangedEventArgs(ITabViewItem newSelectedItem,
+                                                ITabViewItem oldSelectedItem,
                                                 NavigationTransitionInfo recommendedNavigationTransitionInfo)
         {
             NewSelectedItem = newSelectedItem;
             OldSelectedItem = oldSelectedItem;
             RecommendedNavigationTransitionInfo = recommendedNavigationTransitionInfo;
         }
-        public ITabItemView NewSelectedItem { get; }
-        public ITabItemView OldSelectedItem { get; }
+        public ITabViewItem NewSelectedItem { get; }
+        public ITabViewItem OldSelectedItem { get; }
         public NavigationTransitionInfo RecommendedNavigationTransitionInfo { get; }
     }
 }

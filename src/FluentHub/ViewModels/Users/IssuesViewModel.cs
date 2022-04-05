@@ -26,7 +26,7 @@ namespace FluentHub.ViewModels.Users
             _issueItems = new();
             IssueItems = new(_issueItems);
 
-            RefreshIssuesCommand = new AsyncRelayCommand<string>(RefreshIssuesAsync);
+            RefreshIssuesPageCommand = new AsyncRelayCommand<string>(RefreshIssuesPageAsync);
         }
         #endregion
 
@@ -38,19 +38,16 @@ namespace FluentHub.ViewModels.Users
 
         #region properties
         public ReadOnlyObservableCollection<IssueButtonBlockViewModel> IssueItems { get; }
-        public IAsyncRelayCommand RefreshIssuesCommand { get; }
+        public IAsyncRelayCommand RefreshIssuesPageCommand { get; }
         #endregion
+
         #region methods
-        private async Task RefreshIssuesAsync(string login, CancellationToken token)
+        private async Task RefreshIssuesPageAsync(string login, CancellationToken token)
         {
             try
             {
                 IssueQueries queries = new();
-                List<Issue> items;
-
-                items = login == null ?
-                    await queries.GetAllAsync() :
-                    await queries.GetAllAsync(login);
+                List<Issue> items = await queries.GetAllAsync(login);
 
                 if (items == null) return;
 

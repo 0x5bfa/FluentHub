@@ -1,4 +1,5 @@
 ﻿using FluentHub.Services;
+using FluentHub.ViewModels;
 using FluentHub.ViewModels.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -18,6 +19,7 @@ namespace FluentHub.Views.Repositories
         {
             InitializeComponent();
             navigationService = App.Current.Services.GetService<INavigationService>();
+            MainPageViewModel.RepositoryContentFrame.Navigating += OnRepositoryContentFrameNavigating;
         }
 
         private readonly INavigationService navigationService;
@@ -74,6 +76,23 @@ namespace FluentHub.Views.Repositories
 
         private void OnRepoOwnerButtonClick(object sender, RoutedEventArgs e)
         {
+            var service = App.Current.Services.GetRequiredService<INavigationService>();
+
+            if (ViewModel.Repository.IsInOrganization)
+            {
+                service.Navigate<Views.Organizations.ProfilePage>(ViewModel.Repository.Owner);
+            }
+            else
+            {
+                service.Navigate<Views.Users.ProfilePage>(ViewModel.Repository.Owner);
+            }
+        }
+
+        private void OnRepositoryContentFrameNavigating(object sender, NavigatingCancelEventArgs e)
+        {
+            e.Cancel = true;
+
+            RepoPageNavViewFrame.Navigate(e.SourcePageType, e.Parameter);
         }
     }
 }

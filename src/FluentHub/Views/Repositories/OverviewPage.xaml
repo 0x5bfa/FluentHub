@@ -2,10 +2,14 @@
     x:Class="FluentHub.Views.Repositories.OverviewPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:FluentHub.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:labels="using:FluentHub.UserControls.Labels"
     xmlns:local="using:FluentHub.Views.Repositories"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:uc="using:FluentHub.UserControls"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -17,6 +21,7 @@
                     <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
+            <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
         </ResourceDictionary>
     </Page.Resources>
 
@@ -25,6 +30,7 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+
         <Grid Margin="20,20,20,12">
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                 <Button
@@ -36,14 +42,11 @@
                     FontWeight="Normal"
                     Style="{StaticResource LinkLikeButtonStyle}">
                     <StackPanel Orientation="Horizontal" Spacing="8">
-                        <Border
-                            x:Name="RepoOwnerAvatarBorder"
-                            Width="26"
-                            Height="26"
-                            Background="{ThemeResource ExpanderHeaderBackground}"
-                            CornerRadius="13">
-                            <Image x:Name="RepoOwnerAvatar" Source="{x:Bind ViewModel.Repository.OwnerAvatarUrl, Mode=OneWay}" />
-                        </Border>
+                        <uc:AvatarControl
+                            AvatarUrl="{x:Bind ViewModel.Repository.OwnerAvatarUrl, Mode=OneWay}"
+                            IsOrganization="{x:Bind ViewModel.Repository.IsInOrganization, Mode=OneWay}"
+                            WidthAndHeight="26" />
+
                         <TextBlock
                             x:Name="RepoOwnerName"
                             VerticalAlignment="Center"
@@ -52,11 +55,14 @@
                             Text="{x:Bind ViewModel.Repository.Owner, Mode=OneWay}" />
                     </StackPanel>
                 </Button>
+
                 <TextBlock
                     Margin="2,0"
                     VerticalAlignment="Center"
+                    FontWeight="SemiLight"
                     Style="{StaticResource SubtitleTextBlockStyle}"
                     Text="/" />
+
                 <TextBlock
                     x:Name="RepoName"
                     Grid.Column="3"
@@ -65,7 +71,31 @@
                     FontWeight="Normal"
                     Style="{StaticResource SubtitleTextBlockStyle}"
                     Text="{x:Bind ViewModel.Repository.Name, Mode=OneWay}" />
+
+                <toolkit:SwitchPresenter
+                    Grid.RowSpan="2"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    TargetType="x:Boolean"
+                    Value="{x:Bind ViewModel.Repository.IsPrivate, Mode=OneWay}">
+
+                    <toolkit:Case Value="True">
+                        <labels:LabelControl
+                            IsOutlineEnable="True"
+                            LabelBackground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            LabelText="Private" />
+                    </toolkit:Case>
+
+                    <toolkit:Case Value="False">
+                        <labels:LabelControl
+                            IsOutlineEnable="True"
+                            LabelBackground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            LabelText="Public" />
+                    </toolkit:Case>
+
+                </toolkit:SwitchPresenter>
             </StackPanel>
+
             <StackPanel
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
@@ -78,11 +108,14 @@
                                 FontFamily="{StaticResource Octions}"
                                 FontSize="14"
                                 Glyph="&#xE98B;" />
+
                             <TextBlock x:Name="RepoWatchCombboxWatchTextBlock" Text="Watch" />
+
                             <muxc:InfoBadge x:Name="WatchersCountBadge" Value="{x:Bind ViewModel.Repository.WatcherCount, Mode=OneWay}" />
                         </StackPanel>
                     </muxc:DropDownButton.Content>
                 </muxc:DropDownButton>
+
                 <Button IsEnabled="False">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal" Spacing="8">
@@ -90,22 +123,53 @@
                                 FontFamily="{StaticResource Octions}"
                                 FontSize="14"
                                 Glyph="&#xea55;" />
+
                             <TextBlock Text="Fork" />
+
                             <muxc:InfoBadge x:Name="ForksCountBadge" Value="{x:Bind ViewModel.Repository.ForkCount, Mode=OneWay}" />
                         </StackPanel>
                     </Button.Content>
                 </Button>
+
                 <muxc:SplitButton IsEnabled="False">
                     <muxc:SplitButton.Content>
                         <StackPanel Orientation="Horizontal" Spacing="8">
-                            <FontIcon FontSize="14" Glyph="&#xE734;" />
-                            <TextBlock Text="Stars" />
+                            <toolkit:SwitchPresenter
+                                Grid.RowSpan="2"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                TargetType="x:Boolean"
+                                Value="{x:Bind ViewModel.Repository.ViewerHasStarred, Mode=OneWay}">
+
+                                <toolkit:Case Value="True">
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <FontIcon
+                                            FontFamily="{StaticResource Octions}"
+                                            FontSize="16"
+                                            Glyph="&#xEA96;" />
+                                        <TextBlock Text="Unstar" />
+                                    </StackPanel>
+                                </toolkit:Case>
+
+                                <toolkit:Case Value="False">
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <FontIcon
+                                            FontFamily="{StaticResource Octions}"
+                                            FontSize="16"
+                                            Glyph="&#xEA94;" />
+                                        <TextBlock Text="Star" />
+                                    </StackPanel>
+                                </toolkit:Case>
+
+                            </toolkit:SwitchPresenter>
+
                             <muxc:InfoBadge x:Name="StargazersCountBadge" Value="{x:Bind ViewModel.Repository.StargazerCount, Mode=OneWay}" />
                         </StackPanel>
                     </muxc:SplitButton.Content>
                 </muxc:SplitButton>
             </StackPanel>
         </Grid>
+
         <Grid Grid.Row="1">
             <muxc:NavigationView
                 x:Name="RepoPageNavView"
@@ -114,7 +178,9 @@
                 IsSettingsVisible="False"
                 ItemInvoked="RepoPageNavView_ItemInvoked"
                 PaneDisplayMode="Top">
+
                 <muxc:NavigationView.MenuItems>
+
                     <muxc:NavigationViewItem
                         Content="Code"
                         IsSelected="True"
@@ -126,36 +192,35 @@
                                 Glyph="&#xE94b;" />
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
-                    <muxc:NavigationViewItem Tag="Issues">
+
+                    <muxc:NavigationViewItem Tag="Issues" Visibility="{x:Bind ViewModel.Repository.HasIssuesEnabled, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
                         <muxc:NavigationViewItem.Content>
-                            <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
                                 <FontIcon
-                                    Margin="0,0,8,0"
                                     FontFamily="{StaticResource Octions}"
                                     FontSize="16"
                                     Glyph="&#xE9EA;" />
+
                                 <TextBlock Text="Issues" />
-                                <muxc:InfoBadge
-                                    x:Name="IssuesCountBadge"
-                                    Margin="8,0,0,0"
-                                    Visibility="Collapsed" />
+
+                                <muxc:InfoBadge x:Name="IssuesCountBadge" Value="{x:Bind ViewModel.Repository.OpenIssueCount, Mode=OneWay}" />
                             </StackPanel>
                         </muxc:NavigationViewItem.Content>
                     </muxc:NavigationViewItem>
+
                     <muxc:NavigationViewItem Tag="PRs">
-                        <StackPanel Orientation="Horizontal">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
                             <FontIcon
-                                Margin="0,0,8,0"
                                 FontFamily="{StaticResource Octions}"
                                 FontSize="16"
                                 Glyph="&#xE9BF;" />
+
                             <TextBlock Text="Pull Requests" />
-                            <muxc:InfoBadge
-                                x:Name="PullsCountBadge"
-                                Margin="8,0,0,0"
-                                Visibility="Collapsed" />
+
+                            <muxc:InfoBadge x:Name="PullsCountBadge" Value="{x:Bind ViewModel.Repository.OpenPullCount, Mode=OneWay}" />
                         </StackPanel>
                     </muxc:NavigationViewItem>
+
                     <muxc:NavigationViewItem Content="Settings" Tag="Settings">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon
@@ -164,7 +229,9 @@
                                 Glyph="&#xE9B3;" />
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
+
                 </muxc:NavigationView.MenuItems>
+
                 <muxc:NavigationView.Content>
                     <Frame
                         x:Name="RepoPageNavViewFrame"

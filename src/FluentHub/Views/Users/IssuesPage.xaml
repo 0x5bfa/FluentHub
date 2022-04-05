@@ -45,16 +45,16 @@
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             TargetType="x:Boolean"
-            Value="{x:Bind ViewModel.RefreshIssuesCommand.IsRunning, Mode=OneWay}">
+            Value="{x:Bind ViewModel.RefreshIssuesPageCommand.IsRunning, Mode=OneWay}">
 
             <toolkit:Case Value="True">
                 <muxc:ProgressRing IsActive="True" />
             </toolkit:Case>
 
             <toolkit:Case Value="False">
-                <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.RefreshIssuesCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
+                <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.RefreshIssuesPageCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
                     <toolkit:Case Value="True">
-                        <HyperlinkButton Command="{x:Bind ViewModel.RefreshIssuesCommand}">
+                        <HyperlinkButton Command="{x:Bind ViewModel.RefreshIssuesPageCommand}">
                             <StackPanel Orientation="Horizontal" Spacing="8">
                                 <FontIcon FontSize="16" Glyph="&#xE149;" />
                                 <TextBlock Text="Refresh" />

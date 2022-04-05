@@ -16,13 +16,14 @@
             Margin="4,0"
             HorizontalAlignment="Left"
             VerticalAlignment="Stretch"
-            AllowDropTabs="False"
+            AllowDropTabs="True"
             Background="{x:Null}"
+            CanReorderTabs="True"
             IsAddTabButtonVisible="False"
             SelectedIndex="{x:Bind SelectedIndex, Mode=TwoWay}"
             SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
             TabCloseRequested="OnMainTabViewTabCloseRequested"
-            TabItemsSource="{x:Bind Items}">
+            TabItemsSource="{x:Bind InternalItemsList}">
             <muxc:TabView.TabItemTemplate>
                 <DataTemplate x:DataType="item:TabItem">
                     <muxc:TabViewItem

@@ -1,4 +1,5 @@
-﻿using FluentHub.Services.Navigation;
+﻿#pragma warning disable IDE0045
+using FluentHub.Services.Navigation;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -16,24 +17,25 @@ namespace FluentHub.UserControls.TabViewControl
         public CustomTabView()
         {
             InitializeComponent();
-            _items = new ObservableCollection<ITabItemView>();
-            Items = new ReadOnlyObservableCollection<ITabItemView>(_items);
+            InternalItemsList = new ObservableCollection<ITabViewItem>();
+            Items = new ReadOnlyObservableCollection<ITabViewItem>(InternalItemsList);
         }
         #endregion
 
         #region fields
-        private readonly ObservableCollection<ITabItemView> _items;
+        private ObservableCollection<ITabViewItem> InternalItemsList { get; }
+        private Type _page;
         #endregion
 
         #region properties
-        public ITabItemView SelectedItem
+        public ITabViewItem SelectedItem
         {
-            get => (ITabItemView)GetValue(SelectedItemProperty);
+            get => (ITabViewItem)GetValue(SelectedItemProperty);
             set => SetValue(SelectedItemProperty, value);
         }
         public static readonly DependencyProperty SelectedItemProperty =
             DependencyProperty.Register("SelectedItem",
-                                        typeof(ITabItemView),
+                                        typeof(ITabViewItem),
                                         typeof(CustomTabView),
                                         new PropertyMetadata(null, OnSelectedItemChanged));
 
@@ -61,8 +63,8 @@ namespace FluentHub.UserControls.TabViewControl
 
         private static void OnSelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var newItem = e.NewValue as ITabItemView;
-            var oldItem = e.OldValue as ITabItemView;
+            var newItem = e.NewValue as ITabViewItem;
+            var oldItem = e.OldValue as ITabViewItem;
             ((CustomTabView)d).OnSelectionChanged(newItem, oldItem);
         }
         private static void OnTitleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
@@ -71,50 +73,50 @@ namespace FluentHub.UserControls.TabViewControl
             view.Title = e.NewValue?.ToString() ?? "";
         }
 
-        public ReadOnlyObservableCollection<ITabItemView> Items { get; }
+        public ReadOnlyObservableCollection<ITabViewItem> Items { get; }
+
+        public Type NewTabPage
+        {
+            get => _page;
+            set
+            {
+                _page = value == null || value.IsSubclassOf(typeof(Page))
+                    ? value
+                    : throw new ArgumentException("NewTabPage must be a subclass of Page");
+            }
+        }
         #endregion
 
         #region public methods
-        public ITabItemView OpenTab(Type page!!, object parameter = null, bool setAsSelected = true)
+        public ITabViewItem OpenTab(Type page = null, object parameter = null, bool setAsSelected = true)
         {
-            var transitionInfo = new SlideNavigationTransitionInfo
-            {
-                Effect = SlideNavigationTransitionEffect.FromRight
-            };
-
-            var item = new TabItem
-            {
-
-            };
-            item.NavigationHistory.NavigateTo(new(page, parameter, transitionInfo)
-            {
-                Icon = new muxc.FontIconSource
-                {
-                    Glyph = "\uE737"
-                }
-            });
-
-            _items.Add(item);
+            ITabViewItem tab = new TabItem();
+            InternalItemsList.Add(tab);
             if (setAsSelected)
             {
-                SelectedItem = item;
+                SelectedItem = tab;
             }
-            return item;
+            page ??= NewTabPage;
+            if (page != null)
+            {
+                tab.Frame.Navigate(page, parameter, new SuppressNavigationTransitionInfo());
+            }
+            return tab;
         }
 
-        public bool CloseTab(ITabItemView tabItem) => tabItem is not null && CloseTab(_items.IndexOf(tabItem));
+        public bool CloseTab(ITabViewItem tabItem) => tabItem is not null && CloseTab(InternalItemsList.IndexOf(tabItem));
 
-        public bool CloseTab(Guid guid) => CloseTab(_items.FirstOrDefault(x => x.Guid == guid));
+        public bool CloseTab(Guid guid) => CloseTab(InternalItemsList.FirstOrDefault(x => x.Guid == guid));
 
         public bool CloseTab(int index)
         {
-            if (index >= 0 && index < _items.Count)
+            if (index >= 0 && index < InternalItemsList.Count)
             {
                 int newSelectedItemIndex = -1;
 
                 if (index == SelectedIndex) // Removing the current tab
                 {
-                    if (index == _items.Count - 1) // Select the previous tab if the current item is the last tab
+                    if (index == InternalItemsList.Count - 1) // Select the previous tab if the current item is the last tab
                     {
                         newSelectedItemIndex = index - 1;
                     }
@@ -124,9 +126,9 @@ namespace FluentHub.UserControls.TabViewControl
                     }
                 }
 
-                _items.RemoveAt(index);
+                InternalItemsList.RemoveAt(index);
 
-                if (_items.Count == 0)
+                if (InternalItemsList.Count == 0)
                 {
                     App.CloseApp();
                 }
@@ -142,7 +144,7 @@ namespace FluentHub.UserControls.TabViewControl
         #endregion
 
         #region private methods
-        private void OnSelectionChanged(ITabItemView newItem, ITabItemView oldItem)
+        private void OnSelectionChanged(ITabViewItem newItem, ITabViewItem oldItem)
         {
             SuppressNavigationTransitionInfo transitionInfo = new();
             TabViewSelectionChangedEventArgs args = new(newItem, oldItem, transitionInfo);
@@ -153,14 +155,9 @@ namespace FluentHub.UserControls.TabViewControl
         #region event handlers
         private void OnMainTabViewTabCloseRequested(muxc.TabView sender,
                                                     muxc.TabViewTabCloseRequestedEventArgs args)
-            => CloseTab(args.Item as ITabItemView);
+            => CloseTab((ITabViewItem)args.Item);
 
-        private void OnAddNewTabButtonClick(object sender, RoutedEventArgs e)
-        {
-            var item = new TabItem();
-            _items.Add(item);
-            SelectedItem = item;
-        }
+        private void OnAddNewTabButtonClick(object sender, RoutedEventArgs e) => OpenTab();
         #endregion
 
         #region events

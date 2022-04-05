@@ -35,7 +35,7 @@ namespace FluentHub.Views.Users
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Issues.png"))
             };
 
-            var command = ViewModel.RefreshIssuesCommand;
+            var command = ViewModel.RefreshIssuesPageCommand;
             if (command.CanExecute(DataContext))
                 command.Execute(DataContext);
         }

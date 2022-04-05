@@ -1,6 +1,7 @@
 using FluentHub.Helpers;
 using FluentHub.Models;
 using FluentHub.Services;
+using FluentHub.Services.Navigation;
 using FluentHub.ViewModels;
 using FluentHub.Views.Home;
 using Microsoft.Extensions.DependencyInjection;
@@ -69,7 +70,8 @@ namespace FluentHub.Views
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             SubscribeEvents();
-            NavigationService.Configure(TabView, MainFrame, typeof(UserHomePage));
+            TabView.NewTabPage = typeof(UserHomePage);
+            NavigationService.Configure(TabView);
             NavigationService.Navigate<UserHomePage>();
 
             // Configure Jumplist
@@ -142,6 +144,8 @@ namespace FluentHub.Views
             Frame rootFrame = (Frame)Window.Current.Content;
             rootFrame.Navigate(typeof(SignIn.IntroPage));
         }
-        #endregion
+        private void OnTabViewSelectionChanged(object sender, TabViewSelectionChangedEventArgs e)
+            => RootFrameBorder.Child = e.NewSelectedItem?.Frame;
+        #endregion        
     }
 }

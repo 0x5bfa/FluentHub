@@ -5,6 +5,7 @@
     xmlns:converters="using:FluentHub.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     d:DesignHeight="180"
     d:DesignWidth="400"
     DataContext="{x:Bind ViewModel, Mode=OneWay}"
@@ -115,7 +116,8 @@
                                 x:Name="LicenseBlock"
                                 Margin="0,0,16,0"
                                 Orientation="Horizontal"
-                                Spacing="6">
+                                Spacing="6"
+                                Visibility="{x:Bind ViewModel.Item.LicenseName, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
                                 <FontIcon
                                     FontFamily="{StaticResource Octions}"
                                     FontSize="14"
@@ -180,13 +182,35 @@
                     Margin="12,0,0,0"
                     x:Load="{x:Bind ViewModel.DisplayStarButton, Mode=OneWay}">
                     <Button HorizontalAlignment="Stretch" IsEnabled="False">
-                        <StackPanel Orientation="Horizontal" Spacing="6">
-                            <FontIcon
-                                FontFamily="{StaticResource Octions}"
-                                FontSize="16"
-                                Glyph="&#xEA94;" />
-                            <TextBlock Text="Star" />
-                        </StackPanel>
+                        <toolkit:SwitchPresenter
+                            Grid.RowSpan="2"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            TargetType="x:Boolean"
+                            Value="{x:Bind ViewModel.Item.ViewerHasStarred, Mode=OneWay}">
+
+                            <toolkit:Case Value="True">
+                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                    <FontIcon
+                                        FontFamily="{StaticResource Octions}"
+                                        FontSize="16"
+                                        Glyph="&#xEA96;" />
+                                    <TextBlock Text="Unstar" />
+                                </StackPanel>
+                            </toolkit:Case>
+
+                            <toolkit:Case Value="False">
+                                <StackPanel Orientation="Horizontal" Spacing="6">
+                                    <FontIcon
+                                        FontFamily="{StaticResource Octions}"
+                                        FontSize="16"
+                                        Glyph="&#xEA94;" />
+                                    <TextBlock Text="Star" />
+                                </StackPanel>
+                            </toolkit:Case>
+
+                        </toolkit:SwitchPresenter>
+
                     </Button>
                 </Grid>
             </Grid>

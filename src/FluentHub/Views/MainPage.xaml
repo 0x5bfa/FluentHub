@@ -97,7 +97,10 @@
                 VerticalAlignment="Top"
                 Background="Transparent"
                 Loaded="OnDragAreaLoaded" />
-            <uc:CustomTabView x:Name="TabView" Title="{x:Bind TabView.SelectedItem.NavigationHistory.CurrentItem.Header, Mode=OneWay}" />
+            <uc:CustomTabView
+                x:Name="TabView"
+                Title="{x:Bind TabView.SelectedItem.NavigationHistory.CurrentItem.Header, Mode=OneWay}"
+                SelectionChanged="OnTabViewSelectionChanged" />
         </Grid>
 
         <Grid
@@ -221,8 +224,9 @@
             Message="{x:Bind ViewModel.LastNotification.Message}"
             Severity="{x:Bind UserNotificationToInfoBarSeverity(ViewModel.LastNotification.Type)}" />
 
-        <Grid Grid.Row="3" Margin="0,-1,0,0">
-            <Frame x:Name="MainFrame" />
-        </Grid>
+        <Border
+            x:Name="RootFrameBorder"
+            Grid.Row="3"
+            Margin="0,-1,0,0" />
     </Grid>
 </Page>
