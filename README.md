@@ -5,7 +5,7 @@
   FluentHub Dev
 </h1>
 <p align="center">
-  A powerful yet fluent GitHub Oauth client app made with Fluent Design and WinUI 2.7.
+  A fluent yet powerful GitHub Oauth client app made with Fluent Design and WinUI 2.7
 </p>
 
 <p align="center">
@@ -24,9 +24,9 @@
 
 ## Build
 
-- [Build from source](docs/build-from-source.md)
-- Authentication methods may change unexpectedly
-- Expect regular breaking changes.
+Expect regular breaking changes. If you cannot build or found authorization issues, let us know in [this issue](https://github.com/fluenthub-community/FluentHub/issues/104).
+
+- To build, please read [this documentation.](docs/build-from-source.md)
 
 ## FAQ
 
@@ -34,13 +34,10 @@ Any questions? Ask on our [Discord server](https://discord.com/channels/93556286
 
 ## Contributing
 
-- [How to contribute?](docs/CONTRIBUTING.md)
+- [How do I contribute?](docs/CONTRIBUTING.md)
 - Have any concepts/bugs? let us know in GitHub [issue](https://github.com/fluenthub-community/FluentHub/issues)/[PR](https://github.com/fluenthub-community/FluentHub/pulls).
 
 ## Privacy
 
 We may use the App Center to track the settings used, find bugs and fix crashes. The information sent to the App Center is anonymous and does not contain any user or contextual data.
 
-## Translations
-
-- [how to provide resources](docs/translations.md).
