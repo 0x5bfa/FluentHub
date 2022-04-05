@@ -1,6 +1,7 @@
 ﻿using FluentHub.Models.Items;
 using FluentHub.Services;
 using FluentHub.Services.Navigation;
+using FluentHub.ViewModels;
 using FluentHub.ViewModels.Repositories;
 using FluentHub.ViewModels.Repositories.Layouts;
 using Microsoft.Extensions.DependencyInjection;
@@ -11,7 +12,6 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Media.Imaging;
 using muxc = Microsoft.UI.Xaml.Controls;
-using FluentHub.ViewModels;
 
 namespace FluentHub.Views.Repositories.Layouts
 {

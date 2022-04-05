@@ -56,8 +56,11 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
+
                         <contents:LatestCommitBlock x:Name="LatastCommitBlock" CommonRepoViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
+
                         <MenuFlyoutSeparator Grid.Row="1" />
+
                         <ListView
                             x:Name="DirListView"
                             Grid.Row="2"
@@ -66,14 +69,17 @@
                             DoubleTapped="OnDirListViewDoubleTapped"
                             ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
                             SelectionMode="Single">
+
                             <ListView.ItemContainerStyle>
                                 <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
                                     <Setter Property="MinHeight" Value="40" />
                                     <Setter Property="Height" Value="40" />
                                 </Style>
                             </ListView.ItemContainerStyle>
+
                             <ListView.ItemTemplate>
                                 <DataTemplate x:DataType="items:DetailsLayoutListViewItem">
+
                                     <Grid x:Name="ListViewItemGrid" Tag="{x:Bind ObjectTag, Mode=OneWay}">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="32" />
@@ -81,6 +87,7 @@
                                             <ColumnDefinition Width="2*" />
                                             <ColumnDefinition Width="120" />
                                         </Grid.ColumnDefinitions>
+
                                         <FontIcon
                                             x:Name="ItemIcon"
                                             HorizontalAlignment="Left"
@@ -88,11 +95,13 @@
                                             FontFamily="{StaticResource Octions}"
                                             FontSize="16"
                                             Glyph="{x:Bind ObjectTypeIconGlyph, Mode=OneWay}" />
+
                                         <TextBlock
                                             x:Name="ItemNameTextBox"
                                             Grid.Column="1"
                                             VerticalAlignment="Center"
                                             Text="{x:Bind ObjectName, Mode=OneWay}" />
+
                                         <TextBlock
                                             x:Name="ItemLatestCommitTitleTextBox"
                                             Grid.Column="2"
@@ -100,6 +109,7 @@
                                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                             Text="{x:Bind ObjectLatestCommitMessage, Mode=OneWay}"
                                             TextTrimming="CharacterEllipsis" />
+
                                         <TextBlock
                                             x:Name="ItemUpdatedAtTextBlock"
                                             Grid.Column="3"
@@ -107,10 +117,12 @@
                                             VerticalAlignment="Center"
                                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                             Text="{x:Bind ObjectUpdatedAtHumanized, Mode=OneWay}" />
+
                                     </Grid>
                                 </DataTemplate>
                             </ListView.ItemTemplate>
                         </ListView>
+
                     </Grid>
 
                     <Grid

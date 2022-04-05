@@ -98,6 +98,7 @@ namespace FluentHub
                 .AddTransient<ViewModels.Repositories.PullRequestViewModel>()
                 .AddTransient<ViewModels.Repositories.PullRequestsViewModel>()
                 .AddTransient<ViewModels.UserControls.Blocks.FileContentBlockViewModel>()
+                .AddTransient<ViewModels.UserControls.Blocks.FileNavigationBlockViewModel>()
                 .AddTransient<ViewModels.Users.FollowersViewModel>()
                 .AddTransient<ViewModels.Users.FollowingViewModel>()
                 .AddTransient<ViewModels.Users.ProfilePageViewModel>()

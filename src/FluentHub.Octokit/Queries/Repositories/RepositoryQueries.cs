@@ -110,5 +110,34 @@ namespace FluentHub.Octokit.Queries.Repositories
         public void GetDetails()
         {
         }
+
+        public async Task<List<string>> GetBranchNameAllAsync(string owner, string name)
+        {
+            #region query
+            var query = new Query()
+                .Repository(name, owner)
+                .Refs(refPrefix: "refs/", first: 30, query: "heads/")
+                .Select(x => new
+                {
+                    BranchNames = x.Nodes.Select(y => new
+                    {
+                        y.Name,
+                    })
+                    .ToList()
+                })
+                .Compile();
+            #endregion
+
+            var response = await App.Connection.Run(query);
+
+            List<string> branchNames = new();
+            foreach (var branch in response.BranchNames)
+            {
+                // Delete "heads/"
+                branchNames.Add(branch.Name.Remove(0, 6));
+            }
+
+            return branchNames;
+        }
     }
 }

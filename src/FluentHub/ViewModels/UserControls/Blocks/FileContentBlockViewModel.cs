@@ -1,6 +1,7 @@
 ﻿using ColorCode;
 using FluentHub.Backend;
 using FluentHub.Helpers;
+using FluentHub.Models;
 using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.ViewModels.Repositories;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
@@ -44,7 +45,7 @@ namespace FluentHub.ViewModels.UserControls.Blocks
         public string BlobContent { get => _blobContent; set => SetProperty(ref _blobContent, value); }
         public string FormattedFileDetails { get => _formattedFileDetails; set => SetProperty(ref _formattedFileDetails, value); }
         public string FormattedFileSize { get => _formattedFileSize; set => SetProperty(ref _formattedFileSize, value); }
-        public string LineText { get => _lineText; set => SetProperty(ref lineText, value); }
+        public string LineText { get => _lineText; set => SetProperty(ref _lineText, value); }
         public RepoContextViewModel ContextViewModel { get => contextViewModel; set => SetProperty(ref contextViewModel, value); }
 
         public IAsyncRelayCommand LoadBlobContentBlockCommand { get; }

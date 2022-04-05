@@ -10,11 +10,9 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:FluentHub.UserControls"
     xmlns:vm="using:FluentHub.ViewModels.UserControls.Blocks"
+    Loaded="OnFileNavigationBlockLoaded"
     mc:Ignorable="d">
 
-    <UserControl.DataContext>
-        <vm:FileNavigationBlockViewModel x:Name="ViewModel" />
-    </UserControl.DataContext>
     <UserControl.Resources>
         <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
     </UserControl.Resources>
@@ -27,12 +25,24 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Orientation="Horizontal" Spacing="8">
-            <!--  ItemsSource="{x:Bind ViewModel.BranchNames, Mode=OneWay}"  -->
+
             <ComboBox
-                IsEditable="False"
-                IsEnabled="False"
+                x:Name="BranchNameSelector"
+                MinWidth="110"
+                MaxWidth="168"
+                ItemsSource="{x:Bind ViewModel.BranchNames, Mode=OneWay}"
                 SelectionChanged="OnBranchSelectorSelectionChanged">
-                <ComboBoxItem Content="{x:Bind ViewModel.ContextViewModel.BranchName, Mode=OneWay}" />
+                <ComboBox.ItemTemplate>
+                    <DataTemplate x:DataType="x:String">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="14"
+                                Glyph="&#xE9B7;" />
+                            <TextBlock Text="{x:Bind}" TextTrimming="CharacterEllipsis" />
+                        </StackPanel>
+                    </DataTemplate>
+                </ComboBox.ItemTemplate>
             </ComboBox>
 
             <Button
@@ -90,6 +100,7 @@
                     </StackPanel>
                 </Button.Content>
             </Button>
+
         </StackPanel>
 
         <StackPanel Grid.Column="2" Orientation="Horizontal">
