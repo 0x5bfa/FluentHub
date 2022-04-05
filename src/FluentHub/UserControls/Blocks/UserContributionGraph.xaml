@@ -71,15 +71,7 @@
                 <Border
                     Width="14"
                     Height="14"
-                    Background="#39d353"
-                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                    BorderThickness="1"
-                    CornerRadius="3" />
-
-                <Border
-                    Width="14"
-                    Height="14"
-                    Background="#26a641"
+                    Background="#0e4429"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1"
                     CornerRadius="3" />
@@ -95,7 +87,15 @@
                 <Border
                     Width="14"
                     Height="14"
-                    Background="#0e4429"
+                    Background="#26a641"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="3" />
+
+                <Border
+                    Width="14"
+                    Height="14"
+                    Background="#39d353"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1"
                     CornerRadius="3" />

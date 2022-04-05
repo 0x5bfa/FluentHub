@@ -63,16 +63,16 @@ namespace FluentHub.ViewModels.UserControls.Blocks
                         Calendar.ContributionDays[i].ColorBrush = (SolidColorBrush)Application.Current.Resources["ApplicationPageBackgroundThemeBrush"];
                         break;
                     case GraphQLModel.ContributionLevel.FirstQuartile:
-                        Calendar.ContributionDays[i].ColorBrush = Helpers.ColorHelpers.HexCodeToSolidColorBrush("#39d353");
+                        Calendar.ContributionDays[i].ColorBrush = Helpers.ColorHelpers.HexCodeToSolidColorBrush("#0e4429");
                         break;
                     case GraphQLModel.ContributionLevel.SecondQuartile:
-                        Calendar.ContributionDays[i].ColorBrush = Helpers.ColorHelpers.HexCodeToSolidColorBrush("#26a641");
-                        break;
-                    case GraphQLModel.ContributionLevel.ThirdQuartile:
                         Calendar.ContributionDays[i].ColorBrush = Helpers.ColorHelpers.HexCodeToSolidColorBrush("#006d32");
                         break;
+                    case GraphQLModel.ContributionLevel.ThirdQuartile:
+                        Calendar.ContributionDays[i].ColorBrush = Helpers.ColorHelpers.HexCodeToSolidColorBrush("#26a641");
+                        break;
                     case GraphQLModel.ContributionLevel.FourthQuartile:
-                        Calendar.ContributionDays[i].ColorBrush = Helpers.ColorHelpers.HexCodeToSolidColorBrush("#0e4429");
+                        Calendar.ContributionDays[i].ColorBrush = Helpers.ColorHelpers.HexCodeToSolidColorBrush("#39d353");
                         break;
                 }
             }
