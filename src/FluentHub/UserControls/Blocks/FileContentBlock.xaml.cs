@@ -1,9 +1,9 @@
 ﻿using ColorCode;
-using ColorCode.Common;
-using ColorCode.Styling;
-using ColorCode.UWP.Common;
 using FluentHub.Helpers;
+using FluentHub.Services;
 using FluentHub.ViewModels.Repositories;
+using FluentHub.ViewModels.UserControls.Blocks;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -19,57 +19,42 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-using Windows.Storage;
-using Windows.Storage.Pickers;
 namespace FluentHub.UserControls.Blocks
 {
     public sealed partial class FileContentBlock : UserControl
     {
+        #region propdp
         public static readonly DependencyProperty ContextViewModelProperty =
             DependencyProperty.Register(
                 nameof(ContextViewModel),
                 typeof(RepoContextViewModel),
                 typeof(FileContentBlock),
-                new PropertyMetadata(0));
+                new PropertyMetadata(null));
 
         public RepoContextViewModel ContextViewModel
         {
             get { return (RepoContextViewModel)GetValue(ContextViewModelProperty); }
             set { SetValue(ContextViewModelProperty, value); }
         }
+        #endregion
 
         public FileContentBlock()
         {
             this.InitializeComponent();
+
+            var provider = App.Current.Services;
+            ViewModel = provider.GetRequiredService<FileContentBlockViewModel>();
         }
 
-        private async void UserControl_Loaded(object sender, RoutedEventArgs e)
-        {
-            ViewModel.CommonRepoViewModel = ContextViewModel;
-            await ViewModel.GetFileContent();
-            Render();
-        }
+        public FileContentBlockViewModel ViewModel { get; }
 
-        private void Render()
+        private void OnFileContentBlockLoaded(object sender, RoutedEventArgs e)
         {
-            ColorCodeBlock.Blocks.Clear();
-            ColorCodeBlock.Visibility = Visibility.Collapsed;
-            PlainCodeBlock.Visibility = Visibility.Collapsed;
-            var formatter = new RichTextBlockFormatter(ThemeHelper.ActualTheme);
-            var extension = Path.GetExtension(ViewModel.CommonRepoViewModel.Path.Remove(0, 1)).Remove(0,1);
-            var fileType = FileTypeHelper.GetFileTypeStringId(extension);
+            ViewModel.ContextViewModel = ContextViewModel;
 
-            if (!string.IsNullOrEmpty(fileType))
-            {
-                ILanguage lang = Languages.FindById(fileType);
-                formatter.FormatRichTextBlock(ViewModel.BlobContent, lang, ColorCodeBlock);
-                ColorCodeBlock.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                PlainCodeBlock.Text = ViewModel.BlobContent;
-                PlainCodeBlock.Visibility = Visibility.Visible;
-            }
+            var command = ViewModel.LoadBlobContentBlockCommand;
+            if (command.CanExecute(ColorCodeBlock))
+                command.Execute(ColorCodeBlock);
         }
     }
 }
