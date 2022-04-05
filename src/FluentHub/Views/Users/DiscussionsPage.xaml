@@ -66,7 +66,37 @@
                     <toolkit:Case Value="False">
                         <toolkit:SwitchPresenter TargetType="x:Int32" Value="{x:Bind ViewModel.DiscussionItems.Count, Mode=OneWay}">
                             <toolkit:Case Value="0">
-                                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="No items available" />
+                                <!--#region Empty state-->
+                                <Grid
+                                    Grid.Row="1"
+                                    MaxWidth="180"
+                                    Margin="30"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Viewbox>
+                                        <Grid>
+                                            <Path Data="m440.929688 375.699219-184.929688 101.546875-184.929688-101.546875v-203.089844l184.929688-101.546875 184.929688 101.546875zm0 0" Fill="DarkGray" />
+                                            <Path Data="m71.070312 172.609375v.003906l184.929688 101.546875 184.929688-101.546875v-.003906l-184.929688-101.546875zm0 0" Fill="#FF525252" />
+                                            <Path Data="m71.070312 172.671875v203.027344l184.929688 101.546875.109375-.058594v-203.03125l-184.929687-101.546875zm0 0" Fill="Gray" />
+
+                                            <Path Data="m440.929688 172.613281 61.070312 61.066407-184.929688 101.546874-61.070312-61.070312zm0 0" Fill="LightGray" />
+                                            <Path Data="m71.070312 172.613281-61.070312 61.066407 184.929688 101.546874 61.070312-61.070312zm0 0" Fill="LightGray" />
+                                            <Path Data="m440.929688 172.613281 61.070312-61.066406-184.929688-101.546875-61.070312 61.070312zm0 0" Fill="LightGray" />
+                                            <Path Data="m71.070312 172.613281-61.070312-61.066406 184.929688-101.546875 61.070312 61.070312zm0 0" Fill="LightGray" />
+                                        </Grid>
+                                    </Viewbox>
+
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        FontSize="18"
+                                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                                        Text="No items available"
+                                        TextAlignment="Center" />
+                                </Grid>
                             </toolkit:Case>
                         </toolkit:SwitchPresenter>
                     </toolkit:Case>
