@@ -20,7 +20,7 @@
   </a>
 </p>
 
-![image](https://user-images.githubusercontent.com/62196528/160380436-ab822a43-ca2c-427d-b41c-a6d6700bd999.png)
+![image](https://user-images.githubusercontent.com/62196528/161764680-9d4fd92b-887e-4410-9676-a796f4b4b258.png)
 
 ## Build
 
