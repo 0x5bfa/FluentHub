@@ -33,11 +33,13 @@ namespace FluentHub.ViewModels.Users
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
         private readonly ObservableCollection<RepoButtonBlockViewModel> _repositoryItems;
+        private string _loginName;
         private RepoContextViewModel _contextViewModel;
         #endregion
 
         #region properties
         public ReadOnlyObservableCollection<RepoButtonBlockViewModel> RepositoryItems { get; }
+        public string LoginName { get => _loginName; set => SetProperty(ref _loginName, value); }
         public RepoContextViewModel ContextViewModel { get => _contextViewModel; set => SetProperty(ref _contextViewModel, value); }
 
         public IAsyncRelayCommand RefreshRepositoryCommand { get; }
