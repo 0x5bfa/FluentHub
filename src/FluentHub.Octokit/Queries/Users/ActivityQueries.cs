@@ -1,4 +1,7 @@
-﻿﻿using Serilog;
+﻿using FluentHub.Octokit.Models;
+using Octokit.GraphQL;
+using Octokit.GraphQL.Model;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -188,6 +191,60 @@ namespace FluentHub.Octokit.Queries.Users
             #endregion
 
             return activities;
+        }
+
+        public async Task<ContributionCalender> GetContributionCalendarAsync(string login)
+        {
+            #region queries
+            var query = new Query()
+                .User(login: login)
+                .ContributionsCollection(null, null, null)
+                .ContributionCalendar
+                .Select(x => new
+                {
+                    x.TotalContributions,
+                    A = x.Weeks.Select(y => new
+                    {
+                        B = y.ContributionDays.Select(z => new
+                        {
+                            z.Color,
+                            z.ContributionCount,
+                            z.ContributionLevel,
+                            z.Weekday,
+                        })
+                        .ToList(),
+                    })
+                    .ToList(),
+                })
+                .Compile();
+            #endregion
+
+            var response = await App.Connection.Run(query);
+
+            #region copying
+            var item = new ContributionCalender();
+
+            item.TotalContributions = response.TotalContributions;
+
+            foreach (var weeks in response.A)
+            {
+                foreach (var days in weeks.B)
+                {
+                    CalendarDay day = new();
+
+                    day.Color = days.Color;
+                    day.ColorBrush = Helpers.ColorHelper.HexCodeToSolidColorBrush(days.Color);
+                    day.ContributionCount = days.ContributionCount;
+                    day.ContributionLevel = days.ContributionLevel;
+                    day.WeekDay = days.Weekday;
+                    day.Visibility = true;
+
+                    item.ContributionDays.Add(day);
+                }
+            }
+            #endregion
+
+            return item;
         }
     }
 }

@@ -124,9 +124,12 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="Authorization\AuthorizationService.cs" />
+    <Compile Include="Helpers\ColorHelper.cs" />
     <Compile Include="Helpers\UserTypeDetectionHelper.cs" />
     <Compile Include="Models\ApiOptions.cs" />
+    <Compile Include="Models\CalendarDay.cs" />
     <Compile Include="Models\Commit.cs" />
+    <Compile Include="Models\ContributionCalender.cs" />
     <Compile Include="Models\Discussion.cs" />
     <Compile Include="Models\Activity.cs" />
     <Compile Include="Models\Issue.cs" />
