@@ -300,7 +300,10 @@
     <Compile Include="Views\AppSettings\AppearancePage.xaml.cs">
       <DependentUpon>AppearancePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Repositories\PullRequestPage.xaml.cs">
+    <Compile Include="Views\Repositories\Codes\ReleasesPage.xaml.cs">
+      <DependentUpon>ReleasesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\PullRequests\PullRequestPage.xaml.cs">
       <DependentUpon>PullRequestPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Searches\MainSearchPage.xaml.cs">
@@ -331,25 +334,25 @@
     <Compile Include="Views\Organizations\RepositoriesPage.xaml.cs">
       <DependentUpon>RepositoriesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Repositories\CodePage.xaml.cs">
+    <Compile Include="Views\Repositories\Codes\CodePage.xaml.cs">
       <DependentUpon>CodePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Repositories\IssuePage.xaml.cs">
+    <Compile Include="Views\Repositories\Issues\IssuePage.xaml.cs">
       <DependentUpon>IssuePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Repositories\Layouts\DetailsLayoutView.xaml.cs">
+    <Compile Include="Views\Repositories\Codes\Layouts\DetailsLayoutView.xaml.cs">
       <DependentUpon>DetailsLayoutView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Repositories\Layouts\TreeLayoutView.xaml.cs">
+    <Compile Include="Views\Repositories\Codes\Layouts\TreeLayoutView.xaml.cs">
       <DependentUpon>TreeLayoutView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Repositories\OverviewPage.xaml.cs">
       <DependentUpon>OverviewPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Repositories\PullRequestsPage.xaml.cs">
+    <Compile Include="Views\Repositories\PullRequests\PullRequestsPage.xaml.cs">
       <DependentUpon>PullRequestsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Repositories\IssuesPage.xaml.cs">
+    <Compile Include="Views\Repositories\Issues\IssuesPage.xaml.cs">
       <DependentUpon>IssuesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Repositories\Settings.xaml.cs">
@@ -738,7 +741,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Repositories\PullRequestPage.xaml">
+    <Page Include="Views\Repositories\Codes\ReleasesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\PullRequests\PullRequestPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -778,19 +785,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Repositories\CodePage.xaml">
+    <Page Include="Views\Repositories\Codes\CodePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Repositories\IssuePage.xaml">
+    <Page Include="Views\Repositories\Issues\IssuePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Repositories\Layouts\DetailsLayoutView.xaml">
+    <Page Include="Views\Repositories\Codes\Layouts\DetailsLayoutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Repositories\Layouts\TreeLayoutView.xaml">
+    <Page Include="Views\Repositories\Codes\Layouts\TreeLayoutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -798,11 +805,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Repositories\PullRequestsPage.xaml">
+    <Page Include="Views\Repositories\PullRequests\PullRequestsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Repositories\IssuesPage.xaml">
+    <Page Include="Views\Repositories\Issues\IssuesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -906,6 +913,9 @@
       <Project>{893edcc9-4345-4f49-a13f-1a426a7ba432}</Project>
       <Name>FluentHub.Octokit</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Views\Repositories\Discussions\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
