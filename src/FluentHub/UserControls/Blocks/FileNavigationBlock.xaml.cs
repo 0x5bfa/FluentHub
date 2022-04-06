@@ -1,6 +1,6 @@
 ﻿using FluentHub.ViewModels;
 using FluentHub.ViewModels.Repositories;
-using FluentHub.Views.Repositories.Layouts;
+using FluentHub.Views.Repositories.Codes.Layouts;
 using FluentHub.ViewModels.UserControls.Blocks;
 using Microsoft.Extensions.DependencyInjection;
 using System;
