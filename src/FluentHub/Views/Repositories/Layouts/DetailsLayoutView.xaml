@@ -15,10 +15,11 @@
 
     <Grid>
         <ScrollViewer>
-            <Grid Margin="12,0,12,12" ColumnSpacing="12">
+            <Grid Margin="12,0,12,12">
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
+                    <ColumnDefinition x:Name="RepositoryMetaInfoColumn" Width="0" />
                 </Grid.ColumnDefinitions>
 
                 <Grid>
@@ -143,16 +144,25 @@
                         ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
                 </Grid>
 
-                <!--<Grid Grid.Column="1" Width="256">
+                <Grid
+                    Grid.Column="1"
+                    Margin="12,12,0,0"
+                    x:Load="{x:Bind ViewModel.ContextViewModel.IsRootDir}"
+                    RowSpacing="12">
+
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <StackPanel Margin="0,12,0,0" Spacing="12">
+
+                    <StackPanel Spacing="12">
                         <Grid>
                             <TextBlock
                                 VerticalAlignment="Center"
                                 Style="{StaticResource BodyStrongTextBlockStyle}"
                                 Text="About" />
+
                             <Button
                                 x:Name="SettingsButton"
                                 Width="36"
@@ -172,9 +182,43 @@
                                 </muxc:AnimatedIcon>
                             </Button>
                         </Grid>
-                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="A fluent GitHub app for Windows" />
+
+                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.ContextViewModel.Repository.Description, Mode=OneWay}" />
+
+                        <MenuFlyoutSeparator />
                     </StackPanel>
-                </Grid>-->
+
+                    <StackPanel Grid.Row="1" Spacing="12">
+
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="Releases" />
+
+                            <muxc:InfoBadge Value="{x:Bind ViewModel.ContextViewModel.Repository.ReleaseCount, Mode=OneWay}" />
+                        </StackPanel>
+
+                        <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Left">
+                            <StackPanel Spacing="4">
+                                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Introducing v0.7.13" />
+                                <StackPanel Orientation="Horizontal" Spacing="4">
+                                    <TextBlock
+                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        Style="{StaticResource BodyTextBlockStyle}"
+                                        Text="22 days ago ·" />
+                                    <TextBlock
+                                        Foreground="#57ab5a"
+                                        Style="{StaticResource BodyTextBlockStyle}"
+                                        Text="Latest" />
+                                </StackPanel>
+                            </StackPanel>
+                        </Button>
+
+                        <MenuFlyoutSeparator />
+                    </StackPanel>
+
+                </Grid>
             </Grid>
         </ScrollViewer>
 
@@ -189,5 +233,25 @@
             </toolkit:Case>
         </toolkit:SwitchPresenter>
 
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="SmallScreen">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="RepositoryMetaInfoColumn.Width" Value="0" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="BigScreen">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="956" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="RepositoryMetaInfoColumn.Width" Value="256" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
 </Page>
