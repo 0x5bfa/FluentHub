@@ -200,18 +200,50 @@
                             <muxc:InfoBadge Value="{x:Bind ViewModel.ContextViewModel.RepositoryDetails.ReleaseCount, Mode=OneWay}" />
                         </StackPanel>
 
-                        <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Left">
+                        <Button
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            Click="OnLatestReleaseClick">
                             <StackPanel Spacing="4">
-                                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Introducing v0.7.13" />
+
+                                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.ContextViewModel.RepositoryDetails.LatestReleaseOverview.Name, Mode=OneWay}" />
+
                                 <StackPanel Orientation="Horizontal" Spacing="4">
+
                                     <TextBlock
                                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                         Style="{StaticResource BodyTextBlockStyle}"
-                                        Text="22 days ago ·" />
-                                    <TextBlock
-                                        Foreground="#57ab5a"
-                                        Style="{StaticResource BodyTextBlockStyle}"
-                                        Text="Latest" />
+                                        Text="{x:Bind ViewModel.ContextViewModel.RepositoryDetails.LatestReleaseOverview.PublishedAtHumanized, Mode=OneWay}" />
+
+                                    <StackPanel
+                                        x:Name="LatestReleaseIsLatestRelease"
+                                        x:Load="{x:Bind ViewModel.ContextViewModel.RepositoryDetails.LatestReleaseOverview.IsLatest, Mode=OneWay}"
+                                        Orientation="Horizontal"
+                                        Spacing="4">
+                                        <TextBlock
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Style="{StaticResource BodyTextBlockStyle}"
+                                            Text="·" />
+                                        <TextBlock
+                                            Foreground="#57ab5a"
+                                            Style="{StaticResource BodyTextBlockStyle}"
+                                            Text="Latest" />
+                                    </StackPanel>
+
+                                    <StackPanel
+                                        x:Name="LatestReleaseIsPrerelease"
+                                        x:Load="{x:Bind ViewModel.ContextViewModel.RepositoryDetails.LatestReleaseOverview.IsPrerelease, Mode=OneWay}"
+                                        Orientation="Horizontal"
+                                        Spacing="4">
+                                        <TextBlock
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Style="{StaticResource BodyTextBlockStyle}"
+                                            Text="·" />
+                                        <TextBlock
+                                            Foreground="#c69026"
+                                            Style="{StaticResource BodyTextBlockStyle}"
+                                            Text="Pre-release" />
+                                    </StackPanel>
                                 </StackPanel>
                             </StackPanel>
                         </Button>

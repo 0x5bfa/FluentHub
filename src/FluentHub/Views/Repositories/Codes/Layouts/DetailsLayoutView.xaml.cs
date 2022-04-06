@@ -107,5 +107,10 @@ namespace FluentHub.Views.Repositories.Codes.Layouts
 
             MainPageViewModel.RepositoryContentFrame.Navigate(typeof(DetailsLayoutView), repoContextViewModel);
         }
+
+        private void OnLatestReleaseClick(object sender, RoutedEventArgs e)
+        {
+            MainPageViewModel.RepositoryContentFrame.Navigate(typeof(ReleasesPage));
+        }
     }
 }

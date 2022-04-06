@@ -1,4 +1,5 @@
-﻿using Octokit.GraphQL;
+﻿using Humanizer;
+using Octokit.GraphQL;
 using Octokit.GraphQL.Model;
 using System;
 using System.Collections.Generic;
@@ -81,8 +82,22 @@ namespace FluentHub.Octokit.Queries.Repositories
                         DefaultBranchName = x.DefaultBranchRef.Name,
 
                         WatcherCount = x.Watchers(null, null, null, null).TotalCount,
-                        HeadRefsCount = x.Refs("refs/heads/", null, null, null, null, null, null, null).TotalCount,
+                        HeadRefsCount = x.Refs("refs/heads/", null, null, null, null, null, null, "heads/").TotalCount,
+                        TagCount = x.Refs("refs/heads/", null, null, null, null, null, null, "tags/").TotalCount,
                         ReleaseCount = x.Releases(null, null, null, null, null).TotalCount,
+
+                        LatestReleaseOverview = x.Releases(null, null, 1, null, null).Nodes.Select(y => new
+                        {
+                            AuthorLogin = y.Author.Login,
+                            AuthorAvatarUrl = y.Author.AvatarUrl(100),
+                            y.DescriptionHTML,
+                            y.IsDraft,
+                            y.IsLatest,
+                            y.IsPrerelease,
+                            y.Name,
+                            y.PublishedAt,
+                        })
+                        .ToList(),
 
                         x.ForkingAllowed,
                         x.HasIssuesEnabled,
@@ -118,10 +133,23 @@ namespace FluentHub.Octokit.Queries.Repositories
                 IsPrivate = res.IsPrivate,
                 IsTemplate = res.IsTemplate,
 
+                LatestReleaseOverview = new()
+                {
+                    AuthorAvatarUrl = res.LatestReleaseOverview[0].AuthorAvatarUrl,
+                    AuthorLogin = res.LatestReleaseOverview[0].AuthorLogin,
+                    DescriptionHTML = res.LatestReleaseOverview[0].DescriptionHTML,
+                    IsDraft = res.LatestReleaseOverview[0].IsDraft,
+                    IsLatest = res.LatestReleaseOverview[0].IsLatest,
+                    IsPrerelease = res.LatestReleaseOverview[0].IsPrerelease,
+                    Name = res.LatestReleaseOverview[0].Name,
+                    PublishedAt = res.LatestReleaseOverview[0]?.PublishedAt,
+                    PublishedAtHumanized = res.LatestReleaseOverview[0]?.PublishedAt.Humanize(),
+                },
+
                 ViewerSubscription = res.ViewerSubscription,
 
                 UpdatedAt = res.UpdatedAt,
-        };
+            };
             #endregion
 
             return item;

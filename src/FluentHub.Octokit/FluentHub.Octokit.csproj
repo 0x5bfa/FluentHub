@@ -139,6 +139,7 @@
     <Compile Include="Models\Organization.cs" />
     <Compile Include="Models\PullRequest.cs" />
     <Compile Include="Models\Reaction.cs" />
+    <Compile Include="Models\Release.cs" />
     <Compile Include="Models\Repository.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserStatus.cs" />
@@ -171,6 +172,9 @@
     <EmbeddedResource Include="Properties\FluentHub.Octokit.rd.xml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Humanizer">
+      <Version>2.8.25</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.13</Version>
     </PackageReference>

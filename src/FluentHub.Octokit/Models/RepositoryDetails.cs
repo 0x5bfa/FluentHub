@@ -22,6 +22,8 @@ namespace FluentHub.Octokit.Models
         public string DefaultBranchName { get; set; }
         public string HomepageUrl { get; set; }
 
+        public Release LatestReleaseOverview { get; set; } = new();
+
         public GraphQLModel.SubscriptionState? ViewerSubscription { get; set; }
 
         public DateTimeOffset UpdatedAt { get; set; }
