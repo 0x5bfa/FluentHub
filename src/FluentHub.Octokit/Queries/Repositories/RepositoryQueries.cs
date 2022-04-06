@@ -139,5 +139,17 @@ namespace FluentHub.Octokit.Queries.Repositories
 
             return branchNames;
         }
+
+        public async Task<string> GetReadmeHtml(string owner, string name, string branch, string theme)
+        {
+            string bodyHtml = await App.Client.Repository.Content.GetReadmeHtml(owner, name);
+
+            string missedPath = "https://raw.githubusercontent.com/" + owner + "/" + name + "/" + branch + "/";
+
+            MarkdownQueries markdown = new();
+            var html = await markdown.GetHtmlAsync(bodyHtml, missedPath, theme, true);
+
+            return html;
+        }
     }
 }

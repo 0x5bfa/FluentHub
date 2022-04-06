@@ -65,14 +65,15 @@
             Grid.Row="2"
             Margin="12,6"
             LoginName="{x:Bind ViewModel.LoginName, Mode=OneWay}"
-            Visibility="{x:Bind ViewModel.RefreshRepositoryCommand.ExecutionTask.IsCompleted, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
+            Visibility="{x:Bind ViewModel.RefreshRepositoryCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
 
         <contents:ReadmeContentBlock
             x:Name="UserSpecialReadmeBlock"
             Grid.Row="3"
             Margin="12,6"
             VerticalAlignment="Top"
-            ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
+            ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}"
+            Visibility="{x:Bind ViewModel.RefreshRepositoryCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
 
         <toolkit:SwitchPresenter
             Grid.RowSpan="4"

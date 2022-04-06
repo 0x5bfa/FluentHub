@@ -50,6 +50,12 @@ namespace FluentHub.ViewModels.Users
         {
             try
             {
+                ContextViewModel = new RepoContextViewModel()
+                {
+                    Owner = LoginName,
+                    Name = LoginName,
+                };
+
                 PinnedItemQueries queries = new();
                 List<Repository> items;
 
@@ -71,13 +77,6 @@ namespace FluentHub.ViewModels.Users
 
                     _repositoryItems.Add(viewModel);
                 }
-
-                RepoContextViewModel readmeRepoViewModel = new()
-                {
-                    Owner = login,
-                    Name = login,
-                };
-                ContextViewModel = readmeRepoViewModel;
             }
             catch (Exception ex)
             {
