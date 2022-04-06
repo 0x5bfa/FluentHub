@@ -110,7 +110,7 @@ namespace FluentHub.Views.Repositories.Codes.Layouts
 
         private void OnLatestReleaseClick(object sender, RoutedEventArgs e)
         {
-            MainPageViewModel.RepositoryContentFrame.Navigate(typeof(ReleasesPage));
+            MainPageViewModel.RepositoryContentFrame.Navigate(typeof(ReleasesPage), ViewModel.ContextViewModel);
         }
     }
 }

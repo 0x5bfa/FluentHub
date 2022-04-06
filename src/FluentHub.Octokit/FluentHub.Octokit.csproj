@@ -153,6 +153,7 @@
     <Compile Include="Queries\Repositories\PullRequestEventQueries.cs" />
     <Compile Include="Queries\Repositories\PullRequestQueries.cs" />
     <Compile Include="Queries\Repositories\CommitQueries.cs" />
+    <Compile Include="Queries\Repositories\ReleaseQueries.cs" />
     <Compile Include="Queries\Repositories\RepositoryQueries.cs" />
     <Compile Include="Queries\Users\DiscussionQueries.cs" />
     <Compile Include="Queries\Users\ActivityQueries.cs" />
