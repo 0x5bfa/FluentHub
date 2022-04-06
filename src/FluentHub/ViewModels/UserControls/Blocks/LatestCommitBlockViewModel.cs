@@ -1,78 +1,97 @@
-﻿using FluentHub.Octokit.Models;
+﻿using FluentHub.Backend;
+using FluentHub.Helpers;
+using FluentHub.Models;
+using FluentHub.Octokit.Models;
 using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.ViewModels.Repositories;
 using Humanizer;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
+using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Media.Imaging;
 
 namespace FluentHub.ViewModels.UserControls.Blocks
 {
-    public class LatestCommitBlockViewModel : INotifyPropertyChanged
+    public class LatestCommitBlockViewModel : ObservableObject
     {
-        private RepoContextViewModel commonRepoViewModel;
-        public RepoContextViewModel CommonRepoViewModel { get => commonRepoViewModel; set => SetProperty(ref commonRepoViewModel, value); }
-
-        private Commit commitOverviewItem;
-        public Commit CommitOverviewItem { get => commitOverviewItem; set => SetProperty(ref commitOverviewItem, value); }
-
-        private string commitUpdatedAtHumanized;
-        public string CommitUpdatedAtHumanized { get => commitUpdatedAtHumanized; set => SetProperty(ref commitUpdatedAtHumanized, value); }
-
-        private string commitMessageHeadline;
-        public string CommitMessageHeadline { get => commitMessageHeadline; set => SetProperty(ref commitMessageHeadline, value); }
-
-        private bool hasMoreCommitMessage;
-        public bool HasMoreCommitMessage { get => hasMoreCommitMessage; set => SetProperty(ref hasMoreCommitMessage, value); }
-
-        private string subCommitMessages;
-        public string SubCommitMessages { get => subCommitMessages; set => SetProperty(ref subCommitMessages, value); }
-
-        public async Task GetCommitDetails()
+        #region constructor
+        public LatestCommitBlockViewModel(IMessenger messenger = null, ILogger logger = null)
         {
-            if (CommonRepoViewModel == null) return;
+            _messenger = messenger;
+            _logger = logger;
+            _messenger = messenger;
 
-            CommitQueries queries = new();
-            CommitOverviewItem = await queries.GetOverview(CommonRepoViewModel.Name, CommonRepoViewModel.Owner, CommonRepoViewModel.BranchName, CommonRepoViewModel.Path);
+            LoadLatestCommitBlockCommand = new AsyncRelayCommand(LoadLatestCommitBlockAsync);
+        }
+        #endregion
 
-            CommitUpdatedAtHumanized = CommitOverviewItem.CommittedDate.Humanize();
+        #region fields
+        private readonly ILogger _logger;
+        private readonly IMessenger _messenger;
+        private RepoContextViewModel _contextViewModel;
+        private Commit _commitOverviewItem;
+        private string _commitUpdatedAtHumanized;
+        private string _commitMessageHeadline;
+        private bool _hasMoreCommitMessage;
+        private string _subCommitMessages;
+        #endregion
 
-            var commitMessageLines = CommitOverviewItem.CommitMessage.Split("\n");
-            CommitMessageHeadline = commitMessageLines[0];
+        #region properties
+        public RepoContextViewModel ContextViewModel { get => _contextViewModel; set => SetProperty(ref _contextViewModel, value); }
+        public Commit CommitOverviewItem { get => _commitOverviewItem; set => SetProperty(ref _commitOverviewItem, value); }
+        public string CommitUpdatedAtHumanized { get => _commitUpdatedAtHumanized; set => SetProperty(ref _commitUpdatedAtHumanized, value); }
+        public string CommitMessageHeadline { get => _commitMessageHeadline; set => SetProperty(ref _commitMessageHeadline, value); }
+        public bool HasMoreCommitMessage { get => _hasMoreCommitMessage; set => SetProperty(ref _hasMoreCommitMessage, value); }
+        public string SubCommitMessages { get => _subCommitMessages; set => SetProperty(ref _subCommitMessages, value); }
 
-            // prepare
-            if (commitMessageLines.Count() > 1)
+        public IAsyncRelayCommand LoadLatestCommitBlockCommand { get; }
+        #endregion
+
+        #region methods
+        public async Task LoadLatestCommitBlockAsync()
+        {
+            try
             {
-                HasMoreCommitMessage = true;
+                CommitQueries queries = new();
+                CommitOverviewItem = await queries.GetOverview(ContextViewModel.Name, ContextViewModel.Owner, ContextViewModel.BranchName, ContextViewModel.Path);
 
-                if(commitMessageLines[1] == "")
+                CommitUpdatedAtHumanized = CommitOverviewItem.CommittedDate.Humanize();
+
+                var commitMessageLines = CommitOverviewItem.CommitMessage.Split("\n");
+                CommitMessageHeadline = commitMessageLines[0];
+
+                // Get sub commit message
+                if (commitMessageLines.Count() > 1)
                 {
-                    var messageTextLinesList = commitMessageLines.ToList();
-                    messageTextLinesList.RemoveAt(1);
-                    commitMessageLines = messageTextLinesList.ToArray();
+                    HasMoreCommitMessage = true;
+
+                    if (commitMessageLines[1] == "")
+                    {
+                        var messageTextLinesList = commitMessageLines.ToList();
+                        messageTextLinesList.RemoveAt(1);
+                        commitMessageLines = messageTextLinesList.ToArray();
+                    }
+
+                    SubCommitMessages = string.Join('\n', commitMessageLines, 1, commitMessageLines.Count() - 1);
                 }
-
-                SubCommitMessages = string.Join('\n', commitMessageLines, 1, commitMessageLines.Count() - 1);
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
-        {
-            if (!Equals(field, newValue))
+            catch (Exception ex)
             {
-                field = newValue;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-                return true;
+                _logger?.Error("LoadLatestCommitBlockAsync", ex);
+                if (_messenger != null)
+                {
+                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+                    _messenger.Send(notification);
+                }
+                throw;
             }
-
-            return false;
         }
+        #endregion
     }
 }

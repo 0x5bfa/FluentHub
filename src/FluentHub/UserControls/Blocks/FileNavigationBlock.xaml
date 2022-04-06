@@ -166,7 +166,7 @@
                             </Style>
                         </Flyout.FlyoutPresenterStyle>
 
-                        <uc:GitCloneFlyout ViewModel="{x:Bind ViewModel.ContextViewModel}" />
+                        <uc:GitCloneFlyout ViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
 
                     </Flyout>
                 </muxc:DropDownButton.Flyout>

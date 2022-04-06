@@ -14,19 +14,9 @@
     mc:Ignorable="d">
 
     <Grid>
-        <toolkit:SwitchPresenter
-            Grid.RowSpan="2"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            TargetType="x:Boolean"
-            Value="{x:Bind ViewModel.RefreshDetailsLayoutPageCommand.IsRunning, Mode=OneWay}">
-            <toolkit:Case Value="True">
-                <muxc:ProgressRing IsActive="True" />
-            </toolkit:Case>
-        </toolkit:SwitchPresenter>
-
         <ScrollViewer>
             <Grid Margin="12,0,12,12" ColumnSpacing="12">
+
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
@@ -57,7 +47,7 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
-                        <contents:LatestCommitBlock x:Name="LatastCommitBlock" CommonRepoViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
+                        <contents:LatestCommitBlock x:Name="LatastCommitBlock" ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
 
                         <MenuFlyoutSeparator Grid.Row="1" />
 
@@ -81,6 +71,7 @@
                                 <DataTemplate x:DataType="items:DetailsLayoutListViewItem">
 
                                     <Grid x:Name="ListViewItemGrid" Tag="{x:Bind ObjectTag, Mode=OneWay}">
+
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="32" />
                                             <ColumnDefinition Width="*" />
@@ -134,7 +125,7 @@
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                         BorderThickness="1"
                         CornerRadius="4">
-                        <contents:LatestCommitBlock x:Name="BlobLatastCommitBlock" CommonRepoViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
+                        <contents:LatestCommitBlock x:Name="BlobLatastCommitBlock" ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
                     </Grid>
 
                     <contents:FileContentBlock
@@ -186,5 +177,17 @@
                 </Grid>-->
             </Grid>
         </ScrollViewer>
+
+        <toolkit:SwitchPresenter
+            Grid.RowSpan="2"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            TargetType="x:Boolean"
+            Value="{x:Bind ViewModel.RefreshDetailsLayoutPageCommand.IsRunning, Mode=OneWay}">
+            <toolkit:Case Value="True">
+                <muxc:ProgressRing IsActive="True" />
+            </toolkit:Case>
+        </toolkit:SwitchPresenter>
+
     </Grid>
 </Page>
