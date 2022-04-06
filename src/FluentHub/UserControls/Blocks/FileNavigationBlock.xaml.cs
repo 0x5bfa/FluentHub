@@ -86,16 +86,9 @@ namespace FluentHub.UserControls.Blocks
                 return;
             }
 
-            var repoContextViewModel = new RepoContextViewModel()
-            {
-                Repository = ContextViewModel.Repository,
-                Name = ContextViewModel.Name,
-                Owner = ContextViewModel.Owner,
-                BranchName = (BranchNameSelector.SelectedItem as string),
-                IsRootDir = true,
-            };
+            ContextViewModel.BranchName = BranchNameSelector.SelectedItem as string;
 
-            MainPageViewModel.RepositoryContentFrame.Navigate(typeof(DetailsLayoutView), repoContextViewModel);
+            MainPageViewModel.RepositoryContentFrame.Navigate(typeof(DetailsLayoutView), ContextViewModel);
         }
     }
 }
