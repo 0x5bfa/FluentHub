@@ -15,7 +15,7 @@ using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace FluentHub.ViewModels.Repositories.Layouts
+namespace FluentHub.ViewModels.Repositories.Codes.Layouts
 {
     public class DetailsLayoutViewModel : ObservableObject
     {

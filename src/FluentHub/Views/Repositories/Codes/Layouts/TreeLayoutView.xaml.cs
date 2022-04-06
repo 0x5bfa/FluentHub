@@ -1,19 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using FluentHub.Models.Items;
+using FluentHub.Services;
+using FluentHub.Services.Navigation;
+using FluentHub.ViewModels;
+using FluentHub.ViewModels.Repositories;
+using FluentHub.ViewModels.Repositories.Codes;
+using FluentHub.ViewModels.Repositories.Codes.Layouts;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml.Media.Imaging;
 
-namespace FluentHub.Views.Repositories.Layouts
+namespace FluentHub.Views.Repositories.Codes.Layouts
 {
     public sealed partial class TreeLayoutView : Page
     {

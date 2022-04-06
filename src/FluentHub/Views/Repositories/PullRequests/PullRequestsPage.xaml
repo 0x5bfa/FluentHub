@@ -1,16 +1,14 @@
 ﻿<Page
-    x:Class="FluentHub.Views.Repositories.PullRequestsPage"
+    x:Class="FluentHub.Views.Repositories.PullRequests.PullRequestsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:bbvm="using:FluentHub.ViewModels.UserControls.ButtonBlocks"
     xmlns:block="using:FluentHub.UserControls.ButtonBlocks"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:item="using:FluentHub.Models.Items"
-    xmlns:local="using:FluentHub.Views.Repositories"
+    xmlns:local="using:FluentHub.Views.Repositories.PullRequests"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:vm="using:FluentHub.ViewModels.Repositories"
     mc:Ignorable="d">
 
     <Grid>

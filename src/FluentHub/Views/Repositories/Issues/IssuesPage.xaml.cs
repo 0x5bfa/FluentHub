@@ -1,12 +1,12 @@
 ﻿using FluentHub.Services;
-using FluentHub.ViewModels.Repositories;
+using FluentHub.ViewModels.Repositories.Issues;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
-namespace FluentHub.Views.Repositories
+namespace FluentHub.Views.Repositories.Issues
 {
     public sealed partial class IssuesPage : Page
     {

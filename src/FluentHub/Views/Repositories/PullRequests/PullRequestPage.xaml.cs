@@ -1,5 +1,5 @@
 ﻿using FluentHub.Services;
-using FluentHub.ViewModels.Repositories;
+using FluentHub.ViewModels.Repositories.PullRequests;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
-namespace FluentHub.Views.Repositories
+namespace FluentHub.Views.Repositories.PullRequests
 {
     public sealed partial class PullRequestPage : Page
     {

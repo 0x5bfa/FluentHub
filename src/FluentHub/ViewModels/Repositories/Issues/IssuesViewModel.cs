@@ -1,6 +1,6 @@
 ﻿using FluentHub.Backend;
-using FluentHub.Octokit.Models;
 using FluentHub.Models;
+using FluentHub.Octokit.Models;
 using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
 using Humanizer;
@@ -13,62 +13,62 @@ using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace FluentHub.ViewModels.Repositories
+namespace FluentHub.ViewModels.Repositories.Issues
 {
-    public class PullRequestsViewModel : ObservableObject
+    public class IssuesViewModel : ObservableObject
     {
         #region constructor
-        public PullRequestsViewModel(IMessenger messenger = null, ILogger logger = null)
+        public IssuesViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _messenger = messenger;
             _logger = logger;
             _messenger = messenger;
-            _pullRequests = new();
-            PullItems = new(_pullRequests);
+            _issueItems = new();
+            IssueItems = new(_issueItems);
 
-            RefreshPullRequestsPageCommand = new AsyncRelayCommand<string>(RefreshPullRequestsPageAsync);
+            RefreshIssuesPageCommand = new AsyncRelayCommand<string>(RefreshIssuesPageAsync);
         }
         #endregion
 
         #region fields
-        private readonly IMessenger _messenger;
         private readonly ILogger _logger;
-        private readonly ObservableCollection<PullButtonBlockViewModel> _pullRequests;
+        private readonly IMessenger _messenger;
+        private readonly ObservableCollection<IssueButtonBlockViewModel> _issueItems;
         #endregion
 
         #region properties
-        public ReadOnlyObservableCollection<PullButtonBlockViewModel> PullItems { get; }
-        public IAsyncRelayCommand RefreshPullRequestsPageCommand { get; }
+        public ReadOnlyObservableCollection<IssueButtonBlockViewModel> IssueItems { get; }
+        public IAsyncRelayCommand RefreshIssuesPageCommand { get; }
         #endregion
 
         #region methods
-        private async Task RefreshPullRequestsPageAsync(string nameWithOwner, CancellationToken token)
+        private async Task RefreshIssuesPageAsync(string nameWithOwner, CancellationToken token)
         {
             try
             {
-                PullRequestQueries queries = new();
-                List<PullRequest> items = await queries.GetAllAsync(nameWithOwner.Split("/")[1], nameWithOwner.Split("/")[0]);
+                IssueQueries queries = new();
+                List<Issue> items = await queries.GetAllAsync(nameWithOwner.Split("/")[1], nameWithOwner.Split("/")[0]);
 
                 if (items == null) return;
 
-                _pullRequests.Clear();
+                _issueItems.Clear();
 
                 foreach (var item in items)
                 {
-                    PullButtonBlockViewModel viewModel = new()
+                    IssueButtonBlockViewModel viewModel = new()
                     {
-                        PullItem = item,
-                        NameWithOwner = $"{item.OwnerLogin} / {item.Name} #{item.Number}",
+                        IssueItem = item,
+                        NameWithOwner = item.OwnerLogin + "/" + item.Name + " #" + item.Number,
                         UpdatedAtHumanized = item.UpdatedAt.Humanize()
                     };
 
-                    _pullRequests.Add(viewModel);
+                    _issueItems.Add(viewModel);
                 }
             }
             catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error("RefreshPullRequestsAsync", ex);
+                _logger?.Error("RefreshIssuesPageAsync", ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);

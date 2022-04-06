@@ -1,16 +1,15 @@
 ﻿<Page
-    x:Class="FluentHub.Views.Repositories.Layouts.DetailsLayoutView"
+    x:Class="FluentHub.Views.Repositories.Codes.Layouts.DetailsLayoutView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
     xmlns:contents="using:FluentHub.UserControls.Blocks"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:items="using:FluentHub.Models.Items"
-    xmlns:local="using:FluentHub.Views.Repositories.Layouts"
+    xmlns:local="using:FluentHub.Views.Repositories.Codes.Layouts"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:vm="using:FluentHub.ViewModels.Repositories.Layouts"
     mc:Ignorable="d">
 
     <Grid>

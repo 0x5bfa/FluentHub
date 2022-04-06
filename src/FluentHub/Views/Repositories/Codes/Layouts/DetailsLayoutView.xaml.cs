@@ -3,7 +3,8 @@ using FluentHub.Services;
 using FluentHub.Services.Navigation;
 using FluentHub.ViewModels;
 using FluentHub.ViewModels.Repositories;
-using FluentHub.ViewModels.Repositories.Layouts;
+using FluentHub.ViewModels.Repositories.Codes;
+using FluentHub.ViewModels.Repositories.Codes.Layouts;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using Windows.UI.Xaml;
@@ -13,7 +14,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Media.Imaging;
 using muxc = Microsoft.UI.Xaml.Controls;
 
-namespace FluentHub.Views.Repositories.Layouts
+namespace FluentHub.Views.Repositories.Codes.Layouts
 {
     public sealed partial class DetailsLayoutView : Page
     {

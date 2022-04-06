@@ -9,7 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 
-namespace FluentHub.ViewModels.Repositories
+namespace FluentHub.ViewModels.Repositories.Codes
 {
     public class CodePageViewModel : INotifyPropertyChanged
     {
