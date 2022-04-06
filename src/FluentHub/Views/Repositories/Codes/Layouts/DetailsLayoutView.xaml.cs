@@ -82,11 +82,12 @@ namespace FluentHub.Views.Repositories.Codes.Layouts
         {
             var repoContextViewModel = new RepoContextViewModel()
             {
-                Repository = ContextViewModel.Repository,
-                Name = ContextViewModel.Name,
-                Owner = ContextViewModel.Owner,
-                BranchName = ContextViewModel.BranchName,
-                IsRootDir = false,
+                IsRootDir = true,
+                Name = ViewModel.ContextViewModel.Repository.Name,
+                Owner = ViewModel.ContextViewModel.Repository.Owner,
+                Repository = ViewModel.ContextViewModel.Repository,
+                RepositoryDetails = ViewModel.ContextViewModel.RepositoryDetails,
+                BranchName = ViewModel.ContextViewModel.RepositoryDetails.DefaultBranchName,
             };
 
             var item = DirListView.SelectedItem as DetailsLayoutListViewItem;

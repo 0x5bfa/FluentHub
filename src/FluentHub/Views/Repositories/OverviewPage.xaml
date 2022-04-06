@@ -31,7 +31,13 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid Margin="20,20,20,12">
+        <Grid Margin="20,20,20,12" ColumnSpacing="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
             <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                 <Button
                     Grid.Column="1"
@@ -44,7 +50,7 @@
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <uc:AvatarControl
                             AvatarUrl="{x:Bind ViewModel.Repository.OwnerAvatarUrl, Mode=OneWay}"
-                            IsOrganization="{x:Bind ViewModel.Repository.IsInOrganization, Mode=OneWay}"
+                            IsOrganization="{x:Bind ViewModel.Repository.OwnerIsOrganization, Mode=OneWay}"
                             WidthAndHeight="26" />
 
                         <TextBlock
@@ -77,7 +83,7 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     TargetType="x:Boolean"
-                    Value="{x:Bind ViewModel.Repository.IsPrivate, Mode=OneWay}">
+                    Value="{x:Bind ViewModel.RepositoryDetails.IsPrivate, Mode=OneWay}">
 
                     <toolkit:Case Value="True">
                         <labels:LabelControl
@@ -97,6 +103,7 @@
             </StackPanel>
 
             <StackPanel
+                Grid.Column="2"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
                 Orientation="Horizontal"
@@ -111,7 +118,7 @@
 
                             <TextBlock x:Name="RepoWatchCombboxWatchTextBlock" Text="Watch" />
 
-                            <muxc:InfoBadge x:Name="WatchersCountBadge" Value="{x:Bind ViewModel.Repository.WatcherCount, Mode=OneWay}" />
+                            <muxc:InfoBadge x:Name="WatchersCountBadge" Value="{x:Bind ViewModel.RepositoryDetails.WatcherCount, Mode=OneWay}" />
                         </StackPanel>
                     </muxc:DropDownButton.Content>
                 </muxc:DropDownButton>
@@ -168,6 +175,7 @@
                     </muxc:SplitButton.Content>
                 </muxc:SplitButton>
             </StackPanel>
+
         </Grid>
 
         <Grid Grid.Row="1">
@@ -193,7 +201,7 @@
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
 
-                    <muxc:NavigationViewItem Tag="Issues" Visibility="{x:Bind ViewModel.Repository.HasIssuesEnabled, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+                    <muxc:NavigationViewItem Tag="Issues" Visibility="{x:Bind ViewModel.RepositoryDetails.HasIssuesEnabled, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
                         <muxc:NavigationViewItem.Content>
                             <StackPanel Orientation="Horizontal" Spacing="8">
                                 <FontIcon

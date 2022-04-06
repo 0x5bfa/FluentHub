@@ -10,16 +10,27 @@ namespace FluentHub.ViewModels.Repositories
 {
     public class RepoContextViewModel : INotifyPropertyChanged
     {
-        // Repository information
+        public RepoContextViewModel()
+        {
+            BranchName = "main";
+            Path = "/";
+        }
+
         public Octokit.Models.Repository Repository { get; set; }
 
-        public string Name { get; set; }
+        public Octokit.Models.RepositoryDetails RepositoryDetails { get; set; }
 
-        public string Owner { get; set; }
+        private string _name;
+        public string Name { get => _name; set => SetProperty(ref _name, value); }
 
-        public string BranchName { get; set; } = "main";
+        private string _owner;
+        public string Owner { get => _owner; set => SetProperty(ref _owner, value); }
 
-        public string Path { get; set; } = "/";
+        private string _branchName;
+        public string BranchName { get => _branchName; set => SetProperty(ref _branchName, value); }
+
+        private string _path;
+        public string Path { get => _path; set => SetProperty(ref _path, value); }
 
         private bool isRootDir;
         public bool IsRootDir

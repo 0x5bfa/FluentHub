@@ -1,6 +1,5 @@
 ﻿using Octokit.GraphQL;
 using Octokit.GraphQL.Model;
-using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +12,8 @@ namespace FluentHub.Octokit.Queries.Users
     {
         public PinnedItemQueries() => new App();
 
-        public async Task<List<Models.Repository>> GetAllAsync(string login, bool isUser)
+        public async Task<List<Models.Repository>> GetAllAsync(string login)
         {
-            var openState = new IssueState[] { IssueState.Open }.AsEnumerable();
-
             #region userquery
             var usersQuery = new Query()
                     .User(login)
@@ -26,9 +23,11 @@ namespace FluentHub.Octokit.Queries.Users
                     .Select(x => new
                     {
                         x.Name,
-                        x.Description,
                         OwnerAvatarUrl = x.Owner.AvatarUrl(100),
                         OwnerLoginName = x.Owner.Login,
+                        OwnerId = x.Owner.Id,
+                        x.Description,
+                        LicenseName = x.LicenseInfo.Select(y => y.Name).SingleOrDefault(),
 
                         PrimaryLanguage = x.PrimaryLanguage.Select(y => new
                         {
@@ -36,231 +35,42 @@ namespace FluentHub.Octokit.Queries.Users
                             y.Color,
                         }).SingleOrDefault(),
 
-                        LicenseName = x.LicenseInfo.Select(y => y.Name).SingleOrDefault(),
-                        DefaultBranchName = x.DefaultBranchRef.Name,
-                        x.HomepageUrl,
-
                         x.StargazerCount,
                         x.ForkCount,
-                        IssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
                         OpenIssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
-                        PullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
                         OpenPullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
-                        WatcherCount = x.Watchers(null, null, null, null).TotalCount,
-                        HeadRefsCount = x.Refs("refs/heads/", null, null, null, null, null, null, null).TotalCount,
-                        ReleaseCount = x.Releases(null, null, null, null, null).TotalCount,
 
-                        x.ForkingAllowed,
-                        x.HasIssuesEnabled,
-                        x.HasProjectsEnabled,
-                        x.IsArchived,
                         x.IsFork,
-                        x.IsInOrganization,
-                        x.IsPrivate,
-                        x.IsTemplate,
-                        x.ViewerHasStarred,
-
-                        x.ViewerSubscription,
-
-                        x.UpdatedAt,
                     })
                     .Compile();
             #endregion
 
-            #region orgquery
-            var orgsQuery = new Query()
-                    .Organization(login)
-                    .PinnedItems(first: 6)
-                    .Nodes
-                    .OfType<Repository>()
-                    .Select(x => new
-                    {
-                        x.Name,
-                        x.Description,
-                        OwnerAvatarUrl = x.Owner.AvatarUrl(100),
-                        OwnerLoginName = x.Owner.Login,
-
-                        PrimaryLanguage = x.PrimaryLanguage.Select(y => new
-                        {
-                            y.Name,
-                            y.Color,
-                        }).SingleOrDefault(),
-
-                        LicenseName = x.LicenseInfo.Select(y => y.Name).SingleOrDefault(),
-                        DefaultBranchName = x.DefaultBranchRef.Name,
-                        x.HomepageUrl,
-
-                        x.StargazerCount,
-                        x.ForkCount,
-                        IssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
-                        OpenIssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
-                        PullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
-                        OpenPullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
-                        WatcherCount = x.Watchers(null, null, null, null).TotalCount,
-                        HeadRefsCount = x.Refs("refs/heads/", null, null, null, null, null, null, null).TotalCount,
-                        ReleaseCount = x.Releases(null, null, null, null, null).TotalCount,
-
-                        x.ForkingAllowed,
-                        x.HasIssuesEnabled,
-                        x.HasProjectsEnabled,
-                        x.IsArchived,
-                        x.IsFork,
-                        x.IsInOrganization,
-                        x.IsPrivate,
-                        x.IsTemplate,
-                        x.ViewerHasStarred,
-
-                        x.ViewerSubscription,
-
-                        x.UpdatedAt,
-                    })
-                    .Compile();
-            #endregion
-
-            var result = await App.Connection.Run(isUser ? usersQuery : orgsQuery);
+            var result = await App.Connection.Run(usersQuery);
 
             #region copying
             List<Models.Repository> items = new();
 
             foreach (var res in result)
             {
-                Models.Repository item = new();
+                Models.Repository item = new()
+                {
+                    Name = res.Name,
+                    Owner = res.OwnerLoginName,
+                    OwnerAvatarUrl = res.OwnerAvatarUrl,
+                    OwnerIsOrganization = Helpers.UserTypeDetectionHelper.IsOrganization(res.OwnerId),
+                    Description = res.Description,
 
-                item.Name = res.Name;
-                item.Owner = res.OwnerLoginName;
-                item.OwnerAvatarUrl = res.OwnerAvatarUrl;
-                item.Description = res.Description;
+                    PrimaryLangName = res.PrimaryLanguage?.Name,
+                    PrimaryLangColor = res.PrimaryLanguage?.Color,
+                    LicenseName = res.LicenseName,
 
-                item.PrimaryLangName = res.PrimaryLanguage?.Name;
-                item.PrimaryLangColor = res.PrimaryLanguage?.Color;
-                item.LicenseName = res.LicenseName;
-                item.DefaultBranchName = res.DefaultBranchName;
-                item.HomepageUrl = res.HomepageUrl;
+                    StargazerCount = res.StargazerCount,
+                    ForkCount = res.ForkCount,
+                    OpenIssueCount = res.OpenIssueCount,
+                    OpenPullCount = res.OpenPullCount,
 
-                item.StargazerCount = res.StargazerCount;
-                item.ForkCount = res.ForkCount;
-                item.IssueCount = res.IssueCount;
-                item.OpenIssueCount = res.OpenIssueCount;
-                item.PullCount = res.PullCount;
-                item.OpenPullCount = res.OpenPullCount;
-                item.WatcherCount = res.WatcherCount;
-                item.HeadRefsCount = res.HeadRefsCount;
-                item.ReleaseCount = res.ReleaseCount;
-
-                item.ViewerHasStarred = res.ViewerHasStarred;
-                item.HasIssuesEnabled = res.HasIssuesEnabled;
-                item.HasProjectsEnabled = res.HasProjectsEnabled;
-                item.IsArchived = res.IsArchived;
-                item.IsFork = res.IsFork;
-                item.IsInOrganization = res.IsInOrganization;
-                item.IsPrivate = res.IsPrivate;
-                item.IsTemplate = res.IsTemplate;
-
-                item.ViewerSubscription = res.ViewerSubscription;
-
-                item.UpdatedAt = res.UpdatedAt;
-
-                items.Add(item);
-            }
-            #endregion
-
-            return items;
-        }
-
-        public async Task<List<Models.Repository>> GetAllAsync()
-        {
-            #region query
-            var query = new Query()
-                    .Viewer
-                    .PinnedItems(first: 6)
-                    .Nodes
-                    .OfType<Repository>()
-                    .Select(x => new
-                    {
-                        x.Name,
-                        x.Description,
-                        OwnerAvatarUrl = x.Owner.AvatarUrl(100),
-                        OwnerLoginName = x.Owner.Login,
-
-                        PrimaryLanguage = x.PrimaryLanguage.Select(y => new
-                        {
-                            y.Name,
-                            y.Color,
-                        }).SingleOrDefault(),
-
-                        LicenseName = x.LicenseInfo.Select(y => y.Name).SingleOrDefault(),
-                        DefaultBranchName = x.DefaultBranchRef.Name,
-                        x.HomepageUrl,
-
-                        x.StargazerCount,
-                        x.ForkCount,
-                        IssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
-                        OpenIssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
-                        PullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
-                        OpenPullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
-                        WatcherCount = x.Watchers(null, null, null, null).TotalCount,
-                        HeadRefsCount = x.Refs("refs/heads/", null, null, null, null, null, null, null).TotalCount,
-                        ReleaseCount = x.Releases(null, null, null, null, null).TotalCount,
-
-                        x.ForkingAllowed,
-                        x.HasIssuesEnabled,
-                        x.HasProjectsEnabled,
-                        x.IsArchived,
-                        x.IsFork,
-                        x.IsInOrganization,
-                        x.IsPrivate,
-                        x.IsTemplate,
-                        x.ViewerHasStarred,
-
-                        x.ViewerSubscription,
-
-                        x.UpdatedAt,
-                    })
-                    .Compile();
-            #endregion
-
-            var result = await App.Connection.Run(query);
-
-            #region copying
-            List<Models.Repository> items = new();
-
-            foreach (var res in result)
-            {
-                Models.Repository item = new();
-
-                item.Name = res.Name;
-                item.Owner = res.OwnerLoginName;
-                item.OwnerAvatarUrl = res.OwnerAvatarUrl;
-                item.Description = res.Description;
-
-                item.PrimaryLangName = res.PrimaryLanguage?.Name;
-                item.PrimaryLangColor = res.PrimaryLanguage?.Color;
-                item.LicenseName = res.LicenseName;
-                item.DefaultBranchName = res.DefaultBranchName;
-                item.HomepageUrl = res.HomepageUrl;
-
-                item.StargazerCount = res.StargazerCount;
-                item.ForkCount = res.ForkCount;
-                item.IssueCount = res.IssueCount;
-                item.OpenIssueCount = res.OpenIssueCount;
-                item.PullCount = res.PullCount;
-                item.OpenPullCount = res.OpenPullCount;
-                item.WatcherCount = res.WatcherCount;
-                item.HeadRefsCount = res.HeadRefsCount;
-                item.ReleaseCount = res.ReleaseCount;
-
-                item.ViewerHasStarred = res.ViewerHasStarred;
-                item.HasIssuesEnabled = res.HasIssuesEnabled;
-                item.HasProjectsEnabled = res.HasProjectsEnabled;
-                item.IsArchived = res.IsArchived;
-                item.IsFork = res.IsFork;
-                item.IsInOrganization = res.IsInOrganization;
-                item.IsPrivate = res.IsPrivate;
-                item.IsTemplate = res.IsTemplate;
-
-                item.ViewerSubscription = res.ViewerSubscription;
-
-                item.UpdatedAt = res.UpdatedAt;
+                    IsFork = res.IsFork
+                };
 
                 items.Add(item);
             }

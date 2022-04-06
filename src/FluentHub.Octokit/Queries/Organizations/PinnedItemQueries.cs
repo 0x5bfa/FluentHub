@@ -1,24 +1,25 @@
 ﻿using Octokit.GraphQL;
-using Serilog;
+using Octokit.GraphQL.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FluentHub.Octokit.Queries.Users
+namespace FluentHub.Octokit.Queries.Organizations
 {
-    public class RepositoryQueries
+    public class PinnedItemQueries
     {
-        public RepositoryQueries() => new App();
+        public PinnedItemQueries() => new App();
 
-        public async Task<List<Models.Repository>> GetAllAsync(string login)
+        public async Task<List<Models.Repository>> GetAllAsync(string org)
         {
-            #region query
-            var query = new Query()
-                    .User(login)
-                    .Repositories(first: 30)
+            #region userquery
+            var usersQuery = new Query()
+                    .Organization(org)
+                    .PinnedItems(first: 6)
                     .Nodes
+                    .OfType<Repository>()
                     .Select(x => new
                     {
                         x.Name,
@@ -44,7 +45,7 @@ namespace FluentHub.Octokit.Queries.Users
                     .Compile();
             #endregion
 
-            var result = await App.Connection.Run(query);
+            var result = await App.Connection.Run(usersQuery);
 
             #region copying
             List<Models.Repository> items = new();

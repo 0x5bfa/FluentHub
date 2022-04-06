@@ -139,8 +139,10 @@
     <Compile Include="Models\Organization.cs" />
     <Compile Include="Models\PullRequest.cs" />
     <Compile Include="Models\Reaction.cs" />
+    <Compile Include="Models\Repository.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserStatus.cs" />
+    <Compile Include="Queries\Organizations\PinnedItemQueries.cs" />
     <Compile Include="Queries\Repositories\MarkdownQueries.cs" />
     <Compile Include="Queries\Organizations\RepositoryQueries.cs" />
     <Compile Include="Queries\Organizations\OrganizationQueries.cs" />
@@ -163,7 +165,7 @@
     <Compile Include="Queries\Users\FollowingQueries.cs" />
     <Compile Include="Queries\Users\PinnedItemQueries.cs" />
     <Compile Include="Queries\Users\StatusQueries.cs" />
-    <Compile Include="Models\Repository.cs" />
+    <Compile Include="Models\RepositoryDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\Users\UserQueries.cs" />
     <EmbeddedResource Include="Properties\FluentHub.Octokit.rd.xml" />

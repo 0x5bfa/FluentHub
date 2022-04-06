@@ -18,7 +18,7 @@
 
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition x:Name="RepositoryMetaInfoColumn" Width="0" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
                 <Grid>
@@ -91,7 +91,8 @@
                                             x:Name="ItemNameTextBox"
                                             Grid.Column="1"
                                             VerticalAlignment="Center"
-                                            Text="{x:Bind ObjectName, Mode=OneWay}" />
+                                            Text="{x:Bind ObjectName, Mode=OneWay}"
+                                            TextTrimming="CharacterEllipsis" />
 
                                         <TextBlock
                                             x:Name="ItemLatestCommitTitleTextBox"
@@ -146,10 +147,10 @@
                 <Grid
                     x:Name="RepositoryMetaInfoBlock"
                     Grid.Column="1"
-                    Margin="12,12,0,0"
+                    Width="256"
+                    Padding="12,12,0,0"
                     x:Load="{x:Bind ViewModel.ContextViewModel.IsRootDir, Mode=OneWay}"
                     RowSpacing="12">
-
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -196,7 +197,7 @@
                                 Style="{StaticResource BodyStrongTextBlockStyle}"
                                 Text="Releases" />
 
-                            <muxc:InfoBadge Value="{x:Bind ViewModel.ContextViewModel.Repository.ReleaseCount, Mode=OneWay}" />
+                            <muxc:InfoBadge Value="{x:Bind ViewModel.ContextViewModel.RepositoryDetails.ReleaseCount, Mode=OneWay}" />
                         </StackPanel>
 
                         <Button HorizontalAlignment="Stretch" HorizontalContentAlignment="Left">
@@ -217,7 +218,6 @@
 
                         <MenuFlyoutSeparator />
                     </StackPanel>
-
                 </Grid>
             </Grid>
         </ScrollViewer>
@@ -233,25 +233,5 @@
             </toolkit:Case>
         </toolkit:SwitchPresenter>
 
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <VisualState x:Name="SmallScreen">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="RepositoryMetaInfoColumn.Width" Value="0" />
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="BigScreen">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="956" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="RepositoryMetaInfoColumn.Width" Value="256" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
     </Grid>
 </Page>

@@ -21,27 +21,28 @@ namespace FluentHub.Views.Repositories
         public OverviewPage()
         {
             InitializeComponent();
-            navigationService = App.Current.Services.GetService<INavigationService>();
             MainPageViewModel.RepositoryContentFrame.Navigating += OnRepositoryContentFrameNavigating;
         }
 
-        private readonly INavigationService navigationService;
-        private Octokit.Models.Repository Repository { get; set; }
         OverviewViewModel ViewModel = new();
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            ViewModel.Repository = Repository = e.Parameter as Octokit.Models.Repository;
-            this.DataContext = ViewModel;
+            ViewModel.Repository = e.Parameter as Octokit.Models.Repository;
+            DataContext = ViewModel;
 
-            // Initialize frame
+            var command = ViewModel.LoadOverviewPageCommand;
+            if (command.CanExecute(null))
+                await command.ExecuteAsync(null);
+
             var repoContextViewModel = new RepoContextViewModel()
             {
-                Repository = Repository,
                 IsRootDir = true,
-                Name = Repository.Name,
-                Owner = Repository.Owner,
-                BranchName = Repository.DefaultBranchName,
+                Name = ViewModel.Repository.Name,
+                Owner = ViewModel.Repository.Owner,
+                Repository = ViewModel.Repository,
+                RepositoryDetails = ViewModel.RepositoryDetails,
+                BranchName = ViewModel.RepositoryDetails.DefaultBranchName,
             };
 
             RepoPageNavViewFrame.Navigate(typeof(CodePage), repoContextViewModel);
@@ -55,24 +56,25 @@ namespace FluentHub.Views.Repositories
                     {
                         var repoContextViewModel = new RepoContextViewModel()
                         {
-                            Repository = Repository,
                             IsRootDir = true,
-                            Name = Repository.Name,
-                            Owner = Repository.Owner,
-                            BranchName = Repository.DefaultBranchName,
+                            Name = ViewModel.Repository.Name,
+                            Owner = ViewModel.Repository.Owner,
+                            Repository = ViewModel.Repository,
+                            RepositoryDetails = ViewModel.RepositoryDetails,
+                            BranchName = ViewModel.RepositoryDetails.DefaultBranchName,
                         };
 
                         RepoPageNavViewFrame.Navigate(typeof(CodePage), repoContextViewModel);
                         break;
                     }
                 case "Issues":
-                    RepoPageNavViewFrame.Navigate(typeof(IssuesPage), $"{Repository.Owner}/{Repository.Name}");
+                    RepoPageNavViewFrame.Navigate(typeof(IssuesPage), $"{ViewModel.Repository.Owner}/{ViewModel.Repository.Name}");
                     break;
                 case "PRs":
-                    RepoPageNavViewFrame.Navigate(typeof(PullRequestsPage), $"{Repository.Owner}/{Repository.Name}");
+                    RepoPageNavViewFrame.Navigate(typeof(PullRequestsPage), $"{ViewModel.Repository.Owner}/{ViewModel.Repository.Name}");
                     break;
                 case "Settings":
-                    RepoPageNavViewFrame.Navigate(typeof(Settings), $"{Repository.Owner}/{Repository.Name}");
+                    RepoPageNavViewFrame.Navigate(typeof(Settings), $"{ViewModel.Repository.Owner}/{ViewModel.Repository.Name}");
                     break;
             }
         }
@@ -81,7 +83,7 @@ namespace FluentHub.Views.Repositories
         {
             var service = App.Current.Services.GetRequiredService<INavigationService>();
 
-            if (ViewModel.Repository.IsInOrganization)
+            if (ViewModel.Repository.OwnerIsOrganization)
             {
                 service.Navigate<Views.Organizations.ProfilePage>(ViewModel.Repository.Owner);
             }
@@ -94,7 +96,6 @@ namespace FluentHub.Views.Repositories
         private void OnRepositoryContentFrameNavigating(object sender, NavigatingCancelEventArgs e)
         {
             e.Cancel = true;
-
             RepoPageNavViewFrame.Navigate(e.SourcePageType, e.Parameter);
         }
     }

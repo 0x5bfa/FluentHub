@@ -14,20 +14,20 @@ namespace FluentHub.ViewModels.UserControls.ButtonBlocks
 {
     public class RepoButtonBlockViewModel : INotifyPropertyChanged
     {
-        private Repository item;
-        public Repository Item { get => item; set => SetProperty(ref item, value); }
+        private Repository _item;
+        public Repository Item { get => _item; set => SetProperty(ref _item, value); }
 
-        private Brush primaryLangColor;
-        public Brush PrimaryLangColor { get => primaryLangColor; set => SetProperty(ref primaryLangColor, value); }
+        private Brush _primaryLangColor;
+        public Brush PrimaryLangColor { get => _primaryLangColor; set => SetProperty(ref _primaryLangColor, value); }
 
-        private bool displayDetails;
-        public bool DisplayDetails { get => displayDetails; set => SetProperty(ref displayDetails, value); }
+        private bool _displayDetails;
+        public bool DisplayDetails { get => _displayDetails; set => SetProperty(ref _displayDetails, value); }
 
-        private bool displayStarButton;
-        public bool DisplayStarButton { get => displayStarButton; set => SetProperty(ref displayStarButton, value); }
+        private bool _displayStarButton;
+        public bool DisplayStarButton { get => _displayStarButton; set => SetProperty(ref _displayStarButton, value); }
 
-        private string updatedAtHumanized;
-        public string UpdatedAtHumanized { get => updatedAtHumanized; set => SetProperty(ref updatedAtHumanized, value); }
+        private string _updatedAtHumanized;
+        public string UpdatedAtHumanized { get => _updatedAtHumanized; set => SetProperty(ref _updatedAtHumanized, value); }
 
         public void GetColorBrush()
         {

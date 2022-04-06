@@ -9,6 +9,7 @@
     d:DesignHeight="180"
     d:DesignWidth="400"
     DataContext="{x:Bind ViewModel, Mode=OneWay}"
+    Loaded="OnRepoButtonBlockLoaded"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -146,7 +147,7 @@
                                     FontFamily="{StaticResource Octions}"
                                     FontSize="14"
                                     Glyph="&#xE9EA;" />
-                                <TextBlock x:Name="IssueCount" Text="{x:Bind ViewModel.Item.IssueCount, Mode=OneWay}" />
+                                <TextBlock x:Name="IssueCount" Text="{x:Bind ViewModel.Item.OpenIssueCount, Mode=OneWay}" />
                             </StackPanel>
                             <StackPanel
                                 x:Name="PRCountBlock"
@@ -158,7 +159,7 @@
                                     FontFamily="{StaticResource Octions}"
                                     FontSize="14"
                                     Glyph="&#xE9BF;" />
-                                <TextBlock x:Name="PRCount" Text="{x:Bind ViewModel.Item.PullCount, Mode=OneWay}" />
+                                <TextBlock x:Name="PRCount" Text="{x:Bind ViewModel.Item.OpenPullCount, Mode=OneWay}" />
                             </StackPanel>
                             <StackPanel
                                 x:Name="UpdatedAtBlock"
