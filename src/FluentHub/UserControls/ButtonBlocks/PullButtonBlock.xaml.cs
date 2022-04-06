@@ -1,7 +1,7 @@
 ﻿using FluentHub.Octokit.Models;
 using FluentHub.Services;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
-using FluentHub.Views.Repositories;
+using FluentHub.Views.Repositories.PullRequests;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;

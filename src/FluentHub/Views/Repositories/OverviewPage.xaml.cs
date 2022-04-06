@@ -1,5 +1,8 @@
 ﻿using FluentHub.Services;
 using FluentHub.ViewModels;
+using FluentHub.Views.Repositories.Codes;
+using FluentHub.Views.Repositories.Issues;
+using FluentHub.Views.Repositories.PullRequests;
 using FluentHub.ViewModels.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using System;

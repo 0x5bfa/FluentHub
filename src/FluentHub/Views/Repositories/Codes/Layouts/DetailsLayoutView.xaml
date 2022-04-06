@@ -147,7 +147,7 @@
                     x:Name="RepositoryMetaInfoBlock"
                     Grid.Column="1"
                     Margin="12,12,0,0"
-                    x:Load="{x:Bind ViewModel.ContextViewModel.IsRootDir}"
+                    x:Load="{x:Bind ViewModel.ContextViewModel.IsRootDir, Mode=OneWay}"
                     RowSpacing="12">
 
                     <Grid.RowDefinitions>
