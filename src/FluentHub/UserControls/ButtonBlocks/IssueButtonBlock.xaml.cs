@@ -11,8 +11,8 @@ namespace FluentHub.UserControls.ButtonBlocks
     public sealed partial class IssueButtonBlock : UserControl
     {
         #region propdp
-        public static readonly DependencyProperty ViewModelProperty
-            = DependencyProperty.Register(
+        public static readonly DependencyProperty ViewModelProperty =
+            DependencyProperty.Register(
                   nameof(Issue),
                   typeof(IssueButtonBlockViewModel),
                   typeof(IssueButtonBlock),
@@ -25,8 +25,7 @@ namespace FluentHub.UserControls.ButtonBlocks
             set
             {
                 SetValue(ViewModelProperty, value);
-                this.DataContext = ViewModel;
-                ViewModel.SetStateContents();
+                DataContext = ViewModel;
             }
         }
         #endregion

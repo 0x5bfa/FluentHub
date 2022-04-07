@@ -47,6 +47,7 @@ namespace FluentHub.ViewModels.Users
             try
             {
                 IssueQueries queries = new();
+
                 List<Issue> items = await queries.GetAllAsync(login);
 
                 if (items == null) return;
@@ -57,8 +58,6 @@ namespace FluentHub.ViewModels.Users
                     IssueButtonBlockViewModel viewModel = new()
                     {
                         IssueItem = item,
-                        NameWithOwner = item.OwnerLogin + "/" + item.Name + " #" + item.Number,
-                        UpdatedAtHumanized = item.UpdatedAt.Humanize()
                     };
 
                     _issueItems.Add(viewModel);

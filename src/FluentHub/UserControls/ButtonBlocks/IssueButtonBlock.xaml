@@ -3,8 +3,12 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:labels="using:FluentHub.UserControls.Labels"
     xmlns:local="using:FluentHub.UserControls.ButtonBlocks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:octokitmodels="using:FluentHub.Octokit.Models"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:vm="using:FluentHub.ViewModels.UserControls.ButtonBlocks"
     d:DesignHeight="300"
     d:DesignWidth="400"
@@ -38,17 +42,38 @@
             Padding="18,12"
             Click="OnIssueBlockButtonClick"
             Style="{StaticResource ContentBlockButtonStyle}">
+
             <Grid ColumnSpacing="6">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
-                <FontIcon
-                    x:Name="StatusFontGlyph"
-                    Margin="0,0,8,0"
-                    FontFamily="{StaticResource Octions}"
-                    Foreground="{x:Bind ViewModel.StateGlyphForeground, Mode=OneWay}"
-                    Glyph="{x:Bind ViewModel.StateGlyph, Mode=OneWay}" />
+
+                <toolkit:SwitchPresenter
+                    Grid.RowSpan="2"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    TargetType="x:Boolean"
+                    Value="{x:Bind ViewModel.IssueItem.IsClosed, Mode=OneWay}">
+
+                    <toolkit:Case Value="True">
+                        <FontIcon
+                            Margin="0,0,8,0"
+                            FontFamily="{StaticResource Octions}"
+                            Foreground="#986EE2"
+                            Glyph="&#xE9E6;" />
+                    </toolkit:Case>
+
+                    <toolkit:Case Value="False">
+                        <FontIcon
+                            Margin="0,0,8,0"
+                            FontFamily="{StaticResource Octions}"
+                            Foreground="#57AB5A"
+                            Glyph="&#xE9EA;" />
+                    </toolkit:Case>
+
+                </toolkit:SwitchPresenter>
+
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -56,23 +81,59 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <TextBlock
-                        x:Name="RepoNameWithOwnerAndNumber"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="{x:Bind ViewModel.NameWithOwner, Mode=OneWay}" />
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="{x:Bind ViewModel.IssueItem.OwnerLogin, Mode=OneWay}" />
+
+                        <TextBlock
+                            Margin="4,0"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="/" />
+
+                        <TextBlock
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="{x:Bind ViewModel.IssueItem.Name, Mode=OneWay}" />
+
+                        <TextBlock
+                            Margin="4,0,0,0"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="#" />
+
+                        <TextBlock
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="{x:Bind ViewModel.IssueItem.Number, Mode=OneWay}" />
+                    </StackPanel>
+
                     <TextBlock
                         x:Name="UpdatedAtHumanized"
                         HorizontalAlignment="Right"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="{x:Bind ViewModel.UpdatedAtHumanized, Mode=OneWay}" />
+                        Text="{x:Bind ViewModel.IssueItem.UpdatedAtHumanized, Mode=OneWay}" />
+
                     <TextBlock
                         x:Name="TitleTextBlock"
                         Grid.Row="1"
                         Margin="0,4"
                         Style="{StaticResource BodyStrongTextBlockStyle}"
                         Text="{x:Bind ViewModel.IssueItem.Title, Mode=OneWay}" />
+
+                    <muxc:ItemsRepeater Grid.Row="2" Margin="0,4,0,0" ItemsSource="{x:Bind ViewModel.IssueItem.Labels, Mode=OneWay}">
+                        <muxc:ItemsRepeater.Layout>
+                            <muxc:StackLayout Orientation="Horizontal" Spacing="8" />
+                        </muxc:ItemsRepeater.Layout>
+                        <DataTemplate x:DataType="octokitmodels:Label">
+                            <labels:LabelControl LabelBackground="{x:Bind ColorBrush, Mode=OneWay}" LabelText="{x:Bind Name, Mode=OneWay}" />
+                        </DataTemplate>
+                    </muxc:ItemsRepeater>
+
                 </Grid>
             </Grid>
         </Button>

@@ -47,6 +47,7 @@ namespace FluentHub.ViewModels.Users
             try
             {
                 StarredRepoQueries queries = new();
+
                 List<Repository> items = await queries.GetAllAsync(login);
 
                 if (items == null) return;

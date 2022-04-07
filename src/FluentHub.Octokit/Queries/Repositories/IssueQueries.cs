@@ -1,4 +1,5 @@
-﻿using FluentHub.Octokit.Models;
+﻿using Humanizer;
+using FluentHub.Octokit.Models;
 using Octokit.GraphQL;
 using Octokit.GraphQL.Model;
 using Serilog;
@@ -49,26 +50,33 @@ namespace FluentHub.Octokit.Queries.Repositories
 
             foreach (var res in response)
             {
-                Models.Issue item = new();
-
-                item.Labels = new();
-                foreach (var label in res.Labels)
+                Models.Issue item = new()
                 {
-                    Models.Label labels = new();
-                    labels.Color = label.Color;
-                    labels.Name = label.Name;
+                    Name = res.Name,
+                    OwnerAvatarUrl = res.OwnerAvatarUrl,
+                    OwnerLogin = res.OwnerLogin,
+                    Title = res.Title,
 
-                    item.Labels.Add(labels);
+                    Number = res.Number,
+                    IsClosed = res.Closed,
+                    UpdatedAt = res.UpdatedAt,
+                    UpdatedAtHumanized = res.UpdatedAt.Humanize(),
+                };
+
+                if (res.Labels.Count() != 0)
+                {
+                    foreach (var label in res.Labels)
+                    {
+                        Models.Label labels = new()
+                        {
+                            Color = label.Color,
+                            Name = label.Name,
+                            ColorBrush = Helpers.ColorHelper.HexCodeToSolidColorBrush(label.Color),
+                        };
+
+                        item.Labels.Add(labels);
+                    }
                 }
-
-                item.Number = res.Number;
-                item.Title = res.Title;
-                item.UpdatedAt = res.UpdatedAt;
-                item.IsClosed = res.Closed;
-
-                item.Name = res.Name;
-                item.OwnerAvatarUrl = res.OwnerAvatarUrl;
-                item.OwnerLogin = res.OwnerLogin;
 
                 items.Add(item);
             }
@@ -102,30 +110,35 @@ namespace FluentHub.Octokit.Queries.Repositories
                 .Compile();
             #endregion
 
-            var response = await App.Connection.Run(query);
+            var res = await App.Connection.Run(query);
 
             #region copying
-            Models.Issue item = new();
-
-            item.Labels = new();
-            foreach (var label in response.Labels)
+            Models.Issue item = new()
             {
-                Models.Label labels = new();
-                labels.Color = label.Color;
-                labels.Name = label.Name;
+                Name = res.Name,
+                OwnerAvatarUrl = res.OwnerAvatarUrl,
+                OwnerLogin = res.OwnerLogin,
+                Title = res.Title,
 
-                item.Labels.Add(labels);
+                Number = res.Number,
+                IsClosed = res.Closed,
+                UpdatedAt = res.UpdatedAt,
+                UpdatedAtHumanized = res.UpdatedAt.Humanize(),
+            };
+
+            if (res.Labels.Count() != 0)
+            {
+                foreach (var label in res.Labels)
+                {
+                    Models.Label labels = new()
+                    {
+                        Color = label.Color,
+                        Name = label.Name,
+                    };
+
+                    item.Labels.Add(labels);
+                }
             }
-
-            item.IsClosed = response.Closed;
-            item.Number = response.Number;
-            item.Title = response.Title;
-            item.UpdatedAt = response.UpdatedAt;
-
-            item.Name = response.Name;
-            item.OwnerAvatarUrl = response.OwnerAvatarUrl;
-            item.OwnerLogin = response.OwnerLogin;
-
             #endregion
 
             return item;

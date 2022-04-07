@@ -58,8 +58,6 @@ namespace FluentHub.ViewModels.Repositories.Issues
                     IssueButtonBlockViewModel viewModel = new()
                     {
                         IssueItem = item,
-                        NameWithOwner = item.OwnerLogin + "/" + item.Name + " #" + item.Number,
-                        UpdatedAtHumanized = item.UpdatedAt.Humanize()
                     };
 
                     _issueItems.Add(viewModel);

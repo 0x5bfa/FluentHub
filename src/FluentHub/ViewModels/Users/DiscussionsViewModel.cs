@@ -48,11 +48,8 @@ namespace FluentHub.ViewModels.Users
             try
             {
                 DiscussionQueries queries = new();
-                List<Discussion> items;
 
-                items = login == null ?
-                    await queries.GetAllAsync() :
-                    await queries.GetAllAsync(login);
+                List<Discussion> items = await queries.GetAllAsync(login);
 
                 if (items == null) return;
 

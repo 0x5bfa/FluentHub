@@ -46,6 +46,7 @@ namespace FluentHub.ViewModels.Users
             try
             {
                 RepositoryQueries queries = new();
+
                 List<Repository> items = await queries.GetAllAsync(login);
 
                 if (items == null) return;
