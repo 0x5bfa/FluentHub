@@ -133,7 +133,14 @@ namespace FluentHub.Octokit.Queries.Repositories
                 IsPrivate = res.IsPrivate,
                 IsTemplate = res.IsTemplate,
 
-                LatestReleaseOverview = new()
+                ViewerSubscription = res.ViewerSubscription,
+
+                UpdatedAt = res.UpdatedAt,
+            };
+
+            if (res.LatestReleaseOverview.Count() != 0)
+            {
+                item.LatestReleaseOverview = new()
                 {
                     AuthorAvatarUrl = res.LatestReleaseOverview[0].AuthorAvatarUrl,
                     AuthorLogin = res.LatestReleaseOverview[0].AuthorLogin,
@@ -144,12 +151,8 @@ namespace FluentHub.Octokit.Queries.Repositories
                     Name = res.LatestReleaseOverview[0].Name,
                     PublishedAt = res.LatestReleaseOverview[0]?.PublishedAt,
                     PublishedAtHumanized = res.LatestReleaseOverview[0]?.PublishedAt.Humanize(),
-                },
-
-                ViewerSubscription = res.ViewerSubscription,
-
-                UpdatedAt = res.UpdatedAt,
-            };
+                };
+            }
             #endregion
 
             return item;
