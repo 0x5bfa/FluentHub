@@ -72,7 +72,6 @@ namespace FluentHub.Octokit.Queries.Users
                     UpdatedAtHumanized = res.UpdatedAt.Humanize(),
                 };
 
-
                 if (res.Labels.Count() != 0)
                 {
                     foreach (var label in res.Labels)

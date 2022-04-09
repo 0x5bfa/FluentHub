@@ -73,7 +73,6 @@ namespace FluentHub.Octokit.Queries.Repositories
                     UpdatedAtHumanized = res.UpdatedAt.Humanize(),
                 };
 
-
                 if (res.Labels.Count() != 0)
                 {
                     foreach (var label in res.Labels)
@@ -148,7 +147,6 @@ namespace FluentHub.Octokit.Queries.Repositories
                 UpdatedAt = res.UpdatedAt,
                 UpdatedAtHumanized = res.UpdatedAt.Humanize(),
             };
-
 
             if (res.Labels.Count() != 0)
             {
