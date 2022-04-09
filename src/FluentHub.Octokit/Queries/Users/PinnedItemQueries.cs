@@ -13,6 +13,15 @@ namespace FluentHub.Octokit.Queries.Users
 
         public async Task<List<Models.Repository>> GetAllAsync(string login)
         {
+            Arg<IEnumerable<IssueState>> issueState = new(new IssueState[] { IssueState.Open });
+            Arg<IssueOrder> issueOrder = new(new IssueOrder
+            {
+                Field = IssueOrderField.UpdatedAt,
+                Direction = OrderDirection.Desc
+            });
+
+            Arg<IEnumerable<PullRequestState>> pullRequestState = new(new PullRequestState[] { PullRequestState.Open });
+
             #region userquery
             Arg<IEnumerable<IssueState>> issueState = new(new IssueState[] { IssueState.Open });
             Arg<IssueOrder> issueOrder = new(new IssueOrder
