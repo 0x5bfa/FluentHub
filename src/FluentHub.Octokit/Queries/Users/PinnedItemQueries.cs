@@ -1,9 +1,8 @@
-﻿using Octokit.GraphQL;
+﻿using global::Octokit.GraphQL.Core;
+using Octokit.GraphQL;
 using Octokit.GraphQL.Model;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace FluentHub.Octokit.Queries.Users
@@ -15,6 +14,15 @@ namespace FluentHub.Octokit.Queries.Users
         public async Task<List<Models.Repository>> GetAllAsync(string login)
         {
             #region userquery
+            Arg<IEnumerable<IssueState>> issueState = new(new IssueState[] { IssueState.Open });
+            Arg<IssueOrder> issueOrder = new(new IssueOrder
+            {
+                Field = IssueOrderField.UpdatedAt,
+                Direction = OrderDirection.Desc
+            });
+
+            Arg<IEnumerable<PullRequestState>> pullRequestState = new(new PullRequestState[] { PullRequestState.Open });
+
             var usersQuery = new Query()
                     .User(login)
                     .PinnedItems(first: 6)
@@ -37,9 +45,8 @@ namespace FluentHub.Octokit.Queries.Users
 
                         x.StargazerCount,
                         x.ForkCount,
-                        OpenIssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
-                        OpenPullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
-
+                        OpenIssueCount = x.Issues(null, null, null, null, null, null, issueOrder, issueState).TotalCount,
+                        OpenPullCount = x.PullRequests(null, null, null, null, null, null, null, issueOrder, pullRequestState).TotalCount,
                         x.IsFork,
                     })
                     .Compile();
