@@ -1,7 +1,6 @@
-﻿using FluentHub.Octokit.Models;
+﻿using Humanizer;
 using Octokit.GraphQL;
 using Octokit.GraphQL.Model;
-using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,19 +27,22 @@ namespace FluentHub.Octokit.Queries.Repositories
                     OwnerAvatarUrl = x.Repository.Owner.AvatarUrl(100),
                     OwnerLogin = x.Repository.Owner.Login,
                     x.Repository.Name,
+                    x.Title,
 
                     x.Closed,
                     x.Merged,
                     x.IsDraft,
 
+                    x.Number,
+                    CommentCount = x.Comments(null, null, null, null, null).TotalCount,
+
                     Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new
                     {
                         y.Color,
                         y.Name,
-                    }).ToList(),
+                    })
+                    .ToList(),
 
-                    x.Number,
-                    x.Title,
                     x.UpdatedAt,
                 })
                 .Compile();
@@ -53,28 +55,39 @@ namespace FluentHub.Octokit.Queries.Repositories
 
             foreach (var res in response)
             {
-                Models.PullRequest item = new();
-
-                item.Labels = new();
-                foreach (var label in res.Labels)
+                Models.PullRequest item = new()
                 {
-                    Models.Label labels = new();
-                    labels.Color = label.Color;
-                    labels.Name = label.Name;
+                    Name = res.Name,
+                    OwnerAvatarUrl = res.OwnerAvatarUrl,
+                    OwnerLogin = res.OwnerLogin,
+                    Title = res.Title,
 
-                    item.Labels.Add(labels);
+                    Number = res.Number,
+                    CommentCount = res.CommentCount,
+
+                    IsClosed = res.Closed,
+                    IsMerged = res.Merged,
+                    IsDraft = res.IsDraft,
+
+                    UpdatedAt = res.UpdatedAt,
+                    UpdatedAtHumanized = res.UpdatedAt.Humanize(),
+                };
+
+
+                if (res.Labels.Count() != 0)
+                {
+                    foreach (var label in res.Labels)
+                    {
+                        Models.Label labels = new()
+                        {
+                            Color = label.Color,
+                            Name = label.Name,
+                            ColorBrush = Helpers.ColorHelper.HexCodeToSolidColorBrush(label.Color),
+                        };
+
+                        item.Labels.Add(labels);
+                    }
                 }
-
-                item.IsClosed = res.Closed;
-                item.IsMerged = res.Merged;
-                item.IsDraft = res.IsDraft;
-
-                item.Number = res.Number;
-                item.Title = res.Title;
-                item.UpdatedAt = res.UpdatedAt;
-                item.Name = res.Name;
-                item.OwnerLogin = res.OwnerLogin;
-                item.OwnerAvatarUrl = res.OwnerAvatarUrl;
 
                 items.Add(item);
             }
@@ -94,49 +107,63 @@ namespace FluentHub.Octokit.Queries.Repositories
                     OwnerAvatarUrl = x.Repository.Owner.AvatarUrl(100),
                     OwnerLogin = x.Repository.Owner.Login,
                     x.Repository.Name,
+                    x.Title,
 
                     x.Closed,
                     x.Merged,
                     x.IsDraft,
 
+                    x.Number,
+                    CommentCount = x.Comments(null, null, null, null, null).TotalCount,
+
                     Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new
                     {
                         y.Color,
                         y.Name,
-                    }).ToList(),
+                    })
+                    .ToList(),
 
-                    x.Number,
-                    x.Title,
                     x.UpdatedAt,
                 })
                 .Compile();
             #endregion
 
-            var response = await App.Connection.Run(query);
+            var res = await App.Connection.Run(query);
 
             #region copying
-            Models.PullRequest item = new();
-
-            item.Labels = new();
-            foreach (var label in response.Labels)
+            Models.PullRequest item = new()
             {
-                Models.Label labels = new();
-                labels.Color = label.Color;
-                labels.Name = label.Name;
+                Name = res.Name,
+                OwnerAvatarUrl = res.OwnerAvatarUrl,
+                OwnerLogin = res.OwnerLogin,
+                Title = res.Title,
 
-                item.Labels.Add(labels);
+                Number = res.Number,
+                CommentCount = res.CommentCount,
+
+                IsClosed = res.Closed,
+                IsMerged = res.Merged,
+                IsDraft = res.IsDraft,
+
+                UpdatedAt = res.UpdatedAt,
+                UpdatedAtHumanized = res.UpdatedAt.Humanize(),
+            };
+
+
+            if (res.Labels.Count() != 0)
+            {
+                foreach (var label in res.Labels)
+                {
+                    Models.Label labels = new()
+                    {
+                        Color = label.Color,
+                        Name = label.Name,
+                        ColorBrush = Helpers.ColorHelper.HexCodeToSolidColorBrush(label.Color),
+                    };
+
+                    item.Labels.Add(labels);
+                }
             }
-
-            item.IsClosed = response.Closed;
-            item.IsMerged = response.Merged;
-            item.IsDraft = response.IsDraft;
-
-            item.Number = response.Number;
-            item.Title = response.Title;
-            item.UpdatedAt = response.UpdatedAt;
-            item.Name = response.Name;
-            item.OwnerLogin = response.OwnerLogin;
-            item.OwnerAvatarUrl = response.OwnerAvatarUrl;
             #endregion
 
             return item;

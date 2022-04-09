@@ -29,15 +29,20 @@ namespace FluentHub.Octokit.Queries.Users
                     OwnerAvatarUrl = x.Repository.Owner.AvatarUrl(100),
                     OwnerLogin = x.Repository.Owner.Login,
                     x.Repository.Name,
+                    x.Title,
 
                     x.Closed,
+
+                    x.Number,
+                    CommentCount = x.Comments(null, null, null, null, null).TotalCount,
+
                     Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new
                     {
                         y.Color,
                         y.Name,
-                    }).ToList(),
-                    x.Number,
-                    x.Title,
+                    })
+                    .ToList(),
+
                     x.UpdatedAt,
                 })
                 .Compile();
@@ -58,7 +63,10 @@ namespace FluentHub.Octokit.Queries.Users
                     Title = res.Title,
 
                     Number = res.Number,
+                    CommentCount = res.CommentCount,
+
                     IsClosed = res.Closed,
+
                     UpdatedAt = res.UpdatedAt,
                     UpdatedAtHumanized = res.UpdatedAt.Humanize(),
                 };

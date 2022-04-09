@@ -58,8 +58,6 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
                     PullButtonBlockViewModel viewModel = new()
                     {
                         PullItem = item,
-                        NameWithOwner = $"{item.OwnerLogin} / {item.Name} #{item.Number}",
-                        UpdatedAtHumanized = item.UpdatedAt.Humanize()
                     };
 
                     _pullRequests.Add(viewModel);

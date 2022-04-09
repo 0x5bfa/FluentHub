@@ -11,8 +11,8 @@ namespace FluentHub.UserControls.ButtonBlocks
     public sealed partial class PullButtonBlock : UserControl
     {
         #region propdp
-        public static readonly DependencyProperty ViewModelProperty
-            = DependencyProperty.Register(
+        public static readonly DependencyProperty ViewModelProperty =
+            DependencyProperty.Register(
                   nameof(PullRequest),
                   typeof(PullButtonBlockViewModel),
                   typeof(PullButtonBlock),
@@ -25,8 +25,7 @@ namespace FluentHub.UserControls.ButtonBlocks
             set
             {
                 SetValue(ViewModelProperty, value);
-                this.DataContext = ViewModel;
-                ViewModel.SetStateContents();
+                DataContext = ViewModel;
             }
         }
         #endregion
@@ -42,6 +41,11 @@ namespace FluentHub.UserControls.ButtonBlocks
         private void IssueBlockButton_Click(object sender, RoutedEventArgs e)
         {
             navigationService.Navigate<PullRequestPage>(ViewModel.PullItem);
+        }
+
+        private void OnPullButtonBlockLoaded(object sender, RoutedEventArgs e)
+        {
+            ViewModel.SetContents();
         }
     }
 }

@@ -58,7 +58,7 @@ namespace FluentHub.UserControls.Labels
 
         private void OnLabelControlLoaded(object sender, RoutedEventArgs e)
         {
-            ViewModel.SetColorBrush();
+            ViewModel?.SetColorBrush();
         }
     }
 }

@@ -1,60 +1,53 @@
-﻿using Humanizer;
+﻿using FluentHub.ViewModels.UserControls.Labels;
 using FluentHub.Octokit.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Media;
-using FluentHub.Helpers;
+using Windows.UI.Xaml;
 
 namespace FluentHub.ViewModels.UserControls.ButtonBlocks
 {
     public class PullButtonBlockViewModel : INotifyPropertyChanged
     {
-        public PullRequest PullItem { get; set; } = new();
-
-        private string nameWithOwner;
-        public string NameWithOwner { get => nameWithOwner; set => SetProperty(ref nameWithOwner, value); }
-
-        private string updatedAtHumanized;
-        public string UpdatedAtHumanized { get => updatedAtHumanized; set => SetProperty(ref updatedAtHumanized, value); }
-
-        private string stateGlyph;
-        public string StateGlyph { get => stateGlyph; set => SetProperty(ref stateGlyph, value); }
-
-        private Brush stateGlyphForeground;
-        public Brush StateGlyphForeground { get => stateGlyphForeground; set => SetProperty(ref stateGlyphForeground, value); }
-
-        public void SetStateContents()
+        public PullButtonBlockViewModel()
         {
-            if (PullItem.IsClosed)
+            _labelViewModels = new();
+            LabelViewModels = new(_labelViewModels);
+        }
+
+        private PullRequest _pullItem;
+        private readonly ObservableCollection<LabelControlViewModel> _labelViewModels;
+
+        public PullRequest PullItem { get => _pullItem; set => SetProperty(ref _pullItem, value); }
+        public ReadOnlyObservableCollection<LabelControlViewModel> LabelViewModels { get; }
+
+        private LabelControlViewModel _commentCountLabel;
+        public LabelControlViewModel CommentCountLabel { get => _commentCountLabel; set => SetProperty(ref _commentCountLabel, value); }
+
+        public void SetContents()
+        {
+            CommentCountLabel = new()
             {
-                if (PullItem.IsMerged)
-                {
-                    StateGlyph = "\uE9BD";
-                    StateGlyphForeground = ColorHelpers.HexCodeToSolidColorBrush("#986EE2");
-                }
-                else
-                {
-                    StateGlyph = "\uE9C1";
-                    StateGlyphForeground = ColorHelpers.HexCodeToSolidColorBrush("#E5534B");
-                }
-            }
-            else
+                Name = _pullItem.CommentCount.ToString(),
+                BackgroundColorBrush = (SolidColorBrush)Application.Current.Resources["ApplicationSecondaryForegroundThemeBrush"],
+                OutlineEnable = true,
+            };
+
+            foreach (var label in _pullItem.Labels)
             {
-                if (PullItem.IsDraft)
+                LabelControlViewModel viewModel = new()
                 {
-                    StateGlyph = "\uE9C3";
-                    StateGlyphForeground = ColorHelpers.HexCodeToSolidColorBrush("#768390");
-                }
-                else
-                {
-                    StateGlyph = "\uE9BF";
-                    StateGlyphForeground = ColorHelpers.HexCodeToSolidColorBrush("#57AB5A");
-                }
+                    Name = label.Name,
+                    BackgroundColorBrush = label.ColorBrush,
+                };
+
+                _labelViewModels.Add(viewModel);
             }
         }
 

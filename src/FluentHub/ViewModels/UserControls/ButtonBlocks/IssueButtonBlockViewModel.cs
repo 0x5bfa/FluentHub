@@ -9,6 +9,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml;
 
 namespace FluentHub.ViewModels.UserControls.ButtonBlocks
 {
@@ -26,8 +27,18 @@ namespace FluentHub.ViewModels.UserControls.ButtonBlocks
         public Issue IssueItem { get => _issueItem; set => SetProperty(ref _issueItem, value); }
         public ReadOnlyObservableCollection<LabelControlViewModel> LabelViewModels { get; }
 
-        public void SetLabelList()
+        private LabelControlViewModel _commentCountLabel;
+        public LabelControlViewModel CommentCountLabel { get => _commentCountLabel; set => SetProperty(ref _commentCountLabel, value); }
+
+        public void SetContents()
         {
+            CommentCountLabel = new()
+            {
+                Name = _issueItem.CommentCount.ToString(),
+                BackgroundColorBrush = (SolidColorBrush)Application.Current.Resources["ApplicationSecondaryForegroundThemeBrush"],
+                OutlineEnable = true,
+            };
+
             foreach (var label in IssueItem.Labels)
             {
                 LabelControlViewModel viewModel = new()
