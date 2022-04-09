@@ -78,7 +78,7 @@
                     Style="{StaticResource SubtitleTextBlockStyle}"
                     Text="{x:Bind ViewModel.Repository.Name, Mode=OneWay}" />
 
-                <toolkit:SwitchPresenter
+                <!--<toolkit:SwitchPresenter
                     Grid.RowSpan="2"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
@@ -99,7 +99,7 @@
                             LabelText="Public" />
                     </toolkit:Case>
 
-                </toolkit:SwitchPresenter>
+                </toolkit:SwitchPresenter>-->
             </StackPanel>
 
             <StackPanel

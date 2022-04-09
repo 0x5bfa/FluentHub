@@ -42,5 +42,10 @@ namespace FluentHub.UserControls.ButtonBlocks
         {
             navigationService.Navigate<IssuePage>(ViewModel.IssueItem);
         }
+
+        private void OnIssueButtonBlockLoaded(object sender, RoutedEventArgs e)
+        {
+            ViewModel.SetLabelList();
+        }
     }
 }

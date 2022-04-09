@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace FluentHub.Octokit.Models
 
         public bool IsClosed { get; set; }
 
-        public List<Label> Labels { get; set; } = new();
+        public ObservableCollection<Label> Labels { get; set; } = new();
 
         public DateTimeOffset UpdatedAt { get; set; }
         public string UpdatedAtHumanized { get; set; }

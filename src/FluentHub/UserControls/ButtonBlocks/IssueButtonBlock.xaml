@@ -4,14 +4,15 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:labels="using:FluentHub.UserControls.Labels"
+    xmlns:labelsvm="using:FluentHub.ViewModels.UserControls.Labels"
     xmlns:local="using:FluentHub.UserControls.ButtonBlocks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:octokitmodels="using:FluentHub.Octokit.Models"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:vm="using:FluentHub.ViewModels.UserControls.ButtonBlocks"
     d:DesignHeight="300"
     d:DesignWidth="400"
+    Loaded="OnIssueButtonBlockLoaded"
     mc:Ignorable="d">
 
     <UserControl.DataContext>
@@ -125,13 +126,18 @@
                         Style="{StaticResource BodyStrongTextBlockStyle}"
                         Text="{x:Bind ViewModel.IssueItem.Title, Mode=OneWay}" />
 
-                    <muxc:ItemsRepeater Grid.Row="2" Margin="0,4,0,0" ItemsSource="{x:Bind ViewModel.IssueItem.Labels, Mode=OneWay}">
+                    <muxc:ItemsRepeater
+                        Grid.Row="2"
+                        Margin="0,4,0,0"
+                        ItemsSource="{x:Bind ViewModel.LabelViewModels, Mode=OneWay}">
                         <muxc:ItemsRepeater.Layout>
                             <muxc:StackLayout Orientation="Horizontal" Spacing="8" />
                         </muxc:ItemsRepeater.Layout>
-                        <DataTemplate x:DataType="octokitmodels:Label">
-                            <labels:LabelControl LabelBackground="{x:Bind ColorBrush, Mode=OneWay}" LabelText="{x:Bind Name, Mode=OneWay}" />
+
+                        <DataTemplate x:DataType="labelsvm:LabelControlViewModel">
+                            <labels:LabelControl ViewModel="{x:Bind}" />
                         </DataTemplate>
+
                     </muxc:ItemsRepeater>
 
                 </Grid>

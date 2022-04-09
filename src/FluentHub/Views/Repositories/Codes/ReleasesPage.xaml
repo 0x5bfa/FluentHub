@@ -30,7 +30,7 @@
                 <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="{x:Bind Name, Mode=OneWay}" />
 
                 <StackPanel Orientation="Horizontal" Spacing="8">
-                    <labels:LabelControl
+                    <!--<labels:LabelControl
                         IsOutlineEnable="True"
                         LabelBackground="#57ab5a"
                         LabelText="Latest" />
@@ -38,7 +38,7 @@
                     <labels:LabelControl
                         IsOutlineEnable="True"
                         LabelBackground="#c69026"
-                        LabelText="Pre-release" />
+                        LabelText="Pre-release" />-->
                 </StackPanel>
 
                 <WebView

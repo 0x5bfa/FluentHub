@@ -75,7 +75,7 @@
                         Style="{StaticResource BodyTextBlockStyle}"
                         Text="{x:Bind ViewModel.CreatedAtHumanized, Mode=OneWay}" />
 
-                    <labels:LabelControl
+                    <!--<labels:LabelControl
                         x:Name="EditedLabel"
                         x:Load="{x:Bind ViewModel.IssueComment.IsEdited}"
                         IsOutlineEnable="True"
@@ -87,7 +87,7 @@
                         x:Load="{x:Bind ViewModel.AuthorAssociation, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
                         IsOutlineEnable="True"
                         LabelBackground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        LabelText="{x:Bind ViewModel.AuthorAssociation, Mode=OneWay}" />
+                        LabelText="{x:Bind ViewModel.AuthorAssociation, Mode=OneWay}" />-->
                 </StackPanel>
 
                 <StackPanel
