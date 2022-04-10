@@ -89,7 +89,7 @@ word-wrap: break-word;
 
 .markdown-body img {
   border-style: none;
-  max-width: 100%;
+  width: 60%;
   box-sizing: content-box;
   background-color: transparent;
 }
@@ -99,7 +99,7 @@ word-wrap: break-word;
 .markdown-body pre,
 .markdown-body samp {
   font-family: monospace;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .markdown-body figure {
@@ -563,7 +563,7 @@ word-wrap: break-word;
 .markdown-body h6 tt,
 .markdown-body h6 code {
   padding: 0 .2em;
-  font-size: inherit;
+  font-size: 0.8em;
 }
 
 .markdown-body ul.no-list,
@@ -750,7 +750,7 @@ word-wrap: break-word;
 .markdown-body tt {
   padding: .2em .4em;
   margin: 0;
-  font-size: 14px;
+  font-size: 12px;
   background-color: rgba(175,184,193,0.2);
   border-radius: 6px;
 }
@@ -765,7 +765,7 @@ word-wrap: break-word;
 }
 
 .markdown-body pre code {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .markdown-body pre>code {
