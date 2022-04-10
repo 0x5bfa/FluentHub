@@ -1,4 +1,5 @@
 ﻿using Humanizer;
+using global::Octokit.GraphQL.Core;
 using Octokit.GraphQL;
 using Octokit.GraphQL.Model;
 using Serilog;
@@ -16,9 +17,11 @@ namespace FluentHub.Octokit.Queries.Repositories
 
         public async Task<List<Models.Release>> GetAllAsync(string owner, string name)
         {
+            Arg<ReleaseOrder> releaseOrder = new(new ReleaseOrder { Direction = OrderDirection.Desc});
+
             var query = new Query()
                 .Repository(name, owner)
-                .Releases(20, null, null, null, null)
+                .Releases(null, null, 20, null, releaseOrder)
                 .Select(x => new
                 {
                     Releases = x.Nodes.Select(y => new

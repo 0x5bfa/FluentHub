@@ -50,28 +50,5 @@ namespace FluentHub.Views.Repositories.Codes
             if (command.CanExecute(null))
                 command.Execute(null);
         }
-
-        private void OnReleaseListViewSelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            foreach (var item in e.AddedItems)
-            {
-                ListViewItem lvi = (sender as ListView).ContainerFromItem(item) as ListViewItem;
-                lvi.ContentTemplate = (DataTemplate)this.Resources["ExpandedReleaseListViewItem"];
-            }
-            foreach (var item in e.RemovedItems)
-            {
-                ListViewItem lvi = (sender as ListView).ContainerFromItem(item) as ListViewItem;
-                lvi.ContentTemplate = (DataTemplate)this.Resources["CollapsedReleaseListViewItem"];
-            }
-        }
-
-        private async void OnDescriptionWebViewLoaded(object sender, RoutedEventArgs e)
-        {
-            Octokit.Queries.Repositories.MarkdownQueries queries = new();
-            var missedPath = $"https://github.com/{ViewModel.ContextViewModel.Owner}/{ViewModel.ContextViewModel.Name}/releases";
-            var fullHtml = await queries.GetHtmlAsync(ViewModel.Items[ReleaseListView.SelectedIndex].DescriptionHTML, missedPath, Helpers.ThemeHelper.ActualTheme.ToString().ToLower(), true);
-
-            (sender as WebView).NavigateToString(fullHtml);
-        }
     }
 }

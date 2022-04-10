@@ -193,14 +193,23 @@ namespace FluentHub.Octokit.Queries.Repositories
 
         public async Task<string> GetReadmeHtml(string owner, string name, string branch, string theme)
         {
-            string bodyHtml = await App.Client.Repository.Content.GetReadmeHtml(owner, name);
+            string bodyHtml = "";
 
-            string missedPath = "https://raw.githubusercontent.com/" + owner + "/" + name + "/" + branch + "/";
+            try
+            {
+                bodyHtml = await App.Client.Repository.Content.GetReadmeHtml(owner, name);
 
-            MarkdownQueries markdown = new();
-            var html = await markdown.GetHtmlAsync(bodyHtml, missedPath, theme, true);
+                string missedPath = "https://raw.githubusercontent.com/" + owner + "/" + name + "/" + branch + "/";
 
-            return html;
+                MarkdownQueries markdown = new();
+                var html = await markdown.GetHtmlAsync(bodyHtml, missedPath, theme, true);
+
+                return html;
+            }
+            catch (global::Octokit.NotFoundException ex)
+            {
+                return null;
+            }
         }
     }
 }

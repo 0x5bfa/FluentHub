@@ -186,8 +186,7 @@
 
 .markdown-body img {
   border-style: none;
-  width: 60%;
-  max-width: 100%;
+  max-width: 60%;
   box-sizing: content-box;
   background-color: transparent;
 }
