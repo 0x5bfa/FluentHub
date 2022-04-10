@@ -55,15 +55,6 @@
                             <SolidColorBrush x:Key="TabContainerFillColorSecondary" Color="{StaticResource SolidBackgroundFillColorSecondary}" />
                         </ResourceDictionary>
                     </ResourceDictionary.ThemeDictionaries>
-                    <!--<Thickness x:Key="TabViewSelectedItemBorderThickness">0</Thickness>-->
-                </ResourceDictionary>
-                <ResourceDictionary>
-                    <Color x:Key="IssuesIconsBackground">#40d563</Color>
-                    <Color x:Key="PRsIconsBackground">#2e8ffe</Color>
-                    <Color x:Key="DiscussionsIconsBackground">#7548c7</Color>
-                    <Color x:Key="ReposIconsBackground">#41434e</Color>
-                    <Color x:Key="OrgsIconsBackground">#fe8a38</Color>
-                    <Color x:Key="StaredIconsBackground">#fecb1a</Color>
                 </ResourceDictionary>
                 <ResourceDictionary Source="ms-appx:///ResourceDictionaries/CommonStyles.xaml" />
                 <ResourceDictionary Source="ms-appx:///ResourceDictionaries/ClearButtonStyle.xaml" />

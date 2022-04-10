@@ -30,7 +30,6 @@ namespace FluentHub.Octokit.Queries.Organizations
                         x.Name,
                         OwnerAvatarUrl = x.Owner.AvatarUrl(100),
                         OwnerLoginName = x.Owner.Login,
-                        OwnerId = x.Owner.Id,
                         x.Description,
                         LicenseName = x.LicenseInfo.Select(y => y.Name).SingleOrDefault(),
 
@@ -46,6 +45,7 @@ namespace FluentHub.Octokit.Queries.Organizations
                         OpenPullCount = x.PullRequests(null, null, null, null, null, null, null, null, pullRequestState).TotalCount,
 
                         x.IsFork,
+                        x.IsInOrganization,
                         x.ViewerHasStarred,
 
                         x.UpdatedAt,
@@ -65,7 +65,7 @@ namespace FluentHub.Octokit.Queries.Organizations
                     Name = res.Name,
                     Owner = res.OwnerLoginName,
                     OwnerAvatarUrl = res.OwnerAvatarUrl,
-                    OwnerIsOrganization = Helpers.UserTypeDetectionHelper.IsOrganization(res.OwnerId),
+                    OwnerIsOrganization = res.IsInOrganization,
                     Description = res.Description,
 
                     PrimaryLangName = res.PrimaryLanguage?.Name,

@@ -27,7 +27,6 @@ namespace FluentHub.Octokit.Queries.Repositories
                     x.Name,
                     OwnerAvatarUrl = x.Owner.AvatarUrl(100),
                     OwnerLoginName = x.Owner.Login,
-                    OwnerId = x.Owner.Id,
                     x.Description,
                     LicenseName = x.LicenseInfo.Select(y => y.Name).SingleOrDefault(),
 
@@ -43,6 +42,7 @@ namespace FluentHub.Octokit.Queries.Repositories
                     OpenPullCount = x.PullRequests(null, null, null, null, null, null, null, null, pullRequestState).TotalCount,
 
                     x.IsFork,
+                    x.IsInOrganization,
                     x.ViewerHasStarred,
 
                     x.UpdatedAt,
@@ -58,7 +58,7 @@ namespace FluentHub.Octokit.Queries.Repositories
                 Name = res.Name,
                 Owner = res.OwnerLoginName,
                 OwnerAvatarUrl = res.OwnerAvatarUrl,
-                OwnerIsOrganization = Helpers.UserTypeDetectionHelper.IsOrganization(res.OwnerId),
+                OwnerIsOrganization = res.IsInOrganization,
                 Description = res.Description,
 
                 PrimaryLangName = res.PrimaryLanguage?.Name,
@@ -93,8 +93,8 @@ namespace FluentHub.Octokit.Queries.Repositories
                         DefaultBranchName = x.DefaultBranchRef.Name,
 
                         WatcherCount = x.Watchers(null, null, null, null).TotalCount,
-                        HeadRefsCount = x.Refs("refs/heads/", null, null, null, null, null, null, "heads/").TotalCount,
-                        TagCount = x.Refs("refs/heads/", null, null, null, null, null, null, "tags/").TotalCount,
+                        HeadRefsCount = x.Refs("refs/heads/", null, null, null, null, null, null, null).TotalCount,
+                        TagCount = x.Refs("refs/tags/", null, null, null, null, null, null, null).TotalCount,
                         ReleaseCount = x.Releases(null, null, null, null, null).TotalCount,
 
                         LatestReleaseOverview = x.Releases(null, null, 1, null, null).Nodes.Select(y => new
