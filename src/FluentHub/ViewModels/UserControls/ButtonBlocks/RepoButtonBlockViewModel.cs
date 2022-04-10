@@ -26,17 +26,12 @@ namespace FluentHub.ViewModels.UserControls.ButtonBlocks
         private bool _displayStarButton;
         public bool DisplayStarButton { get => _displayStarButton; set => SetProperty(ref _displayStarButton, value); }
 
-        private string _updatedAtHumanized;
-        public string UpdatedAtHumanized { get => _updatedAtHumanized; set => SetProperty(ref _updatedAtHumanized, value); }
-
         public void GetColorBrush()
         {
             if (Item?.PrimaryLangColor != null)
             {
                 PrimaryLangColor = ColorHelpers.HexCodeToSolidColorBrush(Item.PrimaryLangColor);
             }
-
-            UpdatedAtHumanized = Item?.UpdatedAt.Humanize();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

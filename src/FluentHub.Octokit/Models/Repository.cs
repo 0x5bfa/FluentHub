@@ -26,5 +26,6 @@ namespace FluentHub.Octokit.Models
         public string LicenseName { get; set; }
 
         public DateTimeOffset UpdatedAt { get; set; }
+        public string UpdatedAtHumanized { get; set; }
     }
 }

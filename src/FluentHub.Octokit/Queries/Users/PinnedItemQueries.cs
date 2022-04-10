@@ -1,4 +1,5 @@
-﻿using global::Octokit.GraphQL.Core;
+﻿using Humanizer;
+using global::Octokit.GraphQL.Core;
 using Octokit.GraphQL;
 using Octokit.GraphQL.Model;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace FluentHub.Octokit.Queries.Users
             Arg<IEnumerable<IssueState>> issueState = new(new IssueState[] { IssueState.Open });
             Arg<IEnumerable<PullRequestState>> pullRequestState = new(new PullRequestState[] { PullRequestState.Open });
 
-            #region userquery
+            #region query
             var usersQuery = new Query()
                     .User(login)
                     .PinnedItems(first: 6)
@@ -41,7 +42,11 @@ namespace FluentHub.Octokit.Queries.Users
                         x.ForkCount,
                         OpenIssueCount = x.Issues(null, null, null, null, null, null, null, issueState).TotalCount,
                         OpenPullCount = x.PullRequests(null, null, null, null, null, null, null, null, pullRequestState).TotalCount,
+
                         x.IsFork,
+                        x.ViewerHasStarred,
+
+                        x.UpdatedAt,
                     })
                     .Compile();
             #endregion
@@ -70,7 +75,11 @@ namespace FluentHub.Octokit.Queries.Users
                     OpenIssueCount = res.OpenIssueCount,
                     OpenPullCount = res.OpenPullCount,
 
-                    IsFork = res.IsFork
+                    IsFork = res.IsFork,
+                    ViewerHasStarred = res.ViewerHasStarred,
+
+                    UpdatedAt = res.UpdatedAt,
+                    UpdatedAtHumanized = res.UpdatedAt.Humanize(),
                 };
 
                 items.Add(item);

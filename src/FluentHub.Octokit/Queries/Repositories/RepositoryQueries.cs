@@ -1,5 +1,5 @@
-﻿using global::Octokit.GraphQL.Core;
-using Humanizer;
+﻿using Humanizer;
+using global::Octokit.GraphQL.Core;
 using Octokit.GraphQL;
 using Octokit.GraphQL.Model;
 using System;
@@ -43,6 +43,9 @@ namespace FluentHub.Octokit.Queries.Repositories
                     OpenPullCount = x.PullRequests(null, null, null, null, null, null, null, null, pullRequestState).TotalCount,
 
                     x.IsFork,
+                    x.ViewerHasStarred,
+
+                    x.UpdatedAt,
                 })
                 .Compile();
             #endregion
@@ -67,7 +70,11 @@ namespace FluentHub.Octokit.Queries.Repositories
                 OpenIssueCount = res.OpenIssueCount,
                 OpenPullCount = res.OpenPullCount,
 
-                IsFork = res.IsFork
+                IsFork = res.IsFork,
+                ViewerHasStarred = res.ViewerHasStarred,
+
+                UpdatedAt = res.UpdatedAt,
+                UpdatedAtHumanized = res.UpdatedAt.Humanize(),
             };
 
             #endregion
@@ -193,7 +200,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 
         public async Task<string> GetReadmeHtml(string owner, string name, string branch, string theme)
         {
-            string bodyHtml = "";
+            string bodyHtml;
 
             try
             {
@@ -206,7 +213,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 
                 return html;
             }
-            catch (global::Octokit.NotFoundException ex)
+            catch (global::Octokit.NotFoundException)
             {
                 return null;
             }

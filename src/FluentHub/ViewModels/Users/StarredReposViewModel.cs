@@ -59,7 +59,7 @@ namespace FluentHub.ViewModels.Users
                     {
                         Item = item,
                         DisplayDetails = true,
-                        DisplayStarButton = false
+                        DisplayStarButton = true,
                     };
 
                     _repositories.Add(viewModel);

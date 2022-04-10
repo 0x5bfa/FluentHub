@@ -1,4 +1,6 @@
-﻿using Octokit.GraphQL;
+﻿using Humanizer;
+using global::Octokit.GraphQL.Core;
+using Octokit.GraphQL;
 using Octokit.GraphQL.Model;
 using System;
 using System.Collections.Generic;
@@ -14,7 +16,10 @@ namespace FluentHub.Octokit.Queries.Organizations
 
         public async Task<List<Models.Repository>> GetAllAsync(string org)
         {
-            #region userquery
+            Arg<IEnumerable<IssueState>> issueState = new(new IssueState[] { IssueState.Open });
+            Arg<IEnumerable<PullRequestState>> pullRequestState = new(new PullRequestState[] { PullRequestState.Open });
+
+            #region query
             var usersQuery = new Query()
                     .Organization(org)
                     .PinnedItems(first: 6)
@@ -37,10 +42,13 @@ namespace FluentHub.Octokit.Queries.Organizations
 
                         x.StargazerCount,
                         x.ForkCount,
-                        OpenIssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
-                        OpenPullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
+                        OpenIssueCount = x.Issues(null, null, null, null, null, null, null, issueState).TotalCount,
+                        OpenPullCount = x.PullRequests(null, null, null, null, null, null, null, null, pullRequestState).TotalCount,
 
                         x.IsFork,
+                        x.ViewerHasStarred,
+
+                        x.UpdatedAt,
                     })
                     .Compile();
             #endregion
@@ -69,7 +77,11 @@ namespace FluentHub.Octokit.Queries.Organizations
                     OpenIssueCount = res.OpenIssueCount,
                     OpenPullCount = res.OpenPullCount,
 
-                    IsFork = res.IsFork
+                    IsFork = res.IsFork,
+                    ViewerHasStarred = res.ViewerHasStarred,
+
+                    UpdatedAt = res.UpdatedAt,
+                    UpdatedAtHumanized = res.UpdatedAt.Humanize(),
                 };
 
                 items.Add(item);

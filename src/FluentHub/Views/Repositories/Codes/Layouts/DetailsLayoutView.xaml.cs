@@ -87,7 +87,7 @@ namespace FluentHub.Views.Repositories.Codes.Layouts
                 Owner = ViewModel.ContextViewModel.Repository.Owner,
                 Repository = ViewModel.ContextViewModel.Repository,
                 RepositoryDetails = ViewModel.ContextViewModel.RepositoryDetails,
-                BranchName = ViewModel.ContextViewModel.RepositoryDetails.DefaultBranchName,
+                BranchName = ViewModel.ContextViewModel.BranchName,
             };
 
             var item = DirListView.SelectedItem as DetailsLayoutListViewItem;

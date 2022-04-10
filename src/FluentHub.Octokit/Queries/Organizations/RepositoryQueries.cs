@@ -1,4 +1,5 @@
-﻿using global::Octokit.GraphQL.Core;
+﻿using Humanizer;
+using global::Octokit.GraphQL.Core;
 using Octokit.GraphQL;
 using Octokit.GraphQL.Model;
 using System;
@@ -44,6 +45,9 @@ namespace FluentHub.Octokit.Queries.Organizations
                         OpenPullCount = x.PullRequests(null, null, null, null, null, null, null, null, pullRequestState).TotalCount,
 
                         x.IsFork,
+                        x.ViewerHasStarred,
+
+                        x.UpdatedAt,
                     })
                     .Compile();
             #endregion
@@ -73,6 +77,10 @@ namespace FluentHub.Octokit.Queries.Organizations
                     OpenPullCount = res.OpenPullCount,
 
                     IsFork = res.IsFork,
+                    ViewerHasStarred = res.ViewerHasStarred,
+
+                    UpdatedAt = res.UpdatedAt,
+                    UpdatedAtHumanized = res.UpdatedAt.Humanize(),
                 };
 
                 items.Add(item);

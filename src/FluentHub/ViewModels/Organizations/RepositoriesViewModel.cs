@@ -34,10 +34,12 @@ namespace FluentHub.ViewModels.Organizations
 
             foreach (var item in items)
             {
-                RepoButtonBlockViewModel viewModel = new();
-                viewModel.Item = item;
-                viewModel.DisplayDetails = true;
-                viewModel.DisplayStarButton = true;
+                RepoButtonBlockViewModel viewModel = new()
+                {
+                    Item = item,
+                    DisplayDetails = true,
+                    DisplayStarButton = true,
+                };
 
                 Items.Add(viewModel);
             }
