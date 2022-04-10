@@ -28,7 +28,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel
-            Margin="16,12,16,0"
+            Margin="16,12,16,2"
             Orientation="Horizontal"
             Spacing="8">
             <FontIcon
@@ -43,11 +43,10 @@
 
         <ScrollViewer
             Grid.Row="1"
-            Margin="12,0,12,6"
             HorizontalScrollBarVisibility="Hidden"
             VerticalScrollBarVisibility="Disabled"
             VerticalScrollMode="Disabled">
-            <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.RepositoryItems, Mode=OneWay}">
+            <muxc:ItemsRepeater Margin="12,2,12,6" ItemsSource="{x:Bind ViewModel.RepositoryItems, Mode=OneWay}">
                 <muxc:ItemsRepeater.Layout>
                     <muxc:StackLayout Orientation="Horizontal" Spacing="8" />
                 </muxc:ItemsRepeater.Layout>

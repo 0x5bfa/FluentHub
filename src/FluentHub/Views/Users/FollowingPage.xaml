@@ -18,7 +18,7 @@
         </Grid.RowDefinitions>
 
         <StackPanel
-            Margin="16,0"
+            Margin="16,12,16,2"
             VerticalAlignment="Center"
             Orientation="Horizontal"
             Spacing="8">
@@ -27,7 +27,7 @@
                 FontSize="16"
                 Glyph="&#xEA36;" />
             <TextBlock
-                FontSize="14"
+                VerticalAlignment="Center"
                 Style="{StaticResource BodyStrongTextBlockStyle}"
                 Text="Following" />
         </StackPanel>
