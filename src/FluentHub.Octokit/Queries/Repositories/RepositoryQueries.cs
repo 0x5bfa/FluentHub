@@ -1,4 +1,5 @@
-﻿using Humanizer;
+﻿using global::Octokit.GraphQL.Core;
+using Humanizer;
 using Octokit.GraphQL;
 using Octokit.GraphQL.Model;
 using System;
@@ -15,6 +16,9 @@ namespace FluentHub.Octokit.Queries.Repositories
 
         public async Task<Models.Repository> Get(string owner, string name)
         {
+            Arg<IEnumerable<IssueState>> issueState = new(new IssueState[] { IssueState.Open });
+            Arg<IEnumerable<PullRequestState>> pullRequestState = new(new PullRequestState[] { PullRequestState.Open });
+
             #region query
             var query = new Query()
                 .Repository(name, owner)
@@ -35,8 +39,8 @@ namespace FluentHub.Octokit.Queries.Repositories
 
                     x.StargazerCount,
                     x.ForkCount,
-                    OpenIssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
-                    OpenPullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
+                    OpenIssueCount = x.Issues(null, null, null, null, null, null, null, issueState).TotalCount,
+                    OpenPullCount = x.PullRequests(null, null, null, null, null, null, null, null, pullRequestState).TotalCount,
 
                     x.IsFork,
                 })

@@ -1,4 +1,5 @@
-﻿using FluentHub.ViewModels.UserControls.Labels;
+﻿using Humanizer;
+using FluentHub.ViewModels.UserControls.Labels;
 using FluentHub.Octokit.Models;
 using System;
 using System.Collections.Generic;
@@ -30,11 +31,31 @@ namespace FluentHub.ViewModels.UserControls.ButtonBlocks
         private LabelControlViewModel _commentCountLabel;
         public LabelControlViewModel CommentCountLabel { get => _commentCountLabel; set => SetProperty(ref _commentCountLabel, value); }
 
+        private LabelControlViewModel _reviewStateLabel;
+        public LabelControlViewModel ReviewStateLabel { get => _reviewStateLabel; set => SetProperty(ref _reviewStateLabel, value); }
+
+        private LabelControlViewModel _statusStateLabel;
+        public LabelControlViewModel StatusStateLabel { get => _statusStateLabel; set => SetProperty(ref _statusStateLabel, value); }
+
         public void SetContents()
         {
             CommentCountLabel = new()
             {
                 Name = _pullItem.CommentCount.ToString(),
+                BackgroundColorBrush = (SolidColorBrush)Application.Current.Resources["ApplicationSecondaryForegroundThemeBrush"],
+                OutlineEnable = true,
+            };
+
+            ReviewStateLabel = new()
+            {
+                Name = "Review",
+                BackgroundColorBrush = (SolidColorBrush)Application.Current.Resources["ApplicationSecondaryForegroundThemeBrush"],
+                OutlineEnable = true,
+            };
+
+            StatusStateLabel = new()
+            {
+                Name = "Checks",
                 BackgroundColorBrush = (SolidColorBrush)Application.Current.Resources["ApplicationSecondaryForegroundThemeBrush"],
                 OutlineEnable = true,
             };

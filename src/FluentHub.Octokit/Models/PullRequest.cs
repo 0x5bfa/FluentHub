@@ -13,6 +13,8 @@ namespace FluentHub.Octokit.Models
         public string OwnerLogin { get; set; }
         public string OwnerAvatarUrl { get; set; }
         public string Title { get; set; }
+        public string ReviewState { get; set; }
+        public string StatusState { get; set; }
 
         public int Number { get; set; }
         public int CommentCount { get; set; }
@@ -22,10 +24,6 @@ namespace FluentHub.Octokit.Models
         public bool IsDraft { get; set; }
 
         public List<Label> Labels { get; set; } = new();
-
-        public GraphQLModel.PullRequestReviewState ReviewState { get; set; }
-
-        public GraphQLModel.StatusState StatusState { get; set; }
 
         public DateTimeOffset UpdatedAt { get; set; }
         public string UpdatedAtHumanized { get; set; }

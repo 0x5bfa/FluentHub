@@ -1,5 +1,6 @@
-﻿using Octokit.GraphQL;
-using Serilog;
+﻿using global::Octokit.GraphQL.Core;
+using Octokit.GraphQL;
+using Octokit.GraphQL.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +15,9 @@ namespace FluentHub.Octokit.Queries.Users
 
         public async Task<List<Models.Repository>> GetAllAsync(string login)
         {
+            Arg<IEnumerable<IssueState>> issueState = new(new IssueState[] { IssueState.Open });
+            Arg<IEnumerable<PullRequestState>> pullRequestState = new(new PullRequestState[] { PullRequestState.Open });
+
             #region query
             var query = new Query()
                     .User(login)
@@ -36,8 +40,8 @@ namespace FluentHub.Octokit.Queries.Users
 
                         x.StargazerCount,
                         x.ForkCount,
-                        OpenIssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
-                        OpenPullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
+                        OpenIssueCount = x.Issues(null, null, null, null, null, null, null, issueState).TotalCount,
+                        OpenPullCount = x.PullRequests(null, null, null, null, null, null, null, null, pullRequestState).TotalCount,
 
                         x.IsFork,
                     })

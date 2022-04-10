@@ -50,9 +50,11 @@ namespace FluentHub.Octokit.Queries.Users
 
                     StatusState = x.Commits(null, null, 1, null).Nodes.Select(y => new
                     {
-                        State = y.Commit.StatusCheckRollup
-                          .Select(z => z.State)
-                          .SingleOrDefault(),
+                        State = y.Commit.StatusCheckRollup.Select(z => new
+                        {
+                            z.State,
+                        })
+                        .SingleOrDefault(),
                     })
                     .ToList(),
 
@@ -102,10 +104,10 @@ namespace FluentHub.Octokit.Queries.Users
                 }
 
                 if (res.ReviewState.Count() != 0)
-                    item.ReviewState = res.ReviewState[0].State;
+                    item.ReviewState = res.ReviewState[0].State.ToString();
 
-                if (res.StatusState.Count() != 0)
-                    item.StatusState = res.StatusState[0].State;
+                if (res.StatusState.Count() != 0 && res.StatusState[0].State != null)
+                    item.StatusState = res.StatusState[0].State.State.ToString();
 
                 items.Add(item);
             }

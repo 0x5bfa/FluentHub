@@ -2,7 +2,9 @@
     x:Class="FluentHub.UserControls.ButtonBlocks.PullButtonBlock"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:FluentHub.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:graphqlmodel="using:Octokit.GraphQL.Model"
     xmlns:labels="using:FluentHub.UserControls.Labels"
     xmlns:labelsvm="using:FluentHub.ViewModels.UserControls.Labels"
     xmlns:local="using:FluentHub.UserControls.ButtonBlocks"
@@ -34,6 +36,9 @@
             <Setter Property="MinHeight" Value="{StaticResource ExpanderMinHeight}" />
             <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
         </Style>
+        <ResourceDictionary>
+            <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+        </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid>
@@ -151,10 +156,9 @@
                     <StackPanel
                         Grid.Row="2"
                         Margin="0,4,0,0"
-                        Orientation="Horizontal"
-                        Spacing="8">
+                        Orientation="Horizontal">
 
-                        <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.LabelViewModels, Mode=OneWay}">
+                        <muxc:ItemsRepeater Margin="8,0,0,0" ItemsSource="{x:Bind ViewModel.LabelViewModels, Mode=OneWay}">
                             <muxc:ItemsRepeater.Layout>
                                 <muxc:StackLayout Orientation="Horizontal" Spacing="8" />
                             </muxc:ItemsRepeater.Layout>
@@ -165,7 +169,10 @@
 
                         </muxc:ItemsRepeater>
 
-                        <labels:LabelControl VerticalAlignment="Center" ViewModel="{x:Bind ViewModel.CommentCountLabel, Mode=OneWay}">
+                        <labels:LabelControl
+                            Margin="8,0,0,0"
+                            VerticalAlignment="Center"
+                            ViewModel="{x:Bind ViewModel.CommentCountLabel, Mode=OneWay}">
                             <labels:LabelControl.Icon>
                                 <FontIcon
                                     FontFamily="{StaticResource Octions}"
@@ -174,8 +181,145 @@
                             </labels:LabelControl.Icon>
                         </labels:LabelControl>
 
-                    </StackPanel>
+                        <toolkit:SwitchPresenter
+                            x:Name="ReviewStateSwitcher"
+                            Margin="8,0,0,0"
+                            x:Load="{x:Bind ViewModel.PullItem.ReviewState, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                            TargetType="x:String"
+                            Value="{x:Bind ViewModel.PullItem.ReviewState, Mode=OneWay}">
 
+                            <toolkit:Case Value="Pending">
+                                <labels:LabelControl VerticalAlignment="Center" ViewModel="{x:Bind ViewModel.ReviewStateLabel, Mode=OneWay}">
+                                    <labels:LabelControl.Icon>
+                                        <FontIcon
+                                            FontFamily="{StaticResource Octions}"
+                                            FontSize="12"
+                                            Foreground="#db6d28"
+                                            Glyph="&#xE983;" />
+                                    </labels:LabelControl.Icon>
+                                </labels:LabelControl>
+                            </toolkit:Case>
+
+                            <toolkit:Case Value="Commented">
+                                <labels:LabelControl VerticalAlignment="Center" ViewModel="{x:Bind ViewModel.ReviewStateLabel, Mode=OneWay}">
+                                    <labels:LabelControl.Icon>
+                                        <FontIcon
+                                            FontFamily="{StaticResource Octions}"
+                                            FontSize="12"
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Glyph="&#xE933;" />
+                                    </labels:LabelControl.Icon>
+                                </labels:LabelControl>
+                            </toolkit:Case>
+
+                            <toolkit:Case Value="Approved">
+                                <labels:LabelControl VerticalAlignment="Center" ViewModel="{x:Bind ViewModel.ReviewStateLabel, Mode=OneWay}">
+                                    <labels:LabelControl.Icon>
+                                        <FontIcon
+                                            FontFamily="{StaticResource Octions}"
+                                            FontSize="12"
+                                            Foreground="#3fb950"
+                                            Glyph="&#xE933;" />
+                                    </labels:LabelControl.Icon>
+                                </labels:LabelControl>
+                            </toolkit:Case>
+
+                            <toolkit:Case Value="ChangesRequested">
+                                <labels:LabelControl VerticalAlignment="Center" ViewModel="{x:Bind ViewModel.ReviewStateLabel, Mode=OneWay}">
+                                    <labels:LabelControl.Icon>
+                                        <FontIcon
+                                            FontFamily="{StaticResource Octions}"
+                                            FontSize="12"
+                                            Foreground="#f85149"
+                                            Glyph="&#xEAD3;" />
+                                    </labels:LabelControl.Icon>
+                                </labels:LabelControl>
+                            </toolkit:Case>
+
+                            <toolkit:Case Value="Dismissed">
+                                <labels:LabelControl VerticalAlignment="Center" ViewModel="{x:Bind ViewModel.ReviewStateLabel, Mode=OneWay}">
+                                    <labels:LabelControl.Icon>
+                                        <FontIcon
+                                            FontFamily="{StaticResource Octions}"
+                                            FontSize="12"
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Glyph="&#xE983;" />
+                                    </labels:LabelControl.Icon>
+                                </labels:LabelControl>
+                            </toolkit:Case>
+
+                        </toolkit:SwitchPresenter>
+
+                        <toolkit:SwitchPresenter
+                            x:Name="StatusStateSwitcher"
+                            Margin="8,0,0,0"
+                            x:Load="{x:Bind ViewModel.PullItem.StatusState, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                            TargetType="x:String"
+                            Value="{x:Bind ViewModel.PullItem.StatusState, Mode=OneWay}">
+
+                            <toolkit:Case Value="Expected">
+                                <labels:LabelControl VerticalAlignment="Center" ViewModel="{x:Bind ViewModel.StatusStateLabel, Mode=OneWay}">
+                                    <labels:LabelControl.Icon>
+                                        <FontIcon
+                                            FontFamily="{StaticResource Octions}"
+                                            FontSize="14"
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Glyph="&#xE983;" />
+                                    </labels:LabelControl.Icon>
+                                </labels:LabelControl>
+                            </toolkit:Case>
+
+                            <toolkit:Case Value="Error">
+                                <labels:LabelControl VerticalAlignment="Center" ViewModel="{x:Bind ViewModel.StatusStateLabel, Mode=OneWay}">
+                                    <labels:LabelControl.Icon>
+                                        <FontIcon
+                                            FontFamily="{StaticResource Octions}"
+                                            FontSize="14"
+                                            Foreground="#f85149"
+                                            Glyph="&#xEAD3;" />
+                                    </labels:LabelControl.Icon>
+                                </labels:LabelControl>
+                            </toolkit:Case>
+
+                            <toolkit:Case Value="Failure">
+                                <labels:LabelControl VerticalAlignment="Center" ViewModel="{x:Bind ViewModel.StatusStateLabel, Mode=OneWay}">
+                                    <labels:LabelControl.Icon>
+                                        <FontIcon
+                                            FontFamily="{StaticResource Octions}"
+                                            FontSize="14"
+                                            Foreground="#f85149"
+                                            Glyph="&#xEAD3;" />
+                                    </labels:LabelControl.Icon>
+                                </labels:LabelControl>
+                            </toolkit:Case>
+
+                            <toolkit:Case Value="Pending">
+                                <labels:LabelControl VerticalAlignment="Center" ViewModel="{x:Bind ViewModel.StatusStateLabel, Mode=OneWay}">
+                                    <labels:LabelControl.Icon>
+                                        <FontIcon
+                                            FontFamily="{StaticResource Octions}"
+                                            FontSize="14"
+                                            Foreground="#db6d28"
+                                            Glyph="&#xE983;" />
+                                    </labels:LabelControl.Icon>
+                                </labels:LabelControl>
+                            </toolkit:Case>
+
+                            <toolkit:Case Value="Success">
+                                <labels:LabelControl VerticalAlignment="Center" ViewModel="{x:Bind ViewModel.StatusStateLabel, Mode=OneWay}">
+                                    <labels:LabelControl.Icon>
+                                        <FontIcon
+                                            FontFamily="{StaticResource Octions}"
+                                            FontSize="12"
+                                            Foreground="#3fb950"
+                                            Glyph="&#xE933;" />
+                                    </labels:LabelControl.Icon>
+                                </labels:LabelControl>
+                            </toolkit:Case>
+
+                        </toolkit:SwitchPresenter>
+
+                    </StackPanel>
                 </Grid>
             </Grid>
         </Button>
