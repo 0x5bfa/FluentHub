@@ -59,7 +59,7 @@
                                 <FontIcon
                                     Margin="0,0,8,0"
                                     FontFamily="{StaticResource Octions}"
-                                    Foreground="#7548c7"
+                                    Foreground="#8957e5"
                                     Glyph="&#xE9BD;" />
                             </toolkit:Case>
 
@@ -67,7 +67,7 @@
                                 <FontIcon
                                     Margin="0,0,8,0"
                                     FontFamily="{StaticResource Octions}"
-                                    Foreground="#DC2626"
+                                    Foreground="#f85149"
                                     Glyph="&#xE9C1;" />
                             </toolkit:Case>
 
@@ -81,7 +81,7 @@
                                 <FontIcon
                                     Margin="0,0,8,0"
                                     FontFamily="{StaticResource Octions}"
-                                    Foreground="#52525B"
+                                    Foreground="#8b949e"
                                     Glyph="&#xE9C3;" />
                             </toolkit:Case>
 
@@ -89,7 +89,7 @@
                                 <FontIcon
                                     Margin="0,0,8,0"
                                     FontFamily="{StaticResource Octions}"
-                                    Foreground="#57AB5A"
+                                    Foreground="#3fb950"
                                     Glyph="&#xE9BF;" />
                             </toolkit:Case>
 

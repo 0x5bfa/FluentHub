@@ -42,6 +42,20 @@ namespace FluentHub.Octokit.Queries.Users
                     })
                     .ToList(),
 
+                    ReviewState = x.Reviews(null, null, 1, null, null, null).Nodes.Select(y => new
+                    {
+                        y.State,
+                    })
+                    .ToList(),
+
+                    StatusState = x.Commits(null, null, 1, null).Nodes.Select(y => new
+                    {
+                        State = y.Commit.StatusCheckRollup
+                          .Select(z => z.State)
+                          .SingleOrDefault(),
+                    })
+                    .ToList(),
+
                     x.UpdatedAt,
                 })
                 .Compile();
@@ -86,6 +100,12 @@ namespace FluentHub.Octokit.Queries.Users
                         item.Labels.Add(labels);
                     }
                 }
+
+                if (res.ReviewState.Count() != 0)
+                    item.ReviewState = res.ReviewState[0].State;
+
+                if (res.StatusState.Count() != 0)
+                    item.StatusState = res.StatusState[0].State;
 
                 items.Add(item);
             }
