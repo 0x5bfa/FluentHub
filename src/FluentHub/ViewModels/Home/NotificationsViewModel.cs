@@ -16,9 +16,13 @@ namespace FluentHub.ViewModels.Home
     public class NotificationsViewModel : ObservableObject
     {
         #region constructor
-        public NotificationsViewModel(IGitHubClient client!!, IMessenger messenger = null, ILogger logger = null)
+        public NotificationsViewModel(IGitHubClient client!!,
+                                      ToastService toastService,
+                                      IMessenger messenger = null,
+                                      ILogger logger = null)
         {
             _client = client;
+            _toastService = toastService;
             _messenger = messenger;
             _logger = logger;
             _notifications = new();
@@ -31,6 +35,7 @@ namespace FluentHub.ViewModels.Home
 
         #region fields
         private readonly IGitHubClient _client;
+        private readonly ToastService _toastService;
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
         private readonly ObservableCollection<NotificationButtonBlockViewModel> _notifications;
@@ -93,6 +98,10 @@ namespace FluentHub.ViewModels.Home
                     _messenger.Send(notification);
                 }
                 throw;
+            }
+            finally
+            {
+                _toastService.UpdateBadgeGlyph(BadgeGlyphType.Number, UnreadCount);
             }
         }
         #endregion
