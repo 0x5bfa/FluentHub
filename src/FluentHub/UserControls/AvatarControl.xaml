@@ -5,24 +5,49 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:FluentHub.UserControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
-    Loaded="OnAvatarControlLoaded"
     mc:Ignorable="d">
 
-    <Border
-        x:Name="AvatarImageBorder"
-        Width="84"
-        Height="84"
-        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-        CornerRadius="42">
-        <Image x:Name="UserAvatorImage">
-            <Image.Source>
-                <BitmapImage
-                    x:Name="BitMapImage"
-                    DecodePixelHeight="128"
-                    DecodePixelWidth="128" />
-            </Image.Source>
-        </Image>
-    </Border>
+    <Grid>
+        <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind IsOrganization, Mode=OneWay}">
+
+            <toolkit:Case Value="False">
+                <Border
+                    Width="{x:Bind WidthAndHeight, Mode=OneWay}"
+                    Height="{x:Bind WidthAndHeight, Mode=OneWay}"
+                    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                    CornerRadius="300">
+                    <Image>
+                        <Image.Source>
+                            <BitmapImage
+                                DecodePixelHeight="128"
+                                DecodePixelWidth="128"
+                                UriSource="{x:Bind AvatarUrl, Mode=OneWay}" />
+                        </Image.Source>
+                    </Image>
+                </Border>
+            </toolkit:Case>
+
+            <toolkit:Case Value="True">
+                <Border
+                    Width="{x:Bind WidthAndHeight, Mode=OneWay}"
+                    Height="{x:Bind WidthAndHeight, Mode=OneWay}"
+                    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                    CornerRadius="6">
+                    <Image>
+                        <Image.Source>
+                            <BitmapImage
+                                DecodePixelHeight="128"
+                                DecodePixelWidth="128"
+                                UriSource="{x:Bind AvatarUrl, Mode=OneWay}" />
+                        </Image.Source>
+                    </Image>
+                </Border>
+            </toolkit:Case>
+
+        </toolkit:SwitchPresenter>
+
+    </Grid>
 </UserControl>

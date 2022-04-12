@@ -23,14 +23,14 @@ namespace FluentHub.UserControls
                 nameof(WidthAndHeight),
                 typeof(int),
                 typeof(AvatarControl),
-                new PropertyMetadata(0));
+                new PropertyMetadata(0F));
 
         public int WidthAndHeight
         {
             get => (int)GetValue(WidthAndHeightProperty);
             set => SetValue(WidthAndHeightProperty, value);
         }
-
+        //--
         public static readonly DependencyProperty AvatarUrlProperty =
             DependencyProperty.Register(
                 nameof(AvatarUrl),
@@ -41,13 +41,9 @@ namespace FluentHub.UserControls
         public string AvatarUrl
         {
             get => (string)GetValue(AvatarUrlProperty);
-            set
-            {
-                SetValue(AvatarUrlProperty, value);
-                BitMapImage.UriSource = new Uri(AvatarUrl);
-            }
+            set => SetValue(AvatarUrlProperty, value);
         }
-
+        //--
         public static readonly DependencyProperty IsOrganizationProperty =
             DependencyProperty.Register(
                 nameof(IsOrganization),
@@ -62,29 +58,6 @@ namespace FluentHub.UserControls
         }
         #endregion
 
-        public AvatarControl()
-        {
-            this.InitializeComponent();
-        }
-
-        private void OnAvatarControlLoaded(object sender, RoutedEventArgs e)
-        {
-            if (WidthAndHeight == 0)
-            {
-                return;
-            }
-
-            AvatarImageBorder.Height = WidthAndHeight;
-            AvatarImageBorder.Width = WidthAndHeight;
-
-            if (IsOrganization)
-            {
-                AvatarImageBorder.CornerRadius = new CornerRadius(6);
-            }
-            else
-            {
-                AvatarImageBorder.CornerRadius = new CornerRadius(WidthAndHeight / 2);
-            }
-        }
+        public AvatarControl() => this.InitializeComponent();
     }
 }
