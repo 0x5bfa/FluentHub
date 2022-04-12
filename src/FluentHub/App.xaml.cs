@@ -96,6 +96,7 @@ namespace FluentHub
                 .AddTransient<ViewModels.Repositories.Codes.Layouts.DetailsLayoutViewModel>()
                 .AddTransient<ViewModels.Repositories.Codes.ReleasesViewModel>()
                 .AddTransient<ViewModels.Repositories.Commits.CommitsViewModel>()
+                .AddTransient<ViewModels.Repositories.Commits.CommitViewModel>()
                 .AddTransient<ViewModels.Repositories.Issues.IssueViewModel>()
                 .AddTransient<ViewModels.Repositories.Issues.IssuesViewModel>()
                 .AddTransient<ViewModels.Repositories.PullRequests.PullRequestViewModel>()

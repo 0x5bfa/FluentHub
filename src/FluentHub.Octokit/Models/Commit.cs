@@ -19,6 +19,7 @@ namespace FluentHub.Octokit.Models
 
         public int TotalCount { get; set; }
 
-        public DateTimeOffset CommittedDate { get; set; }
+        public DateTimeOffset CommittedAt { get; set; }
+        public string CommittedAtHumanized { get; set; }
     }
 }

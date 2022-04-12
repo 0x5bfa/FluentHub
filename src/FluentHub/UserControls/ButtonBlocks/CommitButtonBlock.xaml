@@ -43,6 +43,7 @@
             x:Name="RepoBlockButton"
             Margin="0,3,0,0"
             Padding="18,12"
+            Click="CommitItemButton_Click"
             Style="{StaticResource ContentBlockButtonStyle}">
 
             <Grid>
@@ -80,7 +81,7 @@
                     HorizontalAlignment="Right"
                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                     Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="{x:Bind ViewModel.CommitItem.CommittedDate, Mode=OneWay}" />
+                    Text="{x:Bind ViewModel.CommitItem.CommittedAtHumanized, Mode=OneWay}" />
             </Grid>
         </Button>
     </Grid>

@@ -252,6 +252,7 @@
     <Compile Include="ViewModels\Repositories\Codes\CodePageViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Codes\ReleasesViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Commits\CommitsViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\Commits\CommitViewModel.cs" />
     <Compile Include="ViewModels\Repositories\RepoContextViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Issues\IssuesViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Issues\IssueViewModel.cs" />
@@ -309,6 +310,9 @@
     </Compile>
     <Compile Include="Views\Repositories\Codes\ReleasesPage.xaml.cs">
       <DependentUpon>ReleasesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\Commits\CommitPage.xaml.cs">
+      <DependentUpon>CommitPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Repositories\Commits\CommitsPage.xaml.cs">
       <DependentUpon>CommitsPage.xaml</DependentUpon>
@@ -756,6 +760,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Repositories\Codes\ReleasesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\Commits\CommitPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
