@@ -1,6 +1,5 @@
 ﻿using FluentHub.Helpers;
 using FluentHub.Octokit.Authorization;
-using FluentHub.Octokit.Queries.Users;
 using FluentHub.Services;
 using FluentHub.Services.Navigation;
 using FluentHub.ViewModels;
@@ -84,7 +83,8 @@ namespace FluentHub
             return new ServiceCollection()
                 .AddSingleton<IGitHubClient>(App.Client)
                 .AddSingleton<INavigationService, NavigationService>()
-                .AddSingleton<FluentHub.Backend.ILogger>(new Utils.SerilogWrapperLogger(Log.Logger))
+                .AddSingleton<Backend.ILogger>(new Utils.SerilogWrapperLogger(Log.Logger))
+                .AddSingleton<Backend.ToastService>()
                 .AddSingleton<IMessenger>(StrongReferenceMessenger.Default)
                 // ViewModels
                 .AddSingleton<MainPageViewModel>()
