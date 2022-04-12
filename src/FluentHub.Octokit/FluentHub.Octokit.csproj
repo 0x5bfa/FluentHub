@@ -144,6 +144,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserStatus.cs" />
     <Compile Include="Queries\Organizations\PinnedItemQueries.cs" />
+    <Compile Include="Queries\Repositories\DiffQueries.cs" />
     <Compile Include="Queries\Repositories\MarkdownQueries.cs" />
     <Compile Include="Queries\Organizations\RepositoryQueries.cs" />
     <Compile Include="Queries\Organizations\OrganizationQueries.cs" />

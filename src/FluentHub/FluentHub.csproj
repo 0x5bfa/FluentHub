@@ -166,6 +166,9 @@
     <Compile Include="UserControls\Blocks\UserContributionGraph.xaml.cs">
       <DependentUpon>UserContributionGraph.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ButtonBlocks\CommitButtonBlock.xaml.cs">
+      <DependentUpon>CommitButtonBlock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\TabViewControl\TabItem.cs" />
     <Compile Include="UserControls\Blocks\ActivityBlock.xaml.cs">
       <DependentUpon>ActivityBlock.xaml</DependentUpon>
@@ -248,6 +251,7 @@
     <Compile Include="ViewModels\Organizations\RepositoriesViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Codes\CodePageViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Codes\ReleasesViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\Commits\CommitsViewModel.cs" />
     <Compile Include="ViewModels\Repositories\RepoContextViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Issues\IssuesViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Issues\IssueViewModel.cs" />
@@ -264,6 +268,7 @@
     <Compile Include="ViewModels\UserControls\Blocks\FileNavigationBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\ReadmeContentBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\UserContributionGraphViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\ButtonBlocks\CommitButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\DiscussionButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\IssueButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\NotificationButtonBlockViewModel.cs" />
@@ -304,6 +309,9 @@
     </Compile>
     <Compile Include="Views\Repositories\Codes\ReleasesPage.xaml.cs">
       <DependentUpon>ReleasesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\Commits\CommitsPage.xaml.cs">
+      <DependentUpon>CommitsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Repositories\PullRequests\PullRequestPage.xaml.cs">
       <DependentUpon>PullRequestPage.xaml</DependentUpon>
@@ -639,6 +647,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\ButtonBlocks\CommitButtonBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\ButtonBlocks\DiscussionButtonBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -744,6 +756,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Repositories\Codes\ReleasesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\Commits\CommitsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

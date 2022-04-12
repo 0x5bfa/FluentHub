@@ -1,6 +1,8 @@
 ﻿using FluentHub.Services;
 using FluentHub.ViewModels.UserControls.Blocks;
 using FluentHub.ViewModels.Repositories;
+using FluentHub.Views.Repositories.Commits;
+using FluentHub.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
@@ -36,9 +38,11 @@ namespace FluentHub.UserControls.Blocks
 
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<LatestCommitBlockViewModel>();
+            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
         }
 
         public LatestCommitBlockViewModel ViewModel { get; }
+        private readonly INavigationService navigationService;
 
         private void OnLatestCommitBlockLoaded(object sender, RoutedEventArgs e)
         {
@@ -53,6 +57,11 @@ namespace FluentHub.UserControls.Blocks
         {
             SubCommitMessagesGrid.Visibility =
                 SubCommitMessagesGrid.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MainPageViewModel.RepositoryContentFrame.Navigate(typeof(CommitsPage), ViewModel.ContextViewModel);
         }
     }
 }

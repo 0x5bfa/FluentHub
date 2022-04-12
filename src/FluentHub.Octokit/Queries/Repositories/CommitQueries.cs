@@ -13,6 +13,60 @@ namespace FluentHub.Octokit.Queries.Repositories
     {
         public CommitQueries() => new App();
 
+        public async Task<List<Models.Commit>> GetAllAsync(string name, string owner, string refs, string path)
+        {
+            path = path.Remove(0, 1);
+
+            if (string.IsNullOrEmpty(path)) path = ".";
+
+            #region query
+            var query = new Query()
+                    .Repository(name, owner)
+                    .Ref(refs)
+                    .Target
+                    .Cast<Commit>()
+                    .History(first: 30, path: path)
+                    .Select(x => new
+                    {
+                        A = x.Nodes.Select(y => new
+                        {
+                            y.AbbreviatedOid,
+                            AuthorAvatarUrl = y.Author.AvatarUrl(100),
+                            y.Author.User.Login,
+                            y.CommittedDate,
+                            y.Message,
+                            y.MessageHeadline,
+                        })
+                        .ToList(),
+                    })
+                    .Compile();
+            #endregion
+
+            var result = await App.Connection.Run(query);
+
+            #region copying
+            List<Models.Commit> items = new();
+
+            foreach (var res in result.A)
+            {
+                Models.Commit item = new()
+                {
+                    AbbreviatedOid = res.AbbreviatedOid,
+                    AuthorAvatarUrl = res.AuthorAvatarUrl,
+                    AuthorName = res.Login,
+                    CommitMessage = res.Message,
+                    CommitMessageHeadline = res.MessageHeadline,
+                    CommittedDate = res.CommittedDate,
+                };
+
+                items.Add(item);
+            }
+
+            #endregion
+
+            return items;
+        }
+
         public async Task<Models.Commit> GetOverview(string name, string owner, string branchName, string path)
         {
             path = path.Remove(0, 1);
