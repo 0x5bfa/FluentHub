@@ -183,7 +183,6 @@ namespace FluentHub.Octokit.Queries.Repositories
                     CommittedAtHumanized = res2.CommittedDate.Humanize(),
                 };
 
-
                 items.Add(item);
             }
             #endregion
