@@ -101,7 +101,7 @@ namespace FluentHub.ViewModels.Home
             }
             finally
             {
-                _toastService.UpdateBadgeGlyph(BadgeGlyphType.Number, UnreadCount);
+                _toastService?.UpdateBadgeGlyph(BadgeGlyphType.Number, UnreadCount);
             }
         }
         #endregion
