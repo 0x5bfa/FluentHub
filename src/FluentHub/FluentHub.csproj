@@ -163,6 +163,9 @@
     <Compile Include="UserControls\Blocks\CommitActivityBlock.xaml.cs">
       <DependentUpon>CommitActivityBlock.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Blocks\DiffBlock.xaml.cs">
+      <DependentUpon>DiffBlock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Blocks\UserContributionGraph.xaml.cs">
       <DependentUpon>UserContributionGraph.xaml</DependentUpon>
     </Compile>
@@ -265,6 +268,7 @@
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\ActivityBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\CommitActivityBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Blocks\DiffBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\FileContentBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\FileNavigationBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\ReadmeContentBlockViewModel.cs" />
@@ -640,6 +644,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Blocks\CommitActivityBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Blocks\DiffBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

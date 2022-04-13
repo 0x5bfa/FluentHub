@@ -3,7 +3,7 @@ using FluentHub.Backend;
 using FluentHub.Models;
 using FluentHub.Octokit.Models;
 using FluentHub.Octokit.Queries.Repositories;
-using FluentHub.ViewModels.UserControls.ButtonBlocks;
+using FluentHub.ViewModels.UserControls.Blocks;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
@@ -24,7 +24,9 @@ namespace FluentHub.ViewModels.Repositories.Commits
             _messenger = messenger;
             _logger = logger;
             _messenger = messenger;
+            _diffViewModels = new();
 
+            DiffViewModels = new(_diffViewModels);
             LoadCommitPageCommand = new AsyncRelayCommand(LoadCommitPageAsync);
         }
         #endregion
@@ -34,11 +36,13 @@ namespace FluentHub.ViewModels.Repositories.Commits
         private readonly IMessenger _messenger;
         private Commit _commitItem;
         private CommitDetails _commitDetails;
+        private ObservableCollection<DiffBlockViewModel> _diffViewModels;
         #endregion
 
         #region properties
         public Commit CommitItem { get => _commitItem; set => SetProperty(ref _commitItem, value); }
         public CommitDetails CommitDetails { get => _commitDetails; set => SetProperty(ref _commitDetails, value); }
+        public ReadOnlyObservableCollection<DiffBlockViewModel> DiffViewModels { get; }
         public IAsyncRelayCommand LoadCommitPageCommand { get; }
         #endregion
 
@@ -49,6 +53,18 @@ namespace FluentHub.ViewModels.Repositories.Commits
             {
                 DiffQueries queries = new();
                 CommitDetails = await queries.GetAllAsync(CommitItem.Owner, CommitItem.Name, CommitItem.Refs);
+
+                if (CommitDetails.ChangedFiles.Count() == 0) return;
+
+                foreach (var item in CommitDetails.ChangedFiles)
+                {
+                    DiffBlockViewModel viewModel = new()
+                    {
+                        ChangedFile = item,
+                    };
+
+                    _diffViewModels.Add(viewModel);
+                }
             }
             catch (OperationCanceledException) { }
             catch (Exception ex)
