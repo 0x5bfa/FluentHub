@@ -86,7 +86,7 @@
                 <Button
                     Grid.Column="6"
                     Margin="8,0,0,0"
-                    IsEnabled="False"
+                    Click="Button_Click"
                     Style="{StaticResource LinkLikeButtonStyle}">
 
                     <StackPanel Orientation="Horizontal" Spacing="4">

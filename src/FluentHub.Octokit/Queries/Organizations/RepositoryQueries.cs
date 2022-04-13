@@ -1,4 +1,6 @@
-﻿using Octokit.GraphQL;
+﻿using Humanizer;
+using global::Octokit.GraphQL.Core;
+using Octokit.GraphQL;
 using Octokit.GraphQL.Model;
 using System;
 using System.Collections.Generic;
@@ -14,6 +16,9 @@ namespace FluentHub.Octokit.Queries.Organizations
 
         public async Task<List<Models.Repository>> GetAllAsync(string org)
         {
+            Arg<IEnumerable<IssueState>> issueState = new(new IssueState[] { IssueState.Open });
+            Arg<IEnumerable<PullRequestState>> pullRequestState = new(new PullRequestState[] { PullRequestState.Open });
+
             #region query
             var query = new Query()
                     .Organization(org)
@@ -24,7 +29,6 @@ namespace FluentHub.Octokit.Queries.Organizations
                         x.Name,
                         OwnerAvatarUrl = x.Owner.AvatarUrl(100),
                         OwnerLoginName = x.Owner.Login,
-                        OwnerId = x.Owner.Id,
                         x.Description,
                         LicenseName = x.LicenseInfo.Select(y => y.Name).SingleOrDefault(),
 
@@ -36,10 +40,14 @@ namespace FluentHub.Octokit.Queries.Organizations
 
                         x.StargazerCount,
                         x.ForkCount,
-                        OpenIssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
-                        OpenPullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
+                        OpenIssueCount = x.Issues(null, null, null, null, null, null, null, issueState).TotalCount,
+                        OpenPullCount = x.PullRequests(null, null, null, null, null, null, null, null, pullRequestState).TotalCount,
 
                         x.IsFork,
+                        x.IsInOrganization,
+                        x.ViewerHasStarred,
+
+                        x.UpdatedAt,
                     })
                     .Compile();
             #endregion
@@ -56,7 +64,7 @@ namespace FluentHub.Octokit.Queries.Organizations
                     Name = res.Name,
                     Owner = res.OwnerLoginName,
                     OwnerAvatarUrl = res.OwnerAvatarUrl,
-                    OwnerIsOrganization = Helpers.UserTypeDetectionHelper.IsOrganization(res.OwnerId),
+                    OwnerIsOrganization = res.IsInOrganization,
                     Description = res.Description,
 
                     PrimaryLangName = res.PrimaryLanguage?.Name,
@@ -69,6 +77,10 @@ namespace FluentHub.Octokit.Queries.Organizations
                     OpenPullCount = res.OpenPullCount,
 
                     IsFork = res.IsFork,
+                    ViewerHasStarred = res.ViewerHasStarred,
+
+                    UpdatedAt = res.UpdatedAt,
+                    UpdatedAtHumanized = res.UpdatedAt.Humanize(),
                 };
 
                 items.Add(item);

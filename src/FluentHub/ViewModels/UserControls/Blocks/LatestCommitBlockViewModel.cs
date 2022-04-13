@@ -59,9 +59,9 @@ namespace FluentHub.ViewModels.UserControls.Blocks
             try
             {
                 CommitQueries queries = new();
-                CommitOverviewItem = await queries.GetOverview(ContextViewModel.Name, ContextViewModel.Owner, ContextViewModel.BranchName, ContextViewModel.Path);
+                CommitOverviewItem = await queries.GetAsync(ContextViewModel.Name, ContextViewModel.Owner, ContextViewModel.BranchName, ContextViewModel.Path);
 
-                CommitUpdatedAtHumanized = CommitOverviewItem.CommittedDate.Humanize();
+                CommitUpdatedAtHumanized = CommitOverviewItem.CommittedAtHumanized;
 
                 var commitMessageLines = CommitOverviewItem.CommitMessage.Split("\n");
                 CommitMessageHeadline = commitMessageLines[0];

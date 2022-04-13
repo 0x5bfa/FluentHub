@@ -12,12 +12,12 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="35" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <StackPanel
-            Margin="16,0"
+            Margin="16,12,16,2"
             VerticalAlignment="Center"
             Orientation="Horizontal"
             Spacing="8">
@@ -27,7 +27,6 @@
                 Glyph="&#xEA94;" />
             <TextBlock
                 VerticalAlignment="Center"
-                FontSize="14"
                 Style="{StaticResource BodyStrongTextBlockStyle}"
                 Text="Starred repositories" />
         </StackPanel>

@@ -53,7 +53,7 @@ namespace FluentHub.ViewModels.Repositories.Codes.Layouts
                 if (contextViewModel.IsFile) return;
 
                 CommitQueries queries = new();
-                var fileOverviews = await queries.GetOverviewAllFilesAndLatestCommit(
+                var fileOverviews = await queries.GetWithObjectNameAsync(
                     ContextViewModel.Name,
                     ContextViewModel.Owner,
                     ContextViewModel.BranchName,
@@ -83,7 +83,7 @@ namespace FluentHub.ViewModels.Repositories.Codes.Layouts
 
                     listItem.ObjectName = overview.FileName;
                     listItem.ObjectLatestCommitMessage = overview.CommitMessage.Split("\n")[0];
-                    listItem.ObjectUpdatedAtHumanized = overview.CommittedDate.Humanize();
+                    listItem.ObjectUpdatedAtHumanized = overview.CommittedAtHumanized;
 
                     _items.Add(listItem);
                 }

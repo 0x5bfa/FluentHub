@@ -3,8 +3,7 @@ using FluentHub.Services;
 using FluentHub.Services.Navigation;
 using FluentHub.ViewModels;
 using FluentHub.ViewModels.Repositories;
-using FluentHub.ViewModels.Repositories.Codes;
-using FluentHub.ViewModels.Repositories.Codes.Layouts;
+using FluentHub.ViewModels.Repositories.Commits;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using Windows.UI.Xaml;
@@ -14,20 +13,20 @@ using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Media.Imaging;
 using muxc = Microsoft.UI.Xaml.Controls;
 
-namespace FluentHub.Views.Repositories.Codes
+namespace FluentHub.Views.Repositories.Commits
 {
-    public sealed partial class ReleasesPage : Page
+    public sealed partial class CommitsPage : Page
     {
-        public ReleasesPage()
+        public CommitsPage()
         {
             this.InitializeComponent();
 
             var provider = App.Current.Services;
-            ViewModel = provider.GetRequiredService<ReleasesViewModel>();
+            ViewModel = provider.GetRequiredService<CommitsViewModel>();
             navigationService = App.Current.Services.GetRequiredService<INavigationService>();
         }
 
-        public ReleasesViewModel ViewModel { get; }
+        public CommitsViewModel ViewModel { get; }
         private readonly INavigationService navigationService;
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -46,7 +45,7 @@ namespace FluentHub.Views.Repositories.Codes
             };
             #endregion
 
-            var command = ViewModel.LoadReleasesPageCommand;
+            var command = ViewModel.LoadCommitsPageCommand;
             if (command.CanExecute(null))
                 command.Execute(null);
         }

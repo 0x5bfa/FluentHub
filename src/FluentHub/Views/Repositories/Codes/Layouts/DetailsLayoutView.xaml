@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
     xmlns:contents="using:FluentHub.UserControls.Blocks"
+    xmlns:converters="using:FluentHub.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:items="using:FluentHub.Models.Items"
     xmlns:local="using:FluentHub.Views.Repositories.Codes.Layouts"
@@ -11,6 +12,10 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
+
+    <Page.Resources>
+        <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+    </Page.Resources>
 
     <Grid>
         <ScrollViewer>
@@ -201,8 +206,10 @@
                         </StackPanel>
 
                         <Button
+                            x:Name="LatestReleaseButton"
                             HorizontalAlignment="Stretch"
                             HorizontalContentAlignment="Left"
+                            x:Load="{x:Bind ViewModel.ContextViewModel.RepositoryDetails.ReleaseCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
                             Click="OnLatestReleaseClick">
                             <StackPanel Spacing="4">
 
@@ -247,6 +254,15 @@
                                 </StackPanel>
                             </StackPanel>
                         </Button>
+
+                        <StackPanel x:Name="NoReleaseExist" x:Load="{x:Bind ViewModel.ContextViewModel.RepositoryDetails.ReleaseCount, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
+
+                            <TextBlock
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                Text="No release published" />
+
+                        </StackPanel>
 
                         <MenuFlyoutSeparator />
                     </StackPanel>

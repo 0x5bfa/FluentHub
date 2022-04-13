@@ -186,9 +186,9 @@
 
 .markdown-body img {
   border-style: none;
-  max-width: 100%;
+  max-width: 60%;
   box-sizing: content-box;
-  background-color: var(--color-canvas-default);
+  background-color: transparent;
 }
 
 .markdown-body code,
@@ -196,7 +196,7 @@
 .markdown-body pre,
 .markdown-body samp {
   font-family: monospace;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .markdown-body figure {
@@ -661,7 +661,7 @@
 .markdown-body h6 tt,
 .markdown-body h6 code {
   padding: 0 .2em;
-  font-size: inherit;
+  font-size: 0.8em;
 }
 
 .markdown-body ul.no-list,
@@ -863,7 +863,7 @@
 }
 
 .markdown-body pre code {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .markdown-body pre>code {

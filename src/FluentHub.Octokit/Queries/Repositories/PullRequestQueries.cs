@@ -43,6 +43,22 @@ namespace FluentHub.Octokit.Queries.Repositories
                     })
                     .ToList(),
 
+                    ReviewState = x.Reviews(null, null, 1, null, null, null).Nodes.Select(y => new
+                    {
+                        y.State,
+                    })
+                    .ToList(),
+
+                    StatusState = x.Commits(null, null, 1, null).Nodes.Select(y => new
+                    {
+                        State = y.Commit.StatusCheckRollup.Select(z => new
+                        {
+                            z.State,
+                        })
+                        .SingleOrDefault(),
+                    })
+                    .ToList(),
+
                     x.UpdatedAt,
                 })
                 .Compile();
@@ -88,6 +104,12 @@ namespace FluentHub.Octokit.Queries.Repositories
                     }
                 }
 
+                if (res.ReviewState.Count() != 0)
+                    item.ReviewState = res.ReviewState[0].State.ToString();
+
+                if (res.StatusState.Count() != 0 && res.StatusState[0].State != null)
+                    item.StatusState = res.StatusState[0].State.State.ToString();
+
                 items.Add(item);
             }
             #endregion
@@ -119,6 +141,22 @@ namespace FluentHub.Octokit.Queries.Repositories
                     {
                         y.Color,
                         y.Name,
+                    })
+                    .ToList(),
+
+                    ReviewState = x.Reviews(null, null, 1, null, null, null).Nodes.Select(y => new
+                    {
+                        y.State,
+                    })
+                    .ToList(),
+
+                    StatusState = x.Commits(null, null, 1, null).Nodes.Select(y => new
+                    {
+                        State = y.Commit.StatusCheckRollup.Select(z => new
+                        {
+                            z.State,
+                        })
+                        .SingleOrDefault(),
                     })
                     .ToList(),
 
@@ -162,6 +200,12 @@ namespace FluentHub.Octokit.Queries.Repositories
                     item.Labels.Add(labels);
                 }
             }
+
+            if (res.ReviewState.Count() != 0)
+                item.ReviewState = res.ReviewState[0].State.ToString();
+
+            if (res.StatusState.Count() != 0 && res.StatusState[0].State != null)
+                item.StatusState = res.StatusState[0].State.State.ToString();
             #endregion
 
             return item;

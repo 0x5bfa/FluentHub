@@ -1,4 +1,5 @@
 ﻿using Humanizer;
+using global::Octokit.GraphQL.Core;
 using Octokit.GraphQL;
 using Octokit.GraphQL.Model;
 using System;
@@ -15,6 +16,9 @@ namespace FluentHub.Octokit.Queries.Repositories
 
         public async Task<Models.Repository> Get(string owner, string name)
         {
+            Arg<IEnumerable<IssueState>> issueState = new(new IssueState[] { IssueState.Open });
+            Arg<IEnumerable<PullRequestState>> pullRequestState = new(new PullRequestState[] { PullRequestState.Open });
+
             #region query
             var query = new Query()
                 .Repository(name, owner)
@@ -23,7 +27,6 @@ namespace FluentHub.Octokit.Queries.Repositories
                     x.Name,
                     OwnerAvatarUrl = x.Owner.AvatarUrl(100),
                     OwnerLoginName = x.Owner.Login,
-                    OwnerId = x.Owner.Id,
                     x.Description,
                     LicenseName = x.LicenseInfo.Select(y => y.Name).SingleOrDefault(),
 
@@ -35,10 +38,14 @@ namespace FluentHub.Octokit.Queries.Repositories
 
                     x.StargazerCount,
                     x.ForkCount,
-                    OpenIssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
-                    OpenPullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
+                    OpenIssueCount = x.Issues(null, null, null, null, null, null, null, issueState).TotalCount,
+                    OpenPullCount = x.PullRequests(null, null, null, null, null, null, null, null, pullRequestState).TotalCount,
 
                     x.IsFork,
+                    x.IsInOrganization,
+                    x.ViewerHasStarred,
+
+                    x.UpdatedAt,
                 })
                 .Compile();
             #endregion
@@ -51,7 +58,7 @@ namespace FluentHub.Octokit.Queries.Repositories
                 Name = res.Name,
                 Owner = res.OwnerLoginName,
                 OwnerAvatarUrl = res.OwnerAvatarUrl,
-                OwnerIsOrganization = Helpers.UserTypeDetectionHelper.IsOrganization(res.OwnerId),
+                OwnerIsOrganization = res.IsInOrganization,
                 Description = res.Description,
 
                 PrimaryLangName = res.PrimaryLanguage?.Name,
@@ -63,7 +70,11 @@ namespace FluentHub.Octokit.Queries.Repositories
                 OpenIssueCount = res.OpenIssueCount,
                 OpenPullCount = res.OpenPullCount,
 
-                IsFork = res.IsFork
+                IsFork = res.IsFork,
+                ViewerHasStarred = res.ViewerHasStarred,
+
+                UpdatedAt = res.UpdatedAt,
+                UpdatedAtHumanized = res.UpdatedAt.Humanize(),
             };
 
             #endregion
@@ -82,8 +93,8 @@ namespace FluentHub.Octokit.Queries.Repositories
                         DefaultBranchName = x.DefaultBranchRef.Name,
 
                         WatcherCount = x.Watchers(null, null, null, null).TotalCount,
-                        HeadRefsCount = x.Refs("refs/heads/", null, null, null, null, null, null, "heads/").TotalCount,
-                        TagCount = x.Refs("refs/heads/", null, null, null, null, null, null, "tags/").TotalCount,
+                        HeadRefsCount = x.Refs("refs/heads/", null, null, null, null, null, null, null).TotalCount,
+                        TagCount = x.Refs("refs/tags/", null, null, null, null, null, null, null).TotalCount,
                         ReleaseCount = x.Releases(null, null, null, null, null).TotalCount,
 
                         LatestReleaseOverview = x.Releases(null, null, 1, null, null).Nodes.Select(y => new
@@ -189,14 +200,23 @@ namespace FluentHub.Octokit.Queries.Repositories
 
         public async Task<string> GetReadmeHtml(string owner, string name, string branch, string theme)
         {
-            string bodyHtml = await App.Client.Repository.Content.GetReadmeHtml(owner, name);
+            string bodyHtml;
 
-            string missedPath = "https://raw.githubusercontent.com/" + owner + "/" + name + "/" + branch + "/";
+            try
+            {
+                bodyHtml = await App.Client.Repository.Content.GetReadmeHtml(owner, name);
 
-            MarkdownQueries markdown = new();
-            var html = await markdown.GetHtmlAsync(bodyHtml, missedPath, theme, true);
+                string missedPath = "https://raw.githubusercontent.com/" + owner + "/" + name + "/" + branch + "/";
 
-            return html;
+                MarkdownQueries markdown = new();
+                var html = await markdown.GetHtmlAsync(bodyHtml, missedPath, theme, true);
+
+                return html;
+            }
+            catch (global::Octokit.NotFoundException)
+            {
+                return null;
+            }
         }
     }
 }

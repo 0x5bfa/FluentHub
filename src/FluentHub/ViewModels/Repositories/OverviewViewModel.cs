@@ -2,7 +2,7 @@
 using FluentHub.Models;
 using FluentHub.Octokit.Models;
 using FluentHub.Octokit.Queries.Repositories;
-using FluentHub.ViewModels.UserControls.ButtonBlocks;
+using FluentHub.ViewModels.UserControls.Labels;
 using Humanizer;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
@@ -12,6 +12,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml;
 
 namespace FluentHub.ViewModels.Repositories
 {
@@ -25,6 +27,12 @@ namespace FluentHub.ViewModels.Repositories
             _messenger = messenger;
 
             LoadOverviewPageCommand = new AsyncRelayCommand(LoadOverviewPageAsync);
+            RepositoryVisibilityLabel = new()
+            {
+                Name = "Public",
+                BackgroundColorBrush = (SolidColorBrush)Application.Current.Resources["ApplicationSecondaryForegroundThemeBrush"],
+                OutlineEnable = true,
+            };
         }
         #endregion
 
@@ -33,12 +41,16 @@ namespace FluentHub.ViewModels.Repositories
         private readonly IMessenger _messenger;
         private Repository _repositoryBlock;
         private RepositoryDetails _repository;
+        private LabelControlViewModel _repositoryVisibilityLabel;
+        private string _viewerSubscriptionState;
         #endregion
 
         #region properties
         public Repository Repository { get => _repositoryBlock; set => SetProperty(ref _repositoryBlock, value); }
         public RepositoryDetails RepositoryDetails { get => _repository; set => SetProperty(ref _repository, value); }
         public IAsyncRelayCommand LoadOverviewPageCommand { get; }
+        public LabelControlViewModel RepositoryVisibilityLabel { get => _repositoryVisibilityLabel; set => SetProperty(ref _repositoryVisibilityLabel, value); }
+        public string ViewerSubscriptionState { get => _viewerSubscriptionState; set => SetProperty(ref _viewerSubscriptionState, value); }
         #endregion
 
         #region methods
@@ -48,6 +60,11 @@ namespace FluentHub.ViewModels.Repositories
             {
                 RepositoryQueries queries = new();
                 RepositoryDetails = await queries.GetDetailsAsync(Repository.Owner, Repository.Name);
+
+                if (RepositoryDetails.IsPrivate)
+                    RepositoryVisibilityLabel.Name = "Private";
+
+                ViewerSubscriptionState = RepositoryDetails.ViewerSubscription.Humanize();
             }
             catch (OperationCanceledException) { }
             catch (Exception ex)

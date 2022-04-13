@@ -11,14 +11,14 @@
     xmlns:vm="using:FluentHub.ViewModels.Users"
     mc:Ignorable="d">
 
-    <Grid Margin="12">
+    <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="35" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <StackPanel
-            Margin="16,0"
+            Margin="16,12,16,2"
             VerticalAlignment="Center"
             Orientation="Horizontal"
             Spacing="8">
@@ -27,13 +27,13 @@
                 FontSize="16"
                 Glyph="&#xEA36;" />
             <TextBlock
-                FontSize="14"
+                VerticalAlignment="Center"
                 Style="{StaticResource BodyStrongTextBlockStyle}"
                 Text="Following" />
         </StackPanel>
 
         <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
-            <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.FollowingItems, Mode=OneWay}">
+            <muxc:ItemsRepeater Margin="12,2,12,12" ItemsSource="{x:Bind ViewModel.FollowingItems, Mode=OneWay}">
                 <DataTemplate x:DataType="bbvm:UserButtonBlockViewModel">
                     <buttonblock:UserButtonBlock
                         x:Name="RepositoryBlock"
