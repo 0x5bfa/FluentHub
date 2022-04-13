@@ -63,12 +63,12 @@
                         Orientation="Horizontal"
                         Spacing="4">
 
-                        <uc:AvatarControl AvatarUrl="{x:Bind ViewModel.CommitItem.AuthorAvatarUrl, Mode=OneWay}" WidthAndHeight="20" />
+                        <uc:AvatarControl AvatarUrl="{x:Bind ViewModel.CommitItem.AuthorAvatarUrl}" WidthAndHeight="20" />
 
                         <TextBlock
                             Margin="4,0,0,0"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="{x:Bind ViewModel.CommitItem.AuthorName, Mode=OneWay}" />
+                            Text="{x:Bind ViewModel.CommitItem.AuthorName}" />
 
                         <TextBlock
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
