@@ -4,7 +4,6 @@ using FluentHub.Models;
 using FluentHub.Octokit.Models;
 using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
-using Humanizer;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
@@ -34,10 +33,12 @@ namespace FluentHub.ViewModels.Repositories.Commits
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
         private Commit _commitItem;
+        private CommitDetails _commitDetails;
         #endregion
 
         #region properties
         public Commit CommitItem { get => _commitItem; set => SetProperty(ref _commitItem, value); }
+        public CommitDetails CommitDetails { get => _commitDetails; set => SetProperty(ref _commitDetails, value); }
         public IAsyncRelayCommand LoadCommitPageCommand { get; }
         #endregion
 
@@ -47,19 +48,7 @@ namespace FluentHub.ViewModels.Repositories.Commits
             try
             {
                 DiffQueries queries = new();
-                await queries.GetAllAsync(CommitItem.Owner, CommitItem.Name, CommitItem.Refs);
-
-                //_items.Clear();
-
-                //foreach (var item in items)
-                //{
-                //    CommitButtonBlockViewModel viewModel = new()
-                //    {
-                //        CommitItem = item,
-                //    };
-
-                //    _items.Add(viewModel);
-                //}
+                CommitDetails = await queries.GetAllAsync(CommitItem.Owner, CommitItem.Name, CommitItem.Refs);
             }
             catch (OperationCanceledException) { }
             catch (Exception ex)

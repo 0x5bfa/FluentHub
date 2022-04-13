@@ -128,7 +128,9 @@
     <Compile Include="Helpers\UserTypeDetectionHelper.cs" />
     <Compile Include="Models\ApiOptions.cs" />
     <Compile Include="Models\CalendarDay.cs" />
+    <Compile Include="Models\ChangedFile.cs" />
     <Compile Include="Models\Commit.cs" />
+    <Compile Include="Models\CommitDetails.cs" />
     <Compile Include="Models\ContributionCalender.cs" />
     <Compile Include="Models\Discussion.cs" />
     <Compile Include="Models\Activity.cs" />
