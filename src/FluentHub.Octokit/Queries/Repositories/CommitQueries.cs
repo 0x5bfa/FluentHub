@@ -51,6 +51,10 @@ namespace FluentHub.Octokit.Queries.Repositories
             {
                 Models.Commit item = new()
                 {
+                    Owner = owner,
+                    Name = name,
+                    Refs = refs,
+
                     AbbreviatedOid = res.AbbreviatedOid,
                     AuthorAvatarUrl = res.AuthorAvatarUrl,
                     AuthorName = res.Login,

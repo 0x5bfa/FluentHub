@@ -33,7 +33,7 @@ namespace FluentHub.UserControls.ButtonBlocks
 
         private void CommitItemButton_Click(object sender, RoutedEventArgs e)
         {
-            MainPageViewModel.RepositoryContentFrame.Navigate(typeof(CommitPage));
+            MainPageViewModel.RepositoryContentFrame.Navigate(typeof(CommitPage), ViewModel.CommitItem);
         }
     }
 }

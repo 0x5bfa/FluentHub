@@ -8,6 +8,10 @@ namespace FluentHub.Octokit.Models
 {
     public class Commit
     {
+        public string Owner { get; set; }
+        public string Name { get; set; }
+        public string Refs { get; set; }
+
         public string AuthorAvatarUrl { get; set; }
         public string AuthorName { get; set; }
         public string CommitMessage { get; set; }

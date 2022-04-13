@@ -1,4 +1,5 @@
-﻿using FluentHub.ViewModels.UserControls.Labels;
+﻿using FluentHub.ViewModels.Repositories;
+using FluentHub.ViewModels.UserControls.Labels;
 using FluentHub.Octokit.Models;
 using System;
 using System.Collections.Generic;

@@ -1,11 +1,11 @@
-﻿using System;
-using System.Net;
+﻿using Humanizer;
+using Octokit.GraphQL;
+using Octokit.GraphQL.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Net.Http;
-using System.Net.Http.Headers;
 
 namespace FluentHub.Octokit.Queries.Repositories
 {
@@ -13,8 +13,9 @@ namespace FluentHub.Octokit.Queries.Repositories
     {
         public DiffQueries() => new App();
 
-        public async Task GetDiffOfCommit(string owner, string name, string refs)
+        public async Task GetAllAsync(string owner, string name, string refs)
         {
+            var commits = await App.Client.Repository.Commit.Get(owner, name, refs);
         }
     }
 }
