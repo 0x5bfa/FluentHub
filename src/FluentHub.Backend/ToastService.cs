@@ -33,7 +33,6 @@ namespace FluentHub.Backend
                     Src = new Uri("ms-appx:///Assets/notification-sound.mp3")
                 };*/
 
-
                 if (Uri.TryCreate(appLogoOverrideImage, UriKind.RelativeOrAbsolute, out var uri))
                     builder.AddAppLogoOverride(uri);
                 if (Uri.TryCreate(heroImage, UriKind.RelativeOrAbsolute, out uri))
@@ -68,7 +67,6 @@ namespace FluentHub.Backend
                 badgeGlyphValue = glyphType.ToString().ToLower();
             }
 
-
             // Set the value of the badge in the XML to our glyph value
             XmlElement badgeElement = (XmlElement)badgeXml.SelectSingleNode("/badge");
             badgeElement.SetAttribute("value", badgeGlyphValue);
@@ -82,7 +80,6 @@ namespace FluentHub.Backend
             // And update the badge
             badgeUpdater.Update(badge);
         }
-
 
         public void ShowToastNotificationWithProgress(string tag,
                                                        string group,
@@ -129,7 +126,6 @@ namespace FluentHub.Backend
             // Generate the toast notification
             var toast = new ToastNotification(content.GetXml())
             {
-
                 // Assign the tag and group
                 Tag = tag,
                 Group = group,
@@ -141,7 +137,6 @@ namespace FluentHub.Backend
             toast.Data.Values["progress"] = progress.ToString(new CultureInfo("en-US"));
             toast.Data.Values["leftText"] = leftText;
             toast.Data.Values["rightText"] = rightText;
-
 
             // Provide sequence number to prevent out-of-order updates, or assign 0 to indicate "always update"
             toast.Data.SequenceNumber = 1;
