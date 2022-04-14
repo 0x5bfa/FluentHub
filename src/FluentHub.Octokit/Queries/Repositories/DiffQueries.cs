@@ -37,6 +37,7 @@ namespace FluentHub.Octokit.Queries.Repositories
                     LineDeletions = file.Deletions,
                     Patch = file.Patch,
                     ChangeType = file.Status,
+                    FileName = file.Filename,
                     PreviousFileName = file.PreviousFileName,
                 };
 

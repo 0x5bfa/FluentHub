@@ -34,6 +34,7 @@ namespace FluentHub.UserControls.Blocks
             {
                 SetValue(ViewModelProperty, value);
                 DataContext = ViewModel;
+                ViewModel.ParseDiffPatchString();
             }
         }
         #endregion

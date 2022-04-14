@@ -5,12 +5,13 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:FluentHub.UserControls.Blocks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
 
     <Grid
-        Padding="12"
         Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
         BorderThickness="1"
@@ -18,41 +19,118 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid>
+        <Grid Height="32" Margin="8,4">
             <StackPanel Orientation="Horizontal" Spacing="8">
 
                 <Button
                     Width="32"
                     Height="32"
                     Background="Transparent"
-                    Style="{StaticResource ClearButtonStyle}">
-                    <FontIcon FontSize="12" Glyph="&#xE70D;" />
+                    Style="{StaticResource LinkLikeButtonStyle}">
+                    <FontIcon
+                        FontSize="12"
+                        FontWeight="SemiBold"
+                        Glyph="&#xE70D;" />
                 </Button>
 
                 <TextBlock
                     VerticalAlignment="Center"
-                    Style="{StaticResource BodyTextBlockStyle}"
+                    FontFamily="Cascadia Code"
+                    FontWeight="SemiLight"
+                    IsTextSelectionEnabled="True"
+                    Style="{StaticResource CaptionTextBlockStyle}"
                     Text="{x:Bind ViewModel.ChangedFile.TotalLineCount, Mode=OneWay}" />
 
                 <TextBlock
                     VerticalAlignment="Center"
-                    Style="{StaticResource BodyTextBlockStyle}"
+                    FontFamily="Cascadia Code"
+                    FontWeight="SemiLight"
+                    IsTextSelectionEnabled="True"
+                    Style="{StaticResource CaptionTextBlockStyle}"
                     Text="{x:Bind ViewModel.ChangedFile.FileName, Mode=OneWay}" />
 
             </StackPanel>
         </Grid>
 
-        <MenuFlyoutSeparator Grid.Row="1" Margin="-12,12" />
 
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <MenuFlyoutSeparator VerticalAlignment="Top" />
+
+            <muxc:ItemsRepeater
+                Grid.ColumnSpan="3"
+                HorizontalAlignment="Stretch"
+                ItemsSource="{x:Bind ViewModel.ChangedLineBackgroundType}">
+                <muxc:ItemsRepeater.Layout>
+                    <muxc:StackLayout Orientation="Vertical" Spacing="0" />
+                </muxc:ItemsRepeater.Layout>
+                <DataTemplate x:DataType="x:Int32">
+                    <toolkit:SwitchPresenter TargetType="x:Int32" Value="{x:Bind}">
+                        <toolkit:Case Value="0">
+                            <Border Height="17" Background="#768390" />
+                        </toolkit:Case>
+                        <toolkit:Case Value="1">
+                            <Border
+                                Height="17"
+                                Background="#347d39"
+                                Opacity="0.5" />
+                        </toolkit:Case>
+                        <toolkit:Case Value="2">
+                            <Border
+                                Height="17"
+                                Background="#c93c37"
+                                Opacity="0.5" />
+                        </toolkit:Case>
+                        <toolkit:Case Value="3">
+                            <Border Height="17" Background="Transparent" />
+                        </toolkit:Case>
+                    </toolkit:SwitchPresenter>
+                </DataTemplate>
+            </muxc:ItemsRepeater>
+
             <TextBlock
+                Margin="12,0"
                 FontFamily="Cascadia Code"
-                FontWeight="SemiLight"
-                IsTextSelectionEnabled="True"
-                Text="{x:Bind ViewModel.ChangedFile.Patch, Mode=OneWay}" />
+                FontWeight="ExtraLight"
+                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                HorizontalTextAlignment="Right"
+                LineHeight="17"
+                Text="{x:Bind ViewModel.OldLineText, Mode=OneWay}" />
+
+            <TextBlock
+                Grid.Column="1"
+                Margin="12,0"
+                FontFamily="Cascadia Code"
+                FontWeight="ExtraLight"
+                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                HorizontalTextAlignment="Right"
+                LineHeight="17"
+                Text="{x:Bind ViewModel.NewLineText, Mode=OneWay}" />
+
+            <ScrollViewer
+                Grid.Column="2"
+                HorizontalScrollBarVisibility="Auto"
+                HorizontalScrollMode="Enabled"
+                VerticalScrollBarVisibility="Disabled"
+                VerticalScrollMode="Disabled">
+
+                <TextBlock
+                    Margin="12,0"
+                    FontFamily="Cascadia Code"
+                    FontWeight="SemiLight"
+                    IsTextSelectionEnabled="True"
+                    LineHeight="17"
+                    Text="{x:Bind ViewModel.ChangedFile.Patch, Mode=OneWay}" />
+
+            </ScrollViewer>
+
         </Grid>
     </Grid>
 </UserControl>
