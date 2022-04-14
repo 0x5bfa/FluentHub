@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.UserControls.Blocks
@@ -40,7 +41,7 @@ namespace FluentHub.ViewModels.UserControls.Blocks
             for (int index = 0, olds = 0, news = 0; index < lines.Count(); index++)
             {
                 // Pathch head line, like "@@ -5,7 +5,7 @@"
-                if (lines[index][0] == '@')
+                if (Regex.IsMatch(lines[index], "@@ -.* .+.* @@"))
                 {
                     OldLineText += $"\n";
                     NewLineText += $"\n";
