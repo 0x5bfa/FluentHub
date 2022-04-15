@@ -52,7 +52,10 @@ namespace FluentHub.ViewModels.Repositories.Commits
             try
             {
                 DiffQueries queries = new();
-                CommitDetails = await queries.GetAllAsync(CommitItem.Owner, CommitItem.Name, CommitItem.Refs);
+                CommitDetails = await queries.GetAllAsync(
+                    CommitItem.Owner,
+                    CommitItem.Name,
+                    CommitItem.Oid);
 
                 if (CommitDetails.ChangedFiles.Count() == 0) return;
 

@@ -31,6 +31,7 @@ namespace FluentHub.Octokit.Queries.Repositories
                         A = x.Nodes.Select(y => new
                         {
                             y.AbbreviatedOid,
+                            y.Oid,
                             AuthorAvatarUrl = y.Author.AvatarUrl(100),
                             y.Author.User.Login,
                             y.CommittedDate,
@@ -56,6 +57,7 @@ namespace FluentHub.Octokit.Queries.Repositories
                     Refs = refs,
 
                     AbbreviatedOid = res.AbbreviatedOid,
+                    Oid = res.Oid,
                     AuthorAvatarUrl = res.AuthorAvatarUrl,
                     AuthorName = res.Login,
                     CommitMessage = res.Message,
@@ -89,6 +91,7 @@ namespace FluentHub.Octokit.Queries.Repositories
                         CommitSummary = x.Nodes.Select(y => new
                         {
                             y.AbbreviatedOid,
+                            y.Oid,
                             AuthorAvatarUrl = y.Author.AvatarUrl(100),
                             y.Author.User.Login,
                             y.CommittedDate,
@@ -109,6 +112,7 @@ namespace FluentHub.Octokit.Queries.Repositories
                 AuthorAvatarUrl = res.CommitSummary[0].AuthorAvatarUrl,
                 AuthorName = res.CommitSummary[0].Login,
                 CommitMessage = res.CommitSummary[0].Message,
+                Oid = res.CommitSummary[0].Oid,
                 TotalCount = res.TotalCount,
                 CommittedAt = res.CommitSummary[0].CommittedDate,
                 CommittedAtHumanized = res.CommitSummary[0].CommittedDate.Humanize(),
