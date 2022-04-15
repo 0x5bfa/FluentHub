@@ -29,13 +29,20 @@ namespace FluentHub.ViewModels.UserControls.Blocks
         private string _newLineText;
         public string NewLineText { get => _newLineText; set => SetProperty(ref _newLineText, value); }
 
-        private ObservableCollection<int> _changedLineBackgroundType;
-        public ObservableCollection<int> ChangedLineBackgroundType { get; }
+        private readonly ObservableCollection<int> _changedLineBackgroundType;
+        public ReadOnlyObservableCollection<int> ChangedLineBackgroundType { get; }
 
         public void ParseDiffPatchString()
         {
             // TODO: FluentHub original perser here
             var lines = ChangedFile.Patch.Split("\n");
+
+            _changedLineBackgroundType.Clear();
+            OldLineText = "";
+            NewLineText = "";
+
+            int oldBaseLine = 0;
+            int newBaseLine = 0;
 
             // Display two line number column for added and deleted line
             for (int index = 0, olds = 0, news = 0; index < lines.Count(); index++)
@@ -46,39 +53,75 @@ namespace FluentHub.ViewModels.UserControls.Blocks
                     OldLineText += $"\n";
                     NewLineText += $"\n";
 
-                    ChangedLineBackgroundType.Add(0);
-                }
-                // Added line
-                else if (lines[index][0] == '+')
-                {
-                    OldLineText += $"\n";
-                    NewLineText += $"{news}\n";
+                    _changedLineBackgroundType.Add(0);
 
-                    news++;
+                    // Length of array must be 4
+                    var array = Regex.Matches(lines[index], "[0-9]+")
+                                     .Cast<Match>()
+                                     .Select(x => int.Parse(x.Value))
+                                     .ToArray();
 
-                    ChangedLineBackgroundType.Add(1);
+                    // [0]: New diff's base line
+                    // [1]: Length of displayed new diff
+                    // [2]: Old diff's base line
+                    // [3]: Length of displayed old diff
+                    oldBaseLine = array[0];
+                    newBaseLine = array[2];
                 }
-                // Deleted line
                 else if (lines[index][0] == '-')
                 {
+                    if (oldBaseLine != 0)
+                    {
+                        olds = oldBaseLine;
+                        oldBaseLine = 0; // Re-initialize
+                    }
+                    else olds++;
+
+                    _changedLineBackgroundType.Add(2);
+
                     OldLineText += $"{olds}\n";
                     NewLineText += $"\n";
-
-                    olds++;
-
-                    ChangedLineBackgroundType.Add(2);
                 }
-                // No changed line
+                else if (lines[index][0] == '+')
+                {
+                    if (newBaseLine != 0)
+                    {
+                        news = newBaseLine;
+                        newBaseLine = 0; // Re-initialize
+                    }
+                    else news++;
+
+                    _changedLineBackgroundType.Add(1);
+
+                    OldLineText += $"\n";
+                    NewLineText += $"{news}\n";
+                }
                 else
                 {
+                    if (oldBaseLine != 0)
+                    {
+                        olds = oldBaseLine;
+                        oldBaseLine = 0; // Re-initialize
+                    }
+                    else olds++;
+
+                    if (newBaseLine != 0)
+                    {
+                        news = newBaseLine;
+                        newBaseLine = 0; // Re-initialize
+                    }
+                    else news++;
+
+                    _changedLineBackgroundType.Add(3);
+
                     OldLineText += $"{olds}\n";
                     NewLineText += $"{news}\n";
-                    olds++;
-                    news++;
-
-                    ChangedLineBackgroundType.Add(3);
                 }
             }
+
+            // Delete last line bracks
+            OldLineText = OldLineText.Substring(0, OldLineText.Length - 1);
+            NewLineText = NewLineText.Substring(0, NewLineText.Length - 1);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

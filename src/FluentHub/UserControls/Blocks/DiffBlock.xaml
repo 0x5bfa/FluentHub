@@ -84,42 +84,50 @@
             </StackPanel>
         </Grid>
 
-
-        <Grid Grid.Row="1">
+        <Grid
+            Grid.Row="1"
+            Padding="0,4,0,0"
+            CornerRadius="0,0,4,4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <MenuFlyoutSeparator VerticalAlignment="Top" />
+            <MenuFlyoutSeparator
+                Grid.ColumnSpan="3"
+                Margin="0,-3,0,0"
+                VerticalAlignment="Top" />
 
             <muxc:ItemsRepeater
                 Grid.ColumnSpan="3"
                 HorizontalAlignment="Stretch"
-                ItemsSource="{x:Bind ViewModel.ChangedLineBackgroundType}">
+                ItemsSource="{x:Bind ViewModel.ChangedLineBackgroundType, Mode=OneWay}">
                 <muxc:ItemsRepeater.Layout>
                     <muxc:StackLayout Orientation="Vertical" Spacing="0" />
                 </muxc:ItemsRepeater.Layout>
                 <DataTemplate x:DataType="x:Int32">
                     <toolkit:SwitchPresenter TargetType="x:Int32" Value="{x:Bind}">
                         <toolkit:Case Value="0">
-                            <Border Height="17" Background="#768390" />
+                            <Rectangle
+                                Height="17"
+                                Fill="#768390"
+                                Opacity="0.5" />
                         </toolkit:Case>
                         <toolkit:Case Value="1">
-                            <Border
+                            <Rectangle
                                 Height="17"
-                                Background="#347d39"
+                                Fill="#347d39"
                                 Opacity="0.5" />
                         </toolkit:Case>
                         <toolkit:Case Value="2">
-                            <Border
+                            <Rectangle
                                 Height="17"
-                                Background="#c93c37"
+                                Fill="#c93c37"
                                 Opacity="0.5" />
                         </toolkit:Case>
                         <toolkit:Case Value="3">
-                            <Border Height="17" Background="Transparent" />
+                            <Rectangle Height="17" Fill="Transparent" />
                         </toolkit:Case>
                     </toolkit:SwitchPresenter>
                 </DataTemplate>
@@ -152,6 +160,7 @@
                 VerticalScrollMode="Disabled">
 
                 <TextBlock
+                    x:Name="ColorCodeDiffBlock"
                     FontFamily="Cascadia Code"
                     FontWeight="SemiLight"
                     IsTextSelectionEnabled="True"
