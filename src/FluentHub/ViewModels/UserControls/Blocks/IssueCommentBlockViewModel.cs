@@ -1,5 +1,5 @@
 ﻿using FluentHub.Helpers;
-using FluentHub.Octokit.Models;
+using FluentHub.Octokit.Models.Events;
 using FluentHub.Octokit.Queries.Repositories;
 using Humanizer;
 using System;
@@ -10,18 +10,13 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
-using graphqlmodel = global::Octokit.GraphQL.Model;
 
 namespace FluentHub.ViewModels.UserControls.Blocks
 {
     public class IssueCommentBlockViewModel : INotifyPropertyChanged
     {
-        private IssueComment issueComment;
-        public IssueComment IssueComment
-        {
-            get => issueComment;
-            set => SetProperty(ref issueComment, value);
-        }
+        private CommentedEvent issueComment;
+        public CommentedEvent IssueComment { get => issueComment; set => SetProperty(ref issueComment, value); }
 
         private string createdAtHumanized;
         public string CreatedAtHumanized { get => createdAtHumanized; set => SetProperty(ref createdAtHumanized, value); }

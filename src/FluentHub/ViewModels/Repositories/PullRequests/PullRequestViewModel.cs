@@ -1,5 +1,6 @@
 ﻿using FluentHub.Backend;
 using FluentHub.Octokit.Models;
+using FluentHub.Octokit.Models.Events;
 using FluentHub.Models;
 using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.UserControls.Blocks;
@@ -23,21 +24,26 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
         {
             _messenger = messenger;
             _logger = logger;
+            _eventBlocks = new();
+            EventBlocks = new(_eventBlocks);
 
-            CommentBlocks = new();
             RefreshPullRequestPageCommand = new AsyncRelayCommand<PullRequest>(RefreshPullRequestPageAsync);
         }
         #endregion
 
-        #region fields
+        #region properties
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
-        private PullRequest pullItem;
-        #endregion
 
-        #region properties
+        private PullRequest pullItem;
         public PullRequest PullItem { get => pullItem; private set => SetProperty(ref pullItem, value); }
-        public ObservableCollection<IssueCommentBlock> CommentBlocks;
+
+        private IssueEventBlockViewModel _eventBlockViewModel;
+        public IssueEventBlockViewModel EventBlockViewModel { get => _eventBlockViewModel; private set => SetProperty(ref _eventBlockViewModel, value); }
+
+        private readonly ObservableCollection<IssueEventBlock> _eventBlocks;
+        public ReadOnlyObservableCollection<IssueEventBlock> EventBlocks { get; }
+
         public IAsyncRelayCommand RefreshPullRequestPageCommand { get; }
         #endregion
 
@@ -48,34 +54,52 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
             {
                 PullItem = pull;
 
-                PullRequestEventQueries queries = new();
-                var prBoddy = await queries.GetBodyAsync(PullItem.OwnerLogin, PullItem.Name, PullItem.Number);
+                _eventBlocks.Clear();
 
-                var bodyCommentViewModel = new IssueCommentBlockViewModel()
+                PullRequestQueries pullRequestQueries = new();
+
+                var bodyComment = await pullRequestQueries.GetBodyAsync(PullItem.OwnerLogin, PullItem.Name, PullItem.Number);
+
+                var bodyCommentBlock = new IssueEventBlock()
                 {
-                    IssueComment = prBoddy,
+                    PropertyViewModel = new IssueEventBlockViewModel()
+                    {
+                        EventType = "CommentedEvent",
+                        Event = bodyComment,
+                        CommentBlockViewModel = new()
+                        {
+                            IssueComment = bodyComment,
+                        },
+                    },
                 };
 
-                var bodyCommentBlock = new IssueCommentBlock() { PropertyViewModel = bodyCommentViewModel };
+                _eventBlocks.Add(bodyCommentBlock);
 
-                CommentBlocks.Add(bodyCommentBlock);
+                PullRequestEventQueries queries = new();
+                var pullEvents = await queries.GetAllAsync(pull.OwnerLogin, pull.Name, pull.Number);
 
-                // Now only available PR comments
-                var prComments = await queries.GetAllAsync(PullItem.OwnerLogin, PullItem.Name, PullItem.Number);
-
-                foreach (var prCommentItem in prComments)
+                foreach (var eventItem in pullEvents)
                 {
-                    var viewmodel = new IssueCommentBlockViewModel()
+                    var viewmodel = new IssueEventBlockViewModel()
                     {
-                        IssueComment = prCommentItem,
+                        EventType = eventItem.Item1,
+                        Event = eventItem.Item2,
                     };
 
-                    var commentBlock = new IssueCommentBlock()
+                    if (eventItem.Item1 == "CommentedEvent")
+                    {
+                        viewmodel.CommentBlockViewModel = new()
+                        {
+                            IssueComment = eventItem.Item2 as CommentedEvent,
+                        };
+                    }
+
+                    var eventBlock = new IssueEventBlock()
                     {
                         PropertyViewModel = viewmodel
                     };
 
-                    CommentBlocks.Add(commentBlock);
+                    _eventBlocks.Add(eventBlock);
                 }
             }
             catch (Exception ex)

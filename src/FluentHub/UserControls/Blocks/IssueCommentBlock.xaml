@@ -27,13 +27,6 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Border
-            Width="1.5"
-            Height="20"
-            Margin="28,0,0,0"
-            HorizontalAlignment="Left"
-            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
-
         <Grid
             Grid.Row="1"
             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
@@ -327,13 +320,5 @@
                 </StackPanel>
             </Grid>
         </Grid>
-
-        <Border
-            Grid.Row="2"
-            Width="1.5"
-            Height="20"
-            Margin="28,0,0,0"
-            HorizontalAlignment="Left"
-            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
     </Grid>
 </UserControl>

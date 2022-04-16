@@ -134,8 +134,10 @@
     <Compile Include="Models\ContributionCalender.cs" />
     <Compile Include="Models\Discussion.cs" />
     <Compile Include="Models\Activity.cs" />
+    <Compile Include="Models\Events\LabeledEvent.cs" />
+    <Compile Include="Models\Events\UnlabeledEvent.cs" />
     <Compile Include="Models\Issue.cs" />
-    <Compile Include="Models\IssueComment.cs" />
+    <Compile Include="Models\Events\CommentedEvent.cs" />
     <Compile Include="Models\Label.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\Organization.cs" />

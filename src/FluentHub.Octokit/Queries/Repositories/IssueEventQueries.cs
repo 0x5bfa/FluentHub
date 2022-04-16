@@ -1,12 +1,13 @@
 ﻿using FluentHub.Octokit.Models;
+using FluentHub.Octokit.Models.Events;
+using Humanizer;
 using Octokit.GraphQL;
-using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using graphqlmodel = global::Octokit.GraphQL.Model;
+using GraphQLModel = global::Octokit.GraphQL.Model;
 
 namespace FluentHub.Octokit.Queries.Repositories
 {
@@ -14,7 +15,7 @@ namespace FluentHub.Octokit.Queries.Repositories
     {
         public IssueEventQueries() => new App();
 
-        public async Task<List<IssueComment>> GetAllAsync(string owner, string name, int number)
+        public async Task<List<Tuple<string, object>>> GetAllAsync(string owner, string name, int number)
         {
             #region queries
             var query = new Query()
@@ -22,106 +23,164 @@ namespace FluentHub.Octokit.Queries.Repositories
                 .Issue(number)
                 .Select(x => new
                 {
-                    #region comments
-                    Comments = x.TimelineItems(100, null, null, null, null, null, null).Nodes.OfType<graphqlmodel.IssueComment>().Select(y => new
+                    TimelineItems = x.TimelineItems(100, null, null, null, null, null, null).Select(x => new
                     {
-                        Author = y.Author.Select(author => new
+                        CommentedEvent = x.Nodes.OfType<GraphQLModel.IssueComment>().Select(y => new
                         {
-                            author.Login,
-                            AvatarUrl = author.AvatarUrl(100),
-                        }).Single(),
-                        y.AuthorAssociation,
-                        y.BodyHTML,
-                        Reactions = y.Reactions(6, null, null, null, null, null).Nodes.Select(reaction => new
+                            Author = y.Author.Select(author => new
+                            {
+                                author.Login,
+                                AvatarUrl = author.AvatarUrl(100),
+                            })
+                            .Single(),
+                            y.AuthorAssociation,
+                            y.BodyHTML,
+                            Reactions = y.Reactions(6, null, null, null, null, null).Nodes.Select(reaction => new
+                            {
+                                Reactions = reaction.Select(reactionNode => new {
+                                    reactionNode.Content,
+                                    ReactedUserName = reactionNode.User.Login,
+                                })
+                                .Single(),
+                            })
+                            .ToList(),
+                            y.LastEditedAt,
+                            y.MinimizedReason,
+                            y.IsMinimized,
+                            y.UpdatedAt,
+                            y.ViewerCanDelete,
+                            y.ViewerCanMinimize,
+                            y.ViewerCanReact,
+                            y.ViewerCanUpdate,
+                            y.ViewerDidAuthor,
+                            y.Url,
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+
+                        LabeledEvent = x.Nodes.OfType<GraphQLModel.LabeledEvent>().Select(y => new
                         {
-                            Reactions = reaction.Select(reactionNode => new {
-                                reactionNode.Content,
-                                ReactedUserName = reactionNode.User.Login,
-                            }).Single(),
-                        }).ToList(),
-                        y.LastEditedAt,
-                        y.MinimizedReason,
-                        y.IsMinimized,
-                        y.UpdatedAt,
-                        y.ViewerCanDelete,
-                        y.ViewerCanMinimize,
-                        y.ViewerCanReact,
-                        y.ViewerCanUpdate,
-                        y.ViewerDidAuthor,
-                        y.Url,
-                        y.CreatedAt,
-                    }).ToList(),
-                    #endregion
+                            y.Label.Color,
+                            y.Label.Name,
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+
+                        UnlabeledEvent = x.Nodes.OfType<GraphQLModel.UnlabeledEvent>().Select(y => new
+                        {
+                            y.Label.Color,
+                            y.Label.Name,
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+
+                        ClosedEvent = x.Nodes.OfType<GraphQLModel.ClosedEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                actor.Login,
+                                AvatarUrl = actor.AvatarUrl(100),
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+
+                        ReopenedEvent = x.Nodes.OfType<GraphQLModel.ReopenedEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                actor.Login,
+                                AvatarUrl = actor.AvatarUrl(100),
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                    })
+                    .SingleOrDefault(),
                 })
                 .Compile();
             #endregion
 
             var response = await App.Connection.Run(query);
 
-            // Now only available issue comment events
+            List<Tuple<string, object>> allEvents = new();
+            List<Tuple<string, int, DateTimeOffset>> allEventCreatedDates = new();
+
             #region copying
-            List<IssueComment> issueComments = new();
-
-            foreach(var item in response.Comments)
+            List<CommentedEvent> commentedEvent = new();
+            foreach (var item in response.TimelineItems.CommentedEvent)
             {
-                IssueComment comment = new();
+                CommentedEvent comment = new()
+                {
+                    AuthorAvatarUrl = item.Author.AvatarUrl,
+                    AuthorLogin = item.Author.Login,
+                    BodyHtml = item.BodyHTML,
+                    MinimizedReason = item.MinimizedReason,
+                    Url = item.Url,
 
-                comment.AuthorAssociation = item.AuthorAssociation;
-                comment.AuthorAvatarUrl = item.Author.AvatarUrl;
-                comment.AuthorLogin = item.Author.Login;
-                comment.BodyHtml = item.BodyHTML;
-                comment.IsEdited = item.LastEditedAt == null ? false : true;
-                comment.IsMinimized = item.IsMinimized;
-                comment.MinimizedReason = item.MinimizedReason;
+                    IsEdited = item.LastEditedAt == null ? false : true,
+                    IsMinimized = item.IsMinimized,
+                    ViewerCanDelete = item.ViewerCanDelete,
+                    ViewerCanMinimize = item.ViewerCanMinimize,
+                    ViewerCanReact = item.ViewerCanReact,
+                    ViewerCanUpdate = item.ViewerCanUpdate,
+                    ViewerDidAuthor = item.ViewerDidAuthor,
 
-                comment.Reactions = new();
+                    AuthorAssociation = item.AuthorAssociation,
+
+                    UpdatedAt = item.UpdatedAt,
+                    CreatedAt = item.CreatedAt,
+                };
+
                 foreach(var reaction in item.Reactions)
                 {
                     switch (reaction.Reactions.Content)
                     {
-                        case graphqlmodel.ReactionContent.ThumbsUp:
+                        case GraphQLModel.ReactionContent.ThumbsUp:
                             comment.Reactions.ThumbsUpCount++;
                             comment.Reactions.ThumbsUpActors.Add(reaction.Reactions.ReactedUserName);
                             if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
                                 comment.Reactions.ViewerReactThumbsUp = true;
                             break;
-                        case graphqlmodel.ReactionContent.ThumbsDown:
+                        case GraphQLModel.ReactionContent.ThumbsDown:
                             comment.Reactions.ThumbsDownCount++;
                             comment.Reactions.ThumbsDownActors.Add(reaction.Reactions.ReactedUserName);
                             if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
                                 comment.Reactions.ViewerReactThumbsDown = true;
                             break;
-                        case graphqlmodel.ReactionContent.Laugh:
+                        case GraphQLModel.ReactionContent.Laugh:
                             comment.Reactions.LaughCount++;
                             comment.Reactions.LaughActors.Add(reaction.Reactions.ReactedUserName);
                             if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
                                 comment.Reactions.ViewerReactLaugh = true;
                             break;
-                        case graphqlmodel.ReactionContent.Hooray:
+                        case GraphQLModel.ReactionContent.Hooray:
                             comment.Reactions.HoorayCount++;
                             comment.Reactions.HoorayActors.Add(reaction.Reactions.ReactedUserName);
                             if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
                                 comment.Reactions.ViewerReactHooray = true;
                             break;
-                        case graphqlmodel.ReactionContent.Confused:
+                        case GraphQLModel.ReactionContent.Confused:
                             comment.Reactions.ConfusedCount++;
                             comment.Reactions.ConfusedActors.Add(reaction.Reactions.ReactedUserName);
                             if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
                                 comment.Reactions.ViewerReactConfused = true;
                             break;
-                        case graphqlmodel.ReactionContent.Heart:
+                        case GraphQLModel.ReactionContent.Heart:
                             comment.Reactions.HeartCount++;
                             comment.Reactions.HeartActors.Add(reaction.Reactions.ReactedUserName);
                             if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
                                 comment.Reactions.ViewerReactHeart = true;
                             break;
-                        case graphqlmodel.ReactionContent.Rocket:
+                        case GraphQLModel.ReactionContent.Rocket:
                             comment.Reactions.RocketCount++;
                             comment.Reactions.RocketActors.Add(reaction.Reactions.ReactedUserName);
                             if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
                                 comment.Reactions.ViewerReactRocket = true;
                             break;
-                        case graphqlmodel.ReactionContent.Eyes:
+                        case GraphQLModel.ReactionContent.Eyes:
                             comment.Reactions.EyesCount++;
                             comment.Reactions.EyesActors.Add(reaction.Reactions.ReactedUserName);
                             if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
@@ -130,135 +189,67 @@ namespace FluentHub.Octokit.Queries.Repositories
                     }
                 }
 
-                comment.UpdatedAt = item.UpdatedAt;
-                comment.ViewerCanDelete = item.ViewerCanDelete;
-                comment.ViewerCanMinimize = item.ViewerCanMinimize;
-                comment.ViewerCanReact = item.ViewerCanReact;
-                comment.ViewerCanUpdate = item.ViewerCanUpdate;
-                comment.ViewerDidAuthor = item.ViewerDidAuthor;
-                comment.Url = item.Url;
-                comment.CreatedAt = item.CreatedAt;
-
-                issueComments.Add(comment);
+                commentedEvent.Add(comment);
+                allEventCreatedDates.Add(Tuple.Create("CommentedEvent", commentedEvent.Count() - 1, comment.CreatedAt));
             }
 
-            #endregion
-
-            return issueComments;
-        }
-
-        public async Task<IssueComment> GetBodyAsync(string owner, string name, int number)
-        {
-            #region queries
-            var query = new Query()
-                .Repository(name, owner)
-                .Issue(number)
-                .Select(x => new
-                {
-                    Author = x.Author.Select(author => new
-                    {
-                        author.Login,
-                        AvatarUrl = author.AvatarUrl(100),
-                    }).Single(),
-
-                    Reactions = x.Reactions(6, null, null, null, null, null).Nodes.Select(reaction => new
-                    {
-                        Reactions = reaction.Select(reactionNode => new {
-                            reactionNode.Content,
-                            ReactedUserName = reactionNode.User.Login,
-                        }).Single(),
-                    }).ToList(),
-
-                    x.AuthorAssociation,
-                    x.BodyHTML,
-                    x.LastEditedAt,
-                    x.UpdatedAt,
-                    x.ViewerCanReact,
-                    x.ViewerCanUpdate,
-                    x.ViewerDidAuthor,
-                    x.Url,
-                    x.CreatedAt,
-                })
-                .Compile();
-            #endregion
-
-            var response = await App.Connection.Run(query);
-
-            #region copying
-
-            IssueComment comment = new();
-
-            comment.Reactions = new();
-            foreach (var reaction in response.Reactions)
+            List<LabeledEvent> labeledEvents = new();
+            foreach (var item in response.TimelineItems.LabeledEvent)
             {
-                switch (reaction.Reactions.Content)
+                LabeledEvent label = new()
                 {
-                    case graphqlmodel.ReactionContent.ThumbsUp:
-                        comment.Reactions.ThumbsUpCount++;
-                        comment.Reactions.ThumbsUpActors.Add(reaction.Reactions.ReactedUserName);
-                        if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
-                            comment.Reactions.ViewerReactThumbsUp = true;
+                    CreatedAt = (DateTimeOffset)item.CreatedAt,
+                    CreatedAtHumanized = ((DateTimeOffset)item.CreatedAt).Humanize(),
+                    LabeledLabel = new()
+                    {
+                        Color = item.Color,
+                        ColorBrush = Helpers.ColorHelper.HexCodeToSolidColorBrush(item.Color),
+                        Name = item.Name,
+                    },
+                };
+
+                labeledEvents.Add(label);
+                allEventCreatedDates.Add(Tuple.Create("LabeledEvent", labeledEvents.Count() - 1, label.CreatedAt));
+            }
+
+            List<UnlabeledEvent> unlabeledEvents = new();
+            foreach (var item in response.TimelineItems.UnlabeledEvent)
+            {
+                UnlabeledEvent unlabeledItem = new()
+                {
+                    CreatedAt = (DateTimeOffset)item.CreatedAt,
+                    CreatedAtHumanized = ((DateTimeOffset)item.CreatedAt).Humanize(),
+                    UnlabeledLabel = new()
+                    {
+                        Color = item.Color,
+                        ColorBrush = Helpers.ColorHelper.HexCodeToSolidColorBrush(item.Color),
+                        Name = item.Name,
+                    },
+                };
+
+                unlabeledEvents.Add(unlabeledItem);
+                allEventCreatedDates.Add(Tuple.Create("UnlabeledEvent", unlabeledEvents.Count() - 1, unlabeledItem.CreatedAt));
+            }
+            #endregion
+
+            // Sort by dates
+            foreach (var item in allEventCreatedDates.OrderBy(x => x.Item3).ToList())
+            {
+                switch (item.Item1)
+                {
+                    case "CommentedEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, commentedEvent[item.Item2] as object));
                         break;
-                    case graphqlmodel.ReactionContent.ThumbsDown:
-                        comment.Reactions.ThumbsDownCount++;
-                        comment.Reactions.ThumbsDownActors.Add(reaction.Reactions.ReactedUserName);
-                        if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
-                            comment.Reactions.ViewerReactThumbsDown = true;
+                    case "LabeledEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, labeledEvents[item.Item2] as object));
                         break;
-                    case graphqlmodel.ReactionContent.Laugh:
-                        comment.Reactions.LaughCount++;
-                        comment.Reactions.LaughActors.Add(reaction.Reactions.ReactedUserName);
-                        if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
-                            comment.Reactions.ViewerReactLaugh = true;
-                        break;
-                    case graphqlmodel.ReactionContent.Hooray:
-                        comment.Reactions.HoorayCount++;
-                        comment.Reactions.HoorayActors.Add(reaction.Reactions.ReactedUserName);
-                        if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
-                            comment.Reactions.ViewerReactHooray = true;
-                        break;
-                    case graphqlmodel.ReactionContent.Confused:
-                        comment.Reactions.ConfusedCount++;
-                        comment.Reactions.ConfusedActors.Add(reaction.Reactions.ReactedUserName);
-                        if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
-                            comment.Reactions.ViewerReactConfused = true;
-                        break;
-                    case graphqlmodel.ReactionContent.Heart:
-                        comment.Reactions.HeartCount++;
-                        comment.Reactions.HeartActors.Add(reaction.Reactions.ReactedUserName);
-                        if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
-                            comment.Reactions.ViewerReactHeart = true;
-                        break;
-                    case graphqlmodel.ReactionContent.Rocket:
-                        comment.Reactions.RocketCount++;
-                        comment.Reactions.RocketActors.Add(reaction.Reactions.ReactedUserName);
-                        if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
-                            comment.Reactions.ViewerReactRocket = true;
-                        break;
-                    case graphqlmodel.ReactionContent.Eyes:
-                        comment.Reactions.EyesCount++;
-                        comment.Reactions.EyesActors.Add(reaction.Reactions.ReactedUserName);
-                        if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
-                            comment.Reactions.ViewerReactEyes = true;
+                    case "UnlabeledEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, unlabeledEvents[item.Item2] as object));
                         break;
                 }
             }
 
-            comment.AuthorAssociation = response.AuthorAssociation;
-            comment.AuthorAvatarUrl = response.Author.AvatarUrl;
-            comment.AuthorLogin = response.Author.Login;
-            comment.BodyHtml = response.BodyHTML;
-            comment.IsEdited = response.LastEditedAt == null ? false : true;
-            comment.UpdatedAt = response.UpdatedAt;
-            comment.ViewerCanReact = response.ViewerCanReact;
-            comment.ViewerCanUpdate = response.ViewerCanUpdate;
-            comment.ViewerDidAuthor = response.ViewerDidAuthor;
-            comment.Url = response.Url;
-            comment.CreatedAt = response.CreatedAt;
-
-            #endregion
-
-            return comment;
+            return allEvents;
         }
     }
 }

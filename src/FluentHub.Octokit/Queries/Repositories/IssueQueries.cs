@@ -1,13 +1,14 @@
-﻿using Humanizer;
-using FluentHub.Octokit.Models;
+﻿using FluentHub.Octokit.Models;
+using FluentHub.Octokit.Models.Events;
+using Humanizer;
 using Octokit.GraphQL;
 using Octokit.GraphQL.Model;
-using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GraphQLModel = global::Octokit.GraphQL.Model;
 
 namespace FluentHub.Octokit.Queries.Repositories
 {
@@ -195,6 +196,123 @@ namespace FluentHub.Octokit.Queries.Repositories
             #endregion
 
             return null;
+        }
+
+        public async Task<CommentedEvent> GetBodyAsync(string owner, string name, int number)
+        {
+            #region queries
+            var query = new Query()
+                .Repository(name, owner)
+                .Issue(number)
+                .Select(x => new
+                {
+                    Author = x.Author.Select(author => new
+                    {
+                        author.Login,
+                        AvatarUrl = author.AvatarUrl(100),
+                    })
+                    .Single(),
+
+                    Reactions = x.Reactions(6, null, null, null, null, null).Nodes.Select(reaction => new
+                    {
+                        Reactions = reaction.Select(reactionNode => new {
+                            reactionNode.Content,
+                            ReactedUserName = reactionNode.User.Login,
+                        })
+                        .Single(),
+                    })
+                    .ToList(),
+
+                    x.AuthorAssociation,
+                    x.BodyHTML,
+                    x.LastEditedAt,
+                    x.UpdatedAt,
+                    x.ViewerCanReact,
+                    x.ViewerCanUpdate,
+                    x.ViewerDidAuthor,
+                    x.Url,
+                    x.CreatedAt,
+                })
+                .Compile();
+            #endregion
+
+            var response = await App.Connection.Run(query);
+
+            #region copying
+
+            CommentedEvent comment = new()
+            {
+                AuthorAssociation = response.AuthorAssociation,
+                AuthorAvatarUrl = response.Author.AvatarUrl,
+                AuthorLogin = response.Author.Login,
+                BodyHtml = response.BodyHTML,
+                IsEdited = response.LastEditedAt == null ? false : true,
+                UpdatedAt = response.UpdatedAt,
+                ViewerCanReact = response.ViewerCanReact,
+                ViewerCanUpdate = response.ViewerCanUpdate,
+                ViewerDidAuthor = response.ViewerDidAuthor,
+                Url = response.Url,
+                CreatedAt = response.CreatedAt,
+            };
+
+            foreach (var reaction in response.Reactions)
+            {
+                switch (reaction.Reactions.Content)
+                {
+                    case GraphQLModel.ReactionContent.ThumbsUp:
+                        comment.Reactions.ThumbsUpCount++;
+                        comment.Reactions.ThumbsUpActors.Add(reaction.Reactions.ReactedUserName);
+                        if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
+                            comment.Reactions.ViewerReactThumbsUp = true;
+                        break;
+                    case GraphQLModel.ReactionContent.ThumbsDown:
+                        comment.Reactions.ThumbsDownCount++;
+                        comment.Reactions.ThumbsDownActors.Add(reaction.Reactions.ReactedUserName);
+                        if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
+                            comment.Reactions.ViewerReactThumbsDown = true;
+                        break;
+                    case GraphQLModel.ReactionContent.Laugh:
+                        comment.Reactions.LaughCount++;
+                        comment.Reactions.LaughActors.Add(reaction.Reactions.ReactedUserName);
+                        if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
+                            comment.Reactions.ViewerReactLaugh = true;
+                        break;
+                    case GraphQLModel.ReactionContent.Hooray:
+                        comment.Reactions.HoorayCount++;
+                        comment.Reactions.HoorayActors.Add(reaction.Reactions.ReactedUserName);
+                        if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
+                            comment.Reactions.ViewerReactHooray = true;
+                        break;
+                    case GraphQLModel.ReactionContent.Confused:
+                        comment.Reactions.ConfusedCount++;
+                        comment.Reactions.ConfusedActors.Add(reaction.Reactions.ReactedUserName);
+                        if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
+                            comment.Reactions.ViewerReactConfused = true;
+                        break;
+                    case GraphQLModel.ReactionContent.Heart:
+                        comment.Reactions.HeartCount++;
+                        comment.Reactions.HeartActors.Add(reaction.Reactions.ReactedUserName);
+                        if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
+                            comment.Reactions.ViewerReactHeart = true;
+                        break;
+                    case GraphQLModel.ReactionContent.Rocket:
+                        comment.Reactions.RocketCount++;
+                        comment.Reactions.RocketActors.Add(reaction.Reactions.ReactedUserName);
+                        if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
+                            comment.Reactions.ViewerReactRocket = true;
+                        break;
+                    case GraphQLModel.ReactionContent.Eyes:
+                        comment.Reactions.EyesCount++;
+                        comment.Reactions.EyesActors.Add(reaction.Reactions.ReactedUserName);
+                        if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
+                            comment.Reactions.ViewerReactEyes = true;
+                        break;
+                }
+            }
+
+            #endregion
+
+            return comment;
         }
     }
 }
