@@ -12,7 +12,9 @@ namespace FluentHub.Octokit.Models
         public string CommitMessage { get; set; }
 
         public string ParentOid { get; set; }
+        public string AbbreviatedParentOid { get; set; }
         public string Oid { get; set; }
+        public string AbbreviatedOid { get; set; }
 
         public int TotalChangedFileCount { get; set; }
         public int TotalAdditions { get; set; }

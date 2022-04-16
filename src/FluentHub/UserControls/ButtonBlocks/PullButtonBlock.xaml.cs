@@ -1,5 +1,6 @@
 ﻿using FluentHub.Octokit.Models;
 using FluentHub.Services;
+using FluentHub.ViewModels;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
 using FluentHub.Views.Repositories.PullRequests;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,7 +41,7 @@ namespace FluentHub.UserControls.ButtonBlocks
 
         private void IssueBlockButton_Click(object sender, RoutedEventArgs e)
         {
-            navigationService.Navigate<PullRequestPage>(ViewModel.PullItem);
+            MainPageViewModel.RepositoryContentFrame.Navigate(typeof(PullRequestPage), ViewModel.PullItem);
         }
 
         private void OnPullButtonBlockLoaded(object sender, RoutedEventArgs e)

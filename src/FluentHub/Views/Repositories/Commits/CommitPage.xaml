@@ -71,14 +71,22 @@
                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                 Style="{StaticResource CaptionTextBlockStyle}"
                                 Text="parent" />
-                            <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="{x:Bind ViewModel.CommitDetails.ParentOid, Mode=OneWay}" />
+                            <TextBlock
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                Text="{x:Bind ViewModel.CommitDetails.AbbreviatedParentOid, Mode=OneWay}"
+                                ToolTipService.Placement="Bottom"
+                                ToolTipService.ToolTip="{x:Bind ViewModel.CommitDetails.ParentOid, Mode=OneWay}" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Spacing="4">
                             <TextBlock
                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                 Style="{StaticResource CaptionTextBlockStyle}"
                                 Text="commit" />
-                            <TextBlock Style="{StaticResource CaptionTextBlockStyle}" Text="{x:Bind ViewModel.CommitDetails.Oid, Mode=OneWay}" />
+                            <TextBlock
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                Text="{x:Bind ViewModel.CommitDetails.Oid, Mode=OneWay}"
+                                ToolTipService.Placement="Bottom"
+                                ToolTipService.ToolTip="{x:Bind ViewModel.CommitDetails.Oid, Mode=OneWay}" />
                         </StackPanel>
                     </StackPanel>
                 </Grid>
@@ -90,25 +98,15 @@
                 Orientation="Horizontal"
                 Spacing="4">
 
-                <FontIcon
-                    FontFamily="{StaticResource Octions}"
-                    FontSize="16"
-                    Glyph="&#xE99D;" />
-
                 <TextBlock
                     VerticalAlignment="Center"
-                    Style="{ThemeResource BodyTextBlockStyle}"
-                    Text="showing" />
+                    Style="{ThemeResource BodyStrongTextBlockStyle}"
+                    Text="{x:Bind ViewModel.CommitDetails.ChangedFiles.Count, Mode=OneWay}" />
 
                 <TextBlock
                     VerticalAlignment="Center"
                     Style="{ThemeResource BodyStrongTextBlockStyle}"
-                    Text="{x:Bind ViewModel.CommitDetails.TotalChangedFileCount, Mode=OneWay}" />
-
-                <TextBlock
-                    VerticalAlignment="Center"
-                    Style="{ThemeResource BodyTextBlockStyle}"
-                    Text="changed files" />
+                    Text="files changed" />
 
                 <TextBlock
                     VerticalAlignment="Center"
@@ -117,11 +115,13 @@
 
                 <TextBlock
                     VerticalAlignment="Center"
-                    Style="{ThemeResource BodyStrongTextBlockStyle}"
+                    Foreground="#347d39"
+                    Style="{ThemeResource BodyTextBlockStyle}"
                     Text="{x:Bind ViewModel.CommitDetails.TotalAdditions, Mode=OneWay}" />
 
                 <TextBlock
                     VerticalAlignment="Center"
+                    Foreground="#347d39"
                     Style="{ThemeResource BodyTextBlockStyle}"
                     Text="additions" />
 
@@ -132,11 +132,13 @@
 
                 <TextBlock
                     VerticalAlignment="Center"
-                    Style="{ThemeResource BodyStrongTextBlockStyle}"
+                    Foreground="#c93c37"
+                    Style="{ThemeResource BodyTextBlockStyle}"
                     Text="{x:Bind ViewModel.CommitDetails.TotalDeletions, Mode=OneWay}" />
 
                 <TextBlock
                     VerticalAlignment="Center"
+                    Foreground="#c93c37"
                     Style="{ThemeResource BodyTextBlockStyle}"
                     Text="deletions" />
 

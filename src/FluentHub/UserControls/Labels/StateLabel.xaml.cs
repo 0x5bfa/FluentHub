@@ -46,33 +46,33 @@ namespace FluentHub.UserControls.Labels
             switch (Status)
             {
                 case Status.IssueOpened: // #1a7f37 [github light color bind theme]
-                    LabelBackground.Background = ColorHelpers.HexCodeToSolidColorBrush("#57AB5A");
+                    LabelBackground.Background = ColorHelpers.HexCodeToSolidColorBrush("#347d39");
                     StateLabelFont.Glyph = "\uE9EA";
                     StateLabelTextBlock.Text = "Open";
                     break;
                 case Status.IssueClosed: // #8250df [github light color bind theme]
-                    LabelBackground.Background = ColorHelpers.HexCodeToSolidColorBrush("#7548c7");
+                    LabelBackground.Background = ColorHelpers.HexCodeToSolidColorBrush("#8256d0");
                     StateLabelFont.Glyph = "\uE9E6";
                     StateLabelTextBlock.Text = "Closed";
                     break;
 
                 case Status.PullOpened: // #1a7f37 [github light color bind theme]
-                    LabelBackground.Background = ColorHelpers.HexCodeToSolidColorBrush("#57AB5A");
+                    LabelBackground.Background = ColorHelpers.HexCodeToSolidColorBrush("#347d39");
                     StateLabelFont.Glyph = "\uE9BF";
                     StateLabelTextBlock.Text = "Open";
                     break;
                 case Status.PullClosed: // #cf222e [github light color bind theme]
-                    LabelBackground.Background = ColorHelpers.HexCodeToSolidColorBrush("#DC2626");
+                    LabelBackground.Background = ColorHelpers.HexCodeToSolidColorBrush("#c93c37");
                     StateLabelFont.Glyph = "\uE9C1";
                     StateLabelTextBlock.Text = "Closed";
                     break;
                 case Status.PullMerged: // #8250df [github light color bind theme]
-                    LabelBackground.Background = ColorHelpers.HexCodeToSolidColorBrush("#7548c7");
+                    LabelBackground.Background = ColorHelpers.HexCodeToSolidColorBrush("#8256d0");
                     StateLabelFont.Glyph = "\uE9BD";
                     StateLabelTextBlock.Text = "Marged";
                     break;
                 case Status.PullDraft: // #57606a [github light color bind theme]
-                    LabelBackground.Background = ColorHelpers.HexCodeToSolidColorBrush("#52525B");
+                    LabelBackground.Background = ColorHelpers.HexCodeToSolidColorBrush("#636e7b");
                     StateLabelFont.Glyph = "\uE9C3";
                     StateLabelTextBlock.Text = "Draft";
                     break;

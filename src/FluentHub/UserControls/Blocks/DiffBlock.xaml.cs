@@ -46,9 +46,8 @@ namespace FluentHub.UserControls.Blocks
 
         private void OnExpandCollapseTogglingButton(object sender, RoutedEventArgs e)
         {
-            DiffContentGrid.Visibility =
-                DiffContentGrid.Visibility == Visibility.Visible ?
-                Visibility.Collapsed :  Visibility.Visible;
+            if (ViewModel.BlockIsExpanded) ViewModel.BlockIsExpanded = false;
+            else ViewModel.BlockIsExpanded = true;
         }
     }
 }

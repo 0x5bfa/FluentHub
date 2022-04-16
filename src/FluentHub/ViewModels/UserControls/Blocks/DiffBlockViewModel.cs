@@ -29,6 +29,15 @@ namespace FluentHub.ViewModels.UserControls.Blocks
         private string _newLineText;
         public string NewLineText { get => _newLineText; set => SetProperty(ref _newLineText, value); }
 
+        private string _fitstLetters;
+        public string FirstLetters { get => _fitstLetters; set => SetProperty(ref _fitstLetters, value); }
+
+        public string _patchRemovedfFirstLetters;
+        public string PatchRemovedfFirstLetters { get => _patchRemovedfFirstLetters; set => SetProperty(ref _patchRemovedfFirstLetters, value); }
+
+        private bool _blockIsExpanded;
+        public bool BlockIsExpanded { get => _blockIsExpanded; set => SetProperty(ref _blockIsExpanded, value); }
+
         private readonly ObservableCollection<int> _changedLineBackgroundType;
         public ReadOnlyObservableCollection<int> ChangedLineBackgroundType { get; }
 
@@ -40,9 +49,12 @@ namespace FluentHub.ViewModels.UserControls.Blocks
             _changedLineBackgroundType.Clear();
             OldLineText = "";
             NewLineText = "";
+            FirstLetters = "";
+            PatchRemovedfFirstLetters = "";
 
             int oldBaseLine = 0;
             int newBaseLine = 0;
+            bool isPatchLine = false;
 
             // Display two line number column for added and deleted line
             for (int index = 0, olds = 0, news = 0; index < lines.Count(); index++)
@@ -67,6 +79,8 @@ namespace FluentHub.ViewModels.UserControls.Blocks
                     // [3]: Length of displayed old diff
                     oldBaseLine = array[0];
                     newBaseLine = array[2];
+                    FirstLetters += "\n";
+                    isPatchLine = true;
                 }
                 else if (lines[index][0] == '-')
                 {
@@ -81,6 +95,8 @@ namespace FluentHub.ViewModels.UserControls.Blocks
 
                     OldLineText += $"{olds}\n";
                     NewLineText += $"\n";
+                    FirstLetters += "-\n";
+                    isPatchLine = false;
                 }
                 else if (lines[index][0] == '+')
                 {
@@ -95,6 +111,8 @@ namespace FluentHub.ViewModels.UserControls.Blocks
 
                     OldLineText += $"\n";
                     NewLineText += $"{news}\n";
+                    FirstLetters += "+\n";
+                    isPatchLine = false;
                 }
                 else
                 {
@@ -116,12 +134,20 @@ namespace FluentHub.ViewModels.UserControls.Blocks
 
                     OldLineText += $"{olds}\n";
                     NewLineText += $"{news}\n";
+                    FirstLetters += "\n";
+                    isPatchLine = false;
                 }
+
+                if (isPatchLine == false) lines[index] = lines[index].Substring(1, lines[index].Length - 1);
             }
 
-            // Delete last line bracks
-            OldLineText = OldLineText.Substring(0, OldLineText.Length - 1);
-            NewLineText = NewLineText.Substring(0, NewLineText.Length - 1);
+            PatchRemovedfFirstLetters = string.Join("\n", lines);
+
+            // Delete last line breacks
+            OldLineText = OldLineText.TrimEnd('\n');
+            NewLineText = NewLineText.TrimEnd('\n');
+            FirstLetters = FirstLetters.TrimEnd('\n');
+            PatchRemovedfFirstLetters = PatchRemovedfFirstLetters.TrimEnd('\n');
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
