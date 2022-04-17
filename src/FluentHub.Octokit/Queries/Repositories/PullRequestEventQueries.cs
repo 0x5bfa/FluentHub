@@ -533,13 +533,13 @@ namespace FluentHub.Octokit.Queries.Repositories
                         #region PullRequestCommit
                         PullRequestCommit = x.Nodes.OfType<GraphQLModel.PullRequestCommit>().Select(y => new
                         {
-                            Actor = y.Actor.Select(actor => new
+                            Actor = y.Commit.Author.Select(actor => new
                             {
                                 AvatarUrl = actor.AvatarUrl(100),
-                                actor.Login,
+                                Login = actor.Name,
                             })
-                              .Single(),
-                            y.CreatedAt,
+                            .Single(),
+                            CreatedAt = y.Commit.PushedDate,
                         })
                         .ToList(),
                         #endregion
@@ -547,13 +547,13 @@ namespace FluentHub.Octokit.Queries.Repositories
                         #region PullRequestCommitCommentThread
                         PullRequestCommitCommentThread = x.Nodes.OfType<GraphQLModel.PullRequestCommitCommentThread>().Select(y => new
                         {
-                            Actor = y.Actor.Select(actor => new
+                            Actor = y.Commit.Author.Select(actor => new
                             {
                                 AvatarUrl = actor.AvatarUrl(100),
-                                actor.Login,
+                                Login = actor.Name,
                             })
-                              .Single(),
-                            y.CreatedAt,
+                            .Single(),
+                            CreatedAt = y.Commit.PushedDate,
                         })
                         .ToList(),
                         #endregion
@@ -561,13 +561,13 @@ namespace FluentHub.Octokit.Queries.Repositories
                         #region PullRequestReview
                         PullRequestReview = x.Nodes.OfType<GraphQLModel.PullRequestReview>().Select(y => new
                         {
-                            Actor = y.Actor.Select(actor => new
+                            Actor = y.Commit.Author.Select(actor => new
                             {
                                 AvatarUrl = actor.AvatarUrl(100),
-                                actor.Login,
+                                Login = actor.Name,
                             })
-                              .Single(),
-                            y.CreatedAt,
+                            .Single(),
+                            CreatedAt = y.Commit.PushedDate,
                         })
                         .ToList(),
                         #endregion
@@ -575,13 +575,13 @@ namespace FluentHub.Octokit.Queries.Repositories
                         #region PullRequestReviewComment
                         PullRequestReviewComment = x.Nodes.OfType<GraphQLModel.PullRequestReviewComment>().Select(y => new
                         {
-                            Actor = y.Actor.Select(actor => new
+                            Actor = y.Commit.Author.Select(actor => new
                             {
                                 AvatarUrl = actor.AvatarUrl(100),
-                                actor.Login,
+                                Login = actor.Name,
                             })
-                              .Single(),
-                            y.CreatedAt,
+                            .Single(),
+                            CreatedAt = y.Commit.PushedDate,
                         })
                         .ToList(),
                         #endregion
@@ -589,13 +589,13 @@ namespace FluentHub.Octokit.Queries.Repositories
                         #region PullRequestRevisionMarker
                         PullRequestRevisionMarker = x.Nodes.OfType<GraphQLModel.PullRequestRevisionMarker>().Select(y => new
                         {
-                            Actor = y.Actor.Select(actor => new
+                            Actor = y.Commit.Author.Select(actor => new
                             {
                                 AvatarUrl = actor.AvatarUrl(100),
-                                actor.Login,
+                                Login = actor.Name,
                             })
-                              .Single(),
-                            y.CreatedAt,
+                            .Single(),
+                            CreatedAt = y.Commit.PushedDate,
                         })
                         .ToList(),
                         #endregion
@@ -1763,14 +1763,14 @@ namespace FluentHub.Octokit.Queries.Repositories
                     case "DisconnectedEvent":
                         allEvents.Add(Tuple.Create(item.Item1, disconnectedEvents[item.Item2] as object));
                         break;
-                    case "HeadRefForcePushedEvent":
-                        allEvents.Add(Tuple.Create(item.Item1, headRefForcePushedEvents[item.Item2] as object));
+                    case "HeadRefDeletedEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, headRefDeletedEvents[item.Item2] as object));
                         break;
                     case "HeadRefForcePushedEvent":
                         allEvents.Add(Tuple.Create(item.Item1, headRefForcePushedEvents[item.Item2] as object));
                         break;
-                    case "HeadRefForcePushedEvent":
-                        allEvents.Add(Tuple.Create(item.Item1, headRefForcePushedEvents[item.Item2] as object));
+                    case "HeadRefRestoredEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, headRefRestoredEvents[item.Item2] as object));
                         break;
                     case "IssueComment":
                         allEvents.Add(Tuple.Create(item.Item1, issueComments[item.Item2] as object));

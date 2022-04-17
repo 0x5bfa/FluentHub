@@ -22,88 +22,164 @@ namespace FluentHub.ViewModels.UserControls.Blocks
         //public bool ActorIsUser { get => actorIsUser; set => SetProperty(ref actorIsUser, value); }
 
         #region AllEvents
-        private AddedToProjectEvent addedToProjectEvent;
+
+        private AddedToProjectEvent  addedToProjectEvent;
         public AddedToProjectEvent AddedToProjectEvent { get => addedToProjectEvent; set => SetProperty(ref addedToProjectEvent, value); }
 
-        private AssignedEvent assignedEvent;
+        private AssignedEvent  assignedEvent;
         public AssignedEvent AssignedEvent { get => assignedEvent; set => SetProperty(ref assignedEvent, value); }
 
-        private ClosedEvent closedEvent;
+        private AutoMergeDisabledEvent  autoMergeDisabledEvent;
+        public AutoMergeDisabledEvent AutoMergeDisabledEvent { get => autoMergeDisabledEvent; set => SetProperty(ref autoMergeDisabledEvent, value); }
+
+        private AutoMergeEnabledEvent  autoMergeEnabledEvent;
+        public AutoMergeEnabledEvent AutoMergeEnabledEvent { get => autoMergeEnabledEvent; set => SetProperty(ref autoMergeEnabledEvent, value); }
+
+        private AutoRebaseEnabledEvent  autoRebaseEnabledEvent;
+        public AutoRebaseEnabledEvent AutoRebaseEnabledEvent { get => autoRebaseEnabledEvent; set => SetProperty(ref autoRebaseEnabledEvent, value); }
+
+        private AutoSquashEnabledEvent  autoSquashEnabledEvent;
+        public AutoSquashEnabledEvent AutoSquashEnabledEvent { get => autoSquashEnabledEvent; set => SetProperty(ref autoSquashEnabledEvent, value); }
+
+        private AutomaticBaseChangeFailedEvent  automaticBaseChangeFailedEvent;
+        public AutomaticBaseChangeFailedEvent AutomaticBaseChangeFailedEvent { get => automaticBaseChangeFailedEvent; set => SetProperty(ref automaticBaseChangeFailedEvent, value); }
+
+        private AutomaticBaseChangeSuccessedEvent  automaticBaseChangeSuccessedEvent;
+        public AutomaticBaseChangeSuccessedEvent AutomaticBaseChangeSuccessedEvent { get => automaticBaseChangeSuccessedEvent; set => SetProperty(ref automaticBaseChangeSuccessedEvent, value); }
+
+        private BaseRefChangedEvent  baseRefChangedEvent;
+        public BaseRefChangedEvent BaseRefChangedEvent { get => baseRefChangedEvent; set => SetProperty(ref baseRefChangedEvent, value); }
+
+        private BaseRefDeletedEvent  baseRefDeletedEvent;
+        public BaseRefDeletedEvent BaseRefDeletedEvent { get => baseRefDeletedEvent; set => SetProperty(ref baseRefDeletedEvent, value); }
+
+        private BaseRefForcePushedEvent  baseRefForcePushedEvent;
+        public BaseRefForcePushedEvent BaseRefForcePushedEvent { get => baseRefForcePushedEvent; set => SetProperty(ref baseRefForcePushedEvent, value); }
+
+        private ClosedEvent  closedEvent;
         public ClosedEvent ClosedEvent { get => closedEvent; set => SetProperty(ref closedEvent, value); }
 
-        private CommentDeletedEvent commentDeletedEvent;
+        private CommentDeletedEvent  commentDeletedEvent;
         public CommentDeletedEvent CommentDeletedEvent { get => commentDeletedEvent; set => SetProperty(ref commentDeletedEvent, value); }
 
-        private ConnectedEvent connectedEvent;
+        private ConnectedEvent  connectedEvent;
         public ConnectedEvent ConnectedEvent { get => connectedEvent; set => SetProperty(ref connectedEvent, value); }
 
-        private ConvertedNoteToIssueEvent convertedNoteToIssueEvent;
+        private ConvertedNoteToIssueEvent  convertedNoteToIssueEvent;
         public ConvertedNoteToIssueEvent ConvertedNoteToIssueEvent { get => convertedNoteToIssueEvent; set => SetProperty(ref convertedNoteToIssueEvent, value); }
 
-        private CrossReferencedEvent crossReferencedEvent;
+        private ConvertToDraftEvent  convertToDraftEvent;
+        public ConvertToDraftEvent ConvertToDraftEvent { get => convertToDraftEvent; set => SetProperty(ref convertToDraftEvent, value); }
+
+        private CrossReferencedEvent  crossReferencedEvent;
         public CrossReferencedEvent CrossReferencedEvent { get => crossReferencedEvent; set => SetProperty(ref crossReferencedEvent, value); }
 
-        private DemilestonedEvent demilestonedEvent;
+        private DemilestonedEvent  demilestonedEvent;
         public DemilestonedEvent DemilestonedEvent { get => demilestonedEvent; set => SetProperty(ref demilestonedEvent, value); }
 
-        private DisconnectedEvent disconnectedEvent;
+        private DeployedEvent  deployedEvent;
+        public DeployedEvent DeployedEvent { get => deployedEvent; set => SetProperty(ref deployedEvent, value); }
+
+        private DisconnectedEvent  disconnectedEvent;
         public DisconnectedEvent DisconnectedEvent { get => disconnectedEvent; set => SetProperty(ref disconnectedEvent, value); }
 
-        private IssueComment issueComment;
+        private HeadRefDeletedEvent headRefDeletedEvents;
+        public HeadRefDeletedEvent HeadRefDeletedEvent { get => headRefDeletedEvents; set => SetProperty(ref headRefDeletedEvents, value); }
+
+        private HeadRefForcePushedEvent headRefForcePushedEvents;
+        public HeadRefForcePushedEvent HeadRefForcePushedEvent { get => headRefForcePushedEvent; set => SetProperty(ref headRefForcePushedEvent, value); }
+
+        private HeadRefRestoredEvent headRefRestoredEvents;
+        public HeadRefRestoredEvent HeadRefRestoredEvent { get => headRefRestoredEvents; set => SetProperty(ref headRefRestoredEvents, value); }
+
+        private IssueComment  issueComment;
         public IssueComment IssueComment { get => issueComment; set => SetProperty(ref issueComment, value); }
 
-        private LabeledEvent labeledEvent;
+        private LabeledEvent  labeledEvent;
         public LabeledEvent LabeledEvent { get => labeledEvent; set => SetProperty(ref labeledEvent, value); }
 
-        private LockedEvent lockedEvent;
+        private LockedEvent  lockedEvent;
         public LockedEvent LockedEvent { get => lockedEvent; set => SetProperty(ref lockedEvent, value); }
 
-        private MarkedAsDuplicateEvent markedAsDuplicateEvent;
+        private MarkedAsDuplicateEvent  markedAsDuplicateEvent;
         public MarkedAsDuplicateEvent MarkedAsDuplicateEvent { get => markedAsDuplicateEvent; set => SetProperty(ref markedAsDuplicateEvent, value); }
 
-        private MentionedEvent mentionedEvent;
+        private MentionedEvent  mentionedEvent;
         public MentionedEvent MentionedEvent { get => mentionedEvent; set => SetProperty(ref mentionedEvent, value); }
 
-        private MilestonedEvent milestonedEvent;
+        private MergedEvent  mergedEvent;
+        public MergedEvent MergedEvent { get => mergedEvent; set => SetProperty(ref mergedEvent, value); }
+
+        private MilestonedEvent  milestonedEvent;
         public MilestonedEvent MilestonedEvent { get => milestonedEvent; set => SetProperty(ref milestonedEvent, value); }
 
-        private MovedColumnsInProjectEvent movedColumnsInProjectEvent;
+        private MovedColumnsInProjectEvent  movedColumnsInProjectEvent;
         public MovedColumnsInProjectEvent MovedColumnsInProjectEvent { get => movedColumnsInProjectEvent; set => SetProperty(ref movedColumnsInProjectEvent, value); }
 
-        private PinnedEvent pinnedEvent;
+        private PinnedEvent  pinnedEvent;
         public PinnedEvent PinnedEvent { get => pinnedEvent; set => SetProperty(ref pinnedEvent, value); }
 
-        private ReferencedEvent referencedEvent;
+        private PullRequestCommit  pullRequestCommit;
+        public PullRequestCommit PullRequestCommit { get => pullRequestCommit; set => SetProperty(ref pullRequestCommit, value); }
+
+        private PullRequestCommitCommentThread  pullRequestCommitCommentThread;
+        public PullRequestCommitCommentThread PullRequestCommitCommentThread { get => pullRequestCommitCommentThread; set => SetProperty(ref pullRequestCommitCommentThread, value); }
+
+        private PullRequestReview  pullRequestReview;
+        public PullRequestReview PullRequestReview { get => pullRequestReview; set => SetProperty(ref pullRequestReview, value); }
+
+        private PullRequestReviewThread  pullRequestReviewThread;
+        public PullRequestReviewThread PullRequestReviewThread { get => pullRequestReviewThread; set => SetProperty(ref pullRequestReviewThread, value); }
+
+        private PullRequestRevisionMarker  pullRequestRevisionMarker;
+        public PullRequestRevisionMarker PullRequestRevisionMarker { get => pullRequestRevisionMarker; set => SetProperty(ref pullRequestRevisionMarker, value); }
+
+        private ReadyForReviewEvent  readyForReviewEvent;
+        public ReadyForReviewEvent ReadyForReviewEvent { get => readyForReviewEvent; set => SetProperty(ref readyForReviewEvent, value); }
+
+        private ReferencedEvent  referencedEvent;
         public ReferencedEvent ReferencedEvent { get => referencedEvent; set => SetProperty(ref referencedEvent, value); }
 
-        private RemovedFromProjectEvent removedFromProjectEvent;
+        private RemovedFromProjectEvent  removedFromProjectEvent;
         public RemovedFromProjectEvent RemovedFromProjectEvent { get => removedFromProjectEvent; set => SetProperty(ref removedFromProjectEvent, value); }
 
-        private RenamedTitleEvent renamedTitleEvent;
+        private RenamedTitleEvent  renamedTitleEvent;
         public RenamedTitleEvent RenamedTitleEvent { get => renamedTitleEvent; set => SetProperty(ref renamedTitleEvent, value); }
 
-        private ReopenedEvent reopenedEvent;
+        private ReopenedEvent  reopenedEvent;
         public ReopenedEvent ReopenedEvent { get => reopenedEvent; set => SetProperty(ref reopenedEvent, value); }
 
-        private SubscribedEvent subscribedEvent;
+        private ReviewDismissedEvent  reviewDismissedEvent;
+        public ReviewDismissedEvent ReviewDismissedEvent { get => reviewDismissedEvent; set => SetProperty(ref reviewDismissedEvent, value); }
+
+        private ReviewRequestedEvent  reviewRequestedEvent;
+        public ReviewRequestedEvent ReviewRequestedEvent { get => reviewRequestedEvent; set => SetProperty(ref reviewRequestedEvent, value); }
+
+        private ReviewRequestRemovedEvent  reviewRequestRemovedEvent;
+        public ReviewRequestRemovedEvent ReviewRequestRemovedEvent { get => reviewRequestRemovedEvent; set => SetProperty(ref reviewRequestRemovedEvent, value); }
+
+        private SubscribedEvent  subscribedEvent;
         public SubscribedEvent SubscribedEvent { get => subscribedEvent; set => SetProperty(ref subscribedEvent, value); }
 
-        private UnassignedEvent unassignedEvent;
+        private TransferredEvent  transferredEvent;
+        public TransferredEvent TransferredEvent { get => transferredEvent; set => SetProperty(ref transferredEvent, value); }
+
+        private UnassignedEvent  unassignedEvent;
         public UnassignedEvent UnassignedEvent { get => unassignedEvent; set => SetProperty(ref unassignedEvent, value); }
 
-        private UnlabeledEvent unlabeledEvent;
+        private UnlabeledEvent  unlabeledEvent;
         public UnlabeledEvent UnlabeledEvent { get => unlabeledEvent; set => SetProperty(ref unlabeledEvent, value); }
 
-        private UnlockedEvent unlockedEvent;
+        private UnlockedEvent  unlockedEvent;
         public UnlockedEvent UnlockedEvent { get => unlockedEvent; set => SetProperty(ref unlockedEvent, value); }
 
-        private UnmarkedAsDuplicateEvent unmarkedAsDuplicateEvent;
+        private UnmarkedAsDuplicateEvent  unmarkedAsDuplicateEvent;
         public UnmarkedAsDuplicateEvent UnmarkedAsDuplicateEvent { get => unmarkedAsDuplicateEvent; set => SetProperty(ref unmarkedAsDuplicateEvent, value); }
 
-        private UnpinnedEvent unpinnedEvent;
+        private UnpinnedEvent  unpinnedEvent;
         public UnpinnedEvent UnpinnedEvent { get => unpinnedEvent; set => SetProperty(ref unpinnedEvent, value); }
 
-        private UnsubscribedEvent unsubscribedEvent;
+        private UnsubscribedEvent  unsubscribedEvent;
         public UnsubscribedEvent UnsubscribedEvent { get => unsubscribedEvent; set => SetProperty(ref unsubscribedEvent, value); }
 
         private UserBlockedEvent userBlockedEvent;
