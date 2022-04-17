@@ -150,7 +150,7 @@
                         BorderThickness="0">
                         <FontIcon FontSize="16" Glyph="&#xE10C;" />
                         <Button.Flyout>
-                            <MenuFlyout Placement="Bottom">
+                            <MenuFlyout Placement="BottomEdgeAlignedRight">
                                 <MenuFlyoutItem Text="Share" />
                                 <MenuFlyoutItem Text="Quote reply" />
                                 <MenuFlyoutItem Text="Reference in new issue" />

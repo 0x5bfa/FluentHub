@@ -25,7 +25,147 @@ namespace FluentHub.Octokit.Queries.Repositories
                 {
                     TimelineItems = x.TimelineItems(100, null, null, null, null, null, null).Select(x => new
                     {
-                        CommentedEvent = x.Nodes.OfType<GraphQLModel.IssueComment>().Select(y => new
+                        #region AddedToProjectEvent
+                        AddedToProjectEvent = x.Nodes.OfType<GraphQLModel.AddedToProjectEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                AvatarUrl = actor.AvatarUrl(100),
+                                actor.Login,
+                            })
+                            .Single()
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region AssignedEvent
+                        AssignedEvent = x.Nodes.OfType<GraphQLModel.AssignedEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                AvatarUrl = actor.AvatarUrl(100),
+                                actor.Login,
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region ClosedEvent
+                        ClosedEvent = x.Nodes.OfType<GraphQLModel.ClosedEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                actor.Login,
+                                AvatarUrl = actor.AvatarUrl(100),
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region CommentDeletedEvent
+                        CommentDeletedEvent = x.Nodes.OfType<GraphQLModel.CommentDeletedEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                actor.Login,
+                                AvatarUrl = actor.AvatarUrl(100),
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region ConnectedEvent
+                        ConnectedEvent = x.Nodes.OfType<GraphQLModel.ConnectedEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                actor.Login,
+                                AvatarUrl = actor.AvatarUrl(100),
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region ConvertedNoteToIssueEvent
+                        ConvertedNoteToIssueEvent = x.Nodes.OfType<GraphQLModel.ConvertedNoteToIssueEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                actor.Login,
+                                AvatarUrl = actor.AvatarUrl(100),
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        //#region ConvertedToDiscussionEvent
+                        //ConvertedToDiscussionEvent = x.Nodes.OfType<GraphQLModel.ConvertedToDiscussionEvent>().Select(y => new
+                        //{
+                        //    Actor = y.Actor.Select(actor => new
+                        //    {
+                        //        actor.Login,
+                        //        AvatarUrl = actor.AvatarUrl(100),
+                        //    })
+                        //    .Single(),
+                        //    y.CreatedAt,
+                        //})
+                        //.ToList(),
+                        //#endregion
+
+                        #region CrossReferencedEvent
+                        CrossReferencedEvent = x.Nodes.OfType<GraphQLModel.CrossReferencedEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                actor.Login,
+                                AvatarUrl = actor.AvatarUrl(100),
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region DemilestonedEvent
+                        DemilestonedEvent = x.Nodes.OfType<GraphQLModel.DemilestonedEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                actor.Login,
+                                AvatarUrl = actor.AvatarUrl(100),
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region DisconnectedEvent
+                        DisconnectedEvent = x.Nodes.OfType<GraphQLModel.DisconnectedEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                actor.Login,
+                                AvatarUrl = actor.AvatarUrl(100),
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region IssueComment
+                        IssueComment = x.Nodes.OfType<GraphQLModel.IssueComment>().Select(y => new
                         {
                             Author = y.Author.Select(author => new
                             {
@@ -57,7 +197,9 @@ namespace FluentHub.Octokit.Queries.Repositories
                             y.CreatedAt,
                         })
                         .ToList(),
+                        #endregion
 
+                        #region LabeledEvent
                         LabeledEvent = x.Nodes.OfType<GraphQLModel.LabeledEvent>().Select(y => new
                         {
                             y.Label.Color,
@@ -65,16 +207,10 @@ namespace FluentHub.Octokit.Queries.Repositories
                             y.CreatedAt,
                         })
                         .ToList(),
+                        #endregion
 
-                        UnlabeledEvent = x.Nodes.OfType<GraphQLModel.UnlabeledEvent>().Select(y => new
-                        {
-                            y.Label.Color,
-                            y.Label.Name,
-                            y.CreatedAt,
-                        })
-                        .ToList(),
-
-                        ClosedEvent = x.Nodes.OfType<GraphQLModel.ClosedEvent>().Select(y => new
+                        #region LockedEvent
+                        LockedEvent = x.Nodes.OfType<GraphQLModel.LockedEvent>().Select(y => new
                         {
                             Actor = y.Actor.Select(actor => new
                             {
@@ -85,7 +221,121 @@ namespace FluentHub.Octokit.Queries.Repositories
                             y.CreatedAt,
                         })
                         .ToList(),
+                        #endregion
 
+                        #region MarkedAsDuplicateEvent
+                        MarkedAsDuplicateEvent = x.Nodes.OfType<GraphQLModel.MarkedAsDuplicateEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                actor.Login,
+                                AvatarUrl = actor.AvatarUrl(100),
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region MentionedEvent
+                        MentionedEvent = x.Nodes.OfType<GraphQLModel.MentionedEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                actor.Login,
+                                AvatarUrl = actor.AvatarUrl(100),
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region MilestonedEvent
+                        MilestonedEvent = x.Nodes.OfType<GraphQLModel.MilestonedEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                actor.Login,
+                                AvatarUrl = actor.AvatarUrl(100),
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region MovedColumnsInProjectEvent
+                        MovedColumnsInProjectEvent = x.Nodes.OfType<GraphQLModel.MovedColumnsInProjectEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                actor.Login,
+                                AvatarUrl = actor.AvatarUrl(100),
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region PinnedEvent
+                        PinnedEvent = x.Nodes.OfType<GraphQLModel.PinnedEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                actor.Login,
+                                AvatarUrl = actor.AvatarUrl(100),
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region ReferencedEvent
+                        ReferencedEvent = x.Nodes.OfType<GraphQLModel.ReferencedEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                actor.Login,
+                                AvatarUrl = actor.AvatarUrl(100),
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region RemovedFromProjectEvent
+                        RemovedFromProjectEvent = x.Nodes.OfType<GraphQLModel.RemovedFromProjectEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                actor.Login,
+                                AvatarUrl = actor.AvatarUrl(100),
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region RenamedTitleEvent
+                        RenamedTitleEvent = x.Nodes.OfType<GraphQLModel.RenamedTitleEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                actor.Login,
+                                AvatarUrl = actor.AvatarUrl(100),
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region ReopenedEvent
                         ReopenedEvent = x.Nodes.OfType<GraphQLModel.ReopenedEvent>().Select(y => new
                         {
                             Actor = y.Actor.Select(actor => new
@@ -97,6 +347,115 @@ namespace FluentHub.Octokit.Queries.Repositories
                             y.CreatedAt,
                         })
                         .ToList(),
+                        #endregion
+
+                        #region SubscribedEvent
+                        SubscribedEvent = x.Nodes.OfType<GraphQLModel.SubscribedEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                actor.Login,
+                                AvatarUrl = actor.AvatarUrl(100),
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region UnassignedEvent
+                        UnassignedEvent = x.Nodes.OfType<GraphQLModel.UnassignedEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                actor.Login,
+                                AvatarUrl = actor.AvatarUrl(100),
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region UnlabeledEvent
+                        UnlabeledEvent = x.Nodes.OfType<GraphQLModel.UnlabeledEvent>().Select(y => new
+                        {
+                            y.Label.Color,
+                            y.Label.Name,
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region UnlockedEvent
+                        UnlockedEvent = x.Nodes.OfType<GraphQLModel.UnlockedEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                actor.Login,
+                                AvatarUrl = actor.AvatarUrl(100),
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region UnmarkedAsDuplicateEvent
+                        UnmarkedAsDuplicateEvent = x.Nodes.OfType<GraphQLModel.UnmarkedAsDuplicateEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                actor.Login,
+                                AvatarUrl = actor.AvatarUrl(100),
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region UnpinnedEvent
+                        UnpinnedEvent = x.Nodes.OfType<GraphQLModel.UnpinnedEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                actor.Login,
+                                AvatarUrl = actor.AvatarUrl(100),
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region UnsubscribedEvent
+                        UnsubscribedEvent = x.Nodes.OfType<GraphQLModel.UnsubscribedEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                actor.Login,
+                                AvatarUrl = actor.AvatarUrl(100),
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region UserBlockedEvent
+                        UserBlockedEvent = x.Nodes.OfType<GraphQLModel.UserBlockedEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                actor.Login,
+                                AvatarUrl = actor.AvatarUrl(100),
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
                     })
                     .SingleOrDefault(),
                 })
@@ -110,7 +469,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 
             #region copying
             List<CommentedEvent> commentedEvent = new();
-            foreach (var item in response.TimelineItems.CommentedEvent)
+            foreach (var item in response.TimelineItems.IssueComment)
             {
                 CommentedEvent comment = new()
                 {
@@ -198,8 +557,8 @@ namespace FluentHub.Octokit.Queries.Repositories
             {
                 LabeledEvent label = new()
                 {
-                    CreatedAt = (DateTimeOffset)item.CreatedAt,
-                    CreatedAtHumanized = ((DateTimeOffset)item.CreatedAt).Humanize(),
+                    CreatedAt = item.CreatedAt,
+                    CreatedAtHumanized = item.CreatedAt.Humanize(),
                     LabeledLabel = new()
                     {
                         Color = item.Color,
@@ -217,8 +576,8 @@ namespace FluentHub.Octokit.Queries.Repositories
             {
                 UnlabeledEvent unlabeledItem = new()
                 {
-                    CreatedAt = (DateTimeOffset)item.CreatedAt,
-                    CreatedAtHumanized = ((DateTimeOffset)item.CreatedAt).Humanize(),
+                    CreatedAt = item.CreatedAt,
+                    CreatedAtHumanized = item.CreatedAt.Humanize(),
                     UnlabeledLabel = new()
                     {
                         Color = item.Color,
