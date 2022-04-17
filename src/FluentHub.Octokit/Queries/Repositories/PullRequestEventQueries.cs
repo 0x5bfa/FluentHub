@@ -53,6 +53,132 @@ namespace FluentHub.Octokit.Queries.Repositories
                         .ToList(),
                         #endregion
 
+                        #region AutoMergeDisabledEvent
+                        AutoMergeDisabledEvent = x.Nodes.OfType<GraphQLModel.AutoMergeDisabledEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                AvatarUrl = actor.AvatarUrl(100),
+                                actor.Login,
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region AutoMergeEnabledEvent
+                        AutoMergeEnabledEvent = x.Nodes.OfType<GraphQLModel.AutoMergeEnabledEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                AvatarUrl = actor.AvatarUrl(100),
+                                actor.Login,
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region AutoRebaseEnabledEvent
+                        AutoRebaseEnabledEvent = x.Nodes.OfType<GraphQLModel.AutoRebaseEnabledEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                AvatarUrl = actor.AvatarUrl(100),
+                                actor.Login,
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region AutoSquashEnabledEvent
+                        AutoSquashEnabledEvent = x.Nodes.OfType<GraphQLModel.AutoSquashEnabledEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                AvatarUrl = actor.AvatarUrl(100),
+                                actor.Login,
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region AutomaticBaseChangeFailedEvent
+                        AutomaticBaseChangeFailedEvent = x.Nodes.OfType<GraphQLModel.AutomaticBaseChangeFailedEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                AvatarUrl = actor.AvatarUrl(100),
+                                actor.Login,
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region AutomaticBaseChangeSucceededEvent
+                        AutomaticBaseChangeSucceededEvent = x.Nodes.OfType<GraphQLModel.AutomaticBaseChangeSucceededEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                AvatarUrl = actor.AvatarUrl(100),
+                                actor.Login,
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region BaseRefChangedEvent
+                        BaseRefChangedEvent = x.Nodes.OfType<GraphQLModel.BaseRefChangedEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                AvatarUrl = actor.AvatarUrl(100),
+                                actor.Login,
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region BaseRefDeletedEvent
+                        BaseRefDeletedEvent = x.Nodes.OfType<GraphQLModel.BaseRefDeletedEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                AvatarUrl = actor.AvatarUrl(100),
+                                actor.Login,
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region BaseRefForcePushedEvent
+                        BaseRefForcePushedEvent = x.Nodes.OfType<GraphQLModel.BaseRefForcePushedEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                AvatarUrl = actor.AvatarUrl(100),
+                                actor.Login,
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
                         #region ClosedEvent
                         ClosedEvent = x.Nodes.OfType<GraphQLModel.ClosedEvent>().Select(y => new
                         {
@@ -123,6 +249,20 @@ namespace FluentHub.Octokit.Queries.Repositories
                         //.ToList(),
                         #endregion
 
+                        #region ConvertToDraftEvent
+                        ConvertToDraftEvent = x.Nodes.OfType<GraphQLModel.ConvertToDraftEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                AvatarUrl = actor.AvatarUrl(100),
+                                actor.Login,
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
                         #region CrossReferencedEvent
                         CrossReferencedEvent = x.Nodes.OfType<GraphQLModel.CrossReferencedEvent>().Select(y => new
                         {
@@ -151,6 +291,34 @@ namespace FluentHub.Octokit.Queries.Repositories
                         .ToList(),
                         #endregion
 
+                        #region DeployedEvent
+                        DeployedEvent = x.Nodes.OfType<GraphQLModel.DeployedEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                AvatarUrl = actor.AvatarUrl(100),
+                                actor.Login,
+                            })
+                            .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region DeploymentEnvernmentChangedEvent (not found)
+                        //DeploymentEnvernmentChangedEvent = x.Nodes.OfType<GraphQLModel.DeploymentEnvernmentChangedEvent>().Select(y => new
+                        //{
+                        //    Actor = y.Actor.Select(actor => new
+                        //    {
+                        //        AvatarUrl = actor.AvatarUrl(100),
+                        //        actor.Login,
+                        //    })
+                        //    .Single(),
+                        //    y.CreatedAt,
+                        //})
+                        //.ToList(),
+                        #endregion
+
                         #region DisconnectedEvent
                         DisconnectedEvent = x.Nodes.OfType<GraphQLModel.DisconnectedEvent>().Select(y => new
                         {
@@ -160,6 +328,48 @@ namespace FluentHub.Octokit.Queries.Repositories
                                 actor.Login,
                             })
                             .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region DeploymentEnvernmentChangedEvent
+                        DeploymentEnvernmentChangedEvent = x.Nodes.OfType<GraphQLModel.HeadRefDeletedEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                AvatarUrl = actor.AvatarUrl(100),
+                                actor.Login,
+                            })
+                              .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region HeadRefForcePushedEvent
+                        HeadRefForcePushedEvent = x.Nodes.OfType<GraphQLModel.HeadRefForcePushedEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                AvatarUrl = actor.AvatarUrl(100),
+                                actor.Login,
+                            })
+                              .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region HeadRefRestoredEvent
+                        HeadRefRestoredEvent = x.Nodes.OfType<GraphQLModel.HeadRefRestoredEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                AvatarUrl = actor.AvatarUrl(100),
+                                actor.Login,
+                            })
+                              .Single(),
                             y.CreatedAt,
                         })
                         .ToList(),
@@ -264,6 +474,20 @@ namespace FluentHub.Octokit.Queries.Repositories
                         .ToList(),
                         #endregion
 
+                        #region MergedEvent
+                        MergedEvent = x.Nodes.OfType<GraphQLModel.MergedEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                AvatarUrl = actor.AvatarUrl(100),
+                                actor.Login,
+                            })
+                              .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
                         #region MilestonedEvent
                         MilestonedEvent = x.Nodes.OfType<GraphQLModel.MilestonedEvent>().Select(y => new
                         {
@@ -301,6 +525,90 @@ namespace FluentHub.Octokit.Queries.Repositories
                                 AvatarUrl = actor.AvatarUrl(100),
                             })
                             .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region PullRequestCommit
+                        PullRequestCommit = x.Nodes.OfType<GraphQLModel.PullRequestCommit>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                AvatarUrl = actor.AvatarUrl(100),
+                                actor.Login,
+                            })
+                              .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region PullRequestCommitCommentThread
+                        PullRequestCommitCommentThread = x.Nodes.OfType<GraphQLModel.PullRequestCommitCommentThread>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                AvatarUrl = actor.AvatarUrl(100),
+                                actor.Login,
+                            })
+                              .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region PullRequestReview
+                        PullRequestReview = x.Nodes.OfType<GraphQLModel.PullRequestReview>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                AvatarUrl = actor.AvatarUrl(100),
+                                actor.Login,
+                            })
+                              .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region PullRequestReviewComment
+                        PullRequestReviewComment = x.Nodes.OfType<GraphQLModel.PullRequestReviewComment>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                AvatarUrl = actor.AvatarUrl(100),
+                                actor.Login,
+                            })
+                              .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region PullRequestRevisionMarker
+                        PullRequestRevisionMarker = x.Nodes.OfType<GraphQLModel.PullRequestRevisionMarker>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                AvatarUrl = actor.AvatarUrl(100),
+                                actor.Login,
+                            })
+                              .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region ReadyForReviewEvent
+                        ReadyForReviewEvent = x.Nodes.OfType<GraphQLModel.ReadyForReviewEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                AvatarUrl = actor.AvatarUrl(100),
+                                actor.Login,
+                            })
+                              .Single(),
                             y.CreatedAt,
                         })
                         .ToList(),
@@ -362,6 +670,48 @@ namespace FluentHub.Octokit.Queries.Repositories
                         .ToList(),
                         #endregion
 
+                        #region ReviewDismissedEvent
+                        ReviewDismissedEvent = x.Nodes.OfType<GraphQLModel.ReviewDismissedEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                AvatarUrl = actor.AvatarUrl(100),
+                                actor.Login,
+                            })
+                              .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region ReviewRequestedEvent
+                        ReviewRequestedEvent = x.Nodes.OfType<GraphQLModel.ReviewRequestedEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                AvatarUrl = actor.AvatarUrl(100),
+                                actor.Login,
+                            })
+                              .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region ReviewRequestRemovedEvent
+                        ReviewRequestRemovedEvent = x.Nodes.OfType<GraphQLModel.ReviewRequestRemovedEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                AvatarUrl = actor.AvatarUrl(100),
+                                actor.Login,
+                            })
+                              .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
                         #region SubscribedEvent
                         SubscribedEvent = x.Nodes.OfType<GraphQLModel.SubscribedEvent>().Select(y => new
                         {
@@ -371,6 +721,20 @@ namespace FluentHub.Octokit.Queries.Repositories
                                 AvatarUrl = actor.AvatarUrl(100),
                             })
                             .Single(),
+                            y.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region TransferredEvent
+                        TransferredEvent = x.Nodes.OfType<GraphQLModel.TransferredEvent>().Select(y => new
+                        {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                AvatarUrl = actor.AvatarUrl(100),
+                                actor.Login,
+                            })
+                              .Single(),
                             y.CreatedAt,
                         })
                         .ToList(),
@@ -517,6 +881,132 @@ namespace FluentHub.Octokit.Queries.Repositories
                 allEventCreatedDates.Add(Tuple.Create(nameof(AssignedEvent), assignedEvents.Count() - 1, indivisual.CreatedAt));
             }
 
+            List<AutoMergeDisabledEvent> autoMergeDisabledEvents = new();
+            foreach (var item in response.TimelineItems.AutoMergeDisabledEvent)
+            {
+                AutoMergeDisabledEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                autoMergeDisabledEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(AutoMergeDisabledEvent), autoMergeDisabledEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<AutoMergeEnabledEvent> autoMergeEnabledEvents = new();
+            foreach (var item in response.TimelineItems.AutoMergeEnabledEvent)
+            {
+                AutoMergeEnabledEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                autoMergeEnabledEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(AutoMergeEnabledEvent), autoMergeEnabledEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<AutoRebaseEnabledEvent> autoRebaseEnabledEvents = new();
+            foreach (var item in response.TimelineItems.AutoRebaseEnabledEvent)
+            {
+                AutoRebaseEnabledEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                autoRebaseEnabledEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(AutoRebaseEnabledEvent), autoRebaseEnabledEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<AutoSquashEnabledEvent> autoSquashEnabledEvents = new();
+            foreach (var item in response.TimelineItems.AutoSquashEnabledEvent)
+            {
+                AutoSquashEnabledEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                autoSquashEnabledEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(AutoSquashEnabledEvent), autoSquashEnabledEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<AutomaticBaseChangeFailedEvent> automaticBaseChangeFailedEvents = new();
+            foreach (var item in response.TimelineItems.AutomaticBaseChangeFailedEvent)
+            {
+                AutomaticBaseChangeFailedEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                automaticBaseChangeFailedEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(AutomaticBaseChangeFailedEvent), automaticBaseChangeFailedEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<AutomaticBaseChangeSuccessedEvent> automaticBaseChangeSuccessedEvents = new();
+            foreach (var item in response.TimelineItems.AutomaticBaseChangeSuccessedEvent)
+            {
+                AutomaticBaseChangeSuccessedEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                automaticBaseChangeSuccessedEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(AutomaticBaseChangeSuccessedEvent), automaticBaseChangeSuccessedEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<BaseRefChangedEvent> baseRefChangedEvents = new();
+            foreach (var item in response.TimelineItems.BaseRefChangedEvent)
+            {
+                BaseRefChangedEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                baseRefChangedEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(BaseRefChangedEvent), baseRefChangedEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<BaseRefDeletedEvent> baseRefDeletedEvents = new();
+            foreach (var item in response.TimelineItems.BaseRefDeletedEvent)
+            {
+                BaseRefDeletedEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                baseRefDeletedEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(BaseRefDeletedEvent), baseRefDeletedEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<BaseRefForcePushedEvent> baseRefForcePushedEvents = new();
+            foreach (var item in response.TimelineItems.BaseRefForcePushedEvent)
+            {
+                BaseRefForcePushedEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                baseRefForcePushedEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(BaseRefForcePushedEvent), baseRefForcePushedEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
             List<ClosedEvent> closedEvents = new();
             foreach (var item in response.TimelineItems.ClosedEvent)
             {
@@ -573,6 +1063,20 @@ namespace FluentHub.Octokit.Queries.Repositories
                 allEventCreatedDates.Add(Tuple.Create(nameof(ConvertedNoteToIssueEvent), convertedNoteToIssueEvents.Count() - 1, indivisual.CreatedAt));
             }
 
+            List<ConvertToDraftEvent> convertToDraftEvents = new();
+            foreach (var item in response.TimelineItems.ConvertToDraftEvent)
+            {
+                ConvertToDraftEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                convertToDraftEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(ConvertToDraftEvent), convertToDraftEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
             List<CrossReferencedEvent> crossReferencedEvents = new();
             foreach (var item in response.TimelineItems.CrossReferencedEvent)
             {
@@ -601,6 +1105,20 @@ namespace FluentHub.Octokit.Queries.Repositories
                 allEventCreatedDates.Add(Tuple.Create(nameof(DemilestonedEvent), demilestonedEvents.Count() - 1, indivisual.CreatedAt));
             }
 
+            List<DeployedEvent> deployedEvents = new();
+            foreach (var item in response.TimelineItems.DeployedEvent)
+            {
+                DeployedEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                deployedEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(DeployedEvent), deployedEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
             List<DisconnectedEvent> disconnectedEvents = new();
             foreach (var item in response.TimelineItems.DisconnectedEvent)
             {
@@ -613,6 +1131,48 @@ namespace FluentHub.Octokit.Queries.Repositories
 
                 disconnectedEvents.Add(indivisual);
                 allEventCreatedDates.Add(Tuple.Create(nameof(DisconnectedEvent), disconnectedEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<HeadRefDeletedEvent> headRefDeletedEvents = new();
+            foreach (var item in response.TimelineItems.HeadRefDeletedEvent)
+            {
+                HeadRefDeletedEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                headRefDeletedEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(HeadRefDeletedEvent), headRefDeletedEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<HeadRefForcePushedEvent> headRefForcePushedEvents = new();
+            foreach (var item in response.TimelineItems.HeadRefForcePushedEvent)
+            {
+                HeadRefForcePushedEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                headRefForcePushedEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(HeadRefForcePushedEvent), headRefForcePushedEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<HeadRefRestoredEvent> headRefRestoredEvents = new();
+            foreach (var item in response.TimelineItems.HeadRefRestoredEvent)
+            {
+                HeadRefRestoredEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                headRefRestoredEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(HeadRefRestoredEvent), headRefRestoredEvents.Count() - 1, indivisual.CreatedAt));
             }
 
             List<IssueComment> issueComments = new();
@@ -764,6 +1324,20 @@ namespace FluentHub.Octokit.Queries.Repositories
                 allEventCreatedDates.Add(Tuple.Create(nameof(MentionedEvent), mentionedEvents.Count() - 1, indivisual.CreatedAt));
             }
 
+            List<MergedEvent> mergedEvents = new();
+            foreach (var item in response.TimelineItems.MergedEvent)
+            {
+                MergedEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                mergedEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(MergedEvent), mergedEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
             List<MilestonedEvent> milestonedEvents = new();
             foreach (var item in response.TimelineItems.MilestonedEvent)
             {
@@ -804,6 +1378,90 @@ namespace FluentHub.Octokit.Queries.Repositories
 
                 pinnedEvents.Add(indivisual);
                 allEventCreatedDates.Add(Tuple.Create(nameof(PinnedEvent), pinnedEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<PullRequestCommit> pullRequestCommits = new();
+            foreach (var item in response.TimelineItems.PullRequestCommit)
+            {
+                PullRequestCommit indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                pullRequestCommits.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(PullRequestCommit), pullRequestCommits.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<PullRequestCommitCommentThread> pullRequestCommitCommentThreads = new();
+            foreach (var item in response.TimelineItems.PullRequestCommitCommentThread)
+            {
+                PullRequestCommitCommentThread indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                pullRequestCommitCommentThreads.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(PullRequestCommitCommentThread), pullRequestCommitCommentThreads.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<PullRequestReview> pullRequestReviews = new();
+            foreach (var item in response.TimelineItems.PullRequestReview)
+            {
+                PullRequestReview indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                pullRequestReviews.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(PullRequestReview), pullRequestReviews.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<PullRequestReviewThread> pullRequestReviewThreads = new();
+            foreach (var item in response.TimelineItems.PullRequestReviewThread)
+            {
+                PullRequestReviewThread indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                pullRequestReviewThreads.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(PullRequestReviewThread), pullRequestReviewThreads.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<PullRequestRevisionMarker> pullRequestRevisionMarkers = new();
+            foreach (var item in response.TimelineItems.PullRequestRevisionMarker)
+            {
+                PullRequestRevisionMarker indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                pullRequestRevisionMarkers.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(PullRequestRevisionMarker), pullRequestRevisionMarkers.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<ReadyForReviewEvent> readyForReviewEvents = new();
+            foreach (var item in response.TimelineItems.ReadyForReviewEvent)
+            {
+                ReadyForReviewEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                readyForReviewEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(ReadyForReviewEvent), readyForReviewEvents.Count() - 1, indivisual.CreatedAt));
             }
 
             List<ReferencedEvent> referencedEvents = new();
@@ -862,6 +1520,48 @@ namespace FluentHub.Octokit.Queries.Repositories
                 allEventCreatedDates.Add(Tuple.Create(nameof(ReopenedEvent), reopenedEvents.Count() - 1, indivisual.CreatedAt));
             }
 
+            List<ReviewDismissedEvent> reviewDismissedEvents = new();
+            foreach (var item in response.TimelineItems.ReviewDismissedEvent)
+            {
+                ReviewDismissedEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                reviewDismissedEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(ReviewDismissedEvent), reviewDismissedEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<ReviewRequestedEvent> reviewRequestedEvents = new();
+            foreach (var item in response.TimelineItems.ReviewRequestedEvent)
+            {
+                ReviewRequestedEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                reviewRequestedEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(ReviewRequestedEvent), reviewRequestedEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<ReviewRequestRemovedEvent> reviewRequestRemovedEvents = new();
+            foreach (var item in response.TimelineItems.ReviewRequestRemovedEvent)
+            {
+                ReviewRequestRemovedEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                reviewRequestRemovedEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(ReviewRequestRemovedEvent), reviewRequestRemovedEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
             List<SubscribedEvent> subscribedEvents = new();
             foreach (var item in response.TimelineItems.SubscribedEvent)
             {
@@ -874,6 +1574,20 @@ namespace FluentHub.Octokit.Queries.Repositories
 
                 subscribedEvents.Add(indivisual);
                 allEventCreatedDates.Add(Tuple.Create(nameof(SubscribedEvent), subscribedEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<TransferredEvent> transferredEvents = new();
+            foreach (var item in response.TimelineItems.TransferredEvent)
+            {
+                TransferredEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                transferredEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(TransferredEvent), transferredEvents.Count() - 1, indivisual.CreatedAt));
             }
 
             List<UnassignedEvent> unassignedEvents = new();
@@ -995,6 +1709,33 @@ namespace FluentHub.Octokit.Queries.Repositories
                     case "AssignedEvent":
                         allEvents.Add(Tuple.Create(item.Item1, assignedEvents[item.Item2] as object));
                         break;
+                    case "AutoMergeDisabledEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, autoMergeDisabledEvents[item.Item2] as object));
+                        break;
+                    case "AutoMergeEnabledEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, autoMergeEnabledEvents[item.Item2] as object));
+                        break;
+                    case "AutoRebaseEnabledEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, autoRebaseEnabledEvents[item.Item2] as object));
+                        break;
+                    case "AutoSquashEnabledEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, autoSquashEnabledEvents[item.Item2] as object));
+                        break;
+                    case "AutomaticBaseChangeFailedEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, automaticBaseChangeFailedEvents[item.Item2] as object));
+                        break;
+                    case "AutomaticBaseChangeSuccessedEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, automaticBaseChangeSuccessedEvents[item.Item2] as object));
+                        break;
+                    case "BaseRefChangedEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, baseRefChangedEvents[item.Item2] as object));
+                        break;
+                    case "BaseRefDeletedEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, baseRefDeletedEvents[item.Item2] as object));
+                        break;
+                    case "BaseRefForcePushedEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, baseRefForcePushedEvents[item.Item2] as object));
+                        break;
                     case "ClosedEvent":
                         allEvents.Add(Tuple.Create(item.Item1, closedEvents[item.Item2] as object));
                         break;
@@ -1007,14 +1748,29 @@ namespace FluentHub.Octokit.Queries.Repositories
                     case "ConvertedNoteToIssueEvent":
                         allEvents.Add(Tuple.Create(item.Item1, convertedNoteToIssueEvents[item.Item2] as object));
                         break;
+                    case "ConvertToDraftEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, convertToDraftEvents[item.Item2] as object));
+                        break;
                     case "CrossReferencedEvent":
                         allEvents.Add(Tuple.Create(item.Item1, crossReferencedEvents[item.Item2] as object));
                         break;
                     case "DemilestonedEvent":
                         allEvents.Add(Tuple.Create(item.Item1, demilestonedEvents[item.Item2] as object));
                         break;
+                    case "DeployedEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, deployedEvents[item.Item2] as object));
+                        break;
                     case "DisconnectedEvent":
                         allEvents.Add(Tuple.Create(item.Item1, disconnectedEvents[item.Item2] as object));
+                        break;
+                    case "HeadRefForcePushedEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, headRefForcePushedEvents[item.Item2] as object));
+                        break;
+                    case "HeadRefForcePushedEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, headRefForcePushedEvents[item.Item2] as object));
+                        break;
+                    case "HeadRefForcePushedEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, headRefForcePushedEvents[item.Item2] as object));
                         break;
                     case "IssueComment":
                         allEvents.Add(Tuple.Create(item.Item1, issueComments[item.Item2] as object));
@@ -1031,6 +1787,9 @@ namespace FluentHub.Octokit.Queries.Repositories
                     case "MentionedEvent":
                         allEvents.Add(Tuple.Create(item.Item1, mentionedEvents[item.Item2] as object));
                         break;
+                    case "MergedEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, mergedEvents[item.Item2] as object));
+                        break;
                     case "MilestonedEvent":
                         allEvents.Add(Tuple.Create(item.Item1, milestonedEvents[item.Item2] as object));
                         break;
@@ -1039,6 +1798,24 @@ namespace FluentHub.Octokit.Queries.Repositories
                         break;
                     case "PinnedEvent":
                         allEvents.Add(Tuple.Create(item.Item1, pinnedEvents[item.Item2] as object));
+                        break;
+                    case "RullRequestCommit":
+                        allEvents.Add(Tuple.Create(item.Item1, pullRequestCommits[item.Item2] as object));
+                        break;
+                    case "RullRequestCommitCommentThread":
+                        allEvents.Add(Tuple.Create(item.Item1, pullRequestCommitCommentThreads[item.Item2] as object));
+                        break;
+                    case "RullRequestReview":
+                        allEvents.Add(Tuple.Create(item.Item1, pullRequestReviews[item.Item2] as object));
+                        break;
+                    case "RullRequestReviewThread":
+                        allEvents.Add(Tuple.Create(item.Item1, pullRequestReviewThreads[item.Item2] as object));
+                        break;
+                    case "RullRequestRevisionMarker":
+                        allEvents.Add(Tuple.Create(item.Item1, pullRequestRevisionMarkers[item.Item2] as object));
+                        break;
+                    case "ReadyForReviewEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, readyForReviewEvents[item.Item2] as object));
                         break;
                     case "ReferencedEvent":
                         allEvents.Add(Tuple.Create(item.Item1, referencedEvents[item.Item2] as object));
@@ -1052,8 +1829,20 @@ namespace FluentHub.Octokit.Queries.Repositories
                     case "ReopenedEvent":
                         allEvents.Add(Tuple.Create(item.Item1, reopenedEvents[item.Item2] as object));
                         break;
+                    case "ReviewDismissedEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, reviewDismissedEvents[item.Item2] as object));
+                        break;
+                    case "ReviewRequestedEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, reviewRequestedEvents[item.Item2] as object));
+                        break;
+                    case "ReviewRequestRemovedEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, reviewRequestRemovedEvents[item.Item2] as object));
+                        break;
                     case "SubscribedEvent":
                         allEvents.Add(Tuple.Create(item.Item1, subscribedEvents[item.Item2] as object));
+                        break;
+                    case "TransferredEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, transferredEvents[item.Item2] as object));
                         break;
                     case "UnassignedEvent":
                         allEvents.Add(Tuple.Create(item.Item1, unassignedEvents[item.Item2] as object));
