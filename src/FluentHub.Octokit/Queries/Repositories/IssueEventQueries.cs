@@ -58,8 +58,8 @@ namespace FluentHub.Octokit.Queries.Repositories
                         {
                             Actor = y.Actor.Select(actor => new
                             {
-                                actor.Login,
                                 AvatarUrl = actor.AvatarUrl(100),
+                                actor.Login,
                             })
                             .Single(),
                             y.CreatedAt,
@@ -72,8 +72,8 @@ namespace FluentHub.Octokit.Queries.Repositories
                         {
                             Actor = y.Actor.Select(actor => new
                             {
-                                actor.Login,
                                 AvatarUrl = actor.AvatarUrl(100),
+                                actor.Login,
                             })
                             .Single(),
                             y.CreatedAt,
@@ -86,8 +86,8 @@ namespace FluentHub.Octokit.Queries.Repositories
                         {
                             Actor = y.Actor.Select(actor => new
                             {
-                                actor.Login,
                                 AvatarUrl = actor.AvatarUrl(100),
+                                actor.Login,
                             })
                             .Single(),
                             y.CreatedAt,
@@ -100,8 +100,8 @@ namespace FluentHub.Octokit.Queries.Repositories
                         {
                             Actor = y.Actor.Select(actor => new
                             {
-                                actor.Login,
                                 AvatarUrl = actor.AvatarUrl(100),
+                                actor.Login,
                             })
                             .Single(),
                             y.CreatedAt,
@@ -114,8 +114,8 @@ namespace FluentHub.Octokit.Queries.Repositories
                         //{
                         //    Actor = y.Actor.Select(actor => new
                         //    {
-                        //        actor.Login,
-                        //        AvatarUrl = actor.AvatarUrl(100),
+                        //         AvatarUrl = actor.AvatarUrl(100),
+                        //         actor.Login,
                         //    })
                         //    .Single(),
                         //    y.CreatedAt,
@@ -128,8 +128,8 @@ namespace FluentHub.Octokit.Queries.Repositories
                         {
                             Actor = y.Actor.Select(actor => new
                             {
-                                actor.Login,
                                 AvatarUrl = actor.AvatarUrl(100),
+                                actor.Login,
                             })
                             .Single(),
                             y.CreatedAt,
@@ -142,8 +142,8 @@ namespace FluentHub.Octokit.Queries.Repositories
                         {
                             Actor = y.Actor.Select(actor => new
                             {
-                                actor.Login,
                                 AvatarUrl = actor.AvatarUrl(100),
+                                actor.Login,
                             })
                             .Single(),
                             y.CreatedAt,
@@ -156,8 +156,8 @@ namespace FluentHub.Octokit.Queries.Repositories
                         {
                             Actor = y.Actor.Select(actor => new
                             {
-                                actor.Login,
                                 AvatarUrl = actor.AvatarUrl(100),
+                                actor.Login,
                             })
                             .Single(),
                             y.CreatedAt,
@@ -170,12 +170,16 @@ namespace FluentHub.Octokit.Queries.Repositories
                         {
                             Author = y.Author.Select(author => new
                             {
-                                author.Login,
                                 AvatarUrl = author.AvatarUrl(100),
+                                author.Login,
                             })
                             .Single(),
+
                             y.AuthorAssociation,
                             y.BodyHTML,
+                            y.MinimizedReason,
+                            y.Url,
+
                             Reactions = y.Reactions(6, null, null, null, null, null).Nodes.Select(reaction => new
                             {
                                 Reactions = reaction.Select(reactionNode => new {
@@ -185,17 +189,17 @@ namespace FluentHub.Octokit.Queries.Repositories
                                 .Single(),
                             })
                             .ToList(),
-                            y.LastEditedAt,
-                            y.MinimizedReason,
+
                             y.IsMinimized,
-                            y.UpdatedAt,
                             y.ViewerCanDelete,
                             y.ViewerCanMinimize,
                             y.ViewerCanReact,
                             y.ViewerCanUpdate,
                             y.ViewerDidAuthor,
-                            y.Url,
+
+                            y.LastEditedAt,
                             y.CreatedAt,
+                            y.UpdatedAt,
                         })
                         .ToList(),
                         #endregion
@@ -203,8 +207,16 @@ namespace FluentHub.Octokit.Queries.Repositories
                         #region LabeledEvent
                         LabeledEvent = x.Nodes.OfType<GraphQLModel.LabeledEvent>().Select(y => new
                         {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                AvatarUrl = actor.AvatarUrl(100),
+                                actor.Login,
+                            })
+                            .Single(),
+
                             y.Label.Color,
                             y.Label.Name,
+
                             y.CreatedAt,
                         })
                         .ToList(),
@@ -381,8 +393,16 @@ namespace FluentHub.Octokit.Queries.Repositories
                         #region UnlabeledEvent
                         UnlabeledEvent = x.Nodes.OfType<GraphQLModel.UnlabeledEvent>().Select(y => new
                         {
+                            Actor = y.Actor.Select(actor => new
+                            {
+                                actor.Login,
+                                AvatarUrl = actor.AvatarUrl(100),
+                            })
+                            .Single(),
+
                             y.Label.Color,
                             y.Label.Name,
+
                             y.CreatedAt,
                         })
                         .ToList(),
@@ -484,7 +504,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             }
 
             List<AssignedEvent> assignedEvents = new();
-            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            foreach (var item in response.TimelineItems.AssignedEvent)
             {
                 AssignedEvent indivisual = new()
                 {
@@ -498,7 +518,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             }
 
             List<ClosedEvent> closedEvents = new();
-            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            foreach (var item in response.TimelineItems.ClosedEvent)
             {
                 ClosedEvent indivisual = new()
                 {
@@ -512,7 +532,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             }
 
             List<CommentDeletedEvent> commentDeletedEvents = new();
-            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            foreach (var item in response.TimelineItems.CommentDeletedEvent)
             {
                 CommentDeletedEvent indivisual = new()
                 {
@@ -526,7 +546,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             }
 
             List<ConnectedEvent> connectedEvents = new();
-            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            foreach (var item in response.TimelineItems.ConnectedEvent)
             {
                 ConnectedEvent indivisual = new()
                 {
@@ -540,7 +560,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             }
 
             List<ConvertedNoteToIssueEvent> convertedNoteToIssueEvents = new();
-            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            foreach (var item in response.TimelineItems.ConvertedNoteToIssueEvent)
             {
                 ConvertedNoteToIssueEvent indivisual = new()
                 {
@@ -554,7 +574,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             }
 
             List<CrossReferencedEvent> crossReferencedEvents = new();
-            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            foreach (var item in response.TimelineItems.CrossReferencedEvent)
             {
                 CrossReferencedEvent indivisual = new()
                 {
@@ -568,7 +588,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             }
 
             List<DemilestonedEvent> demilestonedEvents = new();
-            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            foreach (var item in response.TimelineItems.DemilestonedEvent)
             {
                 DemilestonedEvent indivisual = new()
                 {
@@ -582,7 +602,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             }
 
             List<DisconnectedEvent> disconnectedEvents = new();
-            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            foreach (var item in response.TimelineItems.DisconnectedEvent)
             {
                 DisconnectedEvent indivisual = new()
                 {
@@ -684,14 +704,18 @@ namespace FluentHub.Octokit.Queries.Repositories
             {
                 LabeledEvent indivisual = new()
                 {
-                    CreatedAt = item.CreatedAt,
-                    CreatedAtHumanized = item.CreatedAt.Humanize(),
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+
                     LabeledLabel = new()
                     {
                         Color = item.Color,
                         ColorBrush = Helpers.ColorHelper.HexCodeToSolidColorBrush(item.Color),
                         Name = item.Name,
                     },
+
+                    CreatedAt = item.CreatedAt,
+                    CreatedAtHumanized = item.CreatedAt.Humanize(),
                 };
 
                 labeledEvents.Add(indivisual);
@@ -699,7 +723,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             }
 
             List<LockedEvent> lockedEvents = new();
-            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            foreach (var item in response.TimelineItems.LockedEvent)
             {
                 LockedEvent indivisual = new()
                 {
@@ -713,7 +737,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             }
 
             List<MarkedAsDuplicateEvent> markedAsDuplicateEvents = new();
-            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            foreach (var item in response.TimelineItems.MarkedAsDuplicateEvent)
             {
                 MarkedAsDuplicateEvent indivisual = new()
                 {
@@ -727,7 +751,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             }
 
             List<MentionedEvent> mentionedEvents = new();
-            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            foreach (var item in response.TimelineItems.MentionedEvent)
             {
                 MentionedEvent indivisual = new()
                 {
@@ -741,7 +765,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             }
 
             List<MilestonedEvent> milestonedEvents = new();
-            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            foreach (var item in response.TimelineItems.MilestonedEvent)
             {
                 MilestonedEvent indivisual = new()
                 {
@@ -755,7 +779,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             }
 
             List<MovedColumnsInProjectEvent> movedColumnsInProjectEvents = new();
-            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            foreach (var item in response.TimelineItems.MovedColumnsInProjectEvent)
             {
                 MovedColumnsInProjectEvent indivisual = new()
                 {
@@ -769,7 +793,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             }
 
             List<PinnedEvent> pinnedEvents = new();
-            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            foreach (var item in response.TimelineItems.PinnedEvent)
             {
                 PinnedEvent indivisual = new()
                 {
@@ -783,7 +807,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             }
 
             List<ReferencedEvent> referencedEvents = new();
-            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            foreach (var item in response.TimelineItems.ReferencedEvent)
             {
                 ReferencedEvent indivisual = new()
                 {
@@ -797,7 +821,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             }
 
             List<RemovedFromProjectEvent> removedFromProjectEvents = new();
-            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            foreach (var item in response.TimelineItems.RemovedFromProjectEvent)
             {
                 RemovedFromProjectEvent indivisual = new()
                 {
@@ -811,7 +835,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             }
 
             List<RenamedTitleEvent> renamedTitleEvents = new();
-            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            foreach (var item in response.TimelineItems.RenamedTitleEvent)
             {
                 RenamedTitleEvent indivisual = new()
                 {
@@ -825,7 +849,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             }
 
             List<ReopenedEvent> reopenedEvents = new();
-            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            foreach (var item in response.TimelineItems.ReopenedEvent)
             {
                 ReopenedEvent indivisual = new()
                 {
@@ -839,7 +863,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             }
 
             List<SubscribedEvent> subscribedEvents = new();
-            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            foreach (var item in response.TimelineItems.SubscribedEvent)
             {
                 SubscribedEvent indivisual = new()
                 {
@@ -853,7 +877,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             }
 
             List<UnassignedEvent> unassignedEvents = new();
-            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            foreach (var item in response.TimelineItems.UnassignedEvent)
             {
                 UnassignedEvent indivisual = new()
                 {
@@ -871,14 +895,18 @@ namespace FluentHub.Octokit.Queries.Repositories
             {
                 UnlabeledEvent indivisual = new()
                 {
-                    CreatedAt = item.CreatedAt,
-                    CreatedAtHumanized = item.CreatedAt.Humanize(),
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+
                     UnlabeledLabel = new()
                     {
                         Color = item.Color,
                         ColorBrush = Helpers.ColorHelper.HexCodeToSolidColorBrush(item.Color),
                         Name = item.Name,
                     },
+
+                    CreatedAt = item.CreatedAt,
+                    CreatedAtHumanized = item.CreatedAt.Humanize(),
                 };
 
                 unlabeledEvents.Add(indivisual);
@@ -886,7 +914,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             }
 
             List<UnlockedEvent> unlockedEvents = new();
-            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            foreach (var item in response.TimelineItems.UnlockedEvent)
             {
                 UnlockedEvent indivisual = new()
                 {
@@ -900,7 +928,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             }
 
             List<UnmarkedAsDuplicateEvent> unmarkedAsDuplicateEvents = new();
-            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            foreach (var item in response.TimelineItems.UnmarkedAsDuplicateEvent)
             {
                 UnmarkedAsDuplicateEvent indivisual = new()
                 {
@@ -914,7 +942,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             }
 
             List<UnpinnedEvent> unpinnedEvents = new();
-            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            foreach (var item in response.TimelineItems.UnpinnedEvent)
             {
                 UnpinnedEvent indivisual = new()
                 {
@@ -928,7 +956,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             }
 
             List<UnsubscribedEvent> unsubscribedEvents = new();
-            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            foreach (var item in response.TimelineItems.UnsubscribedEvent)
             {
                 UnsubscribedEvent indivisual = new()
                 {
@@ -942,7 +970,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             }
 
             List<UserBlockedEvent> userBlockedEvents = new();
-            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            foreach (var item in response.TimelineItems.UserBlockedEvent)
             {
                 UserBlockedEvent indivisual = new()
                 {

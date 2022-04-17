@@ -41,6 +41,7 @@
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
 
                                 <Grid Padding="24,12,24,0">
@@ -114,6 +115,22 @@
 
                                     <ItemsControl ItemsSource="{x:Bind ViewModel.EventBlocks, Mode=OneWay}" />
 
+                                    <Border
+                                        Width="1.5"
+                                        Height="16"
+                                        Margin="36,0,0,0"
+                                        HorizontalAlignment="Left"
+                                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+
+                                    <Border
+                                        Height="3"
+                                        HorizontalAlignment="Stretch"
+                                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+
+                                </StackPanel>
+
+                                <StackPanel>
+                                    
                                 </StackPanel>
                             </Grid>
                         </ScrollViewer>

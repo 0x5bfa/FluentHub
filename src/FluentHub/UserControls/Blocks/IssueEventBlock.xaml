@@ -3,9 +3,11 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:labels="using:FluentHub.UserControls.Labels"
     xmlns:local="using:FluentHub.UserControls.Blocks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:uc="using:FluentHub.UserControls"
     xmlns:vm="using:FluentHub.ViewModels.UserControls.Blocks"
     d:DesignHeight="300"
     d:DesignWidth="400"
@@ -195,7 +197,7 @@
                                 FontFamily="{StaticResource Octions}"
                                 FontSize="16"
                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xEADB;" />
+                                Glyph="&#xE924;" />
                         </Border>
 
                         <TextBlock
@@ -203,7 +205,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="ConnectedEvent" />
+                            Text="linked a pull request" />
 
                     </Grid>
                 </toolkit:Case>
@@ -315,7 +317,7 @@
                                 FontFamily="{StaticResource Octions}"
                                 FontSize="16"
                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xEADB;" />
+                                Glyph="&#xE924;" />
                         </Border>
 
                         <TextBlock
@@ -323,7 +325,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="DisconnectedEvent" />
+                            Text="removed a link to a pull request" />
 
                     </Grid>
                 </toolkit:Case>
@@ -337,27 +339,63 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
                         <Border
                             Width="28"
                             Height="28"
-                            Margin="20,0,8,0"
+                            Margin="20,0,4,0"
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             CornerRadius="16">
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
                                 FontSize="16"
                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xEADB;" />
+                                Glyph="&#xEAA5;" />
                         </Border>
 
-                        <TextBlock
+                        <StackPanel
                             Grid.Column="1"
-                            VerticalAlignment="Center"
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="Someone labeled some label" />
+                            Orientation="Horizontal"
+                            Spacing="4">
+                            <uc:AvatarControl
+                                VerticalAlignment="Center"
+                                AvatarUrl="{x:Bind ViewModel.LabeledEvent.ActorAvatarUrl, Mode=OneWay}"
+                                WidthAndHeight="20" />
+
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="{x:Bind ViewModel.LabeledEvent.ActorLogin, Mode=OneWay}" />
+                        </StackPanel>
+
+                        <StackPanel
+                            Grid.Column="2"
+                            Orientation="Horizontal"
+                            Spacing="4">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="added the" />
+
+                            <labels:LabelControl ViewModel="{x:Bind ViewModel.LabelControlViewModel, Mode=OneWay}" />
+
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="label •" />
+
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind ViewModel.LabeledEvent.CreatedAtHumanized, Mode=OneWay}" />
+                        </StackPanel>
 
                     </Grid>
                 </toolkit:Case>
@@ -447,7 +485,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="MentionedEvent" />
+                            Text="was mentioned" />
 
                     </Grid>
                 </toolkit:Case>
