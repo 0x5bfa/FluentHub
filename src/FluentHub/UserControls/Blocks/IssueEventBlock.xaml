@@ -49,13 +49,14 @@
                         <Border
                             Width="28"
                             Height="28"
-                            Margin="12,0,8,0"
+                            Margin="20,0,8,0"
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             CornerRadius="16">
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
-                                FontSize="12"
-                                Glyph="&#xEAA5;" />
+                                FontSize="16"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Glyph="&#xEA48;" />
                         </Border>
 
                         <TextBlock
@@ -78,13 +79,14 @@
                         <Border
                             Width="28"
                             Height="28"
-                            Margin="12,0,8,0"
+                            Margin="20,0,8,0"
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             CornerRadius="16">
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
-                                FontSize="12"
-                                Glyph="&#xEAA5;" />
+                                FontSize="16"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Glyph="&#xEA38;" />
                         </Border>
 
                         <TextBlock
@@ -99,21 +101,27 @@
 
                 <toolkit:Case Value="ClosedEvent">
                     <Grid ColumnSpacing="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
                         <Border
                             Width="28"
                             Height="28"
-                            Margin="12,0,8,0"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            Margin="20,0,8,0"
+                            Background="#8256d0"
                             CornerRadius="16">
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
-                                FontSize="12"
-                                Glyph="&#xEAA5;" />
+                                FontSize="16"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Glyph="&#xE9E6;" />
                         </Border>
 
                         <TextBlock
@@ -123,6 +131,20 @@
                             Style="{StaticResource CaptionTextBlockStyle}"
                             Text="ClosedEvent" />
 
+                        <Border
+                            Grid.Row="1"
+                            Width="1.5"
+                            Height="16"
+                            Margin="32,0,0,0"
+                            HorizontalAlignment="Left"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+
+                        <Border
+                            Grid.Row="2"
+                            Grid.ColumnSpan="2"
+                            Height="3"
+                            HorizontalAlignment="Stretch"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
                     </Grid>
                 </toolkit:Case>
 
@@ -136,13 +158,14 @@
                         <Border
                             Width="28"
                             Height="28"
-                            Margin="12,0,8,0"
+                            Margin="20,0,8,0"
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             CornerRadius="16">
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
-                                FontSize="12"
-                                Glyph="&#xEAA5;" />
+                                FontSize="16"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Glyph="&#xEAD4;" />
                         </Border>
 
                         <TextBlock
@@ -165,13 +188,14 @@
                         <Border
                             Width="28"
                             Height="28"
-                            Margin="12,0,8,0"
+                            Margin="20,0,8,0"
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             CornerRadius="16">
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
-                                FontSize="12"
-                                Glyph="&#xEAA5;" />
+                                FontSize="16"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Glyph="&#xEADB;" />
                         </Border>
 
                         <TextBlock
@@ -194,13 +218,14 @@
                         <Border
                             Width="28"
                             Height="28"
-                            Margin="12,0,8,0"
+                            Margin="20,0,8,0"
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             CornerRadius="16">
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
-                                FontSize="12"
-                                Glyph="&#xEAA5;" />
+                                FontSize="16"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Glyph="&#xEADB;" />
                         </Border>
 
                         <TextBlock
@@ -223,13 +248,14 @@
                         <Border
                             Width="28"
                             Height="28"
-                            Margin="12,0,8,0"
+                            Margin="20,0,8,0"
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             CornerRadius="16">
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
-                                FontSize="12"
-                                Glyph="&#xEAA5;" />
+                                FontSize="16"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Glyph="&#xEADB;" />
                         </Border>
 
                         <TextBlock
@@ -252,13 +278,14 @@
                         <Border
                             Width="28"
                             Height="28"
-                            Margin="12,0,8,0"
+                            Margin="20,0,8,0"
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             CornerRadius="16">
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
-                                FontSize="12"
-                                Glyph="&#xEAA5;" />
+                                FontSize="16"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Glyph="&#xEA12;" />
                         </Border>
 
                         <TextBlock
@@ -281,13 +308,14 @@
                         <Border
                             Width="28"
                             Height="28"
-                            Margin="12,0,8,0"
+                            Margin="20,0,8,0"
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             CornerRadius="16">
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
-                                FontSize="12"
-                                Glyph="&#xEAA5;" />
+                                FontSize="16"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Glyph="&#xEADB;" />
                         </Border>
 
                         <TextBlock
@@ -319,8 +347,9 @@
                             CornerRadius="16">
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
-                                FontSize="12"
-                                Glyph="&#xEAA5;" />
+                                FontSize="16"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Glyph="&#xEADB;" />
                         </Border>
 
                         <TextBlock
@@ -343,13 +372,14 @@
                         <Border
                             Width="28"
                             Height="28"
-                            Margin="12,0,8,0"
+                            Margin="20,0,8,0"
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             CornerRadius="16">
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
-                                FontSize="12"
-                                Glyph="&#xEAA5;" />
+                                FontSize="16"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Glyph="&#xEA05;" />
                         </Border>
 
                         <TextBlock
@@ -372,13 +402,14 @@
                         <Border
                             Width="28"
                             Height="28"
-                            Margin="12,0,8,0"
+                            Margin="20,0,8,0"
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             CornerRadius="16">
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
-                                FontSize="12"
-                                Glyph="&#xEAA5;" />
+                                FontSize="16"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Glyph="&#xEADB;" />
                         </Border>
 
                         <TextBlock
@@ -401,13 +432,14 @@
                         <Border
                             Width="28"
                             Height="28"
-                            Margin="12,0,8,0"
+                            Margin="20,0,8,0"
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             CornerRadius="16">
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
-                                FontSize="12"
-                                Glyph="&#xEAA5;" />
+                                FontSize="16"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Glyph="&#xE968;" />
                         </Border>
 
                         <TextBlock
@@ -430,13 +462,14 @@
                         <Border
                             Width="28"
                             Height="28"
-                            Margin="12,0,8,0"
+                            Margin="20,0,8,0"
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             CornerRadius="16">
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
-                                FontSize="12"
-                                Glyph="&#xEAA5;" />
+                                FontSize="16"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Glyph="&#xEA12;" />
                         </Border>
 
                         <TextBlock
@@ -459,13 +492,14 @@
                         <Border
                             Width="28"
                             Height="28"
-                            Margin="12,0,8,0"
+                            Margin="20,0,8,0"
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             CornerRadius="16">
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
-                                FontSize="12"
-                                Glyph="&#xEAA5;" />
+                                FontSize="16"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Glyph="&#xEADB;" />
                         </Border>
 
                         <TextBlock
@@ -488,13 +522,14 @@
                         <Border
                             Width="28"
                             Height="28"
-                            Margin="12,0,8,0"
+                            Margin="20,0,8,0"
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             CornerRadius="16">
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
-                                FontSize="12"
-                                Glyph="&#xEAA5;" />
+                                FontSize="16"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Glyph="&#xEA3E;" />
                         </Border>
 
                         <TextBlock
@@ -517,13 +552,14 @@
                         <Border
                             Width="28"
                             Height="28"
-                            Margin="12,0,8,0"
+                            Margin="20,0,8,0"
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             CornerRadius="16">
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
-                                FontSize="12"
-                                Glyph="&#xEAA5;" />
+                                FontSize="16"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Glyph="&#xEADB;" />
                         </Border>
 
                         <TextBlock
@@ -546,13 +582,14 @@
                         <Border
                             Width="28"
                             Height="28"
-                            Margin="12,0,8,0"
+                            Margin="20,0,8,0"
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             CornerRadius="16">
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
-                                FontSize="12"
-                                Glyph="&#xEAA5;" />
+                                FontSize="16"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Glyph="&#xEA48;" />
                         </Border>
 
                         <TextBlock
@@ -575,13 +612,14 @@
                         <Border
                             Width="28"
                             Height="28"
-                            Margin="12,0,8,0"
+                            Margin="20,0,8,0"
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             CornerRadius="16">
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
-                                FontSize="12"
-                                Glyph="&#xEAA5;" />
+                                FontSize="16"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Glyph="&#xEA34;" />
                         </Border>
 
                         <TextBlock
@@ -604,13 +642,14 @@
                         <Border
                             Width="28"
                             Height="28"
-                            Margin="12,0,8,0"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            Margin="20,0,8,0"
+                            Background="#347d39"
                             CornerRadius="16">
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
-                                FontSize="12"
-                                Glyph="&#xEAA5;" />
+                                FontSize="16"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Glyph="&#xE9EC;" />
                         </Border>
 
                         <TextBlock
@@ -633,13 +672,14 @@
                         <Border
                             Width="28"
                             Height="28"
-                            Margin="12,0,8,0"
+                            Margin="20,0,8,0"
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             CornerRadius="16">
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
-                                FontSize="12"
-                                Glyph="&#xEAA5;" />
+                                FontSize="16"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Glyph="&#xEADB;" />
                         </Border>
 
                         <TextBlock
@@ -662,13 +702,14 @@
                         <Border
                             Width="28"
                             Height="28"
-                            Margin="12,0,8,0"
+                            Margin="20,0,8,0"
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             CornerRadius="16">
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
-                                FontSize="12"
-                                Glyph="&#xEAA5;" />
+                                FontSize="16"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Glyph="&#xEA38;" />
                         </Border>
 
                         <TextBlock
@@ -691,13 +732,14 @@
                         <Border
                             Width="28"
                             Height="28"
-                            Margin="12,0,8,0"
+                            Margin="20,0,8,0"
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             CornerRadius="16">
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
-                                FontSize="12"
-                                Glyph="&#xEAA5;" />
+                                FontSize="16"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Glyph="&#xEADB;" />
                         </Border>
 
                         <TextBlock
@@ -720,13 +762,14 @@
                         <Border
                             Width="28"
                             Height="28"
-                            Margin="12,0,8,0"
+                            Margin="20,0,8,0"
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             CornerRadius="16">
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
-                                FontSize="12"
-                                Glyph="&#xEAA5;" />
+                                FontSize="16"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Glyph="&#xEADB;" />
                         </Border>
 
                         <TextBlock
@@ -749,13 +792,14 @@
                         <Border
                             Width="28"
                             Height="28"
-                            Margin="12,0,8,0"
+                            Margin="20,0,8,0"
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             CornerRadius="16">
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
-                                FontSize="12"
-                                Glyph="&#xEAA5;" />
+                                FontSize="16"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Glyph="&#xEADB;" />
                         </Border>
 
                         <TextBlock
@@ -778,13 +822,14 @@
                         <Border
                             Width="28"
                             Height="28"
-                            Margin="12,0,8,0"
+                            Margin="20,0,8,0"
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             CornerRadius="16">
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
-                                FontSize="12"
-                                Glyph="&#xEAA5;" />
+                                FontSize="16"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Glyph="&#xEADB;" />
                         </Border>
 
                         <TextBlock
@@ -807,13 +852,14 @@
                         <Border
                             Width="28"
                             Height="28"
-                            Margin="12,0,8,0"
+                            Margin="20,0,8,0"
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             CornerRadius="16">
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
-                                FontSize="12"
-                                Glyph="&#xEAA5;" />
+                                FontSize="16"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Glyph="&#xEAC4;" />
                         </Border>
 
                         <TextBlock
@@ -836,13 +882,14 @@
                         <Border
                             Width="28"
                             Height="28"
-                            Margin="12,0,8,0"
+                            Margin="20,0,8,0"
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             CornerRadius="16">
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
-                                FontSize="12"
-                                Glyph="&#xEAA5;" />
+                                FontSize="16"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Glyph="&#xEADB;" />
                         </Border>
 
                         <TextBlock
@@ -865,13 +912,14 @@
                         <Border
                             Width="28"
                             Height="28"
-                            Margin="12,0,8,0"
+                            Margin="20,0,8,0"
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             CornerRadius="16">
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
-                                FontSize="12"
-                                Glyph="&#xEAA5;" />
+                                FontSize="16"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Glyph="&#xEAD4;" />
                         </Border>
 
                         <TextBlock

@@ -64,7 +64,7 @@ namespace FluentHub.ViewModels.Repositories.Issues
                 {
                     PropertyViewModel = new IssueEventBlockViewModel()
                     {
-                        EventType = "CommentedEvent",
+                        EventType = "IssueComment",
                         Event = bodyComment,
                         CommentBlockViewModel = new()
                         {
@@ -86,7 +86,7 @@ namespace FluentHub.ViewModels.Repositories.Issues
                         Event = eventItem.Item2,
                     };
 
-                    if (eventItem.Item1 == "CommentedEvent")
+                    if (eventItem.Item1 == "IssueComment")
                     {
                         viewmodel.CommentBlockViewModel = new()
                         {
