@@ -44,8 +44,8 @@ namespace FluentHub.ViewModels.UserControls.Blocks
         private AutomaticBaseChangeFailedEvent  automaticBaseChangeFailedEvent;
         public AutomaticBaseChangeFailedEvent AutomaticBaseChangeFailedEvent { get => automaticBaseChangeFailedEvent; set => SetProperty(ref automaticBaseChangeFailedEvent, value); }
 
-        private AutomaticBaseChangeSuccessedEvent  automaticBaseChangeSuccessedEvent;
-        public AutomaticBaseChangeSuccessedEvent AutomaticBaseChangeSuccessedEvent { get => automaticBaseChangeSuccessedEvent; set => SetProperty(ref automaticBaseChangeSuccessedEvent, value); }
+        private AutomaticBaseChangeSucceededEvent  automaticBaseChangeSuccessedEvent;
+        public AutomaticBaseChangeSucceededEvent AutomaticBaseChangeSuccessedEvent { get => automaticBaseChangeSuccessedEvent; set => SetProperty(ref automaticBaseChangeSuccessedEvent, value); }
 
         private BaseRefChangedEvent  baseRefChangedEvent;
         public BaseRefChangedEvent BaseRefChangedEvent { get => baseRefChangedEvent; set => SetProperty(ref baseRefChangedEvent, value); }
@@ -83,14 +83,14 @@ namespace FluentHub.ViewModels.UserControls.Blocks
         private DisconnectedEvent  disconnectedEvent;
         public DisconnectedEvent DisconnectedEvent { get => disconnectedEvent; set => SetProperty(ref disconnectedEvent, value); }
 
-        private HeadRefDeletedEvent headRefDeletedEvents;
-        public HeadRefDeletedEvent HeadRefDeletedEvent { get => headRefDeletedEvents; set => SetProperty(ref headRefDeletedEvents, value); }
+        private HeadRefDeletedEvent headRefDeletedEvent;
+        public HeadRefDeletedEvent HeadRefDeletedEvent { get => headRefDeletedEvent; set => SetProperty(ref headRefDeletedEvent, value); }
 
-        private HeadRefForcePushedEvent headRefForcePushedEvents;
+        private HeadRefForcePushedEvent headRefForcePushedEvent;
         public HeadRefForcePushedEvent HeadRefForcePushedEvent { get => headRefForcePushedEvent; set => SetProperty(ref headRefForcePushedEvent, value); }
 
-        private HeadRefRestoredEvent headRefRestoredEvents;
-        public HeadRefRestoredEvent HeadRefRestoredEvent { get => headRefRestoredEvents; set => SetProperty(ref headRefRestoredEvents, value); }
+        private HeadRefRestoredEvent headRefRestoredEvent;
+        public HeadRefRestoredEvent HeadRefRestoredEvent { get => headRefRestoredEvent; set => SetProperty(ref headRefRestoredEvent, value); }
 
         private IssueComment  issueComment;
         public IssueComment IssueComment { get => issueComment; set => SetProperty(ref issueComment, value); }

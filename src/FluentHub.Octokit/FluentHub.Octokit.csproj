@@ -137,7 +137,7 @@
     <Compile Include="Models\Events\AddedToProjectEvent.cs" />
     <Compile Include="Models\Events\AssignedEvent.cs" />
     <Compile Include="Models\Events\AutomaticBaseChangeFailedEvent.cs" />
-    <Compile Include="Models\Events\AutomaticBaseChangeSuccessedEvent.cs" />
+    <Compile Include="Models\Events\AutomaticBaseChangeSucceededEvent.cs" />
     <Compile Include="Models\Events\AutoMergeDisabledEvent.cs" />
     <Compile Include="Models\Events\AutoMergeEnabledEvent.cs" />
     <Compile Include="Models\Events\AutoRebaseEnabledEvent.cs" />

@@ -333,8 +333,8 @@ namespace FluentHub.Octokit.Queries.Repositories
                         .ToList(),
                         #endregion
 
-                        #region DeploymentEnvernmentChangedEvent
-                        DeploymentEnvernmentChangedEvent = x.Nodes.OfType<GraphQLModel.HeadRefDeletedEvent>().Select(y => new
+                        #region HeadRefDeletedEvent
+                        HeadRefDeletedEvent = x.Nodes.OfType<GraphQLModel.HeadRefDeletedEvent>().Select(y => new
                         {
                             Actor = y.Actor.Select(actor => new
                             {
@@ -586,16 +586,30 @@ namespace FluentHub.Octokit.Queries.Repositories
                         .ToList(),
                         #endregion
 
-                        #region PullRequestRevisionMarker
-                        PullRequestRevisionMarker = x.Nodes.OfType<GraphQLModel.PullRequestRevisionMarker>().Select(y => new
+                        #region PullRequestReviewThread
+                        PullRequestReviewThread = x.Nodes.OfType<GraphQLModel.PullRequestReviewThread>().Select(y => new
                         {
-                            Actor = y.Commit.Author.Select(actor => new
+                            Actor = y.PullRequest.Author.Select(actor => new
                             {
                                 AvatarUrl = actor.AvatarUrl(100),
                                 Login = actor.Name,
                             })
                             .Single(),
-                            CreatedAt = y.Commit.PushedDate,
+                            y.PullRequest.CreatedAt,
+                        })
+                        .ToList(),
+                        #endregion
+
+                        #region PullRequestRevisionMarker
+                        PullRequestRevisionMarker = x.Nodes.OfType<GraphQLModel.PullRequestRevisionMarker>().Select(y => new
+                        {
+                            Actor = y.LastSeenCommit.Author.Select(actor => new
+                            {
+                                AvatarUrl = actor.AvatarUrl(100),
+                                Login = actor.Name,
+                            })
+                            .Single(),
+                            y.CreatedAt,
                         })
                         .ToList(),
                         #endregion
@@ -951,18 +965,18 @@ namespace FluentHub.Octokit.Queries.Repositories
                 allEventCreatedDates.Add(Tuple.Create(nameof(AutomaticBaseChangeFailedEvent), automaticBaseChangeFailedEvents.Count() - 1, indivisual.CreatedAt));
             }
 
-            List<AutomaticBaseChangeSuccessedEvent> automaticBaseChangeSuccessedEvents = new();
-            foreach (var item in response.TimelineItems.AutomaticBaseChangeSuccessedEvent)
+            List<AutomaticBaseChangeSucceededEvent> automaticBaseChangeSucceededEvents = new();
+            foreach (var item in response.TimelineItems.AutomaticBaseChangeSucceededEvent)
             {
-                AutomaticBaseChangeSuccessedEvent indivisual = new()
+                AutomaticBaseChangeSucceededEvent indivisual = new()
                 {
                     ActorAvatarUrl = item.Actor.AvatarUrl,
                     ActorLogin = item.Actor.Login,
                     CreatedAt = item.CreatedAt,
                 };
 
-                automaticBaseChangeSuccessedEvents.Add(indivisual);
-                allEventCreatedDates.Add(Tuple.Create(nameof(AutomaticBaseChangeSuccessedEvent), automaticBaseChangeSuccessedEvents.Count() - 1, indivisual.CreatedAt));
+                automaticBaseChangeSucceededEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(AutomaticBaseChangeSucceededEvent), automaticBaseChangeSucceededEvents.Count() - 1, indivisual.CreatedAt));
             }
 
             List<BaseRefChangedEvent> baseRefChangedEvents = new();
@@ -1387,7 +1401,7 @@ namespace FluentHub.Octokit.Queries.Repositories
                 {
                     ActorAvatarUrl = item.Actor.AvatarUrl,
                     ActorLogin = item.Actor.Login,
-                    CreatedAt = item.CreatedAt,
+                    CreatedAt = item.CreatedAt as DateTimeOffset,
                 };
 
                 pullRequestCommits.Add(indivisual);
@@ -1401,7 +1415,7 @@ namespace FluentHub.Octokit.Queries.Repositories
                 {
                     ActorAvatarUrl = item.Actor.AvatarUrl,
                     ActorLogin = item.Actor.Login,
-                    CreatedAt = item.CreatedAt,
+                    CreatedAt = item.CreatedAt as DateTimeOffset,
                 };
 
                 pullRequestCommitCommentThreads.Add(indivisual);
@@ -1415,7 +1429,7 @@ namespace FluentHub.Octokit.Queries.Repositories
                 {
                     ActorAvatarUrl = item.Actor.AvatarUrl,
                     ActorLogin = item.Actor.Login,
-                    CreatedAt = item.CreatedAt,
+                    CreatedAt = item.CreatedAt as DateTimeOffset,
                 };
 
                 pullRequestReviews.Add(indivisual);
@@ -1724,8 +1738,8 @@ namespace FluentHub.Octokit.Queries.Repositories
                     case "AutomaticBaseChangeFailedEvent":
                         allEvents.Add(Tuple.Create(item.Item1, automaticBaseChangeFailedEvents[item.Item2] as object));
                         break;
-                    case "AutomaticBaseChangeSuccessedEvent":
-                        allEvents.Add(Tuple.Create(item.Item1, automaticBaseChangeSuccessedEvents[item.Item2] as object));
+                    case "AutomaticBaseChangeSucceededEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, automaticBaseChangeSucceededEvents[item.Item2] as object));
                         break;
                     case "BaseRefChangedEvent":
                         allEvents.Add(Tuple.Create(item.Item1, baseRefChangedEvents[item.Item2] as object));
