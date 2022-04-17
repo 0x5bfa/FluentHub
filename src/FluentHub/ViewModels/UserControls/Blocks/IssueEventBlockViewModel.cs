@@ -26,7 +26,7 @@ namespace FluentHub.ViewModels.UserControls.Blocks
         public AddedToProjectEvent AddedToProjectEvent { get => addedToProjectEvent; set => SetProperty(ref addedToProjectEvent, value); }
 
         private AssignedEvent assignedEvent;
-        public AssignedEvent AssignedEvent { get => assignedEvent; set => SetProperty(ref assignedEvent, value);}
+        public AssignedEvent AssignedEvent { get => assignedEvent; set => SetProperty(ref assignedEvent, value); }
 
         private ClosedEvent closedEvent;
         public ClosedEvent ClosedEvent { get => closedEvent; set => SetProperty(ref closedEvent, value); }
