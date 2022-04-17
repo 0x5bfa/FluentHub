@@ -592,7 +592,7 @@ namespace FluentHub.Octokit.Queries.Repositories
                             Actor = y.PullRequest.Author.Select(actor => new
                             {
                                 AvatarUrl = actor.AvatarUrl(100),
-                                Login = actor.Name,
+                                Login = actor.Login,
                             })
                             .Single(),
                             y.PullRequest.CreatedAt,
@@ -1401,7 +1401,7 @@ namespace FluentHub.Octokit.Queries.Repositories
                 {
                     ActorAvatarUrl = item.Actor.AvatarUrl,
                     ActorLogin = item.Actor.Login,
-                    CreatedAt = item.CreatedAt as DateTimeOffset,
+                    CreatedAt = (DateTimeOffset)item.CreatedAt,
                 };
 
                 pullRequestCommits.Add(indivisual);
@@ -1415,7 +1415,7 @@ namespace FluentHub.Octokit.Queries.Repositories
                 {
                     ActorAvatarUrl = item.Actor.AvatarUrl,
                     ActorLogin = item.Actor.Login,
-                    CreatedAt = item.CreatedAt as DateTimeOffset,
+                    CreatedAt = (DateTimeOffset)item.CreatedAt,
                 };
 
                 pullRequestCommitCommentThreads.Add(indivisual);
@@ -1429,7 +1429,7 @@ namespace FluentHub.Octokit.Queries.Repositories
                 {
                     ActorAvatarUrl = item.Actor.AvatarUrl,
                     ActorLogin = item.Actor.Login,
-                    CreatedAt = item.CreatedAt as DateTimeOffset,
+                    CreatedAt = (DateTimeOffset)item.CreatedAt,
                 };
 
                 pullRequestReviews.Add(indivisual);
