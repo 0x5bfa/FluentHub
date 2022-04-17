@@ -145,10 +145,10 @@
     <Compile Include="Models\Events\DisconnectedEvent.cs" />
     <Compile Include="Models\Events\LabeledEvent.cs" />
     <Compile Include="Models\Events\LockedEvent.cs" />
-    <Compile Include="Models\Events\MarkedAsDuplicatedEvent.cs" />
+    <Compile Include="Models\Events\MarkedAsDuplicateEvent.cs" />
     <Compile Include="Models\Events\MentionedEvent.cs" />
     <Compile Include="Models\Events\MilestonedEvent.cs" />
-    <Compile Include="Models\Events\MovedColumnInProjectEvent.cs" />
+    <Compile Include="Models\Events\MovedColumnsInProjectEvent.cs" />
     <Compile Include="Models\Events\PinnedEvent.cs" />
     <Compile Include="Models\Events\ReferencedEvent.cs" />
     <Compile Include="Models\Events\RemovedFromProjectEvent.cs" />
@@ -220,10 +220,7 @@
       <Version>5.0.0</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Mutations\" />
-    <Folder Include="Queries\Edges\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FluentHub.Octokit.Models.Events
 {
-    public class MarkedAsDuplicatedEvent
+    public class MarkedAsDuplicateEvent
     {
         public string ActorLogin { get; set; }
         public string ActorAvatarUrl { get; set; }

@@ -33,7 +33,8 @@ namespace FluentHub.Octokit.Queries.Repositories
                                 AvatarUrl = actor.AvatarUrl(100),
                                 actor.Login,
                             })
-                            .Single()
+                            .Single(),
+                            y.CreatedAt,
                         })
                         .ToList(),
                         #endregion
@@ -468,6 +469,132 @@ namespace FluentHub.Octokit.Queries.Repositories
             List<Tuple<string, int, DateTimeOffset>> allEventCreatedDates = new();
 
             #region copying
+            List<AddedToProjectEvent> addedToProjectEvents = new();
+            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            {
+                AddedToProjectEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                addedToProjectEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(AddedToProjectEvent), addedToProjectEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<AssignedEvent> assignedEvent = new();
+            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            {
+                AssignedEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                assignedEvent.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(AssignedEvent), assignedEvent.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<ClosedEvent> closedEvents = new();
+            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            {
+                ClosedEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                closedEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(ClosedEvent), closedEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<CommentDeletedEvent> commentDeletedEvents = new();
+            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            {
+                CommentDeletedEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                commentDeletedEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(CommentDeletedEvent), commentDeletedEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<ConnectedEvent> connectedEvents = new();
+            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            {
+                ConnectedEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                connectedEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(ConnectedEvent), connectedEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<ConvertedNoteToIssueEvent> convertedNoteToIssueEvents = new();
+            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            {
+                ConvertedNoteToIssueEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                convertedNoteToIssueEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(ConvertedNoteToIssueEvent), convertedNoteToIssueEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<CrossReferencedEvent> crossReferencedEvents = new();
+            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            {
+                CrossReferencedEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                crossReferencedEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(CrossReferencedEvent), crossReferencedEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<DemilestonedEvent> demilestonedEvents = new();
+            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            {
+                DemilestonedEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                demilestonedEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(DemilestonedEvent), demilestonedEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<DisconnectedEvent> disconnectedEvents = new();
+            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            {
+                DisconnectedEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                disconnectedEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(DisconnectedEvent), disconnectedEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
             List<CommentedEvent> commentedEvent = new();
             foreach (var item in response.TimelineItems.IssueComment)
             {
@@ -493,7 +620,7 @@ namespace FluentHub.Octokit.Queries.Repositories
                     CreatedAt = item.CreatedAt,
                 };
 
-                foreach(var reaction in item.Reactions)
+                foreach (var reaction in item.Reactions)
                 {
                     switch (reaction.Reactions.Content)
                     {
@@ -571,6 +698,174 @@ namespace FluentHub.Octokit.Queries.Repositories
                 allEventCreatedDates.Add(Tuple.Create("LabeledEvent", labeledEvents.Count() - 1, label.CreatedAt));
             }
 
+            List<LockedEvent> lockedEvents = new();
+            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            {
+                LockedEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                lockedEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(LockedEvent), lockedEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<MarkedAsDuplicateEvent> markedAsDuplicateEvents = new();
+            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            {
+                MarkedAsDuplicateEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                markedAsDuplicateEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(MarkedAsDuplicateEvent), markedAsDuplicateEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<MentionedEvent> mentionedEvents = new();
+            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            {
+                MentionedEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                mentionedEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(MentionedEvent), mentionedEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<MilestonedEvent> milestonedEvents = new();
+            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            {
+                MilestonedEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                milestonedEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(MilestonedEvent), milestonedEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<MovedColumnsInProjectEvent> movedColumnsInProjectEvents = new();
+            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            {
+                MovedColumnsInProjectEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                movedColumnsInProjectEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(MovedColumnsInProjectEvent), movedColumnsInProjectEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<PinnedEvent> pinnedEvents = new();
+            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            {
+                PinnedEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                pinnedEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(PinnedEvent), pinnedEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<ReferencedEvent> referencedEvents = new();
+            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            {
+                ReferencedEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                referencedEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(ReferencedEvent), referencedEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<RemovedFromProjectEvent> removedFromProjectEvents = new();
+            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            {
+                RemovedFromProjectEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                removedFromProjectEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(RemovedFromProjectEvent), removedFromProjectEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<RenamedTitleEvent> renamedTitleEvents = new();
+            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            {
+                RenamedTitleEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                renamedTitleEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(RenamedTitleEvent), renamedTitleEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<ReopenedEvent> reopenedEvents = new();
+            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            {
+                ReopenedEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                reopenedEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(ReopenedEvent), reopenedEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<SubscribedEvent> subscribedEvents = new();
+            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            {
+                SubscribedEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                subscribedEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(SubscribedEvent), subscribedEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<UnassignedEvent> unassignedEvents = new();
+            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            {
+                UnassignedEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                unassignedEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(UnassignedEvent), unassignedEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
             List<UnlabeledEvent> unlabeledEvents = new();
             foreach (var item in response.TimelineItems.UnlabeledEvent)
             {
@@ -589,6 +884,76 @@ namespace FluentHub.Octokit.Queries.Repositories
                 unlabeledEvents.Add(unlabeledItem);
                 allEventCreatedDates.Add(Tuple.Create("UnlabeledEvent", unlabeledEvents.Count() - 1, unlabeledItem.CreatedAt));
             }
+
+            List<UnlockedEvent> unlockedEvents = new();
+            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            {
+                UnlockedEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                unlockedEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(UnlockedEvent), unlockedEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<UnmarkedAsDuplicateEvent> unmarkedAsDuplicateEvents = new();
+            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            {
+                UnmarkedAsDuplicateEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                unmarkedAsDuplicateEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(UnmarkedAsDuplicateEvent), unmarkedAsDuplicateEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<UnpinnedEvent> unpinnedEvents = new();
+            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            {
+                UnpinnedEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                unpinnedEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(UnpinnedEvent), unpinnedEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<UnsubscribedEvent> unsubscribedEvents = new();
+            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            {
+                UnsubscribedEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                unsubscribedEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(UnsubscribedEvent), unsubscribedEvents.Count() - 1, indivisual.CreatedAt));
+            }
+
+            List<UserBlockedEvent> userBlockedEvents = new();
+            foreach (var item in response.TimelineItems.AddedToProjectEvent)
+            {
+                UserBlockedEvent indivisual = new()
+                {
+                    ActorAvatarUrl = item.Actor.AvatarUrl,
+                    ActorLogin = item.Actor.Login,
+                    CreatedAt = item.CreatedAt,
+                };
+
+                userBlockedEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(UserBlockedEvent), userBlockedEvents.Count() - 1, indivisual.CreatedAt));
+            }
             #endregion
 
             // Sort by dates
@@ -596,14 +961,92 @@ namespace FluentHub.Octokit.Queries.Repositories
             {
                 switch (item.Item1)
                 {
+                    case "AddedToProjectEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, addedToProjectEvents[item.Item2] as object));
+                        break;
+                    case "AssignedEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, assignedEvents[item.Item2] as object));
+                        break;
+                    case "ClosedEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, closedEvents[item.Item2] as object));
+                        break;
+                    case "CommentDeletedEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, commentDeletedEvents[item.Item2] as object));
+                        break;
+                    case "ConnectedEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, connectedEvents[item.Item2] as object));
+                        break;
+                    case "ConvertedNoteToIssueEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, convertedNoteToIssueEvents[item.Item2] as object));
+                        break;
+                    case "CrossReferencedEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, crossReferencedEvents[item.Item2] as object));
+                        break;
+                    case "DemilestonedEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, demilestonedEvents[item.Item2] as object));
+                        break;
+                    case "DisconnectedEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, disconnectedEvents[item.Item2] as object));
+                        break;
                     case "CommentedEvent":
-                        allEvents.Add(Tuple.Create(item.Item1, commentedEvent[item.Item2] as object));
+                        allEvents.Add(Tuple.Create(item.Item1, commentedEvents[item.Item2] as object));
                         break;
                     case "LabeledEvent":
                         allEvents.Add(Tuple.Create(item.Item1, labeledEvents[item.Item2] as object));
                         break;
+                    case "LockedEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, lockedEvents[item.Item2] as object));
+                        break;
+                    case "MarkedAsDuplicateEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, markedAsDuplicateEvents[item.Item2] as object));
+                        break;
+                    case "MentionedEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, mentionedEvents[item.Item2] as object));
+                        break;
+                    case "MilestonedEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, milestonedEvents[item.Item2] as object));
+                        break;
+                    case "MovedColumnsInProjectEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, movedColumnsInProjectEvents[item.Item2] as object));
+                        break;
+                    case "PinnedEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, pinnedEvents[item.Item2] as object));
+                        break;
+                    case "ReferencedEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, referencedEvents[item.Item2] as object));
+                        break;
+                    case "RemovedFromProjectEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, removedFromProjectEvents[item.Item2] as object));
+                        break;
+                    case "RenamedTitleEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, renamedTitleEvents[item.Item2] as object));
+                        break;
+                    case "ReopenedEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, reopenedEvents[item.Item2] as object));
+                        break;
+                    case "SubscribedEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, subscribedEvents[item.Item2] as object));
+                        break;
+                    case "UnassignedEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, unassignedEvents[item.Item2] as object));
+                        break;
                     case "UnlabeledEvent":
                         allEvents.Add(Tuple.Create(item.Item1, unlabeledEvents[item.Item2] as object));
+                        break;
+                    case "UnlockedEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, unlockedEvents[item.Item2] as object));
+                        break;
+                    case "UnmarkedAsDuplicateEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, unmarkedAsDuplicateEvents[item.Item2] as object));
+                        break;
+                    case "UnpinnedEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, unpinnedEvents[item.Item2] as object));
+                        break;
+                    case "UnsubscribedEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, unsubscribedEvents[item.Item2] as object));
+                        break;
+                    case "UserBlockedEvent":
+                        allEvents.Add(Tuple.Create(item.Item1, userBlockedEvents[item.Item2] as object));
                         break;
                 }
             }
