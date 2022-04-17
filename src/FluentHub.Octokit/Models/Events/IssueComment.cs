@@ -7,7 +7,7 @@ using GraphQLModel = global::Octokit.GraphQL.Model;
 
 namespace FluentHub.Octokit.Models.Events
 {
-    public class CommentedEvent
+    public class IssueComment
     {
         public string AuthorLogin { get; set; }
         public string AuthorAvatarUrl { get; set; }

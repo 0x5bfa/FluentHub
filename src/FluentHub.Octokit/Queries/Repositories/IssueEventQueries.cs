@@ -483,7 +483,7 @@ namespace FluentHub.Octokit.Queries.Repositories
                 allEventCreatedDates.Add(Tuple.Create(nameof(AddedToProjectEvent), addedToProjectEvents.Count() - 1, indivisual.CreatedAt));
             }
 
-            List<AssignedEvent> assignedEvent = new();
+            List<AssignedEvent> assignedEvents = new();
             foreach (var item in response.TimelineItems.AddedToProjectEvent)
             {
                 AssignedEvent indivisual = new()
@@ -493,8 +493,8 @@ namespace FluentHub.Octokit.Queries.Repositories
                     CreatedAt = item.CreatedAt,
                 };
 
-                assignedEvent.Add(indivisual);
-                allEventCreatedDates.Add(Tuple.Create(nameof(AssignedEvent), assignedEvent.Count() - 1, indivisual.CreatedAt));
+                assignedEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(AssignedEvent), assignedEvents.Count() - 1, indivisual.CreatedAt));
             }
 
             List<ClosedEvent> closedEvents = new();
@@ -595,10 +595,10 @@ namespace FluentHub.Octokit.Queries.Repositories
                 allEventCreatedDates.Add(Tuple.Create(nameof(DisconnectedEvent), disconnectedEvents.Count() - 1, indivisual.CreatedAt));
             }
 
-            List<CommentedEvent> commentedEvent = new();
+            List<IssueComment> issueComments = new();
             foreach (var item in response.TimelineItems.IssueComment)
             {
-                CommentedEvent comment = new()
+                IssueComment indivisual = new()
                 {
                     AuthorAvatarUrl = item.Author.AvatarUrl,
                     AuthorLogin = item.Author.Login,
@@ -625,64 +625,64 @@ namespace FluentHub.Octokit.Queries.Repositories
                     switch (reaction.Reactions.Content)
                     {
                         case GraphQLModel.ReactionContent.ThumbsUp:
-                            comment.Reactions.ThumbsUpCount++;
-                            comment.Reactions.ThumbsUpActors.Add(reaction.Reactions.ReactedUserName);
+                            indivisual.Reactions.ThumbsUpCount++;
+                            indivisual.Reactions.ThumbsUpActors.Add(reaction.Reactions.ReactedUserName);
                             if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
-                                comment.Reactions.ViewerReactThumbsUp = true;
+                                indivisual.Reactions.ViewerReactThumbsUp = true;
                             break;
                         case GraphQLModel.ReactionContent.ThumbsDown:
-                            comment.Reactions.ThumbsDownCount++;
-                            comment.Reactions.ThumbsDownActors.Add(reaction.Reactions.ReactedUserName);
+                            indivisual.Reactions.ThumbsDownCount++;
+                            indivisual.Reactions.ThumbsDownActors.Add(reaction.Reactions.ReactedUserName);
                             if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
-                                comment.Reactions.ViewerReactThumbsDown = true;
+                                indivisual.Reactions.ViewerReactThumbsDown = true;
                             break;
                         case GraphQLModel.ReactionContent.Laugh:
-                            comment.Reactions.LaughCount++;
-                            comment.Reactions.LaughActors.Add(reaction.Reactions.ReactedUserName);
+                            indivisual.Reactions.LaughCount++;
+                            indivisual.Reactions.LaughActors.Add(reaction.Reactions.ReactedUserName);
                             if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
-                                comment.Reactions.ViewerReactLaugh = true;
+                                indivisual.Reactions.ViewerReactLaugh = true;
                             break;
                         case GraphQLModel.ReactionContent.Hooray:
-                            comment.Reactions.HoorayCount++;
-                            comment.Reactions.HoorayActors.Add(reaction.Reactions.ReactedUserName);
+                            indivisual.Reactions.HoorayCount++;
+                            indivisual.Reactions.HoorayActors.Add(reaction.Reactions.ReactedUserName);
                             if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
-                                comment.Reactions.ViewerReactHooray = true;
+                                indivisual.Reactions.ViewerReactHooray = true;
                             break;
                         case GraphQLModel.ReactionContent.Confused:
-                            comment.Reactions.ConfusedCount++;
-                            comment.Reactions.ConfusedActors.Add(reaction.Reactions.ReactedUserName);
+                            indivisual.Reactions.ConfusedCount++;
+                            indivisual.Reactions.ConfusedActors.Add(reaction.Reactions.ReactedUserName);
                             if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
-                                comment.Reactions.ViewerReactConfused = true;
+                                indivisual.Reactions.ViewerReactConfused = true;
                             break;
                         case GraphQLModel.ReactionContent.Heart:
-                            comment.Reactions.HeartCount++;
-                            comment.Reactions.HeartActors.Add(reaction.Reactions.ReactedUserName);
+                            indivisual.Reactions.HeartCount++;
+                            indivisual.Reactions.HeartActors.Add(reaction.Reactions.ReactedUserName);
                             if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
-                                comment.Reactions.ViewerReactHeart = true;
+                                indivisual.Reactions.ViewerReactHeart = true;
                             break;
                         case GraphQLModel.ReactionContent.Rocket:
-                            comment.Reactions.RocketCount++;
-                            comment.Reactions.RocketActors.Add(reaction.Reactions.ReactedUserName);
+                            indivisual.Reactions.RocketCount++;
+                            indivisual.Reactions.RocketActors.Add(reaction.Reactions.ReactedUserName);
                             if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
-                                comment.Reactions.ViewerReactRocket = true;
+                                indivisual.Reactions.ViewerReactRocket = true;
                             break;
                         case GraphQLModel.ReactionContent.Eyes:
-                            comment.Reactions.EyesCount++;
-                            comment.Reactions.EyesActors.Add(reaction.Reactions.ReactedUserName);
+                            indivisual.Reactions.EyesCount++;
+                            indivisual.Reactions.EyesActors.Add(reaction.Reactions.ReactedUserName);
                             if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
-                                comment.Reactions.ViewerReactEyes = true;
+                                indivisual.Reactions.ViewerReactEyes = true;
                             break;
                     }
                 }
 
-                commentedEvent.Add(comment);
-                allEventCreatedDates.Add(Tuple.Create("CommentedEvent", commentedEvent.Count() - 1, comment.CreatedAt));
+                issueComments.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(IssueComment), issueComments.Count() - 1, indivisual.CreatedAt));
             }
 
             List<LabeledEvent> labeledEvents = new();
             foreach (var item in response.TimelineItems.LabeledEvent)
             {
-                LabeledEvent label = new()
+                LabeledEvent indivisual = new()
                 {
                     CreatedAt = item.CreatedAt,
                     CreatedAtHumanized = item.CreatedAt.Humanize(),
@@ -694,8 +694,8 @@ namespace FluentHub.Octokit.Queries.Repositories
                     },
                 };
 
-                labeledEvents.Add(label);
-                allEventCreatedDates.Add(Tuple.Create("LabeledEvent", labeledEvents.Count() - 1, label.CreatedAt));
+                labeledEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(LabeledEvent), labeledEvents.Count() - 1, indivisual.CreatedAt));
             }
 
             List<LockedEvent> lockedEvents = new();
@@ -869,7 +869,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             List<UnlabeledEvent> unlabeledEvents = new();
             foreach (var item in response.TimelineItems.UnlabeledEvent)
             {
-                UnlabeledEvent unlabeledItem = new()
+                UnlabeledEvent indivisual = new()
                 {
                     CreatedAt = item.CreatedAt,
                     CreatedAtHumanized = item.CreatedAt.Humanize(),
@@ -881,8 +881,8 @@ namespace FluentHub.Octokit.Queries.Repositories
                     },
                 };
 
-                unlabeledEvents.Add(unlabeledItem);
-                allEventCreatedDates.Add(Tuple.Create("UnlabeledEvent", unlabeledEvents.Count() - 1, unlabeledItem.CreatedAt));
+                unlabeledEvents.Add(indivisual);
+                allEventCreatedDates.Add(Tuple.Create(nameof(UnlabeledEvent), unlabeledEvents.Count() - 1, indivisual.CreatedAt));
             }
 
             List<UnlockedEvent> unlockedEvents = new();
@@ -988,8 +988,8 @@ namespace FluentHub.Octokit.Queries.Repositories
                     case "DisconnectedEvent":
                         allEvents.Add(Tuple.Create(item.Item1, disconnectedEvents[item.Item2] as object));
                         break;
-                    case "CommentedEvent":
-                        allEvents.Add(Tuple.Create(item.Item1, commentedEvents[item.Item2] as object));
+                    case "IssueComment":
+                        allEvents.Add(Tuple.Create(item.Item1, issueComments[item.Item2] as object));
                         break;
                     case "LabeledEvent":
                         allEvents.Add(Tuple.Create(item.Item1, labeledEvents[item.Item2] as object));

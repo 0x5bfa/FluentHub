@@ -163,7 +163,7 @@
     <Compile Include="Models\Events\UnsubscribedEvent.cs" />
     <Compile Include="Models\Events\UserBlockedEvent.cs" />
     <Compile Include="Models\Issue.cs" />
-    <Compile Include="Models\Events\CommentedEvent.cs" />
+    <Compile Include="Models\Events\IssueComment.cs" />
     <Compile Include="Models\Label.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\Organization.cs" />

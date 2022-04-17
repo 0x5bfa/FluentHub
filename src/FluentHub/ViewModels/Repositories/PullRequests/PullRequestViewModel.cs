@@ -90,7 +90,7 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
                     {
                         viewmodel.CommentBlockViewModel = new()
                         {
-                            IssueComment = eventItem.Item2 as CommentedEvent,
+                            IssueComment = eventItem.Item2 as IssueComment,
                         };
                     }
 

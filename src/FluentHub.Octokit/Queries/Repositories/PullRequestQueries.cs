@@ -213,7 +213,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             return item;
         }
 
-        public async Task<CommentedEvent> GetBodyAsync(string owner, string name, int number)
+        public async Task<Models.Events.IssueComment> GetBodyAsync(string owner, string name, int number)
         {
             #region queries
             var query = new Query()
@@ -252,7 +252,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 
             #region copying
 
-            CommentedEvent comment = new()
+            Models.Events.IssueComment comment = new()
             {
                 AuthorAssociation = response.AuthorAssociation,
                 AuthorAvatarUrl = response.Author.AvatarUrl,

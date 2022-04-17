@@ -39,7 +39,268 @@
 
             <toolkit:SwitchPresenter TargetType="x:String" Value="{x:Bind ViewModel.EventType, Mode=OneWay}">
 
-                <toolkit:Case Value="CommentedEvent">
+                <toolkit:Case Value="AddedToProjectEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border
+                            Width="28"
+                            Height="28"
+                            Margin="12,0,8,0"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="16">
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="12"
+                                Glyph="&#xEAA5;" />
+                        </Border>
+
+                        <TextBlock
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="AddedToProjectEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="AssignedEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border
+                            Width="28"
+                            Height="28"
+                            Margin="12,0,8,0"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="16">
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="12"
+                                Glyph="&#xEAA5;" />
+                        </Border>
+
+                        <TextBlock
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="AssignedEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="ClosedEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border
+                            Width="28"
+                            Height="28"
+                            Margin="12,0,8,0"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="16">
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="12"
+                                Glyph="&#xEAA5;" />
+                        </Border>
+
+                        <TextBlock
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="ClosedEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="CommentDeletedEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border
+                            Width="28"
+                            Height="28"
+                            Margin="12,0,8,0"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="16">
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="12"
+                                Glyph="&#xEAA5;" />
+                        </Border>
+
+                        <TextBlock
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="CommentDeletedEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="ConnectedEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border
+                            Width="28"
+                            Height="28"
+                            Margin="12,0,8,0"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="16">
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="12"
+                                Glyph="&#xEAA5;" />
+                        </Border>
+
+                        <TextBlock
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="ConnectedEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="ConvertedNoteToIssueEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border
+                            Width="28"
+                            Height="28"
+                            Margin="12,0,8,0"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="16">
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="12"
+                                Glyph="&#xEAA5;" />
+                        </Border>
+
+                        <TextBlock
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="ConvertedNoteToIssueEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="CrossReferencedEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border
+                            Width="28"
+                            Height="28"
+                            Margin="12,0,8,0"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="16">
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="12"
+                                Glyph="&#xEAA5;" />
+                        </Border>
+
+                        <TextBlock
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="CrossReferencedEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="DemilestonedEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border
+                            Width="28"
+                            Height="28"
+                            Margin="12,0,8,0"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="16">
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="12"
+                                Glyph="&#xEAA5;" />
+                        </Border>
+
+                        <TextBlock
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="DemilestonedEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="DisconnectedEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border
+                            Width="28"
+                            Height="28"
+                            Margin="12,0,8,0"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="16">
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="12"
+                                Glyph="&#xEAA5;" />
+                        </Border>
+
+                        <TextBlock
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="DisconnectedEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="IssueComment">
                     <local:IssueCommentBlock PropertyViewModel="{x:Bind ViewModel.CommentBlockViewModel, Mode=OneWay}" />
                 </toolkit:Case>
 
@@ -72,6 +333,441 @@
                     </Grid>
                 </toolkit:Case>
 
+                <toolkit:Case Value="LockedEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border
+                            Width="28"
+                            Height="28"
+                            Margin="12,0,8,0"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="16">
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="12"
+                                Glyph="&#xEAA5;" />
+                        </Border>
+
+                        <TextBlock
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="LockedEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="MarkedAsDuplicateEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border
+                            Width="28"
+                            Height="28"
+                            Margin="12,0,8,0"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="16">
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="12"
+                                Glyph="&#xEAA5;" />
+                        </Border>
+
+                        <TextBlock
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="MarkedAsDuplicateEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="MentionedEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border
+                            Width="28"
+                            Height="28"
+                            Margin="12,0,8,0"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="16">
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="12"
+                                Glyph="&#xEAA5;" />
+                        </Border>
+
+                        <TextBlock
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="MentionedEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="MilestonedEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border
+                            Width="28"
+                            Height="28"
+                            Margin="12,0,8,0"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="16">
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="12"
+                                Glyph="&#xEAA5;" />
+                        </Border>
+
+                        <TextBlock
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="MilestonedEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="MovedColumnsInProjectEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border
+                            Width="28"
+                            Height="28"
+                            Margin="12,0,8,0"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="16">
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="12"
+                                Glyph="&#xEAA5;" />
+                        </Border>
+
+                        <TextBlock
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="MovedColumnsInProjectEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="PinnedEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border
+                            Width="28"
+                            Height="28"
+                            Margin="12,0,8,0"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="16">
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="12"
+                                Glyph="&#xEAA5;" />
+                        </Border>
+
+                        <TextBlock
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="PinnedEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="ReferencedEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border
+                            Width="28"
+                            Height="28"
+                            Margin="12,0,8,0"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="16">
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="12"
+                                Glyph="&#xEAA5;" />
+                        </Border>
+
+                        <TextBlock
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="ReferencedEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="RemovedFromProjectEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border
+                            Width="28"
+                            Height="28"
+                            Margin="12,0,8,0"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="16">
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="12"
+                                Glyph="&#xEAA5;" />
+                        </Border>
+
+                        <TextBlock
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="RemovedFromProjectEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="RenamedTitleEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border
+                            Width="28"
+                            Height="28"
+                            Margin="12,0,8,0"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="16">
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="12"
+                                Glyph="&#xEAA5;" />
+                        </Border>
+
+                        <TextBlock
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="RenamedTitleEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="ReopenedEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border
+                            Width="28"
+                            Height="28"
+                            Margin="12,0,8,0"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="16">
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="12"
+                                Glyph="&#xEAA5;" />
+                        </Border>
+
+                        <TextBlock
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="ReopenedEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="SubscribedEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border
+                            Width="28"
+                            Height="28"
+                            Margin="12,0,8,0"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="16">
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="12"
+                                Glyph="&#xEAA5;" />
+                        </Border>
+
+                        <TextBlock
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="SubscribedEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="UnassignedEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border
+                            Width="28"
+                            Height="28"
+                            Margin="12,0,8,0"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="16">
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="12"
+                                Glyph="&#xEAA5;" />
+                        </Border>
+
+                        <TextBlock
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="UnassignedEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="UnlabeledEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border
+                            Width="28"
+                            Height="28"
+                            Margin="12,0,8,0"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="16">
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="12"
+                                Glyph="&#xEAA5;" />
+                        </Border>
+
+                        <TextBlock
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="UnlabeledEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="UnlockedEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border
+                            Width="28"
+                            Height="28"
+                            Margin="12,0,8,0"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="16">
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="12"
+                                Glyph="&#xEAA5;" />
+                        </Border>
+
+                        <TextBlock
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="UnlockedEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="UnmarkedAsDuplicateEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border
+                            Width="28"
+                            Height="28"
+                            Margin="12,0,8,0"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="16">
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="12"
+                                Glyph="&#xEAA5;" />
+                        </Border>
+
+                        <TextBlock
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="UnmarkedAsDuplicateEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
                 <toolkit:Case Value="UnlabeledEvent">
                     <Grid ColumnSpacing="8">
                         <Grid.ColumnDefinitions>
@@ -97,6 +793,93 @@
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource CaptionTextBlockStyle}"
                             Text="Someone unlabeled some label" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="UnpinnedEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border
+                            Width="28"
+                            Height="28"
+                            Margin="12,0,8,0"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="16">
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="12"
+                                Glyph="&#xEAA5;" />
+                        </Border>
+
+                        <TextBlock
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="UnpinnedEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="UnsubscribedEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border
+                            Width="28"
+                            Height="28"
+                            Margin="12,0,8,0"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="16">
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="12"
+                                Glyph="&#xEAA5;" />
+                        </Border>
+
+                        <TextBlock
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="UnsubscribedEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="UserBlockedEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border
+                            Width="28"
+                            Height="28"
+                            Margin="12,0,8,0"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            CornerRadius="16">
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="12"
+                                Glyph="&#xEAA5;" />
+                        </Border>
+
+                        <TextBlock
+                            Grid.Column="2"
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="UserBlockedEvent" />
 
                     </Grid>
                 </toolkit:Case>

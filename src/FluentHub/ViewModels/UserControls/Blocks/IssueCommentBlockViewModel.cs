@@ -15,8 +15,8 @@ namespace FluentHub.ViewModels.UserControls.Blocks
 {
     public class IssueCommentBlockViewModel : INotifyPropertyChanged
     {
-        private CommentedEvent issueComment;
-        public CommentedEvent IssueComment { get => issueComment; set => SetProperty(ref issueComment, value); }
+        private IssueComment issueComment;
+        public IssueComment IssueComment { get => issueComment; set => SetProperty(ref issueComment, value); }
 
         private string createdAtHumanized;
         public string CreatedAtHumanized { get => createdAtHumanized; set => SetProperty(ref createdAtHumanized, value); }

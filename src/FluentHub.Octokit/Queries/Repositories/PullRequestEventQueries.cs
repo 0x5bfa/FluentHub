@@ -300,10 +300,10 @@ namespace FluentHub.Octokit.Queries.Repositories
             List<Tuple<string, int, DateTimeOffset>> allEventCreatedDates = new();
 
             #region copying
-            List<CommentedEvent> commentedEvent = new();
+            List<IssueComment> commentedEvent = new();
             foreach (var item in response.TimelineItems.CommentedEvent)
             {
-                CommentedEvent comment = new()
+                IssueComment comment = new()
                 {
                     AuthorAvatarUrl = item.Author.AvatarUrl,
                     AuthorLogin = item.Author.Login,
