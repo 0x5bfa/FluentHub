@@ -6,12 +6,10 @@ using System.Threading.Tasks;
 
 namespace FluentHub.Octokit.Models.Events
 {
-    public class UnlabeledEvent
+    public class UserBlockedEvent
     {
         public string ActorLogin { get; set; }
         public string ActorAvatarUrl { get; set; }
-
-        public Label UnlabeledLabel { get; set; }
 
         public DateTimeOffset CreatedAt { get; set; }
         public string CreatedAtHumanized { get; set; }

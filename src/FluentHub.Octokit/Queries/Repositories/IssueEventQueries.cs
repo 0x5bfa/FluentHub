@@ -108,7 +108,7 @@ namespace FluentHub.Octokit.Queries.Repositories
                         .ToList(),
                         #endregion
 
-                        //#region ConvertedToDiscussionEvent
+                        #region ConvertedToDiscussionEvent (not found)
                         //ConvertedToDiscussionEvent = x.Nodes.OfType<GraphQLModel.ConvertedToDiscussionEvent>().Select(y => new
                         //{
                         //    Actor = y.Actor.Select(actor => new
@@ -120,7 +120,7 @@ namespace FluentHub.Octokit.Queries.Repositories
                         //    y.CreatedAt,
                         //})
                         //.ToList(),
-                        //#endregion
+                        #endregion
 
                         #region CrossReferencedEvent
                         CrossReferencedEvent = x.Nodes.OfType<GraphQLModel.CrossReferencedEvent>().Select(y => new
