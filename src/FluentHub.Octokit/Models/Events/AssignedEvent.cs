@@ -8,8 +8,9 @@ namespace FluentHub.Octokit.Models.Events
 {
     public class AssignedEvent
     {
-        public string ActorLogin { get; set; }
-        public string ActorAvatarUrl { get; set; }
+        public Actor Actor { get; set; }
+
+        public User Assignee { get; set; }
 
         public DateTimeOffset CreatedAt { get; set; }
         public string CreatedAtHumanized { get; set; }

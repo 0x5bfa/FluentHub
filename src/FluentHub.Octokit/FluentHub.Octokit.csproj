@@ -134,6 +134,7 @@
     <Compile Include="Models\ContributionCalender.cs" />
     <Compile Include="Models\Discussion.cs" />
     <Compile Include="Models\Activity.cs" />
+    <Compile Include="Models\Events\Actor.cs" />
     <Compile Include="Models\Events\AddedToProjectEvent.cs" />
     <Compile Include="Models\Events\AssignedEvent.cs" />
     <Compile Include="Models\Events\AutomaticBaseChangeFailedEvent.cs" />
