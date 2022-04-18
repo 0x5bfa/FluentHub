@@ -114,7 +114,7 @@ namespace FluentHub.UserControls
 
         private async void DownloadZipButton_Click(object sender, RoutedEventArgs e)
         {
-            string downloadZip = _repoUrl + "/archive/refs/heads/main.zip"; //Just made it with the main branch
+            string downloadZip = _repoUrl + $"/archive/refs/heads/{ViewModel.BranchName}.zip"; //Just made it with the main branch
 
             var uri = new Uri(downloadZip);
 
@@ -122,11 +122,11 @@ namespace FluentHub.UserControls
 
             if (success)
             {
-                Console.WriteLine("Add to LOG it successed");
+                Log.Write(Serilog.Events.LogEventLevel.Information, "Downloaded the repository into a .zip file");
             }
             else
             {
-                Console.WriteLine("Add to LOG it failed");
+                Log.Error(downloadZip, "Something went wrong. The URL was not found or it doesn't work");
             }
         }
 

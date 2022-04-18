@@ -1,73 +1,112 @@
-﻿using FluentHub.Helpers;
+﻿using ColorCode;
+using FluentHub.Backend;
+using FluentHub.Helpers;
+using FluentHub.Models;
 using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.ViewModels.Repositories;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
+using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
+using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Documents;
 
 namespace FluentHub.ViewModels.UserControls.Blocks
 {
-    public class FileContentBlockViewModel : INotifyPropertyChanged
+    public class FileContentBlockViewModel : ObservableObject
     {
-        private RepoContextViewModel commonRepoViewModel;
-        public RepoContextViewModel CommonRepoViewModel
+        #region constructor
+        public FileContentBlockViewModel(IMessenger messenger = null, ILogger logger = null)
         {
-            get => commonRepoViewModel;
-            set => SetProperty(ref commonRepoViewModel, value);
+            _messenger = messenger;
+            _logger = logger;
+            _messenger = messenger;
+
+            LoadBlobContentBlockCommand = new AsyncRelayCommand<RichTextBlock>(LoadBlobContentBlockAsync);
         }
+        #endregion
 
-        private string blobContent;
-        public string BlobContent { get => blobContent; set => SetProperty(ref blobContent, value); }
+        #region fields
+        private readonly ILogger _logger;
+        private readonly IMessenger _messenger;
 
-        private string formattedFileDetails;
-        public string FormattedFileDetails { get => formattedFileDetails; set => SetProperty(ref formattedFileDetails, value); }
+        private string _blobContent;
+        private string _formattedFileDetails;
+        private string _formattedFileSize;
+        private string _lineText;
+        private RepoContextViewModel contextViewModel;
+        #endregion
 
-        private string formattedFileSize;
-        public string FormattedFileSize { get => formattedFileSize; set => SetProperty(ref formattedFileSize, value); }
+        #region properties
+        public string BlobContent { get => _blobContent; set => SetProperty(ref _blobContent, value); }
+        public string FormattedFileDetails { get => _formattedFileDetails; set => SetProperty(ref _formattedFileDetails, value); }
+        public string FormattedFileSize { get => _formattedFileSize; set => SetProperty(ref _formattedFileSize, value); }
+        public string LineText { get => _lineText; set => SetProperty(ref _lineText, value); }
+        public RepoContextViewModel ContextViewModel { get => contextViewModel; set => SetProperty(ref contextViewModel, value); }
 
-        private string lineText;
-        public string LineText { get => lineText; set => SetProperty(ref lineText, value); }
+        public IAsyncRelayCommand LoadBlobContentBlockCommand { get; }
+        #endregion
 
-        public async Task GetFileContent()
+        #region methods
+        public async Task LoadBlobContentBlockAsync(RichTextBlock textBlock)
         {
-            BlobQueries queries = new();
-            var content = await queries.GetAsync(
-                CommonRepoViewModel.Name,
-                CommonRepoViewModel.Owner,
-                CommonRepoViewModel.BranchName,
-                CommonRepoViewModel.Path);
-
-            BlobContent = content.Item1;
-
-            var lines = BlobDetailsHelpers.GetBlobActualLines(ref content.Item1);
-            var sloc = BlobDetailsHelpers.GetBlobSloc(ref content.Item1);
-
-            FormattedFileDetails = $"{lines} lines ({sloc} sloc)";
-            FormattedFileSize = BlobDetailsHelpers.FormatSize(content.Item2);
-
-            for (int i = 0; i < lines; i++)
+            try
             {
-                LineText += $"{i}\n";
+                BlobQueries queries = new();
+                var content = await queries.GetAsync(
+                    ContextViewModel.Name,
+                    ContextViewModel.Owner,
+                    ContextViewModel.BranchName,
+                    ContextViewModel.Path);
+
+                BlobContent = content.Item1;
+
+                var lines = BlobDetailsHelpers.GetBlobActualLines(ref content.Item1);
+                var sloc = BlobDetailsHelpers.GetBlobSloc(ref content.Item1);
+
+                FormattedFileDetails = $"{lines} lines ({sloc} sloc)";
+                FormattedFileSize = BlobDetailsHelpers.FormatSize(content.Item2);
+
+                for (int i = 1; i <= lines + 1; i++)
+                    LineText += $"{i}\n";
+
+                // Color code block
+                textBlock.Blocks.Clear();
+                var formatter = new RichTextBlockFormatter(ThemeHelper.ActualTheme);
+                var extension = Path.GetExtension(ContextViewModel.Path.Remove(0, 1)).Remove(0, 1);
+                var fileType = FileTypeHelper.GetFileTypeStringId(extension);
+
+                if (!string.IsNullOrEmpty(fileType))
+                {
+                    ILanguage lang = Languages.FindById(fileType);
+                    formatter.FormatRichTextBlock(BlobContent, lang, textBlock);
+                }
+                else
+                {
+                    Paragraph paragraph = new();
+                    Run run = new()
+                    {
+                        Text = BlobContent,
+                    };
+                    paragraph.Inlines.Add(run);
+                    textBlock.Blocks.Add(paragraph);
+                }
             }
-
-            LineText += $"{lines}";
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
-        {
-            if (!Equals(field, newValue))
+            catch (Exception ex)
             {
-                field = newValue;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-                return true;
+                _logger?.Error("LoadBlobContentBlockAsync", ex);
+                if (_messenger != null)
+                {
+                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+                    _messenger.Send(notification);
+                }
+                throw;
             }
-
-            return false;
         }
+        #endregion
     }
 }

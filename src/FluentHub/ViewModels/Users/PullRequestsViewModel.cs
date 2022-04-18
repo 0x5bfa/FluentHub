@@ -47,6 +47,7 @@ namespace FluentHub.ViewModels.Users
             try
             {
                 PullRequestQueries queries = new();
+
                 List<PullRequest> items = await queries.GetAllAsync(login);
 
                 if (items == null) return;
@@ -58,8 +59,6 @@ namespace FluentHub.ViewModels.Users
                     PullButtonBlockViewModel viewModel = new()
                     {
                         PullItem = item,
-                        NameWithOwner = $"{item.OwnerLogin} / {item.Name} #{item.Number}",
-                        UpdatedAtHumanized = item.UpdatedAt.Humanize()
                     };
 
                     _pullRequests.Add(viewModel);

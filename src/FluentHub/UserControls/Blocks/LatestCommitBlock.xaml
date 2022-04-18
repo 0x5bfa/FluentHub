@@ -7,15 +7,11 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:uc="using:FluentHub.UserControls"
-    xmlns:vm="using:FluentHub.ViewModels.UserControls.Blocks"
-    Loaded="UserControl_Loaded"
+    Loaded="OnLatestCommitBlockLoaded"
     mc:Ignorable="d">
 
-    <UserControl.DataContext>
-        <vm:LatestCommitBlockViewModel x:Name="ViewModel" />
-    </UserControl.DataContext>
-
     <Grid Padding="12,0">
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -90,7 +86,7 @@
                 <Button
                     Grid.Column="6"
                     Margin="8,0,0,0"
-                    IsEnabled="False"
+                    Click="Button_Click"
                     Style="{StaticResource LinkLikeButtonStyle}">
 
                     <StackPanel Orientation="Horizontal" Spacing="4">
@@ -105,7 +101,7 @@
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             TargetType="x:Boolean"
-                            Value="{x:Bind ViewModel.CommonRepoViewModel.IsRootDir, Mode=OneWay}">
+                            Value="{x:Bind ViewModel.ContextViewModel.IsRootDir, Mode=OneWay}">
 
                             <toolkit:Case Value="True">
                                 <StackPanel Orientation="Horizontal" Spacing="4">

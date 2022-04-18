@@ -28,7 +28,13 @@ namespace FluentHub.UserControls
         public int WidthAndHeight
         {
             get => (int)GetValue(WidthAndHeightProperty);
-            set => SetValue(WidthAndHeightProperty, value);
+            set
+            {
+                SetValue(WidthAndHeightProperty, value);
+                AvatarImageBorder.Height = WidthAndHeight;
+                AvatarImageBorder.Width = WidthAndHeight;
+                AvatarImageBorder.CornerRadius = new CornerRadius(WidthAndHeight / 2);
+            }
         }
 
         public static readonly DependencyProperty AvatarUrlProperty =
@@ -36,7 +42,7 @@ namespace FluentHub.UserControls
                 nameof(AvatarUrl),
                 typeof(string),
                 typeof(AvatarControl),
-                null);
+                new PropertyMetadata(null));
 
         public string AvatarUrl
         {
@@ -44,7 +50,8 @@ namespace FluentHub.UserControls
             set
             {
                 SetValue(AvatarUrlProperty, value);
-                BitMapImage.UriSource = new Uri(AvatarUrl);
+                if(!string.IsNullOrEmpty(AvatarUrl))
+                    BitMapImage.UriSource = new Uri(AvatarUrl);
             }
         }
 
@@ -53,38 +60,23 @@ namespace FluentHub.UserControls
                 nameof(IsOrganization),
                 typeof(bool),
                 typeof(AvatarControl),
-                null);
+                new PropertyMetadata(false));
 
         public bool IsOrganization
         {
             get => (bool)GetValue(IsOrganizationProperty);
-            set => SetValue(IsOrganizationProperty, value);
+            set
+            {
+                SetValue(IsOrganizationProperty, value);
+                if (IsOrganization) AvatarImageBorder.CornerRadius = new CornerRadius(6);
+            }
         }
         #endregion
 
-        public AvatarControl()
-        {
-            this.InitializeComponent();
-        }
+        public AvatarControl() => InitializeComponent();
 
         private void OnAvatarControlLoaded(object sender, RoutedEventArgs e)
         {
-            if (WidthAndHeight == 0)
-            {
-                return;
-            }
-
-            AvatarImageBorder.Height = WidthAndHeight;
-            AvatarImageBorder.Width = WidthAndHeight;
-
-            if (IsOrganization)
-            {
-                AvatarImageBorder.CornerRadius = new CornerRadius(6);
-            }
-            else
-            {
-                AvatarImageBorder.CornerRadius = new CornerRadius(WidthAndHeight / 2);
-            }
         }
     }
 }

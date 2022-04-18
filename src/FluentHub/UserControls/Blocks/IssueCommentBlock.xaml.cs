@@ -31,7 +31,7 @@ namespace FluentHub.UserControls.Blocks
             {
                 SetValue(PropertyViewModelProperty, value);
                 ViewModel = PropertyViewModel;
-                ViewModel.SetWebViewContentsAsync(CommentWebView);
+                ViewModel?.SetWebViewContentsAsync(CommentWebView);
             }
         }
         #endregion

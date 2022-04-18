@@ -50,16 +50,21 @@ namespace FluentHub.ViewModels.Users
         {
             try
             {
-                PinnedItemQueries queries = new();
-                List<Repository> items;
+                // For user readme
+                ContextViewModel = new RepoContextViewModel()
+                {
+                    Owner = LoginName,
+                    Name = LoginName,
+                };
 
-                items = login == null ?
-                    await queries.GetAllAsync() :
-                    await queries.GetAllAsync(login, true);
+                PinnedItemQueries queries = new();
+
+                List<Repository> items = await queries.GetAllAsync(login);
 
                 if (items == null) return;
 
                 _repositoryItems.Clear();
+
                 foreach (var item in items)
                 {
                     RepoButtonBlockViewModel viewModel = new()
@@ -71,13 +76,6 @@ namespace FluentHub.ViewModels.Users
 
                     _repositoryItems.Add(viewModel);
                 }
-
-                RepoContextViewModel readmeRepoViewModel = new()
-                {
-                    Owner = login,
-                    Name = login,
-                };
-                ContextViewModel = readmeRepoViewModel;
             }
             catch (Exception ex)
             {

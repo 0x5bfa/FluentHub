@@ -27,13 +27,6 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Border
-            Width="1.5"
-            Height="20"
-            Margin="28,0,0,0"
-            HorizontalAlignment="Left"
-            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
-
         <Grid
             Grid.Row="1"
             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
@@ -75,7 +68,7 @@
                         Style="{StaticResource BodyTextBlockStyle}"
                         Text="{x:Bind ViewModel.CreatedAtHumanized, Mode=OneWay}" />
 
-                    <labels:LabelControl
+                    <!--<labels:LabelControl
                         x:Name="EditedLabel"
                         x:Load="{x:Bind ViewModel.IssueComment.IsEdited}"
                         IsOutlineEnable="True"
@@ -87,7 +80,7 @@
                         x:Load="{x:Bind ViewModel.AuthorAssociation, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
                         IsOutlineEnable="True"
                         LabelBackground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        LabelText="{x:Bind ViewModel.AuthorAssociation, Mode=OneWay}" />
+                        LabelText="{x:Bind ViewModel.AuthorAssociation, Mode=OneWay}" />-->
                 </StackPanel>
 
                 <StackPanel
@@ -157,7 +150,7 @@
                         BorderThickness="0">
                         <FontIcon FontSize="16" Glyph="&#xE10C;" />
                         <Button.Flyout>
-                            <MenuFlyout Placement="Bottom">
+                            <MenuFlyout Placement="BottomEdgeAlignedRight">
                                 <MenuFlyoutItem Text="Share" />
                                 <MenuFlyoutItem Text="Quote reply" />
                                 <MenuFlyoutItem Text="Reference in new issue" />
@@ -182,12 +175,13 @@
                 DefaultBackgroundColor="Transparent"
                 NavigationCompleted="OnCommentWebViewNavigationCompleted" />
 
-            <Grid Grid.Row="3" Margin="12">
+            <Grid Grid.Row="3" Margin="12,0,0,12">
                 <StackPanel Orientation="Horizontal" Spacing="6">
                     <Button
-                        Width="36"
+                        Width="32"
                         Height="32"
-                        Padding="0">
+                        Padding="0"
+                        CornerRadius="16">
                         <Button.Content>
                             <FontIcon FontSize="14" Glyph="&#xE170;" />
                         </Button.Content>
@@ -326,13 +320,5 @@
                 </StackPanel>
             </Grid>
         </Grid>
-
-        <Border
-            Grid.Row="2"
-            Width="1.5"
-            Height="20"
-            Margin="28,0,0,0"
-            HorizontalAlignment="Left"
-            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
     </Grid>
 </UserControl>

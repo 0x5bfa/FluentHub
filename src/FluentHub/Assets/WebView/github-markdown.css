@@ -155,8 +155,8 @@
   margin: .67em 0;
   font-weight: 600;
   padding-bottom: .3em;
-  font-size: 28px;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-size: 26px;
+  border-bottom: 2px solid rgba(255,255,255,0.05);
 }
 
 .markdown-body mark {
@@ -186,9 +186,9 @@
 
 .markdown-body img {
   border-style: none;
-  max-width: 100%;
+  max-width: 60%;
   box-sizing: content-box;
-  background-color: var(--color-canvas-default);
+  background-color: transparent;
 }
 
 .markdown-body code,
@@ -196,7 +196,7 @@
 .markdown-body pre,
 .markdown-body samp {
   font-family: monospace;
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .markdown-body figure {
@@ -331,8 +331,8 @@
 .markdown-body h4,
 .markdown-body h5,
 .markdown-body h6 {
-  margin-top: 18px;
-  margin-bottom: 12px;
+  margin-top: 22px;
+  margin-bottom: 14px;
   font-weight: 600;
   line-height: 1.25;
 }
@@ -340,8 +340,8 @@
 .markdown-body h2 {
   font-weight: 600;
   padding-bottom: .3em;
-  font-size: 24px;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
+  font-size: 20px;
+  border-bottom: 2px solid rgba(255,255,255,0.05);
 }
 
 .markdown-body h3 {
@@ -661,7 +661,7 @@
 .markdown-body h6 tt,
 .markdown-body h6 code {
   padding: 0 .2em;
-  font-size: inherit;
+  font-size: 0.8em;
 }
 
 .markdown-body ul.no-list,
@@ -848,7 +848,7 @@
 .markdown-body tt {
   padding: .2em .4em;
   margin: 0;
-  font-size: 14px;
+  font-size: 12px;
   background-color: var(--color-neutral-muted);
   border-radius: 6px;
 }
@@ -863,7 +863,7 @@
 }
 
 .markdown-body pre code {
-  font-size: 14px;
+  font-size: 12px;
 }
 
 .markdown-body pre>code {
@@ -876,7 +876,7 @@
 }
 
 .markdown-body .highlight {
-  margin-bottom: 16px;
+  margin-bottom: 14px;
 }
 
 .markdown-body .highlight pre {

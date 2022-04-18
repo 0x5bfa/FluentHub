@@ -46,6 +46,7 @@ namespace FluentHub.ViewModels.Users
             try
             {
                 RepositoryQueries queries = new();
+
                 List<Repository> items = await queries.GetAllAsync(login);
 
                 if (items == null) return;
@@ -58,7 +59,7 @@ namespace FluentHub.ViewModels.Users
                     {
                         Item = item,
                         DisplayDetails = true,
-                        DisplayStarButton = true
+                        DisplayStarButton = true,
                     };
 
                     _repositories.Add(viewModel);

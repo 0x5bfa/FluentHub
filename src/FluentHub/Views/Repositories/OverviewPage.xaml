@@ -31,20 +31,28 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid Margin="20,20,20,12">
-            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+        <Grid Margin="20,20,20,12" ColumnSpacing="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel
+                VerticalAlignment="Center"
+                Orientation="Horizontal"
+                Spacing="6">
                 <Button
-                    Grid.Column="1"
-                    Padding="2,0"
                     HorizontalAlignment="Left"
                     Background="Transparent"
                     Click="OnRepoOwnerButtonClick"
                     FontWeight="Normal"
                     Style="{StaticResource LinkLikeButtonStyle}">
                     <StackPanel Orientation="Horizontal" Spacing="8">
+
                         <uc:AvatarControl
                             AvatarUrl="{x:Bind ViewModel.Repository.OwnerAvatarUrl, Mode=OneWay}"
-                            IsOrganization="{x:Bind ViewModel.Repository.IsInOrganization, Mode=OneWay}"
+                            IsOrganization="{x:Bind ViewModel.Repository.OwnerIsOrganization, Mode=OneWay}"
                             WidthAndHeight="26" />
 
                         <TextBlock
@@ -53,65 +61,81 @@
                             FontWeight="Normal"
                             Style="{StaticResource SubtitleTextBlockStyle}"
                             Text="{x:Bind ViewModel.Repository.Owner, Mode=OneWay}" />
+
                     </StackPanel>
                 </Button>
 
                 <TextBlock
-                    Margin="2,0"
                     VerticalAlignment="Center"
                     FontWeight="SemiLight"
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                     Style="{StaticResource SubtitleTextBlockStyle}"
                     Text="/" />
 
                 <TextBlock
                     x:Name="RepoName"
-                    Grid.Column="3"
-                    Margin="2,0"
                     VerticalAlignment="Center"
                     FontWeight="Normal"
                     Style="{StaticResource SubtitleTextBlockStyle}"
                     Text="{x:Bind ViewModel.Repository.Name, Mode=OneWay}" />
 
-                <toolkit:SwitchPresenter
-                    Grid.RowSpan="2"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    TargetType="x:Boolean"
-                    Value="{x:Bind ViewModel.Repository.IsPrivate, Mode=OneWay}">
-
-                    <toolkit:Case Value="True">
-                        <labels:LabelControl
-                            IsOutlineEnable="True"
-                            LabelBackground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            LabelText="Private" />
-                    </toolkit:Case>
-
-                    <toolkit:Case Value="False">
-                        <labels:LabelControl
-                            IsOutlineEnable="True"
-                            LabelBackground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            LabelText="Public" />
-                    </toolkit:Case>
-
-                </toolkit:SwitchPresenter>
+                <labels:LabelControl ViewModel="{x:Bind ViewModel.RepositoryVisibilityLabel, Mode=OneWay}" />
             </StackPanel>
 
             <StackPanel
+                Grid.Column="2"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Top"
                 Orientation="Horizontal"
                 Spacing="6">
                 <muxc:DropDownButton x:Name="RepoWatchCombbox" IsEnabled="False">
                     <muxc:DropDownButton.Content>
+
                         <StackPanel Orientation="Horizontal" Spacing="8">
-                            <FontIcon
-                                FontFamily="{StaticResource Octions}"
-                                FontSize="14"
-                                Glyph="&#xE98B;" />
 
-                            <TextBlock x:Name="RepoWatchCombboxWatchTextBlock" Text="Watch" />
+                            <toolkit:SwitchPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                TargetType="x:String"
+                                Value="{x:Bind ViewModel.ViewerSubscriptionState, Mode=OneWay}">
 
-                            <muxc:InfoBadge x:Name="WatchersCountBadge" Value="{x:Bind ViewModel.Repository.WatcherCount, Mode=OneWay}" />
+                                <toolkit:Case Value="Unsubscribed">
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <FontIcon
+                                            FontFamily="{StaticResource Octions}"
+                                            FontSize="14"
+                                            Glyph="&#xE98B;" />
+
+                                        <TextBlock Text="Watch" />
+                                    </StackPanel>
+                                </toolkit:Case>
+
+                                <toolkit:Case Value="Subscribed">
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <FontIcon
+                                            FontFamily="{StaticResource Octions}"
+                                            FontSize="14"
+                                            Glyph="&#xE98D;" />
+
+                                        <TextBlock Text="Unwatch" />
+                                    </StackPanel>
+                                </toolkit:Case>
+
+                                <toolkit:Case Value="Ignored">
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <FontIcon
+                                            FontFamily="{StaticResource Octions}"
+                                            FontSize="14"
+                                            Glyph="&#xE91C;" />
+
+                                        <TextBlock Text="Stop ignoring" />
+                                    </StackPanel>
+                                </toolkit:Case>
+
+                            </toolkit:SwitchPresenter>
+
+                            <muxc:InfoBadge x:Name="WatchersCountBadge" Value="{x:Bind ViewModel.RepositoryDetails.WatcherCount, Mode=OneWay}" />
+
                         </StackPanel>
                     </muxc:DropDownButton.Content>
                 </muxc:DropDownButton>
@@ -146,6 +170,7 @@
                                         <FontIcon
                                             FontFamily="{StaticResource Octions}"
                                             FontSize="16"
+                                            Foreground="#e3b341"
                                             Glyph="&#xEA96;" />
                                         <TextBlock Text="Unstar" />
                                     </StackPanel>
@@ -168,6 +193,7 @@
                     </muxc:SplitButton.Content>
                 </muxc:SplitButton>
             </StackPanel>
+
         </Grid>
 
         <Grid Grid.Row="1">
@@ -193,7 +219,7 @@
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
 
-                    <muxc:NavigationViewItem Tag="Issues" Visibility="{x:Bind ViewModel.Repository.HasIssuesEnabled, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+                    <muxc:NavigationViewItem Tag="Issues" Visibility="{x:Bind ViewModel.RepositoryDetails.HasIssuesEnabled, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
                         <muxc:NavigationViewItem.Content>
                             <StackPanel Orientation="Horizontal" Spacing="8">
                                 <FontIcon

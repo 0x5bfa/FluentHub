@@ -1,5 +1,7 @@
-﻿using Octokit.GraphQL;
-using Serilog;
+﻿using Humanizer;
+using global::Octokit.GraphQL.Core;
+using Octokit.GraphQL;
+using Octokit.GraphQL.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +16,9 @@ namespace FluentHub.Octokit.Queries.Organizations
 
         public async Task<List<Models.Repository>> GetAllAsync(string org)
         {
+            Arg<IEnumerable<IssueState>> issueState = new(new IssueState[] { IssueState.Open });
+            Arg<IEnumerable<PullRequestState>> pullRequestState = new(new PullRequestState[] { PullRequestState.Open });
+
             #region query
             var query = new Query()
                     .Organization(org)
@@ -22,9 +27,10 @@ namespace FluentHub.Octokit.Queries.Organizations
                     .Select(x => new
                     {
                         x.Name,
-                        x.Description,
                         OwnerAvatarUrl = x.Owner.AvatarUrl(100),
                         OwnerLoginName = x.Owner.Login,
+                        x.Description,
+                        LicenseName = x.LicenseInfo.Select(y => y.Name).SingleOrDefault(),
 
                         PrimaryLanguage = x.PrimaryLanguage.Select(y => new
                         {
@@ -32,31 +38,14 @@ namespace FluentHub.Octokit.Queries.Organizations
                             y.Color,
                         }).SingleOrDefault(),
 
-                        LicenseName = x.LicenseInfo.Select(y => y.Name).SingleOrDefault(),
-                        DefaultBranchName = x.DefaultBranchRef.Name,
-                        x.HomepageUrl,
-
                         x.StargazerCount,
                         x.ForkCount,
-                        IssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
-                        OpenIssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
-                        PullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
-                        OpenPullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
-                        WatcherCount = x.Watchers(null, null, null, null).TotalCount,
-                        HeadRefsCount = x.Refs("refs/heads/", null, null, null, null, null, null, null).TotalCount,
-                        ReleaseCount = x.Releases(null, null, null, null, null).TotalCount,
+                        OpenIssueCount = x.Issues(null, null, null, null, null, null, null, issueState).TotalCount,
+                        OpenPullCount = x.PullRequests(null, null, null, null, null, null, null, null, pullRequestState).TotalCount,
 
-                        x.ForkingAllowed,
-                        x.HasIssuesEnabled,
-                        x.HasProjectsEnabled,
-                        x.IsArchived,
                         x.IsFork,
                         x.IsInOrganization,
-                        x.IsPrivate,
-                        x.IsTemplate,
                         x.ViewerHasStarred,
-
-                        x.ViewerSubscription,
 
                         x.UpdatedAt,
                     })
@@ -70,41 +59,29 @@ namespace FluentHub.Octokit.Queries.Organizations
 
             foreach (var res in result)
             {
-                Models.Repository item = new();
+                Models.Repository item = new()
+                {
+                    Name = res.Name,
+                    Owner = res.OwnerLoginName,
+                    OwnerAvatarUrl = res.OwnerAvatarUrl,
+                    OwnerIsOrganization = res.IsInOrganization,
+                    Description = res.Description,
 
-                item.Name = res.Name;
-                item.Owner = res.OwnerLoginName;
-                item.OwnerAvatarUrl = res.OwnerAvatarUrl;
-                item.Description = res.Description;
+                    PrimaryLangName = res.PrimaryLanguage?.Name,
+                    PrimaryLangColor = res.PrimaryLanguage?.Color,
+                    LicenseName = res.LicenseName,
 
-                item.PrimaryLangName = res.PrimaryLanguage?.Name;
-                item.PrimaryLangColor = res.PrimaryLanguage?.Color;
-                item.LicenseName = res.LicenseName;
-                item.DefaultBranchName = res.DefaultBranchName;
-                item.HomepageUrl = res.HomepageUrl;
+                    StargazerCount = res.StargazerCount,
+                    ForkCount = res.ForkCount,
+                    OpenIssueCount = res.OpenIssueCount,
+                    OpenPullCount = res.OpenPullCount,
 
-                item.StargazerCount = res.StargazerCount;
-                item.ForkCount = res.ForkCount;
-                item.IssueCount = res.IssueCount;
-                item.OpenIssueCount = res.OpenIssueCount;
-                item.PullCount = res.PullCount;
-                item.OpenPullCount = res.OpenPullCount;
-                item.WatcherCount = res.WatcherCount;
-                item.HeadRefsCount = res.HeadRefsCount;
-                item.ReleaseCount = res.ReleaseCount;
+                    IsFork = res.IsFork,
+                    ViewerHasStarred = res.ViewerHasStarred,
 
-                item.ViewerHasStarred = res.ViewerHasStarred;
-                item.HasIssuesEnabled = res.HasIssuesEnabled;
-                item.HasProjectsEnabled = res.HasProjectsEnabled;
-                item.IsArchived = res.IsArchived;
-                item.IsFork = res.IsFork;
-                item.IsInOrganization = res.IsInOrganization;
-                item.IsPrivate = res.IsPrivate;
-                item.IsTemplate = res.IsTemplate;
-
-                item.ViewerSubscription = res.ViewerSubscription;
-
-                item.UpdatedAt = res.UpdatedAt;
+                    UpdatedAt = res.UpdatedAt,
+                    UpdatedAtHumanized = res.UpdatedAt.Humanize(),
+                };
 
                 items.Add(item);
             }

@@ -1,6 +1,5 @@
 ﻿using FluentHub.Helpers;
 using FluentHub.Octokit.Authorization;
-using FluentHub.Octokit.Queries.Users;
 using FluentHub.Services;
 using FluentHub.Services.Navigation;
 using FluentHub.ViewModels;
@@ -84,7 +83,8 @@ namespace FluentHub
             return new ServiceCollection()
                 .AddSingleton<IGitHubClient>(App.Client)
                 .AddSingleton<INavigationService, NavigationService>()
-                .AddSingleton<FluentHub.Backend.ILogger>(new Utils.SerilogWrapperLogger(Log.Logger))
+                .AddSingleton<Backend.ILogger>(new Utils.SerilogWrapperLogger(Log.Logger))
+                .AddSingleton<Backend.ToastService>()
                 .AddSingleton<IMessenger>(StrongReferenceMessenger.Default)
                 // ViewModels
                 .AddSingleton<MainPageViewModel>()
@@ -92,11 +92,19 @@ namespace FluentHub
                 .AddTransient<ViewModels.AppSettings.AppearanceViewModel>()
                 .AddTransient<ViewModels.Home.NotificationsViewModel>()
                 .AddTransient<ViewModels.Home.ActivitiesViewModel>()
-                .AddTransient<ViewModels.Repositories.Layouts.DetailsLayoutViewModel>()
-                .AddTransient<ViewModels.Repositories.IssueViewModel>()
-                .AddTransient<ViewModels.Repositories.IssuesViewModel>()
-                .AddTransient<ViewModels.Repositories.PullRequestViewModel>()
-                .AddTransient<ViewModels.Repositories.PullRequestsViewModel>()
+                .AddTransient<ViewModels.Organizations.RepositoriesViewModel>()
+                .AddTransient<ViewModels.Repositories.Codes.Layouts.DetailsLayoutViewModel>()
+                .AddTransient<ViewModels.Repositories.Codes.ReleasesViewModel>()
+                .AddTransient<ViewModels.Repositories.Commits.CommitsViewModel>()
+                .AddTransient<ViewModels.Repositories.Commits.CommitViewModel>()
+                .AddTransient<ViewModels.Repositories.Issues.IssueViewModel>()
+                .AddTransient<ViewModels.Repositories.Issues.IssuesViewModel>()
+                .AddTransient<ViewModels.Repositories.PullRequests.PullRequestViewModel>()
+                .AddTransient<ViewModels.Repositories.PullRequests.PullRequestsViewModel>()
+                .AddTransient<ViewModels.UserControls.Blocks.FileContentBlockViewModel>()
+                .AddTransient<ViewModels.UserControls.Blocks.FileNavigationBlockViewModel>()
+                .AddTransient<ViewModels.UserControls.Blocks.ReadmeContentBlockViewModel>()
+                .AddTransient<ViewModels.UserControls.Blocks.LatestCommitBlockViewModel>()
                 .AddTransient<ViewModels.Users.FollowersViewModel>()
                 .AddTransient<ViewModels.Users.FollowingViewModel>()
                 .AddTransient<ViewModels.Users.ProfilePageViewModel>()

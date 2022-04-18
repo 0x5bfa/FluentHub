@@ -1,7 +1,14 @@
-﻿using System;
+﻿using FluentHub.Services;
+using FluentHub.ViewModels;
+using FluentHub.Views.Repositories.Codes;
+using FluentHub.Views.Repositories.Issues;
+using FluentHub.Views.Repositories.PullRequests;
+using FluentHub.ViewModels.Repositories;
+using FluentHub.ViewModels.UserControls.Blocks;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.IO;
-using FluentHub.ViewModels.UserControls.Blocks;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;

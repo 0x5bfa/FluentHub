@@ -1,4 +1,5 @@
-﻿using FluentHub.Octokit.Models;
+﻿using Humanizer;
+using FluentHub.Octokit.Models;
 using Octokit.GraphQL;
 using Octokit.GraphQL.Model;
 using Serilog;
@@ -28,15 +29,20 @@ namespace FluentHub.Octokit.Queries.Users
                     OwnerAvatarUrl = x.Repository.Owner.AvatarUrl(100),
                     OwnerLogin = x.Repository.Owner.Login,
                     x.Repository.Name,
+                    x.Title,
 
                     x.Closed,
+
+                    x.Number,
+                    CommentCount = x.Comments(null, null, null, null, null).TotalCount,
+
                     Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new
                     {
                         y.Color,
                         y.Name,
-                    }).ToList(),
-                    x.Number,
-                    x.Title,
+                    })
+                    .ToList(),
+
                     x.UpdatedAt,
                 })
                 .Compile();
@@ -49,89 +55,36 @@ namespace FluentHub.Octokit.Queries.Users
 
             foreach (var res in response)
             {
-                Models.Issue item = new();
-
-                item.Labels = new();
-                foreach (var label in res.Labels)
+                Models.Issue item = new()
                 {
-                    Models.Label labels = new();
-                    labels.Color = label.Color;
-                    labels.Name = label.Name;
+                    Name = res.Name,
+                    OwnerAvatarUrl = res.OwnerAvatarUrl,
+                    OwnerLogin = res.OwnerLogin,
+                    Title = res.Title,
 
-                    item.Labels.Add(labels);
-                }
+                    Number = res.Number,
+                    CommentCount = res.CommentCount,
 
-                item.Number = res.Number;
-                item.Title = res.Title;
-                item.UpdatedAt = res.UpdatedAt;
-                item.IsClosed = res.Closed;
+                    IsClosed = res.Closed,
 
-                item.Name = res.Name;
-                item.OwnerAvatarUrl = res.OwnerAvatarUrl;
-                item.OwnerLogin = res.OwnerLogin;
+                    UpdatedAt = res.UpdatedAt,
+                    UpdatedAtHumanized = res.UpdatedAt.Humanize(),
+                };
 
-                items.Add(item);
-            }
-            #endregion
-
-            return items;
-        }
-
-        public async Task<List<Models.Issue>> GetAllAsync()
-        {
-            IssueOrder order = new() { Direction = OrderDirection.Desc, Field = IssueOrderField.CreatedAt };
-
-            #region query
-            var query = new Query()
-                .Viewer
-                .Issues(first: 30, orderBy: order)
-                .Nodes
-                .Select(x => new
+                if (res.Labels.Count() != 0)
                 {
-                    OwnerAvatarUrl = x.Repository.Owner.AvatarUrl(100),
-                    OwnerLogin = x.Repository.Owner.Login,
-                    x.Repository.Name,
-
-                    x.Closed,
-                    Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new
+                    foreach (var label in res.Labels)
                     {
-                        y.Color,
-                        y.Name,
-                    }).ToList(),
-                    x.Number,
-                    x.Title,
-                    x.UpdatedAt,
-                })
-                .Compile();
-            #endregion
+                        Models.Label labels = new()
+                        {
+                            Color = label.Color,
+                            Name = label.Name,
+                            ColorBrush = Helpers.ColorHelper.HexCodeToSolidColorBrush(label.Color),
+                        };
 
-            var response = await App.Connection.Run(query);
-
-            #region copying
-            List<Models.Issue> items = new();
-
-            foreach (var res in response)
-            {
-                Models.Issue item = new();
-
-                item.Labels = new();
-                foreach (var label in res.Labels)
-                {
-                    Models.Label labels = new();
-                    labels.Color = label.Color;
-                    labels.Name = label.Name;
-
-                    item.Labels.Add(labels);
+                        item.Labels.Add(labels);
+                    }
                 }
-
-                item.Number = res.Number;
-                item.Title = res.Title;
-                item.UpdatedAt = res.UpdatedAt;
-                item.IsClosed = res.Closed;
-
-                item.Name = res.Name;
-                item.OwnerAvatarUrl = res.OwnerAvatarUrl;
-                item.OwnerLogin = res.OwnerLogin;
 
                 items.Add(item);
             }

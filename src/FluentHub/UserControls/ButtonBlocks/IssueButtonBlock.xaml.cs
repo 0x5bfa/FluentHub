@@ -1,7 +1,8 @@
 ﻿using FluentHub.Octokit.Models;
 using FluentHub.Services;
+using FluentHub.ViewModels;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
-using FluentHub.Views.Repositories;
+using FluentHub.Views.Repositories.Issues;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -11,8 +12,8 @@ namespace FluentHub.UserControls.ButtonBlocks
     public sealed partial class IssueButtonBlock : UserControl
     {
         #region propdp
-        public static readonly DependencyProperty ViewModelProperty
-            = DependencyProperty.Register(
+        public static readonly DependencyProperty ViewModelProperty =
+            DependencyProperty.Register(
                   nameof(Issue),
                   typeof(IssueButtonBlockViewModel),
                   typeof(IssueButtonBlock),
@@ -25,8 +26,7 @@ namespace FluentHub.UserControls.ButtonBlocks
             set
             {
                 SetValue(ViewModelProperty, value);
-                this.DataContext = ViewModel;
-                ViewModel.SetStateContents();
+                DataContext = ViewModel;
             }
         }
         #endregion
@@ -41,7 +41,12 @@ namespace FluentHub.UserControls.ButtonBlocks
 
         private void OnIssueBlockButtonClick(object sender, RoutedEventArgs e)
         {
-            navigationService.Navigate<IssuePage>(ViewModel.IssueItem);
+            MainPageViewModel.RepositoryContentFrame.Navigate(typeof(IssuePage), ViewModel.IssueItem);
+        }
+
+        private void OnIssueButtonBlockLoaded(object sender, RoutedEventArgs e)
+        {
+            ViewModel.SetContents();
         }
     }
 }

@@ -17,21 +17,23 @@
         <vm:OverviewViewModel x:Name="ViewModel" />
     </Page.DataContext>
 
-    <Grid Margin="12">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
+
         <Grid
             x:Name="UserPinnedItemsBlock"
-            Margin="0,0,0,12"
+            Margin="0,0,0,16"
             Visibility="Collapsed">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
+
             <StackPanel
-                Margin="4,0"
+                Margin="16,12,16,2"
                 Orientation="Horizontal"
                 Spacing="8">
                 <FontIcon
@@ -43,14 +45,16 @@
                     Style="{StaticResource SubtitleTextBlockStyle}"
                     Text="Pinned repositories" />
             </StackPanel>
+
             <ScrollViewer
                 Grid.Row="1"
                 HorizontalScrollBarVisibility="Hidden"
                 VerticalScrollMode="Disabled">
-                <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.OrgPinnedItems}">
+                <muxc:ItemsRepeater Margin="12,2,12,0" ItemsSource="{x:Bind ViewModel.OrgPinnedItems}">
                     <muxc:ItemsRepeater.Layout>
                         <muxc:StackLayout Orientation="Horizontal" Spacing="8" />
                     </muxc:ItemsRepeater.Layout>
+
                     <DataTemplate x:DataType="bbvm:RepoButtonBlockViewModel">
                         <Grid>
                             <block:RepoButtonBlock
@@ -60,13 +64,14 @@
                                 ViewModel="{x:Bind}" />
                         </Grid>
                     </DataTemplate>
+
                 </muxc:ItemsRepeater>
             </ScrollViewer>
+
         </Grid>
-        <Frame
-            x:Name="OrgPageFrame"
-            Grid.Row="1"
-            Margin="-12" />
+
+        <Frame x:Name="OrgPageFrame" Grid.Row="1" />
+
         <TextBlock
             x:Name="NoOverviewTextBlock"
             Grid.RowSpan="2"
@@ -74,5 +79,6 @@
             VerticalAlignment="Center"
             Text="There is no overview."
             Visibility="Collapsed" />
+
     </Grid>
 </Page>

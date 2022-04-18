@@ -20,10 +20,6 @@
                 x:Name="LabelBackground"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch" />
-            <Border
-                x:Name="LabelBorder"
-                BorderThickness="0.5"
-                CornerRadius="4" />
             <StackPanel
                 Padding="12,0"
                 Orientation="Horizontal"

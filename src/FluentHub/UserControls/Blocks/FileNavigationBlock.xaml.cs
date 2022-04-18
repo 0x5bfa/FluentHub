@@ -1,8 +1,18 @@
-﻿using FluentHub.ViewModels.Repositories;
-using System.Threading.Tasks;
+﻿using FluentHub.ViewModels;
+using FluentHub.ViewModels.Repositories;
+using FluentHub.Views.Repositories.Codes.Layouts;
+using FluentHub.ViewModels.UserControls.Blocks;
+using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Navigation;
 using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.UserControls.Blocks
@@ -19,16 +29,21 @@ namespace FluentHub.UserControls.Blocks
 
         public RepoContextViewModel ContextViewModel
         {
-            get { return (RepoContextViewModel)GetValue(ContextViewModelProperty); }
-            set
-            {
-                SetValue(ContextViewModelProperty, value);
-                ViewModel.ContextViewModel = ContextViewModel;
-            }
+            get => (RepoContextViewModel)GetValue(ContextViewModelProperty);
+            set => SetValue(ContextViewModelProperty, value);
         }
         #endregion
 
-        public FileNavigationBlock() => InitializeComponent();
+        public FileNavigationBlock()
+        {
+            InitializeComponent();
+
+            var provider = App.Current.Services;
+            ViewModel = provider.GetRequiredService<FileNavigationBlockViewModel>();
+        }
+
+        public FileNavigationBlockViewModel ViewModel { get; }
+        private bool FirstSelectionComplete { get; set; }
 
         #region chevronamination
         private void OnCloneButtonLoaded(object sender, RoutedEventArgs e)
@@ -51,8 +66,29 @@ namespace FluentHub.UserControls.Blocks
         }
         #endregion
 
+        private void OnFileNavigationBlockLoaded(object sender, RoutedEventArgs e)
+        {
+            ViewModel.ContextViewModel = ContextViewModel;
+
+            var command = ViewModel.LoadBranchNameAllCommand;
+            if (command.CanExecute(null))
+                command.Execute(null);
+
+            // Default selected branch name is current branch
+            BranchNameSelector.SelectedIndex = 0;
+        }
+
         private void OnBranchSelectorSelectionChanged(object sender, SelectionChangedEventArgs e)
         {
+            if (FirstSelectionComplete == false)
+            {
+                FirstSelectionComplete = true;
+                return;
+            }
+
+            ContextViewModel.BranchName = BranchNameSelector.SelectedItem as string;
+
+            MainPageViewModel.RepositoryContentFrame.Navigate(typeof(DetailsLayoutView), ContextViewModel);
         }
     }
 }

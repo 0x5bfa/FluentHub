@@ -8,7 +8,7 @@ namespace FluentHub.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (parameter is string param && string.Compare(param, "invert") == 0)
+            if (parameter is string param && string.Compare(param, "invert", true) == 0)
             {
                 // invert Convert
                 var result = Convert(value, targetType, null, language);
@@ -34,18 +34,10 @@ namespace FluentHub.Converters
             }
 
             if (value is null)
-            {
                 return falseValue;
-            }
 
             if (value is string s)
                 return string.IsNullOrWhiteSpace(s) || string.IsNullOrEmpty(s) ? falseValue : trueValue;
-
-            if (value is int i)
-                return i == 0 ? falseValue : trueValue;
-
-            if (value is long l)
-                return l == 0L ? falseValue : trueValue;
 
             var type = value.GetType();
             if (type.IsValueType)

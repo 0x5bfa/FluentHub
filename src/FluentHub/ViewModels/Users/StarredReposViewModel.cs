@@ -47,11 +47,8 @@ namespace FluentHub.ViewModels.Users
             try
             {
                 StarredRepoQueries queries = new();
-                List<Repository> items;
 
-                items = login == null ?
-                    await queries.GetAllAsync() :
-                    await queries.GetAllAsync(login);
+                List<Repository> items = await queries.GetAllAsync(login);
 
                 if (items == null) return;
 
@@ -62,7 +59,7 @@ namespace FluentHub.ViewModels.Users
                     {
                         Item = item,
                         DisplayDetails = true,
-                        DisplayStarButton = false
+                        DisplayStarButton = true,
                     };
 
                     _repositories.Add(viewModel);
