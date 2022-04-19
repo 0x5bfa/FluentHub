@@ -123,8 +123,8 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
                             viewmodel.LabeledEvent = eventItem.Item2 as LabeledEvent;
                             viewmodel.LabelControlViewModel = new()
                             {
-                                Name = viewmodel.LabeledEvent.LabeledLabel.Name,
-                                BackgroundColorBrush = viewmodel.LabeledEvent.LabeledLabel.ColorBrush,
+                                Name = viewmodel.LabeledEvent.Label.Name,
+                                BackgroundColorBrush = viewmodel.LabeledEvent.Label.ColorBrush,
                             };
                             break;
                         case "LockedEvent":

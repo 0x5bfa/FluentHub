@@ -242,11 +242,14 @@ namespace FluentHub.Octokit.Queries.Repositories
 
             Models.Events.IssueComment comment = new()
             {
+                Author = new()
+                {
+                    AvatarUrl = response.Author.AvatarUrl,
+                    Login = response.Author.Login
+                },
                 AuthorAssociation = response.AuthorAssociation,
-                AuthorAvatarUrl = response.Author.AvatarUrl,
-                AuthorLogin = response.Author.Login,
-                BodyHtml = response.BodyHTML,
-                IsEdited = response.LastEditedAt == null ? false : true,
+                BodyHTML = response.BodyHTML,
+                LastEditedAt = response.LastEditedAt,
                 UpdatedAt = response.UpdatedAt,
                 ViewerCanReact = response.ViewerCanReact,
                 ViewerCanUpdate = response.ViewerCanUpdate,
@@ -254,62 +257,6 @@ namespace FluentHub.Octokit.Queries.Repositories
                 Url = response.Url,
                 CreatedAt = response.CreatedAt,
             };
-
-            foreach (var reaction in response.Reactions)
-            {
-                switch (reaction.Reactions.Content)
-                {
-                    case GraphQLModel.ReactionContent.ThumbsUp:
-                        comment.Reactions.ThumbsUpCount++;
-                        comment.Reactions.ThumbsUpActors.Add(reaction.Reactions.ReactedUserName);
-                        if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
-                            comment.Reactions.ViewerReactThumbsUp = true;
-                        break;
-                    case GraphQLModel.ReactionContent.ThumbsDown:
-                        comment.Reactions.ThumbsDownCount++;
-                        comment.Reactions.ThumbsDownActors.Add(reaction.Reactions.ReactedUserName);
-                        if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
-                            comment.Reactions.ViewerReactThumbsDown = true;
-                        break;
-                    case GraphQLModel.ReactionContent.Laugh:
-                        comment.Reactions.LaughCount++;
-                        comment.Reactions.LaughActors.Add(reaction.Reactions.ReactedUserName);
-                        if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
-                            comment.Reactions.ViewerReactLaugh = true;
-                        break;
-                    case GraphQLModel.ReactionContent.Hooray:
-                        comment.Reactions.HoorayCount++;
-                        comment.Reactions.HoorayActors.Add(reaction.Reactions.ReactedUserName);
-                        if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
-                            comment.Reactions.ViewerReactHooray = true;
-                        break;
-                    case GraphQLModel.ReactionContent.Confused:
-                        comment.Reactions.ConfusedCount++;
-                        comment.Reactions.ConfusedActors.Add(reaction.Reactions.ReactedUserName);
-                        if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
-                            comment.Reactions.ViewerReactConfused = true;
-                        break;
-                    case GraphQLModel.ReactionContent.Heart:
-                        comment.Reactions.HeartCount++;
-                        comment.Reactions.HeartActors.Add(reaction.Reactions.ReactedUserName);
-                        if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
-                            comment.Reactions.ViewerReactHeart = true;
-                        break;
-                    case GraphQLModel.ReactionContent.Rocket:
-                        comment.Reactions.RocketCount++;
-                        comment.Reactions.RocketActors.Add(reaction.Reactions.ReactedUserName);
-                        if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
-                            comment.Reactions.ViewerReactRocket = true;
-                        break;
-                    case GraphQLModel.ReactionContent.Eyes:
-                        comment.Reactions.EyesCount++;
-                        comment.Reactions.EyesActors.Add(reaction.Reactions.ReactedUserName);
-                        if (reaction.Reactions.ReactedUserName == App.SignedInUserName)
-                            comment.Reactions.ViewerReactEyes = true;
-                        break;
-                }
-            }
-
             #endregion
 
             return comment;

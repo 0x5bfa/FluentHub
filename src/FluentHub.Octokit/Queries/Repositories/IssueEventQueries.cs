@@ -15,344 +15,397 @@ namespace FluentHub.Octokit.Queries.Repositories
     {
         public IssueEventQueries() => new App();
 
-        public async Task<List<Tuple<string, object>>> GetAllAsync(string owner, string name, int number)
+        public async Task<List<object>> GetAllAsync(string owner, string name, int number)
         {
             #region queries
             var query = new Query()
                 .Repository(name, owner)
                 .Issue(number)
-                .TimelineItems(null, null, 10, null, null, null, null)
+                .TimelineItems(40, null, null, null, null, null, null)
                 .Nodes
                 .Select(node => node.Switch<object>(when => when
-                .AddedToProjectEvent(y => new
+                .AddedToProjectEvent(y => new AddedToProjectEvent
                 {
-                    Actor = y.Actor.Select(actor => new
+                    Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
-                        actor.Login,
+                        Login = actor.Login,
                     })
                     .Single(),
 
-                    y.CreatedAt,
+                    CreatedAt = y.CreatedAt,
                 })
-                .AssignedEvent(y => new
+                .AssignedEvent(y => new AssignedEvent
                 {
-                    Actor = y.Actor.Select(actor => new
+                    Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
-                        actor.Login,
+                        Login = actor.Login,
                     })
                     .Single(),
 
-                    y.CreatedAt,
+                    CreatedAt = y.CreatedAt,
                 })
-                .ClosedEvent(y => new
+                .ClosedEvent(y => new ClosedEvent
                 {
-                    Actor = y.Actor.Select(actor => new
+                    Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
-                        actor.Login,
+                        Login = actor.Login,
                     })
                     .Single(),
 
-                    y.CreatedAt,
+                    CreatedAt = y.CreatedAt,
                 })
-                .CommentDeletedEvent(y => new
+                .CommentDeletedEvent(y => new CommentDeletedEvent
                 {
-                    Actor = y.Actor.Select(actor => new
+                    Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
-                        actor.Login,
+                        Login = actor.Login,
                     })
                     .Single(),
 
-                    y.CreatedAt,
+                    CreatedAt = y.CreatedAt,
                 })
-                .ConnectedEvent(y => new
+                .ConnectedEvent(y => new ConnectedEvent
                 {
-                    Actor = y.Actor.Select(actor => new
+                    Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
-                        actor.Login,
+                        Login = actor.Login,
                     })
                     .Single(),
 
-                    y.CreatedAt,
+                    CreatedAt = y.CreatedAt,
                 })
-                .ConvertedNoteToIssueEvent(y => new
+                .ConvertedNoteToIssueEvent(y => new ConvertedNoteToIssueEvent
                 {
-                    Actor = y.Actor.Select(actor => new
+                    Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
-                        actor.Login,
+                        Login = actor.Login,
                     })
                     .Single(),
 
-                    y.CreatedAt,
+                    CreatedAt = y.CreatedAt,
                 })
-                .CrossReferencedEvent(y => new
+                .CrossReferencedEvent(y => new CrossReferencedEvent
                 {
-                    Actor = y.Actor.Select(actor => new
+                    Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
-                        actor.Login,
+                        Login = actor.Login,
                     })
                     .Single(),
 
-                    y.CreatedAt,
+                    CreatedAt = y.CreatedAt,
                 })
-                .DemilestonedEvent(y => new
+                .DemilestonedEvent(y => new DemilestonedEvent
                 {
-                    Actor = y.Actor.Select(actor => new
+                    Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
-                        actor.Login,
+                        Login = actor.Login,
                     })
                     .Single(),
 
-                    y.CreatedAt,
+                    CreatedAt = y.CreatedAt,
                 })
-                .DisconnectedEvent(y => new
+                .DisconnectedEvent(y => new DisconnectedEvent
                 {
-                    Actor = y.Actor.Select(actor => new
+                    Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
-                        actor.Login,
+                        Login = actor.Login,
                     })
                     .Single(),
 
-                    y.CreatedAt,
+                    CreatedAt = y.CreatedAt,
                 })
-                .IssueComment(y => new
+                .IssueComment(y => new IssueComment
                 {
-                    Actor = y.Author.Select(author => new
+                    Author = y.Author.Select(author => new Actor
                     {
                         AvatarUrl = author.AvatarUrl(100),
-                        author.Login,
+                        Login = author.Login,
                     })
                     .Single(),
 
-                    y.CreatedAt,
+                    AuthorAssociation = y.AuthorAssociation,
+                    BodyHTML = y.BodyHTML,
+                    MinimizedReason = y.MinimizedReason,
+                    Url = y.Url,
+
+                    Reactions = y.Reactions(6, null, null, null, null, null).Nodes.Select(reaction => new Reaction
+                    {
+                        Content = reaction.Content,
+                        ReactorLogin = reaction.User.Login,
+                    })
+                    .ToList(),
+
+                    IsMinimized = y.IsMinimized,
+                    ViewerCanDelete = y.ViewerCanDelete,
+                    ViewerCanMinimize = y.ViewerCanMinimize,
+                    ViewerCanReact = y.ViewerCanReact,
+                    ViewerCanUpdate = y.ViewerCanUpdate,
+                    ViewerDidAuthor = y.ViewerDidAuthor,
+
+                    LastEditedAt = y.LastEditedAt,
+                    CreatedAt = y.CreatedAt,
+                    UpdatedAt = y.UpdatedAt,
                 })
-                .LabeledEvent(y => new
+                .LabeledEvent(y => new LabeledEvent
                 {
-                    Actor = y.Actor.Select(actor => new
+                    Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
-                        actor.Login,
+                        Login = actor.Login,
                     })
                     .Single(),
 
-                    y.CreatedAt,
+                    Label = y.Label.Select(label => new Label
+                    {
+                        Color = label.Color,
+                        Description = label.Description,
+                        Name = label.Name,
+                    })
+                    .Single(),
+
+                    CreatedAt = y.CreatedAt,
                 })
-                .LockedEvent(y => new
+                .LockedEvent(y => new LockedEvent
                 {
-                    Actor = y.Actor.Select(actor => new
+                    Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
-                        actor.Login,
+                        Login = actor.Login,
                     })
                     .Single(),
 
-                    y.CreatedAt,
+                    LockReason = y.LockReason,
+
+                    CreatedAt = y.CreatedAt,
                 })
-                .MarkedAsDuplicateEvent(y => new
+                .MarkedAsDuplicateEvent(y => new MarkedAsDuplicateEvent
                 {
-                    Actor = y.Actor.Select(actor => new
+                    Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
-                        actor.Login,
+                        Login = actor.Login,
                     })
                     .Single(),
 
-                    y.CreatedAt,
-                })
-                .MentionedEvent(y => new
+                    CreatedAt = y.CreatedAt,
+                }) 
+                .MentionedEvent(y => new MentionedEvent
                 {
-                    Actor = y.Actor.Select(actor => new
+                    Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
-                        actor.Login,
+                        Login = actor.Login,
                     })
                     .Single(),
 
-                    y.CreatedAt,
+                    CreatedAt = y.CreatedAt,
                 })
-                .MilestonedEvent(y => new
+                .MilestonedEvent(y => new MilestonedEvent
                 {
-                    Actor = y.Actor.Select(actor => new
+                    Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
-                        actor.Login,
+                        Login = actor.Login,
                     })
                     .Single(),
 
-                    y.CreatedAt,
+                    MilestoneTitle = y.MilestoneTitle,
+
+                    CreatedAt = y.CreatedAt,
                 })
-                .MovedColumnsInProjectEvent(y => new
+                .MovedColumnsInProjectEvent(y => new MovedColumnsInProjectEvent
                 {
-                    Actor = y.Actor.Select(actor => new
+                    Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
-                        actor.Login,
+                        Login = actor.Login,
                     })
                     .Single(),
 
-                    y.CreatedAt,
+                    CreatedAt = y.CreatedAt,
                 })
-                .PinnedEvent(y => new
+                .PinnedEvent(y => new PinnedEvent
                 {
-                    Actor = y.Actor.Select(actor => new
+                    Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
-                        actor.Login,
+                        Login = actor.Login,
                     })
                     .Single(),
 
-                    y.CreatedAt,
+                    CreatedAt = y.CreatedAt,
                 })
-                .ReferencedEvent(y => new
+                .ReferencedEvent(y => new ReferencedEvent
                 {
-                    Actor = y.Actor.Select(actor => new
+                    Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
-                        actor.Login,
+                        Login = actor.Login,
                     })
                     .Single(),
 
-                    y.CreatedAt,
+                    CreatedAt = y.CreatedAt,
                 })
-                .RemovedFromProjectEvent(y => new
+                .RemovedFromProjectEvent(y => new RemovedFromProjectEvent
                 {
-                    Actor = y.Actor.Select(actor => new
+                    Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
-                        actor.Login,
+                        Login = actor.Login,
                     })
                     .Single(),
 
-                    y.CreatedAt,
+                    CreatedAt = y.CreatedAt,
                 })
-                .RenamedTitleEvent(y => new
+                .RenamedTitleEvent(y => new RenamedTitleEvent
                 {
-                    Actor = y.Actor.Select(actor => new
+                    Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
-                        actor.Login,
+                        Login = actor.Login,
                     })
                     .Single(),
 
-                    y.CreatedAt,
+                    CurrentTitle = y.CurrentTitle,
+                    PreviousTitle = y.PreviousTitle,
+
+                    CreatedAt = y.CreatedAt,
                 })
-                .ReopenedEvent(y => new
+                .ReopenedEvent(y => new ReopenedEvent
                 {
-                    Actor = y.Actor.Select(actor => new
+                    Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
-                        actor.Login,
+                        Login = actor.Login,
                     })
                     .Single(),
 
-                    y.CreatedAt,
+                    CreatedAt = y.CreatedAt,
                 })
-                .SubscribedEvent(y => new
+                .SubscribedEvent(y => new SubscribedEvent
                 {
-                    Actor = y.Actor.Select(actor => new
+                    Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
-                        actor.Login,
+                        Login = actor.Login,
                     })
                     .Single(),
 
-                    y.CreatedAt,
+                    CreatedAt = y.CreatedAt,
                 })
-                .TransferredEvent(y => new
+                .TransferredEvent(y => new TransferredEvent
                 {
-                    Actor = y.Actor.Select(actor => new
+                    Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
-                        actor.Login,
+                        Login = actor.Login,
                     })
                     .Single(),
 
-                    y.CreatedAt,
+                    FromRepository = y.FromRepository.Select(from => new Repository
+                    {
+                        Owner = from.Owner.Login,
+                        Name = from.Name,
+                    })
+                    .Single(),
+
+                    CreatedAt = y.CreatedAt,
                 })
-                .UnassignedEvent(y => new
+                .UnassignedEvent(y => new UnassignedEvent
                 {
-                    Actor = y.Actor.Select(actor => new
+                    Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
-                        actor.Login,
+                        Login = actor.Login,
                     })
                     .Single(),
 
-                    y.CreatedAt,
+                    CreatedAt = y.CreatedAt,
                 })
-                .UnlabeledEvent(y => new
+                .UnlabeledEvent(y => new UnlabeledEvent
                 {
-                    Actor = y.Actor.Select(actor => new
+                    Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
-                        actor.Login,
+                        Login = actor.Login,
                     })
                     .Single(),
 
-                    y.CreatedAt,
+                    Label = y.Label.Select(label => new Label
+                    {
+                        Color = label.Color,
+                        Description = label.Description,
+                        Name = label.Name,
+                    })
+                    .Single(),
+
+                    CreatedAt = y.CreatedAt,
                 })
-                .UnlockedEvent(y => new
+                .UnlockedEvent(y => new UnlockedEvent
                 {
-                    Actor = y.Actor.Select(actor => new
+                    Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
-                        actor.Login,
+                        Login = actor.Login,
                     })
                     .Single(),
 
-                    y.CreatedAt,
+                    CreatedAt = y.CreatedAt,
                 })
-                .UnmarkedAsDuplicateEvent(y => new
+                .UnmarkedAsDuplicateEvent(y => new UnmarkedAsDuplicateEvent
                 {
-                    Actor = y.Actor.Select(actor => new
+                    Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
-                        actor.Login,
+                        Login = actor.Login,
                     })
                     .Single(),
 
-                    y.CreatedAt,
+                    CreatedAt = y.CreatedAt,
                 })
-                .UnpinnedEvent(y => new
+                .UnpinnedEvent(y => new UnpinnedEvent
                 {
-                    Actor = y.Actor.Select(actor => new
+                    Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
-                        actor.Login,
+                        Login = actor.Login,
                     })
                     .Single(),
 
-                    y.CreatedAt,
+                    CreatedAt = y.CreatedAt,
                 })
-                .UnsubscribedEvent(y => new
+                .UnsubscribedEvent(y => new UnsubscribedEvent
                 {
-                    Actor = y.Actor.Select(actor => new
+                    Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
-                        actor.Login,
+                        Login = actor.Login,
                     })
                     .Single(),
 
-                    y.CreatedAt,
+                    CreatedAt = y.CreatedAt,
                 })
-                .UserBlockedEvent(y => new
+                .UserBlockedEvent(y => new UserBlockedEvent
                 {
-                    Actor = y.Actor.Select(actor => new
+                    Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
-                        actor.Login,
+                        Login = actor.Login,
                     })
                     .Single(),
 
-                    y.CreatedAt,
+                    BlockDuration = y.BlockDuration,
+
+                    CreatedAt = y.CreatedAt,
                 })
                 ))
                 .Compile();
@@ -360,7 +413,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 
             var response = await App.Connection.Run(query);
 
-            return null;
+            return response.ToList();
         }
     }
 }

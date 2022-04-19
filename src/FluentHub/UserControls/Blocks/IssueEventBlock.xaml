@@ -361,13 +361,13 @@
                             Spacing="4">
                             <uc:AvatarControl
                                 VerticalAlignment="Center"
-                                AvatarUrl="{x:Bind ViewModel.LabeledEvent.ActorAvatarUrl, Mode=OneWay}"
+                                AvatarUrl="{x:Bind ViewModel.LabeledEvent.Actor.AvatarUrl, Mode=OneWay}"
                                 WidthAndHeight="20" />
 
                             <TextBlock
                                 VerticalAlignment="Center"
                                 Style="{StaticResource BodyStrongTextBlockStyle}"
-                                Text="{x:Bind ViewModel.LabeledEvent.ActorLogin, Mode=OneWay}" />
+                                Text="{x:Bind ViewModel.LabeledEvent.Actor.Login, Mode=OneWay}" />
                         </StackPanel>
 
                         <StackPanel

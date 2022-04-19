@@ -32,7 +32,7 @@ namespace FluentHub.ViewModels.Repositories.Issues
         }
         #endregion
 
-        #region properties
+        #region fields and properties
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
 
@@ -82,102 +82,104 @@ namespace FluentHub.ViewModels.Repositories.Issues
                 {
                     var viewmodel = new IssueEventBlockViewModel()
                     {
-                        EventType = eventItem.Item1,
+                        // FluentHub.Octokit.Models.Events.*
+                        EventType = eventItem.GetType().ToString().Split(".")[4],
                     };
 
-                    switch (eventItem.Item1)
+                    switch (viewmodel.EventType)
                     {
                         case "AddedToProjectEvent":
-                            viewmodel.AddedToProjectEvent = eventItem.Item2 as AddedToProjectEvent;
+                            viewmodel.AddedToProjectEvent = eventItem as AddedToProjectEvent;
                             break;
                         case "AssignedEvent":
-                            viewmodel.AssignedEvent = eventItem.Item2 as AssignedEvent;
+                            viewmodel.AssignedEvent = eventItem as AssignedEvent;
                             break;
                         case "ClosedEvent":
-                            viewmodel.ClosedEvent = eventItem.Item2 as ClosedEvent;
+                            viewmodel.ClosedEvent = eventItem as ClosedEvent;
                             break;
                         case "CommentDeletedEvent":
-                            viewmodel.CommentDeletedEvent = eventItem.Item2 as CommentDeletedEvent;
+                            viewmodel.CommentDeletedEvent = eventItem as CommentDeletedEvent;
                             break;
                         case "ConnectedEvent":
-                            viewmodel.ConnectedEvent = eventItem.Item2 as ConnectedEvent;
+                            viewmodel.ConnectedEvent = eventItem as ConnectedEvent;
                             break;
                         case "ConvertedNoteToIssueEvent":
-                            viewmodel.ConvertedNoteToIssueEvent = eventItem.Item2 as ConvertedNoteToIssueEvent;
+                            viewmodel.ConvertedNoteToIssueEvent = eventItem as ConvertedNoteToIssueEvent;
                             break;
                         case "CrossReferencedEvent":
-                            viewmodel.CrossReferencedEvent = eventItem.Item2 as CrossReferencedEvent;
+                            viewmodel.CrossReferencedEvent = eventItem as CrossReferencedEvent;
                             break;
                         case "DemilestonedEvent":
-                            viewmodel.DemilestonedEvent = eventItem.Item2 as DemilestonedEvent;
+                            viewmodel.DemilestonedEvent = eventItem as DemilestonedEvent;
                             break;
                         case "DisconnectedEvent":
-                            viewmodel.DisconnectedEvent = eventItem.Item2 as DisconnectedEvent;
+                            viewmodel.DisconnectedEvent = eventItem as DisconnectedEvent;
                             break;
-                        default: case "IssueComment":
-                            viewmodel.CommentBlockViewModel = new() { IssueComment = viewmodel.IssueComment = eventItem.Item2 as IssueComment };
+                        default:
+                        case "IssueComment":
+                            viewmodel.CommentBlockViewModel = new() { IssueComment = viewmodel.IssueComment = eventItem as IssueComment };
                             break;
                         case "LabeledEvent":
-                            viewmodel.LabeledEvent = eventItem.Item2 as LabeledEvent;
+                            viewmodel.LabeledEvent = eventItem as LabeledEvent;
                             viewmodel.LabelControlViewModel = new()
                             {
-                                Name = viewmodel.LabeledEvent.LabeledLabel.Name,
-                                BackgroundColorBrush = viewmodel.LabeledEvent.LabeledLabel.ColorBrush,
+                                Name = viewmodel.LabeledEvent.Label.Name,
+                                BackgroundColorBrush = viewmodel.LabeledEvent.Label.ColorBrush,
                             };
                             break;
                         case "LockedEvent":
-                            viewmodel.LockedEvent = eventItem.Item2 as LockedEvent;
+                            viewmodel.LockedEvent = eventItem as LockedEvent;
                             break;
                         case "MarkedAsDuplicateEvent":
-                            viewmodel.MarkedAsDuplicateEvent = eventItem.Item2 as MarkedAsDuplicateEvent;
+                            viewmodel.MarkedAsDuplicateEvent = eventItem as MarkedAsDuplicateEvent;
                             break;
                         case "MentionedEvent":
-                            viewmodel.MentionedEvent = eventItem.Item2 as MentionedEvent;
+                            viewmodel.MentionedEvent = eventItem as MentionedEvent;
                             break;
                         case "MilestonedEvent":
-                            viewmodel.MilestonedEvent = eventItem.Item2 as MilestonedEvent;
+                            viewmodel.MilestonedEvent = eventItem as MilestonedEvent;
                             break;
                         case "MovedColumnsInProjectEvent":
-                            viewmodel.MovedColumnsInProjectEvent = eventItem.Item2 as MovedColumnsInProjectEvent;
+                            viewmodel.MovedColumnsInProjectEvent = eventItem as MovedColumnsInProjectEvent;
                             break;
                         case "PinnedEvent":
-                            viewmodel.PinnedEvent = eventItem.Item2 as PinnedEvent;
+                            viewmodel.PinnedEvent = eventItem as PinnedEvent;
                             break;
                         case "ReferencedEvent":
-                            viewmodel.ReferencedEvent = eventItem.Item2 as ReferencedEvent;
+                            viewmodel.ReferencedEvent = eventItem as ReferencedEvent;
                             break;
                         case "RemovedFromProjectEvent":
-                            viewmodel.RemovedFromProjectEvent = eventItem.Item2 as RemovedFromProjectEvent;
+                            viewmodel.RemovedFromProjectEvent = eventItem as RemovedFromProjectEvent;
                             break;
                         case "RenamedTitleEvent":
-                            viewmodel.RenamedTitleEvent = eventItem.Item2 as RenamedTitleEvent;
+                            viewmodel.RenamedTitleEvent = eventItem as RenamedTitleEvent;
                             break;
                         case "ReopenedEvent":
-                            viewmodel.ReopenedEvent = eventItem.Item2 as ReopenedEvent;
+                            viewmodel.ReopenedEvent = eventItem as ReopenedEvent;
                             break;
                         case "SubscribedEvent":
-                            viewmodel.SubscribedEvent = eventItem.Item2 as SubscribedEvent;
+                            viewmodel.SubscribedEvent = eventItem as SubscribedEvent;
                             break;
                         case "UnassignedEvent":
-                            viewmodel.UnassignedEvent = eventItem.Item2 as UnassignedEvent;
+                            viewmodel.UnassignedEvent = eventItem as UnassignedEvent;
                             break;
                         case "UnlabeledEvent":
-                            viewmodel.UnlabeledEvent = eventItem.Item2 as UnlabeledEvent;
+                            viewmodel.UnlabeledEvent = eventItem as UnlabeledEvent;
                             break;
                         case "UnlockedEvent":
-                            viewmodel.UnlockedEvent = eventItem.Item2 as UnlockedEvent;
+                            viewmodel.UnlockedEvent = eventItem as UnlockedEvent;
                             break;
                         case "UnmarkedAsDuplicateEvent":
-                            viewmodel.UnmarkedAsDuplicateEvent = eventItem.Item2 as UnmarkedAsDuplicateEvent;
+                            viewmodel.UnmarkedAsDuplicateEvent = eventItem as UnmarkedAsDuplicateEvent;
                             break;
                         case "UnpinnedEvent":
-                            viewmodel.UnpinnedEvent = eventItem.Item2 as UnpinnedEvent;
+                            viewmodel.UnpinnedEvent = eventItem as UnpinnedEvent;
                             break;
                         case "UnsubscribedEvent":
-                            viewmodel.UnsubscribedEvent = eventItem.Item2 as UnsubscribedEvent;
+                            viewmodel.UnsubscribedEvent = eventItem as UnsubscribedEvent;
                             break;
                         case "UserBlockedEvent":
-                            viewmodel.UserBlockedEvent = eventItem.Item2 as UserBlockedEvent;
+                            viewmodel.UserBlockedEvent = eventItem as UserBlockedEvent;
                             break;
                     };
 
