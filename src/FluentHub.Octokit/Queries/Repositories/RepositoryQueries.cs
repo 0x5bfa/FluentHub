@@ -89,32 +89,32 @@ namespace FluentHub.Octokit.Queries.Repositories
                     .Repository(owner: owner, name: name)
                     .Select(x => new
                     {
-                        //x.HomepageUrl,
-                        //DefaultBranchName = x.DefaultBranchRef.Name,
+                        x.HomepageUrl,
+                        DefaultBranchName = x.DefaultBranchRef.Select(defaultbranchref => new { defaultbranchref.Name }).SingleOrDefault(),
 
-                        //WatcherCount = x.Watchers(null, null, null, null).TotalCount,
-                        //HeadRefsCount = x.Refs("refs/heads/", null, null, null, null, null, null, null).TotalCount,
-                        //TagCount = x.Refs("refs/tags/", null, null, null, null, null, null, null).TotalCount,
+                        WatcherCount = x.Watchers(null, null, null, null).TotalCount,
+                        HeadRefsCount = x.Refs("refs/heads/", null, null, null, null, null, null, null).TotalCount,
+                        TagCount = x.Refs("refs/tags/", null, null, null, null, null, null, null).TotalCount,
 
-                        //LatestReleaseOverview = x.Releases(null, null, 1, null, null).Select(y => new
-                        //{
-                        //    A = y.Nodes.Select(release => new
-                        //    {
-                        //        AuthorLogin = release.Author.Login,
-                        //        AuthorAvatarUrl = release.Author.AvatarUrl(100),
-                        //        release.DescriptionHTML,
-                        //        release.IsDraft,
-                        //        release.IsLatest,
-                        //        release.IsPrerelease,
-                        //        release.Name,
-                        //        release.PublishedAt,
-                        //    })
-                        //    .ToList(),
+                        LatestReleaseOverview = x.Releases(null, null, 1, null, null).Select(y => new
+                        {
+                            A = y.Nodes.Select(release => new
+                            {
+                                AuthorLogin = release.Author.Login,
+                                AuthorAvatarUrl = release.Author.AvatarUrl(100),
+                                release.DescriptionHTML,
+                                release.IsDraft,
+                                release.IsLatest,
+                                release.IsPrerelease,
+                                release.Name,
+                                release.PublishedAt,
+                            })
+                            .ToList(),
 
-                        //    y.TotalCount,
+                            y.TotalCount,
 
-                        //})
-                        //.SingleOrDefault(),
+                        })
+                        .SingleOrDefault(),
 
                         x.ForkingAllowed,
                         x.HasIssuesEnabled,
@@ -137,12 +137,12 @@ namespace FluentHub.Octokit.Queries.Repositories
 
             Models.RepositoryDetails item = new()
             {
-                //DefaultBranchName = res.DefaultBranchName,
-                //HomepageUrl = res.HomepageUrl,
+                DefaultBranchName = res.DefaultBranchName?.Name,
+                HomepageUrl = res.HomepageUrl,
 
-                //WatcherCount = res.WatcherCount,
-                //HeadRefsCount = res.HeadRefsCount,
-                //ReleaseCount = res.LatestReleaseOverview.TotalCount,
+                WatcherCount = res.WatcherCount,
+                HeadRefsCount = res.HeadRefsCount,
+                ReleaseCount = res.LatestReleaseOverview.TotalCount,
 
                 HasIssuesEnabled = res.HasIssuesEnabled,
                 HasProjectsEnabled = res.HasProjectsEnabled,
@@ -155,23 +155,23 @@ namespace FluentHub.Octokit.Queries.Repositories
                 UpdatedAt = res.UpdatedAt,
             };
 
-            //if (res.LatestReleaseOverview != null)
-            //{
-            //    item.LatestReleaseOverview = new()
-            //    {
-            //        AuthorAvatarUrl = res.LatestReleaseOverview.A[0].AuthorAvatarUrl,
-            //        AuthorLogin = res.LatestReleaseOverview.A[0].AuthorLogin,
-            //        DescriptionHTML = res.LatestReleaseOverview.A[0].DescriptionHTML,
-            //        Name = res.LatestReleaseOverview.A[0].Name,
+            if (res.LatestReleaseOverview.A.Count() != 0)
+            {
+                item.LatestReleaseOverview = new()
+                {
+                    AuthorAvatarUrl = res.LatestReleaseOverview.A[0].AuthorAvatarUrl,
+                    AuthorLogin = res.LatestReleaseOverview.A[0].AuthorLogin,
+                    DescriptionHTML = res.LatestReleaseOverview.A[0].DescriptionHTML,
+                    Name = res.LatestReleaseOverview.A[0].Name,
 
-            //        IsDraft = res.LatestReleaseOverview.A[0].IsDraft,
-            //        IsLatest = res.LatestReleaseOverview.A[0].IsLatest,
-            //        IsPrerelease = res.LatestReleaseOverview.A[0].IsPrerelease,
+                    IsDraft = res.LatestReleaseOverview.A[0].IsDraft,
+                    IsLatest = res.LatestReleaseOverview.A[0].IsLatest,
+                    IsPrerelease = res.LatestReleaseOverview.A[0].IsPrerelease,
 
-            //        PublishedAt = res.LatestReleaseOverview?.A[0].PublishedAt,
-            //        PublishedAtHumanized = res.LatestReleaseOverview?.A[0].PublishedAt.Humanize(),
-            //    };
-            //}
+                    PublishedAt = res.LatestReleaseOverview?.A[0].PublishedAt,
+                    PublishedAtHumanized = res.LatestReleaseOverview?.A[0].PublishedAt.Humanize(),
+                };
+            }
             #endregion
 
             return item;

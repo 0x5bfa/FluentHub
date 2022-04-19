@@ -66,7 +66,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="AddedToProjectEvent" />
+                            Text="added this to  in" />
 
                     </Grid>
                 </toolkit:Case>
@@ -131,7 +131,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="ClosedEvent" />
+                            Text="closed this" />
 
                         <Border
                             Grid.Row="1"
@@ -411,7 +411,7 @@
                             Width="28"
                             Height="28"
                             Margin="20,0,8,0"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            Background="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             CornerRadius="16">
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
@@ -425,7 +425,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="LockedEvent" />
+                            Text="locked as  and limited conversation to collaborators" />
 
                     </Grid>
                 </toolkit:Case>
@@ -447,7 +447,7 @@
                                 FontFamily="{StaticResource Octions}"
                                 FontSize="16"
                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xEADB;" />
+                                Glyph="&#xE924;" />
                         </Border>
 
                         <TextBlock
@@ -455,7 +455,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="MarkedAsDuplicateEvent" />
+                            Text="marked this as a duplicate of" />
 
                     </Grid>
                 </toolkit:Case>
@@ -575,7 +575,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="PinnedEvent" />
+                            Text="pinned this issue" />
 
                     </Grid>
                 </toolkit:Case>
@@ -665,7 +665,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="RenamedTitleEvent" />
+                            Text="changed the title" />
 
                     </Grid>
                 </toolkit:Case>
@@ -695,7 +695,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="ReopenedEvent" />
+                            Text="reopened this" />
 
                     </Grid>
                 </toolkit:Case>
@@ -801,13 +801,13 @@
                             Width="28"
                             Height="28"
                             Margin="20,0,8,0"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            Background="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             CornerRadius="16">
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
                                 FontSize="16"
                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xEADB;" />
+                                Glyph="&#xEAC4;" />
                         </Border>
 
                         <TextBlock
@@ -815,7 +815,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="UnlockedEvent" />
+                            Text="unlocked this conversation" />
 
                     </Grid>
                 </toolkit:Case>
@@ -837,7 +837,7 @@
                                 FontFamily="{StaticResource Octions}"
                                 FontSize="16"
                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xEADB;" />
+                                Glyph="&#xE924;" />
                         </Border>
 
                         <TextBlock
@@ -845,7 +845,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="UnmarkedAsDuplicateEvent" />
+                            Text="marked this as not a duplicate of" />
 
                     </Grid>
                 </toolkit:Case>
@@ -932,7 +932,7 @@
                                 FontFamily="{StaticResource Octions}"
                                 FontSize="16"
                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xEAC4;" />
+                                Glyph="&#xEA3E;" />
                         </Border>
 
                         <TextBlock
@@ -940,7 +940,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="UnpinnedEvent" />
+                            Text="unpinned this issue" />
 
                     </Grid>
                 </toolkit:Case>
