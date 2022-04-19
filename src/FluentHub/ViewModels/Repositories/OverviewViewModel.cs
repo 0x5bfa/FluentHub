@@ -53,12 +53,14 @@ namespace FluentHub.ViewModels.Repositories
             try
             {
                 RepositoryQueries queries = new();
-                RepositoryDetails = await queries.GetDetailsAsync(Repository.Owner, Repository.Name);
+                var result = await queries.GetDetailsAsync(Repository.Owner, Repository.Name);
 
-                if (RepositoryDetails.IsPrivate)
-                    RepositoryVisibilityLabel.Name = "Private";
+                if (result.DefaultBranchName != null)
+                {
+                    RepositoryDetails = result;
+                }
 
-                ViewerSubscriptionState = RepositoryDetails.ViewerSubscription.Humanize();
+                ViewerSubscriptionState = RepositoryDetails?.ViewerSubscription?.Humanize();
             }
             catch (OperationCanceledException) { }
             catch (Exception ex)

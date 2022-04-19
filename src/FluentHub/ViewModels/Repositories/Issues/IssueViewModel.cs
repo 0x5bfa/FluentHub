@@ -80,6 +80,8 @@ namespace FluentHub.ViewModels.Repositories.Issues
 
                 foreach (var eventItem in issueEvents)
                 {
+                    if (eventItem == null) continue;
+
                     var viewmodel = new IssueEventBlockViewModel()
                     {
                         // FluentHub.Octokit.Models.Events.*
@@ -133,9 +135,9 @@ namespace FluentHub.ViewModels.Repositories.Issues
                         case "MarkedAsDuplicateEvent":
                             viewmodel.MarkedAsDuplicateEvent = eventItem as MarkedAsDuplicateEvent;
                             break;
-                        case "MentionedEvent":
-                            viewmodel.MentionedEvent = eventItem as MentionedEvent;
-                            break;
+                        //case "MentionedEvent":
+                        //    viewmodel.MentionedEvent = eventItem as MentionedEvent;
+                        //    break;
                         case "MilestonedEvent":
                             viewmodel.MilestonedEvent = eventItem as MilestonedEvent;
                             break;
@@ -157,14 +159,19 @@ namespace FluentHub.ViewModels.Repositories.Issues
                         case "ReopenedEvent":
                             viewmodel.ReopenedEvent = eventItem as ReopenedEvent;
                             break;
-                        case "SubscribedEvent":
-                            viewmodel.SubscribedEvent = eventItem as SubscribedEvent;
-                            break;
+                        //case "SubscribedEvent":
+                        //    viewmodel.SubscribedEvent = eventItem as SubscribedEvent;
+                        //    break;
                         case "UnassignedEvent":
                             viewmodel.UnassignedEvent = eventItem as UnassignedEvent;
                             break;
                         case "UnlabeledEvent":
                             viewmodel.UnlabeledEvent = eventItem as UnlabeledEvent;
+                            viewmodel.LabelControlViewModel = new()
+                            {
+                                Name = viewmodel.UnlabeledEvent.Label.Name,
+                                Color = viewmodel.UnlabeledEvent.Label.Color,
+                            };
                             break;
                         case "UnlockedEvent":
                             viewmodel.UnlockedEvent = eventItem as UnlockedEvent;

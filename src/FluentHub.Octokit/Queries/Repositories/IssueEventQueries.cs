@@ -199,17 +199,17 @@ namespace FluentHub.Octokit.Queries.Repositories
 
                     CreatedAt = y.CreatedAt,
                 }) 
-                .MentionedEvent(y => new MentionedEvent
-                {
-                    Actor = y.Actor.Select(actor => new Actor
-                    {
-                        AvatarUrl = actor.AvatarUrl(100),
-                        Login = actor.Login,
-                    })
-                    .Single(),
+                //.MentionedEvent(y => new MentionedEvent
+                //{
+                //    Actor = y.Actor.Select(actor => new Actor
+                //    {
+                //        AvatarUrl = actor.AvatarUrl(100),
+                //        Login = actor.Login,
+                //    })
+                //    .Single(),
 
-                    CreatedAt = y.CreatedAt,
-                })
+                //    CreatedAt = y.CreatedAt,
+                //})
                 .MilestonedEvent(y => new MilestonedEvent
                 {
                     Actor = y.Actor.Select(actor => new Actor
@@ -292,17 +292,17 @@ namespace FluentHub.Octokit.Queries.Repositories
 
                     CreatedAt = y.CreatedAt,
                 })
-                .SubscribedEvent(y => new SubscribedEvent
-                {
-                    Actor = y.Actor.Select(actor => new Actor
-                    {
-                        AvatarUrl = actor.AvatarUrl(100),
-                        Login = actor.Login,
-                    })
-                    .Single(),
+                //.SubscribedEvent(y => new SubscribedEvent
+                //{
+                //    Actor = y.Actor.Select(actor => new Actor
+                //    {
+                //        AvatarUrl = actor.AvatarUrl(100),
+                //        Login = actor.Login,
+                //    })
+                //    .Single(),
 
-                    CreatedAt = y.CreatedAt,
-                })
+                //    CreatedAt = y.CreatedAt,
+                //})
                 .TransferredEvent(y => new TransferredEvent
                 {
                     Actor = y.Actor.Select(actor => new Actor
@@ -350,6 +350,7 @@ namespace FluentHub.Octokit.Queries.Repositories
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .UnlockedEvent(y => new UnlockedEvent
                 {

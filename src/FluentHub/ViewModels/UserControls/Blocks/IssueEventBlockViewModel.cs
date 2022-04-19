@@ -104,8 +104,8 @@ namespace FluentHub.ViewModels.UserControls.Blocks
         private MarkedAsDuplicateEvent  markedAsDuplicateEvent;
         public MarkedAsDuplicateEvent MarkedAsDuplicateEvent { get => markedAsDuplicateEvent; set => SetProperty(ref markedAsDuplicateEvent, value); }
 
-        private MentionedEvent  mentionedEvent;
-        public MentionedEvent MentionedEvent { get => mentionedEvent; set => SetProperty(ref mentionedEvent, value); }
+        //private MentionedEvent  mentionedEvent;
+        //public MentionedEvent MentionedEvent { get => mentionedEvent; set => SetProperty(ref mentionedEvent, value); }
 
         private MergedEvent  mergedEvent;
         public MergedEvent MergedEvent { get => mergedEvent; set => SetProperty(ref mergedEvent, value); }
@@ -158,8 +158,8 @@ namespace FluentHub.ViewModels.UserControls.Blocks
         private ReviewRequestRemovedEvent  reviewRequestRemovedEvent;
         public ReviewRequestRemovedEvent ReviewRequestRemovedEvent { get => reviewRequestRemovedEvent; set => SetProperty(ref reviewRequestRemovedEvent, value); }
 
-        private SubscribedEvent  subscribedEvent;
-        public SubscribedEvent SubscribedEvent { get => subscribedEvent; set => SetProperty(ref subscribedEvent, value); }
+        //private SubscribedEvent  subscribedEvent;
+        //public SubscribedEvent SubscribedEvent { get => subscribedEvent; set => SetProperty(ref subscribedEvent, value); }
 
         private TransferredEvent  transferredEvent;
         public TransferredEvent TransferredEvent { get => transferredEvent; set => SetProperty(ref transferredEvent, value); }

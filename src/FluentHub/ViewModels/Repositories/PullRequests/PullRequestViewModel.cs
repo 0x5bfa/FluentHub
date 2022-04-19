@@ -133,9 +133,9 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
                         case "MarkedAsDuplicateEvent":
                             viewmodel.MarkedAsDuplicateEvent = eventItem.Item2 as MarkedAsDuplicateEvent;
                             break;
-                        case "MentionedEvent":
-                            viewmodel.MentionedEvent = eventItem.Item2 as MentionedEvent;
-                            break;
+                        //case "MentionedEvent":
+                        //    viewmodel.MentionedEvent = eventItem.Item2 as MentionedEvent;
+                        //    break;
                         case "MilestonedEvent":
                             viewmodel.MilestonedEvent = eventItem.Item2 as MilestonedEvent;
                             break;
@@ -157,9 +157,9 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
                         case "ReopenedEvent":
                             viewmodel.ReopenedEvent = eventItem.Item2 as ReopenedEvent;
                             break;
-                        case "SubscribedEvent":
-                            viewmodel.SubscribedEvent = eventItem.Item2 as SubscribedEvent;
-                            break;
+                        //case "SubscribedEvent":
+                        //    viewmodel.SubscribedEvent = eventItem.Item2 as SubscribedEvent;
+                        //    break;
                         case "UnassignedEvent":
                             viewmodel.UnassignedEvent = eventItem.Item2 as UnassignedEvent;
                             break;

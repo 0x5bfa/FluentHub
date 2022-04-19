@@ -460,7 +460,7 @@
                     </Grid>
                 </toolkit:Case>
 
-                <toolkit:Case Value="MentionedEvent">
+                <!--<toolkit:Case Value="MentionedEvent">
                     <Grid ColumnSpacing="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -488,7 +488,7 @@
                             Text="was mentioned" />
 
                     </Grid>
-                </toolkit:Case>
+                </toolkit:Case>-->
 
                 <toolkit:Case Value="MilestonedEvent">
                     <Grid ColumnSpacing="8">
@@ -700,7 +700,7 @@
                     </Grid>
                 </toolkit:Case>
 
-                <toolkit:Case Value="SubscribedEvent">
+                <!--<toolkit:Case Value="SubscribedEvent">
                     <Grid ColumnSpacing="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -728,7 +728,7 @@
                             Text="SubscribedEvent" />
 
                     </Grid>
-                </toolkit:Case>
+                </toolkit:Case>-->
 
                 <toolkit:Case Value="UnassignedEvent">
                     <Grid ColumnSpacing="8">
@@ -870,12 +870,47 @@
                                 Glyph="&#xEADB;" />
                         </Border>
 
-                        <TextBlock
+                        <StackPanel
+                            Grid.Column="1"
+                            Orientation="Horizontal"
+                            Spacing="4">
+                            <uc:AvatarControl
+                                VerticalAlignment="Center"
+                                AvatarUrl="{x:Bind ViewModel.LabeledEvent.Actor.AvatarUrl, Mode=OneWay}"
+                                WidthAndHeight="20" />
+
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="{x:Bind ViewModel.LabeledEvent.Actor.Login, Mode=OneWay}" />
+                        </StackPanel>
+
+                        <StackPanel
                             Grid.Column="2"
-                            VerticalAlignment="Center"
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="Someone unlabeled some label" />
+                            Orientation="Horizontal"
+                            Spacing="4">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="remove the" />
+
+                            <labels:LabelControl ViewModel="{x:Bind ViewModel.LabelControlViewModel, Mode=OneWay}" />
+
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="label •" />
+
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind ViewModel.UnlabeledEvent.CreatedAtHumanized, Mode=OneWay}" />
+                        </StackPanel>
 
                     </Grid>
                 </toolkit:Case>
