@@ -173,6 +173,7 @@ namespace FluentHub.Octokit.Queries.Repositories
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .LockedEvent(y => new LockedEvent
                 {

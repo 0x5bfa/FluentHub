@@ -27,12 +27,6 @@ namespace FluentHub.ViewModels.Repositories
             _messenger = messenger;
 
             LoadOverviewPageCommand = new AsyncRelayCommand(LoadOverviewPageAsync);
-            RepositoryVisibilityLabel = new()
-            {
-                Name = "Public",
-                BackgroundColorBrush = (SolidColorBrush)Application.Current.Resources["ApplicationSecondaryForegroundThemeBrush"],
-                OutlineEnable = true,
-            };
         }
         #endregion
 

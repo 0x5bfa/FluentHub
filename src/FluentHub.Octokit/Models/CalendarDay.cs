@@ -18,8 +18,6 @@ namespace FluentHub.Octokit.Models
 
         public string Color { get; set; }
 
-        public SolidColorBrush ColorBrush { get; set; }
-
         public bool Visibility { get; set; }
     }
 }

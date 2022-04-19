@@ -20,20 +20,6 @@ namespace FluentHub.ViewModels.UserControls.ButtonBlocks
         {
             _labelViewModels = new();
             LabelViewModels = new(_labelViewModels);
-
-            ReviewStateLabel = new()
-            {
-                Name = "Review",
-                BackgroundColorBrush = (SolidColorBrush)Application.Current.Resources["ApplicationSecondaryForegroundThemeBrush"],
-                OutlineEnable = true,
-            };
-
-            StatusStateLabel = new()
-            {
-                Name = "Checks",
-                BackgroundColorBrush = (SolidColorBrush)Application.Current.Resources["ApplicationSecondaryForegroundThemeBrush"],
-                OutlineEnable = true,
-            };
         }
 
         private PullRequest _pullItem;
@@ -53,19 +39,12 @@ namespace FluentHub.ViewModels.UserControls.ButtonBlocks
 
         public void SetContents()
         {
-            CommentCountLabel = new()
-            {
-                Name = _pullItem.CommentCount.ToString(),
-                BackgroundColorBrush = (SolidColorBrush)Application.Current.Resources["ApplicationSecondaryForegroundThemeBrush"],
-                OutlineEnable = true,
-            };
-
             foreach (var label in _pullItem.Labels)
             {
                 LabelControlViewModel viewModel = new()
                 {
                     Name = label.Name,
-                    BackgroundColorBrush = label.ColorBrush,
+                    Color = label.Color,
                 };
 
                 _labelViewModels.Add(viewModel);

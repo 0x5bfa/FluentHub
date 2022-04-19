@@ -233,7 +233,6 @@ namespace FluentHub.Octokit.Queries.Users
                     CalendarDay day = new();
 
                     day.Color = days.Color;
-                    day.ColorBrush = Helpers.ColorHelper.HexCodeToSolidColorBrush(days.Color);
                     day.ContributionCount = days.ContributionCount;
                     day.ContributionLevel = days.ContributionLevel;
                     day.WeekDay = days.Weekday;

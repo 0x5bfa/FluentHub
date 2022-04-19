@@ -80,7 +80,6 @@ namespace FluentHub.Octokit.Queries.Repositories
                         {
                             Color = label.Color,
                             Name = label.Name,
-                            ColorBrush = Helpers.ColorHelper.HexCodeToSolidColorBrush(label.Color),
                         };
 
                         item.Labels.Add(labels);
@@ -151,7 +150,6 @@ namespace FluentHub.Octokit.Queries.Repositories
                     {
                         Color = label.Color,
                         Name = label.Name,
-                        ColorBrush = Helpers.ColorHelper.HexCodeToSolidColorBrush(label.Color),
                     };
 
                     item.Labels.Add(labels);

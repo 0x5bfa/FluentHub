@@ -32,19 +32,12 @@ namespace FluentHub.ViewModels.UserControls.ButtonBlocks
 
         public void SetContents()
         {
-            CommentCountLabel = new()
-            {
-                Name = _issueItem.CommentCount.ToString(),
-                BackgroundColorBrush = (SolidColorBrush)Application.Current.Resources["ApplicationSecondaryForegroundThemeBrush"],
-                OutlineEnable = true,
-            };
-
             foreach (var label in IssueItem.Labels)
             {
                 LabelControlViewModel viewModel = new()
                 {
                     Name = label.Name,
-                    BackgroundColorBrush = label.ColorBrush,
+                    Color = label.Color,
                 };
 
                 _labelViewModels.Add(viewModel);

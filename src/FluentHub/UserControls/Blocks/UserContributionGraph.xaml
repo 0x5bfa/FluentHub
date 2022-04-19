@@ -148,12 +148,15 @@
                     <Border
                         Width="14"
                         Height="14"
-                        Background="{x:Bind ColorBrush, Mode=OneWay}"
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                         BorderThickness="1"
                         CornerRadius="3"
                         ToolTipService.ToolTip="{x:Bind ContributionCount, Mode=OneWay}"
-                        Visibility="{x:Bind Visibility, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
+                        Visibility="{x:Bind Visibility, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+                        <Border.Background>
+                            <SolidColorBrush Color="{x:Bind Color, Mode=OneWay}" />
+                        </Border.Background>
+                    </Border>
                 </DataTemplate>
 
             </muxc:ItemsRepeater>

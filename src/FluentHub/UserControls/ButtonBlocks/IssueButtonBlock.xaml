@@ -126,7 +126,7 @@
                         Style="{StaticResource BodyStrongTextBlockStyle}"
                         Text="{x:Bind ViewModel.IssueItem.Title, Mode=OneWay}" />
 
-                    <StackPanel
+                    <!--<StackPanel
                         Grid.Row="2"
                         Margin="0,4,0,0"
                         Orientation="Horizontal"
@@ -152,7 +152,7 @@
                             </labels:LabelControl.Icon>
                         </labels:LabelControl>
 
-                    </StackPanel>
+                    </StackPanel>-->
                 </Grid>
             </Grid>
         </Button>

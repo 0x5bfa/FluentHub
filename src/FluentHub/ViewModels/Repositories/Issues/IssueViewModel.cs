@@ -124,7 +124,7 @@ namespace FluentHub.ViewModels.Repositories.Issues
                             viewmodel.LabelControlViewModel = new()
                             {
                                 Name = viewmodel.LabeledEvent.Label.Name,
-                                BackgroundColorBrush = viewmodel.LabeledEvent.Label.ColorBrush,
+                                Color = viewmodel.LabeledEvent.Label.Color,
                             };
                             break;
                         case "LockedEvent":
