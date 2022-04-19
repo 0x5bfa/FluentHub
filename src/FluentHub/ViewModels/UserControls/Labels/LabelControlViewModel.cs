@@ -18,6 +18,9 @@ namespace FluentHub.ViewModels.UserControls.Labels
         private string _color;
         public string Color { get => _color; set => SetProperty(ref _color, value); }
 
+        private SolidColorBrush _colorBrush;
+        public SolidColorBrush ColorBrush { get => _colorBrush; set => SetProperty(ref _colorBrush, value); }
+
         private bool outlineEnable;
         public bool OutlineEnable { get => outlineEnable; set => SetProperty(ref outlineEnable, value); }
 
@@ -29,6 +32,8 @@ namespace FluentHub.ViewModels.UserControls.Labels
 
         public void SetColorBrush()
         {
+            ColorBrush = Helpers.ColorHelpers.HexCodeToSolidColorBrush(Color);
+
             //switch (Variant)
             //{
             //    default:

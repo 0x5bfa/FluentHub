@@ -380,7 +380,7 @@
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="added the" />
 
-                            <!--<labels:LabelControl ViewModel="{x:Bind ViewModel.LabelControlViewModel, Mode=OneWay}" />-->
+                            <labels:LabelControl ViewModel="{x:Bind ViewModel.LabelControlViewModel, Mode=OneWay}" />
 
                             <TextBlock
                                 Grid.Column="1"
