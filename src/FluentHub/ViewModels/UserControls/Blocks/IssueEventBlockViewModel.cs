@@ -6,7 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
-using System.Threading.Tasks;
+using Windows.UI.Xaml.Media;
 
 namespace FluentHub.ViewModels.UserControls.Blocks
 {
@@ -15,14 +15,16 @@ namespace FluentHub.ViewModels.UserControls.Blocks
         private string _eventType;
         public string EventType { get => _eventType; set => SetProperty(ref _eventType, value); }
 
-        //private string actorLogin;
-        //public string ActorLogin { get => actorLogin; set => SetProperty(ref actorLogin, value); }
+        private Actor _actor;
+        public Actor Actor { get => _actor; set => SetProperty(ref _actor, value); }
 
-        //private bool actorIsUser;
-        //public bool ActorIsUser { get => actorIsUser; set => SetProperty(ref actorIsUser, value); }
+        private SolidColorBrush _timelineBadgeBackground;
+        public SolidColorBrush TimelineBadgeBackground { get => _timelineBadgeBackground; set => SetProperty(ref _timelineBadgeBackground, value); }
+
+        private string _timelineBadgeGlyph;
+        public string TimelineBadgeGlyph { get => _timelineBadgeGlyph; set => SetProperty(ref _timelineBadgeGlyph, value); }
 
         #region AllEvents
-
         private AddedToProjectEvent  addedToProjectEvent;
         public AddedToProjectEvent AddedToProjectEvent { get => addedToProjectEvent; set => SetProperty(ref addedToProjectEvent, value); }
 

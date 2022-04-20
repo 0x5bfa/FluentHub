@@ -2,6 +2,7 @@
     x:Class="FluentHub.UserControls.Blocks.IssueEventBlock"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:FluentHub.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:labels="using:FluentHub.UserControls.Labels"
     xmlns:local="using:FluentHub.UserControls.Blocks"
@@ -16,6 +17,9 @@
     <UserControl.DataContext>
         <vm:IssueEventBlockViewModel x:Name="ViewModel" />
     </UserControl.DataContext>
+    <UserControl.Resources>
+        <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+    </UserControl.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -27,7 +31,7 @@
         <Border
             Grid.Row="0"
             Width="1.5"
-            Height="8"
+            Height="10"
             Margin="36,0,0,0"
             HorizontalAlignment="Left"
             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
@@ -39,34 +43,64 @@
             Background="Transparent"
             BorderBrush="Transparent">
 
-            <toolkit:SwitchPresenter TargetType="x:String" Value="{x:Bind ViewModel.EventType, Mode=OneWay}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border
+                x:Name="TimelineBadge"
+                Width="28"
+                Height="28"
+                Margin="20,0,8,0"
+                x:Load="{x:Bind ViewModel.IssueComment, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
+                Background="{x:Bind ViewModel.TimelineBadgeBackground, Mode=OneWay}"
+                BorderBrush="Transparent"
+                BorderThickness="2"
+                CornerRadius="16">
+                <FontIcon
+                    x:Name="TimeLineBadgeFontGlyph"
+                    FontFamily="{StaticResource Octions}"
+                    FontSize="14"
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Glyph="{x:Bind ViewModel.TimelineBadgeGlyph, Mode=OneWay}" />
+            </Border>
+
+            <StackPanel
+                x:Name="EventActor"
+                Grid.Column="1"
+                Margin="0,0,8,0"
+                x:Load="{x:Bind ViewModel.IssueComment, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
+                Orientation="Horizontal"
+                Spacing="4">
+                <uc:AvatarControl
+                    VerticalAlignment="Center"
+                    AvatarUrl="{x:Bind ViewModel.Actor.AvatarUrl, Mode=OneWay}"
+                    WidthAndHeight="20" />
+
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                    Text="{x:Bind ViewModel.Actor.Login, Mode=OneWay}" />
+            </StackPanel>
+
+            <toolkit:SwitchPresenter
+                Grid.Column="2"
+                TargetType="x:String"
+                Value="{x:Bind ViewModel.EventType, Mode=OneWay}">
 
                 <toolkit:Case Value="AddedToProjectEvent">
                     <Grid ColumnSpacing="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Border
-                            Width="28"
-                            Height="28"
-                            Margin="20,0,8,0"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                            CornerRadius="16">
-                            <FontIcon
-                                FontFamily="{StaticResource Octions}"
-                                FontSize="16"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xEA48;" />
-                        </Border>
-
                         <TextBlock
-                            Grid.Column="2"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="added this to  in" />
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="marked this as a duplicate of" />
 
                     </Grid>
                 </toolkit:Case>
@@ -75,78 +109,29 @@
                     <Grid ColumnSpacing="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Border
-                            Width="28"
-                            Height="28"
-                            Margin="20,0,8,0"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                            CornerRadius="16">
-                            <FontIcon
-                                FontFamily="{StaticResource Octions}"
-                                FontSize="16"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xEA38;" />
-                        </Border>
-
                         <TextBlock
-                            Grid.Column="2"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="AssignedEvent" />
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="marked this as a duplicate of" />
 
                     </Grid>
                 </toolkit:Case>
 
                 <toolkit:Case Value="ClosedEvent">
                     <Grid ColumnSpacing="8">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <Border
-                            Width="28"
-                            Height="28"
-                            Margin="20,0,8,0"
-                            Background="#8256d0"
-                            CornerRadius="16">
-                            <FontIcon
-                                FontFamily="{StaticResource Octions}"
-                                FontSize="16"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xE9E6;" />
-                        </Border>
-
                         <TextBlock
-                            Grid.Column="2"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="closed this" />
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="marked this as a duplicate of" />
 
-                        <Border
-                            Grid.Row="1"
-                            Width="1.5"
-                            Height="16"
-                            Margin="32,0,0,0"
-                            HorizontalAlignment="Left"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
-
-                        <Border
-                            Grid.Row="2"
-                            Grid.ColumnSpan="2"
-                            Height="3"
-                            HorizontalAlignment="Stretch"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
                     </Grid>
                 </toolkit:Case>
 
@@ -154,28 +139,13 @@
                     <Grid ColumnSpacing="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Border
-                            Width="28"
-                            Height="28"
-                            Margin="20,0,8,0"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                            CornerRadius="16">
-                            <FontIcon
-                                FontFamily="{StaticResource Octions}"
-                                FontSize="16"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xEAD4;" />
-                        </Border>
-
                         <TextBlock
-                            Grid.Column="2"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="CommentDeletedEvent" />
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="marked this as a duplicate of" />
 
                     </Grid>
                 </toolkit:Case>
@@ -184,28 +154,13 @@
                     <Grid ColumnSpacing="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Border
-                            Width="28"
-                            Height="28"
-                            Margin="20,0,8,0"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                            CornerRadius="16">
-                            <FontIcon
-                                FontFamily="{StaticResource Octions}"
-                                FontSize="16"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xE924;" />
-                        </Border>
-
                         <TextBlock
-                            Grid.Column="2"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="linked a pull request" />
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="marked this as a duplicate of" />
 
                     </Grid>
                 </toolkit:Case>
@@ -214,28 +169,13 @@
                     <Grid ColumnSpacing="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Border
-                            Width="28"
-                            Height="28"
-                            Margin="20,0,8,0"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                            CornerRadius="16">
-                            <FontIcon
-                                FontFamily="{StaticResource Octions}"
-                                FontSize="16"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xEADB;" />
-                        </Border>
-
                         <TextBlock
-                            Grid.Column="2"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="ConvertedNoteToIssueEvent" />
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="marked this as a duplicate of" />
 
                     </Grid>
                 </toolkit:Case>
@@ -244,28 +184,13 @@
                     <Grid ColumnSpacing="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Border
-                            Width="28"
-                            Height="28"
-                            Margin="20,0,8,0"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                            CornerRadius="16">
-                            <FontIcon
-                                FontFamily="{StaticResource Octions}"
-                                FontSize="16"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xEADB;" />
-                        </Border>
-
                         <TextBlock
-                            Grid.Column="2"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="CrossReferencedEvent" />
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="marked this as a duplicate of" />
 
                     </Grid>
                 </toolkit:Case>
@@ -274,28 +199,13 @@
                     <Grid ColumnSpacing="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Border
-                            Width="28"
-                            Height="28"
-                            Margin="20,0,8,0"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                            CornerRadius="16">
-                            <FontIcon
-                                FontFamily="{StaticResource Octions}"
-                                FontSize="16"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xEA12;" />
-                        </Border>
-
                         <TextBlock
-                            Grid.Column="2"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="DemilestonedEvent" />
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="marked this as a duplicate of" />
 
                     </Grid>
                 </toolkit:Case>
@@ -304,28 +214,13 @@
                     <Grid ColumnSpacing="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Border
-                            Width="28"
-                            Height="28"
-                            Margin="20,0,8,0"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                            CornerRadius="16">
-                            <FontIcon
-                                FontFamily="{StaticResource Octions}"
-                                FontSize="16"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xE924;" />
-                        </Border>
-
                         <TextBlock
-                            Grid.Column="2"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="removed a link to a pull request" />
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="marked this as a duplicate of" />
 
                     </Grid>
                 </toolkit:Case>
@@ -338,42 +233,9 @@
                     <Grid ColumnSpacing="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Border
-                            Width="28"
-                            Height="28"
-                            Margin="20,0,4,0"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                            CornerRadius="16">
-                            <FontIcon
-                                FontFamily="{StaticResource Octions}"
-                                FontSize="16"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xEAA5;" />
-                        </Border>
-
-                        <StackPanel
-                            Grid.Column="1"
-                            Orientation="Horizontal"
-                            Spacing="4">
-                            <uc:AvatarControl
-                                VerticalAlignment="Center"
-                                AvatarUrl="{x:Bind ViewModel.LabeledEvent.Actor.AvatarUrl, Mode=OneWay}"
-                                WidthAndHeight="20" />
-
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyStrongTextBlockStyle}"
-                                Text="{x:Bind ViewModel.LabeledEvent.Actor.Login, Mode=OneWay}" />
-                        </StackPanel>
-
-                        <StackPanel
-                            Grid.Column="2"
-                            Orientation="Horizontal"
-                            Spacing="4">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
                             <TextBlock
                                 VerticalAlignment="Center"
                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
@@ -387,14 +249,8 @@
                                 VerticalAlignment="Center"
                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                 Style="{StaticResource BodyTextBlockStyle}"
-                                Text="label •" />
+                                Text="label" />
 
-                            <TextBlock
-                                Grid.Column="1"
-                                VerticalAlignment="Center"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="{x:Bind ViewModel.LabeledEvent.CreatedAtHumanized, Mode=OneWay}" />
                         </StackPanel>
 
                     </Grid>
@@ -404,27 +260,12 @@
                     <Grid ColumnSpacing="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Border
-                            Width="28"
-                            Height="28"
-                            Margin="20,0,8,0"
-                            Background="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            CornerRadius="16">
-                            <FontIcon
-                                FontFamily="{StaticResource Octions}"
-                                FontSize="16"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xEA05;" />
-                        </Border>
-
                         <TextBlock
-                            Grid.Column="2"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Style="{StaticResource BodyTextBlockStyle}"
                             Text="locked as  and limited conversation to collaborators" />
 
                     </Grid>
@@ -434,27 +275,12 @@
                     <Grid ColumnSpacing="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Border
-                            Width="28"
-                            Height="28"
-                            Margin="20,0,8,0"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                            CornerRadius="16">
-                            <FontIcon
-                                FontFamily="{StaticResource Octions}"
-                                FontSize="16"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xE924;" />
-                        </Border>
-
                         <TextBlock
-                            Grid.Column="2"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Style="{StaticResource BodyTextBlockStyle}"
                             Text="marked this as a duplicate of" />
 
                     </Grid>
@@ -494,28 +320,13 @@
                     <Grid ColumnSpacing="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Border
-                            Width="28"
-                            Height="28"
-                            Margin="20,0,8,0"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                            CornerRadius="16">
-                            <FontIcon
-                                FontFamily="{StaticResource Octions}"
-                                FontSize="16"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xEA12;" />
-                        </Border>
-
                         <TextBlock
-                            Grid.Column="2"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="MilestonedEvent" />
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="marked this as a duplicate of" />
 
                     </Grid>
                 </toolkit:Case>
@@ -524,24 +335,9 @@
                     <Grid ColumnSpacing="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Border
-                            Width="28"
-                            Height="28"
-                            Margin="20,0,8,0"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                            CornerRadius="16">
-                            <FontIcon
-                                FontFamily="{StaticResource Octions}"
-                                FontSize="16"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xEADB;" />
-                        </Border>
-
                         <TextBlock
-                            Grid.Column="2"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource CaptionTextBlockStyle}"
@@ -554,28 +350,13 @@
                     <Grid ColumnSpacing="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Border
-                            Width="28"
-                            Height="28"
-                            Margin="20,0,8,0"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                            CornerRadius="16">
-                            <FontIcon
-                                FontFamily="{StaticResource Octions}"
-                                FontSize="16"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xEA3E;" />
-                        </Border>
-
                         <TextBlock
-                            Grid.Column="2"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="pinned this issue" />
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="marked this as a duplicate of" />
 
                     </Grid>
                 </toolkit:Case>
@@ -584,28 +365,13 @@
                     <Grid ColumnSpacing="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Border
-                            Width="28"
-                            Height="28"
-                            Margin="20,0,8,0"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                            CornerRadius="16">
-                            <FontIcon
-                                FontFamily="{StaticResource Octions}"
-                                FontSize="16"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xEADB;" />
-                        </Border>
-
                         <TextBlock
-                            Grid.Column="2"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="ReferencedEvent" />
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="marked this as a duplicate of" />
 
                     </Grid>
                 </toolkit:Case>
@@ -614,28 +380,13 @@
                     <Grid ColumnSpacing="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Border
-                            Width="28"
-                            Height="28"
-                            Margin="20,0,8,0"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                            CornerRadius="16">
-                            <FontIcon
-                                FontFamily="{StaticResource Octions}"
-                                FontSize="16"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xEA48;" />
-                        </Border>
-
                         <TextBlock
-                            Grid.Column="2"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="RemovedFromProjectEvent" />
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="marked this as a duplicate of" />
 
                     </Grid>
                 </toolkit:Case>
@@ -644,28 +395,13 @@
                     <Grid ColumnSpacing="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Border
-                            Width="28"
-                            Height="28"
-                            Margin="20,0,8,0"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                            CornerRadius="16">
-                            <FontIcon
-                                FontFamily="{StaticResource Octions}"
-                                FontSize="16"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xEA34;" />
-                        </Border>
-
                         <TextBlock
-                            Grid.Column="2"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="changed the title" />
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="marked this as a duplicate of" />
 
                     </Grid>
                 </toolkit:Case>
@@ -674,28 +410,13 @@
                     <Grid ColumnSpacing="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Border
-                            Width="28"
-                            Height="28"
-                            Margin="20,0,8,0"
-                            Background="#347d39"
-                            CornerRadius="16">
-                            <FontIcon
-                                FontFamily="{StaticResource Octions}"
-                                FontSize="16"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xE9EC;" />
-                        </Border>
-
                         <TextBlock
-                            Grid.Column="2"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="reopened this" />
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="marked this as a duplicate of" />
 
                     </Grid>
                 </toolkit:Case>
@@ -734,28 +455,13 @@
                     <Grid ColumnSpacing="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Border
-                            Width="28"
-                            Height="28"
-                            Margin="20,0,8,0"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                            CornerRadius="16">
-                            <FontIcon
-                                FontFamily="{StaticResource Octions}"
-                                FontSize="16"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xEA38;" />
-                        </Border>
-
                         <TextBlock
-                            Grid.Column="2"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="UnassignedEvent" />
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="marked this as a duplicate of" />
 
                     </Grid>
                 </toolkit:Case>
@@ -764,28 +470,13 @@
                     <Grid ColumnSpacing="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Border
-                            Width="28"
-                            Height="28"
-                            Margin="20,0,8,0"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                            CornerRadius="16">
-                            <FontIcon
-                                FontFamily="{StaticResource Octions}"
-                                FontSize="16"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xEADB;" />
-                        </Border>
-
                         <TextBlock
-                            Grid.Column="2"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="UnlabeledEvent" />
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="marked this as a duplicate of" />
 
                     </Grid>
                 </toolkit:Case>
@@ -794,28 +485,13 @@
                     <Grid ColumnSpacing="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Border
-                            Width="28"
-                            Height="28"
-                            Margin="20,0,8,0"
-                            Background="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            CornerRadius="16">
-                            <FontIcon
-                                FontFamily="{StaticResource Octions}"
-                                FontSize="16"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xEAC4;" />
-                        </Border>
-
                         <TextBlock
-                            Grid.Column="2"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="unlocked this conversation" />
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="marked this as a duplicate of" />
 
                     </Grid>
                 </toolkit:Case>
@@ -824,28 +500,13 @@
                     <Grid ColumnSpacing="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Border
-                            Width="28"
-                            Height="28"
-                            Margin="20,0,8,0"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                            CornerRadius="16">
-                            <FontIcon
-                                FontFamily="{StaticResource Octions}"
-                                FontSize="16"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xE924;" />
-                        </Border>
-
                         <TextBlock
-                            Grid.Column="2"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="marked this as not a duplicate of" />
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="marked this as a duplicate of" />
 
                     </Grid>
                 </toolkit:Case>
@@ -854,63 +515,13 @@
                     <Grid ColumnSpacing="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Border
-                            Width="28"
-                            Height="28"
-                            Margin="20,0,8,0"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                            CornerRadius="16">
-                            <FontIcon
-                                FontFamily="{StaticResource Octions}"
-                                FontSize="16"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xEADB;" />
-                        </Border>
-
-                        <StackPanel
-                            Grid.Column="1"
-                            Orientation="Horizontal"
-                            Spacing="4">
-                            <uc:AvatarControl
-                                VerticalAlignment="Center"
-                                AvatarUrl="{x:Bind ViewModel.LabeledEvent.Actor.AvatarUrl, Mode=OneWay}"
-                                WidthAndHeight="20" />
-
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyStrongTextBlockStyle}"
-                                Text="{x:Bind ViewModel.LabeledEvent.Actor.Login, Mode=OneWay}" />
-                        </StackPanel>
-
-                        <StackPanel
-                            Grid.Column="2"
-                            Orientation="Horizontal"
-                            Spacing="4">
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="remove the" />
-
-                            <labels:LabelControl ViewModel="{x:Bind ViewModel.LabelControlViewModel, Mode=OneWay}" />
-
-                            <TextBlock
-                                Grid.Column="1"
-                                VerticalAlignment="Center"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="label •" />
-
-                            <TextBlock
-                                Grid.Column="1"
-                                VerticalAlignment="Center"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="{x:Bind ViewModel.UnlabeledEvent.CreatedAtHumanized, Mode=OneWay}" />
-                        </StackPanel>
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="marked this as a duplicate of" />
 
                     </Grid>
                 </toolkit:Case>
@@ -919,28 +530,13 @@
                     <Grid ColumnSpacing="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Border
-                            Width="28"
-                            Height="28"
-                            Margin="20,0,8,0"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                            CornerRadius="16">
-                            <FontIcon
-                                FontFamily="{StaticResource Octions}"
-                                FontSize="16"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xEA3E;" />
-                        </Border>
-
                         <TextBlock
-                            Grid.Column="2"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="unpinned this issue" />
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="marked this as a duplicate of" />
 
                     </Grid>
                 </toolkit:Case>
@@ -949,28 +545,13 @@
                     <Grid ColumnSpacing="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Border
-                            Width="28"
-                            Height="28"
-                            Margin="20,0,8,0"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                            CornerRadius="16">
-                            <FontIcon
-                                FontFamily="{StaticResource Octions}"
-                                FontSize="16"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xEADB;" />
-                        </Border>
-
                         <TextBlock
-                            Grid.Column="2"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="UnsubscribedEvent" />
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="marked this as a duplicate of" />
 
                     </Grid>
                 </toolkit:Case>
@@ -979,28 +560,13 @@
                     <Grid ColumnSpacing="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Border
-                            Width="28"
-                            Height="28"
-                            Margin="20,0,8,0"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                            CornerRadius="16">
-                            <FontIcon
-                                FontFamily="{StaticResource Octions}"
-                                FontSize="16"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xEAD4;" />
-                        </Border>
-
                         <TextBlock
-                            Grid.Column="2"
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="UserBlockedEvent" />
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="marked this as a duplicate of" />
 
                     </Grid>
                 </toolkit:Case>
@@ -1011,7 +577,7 @@
         <Border
             Grid.Row="2"
             Width="1.5"
-            Height="8"
+            Height="10"
             Margin="36,0,0,0"
             HorizontalAlignment="Left"
             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />

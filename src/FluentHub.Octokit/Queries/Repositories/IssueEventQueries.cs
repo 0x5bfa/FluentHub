@@ -201,14 +201,6 @@ namespace FluentHub.Octokit.Queries.Repositories
                 }) 
                 //.MentionedEvent(y => new MentionedEvent
                 //{
-                //    Actor = y.Actor.Select(actor => new Actor
-                //    {
-                //        AvatarUrl = actor.AvatarUrl(100),
-                //        Login = actor.Login,
-                //    })
-                //    .Single(),
-
-                //    CreatedAt = y.CreatedAt,
                 //})
                 .MilestonedEvent(y => new MilestonedEvent
                 {
@@ -294,14 +286,6 @@ namespace FluentHub.Octokit.Queries.Repositories
                 })
                 //.SubscribedEvent(y => new SubscribedEvent
                 //{
-                //    Actor = y.Actor.Select(actor => new Actor
-                //    {
-                //        AvatarUrl = actor.AvatarUrl(100),
-                //        Login = actor.Login,
-                //    })
-                //    .Single(),
-
-                //    CreatedAt = y.CreatedAt,
                 //})
                 .TransferredEvent(y => new TransferredEvent
                 {
