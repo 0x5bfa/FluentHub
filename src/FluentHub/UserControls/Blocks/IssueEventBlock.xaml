@@ -100,7 +100,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="marked this as a duplicate of" />
+                            Text="added to project" />
 
                     </Grid>
                 </toolkit:Case>
@@ -115,7 +115,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="marked this as a duplicate of" />
+                            Text="assigned" />
 
                     </Grid>
                 </toolkit:Case>
@@ -130,7 +130,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="marked this as a duplicate of" />
+                            Text="closed" />
 
                     </Grid>
                 </toolkit:Case>
@@ -145,7 +145,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="marked this as a duplicate of" />
+                            Text="deleted comment" />
 
                     </Grid>
                 </toolkit:Case>
@@ -160,7 +160,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="marked this as a duplicate of" />
+                            Text="linked" />
 
                     </Grid>
                 </toolkit:Case>
@@ -175,7 +175,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="marked this as a duplicate of" />
+                            Text="converted note to issue" />
 
                     </Grid>
                 </toolkit:Case>
@@ -190,7 +190,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="marked this as a duplicate of" />
+                            Text="cross referenced" />
 
                     </Grid>
                 </toolkit:Case>
@@ -205,7 +205,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="marked this as a duplicate of" />
+                            Text="removed milestone" />
 
                     </Grid>
                 </toolkit:Case>
@@ -220,7 +220,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="marked this as a duplicate of" />
+                            Text="remove a link" />
 
                     </Grid>
                 </toolkit:Case>
@@ -286,35 +286,7 @@
                     </Grid>
                 </toolkit:Case>
 
-                <!--<toolkit:Case Value="MentionedEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-
-                        <Border
-                            Width="28"
-                            Height="28"
-                            Margin="20,0,8,0"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                            CornerRadius="16">
-                            <FontIcon
-                                FontFamily="{StaticResource Octions}"
-                                FontSize="16"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xE968;" />
-                        </Border>
-
-                        <TextBlock
-                            Grid.Column="2"
-                            VerticalAlignment="Center"
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="was mentioned" />
-
-                    </Grid>
-                </toolkit:Case>-->
+                <!--<toolkit:Case Value="MentionedEvent" />-->
 
                 <toolkit:Case Value="MilestonedEvent">
                     <Grid ColumnSpacing="8">
@@ -326,7 +298,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="marked this as a duplicate of" />
+                            Text="added to milestone" />
 
                     </Grid>
                 </toolkit:Case>
@@ -341,7 +313,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="MovedColumnsInProjectEvent" />
+                            Text="moved columns in project" />
 
                     </Grid>
                 </toolkit:Case>
@@ -356,7 +328,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="marked this as a duplicate of" />
+                            Text="pinned" />
 
                     </Grid>
                 </toolkit:Case>
@@ -371,7 +343,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="marked this as a duplicate of" />
+                            Text="referenced" />
 
                     </Grid>
                 </toolkit:Case>
@@ -386,7 +358,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="marked this as a duplicate of" />
+                            Text="removed from project" />
 
                     </Grid>
                 </toolkit:Case>
@@ -401,7 +373,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="marked this as a duplicate of" />
+                            Text="renamed title" />
 
                     </Grid>
                 </toolkit:Case>
@@ -421,35 +393,7 @@
                     </Grid>
                 </toolkit:Case>
 
-                <!--<toolkit:Case Value="SubscribedEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-
-                        <Border
-                            Width="28"
-                            Height="28"
-                            Margin="20,0,8,0"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                            CornerRadius="16">
-                            <FontIcon
-                                FontFamily="{StaticResource Octions}"
-                                FontSize="16"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xEADB;" />
-                        </Border>
-
-                        <TextBlock
-                            Grid.Column="2"
-                            VerticalAlignment="Center"
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="SubscribedEvent" />
-
-                    </Grid>
-                </toolkit:Case>-->
+                <!--<toolkit:Case Value="SubscribedEvent" />-->
 
                 <toolkit:Case Value="UnassignedEvent">
                     <Grid ColumnSpacing="8">
@@ -461,7 +405,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="marked this as a duplicate of" />
+                            Text="unassigned" />
 
                     </Grid>
                 </toolkit:Case>
@@ -476,7 +420,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="marked this as a duplicate of" />
+                            Text="removed label" />
 
                     </Grid>
                 </toolkit:Case>
@@ -491,7 +435,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="marked this as a duplicate of" />
+                            Text="unlocked" />
 
                     </Grid>
                 </toolkit:Case>
@@ -506,22 +450,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="marked this as a duplicate of" />
-
-                    </Grid>
-                </toolkit:Case>
-
-                <toolkit:Case Value="UnlabeledEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource BodyTextBlockStyle}"
-                            Text="marked this as a duplicate of" />
+                            Text="unmarked this as a duplicate of" />
 
                     </Grid>
                 </toolkit:Case>
@@ -536,25 +465,12 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="marked this as a duplicate of" />
+                            Text="unpinned" />
 
                     </Grid>
                 </toolkit:Case>
 
-                <toolkit:Case Value="UnsubscribedEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource BodyTextBlockStyle}"
-                            Text="marked this as a duplicate of" />
-
-                    </Grid>
-                </toolkit:Case>
+                <!--<toolkit:Case Value="UnsubscribedEvent" />-->
 
                 <toolkit:Case Value="UserBlockedEvent">
                     <Grid ColumnSpacing="8">
@@ -566,7 +482,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="marked this as a duplicate of" />
+                            Text="blocked user" />
 
                     </Grid>
                 </toolkit:Case>

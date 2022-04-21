@@ -181,8 +181,8 @@ namespace FluentHub.ViewModels.UserControls.Blocks
         private UnpinnedEvent  unpinnedEvent;
         public UnpinnedEvent UnpinnedEvent { get => unpinnedEvent; set => SetProperty(ref unpinnedEvent, value); }
 
-        private UnsubscribedEvent  unsubscribedEvent;
-        public UnsubscribedEvent UnsubscribedEvent { get => unsubscribedEvent; set => SetProperty(ref unsubscribedEvent, value); }
+        //private UnsubscribedEvent  unsubscribedEvent;
+        //public UnsubscribedEvent UnsubscribedEvent { get => unsubscribedEvent; set => SetProperty(ref unsubscribedEvent, value); }
 
         private UserBlockedEvent userBlockedEvent;
         public UserBlockedEvent UserBlockedEvent { get => userBlockedEvent; set => SetProperty(ref userBlockedEvent, value); }

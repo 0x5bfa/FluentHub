@@ -13,8 +13,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
 
 namespace FluentHub.ViewModels.Repositories.Issues
 {
@@ -161,8 +159,6 @@ namespace FluentHub.ViewModels.Repositories.Issues
                             viewmodel.Actor = viewmodel.MarkedAsDuplicateEvent.Actor;
                             break;
                         //case "MentionedEvent":
-                        //    viewmodel.MentionedEvent = eventItem as MentionedEvent;
-                        //    break;
                         case "MilestonedEvent":
                             viewmodel.TimelineBadgeGlyph = "\uEA12";
                             viewmodel.MilestonedEvent = eventItem as MilestonedEvent;
@@ -200,8 +196,6 @@ namespace FluentHub.ViewModels.Repositories.Issues
                             viewmodel.Actor = viewmodel.ReopenedEvent.Actor;
                             break;
                         //case "SubscribedEvent":
-                        //    viewmodel.SubscribedEvent = eventItem as SubscribedEvent;
-                        //    break;
                         case "UnassignedEvent":
                             viewmodel.TimelineBadgeGlyph = "\uEADB";
                             viewmodel.UnassignedEvent = eventItem as UnassignedEvent;
@@ -232,11 +226,7 @@ namespace FluentHub.ViewModels.Repositories.Issues
                             viewmodel.UnpinnedEvent = eventItem as UnpinnedEvent;
                             viewmodel.Actor = viewmodel.UnpinnedEvent.Actor;
                             break;
-                        case "UnsubscribedEvent":
-                            viewmodel.TimelineBadgeGlyph = "\uEADB";
-                            viewmodel.UnsubscribedEvent = eventItem as UnsubscribedEvent;
-                            viewmodel.Actor = viewmodel.UnsubscribedEvent.Actor;
-                            break;
+                        //case "UnsubscribedEvent":
                         case "UserBlockedEvent":
                             viewmodel.TimelineBadgeGlyph = "\uEADB";
                             viewmodel.UserBlockedEvent = eventItem as UserBlockedEvent;

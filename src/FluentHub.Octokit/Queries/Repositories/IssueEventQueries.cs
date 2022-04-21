@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GraphQLModel = global::Octokit.GraphQL.Model;
 
 namespace FluentHub.Octokit.Queries.Repositories
 {
@@ -369,17 +368,9 @@ namespace FluentHub.Octokit.Queries.Repositories
 
                     CreatedAt = y.CreatedAt,
                 })
-                .UnsubscribedEvent(y => new UnsubscribedEvent
-                {
-                    Actor = y.Actor.Select(actor => new Actor
-                    {
-                        AvatarUrl = actor.AvatarUrl(100),
-                        Login = actor.Login,
-                    })
-                    .Single(),
-
-                    CreatedAt = y.CreatedAt,
-                })
+                //.UnsubscribedEvent(y => new UnsubscribedEvent
+                //{
+                //})
                 .UserBlockedEvent(y => new UserBlockedEvent
                 {
                     Actor = y.Actor.Select(actor => new Actor
