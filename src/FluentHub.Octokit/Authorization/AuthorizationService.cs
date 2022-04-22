@@ -45,11 +45,12 @@ namespace FluentHub.Octokit.Authorization
                 await Launcher.LaunchUriAsync(oauthLoginUrl);
 
                 // Success
+                Log.Information("RequestGitHubIdentityAsync() completed successfully");
                 return true;
             }
             catch (Exception ex)
             {
-                Log.Error(ex, ex.Message);
+                Log.Error("RequestGitHubIdentityAsync(): {Message}", ex.Message);
                 return false;
             }
         }
@@ -68,15 +69,16 @@ namespace FluentHub.Octokit.Authorization
                     App.Client.Credentials = new global::Octokit.Credentials(token.AccessToken);
 
                     ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
-                    localSettings.Values["AccessToken"] = token.AccessToken;
+                    var accessToken = localSettings.Values["AccessToken"] = token.AccessToken;
 
                     // Get viewer login name
                     Octokit.Queries.Users.UserQueries queries = new();
                     string login = await queries.GetViewerLogin();
 
-                    localSettings.Values["SignedInUserName"] = login;
+                    var signedInUserName = localSettings.Values["SignedInUserName"] = login;
 
                     // Success
+                    Log.Information("RequestOAuthTokenAsync() completed successfully: {accessToken}/{signedInUserName}", accessToken, signedInUserName);
                     return true;
                 }
                 else

@@ -51,7 +51,7 @@ namespace FluentHub
                 {
                     await new ContentDialog
                     {
-                        Title = "Unhandled exception occured",
+                        Title = "Unhandled exception",
                         Content = e.Message,
                         CloseButtonText = "Close"
                     }.ShowAsync();
@@ -62,7 +62,6 @@ namespace FluentHub
 
             Log.Logger = GetSerilogLogger();
             Services = ConfigureServices();
-            Log.Debug("Initialized Fluenthub.");
         }
 
         /// <summary>
@@ -173,6 +172,8 @@ namespace FluentHub
                 ThemeHelper.Initialize();
                 Window.Current.Activate();
             }
+
+            Log.Information("App.InitializeAsync() done");
         }
 
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
@@ -208,7 +209,7 @@ namespace FluentHub
         private async Task HandleUriActivationAsync(Uri uri, bool openInNewTab)
         {
             var logger = Services.GetService<ILogger>();
-            logger?.Debug("HandleUriActivationAsync: {uri}", uri);
+            logger?.Debug("App.HandleUriActivationAsync(): {uri}", uri);
 
             Type page = null;
             object param = null;
