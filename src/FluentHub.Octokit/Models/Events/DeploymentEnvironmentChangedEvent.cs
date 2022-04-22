@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FluentHub.Octokit.Models.Events
 {
-    public class DeploymentEnvernmentChangedEvent
+    public class DeploymentEnvironmentChangedEvent
     {
         public Actor Actor { get; set; }
 

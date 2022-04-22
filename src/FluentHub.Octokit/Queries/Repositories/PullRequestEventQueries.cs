@@ -46,14 +46,94 @@ namespace FluentHub.Octokit.Queries.Repositories
                     CreatedAt = y.CreatedAt,
                 })
                 .AutoMergeDisabledEvent(y => new {})
-                .AutoMergeEnabledEvent((y => new {}))
-                .AutoRebaseEnabledEvent((y => new {}))
-                .AutoSquashEnabledEvent((y => new {}))
-                .AutomaticBaseChangeFailedEvent((y => new {}))
-                .AutomaticBaseChangeSucceededEvent((y => new {}))
-                .BaseRefChangedEvent((y => new {}))
-                .BaseRefDeletedEvent((y => new {}))
-                .BaseRefForcePushedEvent((y => new {}))
+                .AutoMergeEnabledEvent(y => new AutoMergeEnabledEvent
+                {
+                    Actor = y.Actor.Select(actor => new Actor
+                    {
+                        AvatarUrl = actor.AvatarUrl(100),
+                        Login = actor.Login,
+                    })
+                    .Single(),
+
+                    CreatedAt = y.CreatedAt,
+                })
+                .AutoRebaseEnabledEvent(y => new AutoRebaseEnabledEvent
+                {
+                    Actor = y.Actor.Select(actor => new Actor
+                    {
+                        AvatarUrl = actor.AvatarUrl(100),
+                        Login = actor.Login,
+                    })
+                    .Single(),
+
+                    CreatedAt = y.CreatedAt,
+                })
+                .AutoSquashEnabledEvent(y => new AutoSquashEnabledEvent
+                {
+                    Actor = y.Actor.Select(actor => new Actor
+                    {
+                        AvatarUrl = actor.AvatarUrl(100),
+                        Login = actor.Login,
+                    })
+                    .Single(),
+
+                    CreatedAt = y.CreatedAt,
+                })
+                .AutomaticBaseChangeFailedEvent(y => new AutomaticBaseChangeFailedEvent
+                {
+                    Actor = y.Actor.Select(actor => new Actor
+                    {
+                        AvatarUrl = actor.AvatarUrl(100),
+                        Login = actor.Login,
+                    })
+                    .Single(),
+
+                    CreatedAt = y.CreatedAt,
+                })
+                .AutomaticBaseChangeSucceededEvent(y => new AutomaticBaseChangeSucceededEvent
+                {
+                    Actor = y.Actor.Select(actor => new Actor
+                    {
+                        AvatarUrl = actor.AvatarUrl(100),
+                        Login = actor.Login,
+                    })
+                    .Single(),
+
+                    CreatedAt = y.CreatedAt,
+                })
+                .BaseRefChangedEvent(y => new BaseRefChangedEvent
+                {
+                    Actor = y.Actor.Select(actor => new Actor
+                    {
+                        AvatarUrl = actor.AvatarUrl(100),
+                        Login = actor.Login,
+                    })
+                    .Single(),
+
+                    CreatedAt = y.CreatedAt,
+                })
+                .BaseRefDeletedEvent(y => new BaseRefDeletedEvent
+                {
+                    Actor = y.Actor.Select(actor => new Actor
+                    {
+                        AvatarUrl = actor.AvatarUrl(100),
+                        Login = actor.Login,
+                    })
+                    .Single(),
+
+                    CreatedAt = y.CreatedAt,
+                })
+                .BaseRefForcePushedEvent(y => new BaseRefForcePushedEvent
+                {
+                    Actor = y.Actor.Select(actor => new Actor
+                    {
+                        AvatarUrl = actor.AvatarUrl(100),
+                        Login = actor.Login,
+                    })
+                    .Single(),
+
+                    CreatedAt = y.CreatedAt,
+                })
                 .ClosedEvent(y => new ClosedEvent
                 {
                     Actor = y.Actor.Select(actor => new Actor
@@ -120,8 +200,28 @@ namespace FluentHub.Octokit.Queries.Repositories
 
                     CreatedAt = y.CreatedAt,
                 })
-                .DeployedEvent((y => new {}))
-                .DeploymentEnvironmentChangedEvent((y => new {}))
+                .DeployedEvent(y => new DeployedEvent
+                {
+                    Actor = y.Actor.Select(actor => new Actor
+                    {
+                        AvatarUrl = actor.AvatarUrl(100),
+                        Login = actor.Login,
+                    })
+                    .Single(),
+
+                    CreatedAt = y.CreatedAt,
+                })
+                .DeploymentEnvironmentChangedEvent(y => new DeploymentEnvironmentChangedEvent
+                {
+                    Actor = y.Actor.Select(actor => new Actor
+                    {
+                        AvatarUrl = actor.AvatarUrl(100),
+                        Login = actor.Login,
+                    })
+                    .Single(),
+
+                    CreatedAt = y.CreatedAt,
+                })
                 .DisconnectedEvent(y => new DisconnectedEvent
                 {
                     Actor = y.Actor.Select(actor => new Actor
@@ -133,9 +233,39 @@ namespace FluentHub.Octokit.Queries.Repositories
 
                     CreatedAt = y.CreatedAt,
                 })
-                .HeadRefDeletedEvent((y => new {}))
-                .HeadRefForcePushedEvent((y => new {}))
-                .HeadRefRestoredEvent((y => new {}))
+                .HeadRefDeletedEvent(y => new HeadRefDeletedEvent
+                {
+                    Actor = y.Actor.Select(actor => new Actor
+                    {
+                        AvatarUrl = actor.AvatarUrl(100),
+                        Login = actor.Login,
+                    })
+                    .Single(),
+
+                    CreatedAt = y.CreatedAt,
+                })
+                .HeadRefForcePushedEvent(y => new HeadRefForcePushedEvent
+                {
+                    Actor = y.Actor.Select(actor => new Actor
+                    {
+                        AvatarUrl = actor.AvatarUrl(100),
+                        Login = actor.Login,
+                    })
+                    .Single(),
+
+                    CreatedAt = y.CreatedAt,
+                })
+                .HeadRefRestoredEvent(y => new HeadRefRestoredEvent
+                {
+                    Actor = y.Actor.Select(actor => new Actor
+                    {
+                        AvatarUrl = actor.AvatarUrl(100),
+                        Login = actor.Login,
+                    })
+                    .Single(),
+
+                    CreatedAt = y.CreatedAt,
+                })
                 .IssueComment(y => new IssueComment
                 {
                     Author = y.Author.Select(author => new Actor
@@ -212,10 +342,17 @@ namespace FluentHub.Octokit.Queries.Repositories
 
                     CreatedAt = y.CreatedAt,
                 })
-                //.MentionedEvent(y => new MentionedEvent
-                //{
-                //})
-                .MergedEvent((y => new { }))
+                .MergedEvent(y => new MergedEvent
+                {
+                    Actor = y.Actor.Select(actor => new Actor
+                    {
+                        AvatarUrl = actor.AvatarUrl(100),
+                        Login = actor.Login,
+                    })
+                    .Single(),
+
+                    CreatedAt = y.CreatedAt,
+                })
                 .MilestonedEvent(y => new MilestonedEvent
                 {
                     Actor = y.Actor.Select(actor => new Actor
@@ -251,12 +388,39 @@ namespace FluentHub.Octokit.Queries.Repositories
 
                     CreatedAt = y.CreatedAt,
                 })
-                .PullRequestCommit((y => new {}))
-                .PullRequestCommitCommentThread((y => new {}))
-                .PullRequestReview((y => new {}))
-                .PullRequestReviewThread((y => new {}))
-                .PullRequestRevisionMarker((y => new {}))
-                .ReadyForReviewEvent((y => new {}))
+                .PullRequestCommit(y => new PullRequestCommit
+                {
+                    Actor = y.Commit.Author.Select(actor => new Actor
+                    {
+                        AvatarUrl = actor.AvatarUrl(100),
+                        Login = actor.Name,
+                    })
+                    .Single(),
+
+                    CreatedAt = y.Commit.AuthoredDate,
+                })
+                .PullRequestReview(y => new PullRequestReview
+                {
+                    Actor = y.Commit.Author.Select(actor => new Actor
+                    {
+                        AvatarUrl = actor.AvatarUrl(100),
+                        Login = actor.Name,
+                    })
+                    .Single(),
+
+                    CreatedAt = y.CreatedAt,
+                })
+                .ReadyForReviewEvent(y => new ReadyForReviewEvent
+                {
+                    Actor = y.Actor.Select(actor => new Actor
+                    {
+                        AvatarUrl = actor.AvatarUrl(100),
+                        Login = actor.Login,
+                    })
+                    .Single(),
+
+                    CreatedAt = y.CreatedAt,
+                })
                 .ReferencedEvent(y => new ReferencedEvent
                 {
                     Actor = y.Actor.Select(actor => new Actor
@@ -304,12 +468,39 @@ namespace FluentHub.Octokit.Queries.Repositories
 
                     CreatedAt = y.CreatedAt,
                 })
-                .ReviewDismissedEvent((y => new {}))
-                .ReviewRequestRemovedEvent((y => new {}))
-                .ReviewRequestedEvent((y => new {}))
-                //.SubscribedEvent(y => new SubscribedEvent
-                //{
-                //})
+                .ReviewDismissedEvent(y => new ReviewDismissedEvent
+                {
+                    Actor = y.Actor.Select(actor => new Actor
+                    {
+                        AvatarUrl = actor.AvatarUrl(100),
+                        Login = actor.Login,
+                    })
+                    .Single(),
+
+                    CreatedAt = y.CreatedAt,
+                })
+                .ReviewRequestRemovedEvent(y => new ReviewRequestRemovedEvent
+                {
+                    Actor = y.Actor.Select(actor => new Actor
+                    {
+                        AvatarUrl = actor.AvatarUrl(100),
+                        Login = actor.Login,
+                    })
+                    .Single(),
+
+                    CreatedAt = y.CreatedAt,
+                })
+                .ReviewRequestedEvent(y => new ReviewRequestedEvent
+                {
+                    Actor = y.Actor.Select(actor => new Actor
+                    {
+                        AvatarUrl = actor.AvatarUrl(100),
+                        Login = actor.Login,
+                    })
+                    .Single(),
+
+                    CreatedAt = y.CreatedAt,
+                })
                 .TransferredEvent(y => new TransferredEvent
                 {
                     Actor = y.Actor.Select(actor => new Actor
@@ -392,9 +583,6 @@ namespace FluentHub.Octokit.Queries.Repositories
 
                     CreatedAt = y.CreatedAt,
                 })
-                //.UnsubscribedEvent(y => new UnsubscribedEvent
-                //{
-                //})
                 .UserBlockedEvent(y => new UserBlockedEvent
                 {
                     Actor = y.Actor.Select(actor => new Actor
@@ -408,6 +596,12 @@ namespace FluentHub.Octokit.Queries.Repositories
 
                     CreatedAt = y.CreatedAt,
                 })
+                //.MentionedEvent(y => new MentionedEvent {})
+                //.PullRequestCommitCommentThread(y => new PullRequestCommitCommentThread {})
+                //.PullRequestReviewThread(y => new PullRequestReviewThread {})
+                //.PullRequestRevisionMarker(y => new PullRequestRevisionMarker {})
+                //.SubscribedEvent(y => new SubscribedEvent {})
+                //.UnsubscribedEvent(y => new UnsubscribedEvent {})
                 ))
                 .Compile();
             #endregion

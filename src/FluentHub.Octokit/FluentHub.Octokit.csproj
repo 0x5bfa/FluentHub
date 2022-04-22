@@ -153,7 +153,7 @@
     <Compile Include="Models\Events\CrossReferencedEvent.cs" />
     <Compile Include="Models\Events\DemilestonedEvent.cs" />
     <Compile Include="Models\Events\DeployedEvent.cs" />
-    <Compile Include="Models\Events\DeploymentEnvernmentChangedEvent.cs" />
+    <Compile Include="Models\Events\DeploymentEnvironmentChangedEvent.cs" />
     <Compile Include="Models\Events\DisconnectedEvent.cs" />
     <Compile Include="Models\Events\HeadRefDeletedEvent.cs" />
     <Compile Include="Models\Events\HeadRefForcePushedEvent.cs" />
