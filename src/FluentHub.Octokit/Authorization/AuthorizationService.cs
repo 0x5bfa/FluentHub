@@ -45,7 +45,7 @@ namespace FluentHub.Octokit.Authorization
                 await Launcher.LaunchUriAsync(oauthLoginUrl);
 
                 // Success
-                Log.Information("RequestGitHubIdentityAsync() completed successfully");
+                Log.Information("RequestGitHubIdentityAsync() completed successfully: [url: {oauthLoginUrl}]", oauthLoginUrl);
                 return true;
             }
             catch (Exception ex)
@@ -78,7 +78,7 @@ namespace FluentHub.Octokit.Authorization
                     var signedInUserName = localSettings.Values["SignedInUserName"] = login;
 
                     // Success
-                    Log.Information("RequestOAuthTokenAsync() completed successfully: {accessToken}/{signedInUserName}", accessToken, signedInUserName);
+                    Log.Information("RequestOAuthTokenAsync() completed successfully: [accessToken: {accessToken}](username: {signedInUserName})", accessToken, signedInUserName);
                     return true;
                 }
                 else
@@ -88,7 +88,7 @@ namespace FluentHub.Octokit.Authorization
             }
             catch (Exception ex)
             {
-                Log.Error(ex, ex.Message);
+                Log.Error("RequestOAuthTokenAsync(): {Message}", ex.Message);
                 return false;
             }
         }
