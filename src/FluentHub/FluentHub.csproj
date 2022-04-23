@@ -129,6 +129,9 @@
     </Compile>
     <Compile Include="Converters\ObjectToBoolConverter.cs" />
     <Compile Include="Converters\SettingsControlConverter.cs" />
+    <Compile Include="Dialogs\AccountSwitching.xaml.cs">
+      <DependentUpon>AccountSwitching.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\IssueDetailsContentDialog.xaml.cs">
       <DependentUpon>IssueDetailsContentDialog.xaml</DependentUpon>
     </Compile>
@@ -168,6 +171,9 @@
     </Compile>
     <Compile Include="UserControls\Blocks\UserContributionGraph.xaml.cs">
       <DependentUpon>UserContributionGraph.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ButtonBlocks\AccountButtonBlock.xaml.cs">
+      <DependentUpon>AccountButtonBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ButtonBlocks\CommitButtonBlock.xaml.cs">
       <DependentUpon>CommitButtonBlock.xaml</DependentUpon>
@@ -273,6 +279,7 @@
     <Compile Include="ViewModels\UserControls\Blocks\FileNavigationBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\ReadmeContentBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\UserContributionGraphViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\ButtonBlocks\AccountButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\CommitButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\DiscussionButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\IssueButtonBlockViewModel.cs" />
@@ -601,6 +608,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Dialogs\AccountSwitching.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\IssueDetailsContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -656,6 +667,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Blocks\UserContributionGraph.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ButtonBlocks\AccountButtonBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
