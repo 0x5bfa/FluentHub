@@ -198,6 +198,7 @@
                                 <MenuFlyoutSeparator />
                                 <MenuFlyoutItem IsEnabled="False" Text="Abuse this page" />
                                 <MenuFlyoutSeparator />
+                                <MenuFlyoutItem Click="SwitchAccountFlyoutItem_Click" Text="Switch Account" />
                                 <MenuFlyoutItem Click="SettingsMenuFlyoutItem_Click" Text="App settings" />
                                 <MenuFlyoutItem Click="SignOutMenuFlyoutItem_Click" Text="Sign out" />
                             </MenuFlyout>

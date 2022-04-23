@@ -3,6 +3,7 @@ using FluentHub.Models;
 using FluentHub.Services;
 using FluentHub.Services.Navigation;
 using FluentHub.ViewModels;
+using FluentHub.Dialogs;
 using FluentHub.Views.Home;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
@@ -146,6 +147,12 @@ namespace FluentHub.Views
         }
         private void OnTabViewSelectionChanged(object sender, TabViewSelectionChangedEventArgs e)
             => RootFrameBorder.Child = e.NewSelectedItem?.Frame;
-        #endregion        
+        #endregion
+
+        private async void SwitchAccountFlyoutItem_Click(object sender, RoutedEventArgs e)
+        {
+            AccountSwitching accountSwitchingDialog = new();
+            await accountSwitchingDialog.ShowAsync();
+        }
     }
 }
