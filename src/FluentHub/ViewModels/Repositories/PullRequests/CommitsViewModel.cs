@@ -3,8 +3,8 @@ using FluentHub.Octokit.Models.Events;
 using FluentHub.Octokit.Models;
 using FluentHub.Models;
 using FluentHub.Octokit.Queries.Repositories;
-using FluentHub.UserControls.Blocks;
-using FluentHub.ViewModels.UserControls.Blocks;
+using FluentHub.UserControls.ButtonBlocks;
+using FluentHub.ViewModels.UserControls.ButtonBlocks;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
@@ -32,6 +32,12 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
 
+        private PullRequest pullItem;
+        public PullRequest PullItem { get => pullItem; private set => SetProperty(ref pullItem, value); }
+
+        private readonly ObservableCollection<CommitButtonBlockViewModel> _items;
+        public ReadOnlyObservableCollection<CommitButtonBlockViewModel> Items { get; }
+
         public IAsyncRelayCommand RefreshPullRequestPageCommand { get; }
         #endregion
 
@@ -40,10 +46,22 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
         {
             try
             {
-                DiffQueries queries = new DiffQueries();
-                var items  = await queries.GetAllAsync(pull.OwnerLogin, pull.Name, null);
+                if (pull != null) PullItem = pull;
 
+                CommitQueries queries = new();
+                List<Commit> items = await queries.GetAllAsync(PullItem.Name, PullItem.OwnerLogin, PullItem.HeadRefName, "/");
 
+                _items.Clear();
+
+                foreach (var item in items)
+                {
+                    CommitButtonBlockViewModel viewModel = new()
+                    {
+                        CommitItem = item,
+                    };
+
+                    _items.Add(viewModel);
+                }
             }
             catch (Exception ex)
             {
