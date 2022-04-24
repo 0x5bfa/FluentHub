@@ -23,6 +23,8 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
         {
             _messenger = messenger;
             _logger = logger;
+            _eventBlocks = new();
+            EventBlocks = new(_eventBlocks);
 
             RefreshPullRequestPageCommand = new AsyncRelayCommand<PullRequest>(RefreshPullRequestPageAsync);
         }

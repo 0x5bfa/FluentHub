@@ -32,8 +32,8 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
 
-        private string headRefName;
-        public string HeadRefName { get => headRefName; set => SetProperty(ref headRefName, value); }
+        private PullRequest pullItem;
+        public PullRequest PullItem { get => pullItem; private set => SetProperty(ref pullItem, value); }
 
         public IAsyncRelayCommand RefreshPullRequestPageCommand { get; }
         #endregion
@@ -43,8 +43,10 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
         {
             try
             {
+                if (pull != null) PullItem = pull;
+
                 DiffQueries queries = new DiffQueries();
-                var items = await queries.GetAllAsync(pull.OwnerLogin, pull.Name, HeadRefName);
+                var items = await queries.GetAllAsync(PullItem.OwnerLogin, PullItem.Name, PullItem.HeadRefName);
             }
             catch (Exception ex)
             {

@@ -58,13 +58,13 @@ namespace FluentHub.Views.Repositories.PullRequests
             switch (args.SelectedItemContainer?.Tag?.ToString())
             {
                 case "conversation":
-                    PullRequestContentFrame.Navigate(typeof(ConversationPage));
+                    PullRequestContentFrame.Navigate(typeof(ConversationPage), ViewModel.PullItem);
                     break;
                 case "commits":
-                    PullRequestContentFrame.Navigate(typeof(CommitsPage));
+                    PullRequestContentFrame.Navigate(typeof(CommitsPage), ViewModel.PullItem);
                     break;
                 case "filechanges":
-                    PullRequestContentFrame.Navigate(typeof(FileChangesPage));
+                    PullRequestContentFrame.Navigate(typeof(FileChangesPage), ViewModel.PullItem);
                     break;
             }
         }
