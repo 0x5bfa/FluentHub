@@ -13,17 +13,21 @@ namespace FluentHub.Octokit.Models
         public string OwnerLogin { get; set; }
         public string OwnerAvatarUrl { get; set; }
         public string Title { get; set; }
-        public string ReviewState { get; set; }
-        public string StatusState { get; set; }
+        public string BaseRefName { get; set; }
+        public string HeadRefName { get; set; }
+        public string HeadRefOwnerLogin { get; set; }
 
         public int Number { get; set; }
         public int CommentCount { get; set; }
 
-        public bool IsClosed { get; set; }
-        public bool IsMerged { get; set; }
+        public bool Closed { get; set; }
+        public bool Merged { get; set; }
         public bool IsDraft { get; set; }
 
         public List<Label> Labels { get; set; } = new();
+
+        public GraphQLModel.PullRequestReviewState ReviewState { get; set; }
+        public GraphQLModel.StatusState StatusState { get; set; }
 
         public DateTimeOffset UpdatedAt { get; set; }
         public string UpdatedAtHumanized { get; set; }

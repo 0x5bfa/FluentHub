@@ -51,7 +51,7 @@ namespace FluentHub
                 {
                     await new ContentDialog
                     {
-                        Title = "Unhandled exception occured",
+                        Title = "Unhandled exception",
                         Content = e.Message,
                         CloseButtonText = "Close"
                     }.ShowAsync();
@@ -62,7 +62,6 @@ namespace FluentHub
 
             Log.Logger = GetSerilogLogger();
             Services = ConfigureServices();
-            Log.Debug("Initialized Fluenthub.");
         }
 
         /// <summary>
@@ -92,6 +91,7 @@ namespace FluentHub
                 .AddTransient<ViewModels.AppSettings.AppearanceViewModel>()
                 .AddTransient<ViewModels.Home.NotificationsViewModel>()
                 .AddTransient<ViewModels.Home.ActivitiesViewModel>()
+                .AddTransient<ViewModels.Organizations.OverviewViewModel>()
                 .AddTransient<ViewModels.Organizations.RepositoriesViewModel>()
                 .AddTransient<ViewModels.Repositories.Codes.Layouts.DetailsLayoutViewModel>()
                 .AddTransient<ViewModels.Repositories.Codes.ReleasesViewModel>()
@@ -99,6 +99,9 @@ namespace FluentHub
                 .AddTransient<ViewModels.Repositories.Commits.CommitViewModel>()
                 .AddTransient<ViewModels.Repositories.Issues.IssueViewModel>()
                 .AddTransient<ViewModels.Repositories.Issues.IssuesViewModel>()
+                .AddTransient<ViewModels.Repositories.PullRequests.ConversationViewModel>()
+                .AddTransient<ViewModels.Repositories.PullRequests.CommitsViewModel>()
+                .AddTransient<ViewModels.Repositories.PullRequests.FileChangesViewModel>()
                 .AddTransient<ViewModels.Repositories.PullRequests.PullRequestViewModel>()
                 .AddTransient<ViewModels.Repositories.PullRequests.PullRequestsViewModel>()
                 .AddTransient<ViewModels.UserControls.Blocks.FileContentBlockViewModel>()
@@ -173,6 +176,8 @@ namespace FluentHub
                 ThemeHelper.Initialize();
                 Window.Current.Activate();
             }
+
+            Log.Information("App.InitializeAsync() done");
         }
 
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
@@ -208,7 +213,7 @@ namespace FluentHub
         private async Task HandleUriActivationAsync(Uri uri, bool openInNewTab)
         {
             var logger = Services.GetService<ILogger>();
-            logger?.Debug("HandleUriActivationAsync: {uri}", uri);
+            logger?.Debug("App.HandleUriActivationAsync(): {uri}", uri);
 
             Type page = null;
             object param = null;

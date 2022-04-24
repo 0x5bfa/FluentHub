@@ -36,7 +36,8 @@ namespace FluentHub.Octokit.Queries.Organizations
                         {
                             y.Name,
                             y.Color,
-                        }).SingleOrDefault(),
+                        })
+                        .SingleOrDefault(),
 
                         x.StargazerCount,
                         x.ForkCount,

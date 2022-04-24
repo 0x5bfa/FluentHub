@@ -48,5 +48,29 @@ namespace FluentHub.Octokit.Queries.Repositories
 
             return item;
         }
+
+        public async Task<List<ChangedFile>> GetAllAsync(string owner, string name, int number)
+        {
+            var files = await App.Client.Repository.PullRequest.Files(owner, name, number);
+
+            List<ChangedFile> changedFiles = new();
+            foreach (var file in files)
+            {
+                ChangedFile changedFile = new()
+                {
+                    TotalLineCount = file.Changes,
+                    LineAdditions = file.Additions,
+                    LineDeletions = file.Deletions,
+                    Patch = file.Patch,
+                    ChangeType = file.Status,
+                    FileName = file.FileName,
+                    PreviousFileName = file.PreviousFileName,
+                };
+
+                changedFiles.Add(changedFile);
+            }
+
+            return changedFiles;
+        }
     }
 }

@@ -16,7 +16,7 @@ namespace FluentHub.Octokit.Models
         public int Number { get; set; }
         public int CommentCount { get; set; }
 
-        public bool IsClosed { get; set; }
+        public bool Closed { get; set; }
 
         public List<Label> Labels { get; set; } = new();
 

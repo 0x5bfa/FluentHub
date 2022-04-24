@@ -50,6 +50,7 @@ namespace FluentHub.ViewModels.Repositories.Codes.Layouts
         {
             try
             {
+                if (ContextViewModel.RepositoryDetails == null) return; // There's no code
                 if (contextViewModel.IsFile) return;
 
                 CommitQueries queries = new();

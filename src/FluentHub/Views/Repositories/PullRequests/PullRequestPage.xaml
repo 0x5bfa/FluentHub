@@ -10,6 +10,18 @@
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <StaticResource x:Key="NavigationViewContentBackground" ResourceKey="SystemControlPageBackgroundTransparentBrush" />
+                    <Thickness x:Key="NavigationViewTopPaneHeight">40</Thickness>
+                    <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
     <Grid>
         <toolkit:SwitchPresenter
             Grid.RowSpan="2"
@@ -37,6 +49,7 @@
                         <ScrollViewer>
                             <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top">
                                 <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="*" />
@@ -73,9 +86,9 @@
                                         Margin="0,16,0,8"
                                         Orientation="Horizontal"
                                         Spacing="8">
-                                        <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.PullItem.IsClosed, Mode=OneWay}">
+                                        <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.PullItem.Closed, Mode=OneWay}">
                                             <toolkit:Case Value="True">
-                                                <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.PullItem.IsMerged, Mode=OneWay}">
+                                                <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.PullItem.Merged, Mode=OneWay}">
                                                     <toolkit:Case Value="True">
                                                         <label:StateLabel Status="PullMerged" />
                                                     </toolkit:Case>
@@ -114,23 +127,56 @@
                                     </Grid>
                                 </Grid>
 
-                                <MenuFlyoutSeparator Grid.Row="1" Margin="12,-2" />
+                                <Grid
+                                    Grid.Row="1"
+                                    Margin="12,4"
+                                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="4">
+                                    <muxc:NavigationView
+                                        x:Name="PullRequestNavigationView"
+                                        Margin="6,0"
+                                        IsBackButtonVisible="Collapsed"
+                                        IsSettingsVisible="False"
+                                        PaneDisplayMode="Top"
+                                        SelectionChanged="OnPullRequestNavigationViewSelectionChanged">
+                                        <muxc:NavigationView.MenuItems>
+                                            <muxc:NavigationViewItem
+                                                Content="Conversation"
+                                                IsSelected="True"
+                                                Tag="conversation">
+                                                <muxc:NavigationViewItem.Icon>
+                                                    <FontIcon
+                                                        FontFamily="{StaticResource Octions}"
+                                                        FontSize="16"
+                                                        Glyph="&#xE95D;" />
+                                                </muxc:NavigationViewItem.Icon>
+                                            </muxc:NavigationViewItem>
+                                            <muxc:NavigationViewItem Content="Commits" Tag="commits">
+                                                <muxc:NavigationViewItem.Icon>
+                                                    <FontIcon
+                                                        FontFamily="{StaticResource Octions}"
+                                                        FontSize="16"
+                                                        Glyph="&#xE9B9;" />
+                                                </muxc:NavigationViewItem.Icon>
+                                            </muxc:NavigationViewItem>
+                                            <muxc:NavigationViewItem Content="File changes" Tag="filechanges">
+                                                <muxc:NavigationViewItem.Icon>
+                                                    <FontIcon
+                                                        FontFamily="{StaticResource Octions}"
+                                                        FontSize="16"
+                                                        Glyph="&#xE99D;" />
+                                                </muxc:NavigationViewItem.Icon>
+                                            </muxc:NavigationViewItem>
+                                        </muxc:NavigationView.MenuItems>
+                                    </muxc:NavigationView>
+                                </Grid>
 
-                                <StackPanel
-                                    x:Name="PullRequestContentPanel"
-                                    Grid.Row="2"
-                                    Padding="12,0,12,0">
+                                <MenuFlyoutSeparator Grid.Row="2" Margin="24,-2" />
 
-                                    <Border
-                                        Width="1.5"
-                                        Height="16"
-                                        Margin="36,0,0,0"
-                                        HorizontalAlignment="Left"
-                                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+                                <Frame x:Name="PullRequestContentFrame" Grid.Row="3" />
 
-                                    <ItemsControl ItemsSource="{x:Bind ViewModel.EventBlocks, Mode=OneWay}" />
-
-                                </StackPanel>
                             </Grid>
                         </ScrollViewer>
                     </toolkit:Case>

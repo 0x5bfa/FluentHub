@@ -90,25 +90,31 @@ namespace FluentHub.Octokit.Queries.Repositories
                     .Select(x => new
                     {
                         x.HomepageUrl,
-                        DefaultBranchName = x.DefaultBranchRef.Name,
+                        DefaultBranchName = x.DefaultBranchRef.Select(defaultbranchref => new { defaultbranchref.Name }).SingleOrDefault(),
 
                         WatcherCount = x.Watchers(null, null, null, null).TotalCount,
                         HeadRefsCount = x.Refs("refs/heads/", null, null, null, null, null, null, null).TotalCount,
                         TagCount = x.Refs("refs/tags/", null, null, null, null, null, null, null).TotalCount,
-                        ReleaseCount = x.Releases(null, null, null, null, null).TotalCount,
 
-                        LatestReleaseOverview = x.Releases(null, null, 1, null, null).Nodes.Select(y => new
+                        LatestReleaseOverview = x.Releases(null, null, 1, null, null).Select(y => new
                         {
-                            AuthorLogin = y.Author.Login,
-                            AuthorAvatarUrl = y.Author.AvatarUrl(100),
-                            y.DescriptionHTML,
-                            y.IsDraft,
-                            y.IsLatest,
-                            y.IsPrerelease,
-                            y.Name,
-                            y.PublishedAt,
+                            A = y.Nodes.Select(release => new
+                            {
+                                AuthorLogin = release.Author.Login,
+                                AuthorAvatarUrl = release.Author.AvatarUrl(100),
+                                release.DescriptionHTML,
+                                release.IsDraft,
+                                release.IsLatest,
+                                release.IsPrerelease,
+                                release.Name,
+                                release.PublishedAt,
+                            })
+                            .ToList(),
+
+                            y.TotalCount,
+
                         })
-                        .ToList(),
+                        .SingleOrDefault(),
 
                         x.ForkingAllowed,
                         x.HasIssuesEnabled,
@@ -131,12 +137,12 @@ namespace FluentHub.Octokit.Queries.Repositories
 
             Models.RepositoryDetails item = new()
             {
-                DefaultBranchName = res.DefaultBranchName,
+                DefaultBranchName = res.DefaultBranchName?.Name,
                 HomepageUrl = res.HomepageUrl,
 
                 WatcherCount = res.WatcherCount,
                 HeadRefsCount = res.HeadRefsCount,
-                ReleaseCount = res.ReleaseCount,
+                ReleaseCount = res.LatestReleaseOverview.TotalCount,
 
                 HasIssuesEnabled = res.HasIssuesEnabled,
                 HasProjectsEnabled = res.HasProjectsEnabled,
@@ -149,19 +155,21 @@ namespace FluentHub.Octokit.Queries.Repositories
                 UpdatedAt = res.UpdatedAt,
             };
 
-            if (res.LatestReleaseOverview.Count() != 0)
+            if (res.LatestReleaseOverview.A.Count() != 0)
             {
                 item.LatestReleaseOverview = new()
                 {
-                    AuthorAvatarUrl = res.LatestReleaseOverview[0].AuthorAvatarUrl,
-                    AuthorLogin = res.LatestReleaseOverview[0].AuthorLogin,
-                    DescriptionHTML = res.LatestReleaseOverview[0].DescriptionHTML,
-                    IsDraft = res.LatestReleaseOverview[0].IsDraft,
-                    IsLatest = res.LatestReleaseOverview[0].IsLatest,
-                    IsPrerelease = res.LatestReleaseOverview[0].IsPrerelease,
-                    Name = res.LatestReleaseOverview[0].Name,
-                    PublishedAt = res.LatestReleaseOverview[0]?.PublishedAt,
-                    PublishedAtHumanized = res.LatestReleaseOverview[0]?.PublishedAt.Humanize(),
+                    AuthorAvatarUrl = res.LatestReleaseOverview.A[0].AuthorAvatarUrl,
+                    AuthorLogin = res.LatestReleaseOverview.A[0].AuthorLogin,
+                    DescriptionHTML = res.LatestReleaseOverview.A[0].DescriptionHTML,
+                    Name = res.LatestReleaseOverview.A[0].Name,
+
+                    IsDraft = res.LatestReleaseOverview.A[0].IsDraft,
+                    IsLatest = res.LatestReleaseOverview.A[0].IsLatest,
+                    IsPrerelease = res.LatestReleaseOverview.A[0].IsPrerelease,
+
+                    PublishedAt = res.LatestReleaseOverview?.A[0].PublishedAt,
+                    PublishedAtHumanized = res.LatestReleaseOverview?.A[0].PublishedAt.Humanize(),
                 };
             }
             #endregion
