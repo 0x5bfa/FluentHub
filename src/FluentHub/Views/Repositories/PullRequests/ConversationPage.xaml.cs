@@ -1,5 +1,4 @@
-﻿using System;
-using FluentHub.Services;
+﻿using FluentHub.Services;
 using FluentHub.ViewModels.Repositories.PullRequests;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -27,5 +26,25 @@ namespace FluentHub.Views.Repositories.PullRequests
 
         private readonly INavigationService navigationService;
         public ConversationViewModel ViewModel { get; }
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            Octokit.Models.PullRequest param = e.Parameter as Octokit.Models.PullRequest;
+
+            DataContext = e.Parameter;
+
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = $"{param.Title} · Pull Request #{param.Number} · {param.OwnerLogin}/{param.Name}";
+            currentItem.Description = currentItem.Header;
+            currentItem.Url = $"https://github.com/{param.OwnerLogin}/{param.Name}/pull/{param.Number}";
+            currentItem.Icon = new muxc.ImageIconSource
+            {
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/PullRequests.png"))
+            };
+
+            var command = ViewModel.RefreshPullRequestPageCommand;
+            if (command.CanExecute(param))
+                command.Execute(param);
+        }
     }
 }

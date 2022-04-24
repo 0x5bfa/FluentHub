@@ -40,6 +40,10 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
         {
             try
             {
+                DiffQueries queries = new DiffQueries();
+                var items  = await queries.GetAllAsync(pull.OwnerLogin, pull.Name, null);
+
+
             }
             catch (Exception ex)
             {

@@ -80,8 +80,8 @@ namespace FluentHub.Octokit.Queries.Users
                     Number = res.Number,
                     CommentCount = res.CommentCount,
 
-                    IsClosed = res.Closed,
-                    IsMerged = res.Merged,
+                    Closed = res.Closed,
+                    Merged = res.Merged,
                     IsDraft = res.IsDraft,
 
                     UpdatedAt = res.UpdatedAt,

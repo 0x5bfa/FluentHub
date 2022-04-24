@@ -60,9 +60,9 @@ namespace FluentHub.ViewModels.UserControls.ButtonBlocks
                             NotificationItem.Repository.Name,
                             Convert.ToInt32(NotificationItem.Subject.Url.Split("/")[NotificationItem.Subject.Url.Split("/").Count() - 1]));
                         NameWithOwner += $" #{pull.Number}";
-                        if (pull.IsClosed)
+                        if (pull.Closed)
                         {
-                            if (pull.IsMerged)
+                            if (pull.Merged)
                             {
                                 StateGlyph = "\uE9BD";
                                 StateGlyphForeground = ColorHelpers.HexCodeToSolidColorBrush("#986EE2");
