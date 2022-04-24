@@ -1,60 +1,64 @@
-﻿using FluentHub.Backend;
-using FluentHub.Octokit.Models.Events;
-using FluentHub.Octokit.Models;
+﻿using FluentHub.Models.Items;
+using FluentHub.Backend;
 using FluentHub.Models;
+using FluentHub.Octokit.Models;
 using FluentHub.Octokit.Queries.Repositories;
-using FluentHub.UserControls.Blocks;
 using FluentHub.ViewModels.UserControls.Blocks;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Linq;
 
 namespace FluentHub.ViewModels.Repositories.PullRequests
 {
-    public class FileChangesViewModel : ObservableObject
+    public class CommitViewModel : ObservableObject
     {
         #region constructor
-        public FileChangesViewModel(IMessenger messenger = null, ILogger logger = null)
+        public CommitViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _messenger = messenger;
             _logger = logger;
+            _messenger = messenger;
             _diffViewModels = new();
-            DiffViewModels = new(_diffViewModels);
 
-            RefreshPullRequestPageCommand = new AsyncRelayCommand<PullRequest>(RefreshPullRequestPageAsync);
+            DiffViewModels = new(_diffViewModels);
+            LoadCommitPageCommand = new AsyncRelayCommand(LoadCommitPageAsync);
         }
         #endregion
 
         #region properties
-        private readonly IMessenger _messenger;
         private readonly ILogger _logger;
+        private readonly IMessenger _messenger;
 
-        private PullRequest pullItem;
-        public PullRequest PullItem { get => pullItem; private set => SetProperty(ref pullItem, value); }
+        private Commit _commitItem;
+        public Commit CommitItem { get => _commitItem; set => SetProperty(ref _commitItem, value); }
+
+        private CommitDetails _commitDetails;
+        public CommitDetails CommitDetails { get => _commitDetails; set => SetProperty(ref _commitDetails, value); }
 
         private ObservableCollection<DiffBlockViewModel> _diffViewModels;
         public ReadOnlyObservableCollection<DiffBlockViewModel> DiffViewModels { get; }
 
-        public IAsyncRelayCommand RefreshPullRequestPageCommand { get; }
+        public IAsyncRelayCommand LoadCommitPageCommand { get; }
         #endregion
 
         #region methods
-        private async Task RefreshPullRequestPageAsync(PullRequest pull)
+        private async Task LoadCommitPageAsync(CancellationToken token)
         {
             try
             {
-                if (pull != null) PullItem = pull;
+                DiffQueries queries = new();
+                var files = await queries.GetAllAsync(
+                    CommitItem.Owner,
+                    CommitItem.Name,
+                    CommitItem.PullRequestNumber);
 
-                DiffQueries queries = new DiffQueries();
-                var files = await queries.GetAllAsync(PullItem.OwnerLogin, PullItem.Name, PullItem.Number);
-
-                if (!files.Any()) return;
+                if (CommitDetails.ChangedFiles.Count() == 0) return;
 
                 foreach (var item in files)
                 {
@@ -65,11 +69,11 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
 
                     _diffViewModels.Add(viewModel);
                 }
-
             }
+            catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error("RefreshPullRequestPageAsync", ex);
+                _logger?.Error("LoadCommitPageAsync", ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);

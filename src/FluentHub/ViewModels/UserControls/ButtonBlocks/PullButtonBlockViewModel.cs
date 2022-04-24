@@ -20,6 +20,23 @@ namespace FluentHub.ViewModels.UserControls.ButtonBlocks
         {
             _labelViewModels = new();
             LabelViewModels = new(_labelViewModels);
+
+            CommentCountLabel = new()
+            {
+                Color = "#36000000",
+            };
+
+            ReviewStateLabel = new()
+            {
+                Name = "Reviews",
+                Color = "#36000000",
+            };
+
+            StatusStateLabel = new()
+            {
+                Name = "Reviews",
+                Color = "#36000000",
+            };
         }
 
         private PullRequest _pullItem;
@@ -39,6 +56,8 @@ namespace FluentHub.ViewModels.UserControls.ButtonBlocks
 
         public void SetContents()
         {
+            CommentCountLabel.Name = PullItem.CommentCount.ToString();
+
             foreach (var label in _pullItem.Labels)
             {
                 LabelControlViewModel viewModel = new()

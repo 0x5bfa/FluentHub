@@ -7,6 +7,7 @@
     xmlns:labels="using:FluentHub.UserControls.Labels"
     xmlns:local="using:FluentHub.UserControls.Blocks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:FluentHub.Octokit.Models.Events"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:uc="using:FluentHub.UserControls"
     xmlns:vm="using:FluentHub.ViewModels.UserControls.Blocks"
@@ -286,8 +287,6 @@
                     </Grid>
                 </toolkit:Case>
 
-                <!--<toolkit:Case Value="MentionedEvent" />-->
-
                 <toolkit:Case Value="MilestonedEvent">
                     <Grid ColumnSpacing="8">
                         <Grid.ColumnDefinitions>
@@ -364,10 +363,7 @@
                 </toolkit:Case>
 
                 <toolkit:Case Value="RenamedTitleEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
@@ -375,7 +371,20 @@
                             Style="{StaticResource BodyTextBlockStyle}"
                             Text="renamed title" />
 
-                    </Grid>
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{x:Bind ViewModel.RenamedTitleEvent.PreviousTitle}"
+                            TextDecorations="Strikethrough" />
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{x:Bind ViewModel.RenamedTitleEvent.CurrentTitle}" />
+
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="ReopenedEvent">
@@ -392,8 +401,6 @@
 
                     </Grid>
                 </toolkit:Case>
-
-                <!--<toolkit:Case Value="SubscribedEvent" />-->
 
                 <toolkit:Case Value="UnassignedEvent">
                     <Grid ColumnSpacing="8">
@@ -469,8 +476,6 @@
 
                     </Grid>
                 </toolkit:Case>
-
-                <!--<toolkit:Case Value="UnsubscribedEvent" />-->
 
                 <toolkit:Case Value="UserBlockedEvent">
                     <Grid ColumnSpacing="8">

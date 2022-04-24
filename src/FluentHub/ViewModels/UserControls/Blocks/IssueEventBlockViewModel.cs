@@ -15,6 +15,9 @@ namespace FluentHub.ViewModels.UserControls.Blocks
         private string _eventType;
         public string EventType { get => _eventType; set => SetProperty(ref _eventType, value); }
 
+        private object _event;
+        public object Event { get => _event; set => SetProperty(ref _event, value); }
+
         private Actor _actor;
         public Actor Actor { get => _actor; set => SetProperty(ref _actor, value); }
 

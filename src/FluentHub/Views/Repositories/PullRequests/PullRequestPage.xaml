@@ -10,6 +10,18 @@
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <StaticResource x:Key="NavigationViewContentBackground" ResourceKey="SystemControlPageBackgroundTransparentBrush" />
+                    <Thickness x:Key="NavigationViewTopPaneHeight">40</Thickness>
+                    <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
     <Grid>
         <toolkit:SwitchPresenter
             Grid.RowSpan="2"
@@ -115,9 +127,16 @@
                                     </Grid>
                                 </Grid>
 
-                                <Grid Grid.Row="1" Margin="24,2">
+                                <Grid
+                                    Grid.Row="1"
+                                    Margin="12,4"
+                                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="4">
                                     <muxc:NavigationView
                                         x:Name="PullRequestNavigationView"
+                                        Margin="6,0"
                                         IsBackButtonVisible="Collapsed"
                                         IsSettingsVisible="False"
                                         PaneDisplayMode="Top"
@@ -126,16 +145,37 @@
                                             <muxc:NavigationViewItem
                                                 Content="Conversation"
                                                 IsSelected="True"
-                                                Tag="conversation" />
-                                            <muxc:NavigationViewItem Content="Commits" Tag="commits" />
-                                            <muxc:NavigationViewItem Content="File changes" Tag="filechanges" />
+                                                Tag="conversation">
+                                                <muxc:NavigationViewItem.Icon>
+                                                    <FontIcon
+                                                        FontFamily="{StaticResource Octions}"
+                                                        FontSize="16"
+                                                        Glyph="&#xE95D;" />
+                                                </muxc:NavigationViewItem.Icon>
+                                            </muxc:NavigationViewItem>
+                                            <muxc:NavigationViewItem Content="Commits" Tag="commits">
+                                                <muxc:NavigationViewItem.Icon>
+                                                    <FontIcon
+                                                        FontFamily="{StaticResource Octions}"
+                                                        FontSize="16"
+                                                        Glyph="&#xE9B9;" />
+                                                </muxc:NavigationViewItem.Icon>
+                                            </muxc:NavigationViewItem>
+                                            <muxc:NavigationViewItem Content="File changes" Tag="filechanges">
+                                                <muxc:NavigationViewItem.Icon>
+                                                    <FontIcon
+                                                        FontFamily="{StaticResource Octions}"
+                                                        FontSize="16"
+                                                        Glyph="&#xE99D;" />
+                                                </muxc:NavigationViewItem.Icon>
+                                            </muxc:NavigationViewItem>
                                         </muxc:NavigationView.MenuItems>
                                     </muxc:NavigationView>
                                 </Grid>
 
                                 <MenuFlyoutSeparator Grid.Row="2" Margin="24,-2" />
 
-                                <Frame x:Name="PullRequestContentFrame" />
+                                <Frame x:Name="PullRequestContentFrame" Grid.Row="3" />
 
                             </Grid>
                         </ScrollViewer>

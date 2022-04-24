@@ -53,6 +53,7 @@ namespace FluentHub.ViewModels
         #region properties
         public UserNotificationMessage LastNotification { get => _lastNotification; private set => SetProperty(ref _lastNotification, value); }
         public static Frame RepositoryContentFrame { get; set; } = new();
+        public static Frame PullRequestContentFrame { get; set; } = new();
         #endregion
 
         #region commands

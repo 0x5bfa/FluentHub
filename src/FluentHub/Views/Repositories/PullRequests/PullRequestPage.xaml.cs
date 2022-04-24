@@ -1,4 +1,5 @@
 ﻿using FluentHub.Services;
+using FluentHub.ViewModels;
 using FluentHub.ViewModels.Repositories.PullRequests;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -18,6 +19,7 @@ namespace FluentHub.Views.Repositories.PullRequests
         public PullRequestPage()
         {
             InitializeComponent();
+            MainPageViewModel.PullRequestContentFrame.Navigating += OnPullRequestContentFrameNavigating;
 
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<PullRequestViewModel>();
@@ -67,6 +69,12 @@ namespace FluentHub.Views.Repositories.PullRequests
                     PullRequestContentFrame.Navigate(typeof(FileChangesPage), ViewModel.PullItem);
                     break;
             }
+        }
+
+        private void OnPullRequestContentFrameNavigating(object sender, NavigatingCancelEventArgs e)
+        {
+            e.Cancel = true;
+            PullRequestContentFrame.Navigate(e.SourcePageType, e.Parameter);
         }
     }
 }

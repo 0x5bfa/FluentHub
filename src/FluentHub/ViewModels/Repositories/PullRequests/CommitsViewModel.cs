@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
 
 namespace FluentHub.ViewModels.Repositories.PullRequests
 {
@@ -23,6 +24,8 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
         {
             _messenger = messenger;
             _logger = logger;
+            _items = new();
+            Items = new(_items);
 
             RefreshPullRequestPageCommand = new AsyncRelayCommand<PullRequest>(RefreshPullRequestPageAsync);
         }
@@ -49,7 +52,7 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
                 if (pull != null) PullItem = pull;
 
                 CommitQueries queries = new();
-                List<Commit> items = await queries.GetAllAsync(PullItem.Name, PullItem.OwnerLogin, PullItem.HeadRefName, "/");
+                List<Commit> items = await queries.GetAllAsync(PullItem.OwnerLogin, PullItem.Name, PullItem.Number);
 
                 _items.Clear();
 

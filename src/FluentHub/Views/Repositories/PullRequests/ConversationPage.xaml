@@ -17,9 +17,8 @@
                 HorizontalAlignment="Left"
                 Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
 
-            <!--<ItemsControl ItemsSource="{x:Bind ViewModel.EventBlocks, Mode=OneWay}" />-->
+            <ItemsControl ItemsSource="{x:Bind ViewModel.EventBlocks, Mode=OneWay}" />
 
         </StackPanel>
-
     </Grid>
 </Page>

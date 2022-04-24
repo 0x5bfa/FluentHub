@@ -84,6 +84,7 @@ namespace FluentHub.ViewModels.Repositories.Issues
                     {
                         // FluentHub.Octokit.Models.Events.*
                         EventType = eventItem.GetType().ToString().Split(".")[4],
+                        Event = eventItem,
                     };
 
                     switch (viewmodel.EventType)

@@ -234,7 +234,6 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
                             viewmodel.MergedEvent = eventItem as MergedEvent;
                             viewmodel.Actor = viewmodel.MergedEvent.Actor;
                             break;
-                        //case nameof(MentionedEvent):
                         case nameof(MilestonedEvent):
                             viewmodel.TimelineBadgeGlyph = "\uEA12";
                             viewmodel.MilestonedEvent = eventItem as MilestonedEvent;
@@ -289,8 +288,8 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
                         case nameof(ReviewDismissedEvent):
                             viewmodel.TimelineBadgeBackground = Helpers.ColorHelpers.HexCodeToSolidColorBrush("#347D39");
                             viewmodel.TimelineBadgeGlyph = "\uEADB";
-                            viewmodel.ReopenedEvent = eventItem as ReopenedEvent;
-                            viewmodel.Actor = viewmodel.ReopenedEvent.Actor;
+                            viewmodel.ReviewDismissedEvent = eventItem as ReviewDismissedEvent;
+                            viewmodel.Actor = viewmodel.ReviewDismissedEvent.Actor;
                             break;
                         case nameof(ReviewRequestRemovedEvent):
                             viewmodel.TimelineBadgeBackground = Helpers.ColorHelpers.HexCodeToSolidColorBrush("#347D39");
@@ -335,7 +334,6 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
                             viewmodel.UnpinnedEvent = eventItem as UnpinnedEvent;
                             viewmodel.Actor = viewmodel.UnpinnedEvent.Actor;
                             break;
-                        //case nameof(UnsubscribedEvent):
                         case nameof(UserBlockedEvent):
                             viewmodel.TimelineBadgeGlyph = "\uEADB";
                             viewmodel.UserBlockedEvent = eventItem as UserBlockedEvent;
