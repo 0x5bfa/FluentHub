@@ -256,6 +256,9 @@
     <Compile Include="ViewModels\Repositories\Codes\ReleasesViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Commits\CommitsViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Commits\CommitViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\PullRequests\CommitsViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\PullRequests\ConversationViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\PullRequests\FileChangesViewModel.cs" />
     <Compile Include="ViewModels\Repositories\RepoContextViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Issues\IssuesViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Issues\IssueViewModel.cs" />
