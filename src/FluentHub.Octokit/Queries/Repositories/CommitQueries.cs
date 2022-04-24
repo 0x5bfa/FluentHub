@@ -94,38 +94,29 @@ namespace FluentHub.Octokit.Queries.Repositories
                     .History(first: 1, path: path)
                     .Select(x => new
                     {
-                        CommitSummary = x.Nodes.Select(y => new
+                        Commit = x.Nodes.Select(y => new Commit
                         {
-                            y.AbbreviatedOid,
-                            y.Oid,
+                            AbbreviatedOid = y.AbbreviatedOid,
+                            Oid =y.Oid,
                             AuthorAvatarUrl = y.Author.AvatarUrl(100),
-                            y.Author.User.Login,
-                            y.CommittedDate,
-                            y.Message,
+                            AuthorName = y.Author.User.Login,
+                            CommitMessage =y.Message,
+
+                            CommittedAt =y.CommittedDate,
+                            CommittedAtHumanized = y.CommittedDate.Humanize(null, null),
                         })
-                        .ToList(),
+                        .ToList().FirstOrDefault(),
+
                         x.TotalCount,
                     })
                     .Compile();
             #endregion
 
-            var res = await App.Connection.Run(query);
+            var response = await App.Connection.Run(query);
 
-            #region copying
-            Commit item = new()
-            {
-                AbbreviatedOid = res.CommitSummary[0].AbbreviatedOid,
-                AuthorAvatarUrl = res.CommitSummary[0].AuthorAvatarUrl,
-                AuthorName = res.CommitSummary[0].Login,
-                CommitMessage = res.CommitSummary[0].Message,
-                Oid = res.CommitSummary[0].Oid,
-                TotalCount = res.TotalCount,
-                CommittedAt = res.CommitSummary[0].CommittedDate,
-                CommittedAtHumanized = res.CommitSummary[0].CommittedDate.Humanize(),
-            };
-            #endregion
+            response.Commit.TotalCount = response.TotalCount;
 
-            return item;
+            return response;
         }
 
         public async Task<List<Commit>> GetWithObjectNameAsync(string name, string owner, string refs, string path)
@@ -149,7 +140,6 @@ namespace FluentHub.Octokit.Queries.Repositories
 
             var response1 = await App.Connection.Run(queryToGetFileInfo);
 
-            #region copying
             List<Commit> items = new();
 
             foreach (var res1 in response1)
@@ -190,7 +180,6 @@ namespace FluentHub.Octokit.Queries.Repositories
 
                 items.Add(response2.Commit);
             }
-            #endregion
 
             return items;
         }

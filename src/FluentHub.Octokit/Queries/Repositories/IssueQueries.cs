@@ -119,10 +119,6 @@ namespace FluentHub.Octokit.Queries.Repositories
 
             var response = await App.Connection.Run(query);
 
-            #region copying
-
-            #endregion
-
             return null;
         }
 

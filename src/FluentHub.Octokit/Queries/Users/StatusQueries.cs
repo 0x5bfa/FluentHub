@@ -1,4 +1,5 @@
-﻿using Octokit.GraphQL.Model;
+﻿using FluentHub.Octokit.Models;
+using Humanizer;
 using Octokit.GraphQL;
 using System;
 using System.Collections.Generic;
@@ -12,54 +13,22 @@ namespace FluentHub.Octokit.Queries.Users
     {
         public StatusQueries() => new App();
 
-        public async Task<Models.UserStatus> GetAsync(string login)
+        public async Task<UserStatus> GetAsync(string login)
         {
             var query = new Query()
                 .User(login)
                 .Status
-                .Select(x => new
+                .Select(x => new UserStatus
                 {
-                    x.Emoji,
-                    x.ExpiresAt,
-                    x.Message,
-                    x.UpdatedAt,
+                    Emoji = x.Emoji,
+                    ExpiresAt = x.ExpiresAt,
+                    Message = x.Message,
+                    UpdatedAt = x.UpdatedAt,
                 });
 
-            var result = await App.Connection.Run(query);
+            var response = await App.Connection.Run(query);
 
-            Models.UserStatus item = new();
-
-            item.Emoji = result.Emoji;
-            item.ExpiresAt = result.ExpiresAt;
-            item.Message = result.Message;
-            item.UpdatedAt = result.UpdatedAt;
-
-            return item;
-        }
-
-        public async Task<Models.UserStatus> GetAsync()
-        {
-            var query = new Query()
-                .Viewer
-                .Status
-                .Select(x => new
-                {
-                    x.Emoji,
-                    x.ExpiresAt,
-                    x.Message,
-                    x.UpdatedAt,
-                });
-
-            var result = await App.Connection.Run(query);
-
-            Models.UserStatus item = new();
-
-            item.Emoji = result.Emoji;
-            item.ExpiresAt = result.ExpiresAt;
-            item.Message = result.Message;
-            item.UpdatedAt = result.UpdatedAt;
-
-            return item;
+            return response;
         }
     }
 }

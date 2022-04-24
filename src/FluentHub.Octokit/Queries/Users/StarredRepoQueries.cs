@@ -1,12 +1,13 @@
-﻿using Humanizer;
-using global::Octokit.GraphQL.Core;
+﻿using FluentHub.Octokit.Models;
+using Humanizer;
 using Octokit.GraphQL;
-using Octokit.GraphQL.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GraphQLCore = global::Octokit.GraphQL.Core;
+using GraphQLModel = global::Octokit.GraphQL.Model;
 
 namespace FluentHub.Octokit.Queries.Users
 {
@@ -14,10 +15,10 @@ namespace FluentHub.Octokit.Queries.Users
     {
         public StarredRepoQueries() => new App();
 
-        public async Task<List<Models.Repository>> GetAllAsync(string login)
+        public async Task<List<Repository>> GetAllAsync(string login)
         {
-            Arg<IEnumerable<IssueState>> issueState = new(new IssueState[] { IssueState.Open });
-            Arg<IEnumerable<PullRequestState>> pullRequestState = new(new PullRequestState[] { PullRequestState.Open });
+            GraphQLCore.Arg<IEnumerable<GraphQLModel.IssueState>> issueState = new(new GraphQLModel.IssueState[] { GraphQLModel.IssueState.Open });
+            GraphQLCore.Arg<IEnumerable<GraphQLModel.PullRequestState>> pullRequestState = new(new GraphQLModel.PullRequestState[] { GraphQLModel.PullRequestState.Open });
 
             #region query
             var query = new Query()
@@ -55,11 +56,11 @@ namespace FluentHub.Octokit.Queries.Users
             var result = await App.Connection.Run(query);
 
             #region copying
-            List<Models.Repository> items = new();
+            List<Repository> items = new();
 
             foreach (var res in result)
             {
-                Models.Repository item = new()
+                Repository item = new()
                 {
                     Name = res.Name,
                     Owner = res.OwnerLoginName,

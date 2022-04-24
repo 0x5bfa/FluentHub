@@ -111,11 +111,11 @@ namespace FluentHub.Octokit.Queries.Users
             #endregion
 
             #region copying
-            List<Models.Activity> activities = new();
+            List<Activity> activities = new();
 
             foreach (var eventItem in events)
             {
-                Models.Activity activityItem = new();
+                Activity activityItem = new();
 
                 switch (eventItem.Type)
                 {
