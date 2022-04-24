@@ -55,7 +55,7 @@
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
                     TargetType="x:Boolean"
-                    Value="{x:Bind ViewModel.IssueItem.IsClosed, Mode=OneWay}">
+                    Value="{x:Bind ViewModel.IssueItem.Closed, Mode=OneWay}">
 
                     <toolkit:Case Value="True">
                         <FontIcon

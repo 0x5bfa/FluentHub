@@ -42,7 +42,7 @@ namespace FluentHub.ViewModels.UserControls.ButtonBlocks
                             NotificationItem.Repository.Name,
                             Convert.ToInt32(NotificationItem.Subject.Url.Split("/")[NotificationItem.Subject.Url.Split("/").Count() - 1]));
                         NameWithOwner += $" #{issue.Number}";
-                        if (issue.IsClosed)
+                        if (issue.Closed)
                         {
                             StateGlyph = "\uE9E6";
                             StateGlyphForeground = ColorHelpers.HexCodeToSolidColorBrush("#986EE2");
