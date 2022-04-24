@@ -45,7 +45,17 @@ namespace FluentHub.Octokit.Queries.Repositories
 
                     CreatedAt = y.CreatedAt,
                 })
-                .AutoMergeDisabledEvent(y => new {})
+                .AutoMergeDisabledEvent(y => new AutoMergeDisabledEvent
+                {
+                    Actor = y.Actor.Select(actor => new Actor
+                    {
+                        AvatarUrl = actor.AvatarUrl(100),
+                        Login = actor.Login,
+                    })
+                    .Single(),
+
+                    CreatedAt = y.CreatedAt,
+                })
                 .AutoMergeEnabledEvent(y => new AutoMergeEnabledEvent
                 {
                     Actor = y.Actor.Select(actor => new Actor

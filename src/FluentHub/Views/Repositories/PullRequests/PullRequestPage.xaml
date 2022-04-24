@@ -39,6 +39,7 @@
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
 
@@ -114,23 +115,28 @@
                                     </Grid>
                                 </Grid>
 
-                                <MenuFlyoutSeparator Grid.Row="1" Margin="12,-2" />
+                                <Grid Grid.Row="1" Margin="24,2">
+                                    <muxc:NavigationView
+                                        x:Name="PullRequestNavigationView"
+                                        IsBackButtonVisible="Collapsed"
+                                        IsSettingsVisible="False"
+                                        PaneDisplayMode="Top"
+                                        SelectionChanged="OnPullRequestNavigationViewSelectionChanged">
+                                        <muxc:NavigationView.MenuItems>
+                                            <muxc:NavigationViewItem
+                                                Content="Conversation"
+                                                IsSelected="True"
+                                                Tag="conversation" />
+                                            <muxc:NavigationViewItem Content="Commits" Tag="commits" />
+                                            <muxc:NavigationViewItem Content="File changes" Tag="filechanges" />
+                                        </muxc:NavigationView.MenuItems>
+                                    </muxc:NavigationView>
+                                </Grid>
 
-                                <StackPanel
-                                    x:Name="PullRequestContentPanel"
-                                    Grid.Row="2"
-                                    Padding="12,0,12,0">
+                                <MenuFlyoutSeparator Grid.Row="2" Margin="24,-2" />
 
-                                    <Border
-                                        Width="1.5"
-                                        Height="16"
-                                        Margin="36,0,0,0"
-                                        HorizontalAlignment="Left"
-                                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+                                <Frame x:Name="PullRequestContentFrame" />
 
-                                    <ItemsControl ItemsSource="{x:Bind ViewModel.EventBlocks, Mode=OneWay}" />
-
-                                </StackPanel>
                             </Grid>
                         </ScrollViewer>
                     </toolkit:Case>

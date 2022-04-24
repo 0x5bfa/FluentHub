@@ -321,6 +321,15 @@
     <Compile Include="Views\Repositories\Commits\CommitsPage.xaml.cs">
       <DependentUpon>CommitsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Repositories\PullRequests\CommitsPage.xaml.cs">
+      <DependentUpon>CommitsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\PullRequests\ConversationPage.xaml.cs">
+      <DependentUpon>ConversationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\PullRequests\FileChangesPage.xaml.cs">
+      <DependentUpon>FileChangesPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Repositories\PullRequests\PullRequestPage.xaml.cs">
       <DependentUpon>PullRequestPage.xaml</DependentUpon>
     </Compile>
@@ -776,6 +785,18 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Repositories\Commits\CommitsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\PullRequests\CommitsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\PullRequests\ConversationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\PullRequests\FileChangesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

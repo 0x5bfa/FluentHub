@@ -9,6 +9,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Views.Repositories.PullRequests
 {
@@ -36,7 +37,7 @@ namespace FluentHub.Views.Repositories.PullRequests
             currentItem.Header = $"{param.Title} · Pull Request #{param.Number} · {param.OwnerLogin}/{param.Name}";
             currentItem.Description = currentItem.Header;
             currentItem.Url = $"https://github.com/{param.OwnerLogin}/{param.Name}/pull/{param.Number}";
-            currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
+            currentItem.Icon = new muxc.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/PullRequests.png"))
             };
@@ -50,6 +51,22 @@ namespace FluentHub.Views.Repositories.PullRequests
         {
             Dialogs.IssueDetailsContentDialog detailsContentDialog = new();
             await detailsContentDialog.ShowAsync();
+        }
+
+        private void OnPullRequestNavigationViewSelectionChanged(muxc.NavigationView sender, muxc.NavigationViewSelectionChangedEventArgs args)
+        {
+            switch (args.SelectedItemContainer?.Tag?.ToString())
+            {
+                case "conversation":
+                    PullRequestContentFrame.Navigate(typeof(ConversationPage));
+                    break;
+                case "commits":
+                    PullRequestContentFrame.Navigate(typeof(CommitsPage));
+                    break;
+                case "filechanges":
+                    PullRequestContentFrame.Navigate(typeof(FileChangesPage));
+                    break;
+            }
         }
     }
 }
