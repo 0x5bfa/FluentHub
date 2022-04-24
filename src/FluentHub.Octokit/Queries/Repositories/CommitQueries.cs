@@ -116,7 +116,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 
             response.Commit.TotalCount = response.TotalCount;
 
-            return response;
+            return response.Commit;
         }
 
         public async Task<List<Commit>> GetWithObjectNameAsync(string name, string owner, string refs, string path)
