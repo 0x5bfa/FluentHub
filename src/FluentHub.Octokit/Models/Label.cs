@@ -10,6 +10,7 @@ namespace FluentHub.Octokit.Models
     public class Label
     {
         public string Color { get; set; }
+        public string Description { get; set; }
         public string Name { get; set; }
 
         public SolidColorBrush ColorBrush { get; set; }

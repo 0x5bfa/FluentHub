@@ -263,6 +263,10 @@
     <Compile Include="ViewModels\Repositories\Codes\ReleasesViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Commits\CommitsViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Commits\CommitViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\PullRequests\CommitsViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\PullRequests\CommitViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\PullRequests\ConversationViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\PullRequests\FileChangesViewModel.cs" />
     <Compile Include="ViewModels\Repositories\RepoContextViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Issues\IssuesViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Issues\IssueViewModel.cs" />
@@ -328,6 +332,18 @@
     </Compile>
     <Compile Include="Views\Repositories\Commits\CommitsPage.xaml.cs">
       <DependentUpon>CommitsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\PullRequests\CommitPage.xaml.cs">
+      <DependentUpon>CommitPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\PullRequests\CommitsPage.xaml.cs">
+      <DependentUpon>CommitsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\PullRequests\ConversationPage.xaml.cs">
+      <DependentUpon>ConversationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\PullRequests\FileChangesPage.xaml.cs">
+      <DependentUpon>FileChangesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Repositories\PullRequests\PullRequestPage.xaml.cs">
       <DependentUpon>PullRequestPage.xaml</DependentUpon>
@@ -792,6 +808,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Repositories\Commits\CommitsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\PullRequests\CommitPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\PullRequests\CommitsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\PullRequests\ConversationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\PullRequests\FileChangesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -124,7 +124,6 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="Authorization\AuthorizationService.cs" />
-    <Compile Include="Helpers\ColorHelper.cs" />
     <Compile Include="Helpers\UserTypeDetectionHelper.cs" />
     <Compile Include="Models\ApiOptions.cs" />
     <Compile Include="Models\CalendarDay.cs" />
@@ -134,6 +133,7 @@
     <Compile Include="Models\ContributionCalender.cs" />
     <Compile Include="Models\Discussion.cs" />
     <Compile Include="Models\Activity.cs" />
+    <Compile Include="Models\Events\Actor.cs" />
     <Compile Include="Models\Events\AddedToProjectEvent.cs" />
     <Compile Include="Models\Events\AssignedEvent.cs" />
     <Compile Include="Models\Events\AutomaticBaseChangeFailedEvent.cs" />
@@ -153,7 +153,7 @@
     <Compile Include="Models\Events\CrossReferencedEvent.cs" />
     <Compile Include="Models\Events\DemilestonedEvent.cs" />
     <Compile Include="Models\Events\DeployedEvent.cs" />
-    <Compile Include="Models\Events\DeploymentEnvernmentChangedEvent.cs" />
+    <Compile Include="Models\Events\DeploymentEnvironmentChangedEvent.cs" />
     <Compile Include="Models\Events\DisconnectedEvent.cs" />
     <Compile Include="Models\Events\HeadRefDeletedEvent.cs" />
     <Compile Include="Models\Events\HeadRefForcePushedEvent.cs" />

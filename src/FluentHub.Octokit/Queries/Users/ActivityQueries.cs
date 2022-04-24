@@ -111,11 +111,11 @@ namespace FluentHub.Octokit.Queries.Users
             #endregion
 
             #region copying
-            List<Models.Activity> activities = new();
+            List<Activity> activities = new();
 
             foreach (var eventItem in events)
             {
-                Models.Activity activityItem = new();
+                Activity activityItem = new();
 
                 switch (eventItem.Type)
                 {
@@ -233,7 +233,6 @@ namespace FluentHub.Octokit.Queries.Users
                     CalendarDay day = new();
 
                     day.Color = days.Color;
-                    day.ColorBrush = Helpers.ColorHelper.HexCodeToSolidColorBrush(days.Color);
                     day.ContributionCount = days.ContributionCount;
                     day.ContributionLevel = days.ContributionLevel;
                     day.WeekDay = days.Weekday;

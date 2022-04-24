@@ -1,10 +1,13 @@
-﻿using Humanizer;
+﻿using FluentHub.Octokit.Models;
+using FluentHub.Octokit.Models.Events;
+using Humanizer;
 using Octokit.GraphQL;
-using Octokit.GraphQL.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using GraphQLModel = global::Octokit.GraphQL.Model;
 
 namespace FluentHub.Octokit.Queries.Users
 {
@@ -12,108 +15,55 @@ namespace FluentHub.Octokit.Queries.Users
     {
         public PullRequestQueries() => new App();
 
-        public async Task<List<Models.PullRequest>> GetAllAsync(string login)
+        public async Task<List<PullRequest>> GetAllAsync(string login)
         {
-            IssueOrder order = new() { Direction = OrderDirection.Desc, Field = IssueOrderField.CreatedAt };
+            GraphQLModel.IssueOrder order = new() { Direction = GraphQLModel.OrderDirection.Desc, Field = GraphQLModel.IssueOrderField.CreatedAt };
 
             #region queries
             var query = new Query()
                 .User(login)
                 .PullRequests(first: 30, orderBy: order)
                 .Nodes
-                .Select(x => new
+                .Select(x => new PullRequest
                 {
                     OwnerAvatarUrl = x.Repository.Owner.AvatarUrl(100),
                     OwnerLogin = x.Repository.Owner.Login,
-                    x.Repository.Name,
-                    x.Title,
+                    Name = x.Repository.Name,
+                    Title = x.Title,
 
-                    x.Closed,
-                    x.Merged,
-                    x.IsDraft,
+                    BaseRefName = x.BaseRefName,
+                    HeadRefName = x.HeadRefName,
+                    HeadRefOwnerLogin = x.HeadRepositoryOwner.Login,
 
-                    x.Number,
+                    Closed = x.Closed,
+                    Merged = x.Merged,
+                    IsDraft = x.IsDraft,
+
+                    Number = x.Number,
                     CommentCount = x.Comments(null, null, null, null, null).TotalCount,
 
-                    Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new
+                    Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new Label
                     {
-                        y.Color,
-                        y.Name,
+                        Color = y.Color,
+                        Description = y.Description,
+                        Name = y.Name,
                     })
                     .ToList(),
 
-                    ReviewState = x.Reviews(null, null, 1, null, null, null).Nodes.Select(y => new
-                    {
-                        y.State,
-                    })
-                    .ToList(),
+                    ReviewState = x.Reviews(null, null, 1, null, null, null).Nodes.Select(y => y.State)
+                    .ToList().FirstOrDefault(),
 
-                    StatusState = x.Commits(null, null, 1, null).Nodes.Select(y => new
-                    {
-                        State = y.Commit.StatusCheckRollup.Select(z => new
-                        {
-                            z.State,
-                        })
-                        .SingleOrDefault(),
-                    })
-                    .ToList(),
+                    StatusState = x.Commits(null, null, 1, null).Nodes.Select(y => y.Commit.StatusCheckRollup.Select(z => z.State).SingleOrDefault())
+                    .ToList().FirstOrDefault(),
 
-                    x.UpdatedAt,
+                    UpdatedAt = x.UpdatedAt,
                 })
                 .Compile();
             #endregion
 
             var response = await App.Connection.Run(query);
 
-            #region copying
-            List<Models.PullRequest> items = new();
-
-            foreach (var res in response)
-            {
-                Models.PullRequest item = new()
-                {
-                    Name = res.Name,
-                    OwnerAvatarUrl = res.OwnerAvatarUrl,
-                    OwnerLogin = res.OwnerLogin,
-                    Title = res.Title,
-
-                    Number = res.Number,
-                    CommentCount = res.CommentCount,
-
-                    IsClosed = res.Closed,
-                    IsMerged = res.Merged,
-                    IsDraft = res.IsDraft,
-
-                    UpdatedAt = res.UpdatedAt,
-                    UpdatedAtHumanized = res.UpdatedAt.Humanize(),
-                };
-
-                if (res.Labels.Count() != 0)
-                {
-                    foreach (var label in res.Labels)
-                    {
-                        Models.Label labels = new()
-                        {
-                            Color = label.Color,
-                            Name = label.Name,
-                            ColorBrush = Helpers.ColorHelper.HexCodeToSolidColorBrush(label.Color),
-                        };
-
-                        item.Labels.Add(labels);
-                    }
-                }
-
-                if (res.ReviewState.Count() != 0)
-                    item.ReviewState = res.ReviewState[0].State.ToString();
-
-                if (res.StatusState.Count() != 0 && res.StatusState[0].State != null)
-                    item.StatusState = res.StatusState[0].State.State.ToString();
-
-                items.Add(item);
-            }
-            #endregion
-
-            return items;
+            return response.ToList();
         }
     }
 }

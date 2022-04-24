@@ -2,7 +2,6 @@
 using FluentHub.Services;
 using FluentHub.ViewModels;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
-using FluentHub.Views.Repositories.Commits;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -33,7 +32,14 @@ namespace FluentHub.UserControls.ButtonBlocks
 
         private void CommitItemButton_Click(object sender, RoutedEventArgs e)
         {
-            MainPageViewModel.RepositoryContentFrame.Navigate(typeof(CommitPage), ViewModel.CommitItem);
+            if (ViewModel.CommitItem.PullRequestNumber == 0)
+            {
+                MainPageViewModel.RepositoryContentFrame.Navigate(typeof(Views.Repositories.Commits.CommitPage), ViewModel.CommitItem);
+            }
+            else
+            {
+                MainPageViewModel.PullRequestContentFrame.Navigate(typeof(Views.Repositories.PullRequests.CommitPage), ViewModel.CommitItem);
+            }
         }
     }
 }

@@ -68,13 +68,16 @@ namespace FluentHub.ViewModels.Organizations
             catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error("RefreshRepositoriesAsync", ex);
-                if (_messenger != null)
+                if (!ex.Message.Contains("has enabled OAuth App access restrictions, meaning that data access to third-parties is limited."))
                 {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
+                    _logger?.Error("RefreshRepositoriesAsync", ex);
+                    if (_messenger != null)
+                    {
+                        UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+                        _messenger.Send(notification);
+                    }
+                    throw;
                 }
-                throw;
             }
         }
         #endregion

@@ -43,8 +43,16 @@ namespace FluentHub.Views.Repositories.Codes.Layouts
             string header;
             if (string.IsNullOrEmpty(ContextViewModel.Path.Remove(0, 1)))
             {
-                // Root
-                header = $"{ContextViewModel.Owner}/{ContextViewModel.Name}: {ContextViewModel.Repository.Description}";
+                if (ContextViewModel.RepositoryDetails != null)
+                {
+                    // Root
+                    header = $"{ContextViewModel.Owner}/{ContextViewModel.Name}: {ContextViewModel.Repository.Description}";
+                }
+                else
+                {
+                    // Root
+                    header = $"{ContextViewModel.Owner}/{ContextViewModel.Name}";
+                }
             }
             else
             {

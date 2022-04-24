@@ -75,7 +75,7 @@
                                         Margin="0,16,0,8"
                                         Orientation="Horizontal"
                                         Spacing="8">
-                                        <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.IssueItem.IsClosed, Mode=OneWay}">
+                                        <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.IssueItem.Closed, Mode=OneWay}">
                                             <toolkit:Case Value="True">
                                                 <label:StateLabel Status="IssueClosed" />
                                             </toolkit:Case>

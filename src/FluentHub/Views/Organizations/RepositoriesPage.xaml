@@ -32,7 +32,6 @@
                 Text="Repositories" />
         </StackPanel>
 
-
         <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
             <muxc:ItemsRepeater Margin="12,2,12,12" ItemsSource="{x:Bind ViewModel.Repositories}">
                 <DataTemplate x:DataType="bbvm:RepoButtonBlockViewModel">
