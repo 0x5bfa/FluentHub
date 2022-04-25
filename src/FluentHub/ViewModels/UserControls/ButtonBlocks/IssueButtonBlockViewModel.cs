@@ -35,10 +35,11 @@ namespace FluentHub.ViewModels.UserControls.ButtonBlocks
         private LabelControlViewModel _commentCountLabel;
         public LabelControlViewModel CommentCountLabel { get => _commentCountLabel; set => SetProperty(ref _commentCountLabel, value); }
 
-        public void SetContents()
+        public void LoadContents()
         {
             CommentCountLabel.Name = IssueItem.CommentCount.ToString();
 
+            _labelViewModels.Clear();
             foreach (var label in IssueItem.Labels)
             {
                 LabelControlViewModel viewModel = new()

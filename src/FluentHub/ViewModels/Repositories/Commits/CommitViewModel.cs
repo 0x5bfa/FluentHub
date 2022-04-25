@@ -59,6 +59,7 @@ namespace FluentHub.ViewModels.Repositories.Commits
 
                 if (CommitDetails.ChangedFiles.Count() == 0) return;
 
+                _diffViewModels.Clear();
                 foreach (var item in CommitDetails.ChangedFiles)
                 {
                     DiffBlockViewModel viewModel = new()

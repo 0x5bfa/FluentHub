@@ -52,10 +52,13 @@ namespace FluentHub.ViewModels.Repositories.Commits
             try
             {
                 CommitQueries queries = new();
-                List<Commit> items = await queries.GetAllAsync(ContextViewModel.Name, ContextViewModel.Owner, ContextViewModel.BranchName, ContextViewModel.Path);
+                var items = await queries.GetAllAsync(
+                    ContextViewModel.Name,
+                    ContextViewModel.Owner,
+                    ContextViewModel.BranchName,
+                    ContextViewModel.Path);
 
                 _items.Clear();
-
                 foreach (var item in items)
                 {
                     CommitButtonBlockViewModel viewModel = new()

@@ -43,7 +43,6 @@ namespace FluentHub.ViewModels.UserControls.Blocks
 
         public void ParseDiffPatchString()
         {
-            // TODO: FluentHub original perser here
             var lines = ChangedFile.Patch.Split("\n");
 
             _changedLineBackgroundType.Clear();
@@ -87,7 +86,7 @@ namespace FluentHub.ViewModels.UserControls.Blocks
                     if (oldBaseLine != 0)
                     {
                         olds = oldBaseLine;
-                        oldBaseLine = 0; // Re-initialize
+                        oldBaseLine = 0;
                     }
                     else olds++;
 
@@ -103,7 +102,7 @@ namespace FluentHub.ViewModels.UserControls.Blocks
                     if (newBaseLine != 0)
                     {
                         news = newBaseLine;
-                        newBaseLine = 0; // Re-initialize
+                        newBaseLine = 0;
                     }
                     else news++;
 
@@ -119,14 +118,14 @@ namespace FluentHub.ViewModels.UserControls.Blocks
                     if (oldBaseLine != 0)
                     {
                         olds = oldBaseLine;
-                        oldBaseLine = 0; // Re-initialize
+                        oldBaseLine = 0;
                     }
                     else olds++;
 
                     if (newBaseLine != 0)
                     {
                         news = newBaseLine;
-                        newBaseLine = 0; // Re-initialize
+                        newBaseLine = 0;
                     }
                     else news++;
 

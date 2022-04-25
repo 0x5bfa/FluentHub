@@ -9,6 +9,7 @@ using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
 using System.IO;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
@@ -74,7 +75,8 @@ namespace FluentHub.ViewModels.UserControls.Blocks
                 for (int i = 1; i <= lines + 1; i++)
                     LineText += $"{i}\n";
 
-                // Color code block
+                LineText = LineText.TrimEnd('\n');
+
                 textBlock.Blocks.Clear();
                 var formatter = new RichTextBlockFormatter(ThemeHelper.ActualTheme);
                 var extension = Path.GetExtension(ContextViewModel.Path.Remove(0, 1)).Remove(0, 1);
@@ -88,10 +90,7 @@ namespace FluentHub.ViewModels.UserControls.Blocks
                 else
                 {
                     Paragraph paragraph = new();
-                    Run run = new()
-                    {
-                        Text = BlobContent,
-                    };
+                    Run run = new() { Text = BlobContent };
                     paragraph.Inlines.Add(run);
                     textBlock.Blocks.Add(paragraph);
                 }

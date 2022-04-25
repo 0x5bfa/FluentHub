@@ -27,6 +27,7 @@ namespace FluentHub.UserControls.ButtonBlocks
             {
                 SetValue(ViewModelProperty, value);
                 DataContext = ViewModel;
+                ViewModel?.LoadContents();
             }
         }
         #endregion
@@ -46,7 +47,6 @@ namespace FluentHub.UserControls.ButtonBlocks
 
         private void OnIssueButtonBlockLoaded(object sender, RoutedEventArgs e)
         {
-            ViewModel.SetContents();
         }
     }
 }

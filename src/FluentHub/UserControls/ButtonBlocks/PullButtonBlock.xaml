@@ -177,7 +177,11 @@
                         Margin="0,8,0,0"
                         Orientation="Horizontal">
 
-                        <labels:LabelControl VerticalAlignment="Center" ViewModel="{x:Bind ViewModel.CommentCountLabel, Mode=OneWay}">
+                        <labels:LabelControl
+                            x:Name="CommentCountLabel"
+                            VerticalAlignment="Center"
+                            x:Load="{x:Bind ViewModel.PullItem.CommentCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                            ViewModel="{x:Bind ViewModel.CommentCountLabel, Mode=OneWay}">
                             <labels:LabelControl.Icon>
                                 <FontIcon
                                     FontFamily="{StaticResource Octions}"
