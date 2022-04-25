@@ -1,4 +1,7 @@
-﻿using System;
+﻿using FluentHub.Services;
+using FluentHub.Services.Navigation;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -19,14 +22,23 @@ namespace FluentHub.Dialogs
 {
     public sealed partial class AccountSwitching : ContentDialog
     {
+        private INavigationService NavigationService { get; }
         public AccountSwitching()
         {
             this.InitializeComponent();
+            var provider = App.Current.Services;
+            NavigationService = provider.GetRequiredService<INavigationService>();
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
             Hide();
+        }
+
+        private void AddAccountButton_Click(object sender, RoutedEventArgs e)
+        {
+            Hide();
+            NavigationService.Navigate<Views.SignIn.IntroPage>();
         }
     }
 }

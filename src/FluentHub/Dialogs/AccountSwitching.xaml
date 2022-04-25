@@ -46,7 +46,8 @@
             <Button
                 Grid.Column="2"
                 HorizontalAlignment="Right"
-                VerticalAlignment="Center">
+                VerticalAlignment="Center"
+                Click="AddAccountButton_Click">
                 <StackPanel Orientation="Horizontal">
                     <FontIcon
                         VerticalAlignment="Bottom"

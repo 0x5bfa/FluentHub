@@ -63,6 +63,8 @@ namespace FluentHub.ViewModels
             set => Set(nameof(AppVersion), value);
         }
 
+        //public Collection<>
+
         public ObservableCollection<DefaultLanguageModel> DefaultLanguages { get; private set; }
 
         public DefaultLanguageModel DefaultLanguage

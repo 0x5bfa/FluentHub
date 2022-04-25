@@ -146,6 +146,7 @@
     <Compile Include="Helpers\ResourceHelper.cs" />
     <Compile Include="Helpers\ThemeHelper.cs" />
     <Compile Include="Helpers\WebViewHelpers.cs" />
+    <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\DefaultLanguageModel.cs" />
     <Compile Include="Models\Items\DetailsLayoutListViewItem.cs" />
     <Compile Include="Models\Items\IssueCommentItem.cs" />
