@@ -26,9 +26,9 @@ namespace FluentHub.ViewModels.UserControls.Blocks
 
         public async Task SetWebViewContentsAsync(WebView webView)
         {
-            CreatedAtHumanized = IssueComment?.CreatedAt?.Humanize();
+            CreatedAtHumanized = IssueComment?.CreatedAt.Humanize();
 
-            string authorAssociation = IssueComment?.AuthorAssociation?.Humanize();
+            string authorAssociation = IssueComment?.AuthorAssociation.Humanize();
             if (authorAssociation != "None") AuthorAssociation = authorAssociation;
 
             MarkdownQueries markdown = new();
