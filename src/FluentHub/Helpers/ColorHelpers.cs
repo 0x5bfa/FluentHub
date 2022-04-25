@@ -17,22 +17,31 @@ namespace FluentHub.Helpers
         /// <returns></returns>
         public static SolidColorBrush HexCodeToSolidColorBrush(string hexColorCode)
         {
-            if (hexColorCode[0] == '#')
+            string normalizedColorCode = "#00000000";
+
+            // If there's no alpha code, add them
+            if (hexColorCode.Length == 6 || hexColorCode.Length == 7)
             {
-                return new SolidColorBrush(
-                    Color.FromArgb(0xFF
-                    , Convert.ToByte(hexColorCode.Substring(1, 2), 16)
-                    , Convert.ToByte(hexColorCode.Substring(3, 2), 16)
-                    , Convert.ToByte(hexColorCode.Substring(5, 2), 16)));
+                if (hexColorCode[0] == '#')
+                {
+                    normalizedColorCode = $"#FF{hexColorCode.Substring(1, hexColorCode.Length - 1)}";
+                }
+                else
+                {
+                    normalizedColorCode = $"#FF{hexColorCode}";
+                }
             }
             else
             {
-                return new SolidColorBrush(
-                    Color.FromArgb(0xFF
-                    , Convert.ToByte(hexColorCode.Substring(0, 2), 16)
-                    , Convert.ToByte(hexColorCode.Substring(2, 2), 16)
-                    , Convert.ToByte(hexColorCode.Substring(4, 2), 16)));
+                normalizedColorCode = hexColorCode;
             }
+
+            return new SolidColorBrush(
+                Color.FromArgb(
+                Convert.ToByte(normalizedColorCode.Substring(1, 2), 16),
+                Convert.ToByte(normalizedColorCode.Substring(3, 2), 16),
+                Convert.ToByte(normalizedColorCode.Substring(5, 2), 16),
+                Convert.ToByte(normalizedColorCode.Substring(7, 2), 16)));
         }
     }
 }

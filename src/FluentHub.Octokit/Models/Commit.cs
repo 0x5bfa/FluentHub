@@ -23,6 +23,7 @@ namespace FluentHub.Octokit.Models
         public string ObjectType { get; set; }
 
         public int TotalCount { get; set; }
+        public int PullRequestNumber { get; set; }
 
         public DateTimeOffset CommittedAt { get; set; }
         public string CommittedAtHumanized { get; set; }

@@ -20,7 +20,8 @@
 
         <Grid
             x:Name="LabelBorderGrid"
-            BorderBrush="{x:Bind ViewModel.BackgroundColorBrush, Mode=OneWay}"
+            x:Load="{x:Bind ViewModel.Color, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+            BorderBrush="{x:Bind ViewModel.ColorBrush, Mode=OneWay}"
             BorderThickness="1"
             CornerRadius="11"
             Opacity="0.6" />
@@ -28,7 +29,7 @@
         <Grid
             x:Name="LabelBackgroundGrid"
             x:Load="{x:Bind ViewModel.OutlineEnable, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
-            Background="{x:Bind ViewModel.BackgroundColorBrush, Mode=OneWay}"
+            Background="{x:Bind ViewModel.ColorBrush, Mode=OneWay}"
             CornerRadius="11"
             Opacity="0.3" />
 
@@ -58,12 +59,12 @@
 
                     <toolkit:Case Value="True">
                         <TextBlock
+                            x:Name="LabelName"
                             VerticalAlignment="Center"
-                            Foreground="{x:Bind ViewModel.ForegroundColorBrush, Mode=OneWay}"
+                            Foreground="{x:Bind ViewModel.ColorBrush, Mode=OneWay}"
                             Style="{StaticResource CaptionTextBlockStyle}"
                             Text="{x:Bind ViewModel.Name, Mode=OneWay}" />
                     </toolkit:Case>
-
                 </toolkit:SwitchPresenter>
             </StackPanel>
         </Grid>

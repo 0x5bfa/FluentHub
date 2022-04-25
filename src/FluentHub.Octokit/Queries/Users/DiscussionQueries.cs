@@ -80,11 +80,14 @@ namespace FluentHub.Octokit.Queries.Users
                     x.Number,
                     x.UpvoteCount,
                     x.Comments(null, null, null, null).TotalCount,
+
                     Category = x.Category.Select(y => new
                     {
                         y.Name,
                         y.Emoji,
-                    }).Single(),
+                    })
+                    .SingleOrDefault(),
+
                     x.UpdatedAt,
                 })
                 .Compile();

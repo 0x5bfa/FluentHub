@@ -59,10 +59,10 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.PullItem.IsClosed, Mode=OneWay}">
+                <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.PullItem.Closed, Mode=OneWay}">
 
                     <toolkit:Case Value="True">
-                        <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.PullItem.IsMerged, Mode=OneWay}">
+                        <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.PullItem.Merged, Mode=OneWay}">
 
                             <toolkit:Case Value="True">
                                 <FontIcon
@@ -157,26 +157,27 @@
                         Style="{StaticResource BodyStrongTextBlockStyle}"
                         Text="{x:Bind ViewModel.PullItem.Title, Mode=OneWay}" />
 
-                    <StackPanel
+                    <muxc:ItemsRepeater
                         Grid.Row="2"
                         Margin="0,4,0,0"
+                        ItemsSource="{x:Bind ViewModel.LabelViewModels, Mode=OneWay}">
+
+                        <muxc:ItemsRepeater.Layout>
+                            <muxc:StackLayout Orientation="Horizontal" Spacing="8" />
+                        </muxc:ItemsRepeater.Layout>
+
+                        <DataTemplate x:DataType="labelsvm:LabelControlViewModel">
+                            <labels:LabelControl ViewModel="{x:Bind Mode=OneWay}" />
+                        </DataTemplate>
+
+                    </muxc:ItemsRepeater>
+
+                    <StackPanel
+                        Grid.Row="3"
+                        Margin="0,8,0,0"
                         Orientation="Horizontal">
 
-                        <muxc:ItemsRepeater Margin="8,0,0,0" ItemsSource="{x:Bind ViewModel.LabelViewModels, Mode=OneWay}">
-                            <muxc:ItemsRepeater.Layout>
-                                <muxc:StackLayout Orientation="Horizontal" Spacing="8" />
-                            </muxc:ItemsRepeater.Layout>
-
-                            <DataTemplate x:DataType="labelsvm:LabelControlViewModel">
-                                <labels:LabelControl ViewModel="{x:Bind}" />
-                            </DataTemplate>
-
-                        </muxc:ItemsRepeater>
-
-                        <labels:LabelControl
-                            Margin="8,0,0,0"
-                            VerticalAlignment="Center"
-                            ViewModel="{x:Bind ViewModel.CommentCountLabel, Mode=OneWay}">
+                        <labels:LabelControl VerticalAlignment="Center" ViewModel="{x:Bind ViewModel.CommentCountLabel, Mode=OneWay}">
                             <labels:LabelControl.Icon>
                                 <FontIcon
                                     FontFamily="{StaticResource Octions}"
@@ -324,6 +325,7 @@
                         </toolkit:SwitchPresenter>
 
                     </StackPanel>
+
                 </Grid>
             </Grid>
         </Button>

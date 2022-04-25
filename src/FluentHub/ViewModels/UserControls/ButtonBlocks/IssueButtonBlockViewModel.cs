@@ -19,12 +19,17 @@ namespace FluentHub.ViewModels.UserControls.ButtonBlocks
         {
             _labelViewModels = new();
             LabelViewModels = new(_labelViewModels);
+
+            CommentCountLabel = new()
+            {
+                Color = "#36000000",
+            };
         }
 
         private Issue _issueItem;
-        private readonly ObservableCollection<LabelControlViewModel> _labelViewModels;
-
         public Issue IssueItem { get => _issueItem; set => SetProperty(ref _issueItem, value); }
+
+        private readonly ObservableCollection<LabelControlViewModel> _labelViewModels;
         public ReadOnlyObservableCollection<LabelControlViewModel> LabelViewModels { get; }
 
         private LabelControlViewModel _commentCountLabel;
@@ -32,19 +37,14 @@ namespace FluentHub.ViewModels.UserControls.ButtonBlocks
 
         public void SetContents()
         {
-            CommentCountLabel = new()
-            {
-                Name = _issueItem.CommentCount.ToString(),
-                BackgroundColorBrush = (SolidColorBrush)Application.Current.Resources["ApplicationSecondaryForegroundThemeBrush"],
-                OutlineEnable = true,
-            };
+            CommentCountLabel.Name = IssueItem.CommentCount.ToString();
 
             foreach (var label in IssueItem.Labels)
             {
                 LabelControlViewModel viewModel = new()
                 {
                     Name = label.Name,
-                    BackgroundColorBrush = label.ColorBrush,
+                    Color = label.Color,
                 };
 
                 _labelViewModels.Add(viewModel);

@@ -1,13 +1,14 @@
-﻿using Humanizer;
-using global::Octokit.GraphQL.Core;
+﻿using FluentHub.Octokit.Models;
+using Humanizer;
 using Octokit.GraphQL;
-using Octokit.GraphQL.Model;
 using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GraphQLModel = global::Octokit.GraphQL.Model;
+using GraphQLCore = global::Octokit.GraphQL.Core;
 
 namespace FluentHub.Octokit.Queries.Repositories
 {
@@ -17,52 +18,29 @@ namespace FluentHub.Octokit.Queries.Repositories
 
         public async Task<List<Models.Release>> GetAllAsync(string owner, string name)
         {
-            Arg<ReleaseOrder> releaseOrder = new(new ReleaseOrder { Direction = OrderDirection.Desc});
+            GraphQLCore.Arg<GraphQLModel.ReleaseOrder> releaseOrder = new(new GraphQLModel.ReleaseOrder { Direction = GraphQLModel.OrderDirection.Desc});
 
             var query = new Query()
                 .Repository(name, owner)
                 .Releases(null, null, 20, null, releaseOrder)
-                .Select(x => new
+                .Nodes
+                .Select(x => new Release
                 {
-                    Releases = x.Nodes.Select(y => new
-                    {
-                        AuthorLogin = y.Author.Login,
-                        AuthorAvatarUrl = y.Author.AvatarUrl(100),
-                        y.DescriptionHTML,
-                        y.IsDraft,
-                        y.IsLatest,
-                        y.IsPrerelease,
-                        y.Name,
-                        y.PublishedAt,
-                    })
-                    .ToList(),
+                    AuthorLogin = x.Author.Login,
+                    AuthorAvatarUrl = x.Author.AvatarUrl(100),
+                    DescriptionHTML = x.DescriptionHTML,
+                    IsDraft = x.IsDraft,
+                    IsLatest = x.IsLatest,
+                    IsPrerelease = x.IsPrerelease,
+                    Name = x.Name,
+                    PublishedAt = x.PublishedAt,
+                    PublishedAtHumanized = x.PublishedAt.Humanize(null, null),
                 })
                 .Compile();
 
             var response = await App.Connection.Run(query);
 
-            List<Models.Release> items = new();
-
-            foreach(var res in response.Releases)
-            {
-                Models.Release item;
-                item = new()
-                {
-                    AuthorAvatarUrl = res.AuthorAvatarUrl,
-                    AuthorLogin = res.AuthorLogin,
-                    DescriptionHTML = res.DescriptionHTML,
-                    IsDraft = res.IsDraft,
-                    IsLatest = res.IsLatest,
-                    IsPrerelease = res.IsPrerelease,
-                    Name = res.Name,
-                    PublishedAt = res.PublishedAt,
-                    PublishedAtHumanized = res.PublishedAt.Humanize(),
-                };
-
-                items.Add(item);
-            }
-
-            return items;
+            return response.ToList();
         }
     }
 }

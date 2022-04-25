@@ -95,8 +95,10 @@ namespace FluentHub.Views
                 NavigationService.GoBack();
                 e.Handled = true;
             }
+
             Logger?.Debug("SystemNavigationManager.GetForCurrentView().BackRequested fired, [handled: {0}]", e.Handled);
         }
+
         private void OnWindowPointerPressed(CoreWindow sender, PointerEventArgs e)
         {
             // Mouse back button pressed
@@ -145,13 +147,22 @@ namespace FluentHub.Views
             Frame rootFrame = (Frame)Window.Current.Content;
             rootFrame.Navigate(typeof(SignIn.IntroPage));
         }
+        
         private async void SwitchAccountFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
             AccountSwitching accountSwitchingDialog = new();
             await accountSwitchingDialog.ShowAsync();
         }
+        
         private void OnTabViewSelectionChanged(object sender, TabViewSelectionChangedEventArgs e)
             => RootFrameBorder.Child = e.NewSelectedItem?.Frame;
         #endregion
+
+        private void OnUrlTextBoxKeyDown(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
+        {
+            if (e.Key == VirtualKey.Enter)
+            {
+            }
+        }
     }
 }

@@ -1,61 +1,80 @@
-﻿using FluentHub.Octokit.Queries.Organizations;
+﻿using FluentHub.Backend;
+using FluentHub.Octokit.Models;
+using FluentHub.Models;
+using FluentHub.Octokit.Queries.Organizations;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
-using Serilog;
+using Humanizer;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
+using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.Organizations
 {
-    public class OverviewViewModel : INotifyPropertyChanged
+    public class OverviewViewModel : ObservableObject
     {
-        public ObservableCollection<RepoButtonBlockViewModel> OrgPinnedItems { get; private set; } = new();
-
-        private bool isActive;
-        public bool IsActive { get => isActive; set => SetProperty(ref isActive, value); }
-
-        public async Task GetPinnedRepos(string org)
+        #region constructor
+        public OverviewViewModel(IMessenger messenger = null, ILogger logger = null)
         {
-            IsActive = true;
+            _messenger = messenger;
+            _logger = logger;
+            _repositories = new();
+            Repositories = new(_repositories);
 
-            PinnedItemQueries queries = new();
-            var items = await queries.GetAllAsync(org);
-
-            if (items == null)
-            {
-                IsActive = false;
-                return;
-            }
-
-            foreach (var item in items)
-            {
-                RepoButtonBlockViewModel viewModel = new();
-                viewModel.Item = item;
-                viewModel.DisplayDetails = false;
-                viewModel.DisplayStarButton = false;
-
-                OrgPinnedItems.Add(viewModel);
-            }
-
-            IsActive = false;
+            LoadOrganizationOverviewAsyncCommand = new AsyncRelayCommand<string>(LoadOrganizationOverviewAsync);
         }
+        #endregion
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
+        #region fields
+        private readonly IMessenger _messenger;
+        private readonly ILogger _logger;
+        private readonly ObservableCollection<RepoButtonBlockViewModel> _repositories;
+        #endregion
+
+        #region properties
+        public ReadOnlyObservableCollection<RepoButtonBlockViewModel> Repositories { get; }
+        public IAsyncRelayCommand LoadOrganizationOverviewAsyncCommand { get; }
+        #endregion
+
+        #region methods
+        private async Task LoadOrganizationOverviewAsync(string org, CancellationToken token)
         {
-            if (!Equals(field, newValue))
+            try
             {
-                field = newValue;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-                return true;
-            }
+                PinnedItemQueries queries = new();
+                var items = await queries.GetAllAsync(org);
 
-            return false;
+                if (items == null) return;
+
+                _repositories.Clear();
+                foreach (var item in items)
+                {
+                    RepoButtonBlockViewModel viewModel = new()
+                    {
+                        Item = item,
+                        DisplayDetails = false,
+                        DisplayStarButton = false,
+                    };
+
+                    _repositories.Add(viewModel);
+                }
+            }
+            catch (OperationCanceledException) { }
+            catch (Exception ex)
+            {
+                _logger?.Error("LoadOrganizationOverviewAsync", ex);
+                if (_messenger != null)
+                {
+                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+                    _messenger.Send(notification);
+                }
+                throw;
+            }
         }
+        #endregion
     }
 }

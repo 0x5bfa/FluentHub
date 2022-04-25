@@ -1,4 +1,5 @@
 ﻿using FluentHub.Services;
+using FluentHub.ViewModels;
 using FluentHub.ViewModels.Repositories.PullRequests;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -9,6 +10,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Views.Repositories.PullRequests
 {
@@ -17,6 +19,7 @@ namespace FluentHub.Views.Repositories.PullRequests
         public PullRequestPage()
         {
             InitializeComponent();
+            MainPageViewModel.PullRequestContentFrame.Navigating += OnPullRequestContentFrameNavigating;
 
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<PullRequestViewModel>();
@@ -36,7 +39,7 @@ namespace FluentHub.Views.Repositories.PullRequests
             currentItem.Header = $"{param.Title} · Pull Request #{param.Number} · {param.OwnerLogin}/{param.Name}";
             currentItem.Description = currentItem.Header;
             currentItem.Url = $"https://github.com/{param.OwnerLogin}/{param.Name}/pull/{param.Number}";
-            currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
+            currentItem.Icon = new muxc.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/PullRequests.png"))
             };
@@ -50,6 +53,28 @@ namespace FluentHub.Views.Repositories.PullRequests
         {
             Dialogs.IssueDetailsContentDialog detailsContentDialog = new();
             await detailsContentDialog.ShowAsync();
+        }
+
+        private void OnPullRequestNavigationViewSelectionChanged(muxc.NavigationView sender, muxc.NavigationViewSelectionChangedEventArgs args)
+        {
+            switch (args.SelectedItemContainer?.Tag?.ToString())
+            {
+                case "conversation":
+                    PullRequestContentFrame.Navigate(typeof(ConversationPage), ViewModel.PullItem);
+                    break;
+                case "commits":
+                    PullRequestContentFrame.Navigate(typeof(CommitsPage), ViewModel.PullItem);
+                    break;
+                case "filechanges":
+                    PullRequestContentFrame.Navigate(typeof(FileChangesPage), ViewModel.PullItem);
+                    break;
+            }
+        }
+
+        private void OnPullRequestContentFrameNavigating(object sender, NavigatingCancelEventArgs e)
+        {
+            e.Cancel = true;
+            PullRequestContentFrame.Navigate(e.SourcePageType, e.Parameter);
         }
     }
 }

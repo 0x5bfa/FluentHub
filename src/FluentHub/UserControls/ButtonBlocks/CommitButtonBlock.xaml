@@ -63,7 +63,7 @@
                         Orientation="Horizontal"
                         Spacing="4">
 
-                        <uc:AvatarControl AvatarUrl="{x:Bind ViewModel.CommitItem.AuthorAvatarUrl}" WidthAndHeight="20" />
+                        <uc:AvatarControl AvatarUrl="{x:Bind ViewModel.CommitItem.AuthorAvatarUrl}" WidthAndHeight="18" />
 
                         <TextBlock
                             Margin="4,0,0,0"

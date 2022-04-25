@@ -41,9 +41,13 @@ namespace FluentHub.Views.Repositories
                 Name = ViewModel.Repository.Name,
                 Owner = ViewModel.Repository.Owner,
                 Repository = ViewModel.Repository,
-                RepositoryDetails = ViewModel.RepositoryDetails,
-                BranchName = ViewModel.RepositoryDetails.DefaultBranchName,
             };
+
+            if (ViewModel.RepositoryDetails != null)
+            {
+                repoContextViewModel.RepositoryDetails = ViewModel.RepositoryDetails;
+                repoContextViewModel.BranchName = ViewModel.RepositoryDetails.DefaultBranchName;
+            }
 
             RepoPageNavViewFrame.Navigate(typeof(CodePage), repoContextViewModel);
         }
@@ -60,9 +64,13 @@ namespace FluentHub.Views.Repositories
                             Name = ViewModel.Repository.Name,
                             Owner = ViewModel.Repository.Owner,
                             Repository = ViewModel.Repository,
-                            RepositoryDetails = ViewModel.RepositoryDetails,
-                            BranchName = ViewModel.RepositoryDetails.DefaultBranchName,
                         };
+
+                        if (ViewModel.RepositoryDetails != null)
+                        {
+                            repoContextViewModel.RepositoryDetails = ViewModel.RepositoryDetails;
+                            repoContextViewModel.BranchName = ViewModel.RepositoryDetails.DefaultBranchName;
+                        }
 
                         RepoPageNavViewFrame.Navigate(typeof(CodePage), repoContextViewModel);
                         break;

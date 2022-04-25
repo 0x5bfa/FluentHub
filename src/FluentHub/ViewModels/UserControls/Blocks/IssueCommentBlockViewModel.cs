@@ -32,7 +32,7 @@ namespace FluentHub.ViewModels.UserControls.Blocks
             if (authorAssociation != "None") AuthorAssociation = authorAssociation;
 
             MarkdownQueries markdown = new();
-            var html = await markdown.GetHtmlAsync(IssueComment.BodyHtml, IssueComment.Url, ThemeHelper.ActualTheme.ToString().ToLower(), true);
+            var html = await markdown.GetHtmlAsync(IssueComment.BodyHTML, IssueComment.Url, ThemeHelper.ActualTheme.ToString().ToLower(), true);
             webView.NavigateToString(html);
         }
 

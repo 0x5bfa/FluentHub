@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace FluentHub.ViewModels.UserControls.ButtonBlocks
 {
@@ -18,6 +19,9 @@ namespace FluentHub.ViewModels.UserControls.ButtonBlocks
     {
         private Commit _commitItem;
         public Commit CommitItem { get => _commitItem; set => SetProperty(ref _commitItem, value); }
+
+        private Frame _targetFrame;
+        public Frame TargetFrame { get => _targetFrame; set => SetProperty(ref _targetFrame, value); }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)

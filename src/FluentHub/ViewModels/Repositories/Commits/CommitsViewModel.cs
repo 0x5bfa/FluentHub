@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Controls;
 
 namespace FluentHub.ViewModels.Repositories.Commits
 {

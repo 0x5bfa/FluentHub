@@ -9,13 +9,11 @@ namespace FluentHub.Octokit.Models.Events
 {
     public class IssueComment
     {
-        public string AuthorLogin { get; set; }
-        public string AuthorAvatarUrl { get; set; }
-        public string BodyHtml { get; set; }
+        public Actor Author { get; set; }
+        public string BodyHTML { get; set; }
         public string MinimizedReason { get; set; }
         public string Url { get; set; }
 
-        public bool IsEdited { get; set; }
         public bool IsMinimized { get; set; }
         public bool ViewerCanDelete { get; set; }
         public bool ViewerCanMinimize { get; set; }
@@ -23,9 +21,10 @@ namespace FluentHub.Octokit.Models.Events
         public bool ViewerCanUpdate { get; set; }
         public bool ViewerDidAuthor { get; set; }
 
-        public Reaction Reactions { get; set; } = new();
+        public List<Reaction> Reactions { get; set; } = new();
         public GraphQLModel.CommentAuthorAssociation AuthorAssociation { get; set; }
 
+        public DateTimeOffset? LastEditedAt { get; set; }
         public DateTimeOffset UpdatedAt { get; set; }
         public DateTimeOffset CreatedAt { get; set; }
     }
