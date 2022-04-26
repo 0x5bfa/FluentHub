@@ -158,7 +158,9 @@
                             Margin="-4,0,0,0"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="{x:Bind ViewModel.Item.SubjectNumber, Mode=OneWay}" />
+                            Text="{x:Bind ViewModel.Item.SubjectNumber, Mode=OneWay}"
+                            Visibility="{x:Bind ViewModel.Item.SubjectNumber, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
+
 
                     </StackPanel>
 
