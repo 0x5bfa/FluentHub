@@ -72,7 +72,7 @@
 
                                     <StackPanel
                                         Grid.Row="1"
-                                        Margin="0,16,0,8"
+                                        Margin="0,8,0,8"
                                         Orientation="Horizontal"
                                         Spacing="8">
                                         <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.IssueItem.Closed, Mode=OneWay}">
@@ -80,23 +80,11 @@
                                                 <label:StateLabel Status="IssueClosed" />
                                             </toolkit:Case>
                                             <toolkit:Case Value="False">
-                                                <label:StateLabel Status="IssueOpened" />
+                                                <label:StateLabel Status="IssueOpen" />
                                             </toolkit:Case>
                                         </toolkit:SwitchPresenter>
                                     </StackPanel>
 
-                                    <Grid
-                                        Grid.RowSpan="3"
-                                        Margin="0,0,0,8"
-                                        HorizontalAlignment="Right"
-                                        VerticalAlignment="Bottom">
-                                        <Button Click="OnViewDetailsButtonClick">
-                                            <StackPanel Orientation="Horizontal" Spacing="4">
-                                                <FontIcon FontSize="16" Glyph="&#xE946;" />
-                                                <TextBlock Text="Details" />
-                                            </StackPanel>
-                                        </Button>
-                                    </Grid>
                                 </Grid>
 
                                 <MenuFlyoutSeparator Grid.Row="1" Margin="12,-2" />

@@ -132,6 +132,9 @@
     <Compile Include="Dialogs\IssueDetailsContentDialog.xaml.cs">
       <DependentUpon>IssueDetailsContentDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\UserProfileEditor.xaml.cs">
+      <DependentUpon>UserProfileEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\IEnumerableExt.cs" />
     <Compile Include="Helpers\BlobDetailsHelpers.cs" />
     <Compile Include="Helpers\ColorHelpers.cs" />
@@ -291,6 +294,7 @@
     <Compile Include="ViewModels\Home\NotificationsViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\UserButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Labels\LabelControlViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Labels\StatusLabelViewModel.cs" />
     <Compile Include="ViewModels\Users\DiscussionsViewModel.cs" />
     <Compile Include="ViewModels\Users\FollowersViewModel.cs" />
     <Compile Include="ViewModels\Users\FollowingViewModel.cs" />
@@ -618,6 +622,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Dialogs\IssueDetailsContentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\UserProfileEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

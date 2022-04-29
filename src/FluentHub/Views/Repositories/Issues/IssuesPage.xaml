@@ -30,7 +30,7 @@
                 VerticalAlignment="Center"
                 FontSize="14"
                 Style="{StaticResource BodyStrongTextBlockStyle}"
-                Text="Issues" />
+                Text="Pinned Issues" />
         </StackPanel>
 
         <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">

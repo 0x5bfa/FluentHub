@@ -17,21 +17,14 @@
         </Grid.RowDefinitions>
 
         <StackPanel
-            Margin="16,0"
+            Margin="12,4"
             VerticalAlignment="Center"
             Orientation="Horizontal"
             Spacing="8">
 
-            <FontIcon
-                FontFamily="{StaticResource Octions}"
-                FontSize="16"
-                Glyph="&#xEAA5;" />
-
-            <TextBlock
-                VerticalAlignment="Center"
-                FontSize="14"
-                Style="{StaticResource BodyStrongTextBlockStyle}"
-                Text="Commits" />
+            <ComboBox IsEnabled="False">
+                <ComboBoxItem Content="BranchName" IsSelected="True" />
+            </ComboBox>
 
         </StackPanel>
 

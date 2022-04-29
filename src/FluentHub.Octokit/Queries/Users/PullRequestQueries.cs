@@ -51,10 +51,10 @@ namespace FluentHub.Octokit.Queries.Users
                     .ToList(),
 
                     ReviewState = x.Reviews(null, null, 1, null, null, null).Nodes.Select(y => y.State)
-                    .ToList().FirstOrDefault(),
+                    .ToList().SingleOrDefault(),
 
                     StatusState = x.Commits(null, null, 1, null).Nodes.Select(y => y.Commit.StatusCheckRollup.Select(z => z.State).SingleOrDefault())
-                    .ToList().FirstOrDefault(),
+                    .ToList().SingleOrDefault(),
 
                     UpdatedAt = x.UpdatedAt,
                 })

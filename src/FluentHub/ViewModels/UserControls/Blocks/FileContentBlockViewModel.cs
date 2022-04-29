@@ -79,10 +79,16 @@ namespace FluentHub.ViewModels.UserControls.Blocks
 
                 textBlock.Blocks.Clear();
                 var formatter = new RichTextBlockFormatter(ThemeHelper.ActualTheme);
-                var extension = Path.GetExtension(ContextViewModel.Path.Remove(0, 1)).Remove(0, 1);
+
+                string extension = Path.GetExtension(ContextViewModel.Path.Remove(0, 1));
+                if (!string.IsNullOrEmpty(extension))
+                {
+                    extension = extension.TrimStart('.');
+                }
+
                 var fileType = FileTypeHelper.GetFileTypeStringId(extension);
 
-                if (!string.IsNullOrEmpty(fileType))
+                if (!string.IsNullOrEmpty(fileType) && !string.IsNullOrEmpty(extension))
                 {
                     ILanguage lang = Languages.FindById(fileType);
                     formatter.FormatRichTextBlock(BlobContent, lang, textBlock);

@@ -12,27 +12,8 @@
     mc:Ignorable="d">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
 
-        <StackPanel
-            Margin="16,12,16,2"
-            VerticalAlignment="Center"
-            Orientation="Horizontal"
-            Spacing="8">
-            <FontIcon
-                FontFamily="{StaticResource Octions}"
-                FontSize="16"
-                Glyph="&#xEA36;" />
-            <TextBlock
-                VerticalAlignment="Center"
-                Style="{StaticResource BodyStrongTextBlockStyle}"
-                Text="Following" />
-        </StackPanel>
-
-        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
             <muxc:ItemsRepeater Margin="12,2,12,12" ItemsSource="{x:Bind ViewModel.FollowingItems, Mode=OneWay}">
                 <DataTemplate x:DataType="bbvm:UserButtonBlockViewModel">
                     <buttonblock:UserButtonBlock
@@ -44,7 +25,6 @@
         </ScrollViewer>
 
         <toolkit:SwitchPresenter
-            Grid.RowSpan="3"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             TargetType="x:Boolean"

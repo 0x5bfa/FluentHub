@@ -98,8 +98,8 @@ namespace FluentHub.Octokit.Queries.Repositories
                         {
                             AbbreviatedOid = y.AbbreviatedOid,
                             Oid =y.Oid,
-                            AuthorAvatarUrl = y.Author.AvatarUrl(100),
-                            AuthorName = y.Author.User.Login,
+                            AuthorAvatarUrl = y.Author.Select(author => author.AvatarUrl(100)).SingleOrDefault(),
+                            AuthorName = y.Author.Select(author => author.User.Select(user => user.Login).SingleOrDefault()).SingleOrDefault(),
                             CommitMessage =y.Message,
 
                             CommittedAt =y.CommittedDate,
