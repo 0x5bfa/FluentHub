@@ -31,7 +31,7 @@ Expect regular breaking changes. If you cannot build or found authorization issu
 
 ## Notices
 
- 1. HttpsClient in Octokit.GraohQL.NET does not work property(occur unknown exception) for users using Win11 Dev version with TLS and SSL settings disabled. Please see [#123](https://github.com/fluenthub-community/FluentHub/issues/123) for more information.</br>`Win+R` > `inetcpl.cpl` > `Advanced` tab > activate all TLS and SSL versions > restart
+ 1. HttpsClient in Octokit.GraohQL.NET does not work properly (occur unknown exception) for users using Win11 Dev/Beta version with TLS and SSL settings disabled. Please see [#123](https://github.com/fluenthub-community/FluentHub/issues/123) for more information.</br>`Win+R` > `inetcpl.cpl` > `Advanced` tab > activate all TLS and SSL versions > restart
 
 	![image](https://user-images.githubusercontent.com/60316747/165113319-790574fe-6bf0-4170-a48f-fd92e5652318.png)
 
