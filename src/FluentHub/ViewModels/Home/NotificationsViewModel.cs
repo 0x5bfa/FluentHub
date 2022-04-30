@@ -16,12 +16,10 @@ namespace FluentHub.ViewModels.Home
     public class NotificationsViewModel : ObservableObject
     {
         #region constructor
-        public NotificationsViewModel(IGitHubClient client!!,
-                                      ToastService toastService,
+        public NotificationsViewModel(ToastService toastService,
                                       IMessenger messenger = null,
                                       ILogger logger = null)
         {
-            _client = client;
             _toastService = toastService;
             _messenger = messenger;
             _logger = logger;
@@ -34,7 +32,6 @@ namespace FluentHub.ViewModels.Home
         #endregion
 
         #region properties
-        private readonly IGitHubClient _client;
         private readonly ToastService _toastService;
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;

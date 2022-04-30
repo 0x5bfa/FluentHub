@@ -26,7 +26,7 @@
             VerticalAlignment="Stretch"
             Background="{x:Bind ViewModel.Color, Mode=OneWay}"
             CornerRadius="4"
-            Opacity="0.3" />
+            Opacity="0.4" />
 
         <Grid
             x:Name="LabelBorder"
@@ -46,13 +46,11 @@
                 x:Name="StateLabelFont"
                 FontFamily="{StaticResource Octions}"
                 FontSize="14"
-                Foreground="{x:Bind ViewModel.Color, Mode=OneWay}"
                 Glyph="{x:Bind ViewModel.Glyph, Mode=OneWay}" />
 
             <TextBlock
                 x:Name="StateLabelTextBlock"
                 VerticalAlignment="Center"
-                Foreground="{x:Bind ViewModel.Color, Mode=OneWay}"
                 Style="{StaticResource BodyTextBlockStyle}"
                 Text="{x:Bind ViewModel.Name, Mode=OneWay}" />
 

@@ -30,8 +30,6 @@ namespace FluentHub
     {
         Frame rootFrame = Window.Current.Content as Frame;
 
-        public static GitHubClient Client { get; private set; } = new GitHubClient(new ProductHeaderValue("FluentHub"));
-
         public static SettingsViewModel Settings { get; private set; } = new SettingsViewModel();
 
         public static string AppVersion = $"{Package.Current.Id.Version.Major}.{Package.Current.Id.Version.Minor}.{Package.Current.Id.Version.Build}.{Package.Current.Id.Version.Revision}";
@@ -80,7 +78,6 @@ namespace FluentHub
         private static IServiceProvider ConfigureServices()
         {
             return new ServiceCollection()
-                .AddSingleton<IGitHubClient>(App.Client)
                 .AddSingleton<INavigationService, NavigationService>()
                 .AddSingleton<Backend.ILogger>(new Utils.SerilogWrapperLogger(Log.Logger))
                 .AddSingleton<Backend.ToastService>()
@@ -160,9 +157,6 @@ namespace FluentHub
             {
                 if (Settings.SetupCompleted == true)
                 {
-                    // temp: copy credentials to main thread app (will be removed)
-                    Client.Credentials = new Credentials(Settings.AccessToken);
-
                     rootFrame.Navigate(typeof(MainPage));
                 }
                 else
@@ -241,9 +235,6 @@ namespace FluentHub
 
                     AuthorizationService authService = new();
                     bool status = await authService.RequestOAuthTokenAsync(code);
-
-                    // temp: copy credentials to main thread app (will be removed)
-                    Client.Credentials = new Credentials(Settings.AccessToken);
 
                     if (status)
                     {

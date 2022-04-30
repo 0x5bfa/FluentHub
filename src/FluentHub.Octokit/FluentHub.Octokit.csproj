@@ -128,6 +128,7 @@
     <Compile Include="Models\ApiOptions.cs" />
     <Compile Include="Models\CalendarDay.cs" />
     <Compile Include="Models\ChangedFile.cs" />
+    <Compile Include="Models\CheckRun.cs" />
     <Compile Include="Models\Commit.cs" />
     <Compile Include="Models\CommitDetails.cs" />
     <Compile Include="Models\ContributionCalender.cs" />
@@ -197,6 +198,7 @@
     <Compile Include="Models\Reaction.cs" />
     <Compile Include="Models\Release.cs" />
     <Compile Include="Models\Repository.cs" />
+    <Compile Include="Models\StatusCheckRollup.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserStatus.cs" />
     <Compile Include="Queries\Organizations\PinnedItemQueries.cs" />
