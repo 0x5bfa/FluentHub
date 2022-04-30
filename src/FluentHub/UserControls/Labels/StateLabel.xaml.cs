@@ -21,18 +21,18 @@ namespace FluentHub.UserControls.Labels
         #region propdp
         public static readonly DependencyProperty StatusProperty =
             DependencyProperty.Register(
-                nameof(Status),
-                typeof(Status),
+                nameof(SubjectType),
+                typeof(SubjectType),
                 typeof(StateLabel),
                 new PropertyMetadata(null));
 
-        public Status Status
+        public SubjectType SubjectType
         {
-            get => (Status)GetValue(StatusProperty);
+            get => (SubjectType)GetValue(StatusProperty);
             set
             {
                 SetValue(StatusProperty, value);
-                ViewModel.LoadContents(Status.ToString());
+                ViewModel.LoadContents(SubjectType.ToString());
             }
         }
         #endregion
@@ -40,7 +40,7 @@ namespace FluentHub.UserControls.Labels
         public StateLabel() => InitializeComponent();
     }
 
-    public enum Status
+    public enum SubjectType
     {
         IssueOpen,
         IssueClosed,

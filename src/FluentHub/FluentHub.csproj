@@ -163,6 +163,9 @@
     <Compile Include="UserControls\AvatarControl.xaml.cs">
       <DependentUpon>AvatarControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Blocks\BranchName.xaml.cs">
+      <DependentUpon>BranchName.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Blocks\CommitActivityBlock.xaml.cs">
       <DependentUpon>CommitActivityBlock.xaml</DependentUpon>
     </Compile>
@@ -664,6 +667,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Blocks\ActivityBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Blocks\BranchName.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

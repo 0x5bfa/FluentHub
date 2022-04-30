@@ -2,6 +2,7 @@
     x:Class="FluentHub.Views.Repositories.PullRequests.PullRequestPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:blocks="using:FluentHub.UserControls.Blocks"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:label="using:FluentHub.UserControls.Labels"
     xmlns:local="using:FluentHub.Views.Repositories.PullRequests"
@@ -86,16 +87,17 @@
                                         Margin="0,8,0,8"
                                         Orientation="Horizontal"
                                         Spacing="8">
+
                                         <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.PullItem.Closed, Mode=OneWay}">
 
                                             <toolkit:Case Value="True">
                                                 <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.PullItem.Merged, Mode=OneWay}">
                                                     <toolkit:Case Value="True">
-                                                        <label:StateLabel Status="PullMerged" />
+                                                        <label:StateLabel SubjectType="PullMerged" />
                                                     </toolkit:Case>
 
                                                     <toolkit:Case Value="False">
-                                                        <label:StateLabel Status="PullClosed" />
+                                                        <label:StateLabel SubjectType="PullClosed" />
                                                     </toolkit:Case>
                                                 </toolkit:SwitchPresenter>
                                             </toolkit:Case>
@@ -103,15 +105,25 @@
                                             <toolkit:Case Value="False">
                                                 <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.PullItem.IsDraft, Mode=OneWay}">
                                                     <toolkit:Case Value="True">
-                                                        <label:StateLabel Status="PullDraft" />
+                                                        <label:StateLabel SubjectType="PullDraft" />
                                                     </toolkit:Case>
 
                                                     <toolkit:Case Value="False">
-                                                        <label:StateLabel Status="PullOpen" />
+                                                        <label:StateLabel SubjectType="PullOpen" />
                                                     </toolkit:Case>
                                                 </toolkit:SwitchPresenter>
                                             </toolkit:Case>
                                         </toolkit:SwitchPresenter>
+
+                                        <blocks:BranchName Branch="{x:Bind ViewModel.PullItem.HeadRefName, Mode=OneWay}" />
+
+                                        <FontIcon
+                                            FontSize="12"
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Glyph="&#xE72A;" />
+
+                                        <blocks:BranchName Branch="{x:Bind ViewModel.PullItem.BaseRefName, Mode=OneWay}" />
+
                                     </StackPanel>
 
                                 </Grid>

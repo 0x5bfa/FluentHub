@@ -77,10 +77,10 @@
                                         Spacing="8">
                                         <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.IssueItem.Closed, Mode=OneWay}">
                                             <toolkit:Case Value="True">
-                                                <label:StateLabel Status="IssueClosed" />
+                                                <label:StateLabel SubjectType="IssueClosed" />
                                             </toolkit:Case>
                                             <toolkit:Case Value="False">
-                                                <label:StateLabel Status="IssueOpen" />
+                                                <label:StateLabel SubjectType="IssueOpen" />
                                             </toolkit:Case>
                                         </toolkit:SwitchPresenter>
                                     </StackPanel>
