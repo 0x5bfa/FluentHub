@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FluentHub.Models.Items
+namespace FluentHub.Models
 {
-    public class DetailsLayoutListViewItem
+    public class DetailsLayoutListViewModel
     {
         public string ObjectTypeIconGlyph { get; set; }
 

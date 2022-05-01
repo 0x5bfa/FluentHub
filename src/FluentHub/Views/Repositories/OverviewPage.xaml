@@ -28,10 +28,28 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid Margin="20,20,20,12" ColumnSpacing="6">
+        <Grid
+            x:Name="ArchiveMessage"
+            Height="40"
+            x:Load="{x:Bind ViewModel.Repository.IsArchived}">
+
+            <Border Background="#ae7c14" Opacity="0.3" />
+
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Style="{StaticResource BodyStrongTextBlockStyle}"
+                Text="This repository has been archived by the owner. It is now read-only." />
+        </Grid>
+
+        <Grid
+            Grid.Row="1"
+            Margin="20,20,20,12"
+            ColumnSpacing="6">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
@@ -51,8 +69,8 @@
                     <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <uc:AvatarControl
-                            AvatarUrl="{x:Bind ViewModel.Repository.OwnerAvatarUrl, Mode=OneWay}"
-                            IsOrganization="{x:Bind ViewModel.Repository.OwnerIsOrganization, Mode=OneWay}"
+                            AvatarUrl="{x:Bind ViewModel.Repository.Owner.AvatarUrl, Mode=OneWay}"
+                            IsOrganization="{x:Bind ViewModel.Repository.IsInOrganization, Mode=OneWay}"
                             WidthAndHeight="26" />
 
                         <TextBlock
@@ -60,7 +78,7 @@
                             VerticalAlignment="Center"
                             FontWeight="Normal"
                             Style="{StaticResource SubtitleTextBlockStyle}"
-                            Text="{x:Bind ViewModel.Repository.Owner, Mode=OneWay}" />
+                            Text="{x:Bind ViewModel.Repository.Owner.Login, Mode=OneWay}" />
 
                     </StackPanel>
                 </Button>
@@ -134,7 +152,7 @@
 
                             </toolkit:SwitchPresenter>
 
-                            <muxc:InfoBadge x:Name="WatchersCountBadge" Value="{x:Bind ViewModel.RepositoryDetails.WatcherCount, Mode=OneWay}" />
+                            <muxc:InfoBadge x:Name="WatchersCountBadge" Value="{x:Bind ViewModel.Repository.WatcherCount, Mode=OneWay}" />
 
                         </StackPanel>
                     </muxc:DropDownButton.Content>
@@ -196,7 +214,7 @@
 
         </Grid>
 
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="2">
             <muxc:NavigationView
                 x:Name="RepoPageNavView"
                 Margin="10,0"
@@ -219,7 +237,7 @@
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
 
-                    <muxc:NavigationViewItem Tag="Issues" Visibility="{x:Bind ViewModel.RepositoryDetails.HasIssuesEnabled, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+                    <muxc:NavigationViewItem Tag="Issues" Visibility="{x:Bind ViewModel.Repository.HasIssuesEnabled, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
                         <muxc:NavigationViewItem.Content>
                             <StackPanel Orientation="Horizontal" Spacing="8">
                                 <FontIcon
@@ -229,12 +247,16 @@
 
                                 <TextBlock Text="Issues" />
 
-                                <muxc:InfoBadge x:Name="IssuesCountBadge" Value="{x:Bind ViewModel.Repository.OpenIssueCount, Mode=OneWay}" />
+                                <muxc:InfoBadge
+                                    x:Name="IssuesCountBadge"
+                                    x:Load="{x:Bind ViewModel.Repository.OpenIssueCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                                    Value="{x:Bind ViewModel.Repository.OpenIssueCount, Mode=OneWay}" />
+
                             </StackPanel>
                         </muxc:NavigationViewItem.Content>
                     </muxc:NavigationViewItem>
 
-                    <muxc:NavigationViewItem Tag="PRs">
+                    <muxc:NavigationViewItem Tag="PullRequests">
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
@@ -243,8 +265,30 @@
 
                             <TextBlock Text="Pull Requests" />
 
-                            <muxc:InfoBadge x:Name="PullsCountBadge" Value="{x:Bind ViewModel.Repository.OpenPullCount, Mode=OneWay}" />
+                            <muxc:InfoBadge
+                                x:Name="PullsCountBadge"
+                                x:Load="{x:Bind ViewModel.Repository.OpenPullCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                                Value="{x:Bind ViewModel.Repository.OpenPullCount, Mode=OneWay}" />
+
                         </StackPanel>
+                    </muxc:NavigationViewItem>
+
+                    <muxc:NavigationViewItem Content="Discussions" Tag="Discussions">
+                        <muxc:NavigationViewItem.Icon>
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="16"
+                                Glyph="&#xE95D;" />
+                        </muxc:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem>
+
+                    <muxc:NavigationViewItem Content="Projects" Tag="Projects">
+                        <muxc:NavigationViewItem.Icon>
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="16"
+                                Glyph="&#xEA48;" />
+                        </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
 
                     <muxc:NavigationViewItem Content="Settings" Tag="Settings">

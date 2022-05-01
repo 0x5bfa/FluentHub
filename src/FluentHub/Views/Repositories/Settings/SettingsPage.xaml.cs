@@ -12,18 +12,15 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using muxc = Microsoft.UI.Xaml.Controls;
 
-namespace FluentHub.Views.Repositories
+namespace FluentHub.Views.Repositories.Settings
 {
-    public sealed partial class Settings : Page
+    public sealed partial class SettingsPage : Page
     {
-        public Settings()
+        public SettingsPage()
         {
             this.InitializeComponent();
         }
-
-        //protected override void OnNavigatedTo(NavigationEventArgs e)
-        //{
-        //}
     }
 }

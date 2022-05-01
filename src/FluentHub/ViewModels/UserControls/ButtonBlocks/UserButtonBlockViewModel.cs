@@ -11,15 +11,8 @@ namespace FluentHub.ViewModels.UserControls.ButtonBlocks
 {
     public class UserButtonBlockViewModel : INotifyPropertyChanged
     {
-        private User user;
-        public User User
-        {
-            get => user;
-            set
-            {
-                SetProperty(ref user, value);
-            }
-        }
+        private User _user;
+        public User User { get => _user; set => SetProperty(ref _user, value); }
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)

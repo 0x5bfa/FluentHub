@@ -7,9 +7,6 @@ using Windows.UI.Xaml;
 
 namespace FluentHub.Helpers
 {
-    /// <summary>
-    /// Class providing functionality around switching and restoring theme settings
-    /// </summary>
     public static class ThemeHelper
     {
         private const string SelectedAppThemeKey = "SelectedAppTheme";
@@ -32,7 +29,7 @@ namespace FluentHub.Helpers
                     }
                 }
 
-                return FluentHub.App.GetEnum<ElementTheme>(App.Current.RequestedTheme.ToString());
+                return App.GetEnum<ElementTheme>(App.Current.RequestedTheme.ToString());
             }
         }
 
@@ -94,9 +91,8 @@ namespace FluentHub.Helpers
         public static bool IsDarkTheme()
         {
             if (RootTheme == ElementTheme.Default)
-            {
                 return Application.Current.RequestedTheme == ApplicationTheme.Dark;
-            }
+
             return RootTheme == ElementTheme.Dark;
         }
 
@@ -104,7 +100,7 @@ namespace FluentHub.Helpers
         {
             ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
 
-            if (ThemeHelper.IsDarkTheme())
+            if (IsDarkTheme())
             {
                 titleBar.ButtonForegroundColor = Colors.White;
             }

@@ -58,13 +58,10 @@ namespace FluentHub.ViewModels.Users
                 };
 
                 PinnedItemQueries queries = new();
-
-                List<Repository> items = await queries.GetAllAsync(login);
-
+                var items = await queries.GetAllAsync(login);
                 if (items == null) return;
 
                 _repositoryItems.Clear();
-
                 foreach (var item in items)
                 {
                     RepoButtonBlockViewModel viewModel = new()

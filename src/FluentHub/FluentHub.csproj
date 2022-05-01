@@ -132,22 +132,20 @@
     <Compile Include="Dialogs\IssueDetailsContentDialog.xaml.cs">
       <DependentUpon>IssueDetailsContentDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\UserProfileEditor.xaml.cs">
+      <DependentUpon>UserProfileEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\IEnumerableExt.cs" />
     <Compile Include="Helpers\BlobDetailsHelpers.cs" />
     <Compile Include="Helpers\ColorHelpers.cs" />
     <Compile Include="Helpers\FileTypeHelper.cs" />
-    <Compile Include="Helpers\InternetConnectionHelpers.cs" />
     <Compile Include="Helpers\JumpListHelper.cs" />
-    <Compile Include="Helpers\LanguageColorHelpers.cs" />
     <Compile Include="Helpers\MentionHelpers.cs" />
     <Compile Include="Helpers\ResourceHelper.cs" />
     <Compile Include="Helpers\ThemeHelper.cs" />
     <Compile Include="Helpers\WebViewHelpers.cs" />
     <Compile Include="Models\DefaultLanguageModel.cs" />
-    <Compile Include="Models\Items\DetailsLayoutListViewItem.cs" />
-    <Compile Include="Models\Items\IssueCommentItem.cs" />
-    <Compile Include="Models\Items\IssueEventItem.cs" />
-    <Compile Include="Models\Items\LabelSimpleItem.cs" />
+    <Compile Include="Models\DetailsLayoutListViewModel.cs" />
     <Compile Include="Models\UserNotificationMessage.cs" />
     <Compile Include="Models\UserNotificationMethod.cs" />
     <Compile Include="Models\UserNotificationType.cs" />
@@ -160,6 +158,9 @@
     <Compile Include="UserControls\AvatarControl.xaml.cs">
       <DependentUpon>AvatarControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Blocks\BranchName.xaml.cs">
+      <DependentUpon>BranchName.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Blocks\CommitActivityBlock.xaml.cs">
       <DependentUpon>CommitActivityBlock.xaml</DependentUpon>
     </Compile>
@@ -171,6 +172,9 @@
     </Compile>
     <Compile Include="UserControls\ButtonBlocks\CommitButtonBlock.xaml.cs">
       <DependentUpon>CommitButtonBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ButtonBlocks\ProjectButtonBlock.xaml.cs">
+      <DependentUpon>ProjectButtonBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\TabViewControl\TabItem.cs" />
     <Compile Include="UserControls\Blocks\ActivityBlock.xaml.cs">
@@ -256,6 +260,10 @@
     <Compile Include="ViewModels\Repositories\Codes\ReleasesViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Commits\CommitsViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Commits\CommitViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\Discussions\DiscussionsViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\Discussions\DiscussionViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\Projects\ProjectsViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\Projects\ProjectViewModel.cs" />
     <Compile Include="ViewModels\Repositories\PullRequests\CommitsViewModel.cs" />
     <Compile Include="ViewModels\Repositories\PullRequests\CommitViewModel.cs" />
     <Compile Include="ViewModels\Repositories\PullRequests\ConversationViewModel.cs" />
@@ -264,7 +272,6 @@
     <Compile Include="ViewModels\Repositories\Issues\IssuesViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Issues\IssueViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Codes\Layouts\DetailsLayoutViewModel.cs" />
-    <Compile Include="ViewModels\Repositories\Codes\Layouts\TreeLayoutViewModel.cs" />
     <Compile Include="ViewModels\Repositories\OverviewViewModel.cs" />
     <Compile Include="ViewModels\Repositories\PullRequests\PullRequestsViewModel.cs" />
     <Compile Include="ViewModels\Repositories\PullRequests\PullRequestViewModel.cs" />
@@ -282,6 +289,7 @@
     <Compile Include="ViewModels\UserControls\ButtonBlocks\IssueButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\NotificationButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\OrgButtonBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\ButtonBlocks\ProjectButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\PullButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\RepoButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\IssueCommentBlockViewModel.cs" />
@@ -291,6 +299,7 @@
     <Compile Include="ViewModels\Home\NotificationsViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\UserButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Labels\LabelControlViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Labels\StatusLabelViewModel.cs" />
     <Compile Include="ViewModels\Users\DiscussionsViewModel.cs" />
     <Compile Include="ViewModels\Users\FollowersViewModel.cs" />
     <Compile Include="ViewModels\Users\FollowingViewModel.cs" />
@@ -325,6 +334,18 @@
     <Compile Include="Views\Repositories\Commits\CommitsPage.xaml.cs">
       <DependentUpon>CommitsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Repositories\Discussions\DiscussionPage.xaml.cs">
+      <DependentUpon>DiscussionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\Discussions\DiscussionsPage.xaml.cs">
+      <DependentUpon>DiscussionsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\Projects\ProjectPage.xaml.cs">
+      <DependentUpon>ProjectPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\Projects\ProjectsPage.xaml.cs">
+      <DependentUpon>ProjectsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Repositories\PullRequests\CommitPage.xaml.cs">
       <DependentUpon>CommitPage.xaml</DependentUpon>
     </Compile>
@@ -339,6 +360,12 @@
     </Compile>
     <Compile Include="Views\Repositories\PullRequests\PullRequestPage.xaml.cs">
       <DependentUpon>PullRequestPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\Settings\GeneralPage.xaml.cs">
+      <DependentUpon>GeneralPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\Settings\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Searches\MainSearchPage.xaml.cs">
       <DependentUpon>MainSearchPage.xaml</DependentUpon>
@@ -377,9 +404,6 @@
     <Compile Include="Views\Repositories\Codes\Layouts\DetailsLayoutView.xaml.cs">
       <DependentUpon>DetailsLayoutView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Repositories\Codes\Layouts\TreeLayoutView.xaml.cs">
-      <DependentUpon>TreeLayoutView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Repositories\OverviewPage.xaml.cs">
       <DependentUpon>OverviewPage.xaml</DependentUpon>
     </Compile>
@@ -388,9 +412,6 @@
     </Compile>
     <Compile Include="Views\Repositories\Issues\IssuesPage.xaml.cs">
       <DependentUpon>IssuesPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Repositories\Settings.xaml.cs">
-      <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SignIn\SignInPage.xaml.cs">
       <DependentUpon>SignInPage.xaml</DependentUpon>
@@ -621,6 +642,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Dialogs\UserProfileEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ResourceDictionaries\CommonStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -659,6 +684,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\Blocks\BranchName.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Blocks\CommitActivityBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -692,6 +721,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ButtonBlocks\OrgButtonBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ButtonBlocks\ProjectButtonBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -795,6 +828,22 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Repositories\Discussions\DiscussionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\Discussions\DiscussionsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\Projects\ProjectPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\Projects\ProjectsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Repositories\PullRequests\CommitPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -812,6 +861,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Repositories\PullRequests\PullRequestPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\Settings\GeneralPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\Settings\SettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -863,10 +920,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Repositories\Codes\Layouts\TreeLayoutView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Repositories\OverviewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -876,10 +929,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Repositories\Issues\IssuesPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Repositories\Settings.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -954,9 +1003,6 @@
     <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed">
       <Version>2.0.1</Version>
     </PackageReference>
-    <PackageReference Include="Octokit">
-      <Version>0.51.0</Version>
-    </PackageReference>
     <PackageReference Include="Serilog.Sinks.File">
       <Version>5.0.0</Version>
     </PackageReference>
@@ -981,7 +1027,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Repositories\Discussions\" />
+    <Folder Include="Views\Organizations\Settings\" />
+    <Folder Include="Views\Users\Settings\" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

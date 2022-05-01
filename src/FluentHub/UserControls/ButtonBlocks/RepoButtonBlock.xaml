@@ -130,7 +130,7 @@
                             Margin="0,0,16,0"
                             Orientation="Horizontal"
                             Spacing="6"
-                            Visibility="{x:Bind ViewModel.Item.PrimaryLangName, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+                            Visibility="{x:Bind ViewModel.Item.PrimaryLanguage.Name, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
 
                             <Border
                                 x:Name="LanguageColor"
@@ -139,7 +139,7 @@
                                 Background="{x:Bind ViewModel.PrimaryLangColor, Mode=OneWay}"
                                 CornerRadius="7" />
 
-                            <TextBlock x:Name="Language" Text="{x:Bind ViewModel.Item.PrimaryLangName, Mode=OneWay}" />
+                            <TextBlock x:Name="Language" Text="{x:Bind ViewModel.Item.PrimaryLanguage.Name, Mode=OneWay}" />
 
                         </StackPanel>
 

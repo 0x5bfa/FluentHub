@@ -21,9 +21,8 @@ namespace FluentHub.Helpers
             _ = await webView.InvokeScriptAsync("eval", new string[] { SetBodyOverFlowHiddenString });
 
             var pageHeightString = await webView.InvokeScriptAsync("eval", new[] { "document.body.scrollHeight.toString()" });
-            int pageHeight = 0;
 
-            if (int.TryParse(pageHeightString, out pageHeight))
+            if (int.TryParse(pageHeightString, out int pageHeight))
             {
                 webView.Height = pageHeight;
             }

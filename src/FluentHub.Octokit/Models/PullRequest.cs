@@ -27,7 +27,7 @@ namespace FluentHub.Octokit.Models
         public List<Label> Labels { get; set; } = new();
 
         public GraphQLModel.PullRequestReviewState ReviewState { get; set; }
-        public GraphQLModel.StatusState StatusState { get; set; }
+        public StatusCheckRollup StatusState { get; set; }
 
         public DateTimeOffset UpdatedAt { get; set; }
         public string UpdatedAtHumanized { get; set; }

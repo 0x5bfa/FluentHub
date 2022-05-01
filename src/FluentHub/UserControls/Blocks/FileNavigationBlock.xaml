@@ -38,6 +38,7 @@
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
                                 FontSize="14"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                 Glyph="&#xE9B7;" />
                             <TextBlock Text="{x:Bind}" TextTrimming="CharacterEllipsis" />
                         </StackPanel>
@@ -63,7 +64,7 @@
                             VerticalAlignment="Center"
                             FontWeight="SemiBold"
                             Style="{ThemeResource BodyTextBlockStyle}"
-                            Text="{x:Bind ViewModel.ContextViewModel.RepositoryDetails.HeadRefsCount, Mode=OneWay}" />
+                            Text="{x:Bind ViewModel.ContextViewModel.Repository.HeadRefsCount, Mode=OneWay}" />
 
                         <TextBlock
                             VerticalAlignment="Center"
@@ -92,7 +93,7 @@
                             VerticalAlignment="Center"
                             FontWeight="SemiBold"
                             Style="{ThemeResource BodyTextBlockStyle}"
-                            Text="{x:Bind ViewModel.ContextViewModel.RepositoryDetails.ReleaseCount, Mode=OneWay}" />
+                            Text="{x:Bind ViewModel.ContextViewModel.Repository.ReleaseCount, Mode=OneWay}" />
 
                         <TextBlock
                             VerticalAlignment="Center"

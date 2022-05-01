@@ -47,12 +47,10 @@ namespace FluentHub.ViewModels.Repositories.Issues
             try
             {
                 IssueQueries queries = new();
-                List<Issue> items = await queries.GetAllAsync(nameWithOwner.Split("/")[1], nameWithOwner.Split("/")[0]);
-
+                var items = await queries.GetAllAsync(nameWithOwner.Split("/")[1], nameWithOwner.Split("/")[0]);
                 if (items == null) return;
 
                 _issueItems.Clear();
-
                 foreach (var item in items)
                 {
                     IssueButtonBlockViewModel viewModel = new()

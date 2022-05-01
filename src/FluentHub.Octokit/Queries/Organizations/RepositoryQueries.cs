@@ -1,12 +1,13 @@
-﻿using Humanizer;
-using global::Octokit.GraphQL.Core;
+﻿using FluentHub.Octokit.Models;
+using Humanizer;
 using Octokit.GraphQL;
-using Octokit.GraphQL.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GraphQLCore = global::Octokit.GraphQL.Core;
+using GraphQLModel = global::Octokit.GraphQL.Model;
 
 namespace FluentHub.Octokit.Queries.Organizations
 {
@@ -16,79 +17,53 @@ namespace FluentHub.Octokit.Queries.Organizations
 
         public async Task<List<Models.Repository>> GetAllAsync(string org)
         {
-            Arg<IEnumerable<IssueState>> issueState = new(new IssueState[] { IssueState.Open });
-            Arg<IEnumerable<PullRequestState>> pullRequestState = new(new PullRequestState[] { PullRequestState.Open });
+            GraphQLCore.Arg<IEnumerable<GraphQLModel.IssueState>> issueState = new(new GraphQLModel.IssueState[] { GraphQLModel.IssueState.Open });
+            GraphQLCore.Arg<IEnumerable<GraphQLModel.PullRequestState>> pullRequestState = new(new GraphQLModel.PullRequestState[] { GraphQLModel.PullRequestState.Open });
 
             #region query
             var query = new Query()
                     .Organization(org)
                     .Repositories(first: 30)
                     .Nodes
-                    .Select(x => new
+                    .Select(x => new Repository
                     {
-                        x.Name,
-                        OwnerAvatarUrl = x.Owner.AvatarUrl(100),
-                        OwnerLoginName = x.Owner.Login,
-                        x.Description,
+                        Name = x.Name,
+                        Description = x.Description,
                         LicenseName = x.LicenseInfo.Select(y => y.Name).SingleOrDefault(),
 
-                        PrimaryLanguage = x.PrimaryLanguage.Select(y => new
-                        {
-                            y.Name,
-                            y.Color,
-                        })
-                        .SingleOrDefault(),
-
-                        x.StargazerCount,
-                        x.ForkCount,
+                        StargazerCount = x.StargazerCount,
+                        ForkCount = x.ForkCount,
                         OpenIssueCount = x.Issues(null, null, null, null, null, null, null, issueState).TotalCount,
                         OpenPullCount = x.PullRequests(null, null, null, null, null, null, null, null, pullRequestState).TotalCount,
 
-                        x.IsFork,
-                        x.IsInOrganization,
-                        x.ViewerHasStarred,
+                        IsFork = x.IsFork,
+                        IsInOrganization = x.IsInOrganization,
+                        ViewerHasStarred = x.ViewerHasStarred,
 
-                        x.UpdatedAt,
+                        UpdatedAt = x.UpdatedAt,
+                        UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
+
+                        Owner = x.Owner.Select(owner => new RepositoryOwner
+                        {
+                            AvatarUrl = owner.AvatarUrl(100),
+                            Id = owner.Id.ToString(),
+                            Login = owner.Login,
+                        })
+                        .Single(),
+
+                        PrimaryLanguage = x.PrimaryLanguage.Select(y => new Language
+                        {
+                            Name = y.Name,
+                            Color = y.Color,
+                        })
+                        .SingleOrDefault(),
                     })
                     .Compile();
             #endregion
 
-            var result = await App.Connection.Run(query);
+            var response = await App.Connection.Run(query);
 
-            #region copying
-            List<Models.Repository> items = new();
-
-            foreach (var res in result)
-            {
-                Models.Repository item = new()
-                {
-                    Name = res.Name,
-                    Owner = res.OwnerLoginName,
-                    OwnerAvatarUrl = res.OwnerAvatarUrl,
-                    OwnerIsOrganization = res.IsInOrganization,
-                    Description = res.Description,
-
-                    PrimaryLangName = res.PrimaryLanguage?.Name,
-                    PrimaryLangColor = res.PrimaryLanguage?.Color,
-                    LicenseName = res.LicenseName,
-
-                    StargazerCount = res.StargazerCount,
-                    ForkCount = res.ForkCount,
-                    OpenIssueCount = res.OpenIssueCount,
-                    OpenPullCount = res.OpenPullCount,
-
-                    IsFork = res.IsFork,
-                    ViewerHasStarred = res.ViewerHasStarred,
-
-                    UpdatedAt = res.UpdatedAt,
-                    UpdatedAtHumanized = res.UpdatedAt.Humanize(),
-                };
-
-                items.Add(item);
-            }
-            #endregion
-
-            return items;
+            return response.ToList();
         }
     }
 }

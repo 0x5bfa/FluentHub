@@ -18,8 +18,6 @@ namespace FluentHub.ViewModels.Repositories
 
         public Octokit.Models.Repository Repository { get; set; }
 
-        public Octokit.Models.RepositoryDetails RepositoryDetails { get; set; }
-
         private string _name;
         public string Name { get => _name; set => SetProperty(ref _name, value); }
 

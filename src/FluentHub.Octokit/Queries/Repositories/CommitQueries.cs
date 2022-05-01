@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GraphQLCore = global::Octokit.GraphQL.Core;
 using GraphQLModel = global::Octokit.GraphQL.Model;
 
 namespace FluentHub.Octokit.Queries.Repositories
@@ -98,8 +99,8 @@ namespace FluentHub.Octokit.Queries.Repositories
                         {
                             AbbreviatedOid = y.AbbreviatedOid,
                             Oid =y.Oid,
-                            AuthorAvatarUrl = y.Author.AvatarUrl(100),
-                            AuthorName = y.Author.User.Login,
+                            AuthorAvatarUrl = y.Author.Select(author => author.AvatarUrl(100)).SingleOrDefault(),
+                            AuthorName = y.Author.Select(author => author.User.Select(user => user.Login).SingleOrDefault()).SingleOrDefault(),
                             CommitMessage =y.Message,
 
                             CommittedAt =y.CommittedDate,

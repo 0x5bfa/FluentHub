@@ -522,7 +522,13 @@ namespace FluentHub.Octokit.Queries.Repositories
 
                     FromRepository = y.FromRepository.Select(from => new Repository
                     {
-                        Owner = from.Owner.Login,
+                        Owner = from.Owner.Select(owner => new RepositoryOwner
+                        {
+                            AvatarUrl = owner.AvatarUrl(100),
+                            Login = owner.Login,
+                        })
+                        .Single(),
+
                         Name = from.Name,
                     })
                     .Single(),

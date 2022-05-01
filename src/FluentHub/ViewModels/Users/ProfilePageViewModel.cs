@@ -44,14 +44,14 @@ namespace FluentHub.ViewModels.Users
             try
             {
                 UserQueries queries = new();
+                var item = await queries.GetAsync(login);
+                if (item == null) return;
 
-                UserItem = await queries.GetAsync(login);
+                UserItem = item;
 
-                if (UserItem == null) return;
-
-                if (string.IsNullOrEmpty(UserItem.WebsiteUrl) is false)
+                if (string.IsNullOrEmpty(UserItem?.WebsiteUrl) is false)
                 {
-                    BuiltWebsiteUrl = new UriBuilder(UserItem.WebsiteUrl).Uri;
+                    BuiltWebsiteUrl = new UriBuilder(UserItem?.WebsiteUrl).Uri;
                 }
             }
             catch (Exception ex)

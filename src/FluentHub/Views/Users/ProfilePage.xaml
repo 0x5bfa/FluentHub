@@ -85,18 +85,31 @@
                         VerticalAlignment="Top"
                         TargetType="x:Boolean"
                         Value="{x:Bind ViewModel.UserItem.IsViewer, Mode=OneWay}">
+
                         <toolkit:Case Value="False">
-                            <Button
-                                Width="120"
-                                Content="Follow"
-                                IsEnabled="False" />
+                            <Button Width="120">
+                                <Button.Content>
+
+                                    <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.UserItem.ViewerIsFollowing, Mode=OneWay}">
+                                        <toolkit:Case Value="True">
+                                            <TextBlock Text="Unfollow" />
+                                        </toolkit:Case>
+                                        <toolkit:Case Value="True">
+                                            <TextBlock Text="Follow" />
+                                        </toolkit:Case>
+                                    </toolkit:SwitchPresenter>
+
+                                </Button.Content>
+                            </Button>
                         </toolkit:Case>
+
                         <toolkit:Case Value="True">
                             <Button
                                 Width="120"
-                                Content="Edit profile"
-                                IsEnabled="False" />
+                                Click="EditProfileButton_Click"
+                                Content="Edit profile" />
                         </toolkit:Case>
+
                     </toolkit:SwitchPresenter>
 
                 </Grid>

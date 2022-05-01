@@ -3,15 +3,14 @@ using FluentHub.Octokit.Models;
 using FluentHub.Models;
 using FluentHub.Octokit.Queries.Users;
 using FluentHub.ViewModels.UserControls.Blocks;
-using Humanizer;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Collections.Generic;
 
 namespace FluentHub.ViewModels.Home
 {
@@ -30,14 +29,13 @@ namespace FluentHub.ViewModels.Home
         }
         #endregion
 
-        #region fields
+        #region fields and properties
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
-        private readonly ObservableCollection<ActivityBlockViewModel> _activities;
-        #endregion
 
-        #region properties
+        private readonly ObservableCollection<ActivityBlockViewModel> _activities;
         public ReadOnlyObservableCollection<ActivityBlockViewModel> Activities { get; }
+
         public IAsyncRelayCommand RefreshActivitiesCommand { get; }
         #endregion
 
@@ -47,12 +45,7 @@ namespace FluentHub.ViewModels.Home
             try
             {
                 ActivityQueries queries = new();
-                List<Activity> items;
-
-                items = login == null ?
-                    await queries.GetAllAsync() :
-                    await queries.GetAllAsync(login);
-
+                var items = await queries.GetAllAsync(login);
                 if (items == null) return;
 
                 foreach (var item in items)
@@ -60,8 +53,8 @@ namespace FluentHub.ViewModels.Home
                     ActivityBlockViewModel viewModel = new()
                     {
                         Payload = item,
-                        UpdatedAtHumanized = item.CreatedAt.Humanize()
                     };
+
                     _activities.Add(viewModel);
                 }
             }

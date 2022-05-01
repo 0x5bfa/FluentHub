@@ -47,7 +47,6 @@ namespace FluentHub.ViewModels.Organizations
             {
                 PinnedItemQueries queries = new();
                 var items = await queries.GetAllAsync(org);
-
                 if (items == null) return;
 
                 _repositories.Clear();

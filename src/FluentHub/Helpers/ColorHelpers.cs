@@ -17,6 +17,8 @@ namespace FluentHub.Helpers
         /// <returns></returns>
         public static SolidColorBrush HexCodeToSolidColorBrush(string hexColorCode)
         {
+            if (string.IsNullOrEmpty(hexColorCode)) return null;
+
             string normalizedColorCode = "#00000000";
 
             // If there's no alpha code, add them

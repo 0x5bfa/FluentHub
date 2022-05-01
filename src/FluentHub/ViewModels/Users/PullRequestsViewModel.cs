@@ -47,13 +47,10 @@ namespace FluentHub.ViewModels.Users
             try
             {
                 PullRequestQueries queries = new();
-
-                List<PullRequest> items = await queries.GetAllAsync(login);
-
+                var items = await queries.GetAllAsync(login);
                 if (items == null) return;
 
                 _pullRequests.Clear();
-
                 foreach (var item in items)
                 {
                     PullButtonBlockViewModel viewModel = new()

@@ -47,12 +47,10 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
             try
             {
                 PullRequestQueries queries = new();
-                List<PullRequest> items = await queries.GetAllAsync(nameWithOwner.Split("/")[1], nameWithOwner.Split("/")[0]);
-
+                var items = await queries.GetAllAsync(nameWithOwner.Split("/")[1], nameWithOwner.Split("/")[0]);
                 if (items == null) return;
 
                 _pullRequests.Clear();
-
                 foreach (var item in items)
                 {
                     PullButtonBlockViewModel viewModel = new()

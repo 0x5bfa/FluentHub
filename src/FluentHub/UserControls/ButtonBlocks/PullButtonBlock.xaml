@@ -68,7 +68,7 @@
                                 <FontIcon
                                     Margin="0,0,8,0"
                                     FontFamily="{StaticResource Octions}"
-                                    Foreground="#8957e5"
+                                    Foreground="#986EE2"
                                     Glyph="&#xE9BD;" />
                             </toolkit:Case>
 
@@ -76,7 +76,7 @@
                                 <FontIcon
                                     Margin="0,0,8,0"
                                     FontFamily="{StaticResource Octions}"
-                                    Foreground="#f85149"
+                                    Foreground="#E5534B"
                                     Glyph="&#xE9C1;" />
                             </toolkit:Case>
 
@@ -90,7 +90,7 @@
                                 <FontIcon
                                     Margin="0,0,8,0"
                                     FontFamily="{StaticResource Octions}"
-                                    Foreground="#8b949e"
+                                    Foreground="#ADBAC7"
                                     Glyph="&#xE9C3;" />
                             </toolkit:Case>
 
@@ -98,7 +98,7 @@
                                 <FontIcon
                                     Margin="0,0,8,0"
                                     FontFamily="{StaticResource Octions}"
-                                    Foreground="#3fb950"
+                                    Foreground="#57AB5A"
                                     Glyph="&#xE9BF;" />
                             </toolkit:Case>
 
@@ -177,7 +177,12 @@
                         Margin="0,8,0,0"
                         Orientation="Horizontal">
 
-                        <labels:LabelControl VerticalAlignment="Center" ViewModel="{x:Bind ViewModel.CommentCountLabel, Mode=OneWay}">
+                        <labels:LabelControl
+                            x:Name="CommentCountLabel"
+                            Margin="0,0,8,0"
+                            VerticalAlignment="Center"
+                            x:Load="{x:Bind ViewModel.PullItem.CommentCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                            ViewModel="{x:Bind ViewModel.CommentCountLabel, Mode=OneWay}">
                             <labels:LabelControl.Icon>
                                 <FontIcon
                                     FontFamily="{StaticResource Octions}"
@@ -188,7 +193,7 @@
 
                         <toolkit:SwitchPresenter
                             x:Name="ReviewStateSwitcher"
-                            Margin="8,0,0,0"
+                            Margin="0,0,8,0"
                             x:Load="{x:Bind ViewModel.PullItem.ReviewState, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
                             TargetType="x:String"
                             Value="{x:Bind ViewModel.PullItem.ReviewState, Mode=OneWay}">
@@ -257,10 +262,10 @@
 
                         <toolkit:SwitchPresenter
                             x:Name="StatusStateSwitcher"
-                            Margin="8,0,0,0"
-                            x:Load="{x:Bind ViewModel.PullItem.StatusState, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                            Margin="0,0,8,0"
+                            x:Load="{x:Bind ViewModel.PullItem.StatusState.Status, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
                             TargetType="x:String"
-                            Value="{x:Bind ViewModel.PullItem.StatusState, Mode=OneWay}">
+                            Value="{x:Bind ViewModel.PullItem.StatusState.Status, Mode=OneWay}">
 
                             <toolkit:Case Value="Expected">
                                 <labels:LabelControl VerticalAlignment="Center" ViewModel="{x:Bind ViewModel.StatusStateLabel, Mode=OneWay}">
