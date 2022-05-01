@@ -1,70 +1,67 @@
 ﻿using FluentHub.Backend;
 using FluentHub.Octokit.Models;
 using FluentHub.Models;
-using FluentHub.Octokit.Queries.Users;
+using FluentHub.Octokit.Queries.Repositories;
+using FluentHub.UserControls.Blocks;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
-using Humanizer;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace FluentHub.ViewModels.Users
+namespace FluentHub.ViewModels.Repositories.Discussions
 {
     public class DiscussionsViewModel : ObservableObject
     {
-        #region constructor        
+        #region constructor
         public DiscussionsViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _messenger = messenger;
             _logger = logger;
-            _discussions = new();
-            DiscussionItems = new(_discussions);
+            _items = new();
+            Items = new(_items);
 
-            RefreshDiscussionsCommand = new AsyncRelayCommand<string>(RefreshDiscussionsAsync);
+            LoadDiscussionsPageCommand = new AsyncRelayCommand<string>(LoadDiscussionsPageAsync);
         }
         #endregion
 
-        #region fields
+        #region properties
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
 
-        private readonly ObservableCollection<DiscussionButtonBlockViewModel> _discussions;
-        public ReadOnlyObservableCollection<DiscussionButtonBlockViewModel> DiscussionItems { get; }
+        private readonly ObservableCollection<DiscussionButtonBlockViewModel> _items;
+        public ReadOnlyObservableCollection<DiscussionButtonBlockViewModel> Items { get; }
 
-        public IAsyncRelayCommand RefreshDiscussionsCommand { get; }
+        public IAsyncRelayCommand LoadDiscussionsPageCommand { get; }
         #endregion
 
         #region methods
-        private bool CanRefreshDiscussions(string username) => !string.IsNullOrEmpty(username);
-
-        private async Task RefreshDiscussionsAsync(string login, CancellationToken token)
+        private async Task LoadDiscussionsPageAsync(string nameWithOwner)
         {
             try
             {
                 DiscussionQueries queries = new();
-                var items = await queries.GetAllAsync(login);
-                if (items == null) return;
+                var items = await queries.GetAllAsync(nameWithOwner.Split("/")[0], nameWithOwner.Split("/")[1]);
 
-                _discussions.Clear();
+                _items.Clear();
                 foreach (var item in items)
                 {
-                    DiscussionButtonBlockViewModel viewModel = new()
+                    DiscussionButtonBlockViewModel viewmodel = new()
                     {
                         Item = item,
                     };
 
-                    _discussions.Add(viewModel);
+                    _items.Add(viewmodel);
                 }
             }
-            catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error("RefreshDiscussionsAsync", ex);
+                _logger?.Error("LoadDiscussionsPageAsync", ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);

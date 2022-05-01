@@ -28,10 +28,28 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid Margin="20,20,20,12" ColumnSpacing="6">
+        <Grid
+            x:Name="ArchiveMessage"
+            Height="40"
+            x:Load="{x:Bind ViewModel.Repository.IsArchived}">
+
+            <Border Background="#ae7c14" Opacity="0.3" />
+
+            <TextBlock
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Style="{StaticResource BodyStrongTextBlockStyle}"
+                Text="This repository has been archived by the owner. It is now read-only." />
+        </Grid>
+
+        <Grid
+            Grid.Row="1"
+            Margin="20,20,20,12"
+            ColumnSpacing="6">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
@@ -196,7 +214,7 @@
 
         </Grid>
 
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="2">
             <muxc:NavigationView
                 x:Name="RepoPageNavView"
                 Margin="10,0"
@@ -269,7 +287,7 @@
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
                                 FontSize="16"
-                                Glyph="&#xEAA3;" />
+                                Glyph="&#xEA48;" />
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
 

@@ -23,18 +23,12 @@ namespace FluentHub.Octokit.Queries.Users
                 .Nodes
                 .Select(x => new Discussion
                 {
-                    AnswerChosenAt = x.AnswerChosenAt,
-
                     Category = x.Category.Select(category => new DiscussionCategory
                     {
                         Emoji = category.Emoji,
                         Id = category.Id.ToString(),
                     })
                     .Single(),
-
-                    Id = x.Id.ToString(),
-                    Locked = x.Locked,
-                    Number = x.Number,
 
                     Repository = x.Repository.Select(repo => new Repository
                     {
@@ -50,13 +44,20 @@ namespace FluentHub.Octokit.Queries.Users
                     })
                     .Single(),
 
+                    Id = x.Id.ToString(),
+                    Locked = x.Locked,
+                    Number = x.Number,
                     Title = x.Title,
-                    UpdatedAt = x.UpdatedAt,
                     UpvoteCount = x.UpvoteCount,
                     Url = x.Url,
                     ViewerCanDelete = x.ViewerCanDelete,
                     ViewerDidAuthor = x.ViewerDidAuthor,
                     ViewerHasUpvoted = x.ViewerHasUpvoted,
+
+                    AnswerChosenAt = x.AnswerChosenAt,
+                    UpdatedAt = x.UpdatedAt,
+                    AnswerChosenAtHumanized = x.AnswerChosenAt.Humanize(null, null),
+                    UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
                 })
                 .Compile();
 

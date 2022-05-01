@@ -21,18 +21,12 @@ namespace FluentHub.Octokit.Queries.Repositories
                 .Nodes
                 .Select(x => new Discussion
                 {
-                    AnswerChosenAt = x.AnswerChosenAt,
-
                     Category = x.Category.Select(category => new DiscussionCategory
                     {
                         Emoji = category.Emoji,
                         Id = category.Id.ToString(),
                     })
                     .Single(),
-
-                    Id = x.Id.ToString(),
-                    Locked = x.Locked,
-                    Number = x.Number,
 
                     Repository = x.Repository.Select(repo => new Repository
                     {
@@ -48,13 +42,20 @@ namespace FluentHub.Octokit.Queries.Repositories
                     })
                     .Single(),
 
+                    Id = x.Id.ToString(),
+                    Locked = x.Locked,
+                    Number = x.Number,
                     Title = x.Title,
-                    UpdatedAt = x.UpdatedAt,
                     UpvoteCount = x.UpvoteCount,
                     Url = x.Url,
                     ViewerCanDelete = x.ViewerCanDelete,
                     ViewerDidAuthor = x.ViewerDidAuthor,
                     ViewerHasUpvoted = x.ViewerHasUpvoted,
+
+                    AnswerChosenAt = x.AnswerChosenAt,
+                    UpdatedAt = x.UpdatedAt,
+                    AnswerChosenAtHumanized = x.AnswerChosenAt.Humanize(null, null),
+                    UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
                 })
                 .Compile();
 
@@ -70,11 +71,6 @@ namespace FluentHub.Octokit.Queries.Repositories
                 .Discussion(number)
                 .Select(x => new Discussion
                 {
-                    ActiveLockReason = x.ActiveLockReason,
-                    AnswerChosenAt = x.AnswerChosenAt,
-                    AuthorAssociation = x.AuthorAssociation,
-                    BodyHTML = x.BodyHTML,
-
                     Category = x.Category.Select(category => new DiscussionCategory
                     {
                         CreatedAt = category.CreatedAt,
@@ -85,13 +81,6 @@ namespace FluentHub.Octokit.Queries.Repositories
                         UpdatedAt = category.UpdatedAt,
                     })
                     .Single(),
-
-                    CreatedAt = x.CreatedAt,
-                    Id = x.Id.ToString(),
-                    IncludesCreatedEdit = x.IncludesCreatedEdit,
-                    LastEditedAt = x.LastEditedAt,
-                    Locked = x.Locked,
-                    Number = x.Number,
 
                     Repository = x.Repository.Select(repo => new Repository
                     {
@@ -107,9 +96,14 @@ namespace FluentHub.Octokit.Queries.Repositories
                     })
                     .Single(),
 
-                    PublishedAt = x.PublishedAt,
+                    ActiveLockReason = x.ActiveLockReason,
+                    AuthorAssociation = x.AuthorAssociation,
+                    BodyHTML = x.BodyHTML,
+                    Id = x.Id.ToString(),
+                    IncludesCreatedEdit = x.IncludesCreatedEdit,
+                    Locked = x.Locked,
+                    Number = x.Number,
                     Title = x.Title,
-                    UpdatedAt = x.UpdatedAt,
                     UpvoteCount = x.UpvoteCount,
                     Url = x.Url,
                     ViewerCanDelete = x.ViewerCanDelete,
@@ -120,6 +114,17 @@ namespace FluentHub.Octokit.Queries.Repositories
                     ViewerDidAuthor = x.ViewerDidAuthor,
                     ViewerHasUpvoted = x.ViewerHasUpvoted,
                     ViewerSubscription = x.ViewerSubscription,
+
+                    AnswerChosenAt = x.AnswerChosenAt,
+                    CreatedAt = x.CreatedAt,
+                    LastEditedAt = x.LastEditedAt,
+                    PublishedAt = x.PublishedAt,
+                    UpdatedAt = x.UpdatedAt,
+                    AnswerChosenAtHumanized = x.AnswerChosenAt.Humanize(null, null),
+                    CreatedAtHumanized = x.CreatedAt.Humanize(null, null),
+                    LastEditedAtHumanized = x.LastEditedAt.Humanize(null, null),
+                    PublishedAtHumanized = x.PublishedAt.Humanize(null, null),
+                    UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
                 })
                 .Compile();
 

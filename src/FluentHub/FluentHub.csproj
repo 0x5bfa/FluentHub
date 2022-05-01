@@ -173,6 +173,9 @@
     <Compile Include="UserControls\ButtonBlocks\CommitButtonBlock.xaml.cs">
       <DependentUpon>CommitButtonBlock.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ButtonBlocks\ProjectButtonBlock.xaml.cs">
+      <DependentUpon>ProjectButtonBlock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\TabViewControl\TabItem.cs" />
     <Compile Include="UserControls\Blocks\ActivityBlock.xaml.cs">
       <DependentUpon>ActivityBlock.xaml</DependentUpon>
@@ -257,6 +260,10 @@
     <Compile Include="ViewModels\Repositories\Codes\ReleasesViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Commits\CommitsViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Commits\CommitViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\Discussions\DiscussionsViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\Discussions\DiscussionViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\Projects\ProjectsViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\Projects\ProjectViewModel.cs" />
     <Compile Include="ViewModels\Repositories\PullRequests\CommitsViewModel.cs" />
     <Compile Include="ViewModels\Repositories\PullRequests\CommitViewModel.cs" />
     <Compile Include="ViewModels\Repositories\PullRequests\ConversationViewModel.cs" />
@@ -282,6 +289,7 @@
     <Compile Include="ViewModels\UserControls\ButtonBlocks\IssueButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\NotificationButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\OrgButtonBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\ButtonBlocks\ProjectButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\PullButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\RepoButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\IssueCommentBlockViewModel.cs" />
@@ -713,6 +721,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ButtonBlocks\OrgButtonBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ButtonBlocks\ProjectButtonBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

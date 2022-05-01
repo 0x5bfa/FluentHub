@@ -17,20 +17,20 @@ using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub.UserControls.ButtonBlocks
 {
-    public sealed partial class DiscussionButtonBlock : UserControl
+    public sealed partial class ProjectButtonBlock : UserControl
     {
         #region dprops
         public static readonly DependencyProperty ViewModelProperty
             = DependencyProperty.Register(
-                  nameof(Discussion),
-                  typeof(DiscussionButtonBlockViewModel),
-                  typeof(DiscussionButtonBlock),
+                  nameof(Project),
+                  typeof(ProjectButtonBlockViewModel),
+                  typeof(ProjectButtonBlock),
                   new PropertyMetadata(null)
                 );
 
-        public DiscussionButtonBlockViewModel ViewModel
+        public ProjectButtonBlockViewModel ViewModel
         {
-            get => (DiscussionButtonBlockViewModel)GetValue(ViewModelProperty);
+            get => (ProjectButtonBlockViewModel)GetValue(ViewModelProperty);
             set
             {
                 SetValue(ViewModelProperty, value);
@@ -39,6 +39,6 @@ namespace FluentHub.UserControls.ButtonBlocks
         }
         #endregion
 
-        public DiscussionButtonBlock() => InitializeComponent();
+        public ProjectButtonBlock() => InitializeComponent();
     }
 }
