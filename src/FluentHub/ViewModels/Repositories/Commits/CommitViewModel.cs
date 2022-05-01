@@ -1,5 +1,4 @@
-﻿using FluentHub.Models.Items;
-using FluentHub.Backend;
+﻿using FluentHub.Backend;
 using FluentHub.Models;
 using FluentHub.Octokit.Models;
 using FluentHub.Octokit.Queries.Repositories;

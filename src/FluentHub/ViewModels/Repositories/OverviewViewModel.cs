@@ -26,25 +26,29 @@ namespace FluentHub.ViewModels.Repositories
             _logger = logger;
             _messenger = messenger;
 
+            RepositoryVisibilityLabel = new()
+            {
+                Color = "#64000000",
+            };
+
             LoadOverviewPageCommand = new AsyncRelayCommand(LoadOverviewPageAsync);
         }
         #endregion
 
-        #region fields
+        #region fields and properties
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
-        private Repository _repositoryBlock;
-        private RepositoryDetails _repository;
-        private LabelControlViewModel _repositoryVisibilityLabel;
-        private string _viewerSubscriptionState;
-        #endregion
 
-        #region properties
-        public Repository Repository { get => _repositoryBlock; set => SetProperty(ref _repositoryBlock, value); }
-        public RepositoryDetails RepositoryDetails { get => _repository; set => SetProperty(ref _repository, value); }
-        public IAsyncRelayCommand LoadOverviewPageCommand { get; }
+        private Repository _repository;
+        public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
+
+        private LabelControlViewModel _repositoryVisibilityLabel;
         public LabelControlViewModel RepositoryVisibilityLabel { get => _repositoryVisibilityLabel; set => SetProperty(ref _repositoryVisibilityLabel, value); }
+
+        private string _viewerSubscriptionState;
         public string ViewerSubscriptionState { get => _viewerSubscriptionState; set => SetProperty(ref _viewerSubscriptionState, value); }
+
+        public IAsyncRelayCommand LoadOverviewPageCommand { get; }
         #endregion
 
         #region methods
@@ -53,14 +57,10 @@ namespace FluentHub.ViewModels.Repositories
             try
             {
                 RepositoryQueries queries = new();
-                var result = await queries.GetDetailsAsync(Repository.Owner, Repository.Name);
+                Repository = await queries.GetDetailsAsync(Repository.Owner.Login, Repository.Name);
 
-                if (result.DefaultBranchName != null)
-                {
-                    RepositoryDetails = result;
-                }
-
-                ViewerSubscriptionState = RepositoryDetails?.ViewerSubscription?.Humanize();
+                ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize();
+                RepositoryVisibilityLabel.Name = Repository.IsPrivate ? "Private" : "Public";
             }
             catch (OperationCanceledException) { }
             catch (Exception ex)

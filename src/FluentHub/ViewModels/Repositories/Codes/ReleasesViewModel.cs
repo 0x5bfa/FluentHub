@@ -1,5 +1,4 @@
-﻿using FluentHub.Models.Items;
-using FluentHub.Backend;
+﻿using FluentHub.Backend;
 using FluentHub.Models;
 using FluentHub.Octokit.Models;
 using FluentHub.Octokit.Queries.Repositories;
@@ -35,13 +34,15 @@ namespace FluentHub.ViewModels.Repositories.Codes
         #region fields
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
-        private RepoContextViewModel contextViewModel;
-        private readonly ObservableCollection<Octokit.Models.Release> _items;
         #endregion
 
         #region properties
+        private RepoContextViewModel contextViewModel;
         public RepoContextViewModel ContextViewModel { get => contextViewModel; set => SetProperty(ref contextViewModel, value); }
-        public ReadOnlyObservableCollection<Octokit.Models.Release> Items { get; }
+
+        private readonly ObservableCollection<Release> _items;
+        public ReadOnlyObservableCollection<Release> Items { get; }
+
         public IAsyncRelayCommand LoadReleasesPageCommand { get; }
         #endregion
 

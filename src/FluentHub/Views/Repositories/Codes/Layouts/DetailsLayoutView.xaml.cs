@@ -1,4 +1,4 @@
-﻿using FluentHub.Models.Items;
+﻿using FluentHub.Models;
 using FluentHub.Services;
 using FluentHub.Services.Navigation;
 using FluentHub.ViewModels;
@@ -41,17 +41,15 @@ namespace FluentHub.Views.Repositories.Codes.Layouts
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
 
             string header;
-            if (string.IsNullOrEmpty(ContextViewModel.Path.Remove(0, 1)))
+            if (ContextViewModel.IsRootDir)
             {
-                if (ContextViewModel.RepositoryDetails != null)
+                if (string.IsNullOrEmpty(ContextViewModel.Repository.Description))
                 {
-                    // Root
-                    header = $"{ContextViewModel.Owner}/{ContextViewModel.Name}: {ContextViewModel.Repository.Description}";
+                    header = $"{ContextViewModel.Owner}/{ContextViewModel.Name}";
                 }
                 else
                 {
-                    // Root
-                    header = $"{ContextViewModel.Owner}/{ContextViewModel.Name}";
+                    header = $"{ContextViewModel.Owner}/{ContextViewModel.Name}: {ContextViewModel.Repository.Description}";
                 }
             }
             else
@@ -92,13 +90,12 @@ namespace FluentHub.Views.Repositories.Codes.Layouts
             {
                 IsRootDir = true,
                 Name = ViewModel.ContextViewModel.Repository.Name,
-                Owner = ViewModel.ContextViewModel.Repository.Owner,
+                Owner = ViewModel.ContextViewModel.Repository.Owner.Login,
                 Repository = ViewModel.ContextViewModel.Repository,
-                RepositoryDetails = ViewModel.ContextViewModel.RepositoryDetails,
                 BranchName = ViewModel.ContextViewModel.BranchName,
             };
 
-            var item = DirListView.SelectedItem as DetailsLayoutListViewItem;
+            var item = DirListView.SelectedItem as DetailsLayoutListViewModel;
 
             var tagItem = item.ObjectTag.Split("/");
 

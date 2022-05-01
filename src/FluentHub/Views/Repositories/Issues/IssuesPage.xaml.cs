@@ -25,11 +25,12 @@ namespace FluentHub.Views.Repositories.Issues
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var nameWithOwner = e.Parameter as string;
+            var nameAndOwner = nameWithOwner.Split("/");
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Issues";
             currentItem.Description = "Viewer's issues";
-            currentItem.Url = $"https://github.com/issues";
+            currentItem.Url = $"https://github.com/{nameAndOwner[0]}/{nameAndOwner[1]}/issues";
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Issues.png"))

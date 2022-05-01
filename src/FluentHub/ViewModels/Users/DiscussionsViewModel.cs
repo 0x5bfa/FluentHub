@@ -57,7 +57,7 @@ namespace FluentHub.ViewModels.Users
                     DiscussionButtonBlockViewModel viewModel = new()
                     {
                         DiscussionItem = item,
-                        NameWithOwner = $"{item.Owner} / {item.Name} #{item.Number}",
+                        NameWithOwner = $"{item.Repository.Owner.Login} / {item.Repository.Name} #{item.Number}",
                         UpdatedAtHumanized = item.UpdatedAt.Humanize()
                     };
 

@@ -1,4 +1,4 @@
-﻿using FluentHub.Models.Items;
+﻿using FluentHub.Models;
 using FluentHub.Backend;
 using FluentHub.Models;
 using FluentHub.Octokit.Models;
@@ -36,12 +36,12 @@ namespace FluentHub.ViewModels.Repositories.Codes.Layouts
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
         private RepoContextViewModel contextViewModel;
-        private readonly ObservableCollection<DetailsLayoutListViewItem> _items;
+        private readonly ObservableCollection<DetailsLayoutListViewModel> _items;
         #endregion
 
         #region properties
         public RepoContextViewModel ContextViewModel { get => contextViewModel; set => SetProperty(ref contextViewModel, value); }
-        public ReadOnlyObservableCollection<DetailsLayoutListViewItem> Items { get; }
+        public ReadOnlyObservableCollection<DetailsLayoutListViewModel> Items { get; }
         public IAsyncRelayCommand RefreshDetailsLayoutPageCommand { get; }
         #endregion
 
@@ -50,7 +50,7 @@ namespace FluentHub.ViewModels.Repositories.Codes.Layouts
         {
             try
             {
-                if (ContextViewModel.RepositoryDetails == null) return;
+                if (ContextViewModel.Repository.DefaultBranchName == null) return;
                 if (contextViewModel.IsFile) return;
 
                 CommitQueries queries = new();
@@ -61,15 +61,12 @@ namespace FluentHub.ViewModels.Repositories.Codes.Layouts
                     ContextViewModel.Path);
 
                 ContextViewModel.IsDir = true;
-
-                if (ContextViewModel.Path == "/")
-                    ContextViewModel.IsRootDir = true;
-                else
-                    ContextViewModel.IsSubDir = true;
+                if (ContextViewModel.Path == "/") ContextViewModel.IsRootDir = true;
+                else ContextViewModel.IsSubDir = true;
 
                 foreach (var overview in fileOverviews)
                 {
-                    DetailsLayoutListViewItem listItem = new();
+                    DetailsLayoutListViewModel listItem = new();
 
                     if (overview.ObjectType == "tree")
                     {
@@ -83,13 +80,13 @@ namespace FluentHub.ViewModels.Repositories.Codes.Layouts
                     }
 
                     listItem.ObjectName = overview.FileName;
-                    listItem.ObjectLatestCommitMessage = overview.CommitMessage.Split("\n")[0];
+                    listItem.ObjectLatestCommitMessage = overview.CommitMessage.Split("\n").FirstOrDefault();
                     listItem.ObjectUpdatedAtHumanized = overview.CommittedAtHumanized;
 
                     _items.Add(listItem);
                 }
 
-                var orderedByItemType = new ObservableCollection<DetailsLayoutListViewItem>(Items.OrderByDescending(x => x.ObjectTypeIconGlyph));
+                var orderedByItemType = new ObservableCollection<DetailsLayoutListViewModel>(Items.OrderByDescending(x => x.ObjectTypeIconGlyph));
                 _items.Clear();
                 foreach (var orderedItem in orderedByItemType) _items.Add(orderedItem);
             }

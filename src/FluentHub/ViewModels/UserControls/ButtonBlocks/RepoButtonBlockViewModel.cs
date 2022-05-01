@@ -1,5 +1,4 @@
-﻿using Humanizer;
-using FluentHub.Helpers;
+﻿using FluentHub.Helpers;
 using FluentHub.Octokit.Models;
 using System;
 using System.Collections.Generic;
@@ -28,9 +27,9 @@ namespace FluentHub.ViewModels.UserControls.ButtonBlocks
 
         public void GetColorBrush()
         {
-            if (Item?.PrimaryLangColor != null)
+            if (Item?.PrimaryLanguage != null)
             {
-                PrimaryLangColor = ColorHelpers.HexCodeToSolidColorBrush(Item.PrimaryLangColor);
+                PrimaryLangColor = ColorHelpers.HexCodeToSolidColorBrush(Item.PrimaryLanguage.Color);
             }
         }
 

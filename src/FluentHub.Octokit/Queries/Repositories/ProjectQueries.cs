@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FluentHub.ViewModels.Repositories.Codes.Layouts
+namespace FluentHub.Octokit.Queries.Repositories
 {
-    public class TreeLayoutViewModel
+    public class ProjectQueries
     {
     }
 }

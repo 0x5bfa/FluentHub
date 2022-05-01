@@ -9,14 +9,8 @@ namespace FluentHub.Helpers
     {
         private static ResourceLoader resourceLoader = ResourceLoader.GetForCurrentView();
 
-        public string Name
-        {
-            get; set;
-        }
+        public string Name { get; set; }
 
-        protected override object ProvideValue()
-        {
-            return resourceLoader.GetString(this.Name);
-        }
+        protected override object ProvideValue() => resourceLoader.GetString(Name);
     }
 }
