@@ -12,7 +12,7 @@
   <a style="text-decoration:none" href="https://github.com/fluenthub-community/FluentHub/releases">
     <img src="https://img.shields.io/github/v/release/fluenthub-community/fluenthub?include_prereleases&style=flat-square" alt="Release" />
   </a>
-  <a style="text-decoration:none" href="https://discord.com/channels/935562861701390336">
+  <a style="text-decoration:none" href="https://discord.gg/8KtRkjq2Q4">
     <img src="https://img.shields.io/discord/935562861701390336?color=blue&label=Discord&style=flat-square" alt="Discord" />
   </a>
   <a style="text-decoration:none">
@@ -30,7 +30,7 @@ Expect regular breaking changes. If you cannot build or found authorization issu
 
 ## FAQ
 
-Any questions? Ask on our [Discord server](https://discord.com/channels/935562861701390336).
+Any questions? Ask on our [Discord server](https://discord.gg/8KtRkjq2Q4).
 
 ## Contributing
 
