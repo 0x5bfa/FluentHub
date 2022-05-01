@@ -68,6 +68,7 @@ namespace FluentHub.Octokit.Queries.Repositories
                             IsPrerelease = release.IsPrerelease,
                             Name = release.Name,
                             PublishedAt = release.PublishedAt,
+                            PublishedAtHumanized = release.PublishedAt.Humanize(null, null),
                         })
                         .ToList().FirstOrDefault(),
                     })
