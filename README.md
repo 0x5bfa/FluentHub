@@ -24,16 +24,13 @@
 
 ## Build
 
-Expect regular breaking changes. If you cannot build or found authorization issues, let us know in [#104](https://github.com/fluenthub-community/FluentHub/issues/104).
-
-- To build, please read [this documentation.](docs/build-from-source.md)
-
+To build, please read [this documentation](docs/build-from-source.md) and expect regular breaking changes.
 
 ## Notices
 
- 1. HttpsClient in Octokit.GraohQL.NET does not work properly (occur unknown exception) for users using Win11 Dev/Beta version with TLS and SSL settings disabled. Please see [#123](https://github.com/fluenthub-community/FluentHub/issues/123) for more information.</br>`Win+R` > `inetcpl.cpl` > `Advanced` tab > activate all TLS and SSL versions > restart
+ 1. HttpsClient in Octokit.GraohQL.NET does not work properly (occur unknown exception) for users using Win11 Dev/Beta version with TLS and SSL settings disabled. Please see [#123](https://github.com/fluenthub-community/FluentHub/issues/123) for more information.</br>`Win+R` > `inetcpl.cpl` > `Advanced` tab > enable all TLS and SSL versions > restart
 
-	![image](https://user-images.githubusercontent.com/60316747/165113319-790574fe-6bf0-4170-a48f-fd92e5652318.png)
+	![image](https://user-images.githubusercontent.com/99880210/164863685-27770148-4c68-4920-bf87-8c0dd2b0272f.png)
 
 ## FAQ
 
@@ -41,8 +38,8 @@ Any questions? Ask on our [Discord server](https://discord.gg/8KtRkjq2Q4).
 
 ## Contributing
 
-- [How do I contribute?](docs/CONTRIBUTING.md)
-- Have any concepts/bugs? let us know in GitHub [issue](https://github.com/fluenthub-community/FluentHub/issues)/[PR](https://github.com/fluenthub-community/FluentHub/pulls).
+- [How to contribute](docs/CONTRIBUTING.md)
+- Have any concepts/bugs? let us know in GitHub [issue](https://github.com/fluenthub-community/FluentHub/issues)/[PR](https://github.com/fluenthub-community/FluentHub/pulls) or Discord.
 
 ## Privacy
 
