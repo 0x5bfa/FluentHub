@@ -35,7 +35,7 @@
         <Grid
             x:Name="ArchiveMessage"
             Height="40"
-            x:Load="{x:Bind ViewModel.Repository.IsArchived}">
+            x:Load="{x:Bind ViewModel.Repository.IsArchived, Mode=OneWay}">
 
             <Border Background="#ae7c14" Opacity="0.3" />
 

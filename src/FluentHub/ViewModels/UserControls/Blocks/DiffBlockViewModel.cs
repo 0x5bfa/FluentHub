@@ -43,6 +43,8 @@ namespace FluentHub.ViewModels.UserControls.Blocks
 
         public void ParseDiffPatchString()
         {
+            if (string.IsNullOrEmpty(ChangedFile.Patch)) return;
+
             var lines = ChangedFile.Patch.Split("\n");
 
             _changedLineBackgroundType.Clear();
@@ -66,16 +68,11 @@ namespace FluentHub.ViewModels.UserControls.Blocks
 
                     _changedLineBackgroundType.Add(0);
 
-                    // Length of array must be 4
                     var array = Regex.Matches(lines[index], "[0-9]+")
                                      .Cast<Match>()
                                      .Select(x => int.Parse(x.Value))
                                      .ToArray();
 
-                    // [0]: New diff's base line
-                    // [1]: Length of displayed new diff
-                    // [2]: Old diff's base line
-                    // [3]: Length of displayed old diff
                     oldBaseLine = array[0];
                     newBaseLine = array[2];
                     FirstLetters += "\n";
