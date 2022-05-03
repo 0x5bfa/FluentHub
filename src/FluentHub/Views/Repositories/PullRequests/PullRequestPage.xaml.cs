@@ -49,12 +49,6 @@ namespace FluentHub.Views.Repositories.PullRequests
                 command.Execute(param);
         }
 
-        private async void OnViewDetailsButtonClick(object sender, RoutedEventArgs e)
-        {
-            Dialogs.IssueDetailsContentDialog detailsContentDialog = new();
-            await detailsContentDialog.ShowAsync();
-        }
-
         private void OnPullRequestNavigationViewSelectionChanged(muxc.NavigationView sender, muxc.NavigationViewSelectionChangedEventArgs args)
         {
             switch (args.SelectedItemContainer?.Tag?.ToString())

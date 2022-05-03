@@ -291,6 +291,15 @@
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
 
+                    <muxc:NavigationViewItem Content="Insights" Tag="Insights">
+                        <muxc:NavigationViewItem.Icon>
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="16"
+                                Glyph="&#xE9C9;" />
+                        </muxc:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem>
+
                     <muxc:NavigationViewItem Content="Settings" Tag="Settings">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon

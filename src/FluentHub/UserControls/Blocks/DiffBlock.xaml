@@ -27,12 +27,14 @@
         </Grid.RowDefinitions>
 
         <Button
+            x:Name="ExpandButton"
             Padding="20,0"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             HorizontalContentAlignment="Left"
             Background="Transparent"
             Click="OnExpandCollapseTogglingButton"
+            IsEnabled="{x:Bind ViewModel.ChangedFile.Patch, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
             Style="{StaticResource LinkLikeButtonStyle}">
             <Button.Content>
                 <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.BlockIsExpanded, Mode=OneWay}">
@@ -107,6 +109,24 @@
                     Style="{StaticResource CaptionTextBlockStyle}"
                     Text="{x:Bind ViewModel.ChangedFile.FileName, Mode=OneWay}" />
 
+                <StackPanel
+                    x:Name="RenameBlock"
+                    x:Load="{x:Bind ViewModel.ChangedFile.PreviousFileName, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                    Orientation="Horizontal"
+                    Spacing="8">
+
+                    <FontIcon FontSize="9" Glyph="&#xE72A;" />
+
+                    <TextBlock
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Center"
+                        FontFamily="Cascadia Code"
+                        FontWeight="SemiLight"
+                        IsTextSelectionEnabled="True"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="{x:Bind ViewModel.ChangedFile.PreviousFileName, Mode=OneWay}" />
+
+                </StackPanel>
             </StackPanel>
 
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">

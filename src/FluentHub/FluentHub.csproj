@@ -341,6 +341,9 @@
     <Compile Include="Views\Repositories\Discussions\DiscussionsPage.xaml.cs">
       <DependentUpon>DiscussionsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Repositories\Insights\InsightsPage.xaml.cs">
+      <DependentUpon>InsightsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Repositories\Projects\ProjectPage.xaml.cs">
       <DependentUpon>ProjectPage.xaml</DependentUpon>
     </Compile>
@@ -837,6 +840,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Repositories\Insights\InsightsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Repositories\Projects\ProjectPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1028,6 +1035,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="ViewModels\Repositories\Insights\" />
     <Folder Include="Views\Organizations\Settings\" />
     <Folder Include="Views\Users\Settings\" />
   </ItemGroup>
