@@ -1,5 +1,7 @@
 ﻿using FluentHub.Octokit.Models;
+using FluentHub.ViewModels;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
+using FluentHub.Views.Repositories.Projects;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -40,5 +42,10 @@ namespace FluentHub.UserControls.ButtonBlocks
         #endregion
 
         public ProjectButtonBlock() => InitializeComponent();
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MainPageViewModel.RepositoryContentFrame.Navigate(typeof(ProjectPage));
+        }
     }
 }

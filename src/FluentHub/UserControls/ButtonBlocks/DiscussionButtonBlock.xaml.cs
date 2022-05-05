@@ -1,5 +1,7 @@
 ﻿using FluentHub.Octokit.Models;
+using FluentHub.ViewModels;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
+using FluentHub.Views.Repositories.Discussions;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -40,5 +42,10 @@ namespace FluentHub.UserControls.ButtonBlocks
         #endregion
 
         public DiscussionButtonBlock() => InitializeComponent();
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            MainPageViewModel.RepositoryContentFrame.Navigate(typeof(DiscussionPage));
+        }
     }
 }
