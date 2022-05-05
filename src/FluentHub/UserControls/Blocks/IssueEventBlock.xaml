@@ -101,7 +101,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="added to project" />
+                            Text="AddedToProjectEvent" />
 
                     </Grid>
                 </toolkit:Case>
@@ -116,7 +116,142 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="assigned" />
+                            Text="AssignedEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="AutomaticBaseChangeFailedEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="AutomaticBaseChangeFailedEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="AutomaticBaseChangeSucceededEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="AutomaticBaseChangeSucceededEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="AutoMergeDisabledEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="AutoMergeDisabledEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="AutoMergeEnabledEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="AutoMergeEnabledEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="AutoRebaseEnabledEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="AutoRebaseEnabledEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="AutoSquashEnabledEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="AutoSquashEnabledEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="BaseRefChangedEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="BaseRefChangedEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="BaseRefDeletedEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="BaseRefDeletedEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="BaseRefForcePushedEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="BaseRefForcePushedEvent" />
 
                     </Grid>
                 </toolkit:Case>
@@ -131,7 +266,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="closed" />
+                            Text="ClosedEvent" />
 
                     </Grid>
                 </toolkit:Case>
@@ -146,7 +281,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="deleted comment" />
+                            Text="CommentDeletedEvent" />
 
                     </Grid>
                 </toolkit:Case>
@@ -161,7 +296,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="linked" />
+                            Text="ConnectedEvent" />
 
                     </Grid>
                 </toolkit:Case>
@@ -176,7 +311,22 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="converted note to issue" />
+                            Text="ConvertedNoteToIssueEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="ConvertToDraftEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="ConvertToDraftEvent" />
 
                     </Grid>
                 </toolkit:Case>
@@ -191,7 +341,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="cross referenced" />
+                            Text="CrossReferencedEvent" />
 
                     </Grid>
                 </toolkit:Case>
@@ -206,7 +356,37 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="removed milestone" />
+                            Text="DemilestonedEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="DeployedEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="DeployedEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="DeploymentEnvironmentChangedEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="DeploymentEnvironmentChangedEvent" />
 
                     </Grid>
                 </toolkit:Case>
@@ -221,7 +401,52 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="remove a link" />
+                            Text="DisconnectedEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="HeadRefDeletedEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="HeadRefDeletedEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="HeadRefForcePushedEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="HeadRefForcePushedEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="HeadRefRestoredEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="HeadRefRestoredEvent" />
 
                     </Grid>
                 </toolkit:Case>
@@ -267,7 +492,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="locked as  and limited conversation to collaborators" />
+                            Text="LockedEvent" />
 
                     </Grid>
                 </toolkit:Case>
@@ -282,7 +507,22 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="marked this as a duplicate of" />
+                            Text="MarkedAsDuplicateEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="MergedEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="MergedEvent" />
 
                     </Grid>
                 </toolkit:Case>
@@ -297,7 +537,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="added to milestone" />
+                            Text="MilestonedEvent" />
 
                     </Grid>
                 </toolkit:Case>
@@ -312,7 +552,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="moved columns in project" />
+                            Text="MovedColumnsInProjectEvent" />
 
                     </Grid>
                 </toolkit:Case>
@@ -327,7 +567,97 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="pinned" />
+                            Text="PinnedEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="PullRequestCommit">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="PullRequestCommit" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="PullRequestCommitCommentThread">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="PullRequestCommitCommentThread" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="PullRequestReview">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="PullRequestReview" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="PullRequestReviewThread">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="PullRequestReviewThread" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="PullRequestRevisionMarker">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="PullRequestRevisionMarker" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="ReadyForReviewEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="ReadyForReviewEvent" />
 
                     </Grid>
                 </toolkit:Case>
@@ -342,7 +672,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="referenced" />
+                            Text="ReferencedEvent" />
 
                     </Grid>
                 </toolkit:Case>
@@ -357,7 +687,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="removed from project" />
+                            Text="RemovedFromProjectEvent" />
 
                     </Grid>
                 </toolkit:Case>
@@ -397,7 +727,67 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="marked this as a duplicate of" />
+                            Text="ReopenedEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="ReviewDismissedEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="ReviewDismissedEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="ReviewRequestedEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="ReviewRequestedEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="ReviewRequestRemovedEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="ReviewRequestRemovedEvent" />
+
+                    </Grid>
+                </toolkit:Case>
+
+                <toolkit:Case Value="TransferredEvent">
+                    <Grid ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="TransferredEvent" />
 
                     </Grid>
                 </toolkit:Case>
@@ -412,7 +802,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="unassigned" />
+                            Text="UnassignedEvent" />
 
                     </Grid>
                 </toolkit:Case>
@@ -427,7 +817,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="removed label" />
+                            Text="UnlabeledEvent" />
 
                     </Grid>
                 </toolkit:Case>
@@ -442,7 +832,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="unlocked" />
+                            Text="UnlockedEvent" />
 
                     </Grid>
                 </toolkit:Case>
@@ -457,7 +847,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="unmarked this as a duplicate of" />
+                            Text="UnmarkedAsDuplicateEvent" />
 
                     </Grid>
                 </toolkit:Case>
@@ -472,7 +862,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="unpinned" />
+                            Text="UnpinnedEvent" />
 
                     </Grid>
                 </toolkit:Case>
@@ -487,7 +877,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="blocked user" />
+                            Text="UserBlockedEvent" />
 
                     </Grid>
                 </toolkit:Case>
