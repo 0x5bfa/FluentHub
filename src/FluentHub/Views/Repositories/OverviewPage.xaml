@@ -35,7 +35,7 @@
         <Grid
             x:Name="ArchiveMessage"
             Height="40"
-            x:Load="{x:Bind ViewModel.Repository.IsArchived}">
+            x:Load="{x:Bind ViewModel.Repository.IsArchived, Mode=OneWay}">
 
             <Border Background="#ae7c14" Opacity="0.3" />
 
@@ -288,6 +288,15 @@
                                 FontFamily="{StaticResource Octions}"
                                 FontSize="16"
                                 Glyph="&#xEA48;" />
+                        </muxc:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem>
+
+                    <muxc:NavigationViewItem Content="Insights" Tag="Insights">
+                        <muxc:NavigationViewItem.Icon>
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="16"
+                                Glyph="&#xE9C9;" />
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
 

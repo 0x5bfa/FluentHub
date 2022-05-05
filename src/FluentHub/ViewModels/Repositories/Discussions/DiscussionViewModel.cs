@@ -24,7 +24,7 @@ namespace FluentHub.ViewModels.Repositories.Discussions
             _messenger = messenger;
             _logger = logger;
 
-            RefreshPullRequestPageCommand = new AsyncRelayCommand(LoadDiscussionPageAsync);
+            LoadDiscussionPageCommand = new AsyncRelayCommand<string>(LoadDiscussionPageAsync);
         }
         #endregion
 
@@ -32,14 +32,25 @@ namespace FluentHub.ViewModels.Repositories.Discussions
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
 
-        public IAsyncRelayCommand RefreshPullRequestPageCommand { get; }
+        private Discussion _discussion;
+        public Discussion Discussion { get => _discussion; set => SetProperty(ref _discussion, value); }
+
+        public IAsyncRelayCommand LoadDiscussionPageCommand { get; }
         #endregion
 
         #region methods
-        private async Task LoadDiscussionPageAsync()
+        private async Task LoadDiscussionPageAsync(string url)
         {
             try
             {
+                var urlSegments = url.Split("/");
+
+                DiscussionQueries queries = new();
+                var response = await queries.GetAsync(urlSegments[3], urlSegments[4], Convert.ToInt32(urlSegments[6]));
+
+                if (response == null) return;
+
+                Discussion = response;
             }
             catch (Exception ex)
             {

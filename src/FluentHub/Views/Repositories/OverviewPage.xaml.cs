@@ -75,6 +75,9 @@ namespace FluentHub.Views.Repositories
                 case "Projects":
                     RepoPageNavViewFrame.Navigate(typeof(Projects.ProjectsPage), $"{ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}");
                     break;
+                case "Insights":
+                    RepoPageNavViewFrame.Navigate(typeof(Insights.InsightsPage), $"{ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}");
+                    break;
                 case "Settings":
                     RepoPageNavViewFrame.Navigate(typeof(Settings.SettingsPage), $"{ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}");
                     break;
