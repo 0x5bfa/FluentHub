@@ -14,18 +14,17 @@ namespace FluentHub.ViewModels.Organizations
     public class ProfileViewModel : INotifyPropertyChanged
     {
         private Organization organization;
-        public Organization Organization
-        {
-            get => organization;
-            private set => SetProperty(ref organization, value);
-        }
+        public Organization Organization { get => organization; private set => SetProperty(ref organization, value); }
 
         public async Task GetOrganization(string org)
         {
             try
             {
                 OrganizationQueries queries = new();
-                Organization = await queries.GetOverview(org);
+                var organization = await queries.GetOverview(org);
+                if (organization == null) return;
+
+                Organization = organization;
             }
             catch (Exception ex)
             {

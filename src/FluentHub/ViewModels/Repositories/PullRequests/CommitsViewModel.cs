@@ -52,10 +52,9 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
                 if (pull != null) PullItem = pull;
 
                 CommitQueries queries = new();
-                List<Commit> items = await queries.GetAllAsync(PullItem.OwnerLogin, PullItem.Name, PullItem.Number);
+                var items = await queries.GetAllAsync(PullItem.OwnerLogin, PullItem.Name, PullItem.Number);
 
                 _items.Clear();
-
                 foreach (var item in items)
                 {
                     CommitButtonBlockViewModel viewModel = new()

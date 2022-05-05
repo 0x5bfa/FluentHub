@@ -47,9 +47,7 @@ namespace FluentHub.ViewModels.Users
             try
             {
                 IssueQueries queries = new();
-
-                List<Issue> items = await queries.GetAllAsync(login);
-
+                var items = await queries.GetAllAsync(login);
                 if (items == null) return;
 
                 _issueItems.Clear();

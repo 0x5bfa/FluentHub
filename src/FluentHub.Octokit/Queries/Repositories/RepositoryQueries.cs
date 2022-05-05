@@ -1,12 +1,13 @@
-﻿using Humanizer;
-using global::Octokit.GraphQL.Core;
+﻿using FluentHub.Octokit.Models;
+using Humanizer;
 using Octokit.GraphQL;
-using Octokit.GraphQL.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GraphQLCore = global::Octokit.GraphQL.Core;
+using GraphQLModel = global::Octokit.GraphQL.Model;
 
 namespace FluentHub.Octokit.Queries.Repositories
 {
@@ -14,167 +15,67 @@ namespace FluentHub.Octokit.Queries.Repositories
     {
         public RepositoryQueries() => new App();
 
-        public async Task<Models.Repository> Get(string owner, string name)
+        public async Task<Repository> GetDetailsAsync(string owner, string name)
         {
-            Arg<IEnumerable<IssueState>> issueState = new(new IssueState[] { IssueState.Open });
-            Arg<IEnumerable<PullRequestState>> pullRequestState = new(new PullRequestState[] { PullRequestState.Open });
+            GraphQLCore.Arg<IEnumerable<GraphQLModel.IssueState>> issueState = new(new GraphQLModel.IssueState[] { GraphQLModel.IssueState.Open });
+            GraphQLCore.Arg<IEnumerable<GraphQLModel.PullRequestState>> pullRequestState = new(new GraphQLModel.PullRequestState[] { GraphQLModel.PullRequestState.Open });
 
-            #region query
-            var query = new Query()
-                .Repository(name, owner)
-                .Select(x => new
-                {
-                    x.Name,
-                    OwnerAvatarUrl = x.Owner.AvatarUrl(100),
-                    OwnerLoginName = x.Owner.Login,
-                    x.Description,
-                    LicenseName = x.LicenseInfo.Select(y => y.Name).SingleOrDefault(),
-
-                    PrimaryLanguage = x.PrimaryLanguage.Select(y => new
-                    {
-                        y.Name,
-                        y.Color,
-                    }).SingleOrDefault(),
-
-                    x.StargazerCount,
-                    x.ForkCount,
-                    OpenIssueCount = x.Issues(null, null, null, null, null, null, null, issueState).TotalCount,
-                    OpenPullCount = x.PullRequests(null, null, null, null, null, null, null, null, pullRequestState).TotalCount,
-
-                    x.IsFork,
-                    x.IsInOrganization,
-                    x.ViewerHasStarred,
-
-                    x.UpdatedAt,
-                })
-                .Compile();
-            #endregion
-
-            var res = await App.Connection.Run(query);
-
-            #region copying
-            Models.Repository item = new()
-            {
-                Name = res.Name,
-                Owner = res.OwnerLoginName,
-                OwnerAvatarUrl = res.OwnerAvatarUrl,
-                OwnerIsOrganization = res.IsInOrganization,
-                Description = res.Description,
-
-                PrimaryLangName = res.PrimaryLanguage?.Name,
-                PrimaryLangColor = res.PrimaryLanguage?.Color,
-                LicenseName = res.LicenseName,
-
-                StargazerCount = res.StargazerCount,
-                ForkCount = res.ForkCount,
-                OpenIssueCount = res.OpenIssueCount,
-                OpenPullCount = res.OpenPullCount,
-
-                IsFork = res.IsFork,
-                ViewerHasStarred = res.ViewerHasStarred,
-
-                UpdatedAt = res.UpdatedAt,
-                UpdatedAtHumanized = res.UpdatedAt.Humanize(),
-            };
-
-            #endregion
-
-            return item;
-        }
-
-        public async Task<Models.RepositoryDetails> GetDetailsAsync(string owner, string name)
-        {
-            #region query
             var query = new Query()
                     .Repository(owner: owner, name: name)
-                    .Select(x => new
+                    .Select(x => new Repository
                     {
-                        x.HomepageUrl,
-                        DefaultBranchName = x.DefaultBranchRef.Select(defaultbranchref => new { defaultbranchref.Name }).SingleOrDefault(),
-
+                        HomepageUrl = x.HomepageUrl,
+                        ForkingAllowed = x.ForkingAllowed,
+                        HasIssuesEnabled = x.HasIssuesEnabled,
+                        HasProjectsEnabled = x.HasProjectsEnabled,
+                        IsArchived = x.IsArchived,
+                        IsPrivate = x.IsPrivate,
+                        IsTemplate = x.IsTemplate,
+                        ViewerSubscription = x.ViewerSubscription,
+                        Name = x.Name,
+                        Description = x.Description,
+                        StargazerCount = x.StargazerCount,
+                        ForkCount = x.ForkCount,
+                        IsFork = x.IsFork,
+                        IsInOrganization = x.IsInOrganization,
+                        ViewerHasStarred = x.ViewerHasStarred,
+                        UpdatedAt = x.UpdatedAt,
+                        UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
+                        LicenseName = x.LicenseInfo.Select(y => y.Name).SingleOrDefault(),
+                        DefaultBranchName = x.DefaultBranchRef.Select(defaultbranchref => defaultbranchref.Name).SingleOrDefault(),
                         WatcherCount = x.Watchers(null, null, null, null).TotalCount,
                         HeadRefsCount = x.Refs("refs/heads/", null, null, null, null, null, null, null).TotalCount,
                         TagCount = x.Refs("refs/tags/", null, null, null, null, null, null, null).TotalCount,
+                        ReleaseCount = x.Releases(null, null, null, null, null).TotalCount,
+                        OpenIssueCount = x.Issues(null, null, null, null, null, null, null, issueState).TotalCount,
+                        OpenPullCount = x.PullRequests(null, null, null, null, null, null, null, null, pullRequestState).TotalCount,
 
-                        LatestReleaseOverview = x.Releases(null, null, 1, null, null).Select(y => new
+                        Owner = x.Owner.Select(owner => new RepositoryOwner
                         {
-                            A = y.Nodes.Select(release => new
-                            {
-                                AuthorLogin = release.Author.Login,
-                                AuthorAvatarUrl = release.Author.AvatarUrl(100),
-                                release.DescriptionHTML,
-                                release.IsDraft,
-                                release.IsLatest,
-                                release.IsPrerelease,
-                                release.Name,
-                                release.PublishedAt,
-                            })
-                            .ToList(),
-
-                            y.TotalCount,
-
+                            AvatarUrl = owner.AvatarUrl(100),
+                            Id = owner.Id.ToString(),
+                            Login = owner.Login,
                         })
-                        .SingleOrDefault(),
+                        .Single(),
 
-                        x.ForkingAllowed,
-                        x.HasIssuesEnabled,
-                        x.HasProjectsEnabled,
-                        x.IsArchived,
-                        x.IsPrivate,
-                        x.IsTemplate,
-
-                        x.ViewerSubscription,
-
-                        x.UpdatedAt,
+                        LatestRelease = x.Releases(null, null, 1, null, null).Nodes.Select(release => new Release
+                        {
+                            AuthorLogin = release.Author.Login,
+                            AuthorAvatarUrl = release.Author.AvatarUrl(100),
+                            DescriptionHTML = release.DescriptionHTML,
+                            IsDraft = release.IsDraft,
+                            IsLatest = release.IsLatest,
+                            IsPrerelease = release.IsPrerelease,
+                            Name = release.Name,
+                            PublishedAt = release.PublishedAt,
+                        })
+                        .ToList().FirstOrDefault(),
                     })
                     .Compile();
-            #endregion
 
-            var res = await App.Connection.Run(query);
+            var response = await App.Connection.Run(query);
 
-            #region copying
-            List<Models.RepositoryDetails> items = new();
-
-            Models.RepositoryDetails item = new()
-            {
-                DefaultBranchName = res.DefaultBranchName?.Name,
-                HomepageUrl = res.HomepageUrl,
-
-                WatcherCount = res.WatcherCount,
-                HeadRefsCount = res.HeadRefsCount,
-                ReleaseCount = res.LatestReleaseOverview.TotalCount,
-
-                HasIssuesEnabled = res.HasIssuesEnabled,
-                HasProjectsEnabled = res.HasProjectsEnabled,
-                IsArchived = res.IsArchived,
-                IsPrivate = res.IsPrivate,
-                IsTemplate = res.IsTemplate,
-
-                ViewerSubscription = res.ViewerSubscription,
-
-                UpdatedAt = res.UpdatedAt,
-            };
-
-            if (res.LatestReleaseOverview.A.Count() != 0)
-            {
-                item.LatestReleaseOverview = new()
-                {
-                    AuthorAvatarUrl = res.LatestReleaseOverview.A[0].AuthorAvatarUrl,
-                    AuthorLogin = res.LatestReleaseOverview.A[0].AuthorLogin,
-                    DescriptionHTML = res.LatestReleaseOverview.A[0].DescriptionHTML,
-                    Name = res.LatestReleaseOverview.A[0].Name,
-
-                    IsDraft = res.LatestReleaseOverview.A[0].IsDraft,
-                    IsLatest = res.LatestReleaseOverview.A[0].IsLatest,
-                    IsPrerelease = res.LatestReleaseOverview.A[0].IsPrerelease,
-
-                    PublishedAt = res.LatestReleaseOverview?.A[0].PublishedAt,
-                    PublishedAtHumanized = res.LatestReleaseOverview?.A[0].PublishedAt.Humanize(),
-                };
-            }
-            #endregion
-
-            return item;
+            return response;
         }
 
         public async Task<List<string>> GetBranchNameAllAsync(string owner, string name)

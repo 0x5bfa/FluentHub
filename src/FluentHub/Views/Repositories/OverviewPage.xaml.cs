@@ -1,8 +1,6 @@
 ﻿using FluentHub.Services;
 using FluentHub.ViewModels;
 using FluentHub.Views.Repositories.Codes;
-using FluentHub.Views.Repositories.Issues;
-using FluentHub.Views.Repositories.PullRequests;
 using FluentHub.ViewModels.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -39,15 +37,10 @@ namespace FluentHub.Views.Repositories
             {
                 IsRootDir = true,
                 Name = ViewModel.Repository.Name,
-                Owner = ViewModel.Repository.Owner,
+                Owner = ViewModel.Repository.Owner.Login,
                 Repository = ViewModel.Repository,
+                BranchName = ViewModel.Repository.DefaultBranchName ?? null,
             };
-
-            if (ViewModel.RepositoryDetails != null)
-            {
-                repoContextViewModel.RepositoryDetails = ViewModel.RepositoryDetails;
-                repoContextViewModel.BranchName = ViewModel.RepositoryDetails.DefaultBranchName;
-            }
 
             RepoPageNavViewFrame.Navigate(typeof(CodePage), repoContextViewModel);
         }
@@ -62,27 +55,28 @@ namespace FluentHub.Views.Repositories
                         {
                             IsRootDir = true,
                             Name = ViewModel.Repository.Name,
-                            Owner = ViewModel.Repository.Owner,
+                            Owner = ViewModel.Repository.Owner.Login,
                             Repository = ViewModel.Repository,
+                            BranchName = ViewModel.Repository.DefaultBranchName ?? null,
                         };
-
-                        if (ViewModel.RepositoryDetails != null)
-                        {
-                            repoContextViewModel.RepositoryDetails = ViewModel.RepositoryDetails;
-                            repoContextViewModel.BranchName = ViewModel.RepositoryDetails.DefaultBranchName;
-                        }
 
                         RepoPageNavViewFrame.Navigate(typeof(CodePage), repoContextViewModel);
                         break;
                     }
                 case "Issues":
-                    RepoPageNavViewFrame.Navigate(typeof(IssuesPage), $"{ViewModel.Repository.Owner}/{ViewModel.Repository.Name}");
+                    RepoPageNavViewFrame.Navigate(typeof(Issues.IssuesPage), $"{ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}");
                     break;
-                case "PRs":
-                    RepoPageNavViewFrame.Navigate(typeof(PullRequestsPage), $"{ViewModel.Repository.Owner}/{ViewModel.Repository.Name}");
+                case "PullRequests":
+                    RepoPageNavViewFrame.Navigate(typeof(PullRequests.PullRequestsPage), $"{ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}");
+                    break;
+                case "Discussions":
+                    RepoPageNavViewFrame.Navigate(typeof(Discussions.DiscussionsPage), $"{ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}");
+                    break;
+                case "Projects":
+                    RepoPageNavViewFrame.Navigate(typeof(Projects.ProjectsPage), $"{ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}");
                     break;
                 case "Settings":
-                    RepoPageNavViewFrame.Navigate(typeof(Settings), $"{ViewModel.Repository.Owner}/{ViewModel.Repository.Name}");
+                    RepoPageNavViewFrame.Navigate(typeof(Settings.SettingsPage), $"{ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}");
                     break;
             }
         }
@@ -91,13 +85,13 @@ namespace FluentHub.Views.Repositories
         {
             var service = App.Current.Services.GetRequiredService<INavigationService>();
 
-            if (ViewModel.Repository.OwnerIsOrganization)
+            if (ViewModel.Repository.IsInOrganization)
             {
-                service.Navigate<Views.Organizations.ProfilePage>(ViewModel.Repository.Owner);
+                service.Navigate<Views.Organizations.ProfilePage>(ViewModel.Repository.Owner.Login);
             }
             else
             {
-                service.Navigate<Views.Users.ProfilePage>(ViewModel.Repository.Owner);
+                service.Navigate<Views.Users.ProfilePage>(ViewModel.Repository.Owner.Login);
             }
         }
 

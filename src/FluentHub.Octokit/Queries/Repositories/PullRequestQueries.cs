@@ -53,7 +53,10 @@ namespace FluentHub.Octokit.Queries.Repositories
                     ReviewState = x.Reviews(null, null, 1, null, null, null).Nodes.Select(y => y.State)
                     .ToList().FirstOrDefault(),
 
-                    StatusState = x.Commits(null, null, 1, null).Nodes.Select(y => y.Commit.StatusCheckRollup.Select(z => z.State).SingleOrDefault())
+                    StatusState = x.Commits(null, null, 1, null).Nodes.Select(y => new StatusCheckRollup
+                    {
+                        Status = y.Commit.StatusCheckRollup.Select(z => z.State).SingleOrDefault(),
+                    })
                     .ToList().FirstOrDefault(),
 
                     UpdatedAt = x.UpdatedAt,
@@ -101,7 +104,11 @@ namespace FluentHub.Octokit.Queries.Repositories
                     ReviewState = x.Reviews(null, null, 1, null, null, null).Nodes.Select(y => y.State)
                     .ToList().FirstOrDefault(),
 
-                    StatusState = x.Commits(null, null, 1, null).Nodes.Select(y => y.Commit.StatusCheckRollup.Select(z => z.State).SingleOrDefault())
+                    StatusState = x.Commits(null, null, 1, null).Nodes.Select(y => y.Commit.StatusCheckRollup.Select(z => new StatusCheckRollup
+                    {
+                        Status = z.State,
+                    })
+                    .SingleOrDefault())
                     .ToList().FirstOrDefault(),
 
                     UpdatedAt = x.UpdatedAt,

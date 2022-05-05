@@ -1,7 +1,7 @@
 ﻿using FluentHub.Backend;
 using FluentHub.Models;
+using FluentHub.Octokit.Queries.Users;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
-using Humanizer;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
@@ -16,12 +16,10 @@ namespace FluentHub.ViewModels.Home
     public class NotificationsViewModel : ObservableObject
     {
         #region constructor
-        public NotificationsViewModel(IGitHubClient client!!,
-                                      ToastService toastService,
+        public NotificationsViewModel(ToastService toastService,
                                       IMessenger messenger = null,
                                       ILogger logger = null)
         {
-            _client = client;
             _toastService = toastService;
             _messenger = messenger;
             _logger = logger;
@@ -33,23 +31,18 @@ namespace FluentHub.ViewModels.Home
         }
         #endregion
 
-        #region fields
-        private readonly IGitHubClient _client;
+        #region properties
         private readonly ToastService _toastService;
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
-        private readonly ObservableCollection<NotificationButtonBlockViewModel> _notifications;
-        private int _unreadCount;
-        #endregion
 
-        #region properties
+        private int _unreadCount;
+        public int UnreadCount { get => _unreadCount; set => SetProperty(ref _unreadCount, value); }
+
+        private readonly ObservableCollection<NotificationButtonBlockViewModel> _notifications;
         public ReadOnlyObservableCollection<NotificationButtonBlockViewModel> NotificationItems { get; }
+
         public IAsyncRelayCommand RefreshNotificationsCommand { get; }
-        public int UnreadCount
-        {
-            get => _unreadCount;
-            set => SetProperty(ref _unreadCount, value);
-        }
         #endregion
 
         #region methods
@@ -57,35 +50,19 @@ namespace FluentHub.ViewModels.Home
         {
             try
             {
-                NotificationsRequest request = new()
-                {
-                    All = true
-                };
-                ApiOptions requestOptions = new()
-                {
-                    PageCount = 1,
-                    PageSize = 50,
-                    StartPage = 1
-                };
-
-                var requestResult = await _client.Activity.Notifications.GetAllForCurrent(request, requestOptions);
+                NotificationQueries queries = new();
+                var items = await queries.GetAllAsync();
 
                 _notifications.Clear();
-                UnreadCount = 0;
-                foreach (var item in requestResult)
+                foreach (var item in items)
                 {
-                    NotificationButtonBlockViewModel viewModel = new()
+                    NotificationButtonBlockViewModel viewmodel = new()
                     {
-                        NotificationItem = item,
-                        UpdatedAtHumanized = DateTimeOffset.Parse(item.UpdatedAt).Humanize(),
-                        NameWithOwner = item.Repository.Owner.Login + "/" + item.Repository.Name
+                        Item = item,
                     };
 
-                    _notifications.Add(viewModel);
-                    if (item.Unread)
-                    {
-                        UnreadCount++;
-                    }
+                    if (item.Unread) UnreadCount++;
+                    _notifications.Add(viewmodel);
                 }
             }
             catch (OperationCanceledException) { }

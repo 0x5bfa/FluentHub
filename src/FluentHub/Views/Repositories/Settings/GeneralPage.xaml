@@ -1,0 +1,192 @@
+﻿<Page
+    x:Class="FluentHub.Views.Repositories.Settings.GeneralPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:FluentHub.Views.Repositories.Settings"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="using:FluentHub.UserControls"
+    mc:Ignorable="d">
+
+    <ScrollViewer Padding="12">
+        <StackPanel Spacing="8">
+
+            <TextBlock
+                Margin="0,12,0,0"
+                Style="{StaticResource SubtitleTextBlockStyle}"
+                Text="General" />
+
+            <MenuFlyoutSeparator />
+
+            <TextBlock
+                Margin="0,12,0,0"
+                Style="{StaticResource BodyStrongTextBlockStyle}"
+                Text="repository name" />
+
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <TextBox Width="256" />
+                <Button Content="Rename" />
+            </StackPanel>
+
+            <StackPanel>
+                <CheckBox Content="Template repository" />
+                <TextBlock
+                    Margin="28,0,0,0"
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="Template repositories let users generate new repositories with the same directory structure and files. Learn more." />
+            </StackPanel>
+
+            <TextBlock
+                Margin="0,12,0,0"
+                Style="{StaticResource BodyStrongTextBlockStyle}"
+                Text="Social preview" />
+
+            <TextBlock
+                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Text="Upload an image to customize your repository's social media preview." />
+
+            <TextBlock
+                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Text="Images should be at least 640×320px (1280×640px for best display)." />
+
+            <HyperlinkButton Padding="2,0" Content="Download template" />
+
+            <Border
+                Height="320"
+                MaxWidth="640"
+                HorizontalAlignment="Left"
+                Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                BorderBrush="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                CornerRadius="6" />
+
+            <TextBlock
+                Margin="0,12,0,0"
+                Style="{StaticResource SubtitleTextBlockStyle}"
+                Text="Features" />
+
+            <MenuFlyoutSeparator />
+
+            <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+                <ToggleSwitch FlowDirection="RightToLeft" />
+            </uc:SettingsBlockControl>
+
+            <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+                <ToggleSwitch FlowDirection="RightToLeft" />
+            </uc:SettingsBlockControl>
+
+            <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+                <ToggleSwitch FlowDirection="RightToLeft" />
+            </uc:SettingsBlockControl>
+
+            <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+                <ToggleSwitch FlowDirection="RightToLeft" />
+            </uc:SettingsBlockControl>
+
+            <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+                <ToggleSwitch FlowDirection="RightToLeft" />
+            </uc:SettingsBlockControl>
+
+            <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+                <ToggleSwitch FlowDirection="RightToLeft" />
+            </uc:SettingsBlockControl>
+
+            <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+                <ToggleSwitch FlowDirection="RightToLeft" />
+            </uc:SettingsBlockControl>
+
+            <TextBlock
+                Margin="0,12,0,0"
+                Style="{StaticResource SubtitleTextBlockStyle}"
+                Text="Pull Requests" />
+
+            <MenuFlyoutSeparator />
+
+            <TextBlock
+                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Text="When merging pull requests, you can allow any combination of merge commits, squashing, or rebasing. At least one option must be enabled. If you have linear history requirement enabled on any protected branch, you must enable squashing or rebasing." />
+
+            <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+                <ToggleSwitch FlowDirection="RightToLeft" />
+            </uc:SettingsBlockControl>
+
+            <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+                <ToggleSwitch FlowDirection="RightToLeft" />
+            </uc:SettingsBlockControl>
+
+            <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+                <ToggleSwitch FlowDirection="RightToLeft" />
+            </uc:SettingsBlockControl>
+
+            <TextBlock
+                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Text="Control how and when users are prompted to update their branches if there are new changes available in the base branch." />
+
+            <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+                <ToggleSwitch FlowDirection="RightToLeft" />
+            </uc:SettingsBlockControl>
+
+            <TextBlock
+                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Text="You can allow setting pull requests to merge automatically once all required reviews and status checks have passed." />
+
+            <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+                <ToggleSwitch FlowDirection="RightToLeft" />
+            </uc:SettingsBlockControl>
+
+            <TextBlock
+                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Text="After pull requests are merged, you can have head branches deleted automatically." />
+
+            <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+                <ToggleSwitch FlowDirection="RightToLeft" />
+            </uc:SettingsBlockControl>
+
+            <TextBlock
+                Margin="0,12,0,0"
+                Style="{StaticResource SubtitleTextBlockStyle}"
+                Text="Archives" />
+
+            <MenuFlyoutSeparator />
+
+            <TextBlock
+                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Text="When creating source code archives, you can choose to include files stored using Git LFS in the archive." />
+
+            <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+                <ToggleSwitch FlowDirection="RightToLeft" />
+            </uc:SettingsBlockControl>
+
+            <TextBlock
+                Margin="0,12,0,0"
+                Style="{StaticResource SubtitleTextBlockStyle}"
+                Text="Danger Zone" />
+
+            <MenuFlyoutSeparator />
+
+            <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+                <ToggleSwitch FlowDirection="RightToLeft" />
+            </uc:SettingsBlockControl>
+
+            <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+                <ToggleSwitch FlowDirection="RightToLeft" />
+            </uc:SettingsBlockControl>
+
+            <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+                <ToggleSwitch FlowDirection="RightToLeft" />
+            </uc:SettingsBlockControl>
+
+            <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
+                <ToggleSwitch FlowDirection="RightToLeft" />
+            </uc:SettingsBlockControl>
+
+        </StackPanel>
+    </ScrollViewer>
+</Page>

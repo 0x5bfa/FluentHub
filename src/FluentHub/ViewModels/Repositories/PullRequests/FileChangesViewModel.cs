@@ -56,6 +56,7 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
 
                 if (!files.Any()) return;
 
+                _diffViewModels.Clear();
                 foreach (var item in files)
                 {
                     DiffBlockViewModel viewModel = new()

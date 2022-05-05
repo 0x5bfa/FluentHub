@@ -1,5 +1,4 @@
-﻿using FluentHub.Models.Items;
-using FluentHub.Services;
+﻿using FluentHub.Services;
 using FluentHub.Services.Navigation;
 using FluentHub.ViewModels;
 using FluentHub.ViewModels.Repositories;

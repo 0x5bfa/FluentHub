@@ -48,9 +48,7 @@ namespace FluentHub.ViewModels.Users
             try
             {
                 OrganizationQueries queries = new();
-
-                List<Organization> items = await queries.GetAllAsync(login);
-
+                var items = await queries.GetAllAsync(login);
                 if (items == null) return;
 
                 _organizations.Clear();

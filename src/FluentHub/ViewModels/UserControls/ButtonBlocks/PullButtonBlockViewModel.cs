@@ -1,5 +1,4 @@
-﻿using Humanizer;
-using FluentHub.ViewModels.UserControls.Labels;
+﻿using FluentHub.ViewModels.UserControls.Labels;
 using FluentHub.Octokit.Models;
 using System;
 using System.Collections.Generic;
@@ -9,8 +8,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml;
 
 namespace FluentHub.ViewModels.UserControls.ButtonBlocks
 {
@@ -40,9 +37,9 @@ namespace FluentHub.ViewModels.UserControls.ButtonBlocks
         }
 
         private PullRequest _pullItem;
-        private readonly ObservableCollection<LabelControlViewModel> _labelViewModels;
-
         public PullRequest PullItem { get => _pullItem; set => SetProperty(ref _pullItem, value); }
+
+        private readonly ObservableCollection<LabelControlViewModel> _labelViewModels;
         public ReadOnlyObservableCollection<LabelControlViewModel> LabelViewModels { get; }
 
         private LabelControlViewModel _commentCountLabel;
@@ -54,10 +51,11 @@ namespace FluentHub.ViewModels.UserControls.ButtonBlocks
         private LabelControlViewModel _statusStateLabel;
         public LabelControlViewModel StatusStateLabel { get => _statusStateLabel; set => SetProperty(ref _statusStateLabel, value); }
 
-        public void SetContents()
+        public void LoadContents()
         {
             CommentCountLabel.Name = PullItem.CommentCount.ToString();
 
+            _labelViewModels.Clear();
             foreach (var label in _pullItem.Labels)
             {
                 LabelControlViewModel viewModel = new()

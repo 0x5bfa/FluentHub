@@ -12,7 +12,7 @@
   <a style="text-decoration:none" href="https://github.com/fluenthub-community/FluentHub/releases">
     <img src="https://img.shields.io/github/v/release/fluenthub-community/fluenthub?include_prereleases&style=flat-square" alt="Release" />
   </a>
-  <a style="text-decoration:none" href="https://discord.com/channels/935562861701390336">
+  <a style="text-decoration:none" href="https://discord.gg/8KtRkjq2Q4">
     <img src="https://img.shields.io/discord/935562861701390336?color=blue&label=Discord&style=flat-square" alt="Discord" />
   </a>
   <a style="text-decoration:none">
@@ -24,13 +24,20 @@
 
 ## Build
 
-Expect regular breaking changes. If you cannot build or found authorization issues, let us know in [this issue](https://github.com/fluenthub-community/FluentHub/issues/104).
+Expect regular breaking changes. If you cannot build or found authorization issues, let us know in [#104](https://github.com/fluenthub-community/FluentHub/issues/104).
 
 - To build, please read [this documentation.](docs/build-from-source.md)
 
+
+## Notices
+
+ 1. HttpsClient in Octokit.GraohQL.NET does not work properly (occur unknown exception) for users using Win11 Dev/Beta version with TLS and SSL settings disabled. Please see [#123](https://github.com/fluenthub-community/FluentHub/issues/123) for more information.</br>`Win+R` > `inetcpl.cpl` > `Advanced` tab > activate all TLS and SSL versions > restart
+
+	![image](https://user-images.githubusercontent.com/60316747/165113319-790574fe-6bf0-4170-a48f-fd92e5652318.png)
+
 ## FAQ
 
-Any questions? Ask on our [Discord server](https://discord.com/channels/935562861701390336).
+Any questions? Ask on our [Discord server](https://discord.gg/8KtRkjq2Q4).
 
 ## Contributing
 
@@ -40,4 +47,3 @@ Any questions? Ask on our [Discord server](https://discord.com/channels/93556286
 ## Privacy
 
 We may use the App Center to track the settings used, find bugs and fix crashes. The information sent to the App Center is anonymous and does not contain any user or contextual data.
-

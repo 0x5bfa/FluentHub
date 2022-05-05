@@ -6,9 +6,9 @@
     xmlns:contents="using:FluentHub.UserControls.Blocks"
     xmlns:converters="using:FluentHub.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:items="using:FluentHub.Models.Items"
     xmlns:local="using:FluentHub.Views.Repositories.Codes.Layouts"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:FluentHub.Models"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
@@ -23,7 +23,7 @@
                 <Grid
                     x:Name="RepositoryCodeGrid"
                     Margin="12,0,12,12"
-                    x:Load="{x:Bind ViewModel.ContextViewModel.RepositoryDetails, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+                    x:Load="{x:Bind ViewModel.ContextViewModel.Repository.DefaultBranchName, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -77,7 +77,7 @@
                                 </ListView.ItemContainerStyle>
 
                                 <ListView.ItemTemplate>
-                                    <DataTemplate x:DataType="items:DetailsLayoutListViewItem">
+                                    <DataTemplate x:DataType="models:DetailsLayoutListViewModel">
 
                                         <Grid x:Name="ListViewItemGrid" Tag="{x:Bind ObjectTag, Mode=OneWay}">
 
@@ -206,29 +206,29 @@
                                     Style="{StaticResource BodyStrongTextBlockStyle}"
                                     Text="Releases" />
 
-                                <muxc:InfoBadge Value="{x:Bind ViewModel.ContextViewModel.RepositoryDetails.ReleaseCount, Mode=OneWay}" />
+                                <muxc:InfoBadge Value="{x:Bind ViewModel.ContextViewModel.Repository.ReleaseCount, Mode=OneWay}" />
                             </StackPanel>
 
                             <Button
                                 x:Name="LatestReleaseButton"
                                 HorizontalAlignment="Stretch"
                                 HorizontalContentAlignment="Left"
-                                x:Load="{x:Bind ViewModel.ContextViewModel.RepositoryDetails.ReleaseCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                                x:Load="{x:Bind ViewModel.ContextViewModel.Repository.ReleaseCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
                                 Click="OnLatestReleaseClick">
                                 <StackPanel Spacing="4">
 
-                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.ContextViewModel.RepositoryDetails.LatestReleaseOverview.Name, Mode=OneWay}" />
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.ContextViewModel.Repository.LatestRelease.Name, Mode=OneWay}" />
 
                                     <StackPanel Orientation="Horizontal" Spacing="4">
 
                                         <TextBlock
                                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                             Style="{StaticResource BodyTextBlockStyle}"
-                                            Text="{x:Bind ViewModel.ContextViewModel.RepositoryDetails.LatestReleaseOverview.PublishedAtHumanized, Mode=OneWay}" />
+                                            Text="{x:Bind ViewModel.ContextViewModel.Repository.LatestRelease.PublishedAtHumanized, Mode=OneWay}" />
 
                                         <StackPanel
                                             x:Name="LatestReleaseIsLatestRelease"
-                                            x:Load="{x:Bind ViewModel.ContextViewModel.RepositoryDetails.LatestReleaseOverview.IsLatest, Mode=OneWay}"
+                                            x:Load="{x:Bind ViewModel.ContextViewModel.Repository.LatestRelease.IsLatest, Mode=OneWay}"
                                             Orientation="Horizontal"
                                             Spacing="4">
                                             <TextBlock
@@ -243,7 +243,7 @@
 
                                         <StackPanel
                                             x:Name="LatestReleaseIsPrerelease"
-                                            x:Load="{x:Bind ViewModel.ContextViewModel.RepositoryDetails.LatestReleaseOverview.IsPrerelease, Mode=OneWay}"
+                                            x:Load="{x:Bind ViewModel.ContextViewModel.Repository.LatestRelease.IsPrerelease, Mode=OneWay}"
                                             Orientation="Horizontal"
                                             Spacing="4">
                                             <TextBlock
@@ -259,7 +259,7 @@
                                 </StackPanel>
                             </Button>
 
-                            <StackPanel x:Name="NoReleaseExist" x:Load="{x:Bind ViewModel.ContextViewModel.RepositoryDetails.ReleaseCount, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
+                            <StackPanel x:Name="NoReleaseExist" x:Load="{x:Bind ViewModel.ContextViewModel.Repository.ReleaseCount, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
 
                                 <TextBlock
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
@@ -276,7 +276,7 @@
                 <Grid
                     x:Name="NoCodeGrid"
                     Margin="12,0,12,12"
-                    x:Load="{x:Bind ViewModel.ContextViewModel.RepositoryDetails, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
+                    x:Load="{x:Bind ViewModel.ContextViewModel.Repository.DefaultBranchName, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
                     <TextBlock
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
