@@ -38,64 +38,48 @@ namespace FluentHub.ViewModels.UserControls.Blocks
         private bool _blockIsExpanded;
         public bool BlockIsExpanded { get => _blockIsExpanded; set => SetProperty(ref _blockIsExpanded, value); }
 
+        // 0: patch, 1: addition, 2: deletion, 3: no changes
         private readonly ObservableCollection<int> _changedLineBackgroundType;
         public ReadOnlyObservableCollection<int> ChangedLineBackgroundType { get; }
 
-        public void ParseDiffPatchString()
+        public void Creanup()
         {
-            var lines = ChangedFile.Patch.Split("\n");
+            if (string.IsNullOrEmpty(ChangedFile.Patch)) return;
 
-            _changedLineBackgroundType.Clear();
             OldLineText = "";
             NewLineText = "";
             FirstLetters = "";
             PatchRemovedfFirstLetters = "";
+            _changedLineBackgroundType.Clear();
 
-            int oldBaseLine = 0;
-            int newBaseLine = 0;
+            ParseDiffPatchString();
+
+            OldLineText = OldLineText.TrimEnd('\n');
+            NewLineText = NewLineText.TrimEnd('\n');
+            FirstLetters = FirstLetters.TrimEnd('\n');
+            PatchRemovedfFirstLetters = PatchRemovedfFirstLetters.TrimEnd('\n');
+        }
+
+        public void ParseDiffPatchString()
+        {
+            var lines = ChangedFile.Patch.Split("\n");
             bool isPatchLine = false;
 
             // Display two line number column for added and deleted line
-            for (int index = 0, olds = 0, news = 0; index < lines.Count(); index++)
+            for (int index = 0, olds = 0, news = 0, oldBaseLine = 0, newBaseLine = 0; index < lines.Count(); index++)
             {
-                // Pathch head line, like "@@ -5,7 +5,7 @@"
-                if (Regex.IsMatch(lines[index], "@@ -.* .+.* @@"))
+                if (Regex.IsMatch(lines[index], "^@@ -.* .+.* @@"))
                 {
-                    OldLineText += $"\n";
-                    NewLineText += $"\n";
+                    OldLineText += $"\n"; NewLineText += $"\n";
 
-                    _changedLineBackgroundType.Add(0);
+                    var array = Regex.Matches(lines[index], "[0-9]+").Cast<Match>().Select(x => int.Parse(x.Value)).ToArray();
 
-                    // Length of array must be 4
-                    var array = Regex.Matches(lines[index], "[0-9]+")
-                                     .Cast<Match>()
-                                     .Select(x => int.Parse(x.Value))
-                                     .ToArray();
-
-                    // [0]: New diff's base line
-                    // [1]: Length of displayed new diff
-                    // [2]: Old diff's base line
-                    // [3]: Length of displayed old diff
                     oldBaseLine = array[0];
                     newBaseLine = array[2];
                     FirstLetters += "\n";
                     isPatchLine = true;
-                }
-                else if (lines[index][0] == '-')
-                {
-                    if (oldBaseLine != 0)
-                    {
-                        olds = oldBaseLine;
-                        oldBaseLine = 0;
-                    }
-                    else olds++;
 
-                    _changedLineBackgroundType.Add(2);
-
-                    OldLineText += $"{olds}\n";
-                    NewLineText += $"\n";
-                    FirstLetters += "-\n";
-                    isPatchLine = false;
+                    _changedLineBackgroundType.Add(0);
                 }
                 else if (lines[index][0] == '+')
                 {
@@ -106,12 +90,26 @@ namespace FluentHub.ViewModels.UserControls.Blocks
                     }
                     else news++;
 
-                    _changedLineBackgroundType.Add(1);
-
                     OldLineText += $"\n";
                     NewLineText += $"{news}\n";
                     FirstLetters += "+\n";
-                    isPatchLine = false;
+
+                    _changedLineBackgroundType.Add(1);
+                }
+                else if (lines[index][0] == '-')
+                {
+                    if (oldBaseLine != 0)
+                    {
+                        olds = oldBaseLine;
+                        oldBaseLine = 0;
+                    }
+                    else olds++;
+
+                    OldLineText += $"{olds}\n";
+                    NewLineText += $"\n";
+                    FirstLetters += "-\n";
+
+                    _changedLineBackgroundType.Add(2);
                 }
                 else
                 {
@@ -129,24 +127,18 @@ namespace FluentHub.ViewModels.UserControls.Blocks
                     }
                     else news++;
 
-                    _changedLineBackgroundType.Add(3);
-
                     OldLineText += $"{olds}\n";
                     NewLineText += $"{news}\n";
                     FirstLetters += "\n";
-                    isPatchLine = false;
+
+                    _changedLineBackgroundType.Add(3);
                 }
 
-                if (isPatchLine == false) lines[index] = lines[index].Substring(1, lines[index].Length - 1);
+                if (isPatchLine != true) lines[index] = lines[index].Substring(1, lines[index].Length - 1);
+                isPatchLine = false;
             }
 
             PatchRemovedfFirstLetters = string.Join("\n", lines);
-
-            // Delete last line breacks
-            OldLineText = OldLineText.TrimEnd('\n');
-            NewLineText = NewLineText.TrimEnd('\n');
-            FirstLetters = FirstLetters.TrimEnd('\n');
-            PatchRemovedfFirstLetters = PatchRemovedfFirstLetters.TrimEnd('\n');
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -45,11 +45,5 @@ namespace FluentHub.Views.Repositories.Issues
             if (command.CanExecute(param))
                 command.Execute(param);
         }
-
-        private async void OnViewDetailsButtonClick(object sender, RoutedEventArgs e)
-        {
-            Dialogs.IssueDetailsContentDialog detailsContentDialog = new();
-            await detailsContentDialog.ShowAsync();
-        }
     }
 }

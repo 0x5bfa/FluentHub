@@ -64,7 +64,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             return response.ToList();
         }
 
-        public async Task<Discussion> GetAllAsync(string owner, string name, int number)
+        public async Task<Discussion> GetAsync(string owner, string name, int number)
         {
             var query = new Query()
                 .Repository(owner: owner, name: name)

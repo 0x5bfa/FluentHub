@@ -110,7 +110,6 @@
             Grid.Row="1"
             Height="50"
             Padding="8,0"
-            Background="{ThemeResource TabViewItemHeaderBackgroundSelected}"
             ColumnSpacing="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />

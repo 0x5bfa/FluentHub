@@ -31,7 +31,7 @@ namespace FluentHub.ViewModels.UserControls.ButtonBlocks
 
             StatusStateLabel = new()
             {
-                Name = "Reviews",
+                Name = "Status",
                 Color = "#36000000",
             };
         }
