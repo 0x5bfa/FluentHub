@@ -32,7 +32,7 @@
             BorderBrush="{x:Bind ViewModel.ColorBackground, Mode=OneWay}"
             BorderThickness="1"
             CornerRadius="4"
-            Opacity="0.8" />
+            Opacity="0.4" />
 
         <StackPanel
             Padding="10,0"

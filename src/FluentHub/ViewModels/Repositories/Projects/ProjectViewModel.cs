@@ -24,7 +24,7 @@ namespace FluentHub.ViewModels.Repositories.Projects
             _messenger = messenger;
             _logger = logger;
 
-            RefreshPullRequestPageCommand = new AsyncRelayCommand(LoadProjectPageAsync);
+            LoadProjectPageCommand = new AsyncRelayCommand<string>(LoadProjectPageAsync);
         }
         #endregion
 
@@ -32,14 +32,25 @@ namespace FluentHub.ViewModels.Repositories.Projects
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
 
-        public IAsyncRelayCommand RefreshPullRequestPageCommand { get; }
+        private Project _project;
+        public Project Project { get => _project; set => SetProperty(ref _project, value); }
+
+        public IAsyncRelayCommand LoadProjectPageCommand { get; }
         #endregion
 
         #region methods
-        private async Task LoadProjectPageAsync()
+        private async Task LoadProjectPageAsync(string url)
         {
             try
             {
+                var urlSegments = url.Split("/");
+
+                ProjectQueries queries = new();
+                var response = await queries.GetAsync(urlSegments[3], urlSegments[4], Convert.ToInt32(urlSegments[6]));
+
+                if (response == null) return;
+
+                Project = response;
             }
             catch (Exception ex)
             {

@@ -28,8 +28,8 @@ namespace FluentHub.Views.Repositories.Projects
             var nameAndOwner = nameWithOwner.Split("/");
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = "PullRequests";
-            currentItem.Description = "Viewer's pull requests";
+            currentItem.Header = "Projects";
+            currentItem.Description = "Projects";
             currentItem.Url = $"https://github.com/{nameAndOwner[0]}/{nameAndOwner[1]}/pulls";
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
             {

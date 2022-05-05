@@ -28,7 +28,10 @@
     </UserControl.Resources>
 
     <Grid>
-        <Button Margin="0,3,0,0" Style="{StaticResource ContentBlockButtonStyle}">
+        <Button
+            Margin="0,3,0,0"
+            Click="Button_Click"
+            Style="{StaticResource ContentBlockButtonStyle}">
 
             <Grid ColumnSpacing="14">
                 <Grid.ColumnDefinitions>

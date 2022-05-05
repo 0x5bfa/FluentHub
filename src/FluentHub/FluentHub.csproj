@@ -129,11 +129,8 @@
     </Compile>
     <Compile Include="Converters\ObjectToBoolConverter.cs" />
     <Compile Include="Converters\SettingsControlConverter.cs" />
-    <Compile Include="Dialogs\IssueDetailsContentDialog.xaml.cs">
-      <DependentUpon>IssueDetailsContentDialog.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\UserProfileEditor.xaml.cs">
-      <DependentUpon>UserProfileEditor.xaml</DependentUpon>
+    <Compile Include="Dialogs\EditUserProfileDialog.xaml.cs">
+      <DependentUpon>EditUserProfileDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extensions\IEnumerableExt.cs" />
     <Compile Include="Helpers\BlobDetailsHelpers.cs" />
@@ -175,6 +172,9 @@
     </Compile>
     <Compile Include="UserControls\ButtonBlocks\ProjectButtonBlock.xaml.cs">
       <DependentUpon>ProjectButtonBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ColorfulBar.xaml.cs">
+      <DependentUpon>ColorfulBar.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\TabViewControl\TabItem.cs" />
     <Compile Include="UserControls\Blocks\ActivityBlock.xaml.cs">
@@ -252,6 +252,7 @@
     <Compile Include="ViewModels\AppSettings\AccountsViewModel.cs" />
     <Compile Include="ViewModels\AppSettings\AppearanceViewModel.cs" />
     <Compile Include="ViewModels\AppSettings\MainSettingsViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\EditUserProfileViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\Organizations\OverviewViewModel.cs" />
     <Compile Include="ViewModels\Organizations\ProfileViewModel.cs" />
@@ -339,6 +340,9 @@
     </Compile>
     <Compile Include="Views\Repositories\Discussions\DiscussionsPage.xaml.cs">
       <DependentUpon>DiscussionsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\Insights\InsightsPage.xaml.cs">
+      <DependentUpon>InsightsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Repositories\Projects\ProjectPage.xaml.cs">
       <DependentUpon>ProjectPage.xaml</DependentUpon>
@@ -638,11 +642,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="Dialogs\IssueDetailsContentDialog.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Dialogs\UserProfileEditor.xaml">
+    <Page Include="Dialogs\EditUserProfileDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -660,6 +660,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="ResourceDictionaries\TabViewItem_shared.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceDictionaries\TabView_themeresources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ResourceDictionaries\TextBlockStyles.xaml">
       <SubType>Designer</SubType>
@@ -737,6 +745,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ButtonBlocks\UserButtonBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ColorfulBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -833,6 +845,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Repositories\Discussions\DiscussionsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\Insights\InsightsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1027,6 +1043,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="ViewModels\Repositories\Insights\" />
     <Folder Include="Views\Organizations\Settings\" />
     <Folder Include="Views\Users\Settings\" />
   </ItemGroup>

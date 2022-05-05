@@ -209,6 +209,7 @@
     <Compile Include="Queries\Organizations\PinnedItemQueries.cs" />
     <Compile Include="Queries\Repositories\DiffQueries.cs" />
     <Compile Include="Queries\Repositories\DiscussionQueries.cs" />
+    <Compile Include="Queries\Repositories\InsightQueries.cs" />
     <Compile Include="Queries\Repositories\MarkdownQueries.cs" />
     <Compile Include="Queries\Organizations\RepositoryQueries.cs" />
     <Compile Include="Queries\Organizations\OrganizationQueries.cs" />

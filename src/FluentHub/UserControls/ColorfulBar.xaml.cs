@@ -13,18 +13,13 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace FluentHub.Dialogs
+namespace FluentHub.UserControls
 {
-    public sealed partial class IssueDetailsContentDialog : ContentDialog
+    public sealed partial class ColorfulBar : UserControl
     {
-        public IssueDetailsContentDialog()
+        public ColorfulBar()
         {
             this.InitializeComponent();
-        }
-
-        private void OnCloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-            Hide();
         }
     }
 }

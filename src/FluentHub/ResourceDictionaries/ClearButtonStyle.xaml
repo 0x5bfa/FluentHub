@@ -3,12 +3,12 @@
         x:Key="ClearButtonStyle"
         BasedOn="{StaticResource DefaultButtonStyle}"
         TargetType="Button">
-        <Setter Property="Background" Value="{ThemeResource ButtonBackground}" />
+        <Setter Property="Background" Value="Transparent" />
         <Setter Property="BackgroundSizing" Value="OuterBorderEdge" />
         <Setter Property="Foreground" Value="{ThemeResource ButtonForeground}" />
-        <Setter Property="BorderBrush" Value="Transparent" />
         <Setter Property="CornerRadius" Value="{StaticResource ControlCornerRadius}" />
-        <Setter Property="BorderThickness" Value="{ThemeResource ButtonBorderThemeThickness}" />
+        <Setter Property="BorderBrush" Value="Transparent" />
+        <Setter Property="BorderThickness" Value="0" />
         <Setter Property="Padding" Value="0" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Center" />
@@ -38,9 +38,6 @@
                             <ResourceDictionary>
                                 <ResourceDictionary.ThemeDictionaries>
                                     <ResourceDictionary x:Key="Default">
-                                        <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="Transparent" />
-                                        <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="Transparent" />
-                                        <SolidColorBrush x:Key="ButtonBorderBrushDisabled" Color="Transparent" />
                                         <SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="Transparent" />
                                     </ResourceDictionary>
                                 </ResourceDictionary.ThemeDictionaries>
@@ -98,6 +95,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+
     <Style
         x:Key="ClearToggleButtonStyle"
         BasedOn="{StaticResource DefaultToggleButtonStyle}"
