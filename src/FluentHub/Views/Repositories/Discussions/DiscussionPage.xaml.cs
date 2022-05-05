@@ -24,21 +24,21 @@ namespace FluentHub.Views.Repositories.Discussions
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            //var nameWithOwner = e.Parameter as string;
-            //var nameAndOwner = nameWithOwner.Split("/");
+            var url = e.Parameter as string;
+            var urlSegments = (e.Parameter as string).Split("/");
 
-            //var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            //currentItem.Header = "PullRequests";
-            //currentItem.Description = "Viewer's pull requests";
-            //currentItem.Url = $"https://github.com/{nameAndOwner[0]}/{nameAndOwner[1]}/pulls";
-            //currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
-            //{
-            //    ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/PullRequests.png"))
-            //};
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = "Discussion";
+            currentItem.Description = "Discussion";
+            currentItem.Url = $"{url}";
+            currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
+            {
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/PullRequests.png"))
+            };
 
-            //var command = ViewModel.RefreshPullRequestsPageCommand;
-            //if (command.CanExecute(nameWithOwner))
-            //    command.Execute(nameWithOwner);
+            var command = ViewModel.LoadDiscussionPageCommand;
+            if (command.CanExecute(url))
+                command.Execute(url);
         }
     }
 }

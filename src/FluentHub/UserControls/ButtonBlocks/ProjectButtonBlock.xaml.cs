@@ -45,7 +45,7 @@ namespace FluentHub.UserControls.ButtonBlocks
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MainPageViewModel.RepositoryContentFrame.Navigate(typeof(ProjectPage));
+            MainPageViewModel.RepositoryContentFrame.Navigate(typeof(ProjectPage), ViewModel.Item.Url);
         }
     }
 }
