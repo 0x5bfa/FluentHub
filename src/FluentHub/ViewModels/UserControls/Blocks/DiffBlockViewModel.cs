@@ -68,7 +68,7 @@ namespace FluentHub.ViewModels.UserControls.Blocks
             // Display two line number column for added and deleted line
             for (int index = 0, olds = 0, news = 0, oldBaseLine = 0, newBaseLine = 0; index < lines.Count(); index++)
             {
-                if (Regex.IsMatch(lines[index], "@@ -.* .+.* @@"))
+                if (Regex.IsMatch(lines[index], "^@@ -.* .+.* @@"))
                 {
                     OldLineText += $"\n"; NewLineText += $"\n";
 
