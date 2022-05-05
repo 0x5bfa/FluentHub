@@ -26,7 +26,7 @@ namespace FluentHub.ViewModels.Users
             _pullRequests = new();
             PullItems = new(_pullRequests);
 
-            RefreshPullRequestsCommand = new AsyncRelayCommand<string>(RefreshPullRequestsAsync);
+            RefreshPullRequestsPageCommand = new AsyncRelayCommand<string>(RefreshPullRequestsPageAsync);
         }
         #endregion
 
@@ -38,21 +38,16 @@ namespace FluentHub.ViewModels.Users
 
         #region properties
         public ReadOnlyObservableCollection<PullButtonBlockViewModel> PullItems { get; }
-        public IAsyncRelayCommand RefreshPullRequestsCommand { get; }
+        public IAsyncRelayCommand RefreshPullRequestsPageCommand { get; }
         #endregion
 
         #region methods
-        private async Task RefreshPullRequestsAsync(string login, CancellationToken token)
+        private async Task RefreshPullRequestsPageAsync(string login, CancellationToken token)
         {
             try
             {
                 PullRequestQueries queries = new();
-                List<PullRequest> items;
-
-                items = login == null ?
-                    await queries.GetAllAsync() :
-                    await queries.GetAllAsync(login);
-
+                var items = await queries.GetAllAsync(login);
                 if (items == null) return;
 
                 _pullRequests.Clear();
@@ -61,8 +56,6 @@ namespace FluentHub.ViewModels.Users
                     PullButtonBlockViewModel viewModel = new()
                     {
                         PullItem = item,
-                        NameWithOwner = $"{item.Owner} / {item.Name} #{item.Number}",
-                        UpdatedAtHumanized = item.UpdatedAt.Humanize()
                     };
 
                     _pullRequests.Add(viewModel);

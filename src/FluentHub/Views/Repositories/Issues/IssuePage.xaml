@@ -1,0 +1,244 @@
+﻿<Page
+    x:Class="FluentHub.Views.Repositories.Issues.IssuePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:block="using:FluentHub.UserControls.ButtonBlocks"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:label="using:FluentHub.UserControls.Labels"
+    xmlns:local="using:FluentHub.Views.Repositories.Issues"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    mc:Ignorable="d">
+
+    <Grid>
+        <toolkit:SwitchPresenter
+            Grid.RowSpan="2"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            TargetType="x:Boolean"
+            Value="{x:Bind ViewModel.RefreshIssuePageCommand.IsRunning, Mode=OneWay}">
+
+            <toolkit:Case Value="True">
+                <muxc:ProgressRing IsActive="True" />
+            </toolkit:Case>
+
+            <toolkit:Case Value="False">
+                <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.RefreshIssuePageCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
+                    <toolkit:Case Value="True">
+                        <HyperlinkButton HorizontalAlignment="Center" Command="{x:Bind ViewModel.RefreshIssuePageCommand}">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon FontSize="16" Glyph="&#xE149;" />
+                                <TextBlock Text="Refresh" />
+                            </StackPanel>
+                        </HyperlinkButton>
+                    </toolkit:Case>
+
+                    <toolkit:Case Value="False">
+                        <ScrollViewer>
+                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <Grid Padding="24,12,24,0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <TextBlock
+                                            x:Name="IssueTitleTextBlock"
+                                            FontWeight="Normal"
+                                            Style="{StaticResource TitleTextBlockStyle}"
+                                            Text="{x:Bind ViewModel.IssueItem.Title, Mode=OneWay}" />
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock
+                                                FontWeight="ExtraLight"
+                                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                Style="{StaticResource TitleTextBlockStyle}"
+                                                Text="#" />
+                                            <TextBlock
+                                                FontWeight="ExtraLight"
+                                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                Style="{StaticResource TitleTextBlockStyle}"
+                                                Text="{x:Bind ViewModel.IssueItem.Number, Mode=OneWay}" />
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <StackPanel
+                                        Grid.Row="1"
+                                        Margin="0,8,0,8"
+                                        Orientation="Horizontal"
+                                        Spacing="8">
+                                        <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.IssueItem.Closed, Mode=OneWay}">
+                                            <toolkit:Case Value="True">
+                                                <label:StateLabel SubjectType="IssueClosed" />
+                                            </toolkit:Case>
+                                            <toolkit:Case Value="False">
+                                                <label:StateLabel SubjectType="IssueOpen" />
+                                            </toolkit:Case>
+                                        </toolkit:SwitchPresenter>
+                                    </StackPanel>
+
+                                </Grid>
+
+                                <MenuFlyoutSeparator Grid.Row="1" Margin="12,-2" />
+
+                                <StackPanel
+                                    x:Name="IssueContentPanel"
+                                    Grid.Row="2"
+                                    Padding="12,0,12,0">
+
+                                    <Border
+                                        Width="1.5"
+                                        Height="16"
+                                        Margin="36,0,0,0"
+                                        HorizontalAlignment="Left"
+                                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+
+                                    <ItemsControl ItemsSource="{x:Bind ViewModel.EventBlocks, Mode=OneWay}" />
+
+                                    <Border
+                                        Width="1.5"
+                                        Height="16"
+                                        Margin="36,0,0,0"
+                                        HorizontalAlignment="Left"
+                                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+
+                                    <Border
+                                        Height="3"
+                                        HorizontalAlignment="Stretch"
+                                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+
+                                </StackPanel>
+
+                                <StackPanel Grid.Row="3" Margin="12">
+                                    <Grid
+                                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                        BorderThickness="1"
+                                        CornerRadius="4">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+
+                                        <Grid>
+                                            <muxc:NavigationView
+                                                Margin="12,4,24,4"
+                                                IsBackButtonVisible="Collapsed"
+                                                IsSettingsVisible="False"
+                                                PaneDisplayMode="Top">
+                                                <muxc:NavigationView.MenuItems>
+                                                    <muxc:NavigationViewItem Content="Write" />
+                                                    <muxc:NavigationViewItem Content="Preview" />
+                                                </muxc:NavigationView.MenuItems>
+                                                <muxc:NavigationView.PaneFooter>
+                                                    <StackPanel Orientation="Horizontal" Spacing="4">
+                                                        <Button
+                                                            Width="32"
+                                                            Height="32"
+                                                            Padding="0"
+                                                            Background="Transparent"
+                                                            BorderThickness="0">
+                                                            <FontIcon
+                                                                FontFamily="{StaticResource Octions}"
+                                                                FontSize="14"
+                                                                Glyph="&#xE9CD;" />
+                                                        </Button>
+                                                        <Button
+                                                            Width="32"
+                                                            Height="32"
+                                                            Padding="0"
+                                                            Background="Transparent"
+                                                            BorderThickness="0">
+                                                            <FontIcon
+                                                                FontFamily="{StaticResource Octions}"
+                                                                FontSize="14"
+                                                                Glyph="&#xEAA7;" />
+                                                        </Button>
+                                                        <Button
+                                                            Width="32"
+                                                            Height="32"
+                                                            Padding="0"
+                                                            Background="Transparent"
+                                                            BorderThickness="0">
+                                                            <FontIcon
+                                                                FontFamily="{StaticResource Octions}"
+                                                                FontSize="14"
+                                                                Glyph="&#xEA0F;" />
+                                                        </Button>
+                                                        <Button
+                                                            Width="32"
+                                                            Height="32"
+                                                            Padding="0"
+                                                            Background="Transparent"
+                                                            BorderThickness="0">
+                                                            <FontIcon
+                                                                FontFamily="{StaticResource Octions}"
+                                                                FontSize="14"
+                                                                Glyph="&#xE968;" />
+                                                        </Button>
+                                                        <Button
+                                                            Width="32"
+                                                            Height="32"
+                                                            Padding="0"
+                                                            Background="Transparent"
+                                                            BorderThickness="0">
+                                                            <FontIcon
+                                                                FontFamily="{StaticResource Octions}"
+                                                                FontSize="14"
+                                                                Glyph="&#xEA50;" />
+                                                        </Button>
+                                                    </StackPanel>
+                                                </muxc:NavigationView.PaneFooter>
+                                            </muxc:NavigationView>
+                                        </Grid>
+
+                                        <MenuFlyoutSeparator Grid.Row="1" />
+
+                                        <Grid
+                                            Grid.Row="2"
+                                            Height="256"
+                                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
+                                            <TextBox
+                                                Margin="12"
+                                                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                                IsEnabled="False"
+                                                PlaceholderText="Leave a comment" />
+                                        </Grid>
+
+                                        <Grid
+                                            Grid.Row="3"
+                                            Padding="12,0,12,12"
+                                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
+
+                                            <StackPanel
+                                                HorizontalAlignment="Right"
+                                                Orientation="Horizontal"
+                                                Spacing="8">
+                                                <Button Content="Close issue" IsEnabled="False" />
+                                                <Button
+                                                    Content="Comment"
+                                                    IsEnabled="False"
+                                                    Style="{StaticResource AccentButtonStyle}" />
+                                            </StackPanel>
+                                        </Grid>
+
+                                    </Grid>
+                                </StackPanel>
+                            </Grid>
+                        </ScrollViewer>
+                    </toolkit:Case>
+                </toolkit:SwitchPresenter>
+            </toolkit:Case>
+        </toolkit:SwitchPresenter>
+    </Grid>
+</Page>

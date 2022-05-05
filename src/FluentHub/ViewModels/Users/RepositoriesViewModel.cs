@@ -46,19 +46,17 @@ namespace FluentHub.ViewModels.Users
             try
             {
                 RepositoryQueries queries = new();
-                List<Repository> items = await queries.GetAllAsync(login);
-
+                var items = await queries.GetAllAsync(login);
                 if (items == null) return;
 
                 _repositories.Clear();
-
                 foreach (var item in items)
                 {
                     RepoButtonBlockViewModel viewModel = new()
                     {
                         Item = item,
                         DisplayDetails = true,
-                        DisplayStarButton = true
+                        DisplayStarButton = true,
                     };
 
                     _repositories.Add(viewModel);

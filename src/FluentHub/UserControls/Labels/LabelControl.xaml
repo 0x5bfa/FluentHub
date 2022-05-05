@@ -6,46 +6,67 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:FluentHub.UserControls.Labels"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
     Loaded="OnLabelControlLoaded"
     mc:Ignorable="d">
 
     <UserControl.Resources>
-        <converters:InverseBooleanConverter x:Key="InverseBooleanConverter" />
-        <converters:NullToTrueConverter x:Key="NullToFalseConverter" Inverse="True" />
-        <converters:NullToTrueConverter x:Key="NullToTrueConverter" Inverse="False" />
-        <converters:StringNullOrWhiteSpaceToTrueConverter x:Key="StringNullOrWhiteSpaceToFalseConverter" Inverse="True" />
-        <converters:StringNullOrWhiteSpaceToTrueConverter x:Key="StringNullOrWhiteSpaceToTrueConverter" Inverse="False" />
+        <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
     </UserControl.Resources>
 
     <Grid Height="22" HorizontalAlignment="Left">
+
+        <Grid
+            x:Name="LabelBorderGrid"
+            x:Load="{x:Bind ViewModel.Color, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+            BorderBrush="{x:Bind ViewModel.ColorBrush, Mode=OneWay}"
+            BorderThickness="1"
+            CornerRadius="11"
+            Opacity="0.6" />
+
         <Grid
             x:Name="LabelBackgroundGrid"
+            x:Load="{x:Bind ViewModel.OutlineEnable, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
+            Background="{x:Bind ViewModel.ColorBrush, Mode=OneWay}"
             CornerRadius="11"
             Opacity="0.3" />
-        <Grid
-            BorderBrush="{x:Bind LabelBackground, Mode=OneWay}"
-            BorderThickness="1"
-            CornerRadius="11" />
+
         <Grid Padding="8,0">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <ContentPresenter
-                x:Name="LabelIconElement"
-                Margin="2,0,4,0"
-                VerticalAlignment="Center"
-                x:Load="{x:Bind Icon, Mode=OneWay, Converter={StaticResource NullToFalseConverter}}"
-                Content="{x:Bind Icon, Mode=OneWay}" />
-            <TextBlock
-                x:Name="LabelTextTextBlock"
-                Grid.Column="1"
-                VerticalAlignment="Center"
-                x:Load="{x:Bind LabelText, Mode=OneWay, Converter={StaticResource StringNullOrWhiteSpaceToFalseConverter}}"
-                Style="{StaticResource CaptionTextBlockStyle}"
-                Text="{x:Bind LabelText, Mode=OneWay}" />
+            <StackPanel Orientation="Horizontal">
+
+                <ContentPresenter
+                    x:Name="LabelIconElement"
+                    Margin="2,2,4,0"
+                    VerticalAlignment="Center"
+                    x:Load="{x:Bind Icon, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                    Content="{x:Bind Icon, Mode=OneWay}" />
+
+                <toolkit:SwitchPresenter
+                    Grid.RowSpan="3"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    TargetType="x:Boolean"
+                    Value="{x:Bind ViewModel.OutlineEnable, Mode=OneWay}">
+
+                    <toolkit:Case Value="False">
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="{x:Bind ViewModel.Name, Mode=OneWay}" />
+                    </toolkit:Case>
+
+                    <toolkit:Case Value="True">
+                        <TextBlock
+                            x:Name="LabelName"
+                            VerticalAlignment="Center"
+                            Foreground="{x:Bind ViewModel.ColorBrush, Mode=OneWay}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="{x:Bind ViewModel.Name, Mode=OneWay}" />
+                    </toolkit:Case>
+                </toolkit:SwitchPresenter>
+            </StackPanel>
         </Grid>
     </Grid>
 </UserControl>

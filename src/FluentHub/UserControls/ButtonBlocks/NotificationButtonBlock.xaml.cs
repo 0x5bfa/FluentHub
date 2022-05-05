@@ -45,7 +45,6 @@ namespace FluentHub.UserControls.ButtonBlocks
 
         private async void OnUserControlLoaded(object sender, RoutedEventArgs e)
         {
-            await ViewModel.SetStateContents();
         }
     }
 }

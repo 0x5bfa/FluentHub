@@ -1,6 +1,7 @@
 using FluentHub.Helpers;
 using FluentHub.Models;
 using FluentHub.Services;
+using FluentHub.Services.Navigation;
 using FluentHub.ViewModels;
 using FluentHub.Views.Home;
 using Microsoft.Extensions.DependencyInjection;
@@ -69,7 +70,8 @@ namespace FluentHub.Views
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             SubscribeEvents();
-            NavigationService.Configure(TabView, MainFrame, typeof(UserHomePage));
+            TabView.NewTabPage = typeof(UserHomePage);
+            NavigationService.Configure(TabView);
             NavigationService.Navigate<UserHomePage>();
 
             // Configure Jumplist
@@ -92,8 +94,10 @@ namespace FluentHub.Views
                 NavigationService.GoBack();
                 e.Handled = true;
             }
+
             Logger?.Debug("SystemNavigationManager.GetForCurrentView().BackRequested fired, [handled: {0}]", e.Handled);
         }
+
         private void OnWindowPointerPressed(CoreWindow sender, PointerEventArgs e)
         {
             // Mouse back button pressed
@@ -142,6 +146,16 @@ namespace FluentHub.Views
             Frame rootFrame = (Frame)Window.Current.Content;
             rootFrame.Navigate(typeof(SignIn.IntroPage));
         }
+
+        private void OnTabViewSelectionChanged(object sender, TabViewSelectionChangedEventArgs e)
+            => RootFrameBorder.Child = e.NewSelectedItem?.Frame;
         #endregion
+
+        private void OnUrlTextBoxKeyDown(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
+        {
+            if (e.Key == VirtualKey.Enter)
+            {
+            }
+        }
     }
 }

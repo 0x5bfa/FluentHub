@@ -46,34 +46,11 @@
                     Grid.Row="2"
                     Margin="0,16,0,8"
                     Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="Code viewer" />
+                    Text="Contribution graph" />
                 <StackPanel Grid.Row="3" Spacing="4">
-                    <uc:SettingsBlockControl
-                        Title="Font"
-                        Description="Select which editor font to display"
-                        IsClickable="False">
+                    <uc:SettingsBlockControl Title="Color" IsClickable="False">
                         <uc:SettingsBlockControl.Icon>
-                            <FontIcon Glyph="&#xe8d2;" />
-                        </uc:SettingsBlockControl.Icon>
-                    </uc:SettingsBlockControl>
-                    <uc:SettingsBlockControl Title="Force Dark Mode" IsClickable="False">
-                        <uc:SettingsBlockControl.Icon>
-                            <FontIcon Glyph="&#xE71D;" />
-                        </uc:SettingsBlockControl.Icon>
-                    </uc:SettingsBlockControl>
-                    <uc:SettingsBlockControl Title="Line Wrapping" IsClickable="False">
-                        <uc:SettingsBlockControl.Icon>
-                            <FontIcon Glyph="&#xE751;" />
-                        </uc:SettingsBlockControl.Icon>
-                    </uc:SettingsBlockControl>
-                    <uc:SettingsBlockControl Title="Override System Font Size" IsClickable="False">
-                        <uc:SettingsBlockControl.Icon>
-                            <FontIcon Glyph="&#xE71D;" />
-                        </uc:SettingsBlockControl.Icon>
-                    </uc:SettingsBlockControl>
-                    <uc:SettingsBlockControl Title="Render White Space" IsClickable="False">
-                        <uc:SettingsBlockControl.Icon>
-                            <FontIcon Glyph="&#xE71D;" />
+                            <FontIcon Glyph="&#xE771;" />
                         </uc:SettingsBlockControl.Icon>
                     </uc:SettingsBlockControl>
                 </StackPanel>

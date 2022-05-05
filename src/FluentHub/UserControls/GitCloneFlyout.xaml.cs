@@ -50,7 +50,7 @@ namespace FluentHub.UserControls
 
         private void OnGitCloneFlyoutLoaded(object sender, RoutedEventArgs e)
         {
-            _cloneUrl = $"https;//github.com/{ViewModel.Repository.Owner}/{ViewModel.Repository.Name}.git";
+            _cloneUrl = $"https://github.com/{ViewModel.Repository.Owner}/{ViewModel.Repository.Name}.git";
             _sshUrl = $"git@github.com:{ViewModel.Repository.Owner}/{ViewModel.Repository.Name}.git";
             _gitUrl = $"gh repo clone {ViewModel.Repository.Owner}/{ViewModel.Repository.Name}";
 
@@ -114,7 +114,7 @@ namespace FluentHub.UserControls
 
         private async void DownloadZipButton_Click(object sender, RoutedEventArgs e)
         {
-            string downloadZip = _repoUrl + "/archive/refs/heads/main.zip"; //Just made it with the main branch
+            string downloadZip = _repoUrl + $"/archive/refs/heads/{ViewModel.BranchName}.zip"; //Just made it with the main branch
 
             var uri = new Uri(downloadZip);
 
@@ -122,17 +122,17 @@ namespace FluentHub.UserControls
 
             if (success)
             {
-                Console.WriteLine("Add to LOG it successed");
+                Log.Write(Serilog.Events.LogEventLevel.Information, "Downloaded the repository into a .zip file");
             }
             else
             {
-                Console.WriteLine("Add to LOG it failed");
+                Log.Error(downloadZip, "Something went wrong. The URL was not found or it doesn't work");
             }
         }
 
         private async void GitHubDeskButton_Click(object sender, RoutedEventArgs e)
         {
-            string gitHubDeskUrl = "x-github-client://openRepo" + _repoUrl;
+            string gitHubDeskUrl = "x-github-client://openRepo " + _repoUrl;
 
             var uri = new Uri(gitHubDeskUrl);
 

@@ -19,11 +19,11 @@ namespace FluentHub.UserControls.Blocks
     public sealed partial class ActivityBlock : UserControl
     {
         public static readonly DependencyProperty ViewModelProperty =
-       DependencyProperty.Register(
-           nameof(ViewModel),
-           typeof(ActivityBlockViewModel),
-           typeof(ActivityBlock),
-           new PropertyMetadata(0));
+            DependencyProperty.Register(
+               nameof(ViewModel),
+               typeof(ActivityBlockViewModel),
+               typeof(ActivityBlock),
+               new PropertyMetadata(0));
 
         public ActivityBlockViewModel ViewModel
         {
@@ -31,18 +31,11 @@ namespace FluentHub.UserControls.Blocks
             set
             {
                 SetValue(ViewModelProperty, value);
-                this.DataContext = ViewModel;
+                DataContext = ViewModel;
+                ViewModel?.LoadContents();
             }
         }
 
-        public ActivityBlock()
-        {
-            this.InitializeComponent();
-        }
-
-        private async void OnUserControlLoaded(object sender, RoutedEventArgs e)
-        {
-            await ViewModel?.GetPayloadContentsAsync();
-        }
+        public ActivityBlock() => InitializeComponent();
     }
 }

@@ -89,6 +89,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition x:Name="RightPaddingColumn" Width="0" />
             </Grid.ColumnDefinitions>
+
             <Grid
                 x:Name="DragArea"
                 Grid.ColumnSpan="2"
@@ -97,7 +98,12 @@
                 VerticalAlignment="Top"
                 Background="Transparent"
                 Loaded="OnDragAreaLoaded" />
-            <uc:CustomTabView x:Name="TabView" Title="{x:Bind TabView.SelectedItem.NavigationHistory.CurrentItem.Header, Mode=OneWay}" />
+
+            <uc:CustomTabView
+                x:Name="TabView"
+                Title="{x:Bind TabView.SelectedItem.NavigationHistory.CurrentItem.Header, Mode=OneWay}"
+                SelectionChanged="OnTabViewSelectionChanged" />
+
         </Grid>
 
         <Grid
@@ -111,8 +117,10 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
+
             <Grid>
                 <StackPanel Orientation="Horizontal" Spacing="4">
+
                     <Button
                         Width="36"
                         Height="32"
@@ -126,6 +134,7 @@
                         ToolTipService.ToolTip="Back">
                         <FontIcon FontSize="14" Glyph="&#xE72B;" />
                     </Button>
+
                     <Button
                         Width="36"
                         Height="32"
@@ -139,6 +148,7 @@
                         ToolTipService.ToolTip="Forward">
                         <FontIcon FontSize="14" Glyph="&#xE72A;" />
                     </Button>
+
                     <Button
                         Width="36"
                         Height="32"
@@ -151,6 +161,7 @@
                         ToolTipService.ToolTip="Refresh">
                         <FontIcon FontSize="14" Glyph="&#xE72C;" />
                     </Button>
+
                     <Button
                         Width="36"
                         Height="32"
@@ -163,17 +174,23 @@
                         ToolTipService.ToolTip="Home">
                         <FontIcon FontSize="14" Glyph="&#xE80F;" />
                     </Button>
+
                 </StackPanel>
             </Grid>
-            <Grid Grid.Column="1" VerticalAlignment="Center">
-                <TextBox
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Top"
-                    IsEnabled="False"
-                    Text="{x:Bind TabView.SelectedItem.NavigationHistory.CurrentItem.Url, Mode=OneWay}" />
-            </Grid>
+
+            <TextBox
+                x:Name="UrlTextBox"
+                Grid.Column="1"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                IsEnabled="True"
+                KeyDown="OnUrlTextBoxKeyDown"
+                PlaceholderText="Search GitHub or type GitHub URL"
+                Text="{x:Bind TabView.SelectedItem.NavigationHistory.CurrentItem.Url, Mode=OneWay}" />
+
             <Grid Grid.Column="2" VerticalAlignment="Center">
                 <StackPanel Orientation="Horizontal" Spacing="2">
+
                     <Button
                         x:Name="ToolbarAppSettingsButton"
                         Width="36"
@@ -183,6 +200,7 @@
                         Style="{StaticResource ClearButtonStyle}"
                         ToolTipService.ToolTip="More">
                         <FontIcon FontSize="14" Glyph="&#xE712;" />
+
                         <Button.Flyout>
                             <MenuFlyout Placement="BottomEdgeAlignedRight">
                                 <MenuFlyoutItem Click="ShareWithBrowserMenuFlyoutItem_Click" Text="Continue with your browser" />
@@ -199,9 +217,12 @@
                                 <MenuFlyoutItem Click="SignOutMenuFlyoutItem_Click" Text="Sign out" />
                             </MenuFlyout>
                         </Button.Flyout>
+
                     </Button>
+
                 </StackPanel>
             </Grid>
+
             <Border
                 Grid.ColumnSpan="3"
                 Height="1"
@@ -221,8 +242,10 @@
             Message="{x:Bind ViewModel.LastNotification.Message}"
             Severity="{x:Bind UserNotificationToInfoBarSeverity(ViewModel.LastNotification.Type)}" />
 
-        <Grid Grid.Row="3" Margin="0,-1,0,0">
-            <Frame x:Name="MainFrame" />
-        </Grid>
+        <Border
+            x:Name="RootFrameBorder"
+            Grid.Row="3"
+            Margin="0,-1,0,0" />
+
     </Grid>
 </Page>

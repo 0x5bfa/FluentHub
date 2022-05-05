@@ -2,6 +2,7 @@
     x:Class="FluentHub.UserControls.Blocks.ReadmeContentBlock"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:FluentHub.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:FluentHub.UserControls.Blocks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -13,29 +14,31 @@
     Loaded="OnReadmeContentBlockLoaded"
     mc:Ignorable="d">
 
-    <UserControl.DataContext>
-        <vm:ReadmeContentBlockViewModel x:Name="ViewModel" />
-    </UserControl.DataContext>
+    <UserControl.Resources>
+        <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+    </UserControl.Resources>
 
     <Grid
-        x:Name="ReadmeBlock"
-        Grid.Row="1"
         Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
         BorderThickness="1"
         CornerRadius="4"
-        Visibility="{x:Bind ViewModel.HasReadme, Mode=OneWay}">
+        Visibility="{x:Bind ViewModel.HtmlText, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+
         <Grid Padding="8,6">
+
             <TextBlock
                 Margin="10,0"
                 VerticalAlignment="Center"
                 Style="{StaticResource BodyStrongTextBlockStyle}"
-                Text="{x:Bind ViewModel.FileName, Mode=OneWay}" />
+                Text="README" />
+
             <Button
                 Width="32"
                 Height="32"
@@ -48,13 +51,11 @@
                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                     Glyph="&#xe70f;" />
             </Button>
+
         </Grid>
+
         <MenuFlyoutSeparator Grid.Row="1" />
-        <muxc:ProgressBar
-            x:Name="ReadmeLoadingProgressBar"
-            Grid.Row="1"
-            x:Load="{x:Bind ViewModel.IsActive, Mode=OneWay}"
-            IsIndeterminate="True" />
+
         <WebView
             x:Name="ReadmeWebView"
             Grid.Row="2"
@@ -62,5 +63,6 @@
             DefaultBackgroundColor="Transparent"
             NavigationCompleted="ReadmeWebView_NavigationCompleted"
             NavigationStarting="ReadmeWebView_NavigationStarting" />
+
     </Grid>
 </UserControl>

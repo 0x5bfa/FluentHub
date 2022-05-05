@@ -124,25 +124,102 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="Authorization\AuthorizationService.cs" />
+    <Compile Include="Helpers\UserTypeDetectionHelper.cs" />
     <Compile Include="Models\ApiOptions.cs" />
+    <Compile Include="Models\CalendarDay.cs" />
+    <Compile Include="Models\ChangedFile.cs" />
+    <Compile Include="Models\CheckRun.cs" />
     <Compile Include="Models\Commit.cs" />
+    <Compile Include="Models\CommitDetails.cs" />
+    <Compile Include="Models\ContributionCalender.cs" />
     <Compile Include="Models\Discussion.cs" />
     <Compile Include="Models\Activity.cs" />
+    <Compile Include="Models\DiscussionCategory.cs" />
+    <Compile Include="Models\Events\Actor.cs" />
+    <Compile Include="Models\Events\AddedToProjectEvent.cs" />
+    <Compile Include="Models\Events\AssignedEvent.cs" />
+    <Compile Include="Models\Events\AutomaticBaseChangeFailedEvent.cs" />
+    <Compile Include="Models\Events\AutomaticBaseChangeSucceededEvent.cs" />
+    <Compile Include="Models\Events\AutoMergeDisabledEvent.cs" />
+    <Compile Include="Models\Events\AutoMergeEnabledEvent.cs" />
+    <Compile Include="Models\Events\AutoRebaseEnabledEvent.cs" />
+    <Compile Include="Models\Events\AutoSquashEnabledEvent.cs" />
+    <Compile Include="Models\Events\BaseRefChangedEvent.cs" />
+    <Compile Include="Models\Events\BaseRefDeletedEvent.cs" />
+    <Compile Include="Models\Events\BaseRefForcePushedEvent.cs" />
+    <Compile Include="Models\Events\ClosedEvent.cs" />
+    <Compile Include="Models\Events\CommentDeletedEvent.cs" />
+    <Compile Include="Models\Events\ConnectedEvent.cs" />
+    <Compile Include="Models\Events\ConvertedNoteToIssueEvent.cs" />
+    <Compile Include="Models\Events\ConvertToDraftEvent.cs" />
+    <Compile Include="Models\Events\CrossReferencedEvent.cs" />
+    <Compile Include="Models\Events\DemilestonedEvent.cs" />
+    <Compile Include="Models\Events\DeployedEvent.cs" />
+    <Compile Include="Models\Events\DeploymentEnvironmentChangedEvent.cs" />
+    <Compile Include="Models\Events\DisconnectedEvent.cs" />
+    <Compile Include="Models\Events\HeadRefDeletedEvent.cs" />
+    <Compile Include="Models\Events\HeadRefForcePushedEvent.cs" />
+    <Compile Include="Models\Events\HeadRefRestoredEvent.cs" />
+    <Compile Include="Models\Events\LabeledEvent.cs" />
+    <Compile Include="Models\Events\LockedEvent.cs" />
+    <Compile Include="Models\Events\MarkedAsDuplicateEvent.cs" />
+    <Compile Include="Models\Events\MentionedEvent.cs" />
+    <Compile Include="Models\Events\MergedEvent.cs" />
+    <Compile Include="Models\Events\MilestonedEvent.cs" />
+    <Compile Include="Models\Events\MovedColumnsInProjectEvent.cs" />
+    <Compile Include="Models\Events\PinnedEvent.cs" />
+    <Compile Include="Models\Events\PullRequestCommit.cs" />
+    <Compile Include="Models\Events\PullRequestCommitCommentThread.cs" />
+    <Compile Include="Models\Events\PullRequestReview.cs" />
+    <Compile Include="Models\Events\PullRequestReviewThread.cs" />
+    <Compile Include="Models\Events\PullRequestRevisionMarker.cs" />
+    <Compile Include="Models\Events\ReadyForReviewEvent.cs" />
+    <Compile Include="Models\Events\ReferencedEvent.cs" />
+    <Compile Include="Models\Events\RemovedFromProjectEvent.cs" />
+    <Compile Include="Models\Events\RenamedTitleEvent.cs" />
+    <Compile Include="Models\Events\ReopenedEvent.cs" />
+    <Compile Include="Models\Events\ReviewDismissedEvent.cs" />
+    <Compile Include="Models\Events\ReviewRequestedEvent.cs" />
+    <Compile Include="Models\Events\ReviewRequestRemovedEvent.cs" />
+    <Compile Include="Models\Events\SubscribedEvent.cs" />
+    <Compile Include="Models\Events\TransferredEvent.cs" />
+    <Compile Include="Models\Events\UnassignedEvent.cs" />
+    <Compile Include="Models\Events\UnlabeledEvent.cs" />
+    <Compile Include="Models\Events\UnlockedEvent.cs" />
+    <Compile Include="Models\Events\UnmarkedAsDuplicateEvent.cs" />
+    <Compile Include="Models\Events\UnpinnedEvent.cs" />
+    <Compile Include="Models\Events\UnsubscribedEvent.cs" />
+    <Compile Include="Models\Events\UserBlockedEvent.cs" />
     <Compile Include="Models\Issue.cs" />
+    <Compile Include="Models\Events\IssueComment.cs" />
     <Compile Include="Models\Label.cs" />
+    <Compile Include="Models\Language.cs" />
     <Compile Include="Models\Notification.cs" />
     <Compile Include="Models\Organization.cs" />
+    <Compile Include="Models\ProjectProgress.cs" />
+    <Compile Include="Models\RepositoryOwner.cs" />
+    <Compile Include="Models\Project.cs" />
     <Compile Include="Models\PullRequest.cs" />
+    <Compile Include="Models\Reaction.cs" />
+    <Compile Include="Models\Release.cs" />
+    <Compile Include="Models\Repository.cs" />
+    <Compile Include="Models\StatusCheckRollup.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserStatus.cs" />
+    <Compile Include="Queries\Organizations\PinnedItemQueries.cs" />
+    <Compile Include="Queries\Repositories\DiffQueries.cs" />
+    <Compile Include="Queries\Repositories\DiscussionQueries.cs" />
     <Compile Include="Queries\Repositories\MarkdownQueries.cs" />
     <Compile Include="Queries\Organizations\RepositoryQueries.cs" />
     <Compile Include="Queries\Organizations\OrganizationQueries.cs" />
     <Compile Include="Queries\Repositories\BlobQueries.cs" />
     <Compile Include="Queries\Repositories\IssueEventQueries.cs" />
     <Compile Include="Queries\Repositories\IssueQueries.cs" />
+    <Compile Include="Queries\Repositories\ProjectQueries.cs" />
+    <Compile Include="Queries\Repositories\PullRequestEventQueries.cs" />
     <Compile Include="Queries\Repositories\PullRequestQueries.cs" />
     <Compile Include="Queries\Repositories\CommitQueries.cs" />
+    <Compile Include="Queries\Repositories\ReleaseQueries.cs" />
     <Compile Include="Queries\Repositories\RepositoryQueries.cs" />
     <Compile Include="Queries\Users\DiscussionQueries.cs" />
     <Compile Include="Queries\Users\ActivityQueries.cs" />
@@ -155,18 +232,19 @@
     <Compile Include="Queries\Users\FollowersQueries.cs" />
     <Compile Include="Queries\Users\FollowingQueries.cs" />
     <Compile Include="Queries\Users\PinnedItemQueries.cs" />
-    <Compile Include="Queries\Users\StatusQueries.cs" />
-    <Compile Include="Models\Repository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Queries\Users\UserQueries.cs" />
     <EmbeddedResource Include="Properties\FluentHub.Octokit.rd.xml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Humanizer">
+      <Version>2.8.25</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.13</Version>
     </PackageReference>
     <PackageReference Include="Octokit">
-      <Version>0.50.0</Version>
+      <Version>0.51.0</Version>
     </PackageReference>
     <PackageReference Include="Octokit.GraphQL">
       <Version>0.1.8-beta</Version>
@@ -175,10 +253,7 @@
       <Version>5.0.0</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Mutations\" />
-    <Folder Include="Queries\Edges\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

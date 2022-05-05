@@ -1,6 +1,5 @@
 ﻿using FluentHub.Helpers;
 using FluentHub.Octokit.Authorization;
-using FluentHub.Octokit.Queries.Users;
 using FluentHub.Services;
 using FluentHub.Services.Navigation;
 using FluentHub.ViewModels;
@@ -31,8 +30,6 @@ namespace FluentHub
     {
         Frame rootFrame = Window.Current.Content as Frame;
 
-        public static GitHubClient Client { get; private set; } = new GitHubClient(new ProductHeaderValue("FluentHub"));
-
         public static SettingsViewModel Settings { get; private set; } = new SettingsViewModel();
 
         public static string AppVersion = $"{Package.Current.Id.Version.Major}.{Package.Current.Id.Version.Minor}.{Package.Current.Id.Version.Build}.{Package.Current.Id.Version.Revision}";
@@ -52,7 +49,7 @@ namespace FluentHub
                 {
                     await new ContentDialog
                     {
-                        Title = "Unhandled exception occured",
+                        Title = "Unhandled exception",
                         Content = e.Message,
                         CloseButtonText = "Close"
                     }.ShowAsync();
@@ -63,7 +60,6 @@ namespace FluentHub
 
             Log.Logger = GetSerilogLogger();
             Services = ConfigureServices();
-            Log.Debug("Initialized Fluenthub.");
         }
 
         /// <summary>
@@ -82,9 +78,9 @@ namespace FluentHub
         private static IServiceProvider ConfigureServices()
         {
             return new ServiceCollection()
-                .AddSingleton<IGitHubClient>(App.Client)
                 .AddSingleton<INavigationService, NavigationService>()
-                .AddSingleton<FluentHub.Backend.ILogger>(new Utils.SerilogWrapperLogger(Log.Logger))
+                .AddSingleton<Backend.ILogger>(new Utils.SerilogWrapperLogger(Log.Logger))
+                .AddSingleton<Backend.ToastService>()
                 .AddSingleton<IMessenger>(StrongReferenceMessenger.Default)
                 // ViewModels
                 .AddSingleton<MainPageViewModel>()
@@ -92,6 +88,27 @@ namespace FluentHub
                 .AddTransient<ViewModels.AppSettings.AppearanceViewModel>()
                 .AddTransient<ViewModels.Home.NotificationsViewModel>()
                 .AddTransient<ViewModels.Home.ActivitiesViewModel>()
+                .AddTransient<ViewModels.Organizations.OverviewViewModel>()
+                .AddTransient<ViewModels.Organizations.RepositoriesViewModel>()
+                .AddTransient<ViewModels.Repositories.Codes.Layouts.DetailsLayoutViewModel>()
+                .AddTransient<ViewModels.Repositories.Codes.ReleasesViewModel>()
+                .AddTransient<ViewModels.Repositories.Commits.CommitsViewModel>()
+                .AddTransient<ViewModels.Repositories.Commits.CommitViewModel>()
+                .AddTransient<ViewModels.Repositories.Discussions.DiscussionsViewModel>()
+                .AddTransient<ViewModels.Repositories.Discussions.DiscussionViewModel>()
+                .AddTransient<ViewModels.Repositories.Issues.IssueViewModel>()
+                .AddTransient<ViewModels.Repositories.Issues.IssuesViewModel>()
+                .AddTransient<ViewModels.Repositories.Projects.ProjectsViewModel>()
+                .AddTransient<ViewModels.Repositories.Projects.ProjectViewModel>()
+                .AddTransient<ViewModels.Repositories.PullRequests.ConversationViewModel>()
+                .AddTransient<ViewModels.Repositories.PullRequests.CommitsViewModel>()
+                .AddTransient<ViewModels.Repositories.PullRequests.FileChangesViewModel>()
+                .AddTransient<ViewModels.Repositories.PullRequests.PullRequestViewModel>()
+                .AddTransient<ViewModels.Repositories.PullRequests.PullRequestsViewModel>()
+                .AddTransient<ViewModels.UserControls.Blocks.FileContentBlockViewModel>()
+                .AddTransient<ViewModels.UserControls.Blocks.FileNavigationBlockViewModel>()
+                .AddTransient<ViewModels.UserControls.Blocks.ReadmeContentBlockViewModel>()
+                .AddTransient<ViewModels.UserControls.Blocks.LatestCommitBlockViewModel>()
                 .AddTransient<ViewModels.Users.FollowersViewModel>()
                 .AddTransient<ViewModels.Users.FollowingViewModel>()
                 .AddTransient<ViewModels.Users.ProfilePageViewModel>()
@@ -144,9 +161,6 @@ namespace FluentHub
             {
                 if (Settings.SetupCompleted == true)
                 {
-                    // temp: copy credentials to main thread app (will be removed)
-                    Client.Credentials = new Credentials(Settings.AccessToken);
-
                     rootFrame.Navigate(typeof(MainPage));
                 }
                 else
@@ -160,6 +174,8 @@ namespace FluentHub
                 ThemeHelper.Initialize();
                 Window.Current.Activate();
             }
+
+            Log.Information("App.InitializeAsync() done");
         }
 
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
@@ -195,7 +211,7 @@ namespace FluentHub
         private async Task HandleUriActivationAsync(Uri uri, bool openInNewTab)
         {
             var logger = Services.GetService<ILogger>();
-            logger?.Debug("HandleUriActivationAsync: {uri}", uri);
+            logger?.Debug("App.HandleUriActivationAsync(): {uri}", uri);
 
             Type page = null;
             object param = null;
@@ -223,9 +239,6 @@ namespace FluentHub
 
                     AuthorizationService authService = new();
                     bool status = await authService.RequestOAuthTokenAsync(code);
-
-                    // temp: copy credentials to main thread app (will be removed)
-                    Client.Credentials = new Credentials(Settings.AccessToken);
 
                     if (status)
                     {

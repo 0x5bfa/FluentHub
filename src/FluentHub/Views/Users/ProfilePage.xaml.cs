@@ -23,6 +23,7 @@ namespace FluentHub.Views.Users
 
         private readonly INavigationService navigationService;
         public ProfilePageViewModel ViewModel { get; }
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             DataContext = e.Parameter;
@@ -55,13 +56,15 @@ namespace FluentHub.Views.Users
         }
 
         private void UserFollowersButton_Click(object sender, RoutedEventArgs e)
-        {
-            UserNavViewItemFollowers.IsSelected = true;
-        }
+            => UserNavViewItemFollowers.IsSelected = true;
 
         private void UserFollowingButton_Click(object sender, RoutedEventArgs e)
+            => UserNavViewItemFollowers.IsSelected = false;
+
+        private async void EditProfileButton_Click(object sender, RoutedEventArgs e)
         {
-            UserNavViewItemFollowing.IsSelected = true;
+            var dialog = new Dialogs.UserProfileEditor();
+            _ = await dialog.ShowAsync();
         }
     }
 }

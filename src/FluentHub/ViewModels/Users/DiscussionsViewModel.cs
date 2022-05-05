@@ -32,15 +32,14 @@ namespace FluentHub.ViewModels.Users
         #region fields
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
-        private readonly ObservableCollection<DiscussionButtonBlockViewModel> _discussions;
-        #endregion
 
-        #region properties        
+        private readonly ObservableCollection<DiscussionButtonBlockViewModel> _discussions;
         public ReadOnlyObservableCollection<DiscussionButtonBlockViewModel> DiscussionItems { get; }
+
         public IAsyncRelayCommand RefreshDiscussionsCommand { get; }
         #endregion
 
-        #region methods        
+        #region methods
         private bool CanRefreshDiscussions(string username) => !string.IsNullOrEmpty(username);
 
         private async Task RefreshDiscussionsAsync(string login, CancellationToken token)
@@ -48,12 +47,7 @@ namespace FluentHub.ViewModels.Users
             try
             {
                 DiscussionQueries queries = new();
-                List<Discussion> items;
-
-                items = login == null ?
-                    await queries.GetAllAsync() :
-                    await queries.GetAllAsync(login);
-
+                var items = await queries.GetAllAsync(login);
                 if (items == null) return;
 
                 _discussions.Clear();
@@ -61,9 +55,7 @@ namespace FluentHub.ViewModels.Users
                 {
                     DiscussionButtonBlockViewModel viewModel = new()
                     {
-                        DiscussionItem = item,
-                        NameWithOwner = $"{item.Owner} / {item.Name} #{item.Number}",
-                        UpdatedAtHumanized = item.UpdatedAt.Humanize()
+                        Item = item,
                     };
 
                     _discussions.Add(viewModel);

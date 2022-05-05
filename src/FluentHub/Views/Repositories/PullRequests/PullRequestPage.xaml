@@ -1,0 +1,188 @@
+﻿<Page
+    x:Class="FluentHub.Views.Repositories.PullRequests.PullRequestPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:blocks="using:FluentHub.UserControls.Blocks"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:label="using:FluentHub.UserControls.Labels"
+    xmlns:local="using:FluentHub.Views.Repositories.PullRequests"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <StaticResource x:Key="NavigationViewContentBackground" ResourceKey="SystemControlPageBackgroundTransparentBrush" />
+                    <Thickness x:Key="NavigationViewTopPaneHeight">40</Thickness>
+                    <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid>
+        <toolkit:SwitchPresenter
+            Grid.RowSpan="2"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            TargetType="x:Boolean"
+            Value="{x:Bind ViewModel.RefreshPullRequestPageCommand.IsRunning, Mode=OneWay}">
+
+            <toolkit:Case Value="True">
+                <muxc:ProgressRing IsActive="True" />
+            </toolkit:Case>
+
+            <toolkit:Case Value="False">
+                <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.RefreshPullRequestPageCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
+                    <toolkit:Case Value="True">
+                        <HyperlinkButton HorizontalAlignment="Center" Command="{x:Bind ViewModel.RefreshPullRequestPageCommand}">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon FontSize="16" Glyph="&#xE149;" />
+                                <TextBlock Text="Refresh" />
+                            </StackPanel>
+                        </HyperlinkButton>
+                    </toolkit:Case>
+
+                    <toolkit:Case Value="False">
+                        <ScrollViewer>
+                            <Grid HorizontalAlignment="Stretch" VerticalAlignment="Top">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+
+                                <Grid Padding="24,12,24,0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <TextBlock
+                                            x:Name="IssueTitleTextBlock"
+                                            FontWeight="Normal"
+                                            Style="{StaticResource TitleTextBlockStyle}"
+                                            Text="{x:Bind ViewModel.PullItem.Title, Mode=OneWay}" />
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock
+                                                FontWeight="ExtraLight"
+                                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                Style="{StaticResource TitleTextBlockStyle}"
+                                                Text="#" />
+                                            <TextBlock
+                                                FontWeight="ExtraLight"
+                                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                Style="{StaticResource TitleTextBlockStyle}"
+                                                Text="{x:Bind ViewModel.PullItem.Number, Mode=OneWay}" />
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <StackPanel
+                                        Grid.Row="1"
+                                        Margin="0,8,0,8"
+                                        Orientation="Horizontal"
+                                        Spacing="8">
+
+                                        <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.PullItem.Closed, Mode=OneWay}">
+
+                                            <toolkit:Case Value="True">
+                                                <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.PullItem.Merged, Mode=OneWay}">
+                                                    <toolkit:Case Value="True">
+                                                        <label:StateLabel SubjectType="PullMerged" />
+                                                    </toolkit:Case>
+
+                                                    <toolkit:Case Value="False">
+                                                        <label:StateLabel SubjectType="PullClosed" />
+                                                    </toolkit:Case>
+                                                </toolkit:SwitchPresenter>
+                                            </toolkit:Case>
+
+                                            <toolkit:Case Value="False">
+                                                <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.PullItem.IsDraft, Mode=OneWay}">
+                                                    <toolkit:Case Value="True">
+                                                        <label:StateLabel SubjectType="PullDraft" />
+                                                    </toolkit:Case>
+
+                                                    <toolkit:Case Value="False">
+                                                        <label:StateLabel SubjectType="PullOpen" />
+                                                    </toolkit:Case>
+                                                </toolkit:SwitchPresenter>
+                                            </toolkit:Case>
+                                        </toolkit:SwitchPresenter>
+
+                                        <blocks:BranchName Branch="{x:Bind ViewModel.PullItem.HeadRefName, Mode=OneWay}" />
+
+                                        <FontIcon
+                                            FontSize="12"
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Glyph="&#xE72A;" />
+
+                                        <blocks:BranchName Branch="{x:Bind ViewModel.PullItem.BaseRefName, Mode=OneWay}" />
+
+                                    </StackPanel>
+
+                                </Grid>
+
+                                <Grid
+                                    Grid.Row="1"
+                                    Margin="12,4"
+                                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="4">
+                                    <muxc:NavigationView
+                                        x:Name="PullRequestNavigationView"
+                                        Margin="6,0"
+                                        IsBackButtonVisible="Collapsed"
+                                        IsSettingsVisible="False"
+                                        PaneDisplayMode="Top"
+                                        SelectionChanged="OnPullRequestNavigationViewSelectionChanged">
+                                        <muxc:NavigationView.MenuItems>
+                                            <muxc:NavigationViewItem
+                                                Content="Conversation"
+                                                IsSelected="True"
+                                                Tag="conversation">
+                                                <muxc:NavigationViewItem.Icon>
+                                                    <FontIcon
+                                                        FontFamily="{StaticResource Octions}"
+                                                        FontSize="16"
+                                                        Glyph="&#xE95D;" />
+                                                </muxc:NavigationViewItem.Icon>
+                                            </muxc:NavigationViewItem>
+                                            <muxc:NavigationViewItem Content="Commits" Tag="commits">
+                                                <muxc:NavigationViewItem.Icon>
+                                                    <FontIcon
+                                                        FontFamily="{StaticResource Octions}"
+                                                        FontSize="16"
+                                                        Glyph="&#xE9B9;" />
+                                                </muxc:NavigationViewItem.Icon>
+                                            </muxc:NavigationViewItem>
+                                            <muxc:NavigationViewItem Content="File changes" Tag="filechanges">
+                                                <muxc:NavigationViewItem.Icon>
+                                                    <FontIcon
+                                                        FontFamily="{StaticResource Octions}"
+                                                        FontSize="16"
+                                                        Glyph="&#xE99D;" />
+                                                </muxc:NavigationViewItem.Icon>
+                                            </muxc:NavigationViewItem>
+                                        </muxc:NavigationView.MenuItems>
+                                    </muxc:NavigationView>
+                                </Grid>
+
+                                <MenuFlyoutSeparator Grid.Row="2" Margin="24,-2" />
+
+                                <Frame x:Name="PullRequestContentFrame" Grid.Row="3" />
+
+                            </Grid>
+                        </ScrollViewer>
+                    </toolkit:Case>
+                </toolkit:SwitchPresenter>
+            </toolkit:Case>
+        </toolkit:SwitchPresenter>
+    </Grid>
+</Page>

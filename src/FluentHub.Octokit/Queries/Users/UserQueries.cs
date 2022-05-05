@@ -1,7 +1,6 @@
 ﻿using FluentHub.Octokit.Models;
+using Humanizer;
 using Octokit.GraphQL;
-using Octokit.GraphQL.Model;
-using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,29 +13,29 @@ namespace FluentHub.Octokit.Queries.Users
     {
         public UserQueries() => new App();
 
-        public async Task<Models.User> GetAsync(string login)
+        public async Task<User> GetAsync(string login)
         {
             #region queries
             var query = new Query()
                 .User(login)
-                .Select(x => new
+                .Select(x => new User
                 {
                     AvatarUrl = x.AvatarUrl(100),
-                    x.Bio,
-                    x.Company,
-                    x.Email,
-                    x.IsCampusExpert,
-                    x.IsBountyHunter,
-                    x.IsDeveloperProgramMember,
-                    x.IsEmployee,
-                    x.IsGitHubStar,
-                    x.IsViewer,
-                    x.Location,
-                    x.Login,
-                    x.Name,
-                    x.TwitterUsername,
-                    x.ViewerIsFollowing,
-                    x.WebsiteUrl,
+                    Bio = x.Bio,
+                    Company = x.Company,
+                    Email = x.Email,
+                    IsCampusExpert = x.IsCampusExpert,
+                    IsBountyHunter = x.IsBountyHunter,
+                    IsDeveloperProgramMember = x.IsDeveloperProgramMember,
+                    IsEmployee = x.IsEmployee,
+                    IsGitHubStar = x.IsGitHubStar,
+                    IsViewer = x.IsViewer,
+                    Location = x.Location,
+                    Login = x.Login,
+                    Name = x.Name,
+                    TwitterUsername = x.TwitterUsername,
+                    ViewerIsFollowing = x.ViewerIsFollowing,
+                    WebsiteUrl = x.WebsiteUrl,
 
                     FollowersTotalCount = x.Followers(null, null, null, null).TotalCount,
                     FollowingTotalCount = x.Following(null, null, null, null).TotalCount,
@@ -46,90 +45,7 @@ namespace FluentHub.Octokit.Queries.Users
 
             var response = await App.Connection.Run(query);
 
-            #region copying
-            Models.User item = new();
-
-            item.AvatarUrl = response.AvatarUrl;
-            item.Bio = response.Bio;
-            item.Company = response.Company;
-            item.Email = response.Email;
-            item.IsBountyHunter = response.IsBountyHunter;
-            item.IsCampusExpert = response.IsCampusExpert;
-            item.IsDeveloperProgramMember = response.IsDeveloperProgramMember;
-            item.IsEmployee = response.IsGitHubStar;
-            item.IsGitHubStar = response.IsGitHubStar;
-            item.IsViewer = response.IsViewer;
-            item.Location = response.Location;
-            item.Login = response.Login;
-            item.Name = response.Name;
-            item.TwitterUsername = response.TwitterUsername;
-            item.ViewerIsFollowing = response.ViewerIsFollowing;
-            item.WebsiteUrl = response.WebsiteUrl;
-
-            item.FollowersTotalCount = response.FollowersTotalCount;
-            item.FollowingTotalCount = response.FollowingTotalCount;
-            #endregion
-
-            return item;
-        }
-
-        public async Task<Models.User> GetAsync()
-        {
-            #region queries
-            var query = new Query()
-                .Viewer
-                .Select(x => new
-                {
-                    AvatarUrl = x.AvatarUrl(100),
-                    x.Bio,
-                    x.Company,
-                    x.Email,
-                    x.IsCampusExpert,
-                    x.IsBountyHunter,
-                    x.IsDeveloperProgramMember,
-                    x.IsEmployee,
-                    x.IsGitHubStar,
-                    x.IsViewer,
-                    x.Location,
-                    x.Login,
-                    x.Name,
-                    x.TwitterUsername,
-                    x.ViewerIsFollowing,
-                    x.WebsiteUrl,
-
-                    FollowersTotalCount = x.Followers(null, null, null, null).TotalCount,
-                    FollowingTotalCount = x.Following(null, null, null, null).TotalCount,
-                })
-                .Compile();
-            #endregion
-
-            var response = await App.Connection.Run(query);
-
-            #region copying
-            Models.User item = new();
-
-            item.AvatarUrl = response.AvatarUrl;
-            item.Bio = response.Bio;
-            item.Company = response.Company;
-            item.Email = response.Email;
-            item.IsBountyHunter = response.IsBountyHunter;
-            item.IsCampusExpert = response.IsCampusExpert;
-            item.IsDeveloperProgramMember = response.IsDeveloperProgramMember;
-            item.IsEmployee = response.IsGitHubStar;
-            item.IsGitHubStar = response.IsGitHubStar;
-            item.IsViewer = response.IsViewer;
-            item.Location = response.Location;
-            item.Login = response.Login;
-            item.Name = response.Name;
-            item.TwitterUsername = response.TwitterUsername;
-            item.ViewerIsFollowing = response.ViewerIsFollowing;
-            item.WebsiteUrl = response.WebsiteUrl;
-
-            item.FollowersTotalCount = response.FollowersTotalCount;
-            item.FollowingTotalCount = response.FollowingTotalCount;
-            #endregion
-
-            return item;
+            return response;
         }
 
         public async Task<string> GetViewerLogin()

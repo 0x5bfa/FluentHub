@@ -9,22 +9,28 @@ namespace FluentHub.UserControls.ButtonBlocks
 {
     public sealed partial class RepoButtonBlock : UserControl
     {
-        #region properties
+        #region propdp
         public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(Repository), typeof(RepoButtonBlockViewModel), typeof(RepoButtonBlock), new PropertyMetadata(null));
+            DependencyProperty.Register(
+                nameof(ViewModel),
+                typeof(RepoButtonBlockViewModel),
+                typeof(RepoButtonBlock),
+                new PropertyMetadata(null));
 
         public RepoButtonBlockViewModel ViewModel
         {
             get => (RepoButtonBlockViewModel)GetValue(ViewModelProperty);
-            set
-            {
-                SetValue(ViewModelProperty, value);                
-                ViewModel?.GetColorBrush();        
-            }
+            set => SetValue(ViewModelProperty, value);
         }
         #endregion
 
-        public RepoButtonBlock() => InitializeComponent();      
+        public RepoButtonBlock() => InitializeComponent();
+
+        private void OnRepoButtonBlockLoaded(object sender, RoutedEventArgs e)
+        {
+            ViewModel.GetColorBrush();
+        }
+
         private void RepoBlockButton_Click(object sender, RoutedEventArgs e)
         {
             var service = App.Current.Services.GetRequiredService<INavigationService>();

@@ -29,16 +29,19 @@
 
     <Grid>
         <Button Margin="0,3,0,0" Style="{StaticResource ContentBlockButtonStyle}">
+
             <Grid ColumnSpacing="6">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
+
                 <TextBlock
                     Margin="0,0,8,0"
                     VerticalAlignment="Center"
                     FontSize="18"
                     Text="💡" />
+
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -46,23 +49,50 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-                    <TextBlock
-                        x:Name="RepoNameWithOwnerAndNumber"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="{x:Bind ViewModel.NameWithOwner, Mode=OneWay}" />
+
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="{x:Bind ViewModel.Item.Repository.Owner.Login, Mode=OneWay}" />
+
+                        <TextBlock
+                            Margin="4,0"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="/" />
+
+                        <TextBlock
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="{x:Bind ViewModel.Item.Repository.Name, Mode=OneWay}" />
+
+                        <TextBlock
+                            Margin="4,0,0,0"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="#" />
+
+                        <TextBlock
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="{x:Bind ViewModel.Item.Number, Mode=OneWay}" />
+                    </StackPanel>
+
                     <TextBlock
                         x:Name="UpdatedAtHumanized"
                         HorizontalAlignment="Right"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="{x:Bind ViewModel.UpdatedAtHumanized, Mode=OneWay}" />
+                        Text="{x:Bind ViewModel.Item.UpdatedAtHumanized, Mode=OneWay}" />
+
                     <TextBlock
                         x:Name="TitleTextBlock"
                         Grid.Row="1"
                         Margin="0,4"
                         Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="{x:Bind ViewModel.DiscussionItem.Title, Mode=OneWay}" />
+                        Text="{x:Bind ViewModel.Item.Title, Mode=OneWay}" />
+
                 </Grid>
             </Grid>
         </Button>

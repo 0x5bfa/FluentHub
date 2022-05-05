@@ -1,11 +1,13 @@
-﻿using Octokit.GraphQL;
-using Octokit.GraphQL.Model;
-using Serilog;
+﻿using FluentHub.Octokit.Models;
+using Humanizer;
+using Octokit.GraphQL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GraphQLCore = global::Octokit.GraphQL.Core;
+using GraphQLModel = global::Octokit.GraphQL.Model;
 
 namespace FluentHub.Octokit.Queries.Repositories
 {
@@ -13,7 +15,7 @@ namespace FluentHub.Octokit.Queries.Repositories
     {
         public CommitQueries() => new App();
 
-        public async Task<Models.Commit> GetOverview(string name, string owner, string branchName, string path)
+        public async Task<List<Commit>> GetAllAsync(string name, string owner, string refs, string path)
         {
             path = path.Remove(0, 1);
 
@@ -22,49 +24,111 @@ namespace FluentHub.Octokit.Queries.Repositories
             #region query
             var query = new Query()
                     .Repository(name, owner)
-                    .Ref(branchName)
+                    .Ref(refs)
                     .Target
-                    .Cast<Commit>()
-                    .History(first: 1, path: path)
-                    .Select(x => new
+                    .Cast<GraphQLModel.Commit>()
+                    .History(first: 30, path: path)
+                    .Nodes
+                    .Select(x => new Commit
                     {
-                        CommitSummary = x.Nodes.Select(y => new
-                        {
-                            y.AbbreviatedOid,
-                            AuthorAvatarUrl = y.Author.AvatarUrl(100),
-                            y.Author.User.Login,
-                            y.CommittedDate,
-                            y.Message,
-                        }).ToList(),
-                        x.TotalCount,
+                        Owner = x.Repository.Owner.Login,
+                        Name = x.Repository.Name,
+                        Refs = refs,
+                        AbbreviatedOid = x.AbbreviatedOid,
+                        Oid = x.Oid,
+                        AuthorAvatarUrl = x.Author.AvatarUrl(100),
+                        AuthorName = x.Author.User.Login,
+                        CommittedAt = x.CommittedDate,
+                        CommitMessage = x.Message,
+                        CommitMessageHeadline = x.MessageHeadline,
                     })
+                    .Compile();
+            #endregion
+
+            var response = await App.Connection.Run(query);
+
+            return response.ToList();
+        }
+
+        public async Task<List<Commit>> GetAllAsync(string owner, string name, int number)
+        {
+            #region query
+            var query = new Query()
+                    .Repository(name, owner)
+                    .PullRequest(number)
+                    .Commits(first: 30)
+                    .Nodes
+                    .Select(x => x.Commit.Select(y => new Commit
+                    {
+                        Owner = owner,
+                        Name = name,
+                        PullRequestNumber = number,
+                        AbbreviatedOid = y.AbbreviatedOid,
+                        Oid = y.Oid,
+                        AuthorAvatarUrl = y.Author.AvatarUrl(100),
+                        AuthorName = y.Author.User.Login,
+                        CommittedAt = y.CommittedDate,
+                        CommitMessage = y.Message,
+                        CommitMessageHeadline = y.MessageHeadline,
+                    })
+                    .Single())
                     .Compile();
             #endregion
 
             var result = await App.Connection.Run(query);
 
-            #region copying
-            Models.Commit item = new();
-            item.AbbreviatedOid = result.CommitSummary[0].AbbreviatedOid;
-            item.AuthorAvatarUrl = result.CommitSummary[0].AuthorAvatarUrl;
-            item.AuthorName = result.CommitSummary[0].Login;
-            item.CommitMessage = result.CommitSummary[0].Message;
-            item.CommittedDate = result.CommitSummary[0].CommittedDate;
-            item.TotalCount = result.TotalCount;
-            #endregion
-
-            return item;
+            return result.ToList();
         }
 
-        public async Task<List<Models.Commit>> GetOverviewAllFilesAndLatestCommit(string name, string owner, string branchName, string path)
+        public async Task<Commit> GetAsync(string name, string owner, string refs, string path)
         {
             path = path.Remove(0, 1);
 
+            if (string.IsNullOrEmpty(path)) path = ".";
+
             #region query
+            var query = new Query()
+                    .Repository(name, owner)
+                    .Ref(refs)
+                    .Target
+                    .Cast<GraphQLModel.Commit>()
+                    .History(first: 1, path: path)
+                    .Select(x => new
+                    {
+                        Commit = x.Nodes.Select(y => new Commit
+                        {
+                            AbbreviatedOid = y.AbbreviatedOid,
+                            Oid =y.Oid,
+                            AuthorAvatarUrl = y.Author.Select(author => author.AvatarUrl(100)).SingleOrDefault(),
+                            AuthorName = y.Author.Select(author => author.User.Select(user => user.Login).SingleOrDefault()).SingleOrDefault(),
+                            CommitMessage =y.Message,
+
+                            CommittedAt =y.CommittedDate,
+                            CommittedAtHumanized = y.CommittedDate.Humanize(null, null),
+                        })
+                        .ToList().FirstOrDefault(),
+
+                        x.TotalCount,
+                    })
+                    .Compile();
+            #endregion
+
+            var response = await App.Connection.Run(query);
+
+            response.Commit.TotalCount = response.TotalCount;
+
+            return response.Commit;
+        }
+
+        public async Task<List<Commit>> GetWithObjectNameAsync(string name, string owner, string refs, string path)
+        {
+            path = path.Remove(0, 1);
+
+            #region objectQuery
             var queryToGetFileInfo = new Query()
                 .Repository(name, owner)
-                .Object(expression: branchName + ":" + path)
-                .Cast<Tree>()
+                .Object(expression: refs + ":" + path)
+                .Cast<GraphQLModel.Tree>()
                 .Entries
                 .Select(x => new
                 {
@@ -77,52 +141,46 @@ namespace FluentHub.Octokit.Queries.Repositories
 
             var response1 = await App.Connection.Run(queryToGetFileInfo);
 
-            #region copying
-            List<Models.Commit> items = new();
+            List<Commit> items = new();
 
             foreach (var res1 in response1)
             {
-                Models.Commit item = new();
-
-                item.FileName = res1.Name;
-                item.FilePath = res1.Path;
-                item.ObjectType = res1.Type;
-
-                // query to get its file's latest commit
-                var queryToGetLatestCommit = new Query()
+                #region commitQuery
+                var commitQuery = new Query()
                     .Repository(name, owner)
-                    .Ref(branchName)
+                    .Ref(refs)
                     .Target
-                    .Cast<Commit>()
+                    .Cast<GraphQLModel.Commit>()
                     .History(first: 1, path: res1.Path)
-                    .Select(x => new
+                    .Select(x => new 
                     {
-                        CommitSummary = x.Nodes.Select(y => new
+                        Commit = x.Nodes.Select(y => new Commit
                         {
-                            y.AbbreviatedOid,
+                            FileName = res1.Name,
+                            FilePath = res1.Path,
+                            ObjectType = res1.Type,
+                            AbbreviatedOid = y.AbbreviatedOid,
                             AuthorAvatarUrl = y.Author.AvatarUrl(100),
-                            y.Author.Name,
-                            y.CommittedDate,
-                            y.Message,
-                        }).ToList(),
+                            AuthorName = y.Author.Name,
+                            CommitMessage = y.Message,
+
+                            CommittedAt = y.CommittedDate,
+                            CommittedAtHumanized = y.CommittedDate.Humanize(null, null),
+                        })
+                        .ToList()
+                        .FirstOrDefault(),
+
                         x.TotalCount,
                     })
                     .Compile();
+                #endregion
 
-                var response2 = await App.Connection.Run(queryToGetLatestCommit);
+                var response2 = await App.Connection.Run(commitQuery);
 
-                var res2 = response2.CommitSummary.ToList()[0];
+                response2.Commit.TotalCount = response2.TotalCount;
 
-                item.TotalCount = response2.TotalCount;
-                item.AbbreviatedOid = res2.AbbreviatedOid;
-                item.AuthorAvatarUrl = res2.AuthorAvatarUrl;
-                item.AuthorName = res2.Name;
-                item.CommitMessage = res2.Message;
-                item.CommittedDate = res2.CommittedDate;
-
-                items.Add(item);
+                items.Add(response2.Commit);
             }
-            #endregion
 
             return items;
         }

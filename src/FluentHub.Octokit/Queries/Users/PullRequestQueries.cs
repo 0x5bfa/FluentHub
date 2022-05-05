@@ -1,10 +1,13 @@
-﻿using Octokit.GraphQL;
-using Octokit.GraphQL.Model;
-using Serilog;
+﻿using FluentHub.Octokit.Models;
+using FluentHub.Octokit.Models.Events;
+using Humanizer;
+using Octokit.GraphQL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using GraphQLModel = global::Octokit.GraphQL.Model;
 
 namespace FluentHub.Octokit.Queries.Users
 {
@@ -12,132 +15,59 @@ namespace FluentHub.Octokit.Queries.Users
     {
         public PullRequestQueries() => new App();
 
-        public async Task<List<Models.PullRequest>> GetAllAsync(string login)
+        public async Task<List<PullRequest>> GetAllAsync(string login)
         {
-            IssueOrder order = new() { Direction = OrderDirection.Desc, Field = IssueOrderField.CreatedAt };
+            GraphQLModel.IssueOrder order = new() { Direction = GraphQLModel.OrderDirection.Desc, Field = GraphQLModel.IssueOrderField.CreatedAt };
 
             #region queries
             var query = new Query()
                 .User(login)
                 .PullRequests(first: 30, orderBy: order)
                 .Nodes
-                .Select(x => new
+                .Select(x => new PullRequest
                 {
-                    x.Closed,
-                    x.Merged,
-                    x.IsDraft,
-                    Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new
+                    OwnerAvatarUrl = x.Repository.Owner.AvatarUrl(100),
+                    OwnerLogin = x.Repository.Owner.Login,
+                    Name = x.Repository.Name,
+                    Title = x.Title,
+
+                    BaseRefName = x.BaseRefName,
+                    HeadRefName = x.HeadRefName,
+                    HeadRefOwnerLogin = x.HeadRepositoryOwner.Login,
+
+                    Closed = x.Closed,
+                    Merged = x.Merged,
+                    IsDraft = x.IsDraft,
+
+                    Number = x.Number,
+                    CommentCount = x.Comments(null, null, null, null, null).TotalCount,
+
+                    Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new Label
                     {
-                        y.Color,
-                        y.Name,
-                    }).ToList(),
-                    x.Number,
-                    x.Title,
-                    x.UpdatedAt,
-                    x.Repository.Name,
-                    x.Repository.Owner.Login,
+                        Color = y.Color,
+                        Description = y.Description,
+                        Name = y.Name,
+                    })
+                    .ToList(),
+
+                    ReviewState = x.Reviews(null, null, 1, null, null, null).Nodes.Select(y => y.State)
+                    .ToList().FirstOrDefault(),
+
+                    StatusState = x.Commits(null, null, 1, null).Nodes.Select(y => y.Commit.StatusCheckRollup.Select(z => new StatusCheckRollup
+                    {
+                        Status = z.State,
+                    })
+                    .SingleOrDefault())
+                    .ToList().FirstOrDefault(),
+
+                    UpdatedAt = x.UpdatedAt,
                 })
                 .Compile();
             #endregion
 
             var response = await App.Connection.Run(query);
 
-            #region copying
-            List<Models.PullRequest> items = new();
-
-            foreach (var res in response)
-            {
-                Models.PullRequest item = new();
-                item.Labels = new();
-
-                item.IsClosed = res.Closed;
-                item.IsMerged = res.Merged;
-                item.IsDraft = res.IsDraft;
-
-                foreach (var label in res.Labels)
-                {
-                    Models.Label labels = new();
-                    labels.Color = label.Color;
-                    labels.Name = label.Name;
-
-                    item.Labels.Add(labels);
-                }
-
-                item.Number = res.Number;
-                item.Title = res.Title;
-                item.UpdatedAt = res.UpdatedAt;
-                item.Name = res.Name;
-                item.Owner = res.Login;
-
-                items.Add(item);
-            }
-            #endregion
-
-            return items;
-        }
-
-        public async Task<List<Models.PullRequest>> GetAllAsync()
-        {
-            IssueOrder order = new() { Direction = OrderDirection.Desc, Field = IssueOrderField.CreatedAt };
-
-            #region queries
-            var query = new Query()
-                .Viewer
-                .PullRequests(first: 30, orderBy: order)
-                .Nodes
-                .Select(x => new
-                {
-                    x.Closed,
-                    x.Merged,
-                    x.IsDraft,
-                    Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new
-                    {
-                        y.Color,
-                        y.Name,
-                    }).ToList(),
-                    x.Number,
-                    x.Title,
-                    x.UpdatedAt,
-                    x.Repository.Name,
-                    x.Repository.Owner.Login,
-                })
-                .Compile();
-            #endregion
-
-            var response = await App.Connection.Run(query);
-
-            #region copying
-            List<Models.PullRequest> items = new();
-
-            foreach (var res in response)
-            {
-                Models.PullRequest item = new();
-                item.Labels = new();
-
-                item.IsClosed = res.Closed;
-                item.IsMerged = res.Merged;
-                item.IsDraft = res.IsDraft;
-
-                foreach (var label in res.Labels)
-                {
-                    Models.Label labels = new();
-                    labels.Color = label.Color;
-                    labels.Name = label.Name;
-
-                    item.Labels.Add(labels);
-                }
-
-                item.Number = res.Number;
-                item.Title = res.Title;
-                item.UpdatedAt = res.UpdatedAt;
-                item.Name = res.Name;
-                item.Owner = res.Login;
-
-                items.Add(item);
-            }
-            #endregion
-
-            return items;
+            return response.ToList();
         }
     }
 }

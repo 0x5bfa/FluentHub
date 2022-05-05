@@ -1,11 +1,13 @@
-﻿using Octokit.GraphQL;
-using Octokit.GraphQL.Model;
-using Serilog;
+﻿using FluentHub.Octokit.Models;
+using Humanizer;
+using Octokit.GraphQL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GraphQLCore = global::Octokit.GraphQL.Core;
+using GraphQLModel = global::Octokit.GraphQL.Model;
 
 namespace FluentHub.Octokit.Queries.Users
 {
@@ -13,161 +15,46 @@ namespace FluentHub.Octokit.Queries.Users
     {
         public PinnedItemQueries() => new App();
 
-        public async Task<List<Models.Repository>> GetAllAsync(string login, bool isUser)
+        public async Task<List<Repository>> GetAllAsync(string login)
         {
-            #region userquery
-            var usersQuery = new Query()
+            GraphQLCore.Arg<IEnumerable<GraphQLModel.IssueState>> issueState = new(new GraphQLModel.IssueState[] { GraphQLModel.IssueState.Open });
+            GraphQLCore.Arg<IEnumerable<GraphQLModel.PullRequestState>> pullRequestState = new(new GraphQLModel.PullRequestState[] { GraphQLModel.PullRequestState.Open });
+
+            #region query
+            var query = new Query()
                     .User(login)
                     .PinnedItems(first: 6)
                     .Nodes
-                    .OfType<Repository>()
-                    .Select(x => new
+                    .OfType<GraphQLModel.Repository>()
+                    .Select(x => new Repository
                     {
-                        x.Name,
-                        x.Description,
-                        OwnerAvatarUrl = x.Owner.AvatarUrl(100),
-                        OwnerLoginName = x.Owner.Login,
+                        Name = x.Name,
+                        Description = x.Description,
 
-                        //PrimaryLanguageName = x.PrimaryLanguage.Name,
-                        //PrimaryLanguageColor = x.PrimaryLanguage.Color,
-                        x.StargazerCount,
+                        StargazerCount = x.StargazerCount,
+                        ViewerHasStarred = x.ViewerHasStarred,
 
-                        //LicenseName = x.LicenseInfo.Name,
-                        x.ForkCount,
-                        IssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
-                        PullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
-                        x.UpdatedAt,
+                        PrimaryLanguage = x.PrimaryLanguage.Select(y => new Language
+                        {
+                            Name = y.Name,
+                            Color = y.Color,
+                        })
+                        .SingleOrDefault(),
 
-                        WatcherCount = x.Watchers(null, null, null, null).TotalCount,
-                        DefaultBranchName = x.DefaultBranchRef.Name,
+                        Owner = x.Owner.Select(owner => new RepositoryOwner
+                        {
+                            AvatarUrl = owner.AvatarUrl(100),
+                            Id = owner.Id.ToString(),
+                            Login = owner.Login,
+                        })
+                        .Single(),
                     })
                     .Compile();
             #endregion
 
-            #region orgquery
-            var orgsQuery = new Query()
-                    .Organization(login)
-                    .PinnedItems(first: 6)
-                    .Nodes
-                    .OfType<Repository>()
-                    .Select(x => new
-                    {
-                        x.Name,
-                        x.Description,
-                        OwnerAvatarUrl = x.Owner.AvatarUrl(100),
-                        OwnerLoginName = x.Owner.Login,
+            var response = await App.Connection.Run(query);
 
-                        //PrimaryLanguageName = x.PrimaryLanguage.Name,
-                        //PrimaryLanguageColor = x.PrimaryLanguage.Color,
-                        x.StargazerCount,
-
-                        //LicenseName = x.LicenseInfo.Name,
-                        x.ForkCount,
-                        IssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
-                        PullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
-                        x.UpdatedAt,
-
-                        WatcherCount = x.Watchers(null, null, null, null).TotalCount,
-                        DefaultBranchName = x.DefaultBranchRef.Name,
-                    })
-                    .Compile();
-            #endregion
-
-            var result = await App.Connection.Run(isUser ? usersQuery : orgsQuery);
-
-            #region copying
-            List<Models.Repository> items = new();
-
-            foreach (var res in result)
-            {
-                Models.Repository item = new();
-
-                item.Name = res.Name;
-                item.Owner = res.OwnerLoginName;
-                item.OwnerAvatarUrl = res.OwnerAvatarUrl;
-                item.Description = res.Description;
-                item.StargazerCount = res.StargazerCount;
-
-                //item.PrimaryLangName = res.PrimaryLanguageName;
-                //item.PrimaryLangColor = res.PrimaryLanguageColor;
-
-                //item.LicenseName = res.LicenseName;
-                item.ForkCount = res.ForkCount;
-                item.IssueCount = res.IssueCount;
-                item.PullCount = res.PullCount;
-                item.UpdatedAt = res.UpdatedAt;
-                item.WatcherCount = res.WatcherCount;
-                item.DefaultBranchName = res.DefaultBranchName;
-
-                items.Add(item);
-            }
-            #endregion
-
-            return items;
-        }
-
-        public async Task<List<Models.Repository>> GetAllAsync()
-        {
-            #region query
-            var query = new Query()
-                    .Viewer
-                    .PinnedItems(first: 6)
-                    .Nodes
-                    .OfType<Repository>()
-                    .Select(x => new
-                    {
-                        x.Name,
-                        x.Description,
-                        OwnerAvatarUrl = x.Owner.AvatarUrl(100),
-                        OwnerLoginName = x.Owner.Login,
-
-                        //PrimaryLanguageName = x.PrimaryLanguage.Name,
-                        //PrimaryLanguageColor = x.PrimaryLanguage.Color,
-                        x.StargazerCount,
-
-                        //LicenseName = x.LicenseInfo.Name,
-                        x.ForkCount,
-                        IssueCount = x.Issues(null, null, null, null, null, null, null, null).TotalCount,
-                        PullCount = x.PullRequests(null, null, null, null, null, null, null, null, null).TotalCount,
-                        x.UpdatedAt,
-
-                        WatcherCount = x.Watchers(null, null, null, null).TotalCount,
-                        DefaultBranchName = x.DefaultBranchRef.Name,
-                    })
-                    .Compile();
-            #endregion
-
-            var result = await App.Connection.Run(query);
-
-            #region copying
-            List<Models.Repository> items = new();
-
-            foreach (var res in result)
-            {
-                Models.Repository item = new();
-
-                item.Name = res.Name;
-                item.Owner = res.OwnerLoginName;
-                item.OwnerAvatarUrl = res.OwnerAvatarUrl;
-                item.Description = res.Description;
-                item.StargazerCount = res.StargazerCount;
-
-                //item.PrimaryLangName = res.PrimaryLanguageName;
-                //item.PrimaryLangColor = res.PrimaryLanguageColor;
-
-                //item.LicenseName = res.LicenseName;
-                item.ForkCount = res.ForkCount;
-                item.IssueCount = res.IssueCount;
-                item.PullCount = res.PullCount;
-                item.UpdatedAt = res.UpdatedAt;
-                item.WatcherCount = res.WatcherCount;
-                item.DefaultBranchName = res.DefaultBranchName;
-
-                items.Add(item);
-            }
-            #endregion
-
-            return items;
+            return response.ToList();
         }
     }
 }

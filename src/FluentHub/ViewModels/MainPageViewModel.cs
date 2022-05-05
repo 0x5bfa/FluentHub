@@ -5,21 +5,24 @@ using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Microsoft.Toolkit.Uwp;
-using System;
 using System.Windows.Input;
 using Windows.System;
-using Windows.UI.Core;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 
 namespace FluentHub.ViewModels
 {
     public class MainPageViewModel : ObservableObject
     {
-        public MainPageViewModel(INavigationService navigationService!!, IMessenger notificationMessenger = null, ILogger logger = null)
+        public MainPageViewModel(INavigationService navigationService!!,
+                                 IMessenger notificationMessenger = null,
+                                 ToastService toastService = null,
+                                 ILogger logger = null)
         {
             _dispatcher = DispatcherQueue.GetForCurrentThread(); // To Access the UI thread later.
             _navigationService = navigationService;
             _messenger = notificationMessenger;
+            _toastService = toastService;
             _logger = logger;
 
             if (_messenger != null)
@@ -41,6 +44,7 @@ namespace FluentHub.ViewModels
         private readonly DispatcherQueue _dispatcher;
         private readonly INavigationService _navigationService;
         private readonly IMessenger _messenger;
+        private readonly ToastService _toastService;
         private readonly ILogger _logger;
 
         private UserNotificationMessage _lastNotification;
@@ -48,6 +52,8 @@ namespace FluentHub.ViewModels
 
         #region properties
         public UserNotificationMessage LastNotification { get => _lastNotification; private set => SetProperty(ref _lastNotification, value); }
+        public static Frame RepositoryContentFrame { get; set; } = new();
+        public static Frame PullRequestContentFrame { get; set; } = new();
         #endregion
 
         #region commands
@@ -147,9 +153,9 @@ namespace FluentHub.ViewModels
             // Check if the message method contains the Toast value (multivalue enum)
             if (message.Method.HasFlag(UserNotificationMethod.Toast))
             {
+                _toastService?.ShowToastNotification(message.Title, message.Message);
                 // Show the message in the toast
                 _logger?.Info("Toast notification received: {0}", message);
-                throw new NotImplementedException("Toast notifications are not implemented yet");
             }
         }
     }

@@ -1,7 +1,8 @@
 ﻿using FluentHub.Octokit.Models;
 using FluentHub.Services;
+using FluentHub.ViewModels;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
-using FluentHub.Views.Repositories;
+using FluentHub.Views.Repositories.PullRequests;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -10,9 +11,9 @@ namespace FluentHub.UserControls.ButtonBlocks
 {
     public sealed partial class PullButtonBlock : UserControl
     {
-        #region dprops
-        public static readonly DependencyProperty ViewModelProperty
-            = DependencyProperty.Register(
+        #region propdp
+        public static readonly DependencyProperty ViewModelProperty =
+            DependencyProperty.Register(
                   nameof(PullRequest),
                   typeof(PullButtonBlockViewModel),
                   typeof(PullButtonBlock),
@@ -25,8 +26,8 @@ namespace FluentHub.UserControls.ButtonBlocks
             set
             {
                 SetValue(ViewModelProperty, value);
-                this.DataContext = ViewModel;
-                ViewModel.SetStateContents();
+                DataContext = ViewModel;
+                ViewModel?.LoadContents();
             }
         }
         #endregion
@@ -38,10 +39,14 @@ namespace FluentHub.UserControls.ButtonBlocks
         }
 
         private readonly INavigationService navigationService;
-        private async void IssueBlockButton_Click(object sender, RoutedEventArgs e)
+
+        private void IssueBlockButton_Click(object sender, RoutedEventArgs e)
         {
-            string param = ViewModel.PullItem.Owner + "/" + ViewModel.PullItem.Name + "/" + ViewModel.PullItem.Number;
-            navigationService.Navigate<PullRequestPage>(param);
+            MainPageViewModel.RepositoryContentFrame.Navigate(typeof(PullRequestPage), ViewModel.PullItem);
+        }
+
+        private void OnPullButtonBlockLoaded(object sender, RoutedEventArgs e)
+        {
         }
     }
 }

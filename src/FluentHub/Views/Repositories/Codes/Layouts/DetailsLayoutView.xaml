@@ -1,0 +1,301 @@
+﻿<Page
+    x:Class="FluentHub.Views.Repositories.Codes.Layouts.DetailsLayoutView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
+    xmlns:contents="using:FluentHub.UserControls.Blocks"
+    xmlns:converters="using:FluentHub.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:FluentHub.Views.Repositories.Codes.Layouts"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:FluentHub.Models"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+    </Page.Resources>
+
+    <Grid>
+        <ScrollViewer>
+            <Grid>
+                <Grid
+                    x:Name="RepositoryCodeGrid"
+                    Margin="12,0,12,12"
+                    x:Load="{x:Bind ViewModel.ContextViewModel.Repository.DefaultBranchName, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <contents:FileNavigationBlock Margin="0,12,0,0" ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
+
+                        <Grid
+                            x:Name="DirListViewContentGrid"
+                            Grid.Row="1"
+                            Margin="0,12,0,0"
+                            x:Load="{x:Bind ViewModel.ContextViewModel.IsDir, Mode=OneWay}"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                            BorderThickness="1"
+                            CornerRadius="4">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <contents:LatestCommitBlock x:Name="LatastCommitBlock" ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
+
+                            <MenuFlyoutSeparator Grid.Row="1" />
+
+                            <ListView
+                                x:Name="DirListView"
+                                Grid.Row="2"
+                                Margin="0,4"
+                                HorizontalAlignment="Stretch"
+                                DoubleTapped="OnDirListViewDoubleTapped"
+                                ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
+                                SelectionMode="Single">
+
+                                <ListView.ItemContainerStyle>
+                                    <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
+                                        <Setter Property="MinHeight" Value="40" />
+                                        <Setter Property="Height" Value="40" />
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+
+                                <ListView.ItemTemplate>
+                                    <DataTemplate x:DataType="models:DetailsLayoutListViewModel">
+
+                                        <Grid x:Name="ListViewItemGrid" Tag="{x:Bind ObjectTag, Mode=OneWay}">
+
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="32" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="2*" />
+                                                <ColumnDefinition Width="120" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <FontIcon
+                                                x:Name="ItemIcon"
+                                                HorizontalAlignment="Left"
+                                                VerticalAlignment="Center"
+                                                FontFamily="{StaticResource Octions}"
+                                                FontSize="16"
+                                                Glyph="{x:Bind ObjectTypeIconGlyph, Mode=OneWay}" />
+
+                                            <TextBlock
+                                                x:Name="ItemNameTextBox"
+                                                Grid.Column="1"
+                                                VerticalAlignment="Center"
+                                                Text="{x:Bind ObjectName, Mode=OneWay}"
+                                                TextTrimming="CharacterEllipsis" />
+
+                                            <TextBlock
+                                                x:Name="ItemLatestCommitTitleTextBox"
+                                                Grid.Column="2"
+                                                VerticalAlignment="Center"
+                                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                Text="{x:Bind ObjectLatestCommitMessage, Mode=OneWay}"
+                                                TextTrimming="CharacterEllipsis" />
+
+                                            <TextBlock
+                                                x:Name="ItemUpdatedAtTextBlock"
+                                                Grid.Column="3"
+                                                HorizontalAlignment="Right"
+                                                VerticalAlignment="Center"
+                                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                Text="{x:Bind ObjectUpdatedAtHumanized, Mode=OneWay}" />
+
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+
+                        </Grid>
+
+                        <Grid
+                            x:Name="BlobContentGrid"
+                            Grid.Row="2"
+                            Margin="0,12,0,0"
+                            x:Load="{x:Bind ViewModel.ContextViewModel.IsFile, Mode=OneWay}"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                            BorderThickness="1"
+                            CornerRadius="4">
+                            <contents:LatestCommitBlock x:Name="BlobLatastCommitBlock" ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
+                        </Grid>
+
+                        <contents:FileContentBlock
+                            x:Name="BlobContentBlock"
+                            Grid.Row="3"
+                            Margin="0,12,0,0"
+                            x:Load="{x:Bind ViewModel.ContextViewModel.IsFile, Mode=OneWay}"
+                            ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
+
+                        <contents:ReadmeContentBlock
+                            x:Name="RepoReadmeBlock"
+                            Grid.Row="4"
+                            Margin="0,12,0,0"
+                            x:Load="{x:Bind ViewModel.ContextViewModel.IsRootDir, Mode=OneWay}"
+                            ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
+                    </Grid>
+
+                    <Grid
+                        x:Name="RepositoryMetaInfoBlock"
+                        Grid.Column="1"
+                        Width="256"
+                        Padding="12,12,0,0"
+                        x:Load="{x:Bind ViewModel.ContextViewModel.IsRootDir, Mode=OneWay}"
+                        RowSpacing="12">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Spacing="12">
+                            <Grid>
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="About" />
+
+                                <Button
+                                    x:Name="SettingsButton"
+                                    Width="36"
+                                    Height="32"
+                                    Padding="0"
+                                    HorizontalAlignment="Right"
+                                    Background="Transparent"
+                                    BorderThickness="0"
+                                    IsEnabled="False">
+                                    <muxc:AnimatedIcon x:Name="SettingAnimatedIcon" Height="16">
+                                        <muxc:AnimatedIcon.Source>
+                                            <animatedvisuals:AnimatedSettingsVisualSource />
+                                        </muxc:AnimatedIcon.Source>
+                                        <muxc:AnimatedIcon.FallbackIconSource>
+                                            <muxc:SymbolIconSource Symbol="Setting" />
+                                        </muxc:AnimatedIcon.FallbackIconSource>
+                                    </muxc:AnimatedIcon>
+                                </Button>
+                            </Grid>
+
+                            <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.ContextViewModel.Repository.Description, Mode=OneWay}" />
+
+                            <MenuFlyoutSeparator />
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="1" Spacing="12">
+
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="Releases" />
+
+                                <muxc:InfoBadge Value="{x:Bind ViewModel.ContextViewModel.Repository.ReleaseCount, Mode=OneWay}" />
+                            </StackPanel>
+
+                            <Button
+                                x:Name="LatestReleaseButton"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Left"
+                                x:Load="{x:Bind ViewModel.ContextViewModel.Repository.ReleaseCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                                Click="OnLatestReleaseClick">
+                                <StackPanel Spacing="4">
+
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.ContextViewModel.Repository.LatestRelease.Name, Mode=OneWay}" />
+
+                                    <StackPanel Orientation="Horizontal" Spacing="4">
+
+                                        <TextBlock
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Style="{StaticResource BodyTextBlockStyle}"
+                                            Text="{x:Bind ViewModel.ContextViewModel.Repository.LatestRelease.PublishedAtHumanized, Mode=OneWay}" />
+
+                                        <StackPanel
+                                            x:Name="LatestReleaseIsLatestRelease"
+                                            x:Load="{x:Bind ViewModel.ContextViewModel.Repository.LatestRelease.IsLatest, Mode=OneWay}"
+                                            Orientation="Horizontal"
+                                            Spacing="4">
+                                            <TextBlock
+                                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                Style="{StaticResource BodyTextBlockStyle}"
+                                                Text="·" />
+                                            <TextBlock
+                                                Foreground="#57ab5a"
+                                                Style="{StaticResource BodyTextBlockStyle}"
+                                                Text="Latest" />
+                                        </StackPanel>
+
+                                        <StackPanel
+                                            x:Name="LatestReleaseIsPrerelease"
+                                            x:Load="{x:Bind ViewModel.ContextViewModel.Repository.LatestRelease.IsPrerelease, Mode=OneWay}"
+                                            Orientation="Horizontal"
+                                            Spacing="4">
+                                            <TextBlock
+                                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                Style="{StaticResource BodyTextBlockStyle}"
+                                                Text="·" />
+                                            <TextBlock
+                                                Foreground="#c69026"
+                                                Style="{StaticResource BodyTextBlockStyle}"
+                                                Text="Pre-release" />
+                                        </StackPanel>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Button>
+
+                            <StackPanel x:Name="NoReleaseExist" x:Load="{x:Bind ViewModel.ContextViewModel.Repository.ReleaseCount, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
+
+                                <TextBlock
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                    Text="No release published" />
+
+                            </StackPanel>
+
+                            <MenuFlyoutSeparator />
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+
+                <Grid
+                    x:Name="NoCodeGrid"
+                    Margin="12,0,12,12"
+                    x:Load="{x:Bind ViewModel.ContextViewModel.Repository.DefaultBranchName, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
+                    <TextBlock
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="No items available" />
+                </Grid>
+            </Grid>
+        </ScrollViewer>
+
+        <toolkit:SwitchPresenter
+            Grid.RowSpan="2"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            TargetType="x:Boolean"
+            Value="{x:Bind ViewModel.RefreshDetailsLayoutPageCommand.IsRunning, Mode=OneWay}">
+            <toolkit:Case Value="True">
+                <muxc:ProgressRing IsActive="True" />
+            </toolkit:Case>
+        </toolkit:SwitchPresenter>
+
+    </Grid>
+</Page>

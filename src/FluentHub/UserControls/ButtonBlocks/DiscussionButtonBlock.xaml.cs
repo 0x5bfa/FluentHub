@@ -34,14 +34,11 @@ namespace FluentHub.UserControls.ButtonBlocks
             set
             {
                 SetValue(ViewModelProperty, value);
-                this.DataContext = ViewModel;
+                DataContext = ViewModel;
             }
         }
         #endregion
 
-        public DiscussionButtonBlock()
-        {
-            this.InitializeComponent();
-        }
+        public DiscussionButtonBlock() => InitializeComponent();
     }
 }

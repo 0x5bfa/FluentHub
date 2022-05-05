@@ -11,28 +11,8 @@
     mc:Ignorable="d">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="35" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
 
-        <StackPanel
-            Margin="16,0"
-            VerticalAlignment="Center"
-            Orientation="Horizontal"
-            Spacing="8">
-            <FontIcon
-                FontFamily="{StaticResource Octions}"
-                FontSize="16"
-                Glyph="&#xE9BF;" />
-            <TextBlock
-                VerticalAlignment="Center"
-                FontSize="14"
-                Style="{StaticResource BodyStrongTextBlockStyle}"
-                Text="Pull requests" />
-        </StackPanel>
-
-        <ScrollViewer Grid.Row="3" VerticalScrollBarVisibility="Auto">
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
             <muxc:ItemsRepeater Margin="12,2,12,12" ItemsSource="{x:Bind ViewModel.PullItems}">
                 <DataTemplate x:DataType="bbvm:PullButtonBlockViewModel">
                     <block:PullButtonBlock ViewModel="{x:Bind}" />
@@ -41,20 +21,19 @@
         </ScrollViewer>
 
         <toolkit:SwitchPresenter
-            Grid.RowSpan="2"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             TargetType="x:Boolean"
-            Value="{x:Bind ViewModel.RefreshPullRequestsCommand.IsRunning, Mode=OneWay}">
+            Value="{x:Bind ViewModel.RefreshPullRequestsPageCommand.IsRunning, Mode=OneWay}">
 
             <toolkit:Case Value="True">
                 <muxc:ProgressRing IsActive="True" />
             </toolkit:Case>
 
             <toolkit:Case Value="False">
-                <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.RefreshPullRequestsCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
+                <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.RefreshPullRequestsPageCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
                     <toolkit:Case Value="True">
-                        <HyperlinkButton Command="{x:Bind ViewModel.RefreshPullRequestsCommand}">
+                        <HyperlinkButton Command="{x:Bind ViewModel.RefreshPullRequestsPageCommand}">
                             <StackPanel Orientation="Horizontal" Spacing="8">
                                 <FontIcon FontSize="16" Glyph="&#xE149;" />
                                 <TextBlock Text="Refresh" />
@@ -65,7 +44,37 @@
                     <toolkit:Case Value="False">
                         <toolkit:SwitchPresenter TargetType="x:Int32" Value="{x:Bind ViewModel.PullItems.Count, Mode=OneWay}">
                             <toolkit:Case Value="0">
-                                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="No items available" />
+                                <!--#region Empty state-->
+                                <Grid
+                                    Grid.Row="1"
+                                    MaxWidth="180"
+                                    Margin="30"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Viewbox>
+                                        <Grid>
+                                            <Path Data="m440.929688 375.699219-184.929688 101.546875-184.929688-101.546875v-203.089844l184.929688-101.546875 184.929688 101.546875zm0 0" Fill="DarkGray" />
+                                            <Path Data="m71.070312 172.609375v.003906l184.929688 101.546875 184.929688-101.546875v-.003906l-184.929688-101.546875zm0 0" Fill="#FF525252" />
+                                            <Path Data="m71.070312 172.671875v203.027344l184.929688 101.546875.109375-.058594v-203.03125l-184.929687-101.546875zm0 0" Fill="Gray" />
+
+                                            <Path Data="m440.929688 172.613281 61.070312 61.066407-184.929688 101.546874-61.070312-61.070312zm0 0" Fill="LightGray" />
+                                            <Path Data="m71.070312 172.613281-61.070312 61.066407 184.929688 101.546874 61.070312-61.070312zm0 0" Fill="LightGray" />
+                                            <Path Data="m440.929688 172.613281 61.070312-61.066406-184.929688-101.546875-61.070312 61.070312zm0 0" Fill="LightGray" />
+                                            <Path Data="m71.070312 172.613281-61.070312-61.066406 184.929688-101.546875 61.070312 61.070312zm0 0" Fill="LightGray" />
+                                        </Grid>
+                                    </Viewbox>
+
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        FontSize="18"
+                                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                                        Text="No items available"
+                                        TextAlignment="Center" />
+                                </Grid>
                             </toolkit:Case>
                         </toolkit:SwitchPresenter>
                     </toolkit:Case>
@@ -74,5 +83,4 @@
 
         </toolkit:SwitchPresenter>
     </Grid>
-
 </Page>

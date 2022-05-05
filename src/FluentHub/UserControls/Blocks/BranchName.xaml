@@ -1,0 +1,48 @@
+﻿<UserControl
+    x:Class="FluentHub.UserControls.Blocks.BranchName"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:FluentHub.UserControls.Blocks"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <Grid Height="26" HorizontalAlignment="Left">
+
+        <Grid
+            x:Name="LabelBackground"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Background="#539bf5"
+            CornerRadius="4"
+            Opacity="0.1" />
+
+        <Grid
+            x:Name="LabelBorder"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            BorderBrush="#539bf5"
+            BorderThickness="1"
+            CornerRadius="4"
+            Opacity="0.8" />
+
+        <StackPanel
+            Padding="8,0"
+            Orientation="Horizontal"
+            Spacing="4">
+
+            <TextBlock
+                x:Name="StateLabelTextBlock"
+                VerticalAlignment="Center"
+                FontFamily="Cascadia Code"
+                FontWeight="Light"
+                Foreground="#539bf5"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Text="{x:Bind Branch, Mode=OneWay}" />
+
+        </StackPanel>
+
+    </Grid>
+</UserControl>

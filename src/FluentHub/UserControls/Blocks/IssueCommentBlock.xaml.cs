@@ -20,6 +20,7 @@ namespace FluentHub.UserControls.Blocks
 {
     public sealed partial class IssueCommentBlock : UserControl
     {
+        #region propdp
         public static readonly DependencyProperty PropertyViewModelProperty =
             DependencyProperty.Register(nameof(PropertyViewModel), typeof(IssueCommentBlockViewModel), typeof(IssueCommentBlock), new PropertyMetadata(0));
 
@@ -30,21 +31,17 @@ namespace FluentHub.UserControls.Blocks
             {
                 SetValue(PropertyViewModelProperty, value);
                 ViewModel = PropertyViewModel;
-                SetWebViewContents(ref CommentWebView);
+                ViewModel?.SetWebViewContentsAsync(CommentWebView);
             }
         }
+        #endregion
 
         public IssueCommentBlock()
         {
             this.InitializeComponent();
         }
 
-        private void SetWebViewContents(ref WebView webView)
-        {
-            _ = ViewModel.SetWebViewContentsAsync(webView);
-        }
-
-        private void CommentWebView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
+        private void OnCommentWebViewNavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
         {
             WebViewHelpers.DisableWebViewVerticalScrolling(ref CommentWebView);
         }

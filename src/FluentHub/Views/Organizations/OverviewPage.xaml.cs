@@ -1,9 +1,9 @@
 ﻿using FluentHub.Services;
+using FluentHub.ViewModels.Organizations;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Linq;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using muxc = Microsoft.UI.Xaml.Controls;
 
@@ -14,44 +14,36 @@ namespace FluentHub.Views.Organizations
         public OverviewPage()
         {
             InitializeComponent();
+            var provider = App.Current.Services;
+            ViewModel = provider.GetRequiredService<OverviewViewModel>();
             navigationService = App.Current.Services.GetRequiredService<INavigationService>();
         }
         private readonly INavigationService navigationService;
+        public OverviewViewModel ViewModel { get; }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             string org = e.Parameter as string;
+            DataContext = org;
 
+            #region tabitem
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = $"{org}";
-            currentItem.Description = $"{org}'s overview";
+            currentItem.Description = $"{org}";
             currentItem.Url = $"https://github.com/{org}";
             currentItem.Icon = new muxc.FontIconSource
             {
                 Glyph = "\uEA27",
                 FontFamily = new Windows.UI.Xaml.Media.FontFamily("/Assets/Glyphs/Octions.ttf#octions")
             };
+            #endregion
 
-            await ViewModel.GetPinnedRepos(org);
+            var command = ViewModel.LoadOrganizationOverviewAsyncCommand;
+            if (command.CanExecute(DataContext))
+                command.Execute(DataContext);
 
             // Avoid duplicates
             OrgPageFrame.Navigate(typeof(RepositoriesPage), org);
-
-            UpdateVisibility();
-
-            base.OnNavigatedTo(e);
-        }
-
-        private void UpdateVisibility()
-        {
-            if (ViewModel.OrgPinnedItems.Count() != 0)
-            {
-                UserPinnedItemsBlock.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                NoOverviewTextBlock.Visibility = Visibility.Visible;
-            }
         }
     }
 }

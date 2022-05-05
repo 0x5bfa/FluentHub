@@ -1,4 +1,6 @@
 ﻿using FluentHub.Services;
+using FluentHub.ViewModels;
+using FluentHub.Views.Repositories.Codes;
 using FluentHub.ViewModels.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -17,26 +19,27 @@ namespace FluentHub.Views.Repositories
         public OverviewPage()
         {
             InitializeComponent();
-            navigationService = App.Current.Services.GetService<INavigationService>();
+            MainPageViewModel.RepositoryContentFrame.Navigating += OnRepositoryContentFrameNavigating;
         }
 
-        private readonly INavigationService navigationService;
-        private Octokit.Models.Repository Repository { get; set; }
         OverviewViewModel ViewModel = new();
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            ViewModel.Repository = Repository = e.Parameter as Octokit.Models.Repository;
-            this.DataContext = ViewModel;
+            ViewModel.Repository = e.Parameter as Octokit.Models.Repository;
+            DataContext = ViewModel;
 
-            // Initialize frame
+            var command = ViewModel.LoadOverviewPageCommand;
+            if (command.CanExecute(null))
+                await command.ExecuteAsync(null);
+
             var repoContextViewModel = new RepoContextViewModel()
             {
-                Repository = Repository,
                 IsRootDir = true,
-                Name = Repository.Name,
-                Owner = Repository.Owner,
-                BranchName = Repository.DefaultBranchName,
+                Name = ViewModel.Repository.Name,
+                Owner = ViewModel.Repository.Owner.Login,
+                Repository = ViewModel.Repository,
+                BranchName = ViewModel.Repository.DefaultBranchName ?? null,
             };
 
             RepoPageNavViewFrame.Navigate(typeof(CodePage), repoContextViewModel);
@@ -50,30 +53,52 @@ namespace FluentHub.Views.Repositories
                     {
                         var repoContextViewModel = new RepoContextViewModel()
                         {
-                            Repository = Repository,
                             IsRootDir = true,
-                            Name = Repository.Name,
-                            Owner = Repository.Owner,
-                            BranchName = Repository.DefaultBranchName,
+                            Name = ViewModel.Repository.Name,
+                            Owner = ViewModel.Repository.Owner.Login,
+                            Repository = ViewModel.Repository,
+                            BranchName = ViewModel.Repository.DefaultBranchName ?? null,
                         };
 
                         RepoPageNavViewFrame.Navigate(typeof(CodePage), repoContextViewModel);
                         break;
                     }
                 case "Issues":
-                    RepoPageNavViewFrame.Navigate(typeof(IssuesPage), $"{Repository.Owner}/{Repository.Name}");
+                    RepoPageNavViewFrame.Navigate(typeof(Issues.IssuesPage), $"{ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}");
                     break;
-                case "PRs":
-                    RepoPageNavViewFrame.Navigate(typeof(PullRequestsPage), $"{Repository.Owner}/{Repository.Name}");
+                case "PullRequests":
+                    RepoPageNavViewFrame.Navigate(typeof(PullRequests.PullRequestsPage), $"{ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}");
+                    break;
+                case "Discussions":
+                    RepoPageNavViewFrame.Navigate(typeof(Discussions.DiscussionsPage), $"{ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}");
+                    break;
+                case "Projects":
+                    RepoPageNavViewFrame.Navigate(typeof(Projects.ProjectsPage), $"{ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}");
                     break;
                 case "Settings":
-                    RepoPageNavViewFrame.Navigate(typeof(Settings), $"{Repository.Owner}/{Repository.Name}");
+                    RepoPageNavViewFrame.Navigate(typeof(Settings.SettingsPage), $"{ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}");
                     break;
             }
         }
 
         private void OnRepoOwnerButtonClick(object sender, RoutedEventArgs e)
         {
+            var service = App.Current.Services.GetRequiredService<INavigationService>();
+
+            if (ViewModel.Repository.IsInOrganization)
+            {
+                service.Navigate<Views.Organizations.ProfilePage>(ViewModel.Repository.Owner.Login);
+            }
+            else
+            {
+                service.Navigate<Views.Users.ProfilePage>(ViewModel.Repository.Owner.Login);
+            }
+        }
+
+        private void OnRepositoryContentFrameNavigating(object sender, NavigatingCancelEventArgs e)
+        {
+            e.Cancel = true;
+            RepoPageNavViewFrame.Navigate(e.SourcePageType, e.Parameter);
         }
     }
 }

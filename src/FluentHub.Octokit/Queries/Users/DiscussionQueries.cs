@@ -1,12 +1,13 @@
 ﻿using FluentHub.Octokit.Models;
+using Humanizer;
 using Octokit.GraphQL;
-using Octokit.GraphQL.Model;
-using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GraphQLCore = global::Octokit.GraphQL.Core;
+using GraphQLModel = global::Octokit.GraphQL.Model;
 
 namespace FluentHub.Octokit.Queries.Users
 {
@@ -14,106 +15,55 @@ namespace FluentHub.Octokit.Queries.Users
     {
         public DiscussionQueries() => new App();
 
-        public async Task<List<Models.Discussion>> GetAllAsync(string login)
+        public async Task<List<Discussion>> GetAllAsync(string login)
         {
-            #region queries
             var query = new Query()
                 .User(login)
                 .RepositoryDiscussions(first: 30)
                 .Nodes
-                .Select(x => new
+                .Select(x => new Discussion
                 {
-                    x.Title,
-                    x.Repository.Name,
-                    x.Repository.Owner.Login,
-                    x.Number,
-                    x.UpvoteCount,
-                    x.Comments(null, null, null, null).TotalCount,
-                    Category = x.Category.Select(y => new
+                    Category = x.Category.Select(category => new DiscussionCategory
                     {
-                        y.Name,
-                        y.Emoji,
-                    }).Single(),
-                    x.UpdatedAt,
+                        Emoji = category.Emoji,
+                        Id = category.Id.ToString(),
+                    })
+                    .Single(),
+
+                    Repository = x.Repository.Select(repo => new Repository
+                    {
+                        Name = repo.Name,
+
+                        Owner = repo.Owner.Select(owner => new RepositoryOwner
+                        {
+                            AvatarUrl = owner.AvatarUrl(100),
+                            Id = owner.Id.ToString(),
+                            Login = owner.Login,
+                        })
+                        .Single(),
+                    })
+                    .Single(),
+
+                    Id = x.Id.ToString(),
+                    Locked = x.Locked,
+                    Number = x.Number,
+                    Title = x.Title,
+                    UpvoteCount = x.UpvoteCount,
+                    Url = x.Url,
+                    ViewerCanDelete = x.ViewerCanDelete,
+                    ViewerDidAuthor = x.ViewerDidAuthor,
+                    ViewerHasUpvoted = x.ViewerHasUpvoted,
+
+                    AnswerChosenAt = x.AnswerChosenAt,
+                    UpdatedAt = x.UpdatedAt,
+                    AnswerChosenAtHumanized = x.AnswerChosenAt.Humanize(null, null),
+                    UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
                 })
                 .Compile();
-            #endregion
 
             var response = await App.Connection.Run(query);
 
-            #region copy
-            List<Models.Discussion> items = new();
-
-            foreach (var res in response)
-            {
-                Models.Discussion item = new();
-
-                item.Title = res.Title;
-                item.Name = res.Name;
-                item.Owner = res.Login;
-                item.Number = res.Number;
-                item.UpvoteCount = res.UpvoteCount;
-                item.TotalCommentCount = res.TotalCount;
-                item.CategoryName = res.Category.Name;
-                item.CategoryEmoji = res.Category.Emoji;
-                item.UpdatedAt = res.UpdatedAt;
-
-                items.Add(item);
-            }
-            #endregion
-
-            return items;
-        }
-
-        public async Task<List<Models.Discussion>> GetAllAsync()
-        {
-            #region queries
-            var query = new Query()
-                .Viewer
-                .RepositoryDiscussions(first: 30)
-                .Nodes
-                .Select(x => new
-                {
-                    x.Title,
-                    x.Repository.Name,
-                    x.Repository.Owner.Login,
-                    x.Number,
-                    x.UpvoteCount,
-                    x.Comments(null, null, null, null).TotalCount,
-                    Category = x.Category.Select(y => new
-                    {
-                        y.Name,
-                        y.Emoji,
-                    }).Single(),
-                    x.UpdatedAt,
-                })
-                .Compile();
-            #endregion
-
-            var response = await App.Connection.Run(query);
-
-            #region copy
-            List<Models.Discussion> items = new();
-
-            foreach (var res in response)
-            {
-                Models.Discussion item = new();
-
-                item.Title = res.Title;
-                item.Name = res.Name;
-                item.Owner = res.Login;
-                item.Number = res.Number;
-                item.UpvoteCount = res.UpvoteCount;
-                item.TotalCommentCount = res.TotalCount;
-                item.CategoryName = res.Category.Name;
-                item.CategoryEmoji = res.Category.Emoji;
-                item.UpdatedAt = res.UpdatedAt;
-
-                items.Add(item);
-            }
-            #endregion
-
-            return items;
+            return response.ToList();
         }
     }
 }

@@ -6,6 +6,7 @@
     xmlns:bbvm="using:FluentHub.ViewModels.UserControls.ButtonBlocks"
     xmlns:blocks="using:FluentHub.UserControls.Blocks"
     xmlns:contents="using:FluentHub.UserControls.Blocks"
+    xmlns:converters="using:FluentHub.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:FluentHub.Views.Users"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -14,16 +15,20 @@
     xmlns:vm="using:FluentHub.ViewModels.Users"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+    </Page.Resources>
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <StackPanel
-            Margin="16,12,16,0"
+            Margin="16,12,16,2"
             Orientation="Horizontal"
             Spacing="8">
             <FontIcon
@@ -38,11 +43,10 @@
 
         <ScrollViewer
             Grid.Row="1"
-            Margin="12,4,12,0"
             HorizontalScrollBarVisibility="Hidden"
             VerticalScrollBarVisibility="Disabled"
             VerticalScrollMode="Disabled">
-            <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.RepositoryItems, Mode=OneWay}">
+            <muxc:ItemsRepeater Margin="12,2,12,6" ItemsSource="{x:Bind ViewModel.RepositoryItems, Mode=OneWay}">
                 <muxc:ItemsRepeater.Layout>
                     <muxc:StackLayout Orientation="Horizontal" Spacing="8" />
                 </muxc:ItemsRepeater.Layout>
@@ -56,14 +60,19 @@
             </muxc:ItemsRepeater>
         </ScrollViewer>
 
-        <!--<blocks:UserContributionGraph Grid.Row="2" Margin="12" />-->
+        <blocks:UserContributionGraph
+            Grid.Row="2"
+            Margin="12,6"
+            LoginName="{x:Bind ViewModel.LoginName, Mode=OneWay}"
+            Visibility="{x:Bind ViewModel.RefreshRepositoryCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
 
         <contents:ReadmeContentBlock
             x:Name="UserSpecialReadmeBlock"
             Grid.Row="3"
-            Margin="12"
+            Margin="12,6"
             VerticalAlignment="Top"
-            ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
+            ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}"
+            Visibility="{x:Bind ViewModel.RefreshRepositoryCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
 
         <toolkit:SwitchPresenter
             Grid.RowSpan="4"

@@ -1,11 +1,13 @@
 ﻿using FluentHub.Octokit.Models;
+using Humanizer;
 using Octokit.GraphQL;
-using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GraphQLCore = global::Octokit.GraphQL.Core;
+using GraphQLModel = global::Octokit.GraphQL.Model;
 
 namespace FluentHub.Octokit.Queries.Organizations
 {
@@ -13,40 +15,28 @@ namespace FluentHub.Octokit.Queries.Organizations
     {
         public OrganizationQueries() => new App();
 
-        public async Task<Models.Organization> GetOverview(string org)
+        public async Task<Organization> GetOverview(string org)
         {
                 #region query
                 var query = new Query()
                         .Organization(org)
-                        .Select(x => new
+                        .Select(x => new Organization
                         {
                             AvatarUrl = x.AvatarUrl(100),
-                            x.Description,
-                            x.Email,
-                            x.IsVerified,
-                            x.Location,
-                            x.Login,
-                            x.Name,
-                            x.WebsiteUrl,
+                            Description = x.Description,
+                            Email = x.Email,
+                            IsVerified = x.IsVerified,
+                            Location = x.Location,
+                            Login = x.Login,
+                            Name = x.Name,
+                            WebsiteUrl = x.WebsiteUrl,
                         })
                         .Compile();
                 #endregion
 
-                var result = await App.Connection.Run(query);
+                var response = await App.Connection.Run(query);
 
-                #region copying
-                Models.Organization item = new();
-                item.AvatarUrl = result.AvatarUrl;
-                item.Description = result.Description;
-                item.Email = result.Email;
-                item.IsVerified = result.IsVerified;
-                item.Location = result.Location;
-                item.Login = result.Login;
-                item.Name = result.Name;
-                item.WebsiteUrl = result.WebsiteUrl;
-                #endregion
-
-                return item;
+                return response;
         }
     }
 }

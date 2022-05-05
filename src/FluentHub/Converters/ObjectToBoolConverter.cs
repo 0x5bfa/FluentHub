@@ -8,12 +8,14 @@ namespace FluentHub.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (parameter is string param && string.Compare(param, "invert") == 0)
+            if (parameter is string param && string.Compare(param, "invert", true) == 0)
             {
                 // invert Convert
                 var result = Convert(value, targetType, null, language);
+
                 if (result is bool r)
                     return !r;
+
                 if (result is Visibility v)
                     return v == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
             }
@@ -22,6 +24,7 @@ namespace FluentHub.Converters
             // Using a converter, UIElement.Visibility disables the cast from bool to Windows.UI.Xaml.Visibility
             object trueValue;
             object falseValue;
+
             if (targetType == typeof(Visibility))
             {
                 trueValue = Visibility.Visible;
@@ -34,9 +37,7 @@ namespace FluentHub.Converters
             }
 
             if (value is null)
-            {
                 return falseValue;
-            }
 
             if (value is string s)
                 return string.IsNullOrWhiteSpace(s) || string.IsNullOrEmpty(s) ? falseValue : trueValue;
@@ -47,6 +48,7 @@ namespace FluentHub.Converters
                 var defaultValue = Activator.CreateInstance(type);
                 return value.Equals(defaultValue) ? falseValue : trueValue;
             }
+
             return value == default ? falseValue : trueValue;
         }
 

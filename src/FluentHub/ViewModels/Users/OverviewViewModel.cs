@@ -33,11 +33,13 @@ namespace FluentHub.ViewModels.Users
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
         private readonly ObservableCollection<RepoButtonBlockViewModel> _repositoryItems;
+        private string _loginName;
         private RepoContextViewModel _contextViewModel;
         #endregion
 
         #region properties
         public ReadOnlyObservableCollection<RepoButtonBlockViewModel> RepositoryItems { get; }
+        public string LoginName { get => _loginName; set => SetProperty(ref _loginName, value); }
         public RepoContextViewModel ContextViewModel { get => _contextViewModel; set => SetProperty(ref _contextViewModel, value); }
 
         public IAsyncRelayCommand RefreshRepositoryCommand { get; }
@@ -48,13 +50,15 @@ namespace FluentHub.ViewModels.Users
         {
             try
             {
+                // For user readme
+                ContextViewModel = new RepoContextViewModel()
+                {
+                    Owner = LoginName,
+                    Name = LoginName,
+                };
+
                 PinnedItemQueries queries = new();
-                List<Repository> items;
-
-                items = login == null ?
-                    await queries.GetAllAsync() :
-                    await queries.GetAllAsync(login, true);
-
+                var items = await queries.GetAllAsync(login);
                 if (items == null) return;
 
                 _repositoryItems.Clear();
@@ -69,13 +73,6 @@ namespace FluentHub.ViewModels.Users
 
                     _repositoryItems.Add(viewModel);
                 }
-
-                RepoContextViewModel readmeRepoViewModel = new()
-                {
-                    Owner = login,
-                    Name = login,
-                };
-                ContextViewModel = readmeRepoViewModel;
             }
             catch (Exception ex)
             {

@@ -1,12 +1,13 @@
 ﻿using FluentHub.Octokit.Models;
+using FluentHub.Octokit.Models.Events;
+using Humanizer;
 using Octokit.GraphQL;
-using Octokit.GraphQL.Model;
-using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GraphQLModel = global::Octokit.GraphQL.Model;
 
 namespace FluentHub.Octokit.Queries.Users
 {
@@ -14,124 +15,43 @@ namespace FluentHub.Octokit.Queries.Users
     {
         public IssueQueries() => new App();
 
-        public async Task<List<Models.Issue>> GetAllAsync(string login)
+        public async Task<List<Issue>> GetAllAsync(string login)
         {
-            IssueOrder order = new() { Direction = OrderDirection.Desc, Field = IssueOrderField.CreatedAt };
+            GraphQLModel.IssueOrder order = new() { Direction = GraphQLModel.OrderDirection.Desc, Field = GraphQLModel.IssueOrderField.CreatedAt };
 
             #region query
             var query = new Query()
                 .User(login)
                 .Issues(first: 30, orderBy: order)
                 .Nodes
-                .Select(x => new
+                .Select(x => new Issue
                 {
-                    x.Closed,
-                    Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new
+                    OwnerAvatarUrl = x.Repository.Owner.AvatarUrl(100),
+                    OwnerLogin = x.Repository.Owner.Login,
+                    Name = x.Repository.Name,
+                    Title = x.Title,
+
+                    Closed = x.Closed,
+
+                    Number = x.Number,
+                    CommentCount = x.Comments(null, null, null, null, null).TotalCount,
+
+                    Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new Label
                     {
-                        y.Color,
-                        y.Name,
-                    }).ToList(),
-                    x.Repository.Name,
-                    x.Repository.Owner.Login,
-                    x.Number,
-                    x.Title,
-                    x.UpdatedAt,
+                        Color = y.Color,
+                        Description = y.Description,
+                        Name = y.Name,
+                    })
+                    .ToList(),
+
+                    UpdatedAt = x.UpdatedAt,
                 })
                 .Compile();
             #endregion
 
             var response = await App.Connection.Run(query);
 
-            #region copying
-            List<Models.Issue> items = new();
-
-            foreach (var res in response)
-            {
-                Models.Issue item = new();
-                item.Labels = new();
-
-                item.IsClosed = res.Closed;
-
-                foreach (var label in res.Labels)
-                {
-                    Models.Label labels = new();
-                    labels.Color = label.Color;
-                    labels.Name = label.Name;
-
-                    item.Labels.Add(labels);
-                }
-
-                item.Number = res.Number;
-                item.Title = res.Title;
-                item.UpdatedAt = res.UpdatedAt;
-                item.Name = res.Name;
-                item.Owner = res.Login;
-
-                items.Add(item);
-            }
-            #endregion
-
-            return items;
-        }
-
-        public async Task<List<Models.Issue>> GetAllAsync()
-        {
-            IssueOrder order = new() { Direction = OrderDirection.Desc, Field = IssueOrderField.CreatedAt };
-
-            #region query
-            var query = new Query()
-                .Viewer
-                .Issues(first: 30, orderBy: order)
-                .Nodes
-                .Select(x => new
-                {
-                    x.Closed,
-                    Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new
-                    {
-                        y.Color,
-                        y.Name,
-                    }).ToList(),
-                    x.Repository.Name,
-                    x.Repository.Owner.Login,
-                    x.Number,
-                    x.Title,
-                    x.UpdatedAt,
-                })
-                .Compile();
-            #endregion
-
-            var response = await App.Connection.Run(query);
-
-            #region copying
-            List<Models.Issue> items = new();
-
-            foreach (var res in response)
-            {
-                Models.Issue item = new();
-                item.Labels = new();
-
-                item.IsClosed = res.Closed;
-
-                foreach (var label in res.Labels)
-                {
-                    Models.Label labels = new();
-                    labels.Color = label.Color;
-                    labels.Name = label.Name;
-
-                    item.Labels.Add(labels);
-                }
-
-                item.Number = res.Number;
-                item.Title = res.Title;
-                item.UpdatedAt = res.UpdatedAt;
-                item.Name = res.Name;
-                item.Owner = res.Login;
-
-                items.Add(item);
-            }
-            #endregion
-
-            return items;
+            return response.ToList();
         }
     }
 }

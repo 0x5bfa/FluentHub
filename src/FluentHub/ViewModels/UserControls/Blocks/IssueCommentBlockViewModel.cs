@@ -1,5 +1,7 @@
 ﻿using FluentHub.Helpers;
-using FluentHub.Models.Items;
+using FluentHub.Octokit.Models.Events;
+using FluentHub.Octokit.Queries.Repositories;
+using Humanizer;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,33 +15,24 @@ namespace FluentHub.ViewModels.UserControls.Blocks
 {
     public class IssueCommentBlockViewModel : INotifyPropertyChanged
     {
-        private long repositoryId;
-        public long RepositoryId { get => repositoryId; set => SetProperty(ref repositoryId, value); }
+        private IssueComment issueComment;
+        public IssueComment IssueComment { get => issueComment; set => SetProperty(ref issueComment, value); }
 
-        private int issueNumber;
-        public int IssueNumber { get => issueNumber; set => SetProperty(ref issueNumber, value); }
+        private string createdAtHumanized;
+        public string CreatedAtHumanized { get => createdAtHumanized; set => SetProperty(ref createdAtHumanized, value); }
 
-        private long commentId;
-        public long CommentId { get => commentId; set => SetProperty(ref commentId, value); }
-
-        private IssueCommentItem issueComment;
-        public IssueCommentItem IssueComment
-        {
-            get => issueComment;
-            set => SetProperty(ref issueComment, value);
-        }
-
-        private string bodyHtml;
-        public string BodyHtml { get => bodyHtml; set => SetProperty(ref bodyHtml, value); }
+        private string authorAssociation;
+        public string AuthorAssociation { get => authorAssociation; set => SetProperty(ref authorAssociation, value); }
 
         public async Task SetWebViewContentsAsync(WebView webView)
         {
-            Octokit.Queries.Repositories.MarkdownQueries markdown = new();
+            CreatedAtHumanized = IssueComment?.CreatedAt.Humanize();
 
-            var repo = await App.Client.Repository.Get(RepositoryId);
+            string authorAssociation = IssueComment?.AuthorAssociation.Humanize();
+            if (authorAssociation != "None") AuthorAssociation = authorAssociation;
 
-            var html = await markdown.GetHtmlAsync(IssueComment.Body, repo.HtmlUrl, ThemeHelper.ActualTheme.ToString().ToLower());
-
+            MarkdownQueries markdown = new();
+            var html = await markdown.GetHtmlAsync(IssueComment?.BodyHTML, IssueComment?.Url, ThemeHelper.ActualTheme.ToString().ToLower(), true);
             webView.NavigateToString(html);
         }
 

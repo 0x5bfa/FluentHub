@@ -8,20 +8,20 @@ namespace FluentHub.Octokit.Models
 {
     public class Notification
     {
-        public long Id { get; protected set; }
+        public global::Octokit.Repository Repository { get; set; }
+        public global::Octokit.NotificationInfo Subject { get; set; }
 
-        public global::Octokit.Repository Repository { get; protected set; }
+        public string Reason { get; set; }
+        public string Url { get; set; }
+        public string ItemState { get; set; }
 
-        public global::Octokit.NotificationInfo Subject { get; protected set; }
+        public bool Unread { get; set; }
+        public long Id { get; set; }
+        public int SubjectNumber { get; set; }
 
-        public string Reason { get; protected set; }
+        public DateTimeOffset UpdatedAt { get; set; }
+        public string UpdatedAtHumanized { get; set; }
 
-        public bool Unread { get; protected set; }
-
-        public DateTimeOffset UpdatedAt { get; protected set; }
-
-        public DateTimeOffset LastReadAt { get; protected set; }
-
-        public string Url { get; protected set; }
+        public DateTimeOffset LastReadAt { get; set; }
     }
 }

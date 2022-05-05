@@ -1,12 +1,13 @@
 ﻿using FluentHub.Octokit.Models;
+using FluentHub.Octokit.Models.Events;
+using Humanizer;
 using Octokit.GraphQL;
-using Octokit.GraphQL.Model;
-using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GraphQLModel = global::Octokit.GraphQL.Model;
 
 namespace FluentHub.Octokit.Queries.Repositories
 {
@@ -14,66 +15,82 @@ namespace FluentHub.Octokit.Queries.Repositories
     {
         public IssueQueries() => new App();
 
-        public async Task<List<Models.Issue>> GetOverviewAll(string name, string owner)
+        public async Task<List<Issue>> GetAllAsync(string name, string owner)
         {
-            IssueOrder order = new() { Direction = OrderDirection.Desc, Field = IssueOrderField.CreatedAt };
+            GraphQLModel.IssueOrder order = new() { Direction = GraphQLModel.OrderDirection.Desc, Field = GraphQLModel.IssueOrderField.CreatedAt };
 
             #region queries
             var query = new Query()
                 .Repository(name, owner)
                 .Issues(first: 30, orderBy: order)
                 .Nodes
-                .Select(x => new
+                .Select(x => new Issue
                 {
-                    x.Closed,
-                    Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new
+                    OwnerAvatarUrl = x.Repository.Owner.AvatarUrl(100),
+                    OwnerLogin = x.Repository.Owner.Login,
+                    Name = x.Repository.Name,
+                    Title = x.Title,
+
+                    Closed = x.Closed,
+
+                    Number = x.Number,
+                    CommentCount = x.Comments(null, null, null, null, null).TotalCount,
+
+                    Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new Label
                     {
-                        y.Color,
-                        y.Name,
-                    }).ToList(),
-                    x.Number,
-                    x.Title,
-                    x.UpdatedAt,
+                        Color = y.Color,
+                        Description = y.Description,
+                        Name = y.Name,
+                    })
+                    .ToList(),
+
+                    UpdatedAt = x.UpdatedAt,
                 })
                 .Compile();
             #endregion
 
             var response = await App.Connection.Run(query);
 
-            #region copying
-            List<Models.Issue> items = new();
-
-            foreach (var res in response)
-            {
-                Models.Issue item = new();
-                item.Labels = new();
-
-                item.IsClosed = res.Closed;
-
-                foreach (var label in res.Labels)
-                {
-                    Models.Label labels = new();
-                    labels.Color = label.Color;
-                    labels.Name = label.Name;
-
-                    item.Labels.Add(labels);
-                }
-
-                item.Number = res.Number;
-                item.Title = res.Title;
-                item.UpdatedAt = res.UpdatedAt;
-
-                item.Name = name;
-                item.Owner = owner;
-
-                items.Add(item);
-            }
-            #endregion
-
-            return items;
+            return response.ToList();
         }
 
-        public async Task<Models.Issue> GetOverview(string owner, string name, int number)
+        public async Task<Issue> GetAsync(string owner, string name, int number)
+        {
+            #region query
+            var query = new Query()
+                .Repository(name, owner)
+                .Issue(number)
+                .Select(x => new Issue
+                {
+                    OwnerAvatarUrl = x.Repository.Owner.AvatarUrl(100),
+                    OwnerLogin = x.Repository.Owner.Login,
+                    Name = x.Repository.Name,
+                    Title = x.Title,
+
+                    Closed = x.Closed,
+
+                    Number = x.Number,
+                    CommentCount = x.Comments(null, null, null, null, null).TotalCount,
+
+                    Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new Label
+                    {
+                        Color = y.Color,
+                        Description = y.Description,
+                        Name = y.Name,
+                    })
+                    .ToList(),
+
+                    UpdatedAt = x.UpdatedAt,
+                })
+                .Compile();
+            #endregion
+
+            var response = await App.Connection.Run(query);
+
+            return response;
+        }
+
+        public async Task<Issue> GetDetailsAsync(string owner, string name, int number)
         {
             #region query
             var query = new Query()
@@ -81,70 +98,68 @@ namespace FluentHub.Octokit.Queries.Repositories
                 .Issue(number)
                 .Select(x => new
                 {
-                    x.Closed,
-                    Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new
+                    Assignees = x.Assignees(6, null, null, null).Nodes.Select(assignees => new {
+                        assignees.Login,
+                        AvatarUrl = assignees.AvatarUrl(100),
+                    }),
+                    Labels = x.Labels(10, null, null, null, null).Nodes.Select(labels => new
                     {
-                        y.Color,
-                        y.Name,
-                    }).ToList(),
-                    x.Number,
-                    x.Title,
-                    x.UpdatedAt,
+                        labels.Name,
+                        labels.Description,
+                        labels.Color,
+                    }),
+                    Projects = x.ProjectCards(6, null, null, null, null).Nodes.Select(projects => new
+                    {
+                        projects.Note,
+                    }),
+                    x.Milestone,
                 })
                 .Compile();
             #endregion
 
             var response = await App.Connection.Run(query);
 
-            #region copying
-            Models.Issue item = new();
-            item.Labels = new();
-            item.IsClosed = response.Closed;
-            foreach (var label in response.Labels)
-            {
-                Models.Label labels = new();
-                labels.Color = label.Color;
-                labels.Name = label.Name;
-
-                item.Labels.Add(labels);
-            }
-            item.Number = response.Number;
-            item.Title = response.Title;
-            item.UpdatedAt = response.UpdatedAt;
-            item.Name = name;
-            item.Owner = owner;
-            #endregion
-
-            return item;
+            return null;
         }
 
-        public async Task Get(string owner, string name, int number)
+        public async Task<IssueComment> GetBodyAsync(string owner, string name, int number)
         {
             #region queries
             var query = new Query()
                 .Repository(name, owner)
-                .Issue(number: number)
-                .Select(x => new
+                .Issue(number)
+                .Select(x => new IssueComment
                 {
-                    AuthorAvatarUrl = x.Author.AvatarUrl(100),
-                    AuthorLoginName = x.Author.Login,
-                    x.AuthorAssociation,
-                    x.BodyHTML,
-                    x.Closed,
-                    x.IsPinned,
-                    x.Number,
-                    x.Locked,
-                    x.State,
-                    x.Title,
+                    Author = x.Author.Select(author => new Actor
+                    {
+                        Login = author.Login,
+                        AvatarUrl = author.AvatarUrl(100),
+                    })
+                    .Single(),
+
+                    Reactions = x.Reactions(6, null, null, null, null, null).Nodes.Select(reaction => new Reaction
+                    {
+                        Content = reaction.Content,
+                        ReactorLogin = reaction.User.Login,
+                    })
+                    .ToList(),
+
+                    AuthorAssociation = x.AuthorAssociation,
+                    BodyHTML = x.BodyHTML,
+                    LastEditedAt = x.LastEditedAt,
+                    UpdatedAt = x.UpdatedAt,
+                    ViewerCanReact = x.ViewerCanReact,
+                    ViewerCanUpdate = x.ViewerCanUpdate,
+                    ViewerDidAuthor = x.ViewerDidAuthor,
+                    Url = x.Url,
+                    CreatedAt = x.CreatedAt,
                 })
                 .Compile();
             #endregion
 
             var response = await App.Connection.Run(query);
-        }
 
-        public void GetDetails(string owner, string name, int number)
-        {
+            return response;
         }
     }
 }

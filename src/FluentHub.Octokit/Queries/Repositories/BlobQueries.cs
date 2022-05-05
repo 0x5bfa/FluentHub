@@ -1,11 +1,13 @@
-﻿using Octokit.GraphQL;
-using Octokit.GraphQL.Model;
-using Serilog;
+﻿using FluentHub.Octokit.Models;
+using Humanizer;
+using Octokit.GraphQL;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GraphQLCore = global::Octokit.GraphQL.Core;
+using GraphQLModel = global::Octokit.GraphQL.Model;
 
 namespace FluentHub.Octokit.Queries.Repositories
 {
@@ -21,7 +23,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             var queryToGetFileInfo = new Query()
                 .Repository(name, owner)
                 .Object(expression: branch + ":" + path)
-                .Cast<Blob>().Select(x => new
+                .Cast<GraphQLModel.Blob>().Select(x => new
                 {
                     x.Text,
                     x.ByteSize,

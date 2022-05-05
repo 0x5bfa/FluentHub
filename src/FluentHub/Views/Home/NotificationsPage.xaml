@@ -23,32 +23,13 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="35" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition />
-            <ColumnDefinition />
-        </Grid.ColumnDefinitions>
 
         <StackPanel
-            Margin="16,0"
-            VerticalAlignment="Center"
-            Orientation="Horizontal"
-            Spacing="8">
-            <FontIcon
-                HorizontalAlignment="Left"
-                FontSize="16"
-                Glyph="&#xEA8F;" />
-            <TextBlock
-                VerticalAlignment="Center"
-                Style="{StaticResource BodyStrongTextBlockStyle}"
-                Text="Notifications" />
-        </StackPanel>
-
-        <StackPanel
-            Margin="16,12,16,4"
+            Margin="16,-32,16,4"
             HorizontalAlignment="Right"
+            VerticalAlignment="Top"
             Orientation="Horizontal"
             Spacing="4"
             Visibility="{x:Bind ViewModel.UnreadCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
@@ -70,7 +51,7 @@
             Grid.Row="1"
             Grid.ColumnSpan="2"
             VerticalScrollBarVisibility="Auto">
-            <muxc:ItemsRepeater Margin="12,0,12,30" ItemsSource="{x:Bind ViewModel.NotificationItems}">
+            <muxc:ItemsRepeater Margin="12,0,12,12" ItemsSource="{x:Bind ViewModel.NotificationItems}">
                 <DataTemplate x:DataType="bbvm:NotificationButtonBlockViewModel">
                     <block:NotificationButtonBlock ViewModel="{x:Bind}" />
                 </DataTemplate>
