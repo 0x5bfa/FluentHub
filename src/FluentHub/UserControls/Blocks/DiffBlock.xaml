@@ -61,7 +61,6 @@
 
             <StackPanel Orientation="Horizontal" Spacing="8">
 
-
                 <StackPanel Orientation="Horizontal">
                     <TextBlock
                         VerticalAlignment="Center"
@@ -100,22 +99,11 @@
                         Text="{x:Bind ViewModel.ChangedFile.LineDeletions, Mode=OneWay}" />
                 </StackPanel>
 
-                <TextBlock
-                    HorizontalAlignment="Stretch"
-                    VerticalAlignment="Center"
-                    FontFamily="Cascadia Code"
-                    FontWeight="SemiLight"
-                    IsTextSelectionEnabled="True"
-                    Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="{x:Bind ViewModel.ChangedFile.FileName, Mode=OneWay}" />
-
                 <StackPanel
-                    x:Name="RenameBlock"
+                    x:Name="PreviousNameBlock"
                     x:Load="{x:Bind ViewModel.ChangedFile.PreviousFileName, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
                     Orientation="Horizontal"
                     Spacing="8">
-
-                    <FontIcon FontSize="9" Glyph="&#xE72A;" />
 
                     <TextBlock
                         HorizontalAlignment="Stretch"
@@ -126,7 +114,18 @@
                         Style="{StaticResource CaptionTextBlockStyle}"
                         Text="{x:Bind ViewModel.ChangedFile.PreviousFileName, Mode=OneWay}" />
 
+                    <FontIcon FontSize="9" Glyph="&#xE72A;" />
+
                 </StackPanel>
+
+                <TextBlock
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    FontFamily="Cascadia Code"
+                    FontWeight="SemiLight"
+                    IsTextSelectionEnabled="True"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="{x:Bind ViewModel.ChangedFile.FileName, Mode=OneWay}" />
             </StackPanel>
 
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
