@@ -23,7 +23,6 @@ namespace FluentHub.ViewModels.Dialogs
                 UserQueries queries = new();
                 var response = await queries.GetAsync(login);
                 if (response == null) return;
-
             }
             catch (Exception ex)
             {
