@@ -143,6 +143,7 @@
     <Compile Include="Helpers\WebViewHelpers.cs" />
     <Compile Include="Models\DefaultLanguageModel.cs" />
     <Compile Include="Models\DetailsLayoutListViewModel.cs" />
+    <Compile Include="Models\TreeLayoutPageModel.cs" />
     <Compile Include="Models\UserNotificationMessage.cs" />
     <Compile Include="Models\UserNotificationMethod.cs" />
     <Compile Include="Models\UserNotificationType.cs" />

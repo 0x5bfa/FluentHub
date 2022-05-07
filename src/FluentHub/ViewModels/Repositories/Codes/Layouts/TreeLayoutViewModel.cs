@@ -35,11 +35,20 @@ namespace FluentHub.ViewModels.Repositories.Codes.Layouts
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
 
-        private RepoContextViewModel contextViewModel;
-        public RepoContextViewModel ContextViewModel { get => contextViewModel; set => SetProperty(ref contextViewModel, value); }
+        private bool isLoading;
+        public bool IsLoading { get => isLoading; set => SetProperty(ref isLoading, value); }
 
-        private readonly ObservableCollection<DetailsLayoutListViewModel> _items;
-        public ReadOnlyObservableCollection<DetailsLayoutListViewModel> Items { get; }
+        private bool _blobSelected;
+        public bool BlobSelected { get => _blobSelected; set => SetProperty(ref _blobSelected, value); }
+
+        private RepoContextViewModel _contextViewModel;
+        public RepoContextViewModel ContextViewModel { get => _contextViewModel; set => SetProperty(ref _contextViewModel, value); }
+
+        private RepoContextViewModel _selectedContextViewModel;
+        public RepoContextViewModel SelectedContextViewModel { get => _selectedContextViewModel; set => SetProperty(ref _selectedContextViewModel, value); }
+
+        private readonly ObservableCollection<TreeLayoutPageModel> _items;
+        public ReadOnlyObservableCollection<TreeLayoutPageModel> Items { get; }
 
         public IAsyncRelayCommand LoadTreeViewContentsCommand { get; }
         #endregion
@@ -50,49 +59,45 @@ namespace FluentHub.ViewModels.Repositories.Codes.Layouts
             try
             {
                 if (ContextViewModel.Repository.DefaultBranchName == null) return;
-                if (contextViewModel.IsFile) return;
 
-                CommitQueries queries = new();
-                var fileOverviews = await queries.GetWithObjectNameAsync(
+                ContentQueries queries = new();
+                var objects = await queries.GetAllAsync(
                     ContextViewModel.Name,
                     ContextViewModel.Owner,
                     ContextViewModel.BranchName,
                     ContextViewModel.Path);
 
-                ContextViewModel.IsDir = true;
-                if (ContextViewModel.Path == "/") ContextViewModel.IsRootDir = true;
-                else ContextViewModel.IsSubDir = true;
-
-                foreach (var overview in fileOverviews)
+                foreach (var obj in objects)
                 {
-                    DetailsLayoutListViewModel listItem = new();
-
-                    if (overview.ObjectType == "tree")
+                    TreeLayoutPageModel model = new()
                     {
-                        listItem.ObjectTypeIconGlyph = "\uE9A0";
-                        listItem.ObjectTag = "tree/" + overview.FileName;
+                        Name = obj.Name,
+                        Path = obj.Path,
+                        Tag = obj.Type,
+                        IsBolb = false,
+                    };
+
+                    if (obj.Type == "tree")
+                    {
+                        model.Glyph = "\uE9A0";
                     }
                     else
                     {
-                        listItem.ObjectTypeIconGlyph = "\uE996";
-                        listItem.ObjectTag = "blob/" + overview.FileName;
+                        model.Glyph = "\uE996";
+                        model.IsBolb = true;
                     }
 
-                    listItem.ObjectName = overview.FileName;
-                    listItem.ObjectLatestCommitMessage = overview.CommitMessage.Split("\n").FirstOrDefault();
-                    listItem.ObjectUpdatedAtHumanized = overview.CommittedAtHumanized;
-
-                    _items.Add(listItem);
+                    _items.Add(model);
                 }
 
-                var orderedByItemType = new ObservableCollection<DetailsLayoutListViewModel>(Items.OrderByDescending(x => x.ObjectTypeIconGlyph));
+                var orderedItems = new ObservableCollection<TreeLayoutPageModel>(Items.OrderByDescending(x => x.Glyph));
                 _items.Clear();
-                foreach (var orderedItem in orderedByItemType) _items.Add(orderedItem);
+                foreach (var item in orderedItems) _items.Add(item);
             }
             catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error("RefreshDetailsLayoutPageAsync", ex);
+                _logger?.Error("LoadTreeViewContentsAsync", ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
@@ -100,6 +105,73 @@ namespace FluentHub.ViewModels.Repositories.Codes.Layouts
                 }
                 throw;
             }
+        }
+
+        public async Task<List<TreeLayoutPageModel>> LoadSubItemsAsync(string path)
+        {
+            try
+            {
+                IsLoading = true;
+
+                var pathItems = path.Split("/");
+                List<TreeLayoutPageModel> subItems = new();
+
+                if (ContextViewModel.Repository.DefaultBranchName == null)
+                    return null;
+
+                ContentQueries queries = new();
+                var objects = await queries.GetAllAsync(
+                    ContextViewModel.Name,
+                    ContextViewModel.Owner,
+                    ContextViewModel.BranchName,
+                    path);
+
+                foreach (var obj in objects)
+                {
+                    TreeLayoutPageModel model = new()
+                    {
+                        Name = obj.Name,
+                        Path = obj.Path,
+                        Tag = obj.Type,
+                        IsBolb = false,
+                    };
+
+                    if (obj.Type == "tree")
+                    {
+                        model.Glyph = "\uE9A0";
+                    }
+                    else
+                    {
+                        model.Glyph = "\uE996";
+                        model.IsBolb = true;
+                    }
+
+                    subItems.Add(model);
+                }
+
+                var orderedItems = new List<TreeLayoutPageModel>(subItems.OrderByDescending(x => x.Glyph));
+                subItems.Clear();
+                foreach (var item in orderedItems) subItems.Add(item);
+
+                IsLoading = false;
+
+                return subItems;
+            }
+            catch (OperationCanceledException) { }
+            catch (Exception ex)
+            {
+                IsLoading = false;
+
+                _logger?.Error("LoadSubItemsAsync", ex);
+                if (_messenger != null)
+                {
+                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+                    _messenger.Send(notification);
+                }
+                throw;
+            }
+
+            return null;
         }
         #endregion
     }

@@ -131,6 +131,7 @@
     <Compile Include="Models\CheckRun.cs" />
     <Compile Include="Models\Commit.cs" />
     <Compile Include="Models\CommitDetails.cs" />
+    <Compile Include="Models\Content.cs" />
     <Compile Include="Models\ContributionCalender.cs" />
     <Compile Include="Models\Discussion.cs" />
     <Compile Include="Models\Activity.cs" />
