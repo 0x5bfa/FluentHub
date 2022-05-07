@@ -131,6 +131,7 @@
     <Compile Include="Models\CheckRun.cs" />
     <Compile Include="Models\Commit.cs" />
     <Compile Include="Models\CommitDetails.cs" />
+    <Compile Include="Models\Content.cs" />
     <Compile Include="Models\ContributionCalender.cs" />
     <Compile Include="Models\Discussion.cs" />
     <Compile Include="Models\Activity.cs" />
@@ -207,6 +208,7 @@
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserStatus.cs" />
     <Compile Include="Queries\Organizations\PinnedItemQueries.cs" />
+    <Compile Include="Queries\Repositories\ContentQueries.cs" />
     <Compile Include="Queries\Repositories\DiffQueries.cs" />
     <Compile Include="Queries\Repositories\DiscussionQueries.cs" />
     <Compile Include="Queries\Repositories\InsightQueries.cs" />
