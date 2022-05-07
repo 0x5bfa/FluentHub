@@ -9,34 +9,49 @@
     mc:Ignorable="d">
 
     <ScrollViewer>
-        <StackPanel Margin="0,0,16,0">
+        <Grid Margin="0,0,16,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
             <StackPanel
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Stretch"
                 Spacing="4">
+
                 <uc:SettingsBlockControl
                     Title="FluentHub Dev"
                     Description="{x:Bind ViewModel.Version}"
                     IsClickable="False">
+
                     <uc:SettingsBlockControl.Icon>
                         <muxc:ImageIcon
                             Height="36"
-                            Margin="-6,0"
+                            Margin="-8,0"
                             Source="/Assets/AppTiles/StoreLogo.scale-200.png" />
                     </uc:SettingsBlockControl.Icon>
+
                     <Button
-                        Width="36"
                         Height="32"
-                        Padding="0"
                         Command="{x:Bind ViewModel.CopyVersionCommand}"
                         ToolTipService.ToolTip="Copy">
-                        <FontIcon FontSize="14" Glyph="&#xE8C8;" />
+
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <FontIcon FontSize="16" Glyph="&#xE8C8;" />
+                            <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Copy version" />
+                        </StackPanel>
+
                     </Button>
+
                 </uc:SettingsBlockControl>
+
                 <uc:SettingsBlockControl Title="Useful links">
                     <uc:SettingsBlockControl.Icon>
                         <FontIcon Glyph="&#xE71B;" />
                     </uc:SettingsBlockControl.Icon>
+
                     <uc:SettingsBlockControl.ExpandableContent>
                         <Grid Margin="0,12,0,12" HorizontalAlignment="Center">
                             <Grid.ColumnDefinitions>
@@ -45,6 +60,7 @@
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
+
                             <HyperlinkButton
                                 Grid.Column="0"
                                 Content="Source code"
@@ -52,28 +68,38 @@
                             <HyperlinkButton Grid.Column="1" Content="Privacy policy" />
                             <HyperlinkButton Grid.Column="2" Content="License" />
                             <HyperlinkButton Grid.Column="3" Content="Third party notices" />
+
                         </Grid>
                     </uc:SettingsBlockControl.ExpandableContent>
                 </uc:SettingsBlockControl>
+
                 <uc:SettingsBlockControl Title="Open app log location" IsClickable="False">
+
                     <uc:SettingsBlockControl.Icon>
                         <FontIcon Glyph="&#xe838;" />
                     </uc:SettingsBlockControl.Icon>
+
                     <Button
-                        Width="36"
                         Height="32"
-                        Padding="0"
                         Command="{x:Bind ViewModel.OpenLogsCommand}"
                         ToolTipService.ToolTip="Open logs location">
-                        <FontIcon FontSize="14" Glyph="&#xE838;" />
+
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <FontIcon FontSize="16" Glyph="&#xE838;" />
+                            <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Open" />
+                        </StackPanel>
+
                     </Button>
                 </uc:SettingsBlockControl>
             </StackPanel>
+
             <TextBlock
+                Grid.Row="1"
                 Margin="0,24,0,6"
                 Style="{StaticResource BodyStrongTextBlockStyle}"
                 Text="FluentHub Team Members" />
-            <StackPanel Spacing="4">
+
+            <StackPanel Grid.Row="2" Spacing="4">
                 <Grid
                     Padding="12"
                     Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
@@ -86,6 +112,7 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
+
                     <Border
                         Width="32"
                         Height="32"
@@ -94,12 +121,14 @@
                         CornerRadius="16">
                         <Image Source="https://avatars.githubusercontent.com/u/62196528" />
                     </Border>
+
                     <TextBlock
                         Grid.Column="1"
                         Margin="6,0,0,0"
                         VerticalAlignment="Center"
                         Style="{StaticResource BodyStrongTextBlockStyle}"
                         Text="NullPointerException" />
+
                     <TextBlock
                         Grid.Column="2"
                         VerticalAlignment="Center"
@@ -107,6 +136,7 @@
                         Style="{StaticResource CaptionTextBlockStyle}"
                         Text="onein528" />
                 </Grid>
+
                 <Grid
                     Padding="12"
                     Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
@@ -119,6 +149,7 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
+
                     <Border
                         Width="32"
                         Height="32"
@@ -127,12 +158,14 @@
                         CornerRadius="16">
                         <Image Source="https://avatars.githubusercontent.com/u/60316747" />
                     </Border>
+
                     <TextBlock
                         Grid.Column="1"
                         Margin="6,0,0,0"
                         VerticalAlignment="Center"
                         Style="{StaticResource BodyStrongTextBlockStyle}"
                         Text="Gabriel Fontán" />
+
                     <TextBlock
                         Grid.Column="2"
                         VerticalAlignment="Center"
@@ -140,6 +173,7 @@
                         Style="{StaticResource CaptionTextBlockStyle}"
                         Text="BobbyESP" />
                 </Grid>
+
                 <Grid
                     Padding="12"
                     Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
@@ -152,6 +186,7 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
+
                     <Border
                         Width="32"
                         Height="32"
@@ -160,12 +195,14 @@
                         CornerRadius="16">
                         <Image Source="https://avatars.githubusercontent.com/u/30560453" />
                     </Border>
+
                     <TextBlock
                         Grid.Column="1"
                         Margin="6,0,0,0"
                         VerticalAlignment="Center"
                         Style="{StaticResource BodyStrongTextBlockStyle}"
                         Text="Luandersonn Airton" />
+
                     <TextBlock
                         Grid.Column="2"
                         VerticalAlignment="Center"
@@ -174,7 +211,8 @@
                         Text="luandersonn" />
                 </Grid>
             </StackPanel>
-        </StackPanel>
+
+        </Grid>
     </ScrollViewer>
 </Page>
 

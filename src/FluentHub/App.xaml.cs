@@ -30,7 +30,7 @@ namespace FluentHub
     {
         Frame rootFrame = Window.Current.Content as Frame;
 
-        public static SettingsViewModel Settings { get; private set; } = new SettingsViewModel();
+        public static SettingsViewModel Settings { get; set; } = new SettingsViewModel();
 
         public static string AppVersion = $"{Package.Current.Id.Version.Major}.{Package.Current.Id.Version.Minor}.{Package.Current.Id.Version.Build}.{Package.Current.Id.Version.Revision}";
 
