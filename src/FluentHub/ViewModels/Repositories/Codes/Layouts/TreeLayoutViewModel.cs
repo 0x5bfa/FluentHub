@@ -16,10 +16,10 @@ using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.Repositories.Codes.Layouts
 {
-    public class DetailsLayoutViewModel : ObservableObject
+    public class TreeLayoutViewModel : ObservableObject
     {
         #region constructor
-        public DetailsLayoutViewModel(IMessenger messenger = null, ILogger logger = null)
+        public TreeLayoutViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _messenger = messenger;
             _logger = logger;
@@ -27,7 +27,7 @@ namespace FluentHub.ViewModels.Repositories.Codes.Layouts
             _items = new();
             Items = new(_items);
 
-            RefreshDetailsLayoutPageCommand = new AsyncRelayCommand(RefreshDetailsLayoutPageAsync);
+            LoadTreeViewContentsCommand = new AsyncRelayCommand(LoadTreeViewContentsAsync);
         }
         #endregion
 
@@ -41,11 +41,11 @@ namespace FluentHub.ViewModels.Repositories.Codes.Layouts
         private readonly ObservableCollection<DetailsLayoutListViewModel> _items;
         public ReadOnlyObservableCollection<DetailsLayoutListViewModel> Items { get; }
 
-        public IAsyncRelayCommand RefreshDetailsLayoutPageCommand { get; }
+        public IAsyncRelayCommand LoadTreeViewContentsCommand { get; }
         #endregion
 
         #region methods
-        private async Task RefreshDetailsLayoutPageAsync(CancellationToken token)
+        private async Task LoadTreeViewContentsAsync(CancellationToken token)
         {
             try
             {

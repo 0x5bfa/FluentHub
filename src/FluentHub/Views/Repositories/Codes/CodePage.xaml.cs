@@ -22,7 +22,7 @@ namespace FluentHub.Views.Repositories.Codes
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            CodeViewLayout.Navigate(typeof(Layouts.DetailsLayoutView), e.Parameter as RepoContextViewModel);
+            CodeViewLayout.Navigate(typeof(Layouts.TreeLayoutView), e.Parameter as RepoContextViewModel);
         }
     }
 }

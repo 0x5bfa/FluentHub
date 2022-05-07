@@ -258,6 +258,7 @@
     <Compile Include="ViewModels\Organizations\ProfileViewModel.cs" />
     <Compile Include="ViewModels\Organizations\RepositoriesViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Codes\CodePageViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\Codes\Layouts\TreeLayoutViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Codes\ReleasesViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Commits\CommitsViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Commits\CommitViewModel.cs" />
@@ -325,6 +326,10 @@
     </Compile>
     <Compile Include="Views\AppSettings\AppearancePage.xaml.cs">
       <DependentUpon>AppearancePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\Codes\Layouts\TreeLayoutView.xaml.cs">
+      <DependentUpon>TreeLayoutView.xaml</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
     <Compile Include="Views\Repositories\Codes\ReleasesPage.xaml.cs">
       <DependentUpon>ReleasesPage.xaml</DependentUpon>
@@ -651,6 +656,10 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
+    <Page Include="ResourceDictionaries\DefaultGridSplitterStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ResourceDictionaries\LinkLikeButtonStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -827,6 +836,11 @@
     <Page Include="Views\AppSettings\AppearancePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\Codes\Layouts\TreeLayoutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="Views\Repositories\Codes\ReleasesPage.xaml">
       <SubType>Designer</SubType>
