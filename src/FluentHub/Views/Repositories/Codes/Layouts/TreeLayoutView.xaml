@@ -86,7 +86,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" MinWidth="256" />
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="2" />
             <ColumnDefinition Width="4*" />
         </Grid.ColumnDefinitions>
 
@@ -105,6 +105,9 @@
                 <muxc:TreeView
                     x:Name="DirTreeView"
                     Margin="0,8"
+                    CanDrag="False"
+                    CanDragItems="False"
+                    CanReorderItems="False"
                     Expanding="OnDirTreeViewExpanding"
                     ItemInvoked="OnDirTreeViewItemInvoked"
                     ItemTemplateSelector="{StaticResource ExpolrerItemTemplateSelector}"
@@ -117,7 +120,6 @@
         <controls:GridSplitter
             Grid.Column="1"
             Width="2"
-            Margin="-6,0"
             ResizeBehavior="BasedOnAlignment"
             ResizeDirection="Auto"
             Style="{StaticResource DefaultGridSplitterStyle}" />
@@ -132,9 +134,9 @@
                     x:Name="NoItemSelectedTextBlock"
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
-                    x:Load="{x:Bind ViewModel.BlobSelected, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
                     Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="No item selected" />
+                    Text="No item selected"
+                    Visibility="{x:Bind ViewModel.BlobSelected, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}" />
 
                 <blocks:FileContentBlock
                     x:Name="BlobBlock"

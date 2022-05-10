@@ -126,11 +126,10 @@
 
                         <StackPanel
                             x:Name="LanguageBlock"
-                            Grid.Column="1"
                             Margin="0,0,16,0"
+                            x:Load="{x:Bind ViewModel.Item.PrimaryLanguage.Name, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
                             Orientation="Horizontal"
-                            Spacing="6"
-                            Visibility="{x:Bind ViewModel.Item.PrimaryLanguage.Name, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+                            Spacing="6">
 
                             <Border
                                 x:Name="LanguageColor"
