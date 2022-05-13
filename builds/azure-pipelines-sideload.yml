@@ -67,7 +67,9 @@ steps:
     /p:AppxBundlePlatforms="$(buildPlatform)"
     /p:AppxPackageDir="$(appxPackageDir)"
     /p:AppxBundle=Always
-    /p:UapAppxPackageBuildMode=Sideload
+    /p:Configuration=Release
+    /p:AppxPackageIsForStore=true
+    /p:UapAppxPackageBuildMode=StoreUpload
     /p:AppxPackageSigningEnabled=true
     /p:PackageCertificateThumbprint=""
     /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"
