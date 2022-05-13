@@ -1,8 +1,8 @@
 <p align="center">
-  <img width="128" align="center" src="src/FluentHub/Assets/AppTiles/StoreLogo.scale-400.png">
+  <img width="128" align="center" src="src/FluentHub/Assets/AppTilesAlpha/StoreLogo.scale-400.png">
 </p>
 <h1 align="center">
-  FluentHub Dev
+  FluentHub Alpha
 </h1>
 <p align="center">
   A fluent yet powerful GitHub Oauth client app made with Fluent Design and WinUI 2.7
