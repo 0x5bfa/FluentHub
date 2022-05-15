@@ -10,14 +10,14 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <UserControl.Resources>
+    <!--<UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="/ResourceDictionaries/TabView_themeresources.xaml" />
                 <ResourceDictionary Source="/ResourceDictionaries/TabViewItem_shared.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
-    </UserControl.Resources>
+    </UserControl.Resources>-->
 
     <Grid HorizontalAlignment="Stretch" Background="{x:Null}">
         <muxc:TabView
@@ -36,9 +36,10 @@
             <muxc:TabView.TabItemTemplate>
                 <DataTemplate x:DataType="item:TabItem">
                     <muxc:TabViewItem
+                        Height="36"
+                        BorderThickness="1,1,1,0"
                         Header="{x:Bind NavigationHistory.CurrentItem.Header, Mode=OneWay}"
                         IconSource="{x:Bind NavigationHistory.CurrentItem.Icon, Mode=OneWay}"
-                        Style="{ThemeResource TabViewItemStyle}"
                         ToolTipService.Placement="Bottom"
                         ToolTipService.ToolTip="{x:Bind NavigationHistory.CurrentItem.Description, Mode=OneWay}" />
                 </DataTemplate>
