@@ -22,10 +22,10 @@ steps:
     targetType: 'inline'
     script: |
       [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\FluentHub\Package.appxmanifest
-      $xmlDoc.Package.Identity.Name="FluentHub"
-      $xmlDoc.Package.Identity.Publisher="CN=FluentHub"
-      $xmlDoc.Package.Properties.DisplayName="FluentHub"
-      $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub"
+      $xmlDoc.Package.Identity.Name="49462fluenthub-uwp.FluentHub"
+      $xmlDoc.Package.Identity.Publisher="CN=4E3C0825-4D00-4ECC-89F8-528E9200B125"
+      $xmlDoc.Package.Properties.DisplayName="FluentHub Alpha"
+      $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub Alpha"
       $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub\Package.appxmanifest')
     failOnStderr: true
 
@@ -64,8 +64,7 @@ steps:
     /p:AppInstallerUri=$(build.artifactstagingdirectory)
     /p:AppxBundlePlatforms="$(buildPlatform)"
     /p:AppxPackageDir="$(appxPackageDir)"
-    /p:AppxBundle=Always
-    /p:UapAppxPackageBuildMode=Sideload
+    /p:UapAppxPackageBuildMode=StoreUpload
     /p:AppxPackageSigningEnabled=true
     /p:PackageCertificateThumbprint=""
     /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"
