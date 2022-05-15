@@ -1139,9 +1139,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Glyphs\Octions.ttf" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="AppCredentials.config" />
   </ItemGroup>
   <ItemGroup>
@@ -1161,6 +1158,9 @@
     <Folder Include="ViewModels\Repositories\Insights\" />
     <Folder Include="Views\Organizations\Settings\" />
     <Folder Include="Views\Users\Settings\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Glyphs\Octions.ttf" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
