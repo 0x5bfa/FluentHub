@@ -74,6 +74,10 @@ namespace FluentHub.Views
             NavigationService.Configure(TabView);
             NavigationService.Navigate<UserHomePage>();
 
+            var command = ViewModel.LoadSignedInUserCommand;
+            if (command.CanExecute(null))
+                command.Execute(null);
+
             // Configure Jumplist
             await JumpListHelper.ConfigureDefaultJumpListAsync();
         }
