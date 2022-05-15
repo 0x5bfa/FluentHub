@@ -61,8 +61,6 @@ steps:
     configuration: '$(buildConfiguration)'
     msbuildArgs: '
     /t:build;_GenerateAppxPackage
-    /p:AppxLogTelemetryFromSideloadingScript=False
-    /p:GenerateAppInstallerFile=True
     /p:AppInstallerUri=$(build.artifactstagingdirectory)
     /p:AppxBundlePlatforms="$(buildPlatform)"
     /p:AppxPackageDir="$(appxPackageDir)"

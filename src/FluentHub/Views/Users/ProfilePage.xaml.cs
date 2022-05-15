@@ -59,7 +59,7 @@ namespace FluentHub.Views.Users
             => UserNavViewItemFollowers.IsSelected = true;
 
         private void UserFollowingButton_Click(object sender, RoutedEventArgs e)
-            => UserNavViewItemFollowers.IsSelected = false;
+            => UserNavViewItemFollowing.IsSelected = true;
 
         private async void EditProfileButton_Click(object sender, RoutedEventArgs e)
         {

@@ -22,7 +22,7 @@
                 Spacing="4">
 
                 <uc:SettingsBlockControl
-                    Title="FluentHub Dev"
+                    Title="FluentHub Alpha"
                     Description="{x:Bind ViewModel.Version}"
                     IsClickable="False">
 
@@ -30,7 +30,7 @@
                         <muxc:ImageIcon
                             Height="36"
                             Margin="-8,0"
-                            Source="/Assets/AppTiles/StoreLogo.scale-200.png" />
+                            Source="/Assets/AppTilesAlpha/StoreLogo.scale-200.png" />
                     </uc:SettingsBlockControl.Icon>
 
                     <Button
