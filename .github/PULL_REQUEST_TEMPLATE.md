@@ -1,25 +1,13 @@
-### Before you start...
+### Description
+<!-- Add details of changes here -->
 
-- [ ] Have you updated the FluentHub? You might be using an old version.
-- [ ] Have you checked if similar issue have already been reported?
 
-### Resolved / Related Issues
-<!--Items resolved/related issues by this PR.-->
 
-- Closes 
+### Motivation and Context
+<!-- Sometimes add items resolved/related issues by this PR.-->
 
-### Details of Changes
-<!--Add details of changes here.-->
 
-- Added
-- Fixed
 
-### Validation
-<!--How did you test these changes?-->
-
-- [ ] Built and ran the app
-- [ ] Tested the changes for accessibility
-
-### Relevant Assets
+### Relevant assets (if appropriate):
 <!--A list of assets (screenshots, mockups) relevant to this feature request.-->
 
