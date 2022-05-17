@@ -1,5 +1,5 @@
 <p align="center">
-  <img width="128" align="center" src="src/FluentHub/Assets/AppTilesAlpha/StoreLogo.scale-400.png">
+  <img width="128" align="center" src="src/FluentHub/Assets/AppTilesAlpha/StoreLogo.scale-400.png" />
 </p>
 <h1 align="center">
   FluentHub Alpha
@@ -20,17 +20,24 @@
   </a>
 </p>
 
+## Download and Build
+
+> Currently, the only way to get a version more up-to-date than the store or to test app is to build the source code.<br>
+Please take a look at [build-from-source](https://github.com/fluenthub-community/FluentHub/blob/main/docs/build-from-source.md).
+
+<a style="text-decoration:none" href="https://apps.microsoft.com/store/detail/fluenthub/9nkb9hx8rjz3">
+  <img width="200" src="https://getbadgecdn.azureedge.net/images/English_L.png" alt="GetItFromMicrosoft" />
+</a>
+
+## Screenshots
+
 ![image](https://user-images.githubusercontent.com/62196528/167259072-adedd9c3-c979-48a5-96f9-f37ddc87b662.png)
 ![image](https://user-images.githubusercontent.com/62196528/167259003-500c79b0-f301-4bd7-82b6-5d9ad7473118.png)
 ![image](https://user-images.githubusercontent.com/62196528/167263705-7068e9d9-8086-4bde-a445-84a8e9c09136.png)
 
-## Build
-
-To build, please read [this documentation](docs/build-from-source.md) and expect regular breaking changes.
-
 ## Notices
 
- 1. HttpsClient in Octokit.GraohQL.NET does not work properly (occur unknown exception) for users using Win11 Dev/Beta version with TLS and SSL settings disabled. Please see [#123](https://github.com/fluenthub-community/FluentHub/issues/123) for more information.</br>`Win+R` > `inetcpl.cpl` > `Advanced` tab > enable all TLS and SSL versions > restart
+ 1. HttpsClient in Octokit.GraohQL.NET does not work properly (occur unknown exception) for users using Win11 Dev/Beta version with TLS and SSL settings disabled.</br>`Win+R` > `inetcpl.cpl` > `Advanced` tab > enable all TLS and SSL versions > restart
 
 	![image](https://user-images.githubusercontent.com/99880210/164863685-27770148-4c68-4920-bf87-8c0dd2b0272f.png)
 
