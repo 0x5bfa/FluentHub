@@ -21,183 +21,658 @@
     </Page.Resources>
 
     <Grid>
-        <muxc:NavigationView
-            x:Name="HomeNavView"
-            AlwaysShowHeader="True"
-            CompactModeThresholdWidth="320"
-            IsBackButtonVisible="Collapsed"
-            IsPaneOpen="True"
-            IsPaneToggleButtonVisible="False"
-            IsSettingsVisible="False"
-            OpenPaneLength="250"
-            SelectionChanged="HomeNavView_SelectionChanged">
-            <muxc:NavigationView.MenuItems>
-                <muxc:NavigationViewItemHeader Content="Profile" />
 
-                <muxc:NavigationViewItem Content="Profile" Tag="profile">
-                    <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="/Assets/Icons/Profile.png" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition
+                Width="*"
+                MinWidth="128"
+                MaxWidth="256" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
 
-                <muxc:NavigationViewItem Content="Notifications" Tag="notifications">
-                    <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="/Assets/Icons/Notifications.png" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
+        <Grid BorderBrush="{ThemeResource TabViewItemHeaderBackgroundSelected}" BorderThickness="0,0,1,0">
+            <ScrollViewer>
+                <Grid Margin="16" RowSpacing="12">
 
-                <muxc:NavigationViewItem Content="Activities" Tag="activities">
-                    <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="/Assets/Icons/Activities.png" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
-
-                <muxc:NavigationViewItemHeader Content="My Work" />
-
-                <muxc:NavigationViewItem Tag="issues">
-                    <muxc:NavigationViewItem.Content>
-                        <StackPanel Orientation="Horizontal" Spacing="16">
-                            <Border
-                                Width="24"
-                                Height="24"
-                                Background="#40d563"
-                                CornerRadius="4">
-                                <FontIcon
-                                    FontFamily="{StaticResource Octions}"
-                                    FontSize="16"
-                                    Foreground="White"
-                                    Glyph="&#xE9EA;" />
-                            </Border>
-                            <TextBlock VerticalAlignment="Center" Text="Issues" />
-                        </StackPanel>
-                    </muxc:NavigationViewItem.Content>
-                </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem Tag="pullrequests">
-                    <muxc:NavigationViewItem.Content>
-                        <StackPanel Orientation="Horizontal" Spacing="16">
-                            <Border
-                                Width="24"
-                                Height="24"
-                                Background="#2e8ffe"
-                                CornerRadius="4">
-                                <FontIcon
-                                    FontFamily="{StaticResource Octions}"
-                                    FontSize="16"
-                                    Foreground="White"
-                                    Glyph="&#xE9BF;" />
-                            </Border>
-                            <TextBlock VerticalAlignment="Center" Text="Pull Requests" />
-                        </StackPanel>
-                    </muxc:NavigationViewItem.Content>
-                </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem Tag="discussions">
-                    <muxc:NavigationViewItem.Content>
-                        <StackPanel Orientation="Horizontal" Spacing="16">
-                            <Border
-                                Width="24"
-                                Height="24"
-                                Background="#7548c7"
-                                CornerRadius="4">
-                                <FontIcon
-                                    FontFamily="{StaticResource Octions}"
-                                    FontSize="16"
-                                    Foreground="White"
-                                    Glyph="&#xE95D;" />
-                            </Border>
-                            <TextBlock VerticalAlignment="Center" Text="Discussions" />
-                        </StackPanel>
-                    </muxc:NavigationViewItem.Content>
-                </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem Tag="repositories">
-                    <muxc:NavigationViewItem.Content>
-                        <StackPanel Orientation="Horizontal" Spacing="16">
-                            <Border
-                                Width="24"
-                                Height="24"
-                                Background="#41434e"
-                                CornerRadius="4">
-                                <FontIcon
-                                    FontFamily="{StaticResource Octions}"
-                                    FontSize="16"
-                                    Foreground="White"
-                                    Glyph="&#xEA52;" />
-                            </Border>
-                            <TextBlock VerticalAlignment="Center" Text="Repositories" />
-                        </StackPanel>
-                    </muxc:NavigationViewItem.Content>
-                </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem Tag="organizations">
-                    <muxc:NavigationViewItem.Content>
-                        <StackPanel Orientation="Horizontal" Spacing="16">
-                            <Border
-                                Width="24"
-                                Height="24"
-                                Background="#fe8a38"
-                                CornerRadius="4">
-                                <FontIcon
-                                    FontFamily="{StaticResource Octions}"
-                                    FontSize="16"
-                                    Foreground="White"
-                                    Glyph="&#xEA27;" />
-                            </Border>
-                            <TextBlock VerticalAlignment="Center" Text="Organizations" />
-                        </StackPanel>
-                    </muxc:NavigationViewItem.Content>
-                </muxc:NavigationViewItem>
-                <muxc:NavigationViewItem Tag="starred">
-                    <muxc:NavigationViewItem.Content>
-                        <StackPanel Orientation="Horizontal" Spacing="16">
-                            <Border
-                                Width="24"
-                                Height="24"
-                                Background="#fecb1a"
-                                CornerRadius="4">
-                                <FontIcon
-                                    FontFamily="{StaticResource Octions}"
-                                    FontSize="16"
-                                    Foreground="White"
-                                    Glyph="&#xEA94;" />
-                            </Border>
-                            <TextBlock VerticalAlignment="Center" Text="Stars" />
-                        </StackPanel>
-                    </muxc:NavigationViewItem.Content>
-                </muxc:NavigationViewItem>
-            </muxc:NavigationView.MenuItems>
-            <muxc:NavigationView.Content>
-                <Grid Background="{ThemeResource LayerFillColorDefaultBrush}">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <TextBlock
-                        x:Name="NavViewFrameTitleTextBlock"
-                        Margin="20,20,20,8"
-                        Style="{StaticResource SubtitleTextBlockStyle}"
-                        Visibility="Visible" />
-                    <Frame x:Name="HomeContentFrame" Grid.Row="1" />
-                </Grid>
-            </muxc:NavigationView.Content>
-        </muxc:NavigationView>
 
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <VisualState x:Name="SmallScreen">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="HomeNavView.PaneDisplayMode" Value="Top" />
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState x:Name="BigScreen">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="{StaticResource CompactModeThresholdWidth}" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="HomeNavView.PaneDisplayMode" Value="Auto" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
+                    <Grid Margin="4,0">
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="Repositories" />
+
+                        <Button HorizontalAlignment="Right">
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <FontIcon
+                                    FontFamily="{StaticResource Octions}"
+                                    FontSize="14"
+                                    Glyph="&#xEA52;" />
+                                <TextBlock Text="New" />
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+
+                    <StackPanel Grid.Row="1" Spacing="8">
+
+                        <Button
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            Background="Transparent"
+                            BorderThickness="0">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon
+                                    FontFamily="{StaticResource Octions}"
+                                    FontSize="16"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    Glyph="&#xEA52;" />
+                                <TextBlock Text="New" />
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            Background="Transparent"
+                            BorderThickness="0">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon
+                                    FontFamily="{StaticResource Octions}"
+                                    FontSize="16"
+                                    Foreground="Gold"
+                                    Glyph="&#xEA05;" />
+                                <TextBlock Text="New" />
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            Background="Transparent"
+                            BorderThickness="0">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon
+                                    FontFamily="{StaticResource Octions}"
+                                    FontSize="16"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    Glyph="&#xEA52;" />
+                                <TextBlock Text="New" />
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            Background="Transparent"
+                            BorderThickness="0">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon
+                                    FontFamily="{StaticResource Octions}"
+                                    FontSize="16"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    Glyph="&#xEA52;" />
+                                <TextBlock Text="New" />
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            Background="Transparent"
+                            BorderThickness="0">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon
+                                    FontFamily="{StaticResource Octions}"
+                                    FontSize="16"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    Glyph="&#xEA52;" />
+                                <TextBlock Text="New" />
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            Background="Transparent"
+                            BorderThickness="0">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon
+                                    FontFamily="{StaticResource Octions}"
+                                    FontSize="16"
+                                    Foreground="Gold"
+                                    Glyph="&#xEA05;" />
+                                <TextBlock Text="New" />
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            Background="Transparent"
+                            BorderThickness="0">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon
+                                    FontFamily="{StaticResource Octions}"
+                                    FontSize="16"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    Glyph="&#xEA52;" />
+                                <TextBlock Text="New" />
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            Background="Transparent"
+                            BorderThickness="0">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon
+                                    FontFamily="{StaticResource Octions}"
+                                    FontSize="16"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    Glyph="&#xEA52;" />
+                                <TextBlock Text="New" />
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            Background="Transparent"
+                            BorderThickness="0">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon
+                                    FontFamily="{StaticResource Octions}"
+                                    FontSize="16"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    Glyph="&#xEA52;" />
+                                <TextBlock Text="New" />
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            Background="Transparent"
+                            BorderThickness="0">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon
+                                    FontFamily="{StaticResource Octions}"
+                                    FontSize="16"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    Glyph="&#xEA52;" />
+                                <TextBlock Text="New" />
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            Background="Transparent"
+                            BorderThickness="0">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon
+                                    FontFamily="{StaticResource Octions}"
+                                    FontSize="16"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    Glyph="&#xEA52;" />
+                                <TextBlock Text="New" />
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            Background="Transparent"
+                            BorderThickness="0">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon
+                                    FontFamily="{StaticResource Octions}"
+                                    FontSize="16"
+                                    Foreground="Gold"
+                                    Glyph="&#xEA05;" />
+                                <TextBlock Text="New" />
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            Background="Transparent"
+                            BorderThickness="0">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon
+                                    FontFamily="{StaticResource Octions}"
+                                    FontSize="16"
+                                    Foreground="Gold"
+                                    Glyph="&#xEA05;" />
+                                <TextBlock Text="New" />
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            Background="Transparent"
+                            BorderThickness="0">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon
+                                    FontFamily="{StaticResource Octions}"
+                                    FontSize="16"
+                                    Foreground="Gold"
+                                    Glyph="&#xEA05;" />
+                                <TextBlock Text="New" />
+                            </StackPanel>
+                        </Button>
+                        <Button
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            Background="Transparent"
+                            BorderThickness="0">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon
+                                    FontFamily="{StaticResource Octions}"
+                                    FontSize="16"
+                                    Foreground="Gold"
+                                    Glyph="&#xEA05;" />
+                                <TextBlock Text="New" />
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+
+        <ScrollViewer Grid.Column="1">
+            <Grid RowSpacing="-4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <muxc:NavigationView
+                    Margin="4,0"
+                    IsBackButtonVisible="Collapsed"
+                    IsSettingsVisible="False"
+                    PaneDisplayMode="Top">
+                    <muxc:NavigationView.MenuItems>
+                        <muxc:NavigationViewItem Content="Home" />
+                        <muxc:NavigationViewItem Content="Activities" />
+                    </muxc:NavigationView.MenuItems>
+                </muxc:NavigationView>
+
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <muxc:Expander
+                        Margin="0,4"
+                        Padding="16,0"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch">
+                        <muxc:Expander.Resources>
+                            <SolidColorBrush x:Key="ExpanderHeaderBackground" Color="Transparent" />
+                            <SolidColorBrush x:Key="ExpanderHeaderBorderBrush" Color="Transparent" />
+                            <SolidColorBrush x:Key="ExpanderHeaderBorderPointerOverBrush" Color="Transparent" />
+                            <SolidColorBrush x:Key="ExpanderHeaderBorderPressedBrush" Color="Transparent" />
+                            <SolidColorBrush x:Key="ExpanderContentBackground" Color="Transparent" />
+                            <SolidColorBrush x:Key="ExpanderContentBorderBrush" Color="Transparent" />
+                            <x:Double x:Key="ExpanderMinHeight">0</x:Double>
+                            <Thickness x:Key="ExpanderContentPadding">0</Thickness>
+                        </muxc:Expander.Resources>
+                        <muxc:Expander.Header>
+                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="My Works" />
+                        </muxc:Expander.Header>
+                        <muxc:Expander.Content>
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <Button
+                                    Width="128"
+                                    Height="96"
+                                    Padding="0">
+                                    <Grid Width="126" Height="94">
+                                        <Border
+                                            Background="#40d563"
+                                            CornerRadius="4"
+                                            Opacity="0.5" />
+                                        <StackPanel VerticalAlignment="Center" Spacing="4">
+                                            <Border
+                                                Width="40"
+                                                Height="36"
+                                                Background="#40d563"
+                                                CornerRadius="4">
+                                                <FontIcon
+                                                    FontFamily="{StaticResource Octions}"
+                                                    FontSize="18"
+                                                    Foreground="White"
+                                                    Glyph="&#xE9EA;" />
+                                            </Border>
+                                            <TextBlock HorizontalAlignment="Center" Text="Issues" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Button>
+                                <Button
+                                    Width="128"
+                                    Height="96"
+                                    Padding="0">
+                                    <Grid Width="126" Height="94">
+                                        <Border
+                                            Background="#2e8ffe"
+                                            CornerRadius="4"
+                                            Opacity="0.5" />
+                                        <StackPanel VerticalAlignment="Center" Spacing="4">
+                                            <Border
+                                                Width="40"
+                                                Height="36"
+                                                Background="#2e8ffe"
+                                                CornerRadius="4">
+                                                <FontIcon
+                                                    FontFamily="{StaticResource Octions}"
+                                                    FontSize="18"
+                                                    Foreground="White"
+                                                    Glyph="&#xE9EA;" />
+                                            </Border>
+                                            <TextBlock HorizontalAlignment="Center" Text="Pull request" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Button>
+                                <Button
+                                    Width="128"
+                                    Height="96"
+                                    Padding="0">
+                                    <Grid Width="126" Height="94">
+                                        <Border
+                                            Background="#7548c7"
+                                            CornerRadius="4"
+                                            Opacity="0.5" />
+                                        <StackPanel VerticalAlignment="Center" Spacing="4">
+                                            <Border
+                                                Width="40"
+                                                Height="36"
+                                                Background="#7548c7"
+                                                CornerRadius="4">
+                                                <FontIcon
+                                                    FontFamily="{StaticResource Octions}"
+                                                    FontSize="18"
+                                                    Foreground="White"
+                                                    Glyph="&#xE9EA;" />
+                                            </Border>
+                                            <TextBlock HorizontalAlignment="Center" Text="Discussions" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Button>
+                                <Button
+                                    Width="128"
+                                    Height="96"
+                                    Padding="0">
+                                    <Grid Width="126" Height="94">
+                                        <Border
+                                            Background="#41434e"
+                                            CornerRadius="4"
+                                            Opacity="0.5" />
+                                        <StackPanel VerticalAlignment="Center" Spacing="4">
+                                            <Border
+                                                Width="40"
+                                                Height="36"
+                                                Background="#41434e"
+                                                CornerRadius="4">
+                                                <FontIcon
+                                                    FontFamily="{StaticResource Octions}"
+                                                    FontSize="18"
+                                                    Foreground="White"
+                                                    Glyph="&#xE9EA;" />
+                                            </Border>
+                                            <TextBlock HorizontalAlignment="Center" Text="Repositories" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Button>
+                                <Button
+                                    Width="128"
+                                    Height="96"
+                                    Padding="0">
+                                    <Grid Width="126" Height="94">
+                                        <Border
+                                            Background="#fe8a38"
+                                            CornerRadius="4"
+                                            Opacity="0.5" />
+                                        <StackPanel VerticalAlignment="Center" Spacing="4">
+                                            <Border
+                                                Width="40"
+                                                Height="36"
+                                                Background="#fe8a38"
+                                                CornerRadius="4">
+                                                <FontIcon
+                                                    FontFamily="{StaticResource Octions}"
+                                                    FontSize="18"
+                                                    Foreground="White"
+                                                    Glyph="&#xE9EA;" />
+                                            </Border>
+                                            <TextBlock HorizontalAlignment="Center" Text="Repositories" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Button>
+                                <Button
+                                    Width="128"
+                                    Height="96"
+                                    Padding="0">
+                                    <Grid Width="126" Height="94">
+                                        <Border
+                                            Background="#fecb1a"
+                                            CornerRadius="4"
+                                            Opacity="0.5" />
+                                        <StackPanel VerticalAlignment="Center" Spacing="4">
+                                            <Border
+                                                Width="40"
+                                                Height="36"
+                                                Background="#fecb1a"
+                                                CornerRadius="4">
+                                                <FontIcon
+                                                    FontFamily="{StaticResource Octions}"
+                                                    FontSize="18"
+                                                    Foreground="White"
+                                                    Glyph="&#xE9EA;" />
+                                            </Border>
+                                            <TextBlock HorizontalAlignment="Center" Text="Repositories" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Button>
+                            </StackPanel>
+                        </muxc:Expander.Content>
+                    </muxc:Expander>
+
+                    <muxc:Expander
+                        Grid.Row="1"
+                        Margin="0,4"
+                        Padding="16,0"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch">
+                        <muxc:Expander.Resources>
+                            <SolidColorBrush x:Key="ExpanderHeaderBackground" Color="Transparent" />
+                            <SolidColorBrush x:Key="ExpanderHeaderBorderBrush" Color="Transparent" />
+                            <SolidColorBrush x:Key="ExpanderHeaderBorderPointerOverBrush" Color="Transparent" />
+                            <SolidColorBrush x:Key="ExpanderHeaderBorderPressedBrush" Color="Transparent" />
+                            <SolidColorBrush x:Key="ExpanderContentBackground" Color="Transparent" />
+                            <SolidColorBrush x:Key="ExpanderContentBorderBrush" Color="Transparent" />
+                            <x:Double x:Key="ExpanderMinHeight">0</x:Double>
+                            <Thickness x:Key="ExpanderContentPadding">0</Thickness>
+                        </muxc:Expander.Resources>
+                        <muxc:Expander.Header>
+                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Favorites" />
+                        </muxc:Expander.Header>
+                        <muxc:Expander.Content>
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <ListView
+                                    Margin="-4,0"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    IsItemClickEnabled="True"
+                                    IsRightTapEnabled="True"
+                                    ItemContainerTransitions="{x:Null}"
+                                    SelectionMode="None">
+                                    <ListView.ItemContainerStyle>
+                                        <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
+                                            <Setter Property="Height" Value="24" />
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.Items>
+                                        <ListViewItem>
+                                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                                <Border
+                                                    Width="20"
+                                                    Height="20"
+                                                    CornerRadius="6">
+                                                    <Image Source="https://avatars.githubusercontent.com/u/65931357" />
+                                                </Border>
+                                                <TextBlock VerticalAlignment="Center" Text="files-community/Files" />
+                                            </StackPanel>
+                                        </ListViewItem>
+                                        <ListViewItem>
+                                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                                <Border
+                                                    Width="20"
+                                                    Height="20"
+                                                    CornerRadius="6">
+                                                    <Image Source="https://avatars.githubusercontent.com/u/98096883" />
+                                                </Border>
+                                                <TextBlock VerticalAlignment="Center" Text="fluenthub-community/FluentHub" />
+                                            </StackPanel>
+                                        </ListViewItem>
+                                        <ListViewItem>
+                                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                                <Border
+                                                    Width="20"
+                                                    Height="20"
+                                                    CornerRadius="10">
+                                                    <Image Source="https://avatars.githubusercontent.com/u/62196528" />
+                                                </Border>
+                                                <TextBlock VerticalAlignment="Center" Text="onein528/icacls" />
+                                            </StackPanel>
+                                        </ListViewItem>
+                                        <ListViewItem>
+                                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                                <Border
+                                                    Width="20"
+                                                    Height="20"
+                                                    CornerRadius="10">
+                                                    <Image Source="https://avatars.githubusercontent.com/u/62196528" />
+                                                </Border>
+                                                <TextBlock VerticalAlignment="Center" Text="onein528/cmd" />
+                                            </StackPanel>
+                                        </ListViewItem>
+                                    </ListView.Items>
+                                </ListView>
+                            </StackPanel>
+                        </muxc:Expander.Content>
+                    </muxc:Expander>
+
+                    <muxc:Expander
+                        Grid.Row="2"
+                        Margin="0,4"
+                        Padding="16,0"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch">
+                        <muxc:Expander.Resources>
+                            <SolidColorBrush x:Key="ExpanderHeaderBackground" Color="Transparent" />
+                            <SolidColorBrush x:Key="ExpanderHeaderBorderBrush" Color="Transparent" />
+                            <SolidColorBrush x:Key="ExpanderHeaderBorderPointerOverBrush" Color="Transparent" />
+                            <SolidColorBrush x:Key="ExpanderHeaderBorderPressedBrush" Color="Transparent" />
+                            <SolidColorBrush x:Key="ExpanderContentBackground" Color="Transparent" />
+                            <SolidColorBrush x:Key="ExpanderContentBorderBrush" Color="Transparent" />
+                            <x:Double x:Key="ExpanderMinHeight">0</x:Double>
+                            <Thickness x:Key="ExpanderContentPadding">0</Thickness>
+                        </muxc:Expander.Resources>
+                        <muxc:Expander.Header>
+                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Recents" />
+                        </muxc:Expander.Header>
+                        <muxc:Expander.Content>
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <ListView
+                                    Margin="-4,0"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    IsItemClickEnabled="True"
+                                    IsRightTapEnabled="True"
+                                    ItemContainerTransitions="{x:Null}"
+                                    SelectionMode="None">
+                                    <ListView.ItemContainerStyle>
+                                        <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
+                                            <Setter Property="Height" Value="24" />
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                    <ListView.Items>
+                                        <ListViewItem Height="Auto" Padding="16,6">
+                                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                                <FontIcon
+                                                    FontFamily="{StaticResource Octions}"
+                                                    FontSize="18"
+                                                    Glyph="&#xE9BF;" />
+                                                <StackPanel>
+                                                    <TextBlock
+                                                        VerticalAlignment="Center"
+                                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                                        Text="files-community/Files #9201" />
+                                                    <TextBlock
+                                                        VerticalAlignment="Center"
+                                                        Style="{StaticResource BodyTextBlockStyle}"
+                                                        Text="Added list of contributors for v2.3" />
+                                                    <TextBlock
+                                                        VerticalAlignment="Center"
+                                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                                        Text="You commented" />
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </ListViewItem>
+                                        <ListViewItem Height="Auto" Padding="16,6">
+                                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                                <FontIcon
+                                                    FontFamily="{StaticResource Octions}"
+                                                    FontSize="18"
+                                                    Glyph="&#xE9EA;" />
+                                                <StackPanel>
+                                                    <TextBlock
+                                                        VerticalAlignment="Center"
+                                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                                        Text="fluenthub-community/FluentHub #138" />
+                                                    <TextBlock
+                                                        VerticalAlignment="Center"
+                                                        Style="{StaticResource BodyTextBlockStyle}"
+                                                        Text="Authorization isn't woking properly" />
+                                                    <TextBlock
+                                                        VerticalAlignment="Center"
+                                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                                        Text="You commented" />
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </ListViewItem>
+                                        <ListViewItem Height="Auto" Padding="16,6">
+                                            <StackPanel Orientation="Horizontal" Spacing="12">
+                                                <FontIcon
+                                                    FontFamily="{StaticResource Octions}"
+                                                    FontSize="18"
+                                                    Glyph="&#xE9C3;" />
+                                                <StackPanel>
+                                                    <TextBlock
+                                                        VerticalAlignment="Center"
+                                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                                        Text="files-community/Files" />
+                                                    <TextBlock
+                                                        VerticalAlignment="Center"
+                                                        Style="{StaticResource BodyTextBlockStyle}"
+                                                        Text="Added list of contributors for v2.3" />
+                                                    <TextBlock
+                                                        VerticalAlignment="Center"
+                                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                                        Text="You commented" />
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </ListViewItem>
+                                    </ListView.Items>
+                                </ListView>
+                            </StackPanel>
+                        </muxc:Expander.Content>
+                    </muxc:Expander>
+
+                </Grid>
+            </Grid>
+        </ScrollViewer>
+
     </Grid>
 </Page>
