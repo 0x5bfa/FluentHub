@@ -3,7 +3,6 @@ using FluentHub.Models;
 using FluentHub.Services;
 using FluentHub.Services.Navigation;
 using FluentHub.ViewModels;
-using FluentHub.Views.Home;
 using Microsoft.Extensions.DependencyInjection;
 using Serilog;
 using System;
@@ -70,9 +69,9 @@ namespace FluentHub.Views
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             SubscribeEvents();
-            TabView.NewTabPage = typeof(UserHomePage);
+            TabView.NewTabPage = typeof(Home.UserHomePage);
             NavigationService.Configure(TabView);
-            NavigationService.Navigate<UserHomePage>();
+            NavigationService.Navigate<Home.UserHomePage>();
 
             var command = ViewModel.LoadSignedInUserCommand;
             if (command.CanExecute(null))
@@ -134,19 +133,39 @@ namespace FluentHub.Views
 
         private void OnDragAreaLoaded(object sender, RoutedEventArgs e) => Window.Current.SetTitleBar(DragArea);
 
-        private async void ShareWithBrowserMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        private async void OnContinueWithYourBrowserMenuFlyoutItemClick(object sender, RoutedEventArgs e)
         {
             var currentItem = NavigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             var result = await Launcher.LaunchUriAsync(new Uri(currentItem.Url));
             Logger?.Debug("Launcher.LaunchUriAsync fired, [result: {0}]", result);
         }
 
-        private void SettingsMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
-            => NavigationService.Navigate<AppSettings.MainSettingsPage>();
+        private void OnYourProfileMenuFlyoutItemClick(object sender, RoutedEventArgs e)
+            => NavigationService.Navigate<Users.ProfilePage>($"{App.DefaultGitHubDomain}/{App.Settings.SignedInUserName}");
 
-        private void SignOutMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+        private void OnYourRepositoriesMenuFlyoutItemClick(object sender, RoutedEventArgs e)
+            => NavigationService.Navigate<Users.RepositoriesPage>("fluenthub://repositories");
+
+        private void OnYourDiscussionsMenuFlyoutItemClick(object sender, RoutedEventArgs e)
+            => NavigationService.Navigate<Users.DiscussionsPage>("fluenthub://discussions");
+
+        private void OnYourIssuesMenuFlyoutItemClick(object sender, RoutedEventArgs e)
+            => NavigationService.Navigate<Users.IssuesPage>("https://github.com/issues");
+
+        private void OnYourPullRequestsMenuFlyoutItemClick(object sender, RoutedEventArgs e)
+            => NavigationService.Navigate<Users.PullRequestsPage>("https://github.com/pulls");
+
+        private void OnYourOrganizationsMenuFlyoutItemClick(object sender, RoutedEventArgs e)
+            => NavigationService.Navigate<Users.OrganizationsPage>("fluenthub://organizations");
+
+        private void OnYourStarsMenuFlyoutItemClick(object sender, RoutedEventArgs e)
+            => NavigationService.Navigate<Users.StarredReposPage>("fluenthub://stars");
+
+        private void OnAppSettingsMenuFlyoutItemClick(object sender, RoutedEventArgs e)
+            => NavigationService.Navigate<AppSettings.MainSettingsPage>(App.Settings.SignedInUserName);
+
+        private void OnSignOutMenuFlyoutItemClick(object sender, RoutedEventArgs e)
         {
-            // Temporary treatment (Deletion requested credentials must be deleted)
             Frame rootFrame = (Frame)Window.Current.Content;
             rootFrame.Navigate(typeof(SignIn.IntroPage));
         }
@@ -161,5 +180,8 @@ namespace FluentHub.Views
             {
             }
         }
+
+        private void OnYourNotificationButtonClick(object sender, RoutedEventArgs e)
+            => NavigationService.Navigate<Home.NotificationsPage>();
     }
 }

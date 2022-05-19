@@ -34,6 +34,8 @@ namespace FluentHub
 
         public static string AppVersion = $"{Package.Current.Id.Version.Major}.{Package.Current.Id.Version.Minor}.{Package.Current.Id.Version.Build}.{Package.Current.Id.Version.Revision}";
 
+        public readonly static string DefaultGitHubDomain = "https://github.com";
+
         public App()
         {
             InitializeComponent();

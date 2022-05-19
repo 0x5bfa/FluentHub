@@ -45,6 +45,7 @@ namespace FluentHub.Octokit.Queries.Repositories
                     .ToList(),
 
                     UpdatedAt = x.UpdatedAt,
+                    UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
                 })
                 .Compile();
             #endregion
@@ -81,6 +82,7 @@ namespace FluentHub.Octokit.Queries.Repositories
                     .ToList(),
 
                     UpdatedAt = x.UpdatedAt,
+                    UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
                 })
                 .Compile();
             #endregion

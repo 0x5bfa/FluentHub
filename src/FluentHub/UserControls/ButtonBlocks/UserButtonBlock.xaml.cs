@@ -36,7 +36,7 @@ namespace FluentHub.UserControls.ButtonBlocks
             }
             else
             {
-                service.Navigate<Views.Users.ProfilePage>(ViewModel.User.Login);
+                service.Navigate<Views.Users.ProfilePage>($"{App.DefaultGitHubDomain}/{ViewModel.User.Login}");
             }
         }
     }

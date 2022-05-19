@@ -32,40 +32,54 @@
     </UserControl.Resources>
 
     <Grid>
-        <Button Click="UserButtonBlockButton_Click" Style="{StaticResource ContentBlockButtonStyle}">
+        <Button
+            x:Name="RepoBlockButton"
+            Padding="16,12"
+            Background="Transparent"
+            BorderThickness="0"
+            Click="UserButtonBlockButton_Click"
+            Style="{StaticResource ContentBlockButtonStyle}">
             <Grid ColumnSpacing="12">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
+
                 <Border
                     Width="32"
                     Height="32"
                     CornerRadius="16">
                     <Image Source="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}" />
                 </Border>
+
                 <Grid Grid.Column="1">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
+
                     <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.User.Login, Mode=OneWay}" />
+
                     <TextBlock
                         Grid.Row="1"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         Style="{StaticResource BodyTextBlockStyle}"
                         Text="{x:Bind ViewModel.User.Bio, Mode=OneWay}" />
+
                 </Grid>
+
                 <Button
                     Grid.Column="2"
                     Content="Unfollow"
                     IsEnabled="False" />
+
                 <Button
                     Grid.Column="2"
                     Content="Follow"
                     IsEnabled="False"
                     Visibility="Collapsed" />
+
             </Grid>
         </Button>
     </Grid>

@@ -61,6 +61,7 @@ namespace FluentHub.Octokit.Queries.Users
                     .ToList().FirstOrDefault(),
 
                     UpdatedAt = x.UpdatedAt,
+                    UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
                 })
                 .Compile();
             #endregion

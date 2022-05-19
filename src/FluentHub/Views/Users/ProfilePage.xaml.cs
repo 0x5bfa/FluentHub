@@ -2,6 +2,7 @@
 using FluentHub.ViewModels.Users;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
@@ -26,31 +27,49 @@ namespace FluentHub.Views.Users
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            DataContext = e.Parameter;
+            // e.g.) https://github.com/onein528
+            string url = e.Parameter as string;
+            var uri = new Uri(url);
+            string login = uri.Segments[1];
+            DataContext = login;
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = $"{DataContext}'s profile";
-            currentItem.Description = $"{DataContext}'s profile";
-            currentItem.Url = $"https://github.com/{DataContext}";
+            currentItem.Header = $"{login}'s profile";
+            currentItem.Description = $"{login}'s profile";
+            currentItem.Url = url;
             currentItem.Icon = new muxc.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Profile.png"))
             };
 
+            //var defaultItem = UserNavView
+            //            .MenuItems
+            //            .OfType<muxc.NavigationViewItem>()
+            //            .FirstOrDefault();
+
+            //UserNavView.SelectedItem = UserNavView
+            //                               .MenuItems
+            //                               .OfType<muxc.NavigationViewItem>()
+            //                               .FirstOrDefault(x => string.Compare(x.Tag.ToString(), e.Parameter?.ToString(), true) == 0)
+            //                               ?? defaultItem;
+
             var command = ViewModel.RefreshUserCommand;
-            if (command.CanExecute(DataContext))
-                command.Execute(DataContext);
+            if (command.CanExecute(login))
+                command.Execute(login);
         }
 
         private void UserNavView_SelectionChanged(muxc.NavigationView sender, muxc.NavigationViewSelectionChangedEventArgs args)
         {
+            // workaround
+            string url = $"{App.DefaultGitHubDomain}/{DataContext}";
+
             _ = args.SelectedItemContainer.Tag.ToString() switch
             {
-                "Overview" => UserNavViewContent.Navigate(typeof(OverviewPage), DataContext, args.RecommendedNavigationTransitionInfo),
-                "Repositories" => UserNavViewContent.Navigate(typeof(RepositoriesPage), DataContext, args.RecommendedNavigationTransitionInfo),
-                "Stars" => UserNavViewContent.Navigate(typeof(StarredReposPage), DataContext, args.RecommendedNavigationTransitionInfo),
-                "Followers" => UserNavViewContent.Navigate(typeof(FollowersPage), DataContext, args.RecommendedNavigationTransitionInfo),
-                "Following" => UserNavViewContent.Navigate(typeof(FollowingPage), DataContext, args.RecommendedNavigationTransitionInfo),
+                "Overview" => UserNavViewContent.Navigate(typeof(OverviewPage), $"{url}", args.RecommendedNavigationTransitionInfo),
+                "Repositories" => UserNavViewContent.Navigate(typeof(RepositoriesPage), $"{url}?tab=repositories", args.RecommendedNavigationTransitionInfo),
+                "Stars" => UserNavViewContent.Navigate(typeof(StarredReposPage), $"{url}?tab=stars", args.RecommendedNavigationTransitionInfo),
+                "Followers" => UserNavViewContent.Navigate(typeof(FollowersPage), $"{url}?tab=followers", args.RecommendedNavigationTransitionInfo),
+                "Following" => UserNavViewContent.Navigate(typeof(FollowingPage), $"{url}?tab=following", args.RecommendedNavigationTransitionInfo),
                 _ => UserNavViewContent.Navigate(typeof(OverviewPage), DataContext, args.RecommendedNavigationTransitionInfo)
             };
         }

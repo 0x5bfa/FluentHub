@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:bbvm="using:FluentHub.ViewModels.UserControls.ButtonBlocks"
     xmlns:buttonblock="using:FluentHub.UserControls.ButtonBlocks"
+    xmlns:converters="using:FluentHub.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -11,10 +12,138 @@
     xmlns:vm="using:FluentHub.ViewModels.Users"
     mc:Ignorable="d">
 
-    <Grid>
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
 
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <muxc:ItemsRepeater Margin="12,2,12,12" ItemsSource="{x:Bind ViewModel.FollowersItems, Mode=OneWay}">
+    <ScrollViewer>
+        <Grid Margin="12">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+
+            <Grid x:Name="TitleGrid" x:Load="{x:Bind ViewModel.DisplayTitle, Mode=OneWay}">
+                <TextBlock
+                    Margin="12,8"
+                    Style="{StaticResource TitleTextBlockStyle}"
+                    Text="Your Followers" />
+            </Grid>
+
+            <Grid
+                Grid.Row="1"
+                Margin="0,8,0,16"
+                RowSpacing="8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBox PlaceholderText="Search followers" />
+
+                <StackPanel
+                    Grid.Row="1"
+                    Orientation="Horizontal"
+                    Spacing="8">
+
+                    <!--<Button Visibility="Collapsed">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <FontIcon
+                                FontSize="14"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Glyph="&#xe71c;" />
+                            <muxc:InfoBadge Value="2" />
+                        </StackPanel>
+                        <Button.Flyout>
+                            <MenuFlyout Placement="BottomEdgeAlignedLeft">
+                                <MenuFlyoutItem Foreground="{StaticResource DangerButtonBackground}" Text="Clear all filters" />
+                            </MenuFlyout>
+                        </Button.Flyout>
+                    </Button>-->
+
+                    <muxc:DropDownButton>
+                        <muxc:DropDownButton.Content>
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <TextBlock
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="Type by:" />
+                                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
+                            </StackPanel>
+                        </muxc:DropDownButton.Content>
+                        <muxc:DropDownButton.Flyout>
+                            <MenuFlyout Placement="BottomEdgeAlignedLeft">
+                                <MenuFlyout.Items>
+                                    <ToggleMenuFlyoutItem Text="Repository1" />
+                                    <ToggleMenuFlyoutItem Text="Repository2" />
+                                    <ToggleMenuFlyoutItem Text="Repository3" />
+                                    <ToggleMenuFlyoutItem Text="Repository4" />
+                                    <ToggleMenuFlyoutItem Text="Repository5" />
+                                </MenuFlyout.Items>
+                            </MenuFlyout>
+                        </muxc:DropDownButton.Flyout>
+                    </muxc:DropDownButton>
+
+                    <muxc:DropDownButton>
+                        <muxc:DropDownButton.Content>
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <TextBlock
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="Language by:" />
+                                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
+                            </StackPanel>
+                        </muxc:DropDownButton.Content>
+                        <muxc:DropDownButton.Flyout>
+                            <MenuFlyout Placement="BottomEdgeAlignedLeft">
+                                <MenuFlyout.Items>
+                                    <ToggleMenuFlyoutItem Text="Repository1" />
+                                    <ToggleMenuFlyoutItem Text="Repository2" />
+                                    <ToggleMenuFlyoutItem Text="Repository3" />
+                                    <ToggleMenuFlyoutItem Text="Repository4" />
+                                    <ToggleMenuFlyoutItem Text="Repository5" />
+                                </MenuFlyout.Items>
+                            </MenuFlyout>
+                        </muxc:DropDownButton.Flyout>
+                    </muxc:DropDownButton>
+
+                    <muxc:DropDownButton>
+                        <muxc:DropDownButton.Content>
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <TextBlock
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="Sort by:" />
+                                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
+                            </StackPanel>
+                        </muxc:DropDownButton.Content>
+                        <muxc:DropDownButton.Flyout>
+                            <MenuFlyout Placement="BottomEdgeAlignedLeft">
+                                <MenuFlyout.Items>
+                                    <ToggleMenuFlyoutItem Text="Repository1" />
+                                    <ToggleMenuFlyoutItem Text="Repository2" />
+                                    <ToggleMenuFlyoutItem Text="Repository3" />
+                                    <ToggleMenuFlyoutItem Text="Repository4" />
+                                    <ToggleMenuFlyoutItem Text="Repository5" />
+                                </MenuFlyout.Items>
+                            </MenuFlyout>
+                        </muxc:DropDownButton.Flyout>
+                    </muxc:DropDownButton>
+
+                </StackPanel>
+            </Grid>
+
+            <muxc:ItemsRepeater Grid.Row="2" ItemsSource="{x:Bind ViewModel.FollowersItems, Mode=OneWay}">
+                <muxc:ItemsRepeater.Layout>
+                    <muxc:StackLayout Orientation="Vertical" Spacing="4" />
+                </muxc:ItemsRepeater.Layout>
                 <DataTemplate x:DataType="bbvm:UserButtonBlockViewModel">
                     <buttonblock:UserButtonBlock
                         x:Name="RepositoryBlock"
@@ -22,69 +151,69 @@
                         ViewModel="{x:Bind}" />
                 </DataTemplate>
             </muxc:ItemsRepeater>
-        </ScrollViewer>
 
-        <toolkit:SwitchPresenter
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            TargetType="x:Boolean"
-            Value="{x:Bind ViewModel.RefreshFollowersCommand.IsRunning, Mode=OneWay}">
+            <toolkit:SwitchPresenter
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                TargetType="x:Boolean"
+                Value="{x:Bind ViewModel.RefreshFollowersCommand.IsRunning, Mode=OneWay}">
 
-            <toolkit:Case Value="True">
-                <muxc:ProgressRing IsActive="True" />
-            </toolkit:Case>
+                <toolkit:Case Value="True">
+                    <muxc:ProgressRing IsActive="True" />
+                </toolkit:Case>
 
-            <toolkit:Case Value="False">
-                <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.RefreshFollowersCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
-                    <toolkit:Case Value="True">
-                        <HyperlinkButton Command="{x:Bind ViewModel.RefreshFollowersCommand}">
-                            <StackPanel Orientation="Horizontal" Spacing="8">
-                                <FontIcon FontSize="16" Glyph="&#xE149;" />
-                                <TextBlock Text="Refresh" />
-                            </StackPanel>
-                        </HyperlinkButton>
-                    </toolkit:Case>
+                <toolkit:Case Value="False">
+                    <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.RefreshFollowersCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
+                        <toolkit:Case Value="True">
+                            <HyperlinkButton Command="{x:Bind ViewModel.RefreshFollowersCommand}">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <FontIcon FontSize="16" Glyph="&#xE149;" />
+                                    <TextBlock Text="Refresh" />
+                                </StackPanel>
+                            </HyperlinkButton>
+                        </toolkit:Case>
 
-                    <toolkit:Case Value="False">
-                        <toolkit:SwitchPresenter TargetType="x:Int32" Value="{x:Bind ViewModel.FollowersItems.Count, Mode=OneWay}">
-                            <toolkit:Case Value="0">
-                                <!--#region Empty state-->
-                                <Grid
-                                    Grid.Row="1"
-                                    MaxWidth="180"
-                                    Margin="30"
-                                    HorizontalAlignment="Center"
-                                    VerticalAlignment="Center">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
-                                    <Viewbox>
-                                        <Grid>
-                                            <Path Data="m440.929688 375.699219-184.929688 101.546875-184.929688-101.546875v-203.089844l184.929688-101.546875 184.929688 101.546875zm0 0" Fill="DarkGray" />
-                                            <Path Data="m71.070312 172.609375v.003906l184.929688 101.546875 184.929688-101.546875v-.003906l-184.929688-101.546875zm0 0" Fill="#FF525252" />
-                                            <Path Data="m71.070312 172.671875v203.027344l184.929688 101.546875.109375-.058594v-203.03125l-184.929687-101.546875zm0 0" Fill="Gray" />
-
-                                            <Path Data="m440.929688 172.613281 61.070312 61.066407-184.929688 101.546874-61.070312-61.070312zm0 0" Fill="LightGray" />
-                                            <Path Data="m71.070312 172.613281-61.070312 61.066407 184.929688 101.546874 61.070312-61.070312zm0 0" Fill="LightGray" />
-                                            <Path Data="m440.929688 172.613281 61.070312-61.066406-184.929688-101.546875-61.070312 61.070312zm0 0" Fill="LightGray" />
-                                            <Path Data="m71.070312 172.613281-61.070312-61.066406 184.929688-101.546875 61.070312 61.070312zm0 0" Fill="LightGray" />
-                                        </Grid>
-                                    </Viewbox>
-
-                                    <TextBlock
+                        <toolkit:Case Value="False">
+                            <toolkit:SwitchPresenter TargetType="x:Int32" Value="{x:Bind ViewModel.FollowersItems.Count, Mode=OneWay}">
+                                <toolkit:Case Value="0">
+                                    <!--#region Empty state-->
+                                    <Grid
                                         Grid.Row="1"
-                                        FontSize="18"
-                                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                                        Text="No items available"
-                                        TextAlignment="Center" />
-                                </Grid>
-                            </toolkit:Case>
-                        </toolkit:SwitchPresenter>
-                    </toolkit:Case>
-                </toolkit:SwitchPresenter>
-            </toolkit:Case>
+                                        MaxWidth="180"
+                                        Margin="30"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition />
+                                            <RowDefinition />
+                                        </Grid.RowDefinitions>
+                                        <Viewbox>
+                                            <Grid>
+                                                <Path Data="m440.929688 375.699219-184.929688 101.546875-184.929688-101.546875v-203.089844l184.929688-101.546875 184.929688 101.546875zm0 0" Fill="DarkGray" />
+                                                <Path Data="m71.070312 172.609375v.003906l184.929688 101.546875 184.929688-101.546875v-.003906l-184.929688-101.546875zm0 0" Fill="#FF525252" />
+                                                <Path Data="m71.070312 172.671875v203.027344l184.929688 101.546875.109375-.058594v-203.03125l-184.929687-101.546875zm0 0" Fill="Gray" />
 
-        </toolkit:SwitchPresenter>
-    </Grid>
+                                                <Path Data="m440.929688 172.613281 61.070312 61.066407-184.929688 101.546874-61.070312-61.070312zm0 0" Fill="LightGray" />
+                                                <Path Data="m71.070312 172.613281-61.070312 61.066407 184.929688 101.546874 61.070312-61.070312zm0 0" Fill="LightGray" />
+                                                <Path Data="m440.929688 172.613281 61.070312-61.066406-184.929688-101.546875-61.070312 61.070312zm0 0" Fill="LightGray" />
+                                                <Path Data="m71.070312 172.613281-61.070312-61.066406 184.929688-101.546875 61.070312 61.070312zm0 0" Fill="LightGray" />
+                                            </Grid>
+                                        </Viewbox>
+
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            FontSize="18"
+                                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                                            Text="No items available"
+                                            TextAlignment="Center" />
+                                    </Grid>
+                                </toolkit:Case>
+                            </toolkit:SwitchPresenter>
+                        </toolkit:Case>
+                    </toolkit:SwitchPresenter>
+                </toolkit:Case>
+
+            </toolkit:SwitchPresenter>
+        </Grid>
+    </ScrollViewer>
 </Page>

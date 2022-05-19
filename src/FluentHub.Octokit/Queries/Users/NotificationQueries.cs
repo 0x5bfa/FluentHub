@@ -35,15 +35,21 @@ namespace FluentHub.Octokit.Queries.Users
                 Notification indivisual = new()
                 {
                     Id = Convert.ToInt64(item.Id),
-                    LastReadAt = DateTimeOffset.Parse(item.LastReadAt),
                     Reason = item.Reason,
                     Repository = item.Repository,
                     Subject = item.Subject,
                     Unread = item.Unread,
-                    UpdatedAt = DateTimeOffset.Parse(item.UpdatedAt),
-                    UpdatedAtHumanized = DateTimeOffset.Parse(item.UpdatedAt).Humanize(),
                     Url = item.Url,
                 };
+
+                if (item.LastReadAt != null)
+                    indivisual.LastReadAt = DateTimeOffset.Parse(item.LastReadAt);
+
+                if (item.UpdatedAt != null)
+                    indivisual.UpdatedAt = DateTimeOffset.Parse(item.UpdatedAt);
+
+                if (item.UpdatedAt != null)
+                    indivisual.UpdatedAtHumanized = DateTimeOffset.Parse(item.UpdatedAt).Humanize();
 
                 var urlItems = indivisual.Subject.Url?.Split("/");
 
@@ -120,6 +126,32 @@ namespace FluentHub.Octokit.Queries.Users
             }
 
             return notifications;
+        }
+
+        public async Task<int> GetUnreadCount()
+        {
+            OctokitOriginal.NotificationsRequest request = new()
+            {
+                All = true
+            };
+
+            OctokitOriginal.ApiOptions options = new()
+            {
+                PageCount = 1,
+                PageSize = 50,
+                StartPage = 1
+            };
+
+            // Even if there are more than 50 unread items, this method will only count up to a maximum of 50.
+            var response = await App.Client.Activity.Notifications.GetAllForCurrent(request, options);
+
+            int unreadCount = 0;
+            foreach (var indivisual in response)
+            {
+                if (indivisual.Unread) unreadCount++;
+            }
+
+            return unreadCount;
         }
     }
 }

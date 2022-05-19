@@ -495,8 +495,7 @@
     <Grid HorizontalAlignment="Stretch" Background="{x:Null}">
         <muxc:TabView
             x:Name="MainTabView"
-            Margin="4,0"
-            HorizontalAlignment="Left"
+            HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             AllowDropTabs="True"
             Background="{x:Null}"
@@ -509,8 +508,6 @@
             <muxc:TabView.TabItemTemplate>
                 <DataTemplate x:DataType="item:TabItem">
                     <muxc:TabViewItem
-                        Height="36"
-                        BorderThickness="1,1,1,0"
                         Header="{x:Bind NavigationHistory.CurrentItem.Header, Mode=OneWay}"
                         IconSource="{x:Bind NavigationHistory.CurrentItem.Icon, Mode=OneWay}"
                         Style="{StaticResource Local.TabViewItem}"

@@ -70,7 +70,7 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid BorderThickness="0">
+    <Grid>
         <Grid.ChildrenTransitions>
             <TransitionCollection>
                 <RepositionThemeTransition />
@@ -103,7 +103,6 @@
             <uc:CustomTabView
                 x:Name="TabView"
                 Title="{x:Bind TabView.SelectedItem.NavigationHistory.CurrentItem.Header, Mode=OneWay}"
-                BorderThickness="0"
                 SelectionChanged="OnTabViewSelectionChanged" />
 
         </Grid>
@@ -198,50 +197,70 @@
                     Spacing="6">
 
                     <Button
-                        Width="32"
-                        Height="30"
-                        Style="{StaticResource ClearButtonStyle}">
-                        <FontIcon
-                            FontFamily="{StaticResource Octions}"
-                            FontSize="14"
-                            FontWeight="ExtraLight"
-                            Glyph="&#xE917;" />
+                        Width="36"
+                        Height="32"
+                        Padding="0"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Click="OnYourNotificationButtonClick">
+                        <Grid>
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="16"
+                                Glyph="&#xE918;" />
+                            <Ellipse
+                                Width="10"
+                                Height="10"
+                                Margin="0,-4,-4,0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Visibility="{x:Bind ViewModel.UnreadCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+                                <Ellipse.Fill>
+                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                        <GradientStop x:Name="GradientStop1" Offset="0.0" Color="#54a3ff" />
+                                        <GradientStop x:Name="GradientStop4" Offset="1.0" Color="#006eed" />
+                                    </LinearGradientBrush>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                        </Grid>
                     </Button>
 
                     <muxc:DropDownButton
                         x:Name="ToolbarAppSettingsButton"
-                        Width="48"
-                        Height="28"
+                        Width="54"
+                        Height="32"
                         Padding="4"
                         Background="Transparent"
                         BorderBrush="{StaticResource ControlStrokeColorDefault}"
                         BorderThickness="0"
                         ToolTipService.ToolTip="More">
-                        <Border CornerRadius="28">
-                            <Image
-                                Width="28"
-                                Height="28"
-                                Source="{x:Bind ViewModel.SignedInUser.AvatarUrl, Mode=OneWay}" />
+                        <Border
+                            Width="24"
+                            Height="24"
+                            CornerRadius="12">
+                            <Image Source="{x:Bind ViewModel.SignedInUser.AvatarUrl, Mode=OneWay}" />
                         </Border>
 
                         <muxc:DropDownButton.Flyout>
 
                             <MenuFlyout Placement="BottomEdgeAlignedRight">
-                                <MenuFlyoutItem Click="ShareWithBrowserMenuFlyoutItem_Click" Text="Continue with your browser" />
+                                <MenuFlyoutItem Click="OnContinueWithYourBrowserMenuFlyoutItemClick" Text="Continue with your browser" />
                                 <MenuFlyoutSeparator />
-                                <MenuFlyoutSubItem Text="New...">
+                                <MenuFlyoutSubItem IsEnabled="False" Text="New...">
                                     <MenuFlyoutItem Text="New repository" />
                                     <MenuFlyoutItem Text="New organization" />
                                 </MenuFlyoutSubItem>
                                 <MenuFlyoutSeparator />
-                                <MenuFlyoutItem Text="Your profile" />
-                                <MenuFlyoutItem Text="Your repositories" />
-                                <MenuFlyoutItem Text="Your organizations" />
-                                <MenuFlyoutItem Text="Your discussions" />
-                                <MenuFlyoutItem Text="Your stars" />
+                                <MenuFlyoutItem Click="OnYourProfileMenuFlyoutItemClick" Text="Your profile" />
+                                <MenuFlyoutItem Click="OnYourRepositoriesMenuFlyoutItemClick" Text="Your repositories" />
+                                <MenuFlyoutItem Click="OnYourDiscussionsMenuFlyoutItemClick" Text="Your discussions" />
+                                <MenuFlyoutItem Click="OnYourIssuesMenuFlyoutItemClick" Text="Your issues" />
+                                <MenuFlyoutItem Click="OnYourPullRequestsMenuFlyoutItemClick" Text="Your pull requests" />
+                                <MenuFlyoutItem Click="OnYourOrganizationsMenuFlyoutItemClick" Text="Your organizations" />
+                                <MenuFlyoutItem Click="OnYourStarsMenuFlyoutItemClick" Text="Your stars" />
                                 <MenuFlyoutSeparator />
-                                <MenuFlyoutItem Click="SettingsMenuFlyoutItem_Click" Text="App Settings" />
-                                <MenuFlyoutItem Click="SignOutMenuFlyoutItem_Click" Text="Sign out" />
+                                <MenuFlyoutItem Click="OnAppSettingsMenuFlyoutItemClick" Text="App Settings" />
+                                <MenuFlyoutItem Click="OnSignOutMenuFlyoutItemClick" Text="Sign out" />
                             </MenuFlyout>
 
                         </muxc:DropDownButton.Flyout>
