@@ -1,6 +1,6 @@
 name: Feature Request
 description: Request a new feature for the FluentHub
-labels: [feature_request]
+labels: [feature request]
 body:
   - type: checkboxes
     attributes:

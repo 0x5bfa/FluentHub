@@ -27,7 +27,16 @@ namespace FluentHub.UserControls.Blocks
         public RepoContextViewModel ContextViewModel
         {
             get => (RepoContextViewModel)GetValue(ContextViewModelProperty);
-            set => SetValue(ContextViewModelProperty, value);
+            set
+            {
+                SetValue(ContextViewModelProperty, value);
+
+                if (ContextViewModel != null)
+                {
+                    ViewModel.ContextViewModel = ContextViewModel;
+                    ViewModel.LoadContentsAsync(ColorCodeBlock);
+                }
+            }
         }
         #endregion
 
@@ -43,11 +52,6 @@ namespace FluentHub.UserControls.Blocks
 
         private void OnFileContentBlockLoaded(object sender, RoutedEventArgs e)
         {
-            ViewModel.ContextViewModel = ContextViewModel;
-
-            var command = ViewModel.LoadBlobContentBlockCommand;
-            if (command.CanExecute(ColorCodeBlock))
-                command.Execute(ColorCodeBlock);
         }
     }
 }

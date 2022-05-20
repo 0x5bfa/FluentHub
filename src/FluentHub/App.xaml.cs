@@ -30,7 +30,7 @@ namespace FluentHub
     {
         Frame rootFrame = Window.Current.Content as Frame;
 
-        public static SettingsViewModel Settings { get; private set; } = new SettingsViewModel();
+        public static SettingsViewModel Settings { get; set; } = new SettingsViewModel();
 
         public static string AppVersion = $"{Package.Current.Id.Version.Major}.{Package.Current.Id.Version.Minor}.{Package.Current.Id.Version.Build}.{Package.Current.Id.Version.Revision}";
 
@@ -91,6 +91,7 @@ namespace FluentHub
                 .AddTransient<ViewModels.Organizations.OverviewViewModel>()
                 .AddTransient<ViewModels.Organizations.RepositoriesViewModel>()
                 .AddTransient<ViewModels.Repositories.Codes.Layouts.DetailsLayoutViewModel>()
+                .AddTransient<ViewModels.Repositories.Codes.Layouts.TreeLayoutViewModel>()
                 .AddTransient<ViewModels.Repositories.Codes.ReleasesViewModel>()
                 .AddTransient<ViewModels.Repositories.Commits.CommitsViewModel>()
                 .AddTransient<ViewModels.Repositories.Commits.CommitViewModel>()

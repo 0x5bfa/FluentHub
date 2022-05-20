@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:FluentHub.Views.AppSettings"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:root="using:FluentHub"
     xmlns:uc="using:FluentHub.UserControls"
     mc:Ignorable="d">
 
@@ -14,46 +15,26 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
+
                 <TextBlock
-                    Grid.Row="2"
+                    Grid.Row="0"
                     Margin="0,16,0,8"
                     Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="General" />
-                <StackPanel Grid.Row="3" Spacing="4">
+                    Text="Layout mode" />
+
+                <StackPanel Grid.Row="1" Spacing="4">
                     <uc:SettingsBlockControl
-                        Title="Font"
-                        Description="Select which editor font to display"
+                        Title="Use details list view"
+                        Description="Select which layout to display"
                         IsClickable="False">
                         <uc:SettingsBlockControl.Icon>
-                            <FontIcon Glyph="&#xe8d2;" />
+                            <FontIcon Glyph="&#xECA5;" />
                         </uc:SettingsBlockControl.Icon>
-                    </uc:SettingsBlockControl>
-                    <uc:SettingsBlockControl Title="Force Dark Mode" IsClickable="False">
-                        <uc:SettingsBlockControl.Icon>
-                            <FontIcon Glyph="&#xE71D;" />
-                        </uc:SettingsBlockControl.Icon>
-                    </uc:SettingsBlockControl>
-                    <uc:SettingsBlockControl Title="Line Wrapping" IsClickable="False">
-                        <uc:SettingsBlockControl.Icon>
-                            <FontIcon Glyph="&#xE751;" />
-                        </uc:SettingsBlockControl.Icon>
-                    </uc:SettingsBlockControl>
-                    <uc:SettingsBlockControl Title="Override System Font Size" IsClickable="False">
-                        <uc:SettingsBlockControl.Icon>
-                            <FontIcon Glyph="&#xE71D;" />
-                        </uc:SettingsBlockControl.Icon>
-                    </uc:SettingsBlockControl>
-                    <uc:SettingsBlockControl Title="Render White Space" IsClickable="False">
-                        <uc:SettingsBlockControl.Icon>
-                            <FontIcon Glyph="&#xE71D;" />
-                        </uc:SettingsBlockControl.Icon>
+                        <ToggleSwitch FlowDirection="RightToLeft" IsOn="{x:Bind root:App.Settings.UseDetailsView, Mode=TwoWay}" />
                     </uc:SettingsBlockControl>
                 </StackPanel>
+
             </Grid>
         </ScrollViewer>
     </Grid>

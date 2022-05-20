@@ -17,7 +17,8 @@ namespace FluentHub.Octokit.Queries.Repositories
 
         public async Task<List<Commit>> GetAllAsync(string name, string owner, string refs, string path)
         {
-            path = path.Remove(0, 1);
+            if (path[0] == '/')
+                path = path.Remove(0, 1);
 
             if (string.IsNullOrEmpty(path)) path = ".";
 
