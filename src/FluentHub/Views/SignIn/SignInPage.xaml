@@ -59,9 +59,9 @@
                     <StackPanel Orientation="Horizontal" Spacing="4">
                         <TextBlock
                             Style="{ThemeResource BodyTextBlockStyle}"
-                            Text="WebAuth is the best way to access GitHub data."
+                            Text="WebAuth is the recommended option for login."
                             TextWrapping="Wrap" />
-                        <TextBlock><Hyperlink NavigateUri="https://github.com/fluenthub-community/FluentHub/blob/main/docs/authorize-app.md">Help</Hyperlink></TextBlock>
+                        <TextBlock><Hyperlink NavigateUri="https://github.com/fluenthub-community/FluentHub/blob/main/docs/authorize-app.md">Support</Hyperlink></TextBlock>
                     </StackPanel>
                 </StackPanel>
             </Grid>
@@ -146,14 +146,14 @@
                     VerticalAlignment="Top"
                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                     Style="{StaticResource BodyTextBlockStyle}"
-                    Text="Click &quot;Open with your Browser&quot;." />
+                    Text="Click &quot;Login via Browser&quot;." />
                 <TextBlock
                     Grid.Row="1"
                     Grid.Column="1"
                     VerticalAlignment="Top"
                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                     Style="{StaticResource BodyTextBlockStyle}"
-                    Text="If you have any organizations, grant them to get more info." />
+                    Text="If you are in administration of one or more organizations, please give FluentHub access to them" />
                 <TextBlock
                     Grid.Row="2"
                     Grid.Column="1"
@@ -189,7 +189,7 @@
                     <Button
                         MinWidth="120"
                         Click="ContinueButton_Click"
-                        Content="Open with your browser"
+                        Content="Login via browser"
                         Style="{StaticResource AccentButtonStyle}" />
                 </StackPanel>
             </Grid>
