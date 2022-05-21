@@ -45,6 +45,49 @@
                 if (item.UpdatedAt != null)
                     indivisual.UpdatedAtHumanized = DateTimeOffset.Parse(item.UpdatedAt).Humanize();
 
+                switch (item.Reason)
+                {
+                    case "assign":
+                        indivisual.FullReason = "You were assigned to the issue.";
+                        break;
+                    case "author":
+                        indivisual.FullReason = "You created the thread.";
+                        break;
+                    case "comment":
+                        indivisual.FullReason = "You commented on the thread.";
+                        break;
+                    case "ci_activity":
+                        indivisual.FullReason = "A GitHub Actions workflow run that you triggered was completed.";
+                        break;
+                    case "invitation":
+                        indivisual.FullReason = "You accepted an invitation to contribute to the repository.";
+                        break;
+                    case "manual":
+                        indivisual.FullReason = "You subscribed to the thread (via an issue or pull request).";
+                        break;
+                    case "mention":
+                        indivisual.FullReason = "You were specifically @mentioned in the content.";
+                        break;
+                    case "review_requested":
+                        indivisual.FullReason = "You, or a team you're a member of, were requested to review a pull request.";
+                        break;
+                    case "security_alert":
+                        indivisual.FullReason = "GitHub discovered a security vulnerability in your repository.";
+                        break;
+                    case "state_change":
+                        indivisual.FullReason = "You changed the thread state (for example, closing an issue or merging a pull request).";
+                        break;
+                    case "subscribed":
+                        indivisual.FullReason = "You're watching the repository.";
+                        break;
+                    case "team_mention":
+                        indivisual.FullReason = "You were on a team that was mentioned.";
+                        break;
+                    default:
+                        indivisual.FullReason = "";
+                        break;
+                }
+
                 var urlItems = indivisual.Subject.Url?.Split("/");
 
                 switch (indivisual.Subject?.Type)

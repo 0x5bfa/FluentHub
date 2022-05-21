@@ -149,7 +149,7 @@
             </muxc:ItemsRepeater>
 
             <toolkit:SwitchPresenter
-                Grid.RowSpan="2"
+                Grid.Row="2"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 TargetType="x:Boolean"

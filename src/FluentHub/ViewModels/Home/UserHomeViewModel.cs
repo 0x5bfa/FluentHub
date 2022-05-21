@@ -1,16 +1,8 @@
-﻿using FluentHub.Backend;
-using FluentHub.Models;
-using FluentHub.Octokit.Queries.Users;
+﻿using FluentHub.Octokit.Queries.Users;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
-using Microsoft.Toolkit.Mvvm.Messaging;
-using Octokit;
-using System;
 using System.Collections.ObjectModel;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.Home
 {
@@ -32,15 +24,15 @@ namespace FluentHub.ViewModels.Home
         }
         #endregion
 
-        #region properties
+        #region fields and properties
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
 
-        private readonly ObservableCollection<Octokit.Models.Repository> _userRepositories;
-        public ReadOnlyObservableCollection<Octokit.Models.Repository> UserRepositories { get; }
+        private readonly ObservableCollection<Repository> _userRepositories;
+        public ReadOnlyObservableCollection<Repository> UserRepositories { get; }
 
-        private readonly ObservableCollection<Octokit.Models.Notification> _userNotifications;
-        public ReadOnlyObservableCollection<Octokit.Models.Notification> UserNotifications { get; }
+        private readonly ObservableCollection<Notification> _userNotifications;
+        public ReadOnlyObservableCollection<Notification> UserNotifications { get; }
 
         public IAsyncRelayCommand LoadHomeContentsCommand { get; }
         #endregion

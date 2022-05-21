@@ -51,7 +51,13 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <StackPanel>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
                     <TextBlock
                         x:Name="RepoName"
@@ -228,7 +234,7 @@
 
                     </StackPanel>
 
-                </StackPanel>
+                </Grid>
 
                 <Grid
                     x:Name="StarButtonBlock"

@@ -41,5 +41,32 @@ namespace FluentHub.Views.Home
             if (command.CanExecute(null))
                 command.Execute(null);
         }
+
+        private void OnHomeRepositoriesListItemClick(object sender, ItemClickEventArgs e)
+        {
+            var clickedItem = e.ClickedItem as Repository;
+            navigationService.Navigate<Repositories.OverviewPage>(clickedItem);
+        }
+
+        private void OnIssueButtonClick(object sender, RoutedEventArgs e)
+            => navigationService.Navigate<Users.IssuesPage>("https://github.com/issues");
+
+        private void OnPullRequestsButtonClick(object sender, RoutedEventArgs e)
+            => navigationService.Navigate<Users.PullRequestsPage>("https://github.com/pulls");
+
+        private void OnDiscussionsButtonClick(object sender, RoutedEventArgs e)
+            => navigationService.Navigate<Users.DiscussionsPage>("fluenthub://discussions");
+
+        private void OnRepositoriesButtonClick(object sender, RoutedEventArgs e)
+            => navigationService.Navigate<Users.RepositoriesPage>("fluenthub://repositories");
+
+        private void OnOrganizationsButtonClick(object sender, RoutedEventArgs e)
+            => navigationService.Navigate<Users.OrganizationsPage>("fluenthub://organizations");
+
+        private void OnStarsButtonClick(object sender, RoutedEventArgs e)
+            => navigationService.Navigate<Users.StarredReposPage>("fluenthub://stars");
+
+        private void OnMoreActivitiesButtonClick(object sender, RoutedEventArgs e)
+            => navigationService.Navigate<Home.ActivitiesPage>("fluenthub://activities");
     }
 }

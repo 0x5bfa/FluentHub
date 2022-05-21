@@ -238,7 +238,10 @@
                             Width="24"
                             Height="24"
                             CornerRadius="12">
-                            <Image Source="{x:Bind ViewModel.SignedInUser.AvatarUrl, Mode=OneWay}" />
+                            <Image
+                                Width="24"
+                                Height="24"
+                                Source="{x:Bind ViewModel.SignedInUser.AvatarUrl, Mode=OneWay}" />
                         </Border>
 
                         <muxc:DropDownButton.Flyout>

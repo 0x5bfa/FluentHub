@@ -1,11 +1,8 @@
 using FluentHub.Helpers;
-using FluentHub.Models;
 using FluentHub.Services;
 using FluentHub.Services.Navigation;
 using FluentHub.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
-using Serilog;
-using System;
 using Windows.ApplicationModel.Core;
 using Windows.System;
 using Windows.UI.Core;
