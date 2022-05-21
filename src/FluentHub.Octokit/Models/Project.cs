@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using OctokitGraphQLCore = global::Octokit.GraphQL.Core;
-using OctokitGraphQLModel = global::Octokit.GraphQL.Model;
 
 namespace FluentHub.Octokit.Models
 {

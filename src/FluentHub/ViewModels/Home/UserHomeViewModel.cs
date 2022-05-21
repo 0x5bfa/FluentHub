@@ -56,7 +56,7 @@ namespace FluentHub.ViewModels.Home
                 foreach (var item in repositoryResponse) _userRepositories.Add(item);
 
                 NotificationQueries notificationQueries = new();
-                ApiOptions options = new()
+                OctokitOriginal.ApiOptions options = new()
                 {
                     PageCount = 1,
                     PageSize = 3,
