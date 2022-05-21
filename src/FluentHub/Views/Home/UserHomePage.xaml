@@ -356,8 +356,8 @@
                         </muxc:Expander.Header>
                         <muxc:Expander.Content>
                             <Grid>
-                                <ListView                            Margin="-8,0"
-
+                                <ListView
+                                    Margin="-8,0"
                                     HorizontalAlignment="Stretch"
                                     VerticalAlignment="Stretch"
                                     IsItemClickEnabled="True"
@@ -372,7 +372,7 @@
                                     </ListView.ItemContainerStyle>
                                     <ListView.ItemTemplate>
                                         <DataTemplate x:DataType="graphqlmodels:Notification">
-                                            <Grid ColumnSpacing="12" Padding="4,8" >
+                                            <Grid Padding="4,8" ColumnSpacing="12">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="Auto" />
                                                     <ColumnDefinition Width="*" />

@@ -1,5 +1,4 @@
-﻿
-namespace FluentHub.Octokit.Queries.Repositories
+﻿namespace FluentHub.Octokit.Queries.Repositories
 {
     public class ContentQueries
     {

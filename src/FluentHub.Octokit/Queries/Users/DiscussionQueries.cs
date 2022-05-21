@@ -1,5 +1,4 @@
-﻿
-namespace FluentHub.Octokit.Queries.Users
+﻿namespace FluentHub.Octokit.Queries.Users
 {
     public class DiscussionQueries
     {

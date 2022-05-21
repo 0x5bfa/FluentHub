@@ -1,5 +1,4 @@
-﻿
-namespace FluentHub.Octokit.Helpers
+﻿namespace FluentHub.Octokit.Helpers
 {
     public static class UserTypeDetectionHelper
     {
