@@ -22,7 +22,7 @@ How did you test these changes?
 
 
 ### Motivation and Context
-<!-- Sometimes add items resolved/related issues by this PR.-->
+<!-- Items resolved/related issues by this PR.-->
 
 
 
