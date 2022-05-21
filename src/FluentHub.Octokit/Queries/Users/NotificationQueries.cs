@@ -1,31 +1,26 @@
-﻿using FluentHub.Octokit.Models;
-using Humanizer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OctokitOriginal = global::Octokit;
-
+﻿
 namespace FluentHub.Octokit.Queries.Users
 {
     public class NotificationQueries
     {
         public NotificationQueries() => new App();
 
-        public async Task<List<Notification>> GetAllAsync()
+        public async Task<List<Notification>> GetAllAsync(OctokitOriginal.ApiOptions options = null)
         {
             OctokitOriginal.NotificationsRequest request = new()
             {
                 All = true
             };
 
-            OctokitOriginal.ApiOptions options = new()
+            if (options == null)
             {
-                PageCount = 1,
-                PageSize = 30,
-                StartPage = 1
-            };
+                options = new()
+                {
+                    PageCount = 1,
+                    PageSize = 30,
+                    StartPage = 1
+                };
+            }
 
             var response = await App.Client.Activity.Notifications.GetAllForCurrent(request, options);
 

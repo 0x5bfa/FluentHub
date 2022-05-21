@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GraphQLCore = global::Octokit.GraphQL.Core;
-using GraphQLModel = global::Octokit.GraphQL.Model;
+using OctokitGraphQLCore = global::Octokit.GraphQL.Core;
+using OctokitGraphQLModel = global::Octokit.GraphQL.Model;
 
 namespace FluentHub.Octokit.Models
 {
@@ -29,11 +29,11 @@ namespace FluentHub.Octokit.Models
         public string Title { get; set; }
         public string Url { get; set; }
 
-        public GraphQLModel.LockReason? ActiveLockReason { get; set; }
-        public GraphQLModel.CommentAuthorAssociation AuthorAssociation { get; set; }
+        public OctokitGraphQLModel.LockReason? ActiveLockReason { get; set; }
+        public OctokitGraphQLModel.CommentAuthorAssociation AuthorAssociation { get; set; }
         public DiscussionCategory Category { get; set; }
         public Repository Repository { get; set; }
-        public GraphQLModel.SubscriptionState? ViewerSubscription { get; set; }
+        public OctokitGraphQLModel.SubscriptionState? ViewerSubscription { get; set; }
 
         public DateTimeOffset? AnswerChosenAt { get; set; }
         public string AnswerChosenAtHumanized { get; set; }

@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GraphQLCore = global::Octokit.GraphQL.Core;
-using GraphQLModel = global::Octokit.GraphQL.Model;
+using OctokitGraphQLCore = global::Octokit.GraphQL.Core;
+using OctokitGraphQLModel = global::Octokit.GraphQL.Model;
 
 namespace FluentHub.Octokit.Models
 {
@@ -39,7 +39,7 @@ namespace FluentHub.Octokit.Models
         public RepositoryOwner Owner { get; set; }
         public Language PrimaryLanguage { get; set; }
 
-        public GraphQLModel.SubscriptionState? ViewerSubscription { get; set; }
+        public OctokitGraphQLModel.SubscriptionState? ViewerSubscription { get; set; }
 
         public DateTimeOffset UpdatedAt { get; set; }
         public string UpdatedAtHumanized { get; set; }

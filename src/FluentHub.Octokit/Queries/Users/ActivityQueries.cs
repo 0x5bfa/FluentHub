@@ -1,11 +1,4 @@
-﻿using FluentHub.Octokit.Models;
-using Humanizer;
-using Octokit.GraphQL;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using OctokitOriginal = global::Octokit;
-
+﻿
 namespace FluentHub.Octokit.Queries.Users
 {
     public class ActivityQueries

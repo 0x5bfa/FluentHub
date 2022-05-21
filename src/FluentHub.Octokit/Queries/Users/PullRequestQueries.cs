@@ -1,14 +1,4 @@
-﻿using FluentHub.Octokit.Models;
-using FluentHub.Octokit.Models.Events;
-using Humanizer;
-using Octokit.GraphQL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GraphQLModel = global::Octokit.GraphQL.Model;
-
+﻿
 namespace FluentHub.Octokit.Queries.Users
 {
     public class PullRequestQueries
@@ -17,7 +7,7 @@ namespace FluentHub.Octokit.Queries.Users
 
         public async Task<List<PullRequest>> GetAllAsync(string login)
         {
-            GraphQLModel.IssueOrder order = new() { Direction = GraphQLModel.OrderDirection.Desc, Field = GraphQLModel.IssueOrderField.CreatedAt };
+            OctokitGraphQLModel.IssueOrder order = new() { Direction = OctokitGraphQLModel.OrderDirection.Desc, Field = OctokitGraphQLModel.IssueOrderField.CreatedAt };
 
             #region queries
             var query = new Query()

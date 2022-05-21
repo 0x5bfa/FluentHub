@@ -1,14 +1,4 @@
-﻿using FluentHub.Octokit.Models;
-using Humanizer;
-using Octokit.GraphQL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GraphQLCore = global::Octokit.GraphQL.Core;
-using GraphQLModel = global::Octokit.GraphQL.Model;
-
+﻿
 namespace FluentHub.Octokit.Queries.Repositories
 {
     public class RepositoryQueries
@@ -17,8 +7,8 @@ namespace FluentHub.Octokit.Queries.Repositories
 
         public async Task<Repository> GetDetailsAsync(string owner, string name)
         {
-            GraphQLCore.Arg<IEnumerable<GraphQLModel.IssueState>> issueState = new(new GraphQLModel.IssueState[] { GraphQLModel.IssueState.Open });
-            GraphQLCore.Arg<IEnumerable<GraphQLModel.PullRequestState>> pullRequestState = new(new GraphQLModel.PullRequestState[] { GraphQLModel.PullRequestState.Open });
+            OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.IssueState>> issueState = new(new OctokitGraphQLModel.IssueState[] { OctokitGraphQLModel.IssueState.Open });
+            OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.PullRequestState>> pullRequestState = new(new OctokitGraphQLModel.PullRequestState[] { OctokitGraphQLModel.PullRequestState.Open });
 
             var query = new Query()
                     .Repository(owner: owner, name: name)

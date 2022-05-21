@@ -1,5 +1,5 @@
 ﻿using FluentHub.Services;
-using FluentHub.ViewModels.Users;
+using FluentHub.ViewModels.Home;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
@@ -18,10 +18,12 @@ namespace FluentHub.Views.Home
             InitializeComponent();
 
             var provider = App.Current.Services;
+            ViewModel = provider.GetRequiredService<UserHomeViewModel>();
             navigationService = provider.GetRequiredService<INavigationService>();
         }
 
         private readonly INavigationService navigationService;
+        public UserHomeViewModel ViewModel { get; }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -29,11 +31,15 @@ namespace FluentHub.Views.Home
             currentItem.Header = $"Home";
             currentItem.Description = $"Home";
             currentItem.Url = $"fluenthub://home";
-            currentItem.Icon = new Microsoft.UI.Xaml.Controls.FontIconSource
+            currentItem.Icon = new muxc.FontIconSource
             {
                 Glyph = "\uE9D5",
                 FontFamily = new Windows.UI.Xaml.Media.FontFamily("/Assets/Glyphs/Octions.ttf#octions")
             };
+
+            var command = ViewModel.LoadHomeContentsCommand;
+            if (command.CanExecute(null))
+                command.Execute(null);
         }
     }
 }

@@ -124,6 +124,7 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="Authorization\AuthorizationService.cs" />
+    <Compile Include="GlobalUsings.cs" />
     <Compile Include="Helpers\UserTypeDetectionHelper.cs" />
     <Compile Include="Models\ApiOptions.cs" />
     <Compile Include="Models\CalendarDay.cs" />

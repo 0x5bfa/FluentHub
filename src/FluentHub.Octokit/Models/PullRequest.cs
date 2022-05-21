@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using GraphQLModel = global::Octokit.GraphQL.Model;
+using OctokitGraphQLModel = global::Octokit.GraphQL.Model;
 
 namespace FluentHub.Octokit.Models
 {
@@ -26,7 +26,7 @@ namespace FluentHub.Octokit.Models
 
         public List<Label> Labels { get; set; } = new();
 
-        public GraphQLModel.PullRequestReviewState ReviewState { get; set; }
+        public OctokitGraphQLModel.PullRequestReviewState ReviewState { get; set; }
         public StatusCheckRollup StatusState { get; set; }
 
         public DateTimeOffset UpdatedAt { get; set; }

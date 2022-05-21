@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GraphQLModel = global::Octokit.GraphQL.Model;
-
+﻿
 namespace FluentHub.Octokit.Models.Events
 {
     public class IssueComment
@@ -22,7 +16,7 @@ namespace FluentHub.Octokit.Models.Events
         public bool ViewerDidAuthor { get; set; }
 
         public List<Reaction> Reactions { get; set; } = new();
-        public GraphQLModel.CommentAuthorAssociation AuthorAssociation { get; set; }
+        public OctokitGraphQLModel.CommentAuthorAssociation AuthorAssociation { get; set; }
 
         public DateTimeOffset? LastEditedAt { get; set; }
         public DateTimeOffset UpdatedAt { get; set; }
