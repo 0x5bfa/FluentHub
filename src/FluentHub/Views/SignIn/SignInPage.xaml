@@ -59,9 +59,9 @@
                     <StackPanel Orientation="Horizontal" Spacing="4">
                         <TextBlock
                             Style="{ThemeResource BodyTextBlockStyle}"
-                            Text="WebAuth is the best way to access GitHub data."
+                            Text="WebAuth is the recommended option for login."
                             TextWrapping="Wrap" />
-                        <TextBlock><Hyperlink NavigateUri="https://github.com/fluenthub-community/FluentHub/blob/main/docs/authorize-app.md">Help</Hyperlink></TextBlock>
+                        <TextBlock><Hyperlink NavigateUri="https://github.com/fluenthub-community/FluentHub/blob/main/docs/authorize-app.md">Support</Hyperlink></TextBlock>
                     </StackPanel>
                 </StackPanel>
             </Grid>
@@ -146,37 +146,37 @@
                     VerticalAlignment="Top"
                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                     Style="{StaticResource BodyTextBlockStyle}"
-                    Text="Click &quot;Open with your Browser&quot;." />
+                    Text="Click &quot;Login with Browser&quot;" />
                 <TextBlock
                     Grid.Row="1"
                     Grid.Column="1"
                     VerticalAlignment="Top"
                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                     Style="{StaticResource BodyTextBlockStyle}"
-                    Text="If you have any organizations, grant them to get more info." />
+                    Text="If you are in administration of one or more organizations, please give FluentHub access to them" />
                 <TextBlock
                     Grid.Row="2"
                     Grid.Column="1"
                     VerticalAlignment="Top"
                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                     Style="{StaticResource BodyTextBlockStyle}"
-                    Text="Click &quot;Authorize fluenthub-community&quot;." />
+                    Text="Click &quot;Authorize fluenthub-community&quot;" />
                 <TextBlock
                     Grid.Row="3"
                     Grid.Column="1"
                     VerticalAlignment="Top"
                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                     Style="{StaticResource BodyTextBlockStyle}"
-                    Text="Click &quot;Open FluentHub - Alpha&quot;." />
+                    Text="Click &quot;Open FluentHub - Alpha&quot;" />
                 <TextBlock
                     Grid.Row="4"
                     Grid.Column="1"
                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                     Style="{StaticResource BodyTextBlockStyle}"
-                    Text="Back to FluentHub." />
+                    Text="Proceed to the FluentHub application." />
             </Grid>
             <Grid Grid.Row="2">
-                <Button Content="Use Basic Auth" IsEnabled="False" />
+                <Button Content="Login with BasicAuth" IsEnabled="False" />
                 <StackPanel
                     HorizontalAlignment="Right"
                     Orientation="Horizontal"
@@ -189,7 +189,7 @@
                     <Button
                         MinWidth="120"
                         Click="ContinueButton_Click"
-                        Content="Open with your browser"
+                        Content="Login with browser"
                         Style="{StaticResource AccentButtonStyle}" />
                 </StackPanel>
             </Grid>

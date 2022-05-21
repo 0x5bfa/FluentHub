@@ -73,7 +73,7 @@
                     </uc:SettingsBlockControl.ExpandableContent>
                 </uc:SettingsBlockControl>
 
-                <uc:SettingsBlockControl Title="Open app log location" IsClickable="False">
+                <uc:SettingsBlockControl Title="Logs" IsClickable="False">
 
                     <uc:SettingsBlockControl.Icon>
                         <FontIcon Glyph="&#xe838;" />
@@ -82,7 +82,7 @@
                     <Button
                         Height="32"
                         Command="{x:Bind ViewModel.OpenLogsCommand}"
-                        ToolTipService.ToolTip="Open logs location">
+                        ToolTipService.ToolTip="Open log location">
 
                         <StackPanel Orientation="Horizontal" Spacing="6">
                             <FontIcon FontSize="16" Glyph="&#xE838;" />
@@ -97,7 +97,7 @@
                 Grid.Row="1"
                 Margin="0,24,0,6"
                 Style="{StaticResource BodyStrongTextBlockStyle}"
-                Text="FluentHub Team Members" />
+                Text="FluentHub Team" />
 
             <StackPanel Grid.Row="2" Spacing="4">
                 <Grid
