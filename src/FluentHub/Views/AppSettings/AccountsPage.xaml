@@ -98,7 +98,7 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Style="{StaticResource BodyStrongTextBlockStyle}"
-                Text="Currently, not available" />
+                Text="Currently not available" />
         </Grid>
     </ScrollViewer>
 </Page>

@@ -187,7 +187,7 @@
                 VerticalAlignment="Center"
                 IsEnabled="True"
                 KeyDown="OnUrlTextBoxKeyDown"
-                PlaceholderText="Search GitHub or type GitHub URL"
+                PlaceholderText="Search or input URL"
                 Text="{x:Bind TabView.SelectedItem.NavigationHistory.CurrentItem.Url, Mode=OneWay}" />
 
             <Grid Grid.Column="2" VerticalAlignment="Center">

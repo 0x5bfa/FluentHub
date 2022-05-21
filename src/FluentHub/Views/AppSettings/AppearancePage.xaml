@@ -27,8 +27,8 @@
                 <StackPanel Grid.Row="1" Spacing="4">
 
                     <uc:SettingsBlockControl
-                        Title="App Theme"
-                        Description="Select which app theme to display"
+                        Title="Theme"
+                        Description="Select app theme"
                         IsClickable="False">
                         <uc:SettingsBlockControl.Icon>
                             <FontIcon Glyph="&#xE771;" />
@@ -38,7 +38,7 @@
 
                     <uc:SettingsBlockControl
                         Title="Language"
-                        Description="Select language which you want use (currently, app does not support multi-language)"
+                        Description="Select language - Your build of FluentHub does not allow this"
                         IsClickable="False">
                         <uc:SettingsBlockControl.Icon>
                             <FontIcon Glyph="&#xF2B7;" />
@@ -55,12 +55,12 @@
                     Grid.Row="2"
                     Margin="0,16,0,8"
                     Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="Contribution graph" />
+                    Text="Contribution " />
 
                 <StackPanel Grid.Row="3" Spacing="4">
                     <uc:SettingsBlockControl
                         Title="Color"
-                        Description="Pick main accent color for user contribution graph"
+                        Description="Select accent color for contribution graph"
                         IsClickable="False">
                         <uc:SettingsBlockControl.Icon>
                             <FontIcon Glyph="&#xE771;" />

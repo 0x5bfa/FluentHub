@@ -22,13 +22,11 @@
 
 ## Download and Build
 
-> Currently, the only way to get a version more up-to-date than the store or to test app is to build the source code.<br>
-Please take a look at [build-from-source](https://github.com/fluenthub-community/FluentHub/blob/main/docs/build-from-source.md).
-
 <a style="text-decoration:none" href="https://apps.microsoft.com/store/detail/fluenthub/9nkb9hx8rjz3">
-  <img width="200" src="https://getbadgecdn.azureedge.net/images/English_L.png" alt="GetItFromMicrosoft" />
+  <img width="128" src="https://getbadgecdn.azureedge.net/images/English_L.png" alt="GetItFromMicrosoft" />
 </a>
 
+> **Attention**</br>The app from ms store has issues during authentication that do not occur in DEBUG configured FluentHub. We are tracking on [#138](https://github.com/fluenthub-community/FluentHub/issues/138). Due to this issue, we are not publishing packages to GitHub Releases and Microsoft Store because the RELEASE configured FluentHub does not work properly. So need to build from source. Please take a look at [build-from-source](https://github.com/fluenthub-community/FluentHub/blob/main/docs/build-from-source.md). 
 ## Screenshots
 
 ![image](https://user-images.githubusercontent.com/62196528/167259072-adedd9c3-c979-48a5-96f9-f37ddc87b662.png)
