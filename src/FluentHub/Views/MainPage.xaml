@@ -188,7 +188,7 @@
                 VerticalAlignment="Center"
                 IsEnabled="True"
                 KeyDown="OnUrlTextBoxKeyDown"
-                PlaceholderText="Search GitHub or type GitHub URL"
+                PlaceholderText="Search or input URL"
                 Text="{x:Bind TabView.SelectedItem.NavigationHistory.CurrentItem.Url, Mode=OneWay}" />
 
             <Grid Grid.Column="2" VerticalAlignment="Center">
@@ -227,20 +227,20 @@
                         <muxc:DropDownButton.Flyout>
 
                             <MenuFlyout Placement="BottomEdgeAlignedRight">
-                                <MenuFlyoutItem Click="ShareWithBrowserMenuFlyoutItem_Click" Text="Continue with your browser" />
+                                <MenuFlyoutItem Click="ShareWithBrowserMenuFlyoutItem_Click" Text="Continue via browser" />
                                 <MenuFlyoutSeparator />
                                 <MenuFlyoutSubItem Text="New...">
                                     <MenuFlyoutItem Text="New repository" />
                                     <MenuFlyoutItem Text="New organization" />
                                 </MenuFlyoutSubItem>
                                 <MenuFlyoutSeparator />
-                                <MenuFlyoutItem Text="Your profile" />
+                                <MenuFlyoutItem Text="Profile" />
                                 <MenuFlyoutItem Text="Your repositories" />
                                 <MenuFlyoutItem Text="Your organizations" />
                                 <MenuFlyoutItem Text="Your discussions" />
                                 <MenuFlyoutItem Text="Your stars" />
                                 <MenuFlyoutSeparator />
-                                <MenuFlyoutItem Click="SettingsMenuFlyoutItem_Click" Text="App Settings" />
+                                <MenuFlyoutItem Click="SettingsMenuFlyoutItem_Click" Text="Settings" />
                                 <MenuFlyoutItem Click="SignOutMenuFlyoutItem_Click" Text="Sign out" />
                             </MenuFlyout>
 
