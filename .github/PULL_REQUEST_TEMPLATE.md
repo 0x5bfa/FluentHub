@@ -7,25 +7,24 @@ https://github.com/fluenthub-community/FluentHub/blob/main/.github/CONTRIBUTING.
 
 ### Before you start
 <!-- Put an 'x' in the brackets to tick -->
-How did you test these changes?
-- [x] Built and ran the app
-- [] Tested the changes for accessibility
+- [ ] Have you checked if a similar PR has already been requested? 
 
 ### Related/Fixed issues
-<!-- Address related/fixed issues with this format: #issueid -->
+###### <sup>Address related/fixed issues</sup>
+<!-- with this format: #issueid-->
 - Related: #
 - Fixed: #
 
 ### Description
-<!-- Add details of changes here -->
+###### <sup>Details of changes are listed here</sup>
 
 
 
 ### Motivation and Context
-<!-- Items resolved/related issues by this PR.-->
+###### <sup>Items resolved/related issues by this PR.</sup>
 
 
 
 ### Assets (if appropriate):
-<!--A list of assets (screenshots, mockups) relevant to this pull request.-->
+###### <sup>A list of assets (screenshots, mockups) relevant to this pull request.</sup>
 
