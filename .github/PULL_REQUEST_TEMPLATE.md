@@ -8,7 +8,7 @@ https://github.com/fluenthub-community/FluentHub/blob/main/.github/CONTRIBUTING.
 ### Before you start
 <!-- Put an 'x' in the brackets to tick -->
 How did you test these changes?
-- [] Built and ran the app
+- [x] Built and ran the app
 - [] Tested the changes for accessibility
 
 ### Related/Fixed issues
