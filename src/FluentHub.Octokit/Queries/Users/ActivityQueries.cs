@@ -18,7 +18,7 @@ namespace FluentHub.Octokit.Queries.Users
             OctokitOriginal.ApiOptions options = new()
             {
                 PageCount = 1,
-                PageSize = 30,
+                PageSize = 60,
                 StartPage = 1
             };
 

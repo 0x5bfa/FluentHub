@@ -5,8 +5,11 @@
     xmlns:b="using:FluentHub.UserControls.Blocks"
     xmlns:bb="using:FluentHub.UserControls.ButtonBlocks"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:graphqlmodels="using:FluentHub.Octokit.Models"
     xmlns:local="using:FluentHub.UserControls.Blocks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -18,33 +21,186 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <StackPanel
-            Margin="4,0"
-            Orientation="Horizontal"
-            Spacing="6">
+        <Grid Margin="4,0" ColumnSpacing="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
             <Border
                 Width="20"
                 Height="20"
                 Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                 CornerRadius="12">
-                <Image Source="{x:Bind ViewModel.Payload.Actor.AvatarUrl, Mode=OneWay}" />
+                <Image
+                    Width="20"
+                    Height="20"
+                    Source="{x:Bind ViewModel.Payload.Actor.AvatarUrl, Mode=OneWay}" />
             </Border>
 
-            <Button Style="{StaticResource LinkLikeButtonStyle}">
+            <Button Grid.Column="1" Style="{StaticResource LinkLikeButtonStyle}">
                 <TextBlock
                     VerticalAlignment="Center"
                     Style="{StaticResource BodyStrongTextBlockStyle}"
                     Text="{x:Bind ViewModel.Payload.Actor.Login, Mode=OneWay}" />
             </Button>
 
-            <StackPanel Orientation="Horizontal" Spacing="4">
-                <TextBlock Text="{x:Bind ViewModel.Payload.PayloadType, Mode=OneWay}" />
+            <StackPanel
+                Grid.Column="2"
+                Orientation="Horizontal"
+                Spacing="4">
+                <toolkit:SwitchPresenter TargetType="x:String" Value="{x:Bind ViewModel.Payload.PayloadType, Mode=OneWay}">
+
+                    <toolkit:Case Value="CommitCommentEvent">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock Text="CommitCommentEvent" />
+                        </StackPanel>
+                    </toolkit:Case>
+
+                    <toolkit:Case Value="CreateEvent">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock Text="CreateEvent" />
+                        </StackPanel>
+                    </toolkit:Case>
+
+                    <toolkit:Case Value="DeleteEvent">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock Text="DeleteEvent" />
+                        </StackPanel>
+                    </toolkit:Case>
+
+                    <toolkit:Case Value="ForkEvent">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="forked from" />
+                            <Button Padding="4,2">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Owner.Login, Mode=OneWay}" />
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Name, Mode=OneWay}" />
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </toolkit:Case>
+
+                    <toolkit:Case Value="GollumEvent">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock Text="GollumEvent" />
+                        </StackPanel>
+                    </toolkit:Case>
+
+                    <toolkit:Case Value="IssueCommentEvent">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock Text="IssueCommentEvent" />
+                        </StackPanel>
+                    </toolkit:Case>
+
+                    <toolkit:Case Value="IssuesEvent">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock Text="IssuesEvent" />
+                        </StackPanel>
+                    </toolkit:Case>
+
+                    <toolkit:Case Value="MemberEvent">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock Text="MemberEvent" />
+                        </StackPanel>
+                    </toolkit:Case>
+
+                    <toolkit:Case Value="PublicEvent">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock Text="PublicEvent" />
+                        </StackPanel>
+                    </toolkit:Case>
+
+                    <toolkit:Case Value="PullRequestEvent">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock Text="PullRequestEvent" />
+                        </StackPanel>
+                    </toolkit:Case>
+
+                    <toolkit:Case Value="PullRequestReviewEvent">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock Text="PullRequestReviewEvent" />
+                        </StackPanel>
+                    </toolkit:Case>
+
+                    <toolkit:Case Value="PullRequestReviewCommentEvent">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock Text="PullRequestReviewCommentEvent" />
+                        </StackPanel>
+                    </toolkit:Case>
+
+                    <toolkit:Case Value="PullRequestReviewThreadEvent">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock Text="PullRequestReviewThreadEvent" />
+                        </StackPanel>
+                    </toolkit:Case>
+
+                    <toolkit:Case Value="PushEvent">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock Text="PushEvent" />
+                        </StackPanel>
+                    </toolkit:Case>
+
+                    <toolkit:Case Value="ReleaseEvent">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock Text="ReleaseEvent" />
+                        </StackPanel>
+                    </toolkit:Case>
+
+                    <toolkit:Case Value="SponsorshipEvent">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock Text="SponsorshipEvent" />
+                        </StackPanel>
+                    </toolkit:Case>
+
+                    <toolkit:Case Value="WatchEvent">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="starred" />
+                            <Button Padding="4,2">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Owner.Login, Mode=OneWay}" />
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Name, Mode=OneWay}" />
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </toolkit:Case>
+
+                </toolkit:SwitchPresenter>
             </StackPanel>
 
-        </StackPanel>
+            <TextBlock
+                Grid.ColumnSpan="3"
+                HorizontalAlignment="Right"
+                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Text="{x:Bind ViewModel.Payload.CreatedAtHumanized, Mode=OneWay}" />
+        </Grid>
 
-        <Grid Grid.Row="1" Margin="0,8" />
+        <Grid
+            Grid.Row="1"
+            Margin="30,8,0,8"
+            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="4">
+            <bb:RepoButtonBlock
+                x:Name="RepoButtonBlock"
+                x:Load="{x:Bind ViewModel.RepoBlockViewModel, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                ViewModel="{x:Bind ViewModel.RepoBlockViewModel, Mode=OneWay}" />
+            <bb:UserButtonBlock
+                x:Name="UserButtonBlock"
+                x:Load="{x:Bind ViewModel.UserBlockViewModel, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                ViewModel="{x:Bind ViewModel.UserBlockViewModel, Mode=OneWay}" />
+        </Grid>
 
         <MenuFlyoutSeparator Grid.Row="2" Margin="0,8,0,0" />
 
