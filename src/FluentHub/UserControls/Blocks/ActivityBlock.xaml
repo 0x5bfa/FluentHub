@@ -61,19 +61,49 @@
 
                     <toolkit:Case Value="CommitCommentEvent">
                         <StackPanel Orientation="Horizontal" Spacing="4">
-                            <TextBlock Text="CommitCommentEvent" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="left a comment on commit" />
+                            <Button Padding="4,2">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Owner.Login, Mode=OneWay}" />
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Name, Mode=OneWay}" />
+                                </StackPanel>
+                            </Button>
                         </StackPanel>
                     </toolkit:Case>
 
                     <toolkit:Case Value="CreateEvent">
                         <StackPanel Orientation="Horizontal" Spacing="4">
-                            <TextBlock Text="CreateEvent" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="created a branch in" />
+                            <Button Padding="4,2">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Owner.Login, Mode=OneWay}" />
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Name, Mode=OneWay}" />
+                                </StackPanel>
+                            </Button>
                         </StackPanel>
                     </toolkit:Case>
 
                     <toolkit:Case Value="DeleteEvent">
                         <StackPanel Orientation="Horizontal" Spacing="4">
-                            <TextBlock Text="DeleteEvent" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="deleted branch in" />
+                            <Button Padding="4,2">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Owner.Login, Mode=OneWay}" />
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Name, Mode=OneWay}" />
+                                </StackPanel>
+                            </Button>
                         </StackPanel>
                     </toolkit:Case>
 
@@ -95,73 +125,172 @@
 
                     <toolkit:Case Value="GollumEvent">
                         <StackPanel Orientation="Horizontal" Spacing="4">
-                            <TextBlock Text="GollumEvent" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="updated a wiki in" />
+                            <Button Padding="4,2">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Owner.Login, Mode=OneWay}" />
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Name, Mode=OneWay}" />
+                                </StackPanel>
+                            </Button>
                         </StackPanel>
                     </toolkit:Case>
 
                     <toolkit:Case Value="IssueCommentEvent">
                         <StackPanel Orientation="Horizontal" Spacing="4">
-                            <TextBlock Text="IssueCommentEvent" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="left a comment on issue" />
+                            <Button Padding="4,2">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Owner.Login, Mode=OneWay}" />
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Name, Mode=OneWay}" />
+                                </StackPanel>
+                            </Button>
                         </StackPanel>
                     </toolkit:Case>
 
                     <toolkit:Case Value="IssuesEvent">
                         <StackPanel Orientation="Horizontal" Spacing="4">
-                            <TextBlock Text="IssuesEvent" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="created a issue event in" />
+                            <Button Padding="4,2">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Owner.Login, Mode=OneWay}" />
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Name, Mode=OneWay}" />
+                                </StackPanel>
+                            </Button>
                         </StackPanel>
                     </toolkit:Case>
 
                     <toolkit:Case Value="MemberEvent">
                         <StackPanel Orientation="Horizontal" Spacing="4">
-                            <TextBlock Text="MemberEvent" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="created invitation" />
                         </StackPanel>
                     </toolkit:Case>
 
                     <toolkit:Case Value="PublicEvent">
                         <StackPanel Orientation="Horizontal" Spacing="4">
-                            <TextBlock Text="PublicEvent" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="made a repository be public" />
                         </StackPanel>
                     </toolkit:Case>
 
                     <toolkit:Case Value="PullRequestEvent">
                         <StackPanel Orientation="Horizontal" Spacing="4">
-                            <TextBlock Text="PullRequestEvent" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="created a pull request event" />
+                            <Button Padding="4,2">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Owner.Login, Mode=OneWay}" />
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Name, Mode=OneWay}" />
+                                </StackPanel>
+                            </Button>
                         </StackPanel>
                     </toolkit:Case>
 
                     <toolkit:Case Value="PullRequestReviewEvent">
                         <StackPanel Orientation="Horizontal" Spacing="4">
-                            <TextBlock Text="PullRequestReviewEvent" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="created a pull request review" />
+                            <Button Padding="4,2">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Owner.Login, Mode=OneWay}" />
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Name, Mode=OneWay}" />
+                                </StackPanel>
+                            </Button>
                         </StackPanel>
                     </toolkit:Case>
 
                     <toolkit:Case Value="PullRequestReviewCommentEvent">
                         <StackPanel Orientation="Horizontal" Spacing="4">
-                            <TextBlock Text="PullRequestReviewCommentEvent" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="left a review comment in" />
+                            <Button Padding="4,2">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Owner.Login, Mode=OneWay}" />
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Name, Mode=OneWay}" />
+                                </StackPanel>
+                            </Button>
                         </StackPanel>
                     </toolkit:Case>
 
                     <toolkit:Case Value="PullRequestReviewThreadEvent">
                         <StackPanel Orientation="Horizontal" Spacing="4">
-                            <TextBlock Text="PullRequestReviewThreadEvent" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="created a pull request review thread" />
+                            <Button Padding="4,2">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Owner.Login, Mode=OneWay}" />
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Name, Mode=OneWay}" />
+                                </StackPanel>
+                            </Button>
                         </StackPanel>
                     </toolkit:Case>
 
                     <toolkit:Case Value="PushEvent">
                         <StackPanel Orientation="Horizontal" Spacing="4">
-                            <TextBlock Text="PushEvent" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="pushed a commit into" />
+                            <Button Padding="4,2">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Owner.Login, Mode=OneWay}" />
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Name, Mode=OneWay}" />
+                                </StackPanel>
+                            </Button>
                         </StackPanel>
                     </toolkit:Case>
 
                     <toolkit:Case Value="ReleaseEvent">
                         <StackPanel Orientation="Horizontal" Spacing="4">
-                            <TextBlock Text="ReleaseEvent" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="created a release in" />
+                            <Button Padding="4,2">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Owner.Login, Mode=OneWay}" />
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Name, Mode=OneWay}" />
+                                </StackPanel>
+                            </Button>
                         </StackPanel>
                     </toolkit:Case>
 
                     <toolkit:Case Value="SponsorshipEvent">
                         <StackPanel Orientation="Horizontal" Spacing="4">
-                            <TextBlock Text="SponsorshipEvent" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="created a sponsorship event" />
                         </StackPanel>
                     </toolkit:Case>
 

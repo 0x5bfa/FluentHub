@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.UserControls.Blocks
 {
-    public class CommitActivityBlockViewModel
+    public class SingleCommentBlockViewModel
     {
-        public string Ssh { get; set; }
     }
 }

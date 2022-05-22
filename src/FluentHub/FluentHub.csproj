@@ -160,11 +160,17 @@
     <Compile Include="UserControls\Blocks\BranchName.xaml.cs">
       <DependentUpon>BranchName.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Blocks\CommitActivityBlock.xaml.cs">
-      <DependentUpon>CommitActivityBlock.xaml</DependentUpon>
+    <Compile Include="UserControls\Blocks\SingleCommentBlock.xaml.cs">
+      <DependentUpon>SingleCommentBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Blocks\SingleCommitBlock.xaml.cs">
+      <DependentUpon>SingleCommitBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Blocks\DiffBlock.xaml.cs">
       <DependentUpon>DiffBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Blocks\SingleReleaseBlock.xaml.cs">
+      <DependentUpon>SingleReleaseBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Blocks\UserContributionGraph.xaml.cs">
       <DependentUpon>UserContributionGraph.xaml</DependentUpon>
@@ -283,11 +289,13 @@
     <Compile Include="ViewModels\SettingsManager.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\ActivityBlockViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\Blocks\CommitActivityBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Blocks\SingleCommentBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Blocks\SingleCommitBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\DiffBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\FileContentBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\FileNavigationBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\ReadmeContentBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Blocks\SingleReleaseBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\UserContributionGraphViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\CommitButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\DiscussionButtonBlockViewModel.cs" />
@@ -808,7 +816,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\Blocks\CommitActivityBlock.xaml">
+    <Page Include="UserControls\Blocks\SingleCommentBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Blocks\SingleCommitBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -817,6 +829,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Blocks\FileNavigationBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Blocks\SingleReleaseBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
