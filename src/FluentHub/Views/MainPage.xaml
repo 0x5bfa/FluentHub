@@ -262,7 +262,7 @@
                                 <MenuFlyoutItem Click="OnYourOrganizationsMenuFlyoutItemClick" Text="Your organizations" />
                                 <MenuFlyoutItem Click="OnYourStarsMenuFlyoutItemClick" Text="Your stars" />
                                 <MenuFlyoutSeparator />
-                                <MenuFlyoutItem Click="OnAppSettingsMenuFlyoutItemClick" Text="App Settings" />
+                                <MenuFlyoutItem Click="OnAppSettingsMenuFlyoutItemClick" Text="Settings" />
                                 <MenuFlyoutItem Click="OnSignOutMenuFlyoutItemClick" Text="Sign out" />
                             </MenuFlyout>
 
