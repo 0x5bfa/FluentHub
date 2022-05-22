@@ -8,5 +8,8 @@ namespace FluentHub.Octokit.Models.ActivityPayloads
 {
     public class CheckSuiteEventPayload
     {
+        public string Action { get; set; }
+
+        public OctokitOriginal.CheckSuite CheckSuite { get; set; }
     }
 }

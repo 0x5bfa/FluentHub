@@ -8,5 +8,9 @@ namespace FluentHub.Octokit.Models.ActivityPayloads
 {
     public class CheckRunEventPayload
     {
+        public string Action { get; set; }
+
+        public OctokitOriginal.CheckRun CheckRun { get; set; }
+        public OctokitOriginal.CheckRunRequestedAction RequestedAction { get; set; }
     }
 }

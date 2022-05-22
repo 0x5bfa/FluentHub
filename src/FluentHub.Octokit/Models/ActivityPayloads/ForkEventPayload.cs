@@ -8,5 +8,6 @@ namespace FluentHub.Octokit.Models.ActivityPayloads
 {
     public class ForkEventPayload
     {
+        public OctokitOriginal.Repository Forkee { get; set; }
     }
 }

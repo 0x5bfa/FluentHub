@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentHub.ViewModels.UserControls.Blocks;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,9 +18,23 @@ namespace FluentHub.UserControls.Blocks
 {
     public sealed partial class SingleCommentBlock : UserControl
     {
-        public SingleCommentBlock()
+        public static readonly DependencyProperty ViewModelProperty =
+            DependencyProperty.Register(
+                nameof(ViewModel),
+                typeof(SingleCommentBlockViewModel),
+                typeof(SingleCommentBlock),
+                new PropertyMetadata(null));
+
+        public SingleCommentBlockViewModel ViewModel
         {
-            this.InitializeComponent();
+            get => (SingleCommentBlockViewModel)GetValue(ViewModelProperty);
+            set
+            {
+                SetValue(ViewModelProperty, value);
+                DataContext = ViewModel;
+            }
         }
+
+        public SingleCommentBlock() => this.InitializeComponent();
     }
 }

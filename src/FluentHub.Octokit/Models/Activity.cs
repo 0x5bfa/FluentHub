@@ -1,24 +1,25 @@
-﻿namespace FluentHub.Octokit.Models
+﻿using FluentHub.Octokit.Models.ActivityPayloads;
+
+namespace FluentHub.Octokit.Models
 {
     public class Activity
     {
         // Payloads
-        //public global::Octokit.CheckRunEventPayload CheckRunEventPayload { get; set; }
-        //public global::Octokit.CheckSuiteEventPayload CheckSuiteEventPayload { get; set; }
-        //public global::Octokit.CommitCommentPayload CommitCommentPayload { get; set; }
-        //public global::Octokit.CreateEventPayload CreateEventPayload { get; set; }
-        //public global::Octokit.DeleteEventPayload DeleteEventPayload { get; set; }
-        //public global::Octokit.ForkEventPayload ForkEventPayload { get; set; }
-        //public global::Octokit.IssueCommentPayload IssueCommentPayload { get; set; }
-        //public global::Octokit.IssueEventPayload IssueEventPayload { get; set; }
-        //public global::Octokit.PullRequestEventPayload PullRequestEventPayload { get; set; }
-        //public global::Octokit.PullRequestReviewEventPayload PullRequestReviewEventPayload { get; set; }
-        //public global::Octokit.PullRequestCommentPayload PullRequestCommentPayload { get; set; }
-        //public global::Octokit.PushEventPayload PushEventPayload { get; set; }
-        //public global::Octokit.ReleaseEventPayload ReleaseEventPayload { get; set; }
-        //public global::Octokit.StatusEventPayload StatusEventPayload { get; set; }
-        //public global::Octokit.StarredEventPayload StarredEventPayload { get; set; }
-        //public global::Octokit.ActivityPayload ActivityPayload { get; set; }
+        public CheckRunEventPayload CheckRunEventPayload { get; set; }
+        public CheckSuiteEventPayload CheckSuiteEventPayload { get; set; }
+        public CommitCommentPayload CommitCommentPayload { get; set; }
+        public CreateEventPayload CreateEventPayload { get; set; }
+        public DeleteEventPayload DeleteEventPayload { get; set; }
+        public ForkEventPayload ForkEventPayload { get; set; }
+        public IssueCommentPayload IssueCommentPayload { get; set; }
+        public IssueEventPayload IssueEventPayload { get; set; }
+        public PullRequestEventPayload PullRequestEventPayload { get; set; }
+        public PullRequestReviewEventPayload PullRequestReviewEventPayload { get; set; }
+        public PullRequestCommentPayload PullRequestCommentPayload { get; set; }
+        public PushEventPayload PushEventPayload { get; set; }
+        public ReleaseEventPayload ReleaseEventPayload { get; set; }
+        public StatusEventPayload StatusEventPayload { get; set; }
+        public StarredEventPayload StarredEventPayload { get; set; }
 
         public object Payload { get; set; }
 

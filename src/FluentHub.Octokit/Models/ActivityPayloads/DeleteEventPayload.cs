@@ -8,5 +8,7 @@ namespace FluentHub.Octokit.Models.ActivityPayloads
 {
     public class DeleteEventPayload
     {
+        public string Ref { get; set; }
+        public OctokitOriginal.StringEnum<OctokitOriginal.RefType> RefType { get; set; }
     }
 }

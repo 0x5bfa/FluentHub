@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentHub.Octokit.Models.ActivityPayloads;
+using System.Collections.ObjectModel;
 
 namespace FluentHub.ViewModels.UserControls.Blocks
 {
-    public class SingleCommitBlockViewModel
+    public class SingleCommitBlockViewModel : ObservableObject
     {
-        public string Ssh { get; set; }
+        private PushEventPayload _pushEventPayload;
+        public PushEventPayload PushEventPayload { get => _pushEventPayload; set => SetProperty(ref _pushEventPayload, value); }
     }
 }

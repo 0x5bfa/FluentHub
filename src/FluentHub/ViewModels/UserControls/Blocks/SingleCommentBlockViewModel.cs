@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentHub.Octokit.Models.ActivityPayloads;
+using System.Collections.ObjectModel;
 
 namespace FluentHub.ViewModels.UserControls.Blocks
 {
-    public class SingleCommentBlockViewModel
+    public class SingleCommentBlockViewModel : ObservableObject
     {
+        private IssueCommentPayload _issueCommentPayload;
+        public IssueCommentPayload IssueCommentPayload { get => _issueCommentPayload; set => SetProperty(ref _issueCommentPayload, value); }
     }
 }

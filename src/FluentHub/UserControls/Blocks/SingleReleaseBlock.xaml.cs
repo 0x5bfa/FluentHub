@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FluentHub.ViewModels.UserControls.Blocks;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -17,9 +18,23 @@ namespace FluentHub.UserControls.Blocks
 {
     public sealed partial class SingleReleaseBlock : UserControl
     {
-        public SingleReleaseBlock()
+        public static readonly DependencyProperty ViewModelProperty =
+            DependencyProperty.Register(
+                nameof(ViewModel),
+                typeof(SingleReleaseBlockViewModel),
+                typeof(SingleReleaseBlock),
+                new PropertyMetadata(null));
+
+        public SingleReleaseBlockViewModel ViewModel
         {
-            this.InitializeComponent();
+            get => (SingleReleaseBlockViewModel)GetValue(ViewModelProperty);
+            set
+            {
+                SetValue(ViewModelProperty, value);
+                DataContext = ViewModel;
+            }
         }
+
+        public SingleReleaseBlock() => this.InitializeComponent();
     }
 }

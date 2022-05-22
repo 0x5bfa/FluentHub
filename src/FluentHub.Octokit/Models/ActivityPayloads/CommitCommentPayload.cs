@@ -8,5 +8,6 @@ namespace FluentHub.Octokit.Models.ActivityPayloads
 {
     public class CommitCommentPayload
     {
+        public OctokitOriginal.CommitComment Comment { get; set; }
     }
 }

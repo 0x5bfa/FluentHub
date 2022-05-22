@@ -8,5 +8,8 @@ namespace FluentHub.Octokit.Models.ActivityPayloads
 {
     public class IssueEventPayload
     {
+        public string Action { get; set; }
+
+        public OctokitOriginal.Issue Issue { get; set; }
     }
 }

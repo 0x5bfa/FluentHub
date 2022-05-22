@@ -1,4 +1,6 @@
-﻿namespace FluentHub.Octokit.Queries.Users
+﻿using FluentHub.Octokit.Models.ActivityPayloads;
+
+namespace FluentHub.Octokit.Queries.Users
 {
     public class ActivityQueries
     {
@@ -22,7 +24,7 @@
 
             foreach (var item in response)
             {
-                Activity activityItem = new()
+                Activity indivisual = new()
                 {
                     Payload = item.Payload,
                     PayloadType = item.Type,
@@ -50,7 +52,92 @@
                     },
                 };
 
-                activities.Add(activityItem);
+                switch (item.Type)
+                {
+                    case "CheckRunEvent":
+                        break;
+                    case "CheckSuiteEvent":
+                        break;
+                    case "CommitComment":
+                        break;
+                    case "CreateEvent":
+                        var createEventPayload = (OctokitOriginal.CreateEventPayload)item.Payload;
+                        indivisual.CreateEventPayload = new()
+                        {
+                            Description = createEventPayload.Description,
+                            MasterBranch = createEventPayload.MasterBranch,
+                            Ref = createEventPayload.Ref,
+                            RefType = createEventPayload.RefType,
+                        };
+                        break;
+                    case "DeleteEvent":
+                        var deleteEventPayload = (OctokitOriginal.DeleteEventPayload)item.Payload;
+                        indivisual.DeleteEventPayload = new()
+                        {
+                            Ref = deleteEventPayload.Ref,
+                            RefType = deleteEventPayload.RefType,
+                        };
+                        break;
+                    case "ForkEvent":
+                        var forkEventPayload = (OctokitOriginal.ForkEventPayload)item.Payload;
+                        indivisual.ForkEventPayload = new()
+                        {
+                            Forkee = forkEventPayload.Forkee,
+                        };
+                        break;
+                    case "IssueCommentEvent":
+                        var issueCommentPayload = (OctokitOriginal.IssueCommentPayload)item.Payload;
+                        indivisual.IssueCommentPayload = new()
+                        {
+                            Action = issueCommentPayload.Action,
+                            Comment = issueCommentPayload.Comment,
+                            Issue = issueCommentPayload.Issue,
+                        };
+                        break;
+                    case "IssueEvent":
+                        break;
+                    case "PullRequestComment":
+                        break;
+                    case "PullRequestEvent":
+                        break;
+                    case "PullRequestReviewEvent":
+                        break;
+                    case "PushEvent":
+                        var pushEventPayload = (OctokitOriginal.PushEventPayload)item.Payload;
+                        indivisual.PushEventPayload = new()
+                        {
+                            Commits = pushEventPayload.Commits,
+                            Head = pushEventPayload.Head,
+                            Ref = pushEventPayload.Ref,
+                            Size = pushEventPayload.Size,
+                        };
+                        break;
+                    case "PushWebhookCommit":
+                        break;
+                    case "PushWebhookCommitter":
+                        break;
+                    case "PushWebhook":
+                        break;
+                    case "ReleaseEvent":
+                        var releaseEventPayload = (OctokitOriginal.ReleaseEventPayload)item.Payload;
+                        indivisual.ReleaseEventPayload = new()
+                        {
+                            Action = releaseEventPayload.Action,
+                            Release = releaseEventPayload.Release,
+                        };
+                        break;
+                    case "WatchEvent":
+                        var watchEventPayload = (OctokitOriginal.StarredEventPayload)item.Payload;
+                        indivisual.StarredEventPayload = new()
+                        {
+                            Action = watchEventPayload.Action,
+                        };
+                        break;
+                    case "StatusEvent":
+                        break;
+                }
+
+                activities.Add(indivisual);
             }
             #endregion
 

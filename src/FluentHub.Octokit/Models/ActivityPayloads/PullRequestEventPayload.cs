@@ -8,5 +8,10 @@ namespace FluentHub.Octokit.Models.ActivityPayloads
 {
     public class PullRequestEventPayload
     {
+
+        public string Action { get; set; }
+
+        public int Number { get; set; }
+        public OctokitOriginal.PullRequest PullRequest { get; set; }
     }
 }
