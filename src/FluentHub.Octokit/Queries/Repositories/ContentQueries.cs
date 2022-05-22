@@ -1,15 +1,4 @@
-﻿using FluentHub.Octokit.Models;
-using Humanizer;
-using Octokit.GraphQL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GraphQLCore = global::Octokit.GraphQL.Core;
-using GraphQLModel = global::Octokit.GraphQL.Model;
-
-namespace FluentHub.Octokit.Queries.Repositories
+﻿namespace FluentHub.Octokit.Queries.Repositories
 {
     public class ContentQueries
     {
@@ -29,7 +18,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             var query = new Query()
                 .Repository(name, owner)
                 .Object(expression: refs + ":" + path)
-                .Cast<GraphQLModel.Tree>()
+                .Cast<OctokitGraphQLModel.Tree>()
                 .Entries
                 .Select(x => new Content
                 {

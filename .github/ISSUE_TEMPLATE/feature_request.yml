@@ -1,14 +1,12 @@
 name: Feature Request
-description: Request a new feature for the FluentHub
-labels: [feature_request]
+description: Request a new feature for FluentHub
+labels: [feature request]
 body:
   - type: checkboxes
     attributes:
       label: Before you start...
       options:
-        - label: Have you updated the FluentHub? You might be using an old version.
-          required: true
-        - label: Have you checked if similar issue have already been reported?
+        - label: Have you checked if a similar feature request has already been reported?
           required: true
   - type: textarea
     attributes:
@@ -19,7 +17,7 @@ body:
   - type: textarea
     attributes:
       label: Alternative solutions
-      description: Describe more ways this problem/idea could be solved/implemented.
+      description: Describe more ways this idea could be implemented.
     validations:
       required: false
   - type: textarea

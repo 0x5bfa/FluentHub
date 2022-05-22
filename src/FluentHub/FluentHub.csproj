@@ -133,6 +133,7 @@
       <DependentUpon>EditUserProfileDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extensions\IEnumerableExt.cs" />
+    <Compile Include="GlobalUsings.cs" />
     <Compile Include="Helpers\BlobDetailsHelpers.cs" />
     <Compile Include="Helpers\ColorHelpers.cs" />
     <Compile Include="Helpers\FileTypeHelper.cs" />
@@ -254,6 +255,7 @@
     <Compile Include="ViewModels\AppSettings\AppearanceViewModel.cs" />
     <Compile Include="ViewModels\AppSettings\MainSettingsViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\EditUserProfileViewModel.cs" />
+    <Compile Include="ViewModels\Home\UserHomeViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\Organizations\OverviewViewModel.cs" />
     <Compile Include="ViewModels\Organizations\ProfileViewModel.cs" />
@@ -466,6 +468,106 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\AppTilesAlpha\LargeTile.scale-100.png" />
+    <Content Include="Assets\AppTilesAlpha\LargeTile.scale-125.png" />
+    <Content Include="Assets\AppTilesAlpha\LargeTile.scale-150.png" />
+    <Content Include="Assets\AppTilesAlpha\LargeTile.scale-200.png" />
+    <Content Include="Assets\AppTilesAlpha\LargeTile.scale-400.png" />
+    <Content Include="Assets\AppTilesAlpha\SmallTile.scale-100.png" />
+    <Content Include="Assets\AppTilesAlpha\SmallTile.scale-125.png" />
+    <Content Include="Assets\AppTilesAlpha\SmallTile.scale-150.png" />
+    <Content Include="Assets\AppTilesAlpha\SmallTile.scale-200.png" />
+    <Content Include="Assets\AppTilesAlpha\SmallTile.scale-400.png" />
+    <Content Include="Assets\AppTilesAlpha\SplashScreen.scale-100.png" />
+    <Content Include="Assets\AppTilesAlpha\SplashScreen.scale-125.png" />
+    <Content Include="Assets\AppTilesAlpha\SplashScreen.scale-150.png" />
+    <Content Include="Assets\AppTilesAlpha\SplashScreen.scale-200.png" />
+    <Content Include="Assets\AppTilesAlpha\SplashScreen.scale-400.png" />
+    <Content Include="Assets\AppTilesAlpha\Square150x150Logo.scale-100.png" />
+    <Content Include="Assets\AppTilesAlpha\Square150x150Logo.scale-125.png" />
+    <Content Include="Assets\AppTilesAlpha\Square150x150Logo.scale-150.png" />
+    <Content Include="Assets\AppTilesAlpha\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\AppTilesAlpha\Square150x150Logo.scale-400.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.altform-lightunplated_targetsize-16.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.altform-lightunplated_targetsize-24.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.altform-lightunplated_targetsize-256.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.altform-lightunplated_targetsize-32.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.altform-lightunplated_targetsize-48.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.altform-unplated_targetsize-16.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.altform-unplated_targetsize-24.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.altform-unplated_targetsize-256.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.altform-unplated_targetsize-32.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.altform-unplated_targetsize-48.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.scale-100.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.scale-125.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.scale-150.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.scale-400.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.targetsize-16.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.targetsize-24.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.targetsize-256.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.targetsize-32.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.targetsize-48.png" />
+    <Content Include="Assets\AppTilesAlpha\StoreLogo.scale-100.png" />
+    <Content Include="Assets\AppTilesAlpha\StoreLogo.scale-125.png" />
+    <Content Include="Assets\AppTilesAlpha\StoreLogo.scale-150.png" />
+    <Content Include="Assets\AppTilesAlpha\StoreLogo.scale-200.png" />
+    <Content Include="Assets\AppTilesAlpha\StoreLogo.scale-400.png" />
+    <Content Include="Assets\AppTilesAlpha\Wide310x150Logo.scale-100.png" />
+    <Content Include="Assets\AppTilesAlpha\Wide310x150Logo.scale-125.png" />
+    <Content Include="Assets\AppTilesAlpha\Wide310x150Logo.scale-150.png" />
+    <Content Include="Assets\AppTilesAlpha\Wide310x150Logo.scale-200.png" />
+    <Content Include="Assets\AppTilesAlpha\Wide310x150Logo.scale-400.png" />
+    <Content Include="Assets\AppTilesBeta\LargeTile.scale-100.png" />
+    <Content Include="Assets\AppTilesBeta\LargeTile.scale-125.png" />
+    <Content Include="Assets\AppTilesBeta\LargeTile.scale-150.png" />
+    <Content Include="Assets\AppTilesBeta\LargeTile.scale-200.png" />
+    <Content Include="Assets\AppTilesBeta\LargeTile.scale-400.png" />
+    <Content Include="Assets\AppTilesBeta\SmallTile.scale-100.png" />
+    <Content Include="Assets\AppTilesBeta\SmallTile.scale-125.png" />
+    <Content Include="Assets\AppTilesBeta\SmallTile.scale-150.png" />
+    <Content Include="Assets\AppTilesBeta\SmallTile.scale-200.png" />
+    <Content Include="Assets\AppTilesBeta\SmallTile.scale-400.png" />
+    <Content Include="Assets\AppTilesBeta\SplashScreen.scale-100.png" />
+    <Content Include="Assets\AppTilesBeta\SplashScreen.scale-125.png" />
+    <Content Include="Assets\AppTilesBeta\SplashScreen.scale-150.png" />
+    <Content Include="Assets\AppTilesBeta\SplashScreen.scale-200.png" />
+    <Content Include="Assets\AppTilesBeta\SplashScreen.scale-400.png" />
+    <Content Include="Assets\AppTilesBeta\Square150x150Logo.scale-100.png" />
+    <Content Include="Assets\AppTilesBeta\Square150x150Logo.scale-125.png" />
+    <Content Include="Assets\AppTilesBeta\Square150x150Logo.scale-150.png" />
+    <Content Include="Assets\AppTilesBeta\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\AppTilesBeta\Square150x150Logo.scale-400.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.altform-lightunplated_targetsize-16.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.altform-lightunplated_targetsize-24.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.altform-lightunplated_targetsize-256.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.altform-lightunplated_targetsize-32.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.altform-lightunplated_targetsize-48.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.altform-unplated_targetsize-16.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.altform-unplated_targetsize-24.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.altform-unplated_targetsize-256.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.altform-unplated_targetsize-32.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.altform-unplated_targetsize-48.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.scale-100.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.scale-125.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.scale-150.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.scale-400.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.targetsize-16.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.targetsize-24.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.targetsize-256.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.targetsize-32.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.targetsize-48.png" />
+    <Content Include="Assets\AppTilesBeta\StoreLogo.scale-100.png" />
+    <Content Include="Assets\AppTilesBeta\StoreLogo.scale-125.png" />
+    <Content Include="Assets\AppTilesBeta\StoreLogo.scale-150.png" />
+    <Content Include="Assets\AppTilesBeta\StoreLogo.scale-200.png" />
+    <Content Include="Assets\AppTilesBeta\StoreLogo.scale-400.png" />
+    <Content Include="Assets\AppTilesBeta\Wide310x150Logo.scale-100.png" />
+    <Content Include="Assets\AppTilesBeta\Wide310x150Logo.scale-125.png" />
+    <Content Include="Assets\AppTilesBeta\Wide310x150Logo.scale-150.png" />
+    <Content Include="Assets\AppTilesBeta\Wide310x150Logo.scale-200.png" />
+    <Content Include="Assets\AppTilesBeta\Wide310x150Logo.scale-400.png" />
     <Content Include="Assets\AppTilesDev\LargeTile.scale-100.png" />
     <Content Include="Assets\AppTilesDev\LargeTile.scale-125.png" />
     <Content Include="Assets\AppTilesDev\LargeTile.scale-150.png" />
@@ -1029,7 +1131,7 @@
       <Version>7.1.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
-      <Version>2.7.1</Version>
+      <Version>2.8.0-prerelease.220413001</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed">
       <Version>2.0.1</Version>
@@ -1037,9 +1139,6 @@
     <PackageReference Include="Serilog.Sinks.File">
       <Version>5.0.0</Version>
     </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Assets\Glyphs\Octions.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="AppCredentials.config" />
@@ -1061,6 +1160,9 @@
     <Folder Include="ViewModels\Repositories\Insights\" />
     <Folder Include="Views\Organizations\Settings\" />
     <Folder Include="Views\Users\Settings\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Glyphs\Octions.ttf" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

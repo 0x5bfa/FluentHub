@@ -16,7 +16,13 @@
     mc:Ignorable="d">
 
     <Page.Resources>
-        <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </Page.Resources>
 
     <Grid>

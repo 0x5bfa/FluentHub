@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FluentHub.Octokit.Models
+﻿namespace FluentHub.Octokit.Models
 {
     public class Activity
     {
@@ -30,9 +24,9 @@ namespace FluentHub.Octokit.Models
 
         public string PayloadType { get; set; }
 
-        public global::Octokit.User Actor { get; set; }
-        public global::Octokit.Repository Repository{ get; set; }
-        public global::Octokit.Organization Organization { get; set; }
+        public User Actor { get; set; }
+        public Repository Repository{ get; set; }
+        public Organization Organization { get; set; }
 
         public DateTimeOffset CreatedAt { get; set; }
         public string CreatedAtHumanized { get; set; }

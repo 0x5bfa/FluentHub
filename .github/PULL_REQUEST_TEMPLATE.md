@@ -1,25 +1,31 @@
-### Before you start...
+<!-- 
+🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
+I ACKNOWLEDGE THE FOLLOWING BEFORE PROCEEDING:
+My Pull Request follows the contributing guidlines, available at
+https://github.com/fluenthub-community/FluentHub/blob/main/.github/CONTRIBUTING.md
+-->
 
-- [ ] Have you updated the FluentHub? You might be using an old version.
-- [ ] Have you checked if similar issue have already been reported?
+### Before you start
+<!-- Put an 'x' in the brackets to tick -->
+- [ ] Have you checked if a similar PR has already been requested? 
+- [ ] Have you built and ran the app?
 
-### Resolved / Related Issues
-<!--Items resolved/related issues by this PR.-->
+### Related/Fixed issues
+###### <sup>Address related/fixed issues</sup>
+<!-- with this format: #issueid-->
+- Related: #
+- Fixed: #
 
-- Closes 
+### Description
+###### <sup>Details of changes are listed here</sup>
 
-### Details of Changes
-<!--Add details of changes here.-->
 
-- Added
-- Fixed
 
-### Validation
-<!--How did you test these changes?-->
+### Motivation and Context
+###### <sup>Items resolved/related issues by this PR.</sup>
 
-- [ ] Built and ran the app
-- [ ] Tested the changes for accessibility
 
-### Relevant Assets
-<!--A list of assets (screenshots, mockups) relevant to this feature request.-->
+
+### Assets (if appropriate):
+###### <sup>A list of assets (screenshots, mockups) relevant to this pull request.</sup>
 

@@ -81,6 +81,12 @@ namespace FluentHub.Backend
             badgeUpdater.Update(badge);
         }
 
+        public string GetBadgeString()
+        {
+            BadgeGlyphContent content = new BadgeGlyphContent();
+            return content.GetContent();
+        }
+
         public void ShowToastNotificationWithProgress(string tag,
                                                        string group,
                                                        string title,

@@ -1,12 +1,4 @@
-﻿using FluentHub.Octokit.Models;
-using Humanizer;
-using Octokit.GraphQL;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using OctokitOriginal = global::Octokit;
-
-namespace FluentHub.Octokit.Queries.Users
+﻿namespace FluentHub.Octokit.Queries.Users
 {
     public class ActivityQueries
     {
@@ -36,9 +28,26 @@ namespace FluentHub.Octokit.Queries.Users
                     PayloadType = item.Type,
                     CreatedAt = item.CreatedAt,
                     CreatedAtHumanized = item.CreatedAt.Humanize(),
-                    Repository = item.Repo,
-                    Actor = item.Actor,
-                    Organization = item.Org,
+                    Repository = new()
+                    {
+                        Name = item.Repo?.Name.Split("/")[1],
+                        Owner = new()
+                        {
+                            Login = item.Repo?.Name.Split("/")[0],
+                        },
+                    },
+                    Actor = new()
+                    {
+                        AvatarUrl = item.Actor.AvatarUrl,
+                        Login = item.Actor.Login,
+                        Name  = item.Actor.Name,
+                    },
+                    Organization = new()
+                    {
+                        AvatarUrl = item.Org?.AvatarUrl,
+                        Login = item.Org?.Login,
+                        Name = item.Org?.Name,
+                    },
                 };
 
                 activities.Add(activityItem);
