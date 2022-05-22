@@ -1,13 +1,30 @@
+<!-- 
+🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
+I ACKNOWLEDGE THE FOLLOWING BEFORE PROCEEDING:
+My Pull Request follows the contributing guidlines, available at
+https://github.com/fluenthub-community/FluentHub/blob/main/.github/CONTRIBUTING.md
+-->
+
+### Before you start
+<!-- Put an 'x' in the brackets to tick -->
+- [ ] Have you checked if a similar PR has already been requested? 
+
+### Related/Fixed issues
+###### <sup>Address related/fixed issues</sup>
+<!-- with this format: #issueid-->
+- Related: #
+- Fixed: #
+
 ### Description
-<!-- Add details of changes here -->
+###### <sup>Details of changes are listed here</sup>
 
 
 
 ### Motivation and Context
-<!-- Sometimes add items resolved/related issues by this PR.-->
+###### <sup>Items resolved/related issues by this PR.</sup>
 
 
 
-### Relevant assets (if appropriate):
-<!--A list of assets (screenshots, mockups) relevant to this feature request.-->
+### Assets (if appropriate):
+###### <sup>A list of assets (screenshots, mockups) relevant to this pull request.</sup>
 

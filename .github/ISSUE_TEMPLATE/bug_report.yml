@@ -1,19 +1,19 @@
 name: Bug Report
-description: Create a bug report to help improve the FluentHub
+description: Create a bug report to help improve FluentHub
 labels: [bug]
 body:
   - type: checkboxes
     attributes:
       label: Before you start...
       options:
-        - label: Have you updated the FluentHub? You might be using an old version.
+        - label: Have you updated FluentHub? You might be using an old version.
           required: true
-        - label: Have you checked if similar issue have already been reported?
+        - label: Have you checked if a similar issue has already been reported?
           required: true
   - type: dropdown
     id: windows
     attributes:
-      label: What windows are you seeing the problem on?
+      label: What version of Windows is this issue present?
       multiple: true
       options:
         - Windows 10
@@ -28,8 +28,8 @@ body:
       required: true
   - type: textarea
     attributes:
-      label: What FluentHub version/architecture are you seeing the problem on?
-      description: Copy and paste the version from the about page of the settings page.
+      label: What version/architecture of FluentHub are you on?
+      description: Copy and paste the version from the about page of FluentHub's settings
     validations:
       required: true
   - type: textarea
@@ -59,4 +59,4 @@ body:
     attributes:
       label: Relevant Assets
       description: |
-        A list of assets (errors, screenshots) relevant to this bug.
+        A list of assets (errors, screenshots, logs) relevant to the bug.
