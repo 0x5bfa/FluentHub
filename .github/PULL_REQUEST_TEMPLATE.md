@@ -8,6 +8,7 @@ https://github.com/fluenthub-community/FluentHub/blob/main/.github/CONTRIBUTING.
 ### Before you start
 <!-- Put an 'x' in the brackets to tick -->
 - [ ] Have you checked if a similar PR has already been requested? 
+- [ ] Have you built and ran the app?
 
 ### Related/Fixed issues
 ###### <sup>Address related/fixed issues</sup>
