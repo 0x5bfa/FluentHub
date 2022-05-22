@@ -151,7 +151,7 @@
                         <TextBlock
                             Margin="-18,0"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="My Works" />
+                            Text="My Work" />
                     </muxc:Expander.Header>
                     <muxc:Expander.Content>
                         <ScrollViewer
