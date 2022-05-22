@@ -21,12 +21,12 @@
                     Grid.Row="0"
                     Margin="0,16,0,8"
                     Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="Layout mode" />
+                    Text="Layout" />
 
                 <StackPanel Grid.Row="1" Spacing="4">
                     <uc:SettingsBlockControl
-                        Title="Use details list view"
-                        Description="Select which layout to display"
+                        Title="Use details list"
+                        Description="Select which layout to use"
                         IsClickable="False">
                         <uc:SettingsBlockControl.Icon>
                             <FontIcon Glyph="&#xECA5;" />
