@@ -1,16 +1,4 @@
-﻿using FluentHub.Octokit.Models;
-using Humanizer;
-using Octokit.GraphQL;
-using Serilog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GraphQLModel = global::Octokit.GraphQL.Model;
-using GraphQLCore = global::Octokit.GraphQL.Core;
-
-namespace FluentHub.Octokit.Queries.Repositories
+﻿namespace FluentHub.Octokit.Queries.Repositories
 {
     public class ReleaseQueries
     {
@@ -18,7 +6,7 @@ namespace FluentHub.Octokit.Queries.Repositories
 
         public async Task<List<Models.Release>> GetAllAsync(string owner, string name)
         {
-            GraphQLCore.Arg<GraphQLModel.ReleaseOrder> releaseOrder = new(new GraphQLModel.ReleaseOrder { Direction = GraphQLModel.OrderDirection.Desc});
+            OctokitGraphQLCore.Arg<OctokitGraphQLModel.ReleaseOrder> releaseOrder = new(new OctokitGraphQLModel.ReleaseOrder { Direction = OctokitGraphQLModel.OrderDirection.Desc});
 
             var query = new Query()
                 .Repository(name, owner)

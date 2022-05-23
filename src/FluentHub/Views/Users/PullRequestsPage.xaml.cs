@@ -24,20 +24,23 @@ namespace FluentHub.Views.Users
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            DataContext = e.Parameter;
+            // e.g.) https://github.com/pulls
+            string url = e.Parameter as string;
+            string login = App.Settings.SignedInUserName;
+            ViewModel.DisplayTitle = true;
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "PullRequests";
             currentItem.Description = "Viewer's pull requests";
-            currentItem.Url = $"https://github.com/pulls";
+            currentItem.Url = url;
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/PullRequests.png"))
             };
 
             var command = ViewModel.RefreshPullRequestsPageCommand;
-            if (command.CanExecute(DataContext))
-                command.Execute(DataContext);
+            if (command.CanExecute(login))
+                command.Execute(login);
         }
     }
 }

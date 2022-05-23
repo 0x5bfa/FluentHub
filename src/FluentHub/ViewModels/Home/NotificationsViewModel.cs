@@ -2,6 +2,7 @@
 using FluentHub.Models;
 using FluentHub.Octokit.Queries.Users;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
@@ -79,6 +80,12 @@ namespace FluentHub.ViewModels.Home
             finally
             {
                 _toastService?.UpdateBadgeGlyph(BadgeGlyphType.Number, UnreadCount);
+
+                if (_messenger != null)
+                {
+                    UserNotificationMessage notification = new("NotificationCount", UnreadCount.ToString(), UserNotificationType.Info);
+                    _messenger.Send(notification);
+                }
             }
         }
         #endregion

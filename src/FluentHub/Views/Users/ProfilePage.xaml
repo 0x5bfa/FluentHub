@@ -30,6 +30,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
+
             <Grid Margin="18,18,18,12">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -289,6 +290,7 @@
 
                 </toolkit:SwitchPresenter>
             </Grid>
+
             <Grid
                 Grid.Row="1"
                 Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
@@ -362,10 +364,12 @@
                     </muxc:NavigationView.MenuItems>
                 </muxc:NavigationView>
             </Grid>
+
             <Frame
                 x:Name="UserNavViewContent"
                 Grid.Row="2"
                 Margin="-12,0" />
+
         </Grid>
     </ScrollViewer>
 </Page>

@@ -27,20 +27,23 @@ namespace FluentHub.Views.Users
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            DataContext = ViewModel.LoginName = e.Parameter as string;
+            // e.g.) https://github.com/onein528
+            string url = e.Parameter as string;
+            var uri = new Uri(url);
+            string login = ViewModel.LoginName = uri.Segments[1];
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = $"{DataContext}";
-            currentItem.Description = "";
-            currentItem.Url = $"https://github.com/{DataContext}?tab=overview";
+            currentItem.Header = $"{login}";
+            currentItem.Description = $"{login}'s overview";
+            currentItem.Url = url;
             currentItem.Icon = new muxc.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Profile.png"))
             };
 
             var command = ViewModel.RefreshRepositoryCommand;
-            if (command.CanExecute(DataContext))
-                command.Execute(DataContext);
+            if (command.CanExecute(login))
+                command.Execute(login);
         }
     }
 }

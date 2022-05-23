@@ -24,20 +24,33 @@ namespace FluentHub.Views.Users
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            DataContext = e.Parameter;
+            // e.g.) https://github.com/onein528?tab=stars
+            string url = e.Parameter as string;
+            var uri = new Uri(url);
+            string login;
+
+            if (url == "fluenthub://stars")
+            {
+                login = App.Settings.SignedInUserName;
+                ViewModel.DisplayTitle = true;
+            }
+            else
+            {
+                login = uri.Segments[1];
+            }
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = $"Stars";
-            currentItem.Description = $"{DataContext}'s stars";
-            currentItem.Url = $"https://github.com/{DataContext}?tab=stars";
+            currentItem.Description = $"{login}'s stars";
+            currentItem.Url = url;
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Starred.png"))
             };
 
             var command = ViewModel.RefreshRepositoriesCommand;
-            if (command.CanExecute(DataContext))
-                command.Execute(DataContext);
+            if (command.CanExecute(login))
+                command.Execute(login);
         }
     }
 }

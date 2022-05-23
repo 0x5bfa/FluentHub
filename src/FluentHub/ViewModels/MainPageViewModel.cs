@@ -57,6 +57,9 @@ namespace FluentHub.ViewModels
         private Octokit.Models.User _signedInUser;
         public Octokit.Models.User SignedInUser { get => _signedInUser; private set => SetProperty(ref _signedInUser, value); }
 
+        private int _unreadCount;
+        public int UnreadCount { get => _unreadCount; private set => SetProperty(ref _unreadCount, value); }
+
         public static Frame RepositoryContentFrame { get; set; } = new();
         public static Frame PullRequestContentFrame { get; set; } = new();
 
@@ -150,6 +153,13 @@ namespace FluentHub.ViewModels
             // Check if the message method contains the InApp value (multivalue enum)
             if (message.Method.HasFlag(UserNotificationMethod.InApp))
             {
+                // Thrown by Home.NotificationsViewModel
+                if (message.Title == "NotificationCount")
+                {
+                    UnreadCount = Convert.ToInt32(message.Message);
+                    return;
+                }
+
                 // Show the message in the UI
                 // using the dispatcher to access the UI thread
                 await _dispatcher.EnqueueAsync(() => LastNotification = message);
@@ -174,6 +184,12 @@ namespace FluentHub.ViewModels
                 var user = await queries.GetAsync(App.Settings.SignedInUserName);
 
                 SignedInUser = user ?? new();
+
+                Octokit.Queries.Users.NotificationQueries notificationQueries = new();
+                var count = await notificationQueries.GetUnreadCount();
+
+                UnreadCount = count;
+                _toastService?.UpdateBadgeGlyph(BadgeGlyphType.Number, UnreadCount);
             }
             catch (Exception ex)
             {

@@ -44,8 +44,9 @@
 
     <Grid>
         <Button
-            Margin="0,3,0,0"
             Padding="16,12"
+            Background="Transparent"
+            BorderThickness="0"
             Style="{StaticResource ContentBlockButtonStyle}">
             <Grid ColumnSpacing="6">
                 <Grid.ColumnDefinitions>
@@ -53,8 +54,14 @@
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
-                <Grid>
+                <Rectangle
+                    Grid.ColumnSpan="2"
+                    Margin="-16,-12"
+                    Fill="#539bf5"
+                    Opacity="0.1"
+                    Visibility="{x:Bind ViewModel.Item.Unread, Mode=OneWay}" />
 
+                <Grid>
                     <toolkit:SwitchPresenter TargetType="x:String" Value="{x:Bind ViewModel.Item.ItemState, Mode=OneWay}">
 
                         <toolkit:Case Value="IssueClosed">
@@ -122,7 +129,6 @@
                         </toolkit:Case>
 
                     </toolkit:SwitchPresenter>
-
                 </Grid>
 
                 <Grid Grid.Column="1">
@@ -179,6 +185,7 @@
                         Text="{x:Bind ViewModel.Item.Subject.Title, Mode=OneWay}" />
 
                 </Grid>
+
             </Grid>
         </Button>
     </Grid>

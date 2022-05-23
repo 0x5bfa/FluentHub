@@ -26,23 +26,25 @@ namespace FluentHub.ViewModels.Users
             _repositories = new();
             Repositories = new(_repositories);
 
-            RefreshRepositoriesCommand = new AsyncRelayCommand<string>(RefreshRepositoriesAsync);
+            RefreshRepositoriesCommand = new AsyncRelayCommand<string>(LoadStarredRepositoriesAsync);
         }
         #endregion
 
         #region fields
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
-        private readonly ObservableCollection<RepoButtonBlockViewModel> _repositories;
-        #endregion
 
-        #region properties        
+        private bool _displayTitle;
+        public bool DisplayTitle { get => _displayTitle; set => SetProperty(ref _displayTitle, value); }
+
+        private readonly ObservableCollection<RepoButtonBlockViewModel> _repositories;
         public ReadOnlyObservableCollection<RepoButtonBlockViewModel> Repositories { get; }
+
         public IAsyncRelayCommand RefreshRepositoriesCommand { get; }
         #endregion
 
         #region methods
-        private async Task RefreshRepositoriesAsync(string login, CancellationToken token)
+        private async Task LoadStarredRepositoriesAsync(string login, CancellationToken token)
         {
             try
             {
@@ -66,7 +68,7 @@ namespace FluentHub.ViewModels.Users
             catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error("RefreshRepositoriesAsync", ex);
+                _logger?.Error("LoadStarredRepositoriesAsync()", ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);

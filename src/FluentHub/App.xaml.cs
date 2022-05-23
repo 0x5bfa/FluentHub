@@ -6,13 +6,9 @@ using FluentHub.ViewModels;
 using FluentHub.Views;
 using FluentHub.Views.SignIn;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Toolkit.Mvvm.Messaging;
-using Octokit;
 using Serilog;
-using System;
 using System.IO;
 using System.Reflection;
-using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.ApplicationModel.Core;
@@ -26,13 +22,15 @@ using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub
 {
-    sealed partial class App : Windows.UI.Xaml.Application
+    sealed partial class App : Application
     {
         Frame rootFrame = Window.Current.Content as Frame;
 
         public static SettingsViewModel Settings { get; set; } = new SettingsViewModel();
 
         public static string AppVersion = $"{Package.Current.Id.Version.Major}.{Package.Current.Id.Version.Minor}.{Package.Current.Id.Version.Build}.{Package.Current.Id.Version.Revision}";
+
+        public readonly static string DefaultGitHubDomain = "https://github.com";
 
         public App()
         {
@@ -42,7 +40,7 @@ namespace FluentHub
 
             UnhandledException += async (s, e) =>
             {
-                Services.GetService<ILogger>()?.Fatal(e.Exception, "Unhandled exception");
+                Services.GetService<Serilog.ILogger>()?.Fatal(e.Exception, "Unhandled exception");
 #if DEBUG
                 e.Handled = true;
                 try
@@ -58,14 +56,14 @@ namespace FluentHub
 #endif
             };
 
-            Log.Logger = GetSerilogLogger();
+            Serilog.Log.Logger = GetSerilogLogger();
             Services = ConfigureServices();
         }
 
         /// <summary>
         /// Gets the current <see cref="App"/> instance in use
         /// </summary>
-        public new static App Current => (App)Windows.UI.Xaml.Application.Current;
+        public new static App Current => (App)Application.Current;
 
         /// <summary>
         /// Gets the <see cref="IServiceProvider"/> instance to resolve application services.
@@ -79,15 +77,16 @@ namespace FluentHub
         {
             return new ServiceCollection()
                 .AddSingleton<INavigationService, NavigationService>()
-                .AddSingleton<Backend.ILogger>(new Utils.SerilogWrapperLogger(Log.Logger))
+                .AddSingleton<Backend.ILogger>(new Utils.SerilogWrapperLogger(Serilog.Log.Logger))
                 .AddSingleton<Backend.ToastService>()
                 .AddSingleton<IMessenger>(StrongReferenceMessenger.Default)
                 // ViewModels
                 .AddSingleton<MainPageViewModel>()
                 .AddTransient<ViewModels.AppSettings.AboutViewModel>()
                 .AddTransient<ViewModels.AppSettings.AppearanceViewModel>()
-                .AddTransient<ViewModels.Home.NotificationsViewModel>()
                 .AddTransient<ViewModels.Home.ActivitiesViewModel>()
+                .AddTransient<ViewModels.Home.NotificationsViewModel>()
+                .AddTransient<ViewModels.Home.UserHomeViewModel>()
                 .AddTransient<ViewModels.Organizations.OverviewViewModel>()
                 .AddTransient<ViewModels.Organizations.RepositoriesViewModel>()
                 .AddTransient<ViewModels.Repositories.Codes.Layouts.DetailsLayoutViewModel>()
@@ -125,11 +124,11 @@ namespace FluentHub
                 .BuildServiceProvider();
         }
 
-        private static ILogger GetSerilogLogger()
+        private static Serilog.ILogger GetSerilogLogger()
         {
             string logFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "FluentHub.Logs/Log.log");
 
-            var logger = new LoggerConfiguration()
+            var logger = new Serilog.LoggerConfiguration()
                 .MinimumLevel
 #if DEBUG
                 .Verbose()
@@ -137,7 +136,7 @@ namespace FluentHub
                 .Error()
 #endif
                 .WriteTo
-                .File(logFilePath, rollingInterval: RollingInterval.Day)
+                .File(logFilePath, rollingInterval: Serilog.RollingInterval.Day)
                 .CreateLogger();
 
             return logger;
@@ -176,7 +175,8 @@ namespace FluentHub
                 Window.Current.Activate();
             }
 
-            Log.Information("App.InitializeAsync() done");
+            var logger = Services.GetService<Serilog.ILogger>();
+            logger?.Debug("App.InitializeAsync() done");
         }
 
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
@@ -211,7 +211,7 @@ namespace FluentHub
 
         private async Task HandleUriActivationAsync(Uri uri, bool openInNewTab)
         {
-            var logger = Services.GetService<ILogger>();
+            var logger = Services.GetService<Serilog.ILogger>();
             logger?.Debug("App.HandleUriActivationAsync(): {uri}", uri);
 
             Type page = null;
