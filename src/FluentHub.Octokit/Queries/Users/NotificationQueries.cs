@@ -55,7 +55,7 @@ namespace FluentHub.Octokit.Queries.Users
                         var issue = await issueQueries.GetAsync(
                             indivisual.Repository.Owner.Login,
                             indivisual.Repository.Name,
-                            Convert.ToInt32(urlItems[urlItems.Count() - 1]));
+                            Convert.ToInt32(urlItems[urlItems?.Count() - 1]));
 
                         if (issue.Closed)
                         {
@@ -76,7 +76,7 @@ namespace FluentHub.Octokit.Queries.Users
                         var pull = await pullQueries.GetAsync(
                             indivisual.Repository.Owner.Login,
                             indivisual.Repository.Name,
-                            Convert.ToInt32(urlItems[urlItems.Count() - 1]));
+                            Convert.ToInt32(urlItems[urlItems?.Count() - 1]));
 
                         if (pull.Closed)
                         {
