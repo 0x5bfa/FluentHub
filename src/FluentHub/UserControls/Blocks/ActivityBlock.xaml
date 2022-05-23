@@ -96,7 +96,7 @@
                             <TextBlock
                                 VerticalAlignment="Center"
                                 Style="{StaticResource BodyTextBlockStyle}"
-                                Text="deleted branch in" />
+                                Text="deleted a branch in" />
                             <Button Padding="4,2">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Owner.Login, Mode=OneWay}" />
@@ -171,7 +171,7 @@
                             <TextBlock
                                 VerticalAlignment="Center"
                                 Style="{StaticResource BodyTextBlockStyle}"
-                                Text="created a issue event in" />
+                                Text="created an issue event in" />
                             <Button Padding="4,2">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Owner.Login, Mode=OneWay}" />
@@ -187,7 +187,7 @@
                             <TextBlock
                                 VerticalAlignment="Center"
                                 Style="{StaticResource BodyTextBlockStyle}"
-                                Text="created invitation" />
+                                Text="created an invitation" />
                         </StackPanel>
                     </toolkit:Case>
 
@@ -196,7 +196,7 @@
                             <TextBlock
                                 VerticalAlignment="Center"
                                 Style="{StaticResource BodyTextBlockStyle}"
-                                Text="made a repository be public" />
+                                Text="made a repository public" />
                         </StackPanel>
                     </toolkit:Case>
 
@@ -221,7 +221,7 @@
                             <TextBlock
                                 VerticalAlignment="Center"
                                 Style="{StaticResource BodyTextBlockStyle}"
-                                Text="created a pull request review" />
+                                Text="reviewed a pull request" />
                             <Button Padding="4,2">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Owner.Login, Mode=OneWay}" />
@@ -237,7 +237,7 @@
                             <TextBlock
                                 VerticalAlignment="Center"
                                 Style="{StaticResource BodyTextBlockStyle}"
-                                Text="left a review comment in" />
+                                Text="commented on a review in" />
                             <Button Padding="4,2">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Owner.Login, Mode=OneWay}" />
@@ -269,7 +269,7 @@
                             <TextBlock
                                 VerticalAlignment="Center"
                                 Style="{StaticResource BodyTextBlockStyle}"
-                                Text="pushed a commit into" />
+                                Text="pushed a commit to" />
                             <Button Padding="4,2">
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.Repository.Owner.Login, Mode=OneWay}" />
@@ -301,7 +301,7 @@
                             <TextBlock
                                 VerticalAlignment="Center"
                                 Style="{StaticResource BodyTextBlockStyle}"
-                                Text="created a sponsorship event" />
+                                Text="sponsered someone" />
                         </StackPanel>
                     </toolkit:Case>
 
