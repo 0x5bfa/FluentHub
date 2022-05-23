@@ -91,7 +91,7 @@ namespace FluentHub.Views.Repositories.Codes.Layouts
                 ViewModel.IsLoading = true;
 
                 var item = args.Item as TreeLayoutPageModel;
-                string path = item.Path;
+                string path = item?.Path;
 
                 var result = await ViewModel.LoadSubItemsAsync(path);
 
@@ -123,7 +123,7 @@ namespace FluentHub.Views.Repositories.Codes.Layouts
                 Name = ViewModel.ContextViewModel.Name,
                 Repository = ViewModel.ContextViewModel.Repository,
                 BranchName = ViewModel.ContextViewModel.BranchName,
-                Path = "/" + item.Path,
+                Path = "/" + item?.Path,
             };
 
             ViewModel.SelectedContextViewModel = viewmodel;

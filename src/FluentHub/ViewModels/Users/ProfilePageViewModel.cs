@@ -49,9 +49,9 @@ namespace FluentHub.ViewModels.Users
 
                 UserItem = item;
 
-                if (string.IsNullOrEmpty(UserItem?.WebsiteUrl) is false)
+                if (string.IsNullOrEmpty(UserItem.WebsiteUrl) is false)
                 {
-                    BuiltWebsiteUrl = new UriBuilder(UserItem?.WebsiteUrl).Uri;
+                    BuiltWebsiteUrl = new UriBuilder(UserItem.WebsiteUrl).Uri;
                 }
             }
             catch (Exception ex)
