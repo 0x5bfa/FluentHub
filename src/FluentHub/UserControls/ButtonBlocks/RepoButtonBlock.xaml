@@ -37,26 +37,25 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" d:CornerRadius="8">
-
+    <Grid>
         <Button
             x:Name="RepoBlockButton"
-            Margin="0,3,0,0"
-            Padding="18,12"
+            Padding="16,12"
+            Background="Transparent"
+            BorderThickness="0"
             Click="RepoBlockButton_Click"
             Style="{StaticResource ContentBlockButtonStyle}">
-
-            <Grid>
+            <Grid ColumnSpacing="6">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <Grid RowSpacing="4">
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
@@ -66,17 +65,20 @@
                         FontWeight="SemiBold"
                         Style="{ThemeResource BodyTextBlockStyle}"
                         Text="{x:Bind ViewModel.Item.Name, Mode=OneWay}"
-                        TextWrapping="Wrap" />
+                        TextTrimming="CharacterEllipsis" />
 
                     <TextBlock
                         x:Name="ForkedFrom"
                         Grid.Row="1"
+                        x:Load="False"
                         Style="{StaticResource CaptionTextBlockStyle}"
-                        Visibility="Collapsed" />
+                        TextTrimming="CharacterEllipsis" />
 
                     <TextBlock
                         x:Name="Description"
                         Grid.Row="2"
+                        Margin="0,4,0,0"
+                        x:Load="{x:Bind ViewModel.Item.Description, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
                         Text="{x:Bind ViewModel.Item.Description, Mode=OneWay}"
                         TextTrimming="CharacterEllipsis" />
 
@@ -126,11 +128,10 @@
 
                         <StackPanel
                             x:Name="LanguageBlock"
-                            Grid.Column="1"
                             Margin="0,0,16,0"
+                            x:Load="{x:Bind ViewModel.Item.PrimaryLanguage.Name, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
                             Orientation="Horizontal"
-                            Spacing="6"
-                            Visibility="{x:Bind ViewModel.Item.PrimaryLanguage.Name, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+                            Spacing="6">
 
                             <Border
                                 x:Name="LanguageColor"

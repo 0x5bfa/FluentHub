@@ -27,8 +27,6 @@ namespace FluentHub.Views.Home
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            DataContext = e.Parameter;
-
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Notifications";
             currentItem.Description = "Viewer's notifications";
@@ -39,8 +37,8 @@ namespace FluentHub.Views.Home
             };
 
             var command = ViewModel.RefreshNotificationsCommand;
-            if (command.CanExecute(DataContext))
-                command.Execute(DataContext);
+            if (command.CanExecute(null))
+                command.Execute(null);
         }
     }
 }

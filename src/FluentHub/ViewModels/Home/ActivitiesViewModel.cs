@@ -1,16 +1,7 @@
-﻿using FluentHub.Backend;
-using FluentHub.Octokit.Models;
-using FluentHub.Models;
-using FluentHub.Octokit.Queries.Users;
+﻿using FluentHub.Octokit.Queries.Users;
 using FluentHub.ViewModels.UserControls.Blocks;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
-using Microsoft.Toolkit.Mvvm.Messaging;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.Home
 {
@@ -22,16 +13,23 @@ namespace FluentHub.ViewModels.Home
             _messenger = messenger;
             _logger = logger;
             _messenger = messenger;
+
+            _userRepositories = new();
+            UserRepositories = new(_userRepositories);
+
             _activities = new();
             Activities = new(_activities);
 
-            RefreshActivitiesCommand = new AsyncRelayCommand<string>(RefreshActivitiesAsync);
+            RefreshActivitiesCommand = new AsyncRelayCommand(LoadActivitiesAsync);
         }
         #endregion
 
         #region fields and properties
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
+
+        private readonly ObservableCollection<Repository> _userRepositories;
+        public ReadOnlyObservableCollection<Repository> UserRepositories { get; }
 
         private readonly ObservableCollection<ActivityBlockViewModel> _activities;
         public ReadOnlyObservableCollection<ActivityBlockViewModel> Activities { get; }
@@ -40,15 +38,21 @@ namespace FluentHub.ViewModels.Home
         #endregion
 
         #region methods
-        private async Task RefreshActivitiesAsync(string login, CancellationToken token)
+        private async Task LoadActivitiesAsync(CancellationToken token)
         {
             try
             {
-                ActivityQueries queries = new();
-                var items = await queries.GetAllAsync(login);
-                if (items == null) return;
+                RepositoryQueries repositoryQueries = new();
+                var repositoryResponse = await repositoryQueries.GetAllAsync(App.Settings.SignedInUserName);
+                if (repositoryResponse == null) return;
 
-                foreach (var item in items)
+                foreach (var item in repositoryResponse) _userRepositories.Add(item);
+
+                ActivityQueries activityQueries = new();
+                var activityResponse = await activityQueries.GetAllAsync(App.Settings.SignedInUserName);
+                if (activityResponse == null) return;
+
+                foreach (var item in activityResponse)
                 {
                     ActivityBlockViewModel viewModel = new()
                     {
@@ -61,7 +65,7 @@ namespace FluentHub.ViewModels.Home
             catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error("RefreshActivitiesAsync", ex);
+                _logger?.Error(nameof(LoadActivitiesAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);

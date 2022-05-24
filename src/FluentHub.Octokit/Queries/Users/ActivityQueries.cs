@@ -1,10 +1,4 @@
-﻿using FluentHub.Octokit.Models;
-using Humanizer;
-using Octokit.GraphQL;
-using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using OctokitOriginal = global::Octokit;
+﻿using FluentHub.Octokit.Models.ActivityPayloads;
 
 namespace FluentHub.Octokit.Queries.Users
 {
@@ -18,7 +12,7 @@ namespace FluentHub.Octokit.Queries.Users
             OctokitOriginal.ApiOptions options = new()
             {
                 PageCount = 1,
-                PageSize = 30,
+                PageSize = 60,
                 StartPage = 1
             };
 
@@ -30,18 +24,120 @@ namespace FluentHub.Octokit.Queries.Users
 
             foreach (var item in response)
             {
-                Activity activityItem = new()
+                Activity indivisual = new()
                 {
                     Payload = item.Payload,
                     PayloadType = item.Type,
                     CreatedAt = item.CreatedAt,
                     CreatedAtHumanized = item.CreatedAt.Humanize(),
-                    Repository = item.Repo,
-                    Actor = item.Actor,
-                    Organization = item.Org,
+                    Repository = new()
+                    {
+                        Name = item.Repo?.Name.Split("/")[1],
+                        Owner = new()
+                        {
+                            Login = item.Repo?.Name.Split("/")[0],
+                        },
+                    },
+                    Actor = new()
+                    {
+                        AvatarUrl = item.Actor.AvatarUrl,
+                        Login = item.Actor.Login,
+                        Name  = item.Actor.Name,
+                    },
+                    Organization = new()
+                    {
+                        AvatarUrl = item.Org?.AvatarUrl,
+                        Login = item.Org?.Login,
+                        Name = item.Org?.Name,
+                    },
                 };
 
-                activities.Add(activityItem);
+                switch (item.Type)
+                {
+                    case "CheckRunEvent":
+                        break;
+                    case "CheckSuiteEvent":
+                        break;
+                    case "CommitComment":
+                        break;
+                    case "CreateEvent":
+                        var createEventPayload = (OctokitOriginal.CreateEventPayload)item.Payload;
+                        indivisual.CreateEventPayload = new()
+                        {
+                            Description = createEventPayload.Description,
+                            MasterBranch = createEventPayload.MasterBranch,
+                            Ref = createEventPayload.Ref,
+                            RefType = createEventPayload.RefType,
+                        };
+                        break;
+                    case "DeleteEvent":
+                        var deleteEventPayload = (OctokitOriginal.DeleteEventPayload)item.Payload;
+                        indivisual.DeleteEventPayload = new()
+                        {
+                            Ref = deleteEventPayload.Ref,
+                            RefType = deleteEventPayload.RefType,
+                        };
+                        break;
+                    case "ForkEvent":
+                        var forkEventPayload = (OctokitOriginal.ForkEventPayload)item.Payload;
+                        indivisual.ForkEventPayload = new()
+                        {
+                            Forkee = forkEventPayload.Forkee,
+                        };
+                        break;
+                    case "IssueCommentEvent":
+                        var issueCommentPayload = (OctokitOriginal.IssueCommentPayload)item.Payload;
+                        indivisual.IssueCommentPayload = new()
+                        {
+                            Action = issueCommentPayload.Action,
+                            Comment = issueCommentPayload.Comment,
+                            Issue = issueCommentPayload.Issue,
+                        };
+                        break;
+                    case "IssueEvent":
+                        break;
+                    case "PullRequestComment":
+                        break;
+                    case "PullRequestEvent":
+                        break;
+                    case "PullRequestReviewEvent":
+                        break;
+                    case "PushEvent":
+                        var pushEventPayload = (OctokitOriginal.PushEventPayload)item.Payload;
+                        indivisual.PushEventPayload = new()
+                        {
+                            Commits = pushEventPayload.Commits,
+                            Head = pushEventPayload.Head,
+                            Ref = pushEventPayload.Ref,
+                            Size = pushEventPayload.Size,
+                        };
+                        break;
+                    case "PushWebhookCommit":
+                        break;
+                    case "PushWebhookCommitter":
+                        break;
+                    case "PushWebhook":
+                        break;
+                    case "ReleaseEvent":
+                        var releaseEventPayload = (OctokitOriginal.ReleaseEventPayload)item.Payload;
+                        indivisual.ReleaseEventPayload = new()
+                        {
+                            Action = releaseEventPayload.Action,
+                            Release = releaseEventPayload.Release,
+                        };
+                        break;
+                    case "WatchEvent":
+                        var watchEventPayload = (OctokitOriginal.StarredEventPayload)item.Payload;
+                        indivisual.StarredEventPayload = new()
+                        {
+                            Action = watchEventPayload.Action,
+                        };
+                        break;
+                    case "StatusEvent":
+                        break;
+                }
+
+                activities.Add(indivisual);
             }
             #endregion
 

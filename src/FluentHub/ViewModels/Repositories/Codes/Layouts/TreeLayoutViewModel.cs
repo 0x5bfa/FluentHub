@@ -59,6 +59,7 @@ namespace FluentHub.ViewModels.Repositories.Codes.Layouts
             try
             {
                 if (ContextViewModel.Repository.DefaultBranchName == null) return;
+                IsLoading = true;
 
                 ContentQueries queries = new();
                 var objects = await queries.GetAllAsync(
@@ -93,6 +94,7 @@ namespace FluentHub.ViewModels.Repositories.Codes.Layouts
                 var orderedItems = new ObservableCollection<TreeLayoutPageModel>(Items.OrderByDescending(x => x.Glyph));
                 _items.Clear();
                 foreach (var item in orderedItems) _items.Add(item);
+                IsLoading = false;
             }
             catch (OperationCanceledException) { }
             catch (Exception ex)
@@ -103,6 +105,7 @@ namespace FluentHub.ViewModels.Repositories.Codes.Layouts
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
                     _messenger.Send(notification);
                 }
+                IsLoading = false;
                 throw;
             }
         }

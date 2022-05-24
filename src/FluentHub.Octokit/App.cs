@@ -1,11 +1,5 @@
-﻿using Octokit.GraphQL;
-using Serilog;
-using System;
-using System.Collections.Generic;
+﻿using Serilog;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Windows.Storage;
 
 namespace FluentHub.Octokit
@@ -14,8 +8,8 @@ namespace FluentHub.Octokit
     {
         private static ProductHeaderValue productInformation { get; set; } = new ProductHeaderValue("FluentHub");
         public static Connection Connection { get; private set; }
-        public static global::Octokit.GitHubClient Client { get; private set; }
-            = new global::Octokit.GitHubClient(new global::Octokit.ProductHeaderValue("FluentHub"));
+        public static OctokitOriginal.GitHubClient Client { get; private set; }
+            = new OctokitOriginal.GitHubClient(new OctokitOriginal.ProductHeaderValue("FluentHub"));
         public static string AccessToken { get; private set; }
         public static bool InitializedOctokit { get; private set; }
         public static string SignedInUserName { get; set; }
@@ -39,7 +33,7 @@ namespace FluentHub.Octokit
                 SignedInUserName = localSettings.Values["SignedInUserName"] as string;
 
                 Connection = new Connection(productInformation, AccessToken);
-                Client.Credentials = new global::Octokit.Credentials(AccessToken);
+                Client.Credentials = new OctokitOriginal.Credentials(AccessToken);
 
                 InitializedOctokit = true;
             }

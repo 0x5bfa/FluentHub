@@ -25,24 +25,25 @@ namespace FluentHub.ViewModels.Users
             _followersItems = new();
             FollowersItems = new(_followersItems);
 
-            RefreshFollowersCommand = new AsyncRelayCommand<string>(RefreshFollowers);
+            RefreshFollowersCommand = new AsyncRelayCommand<string>(LoadFollowersAsync);
         }
         #endregion
 
         #region fields
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
-        private readonly ObservableCollection<UserButtonBlockViewModel> _followersItems;
-        #endregion
 
-        #region properties
+        private bool _displayTitle;
+        public bool DisplayTitle { get => _displayTitle; set => SetProperty(ref _displayTitle, value); }
+
+        private readonly ObservableCollection<UserButtonBlockViewModel> _followersItems;
         public ReadOnlyObservableCollection<UserButtonBlockViewModel> FollowersItems { get; }
 
         public IAsyncRelayCommand RefreshFollowersCommand { get; }
         #endregion
 
         #region methods
-        private async Task RefreshFollowers(string login, CancellationToken token)
+        private async Task LoadFollowersAsync(string login, CancellationToken token)
         {
             try
             {

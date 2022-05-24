@@ -29,7 +29,9 @@
 
     <Grid>
         <Button
-            Margin="0,3,0,0"
+            Padding="16,12"
+            Background="Transparent"
+            BorderThickness="0"
             Click="Button_Click"
             Style="{StaticResource ContentBlockButtonStyle}">
 
