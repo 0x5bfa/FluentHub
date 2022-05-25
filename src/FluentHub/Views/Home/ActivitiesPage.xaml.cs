@@ -26,20 +26,26 @@ namespace FluentHub.Views.Home
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            DataContext = e.Parameter;
+            string url = e.Parameter as string;
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Activities";
             currentItem.Description = "Viewer's activities";
-            currentItem.Url = "https://github.com";
+            currentItem.Url = url;
             currentItem.Icon = new muxc.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Activities.png"))
             };
 
             var command = ViewModel.RefreshActivitiesCommand;
-            if (command.CanExecute(DataContext))
-                command.Execute(DataContext);
+            if (command.CanExecute(null))
+                command.Execute(null);
+        }
+
+        private void OnHomeRepositoriesListItemClick(object sender, ItemClickEventArgs e)
+        {
+            var clickedItem = e.ClickedItem as Repository;
+            navigationService.Navigate<Repositories.OverviewPage>(clickedItem);
         }
     }
 }

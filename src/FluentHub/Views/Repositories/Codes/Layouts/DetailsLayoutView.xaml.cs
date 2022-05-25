@@ -97,7 +97,7 @@ namespace FluentHub.Views.Repositories.Codes.Layouts
 
             var item = DirListView.SelectedItem as DetailsLayoutListViewModel;
 
-            var tagItem = item.ObjectTag.Split("/");
+            var tagItem = item?.ObjectTag.Split("/");
 
             if (tagItem[0] == "tree")
             {

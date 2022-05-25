@@ -133,6 +133,7 @@
       <DependentUpon>EditUserProfileDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extensions\IEnumerableExt.cs" />
+    <Compile Include="GlobalUsings.cs" />
     <Compile Include="Helpers\BlobDetailsHelpers.cs" />
     <Compile Include="Helpers\ColorHelpers.cs" />
     <Compile Include="Helpers\FileTypeHelper.cs" />
@@ -159,11 +160,17 @@
     <Compile Include="UserControls\Blocks\BranchName.xaml.cs">
       <DependentUpon>BranchName.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Blocks\CommitActivityBlock.xaml.cs">
-      <DependentUpon>CommitActivityBlock.xaml</DependentUpon>
+    <Compile Include="UserControls\Blocks\SingleCommentBlock.xaml.cs">
+      <DependentUpon>SingleCommentBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Blocks\SingleCommitBlock.xaml.cs">
+      <DependentUpon>SingleCommitBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Blocks\DiffBlock.xaml.cs">
       <DependentUpon>DiffBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Blocks\SingleReleaseBlock.xaml.cs">
+      <DependentUpon>SingleReleaseBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Blocks\UserContributionGraph.xaml.cs">
       <DependentUpon>UserContributionGraph.xaml</DependentUpon>
@@ -254,6 +261,7 @@
     <Compile Include="ViewModels\AppSettings\AppearanceViewModel.cs" />
     <Compile Include="ViewModels\AppSettings\MainSettingsViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\EditUserProfileViewModel.cs" />
+    <Compile Include="ViewModels\Home\UserHomeViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\Organizations\OverviewViewModel.cs" />
     <Compile Include="ViewModels\Organizations\ProfileViewModel.cs" />
@@ -281,11 +289,13 @@
     <Compile Include="ViewModels\SettingsManager.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\ActivityBlockViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\Blocks\CommitActivityBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Blocks\SingleCommentBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Blocks\SingleCommitBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\DiffBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\FileContentBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\FileNavigationBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\ReadmeContentBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Blocks\SingleReleaseBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\UserContributionGraphViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\CommitButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\DiscussionButtonBlockViewModel.cs" />
@@ -806,7 +816,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\Blocks\CommitActivityBlock.xaml">
+    <Page Include="UserControls\Blocks\SingleCommentBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Blocks\SingleCommitBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -815,6 +829,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Blocks\FileNavigationBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Blocks\SingleReleaseBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1129,7 +1147,7 @@
       <Version>7.1.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
-      <Version>2.7.1</Version>
+      <Version>2.8.0-prerelease.220413001</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed">
       <Version>2.0.1</Version>

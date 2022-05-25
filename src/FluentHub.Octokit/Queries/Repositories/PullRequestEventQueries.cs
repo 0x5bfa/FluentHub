@@ -1,14 +1,4 @@
-﻿using FluentHub.Octokit.Models;
-using FluentHub.Octokit.Models.Events;
-using Humanizer;
-using Octokit.GraphQL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FluentHub.Octokit.Queries.Repositories
+﻿namespace FluentHub.Octokit.Queries.Repositories
 {
     public class PullRequestEventQueries
     {

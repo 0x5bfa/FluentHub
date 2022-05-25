@@ -1,15 +1,4 @@
-﻿using FluentHub.Octokit.Models;
-using Humanizer;
-using Octokit.GraphQL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GraphQLCore = global::Octokit.GraphQL.Core;
-using GraphQLModel = global::Octokit.GraphQL.Model;
-
-namespace FluentHub.Octokit.Queries.Repositories
+﻿namespace FluentHub.Octokit.Queries.Repositories
 {
     public class CommitQueries
     {
@@ -27,7 +16,7 @@ namespace FluentHub.Octokit.Queries.Repositories
                     .Repository(name, owner)
                     .Ref(refs)
                     .Target
-                    .Cast<GraphQLModel.Commit>()
+                    .Cast<OctokitGraphQLModel.Commit>()
                     .History(first: 30, path: path)
                     .Nodes
                     .Select(x => new Commit
@@ -92,7 +81,7 @@ namespace FluentHub.Octokit.Queries.Repositories
                     .Repository(name, owner)
                     .Ref(refs)
                     .Target
-                    .Cast<GraphQLModel.Commit>()
+                    .Cast<OctokitGraphQLModel.Commit>()
                     .History(first: 1, path: path)
                     .Select(x => new
                     {
@@ -129,7 +118,7 @@ namespace FluentHub.Octokit.Queries.Repositories
             var queryToGetFileInfo = new Query()
                 .Repository(name, owner)
                 .Object(expression: refs + ":" + path)
-                .Cast<GraphQLModel.Tree>()
+                .Cast<OctokitGraphQLModel.Tree>()
                 .Entries
                 .Select(x => new
                 {
@@ -151,7 +140,7 @@ namespace FluentHub.Octokit.Queries.Repositories
                     .Repository(name, owner)
                     .Ref(refs)
                     .Target
-                    .Cast<GraphQLModel.Commit>()
+                    .Cast<OctokitGraphQLModel.Commit>()
                     .History(first: 1, path: res1.Path)
                     .Select(x => new 
                     {

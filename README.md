@@ -5,7 +5,7 @@
   FluentHub Alpha
 </h1>
 <p align="center">
-  A fluent yet powerful GitHub Oauth client app made with Fluent Design and WinUI 2.7
+  A stylish yet wonderfully powerful GitHub Oauth client made with Fluent Design and WinUI 2.7
 </p>
 
 <p align="center">
@@ -26,7 +26,7 @@
   <img width="128" src="https://getbadgecdn.azureedge.net/images/English_L.png" alt="GetItFromMicrosoft" />
 </a>
 
-> **Attention**</br>The app from ms store has issues during authentication that do not occur in DEBUG configured FluentHub. We are tracking on [#138](https://github.com/fluenthub-community/FluentHub/issues/138). Due to this issue, we are not publishing packages to GitHub Releases and Microsoft Store because the RELEASE configured FluentHub does not work properly. So need to build from source. Please take a look at [build-from-source](https://github.com/fluenthub-community/FluentHub/blob/main/docs/build-from-source.md). 
+> **Attention**</br>The app available on the store has issues during authentication that do not occur when FluentHub is configured in ***DEBUG***. We are tracking this issue from [#138](https://github.com/fluenthub-community/FluentHub/issues/138). Due to this issue, we are not publishing packages to GitHub Releases and Microsoft Store because the RELEASE configured FluentHub does not work properly, so you need to build from source. Please take a look at the docs for [building-from-source.](https://github.com/fluenthub-community/FluentHub/blob/main/docs/build-from-source.md). 
 ## Screenshots
 
 ![image](https://user-images.githubusercontent.com/62196528/167259072-adedd9c3-c979-48a5-96f9-f37ddc87b662.png)
@@ -35,9 +35,10 @@
 
 ## Notices
 
- 1. HttpsClient in Octokit.GraohQL.NET does not work properly (occur unknown exception) for users using Win11 Dev/Beta version with TLS and SSL settings disabled.</br>`Win+R` > `inetcpl.cpl` > `Advanced` tab > enable all TLS and SSL versions > restart
+> HttpsClient in Octokit.GraphQL.NET does not work properly (unknown exception) for users using Windows 11 Dev/Beta versions with TLS and SSL settings disabled.</br>
+>`Win+R` > `inetcpl.cpl` > `Advanced` tab > enable all TLS and SSL versions > restart
 
-	![image](https://user-images.githubusercontent.com/99880210/164863685-27770148-4c68-4920-bf87-8c0dd2b0272f.png)
+![image](https://user-images.githubusercontent.com/99880210/164863685-27770148-4c68-4920-bf87-8c0dd2b0272f.png)
 
 ## FAQ
 

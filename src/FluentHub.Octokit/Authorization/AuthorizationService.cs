@@ -1,6 +1,4 @@
 ﻿using Serilog;
-using System;
-using System.Threading.Tasks;
 using Windows.Data.Xml.Dom;
 using Windows.Storage;
 using Windows.System;
@@ -18,7 +16,7 @@ namespace FluentHub.Octokit.Authorization
             {
                 await LoadAppCredentialsAsync();
 
-                global::Octokit.OauthLoginRequest request = new(ClientId)
+                OctokitOriginal.OauthLoginRequest request = new(ClientId)
                 {
                     // All scopes
                     Scopes = {
@@ -61,18 +59,18 @@ namespace FluentHub.Octokit.Authorization
             {
                 await LoadAppCredentialsAsync();
 
-                var request = new global::Octokit.OauthTokenRequest(ClientId, ClientSecret, code);
+                var request = new OctokitOriginal.OauthTokenRequest(ClientId, ClientSecret, code);
                 var token = await App.Client.Oauth.CreateAccessToken(request);
 
                 if (token != null)
                 {
-                    App.Client.Credentials = new global::Octokit.Credentials(token.AccessToken);
+                    App.Client.Credentials = new OctokitOriginal.Credentials(token.AccessToken);
 
                     ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
                     var accessToken = localSettings.Values["AccessToken"] = token.AccessToken;
 
                     // Get viewer login name
-                    Octokit.Queries.Users.UserQueries queries = new();
+                    Queries.Users.UserQueries queries = new();
                     string login = await queries.GetViewerLogin();
 
                     var signedInUserName = localSettings.Values["SignedInUserName"] = login;
