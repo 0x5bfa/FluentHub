@@ -57,7 +57,7 @@
                         indivisual.FullReason = "You commented on the thread.";
                         break;
                     case "ci_activity":
-                        indivisual.FullReason = "A workflow that you triggered was succesful.";
+                        indivisual.FullReason = "A workflow that you triggered was successful.";
                         break;
                     case "invitation":
                         indivisual.FullReason = "You accepted an invitation to contribute to the repository.";
