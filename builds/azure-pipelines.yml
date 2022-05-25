@@ -1,0 +1,67 @@
+# Universal Windows Platform
+# Build a Universal Windows Platform project using Visual Studio.
+# Add steps that test and distribute an app, save build artifacts, and more:
+# https://aka.ms/yaml
+
+trigger:
+- main
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  solution: '**/*.sln'
+  buildPlatform: 'x64'
+  buildConfiguration: 'Release'
+  appxPackageDir: '$(build.artifactStagingDirectory)\AppxPackages\\'
+
+steps:
+
+- task: PowerShell@2
+  displayName: 'Canonicalize package manifest'
+  inputs:
+    targetType: 'inline'
+    script: |
+      [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\FluentHub\Package.appxmanifest
+      $xmlDoc.Package.Identity.Name="49462fluenthub-uwp.FluentHub"
+      $xmlDoc.Package.Identity.Publisher="CN=4E3C0825-4D00-4ECC-89F8-528E9200B125"
+      $xmlDoc.Package.Properties.DisplayName="FluentHub"
+      $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub"
+      $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub\Package.appxmanifest')
+    failOnStderr: true
+
+- task: NuGetToolInstaller@1
+
+- task: DownloadSecureFile@1
+  name: CredentialSecureFile
+  inputs:
+    secureFile: AppCredentials.config
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Agent.TempDirectory)'
+    Contents: '$(CredentialSecureFile.secureFilePath)'
+    TargetFolder: '$(Build.SourcesDirectory)\src\FluentHub'
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: VSBuild@1
+  inputs:
+    platform: 'x64'
+    solution: '$(solution)'
+    configuration: '$(buildConfiguration)'
+    msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload'
+
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+  inputs:
+    SourceFolder: '$(system.defaultworkingdirectory)'
+    Contents: '**\bin\$(BuildConfiguration)\**'
+    TargetFolder: '$(build.artifactstagingdirectory)'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: test build artifacts'
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)'

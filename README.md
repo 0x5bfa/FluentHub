@@ -29,9 +29,10 @@
 > **Attention**</br>The app available on the store has issues during authentication that do not occur when FluentHub is configured in ***DEBUG***. We are tracking this issue from [#138](https://github.com/fluenthub-community/FluentHub/issues/138). Due to this issue, we are not publishing packages to GitHub Releases and Microsoft Store because the RELEASE configured FluentHub does not work properly, so you need to build from source. Please take a look at the docs for [building-from-source.](https://github.com/fluenthub-community/FluentHub/blob/main/docs/build-from-source.md). 
 ## Screenshots
 
-![image](https://user-images.githubusercontent.com/62196528/167259072-adedd9c3-c979-48a5-96f9-f37ddc87b662.png)
-![image](https://user-images.githubusercontent.com/62196528/167259003-500c79b0-f301-4bd7-82b6-5d9ad7473118.png)
-![image](https://user-images.githubusercontent.com/62196528/167263705-7068e9d9-8086-4bde-a445-84a8e9c09136.png)
+![image](https://user-images.githubusercontent.com/62196528/170248747-1c7458f6-4b22-48e3-9235-0c8561a1759a.png)
+![image](https://user-images.githubusercontent.com/62196528/170248759-cbf061b4-6eff-4db9-b61b-12e4e3c413a2.png)
+![image](https://user-images.githubusercontent.com/62196528/170248768-cff52abc-fdfc-4b61-bd16-8c89ee9624ce.png)
+![image](https://user-images.githubusercontent.com/62196528/170248775-1ef2fe2f-bdf7-4f45-9a01-adbe1bc634fb.png)
 
 ## Notices
 

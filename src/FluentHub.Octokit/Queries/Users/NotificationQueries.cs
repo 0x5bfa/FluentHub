@@ -57,31 +57,31 @@
                         indivisual.FullReason = "You commented on the thread.";
                         break;
                     case "ci_activity":
-                        indivisual.FullReason = "A GitHub Actions workflow run that you triggered was completed.";
+                        indivisual.FullReason = "A workflow that you triggered was successful.";
                         break;
                     case "invitation":
                         indivisual.FullReason = "You accepted an invitation to contribute to the repository.";
                         break;
                     case "manual":
-                        indivisual.FullReason = "You subscribed to the thread (via an issue or pull request).";
+                        indivisual.FullReason = "You subscribed to the thread.";
                         break;
                     case "mention":
-                        indivisual.FullReason = "You were specifically @mentioned in the content.";
+                        indivisual.FullReason = "You were mentioned.";
                         break;
                     case "review_requested":
-                        indivisual.FullReason = "You, or a team you're a member of, were requested to review a pull request.";
+                        indivisual.FullReason = "You or a team you are a member of was requested to review a pull request.";
                         break;
                     case "security_alert":
-                        indivisual.FullReason = "GitHub discovered a security vulnerability in your repository.";
+                        indivisual.FullReason = "A vulnerability was detected in your repository.";
                         break;
                     case "state_change":
-                        indivisual.FullReason = "You changed the thread state (for example, closing an issue or merging a pull request).";
+                        indivisual.FullReason = "You changed the state of the thread.";
                         break;
                     case "subscribed":
-                        indivisual.FullReason = "You're watching the repository.";
+                        indivisual.FullReason = "You started watching the repository.";
                         break;
                     case "team_mention":
-                        indivisual.FullReason = "You were on a team that was mentioned.";
+                        indivisual.FullReason = "You are on a team that was mentioned.";
                         break;
                     default:
                         indivisual.FullReason = "";
@@ -98,7 +98,7 @@
                         var issue = await issueQueries.GetAsync(
                             indivisual.Repository.Owner.Login,
                             indivisual.Repository.Name,
-                            Convert.ToInt32(urlItems[urlItems?.Count() - 1]));
+                            Convert.ToInt32(urlItems[urlItems.Count() - 1]));
 
                         if (issue.Closed)
                         {
@@ -119,7 +119,7 @@
                         var pull = await pullQueries.GetAsync(
                             indivisual.Repository.Owner.Login,
                             indivisual.Repository.Name,
-                            Convert.ToInt32(urlItems[urlItems?.Count() - 1]));
+                            Convert.ToInt32(urlItems[urlItems.Count() - 1]));
 
                         if (pull.Closed)
                         {
