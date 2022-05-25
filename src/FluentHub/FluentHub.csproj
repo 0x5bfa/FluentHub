@@ -799,6 +799,11 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
+    <Page Include="Themes\Nightshade.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
     <Page Include="Themes\Default\DefaultThemeResourcesAny.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
