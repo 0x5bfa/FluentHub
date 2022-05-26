@@ -1,5 +1,4 @@
-
-name: UWP
+name: Build FluentHub
 
 on:
   push:
