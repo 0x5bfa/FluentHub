@@ -1,6 +1,6 @@
 ﻿using Windows.ApplicationModel.Background;
 
-namespace FluentHub.Backend
+namespace FluentHub.Core
 {
     public class BackgroundTasks : IBackgroundTask
     {

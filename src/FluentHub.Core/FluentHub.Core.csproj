@@ -7,8 +7,8 @@
     <ProjectGuid>{2DF9C7E4-8293-4DCD-9EA4-78784D98E957}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FluentHub.Backend</RootNamespace>
-    <AssemblyName>FluentHub.Backend</AssemblyName>
+    <RootNamespace>FluentHub.Core</RootNamespace>
+    <AssemblyName>FluentHub.Core</AssemblyName>
     <DefaultLanguage>ja-JP</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.22000.0</TargetPlatformVersion>
@@ -127,7 +127,7 @@
     <Compile Include="Services\ILogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ToastService.cs" />
-    <EmbeddedResource Include="Properties\FluentHub.Backend.rd.xml" />
+    <EmbeddedResource Include="Properties\FluentHub.Core.rd.xml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">

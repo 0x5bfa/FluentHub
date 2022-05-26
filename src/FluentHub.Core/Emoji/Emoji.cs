@@ -1,4 +1,4 @@
-﻿namespace FluentHub.Backend.Emoji
+﻿namespace FluentHub.Core.Emoji
 {
     public sealed class Emoji
     {

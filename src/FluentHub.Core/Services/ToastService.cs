@@ -5,7 +5,7 @@ using System.Globalization;
 using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
 
-namespace FluentHub.Backend
+namespace FluentHub.Core
 {
     public class ToastService
     {

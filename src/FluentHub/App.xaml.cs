@@ -77,8 +77,8 @@ namespace FluentHub
         {
             return new ServiceCollection()
                 .AddSingleton<INavigationService, NavigationService>()
-                .AddSingleton<Backend.ILogger>(new Utils.SerilogWrapperLogger(Serilog.Log.Logger))
-                .AddSingleton<Backend.ToastService>()
+                .AddSingleton<Core.ILogger>(new Utils.SerilogWrapperLogger(Serilog.Log.Logger))
+                .AddSingleton<Core.ToastService>()
                 .AddSingleton<IMessenger>(StrongReferenceMessenger.Default)
                 // ViewModels
                 .AddSingleton<MainPageViewModel>()

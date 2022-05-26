@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FluentHub.Backend.Emoji
+namespace FluentHub.Core.Emoji
 {
     public class EmojiTable
     {
