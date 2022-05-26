@@ -127,7 +127,10 @@
     <Compile Include="Domain\OctokitResult.cs" />
     <Compile Include="GlobalUsings.cs" />
     <Compile Include="Helpers\UserTypeDetectionHelper.cs" />
-    <Compile Include="Mapping\NotificationMapping.cs" />
+    <Compile Include="Mappers\NotificationMappers.cs" />
+    <Compile Include="Mappers\OrganizationMappers.cs" />
+    <Compile Include="Mappers\RepositoryMappers.cs" />
+    <Compile Include="Mappers\UserMappers.cs" />
     <Compile Include="Models\ActivityPayloads\CheckRunEventPayload.cs" />
     <Compile Include="Models\ActivityPayloads\CheckSuiteEventPayload.cs" />
     <Compile Include="Models\ActivityPayloads\CommitCommentPayload.cs" />
