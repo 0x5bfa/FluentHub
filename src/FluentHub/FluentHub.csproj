@@ -1163,9 +1163,9 @@
     <Content Include="Assets\Glyphs\SegoeFluentIconsNormal.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FluentHub.Backend\FluentHub.Backend.csproj">
+    <ProjectReference Include="..\FluentHub.Backend\FluentHub.Core.csproj">
       <Project>{2DF9C7E4-8293-4DCD-9EA4-78784D98E957}</Project>
-      <Name>FluentHub.Backend</Name>
+      <Name>FluentHub.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\FluentHub.Octokit\FluentHub.Octokit.csproj">
       <Project>{893edcc9-4345-4f49-a13f-1a426a7ba432}</Project>
