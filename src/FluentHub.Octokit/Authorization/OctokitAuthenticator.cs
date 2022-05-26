@@ -5,7 +5,7 @@ using Windows.System;
 
 namespace FluentHub.Octokit.Authorization
 {
-    public class AuthorizationService
+    public class OctokitAuthenticator
     {
         private string ClientId { get; set; }
         private string ClientSecret { get; set; }

@@ -123,7 +123,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
-    <Compile Include="Authorization\AuthorizationService.cs" />
+    <Compile Include="Authorization\OctokitAuthenticator.cs" />
     <Compile Include="Domain\OctokitResult.cs" />
     <Compile Include="GlobalUsings.cs" />
     <Compile Include="Helpers\UserTypeDetectionHelper.cs" />

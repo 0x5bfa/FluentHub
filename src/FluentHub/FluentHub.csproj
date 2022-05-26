@@ -142,6 +142,7 @@
     <Compile Include="Helpers\ResourceHelper.cs" />
     <Compile Include="Helpers\ThemeHelper.cs" />
     <Compile Include="Helpers\WebViewHelpers.cs" />
+    <Compile Include="Infrastructure\FluentHubApplication.cs" />
     <Compile Include="Models\DefaultLanguageModel.cs" />
     <Compile Include="Models\DetailsLayoutListViewModel.cs" />
     <Compile Include="Models\TreeLayoutPageModel.cs" />
