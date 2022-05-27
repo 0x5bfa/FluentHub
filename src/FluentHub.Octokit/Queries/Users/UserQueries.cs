@@ -41,19 +41,7 @@
 
         public async Task<string> GetViewerLogin()
         {
-            #region query
-            var query = new Query()
-                .Viewer
-                .Select(x => new
-                {
-                    x.Login,
-                })
-                .Compile();
-            #endregion
-
-            var response = await App.Connection.Run(query);
-
-            return response.Login;
+            return await App.Connection.Run(new Query().Viewer.Select(x => x.Login).Compile());
         }
     }
 }

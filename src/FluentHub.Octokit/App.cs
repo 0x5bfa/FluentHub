@@ -27,10 +27,10 @@ namespace FluentHub.Octokit
         {
             try
             {
-                ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
+                Settings.SettingsModel settings = new();
 
-                AccessToken = localSettings.Values["AccessToken"] as string;
-                SignedInUserName = localSettings.Values["SignedInUserName"] as string;
+                AccessToken = settings.AccessToken;
+                SignedInUserName = settings.SignedInUserName;
 
                 Connection = new Connection(productInformation, AccessToken);
                 Client.Credentials = new OctokitOriginal.Credentials(AccessToken);

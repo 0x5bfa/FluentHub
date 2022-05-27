@@ -1,4 +1,5 @@
-﻿using Serilog;
+﻿using FluentHub.Octokit.Settings;
+using Serilog;
 using Windows.Data.Xml.Dom;
 using Windows.Storage;
 using Windows.System;
@@ -9,12 +10,13 @@ namespace FluentHub.Octokit.Authorization
     {
         private string ClientId { get; set; }
         private string ClientSecret { get; set; }
+        private SettingsModel AppSettings { get; set; }
 
         public async Task<bool> RequestGitHubIdentityAsync()
         {
             try
             {
-                await LoadAppCredentialsAsync();
+                await InitializeAsync();
 
                 OctokitOriginal.OauthLoginRequest request = new(ClientId)
                 {
@@ -43,7 +45,7 @@ namespace FluentHub.Octokit.Authorization
                 await Launcher.LaunchUriAsync(oauthLoginUrl);
 
                 // Success
-                Log.Information("RequestGitHubIdentityAsync() completed successfully: [url: {oauthLoginUrl}]", oauthLoginUrl);
+                Log.Debug($"RequestGitHubIdentityAsync(): Completed successfully: (Login URL: {oauthLoginUrl})");
                 return true;
             }
             catch (Exception ex)
@@ -57,7 +59,7 @@ namespace FluentHub.Octokit.Authorization
         {
             try
             {
-                await LoadAppCredentialsAsync();
+                await InitializeAsync();
 
                 var request = new OctokitOriginal.OauthTokenRequest(ClientId, ClientSecret, code);
                 var token = await App.Client.Oauth.CreateAccessToken(request);
@@ -66,22 +68,18 @@ namespace FluentHub.Octokit.Authorization
                 {
                     App.Client.Credentials = new OctokitOriginal.Credentials(token.AccessToken);
 
-                    ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
-                    var accessToken = localSettings.Values["AccessToken"] = token.AccessToken;
-
-                    // Get viewer login name
+                    // Store results to app settings container
+                    AppSettings.AccessToken = token.AccessToken;
                     Queries.Users.UserQueries queries = new();
-                    string login = await queries.GetViewerLogin();
-
-                    var signedInUserName = localSettings.Values["SignedInUserName"] = login;
+                    AppSettings.SignedInUserName = await queries.GetViewerLogin();
 
                     // Success
-                    Log.Information("RequestOAuthTokenAsync() completed successfully: [accessToken: {accessToken}](username: {signedInUserName})", accessToken, signedInUserName);
+                    Log.Debug($"RequestOAuthTokenAsync(): Completed successfully: (Access Token: {AppSettings.AccessToken}), (Signed in: {AppSettings.SignedInUserName})");
                     return true;
                 }
                 else
                 {
-                    throw new ArgumentNullException("AccessToken");
+                    throw new ArgumentNullException(nameof(token));
                 }
             }
             catch (Exception ex)
@@ -91,7 +89,7 @@ namespace FluentHub.Octokit.Authorization
             }
         }
 
-        private async Task LoadAppCredentialsAsync()
+        private async Task InitializeAsync()
         {
             var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///AppCredentials.config"));
 
@@ -102,6 +100,9 @@ namespace FluentHub.Octokit.Authorization
 
             ClientId = (string)nodeId.NodeValue;
             ClientSecret = (string)nodeSecret.NodeValue;
+
+            // Create an instance of SettingsModel
+            AppSettings = new();
         }
     }
 }
