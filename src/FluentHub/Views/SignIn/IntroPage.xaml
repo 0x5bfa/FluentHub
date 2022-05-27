@@ -25,108 +25,36 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Grid
-                x:Name="ImageGrid"
-                Grid.Column="0"
-                Background="White">
-                <Image
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Source="/Assets/AppTiles/SplashScreen.scale-400.png"
-                    Stretch="UniformToFill" />
-            </Grid>
-
-            <Grid x:Name="TextGrid" Grid.Column="1">
-
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-
-                <Grid Grid.Row="0" Padding="20">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="Auto" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
-                    <Image
-                        Grid.Column="0"
-                        Width="80"
-                        Height="80"
-                        HorizontalAlignment="Left"
-                        Source="/Assets/AppTiles/StoreLogo.scale-200.png" />
-                    <Grid Grid.Column="1" Margin="20,0,10,0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <TextBlock
-                            Grid.Row="0"
-                            VerticalAlignment="Top"
-                            FontSize="32"
-                            Text="Welcome to FluentHub!" />
-                        <TextBlock
-                            Grid.Row="1"
-                            Margin="0,5,0,0"
-                            Text="A new and modern UWP app built with WinUI 2.x and Fluent Design!" />
-                    </Grid>
-                </Grid>
-                <Grid Grid.Row="1">
-                    <StackPanel
-                        Margin="0,24,0,0"
-                        HorizontalAlignment="Center"
-                        Orientation="Horizontal">
-                        <Button
-                            HorizontalAlignment="Center"
-                            Click="SetupButton_Click"
-                            Content="Start setup"
-                            Style="{ThemeResource AccentButtonStyle}" />
-                    </StackPanel>
-                </Grid>
-            </Grid>
-
-            <!--
-        <StackPanel
-            Grid.Row="1"
-            Width="400"
-            Margin="0,-50,0,0"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center">
-            <TextBlock
-                HorizontalAlignment="Center"
-                Style="{ThemeResource TitleTextBlockStyle}"
-                Text="Welcome to" />
-            <StackPanel Margin="0,24" Spacing="12">
-                <Image
-                    Width="Auto"
-                    Height="84"
-                    HorizontalAlignment="Center"
-                    Source="/Assets/AppTiles/StoreLogo.scale-200.png" />
-                <TextBlock
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    FontSize="32"
-                    Style="{StaticResource TitleTextBlockStyle}"
-                    Text="FluentHub" />
-            </StackPanel>
-            <TextBlock
-                HorizontalAlignment="Center"
-                HorizontalTextAlignment="Center"
-                Style="{ThemeResource BodyTextBlockStyle}"
-                Text="To use FluentHub, please sign in."
-                TextWrapping="Wrap" />
             <StackPanel
-                Margin="0,24,0,0"
+                Grid.Row="1"
+                Width="400"
+                Margin="0,-50,0,0"
                 HorizontalAlignment="Center"
-                Orientation="Horizontal">
-                <Button
-                    HorizontalAlignment="Center"
-                    Click="SetupButton_Click"
-                    Content="Setup"
-                    Style="{ThemeResource AccentButtonStyle}" />
+                VerticalAlignment="Center">
+
+                <StackPanel Orientation="Vertical">
+                    <Image Source="/Assets/OOBEHERO.png" Stretch="Uniform"
+                           Width="Auto"
+                           Height="Auto"/>
+
+                    <TextBlock x:Uid="Oobe_HowToUse"
+                           Style="{ThemeResource TitleTextBlockStyle}" Text="Welcome to FluentHub"/>
+                    <TextBlock x:Uid="Oobe_HowToUse"
+                           Style="{ThemeResource BodyTextBlockStyle}" 
+                           Text="A stylish yet wonderfully powerful GitHub Oauth client made with Fluent Design and WinUI 2.7"/>
+                    <!--<HyperlinkButton NavigateUri="https://aka.ms/PowerToysOverview" Style="{ThemeResource AccentButtonStyle}">
+                    <TextBlock x:Uid="Oobe_Overview_DescriptionLinkText"
+                               TextWrapping="Wrap" />
+                </HyperlinkButton>-->
+
+                    <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,24,0,0">
+                        <Button x:Uid="OOBE_Settings"
+                            Style="{ThemeResource AccentButtonStyle}"
+                            Click="SetupButton_Click"
+                            Content="Setup"/>
+                    </StackPanel>
+                </StackPanel>
             </StackPanel>
-        </StackPanel>-->
         </Grid>
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup x:Name="WideWindow">

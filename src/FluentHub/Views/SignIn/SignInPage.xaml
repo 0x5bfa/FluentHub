@@ -189,7 +189,7 @@
                     <Button
                         MinWidth="120"
                         Click="ContinueButton_Click"
-                        Content="Login with browser"
+                        Content="Login with Browser"
                         Style="{StaticResource AccentButtonStyle}" />
                 </StackPanel>
             </Grid>

@@ -739,6 +739,7 @@
     <Content Include="Assets\Icons\Starred.targetsize-48.png" />
     <Content Include="Assets\Icons\Starred.targetsize-64.png" />
     <Content Include="Assets\Icons\Starred.targetsize-96.png" />
+    <Content Include="Assets\OOBEHERO.png" />
     <Content Include="Assets\WebView\index.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
