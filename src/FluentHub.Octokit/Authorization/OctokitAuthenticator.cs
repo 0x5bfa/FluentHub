@@ -70,8 +70,8 @@ namespace FluentHub.Octokit.Authorization
 
                     // Store results to app settings container
                     AppSettings.AccessToken = token.AccessToken;
-                    Queries.Users.UserQueries queries = new();
-                    AppSettings.SignedInUserName = await queries.GetViewerLogin();
+                    //Queries.Users.UserQueries queries = new();
+                    //AppSettings.SignedInUserName = await queries.GetViewerLogin();
 
                     // Success
                     Log.Debug($"RequestOAuthTokenAsync(): Completed successfully: (Access Token: {AppSettings.AccessToken}), (Signed in: {AppSettings.SignedInUserName})");
