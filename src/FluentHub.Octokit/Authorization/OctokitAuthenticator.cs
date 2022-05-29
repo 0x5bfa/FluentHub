@@ -1,27 +1,17 @@
-﻿using FluentHub.Octokit.Settings;
-using Serilog;
-using Windows.Data.Xml.Dom;
-using Windows.Storage;
-using Windows.System;
-
-namespace FluentHub.Octokit.Authorization
+﻿namespace FluentHub.Octokit.Authorization
 {
     public class OctokitAuthenticator
     {
-        private string ClientId { get; set; }
-        private string ClientSecret { get; set; }
-        private SettingsModel AppSettings { get; set; }
+        private static OctokitSecret Secrets { get; set; }
 
-        public async Task<bool> RequestGitHubIdentityAsync()
+        public string RequestGitHubIdentityAsync(OctokitSecret secrets)
         {
-            try
-            {
-                await InitializeAsync();
+            Secrets = secrets;
 
-                OctokitOriginal.OauthLoginRequest request = new(ClientId)
-                {
-                    // All scopes
-                    Scopes = {
+            OctokitOriginal.OauthLoginRequest request = new(secrets.ClientId)
+            {
+                // All scopes
+                Scopes = {
                         "repo",
                         "workflow",
                         "write:packages",
@@ -38,71 +28,32 @@ namespace FluentHub.Octokit.Authorization
                         "admin:enterprise",
                         "admin:gpg_key"
                     },
-                };
+            };
 
-                Uri oauthLoginUrl = App.Client.Oauth.GetGitHubLoginUrl(request);
+            Uri oauthLoginUrl = App.Client.Oauth.GetGitHubLoginUrl(request);
 
-                await Launcher.LaunchUriAsync(oauthLoginUrl);
-
-                // Success
-                Log.Debug($"RequestGitHubIdentityAsync(): Completed successfully: (Login URL: {oauthLoginUrl})");
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Log.Error("RequestGitHubIdentityAsync(): {Message}", ex.Message);
-                return false;
-            }
+            return oauthLoginUrl.ToString();
         }
 
-        public async Task<bool> RequestOAuthTokenAsync(string code)
+        public async Task<string> RequestOAuthTokenAsync(string code)
         {
-            try
+            var request = new OctokitOriginal.OauthTokenRequest(Secrets.ClientId, Secrets.ClientSecret, code);
+            var token = await App.Client.Oauth.CreateAccessToken(request);
+
+            if (token != null)
             {
-                await InitializeAsync();
-
-                var request = new OctokitOriginal.OauthTokenRequest(ClientId, ClientSecret, code);
-                var token = await App.Client.Oauth.CreateAccessToken(request);
-
-                if (token != null)
-                {
-                    App.Client.Credentials = new OctokitOriginal.Credentials(token.AccessToken);
-
-                    // Store results to app settings container
-                    AppSettings.AccessToken = token.AccessToken;
-                    //Queries.Users.UserQueries queries = new();
-                    //AppSettings.SignedInUserName = await queries.GetViewerLogin();
-
-                    // Success
-                    Log.Debug($"RequestOAuthTokenAsync(): Completed successfully: (Access Token: {AppSettings.AccessToken}), (Signed in: {AppSettings.SignedInUserName})");
-                    return true;
-                }
-                else
-                {
-                    throw new ArgumentNullException(nameof(token));
-                }
+                App.AccessToken = token.AccessToken;
+                App.Client.Credentials = new OctokitOriginal.Credentials(token.AccessToken);
+                App.Connection = new(App.ProductInformation, token.AccessToken);
+                Queries.Users.UserQueries userQueries = new();
+                var login = await userQueries.GetViewerLogin();
+                App.SignedInUserName = login;
+                return token.AccessToken;
             }
-            catch (Exception ex)
+            else
             {
-                Log.Error("RequestOAuthTokenAsync(): {Message}", ex.Message);
-                return false;
+                throw new ArgumentNullException(nameof(token));
             }
-        }
-
-        private async Task InitializeAsync()
-        {
-            var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///AppCredentials.config"));
-
-            var xmlDoc = await XmlDocument.LoadFromFileAsync(file);
-
-            var nodeId = xmlDoc.DocumentElement.SelectSingleNode("./client/type[@key='id']/@value");
-            var nodeSecret = xmlDoc.DocumentElement.SelectSingleNode("./client/type[@key='secret']/@value");
-
-            ClientId = (string)nodeId.NodeValue;
-            ClientSecret = (string)nodeSecret.NodeValue;
-
-            // Create an instance of SettingsModel
-            AppSettings = new();
         }
     }
 }

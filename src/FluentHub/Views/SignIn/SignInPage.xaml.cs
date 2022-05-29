@@ -1,19 +1,15 @@
-﻿using FluentHub.Octokit.Authorization;
+﻿using FluentHub.Services;
+using FluentHub.ViewModels.SignIn;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Toolkit.Uwp;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Views.SignIn
 {
@@ -21,8 +17,13 @@ namespace FluentHub.Views.SignIn
     {
         public SignInPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+
+            var provider = App.Current.Services;
+            ViewModel = provider.GetRequiredService<SignInViewModel>();
         }
+
+        public SignInViewModel ViewModel { get; }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -30,18 +31,9 @@ namespace FluentHub.Views.SignIn
             base.OnNavigatedTo(e);
         }
 
-        private async void ContinueButton_Click(object sender, RoutedEventArgs e)
-        {
-            OctokitAuthenticator request = new();
-            _ = await request.RequestGitHubIdentityAsync();
-
-            App.Settings.SetupProgress = true;
-            SetupProgressRing.IsActive = true;
-        }
-
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(IntroPage), null, new SlideNavigationTransitionInfo()
+            Frame.Navigate(typeof(IntroPage), null, new SlideNavigationTransitionInfo()
             {
                 Effect = SlideNavigationTransitionEffect.FromLeft
             });

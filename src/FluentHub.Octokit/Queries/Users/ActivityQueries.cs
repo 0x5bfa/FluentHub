@@ -4,8 +4,6 @@ namespace FluentHub.Octokit.Queries.Users
 {
     public class ActivityQueries
     {
-        public ActivityQueries() => new App();
-
         public async Task<List<Activity>> GetAllAsync(string login)
         {
             #region query
@@ -32,10 +30,10 @@ namespace FluentHub.Octokit.Queries.Users
                     CreatedAtHumanized = item.CreatedAt.Humanize(),
                     Repository = new()
                     {
-                        Name = item.Repo?.Name.Split("/")[1],
+                        Name = item.Repo?.Name.Split('/')[1],
                         Owner = new()
                         {
-                            Login = item.Repo?.Name.Split("/")[0],
+                            Login = item.Repo?.Name.Split('/')[0],
                         },
                     },
                     Actor = new()

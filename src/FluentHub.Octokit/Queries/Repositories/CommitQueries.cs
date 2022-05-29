@@ -2,8 +2,6 @@
 {
     public class CommitQueries
     {
-        public CommitQueries() => new App();
-
         public async Task<List<Commit>> GetAllAsync(string name, string owner, string refs, string path)
         {
             if (path[0] == '/')

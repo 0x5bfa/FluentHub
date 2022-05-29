@@ -1,7 +1,6 @@
 ﻿using Serilog;
 using System.Net;
 using System.Text.RegularExpressions;
-using Windows.Storage;
 
 namespace FluentHub.Octokit.Queries.Repositories
 {
@@ -15,24 +14,24 @@ namespace FluentHub.Octokit.Queries.Repositories
         /// <param name="theme">"light": Light theme, "dark": Dark theme</param>
         public async Task<string> GetHtmlAsync(string markdown, string missedPath, string theme, bool isHtml)
         {
-            StorageFile indexFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/WebView/index.html"));
-            var indexHtml = await FileIO.ReadTextAsync(indexFile);
+            //StorageFile indexFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/WebView/index.html"));
+            //var indexHtml = await FileIO.ReadTextAsync(indexFile);
 
-            string body;
+            //string body;
 
-            // Get rwa html string
-            body = isHtml ? markdown : GetRawHtml(markdown);
+            //// Get rwa html string
+            //body = isHtml ? markdown : GetRawHtml(markdown);
 
-            body = AddMissedLineBreaks(body);
+            //body = AddMissedLineBreaks(body);
 
-            string html
-                = ((string)indexHtml!.Clone())
-                .Replace("{{renderTheme}}", theme)
-                .Replace("{{htmlBody}}", body);
+            //string html
+            //    = ((string)indexHtml!.Clone())
+            //    .Replace("{{renderTheme}}", theme)
+            //    .Replace("{{htmlBody}}", body);
 
-            html = CorrectRelativePaths(html, missedPath);
+            //html = CorrectRelativePaths(html, missedPath);
 
-            return html;
+            return "";
         }
 
         // Use raw http responding

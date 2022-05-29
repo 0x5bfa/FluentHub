@@ -155,6 +155,8 @@
     <Compile Include="Services\Navigation\PageNavigationEntry.cs" />
     <Compile Include="Services\Navigation\NavigationService.cs" />
     <Compile Include="Services\Navigation\TabViewSelectionChangedEventArgs.cs" />
+    <Compile Include="Services\OctokitActivationService.cs" />
+    <Compile Include="Services\ToastService.cs" />
     <Compile Include="UserControls\AvatarControl.xaml.cs">
       <DependentUpon>AvatarControl.xaml</DependentUpon>
     </Compile>
@@ -289,6 +291,7 @@
     <Compile Include="ViewModels\Repositories\PullRequests\PullRequestViewModel.cs" />
     <Compile Include="ViewModels\SettingsManager.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\SignIn\SignInViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\ActivityBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\SingleCommentBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\SingleCommitBlockViewModel.cs" />
@@ -1144,6 +1147,9 @@
     <PackageReference Include="Microsoft.Toolkit.Mvvm">
       <Version>7.1.2</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications">
+      <Version>7.1.2</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
       <Version>7.1.2</Version>
     </PackageReference>
@@ -1164,22 +1170,22 @@
     <Content Include="Assets\Glyphs\SegoeFluentIconsNormal.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FluentHub.Core\FluentHub.Core.csproj">
-      <Project>{2DF9C7E4-8293-4DCD-9EA4-78784D98E957}</Project>
-      <Name>FluentHub.Core</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FluentHub.Octokit\FluentHub.Octokit.csproj">
-      <Project>{893edcc9-4345-4f49-a13f-1a426a7ba432}</Project>
-      <Name>FluentHub.Octokit</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="ViewModels\Repositories\Insights\" />
     <Folder Include="Views\Organizations\Settings\" />
     <Folder Include="Views\Users\Settings\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Glyphs\Octions.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FluentHub.Core\FluentHub.Core.csproj">
+      <Project>{aff225cd-3700-4eef-8f77-a04a74addc98}</Project>
+      <Name>FluentHub.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FluentHub.Octokit\FluentHub.Octokit.csproj">
+      <Project>{c9023158-b2e9-416b-93fc-4337eb834813}</Project>
+      <Name>FluentHub.Octokit</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

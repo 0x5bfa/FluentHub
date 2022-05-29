@@ -2,8 +2,6 @@
 {
     public class NotificationQueries
     {
-        public NotificationQueries() => new App();
-
         public async Task<List<Notification>> GetAllAsync(OctokitOriginal.ApiOptions options = null)
         {
             OctokitOriginal.NotificationsRequest request = new()
@@ -88,7 +86,7 @@
                         break;
                 }
 
-                var urlItems = indivisual.Subject.Url?.Split("/");
+                var urlItems = indivisual.Subject.Url?.Split('/');
 
                 switch (indivisual.Subject?.Type)
                 {

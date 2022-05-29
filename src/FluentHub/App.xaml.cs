@@ -78,7 +78,7 @@ namespace FluentHub
             return new ServiceCollection()
                 .AddSingleton<INavigationService, NavigationService>()
                 .AddSingleton<Core.ILogger>(new Utils.SerilogWrapperLogger(Serilog.Log.Logger))
-                .AddSingleton<Core.ToastService>()
+                .AddSingleton<Services.ToastService>()
                 .AddSingleton<IMessenger>(StrongReferenceMessenger.Default)
                 // ViewModels
                 .AddSingleton<MainPageViewModel>()
@@ -105,6 +105,7 @@ namespace FluentHub
                 .AddTransient<ViewModels.Repositories.PullRequests.FileChangesViewModel>()
                 .AddTransient<ViewModels.Repositories.PullRequests.PullRequestViewModel>()
                 .AddTransient<ViewModels.Repositories.PullRequests.PullRequestsViewModel>()
+                .AddTransient<ViewModels.SignIn.SignInViewModel>()
                 .AddTransient<ViewModels.UserControls.Blocks.FileContentBlockViewModel>()
                 .AddTransient<ViewModels.UserControls.Blocks.FileNavigationBlockViewModel>()
                 .AddTransient<ViewModels.UserControls.Blocks.ReadmeContentBlockViewModel>()
@@ -161,6 +162,11 @@ namespace FluentHub
             {
                 if (Settings.SetupCompleted == true)
                 {
+                    Octokit.App.AccessToken = Settings.AccessToken;
+                    Octokit.App.Client.Credentials = new OctokitOriginal.Credentials(Settings.AccessToken);
+                    Octokit.App.Connection = new(Octokit.App.ProductInformation, Settings.AccessToken);
+                    Octokit.App.SignedInUserName = Settings.SignedInUserName;
+
                     rootFrame.Navigate(typeof(MainPage));
                 }
                 else
@@ -239,12 +245,23 @@ namespace FluentHub
                     var code = new WwwFormUrlDecoder(uri.Query).GetFirstValueByName("code");
 
                     OctokitAuthenticator authService = new();
-                    bool status = await authService.RequestOAuthTokenAsync(code);
+                    bool status = false;
+
+                    try
+                    {
+                        Settings.AccessToken = await authService.RequestOAuthTokenAsync(code);
+                        Settings.SignedInUserName = Octokit.App.SignedInUserName;
+                        status = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        logger?.Error("RequestOAuthTokenAsync(): Failed", ex);
+                        status = false;
+                    }
 
                     if (status)
                     {
                         Settings.SetupCompleted = true;
-
                         rootFrame.Navigate(typeof(MainPage));
                     }
 
