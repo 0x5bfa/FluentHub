@@ -5,9 +5,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("FluentHub.Octokit")]
 [assembly: AssemblyDescription("GitHub API connection for FluentHub")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("fluenthub-community")]
+[assembly: AssemblyCompany("FluentHub")]
 [assembly: AssemblyProduct("FluentHub.Octokit")]
-[assembly: AssemblyCopyright("Copyright © 2022 fluenthub-community")]
+[assembly: AssemblyCopyright("Copyright © 2022 FluentHub Team")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace FluentHub.Octokit.Mapping
 {
-    public class NotificationMappers
+    public class OrganizationMappings
     {
-        public static List<Notification> MapAll(IEnumerable<OctokitOriginal.Notification> data)
+        public static List<Organization> MapAll(IEnumerable<OctokitOriginal.Organization> data)
         {
-            var result = new List<Notification>();
+            var result = new List<Organization>();
             if (data != null)
             {
                 foreach (var item in data)
@@ -22,9 +22,9 @@ namespace FluentHub.Octokit.Mapping
             return result;
         }
 
-        public static Notification Map(OctokitOriginal.Notification data)
+        public static Organization Map(OctokitOriginal.Organization data)
         {
-            return new Notification()
+            return new Organization()
             {
             };
         }

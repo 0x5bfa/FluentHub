@@ -25,6 +25,7 @@ namespace FluentHub.Octokit.Models
         public bool ViewerIsFollowing { get; set; }
         public string WebsiteUrl { get; set; }
         public bool IsOrganization { get; set; }
+        public AccountType Type { get; set; }
 
         public int FollowersTotalCount { get; set; }
         public int FollowingTotalCount { get; set; }

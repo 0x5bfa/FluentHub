@@ -127,10 +127,10 @@
     <Compile Include="Domain\OctokitResult.cs" />
     <Compile Include="GlobalUsings.cs" />
     <Compile Include="Helpers\UserTypeDetectionHelper.cs" />
-    <Compile Include="Mappers\NotificationMappers.cs" />
-    <Compile Include="Mappers\OrganizationMappers.cs" />
-    <Compile Include="Mappers\RepositoryMappers.cs" />
-    <Compile Include="Mappers\UserMappers.cs" />
+    <Compile Include="Mappings\NotificationMappings.cs" />
+    <Compile Include="Mappings\OrganizationMappings.cs" />
+    <Compile Include="Mappings\RepositoryMappings.cs" />
+    <Compile Include="Mappings\UserMappings.cs" />
     <Compile Include="Models\ActivityPayloads\CheckRunEventPayload.cs" />
     <Compile Include="Models\ActivityPayloads\CheckSuiteEventPayload.cs" />
     <Compile Include="Models\ActivityPayloads\CommitCommentPayload.cs" />
@@ -149,6 +149,7 @@
     <Compile Include="Models\ActivityPayloads\ReleaseEventPayload.cs" />
     <Compile Include="Models\ActivityPayloads\StarredEventPayload.cs" />
     <Compile Include="Models\ActivityPayloads\StatusEventPayload.cs" />
+    <Compile Include="Models\AccountType.cs" />
     <Compile Include="Models\ApiOptions.cs" />
     <Compile Include="Models\CalendarDay.cs" />
     <Compile Include="Models\ChangedFile.cs" />

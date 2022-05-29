@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace FluentHub.Octokit.Mapping
 {
-    public class RepositoryMappers
+    public class NotificationMappings
     {
-        public static List<Repository> MapAll(IEnumerable<OctokitOriginal.Repository> data)
+        public static List<Notification> MapAll(IEnumerable<OctokitOriginal.Notification> data)
         {
-            var result = new List<Repository>();
+            var result = new List<Notification>();
             if (data != null)
             {
                 foreach (var item in data)
@@ -22,9 +22,9 @@ namespace FluentHub.Octokit.Mapping
             return result;
         }
 
-        public static Repository Map(OctokitOriginal.Repository data)
+        public static Notification Map(OctokitOriginal.Notification data)
         {
-            return new Repository()
+            return new Notification()
             {
             };
         }

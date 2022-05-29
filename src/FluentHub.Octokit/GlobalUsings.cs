@@ -7,6 +7,7 @@ global using global::System.Threading.Tasks;
 
 // Custom usings
 global using global::FluentHub.Octokit.Helpers;
+global using global::FluentHub.Octokit.Mapping;
 global using global::FluentHub.Octokit.Models;
 global using global::FluentHub.Octokit.Models.Events;
 global using global::Humanizer;

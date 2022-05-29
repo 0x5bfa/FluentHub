@@ -6,42 +6,18 @@
 
         public async Task<User> GetAsync(string login)
         {
-            #region queries
-            var query = new Query()
-                .User(login)
-                .Select(x => new User
-                {
-                    AvatarUrl = x.AvatarUrl(100),
-                    Bio = x.Bio,
-                    Company = x.Company,
-                    Email = x.Email,
-                    IsCampusExpert = x.IsCampusExpert,
-                    IsBountyHunter = x.IsBountyHunter,
-                    IsDeveloperProgramMember = x.IsDeveloperProgramMember,
-                    IsEmployee = x.IsEmployee,
-                    IsGitHubStar = x.IsGitHubStar,
-                    IsViewer = x.IsViewer,
-                    Location = x.Location,
-                    Login = x.Login,
-                    Name = x.Name,
-                    TwitterUsername = x.TwitterUsername,
-                    ViewerIsFollowing = x.ViewerIsFollowing,
-                    WebsiteUrl = x.WebsiteUrl,
+            var response = await App.Client.User.Get(login);
 
-                    FollowersTotalCount = x.Followers(null, null, null, null).TotalCount,
-                    FollowingTotalCount = x.Following(null, null, null, null).TotalCount,
-                })
-                .Compile();
-            #endregion
+            var mapped = UserMappings.Map(response);
 
-            var response = await App.Connection.Run(query);
-
-            return response;
+            return mapped;
         }
 
         public async Task<string> GetViewerLogin()
         {
-            return await App.Connection.Run(new Query().Viewer.Select(x => x.Login).Compile());
+            var current = await App.Client.User.Current();
+
+            return current.Login;
         }
     }
 }
