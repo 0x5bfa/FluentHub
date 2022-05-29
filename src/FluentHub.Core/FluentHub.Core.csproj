@@ -2,6 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Platforms>x64</Platforms>
+    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
+    <LangVersion>9</LangVersion>
+    <Nullable>enable</Nullable>
+    <Configurations>Debug;Release;Sideload</Configurations>
   </PropertyGroup>
 
 </Project>
