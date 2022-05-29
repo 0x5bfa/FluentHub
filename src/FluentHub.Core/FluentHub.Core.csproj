@@ -1,12 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <Platforms>x64</Platforms>
-    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
-    <LangVersion>latest</LangVersion>
-    <Nullable>enable</Nullable>
-    <Configurations>Debug;Release;Sideload</Configurations>
-  </PropertyGroup>
+      <TargetFramework>netstandard2.0</TargetFramework>
+      <Platforms>x86;x64;arm64</Platforms>
+      <RuntimeIdentifiers>win-arm64;win-x86;win-x64</RuntimeIdentifiers>
+      <LangVersion>latest</LangVersion>
+      <Nullable>enable</Nullable>
+      <Configurations>Debug;Release;Sideload</Configurations>
+    </PropertyGroup>
 
 </Project>

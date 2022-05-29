@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentHub.Octokit", "src\Fl
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentHub.Core", "src\FluentHub.Core\FluentHub.Core.csproj", "{AFF225CD-3700-4EEF-8F77-A04A74ADDC98}"
 EndProject
-Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "FluentHub.Package", "FluentHub.Package\FluentHub.Package.wapproj", "{16E1D603-4F9D-4C98-A14E-31C0C82C38F8}"
+Project("{C7167F0D-BC9F-4E6E-AFE1-012C56B48DB5}") = "FluentHub.Package", "src\FluentHub.Package\FluentHub.Package.wapproj", "{16E1D603-4F9D-4C98-A14E-31C0C82C38F8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -63,8 +63,8 @@ Global
 		{C9023158-B2E9-416B-93FC-4337EB834813}.Debug|ARM.Build.0 = Debug|Any CPU
 		{C9023158-B2E9-416B-93FC-4337EB834813}.Debug|ARM64.ActiveCfg = Debug|Any CPU
 		{C9023158-B2E9-416B-93FC-4337EB834813}.Debug|ARM64.Build.0 = Debug|Any CPU
-		{C9023158-B2E9-416B-93FC-4337EB834813}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{C9023158-B2E9-416B-93FC-4337EB834813}.Debug|x64.Build.0 = Debug|Any CPU
+		{C9023158-B2E9-416B-93FC-4337EB834813}.Debug|x64.ActiveCfg = Debug|x64
+		{C9023158-B2E9-416B-93FC-4337EB834813}.Debug|x64.Build.0 = Debug|x64
 		{C9023158-B2E9-416B-93FC-4337EB834813}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{C9023158-B2E9-416B-93FC-4337EB834813}.Debug|x86.Build.0 = Debug|Any CPU
 		{C9023158-B2E9-416B-93FC-4337EB834813}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -83,8 +83,8 @@ Global
 		{AFF225CD-3700-4EEF-8F77-A04A74ADDC98}.Debug|ARM.Build.0 = Debug|Any CPU
 		{AFF225CD-3700-4EEF-8F77-A04A74ADDC98}.Debug|ARM64.ActiveCfg = Debug|Any CPU
 		{AFF225CD-3700-4EEF-8F77-A04A74ADDC98}.Debug|ARM64.Build.0 = Debug|Any CPU
-		{AFF225CD-3700-4EEF-8F77-A04A74ADDC98}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{AFF225CD-3700-4EEF-8F77-A04A74ADDC98}.Debug|x64.Build.0 = Debug|Any CPU
+		{AFF225CD-3700-4EEF-8F77-A04A74ADDC98}.Debug|x64.ActiveCfg = Debug|x64
+		{AFF225CD-3700-4EEF-8F77-A04A74ADDC98}.Debug|x64.Build.0 = Debug|x64
 		{AFF225CD-3700-4EEF-8F77-A04A74ADDC98}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{AFF225CD-3700-4EEF-8F77-A04A74ADDC98}.Debug|x86.Build.0 = Debug|Any CPU
 		{AFF225CD-3700-4EEF-8F77-A04A74ADDC98}.Release|Any CPU.ActiveCfg = Release|Any CPU
