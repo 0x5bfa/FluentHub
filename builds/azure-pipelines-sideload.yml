@@ -1,5 +1,5 @@
-trigger: none
-pr: none
+trigger:
+- main
 
 pool:
   vmImage: 'windows-latest'
