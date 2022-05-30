@@ -1,9 +1,6 @@
 ﻿using Serilog;
-using System;
 using System.Net;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using Windows.Storage;
 
 namespace FluentHub.Octokit.Queries.Repositories

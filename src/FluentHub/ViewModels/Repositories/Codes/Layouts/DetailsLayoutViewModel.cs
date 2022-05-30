@@ -1,6 +1,5 @@
 ﻿using FluentHub.Models;
 using FluentHub.Backend;
-using FluentHub.Models;
 using FluentHub.Octokit.Models;
 using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
@@ -32,16 +31,16 @@ namespace FluentHub.ViewModels.Repositories.Codes.Layouts
         }
         #endregion
 
-        #region fields
+        #region fields and properties
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
-        private RepoContextViewModel contextViewModel;
-        private readonly ObservableCollection<DetailsLayoutListViewModel> _items;
-        #endregion
 
-        #region properties
+        private RepoContextViewModel contextViewModel;
         public RepoContextViewModel ContextViewModel { get => contextViewModel; set => SetProperty(ref contextViewModel, value); }
+
+        private readonly ObservableCollection<DetailsLayoutListViewModel> _items;
         public ReadOnlyObservableCollection<DetailsLayoutListViewModel> Items { get; }
+
         public IAsyncRelayCommand RefreshDetailsLayoutPageCommand { get; }
         #endregion
 

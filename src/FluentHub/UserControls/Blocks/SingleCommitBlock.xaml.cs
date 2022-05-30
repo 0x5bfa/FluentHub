@@ -16,24 +16,25 @@ using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub.UserControls.Blocks
 {
-    public sealed partial class CommitActivityBlock : UserControl
+    public sealed partial class SingleCommitBlock : UserControl
     {
-        public static readonly DependencyProperty ViewModelProperty
-            = DependencyProperty.Register(nameof(ViewModel), typeof(CommitActivityBlockViewModel), typeof(CommitActivityBlock), new PropertyMetadata(0));
+        public static readonly DependencyProperty ViewModelProperty =
+            DependencyProperty.Register(
+                nameof(ViewModel),
+                typeof(SingleCommitBlockViewModel),
+                typeof(SingleCommitBlock),
+                new PropertyMetadata(null));
 
-        public CommitActivityBlockViewModel ViewModel
+        public SingleCommitBlockViewModel ViewModel
         {
-            get => (CommitActivityBlockViewModel)GetValue(ViewModelProperty);
+            get => (SingleCommitBlockViewModel)GetValue(ViewModelProperty);
             set
             {
                 SetValue(ViewModelProperty, value);
-                this.DataContext = ViewModel;
+                DataContext = ViewModel;
             }
         }
 
-        public CommitActivityBlock()
-        {
-            this.InitializeComponent();
-        }
+        public SingleCommitBlock() => this.InitializeComponent();
     }
 }

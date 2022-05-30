@@ -6,25 +6,147 @@
     xmlns:bvm="using:FluentHub.ViewModels.UserControls.Blocks"
     xmlns:converters="using:FluentHub.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:graphqlmodels="using:FluentHub.Octokit.Models"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///ResourceDictionaries/DefaultGridSplitterStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <SolidColorBrush x:Key="ExpanderHeaderBackground" Color="Transparent" />
+            <SolidColorBrush x:Key="ExpanderHeaderBorderBrush" Color="Transparent" />
+            <SolidColorBrush x:Key="ExpanderHeaderBorderPointerOverBrush" Color="Transparent" />
+            <SolidColorBrush x:Key="ExpanderHeaderBorderPressedBrush" Color="Transparent" />
+            <SolidColorBrush x:Key="ExpanderContentBackground" Color="Transparent" />
+            <SolidColorBrush x:Key="ExpanderContentBorderBrush" Color="Transparent" />
+            <x:Double x:Key="ExpanderMinHeight">0</x:Double>
+            <Thickness x:Key="ExpanderContentPadding">0</Thickness>
+            <Style TargetType="muxc:Expander">
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            </Style>
+            <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+        </ResourceDictionary>
+    </Page.Resources>
+
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" MinWidth="256" />
+            <ColumnDefinition Width="1" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
 
-        <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
-            <muxc:ItemsRepeater Margin="18,4,18,18" ItemsSource="{x:Bind ViewModel.Activities}">
+        <ScrollViewer>
+            <Grid Margin="12" RowSpacing="12">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
 
-                <DataTemplate x:DataType="bvm:ActivityBlockViewModel">
-                    <block:ActivityBlock ViewModel="{x:Bind}" />
-                </DataTemplate>
+                <Grid Margin="4,0">
+                    <TextBlock
+                        Margin="0,8"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource SubtitleTextBlockStyle}"
+                        Text="Repositories" />
 
-            </muxc:ItemsRepeater>
+                    <Button HorizontalAlignment="Right" IsEnabled="False">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="14"
+                                Glyph="&#xEA52;" />
+                            <TextBlock Text="New" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
+
+                <StackPanel Grid.Row="1" Spacing="8">
+
+                    <ListView
+                        x:Name="HomeRepositoriesListItem"
+                        Margin="-4,0"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        IsItemClickEnabled="True"
+                        IsRightTapEnabled="True"
+                        ItemClick="OnHomeRepositoriesListItemClick"
+                        ItemContainerTransitions="{x:Null}"
+                        ItemsSource="{x:Bind ViewModel.UserRepositories, Mode=OneWay}"
+                        SelectionMode="None">
+                        <ListView.ItemContainerStyle>
+                            <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
+                                <Setter Property="Height" Value="24" />
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="graphqlmodels:Repository">
+
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+
+                                    <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind IsPrivate, Mode=OneWay}">
+                                        <toolkit:Case Value="True">
+                                            <FontIcon
+                                                FontFamily="{StaticResource Octions}"
+                                                FontSize="16"
+                                                Foreground="Gold"
+                                                Glyph="&#xEA05;" />
+                                        </toolkit:Case>
+                                        <toolkit:Case Value="False">
+                                            <FontIcon
+                                                FontFamily="{StaticResource Octions}"
+                                                FontSize="16"
+                                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                Glyph="&#xEA52;" />
+                                        </toolkit:Case>
+                                    </toolkit:SwitchPresenter>
+
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        Foreground="{ThemeResource SystemControlPageTextBaseHighBrush}"
+                                        Style="{ThemeResource BodyTextBlockStyle}"
+                                        Text="{x:Bind Name, Mode=OneWay}" />
+
+                                </StackPanel>
+
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+
+        <toolkit:GridSplitter Grid.Column="1" Style="{StaticResource DefaultGridSplitterStyle}" />
+
+        <ScrollViewer Grid.Column="2">
+            <Grid Margin="16">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock
+                    Margin="0,8"
+                    Style="{StaticResource SubtitleTextBlockStyle}"
+                    Text="Activities" />
+
+                <muxc:ItemsRepeater Grid.Row="1" ItemsSource="{x:Bind ViewModel.Activities}">
+                    <DataTemplate x:DataType="bvm:ActivityBlockViewModel">
+                        <block:ActivityBlock ViewModel="{x:Bind}" />
+                    </DataTemplate>
+                </muxc:ItemsRepeater>
+
+            </Grid>
         </ScrollViewer>
 
         <toolkit:SwitchPresenter
-            Grid.RowSpan="3"
+            Grid.Column="2"
             HorizontalAlignment="Center"
             VerticalAlignment="Center"
             TargetType="x:Boolean"

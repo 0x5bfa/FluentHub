@@ -26,8 +26,6 @@ namespace FluentHub.ViewModels.UserControls.Blocks
             _messenger = messenger;
             _logger = logger;
             _messenger = messenger;
-
-            LoadBlobContentBlockCommand = new AsyncRelayCommand<RichTextBlock>(LoadBlobContentBlockAsync);
         }
         #endregion
 
@@ -36,24 +34,23 @@ namespace FluentHub.ViewModels.UserControls.Blocks
         private readonly IMessenger _messenger;
 
         private string _blobContent;
-        private string _formattedFileDetails;
-        private string _formattedFileSize;
-        private string _lineText;
-        private RepoContextViewModel contextViewModel;
-        #endregion
-
-        #region properties
         public string BlobContent { get => _blobContent; set => SetProperty(ref _blobContent, value); }
-        public string FormattedFileDetails { get => _formattedFileDetails; set => SetProperty(ref _formattedFileDetails, value); }
-        public string FormattedFileSize { get => _formattedFileSize; set => SetProperty(ref _formattedFileSize, value); }
-        public string LineText { get => _lineText; set => SetProperty(ref _lineText, value); }
-        public RepoContextViewModel ContextViewModel { get => contextViewModel; set => SetProperty(ref contextViewModel, value); }
 
-        public IAsyncRelayCommand LoadBlobContentBlockCommand { get; }
+        private string _formattedFileDetails;
+        public string FormattedFileDetails { get => _formattedFileDetails; set => SetProperty(ref _formattedFileDetails, value); }
+
+        private string _formattedFileSize;
+        public string FormattedFileSize { get => _formattedFileSize; set => SetProperty(ref _formattedFileSize, value); }
+
+        private string _lineText;
+        public string LineText { get => _lineText; set => SetProperty(ref _lineText, value); }
+
+        private RepoContextViewModel contextViewModel;
+        public RepoContextViewModel ContextViewModel { get => contextViewModel; set => SetProperty(ref contextViewModel, value); }
         #endregion
 
         #region methods
-        public async Task LoadBlobContentBlockAsync(RichTextBlock textBlock)
+        public async Task LoadContentsAsync(RichTextBlock textBlock)
         {
             try
             {
@@ -63,6 +60,11 @@ namespace FluentHub.ViewModels.UserControls.Blocks
                     ContextViewModel.Owner,
                     ContextViewModel.BranchName,
                     ContextViewModel.Path);
+
+                BlobContent = "";
+                FormattedFileDetails = "";
+                FormattedFileSize = "";
+                LineText = "";
 
                 BlobContent = content.Item1;
 

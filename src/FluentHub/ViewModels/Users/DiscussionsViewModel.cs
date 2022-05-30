@@ -33,6 +33,9 @@ namespace FluentHub.ViewModels.Users
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
 
+        private bool _displayTitle;
+        public bool DisplayTitle { get => _displayTitle; set => SetProperty(ref _displayTitle, value); }
+
         private readonly ObservableCollection<DiscussionButtonBlockViewModel> _discussions;
         public ReadOnlyObservableCollection<DiscussionButtonBlockViewModel> DiscussionItems { get; }
 

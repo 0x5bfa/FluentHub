@@ -1,8 +1,4 @@
 ﻿using FluentHub.ViewModels.UserControls.Blocks;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -23,7 +19,7 @@ namespace FluentHub.UserControls.Blocks
                nameof(ViewModel),
                typeof(ActivityBlockViewModel),
                typeof(ActivityBlock),
-               new PropertyMetadata(0));
+               new PropertyMetadata(null));
 
         public ActivityBlockViewModel ViewModel
         {
@@ -32,7 +28,7 @@ namespace FluentHub.UserControls.Blocks
             {
                 SetValue(ViewModelProperty, value);
                 DataContext = ViewModel;
-                ViewModel?.LoadContents();
+                ViewModel?.LoadContentsAsync();
             }
         }
 

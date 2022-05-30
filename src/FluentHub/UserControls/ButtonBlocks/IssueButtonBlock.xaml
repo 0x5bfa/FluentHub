@@ -47,8 +47,9 @@
     <Grid>
         <Button
             x:Name="IssueBlockButton"
-            Margin="0,3,0,0"
-            Padding="18,12"
+            Padding="16,12"
+            Background="Transparent"
+            BorderThickness="0"
             Click="OnIssueBlockButtonClick"
             Style="{StaticResource ContentBlockButtonStyle}">
 
@@ -150,8 +151,9 @@
                     </muxc:ItemsRepeater>
 
                     <StackPanel
-                        Grid.Row="3"
-                        Margin="0,8,0,0"
+                        Grid.Row="1"
+                        Grid.RowSpan="4"
+                        HorizontalAlignment="Right"
                         Orientation="Horizontal">
 
                         <labels:LabelControl

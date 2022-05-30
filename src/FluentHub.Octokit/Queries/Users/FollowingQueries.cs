@@ -1,13 +1,4 @@
-﻿using FluentHub.Octokit.Helpers;
-using FluentHub.Octokit.Models;
-using Octokit.GraphQL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FluentHub.Octokit.Queries.Users
+﻿namespace FluentHub.Octokit.Queries.Users
 {
     public class FollowingQueries
     {

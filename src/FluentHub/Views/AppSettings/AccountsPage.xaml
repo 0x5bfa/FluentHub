@@ -17,13 +17,15 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-            <Grid Margin="0,16">
+
+            <Grid Margin="0,16" Visibility="Collapsed">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
+
                 <Border
                     Grid.RowSpan="1"
                     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
@@ -33,6 +35,7 @@
                         Width="72"
                         Height="72" />
                 </Border>
+
                 <StackPanel
                     Grid.Column="1"
                     Margin="12,0,0,0"
@@ -49,6 +52,7 @@
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         Style="{ThemeResource CaptionTextBlockStyle}" />
                 </StackPanel>
+
                 <Button
                     Grid.Column="3"
                     HorizontalAlignment="Right"
@@ -85,13 +89,16 @@
                         </ResourceDictionary>
                     </Button.Resources>
                 </Button>
+
             </Grid>
+
             <TextBlock
                 Grid.RowSpan="2"
+                Margin="0,-32,0,0"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
-                Style="{StaticResource BodyTextBlockStyle}"
-                Text="Currently, multi-account control is not available." />
+                Style="{StaticResource BodyStrongTextBlockStyle}"
+                Text="Currently not available" />
         </Grid>
     </ScrollViewer>
 </Page>

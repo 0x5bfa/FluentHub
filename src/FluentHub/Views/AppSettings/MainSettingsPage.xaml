@@ -21,13 +21,16 @@
     <Grid>
         <muxc:NavigationView
             x:Name="SettingsNavView"
+            Margin="12"
             IsBackButtonVisible="Collapsed"
             IsPaneOpen="True"
             IsPaneToggleButtonVisible="False"
             IsSettingsVisible="False"
             IsTitleBarAutoPaddingEnabled="False"
             OpenPaneLength="270"
+            PaneDisplayMode="Left"
             SelectionChanged="SettingsNavView_SelectionChanged">
+
             <muxc:NavigationView.PaneHeader>
                 <Button
                     Height="76"
@@ -44,6 +47,7 @@
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
+
                         <Border
                             Width="60"
                             Height="60"
@@ -52,17 +56,25 @@
                             CornerRadius="30">
                             <Image x:Name="AppSignedInUserAvatar" />
                         </Border>
+
                         <StackPanel Grid.Column="1" VerticalAlignment="Center">
-                            <TextBlock x:Name="SignedInLoginName" Style="{StaticResource BodyStrongTextBlockStyle}" />
-                            <TextBlock x:Name="SignedInUserName" Style="{StaticResource CaptionTextBlockStyle}" />
+                            <TextBlock
+                                x:Name="SignedInLoginName"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="username" />
+                            <TextBlock
+                                x:Name="SignedInUserName"
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                Text="login name" />
                         </StackPanel>
+
                     </Grid>
                 </Button>
             </muxc:NavigationView.PaneHeader>
 
             <muxc:NavigationView.AutoSuggestBox>
                 <AutoSuggestBox
-                    Margin="0,0"
+                    Margin="-6,0"
                     IsEnabled="False"
                     PlaceholderText="Search app settings"
                     QueryIcon="Find" />
@@ -79,17 +91,13 @@
                 <muxc:NavigationViewItem
                     x:Name="SettingsNavViewItemAccount"
                     Content="Accounts"
-                    IsEnabled="False"
                     Tag="accounts">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE77B;" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
-                <muxc:NavigationViewItem
-                    Content="Code Preview"
-                    IsEnabled="False"
-                    Tag="codepreview">
+                <muxc:NavigationViewItem Content="Repository" Tag="codepreview">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE14C;" />
                     </muxc:NavigationViewItem.Icon>
@@ -106,7 +114,7 @@
             </muxc:NavigationView.FooterMenuItems>
 
             <muxc:NavigationView.Content>
-                <Grid Margin="32,20,0,6" RowSpacing="16">
+                <Grid Margin="20,8,-12,-6" RowSpacing="16">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
@@ -123,25 +131,4 @@
             </muxc:NavigationView.Content>
         </muxc:NavigationView>
     </Grid>
-
-    <VisualStateManager.VisualStateGroups>
-        <VisualStateGroup>
-            <VisualState x:Name="SmallScreen">
-                <VisualState.StateTriggers>
-                    <AdaptiveTrigger MinWindowWidth="0" />
-                </VisualState.StateTriggers>
-                <VisualState.Setters>
-                    <Setter Target="SettingsNavView.PaneDisplayMode" Value="Top" />
-                </VisualState.Setters>
-            </VisualState>
-            <VisualState x:Name="BigScreen">
-                <VisualState.StateTriggers>
-                    <AdaptiveTrigger MinWindowWidth="{StaticResource CompactModeThresholdWidth}" />
-                </VisualState.StateTriggers>
-                <VisualState.Setters>
-                    <Setter Target="SettingsNavView.PaneDisplayMode" Value="Auto" />
-                </VisualState.Setters>
-            </VisualState>
-        </VisualStateGroup>
-    </VisualStateManager.VisualStateGroups>
 </Page>

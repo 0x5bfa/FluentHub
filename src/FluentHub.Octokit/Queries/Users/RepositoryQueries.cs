@@ -1,15 +1,4 @@
-﻿using FluentHub.Octokit.Models;
-using Humanizer;
-using Octokit.GraphQL;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using GraphQLCore = global::Octokit.GraphQL.Core;
-using GraphQLModel = global::Octokit.GraphQL.Model;
-
-namespace FluentHub.Octokit.Queries.Users
+﻿namespace FluentHub.Octokit.Queries.Users
 {
     public class RepositoryQueries
     {
@@ -17,8 +6,8 @@ namespace FluentHub.Octokit.Queries.Users
 
         public async Task<List<Repository>> GetAllAsync(string login)
         {
-            GraphQLCore.Arg<IEnumerable<GraphQLModel.IssueState>> issueState = new(new GraphQLModel.IssueState[] { GraphQLModel.IssueState.Open });
-            GraphQLCore.Arg<IEnumerable<GraphQLModel.PullRequestState>> pullRequestState = new(new GraphQLModel.PullRequestState[] { GraphQLModel.PullRequestState.Open });
+            OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.IssueState>> issueState = new(new OctokitGraphQLModel.IssueState[] { OctokitGraphQLModel.IssueState.Open });
+            OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.PullRequestState>> pullRequestState = new(new OctokitGraphQLModel.PullRequestState[] { OctokitGraphQLModel.PullRequestState.Open });
 
             #region query
             var query = new Query()
@@ -37,6 +26,7 @@ namespace FluentHub.Octokit.Queries.Users
                         OpenPullCount = x.PullRequests(null, null, null, null, null, null, null, null, pullRequestState).TotalCount,
 
                         IsFork = x.IsFork,
+                        IsPrivate = x.IsPrivate,
                         IsInOrganization = x.IsInOrganization,
                         ViewerHasStarred = x.ViewerHasStarred,
 

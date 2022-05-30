@@ -33,11 +33,13 @@ namespace FluentHub.ViewModels.Users
         #region fields
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
-        private readonly ObservableCollection<PullButtonBlockViewModel> _pullRequests;
-        #endregion
 
-        #region properties
+        private bool _displayTitle;
+        public bool DisplayTitle { get => _displayTitle; set => SetProperty(ref _displayTitle, value); }
+
+        private readonly ObservableCollection<PullButtonBlockViewModel> _pullRequests;
         public ReadOnlyObservableCollection<PullButtonBlockViewModel> PullItems { get; }
+
         public IAsyncRelayCommand RefreshPullRequestsPageCommand { get; }
         #endregion
 

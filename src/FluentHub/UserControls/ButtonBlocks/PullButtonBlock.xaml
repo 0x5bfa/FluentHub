@@ -48,8 +48,9 @@
     <Grid>
         <Button
             x:Name="IssueBlockButton"
-            Margin="0,3,0,0"
-            Padding="18,12"
+            Padding="16,12"
+            Background="Transparent"
+            BorderThickness="0"
             Click="IssueBlockButton_Click"
             Style="{StaticResource ContentBlockButtonStyle}">
             <Grid ColumnSpacing="6">
@@ -111,7 +112,6 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
                     <StackPanel Orientation="Horizontal">
@@ -157,39 +157,11 @@
                         Style="{StaticResource BodyStrongTextBlockStyle}"
                         Text="{x:Bind ViewModel.PullItem.Title, Mode=OneWay}" />
 
-                    <muxc:ItemsRepeater
+                    <StackPanel
                         Grid.Row="2"
                         Margin="0,4,0,0"
-                        ItemsSource="{x:Bind ViewModel.LabelViewModels, Mode=OneWay}">
-
-                        <muxc:ItemsRepeater.Layout>
-                            <muxc:StackLayout Orientation="Horizontal" Spacing="8" />
-                        </muxc:ItemsRepeater.Layout>
-
-                        <DataTemplate x:DataType="labelsvm:LabelControlViewModel">
-                            <labels:LabelControl ViewModel="{x:Bind Mode=OneWay}" />
-                        </DataTemplate>
-
-                    </muxc:ItemsRepeater>
-
-                    <StackPanel
-                        Grid.Row="3"
-                        Margin="0,8,0,0"
-                        Orientation="Horizontal">
-
-                        <labels:LabelControl
-                            x:Name="CommentCountLabel"
-                            Margin="0,0,8,0"
-                            VerticalAlignment="Center"
-                            x:Load="{x:Bind ViewModel.PullItem.CommentCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-                            ViewModel="{x:Bind ViewModel.CommentCountLabel, Mode=OneWay}">
-                            <labels:LabelControl.Icon>
-                                <FontIcon
-                                    FontFamily="{StaticResource Octions}"
-                                    FontSize="12"
-                                    Glyph="&#xE95D;" />
-                            </labels:LabelControl.Icon>
-                        </labels:LabelControl>
+                        Orientation="Horizontal"
+                        Spacing="8">
 
                         <toolkit:SwitchPresenter
                             x:Name="ReviewStateSwitcher"
@@ -328,6 +300,43 @@
                             </toolkit:Case>
 
                         </toolkit:SwitchPresenter>
+
+                        <muxc:ItemsRepeater
+                            Grid.Row="2"
+                            Margin="0,4,0,0"
+                            ItemsSource="{x:Bind ViewModel.LabelViewModels, Mode=OneWay}">
+
+                            <muxc:ItemsRepeater.Layout>
+                                <muxc:StackLayout Orientation="Horizontal" Spacing="8" />
+                            </muxc:ItemsRepeater.Layout>
+
+                            <DataTemplate x:DataType="labelsvm:LabelControlViewModel">
+                                <labels:LabelControl ViewModel="{x:Bind Mode=OneWay}" />
+                            </DataTemplate>
+
+                        </muxc:ItemsRepeater>
+
+                    </StackPanel>
+
+                    <StackPanel
+                        Grid.Row="1"
+                        Grid.RowSpan="3"
+                        HorizontalAlignment="Right"
+                        Orientation="Horizontal">
+
+                        <labels:LabelControl
+                            x:Name="CommentCountLabel"
+                            Margin="0,0,8,0"
+                            VerticalAlignment="Center"
+                            x:Load="{x:Bind ViewModel.PullItem.CommentCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                            ViewModel="{x:Bind ViewModel.CommentCountLabel, Mode=OneWay}">
+                            <labels:LabelControl.Icon>
+                                <FontIcon
+                                    FontFamily="{StaticResource Octions}"
+                                    FontSize="12"
+                                    Glyph="&#xE95D;" />
+                            </labels:LabelControl.Icon>
+                        </labels:LabelControl>
 
                     </StackPanel>
 

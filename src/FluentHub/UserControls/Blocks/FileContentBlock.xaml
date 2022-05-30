@@ -12,7 +12,6 @@
 
     <Grid
         x:Name="ContentBlock"
-        Grid.Row="1"
         Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
         BorderThickness="1"

@@ -94,7 +94,7 @@ namespace FluentHub.Views.Repositories
             }
             else
             {
-                service.Navigate<Views.Users.ProfilePage>(ViewModel.Repository.Owner.Login);
+                service.Navigate<Views.Users.ProfilePage>($"{App.DefaultGitHubDomain}/{ViewModel.Repository.Owner.Login}");
             }
         }
 

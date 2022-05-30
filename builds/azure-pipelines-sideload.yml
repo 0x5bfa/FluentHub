@@ -48,6 +48,11 @@ steps:
   inputs:
     secureFile: '$(signingCert.secureFilePath)'
 
+- task: UseDotNet@2
+  inputs:
+    packageType: sdk
+    version: 6.0.100
+
 - task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
@@ -61,8 +66,6 @@ steps:
     configuration: '$(buildConfiguration)'
     msbuildArgs: '
     /t:build;_GenerateAppxPackage
-    /p:AppxLogTelemetryFromSideloadingScript=False
-    /p:GenerateAppInstallerFile=True
     /p:AppInstallerUri=$(build.artifactstagingdirectory)
     /p:AppxBundlePlatforms="$(buildPlatform)"
     /p:AppxPackageDir="$(appxPackageDir)"

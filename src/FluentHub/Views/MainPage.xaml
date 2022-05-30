@@ -97,6 +97,7 @@
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Top"
                 Background="Transparent"
+                BorderThickness="0"
                 Loaded="OnDragAreaLoaded" />
 
             <uc:CustomTabView
@@ -110,6 +111,8 @@
             Grid.Row="1"
             Height="50"
             Padding="8,0"
+            Background="{ThemeResource TabViewItemHeaderBackgroundSelected}"
+            BorderThickness="0"
             ColumnSpacing="4">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -184,41 +187,89 @@
                 VerticalAlignment="Center"
                 IsEnabled="True"
                 KeyDown="OnUrlTextBoxKeyDown"
-                PlaceholderText="Search GitHub or type GitHub URL"
+                PlaceholderText="Search or input URL"
                 Text="{x:Bind TabView.SelectedItem.NavigationHistory.CurrentItem.Url, Mode=OneWay}" />
 
             <Grid Grid.Column="2" VerticalAlignment="Center">
-                <StackPanel Orientation="Horizontal" Spacing="2">
+                <StackPanel
+                    Margin="6,0"
+                    Orientation="Horizontal"
+                    Spacing="6">
 
                     <Button
-                        x:Name="ToolbarAppSettingsButton"
                         Width="36"
                         Height="32"
+                        Padding="0"
                         Background="Transparent"
-                        CornerRadius="8"
-                        Style="{StaticResource ClearButtonStyle}"
-                        ToolTipService.ToolTip="More">
-                        <FontIcon FontSize="14" Glyph="&#xE712;" />
+                        BorderThickness="0"
+                        Click="OnYourNotificationButtonClick">
+                        <Grid>
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="16"
+                                Glyph="&#xE918;" />
+                            <Ellipse
+                                Width="10"
+                                Height="10"
+                                Margin="0,-4,-4,0"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                Visibility="{x:Bind ViewModel.UnreadCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+                                <Ellipse.Fill>
+                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                        <GradientStop x:Name="GradientStop1" Offset="0.0" Color="#54a3ff" />
+                                        <GradientStop x:Name="GradientStop4" Offset="1.0" Color="#006eed" />
+                                    </LinearGradientBrush>
+                                </Ellipse.Fill>
+                            </Ellipse>
+                        </Grid>
+                    </Button>
 
-                        <Button.Flyout>
+                    <muxc:DropDownButton
+                        x:Name="ToolbarAppSettingsButton"
+                        Width="54"
+                        Height="32"
+                        Padding="4"
+                        Background="Transparent"
+                        BorderBrush="{StaticResource ControlStrokeColorDefault}"
+                        BorderThickness="0"
+                        ToolTipService.ToolTip="More">
+                        <Border
+                            Width="24"
+                            Height="24"
+                            CornerRadius="12">
+                            <Image
+                                Width="24"
+                                Height="24"
+                                Source="{x:Bind ViewModel.SignedInUser.AvatarUrl, Mode=OneWay}" />
+                        </Border>
+
+                        <muxc:DropDownButton.Flyout>
+
                             <MenuFlyout Placement="BottomEdgeAlignedRight">
-                                <MenuFlyoutItem Click="ShareWithBrowserMenuFlyoutItem_Click" Text="Continue with your browser" />
+                                <MenuFlyoutItem Click="OnContinueWithYourBrowserMenuFlyoutItemClick" Text="Continue with your browser" />
                                 <MenuFlyoutSeparator />
-                                <MenuFlyoutItem IsEnabled="False" Text="Your profile" />
-                                <MenuFlyoutItem IsEnabled="False" Text="Your repositories" />
-                                <MenuFlyoutItem IsEnabled="False" Text="Your organizations" />
-                                <MenuFlyoutItem IsEnabled="False" Text="Your discussions" />
-                                <MenuFlyoutItem IsEnabled="False" Text="Your stars" />
+                                <MenuFlyoutSubItem IsEnabled="False" Text="New...">
+                                    <MenuFlyoutItem Text="New repository" />
+                                    <MenuFlyoutItem Text="New organization" />
+                                </MenuFlyoutSubItem>
                                 <MenuFlyoutSeparator />
-                                <MenuFlyoutItem IsEnabled="False" Text="Abuse this page" />
+                                <MenuFlyoutItem Click="OnYourProfileMenuFlyoutItemClick" Text="Your profile" />
+                                <MenuFlyoutItem Click="OnYourRepositoriesMenuFlyoutItemClick" Text="Your repositories" />
+                                <MenuFlyoutItem Click="OnYourDiscussionsMenuFlyoutItemClick" Text="Your discussions" />
+                                <MenuFlyoutItem Click="OnYourIssuesMenuFlyoutItemClick" Text="Your issues" />
+                                <MenuFlyoutItem Click="OnYourPullRequestsMenuFlyoutItemClick" Text="Your pull requests" />
+                                <MenuFlyoutItem Click="OnYourOrganizationsMenuFlyoutItemClick" Text="Your organizations" />
+                                <MenuFlyoutItem Click="OnYourStarsMenuFlyoutItemClick" Text="Your stars" />
                                 <MenuFlyoutSeparator />
                                 <MenuFlyoutItem Click="SwitchAccountFlyoutItem_Click" Text="Switch Account" />
-                                <MenuFlyoutItem Click="SettingsMenuFlyoutItem_Click" Text="App settings" />
-                                <MenuFlyoutItem Click="SignOutMenuFlyoutItem_Click" Text="Sign out" />
+                                <MenuFlyoutItem Click="OnAppSettingsMenuFlyoutItemClick" Text="Settings" />
+                                <MenuFlyoutItem Click="OnSignOutMenuFlyoutItemClick" Text="Sign out" />
                             </MenuFlyout>
-                        </Button.Flyout>
 
-                    </Button>
+                        </muxc:DropDownButton.Flyout>
+
+                    </muxc:DropDownButton>
 
                 </StackPanel>
             </Grid>
@@ -245,7 +296,7 @@
         <Border
             x:Name="RootFrameBorder"
             Grid.Row="3"
-            Margin="0,-1,0,0" />
+            Background="{ThemeResource CardBackgroundFillColorSecondary}" />
 
     </Grid>
 </Page>

@@ -63,7 +63,11 @@ namespace FluentHub.ViewModels
             set => Set(nameof(AppVersion), value);
         }
 
-        //public Collection<>
+        public bool UseDetailsView
+        {
+            get => Get(nameof(UseDetailsView), true);
+            set => Set(nameof(UseDetailsView), value);
+        }
 
         public ObservableCollection<DefaultLanguageModel> DefaultLanguages { get; private set; }
 

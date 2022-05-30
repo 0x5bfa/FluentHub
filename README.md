@@ -1,11 +1,11 @@
 <p align="center">
-  <img width="128" align="center" src="src/FluentHub/Assets/AppTiles/StoreLogo.scale-400.png">
+  <img width="128" align="center" src="src/FluentHub/Assets/AppTilesAlpha/StoreLogo.scale-400.png" />
 </p>
 <h1 align="center">
-  FluentHub Dev
+  FluentHub Alpha
 </h1>
 <p align="center">
-  A fluent yet powerful GitHub Oauth client app made with Fluent Design and WinUI 2.7
+  A stylish yet wonderfully powerful GitHub Oauth client made with Fluent Design and WinUI 2.7
 </p>
 
 <p align="center">
@@ -20,17 +20,27 @@
   </a>
 </p>
 
-![image](https://user-images.githubusercontent.com/62196528/161764680-9d4fd92b-887e-4410-9676-a796f4b4b258.png)
+## Download and Build
 
-## Build
+<a style="text-decoration:none" href="https://apps.microsoft.com/store/detail/fluenthub/9nkb9hx8rjz3">
+  <img width="128" src="https://getbadgecdn.azureedge.net/images/English_L.png" alt="GetItFromMicrosoft" />
+</a>
 
-To build, please read [this documentation](docs/build-from-source.md) and expect regular breaking changes.
+> **Warning**</br>**The app available on the store does not work properly.** Due to this issue, we have no plan to publish app packages yet. We are tracking this from [#138](https://github.com/fluenthub-community/FluentHub/issues/138). You need to build from source, see [building-from-source](https://github.com/fluenthub-community/FluentHub/blob/main/docs/build-from-source.md).
+
+## Screenshots
+
+![image](https://user-images.githubusercontent.com/62196528/170248747-1c7458f6-4b22-48e3-9235-0c8561a1759a.png)
+![image](https://user-images.githubusercontent.com/62196528/170248759-cbf061b4-6eff-4db9-b61b-12e4e3c413a2.png)
+![image](https://user-images.githubusercontent.com/62196528/170248768-cff52abc-fdfc-4b61-bd16-8c89ee9624ce.png)
+![image](https://user-images.githubusercontent.com/62196528/170248775-1ef2fe2f-bdf7-4f45-9a01-adbe1bc634fb.png)
 
 ## Notices
 
- 1. HttpsClient in Octokit.GraohQL.NET does not work properly (occur unknown exception) for users using Win11 Dev/Beta version with TLS and SSL settings disabled. Please see [#123](https://github.com/fluenthub-community/FluentHub/issues/123) for more information.</br>`Win+R` > `inetcpl.cpl` > `Advanced` tab > enable all TLS and SSL versions > restart
+> HttpsClient in Octokit.GraphQL.NET does not work properly (unknown exception) for users using Windows 11 Dev/Beta versions with TLS and SSL settings disabled.</br>
+>`Win+R` > `inetcpl.cpl` > `Advanced` tab > enable all TLS and SSL versions > restart
 
-	![image](https://user-images.githubusercontent.com/99880210/164863685-27770148-4c68-4920-bf87-8c0dd2b0272f.png)
+![image](https://user-images.githubusercontent.com/99880210/164863685-27770148-4c68-4920-bf87-8c0dd2b0272f.png)
 
 ## FAQ
 

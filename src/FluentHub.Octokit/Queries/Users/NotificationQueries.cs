@@ -1,31 +1,25 @@
-﻿using FluentHub.Octokit.Models;
-using Humanizer;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OctokitOriginal = global::Octokit;
-
-namespace FluentHub.Octokit.Queries.Users
+﻿namespace FluentHub.Octokit.Queries.Users
 {
     public class NotificationQueries
     {
         public NotificationQueries() => new App();
 
-        public async Task<List<Notification>> GetAllAsync()
+        public async Task<List<Notification>> GetAllAsync(OctokitOriginal.ApiOptions options = null)
         {
             OctokitOriginal.NotificationsRequest request = new()
             {
                 All = true
             };
 
-            OctokitOriginal.ApiOptions options = new()
+            if (options == null)
             {
-                PageCount = 1,
-                PageSize = 30,
-                StartPage = 1
-            };
+                options = new()
+                {
+                    PageCount = 1,
+                    PageSize = 30,
+                    StartPage = 1
+                };
+            }
 
             var response = await App.Client.Activity.Notifications.GetAllForCurrent(request, options);
 
@@ -35,15 +29,64 @@ namespace FluentHub.Octokit.Queries.Users
                 Notification indivisual = new()
                 {
                     Id = Convert.ToInt64(item.Id),
-                    LastReadAt = DateTimeOffset.Parse(item.LastReadAt),
                     Reason = item.Reason,
                     Repository = item.Repository,
                     Subject = item.Subject,
                     Unread = item.Unread,
-                    UpdatedAt = DateTimeOffset.Parse(item.UpdatedAt),
-                    UpdatedAtHumanized = DateTimeOffset.Parse(item.UpdatedAt).Humanize(),
                     Url = item.Url,
                 };
+
+                if (item.LastReadAt != null)
+                    indivisual.LastReadAt = DateTimeOffset.Parse(item.LastReadAt);
+
+                if (item.UpdatedAt != null)
+                    indivisual.UpdatedAt = DateTimeOffset.Parse(item.UpdatedAt);
+
+                if (item.UpdatedAt != null)
+                    indivisual.UpdatedAtHumanized = DateTimeOffset.Parse(item.UpdatedAt).Humanize();
+
+                switch (item.Reason)
+                {
+                    case "assign":
+                        indivisual.FullReason = "You were assigned to the issue.";
+                        break;
+                    case "author":
+                        indivisual.FullReason = "You created the thread.";
+                        break;
+                    case "comment":
+                        indivisual.FullReason = "You commented on the thread.";
+                        break;
+                    case "ci_activity":
+                        indivisual.FullReason = "A workflow that you triggered was successful.";
+                        break;
+                    case "invitation":
+                        indivisual.FullReason = "You accepted an invitation to contribute to the repository.";
+                        break;
+                    case "manual":
+                        indivisual.FullReason = "You subscribed to the thread.";
+                        break;
+                    case "mention":
+                        indivisual.FullReason = "You were mentioned.";
+                        break;
+                    case "review_requested":
+                        indivisual.FullReason = "You or a team you are a member of was requested to review a pull request.";
+                        break;
+                    case "security_alert":
+                        indivisual.FullReason = "A vulnerability was detected in your repository.";
+                        break;
+                    case "state_change":
+                        indivisual.FullReason = "You changed the state of the thread.";
+                        break;
+                    case "subscribed":
+                        indivisual.FullReason = "You started watching the repository.";
+                        break;
+                    case "team_mention":
+                        indivisual.FullReason = "You are on a team that was mentioned.";
+                        break;
+                    default:
+                        indivisual.FullReason = "";
+                        break;
+                }
 
                 var urlItems = indivisual.Subject.Url?.Split("/");
 
@@ -120,6 +163,32 @@ namespace FluentHub.Octokit.Queries.Users
             }
 
             return notifications;
+        }
+
+        public async Task<int> GetUnreadCount()
+        {
+            OctokitOriginal.NotificationsRequest request = new()
+            {
+                All = true
+            };
+
+            OctokitOriginal.ApiOptions options = new()
+            {
+                PageCount = 1,
+                PageSize = 50,
+                StartPage = 1
+            };
+
+            // Even if there are more than 50 unread items, this method will only count up to a maximum of 50.
+            var response = await App.Client.Activity.Notifications.GetAllForCurrent(request, options);
+
+            int unreadCount = 0;
+            foreach (var indivisual in response)
+            {
+                if (indivisual.Unread) unreadCount++;
+            }
+
+            return unreadCount;
         }
     }
 }

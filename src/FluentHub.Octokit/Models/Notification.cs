@@ -14,6 +14,7 @@ namespace FluentHub.Octokit.Models
         public string Reason { get; set; }
         public string Url { get; set; }
         public string ItemState { get; set; }
+        public string FullReason { get; set; }
 
         public bool Unread { get; set; }
         public long Id { get; set; }

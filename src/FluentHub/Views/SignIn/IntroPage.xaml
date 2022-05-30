@@ -46,7 +46,7 @@
                 HorizontalAlignment="Center"
                 HorizontalTextAlignment="Center"
                 Style="{ThemeResource BodyTextBlockStyle}"
-                Text="To use all features, just you need to sign in first."
+                Text="To use FluentHub, please sign in."
                 TextWrapping="Wrap" />
             <StackPanel
                 Margin="0,24,0,0"
@@ -55,7 +55,7 @@
                 <Button
                     HorizontalAlignment="Center"
                     Click="SetupButton_Click"
-                    Content="Start setup"
+                    Content="Setup"
                     Style="{ThemeResource AccentButtonStyle}" />
             </StackPanel>
         </StackPanel>

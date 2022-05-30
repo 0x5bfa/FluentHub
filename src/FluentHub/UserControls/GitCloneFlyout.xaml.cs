@@ -50,9 +50,9 @@ namespace FluentHub.UserControls
 
         private void OnGitCloneFlyoutLoaded(object sender, RoutedEventArgs e)
         {
-            _cloneUrl = $"https://github.com/{ViewModel.Repository.Owner}/{ViewModel.Repository.Name}.git";
-            _sshUrl = $"git@github.com:{ViewModel.Repository.Owner}/{ViewModel.Repository.Name}.git";
-            _gitUrl = $"gh repo clone {ViewModel.Repository.Owner}/{ViewModel.Repository.Name}";
+            _cloneUrl = $"https://github.com/{ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}.git";
+            _sshUrl = $"git@github.com:{ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}.git";
+            _gitUrl = $"gh repo clone {ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}";
 
             CloneUriTextBox.Text = _cloneUrl;
             CloneDescriptionTextBlock.Text = "Use Git or checkout with SVN using the web URL.";

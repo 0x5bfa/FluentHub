@@ -5,6 +5,8 @@ using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
 using Microsoft.Toolkit.Uwp;
+using System;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.System;
 using Windows.UI.Xaml.Controls;
@@ -38,6 +40,8 @@ namespace FluentHub.ViewModels
             GoBackCommand = new RelayCommand(GoBack);
             GoForwardCommand = new RelayCommand(GoForward);
             GoHomeCommand = new RelayCommand(GoHome);
+
+            LoadSignedInUserCommand = new AsyncRelayCommand(LoadSignedInUserAsync);
         }
 
         #region fields
@@ -48,12 +52,18 @@ namespace FluentHub.ViewModels
         private readonly ILogger _logger;
 
         private UserNotificationMessage _lastNotification;
-        #endregion
-
-        #region properties
         public UserNotificationMessage LastNotification { get => _lastNotification; private set => SetProperty(ref _lastNotification, value); }
+
+        private Octokit.Models.User _signedInUser;
+        public Octokit.Models.User SignedInUser { get => _signedInUser; private set => SetProperty(ref _signedInUser, value); }
+
+        private int _unreadCount;
+        public int UnreadCount { get => _unreadCount; private set => SetProperty(ref _unreadCount, value); }
+
         public static Frame RepositoryContentFrame { get; set; } = new();
         public static Frame PullRequestContentFrame { get; set; } = new();
+
+        public IAsyncRelayCommand LoadSignedInUserCommand { get; }
         #endregion
 
         #region commands
@@ -143,6 +153,13 @@ namespace FluentHub.ViewModels
             // Check if the message method contains the InApp value (multivalue enum)
             if (message.Method.HasFlag(UserNotificationMethod.InApp))
             {
+                // Thrown by Home.NotificationsViewModel
+                if (message.Title == "NotificationCount")
+                {
+                    UnreadCount = Convert.ToInt32(message.Message);
+                    return;
+                }
+
                 // Show the message in the UI
                 // using the dispatcher to access the UI thread
                 await _dispatcher.EnqueueAsync(() => LastNotification = message);
@@ -156,6 +173,33 @@ namespace FluentHub.ViewModels
                 _toastService?.ShowToastNotification(message.Title, message.Message);
                 // Show the message in the toast
                 _logger?.Info("Toast notification received: {0}", message);
+            }
+        }
+
+        private async Task LoadSignedInUserAsync()
+        {
+            try
+            {
+                Octokit.Queries.Users.UserQueries queries = new();
+                var user = await queries.GetAsync(App.Settings.SignedInUserName);
+
+                SignedInUser = user ?? new();
+
+                Octokit.Queries.Users.NotificationQueries notificationQueries = new();
+                var count = await notificationQueries.GetUnreadCount();
+
+                UnreadCount = count;
+                _toastService?.UpdateBadgeGlyph(BadgeGlyphType.Number, UnreadCount);
+            }
+            catch (Exception ex)
+            {
+                _logger?.Error("MainPageViewModel.GetSignedInUser(): ", ex);
+                if (_messenger != null)
+                {
+                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+                    _messenger.Send(notification);
+                }
+                throw;
             }
         }
     }
