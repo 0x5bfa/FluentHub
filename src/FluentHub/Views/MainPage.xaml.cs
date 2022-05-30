@@ -65,14 +65,14 @@ namespace FluentHub.Views
         #region event handlers
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
+            var command = ViewModel.LoadSignedInUserCommand;
+            if (command.CanExecute(null))
+                command.Execute(null);
+
             SubscribeEvents();
             TabView.NewTabPage = typeof(Home.UserHomePage);
             NavigationService.Configure(TabView);
             NavigationService.Navigate<Home.UserHomePage>();
-
-            var command = ViewModel.LoadSignedInUserCommand;
-            if (command.CanExecute(null))
-                command.Execute(null);
 
             // Configure Jumplist
             await JumpListHelper.ConfigureDefaultJumpListAsync();

@@ -42,6 +42,9 @@ namespace FluentHub.ViewModels.Home
         {
             try
             {
+                Octokit.Queries.Users.UserQueries queries = new();
+                App.Settings.SignedInUserName = Octokit.App.SignedInUserName = await queries.GetViewerLogin();
+
                 RepositoryQueries repositoryQueries = new();
                 var repositoryResponse = await repositoryQueries.GetAllAsync(App.Settings.SignedInUserName);
 

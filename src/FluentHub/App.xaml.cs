@@ -260,7 +260,6 @@ namespace FluentHub
                     if (status)
                     {
                         Settings.AccessToken = Octokit.App.AccessToken;
-                        Settings.SignedInUserName = Octokit.App.SignedInUserName;
 
                         Settings.SetupCompleted = true;
                         rootFrame.Navigate(typeof(MainPage));

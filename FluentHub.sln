@@ -7,9 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentHub", "src\FluentHub\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C6265587-7328-4B9E-AF1F-69F0E7301C5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentHub.Core", "src\FluentHub.Core\FluentHub.Core.csproj", "{9959AE8B-08CD-4FF1-8446-B424AF0A2AC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentHub.Core", "src\FluentHub.Core\FluentHub.Core.csproj", "{9959AE8B-08CD-4FF1-8446-B424AF0A2AC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentHub.Octokit", "src\FluentHub.Octokit\FluentHub.Octokit.csproj", "{C1C627DD-AD8F-47DE-91FB-21EF7FB61F98}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentHub.Octokit", "src\FluentHub.Octokit\FluentHub.Octokit.csproj", "{C1C627DD-AD8F-47DE-91FB-21EF7FB61F98}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,8 +59,8 @@ Global
 		{9959AE8B-08CD-4FF1-8446-B424AF0A2AC4}.Debug|ARM.Build.0 = Debug|Any CPU
 		{9959AE8B-08CD-4FF1-8446-B424AF0A2AC4}.Debug|ARM64.ActiveCfg = Debug|Any CPU
 		{9959AE8B-08CD-4FF1-8446-B424AF0A2AC4}.Debug|ARM64.Build.0 = Debug|Any CPU
-		{9959AE8B-08CD-4FF1-8446-B424AF0A2AC4}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{9959AE8B-08CD-4FF1-8446-B424AF0A2AC4}.Debug|x64.Build.0 = Debug|Any CPU
+		{9959AE8B-08CD-4FF1-8446-B424AF0A2AC4}.Debug|x64.ActiveCfg = Debug|x64
+		{9959AE8B-08CD-4FF1-8446-B424AF0A2AC4}.Debug|x64.Build.0 = Debug|x64
 		{9959AE8B-08CD-4FF1-8446-B424AF0A2AC4}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{9959AE8B-08CD-4FF1-8446-B424AF0A2AC4}.Debug|x86.Build.0 = Debug|Any CPU
 		{9959AE8B-08CD-4FF1-8446-B424AF0A2AC4}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -79,8 +79,8 @@ Global
 		{C1C627DD-AD8F-47DE-91FB-21EF7FB61F98}.Debug|ARM.Build.0 = Debug|Any CPU
 		{C1C627DD-AD8F-47DE-91FB-21EF7FB61F98}.Debug|ARM64.ActiveCfg = Debug|Any CPU
 		{C1C627DD-AD8F-47DE-91FB-21EF7FB61F98}.Debug|ARM64.Build.0 = Debug|Any CPU
-		{C1C627DD-AD8F-47DE-91FB-21EF7FB61F98}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{C1C627DD-AD8F-47DE-91FB-21EF7FB61F98}.Debug|x64.Build.0 = Debug|Any CPU
+		{C1C627DD-AD8F-47DE-91FB-21EF7FB61F98}.Debug|x64.ActiveCfg = Debug|x64
+		{C1C627DD-AD8F-47DE-91FB-21EF7FB61F98}.Debug|x64.Build.0 = Debug|x64
 		{C1C627DD-AD8F-47DE-91FB-21EF7FB61F98}.Debug|x86.ActiveCfg = Debug|Any CPU
 		{C1C627DD-AD8F-47DE-91FB-21EF7FB61F98}.Debug|x86.Build.0 = Debug|Any CPU
 		{C1C627DD-AD8F-47DE-91FB-21EF7FB61F98}.Release|Any CPU.ActiveCfg = Release|Any CPU

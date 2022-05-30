@@ -48,9 +48,6 @@
                 App.Connection = new(App.ProductInformation, token.AccessToken);
 
                 App.AccessToken = token.AccessToken;
-
-                Queries.Users.UserQueries queries = new();
-                App.SignedInUserName = await queries.GetViewerLogin();
             }
             else
             {
