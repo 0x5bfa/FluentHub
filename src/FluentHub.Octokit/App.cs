@@ -13,10 +13,6 @@
         public static string SignedInUserName { get; set; }
         #endregion
 
-        static App()
-        {
-        }
-
         public static void Initialize()
         {
             Client.Credentials = new OctokitOriginal.Credentials(AccessToken);
