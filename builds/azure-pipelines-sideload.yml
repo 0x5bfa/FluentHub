@@ -1,5 +1,5 @@
-trigger: none
-pr: none
+trigger:
+- main
 
 pool:
   vmImage: 'windows-latest'
@@ -65,7 +65,6 @@ steps:
     solution: '$(solution)'
     configuration: '$(buildConfiguration)'
     msbuildArgs: '
-    /t:build;_GenerateAppxPackage
     /p:AppxLogTelemetryFromSideloadingScript=False
     /p:GenerateAppInstallerFile=True
     /p:AppInstallerUri=$(build.artifactstagingdirectory)

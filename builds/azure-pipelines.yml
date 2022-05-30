@@ -25,8 +25,6 @@ steps:
       $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub\Package.appxmanifest')
     failOnStderr: true
 
-- task: NuGetToolInstaller@1
-
 - task: DownloadSecureFile@1
   name: CredentialSecureFile
   inputs:
@@ -54,7 +52,11 @@ steps:
     platform: 'x64'
     solution: '$(solution)'
     configuration: '$(buildConfiguration)'
-    msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload'
+    msbuildArgs: '
+    /p:AppxBundlePlatforms="$(buildPlatform)"
+    /p:AppxPackageDir="$(appxPackageDir)"
+    /p:AppxBundle=Always
+    /p:UapAppxPackageBuildMode=StoreUpload'
 
 - task: CopyFiles@2
   displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
