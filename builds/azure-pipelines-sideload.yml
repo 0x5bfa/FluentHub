@@ -22,10 +22,10 @@ steps:
     targetType: 'inline'
     script: |
       [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\FluentHub\Package.appxmanifest
-      $xmlDoc.Package.Identity.Name="FluentHub"
-      $xmlDoc.Package.Identity.Publisher="CN=FluentHub"
-      $xmlDoc.Package.Properties.DisplayName="FluentHub"
-      $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub"
+      $xmlDoc.Package.Identity.Name="FluentHub AlphaSL"
+      $xmlDoc.Package.Identity.Publisher="CN=onein528"
+      $xmlDoc.Package.Properties.DisplayName="FluentHub AlphaSL"
+      $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub AlphaSL"
       $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub\Package.appxmanifest')
     failOnStderr: true
 
@@ -47,6 +47,11 @@ steps:
   displayName: 'Download CA certificate'
   inputs:
     secureFile: '$(signingCert.secureFilePath)'
+
+- task: UseDotNet@2
+  inputs:
+    packageType: sdk
+    version: 6.0.100
 
 - task: NuGetToolInstaller@1
 
