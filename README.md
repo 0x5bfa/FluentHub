@@ -26,7 +26,7 @@
   <img width="128" src="https://getbadgecdn.azureedge.net/images/English_L.png" alt="GetItFromMicrosoft" />
 </a>
 
-> **Warning**</br>**The app available on the store does not work properly.** Due to this issue, we have no plan to publish app packages yet. We are tracking this from [#138](https://github.com/fluenthub-community/FluentHub/issues/138). You need to build from source, see [building-from-source](https://github.com/fluenthub-community/FluentHub/blob/main/docs/build-from-source.md).
+> **Warning**</br>**The app available on the store does not work properly.** Due to this issue, we have no plan to publish app packages yet. You need to build from source, see [building-from-source](https://github.com/fluenthub-community/FluentHub/blob/main/docs/build-from-source.md). We do apologize for any inconvenience caused.
 
 ## Screenshots
 
