@@ -29,7 +29,6 @@
     <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
     <LangVersion>preview</LangVersion>
     <Nullable>enable</Nullable>
-    <PackageCertificateThumbprint>0578E3D1F5C9A9A2498A48726825C8F8DBF2590B</PackageCertificateThumbprint>
     <AppxSymbolPackageEnabled>False</AppxSymbolPackageEnabled>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
