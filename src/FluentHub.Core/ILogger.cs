@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FluentHub.Backend
+namespace FluentHub.Core
 {
     public interface ILogger
     {

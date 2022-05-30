@@ -2,8 +2,6 @@
 {
     public class RepositoryQueries
     {
-        public RepositoryQueries() => new App();
-
         public async Task<Repository> GetAsync(string owner, string name)
         {
             OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.IssueState>> issueState = new(new OctokitGraphQLModel.IssueState[] { OctokitGraphQLModel.IssueState.Open });
@@ -155,7 +153,7 @@
             {
                 bodyHtml = await App.Client.Repository.Content.GetReadmeHtml(owner, name);
 
-                string missedPath = "https://raw.githubusercontent.com/" + owner + "/" + name + "/" + branch + "/";
+                string missedPath = "https://raw.githubusercontent.com/" + owner + '/' + name + '/' + branch + '/';
 
                 MarkdownQueries markdown = new();
                 var html = await markdown.GetHtmlAsync(bodyHtml, missedPath, theme, true);

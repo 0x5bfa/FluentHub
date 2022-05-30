@@ -1,4 +1,4 @@
-﻿using FluentHub.Backend;
+﻿using FluentHub.Core;
 using FluentHub.Models;
 using FluentHub.Services;
 using Microsoft.Toolkit.Mvvm.ComponentModel;

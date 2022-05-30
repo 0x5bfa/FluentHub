@@ -2,8 +2,6 @@
 {
     public class DiffQueries
     {
-        public DiffQueries() => new App();
-
         public async Task<CommitDetails> GetAllAsync(string owner, string name, string refs)
         {
             // This API v3 getter is very heavy(because of N+1 Problem),
@@ -13,7 +11,7 @@
             CommitDetails item = new()
             {
                 CommitMessage = commit.Commit.Message,
-                CommitMessageHeadline = commit.Commit.Message.Split("\n")[0],
+                CommitMessageHeadline = commit.Commit.Message.Split('\n')[0],
                 Oid = commit.Sha,
                 AbbreviatedOid = commit.Sha.Substring(0, 7),
                 ParentOid = commit.Parents[0].Sha,

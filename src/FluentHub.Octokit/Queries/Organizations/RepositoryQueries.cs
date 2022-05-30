@@ -2,8 +2,6 @@
 {
     public class RepositoryQueries
     {
-        public RepositoryQueries() => new App();
-
         public async Task<List<Models.Repository>> GetAllAsync(string org)
         {
             OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.IssueState>> issueState = new(new OctokitGraphQLModel.IssueState[] { OctokitGraphQLModel.IssueState.Open });

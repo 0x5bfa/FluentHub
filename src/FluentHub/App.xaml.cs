@@ -77,8 +77,8 @@ namespace FluentHub
         {
             return new ServiceCollection()
                 .AddSingleton<INavigationService, NavigationService>()
-                .AddSingleton<Backend.ILogger>(new Utils.SerilogWrapperLogger(Serilog.Log.Logger))
-                .AddSingleton<Backend.ToastService>()
+                .AddSingleton<Core.ILogger>(new Utils.SerilogWrapperLogger(Serilog.Log.Logger))
+                .AddSingleton<ToastService>()
                 .AddSingleton<IMessenger>(StrongReferenceMessenger.Default)
                 // ViewModels
                 .AddSingleton<MainPageViewModel>()
@@ -161,6 +161,11 @@ namespace FluentHub
             {
                 if (Settings.SetupCompleted == true)
                 {
+                    // Initialize octokit
+                    Octokit.App.AccessToken = Settings.AccessToken;
+                    Octokit.App.SignedInUserName = Settings.SignedInUserName;
+                    Octokit.App.Initialize();
+
                     rootFrame.Navigate(typeof(MainPage));
                 }
                 else
@@ -235,16 +240,29 @@ namespace FluentHub
                     if (uri.Query.Contains("page"))
                         param = new WwwFormUrlDecoder(uri.Query).GetFirstValueByName("page");
                     break;
-                case "auth" when uri.Query.Contains("code"): // fluenthub://auth?code=[code]
+                case "auth" when uri.Query.Contains("code"): // fluenthub://auth?code=[value]
                     var code = new WwwFormUrlDecoder(uri.Query).GetFirstValueByName("code");
+                    bool status;
 
-                    AuthorizationService authService = new();
-                    bool status = await authService.RequestOAuthTokenAsync(code);
+                    try
+                    {
+                        AuthorizationService authService = new();
+                        await authService.RequestOAuthTokenAsync(code);
+
+                        status = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        status = false;
+                        logger?.Error("RequestOAuthTokenAsync(): Failed", ex);
+                    }
 
                     if (status)
                     {
-                        Settings.SetupCompleted = true;
+                        Settings.AccessToken = Octokit.App.AccessToken;
+                        Settings.SignedInUserName = Octokit.App.SignedInUserName;
 
+                        Settings.SetupCompleted = true;
                         rootFrame.Navigate(typeof(MainPage));
                     }
 

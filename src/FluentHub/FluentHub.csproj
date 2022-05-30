@@ -154,6 +154,8 @@
     <Compile Include="Services\Navigation\PageNavigationEntry.cs" />
     <Compile Include="Services\Navigation\NavigationService.cs" />
     <Compile Include="Services\Navigation\TabViewSelectionChangedEventArgs.cs" />
+    <Compile Include="Services\OctokitSecretsService.cs" />
+    <Compile Include="Services\ToastService.cs" />
     <Compile Include="UserControls\AvatarControl.xaml.cs">
       <DependentUpon>AvatarControl.xaml</DependentUpon>
     </Compile>
@@ -1143,6 +1145,9 @@
     <PackageReference Include="Microsoft.Toolkit.Mvvm">
       <Version>7.1.2</Version>
     </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications">
+      <Version>7.1.2</Version>
+    </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
       <Version>7.1.2</Version>
     </PackageReference>
@@ -1163,12 +1168,12 @@
     <Content Include="Assets\Glyphs\SegoeFluentIconsNormal.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FluentHub.Backend\FluentHub.Backend.csproj">
-      <Project>{2DF9C7E4-8293-4DCD-9EA4-78784D98E957}</Project>
-      <Name>FluentHub.Backend</Name>
+    <ProjectReference Include="..\FluentHub.Core\FluentHub.Core.csproj">
+      <Project>{9959ae8b-08cd-4ff1-8446-b424af0a2ac4}</Project>
+      <Name>FluentHub.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\FluentHub.Octokit\FluentHub.Octokit.csproj">
-      <Project>{893edcc9-4345-4f49-a13f-1a426a7ba432}</Project>
+      <Project>{c1c627dd-ad8f-47de-91fb-21ef7fb61f98}</Project>
       <Name>FluentHub.Octokit</Name>
     </ProjectReference>
   </ItemGroup>

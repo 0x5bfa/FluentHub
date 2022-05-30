@@ -1,4 +1,4 @@
-﻿namespace FluentHub.Backend
+﻿namespace FluentHub.Core
 {
     public enum BadgeGlyphType
     {

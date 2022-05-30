@@ -2,8 +2,6 @@
 {
     public class BlobQueries
     {
-        public BlobQueries() => new App();
-
         public async Task<(string, long)> GetAsync(string name, string owner, string branch, string path)
         {
             // Remove slash

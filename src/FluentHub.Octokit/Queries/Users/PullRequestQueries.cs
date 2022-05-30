@@ -2,8 +2,6 @@
 {
     public class PullRequestQueries
     {
-        public PullRequestQueries() => new App();
-
         public async Task<List<PullRequest>> GetAllAsync(string login)
         {
             OctokitGraphQLModel.IssueOrder order = new() { Direction = OctokitGraphQLModel.OrderDirection.Desc, Field = OctokitGraphQLModel.IssueOrderField.CreatedAt };

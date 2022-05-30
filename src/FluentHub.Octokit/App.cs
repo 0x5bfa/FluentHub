@@ -1,57 +1,26 @@
-﻿using Serilog;
-using System.IO;
-using Windows.Storage;
-
-namespace FluentHub.Octokit
+﻿namespace FluentHub.Octokit
 {
-    internal class App
+    public static class App
     {
-        private static ProductHeaderValue productInformation { get; set; } = new ProductHeaderValue("FluentHub");
-        public static Connection Connection { get; private set; }
-        public static OctokitOriginal.GitHubClient Client { get; private set; }
+        #region Properties
+        public static ProductHeaderValue ProductInformation { get; set; } = new ProductHeaderValue("FluentHub");
+        public static Connection Connection { get; set; }
+
+        public static OctokitOriginal.GitHubClient Client { get; set; }
             = new OctokitOriginal.GitHubClient(new OctokitOriginal.ProductHeaderValue("FluentHub"));
-        public static string AccessToken { get; private set; }
-        public static bool InitializedOctokit { get; private set; }
+
+        public static string AccessToken { get; set; }
         public static string SignedInUserName { get; set; }
+        #endregion
 
-        public App()
+        static App()
         {
-            if (InitializedOctokit == false)
-            {
-                InitializeLogger();
-                InitializeOctokit();
-            }
         }
 
-        public void InitializeOctokit()
+        public static void Initialize()
         {
-            try
-            {
-                ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
-
-                AccessToken = localSettings.Values["AccessToken"] as string;
-                SignedInUserName = localSettings.Values["SignedInUserName"] as string;
-
-                Connection = new Connection(productInformation, AccessToken);
-                Client.Credentials = new OctokitOriginal.Credentials(AccessToken);
-
-                InitializedOctokit = true;
-            }
-            catch (Exception ex)
-            {
-                Log.Error(ex, ex.Message);
-                InitializedOctokit = false;
-            }
-        }
-
-        private void InitializeLogger()
-        {
-            string logFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "FluentHub.Octokit.Logs/Log.log");
-
-            Log.Logger = new LoggerConfiguration()
-                .MinimumLevel.Debug()
-                .WriteTo.File(path: logFilePath, rollingInterval: RollingInterval.Day)
-                .CreateLogger();
+            Client.Credentials = new OctokitOriginal.Credentials(AccessToken);
+            Connection = new(ProductInformation, AccessToken);
         }
     }
 }

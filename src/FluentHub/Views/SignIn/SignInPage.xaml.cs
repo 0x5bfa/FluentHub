@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -21,7 +22,7 @@ namespace FluentHub.Views.SignIn
     {
         public SignInPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -32,8 +33,12 @@ namespace FluentHub.Views.SignIn
 
         private async void ContinueButton_Click(object sender, RoutedEventArgs e)
         {
+            var secrets = await Services.OctokitSecretsService.GetOctokitSecrets();
+
             AuthorizationService request = new();
-            _ = await request.RequestGitHubIdentityAsync();
+            var url = request.RequestGitHubIdentityAsync(secrets);
+
+            await Launcher.LaunchUriAsync(new Uri(url));
 
             App.Settings.SetupProgress = true;
             SetupProgressRing.IsActive = true;
@@ -41,7 +46,7 @@ namespace FluentHub.Views.SignIn
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(IntroPage), null, new SlideNavigationTransitionInfo()
+            Frame.Navigate(typeof(IntroPage), null, new SlideNavigationTransitionInfo()
             {
                 Effect = SlideNavigationTransitionEffect.FromLeft
             });
