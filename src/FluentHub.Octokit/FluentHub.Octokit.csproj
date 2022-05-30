@@ -124,6 +124,7 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="Authorization\AuthorizationService.cs" />
+    <Compile Include="Experimental\GraphQL.cs" />
     <Compile Include="GlobalUsings.cs" />
     <Compile Include="Helpers\UserTypeDetectionHelper.cs" />
     <Compile Include="Models\ActivityPayloads\CheckRunEventPayload.cs" />
@@ -259,6 +260,12 @@
     <EmbeddedResource Include="Properties\FluentHub.Octokit.rd.xml" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="GraphQL.Client">
+      <Version>4.0.2</Version>
+    </PackageReference>
+    <PackageReference Include="GraphQL.Client.Serializer.Newtonsoft">
+      <Version>4.0.2</Version>
+    </PackageReference>
     <PackageReference Include="Humanizer">
       <Version>2.8.25</Version>
     </PackageReference>

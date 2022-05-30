@@ -42,6 +42,10 @@ namespace FluentHub.ViewModels.Home
         {
             try
             {
+                FluentHub.Octokit.Experimental.GraphQL experimental = new();
+                var list = await experimental.Get("onein528");
+                _logger?.Info($"{list[0]}");
+
                 RepositoryQueries repositoryQueries = new();
                 var repositoryResponse = await repositoryQueries.GetAllAsync(App.Settings.SignedInUserName);
 
