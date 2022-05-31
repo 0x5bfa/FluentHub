@@ -123,8 +123,6 @@
     <Compile Include="Services\BadgeGlyphType.cs" />
     <Compile Include="Services\ILogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Settings\SettingsManager.cs" />
-    <Compile Include="Settings\SettingsViewModel.cs" />
     <Compile Include="Services\ToastService.cs" />
     <EmbeddedResource Include="Properties\FluentHub.Backend.rd.xml" />
   </ItemGroup>
