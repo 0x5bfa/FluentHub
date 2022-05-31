@@ -1,8 +1,3 @@
-# Universal Windows Platform
-# Build a Universal Windows Platform project using Visual Studio.
-# Add steps that test and distribute an app, save build artifacts, and more:
-# https://aka.ms/yaml
-
 trigger:
 - main
 
@@ -25,8 +20,8 @@ steps:
       [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\FluentHub\Package.appxmanifest
       $xmlDoc.Package.Identity.Name="49462fluenthub-uwp.FluentHub"
       $xmlDoc.Package.Identity.Publisher="CN=4E3C0825-4D00-4ECC-89F8-528E9200B125"
-      $xmlDoc.Package.Properties.DisplayName="FluentHub"
-      $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub"
+      $xmlDoc.Package.Properties.DisplayName="FluentHub AlphaG"
+      $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub AlphaG"
       $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub\Package.appxmanifest')
     failOnStderr: true
 
@@ -42,6 +37,13 @@ steps:
     SourceFolder: '$(Agent.TempDirectory)'
     Contents: '$(CredentialSecureFile.secureFilePath)'
     TargetFolder: '$(Build.SourcesDirectory)\src\FluentHub'
+
+- task: UseDotNet@2
+  inputs:
+    packageType: sdk
+    version: 6.0.100
+
+- task: NuGetToolInstaller@1
 
 - task: NuGetCommand@2
   inputs:

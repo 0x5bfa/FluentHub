@@ -84,6 +84,7 @@ namespace FluentHub
                 .AddSingleton<MainPageViewModel>()
                 .AddTransient<ViewModels.AppSettings.AboutViewModel>()
                 .AddTransient<ViewModels.AppSettings.AppearanceViewModel>()
+                .AddTransient<ViewModels.Dialogs.AccountSwitchingDialogViewModel>()
                 .AddTransient<ViewModels.Home.ActivitiesViewModel>()
                 .AddTransient<ViewModels.Home.NotificationsViewModel>()
                 .AddTransient<ViewModels.Home.UserHomeViewModel>()
@@ -111,6 +112,7 @@ namespace FluentHub
                 .AddTransient<ViewModels.UserControls.Blocks.LatestCommitBlockViewModel>()
                 .AddTransient<ViewModels.Users.FollowersViewModel>()
                 .AddTransient<ViewModels.Users.FollowingViewModel>()
+                .AddTransient<ViewModels.Dialogs.AccountSwitchingDialogViewModel>()
                 .AddTransient<ViewModels.Users.ProfilePageViewModel>()
                 .AddTransient<ViewModels.Users.IssuesViewModel>()
                 .AddTransient<ViewModels.Users.OverviewViewModel>()
@@ -119,8 +121,6 @@ namespace FluentHub
                 .AddTransient<ViewModels.Users.RepositoriesViewModel>()
                 .AddTransient<ViewModels.Users.OrganizationsViewModel>()
                 .AddTransient<ViewModels.Users.StarredReposViewModel>()
-                .AddTransient<ViewModels.Users.FollowersViewModel>()
-                .AddTransient<ViewModels.Users.FollowingViewModel>()
                 .BuildServiceProvider();
         }
 

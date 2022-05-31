@@ -129,6 +129,9 @@
     </Compile>
     <Compile Include="Converters\ObjectToBoolConverter.cs" />
     <Compile Include="Converters\SettingsControlConverter.cs" />
+    <Compile Include="Dialogs\AccountSwitching.xaml.cs">
+      <DependentUpon>AccountSwitching.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\EditUserProfileDialog.xaml.cs">
       <DependentUpon>EditUserProfileDialog.xaml</DependentUpon>
     </Compile>
@@ -142,6 +145,7 @@
     <Compile Include="Helpers\ResourceHelper.cs" />
     <Compile Include="Helpers\ThemeHelper.cs" />
     <Compile Include="Helpers\WebViewHelpers.cs" />
+    <Compile Include="Models\AccountModel.cs" />
     <Compile Include="Models\DefaultLanguageModel.cs" />
     <Compile Include="Models\DetailsLayoutListViewModel.cs" />
     <Compile Include="Models\TreeLayoutPageModel.cs" />
@@ -174,6 +178,9 @@
     </Compile>
     <Compile Include="UserControls\Blocks\UserContributionGraph.xaml.cs">
       <DependentUpon>UserContributionGraph.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ButtonBlocks\AccountButtonBlock.xaml.cs">
+      <DependentUpon>AccountButtonBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ButtonBlocks\CommitButtonBlock.xaml.cs">
       <DependentUpon>CommitButtonBlock.xaml</DependentUpon>
@@ -260,6 +267,7 @@
     <Compile Include="ViewModels\AppSettings\AccountsViewModel.cs" />
     <Compile Include="ViewModels\AppSettings\AppearanceViewModel.cs" />
     <Compile Include="ViewModels\AppSettings\MainSettingsViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\AccountSwitchingDialogViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\EditUserProfileViewModel.cs" />
     <Compile Include="ViewModels\Home\UserHomeViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
@@ -297,6 +305,7 @@
     <Compile Include="ViewModels\UserControls\Blocks\ReadmeContentBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\SingleReleaseBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\UserContributionGraphViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\ButtonBlocks\AccountButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\CommitButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\DiscussionButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\IssueButtonBlockViewModel.cs" />
@@ -389,6 +398,9 @@
     </Compile>
     <Compile Include="Views\Searches\MainSearchPage.xaml.cs">
       <DependentUpon>MainSearchPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SignIn\WebView2ForAuthPage.xaml.cs">
+      <DependentUpon>WebView2ForAuthPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Users\DiscussionsPage.xaml.cs">
       <DependentUpon>DiscussionsPage.xaml</DependentUpon>
@@ -759,6 +771,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="Dialogs\AccountSwitching.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Dialogs\EditUserProfileDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -838,6 +854,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Blocks\UserContributionGraph.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ButtonBlocks\AccountButtonBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1026,6 +1046,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\SignIn\WebView2ForAuthPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Users\DiscussionsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1164,9 +1188,9 @@
     <Content Include="Assets\Glyphs\SegoeFluentIconsNormal.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FluentHub.Backend\FluentHub.Backend.csproj">
+    <ProjectReference Include="..\FluentHub.Backend\FluentHub.Core.csproj">
       <Project>{2DF9C7E4-8293-4DCD-9EA4-78784D98E957}</Project>
-      <Name>FluentHub.Backend</Name>
+      <Name>FluentHub.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\FluentHub.Octokit\FluentHub.Octokit.csproj">
       <Project>{893edcc9-4345-4f49-a13f-1a426a7ba432}</Project>

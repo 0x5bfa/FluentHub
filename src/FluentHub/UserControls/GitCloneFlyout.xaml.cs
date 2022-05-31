@@ -81,7 +81,7 @@ namespace FluentHub.UserControls
                     break;
                 case "GitHubCli":
                     CloneUriTextBox.Text = _gitUrl;
-                    CloneDescriptionTextBlock.Text = "Work fast with our official CLI.";
+                    CloneDescriptionTextBlock.Text = "Work faster with GitHub's official CLI.";
                     break;
             }
         }

@@ -19,7 +19,6 @@
             <uc:TitleBar Margin="12,0,0,0" />
         </Grid>
         <Grid Grid.Row="1">
-
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />

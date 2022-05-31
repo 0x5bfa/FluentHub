@@ -1,3 +1,4 @@
+using FluentHub.Dialogs;
 using FluentHub.Helpers;
 using FluentHub.Services;
 using FluentHub.Services.Navigation;
@@ -166,7 +167,13 @@ namespace FluentHub.Views
             Frame rootFrame = (Frame)Window.Current.Content;
             rootFrame.Navigate(typeof(SignIn.IntroPage));
         }
-
+        
+        private async void SwitchAccountFlyoutItem_Click(object sender, RoutedEventArgs e)
+        {
+            AccountSwitching accountSwitchingDialog = new();
+            await accountSwitchingDialog.ShowAsync();
+        }
+        
         private void OnTabViewSelectionChanged(object sender, TabViewSelectionChangedEventArgs e)
             => RootFrameBorder.Child = e.NewSelectedItem?.Frame;
         #endregion

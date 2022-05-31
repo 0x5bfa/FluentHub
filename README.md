@@ -26,7 +26,8 @@
   <img width="128" src="https://getbadgecdn.azureedge.net/images/English_L.png" alt="GetItFromMicrosoft" />
 </a>
 
-> **Attention**</br>The app available on the store has issues during authentication that do not occur when FluentHub is configured in ***DEBUG***. We are tracking this issue from [#138](https://github.com/fluenthub-community/FluentHub/issues/138). Due to this issue, we are not publishing packages to GitHub Releases and Microsoft Store because the RELEASE configured FluentHub does not work properly, so you need to build from source. Please take a look at the docs for [building-from-source.](https://github.com/fluenthub-community/FluentHub/blob/main/docs/build-from-source.md). 
+> **Warning**</br>**The app available on the store does not work properly.** Due to this issue, we have no plan to publish app packages yet. You need to build from source, see [building-from-source](https://github.com/fluenthub-community/FluentHub/blob/main/docs/build-from-source.md). We do apologize for any inconvenience caused.
+
 ## Screenshots
 
 ![image](https://user-images.githubusercontent.com/62196528/170248747-1c7458f6-4b22-48e3-9235-0c8561a1759a.png)

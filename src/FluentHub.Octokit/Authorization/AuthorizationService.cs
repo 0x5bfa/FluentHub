@@ -75,6 +75,29 @@ namespace FluentHub.Octokit.Authorization
 
                     var signedInUserName = localSettings.Values["SignedInUserName"] = login;
 
+                    var signedInUserLogins = localSettings.Values["SignedInUserLogins"] as string;
+                    string signedInLogin = "";
+
+                    if (string.IsNullOrEmpty(signedInUserLogins))
+                    {
+                        signedInLogin = login;
+                    }
+                    else
+                    {
+                        var dividedLogins = signedInUserLogins.Split(",").ToList();
+                        dividedLogins.Remove(login); // Double checking
+                        signedInLogin = string.Join(",", dividedLogins);
+
+                        if (!string.IsNullOrEmpty(signedInLogin))
+                        {
+                            signedInLogin += ",";
+                        }
+
+                        signedInLogin += login;
+                    }
+
+                    localSettings.Values["SignedInUserLogins"] = signedInLogin;
+
                     // Success
                     Log.Information("RequestOAuthTokenAsync() completed successfully: [accessToken: {accessToken}](username: {signedInUserName})", accessToken, signedInUserName);
                     return true;
