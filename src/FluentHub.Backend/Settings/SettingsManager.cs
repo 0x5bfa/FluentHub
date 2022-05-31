@@ -1,5 +1,4 @@
-﻿using Serilog;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -32,7 +31,6 @@ namespace FluentHub.ViewModels
             }
             catch (Exception ex)
             {
-                Log.Error(ex, ex.Message);
                 return default(T);
             }
         }
@@ -52,7 +50,6 @@ namespace FluentHub.ViewModels
             }
             catch (Exception ex)
             {
-                Log.Error(ex, ex.Message);
             }
         }
     }
