@@ -33,7 +33,7 @@ namespace FluentHub.Views.SignIn
         private async void ContinueButton_Click(object sender, RoutedEventArgs e)
         {
             AuthorizationService request = new();
-            _ = await request.RequestGitHubIdentityAsync();
+            await request.RequestGitHubIdentityAsync();
 
             App.Settings.SetupProgress = true;
             SetupProgressRing.IsActive = true;

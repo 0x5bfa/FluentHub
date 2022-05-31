@@ -237,14 +237,25 @@ namespace FluentHub
                     break;
                 case "auth" when uri.Query.Contains("code"): // fluenthub://auth?code=[code]
                     var code = new WwwFormUrlDecoder(uri.Query).GetFirstValueByName("code");
+                    bool status;
 
-                    AuthorizationService authService = new();
-                    bool status = await authService.RequestOAuthTokenAsync(code);
+                    try
+                    {
+                        AuthorizationService authService = new();
+                        await authService.RequestOAuthTokenAsync(code);
+                        logger?.Information("Successfully authorized.");
+
+                        status = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        status = false;
+                        logger?.Information("Authorization failed.", ex);
+                    }
 
                     if (status)
                     {
                         Settings.SetupCompleted = true;
-
                         rootFrame.Navigate(typeof(MainPage));
                     }
 

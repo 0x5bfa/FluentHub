@@ -10,107 +10,83 @@ namespace FluentHub.Octokit.Authorization
         private string ClientId { get; set; }
         private string ClientSecret { get; set; }
 
-        public async Task<bool> RequestGitHubIdentityAsync()
+        public async Task RequestGitHubIdentityAsync()
         {
-            try
+            await LoadAppCredentialsAsync();
+
+            OctokitOriginal.OauthLoginRequest request = new(ClientId)
             {
-                await LoadAppCredentialsAsync();
+                // All scopes
+                Scopes = {
+                    "repo",
+                    "workflow",
+                    "write:packages",
+                    "delete:packages",
+                    "admin:org",
+                    "admin:public_key",
+                    "admin:repo_hook",
+                    "admin:org_hook",
+                    "gist",
+                    "notifications",
+                    "user",
+                    "delete_repo",
+                    "write:discussion",
+                    "admin:enterprise",
+                    "admin:gpg_key"
+                },
+            };
 
-                OctokitOriginal.OauthLoginRequest request = new(ClientId)
-                {
-                    // All scopes
-                    Scopes = {
-                        "repo",
-                        "workflow",
-                        "write:packages",
-                        "delete:packages",
-                        "admin:org",
-                        "admin:public_key",
-                        "admin:repo_hook",
-                        "admin:org_hook",
-                        "gist",
-                        "notifications",
-                        "user",
-                        "delete_repo",
-                        "write:discussion",
-                        "admin:enterprise",
-                        "admin:gpg_key"
-                    },
-                };
+            Uri oauthLoginUrl = App.Client.Oauth.GetGitHubLoginUrl(request);
 
-                Uri oauthLoginUrl = App.Client.Oauth.GetGitHubLoginUrl(request);
-
-                await Launcher.LaunchUriAsync(oauthLoginUrl);
-
-                // Success
-                Log.Information("RequestGitHubIdentityAsync() completed successfully: [url: {oauthLoginUrl}]", oauthLoginUrl);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                Log.Error("RequestGitHubIdentityAsync(): {Message}", ex.Message);
-                return false;
-            }
+            await Launcher.LaunchUriAsync(oauthLoginUrl);
         }
 
-        public async Task<bool> RequestOAuthTokenAsync(string code)
+        public async Task RequestOAuthTokenAsync(string code)
         {
-            try
+            await LoadAppCredentialsAsync();
+
+            var request = new OctokitOriginal.OauthTokenRequest(ClientId, ClientSecret, code);
+            var token = await App.Client.Oauth.CreateAccessToken(request);
+
+            if (token != null)
             {
-                await LoadAppCredentialsAsync();
+                App.Client.Credentials = new OctokitOriginal.Credentials(token.AccessToken);
 
-                var request = new OctokitOriginal.OauthTokenRequest(ClientId, ClientSecret, code);
-                var token = await App.Client.Oauth.CreateAccessToken(request);
+                ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
+                var accessToken = localSettings.Values["AccessToken"] = token.AccessToken;
 
-                if (token != null)
+                // Get viewer login name
+                Queries.Users.UserQueries queries = new();
+                string login = await queries.GetViewerLogin();
+
+                var signedInUserName = localSettings.Values["SignedInUserName"] = login;
+
+                var signedInUserLogins = localSettings.Values["SignedInUserLogins"] as string;
+                string signedInLogin;
+
+                if (string.IsNullOrEmpty(signedInUserLogins))
                 {
-                    App.Client.Credentials = new OctokitOriginal.Credentials(token.AccessToken);
-
-                    ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
-                    var accessToken = localSettings.Values["AccessToken"] = token.AccessToken;
-
-                    // Get viewer login name
-                    Queries.Users.UserQueries queries = new();
-                    string login = await queries.GetViewerLogin();
-
-                    var signedInUserName = localSettings.Values["SignedInUserName"] = login;
-
-                    var signedInUserLogins = localSettings.Values["SignedInUserLogins"] as string;
-                    string signedInLogin = "";
-
-                    if (string.IsNullOrEmpty(signedInUserLogins))
-                    {
-                        signedInLogin = login;
-                    }
-                    else
-                    {
-                        var dividedLogins = signedInUserLogins.Split(",").ToList();
-                        dividedLogins.Remove(login); // Double checking
-                        signedInLogin = string.Join(",", dividedLogins);
-
-                        if (!string.IsNullOrEmpty(signedInLogin))
-                        {
-                            signedInLogin += ",";
-                        }
-
-                        signedInLogin += login;
-                    }
-
-                    localSettings.Values["SignedInUserLogins"] = signedInLogin;
-
-                    // Success
-                    Log.Information("RequestOAuthTokenAsync() completed successfully: [accessToken: {accessToken}](username: {signedInUserName})", accessToken, signedInUserName);
-                    return true;
+                    signedInLogin = login;
                 }
                 else
                 {
-                    throw new ArgumentNullException("AccessToken");
+                    var dividedLogins = signedInUserLogins.Split(",").ToList();
+                    dividedLogins.Remove(login); // Double checking
+                    signedInLogin = string.Join(",", dividedLogins);
+
+                    if (!string.IsNullOrEmpty(signedInLogin))
+                    {
+                        signedInLogin += ",";
+                    }
+
+                    signedInLogin += login;
                 }
+
+                localSettings.Values["SignedInUserLogins"] = signedInLogin;
             }
-            catch (Exception ex)
+            else
             {
-                Log.Error("RequestOAuthTokenAsync(): {Message}", ex.Message);
-                return false;
+                throw new ArgumentNullException("AccessToken");
             }
         }
 
