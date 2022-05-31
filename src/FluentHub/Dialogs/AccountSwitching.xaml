@@ -7,7 +7,9 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:FluentHub.Dialogs"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:FluentHub.Models"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    Loaded="OnAccountSwitchingDialogLoaded"
     Style="{StaticResource DefaultContentDialogStyle}"
     mc:Ignorable="d">
 
@@ -16,14 +18,20 @@
         <x:Double x:Key="ContentDialogMinHeight">490</x:Double>
     </ContentDialog.Resources>
 
-    <Grid x:Name="RootGrid">
+    <Grid
+        x:Name="RootGrid"
+        Height="450"
+        RowSpacing="12">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" ColumnSpacing="24">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
@@ -39,45 +47,86 @@
                 <TextBlock
                     HorizontalAlignment="Left"
                     Style="{StaticResource TitleTextBlockStyle}"
-                    Text="Switch Account" />
+                    Text="Accounts" />
             </StackPanel>
 
-
             <Button
+                x:Name="AddAccountButton"
                 Grid.Column="2"
                 HorizontalAlignment="Right"
-                VerticalAlignment="Center"
-                Click="AddAccountButton_Click">
-                <StackPanel Orientation="Horizontal">
+                VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal" Spacing="8">
                     <FontIcon
                         VerticalAlignment="Bottom"
                         FontSize="16"
-                        Glyph="&#xE710;" />
-                    <TextBlock Text="Add Account" />
+                        Glyph="&#xE8C8;" />
+                    <TextBlock VerticalAlignment="Center" Text="Copy auth URL" />
                 </StackPanel>
             </Button>
+
         </Grid>
-        <ScrollViewer Grid.Row="1">
-            <muxc:ItemsRepeater>
-                <DataTemplate x:DataType="bbvm:AccountButtonBlockViewModel">
-                    <block:AccountButtonBlock ViewModel="{x:Bind}" />
-                </DataTemplate>
-            </muxc:ItemsRepeater>
-            <!--  <TextBlock
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Text="This feature isn't availiable at the moment. Sorry for the inconveniences." />-->
+
+        <MenuFlyoutSeparator Grid.Row="1" Margin="0,12,0,0" />
+
+        <StackPanel Grid.Row="2">
+            <TextBlock Text="1. Copy authorization URL" />
+            <TextBlock Text="2. Paste the URL to In-Private beowser URL bar" />
+            <TextBlock Text="3. Authorize this app" />
+        </StackPanel>
+
+        <MenuFlyoutSeparator Grid.Row="3" />
+
+        <ScrollViewer Grid.Row="4" Margin="-24,0">
+            <ListView
+                x:Name="AccountsListView"
+                Margin="8,0"
+                ItemsSource="{x:Bind ViewModel.AccountsItems, Mode=OneWay}">
+                <ListView.ItemTemplate>
+                    <DataTemplate x:Name="AccountDataTemplate" x:DataType="models:AccountModel">
+                        <Grid
+                            Height="64"
+                            Padding="8,12"
+                            ColumnSpacing="12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <FontIcon
+                                VerticalAlignment="Center"
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="28"
+                                Glyph="&#xEA0B;" />
+
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource SystemControlPageTextBaseHighBrush}"
+                                Style="{ThemeResource BodyStrongTextBlockStyle}"
+                                Text="{x:Bind Login, Mode=OneWay}" />
+
+                            <Button Grid.Column="2" Content="Remove" />
+
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+
+            </ListView>
         </ScrollViewer>
-        <Grid Grid.Row="2">
+
+        <Grid Grid.Row="5" ColumnSpacing="24">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
+
             <Button
                 Grid.Column="1"
+                Width="128"
                 HorizontalAlignment="Right"
-                Click="CloseButton_Click"
-                Content="Close" />
+                Click="OnCancelButtonClick"
+                Content="Cancel" />
         </Grid>
     </Grid>
 

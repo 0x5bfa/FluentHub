@@ -8,6 +8,6 @@ namespace FluentHub.Models
 {
     public class AccountModel
     {
-
+        public string Login { get; set; }
     }
 }

@@ -21,26 +21,43 @@ namespace FluentHub.ViewModels.Dialogs
         {
             _logger = logger;
             _messenger = messenger;
+
             _accountsItems = new();
             AccountsItems = new(_accountsItems);
 
-          //  RefreshAccountsSavedCommand = new AsyncRelayCommand<string>(RefreshAccountsSaved);
+            LoadSignedInLoginsCommand = new RelayCommand(LoadSignedInLogins);
         }
-
 
         #region fields
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
-        private readonly ObservableCollection<AccountButtonBlockViewModel> _accountsItems;
+
+        private readonly ObservableCollection<AccountModel> _accountsItems;
+        public ReadOnlyObservableCollection<AccountModel> AccountsItems { get; }
         #endregion
 
         #region properties
-        public ReadOnlyObservableCollection<AccountButtonBlockViewModel> AccountsItems { get; }
 
-        public IAsyncRelayCommand RefreshAccountsSavedCommand { get; }
+        public IRelayCommand LoadSignedInLoginsCommand { get; }
         #endregion
 
-        private async Task RefreshAccountsSaved() {
+        private void LoadSignedInLogins()
+        {
+            try
+            {
+                // Get logged in users from App Container
+                var dividedLogins = App.Settings.SignedInUserLogins.Split(",");
+
+                foreach (var item in dividedLogins)
+                {
+                    AccountModel model = new() { Login = item };
+                    _accountsItems.Add(model);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
     }
 }

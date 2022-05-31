@@ -16,9 +16,11 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+
         <Grid x:Name="AppTitleBar" Background="Transparent">
             <uc:TitleBar Margin="44,0,0,0" />
         </Grid>
+
         <Button
             Width="32"
             Height="32"
@@ -37,6 +39,7 @@
                 </muxc:AnimatedIcon.FallbackIconSource>
             </muxc:AnimatedIcon>
         </Button>
+
         <StackPanel
             Grid.Row="1"
             Width="400"
@@ -50,6 +53,7 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
+
                 <StackPanel Grid.Column="1">
                     <TextBlock
                         x:Name="Header"
@@ -64,7 +68,9 @@
                         <TextBlock><Hyperlink NavigateUri="https://github.com/fluenthub-community/FluentHub/blob/main/docs/authorize-app.md">Support</Hyperlink></TextBlock>
                     </StackPanel>
                 </StackPanel>
+
             </Grid>
+
             <Grid ColumnSpacing="8" RowSpacing="8">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -77,6 +83,7 @@
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
+
                 <Border
                     Width="20"
                     Height="20"
@@ -89,6 +96,7 @@
                         Text="1"
                         TextAlignment="Center" />
                 </Border>
+
                 <Border
                     Grid.Row="1"
                     Width="20"
@@ -102,6 +110,7 @@
                         Text="2"
                         TextAlignment="Center" />
                 </Border>
+
                 <Border
                     Grid.Row="2"
                     Width="20"
@@ -115,6 +124,7 @@
                         Text="3"
                         TextAlignment="Center" />
                 </Border>
+
                 <Border
                     Grid.Row="3"
                     Width="20"
@@ -128,6 +138,7 @@
                         Text="4"
                         TextAlignment="Center" />
                 </Border>
+
                 <Border
                     Grid.Row="4"
                     Width="20"
@@ -141,12 +152,14 @@
                         Text="5"
                         TextAlignment="Center" />
                 </Border>
+
                 <TextBlock
                     Grid.Column="1"
                     VerticalAlignment="Top"
                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                     Style="{StaticResource BodyTextBlockStyle}"
                     Text="Click &quot;Login with Browser&quot;;" />
+
                 <TextBlock
                     Grid.Row="1"
                     Grid.Column="1"
@@ -154,6 +167,7 @@
                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                     Style="{StaticResource BodyTextBlockStyle}"
                     Text="If you are in administration of one or more organizations, please give FluentHub access to them;" />
+
                 <TextBlock
                     Grid.Row="2"
                     Grid.Column="1"
@@ -161,6 +175,7 @@
                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                     Style="{StaticResource BodyTextBlockStyle}"
                     Text="Click &quot;Authorize fluenthub-community&quot;;" />
+
                 <TextBlock
                     Grid.Row="3"
                     Grid.Column="1"
@@ -168,31 +183,38 @@
                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                     Style="{StaticResource BodyTextBlockStyle}"
                     Text="Click &quot;Open FluentHub - Alpha&quot;;" />
+
                 <TextBlock
                     Grid.Row="4"
                     Grid.Column="1"
                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                     Style="{StaticResource BodyTextBlockStyle}"
                     Text="Proceed to the FluentHub application." />
+
             </Grid>
+
             <Grid Grid.Row="2">
-                <Button Content="Login with BasicAuth" IsEnabled="False" />
+
                 <StackPanel
                     HorizontalAlignment="Right"
                     Orientation="Horizontal"
                     Spacing="12">
+
                     <muxc:ProgressRing
                         x:Name="SetupProgressRing"
                         Width="24"
                         Height="24"
                         IsActive="False" />
+
                     <Button
                         MinWidth="120"
                         Click="ContinueButton_Click"
                         Content="Login with browser"
                         Style="{StaticResource AccentButtonStyle}" />
+
                 </StackPanel>
             </Grid>
+
         </StackPanel>
     </Grid>
 </Page>

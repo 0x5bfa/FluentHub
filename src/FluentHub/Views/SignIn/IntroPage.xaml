@@ -34,7 +34,7 @@
                     Width="Auto"
                     Height="84"
                     HorizontalAlignment="Center"
-                    Source="/Assets/AppTiles/StoreLogo.scale-200.png" />
+                    Source="/Assets/AppTilesAlpha/StoreLogo.scale-200.png" />
                 <TextBlock
                     HorizontalAlignment="Center"
                     VerticalAlignment="Center"
