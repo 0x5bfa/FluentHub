@@ -5,9 +5,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("FluentHub.Core")]
 [assembly: AssemblyDescription("Core services for FluentHub")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("fluenthub-community")]
+[assembly: AssemblyCompany("FluentHub")]
 [assembly: AssemblyProduct("FluentHub.Core")]
-[assembly: AssemblyCopyright("Copyright © 2022 fluenthub-community")]
+[assembly: AssemblyCopyright("Copyright © 2022 FluentHub Team")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace FluentHub.Octokit.Authorization
 {
-    internal static class InitializeOctokit
+    public static class InitializeOctokit
     {
         public static void InitializeApiConnections(string accessToken)
         {
@@ -15,6 +15,8 @@ namespace FluentHub.Octokit.Authorization
 
             // Octokit.GraphQL.NET
             App.Connection = new Connection(App.ProductInformation, accessToken);
+
+            App.AccessToken = accessToken;
         }
     }
 }

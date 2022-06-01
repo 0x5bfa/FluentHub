@@ -162,6 +162,8 @@ namespace FluentHub
             {
                 if (Settings.SetupCompleted == true)
                 {
+                    FluentHub.Octokit.Authorization.InitializeOctokit.InitializeApiConnections(Settings.AccessToken);
+
                     rootFrame.Navigate(typeof(MainPage));
                 }
                 else
