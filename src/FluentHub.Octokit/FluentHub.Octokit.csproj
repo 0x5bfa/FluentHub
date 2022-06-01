@@ -278,7 +278,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FluentHub.Backend\FluentHub.Core.csproj">
+    <ProjectReference Include="..\FluentHub.Core\FluentHub.Core.csproj">
       <Project>{2df9c7e4-8293-4dcd-9ea4-78784d98e957}</Project>
       <Name>FluentHub.Core</Name>
     </ProjectReference>

@@ -243,11 +243,11 @@ namespace FluentHub
                     try
                     {
                         AuthorizationService authService = new();
-                        await authService.RequestOAuthTokenAsync(code);
+                        var accessToken = await authService.RequestOAuthTokenAsync(code);
                         logger?.Information("Successfully authorized.");
 
                         // Set token and login to App Settings Container
-                        SetAccountInfo();
+                        await SetAccountInfo(accessToken);
 
                         status = true;
                     }
@@ -280,40 +280,15 @@ namespace FluentHub
             }
         }
 
-        private void SetAccountInfo()
+        private async Task SetAccountInfo(string accessToken)
         {
+            Settings.AccessToken = accessToken;
 
-            //// Set settings to App Settings Container for UWP
-            //ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
-            //localSettings.Values["AccessToken"] = token.AccessToken;
+            Octokit.Queries.Users.UserQueries queries = new();
+            string login = await queries.GetViewerLogin();
+            Settings.SignedInUserName = login;
 
-            //Queries.Users.UserQueries queries = new();
-            //string login = await queries.GetViewerLogin();
-
-            //localSettings.Values["SignedInUserName"] = login;
-
-            //var signedInUserLogins = localSettings.Values["SignedInUserLogins"] as string;
-            //string signedInLogin;
-
-            //if (string.IsNullOrEmpty(signedInUserLogins))
-            //{
-            //    signedInLogin = login;
-            //}
-            //else
-            //{
-            //    var dividedLogins = signedInUserLogins.Split(",").ToList();
-            //    dividedLogins.Remove(login); // Double checking
-            //    signedInLogin = string.Join(",", dividedLogins);
-
-            //    if (!string.IsNullOrEmpty(signedInLogin))
-            //    {
-            //        signedInLogin += ",";
-            //    }
-
-            //    signedInLogin += login;
-            //}
-
-            //localSettings.Values["SignedInUserLogins"] = signedInLogin;
+            AccountService.AddAccount(login);
         }
 
         void OnNavigationFailed(object sender, NavigationFailedEventArgs e)

@@ -9,9 +9,9 @@ namespace FluentHub.Services
     /// <summary>
     /// This class is used to reflect new data in the app configuration and does not retrieve any GitHub data.
     /// </summary>
-    public class AccountService
+    public static class AccountService
     {
-        public void AddAccount(string login)
+        public static void AddAccount(string login)
         {
             // Avoid duplication
             RemoveAccount(login);
@@ -22,7 +22,7 @@ namespace FluentHub.Services
             App.Settings.SignedInUserLogins = logins;
         }
 
-        public void RemoveAccount(string login)
+        public static void RemoveAccount(string login)
         {
             var loginsDividedWithComma = App.Settings.SignedInUserLogins.Split(",").ToList();
             loginsDividedWithComma.Remove(login);
@@ -31,13 +31,13 @@ namespace FluentHub.Services
             App.Settings.SignedInUserLogins = joinedNewValues;
         }
 
-        public void RemoveAllAccount()
+        public static void RemoveAllAccount()
         {
             // Anticipate using only when deleting all accounts and re-signing in.
             App.Settings.SignedInUserLogins = "";
         }
 
-        public bool IsAlreadySignedIn(string login)
+        public static bool IsAlreadySignedIn(string login)
         {
             var loginsDividedWithComma = App.Settings.SignedInUserLogins.Split(",").ToList();
             var isContain = loginsDividedWithComma.Contains(login);
