@@ -2,11 +2,11 @@
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
-[assembly: AssemblyTitle("FluentHub.Backend")]
-[assembly: AssemblyDescription("Backend services for FluentHub")]
+[assembly: AssemblyTitle("FluentHub.Core")]
+[assembly: AssemblyDescription("Core services for FluentHub")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("fluenthub-community")]
-[assembly: AssemblyProduct("FluentHub.Backend")]
+[assembly: AssemblyProduct("FluentHub.Core")]
 [assembly: AssemblyCopyright("Copyright © 2022 fluenthub-community")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

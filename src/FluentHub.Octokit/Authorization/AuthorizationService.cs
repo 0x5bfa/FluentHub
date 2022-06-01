@@ -1,20 +1,16 @@
-﻿using Serilog;
-using Windows.Data.Xml.Dom;
-using Windows.Storage;
-using Windows.System;
+﻿﻿using Windows.System;
 
 namespace FluentHub.Octokit.Authorization
 {
     public class AuthorizationService
     {
-        private string ClientId { get; set; }
-        private string ClientSecret { get; set; }
+        private OctokitSecrets Secrets { get; set; }
 
-        public async Task RequestGitHubIdentityAsync()
+        public async Task RequestGitHubIdentityAsync(OctokitSecrets secrets)
         {
-            await LoadAppCredentialsAsync();
+            Secrets = secrets;
 
-            OctokitOriginal.OauthLoginRequest request = new(ClientId)
+            OctokitOriginal.OauthLoginRequest request = new(Secrets.ClientId)
             {
                 // All scopes
                 Scopes = {
@@ -41,66 +37,24 @@ namespace FluentHub.Octokit.Authorization
             await Launcher.LaunchUriAsync(oauthLoginUrl);
         }
 
-        public async Task RequestOAuthTokenAsync(string code)
+        public async Task<string> RequestOAuthTokenAsync(string code)
         {
-            await LoadAppCredentialsAsync();
+            if (Secrets == null) return null; 
 
-            var request = new OctokitOriginal.OauthTokenRequest(ClientId, ClientSecret, code);
+            var request = new OctokitOriginal.OauthTokenRequest(Secrets.ClientId, Secrets.ClientSecret, code);
             var token = await App.Client.Oauth.CreateAccessToken(request);
 
             if (token != null)
             {
-                App.Client.Credentials = new OctokitOriginal.Credentials(token.AccessToken);
+                // Initialize octokit.net and octokit.graphql.net
+                InitializeOctokit.InitializeApiConnections(token.AccessToken);
 
-                ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
-                var accessToken = localSettings.Values["AccessToken"] = token.AccessToken;
-
-                // Get viewer login name
-                Queries.Users.UserQueries queries = new();
-                string login = await queries.GetViewerLogin();
-
-                var signedInUserName = localSettings.Values["SignedInUserName"] = login;
-
-                var signedInUserLogins = localSettings.Values["SignedInUserLogins"] as string;
-                string signedInLogin;
-
-                if (string.IsNullOrEmpty(signedInUserLogins))
-                {
-                    signedInLogin = login;
-                }
-                else
-                {
-                    var dividedLogins = signedInUserLogins.Split(",").ToList();
-                    dividedLogins.Remove(login); // Double checking
-                    signedInLogin = string.Join(",", dividedLogins);
-
-                    if (!string.IsNullOrEmpty(signedInLogin))
-                    {
-                        signedInLogin += ",";
-                    }
-
-                    signedInLogin += login;
-                }
-
-                localSettings.Values["SignedInUserLogins"] = signedInLogin;
+                return token.AccessToken;
             }
             else
             {
-                throw new ArgumentNullException("AccessToken");
+                throw new ArgumentNullException("token");
             }
-        }
-
-        private async Task LoadAppCredentialsAsync()
-        {
-            var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///AppCredentials.config"));
-
-            var xmlDoc = await XmlDocument.LoadFromFileAsync(file);
-
-            var nodeId = xmlDoc.DocumentElement.SelectSingleNode("./client/type[@key='id']/@value");
-            var nodeSecret = xmlDoc.DocumentElement.SelectSingleNode("./client/type[@key='secret']/@value");
-
-            ClientId = (string)nodeId.NodeValue;
-            ClientSecret = (string)nodeSecret.NodeValue;
         }
     }
 }

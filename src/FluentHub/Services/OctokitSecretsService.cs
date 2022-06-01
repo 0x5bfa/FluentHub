@@ -4,9 +4,9 @@ using Windows.System;
 
 namespace FluentHub.Services
 {
-    public class OctokitSecretsService
+    public static class OctokitSecretsService
     {
-        public async Task<Octokit.Authorization.OctokitSecrets> LoadOctokitSecretsAsync()
+        public static async Task<Octokit.Authorization.OctokitSecrets> LoadOctokitSecretsAsync()
         {
             var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///AppCredentials.config"));
             var xmlDoc = await XmlDocument.LoadFromFileAsync(file);

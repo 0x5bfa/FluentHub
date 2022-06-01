@@ -77,8 +77,8 @@ namespace FluentHub
         {
             return new ServiceCollection()
                 .AddSingleton<INavigationService, NavigationService>()
-                .AddSingleton<Backend.ILogger>(new Utils.SerilogWrapperLogger(Serilog.Log.Logger))
-                .AddSingleton<Backend.ToastService>()
+                .AddSingleton<Core.ILogger>(new Utils.SerilogWrapperLogger(Serilog.Log.Logger))
+                .AddSingleton<Core.ToastService>()
                 .AddSingleton<IMessenger>(StrongReferenceMessenger.Default)
                 // ViewModels
                 .AddSingleton<MainPageViewModel>()
@@ -106,6 +106,7 @@ namespace FluentHub
                 .AddTransient<ViewModels.Repositories.PullRequests.FileChangesViewModel>()
                 .AddTransient<ViewModels.Repositories.PullRequests.PullRequestViewModel>()
                 .AddTransient<ViewModels.Repositories.PullRequests.PullRequestsViewModel>()
+                .AddTransient<ViewModels.SignIn.SignInViewModel>()
                 .AddTransient<ViewModels.UserControls.Blocks.FileContentBlockViewModel>()
                 .AddTransient<ViewModels.UserControls.Blocks.FileNavigationBlockViewModel>()
                 .AddTransient<ViewModels.UserControls.Blocks.ReadmeContentBlockViewModel>()
@@ -245,6 +246,9 @@ namespace FluentHub
                         await authService.RequestOAuthTokenAsync(code);
                         logger?.Information("Successfully authorized.");
 
+                        // Set token and login to App Settings Container
+                        SetAccountInfo();
+
                         status = true;
                     }
                     catch (Exception ex)
@@ -255,6 +259,7 @@ namespace FluentHub
 
                     if (status)
                     {
+                        Settings.SetupProgress = true;
                         Settings.SetupCompleted = true;
                         rootFrame.Navigate(typeof(MainPage));
                     }
@@ -273,6 +278,42 @@ namespace FluentHub
                         ns.Navigate(page, param);
                 }
             }
+        }
+
+        private void SetAccountInfo()
+        {
+
+            //// Set settings to App Settings Container for UWP
+            //ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
+            //localSettings.Values["AccessToken"] = token.AccessToken;
+
+            //Queries.Users.UserQueries queries = new();
+            //string login = await queries.GetViewerLogin();
+
+            //localSettings.Values["SignedInUserName"] = login;
+
+            //var signedInUserLogins = localSettings.Values["SignedInUserLogins"] as string;
+            //string signedInLogin;
+
+            //if (string.IsNullOrEmpty(signedInUserLogins))
+            //{
+            //    signedInLogin = login;
+            //}
+            //else
+            //{
+            //    var dividedLogins = signedInUserLogins.Split(",").ToList();
+            //    dividedLogins.Remove(login); // Double checking
+            //    signedInLogin = string.Join(",", dividedLogins);
+
+            //    if (!string.IsNullOrEmpty(signedInLogin))
+            //    {
+            //        signedInLogin += ",";
+            //    }
+
+            //    signedInLogin += login;
+            //}
+
+            //localSettings.Values["SignedInUserLogins"] = signedInLogin;
         }
 
         void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
