@@ -2,8 +2,6 @@
 {
     public class FollowersQueries
     {
-        public FollowersQueries() => new App();
-
         public async Task<List<User>> GetAllAsync(string login)
         {
             #region query

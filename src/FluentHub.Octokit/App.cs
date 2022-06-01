@@ -1,9 +1,6 @@
-﻿using System.IO;
-using Windows.Storage;
-
-namespace FluentHub.Octokit
+﻿namespace FluentHub.Octokit
 {
-    internal class App
+    public class App
     {
         #region properties
         public static ProductHeaderValue ProductInformation { get; set; } = new ProductHeaderValue("FluentHub");
@@ -11,10 +8,8 @@ namespace FluentHub.Octokit
 
         public static OctokitOriginal.GitHubClient Client { get; set; }
             = new OctokitOriginal.GitHubClient(new OctokitOriginal.ProductHeaderValue("FluentHub"));
-        #endregion
 
-        public App()
-        {
-        }
+        public static string AccessToken { get; set; }
+        #endregion
     }
 }

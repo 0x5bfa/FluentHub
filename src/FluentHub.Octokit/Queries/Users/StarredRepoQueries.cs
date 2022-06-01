@@ -2,8 +2,6 @@
 {
     public class StarredRepoQueries
     {
-        public StarredRepoQueries() => new App();
-
         public async Task<List<Repository>> GetAllAsync(string login)
         {
             OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.IssueState>> issueState = new(new OctokitGraphQLModel.IssueState[] { OctokitGraphQLModel.IssueState.Open });

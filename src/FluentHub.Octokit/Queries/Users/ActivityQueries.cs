@@ -4,8 +4,6 @@ namespace FluentHub.Octokit.Queries.Users
 {
     public class ActivityQueries
     {
-        public ActivityQueries() => new App();
-
         public async Task<List<Activity>> GetAllAsync(string login)
         {
             #region query

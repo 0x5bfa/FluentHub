@@ -2,8 +2,6 @@
 {
     public class UserQueries
     {
-        public UserQueries() => new App();
-
         public async Task<User> GetAsync(string login)
         {
             #region queries

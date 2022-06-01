@@ -2,8 +2,6 @@
 {
     public class OrganizationQueries
     {
-        public OrganizationQueries() => new App();
-
         public async Task<Organization> GetOverview(string org)
         {
                 #region query

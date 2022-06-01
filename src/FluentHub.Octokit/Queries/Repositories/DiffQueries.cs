@@ -2,8 +2,6 @@
 {
     public class DiffQueries
     {
-        public DiffQueries() => new App();
-
         public async Task<CommitDetails> GetAllAsync(string owner, string name, string refs)
         {
             // This API v3 getter is very heavy(because of N+1 Problem),
