@@ -4,7 +4,7 @@ namespace FluentHub.Octokit.Authorization
 {
     public class AuthorizationService
     {
-        private OctokitSecrets Secrets { get; set; }
+        private static OctokitSecrets Secrets { get; set; }
 
         public async Task RequestGitHubIdentityAsync(OctokitSecrets secrets)
         {

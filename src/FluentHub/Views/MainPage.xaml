@@ -262,7 +262,12 @@
                                 <MenuFlyoutItem Click="OnYourOrganizationsMenuFlyoutItemClick" Text="Your organizations" />
                                 <MenuFlyoutItem Click="OnYourStarsMenuFlyoutItemClick" Text="Your stars" />
                                 <MenuFlyoutSeparator />
-                                <MenuFlyoutItem Click="SwitchAccountFlyoutItem_Click" Text="Switch Account" />
+                                <MenuFlyoutSubItem Text="Switch account">
+                                    <MenuFlyoutItem Text="onein528 (current)" />
+                                    <MenuFlyoutItem Text="ioapiset" />
+                                    <MenuFlyoutSeparator />
+                                    <MenuFlyoutItem Text="Account settings" />
+                                </MenuFlyoutSubItem>
                                 <MenuFlyoutItem Click="OnAppSettingsMenuFlyoutItemClick" Text="Settings" />
                                 <MenuFlyoutItem Click="OnSignOutMenuFlyoutItemClick" Text="Sign out" />
                             </MenuFlyout>

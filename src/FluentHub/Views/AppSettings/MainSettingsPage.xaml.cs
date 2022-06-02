@@ -62,7 +62,7 @@ namespace FluentHub.Views.AppSettings
                     break;
                 case "codepreview":
                     SettingsContentFrame.Navigate(typeof(CodePreviewPage));
-                    NavViewFrameTitleTextBlock.Text = "Code Preview";
+                    NavViewFrameTitleTextBlock.Text = "Repositories";
                     break;
             }
         }

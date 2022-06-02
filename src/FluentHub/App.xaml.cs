@@ -83,6 +83,7 @@ namespace FluentHub
                 // ViewModels
                 .AddSingleton<MainPageViewModel>()
                 .AddTransient<ViewModels.AppSettings.AboutViewModel>()
+                .AddTransient<ViewModels.AppSettings.AccountsViewModel>()
                 .AddTransient<ViewModels.AppSettings.AppearanceViewModel>()
                 .AddTransient<ViewModels.Dialogs.AccountSwitchingDialogViewModel>()
                 .AddTransient<ViewModels.Home.ActivitiesViewModel>()

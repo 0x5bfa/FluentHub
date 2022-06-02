@@ -106,7 +106,7 @@
                                 Style="{ThemeResource BodyStrongTextBlockStyle}"
                                 Text="{x:Bind Login, Mode=OneWay}" />
 
-                            <Button Grid.Column="2" Content="Remove" />
+                            <Button Grid.Column="2" Content="Switch" />
 
                         </Grid>
                     </DataTemplate>

@@ -1,4 +1,5 @@
 ﻿using FluentHub.Services;
+using FluentHub.ViewModels.AppSettings;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Threading.Tasks;
@@ -15,10 +16,14 @@ namespace FluentHub.Views.AppSettings
         public AccountsPage()
         {
             InitializeComponent();
+
+            var provider = App.Current.Services;
+            ViewModel = provider.GetRequiredService<AccountsViewModel>();
             navigationService = App.Current.Services.GetRequiredService<INavigationService>();
         }
 
         private readonly INavigationService navigationService;
+        public AccountsViewModel ViewModel { get; }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -30,6 +35,10 @@ namespace FluentHub.Views.AppSettings
             {
                 Glyph = "\uE713",
             };
+
+            var command = ViewModel.LoadSignedInLoginsCommand;
+            if (command.CanExecute(null))
+                command.Execute(null) ;
         }
     }
 }

@@ -17,7 +17,9 @@ namespace FluentHub.Services
             RemoveAccount(login);
 
             var logins = App.Settings.SignedInUserLogins;
-            logins += $",{login}"; // comma-divided
+
+            if (string.IsNullOrEmpty(logins)) logins += $"{login}"; // comma-divided
+            else logins += $",{login}"; // comma-divided
 
             App.Settings.SignedInUserLogins = logins;
         }
