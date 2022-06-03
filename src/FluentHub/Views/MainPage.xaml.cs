@@ -162,18 +162,21 @@ namespace FluentHub.Views
         private void OnAppSettingsMenuFlyoutItemClick(object sender, RoutedEventArgs e)
             => NavigationService.Navigate<AppSettings.MainSettingsPage>(App.Settings.SignedInUserName);
 
+        private void OnAccountSettingsMenuFlyoutItemClick(object sender, RoutedEventArgs e)
+            => NavigationService.Navigate<AppSettings.MainSettingsPage>("accounts");
+
         private void OnSignOutMenuFlyoutItemClick(object sender, RoutedEventArgs e)
         {
             Frame rootFrame = (Frame)Window.Current.Content;
             rootFrame.Navigate(typeof(SignIn.IntroPage));
         }
-        
+
         private async void SwitchAccountFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
             AccountSwitching accountSwitchingDialog = new();
             await accountSwitchingDialog.ShowAsync();
         }
-        
+
         private void OnTabViewSelectionChanged(object sender, TabViewSelectionChangedEventArgs e)
             => RootFrameBorder.Child = e.NewSelectedItem?.Frame;
         #endregion

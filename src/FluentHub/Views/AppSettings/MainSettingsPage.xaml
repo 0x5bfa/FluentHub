@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
+
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -34,13 +35,12 @@
             <muxc:NavigationView.PaneHeader>
                 <Button
                     Height="76"
-                    Margin="5,12"
+                    Margin="5,0,5,12"
                     Padding="8,6"
                     HorizontalAlignment="Stretch"
                     HorizontalContentAlignment="Left"
                     Background="Transparent"
                     Click="OnAccountButtonClick"
-                    IsEnabled="False"
                     Style="{StaticResource ClearButtonStyle}">
                     <Grid ColumnSpacing="12">
                         <Grid.ColumnDefinitions>
@@ -48,24 +48,36 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <Border
+                        <Grid
                             Width="60"
                             Height="60"
                             HorizontalAlignment="Left"
-                            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                            Background="{ThemeResource ApplicationForegroundThemeBrush}"
                             CornerRadius="30">
-                            <Image x:Name="AppSignedInUserAvatar" />
-                        </Border>
+                            <Image
+                                x:Name="AppSignedInUserAvatar"
+                                Width="60"
+                                Height="60"
+                                Source="{x:Bind ViewModel.SignedInUser.AvatarUrl, Mode=OneWay}" />
+                        </Grid>
+
+                        <Grid
+                            Width="60"
+                            Height="60"
+                            BorderBrush="{ThemeResource ApplicationForegroundThemeBrush}"
+                            BorderThickness="1"
+                            CornerRadius="30"
+                            Opacity="0.5" />
 
                         <StackPanel Grid.Column="1" VerticalAlignment="Center">
                             <TextBlock
                                 x:Name="SignedInLoginName"
                                 Style="{StaticResource BodyStrongTextBlockStyle}"
-                                Text="username" />
+                                Text="{x:Bind ViewModel.SignedInUser.Login, Mode=OneWay}" />
                             <TextBlock
                                 x:Name="SignedInUserName"
                                 Style="{StaticResource CaptionTextBlockStyle}"
-                                Text="login name" />
+                                Text="{x:Bind ViewModel.SignedInUser.Name, Mode=OneWay}" />
                         </StackPanel>
 
                     </Grid>
@@ -97,7 +109,7 @@
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
-                <muxc:NavigationViewItem Content="Repository" Tag="codepreview">
+                <muxc:NavigationViewItem Content="Repository" Tag="repositories">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE14C;" />
                     </muxc:NavigationViewItem.Icon>
@@ -119,16 +131,20 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
+
                     <TextBlock
                         x:Name="NavViewFrameTitleTextBlock"
                         Style="{StaticResource TitleTextBlockStyle}"
                         Text="General" />
+
                     <Frame
                         x:Name="SettingsContentFrame"
                         Grid.Row="1"
                         Background="Transparent" />
+
                 </Grid>
             </muxc:NavigationView.Content>
+
         </muxc:NavigationView>
     </Grid>
 </Page>

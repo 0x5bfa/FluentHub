@@ -20,7 +20,7 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock
-                    Margin="0,8"
+                    Margin="0,16,0,8"
                     Style="{StaticResource BodyStrongTextBlockStyle}"
                     Text="General" />
 

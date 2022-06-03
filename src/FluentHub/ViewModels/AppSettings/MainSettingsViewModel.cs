@@ -31,6 +31,9 @@ namespace FluentHub.ViewModels.AppSettings
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
 
+        private User signedInUser;
+        public User SignedInUser { get => signedInUser; set => SetProperty(ref signedInUser, value); }
+
         private readonly ObservableCollection<AccountModel> _accountsItems;
         public ReadOnlyObservableCollection<AccountModel> AccountsItems { get; }
 
@@ -41,6 +44,11 @@ namespace FluentHub.ViewModels.AppSettings
         {
             try
             {
+                UserQueries queries = new();
+                var response = await queries.GetAsync(App.Settings.SignedInUserName);
+
+                SignedInUser = response;
+
                 // Get logged in users from App Container
                 var dividedLogins = App.Settings.SignedInUserLogins.Split(",");
 

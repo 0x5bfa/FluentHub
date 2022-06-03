@@ -263,10 +263,9 @@
                                 <MenuFlyoutItem Click="OnYourStarsMenuFlyoutItemClick" Text="Your stars" />
                                 <MenuFlyoutSeparator />
                                 <MenuFlyoutSubItem Text="Switch account">
-                                    <MenuFlyoutItem Text="onein528 (current)" />
-                                    <MenuFlyoutItem Text="ioapiset" />
+                                    <MenuFlyoutItem IsEnabled="False" Text="Not available yet" />
                                     <MenuFlyoutSeparator />
-                                    <MenuFlyoutItem Text="Account settings" />
+                                    <MenuFlyoutItem Click="OnAccountSettingsMenuFlyoutItemClick" Text="Account settings" />
                                 </MenuFlyoutSubItem>
                                 <MenuFlyoutItem Click="OnAppSettingsMenuFlyoutItemClick" Text="Settings" />
                                 <MenuFlyoutItem Click="OnSignOutMenuFlyoutItemClick" Text="Sign out" />

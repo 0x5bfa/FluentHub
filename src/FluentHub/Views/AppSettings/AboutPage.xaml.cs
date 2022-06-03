@@ -17,6 +17,7 @@ namespace FluentHub.Views.AppSettings
             ViewModel = provider.GetRequiredService<AboutViewModel>();
             navigationService = provider.GetRequiredService<INavigationService>();
         }
+
         private readonly INavigationService navigationService;
         public AboutViewModel ViewModel { get; }
 

@@ -1,4 +1,5 @@
 ﻿using FluentHub.Services;
+using FluentHub.ViewModels.AppSettings;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
@@ -15,10 +16,14 @@ namespace FluentHub.Views.AppSettings
         public MainSettingsPage()
         {
             InitializeComponent();
+
+            var provider = App.Current.Services;
+            ViewModel = provider.GetRequiredService<MainSettingsViewModel>();
             navigationService = App.Current.Services.GetRequiredService<INavigationService>();
         }
 
         private readonly INavigationService navigationService;
+        public MainSettingsViewModel ViewModel { get; }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -31,17 +36,23 @@ namespace FluentHub.Views.AppSettings
                 Glyph = "\uE713"
             };
 
-            var defaultItem = SettingsNavView
-                                    .MenuItems
-                                    .OfType<muxc.NavigationViewItem>()
-                                    .FirstOrDefault();
+            var defaultItem
+                = SettingsNavView
+                .MenuItems
+                .OfType<muxc.NavigationViewItem>()
+                .FirstOrDefault();
 
-            SettingsNavView.SelectedItem = SettingsNavView
-                                                .MenuItems
-                                                .Concat(SettingsNavView.FooterMenuItems)
-                                                .OfType<muxc.NavigationViewItem>()
-                                                .FirstOrDefault(x => string.Compare(x.Tag.ToString(), e.Parameter?.ToString(), true) == 0)
-                                                ?? defaultItem;
+            SettingsNavView.SelectedItem
+                = SettingsNavView
+                .MenuItems
+                .Concat(SettingsNavView.FooterMenuItems)
+                .OfType<muxc.NavigationViewItem>()
+                .FirstOrDefault(x => string.Compare(x.Tag.ToString(), e.Parameter?.ToString(), true) == 0)
+                ?? defaultItem;
+
+            var command = ViewModel.LoadSignedInLoginsCommand;
+            if (command.CanExecute(null))
+                command.Execute(null);
         }
 
         private void SettingsNavView_SelectionChanged(muxc.NavigationView sender, muxc.NavigationViewSelectionChangedEventArgs args)
@@ -60,7 +71,7 @@ namespace FluentHub.Views.AppSettings
                     SettingsContentFrame.Navigate(typeof(AccountsPage));
                     NavViewFrameTitleTextBlock.Text = "Accounts";
                     break;
-                case "codepreview":
+                case "repositories":
                     SettingsContentFrame.Navigate(typeof(CodePreviewPage));
                     NavViewFrameTitleTextBlock.Text = "Repositories";
                     break;
