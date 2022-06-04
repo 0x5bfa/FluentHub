@@ -64,10 +64,15 @@
                             <HyperlinkButton
                                 Grid.Column="0"
                                 Content="Source code"
-                                NavigateUri="https://github.com/fluenthub-uwp/FluentHub" />
-                            <HyperlinkButton Grid.Column="1" Content="Privacy policy" />
-                            <HyperlinkButton Grid.Column="2" Content="License" />
-                            <HyperlinkButton Grid.Column="3" Content="Third party notices" />
+                                NavigateUri="https://github.com/FluentHub/FluentHub" />
+                            <HyperlinkButton
+                                Grid.Column="1"
+                                Content="Website"
+                                NavigateUri="https://hub.codrex.dev" />
+                            <HyperlinkButton Grid.Column="2" Content="License" NavigateUri="https://github.com/FluentHub/FluentHub/blob/main/LICENSE" />
+                            <!--                        <HyperlinkButton Grid.Column="3" Content="Privacy policy" />
+                            <HyperlinkButton Grid.Column="4" Content="Third party notices" />
+-->
 
                         </Grid>
                     </uc:SettingsBlockControl.ExpandableContent>
@@ -229,7 +234,7 @@
                         HorizontalAlignment="Left"
                         Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                         CornerRadius="16">
-                        <Image Source="https://codrex.dev/branding/logo.png" />
+                        <Image Source="https://github.com/DeveloperWOW64.png" />
                     </Border>
 
                     <TextBlock

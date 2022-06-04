@@ -40,7 +40,6 @@
                     HorizontalContentAlignment="Left"
                     Background="Transparent"
                     Click="OnAccountButtonClick"
-                    IsEnabled="False"
                     Style="{StaticResource ClearButtonStyle}">
                     <Grid ColumnSpacing="12">
                         <Grid.ColumnDefinitions>
@@ -66,6 +65,7 @@
                                 x:Name="SignedInUserName"
                                 Style="{StaticResource CaptionTextBlockStyle}"
                                 Text="login name" />
+                            <HyperlinkButton Content="Sign Out" Click="OnSignOutButton_Click"/>
                         </StackPanel>
 
                     </Grid>
