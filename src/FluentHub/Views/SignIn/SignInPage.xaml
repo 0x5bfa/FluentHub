@@ -160,7 +160,7 @@
                     VerticalAlignment="Top"
                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                     Style="{StaticResource BodyTextBlockStyle}"
-                    Text="Click &quot;Authorize fluenthub-community&quot;;" />
+                    Text="Click &quot;Authorize FluentHub&quot;;" />
                 <TextBlock
                     Grid.Row="3"
                     Grid.Column="1"

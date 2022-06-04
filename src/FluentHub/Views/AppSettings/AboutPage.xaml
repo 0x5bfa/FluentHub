@@ -40,7 +40,7 @@
 
                         <StackPanel Orientation="Horizontal" Spacing="6">
                             <FontIcon FontSize="16" Glyph="&#xE8C8;" />
-                            <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Copy version" />
+                            <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Copy" />
                         </StackPanel>
 
                     </Button>
