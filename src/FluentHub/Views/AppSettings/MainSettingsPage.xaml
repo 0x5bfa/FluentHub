@@ -40,7 +40,7 @@
                     HorizontalContentAlignment="Left"
                     Background="Transparent"
                     Click="OnAccountButtonClick"
-                    IsEnabled="False"
+                    IsEnabled="True"
                     Style="{StaticResource ClearButtonStyle}">
                     <Grid ColumnSpacing="12">
                         <Grid.ColumnDefinitions>
@@ -66,8 +66,15 @@
                                 x:Name="SignedInUserName"
                                 Style="{StaticResource CaptionTextBlockStyle}"
                                 Text="login name" />
+                            <HyperlinkButton
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Left"
+                            Background="Transparent"
+                            Click="OnSignOutButton_Click"
+                            IsEnabled="True">
+                            Sign Out
+                            </HyperlinkButton>
                         </StackPanel>
-
                     </Grid>
                 </Button>
             </muxc:NavigationView.PaneHeader>
@@ -97,7 +104,7 @@
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
-                <muxc:NavigationViewItem Content="Repository" Tag="codepreview">
+                <muxc:NavigationViewItem Content="Repositories" Tag="codepreview">
                     <muxc:NavigationViewItem.Icon>
                         <FontIcon Glyph="&#xE14C;" />
                     </muxc:NavigationViewItem.Icon>
@@ -112,6 +119,7 @@
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
             </muxc:NavigationView.FooterMenuItems>
+            
 
             <muxc:NavigationView.Content>
                 <Grid Margin="20,8,-12,-6" RowSpacing="16">
