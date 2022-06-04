@@ -341,7 +341,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="This was mentioned" />
+                            Text="mentioned this" />
 
                     </Grid>
                 </toolkit:Case>
@@ -416,7 +416,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="HeadRefDeletedEvent" />
+                            Text="deleted the branch" />
 
                     </Grid>
                 </toolkit:Case>
@@ -575,7 +575,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="PullRequestCommit" />
+                            Text="commited changes" />
 
                     </Grid>
                 </toolkit:Case>
