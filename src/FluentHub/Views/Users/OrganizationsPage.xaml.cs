@@ -36,7 +36,7 @@ namespace FluentHub.Views.Users
             currentItem.DisplayUrl = $"Organizations";
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Organizations.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Organizations.targetsize-96.png"))
             };
 
             var command = ViewModel.RefreshOrganizationsCommand;

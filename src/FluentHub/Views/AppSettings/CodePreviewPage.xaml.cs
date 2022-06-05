@@ -24,7 +24,7 @@ namespace FluentHub.Views.AppSettings
             currentItem.Header = "Code Preview";
             currentItem.Description = "Code Preview settings";
             currentItem.Url = "fluenthub://settings?page=codepreview";
-            currentItem.DisplayUrl = $"Settings/Repositories";
+            currentItem.DisplayUrl = $"Settings / Repositories";
             currentItem.Icon = new muxc.FontIconSource
             {
                 Glyph = "\uE713"
