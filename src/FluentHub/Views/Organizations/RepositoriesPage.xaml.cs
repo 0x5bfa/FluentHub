@@ -30,6 +30,7 @@ namespace FluentHub.Views.Organizations
             currentItem.Header = $"Repositories";
             currentItem.Description = $"{DataContext}'s repositories";
             currentItem.Url = $"https://github.com/orgs/{DataContext}/repositories";
+            currentItem.DisplayUrl = $"{DataContext}/Repositories";
             currentItem.Icon = new muxc.FontIconSource
             {
                 Glyph = "\uEA27",

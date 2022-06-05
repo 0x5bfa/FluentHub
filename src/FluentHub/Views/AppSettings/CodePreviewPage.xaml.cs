@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
+﻿using FluentHub.Services;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Views.AppSettings
 {
@@ -20,6 +10,20 @@ namespace FluentHub.Views.AppSettings
         public CodePreviewPage()
         {
             this.InitializeComponent();
+        }
+
+        private readonly INavigationService navigationService;
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = "Code Preview";
+            currentItem.Description = "Code Preview settings";
+            currentItem.Url = "fluenthub://settings?page=codepreview";
+            currentItem.DisplayUrl = $"Settings/Repositories";
+            currentItem.Icon = new muxc.FontIconSource
+            {
+                Glyph = "\uE713"
+            };
         }
     }
 }

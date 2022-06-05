@@ -36,6 +36,7 @@ namespace FluentHub.Views.Users
             currentItem.Header = $"{login}";
             currentItem.Description = $"{login}'s overview";
             currentItem.Url = url;
+            currentItem.DisplayUrl = $"{login}";
             currentItem.Icon = new muxc.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Profile.png"))

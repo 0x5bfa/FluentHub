@@ -73,6 +73,18 @@ namespace FluentHub.Views.Repositories.Codes.Layouts
             }
 
             currentItem.Url = url;
+
+            string displayurl;
+            if (ContextViewModel.IsFile)
+            {
+                displayurl = $"{ContextViewModel.Owner}/{ContextViewModel.Name}/blob/{ContextViewModel.BranchName}{ContextViewModel.Path.TrimEnd('/')}";
+            }
+            else
+            {
+                displayurl = $"{ContextViewModel.Owner}/{ContextViewModel.Name}/{ContextViewModel.BranchName}";
+            }
+
+            currentItem.DisplayUrl = displayurl;
             currentItem.Icon = new muxc.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.png"))

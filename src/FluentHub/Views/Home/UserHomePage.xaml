@@ -191,7 +191,7 @@
                                                 CornerRadius="4">
                                                 <Image Source="/Assets/Icons/PullRequests.targetsize-96.png"/>
                                             </Border>
-                                            <TextBlock HorizontalAlignment="Center" Text="Pull request" />
+                                            <TextBlock HorizontalAlignment="Center" Text="Pull requests" />
                                         </StackPanel>
                                     </Grid>
                                 </Button>

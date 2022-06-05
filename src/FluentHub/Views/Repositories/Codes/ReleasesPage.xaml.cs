@@ -39,6 +39,7 @@ namespace FluentHub.Views.Repositories.Codes
             currentItem.Header = $"Releases · {ViewModel.ContextViewModel.Owner}/{ViewModel.ContextViewModel.Name}";
             currentItem.Description = currentItem.Header;
             currentItem.Url = $"https://github.com/{ViewModel.ContextViewModel.Owner}/{ViewModel.ContextViewModel.Name}/releases";
+            currentItem.DisplayUrl = $"{ViewModel.ContextViewModel.Owner}/{ViewModel.ContextViewModel.Name}/releases";
             currentItem.Icon = new muxc.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.png"))

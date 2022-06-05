@@ -27,6 +27,7 @@ namespace FluentHub.Views.AppSettings
             currentItem.Header = "Appearance";
             currentItem.Description = "Appearance settings";
             currentItem.Url = "fluenthub://settings?page=appearance";
+            currentItem.DisplayUrl = $"Settings/Appearance";
             currentItem.Icon = new muxc.FontIconSource
             {
                 Glyph = "\uE713",

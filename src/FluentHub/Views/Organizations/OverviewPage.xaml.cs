@@ -31,6 +31,7 @@ namespace FluentHub.Views.Organizations
             currentItem.Header = $"{org}";
             currentItem.Description = $"{org}";
             currentItem.Url = $"https://github.com/{org}";
+            currentItem.DisplayUrl = $"{org}";
             currentItem.Icon = new muxc.FontIconSource
             {
                 Glyph = "\uEA27",

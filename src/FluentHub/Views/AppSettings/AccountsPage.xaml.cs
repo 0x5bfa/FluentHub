@@ -26,6 +26,7 @@ namespace FluentHub.Views.AppSettings
             currentItem.Header = "Accounts";
             currentItem.Description = "Users signed in FluentHub";
             currentItem.Url = "fluenthub://settings?page=accounts";
+            currentItem.DisplayUrl = $"Settings/Accounts";
             currentItem.Icon = new muxc.FontIconSource
             {
                 Glyph = "\uE713",

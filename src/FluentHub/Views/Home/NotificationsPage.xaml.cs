@@ -31,6 +31,7 @@ namespace FluentHub.Views.Home
             currentItem.Header = "Notifications";
             currentItem.Description = "Viewer's notifications";
             currentItem.Url = "https://github.com/notifications";
+            currentItem.DisplayUrl = $"Notifications";
             currentItem.Icon = new muxc.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Notifications.png"))
