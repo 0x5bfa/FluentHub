@@ -1,4 +1,6 @@
 ﻿using FluentHub.Services;
+using FluentHub.ViewModels.AppSettings;
+using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using muxc = Microsoft.UI.Xaml.Controls;
@@ -10,6 +12,9 @@ namespace FluentHub.Views.AppSettings
         public CodePreviewPage()
         {
             this.InitializeComponent();
+
+            var provider = App.Current.Services;
+            navigationService = provider.GetRequiredService<INavigationService>();
         }
 
         private readonly INavigationService navigationService;
