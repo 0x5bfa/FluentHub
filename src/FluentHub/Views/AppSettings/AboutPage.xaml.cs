@@ -3,6 +3,7 @@ using FluentHub.ViewModels.AppSettings;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml.Media.Imaging;
 using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Views.AppSettings
@@ -27,9 +28,9 @@ namespace FluentHub.Views.AppSettings
             currentItem.Description = "About FluentHub";
             currentItem.Url = "fluenthub://settings?page=about";
             currentItem.DisplayUrl = $"Settings / About";
-            currentItem.Icon = new muxc.FontIconSource
+            currentItem.Icon = new muxc.ImageIconSource
             {
-                Glyph = "\uE713"
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Settings.targetsize-96.png"))
             };
         }
     }

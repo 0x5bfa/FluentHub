@@ -746,6 +746,13 @@
     <Content Include="Assets\Icons\Repositories.targetsize-48.png" />
     <Content Include="Assets\Icons\Repositories.targetsize-64.png" />
     <Content Include="Assets\Icons\Repositories.targetsize-96.png" />
+    <Content Include="Assets\Icons\Settings.targetsize-16.png" />
+    <Content Include="Assets\Icons\Settings.targetsize-20.png" />
+    <Content Include="Assets\Icons\Settings.targetsize-24.png" />
+    <Content Include="Assets\Icons\Settings.targetsize-32.png" />
+    <Content Include="Assets\Icons\Settings.targetsize-48.png" />
+    <Content Include="Assets\Icons\Settings.targetsize-64.png" />
+    <Content Include="Assets\Icons\Settings.targetsize-96.png" />
     <Content Include="Assets\Icons\Starred.targetsize-16.png" />
     <Content Include="Assets\Icons\Starred.targetsize-20.png" />
     <Content Include="Assets\Icons\Starred.targetsize-24.png" />
