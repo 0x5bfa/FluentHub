@@ -30,11 +30,10 @@ namespace FluentHub.Views.Organizations
             currentItem.Header = $"Repositories";
             currentItem.Description = $"{DataContext}'s repositories";
             currentItem.Url = $"https://github.com/orgs/{DataContext}/repositories";
-            currentItem.DisplayUrl = $"{DataContext}/Repositories";
-            currentItem.Icon = new muxc.FontIconSource
+            currentItem.DisplayUrl = $"{DataContext} / Repositories";
+            currentItem.Icon = new muxc.ImageIconSource
             {
-                Glyph = "\uEA27",
-                FontFamily = new Windows.UI.Xaml.Media.FontFamily("/Assets/Glyphs/Octions.ttf#octions")
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.targetsize-96.png"))
             };
 
             var command = ViewModel.RefreshRepositoriesCommand;

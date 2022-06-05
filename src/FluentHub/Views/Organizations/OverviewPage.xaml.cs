@@ -32,10 +32,9 @@ namespace FluentHub.Views.Organizations
             currentItem.Description = $"{org}";
             currentItem.Url = $"https://github.com/{org}";
             currentItem.DisplayUrl = $"{org}";
-            currentItem.Icon = new muxc.FontIconSource
+            currentItem.Icon = new muxc.ImageIconSource
             {
-                Glyph = "\uEA27",
-                FontFamily = new Windows.UI.Xaml.Media.FontFamily("/Assets/Glyphs/Octions.ttf#octions")
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Organizations.targetsize-96.png"))
             };
             #endregion
 

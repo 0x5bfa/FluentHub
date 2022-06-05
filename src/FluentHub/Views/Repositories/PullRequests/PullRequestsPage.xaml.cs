@@ -28,12 +28,13 @@ namespace FluentHub.Views.Repositories.PullRequests
             var nameAndOwner = nameWithOwner.Split("/");
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = "PullRequests";
-            currentItem.Description = "Viewer's pull requests";
+            currentItem.Header = "Pull Requests";
+            currentItem.Description = "{nameAndOwner[0]}'s pull requests";
             currentItem.Url = $"https://github.com/{nameAndOwner[0]}/{nameAndOwner[1]}/pulls";
+            currentItem.DisplayUrl = $"{nameAndOwner[0]} / {nameAndOwner[1]} / Pulls";
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/PullRequests.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/PullRequests.targetsize-96.png"))
             };
 
             var command = ViewModel.RefreshPullRequestsPageCommand;
