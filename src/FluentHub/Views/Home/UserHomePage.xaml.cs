@@ -34,7 +34,7 @@ namespace FluentHub.Views.Home
             currentItem.DisplayUrl = $"Home";
             currentItem.Icon = new muxc.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Home.targetsize-96.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Home.png"))
             };
 
             var command = ViewModel.LoadHomeContentsCommand;

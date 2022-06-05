@@ -690,6 +690,13 @@
     <Content Include="Assets\Icons\Discussions.targetsize-48.png" />
     <Content Include="Assets\Icons\Discussions.targetsize-64.png" />
     <Content Include="Assets\Icons\Discussions.targetsize-96.png" />
+    <Content Include="Assets\Icons\Home.targetsize-16.png" />
+    <Content Include="Assets\Icons\Home.targetsize-20.png" />
+    <Content Include="Assets\Icons\Home.targetsize-24.png" />
+    <Content Include="Assets\Icons\Home.targetsize-32.png" />
+    <Content Include="Assets\Icons\Home.targetsize-48.png" />
+    <Content Include="Assets\Icons\Home.targetsize-64.png" />
+    <Content Include="Assets\Icons\Home.targetsize-96.png" />
     <Content Include="Assets\Icons\Issues.targetsize-16.png" />
     <Content Include="Assets\Icons\Issues.targetsize-20.png" />
     <Content Include="Assets\Icons\Issues.targetsize-24.png" />
