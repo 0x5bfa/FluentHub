@@ -15,9 +15,9 @@ using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub.Views.AppSettings
 {
-    public sealed partial class CodePreviewPage : Page
+    public sealed partial class RepositoryPage : Page
     {
-        public CodePreviewPage()
+        public RepositoryPage()
         {
             this.InitializeComponent();
         }

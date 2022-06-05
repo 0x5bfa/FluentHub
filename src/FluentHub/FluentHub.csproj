@@ -341,8 +341,8 @@
     <Compile Include="Views\AppSettings\AccountsPage.xaml.cs">
       <DependentUpon>AccountsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AppSettings\CodePreviewPage.xaml.cs">
-      <DependentUpon>CodePreviewPage.xaml</DependentUpon>
+    <Compile Include="Views\AppSettings\RepositoryPage.xaml.cs">
+      <DependentUpon>RepositoryPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AppSettings\MainSettingsPage.xaml.cs">
       <DependentUpon>MainSettingsPage.xaml</DependentUpon>
@@ -691,6 +691,10 @@
     <Content Include="Assets\AppTiles\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\AppTiles\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\AppTiles\Wide310x150Logo.scale-400.png" />
+    <Content Include="Assets\EmojiImages\add-user-male.png" />
+    <Content Include="Assets\EmojiImages\appointment-reminders.png" />
+    <Content Include="Assets\EmojiImages\paint-palette.png" />
+    <Content Include="Assets\EmojiImages\repository.png" />
     <Content Include="Assets\Icons\Activities.targetsize-16.png" />
     <Content Include="Assets\Icons\Activities.targetsize-20.png" />
     <Content Include="Assets\Icons\Activities.targetsize-24.png" />
@@ -967,7 +971,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AppSettings\CodePreviewPage.xaml">
+    <Page Include="Views\AppSettings\RepositoryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

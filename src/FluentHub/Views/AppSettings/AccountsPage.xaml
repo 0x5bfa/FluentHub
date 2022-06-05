@@ -104,39 +104,51 @@
                 </StackPanel>
             </Grid>
 
-            <StackPanel Grid.Row="1">
-                <Button Style="{StaticResource ContentBlockButtonStyle}">
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-
-                        <FontIcon Margin="2,0,20,0" Glyph="&#xE779;" />
-
-                        <StackPanel Grid.Column="1">
-                            <TextBlock
-                                x:Name="TitleBlock"
-                                Grid.Row="1"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="Your info" />
-
-                            <TextBlock
-                                x:Name="DescriptionBlock"
-                                Grid.Row="1"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Style="{StaticResource CaptionTextBlockStyle}"
-                                Text="Access your GitHub accounts info" />
-                        </StackPanel>
-
-                        <FontIcon
-                            Grid.Column="2"
-                            Margin="24,0,0,0"
-                            Glyph="&#xE72D;" />
-
-                    </Grid>
-                </Button>
+            <StackPanel Grid.Row="1" Spacing="4">
+                <uc:SettingsBlockControl
+                    Title="Your GitHub account"
+                    Description="Access your GitHub accounts info"
+                    IsClickable="True">
+                    <uc:SettingsBlockControl.Icon>
+                        <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xEA0B;" />
+                    </uc:SettingsBlockControl.Icon>
+                    <uc:SettingsBlockControl.SettingsActionableElement>
+                        <FontIcon FontSize="14" Glyph="&#xE76C;" />
+                    </uc:SettingsBlockControl.SettingsActionableElement>
+                </uc:SettingsBlockControl>
+                <uc:SettingsBlockControl
+                    Title="Your info"
+                    Description="Access your FluentHub settings"
+                    IsClickable="True">
+                    <uc:SettingsBlockControl.Icon>
+                        <FontIcon Glyph="&#xE779;" />
+                    </uc:SettingsBlockControl.Icon>
+                    <uc:SettingsBlockControl.SettingsActionableElement>
+                        <FontIcon FontSize="14" Glyph="&#xE76C;" />
+                    </uc:SettingsBlockControl.SettingsActionableElement>
+                </uc:SettingsBlockControl>
+                <uc:SettingsBlockControl
+                    Title="Security"
+                    Description="Manage your account security"
+                    IsClickable="True">
+                    <uc:SettingsBlockControl.Icon>
+                        <FontIcon Glyph="&#xE8D7;" />
+                    </uc:SettingsBlockControl.Icon>
+                    <uc:SettingsBlockControl.SettingsActionableElement>
+                        <FontIcon FontSize="14" Glyph="&#xE76C;" />
+                    </uc:SettingsBlockControl.SettingsActionableElement>
+                </uc:SettingsBlockControl>
+                <uc:SettingsBlockControl
+                    Title="Other users"
+                    Description="Add and switch to new user"
+                    IsClickable="True">
+                    <uc:SettingsBlockControl.Icon>
+                        <FontIcon Glyph="&#xE8FA;" />
+                    </uc:SettingsBlockControl.Icon>
+                    <uc:SettingsBlockControl.SettingsActionableElement>
+                        <FontIcon FontSize="14" Glyph="&#xE76C;" />
+                    </uc:SettingsBlockControl.SettingsActionableElement>
+                </uc:SettingsBlockControl>
             </StackPanel>
 
         </Grid>

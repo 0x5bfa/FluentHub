@@ -96,7 +96,7 @@
 
                 <muxc:NavigationViewItem Content="Appearance" Tag="appearance">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE790;" />
+                        <muxc:ImageIcon Source="/Assets/EmojiImages/paint-palette.png" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
@@ -105,13 +105,19 @@
                     Content="Accounts"
                     Tag="accounts">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE77B;" />
+                        <muxc:ImageIcon Source="/Assets/EmojiImages/add-user-male.png" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
                 <muxc:NavigationViewItem Content="Repository" Tag="repositories">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE14C;" />
+                        <muxc:ImageIcon Source="/Assets/EmojiImages/repository.png" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+
+                <muxc:NavigationViewItem Content="Notifications" Tag="notifications">
+                    <muxc:NavigationViewItem.Icon>
+                        <muxc:ImageIcon Source="/Assets/EmojiImages/appointment-reminders.png" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
