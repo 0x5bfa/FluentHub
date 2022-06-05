@@ -33,7 +33,7 @@ namespace FluentHub.Views.Repositories.Discussions
             currentItem.Url = $"https://github.com/{nameAndOwner[0]}/{nameAndOwner[1]}/pulls";
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/PullRequests.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Discussions.targetsize-96.png"))
             };
 
             var command = ViewModel.LoadDiscussionsPageCommand;
