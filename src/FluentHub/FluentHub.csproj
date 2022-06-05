@@ -711,6 +711,13 @@
     <Content Include="Assets\Icons\Organizations.targetsize-48.png" />
     <Content Include="Assets\Icons\Organizations.targetsize-64.png" />
     <Content Include="Assets\Icons\Organizations.targetsize-96.png" />
+    <Content Include="Assets\Icons\Private.targetsize-16.png" />
+    <Content Include="Assets\Icons\Private.targetsize-20.png" />
+    <Content Include="Assets\Icons\Private.targetsize-24.png" />
+    <Content Include="Assets\Icons\Private.targetsize-32.png" />
+    <Content Include="Assets\Icons\Private.targetsize-48.png" />
+    <Content Include="Assets\Icons\Private.targetsize-64.png" />
+    <Content Include="Assets\Icons\Private.targetsize-96.png" />
     <Content Include="Assets\Icons\Profile.targetsize-16.png" />
     <Content Include="Assets\Icons\Profile.targetsize-20.png" />
     <Content Include="Assets\Icons\Profile.targetsize-24.png" />

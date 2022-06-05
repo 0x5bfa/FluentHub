@@ -93,18 +93,10 @@
 
                                     <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind IsPrivate, Mode=OneWay}">
                                         <toolkit:Case Value="True">
-                                            <FontIcon
-                                                FontFamily="{StaticResource Octions}"
-                                                FontSize="16"
-                                                Foreground="Gold"
-                                                Glyph="&#xEA05;" />
+                                            <Image Width="16" Source="/Assets/Icons/Private.targetsize-96.png"/>
                                         </toolkit:Case>
                                         <toolkit:Case Value="False">
-                                            <FontIcon
-                                                FontFamily="{StaticResource Octions}"
-                                                FontSize="16"
-                                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                                Glyph="&#xEA52;" />
+                                            <Image Width="16" Source="/Assets/Icons/Repositories.targetsize-96.png"/>
                                         </toolkit:Case>
                                     </toolkit:SwitchPresenter>
 
@@ -151,7 +143,7 @@
                         <TextBlock
                             Margin="-18,0"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="My Work" />
+                            Text="Work" />
                     </muxc:Expander.Header>
                     <muxc:Expander.Content>
                         <ScrollViewer
@@ -169,8 +161,7 @@
                                     Padding="0"
                                     Click="OnIssueButtonClick">
                                     <Grid Width="126" Height="94">
-                                        <Border
-                                            
+                                        <Border                                        
                                             CornerRadius="4"
                                             Opacity="0.2" />
                                         <StackPanel VerticalAlignment="Center" Spacing="4">
@@ -190,8 +181,7 @@
                                     Padding="0"
                                     Click="OnPullRequestsButtonClick">
                                     <Grid Width="126" Height="94">
-                                        <Border
-                                            
+                                        <Border                                            
                                             CornerRadius="4"
                                             Opacity="0.2" />
                                         <StackPanel VerticalAlignment="Center" Spacing="4">
@@ -211,8 +201,7 @@
                                     Padding="0"
                                     Click="OnDiscussionsButtonClick">
                                     <Grid Width="126" Height="94">
-                                        <Border
-                                            
+                                        <Border                                            
                                             CornerRadius="4"
                                             Opacity="0.2" />
                                         <StackPanel VerticalAlignment="Center" Spacing="4">
@@ -232,8 +221,7 @@
                                     Padding="0"
                                     Click="OnRepositoriesButtonClick">
                                     <Grid Width="126" Height="94">
-                                        <Border
-                                            
+                                        <Border                                           
                                             CornerRadius="4"
                                             Opacity="0.2" />
                                         <StackPanel VerticalAlignment="Center" Spacing="4">
@@ -253,8 +241,7 @@
                                     Padding="0"
                                     Click="OnOrganizationsButtonClick">
                                     <Grid Width="126" Height="94">
-                                        <Border
-                                            
+                                        <Border                                           
                                             CornerRadius="4"
                                             Opacity="0.2" />
                                         <StackPanel VerticalAlignment="Center" Spacing="4">
@@ -274,8 +261,7 @@
                                     Padding="0"
                                     Click="OnStarsButtonClick">
                                     <Grid Width="126" Height="94">
-                                        <Border
-                                            
+                                        <Border                                            
                                             CornerRadius="4"
                                             Opacity="0.2" />
                                         <StackPanel VerticalAlignment="Center" Spacing="4">
@@ -300,7 +286,7 @@
                     Padding="0"
                     HorizontalAlignment="Stretch"
                     HorizontalContentAlignment="Stretch"
-                    IsExpanded="True">
+                    IsExpanded="False">
                     <muxc:Expander.Header>
                         <TextBlock
                             Margin="-18,0"
@@ -343,10 +329,14 @@
                         <TextBlock
                             Margin="-18,0"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="Recents" />
+                            Text="Activity" />
                     </muxc:Expander.Header>
                     <muxc:Expander.Content>
                         <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
                             <ListView
                                 Margin="-4,0"
                                 HorizontalAlignment="Stretch"
@@ -489,23 +479,20 @@
                                                     Style="{StaticResource CaptionTextBlockStyle}"
                                                     Text="{x:Bind FullReason, Mode=OneWay}" />
                                             </Grid>
-
                                         </Grid>
+
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
                             </ListView>
+                            <Button
+                                Grid.Row="1"
+                                HorizontalAlignment="Center"
+                                Click="OnMoreActivitiesButtonClick"
+                                Content="See more" />
                         </Grid>
                     </muxc:Expander.Content>
                 </muxc:Expander>
-
-                <Button
-                    Grid.Row="4"
-                    HorizontalAlignment="Center"
-                    Click="OnMoreActivitiesButtonClick"
-                    Content="See more activities" />
-
             </Grid>
         </ScrollViewer>
-
     </Grid>
 </Page>

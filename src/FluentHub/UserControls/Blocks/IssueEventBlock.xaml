@@ -116,7 +116,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="Someone was assigned" />
+                            Text="was assigned" />
 
                     </Grid>
                 </toolkit:Case>
@@ -266,7 +266,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="Closed this" />
+                            Text="closed this" />
 
                     </Grid>
                 </toolkit:Case>
