@@ -170,20 +170,15 @@
                                     Click="OnIssueButtonClick">
                                     <Grid Width="126" Height="94">
                                         <Border
-                                            Background="#40d563"
+                                            
                                             CornerRadius="4"
                                             Opacity="0.2" />
                                         <StackPanel VerticalAlignment="Center" Spacing="4">
                                             <Border
                                                 Width="40"
                                                 Height="36"
-                                                Background="#40d563"
                                                 CornerRadius="4">
-                                                <FontIcon
-                                                    FontFamily="{StaticResource Octions}"
-                                                    FontSize="18"
-                                                    Foreground="White"
-                                                    Glyph="&#xE9EA;" />
+                                                <Image Source="/Assets/Icons/Issues.targetsize-96.png"/>
                                             </Border>
                                             <TextBlock HorizontalAlignment="Center" Text="Issues" />
                                         </StackPanel>
@@ -196,20 +191,15 @@
                                     Click="OnPullRequestsButtonClick">
                                     <Grid Width="126" Height="94">
                                         <Border
-                                            Background="#2e8ffe"
+                                            
                                             CornerRadius="4"
                                             Opacity="0.2" />
                                         <StackPanel VerticalAlignment="Center" Spacing="4">
                                             <Border
                                                 Width="40"
                                                 Height="36"
-                                                Background="#2e8ffe"
                                                 CornerRadius="4">
-                                                <FontIcon
-                                                    FontFamily="{StaticResource Octions}"
-                                                    FontSize="18"
-                                                    Foreground="White"
-                                                    Glyph="&#xE9BF;" />
+                                                <Image Source="/Assets/Icons/PullRequests.targetsize-96.png"/>
                                             </Border>
                                             <TextBlock HorizontalAlignment="Center" Text="Pull request" />
                                         </StackPanel>
@@ -222,20 +212,15 @@
                                     Click="OnDiscussionsButtonClick">
                                     <Grid Width="126" Height="94">
                                         <Border
-                                            Background="#7548c7"
+                                            
                                             CornerRadius="4"
                                             Opacity="0.2" />
                                         <StackPanel VerticalAlignment="Center" Spacing="4">
                                             <Border
                                                 Width="40"
                                                 Height="36"
-                                                Background="#7548c7"
                                                 CornerRadius="4">
-                                                <FontIcon
-                                                    FontFamily="{StaticResource Octions}"
-                                                    FontSize="18"
-                                                    Foreground="White"
-                                                    Glyph="&#xE95D;" />
+                                                <Image Source="/Assets/Icons/Discussions.targetsize-96.png"/>
                                             </Border>
                                             <TextBlock HorizontalAlignment="Center" Text="Discussions" />
                                         </StackPanel>
@@ -248,20 +233,15 @@
                                     Click="OnRepositoriesButtonClick">
                                     <Grid Width="126" Height="94">
                                         <Border
-                                            Background="#41434e"
+                                            
                                             CornerRadius="4"
                                             Opacity="0.2" />
                                         <StackPanel VerticalAlignment="Center" Spacing="4">
                                             <Border
                                                 Width="40"
                                                 Height="36"
-                                                Background="#41434e"
                                                 CornerRadius="4">
-                                                <FontIcon
-                                                    FontFamily="{StaticResource Octions}"
-                                                    FontSize="18"
-                                                    Foreground="White"
-                                                    Glyph="&#xEA52;" />
+                                                <Image Source="/Assets/Icons/Repositories.targetsize-96.png"/>
                                             </Border>
                                             <TextBlock HorizontalAlignment="Center" Text="Repositories" />
                                         </StackPanel>
@@ -274,20 +254,15 @@
                                     Click="OnOrganizationsButtonClick">
                                     <Grid Width="126" Height="94">
                                         <Border
-                                            Background="#fe8a38"
+                                            
                                             CornerRadius="4"
                                             Opacity="0.2" />
                                         <StackPanel VerticalAlignment="Center" Spacing="4">
                                             <Border
                                                 Width="40"
                                                 Height="36"
-                                                Background="#fe8a38"
                                                 CornerRadius="4">
-                                                <FontIcon
-                                                    FontFamily="{StaticResource Octions}"
-                                                    FontSize="18"
-                                                    Foreground="White"
-                                                    Glyph="&#xEA27;" />
+                                                <Image Source="/Assets/Icons/Organizations.targetsize-96.png"/>
                                             </Border>
                                             <TextBlock HorizontalAlignment="Center" Text="Organizations" />
                                         </StackPanel>
@@ -300,20 +275,15 @@
                                     Click="OnStarsButtonClick">
                                     <Grid Width="126" Height="94">
                                         <Border
-                                            Background="#fecb1a"
+                                            
                                             CornerRadius="4"
                                             Opacity="0.2" />
                                         <StackPanel VerticalAlignment="Center" Spacing="4">
                                             <Border
                                                 Width="40"
                                                 Height="36"
-                                                Background="#fecb1a"
                                                 CornerRadius="4">
-                                                <FontIcon
-                                                    FontFamily="{StaticResource Octions}"
-                                                    FontSize="18"
-                                                    Foreground="White"
-                                                    Glyph="&#xEA94;" />
+                                                <Image Source="/Assets/Icons/Starred.targetsize-96.png"/>
                                             </Border>
                                             <TextBlock HorizontalAlignment="Center" Text="Stars" />
                                         </StackPanel>
