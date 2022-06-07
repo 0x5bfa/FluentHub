@@ -46,7 +46,7 @@ namespace FluentHub.UserControls.Blocks
         {
             WebViewHelpers.DisableWebViewVerticalScrolling(ref ReadmeWebView);
 
-            // TODO: window sizw changed
+            // TODO: window size changed
         }
 
         private void ReadmeWebView_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
