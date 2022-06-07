@@ -45,7 +45,7 @@ namespace FluentHub.Views.Home
         private void OnHomeRepositoriesListItemClick(object sender, ItemClickEventArgs e)
         {
             var clickedItem = e.ClickedItem as Repository;
-            navigationService.Navigate<Repositories.OverviewPage>(clickedItem);
+            navigationService.Navigate<Repositories.OverviewPage>($"{App.DefaultGitHubDomain}/{clickedItem.Owner.Login}/{clickedItem.Name}");
         }
 
         private void OnIssueButtonClick(object sender, RoutedEventArgs e)

@@ -61,20 +61,13 @@
                 Orientation="Horizontal"
                 Spacing="4">
 
-                <Grid
-                    Height="20"
+                <TextBlock
                     Margin="0,4,0,0"
-                    Padding="2,0"
-                    BorderBrush="{ThemeResource MenuFlyoutSeparatorThemeBrush}"
-                    BorderThickness="1,1.5"
-                    CornerRadius="4">
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        FontFamily="Cascadia Code"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="{x:Bind ViewModel.CommitOverviewItem.AbbreviatedOid, Mode=OneWay}" />
-                </Grid>
+                    VerticalAlignment="Center"
+                    FontFamily="Cascadia Code"
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="{x:Bind ViewModel.CommitOverviewItem.AbbreviatedOid, Mode=OneWay}" />
 
                 <TextBlock
                     Margin="6,0,0,0"

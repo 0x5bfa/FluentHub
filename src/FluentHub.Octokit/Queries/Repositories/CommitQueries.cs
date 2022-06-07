@@ -4,9 +4,6 @@
     {
         public async Task<List<Commit>> GetAllAsync(string name, string owner, string refs, string path)
         {
-            if (path[0] == '/')
-                path = path.Remove(0, 1);
-
             if (string.IsNullOrEmpty(path)) path = ".";
 
             #region query
@@ -70,8 +67,6 @@
 
         public async Task<Commit> GetAsync(string name, string owner, string refs, string path)
         {
-            path = path.Remove(0, 1);
-
             if (string.IsNullOrEmpty(path)) path = ".";
 
             #region query
@@ -89,9 +84,9 @@
                             Oid =y.Oid,
                             AuthorAvatarUrl = y.Author.Select(author => author.AvatarUrl(100)).SingleOrDefault(),
                             AuthorName = y.Author.Select(author => author.User.Select(user => user.Login).SingleOrDefault()).SingleOrDefault(),
-                            CommitMessage =y.Message,
+                            CommitMessage = y.Message,
 
-                            CommittedAt =y.CommittedDate,
+                            CommittedAt = y.CommittedDate,
                             CommittedAtHumanized = y.CommittedDate.Humanize(null, null),
                         })
                         .ToList().FirstOrDefault(),
@@ -110,8 +105,6 @@
 
         public async Task<List<Commit>> GetWithObjectNameAsync(string name, string owner, string refs, string path)
         {
-            path = path.Remove(0, 1);
-
             #region objectQuery
             var queryToGetFileInfo = new Query()
                 .Repository(name, owner)

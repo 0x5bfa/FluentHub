@@ -20,97 +20,104 @@ namespace FluentHub.Views.Repositories.Codes.Layouts
     {
         public DetailsLayoutView()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<DetailsLayoutViewModel>();
             navigationService = App.Current.Services.GetRequiredService<INavigationService>();
         }
 
-        private RepoContextViewModel ContextViewModel { get; set; }
+        private static RepoContextViewModel ContextViewModel { get; set; }
         public DetailsLayoutViewModel ViewModel { get; }
         private readonly INavigationService navigationService;
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            ContextViewModel = e.Parameter as RepoContextViewModel;
-            ViewModel.ContextViewModel = ContextViewModel;
-            DataContext = ViewModel;
+            var url = e.Parameter as string;
+            var uri = new Uri(url);
+            var pathSegments = uri.AbsolutePath.Split("/").ToList();
+            pathSegments.RemoveAt(0);
+
+            if (ContextViewModel != null && pathSegments.Count() != 2)
+            {
+                ViewModel.ContextViewModel = ContextViewModel;
+            }
+            else
+            {
+                var command1 = ViewModel.LoadRepositoryCommand;
+                if (command1.CanExecute(url))
+                    await command1.ExecuteAsync(url);
+
+                ViewModel.ContextViewModel = ContextViewModel = new()
+                {
+                    IsRootDir = true,
+                    Repository = ViewModel.Repository,
+                    BranchName = ViewModel.Repository.DefaultBranchName,
+                };
+            }
 
             #region tabitem
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
 
-            string header;
             if (ContextViewModel.IsRootDir)
             {
                 if (string.IsNullOrEmpty(ContextViewModel.Repository.Description))
-                {
-                    header = $"{ContextViewModel.Owner}/{ContextViewModel.Name}";
-                }
+                    currentItem.Header = $"{ContextViewModel.Repository.Owner.Login}/{ContextViewModel.Repository.Name}";
                 else
-                {
-                    header = $"{ContextViewModel.Owner}/{ContextViewModel.Name}: {ContextViewModel.Repository.Description}";
-                }
+                    currentItem.Header = $"{ContextViewModel.Repository.Owner.Login}/{ContextViewModel.Repository.Name}: {ContextViewModel.Repository.Description}";
             }
             else
-            {
-                string middlePath = ContextViewModel.Path.Remove(0, 1);
-                middlePath = middlePath.Remove(middlePath.Length - 1, 1);
-                header = $"{ContextViewModel.Name}/{middlePath} at {ContextViewModel.BranchName} · {ContextViewModel.Owner}/{ContextViewModel.Name}";
-            }
-
-            currentItem.Header = header;
-            currentItem.Description = currentItem.Header;
-
-            string url;
-            if (ContextViewModel.IsFile)
-            {
-                url = $"https://github.com/{ContextViewModel.Owner}/{ContextViewModel.Name}/blob/{ContextViewModel.BranchName}{ContextViewModel.Path.TrimEnd('/')}";
-            }
-            else
-            {
-                url = $"https://github.com/{ContextViewModel.Owner}/{ContextViewModel.Name}/tree/{ContextViewModel.BranchName}{ContextViewModel.Path.TrimEnd('/')}";
-            }
+                currentItem.Header = $"{ContextViewModel.Repository.Name}/{ContextViewModel.Path} at {ContextViewModel.BranchName} · {ContextViewModel.Repository.Owner.Login}/{ContextViewModel.Repository.Name}";
 
             currentItem.Url = url;
+            currentItem.Description = currentItem.Header;
             currentItem.Icon = new muxc.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.png"))
             };
             #endregion
 
-            var command = ViewModel.RefreshDetailsLayoutPageCommand;
-            if (command.CanExecute(null))
-                command.Execute(null);
+            var command2 = ViewModel.RefreshDetailsLayoutPageCommand;
+            if (command2.CanExecute(url))
+                command2.Execute(url);
         }
 
         private void OnDirListViewDoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
             var repoContextViewModel = new RepoContextViewModel()
             {
-                IsRootDir = true,
-                Name = ViewModel.ContextViewModel.Repository.Name,
-                Owner = ViewModel.ContextViewModel.Repository.Owner.Login,
                 Repository = ViewModel.ContextViewModel.Repository,
                 BranchName = ViewModel.ContextViewModel.BranchName,
             };
 
             var item = DirListView.SelectedItem as DetailsLayoutListViewModel;
+            var tagItem = item?.ObjectTag?.Split("/");
 
-            var tagItem = item?.ObjectTag.Split("/");
-
-            if (tagItem[0] == "tree")
+            if (tagItem.First() == "tree")
             {
                 repoContextViewModel.IsSubDir = true;
-                repoContextViewModel.Path = ContextViewModel.Path + tagItem[1] + "/";
+                repoContextViewModel.Path = ContextViewModel.Path;
+
+                if (!string.IsNullOrEmpty(repoContextViewModel.Path)) repoContextViewModel.Path += "/";
+                repoContextViewModel.Path += tagItem.Last();
             }
             else // blob
             {
                 repoContextViewModel.IsFile = true;
-                repoContextViewModel.Path = ContextViewModel.Path + tagItem[1];
+                repoContextViewModel.Path = ContextViewModel.Path;
+
+                if (!string.IsNullOrEmpty(repoContextViewModel.Path)) repoContextViewModel.Path += "/";
+                repoContextViewModel.Path += tagItem.Last();
             }
 
-            MainPageViewModel.RepositoryContentFrame.Navigate(typeof(DetailsLayoutView), repoContextViewModel);
+            var objType = ContextViewModel.IsFile ? "blob" : "tree";
+
+            string url = $"{App.DefaultGitHubDomain}/{repoContextViewModel.Repository.Name}/{repoContextViewModel.Repository.Owner.Login}/{objType}/{repoContextViewModel.BranchName}/{repoContextViewModel.Path}";
+
+            // Sync
+            ContextViewModel = repoContextViewModel;
+
+            MainPageViewModel.RepositoryContentFrame.Navigate(typeof(DetailsLayoutView), url);
         }
 
         private void OnLatestReleaseClick(object sender, RoutedEventArgs e)

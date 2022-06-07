@@ -50,7 +50,12 @@ namespace FluentHub.ViewModels.UserControls.Blocks
             try
             {
                 RepositoryQueries queries = new();
-                HtmlText = await queries.GetReadmeHtml(ContextViewModel.Owner, ContextViewModel.Name, ContextViewModel.BranchName, ThemeHelper.ActualTheme.ToString().ToLower());
+                HtmlText = await queries.GetReadmeHtml(
+                    ContextViewModel.Repository.Owner.Login,
+                    ContextViewModel.Repository.Name,
+                    ContextViewModel.BranchName,
+                    ThemeHelper.ActualTheme.ToString().ToLower()
+                    );
 
                 if (HtmlText == null) return;
 

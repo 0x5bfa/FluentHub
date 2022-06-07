@@ -19,67 +19,150 @@ namespace FluentHub.Views.Repositories
         public OverviewPage()
         {
             InitializeComponent();
+
+            var provider = App.Current.Services;
+            ViewModel = provider.GetRequiredService<OverviewViewModel>();
+            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
+
             MainPageViewModel.RepositoryContentFrame.Navigating += OnRepositoryContentFrameNavigating;
         }
 
-        OverviewViewModel ViewModel = new();
+        private readonly INavigationService navigationService;
+        public OverviewViewModel ViewModel { get; }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            ViewModel.Repository = e.Parameter as Octokit.Models.Repository;
-            DataContext = ViewModel;
+            var url = e.Parameter as string;
+            var uri = new Uri(url);
+            var pathSegments = uri.AbsolutePath.Split("/").ToList();
+            pathSegments.RemoveAt(0);
 
-            var command = ViewModel.LoadOverviewPageCommand;
-            if (command.CanExecute(null))
-                await command.ExecuteAsync(null);
-
-            var repoContextViewModel = new RepoContextViewModel()
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = $"Repository overview";
+            currentItem.Description = currentItem.Header;
+            currentItem.Url = url;
+            currentItem.Icon = new muxc.ImageIconSource
             {
-                IsRootDir = true,
-                Name = ViewModel.Repository.Name,
-                Owner = ViewModel.Repository.Owner.Login,
-                Repository = ViewModel.Repository,
-                BranchName = ViewModel.Repository.DefaultBranchName ?? null,
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.png"))
             };
 
-            RepoPageNavViewFrame.Navigate(typeof(CodePage), repoContextViewModel);
+            var command = ViewModel.LoadOverviewPageCommand;
+            if (command.CanExecute(url))
+                await command.ExecuteAsync(url);
+
+            string tabItem = "";
+            string tag = "";
+
+            if (pathSegments.Count() > 2) tabItem = pathSegments[2];
+
+            switch (tabItem.ToLower())
+            {
+                default:
+                    tag = "code";
+                    SelectItemByTag(tag);
+                    break;
+                case "issues":
+                    tag = "code";
+                    SelectItemByTag(tag);
+                    if (pathSegments.Count() > 3)
+                        RepoPageNavViewFrame.Navigate(typeof(Issues.IssuePage), url);
+                    break;
+                case "pull":
+                    tag = "pull";
+                    SelectItemByTag(tag);
+                    RepoPageNavViewFrame.Navigate(typeof(PullRequests.ConversationPage), url);
+                    break;
+                case "pulls":
+                    tag = "pulls";
+                    SelectItemByTag(tag);
+                    break;
+                case "discussions":
+                    tag = "discussions";
+                    SelectItemByTag(tag);
+                    if (pathSegments.Count() > 3)
+                        RepoPageNavViewFrame.Navigate(typeof(Discussions.DiscussionPage), url);
+                    break;
+                case "projects":
+                    tag = "projects";
+                    SelectItemByTag(tag);
+                    break;
+            }
         }
 
-        private void RepoPageNavView_ItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
+        private void SelectItemByTag(string tag)
         {
-            switch (args.InvokedItemContainer.Tag.ToString())
-            {
-                case "Code":
-                    {
-                        var repoContextViewModel = new RepoContextViewModel()
-                        {
-                            IsRootDir = true,
-                            Name = ViewModel.Repository.Name,
-                            Owner = ViewModel.Repository.Owner.Login,
-                            Repository = ViewModel.Repository,
-                            BranchName = ViewModel.Repository.DefaultBranchName ?? null,
-                        };
+            var defaultItem
+                = RepoPageNavView
+                .MenuItems
+                .OfType<muxc.NavigationViewItem>()
+                .FirstOrDefault();
 
-                        RepoPageNavViewFrame.Navigate(typeof(CodePage), repoContextViewModel);
-                        break;
-                    }
-                case "Issues":
-                    RepoPageNavViewFrame.Navigate(typeof(Issues.IssuesPage), $"{ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}");
+            RepoPageNavView.SelectedItem
+                = RepoPageNavView
+                .MenuItems
+                .OfType<muxc.NavigationViewItem>()
+                .FirstOrDefault(x => string.Compare(x.Tag.ToString(), tag?.ToString(), true) == 0)
+                ?? defaultItem;
+
+            RepoPageNavViewItemSelected(tag);
+        }
+
+        private void OnRepoPageNavViewItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
+        {
+            string newUrl = $"{App.DefaultGitHubDomain}/{ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}";
+
+            switch (args.InvokedItemContainer.Tag.ToString().ToLower())
+            {
+                case "code":
+                    RepoPageNavViewFrame.Navigate(typeof(CodePage), newUrl);
                     break;
-                case "PullRequests":
-                    RepoPageNavViewFrame.Navigate(typeof(PullRequests.PullRequestsPage), $"{ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}");
+                case "issues":
+                    RepoPageNavViewFrame.Navigate(typeof(Issues.IssuesPage), $"{newUrl}/issues");
                     break;
-                case "Discussions":
-                    RepoPageNavViewFrame.Navigate(typeof(Discussions.DiscussionsPage), $"{ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}");
+                case "pullrequests":
+                    RepoPageNavViewFrame.Navigate(typeof(PullRequests.PullRequestsPage), $"{newUrl}/pulls");
                     break;
-                case "Projects":
-                    RepoPageNavViewFrame.Navigate(typeof(Projects.ProjectsPage), $"{ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}");
+                case "discussions":
+                    RepoPageNavViewFrame.Navigate(typeof(Discussions.DiscussionsPage), $"{newUrl}/discussions");
                     break;
-                case "Insights":
-                    RepoPageNavViewFrame.Navigate(typeof(Insights.InsightsPage), $"{ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}");
+                case "projects":
+                    RepoPageNavViewFrame.Navigate(typeof(Projects.ProjectsPage), $"{newUrl}/projects");
                     break;
-                case "Settings":
-                    RepoPageNavViewFrame.Navigate(typeof(Settings.SettingsPage), $"{ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}");
+                case "insights":
+                    RepoPageNavViewFrame.Navigate(typeof(Insights.InsightsPage), $"{newUrl}/pulse");
+                    break;
+                case "settings":
+                    RepoPageNavViewFrame.Navigate(typeof(Settings.SettingsPage), $"{newUrl}/settings");
+                    break;
+            }
+        }
+
+        private void RepoPageNavViewItemSelected(string tag) // This is not muxc event method
+        {
+            string newUrl = $"{App.DefaultGitHubDomain}/{ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}";
+
+            switch (tag.ToLower())
+            {
+                case "code":
+                    RepoPageNavViewFrame.Navigate(typeof(CodePage), newUrl);
+                    break;
+                case "issues":
+                    RepoPageNavViewFrame.Navigate(typeof(Issues.IssuesPage), $"{newUrl}/issues");
+                    break;
+                case " pullrequests":
+                    RepoPageNavViewFrame.Navigate(typeof(PullRequests.PullRequestsPage), $"{newUrl}/pulls");
+                    break;
+                case "discussions":
+                    RepoPageNavViewFrame.Navigate(typeof(Discussions.DiscussionsPage), $"{newUrl}/discussions");
+                    break;
+                case "projects":
+                    RepoPageNavViewFrame.Navigate(typeof(Projects.ProjectsPage), $"{newUrl}/projects");
+                    break;
+                case "insights":
+                    RepoPageNavViewFrame.Navigate(typeof(Insights.InsightsPage), $"{newUrl}/pulse");
+                    break;
+                case "settings":
+                    RepoPageNavViewFrame.Navigate(typeof(Settings.SettingsPage), $"{newUrl}/settings");
                     break;
             }
         }
@@ -89,13 +172,9 @@ namespace FluentHub.Views.Repositories
             var service = App.Current.Services.GetRequiredService<INavigationService>();
 
             if (ViewModel.Repository.IsInOrganization)
-            {
-                service.Navigate<Views.Organizations.ProfilePage>(ViewModel.Repository.Owner.Login);
-            }
+                service.Navigate<Organizations.ProfilePage>(ViewModel.Repository.Owner.Login);
             else
-            {
-                service.Navigate<Views.Users.ProfilePage>($"{App.DefaultGitHubDomain}/{ViewModel.Repository.Owner.Login}");
-            }
+                service.Navigate<Users.ProfilePage>($"{App.DefaultGitHubDomain}/{ViewModel.Repository.Owner.Login}");
         }
 
         private void OnRepositoryContentFrameNavigating(object sender, NavigatingCancelEventArgs e)

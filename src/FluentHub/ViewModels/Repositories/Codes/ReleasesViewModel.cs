@@ -52,7 +52,7 @@ namespace FluentHub.ViewModels.Repositories.Codes
             try
             {
                 ReleaseQueries queries = new();
-                var items = await queries.GetAllAsync(ContextViewModel.Owner, ContextViewModel.Name);
+                var items = await queries.GetAllAsync(ContextViewModel.Repository.Owner.Login, ContextViewModel.Repository.Name);
 
                 _items.Clear();
 

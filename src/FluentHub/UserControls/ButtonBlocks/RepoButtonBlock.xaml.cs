@@ -20,7 +20,11 @@ namespace FluentHub.UserControls.ButtonBlocks
         public RepoButtonBlockViewModel ViewModel
         {
             get => (RepoButtonBlockViewModel)GetValue(ViewModelProperty);
-            set => SetValue(ViewModelProperty, value);
+            set
+            {
+                SetValue(ViewModelProperty, value);
+                ViewModel.GetColorBrush();
+            }
         }
         #endregion
 
@@ -28,13 +32,12 @@ namespace FluentHub.UserControls.ButtonBlocks
 
         private void OnRepoButtonBlockLoaded(object sender, RoutedEventArgs e)
         {
-            ViewModel.GetColorBrush();
         }
 
         private void RepoBlockButton_Click(object sender, RoutedEventArgs e)
         {
             var service = App.Current.Services.GetRequiredService<INavigationService>();
-            service.Navigate<Views.Repositories.OverviewPage>(ViewModel.Item);
+            service.Navigate<Views.Repositories.OverviewPage>($"{App.DefaultGitHubDomain}/{ViewModel.Item.Owner.Login}/{ViewModel.Item.Name}");
         }
     }
 }

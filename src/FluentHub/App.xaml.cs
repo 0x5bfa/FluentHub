@@ -101,6 +101,7 @@ namespace FluentHub
                 .AddTransient<ViewModels.Repositories.Discussions.DiscussionViewModel>()
                 .AddTransient<ViewModels.Repositories.Issues.IssueViewModel>()
                 .AddTransient<ViewModels.Repositories.Issues.IssuesViewModel>()
+                .AddTransient<ViewModels.Repositories.OverviewViewModel>()
                 .AddTransient<ViewModels.Repositories.Projects.ProjectsViewModel>()
                 .AddTransient<ViewModels.Repositories.Projects.ProjectViewModel>()
                 .AddTransient<ViewModels.Repositories.PullRequests.ConversationViewModel>()

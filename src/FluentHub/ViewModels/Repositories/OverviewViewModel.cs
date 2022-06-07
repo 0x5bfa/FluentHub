@@ -24,14 +24,10 @@ namespace FluentHub.ViewModels.Repositories
         {
             _messenger = messenger;
             _logger = logger;
-            _messenger = messenger;
 
-            RepositoryVisibilityLabel = new()
-            {
-                Color = "#64000000",
-            };
+            RepositoryVisibilityLabel = new() { Color = "#64000000" };
 
-            LoadOverviewPageCommand = new AsyncRelayCommand(LoadOverviewPageAsync);
+            LoadOverviewPageCommand = new AsyncRelayCommand<string>(LoadOverviewPageAsync);
         }
         #endregion
 
@@ -52,12 +48,18 @@ namespace FluentHub.ViewModels.Repositories
         #endregion
 
         #region methods
-        private async Task LoadOverviewPageAsync(CancellationToken token)
+        private async Task LoadOverviewPageAsync(string url, CancellationToken token)
         {
             try
             {
+                var uri = new Uri(url);
+                var pathSegments = uri.AbsolutePath.Split("/").ToList();
+                pathSegments.RemoveAt(0);
+                string owner = pathSegments[0];
+                string name = pathSegments[1];
+
                 RepositoryQueries queries = new();
-                Repository = await queries.GetDetailsAsync(Repository.Owner.Login, Repository.Name);
+                Repository = await queries.GetDetailsAsync(pathSegments[0], pathSegments[1]);
 
                 ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize();
                 RepositoryVisibilityLabel.Name = Repository.IsPrivate ? "Private" : "Public";

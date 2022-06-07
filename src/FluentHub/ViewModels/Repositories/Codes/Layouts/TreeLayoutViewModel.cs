@@ -63,8 +63,8 @@ namespace FluentHub.ViewModels.Repositories.Codes.Layouts
 
                 ContentQueries queries = new();
                 var objects = await queries.GetAllAsync(
-                    ContextViewModel.Name,
-                    ContextViewModel.Owner,
+                    ContextViewModel.Repository.Name,
+                    ContextViewModel.Repository.Owner.Login,
                     ContextViewModel.BranchName,
                     ContextViewModel.Path);
 
@@ -124,8 +124,8 @@ namespace FluentHub.ViewModels.Repositories.Codes.Layouts
 
                 ContentQueries queries = new();
                 var objects = await queries.GetAllAsync(
-                    ContextViewModel.Name,
-                    ContextViewModel.Owner,
+                    ContextViewModel.Repository.Name,
+                    ContextViewModel.Repository.Owner.Login,
                     ContextViewModel.BranchName,
                     path);
 
