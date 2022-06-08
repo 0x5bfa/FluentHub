@@ -71,13 +71,13 @@
 
                         <StackPanel Grid.Column="1" VerticalAlignment="Center">
                             <TextBlock
-                                x:Name="SignedInLoginName"
-                                Style="{StaticResource BodyStrongTextBlockStyle}"
-                                Text="{x:Bind ViewModel.SignedInUser.Login, Mode=OneWay}" />
-                            <TextBlock
                                 x:Name="SignedInUserName"
-                                Style="{StaticResource CaptionTextBlockStyle}"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
                                 Text="{x:Bind ViewModel.SignedInUser.Name, Mode=OneWay}" />
+                            <TextBlock
+                                x:Name="SignedInLoginName"
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                Text="{x:Bind ViewModel.SignedInUser.Login, Mode=OneWay}" />
                         </StackPanel>
 
                     </Grid>
@@ -88,7 +88,7 @@
                 <AutoSuggestBox
                     Margin="-6,0"
                     IsEnabled="False"
-                    PlaceholderText="Search app settings"
+                    PlaceholderText="Search settings"
                     QueryIcon="Find" />
             </muxc:NavigationView.AutoSuggestBox>
 

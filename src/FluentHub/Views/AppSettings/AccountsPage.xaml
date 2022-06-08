@@ -81,15 +81,15 @@
                         VerticalAlignment="Center"
                         FontWeight="SemiBold"
                         Style="{StaticResource SubtitleTextBlockStyle}"
-                        Text="{x:Bind ViewModel.SignedInUser.Login, Mode=OneWay}"
-                        Visibility="{x:Bind ViewModel.SignedInUser.Login, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
+                        Text="{x:Bind ViewModel.SignedInUser.Name, Mode=OneWay}"
+                        Visibility="{x:Bind ViewModel.SignedInUser.Name, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
                     <TextBlock
                         VerticalAlignment="Center"
                         FontSize="13"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         Style="{ThemeResource CaptionTextBlockStyle}"
-                        Text="{x:Bind ViewModel.SignedInUser.Name, Mode=OneWay}"
-                        Visibility="{x:Bind ViewModel.SignedInUser.Name, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
+                        Text="{x:Bind ViewModel.SignedInUser.Login, Mode=OneWay}"
+                        Visibility="{x:Bind ViewModel.SignedInUser.Login, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
                     <TextBlock
                         x:Name="UserBioTextBlock"
                         MaxLines="2"
@@ -107,7 +107,7 @@
             <StackPanel Grid.Row="1" Spacing="4">
                 <uc:SettingsBlockControl
                     Title="Your GitHub account"
-                    Description="Access your GitHub accounts info"
+                    Description="Access your GitHub account's info"
                     IsClickable="True">
                     <uc:SettingsBlockControl.Icon>
                         <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xEA0B;" />
@@ -140,7 +140,7 @@
                 </uc:SettingsBlockControl>
                 <uc:SettingsBlockControl
                     Title="Other users"
-                    Description="Add and switch to new user"
+                    Description="Add and switch to a new user"
                     IsClickable="True">
                     <uc:SettingsBlockControl.Icon>
                         <FontIcon Glyph="&#xE8FA;" />
