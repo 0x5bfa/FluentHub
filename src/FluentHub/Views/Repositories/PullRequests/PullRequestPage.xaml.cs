@@ -29,24 +29,25 @@ namespace FluentHub.Views.Repositories.PullRequests
         private readonly INavigationService navigationService;
         public PullRequestViewModel ViewModel { get; }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            Octokit.Models.PullRequest param = e.Parameter as Octokit.Models.PullRequest;
+            var url = e.Parameter as string;
+            var uri = new Uri(url);
+            var pathSegments = uri.AbsolutePath.Split("/").ToList();
+            pathSegments.RemoveAt(0);
 
-            DataContext = e.Parameter;
+            var command = ViewModel.RefreshPullRequestPageCommand;
+            if (command.CanExecute(url))
+                await command.ExecuteAsync(url);
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = $"{param.Title} · Pull Request #{param.Number} · {param.OwnerLogin}/{param.Name}";
+            currentItem.Header = $"{ViewModel.PullItem.Title} · Pull request #{ViewModel.PullItem.Number} · {ViewModel.PullItem.OwnerLogin}/{ViewModel.PullItem.Name}";
             currentItem.Description = currentItem.Header;
-            currentItem.Url = $"https://github.com/{param.OwnerLogin}/{param.Name}/pull/{param.Number}";
+            currentItem.Url = url;
             currentItem.Icon = new muxc.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/PullRequests.png"))
             };
-
-            var command = ViewModel.RefreshPullRequestPageCommand;
-            if (command.CanExecute(param))
-                command.Execute(param);
         }
 
         private void OnPullRequestNavigationViewSelectionChanged(muxc.NavigationView sender, muxc.NavigationViewSelectionChangedEventArgs args)

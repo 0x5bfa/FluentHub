@@ -2,7 +2,7 @@
 using FluentHub.Services;
 using FluentHub.ViewModels;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
-using FluentHub.Views.Repositories.Issues;
+using FluentHub.Views.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -26,7 +26,6 @@ namespace FluentHub.UserControls.ButtonBlocks
             set
             {
                 SetValue(ViewModelProperty, value);
-                DataContext = ViewModel;
                 ViewModel?.LoadContents();
             }
         }
@@ -40,13 +39,9 @@ namespace FluentHub.UserControls.ButtonBlocks
 
         private readonly INavigationService navigationService;
 
-        private void OnIssueBlockButtonClick(object sender, RoutedEventArgs e)
+        private void OnClick(object sender, RoutedEventArgs e)
         {
-            MainPageViewModel.RepositoryContentFrame.Navigate(typeof(IssuePage), ViewModel.IssueItem);
-        }
-
-        private void OnIssueButtonBlockLoaded(object sender, RoutedEventArgs e)
-        {
+            navigationService.Navigate<OverviewPage>($"{App.DefaultGitHubDomain}/{ViewModel.IssueItem.OwnerLogin}/{ViewModel.IssueItem.Name}/issues/{ViewModel.IssueItem.Number}");
         }
     }
 }

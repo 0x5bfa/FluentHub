@@ -24,30 +24,35 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
             _messenger = messenger;
             _logger = logger;
 
-            RefreshPullRequestPageCommand = new AsyncRelayCommand<PullRequest>(RefreshPullRequestPageAsync);
+            RefreshPullRequestPageCommand = new AsyncRelayCommand<string>(LoadPullRequestPageAsync);
         }
         #endregion
 
-        #region properties
+        #region fields and properties
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
 
-        private PullRequest pullItem;
-        public PullRequest PullItem { get => pullItem; private set => SetProperty(ref pullItem, value); }
+        private PullRequest _pullItem;
+        public PullRequest PullItem { get => _pullItem; private set => SetProperty(ref _pullItem, value); }
 
         public IAsyncRelayCommand RefreshPullRequestPageCommand { get; }
         #endregion
 
         #region methods
-        private async Task RefreshPullRequestPageAsync(PullRequest pull)
+        private async Task LoadPullRequestPageAsync(string url)
         {
             try
             {
-                if (pull != null) PullItem = pull;
+                var uri = new Uri(url);
+                var pathSegments = uri.AbsolutePath.Split("/").ToList();
+                pathSegments.RemoveAt(0);
+
+                PullRequestQueries queries = new();
+                PullItem = await queries.GetAsync(pathSegments[0], pathSegments[1], Convert.ToInt32(pathSegments[3]));
             }
             catch (Exception ex)
             {
-                _logger?.Error("RefreshPullRequestPageAsync", ex);
+                _logger?.Error(nameof(LoadPullRequestPageAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);

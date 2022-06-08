@@ -14,10 +14,12 @@ namespace FluentHub.Views.Organizations
         public OverviewPage()
         {
             InitializeComponent();
+
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<OverviewViewModel>();
             navigationService = App.Current.Services.GetRequiredService<INavigationService>();
         }
+
         private readonly INavigationService navigationService;
         public OverviewViewModel ViewModel { get; }
 
@@ -41,9 +43,6 @@ namespace FluentHub.Views.Organizations
             var command = ViewModel.LoadOrganizationOverviewAsyncCommand;
             if (command.CanExecute(DataContext))
                 command.Execute(DataContext);
-
-            // Avoid duplicates
-            OrgPageFrame.Navigate(typeof(RepositoriesPage), org);
         }
     }
 }

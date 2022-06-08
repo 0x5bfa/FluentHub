@@ -22,6 +22,10 @@ namespace FluentHub.ViewModels.Organizations
         {
             _messenger = messenger;
             _logger = logger;
+
+            _pinnedItems = new();
+            PinnedItems = new(_pinnedItems);
+
             _repositories = new();
             Repositories = new(_repositories);
 
@@ -32,11 +36,13 @@ namespace FluentHub.ViewModels.Organizations
         #region fields
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
-        private readonly ObservableCollection<RepoButtonBlockViewModel> _repositories;
-        #endregion
 
-        #region properties
+        private readonly ObservableCollection<RepoButtonBlockViewModel> _pinnedItems;
+        public ReadOnlyObservableCollection<RepoButtonBlockViewModel> PinnedItems { get; }
+
+        private readonly ObservableCollection<RepoButtonBlockViewModel> _repositories;
         public ReadOnlyObservableCollection<RepoButtonBlockViewModel> Repositories { get; }
+
         public IAsyncRelayCommand LoadOrganizationOverviewAsyncCommand { get; }
         #endregion
 
@@ -45,12 +51,11 @@ namespace FluentHub.ViewModels.Organizations
         {
             try
             {
-                PinnedItemQueries queries = new();
-                var items = await queries.GetAllAsync(org);
-                if (items == null) return;
+                RepositoryQueries repoQueries = new();
+                var repoItems = await repoQueries.GetAllAsync(org);
 
                 _repositories.Clear();
-                foreach (var item in items)
+                foreach (var item in repoItems)
                 {
                     RepoButtonBlockViewModel viewModel = new()
                     {
@@ -60,6 +65,23 @@ namespace FluentHub.ViewModels.Organizations
                     };
 
                     _repositories.Add(viewModel);
+                }
+
+                PinnedItemQueries queries = new();
+                var pinnedItems = await queries.GetAllAsync(org);
+                if (pinnedItems == null) return;
+
+                _pinnedItems.Clear();
+                foreach (var item in pinnedItems)
+                {
+                    RepoButtonBlockViewModel viewModel = new()
+                    {
+                        Item = item,
+                        DisplayDetails = false,
+                        DisplayStarButton = false,
+                    };
+
+                    _pinnedItems.Add(viewModel);
                 }
             }
             catch (OperationCanceledException) { }

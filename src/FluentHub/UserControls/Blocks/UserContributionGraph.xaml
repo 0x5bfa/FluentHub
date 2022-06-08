@@ -145,7 +145,7 @@
                 </muxc:ItemsRepeater.Layout>
 
                 <DataTemplate x:DataType="models:CalendarDay">
-                    <Border
+                    <Grid
                         Width="14"
                         Height="14"
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
@@ -153,10 +153,10 @@
                         CornerRadius="3"
                         ToolTipService.ToolTip="{x:Bind ContributionCount, Mode=OneWay}"
                         Visibility="{x:Bind Visibility, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
-                        <Border.Background>
+                        <Grid.Background>
                             <SolidColorBrush Color="{x:Bind Color, Mode=OneWay}" />
-                        </Border.Background>
-                    </Border>
+                        </Grid.Background>
+                    </Grid>
                 </DataTemplate>
 
             </muxc:ItemsRepeater>

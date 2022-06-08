@@ -62,18 +62,18 @@ namespace FluentHub.Views.Repositories
                     SelectItemByTag(tag);
                     break;
                 case "issues":
-                    tag = "code";
+                    tag = "issues";
                     SelectItemByTag(tag);
                     if (pathSegments.Count() > 3)
                         RepoPageNavViewFrame.Navigate(typeof(Issues.IssuePage), url);
                     break;
                 case "pull":
-                    tag = "pull";
+                    tag = "pullrequests";
                     SelectItemByTag(tag);
-                    RepoPageNavViewFrame.Navigate(typeof(PullRequests.ConversationPage), url);
+                    RepoPageNavViewFrame.Navigate(typeof(PullRequests.PullRequestPage), url);
                     break;
                 case "pulls":
-                    tag = "pulls";
+                    tag = "pullrequests";
                     SelectItemByTag(tag);
                     break;
                 case "discussions":

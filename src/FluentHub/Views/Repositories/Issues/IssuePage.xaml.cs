@@ -9,6 +9,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Views.Repositories.Issues
 {
@@ -26,24 +27,25 @@ namespace FluentHub.Views.Repositories.Issues
         private readonly INavigationService navigationService;
         public IssueViewModel ViewModel { get; }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            Octokit.Models.Issue param = e.Parameter as Octokit.Models.Issue;
+            var url = e.Parameter as string;
+            var uri = new Uri(url);
+            var pathSegments = uri.AbsolutePath.Split("/").ToList();
+            pathSegments.RemoveAt(0);
 
-            DataContext = e.Parameter;
+            var command = ViewModel.RefreshIssuePageCommand;
+            if (command.CanExecute(url))
+                await command.ExecuteAsync(url);
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = $"{param.Title} · Issue #{param.Number} · {param.OwnerLogin}/{param.Name}";
+            currentItem.Header = $"{ViewModel.IssueItem.Title} · Issue #{ViewModel.IssueItem.Number} · {ViewModel.IssueItem.OwnerLogin}/{ViewModel.IssueItem.Name}";
             currentItem.Description = currentItem.Header;
-            currentItem.Url = $"https://github.com/{param.OwnerLogin}/{param.Name}/issues/{param.Number}";
-            currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
+            currentItem.Url = url;
+            currentItem.Icon = new muxc.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Issues.png"))
             };
-
-            var command = ViewModel.RefreshIssuePageCommand;
-            if (command.CanExecute(param))
-                command.Execute(param);
         }
     }
 }
