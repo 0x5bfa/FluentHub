@@ -32,11 +32,11 @@ namespace FluentHub.Views.Repositories.PullRequests
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Pull Requests";
-<<<<<<< Updated upstream
+
             currentItem.Description = $"Pull Requests";
-=======
+
             currentItem.Description = $"Pull requests";
->>>>>>> Stashed changes
+
             currentItem.Url = url;
             currentItem.DisplayUrl = $"{pathSegments[0]} / {pathSegments[1]} / Pulls";
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource

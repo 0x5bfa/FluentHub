@@ -691,19 +691,20 @@
     <Content Include="Assets\AppTiles\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\AppTiles\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\AppTiles\Wide310x150Logo.scale-400.png" />
-    <Content Include="Assets\EmojiImages\add-user-male.png" />
-    <Content Include="Assets\EmojiImages\appointment-reminders.png" />
-    <Content Include="Assets\EmojiImages\paint-palette.png" />
-    <Content Include="Assets\EmojiImages\repository.png" />
-    <Content Include="Assets\Icons\Activities.png" />
-    <Content Include="Assets\Icons\Discussions.targetsize-96.png" />
-    <Content Include="Assets\Icons\Issues.targetsize-96.png" />
-    <Content Include="Assets\Icons\Notifications.targetsize-96.png" />
-    <Content Include="Assets\Icons\Organizations.targetsize-96.png" />
-    <Content Include="Assets\Icons\Profile.targetsize-96.png" />
-    <Content Include="Assets\Icons\PullRequests.targetsize-96.png" />
-    <Content Include="Assets\Icons\Repositories.targetsize-96.png" />
-    <Content Include="Assets\Icons\Starred.targetsize-96.png" />
+    <Content Include="Assets\Icons\Accounts.png" />
+    <Content Include="Assets\Icons\Appearance.png" />
+    <Content Include="Assets\Icons\Commits.png" />
+    <Content Include="Assets\Icons\Discussions.png" />
+    <Content Include="Assets\Icons\Home.png" />
+    <Content Include="Assets\Icons\Insights.png" />
+    <Content Include="Assets\Icons\Issues.png" />
+    <Content Include="Assets\Icons\Private.png" />
+    <Content Include="Assets\Icons\Profile.png" />
+    <Content Include="Assets\Icons\Projects.png" />
+    <Content Include="Assets\Icons\PullRequests.png" />
+    <Content Include="Assets\Icons\Repositories.png" />
+    <Content Include="Assets\Icons\Settings.png" />
+    <Content Include="Assets\Icons\Starred.png" />
     <Content Include="Assets\WebView\index.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

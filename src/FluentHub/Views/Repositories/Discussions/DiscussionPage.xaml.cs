@@ -26,13 +26,13 @@ namespace FluentHub.Views.Repositories.Discussions
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var url = e.Parameter as string;
-            var urlSegments = url.Split("/");
+            var pathSegments = url.Split("/");
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Discussion";
             currentItem.Description = "Discussion";
             currentItem.Url = $"{url}";
-            currentItem.DisplayUrl = $"{urlSegments[3]} / {urlSegments[4]} / {urlSegments[6]}";
+            currentItem.DisplayUrl = $"{pathSegments[3]} / {pathSegments[4]} / {pathSegments[6]}";
             currentItem.Icon = new muxc.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Discussions.png"))

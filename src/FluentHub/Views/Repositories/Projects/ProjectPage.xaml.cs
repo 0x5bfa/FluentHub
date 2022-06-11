@@ -25,13 +25,13 @@ namespace FluentHub.Views.Repositories.Projects
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var url = e.Parameter as string;
-            var urlSegments = url.Split("/");
+            var pathSegments = url.Split("/");
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Project";
             currentItem.Description = "Project";
             currentItem.Url = $"{url}";
-            currentItem.DisplayUrl = $"{urlSegments[3]} / {urlSegments[4]} / Projects / {urlSegments[6]}";
+            currentItem.DisplayUrl = $"{pathSegments[3]} / {pathSegments[4]} / Projects / {pathSegments[6]}";
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Projects.png"))
