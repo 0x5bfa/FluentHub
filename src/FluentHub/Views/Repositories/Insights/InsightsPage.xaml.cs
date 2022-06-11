@@ -29,11 +29,16 @@ namespace FluentHub.Views.Repositories.Insights
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Insights";
             currentItem.Description = "Insights";
+<<<<<<< Updated upstream
             currentItem.Url = url;
             currentItem.DisplayUrl = $"{pathSegments[0]} / {pathSegments[1]} / Insights";
+=======
+            currentItem.Url = $"{url}";
+            currentItem.DisplayUrl = $"{urlSegments[3]} / {urlSegments[4]} / Insights";
+>>>>>>> Stashed changes
             currentItem.Icon = new muxc.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Insights.targetsize-96.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Insights.png"))
             };
         }
     }

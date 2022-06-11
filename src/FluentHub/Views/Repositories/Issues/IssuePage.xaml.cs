@@ -42,10 +42,14 @@ namespace FluentHub.Views.Repositories.Issues
             currentItem.Header = $"{ViewModel.IssueItem.Title} · #{ViewModel.IssueItem.Number}";
             currentItem.Description = currentItem.Header;
             currentItem.Url = url;
+<<<<<<< Updated upstream
             currentItem.DisplayUrl = $"{pathSegments[0]} / {pathSegments[1]} / {pathSegments[3]}";
+=======
+            currentItem.DisplayUrl = $"{ViewModel.IssueItem.OwnerLogin} / {ViewModel.IssueItem.Name} / {ViewModel.IssueItem.Number}";
+>>>>>>> Stashed changes
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Issues.targetsize-96.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Issues.png"))
             };
         }
     }

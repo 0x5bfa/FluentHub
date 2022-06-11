@@ -108,6 +108,7 @@ namespace FluentHub.Views.Repositories.Codes.Layouts
 
             currentItem.Url = url;
             currentItem.Description = currentItem.Header;
+<<<<<<< Updated upstream
 
             string displayurl;
             if (ViewModel.ContextViewModel.IsRootDir)
@@ -121,9 +122,12 @@ namespace FluentHub.Views.Repositories.Codes.Layouts
 
             currentItem.DisplayUrl = displayurl;
 
+=======
+            currentItem.DisplayUrl = $"{ContextViewModel.Repository.Owner.Login} / {ContextViewModel.Repository.Name} / {ContextViewModel.BranchName}";
+>>>>>>> Stashed changes
             currentItem.Icon = new muxc.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.targetsize-96.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.png"))
             };
             #endregion
 
