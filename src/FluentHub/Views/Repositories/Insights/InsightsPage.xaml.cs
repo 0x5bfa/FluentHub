@@ -29,10 +29,6 @@ namespace FluentHub.Views.Repositories.Insights
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Insights";
             currentItem.Description = "Insights";
-
-            currentItem.Url = url;
-            currentItem.DisplayUrl = $"{pathSegments[0]} / {pathSegments[1]} / Insights";
-
             currentItem.Url = $"{url}";
             currentItem.DisplayUrl = $"{pathSegments[3]} / {pathSegments[4]} / Insights";
 

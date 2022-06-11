@@ -691,13 +691,17 @@
     <Content Include="Assets\AppTiles\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\AppTiles\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\AppTiles\Wide310x150Logo.scale-400.png" />
+    <Content Include="Assets\Icons\About.png" />
     <Content Include="Assets\Icons\Accounts.png" />
+    <Content Include="Assets\Icons\Activities.png" />
     <Content Include="Assets\Icons\Appearance.png" />
     <Content Include="Assets\Icons\Commits.png" />
     <Content Include="Assets\Icons\Discussions.png" />
     <Content Include="Assets\Icons\Home.png" />
     <Content Include="Assets\Icons\Insights.png" />
     <Content Include="Assets\Icons\Issues.png" />
+    <Content Include="Assets\Icons\Notifications.png" />
+    <Content Include="Assets\Icons\Organizations.png" />
     <Content Include="Assets\Icons\Private.png" />
     <Content Include="Assets\Icons\Profile.png" />
     <Content Include="Assets\Icons\Projects.png" />

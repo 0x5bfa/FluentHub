@@ -74,7 +74,7 @@ namespace FluentHub.Views.AppSettings
                     break;
                 case "repositories":
                     SettingsContentFrame.Navigate(typeof(RepositoryPage));
-                    NavViewFrameTitleTextBlock.Text = "Repository";
+                    NavViewFrameTitleTextBlock.Text = "Repositories";
                     break;
             }
         }
