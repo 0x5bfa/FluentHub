@@ -96,7 +96,7 @@
 
                 <muxc:NavigationViewItem Content="Appearance" Tag="appearance">
                     <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="/Assets/EmojiImages/paint-palette.png" />
+                        <muxc:ImageIcon Source="/Assets/Icons/Appearance.png" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
@@ -105,19 +105,19 @@
                     Content="Accounts"
                     Tag="accounts">
                     <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="/Assets/EmojiImages/add-user-male.png" />
+                        <muxc:ImageIcon Source="/Assets/Icons/Accounts.png" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
                 <muxc:NavigationViewItem Content="Repositories" Tag="repositories">
                     <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="/Assets/EmojiImages/repository.png" />
+                        <muxc:ImageIcon Source="/Assets/Icons/Repositories.png" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
                 <muxc:NavigationViewItem Content="Notifications" Tag="notifications">
                     <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="/Assets/EmojiImages/appointment-reminders.png" />
+                        <muxc:ImageIcon Source="/Assets/Notifications.png" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
@@ -126,7 +126,7 @@
             <muxc:NavigationView.FooterMenuItems>
                 <muxc:NavigationViewItem Content="About" Tag="about">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE946;" />
+                        <muxc:ImageIcon Source="/Assets/About.png" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
             </muxc:NavigationView.FooterMenuItems>
