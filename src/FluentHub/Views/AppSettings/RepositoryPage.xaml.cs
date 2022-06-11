@@ -22,9 +22,9 @@ namespace FluentHub.Views.AppSettings
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = "Code Preview";
-            currentItem.Description = "Code Preview settings";
-            currentItem.Url = "fluenthub://settings?page=codepreview";
+            currentItem.Header = "Repositories";
+            currentItem.Description = "Repository settings";
+            currentItem.Url = "fluenthub://settings?page=repos";
             currentItem.DisplayUrl = $"Settings / Repositories";
             currentItem.Icon = new muxc.ImageIconSource
             {

@@ -70,7 +70,7 @@ namespace FluentHub.Views.AppSettings
                     break;
                 case "accounts":
                     SettingsContentFrame.Navigate(typeof(AccountsPage));
-                    NavViewFrameTitleTextBlock.Text = "Accounts";
+                    NavViewFrameTitleTextBlock.Text = "Account";
                     break;
                 case "repositories":
                     SettingsContentFrame.Navigate(typeof(RepositoryPage));

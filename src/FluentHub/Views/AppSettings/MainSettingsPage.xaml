@@ -102,7 +102,7 @@
 
                 <muxc:NavigationViewItem
                     x:Name="SettingsNavViewItemAccount"
-                    Content="Accounts"
+                    Content="Account"
                     Tag="accounts">
                     <muxc:NavigationViewItem.Icon>
                         <muxc:ImageIcon Source="/Assets/Icons/Accounts.png" />

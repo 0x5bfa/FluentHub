@@ -28,10 +28,10 @@ namespace FluentHub.Views.AppSettings
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = "Accounts";
-            currentItem.Description = "Users signed in FluentHub";
-            currentItem.Url = "fluenthub://settings?page=accounts";
-            currentItem.DisplayUrl = $"Settings / Accounts";
+            currentItem.Header = "Account";
+            currentItem.Description = "Account Settings";
+            currentItem.Url = "fluenthub://settings?page=account";
+            currentItem.DisplayUrl = $"Settings / Account";
             currentItem.Icon = new muxc.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Accounts.png"))
