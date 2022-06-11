@@ -73,6 +73,7 @@ namespace FluentHub.ViewModels.Repositories
             {
                 if (value)
                 {
+                    IsDir = true;
                     IsFile = false;
                     IsRootDir = false;
                 }

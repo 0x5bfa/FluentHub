@@ -51,7 +51,7 @@ namespace FluentHub.Views.Repositories
                 await command.ExecuteAsync(url);
 
             string tabItem = "";
-            string tag = "";
+            string tag;
 
             if (pathSegments.Count() > 2) tabItem = pathSegments[2];
 
@@ -60,6 +60,18 @@ namespace FluentHub.Views.Repositories
                 default:
                     tag = "code";
                     SelectItemByTag(tag);
+                    break;
+                case "tree":
+                    tag = "code";
+                    SelectItemByTag(tag);
+                    if (pathSegments.Count() > 3)
+                        RepoPageNavViewFrame.Navigate(typeof(CodePage), url);
+                    break;
+                case "blob":
+                    tag = "code";
+                    SelectItemByTag(tag);
+                    if (pathSegments.Count() > 3)
+                        RepoPageNavViewFrame.Navigate(typeof(CodePage), url);
                     break;
                 case "issues":
                     tag = "issues";
