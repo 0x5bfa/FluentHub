@@ -109,7 +109,6 @@ namespace FluentHub.Views.Repositories.Codes.Layouts
             currentItem.Url = url;
             currentItem.Description = currentItem.Header;
 
-
             string displayurl;
             if (ViewModel.ContextViewModel.IsRootDir)
             {
