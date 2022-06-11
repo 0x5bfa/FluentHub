@@ -44,7 +44,7 @@ namespace FluentHub.Views.Repositories.PullRequests
             currentItem.Header = $"{ViewModel.PullItem.Title} · #{ViewModel.PullItem.Number}";
             currentItem.Description = currentItem.Header;
             currentItem.Url = url;
-            currentItem.DisplayUrl = $"{param.OwnerLogin} / {param.Name} / {param.Number}";
+            currentItem.DisplayUrl = $"{pathSegments[0]} / {pathSegments[1]} / {pathSegments[3]}";
             currentItem.Icon = new muxc.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/PullRequests.targetsize-96.png"))

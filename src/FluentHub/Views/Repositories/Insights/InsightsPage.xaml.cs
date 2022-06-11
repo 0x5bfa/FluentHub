@@ -19,22 +19,18 @@ namespace FluentHub.Views.Repositories.Insights
 
         private readonly INavigationService navigationService;
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var nameWithOwner = e.Parameter as string;
-            var nameAndOwner = nameWithOwner.Split("/");
-
-            var queries = new Octokit.Queries.Repositories.InsightQueries();
-            await queries.GetContributors(nameAndOwner[0], nameAndOwner[1]);
-
             var url = e.Parameter as string;
-            var urlSegments = url.Split("/");
+            var uri = new Uri(url);
+            var pathSegments = uri.AbsolutePath.Split("/").ToList();
+            pathSegmentsemoveAt(0);
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Insights";
             currentItem.Description = "Insights";
-            currentItem.Url = $"{url}";
-            currentItem.DisplayUrl = $"{urlSegments[0]} / {urlSegments[1]} / Insights";
+            currentItem.Url = url;
+            currentItem.DisplayUrl = $"{pathSegments[0]} / {pathSegments[1]} / Insights";
             currentItem.Icon = new muxc.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Insights.targetsize-96.png"))

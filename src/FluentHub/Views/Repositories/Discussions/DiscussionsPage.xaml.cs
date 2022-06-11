@@ -33,8 +33,8 @@ namespace FluentHub.Views.Repositories.Discussions
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Discussions";
             currentItem.Description = "Discussions";
-            currentItem.Url = $"https://github.com/{nameAndOwner[0]}/{nameAndOwner[1]}/pulls";
-            currentItem.DisplayUrl = $"{nameAndOwner[0]} / {nameAndOwner[1]} / Discussions";
+            currentItem.Url = url;
+            currentItem.DisplayUrl = $"{pathSegments[0]} / {pathSegments[1]} / Discussions";
             currentItem.Icon = new muxc.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Discussions.targetsize-96.png"))

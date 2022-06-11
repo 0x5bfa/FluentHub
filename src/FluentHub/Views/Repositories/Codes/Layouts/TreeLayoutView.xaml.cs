@@ -77,11 +77,11 @@ namespace FluentHub.Views.Repositories.Codes.Layouts
             string displayurl;
             if (ContextViewModel.IsFile)
             {
-                displayurl = $"{ContextViewModel.Owner}/{ContextViewModel.Name}/blob/{ContextViewModel.BranchName}{ContextViewModel.Path.TrimEnd('/')}";
+                displayurl = $"{ContextViewModel.Repository.Owner.Login}/{ContextViewModel.Repository.Name}/blob/{ContextViewModel.BranchName}{ContextViewModel.Path.TrimEnd('/')}";
             }
             else
             {
-                displayurl = $"{ContextViewModel.Owner} / {ContextViewModel.Name} / {ContextViewModel.BranchName}";
+                displayurl = $"{ContextViewModel.Repository.Owner.Login} / {ContextViewModel.Repository.Name} / {ContextViewModel.BranchName}";
             }
 
             currentItem.DisplayUrl = displayurl;

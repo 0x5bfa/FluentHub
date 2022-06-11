@@ -110,14 +110,14 @@ namespace FluentHub.Views.Repositories.Codes.Layouts
             currentItem.Description = currentItem.Header;
 
             string displayurl;
-            if (ContextViewModel.IsFile)
+            if (ViewModel.ContextViewModel.IsRootDir)
             {
-                displayurl = $"{ContextViewModel.Owner} / {ContextViewModel.Name} / {ContextViewModel.BranchName}{ContextViewModel.Path.TrimEnd('/')}";
+                if (ViewModel.ContextViewModel.Repository.DefaultBranchName == ViewModel.ContextViewModel.BranchName)
+                    displayurl = $"{ViewModel.ContextViewModel.Repository.Owner.Login} / {ViewModel.ContextViewModel.Repository.Name}";
+                else
+                    displayurl = $"{ViewModel.ContextViewModel.Repository.Owner.Login} / {ViewModel.ContextViewModel.Repository.Name} / {ViewModel.ContextViewModel.BranchName}";
             }
-            else
-            {
-                displayurl = $"{ContextViewModel.Owner} / {ContextViewModel.Name} / {ContextViewModel.BranchName}";
-            }
+            else displayurl = $"{ViewModel.ContextViewModel.Repository.Owner.Login} / {ViewModel.ContextViewModel.Repository.Name} / {ViewModel.ContextViewModel.BranchName} / {string.Join(" / ", ViewModel.ContextViewModel.Path.Split("/"))}";
 
             currentItem.DisplayUrl = displayurl;
 

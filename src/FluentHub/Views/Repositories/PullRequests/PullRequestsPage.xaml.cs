@@ -32,9 +32,9 @@ namespace FluentHub.Views.Repositories.PullRequests
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Pull Requests";
-            currentItem.Description = $"{nameAndOwner[0]}'s pull requests";
+            currentItem.Description = $"Pull Requests";
             currentItem.Url = url;
-            currentItem.DisplayUrl = $"{nameAndOwner[0]} / {nameAndOwner[1]} / Pulls";
+            currentItem.DisplayUrl = $"{pathSegments[0]} / {pathSegments[1]} / Pulls";
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/PullRequests.targetsize-96.png"))

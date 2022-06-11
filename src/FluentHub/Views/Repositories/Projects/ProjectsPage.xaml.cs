@@ -34,7 +34,7 @@ namespace FluentHub.Views.Repositories.Projects
             currentItem.Header = "Projects";
             currentItem.Description = "Projects";
             currentItem.Url = url;
-            currentItem.DisplayUrl = $"{nameAndOwner[0]} / {nameAndOwner[1]} / Projects";
+            currentItem.DisplayUrl = $"{pathSegments[0]} / {pathSegments[1]} / Projects";
             currentItem.Icon = new muxc.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Projects.targetsize-96.png"))
