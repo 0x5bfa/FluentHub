@@ -31,10 +31,10 @@ namespace FluentHub.Views.Home
             currentItem.Header = $"Home";
             currentItem.Description = $"Home";
             currentItem.Url = $"fluenthub://home";
-            currentItem.Icon = new muxc.FontIconSource
+            currentItem.DisplayUrl = $"Home";
+            currentItem.Icon = new muxc.ImageIconSource
             {
-                Glyph = "\uE9D5",
-                FontFamily = new Windows.UI.Xaml.Media.FontFamily("/Assets/Glyphs/Octions.ttf#octions")
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Home.targetsize-96.png"))
             };
 
             var command = ViewModel.LoadHomeContentsCommand;

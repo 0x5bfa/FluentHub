@@ -42,10 +42,11 @@ namespace FluentHub.Views.Users
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = $"Repositories";
             currentItem.Description = $"{login}'s repositories";
+            currentItem.DisplayUrl = $"Repositories";
             currentItem.Url = url;
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.targetsize-96.png"))
             };
 
             var command = ViewModel.RefreshRepositoriesCommand;

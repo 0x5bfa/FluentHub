@@ -31,7 +31,7 @@
                         <uc:SettingsBlockControl.Icon>
                             <FontIcon Glyph="&#xECA5;" />
                         </uc:SettingsBlockControl.Icon>
-                        <ToggleSwitch FlowDirection="RightToLeft" IsOn="{x:Bind root:App.Settings.UseDetailsView, Mode=TwoWay}" />
+                        <ToggleSwitch  IsOn="{x:Bind root:App.Settings.UseDetailsView, Mode=TwoWay}" />
                     </uc:SettingsBlockControl>
                 </StackPanel>
 

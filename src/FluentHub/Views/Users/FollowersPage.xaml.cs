@@ -42,6 +42,7 @@ namespace FluentHub.Views.Users
             currentItem.Header = $"Followers";
             currentItem.Description = $"{login}'s followers";
             currentItem.Url = url;
+            currentItem.DisplayUrl = $"Followers";
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.FontIconSource
             {
                 Glyph = "\uEA36",

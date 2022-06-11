@@ -1,8 +1,6 @@
 ﻿using FluentHub.Services;
 using FluentHub.ViewModels.Users;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
@@ -27,7 +25,7 @@ namespace FluentHub.Views.Users
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            // e.g.) https://github.com/onein528
+            // e.g. https://github.com/onein528
             string url = e.Parameter as string;
             var uri = new Uri(url);
             string login = uri.Segments[1];
@@ -37,9 +35,10 @@ namespace FluentHub.Views.Users
             currentItem.Header = $"{login}'s profile";
             currentItem.Description = $"{login}'s profile";
             currentItem.Url = url;
+            currentItem.DisplayUrl = $"{login}";
             currentItem.Icon = new muxc.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Profile.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Profile.targetsize-96.png"))
             };
 
             //var defaultItem = UserNavView

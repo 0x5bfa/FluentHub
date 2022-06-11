@@ -2,6 +2,7 @@
 using FluentHub.ViewModels.Repositories.Projects;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using muxc = Microsoft.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
@@ -30,10 +31,11 @@ namespace FluentHub.Views.Repositories.Projects
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Projects";
             currentItem.Description = "Projects";
-            currentItem.Url = $"https://github.com/{nameAndOwner[0]}/{nameAndOwner[1]}/pulls";
-            currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
+            currentItem.Url = $"https://github.com/{nameAndOwner[0]}/{nameAndOwner[1]}/projects";
+            currentItem.DisplayUrl = $"{nameAndOwner[0]} / {nameAndOwner[1]} / Projects";
+            currentItem.Icon = new muxc.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/PullRequests.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Projects.targetsize-96.png"))
             };
 
             var command = ViewModel.LoadProjectsPageCommand;

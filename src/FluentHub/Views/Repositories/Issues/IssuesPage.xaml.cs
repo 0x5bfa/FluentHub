@@ -31,9 +31,10 @@ namespace FluentHub.Views.Repositories.Issues
             currentItem.Header = "Issues";
             currentItem.Description = "Viewer's issues";
             currentItem.Url = $"https://github.com/{nameAndOwner[0]}/{nameAndOwner[1]}/issues";
+            currentItem.DisplayUrl = $"{nameAndOwner[0]} / {nameAndOwner[1]} / Issues";
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Issues.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Issues.targetsize-96.png"))
             };
 
             var command = ViewModel.RefreshIssuesPageCommand;

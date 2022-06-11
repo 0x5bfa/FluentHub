@@ -49,6 +49,24 @@ namespace FluentHub.Views
             Window.Current.CoreWindow.PointerPressed -= OnWindowPointerPressed;
         }
 
+        private void OnUrlTextBoxFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox DisplayUrlTextBox = sender as TextBox;
+            if (DisplayUrlTextBox != null)
+            {
+                DisplayUrlTextBox.Text = TabView.SelectedItem.NavigationHistory.CurrentItem.Url;
+            }
+        }
+
+        private void OnUrlTextBoxLostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox DisplayUrlTextBox = sender as TextBox;
+            if (DisplayUrlTextBox != null)
+            {
+                DisplayUrlTextBox.Text = TabView.SelectedItem.NavigationHistory.CurrentItem.DisplayUrl;
+            }
+        }
+
         private Microsoft.UI.Xaml.Controls.InfoBarSeverity UserNotificationToInfoBarSeverity(UserNotificationType type)
         {
             return type switch

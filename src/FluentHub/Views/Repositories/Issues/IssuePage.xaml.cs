@@ -33,12 +33,13 @@ namespace FluentHub.Views.Repositories.Issues
             DataContext = e.Parameter;
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = $"{param.Title} · Issue #{param.Number} · {param.OwnerLogin}/{param.Name}";
+            currentItem.Header = $"{param.Title} · #{param.Number}";
             currentItem.Description = currentItem.Header;
             currentItem.Url = $"https://github.com/{param.OwnerLogin}/{param.Name}/issues/{param.Number}";
+            currentItem.DisplayUrl = $"{param.OwnerLogin} / {param.Name} / {param.Number}";
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Issues.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Issues.targetsize-96.png"))
             };
 
             var command = ViewModel.RefreshIssuePageCommand;
