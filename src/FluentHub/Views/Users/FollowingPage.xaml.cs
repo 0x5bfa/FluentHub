@@ -40,7 +40,8 @@ namespace FluentHub.Views.Users
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = $"Following";
-            currentItem.Description = $"{login}'s followers";
+            currentItem.Description = $"People {login} is following";
+            currentItem.DisplayUrl = $"Following";
             currentItem.Url = url;
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.FontIconSource
             {

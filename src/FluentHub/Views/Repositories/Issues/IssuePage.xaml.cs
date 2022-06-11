@@ -39,12 +39,13 @@ namespace FluentHub.Views.Repositories.Issues
                 await command.ExecuteAsync(url);
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = $"{ViewModel.IssueItem.Title} · Issue #{ViewModel.IssueItem.Number} · {ViewModel.IssueItem.OwnerLogin}/{ViewModel.IssueItem.Name}";
+            currentItem.Header = $"{ViewModel.IssueItem.Title} · #{ViewModel.IssueItem.Number}";
             currentItem.Description = currentItem.Header;
-            currentItem.Url = url;
-            currentItem.Icon = new muxc.ImageIconSource
+            currentItem.Url = $"https://github.com/{param.OwnerLogin}/{param.Name}/issues/{param.Number}";
+            currentItem.DisplayUrl = $"{param.OwnerLogin} / {param.Name} / {param.Number}";
+            currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Issues.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Issues.targetsize-96.png"))
             };
         }
     }

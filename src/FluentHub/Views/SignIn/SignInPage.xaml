@@ -70,7 +70,6 @@
                             Style="{ThemeResource BodyTextBlockStyle}"
                             Text="WebAuth is the recommended option for login."
                             TextWrapping="Wrap" />
-                        <TextBlock><Hyperlink NavigateUri="https://github.com/fluenthub-community/FluentHub/blob/main/docs/authorize-app.md">Support</Hyperlink></TextBlock>
                     </StackPanel>
                 </StackPanel>
 
@@ -179,8 +178,7 @@
                     VerticalAlignment="Top"
                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                     Style="{StaticResource BodyTextBlockStyle}"
-                    Text="Click &quot;Authorize fluenthub-community&quot;;" />
-
+                    Text="Click &quot;Authorize FluentHub&quot;;" />
                 <TextBlock
                     Grid.Row="3"
                     Grid.Column="1"
@@ -197,9 +195,8 @@
                     Text="Proceed to the FluentHub application." />
 
             </Grid>
-
-            <Grid>
-
+            <Grid Grid.Row="2">
+                <HyperlinkButton NavigateUri="https://hub.codrex.dev/docs/get">Prerequistes</HyperlinkButton>
                 <StackPanel
                     HorizontalAlignment="Right"
                     Orientation="Horizontal"

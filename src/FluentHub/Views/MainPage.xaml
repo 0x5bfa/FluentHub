@@ -181,14 +181,16 @@
             </Grid>
 
             <TextBox
-                x:Name="UrlTextBox"
+                x:Name="DisplayUrlTextBox"
                 Grid.Column="1"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center"
                 IsEnabled="True"
                 KeyDown="OnUrlTextBoxKeyDown"
+                GotFocus="OnUrlTextBoxFocus"
+                LostFocus="OnUrlTextBoxLostFocus"
                 PlaceholderText="Search or input URL"
-                Text="{x:Bind TabView.SelectedItem.NavigationHistory.CurrentItem.Url, Mode=OneWay}" />
+                Text="{x:Bind TabView.SelectedItem.NavigationHistory.CurrentItem.DisplayUrl, Mode=OneWay}" />
 
             <Grid Grid.Column="2" VerticalAlignment="Center">
                 <StackPanel
