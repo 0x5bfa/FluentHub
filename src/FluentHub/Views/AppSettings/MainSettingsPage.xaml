@@ -117,7 +117,7 @@
 
                 <muxc:NavigationViewItem Content="Notifications" Tag="notifications">
                     <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="/Assets/Notifications.png" />
+                        <muxc:ImageIcon Source="/Assets/Icons/Notifications.png" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
@@ -126,7 +126,7 @@
             <muxc:NavigationView.FooterMenuItems>
                 <muxc:NavigationViewItem Content="About" Tag="about">
                     <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="/Assets/About.png" />
+                        <muxc:ImageIcon Source="/Assets/Icons/About.png" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
             </muxc:NavigationView.FooterMenuItems>

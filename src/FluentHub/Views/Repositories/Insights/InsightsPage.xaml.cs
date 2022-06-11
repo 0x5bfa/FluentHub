@@ -30,7 +30,7 @@ namespace FluentHub.Views.Repositories.Insights
             currentItem.Header = "Insights";
             currentItem.Description = "Insights";
             currentItem.Url = $"{url}";
-            currentItem.DisplayUrl = $"{pathSegments[3]} / {pathSegments[4]} / Insights";
+            currentItem.DisplayUrl = $"{pathSegments[0]} / {pathSegments[1]} / Insights";
 
             currentItem.Icon = new muxc.ImageIconSource
             {
