@@ -74,7 +74,6 @@ namespace FluentHub.Views.Repositories.Codes.Layouts
 
             currentItem.Url = url;
 
-
             string displayurl;
             if (ContextViewModel.IsFile)
             {
