@@ -37,7 +37,7 @@ namespace FluentHub.Views.Repositories.Projects
             currentItem.DisplayUrl = $"{pathSegments[0]} / {pathSegments[1]} / Projects";
             currentItem.Icon = new muxc.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Projects.targetsize-96.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Projects.png"))
             };
 
             var command = ViewModel.LoadProjectsPageCommand;

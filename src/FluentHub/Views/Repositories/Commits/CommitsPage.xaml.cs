@@ -40,7 +40,7 @@ namespace FluentHub.Views.Repositories.Commits
             currentItem.Url = $"https://github.com/{ViewModel.ContextViewModel.Repository.Owner.Login}/{ViewModel.ContextViewModel.Repository.Name}/releases";
             currentItem.Icon = new muxc.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Commits.targetsize-96.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Commits.png"))
             };
             #endregion
 

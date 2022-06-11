@@ -31,10 +31,10 @@ namespace FluentHub.Views.Repositories.Projects
             currentItem.Header = "Project";
             currentItem.Description = "Project";
             currentItem.Url = $"{url}";
-            currentItem.DisplayUrl = $"{urlSegments[1]} / {urlSegments[2]} / Projects / {urlSegments[4]}";
+            currentItem.DisplayUrl = $"{urlSegments[3]} / {urlSegments[4]} / Projects / {urlSegments[6]}";
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Projects.targetsize-96.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Projects.png"))
             };
 
             var command = ViewModel.LoadProjectPageCommand;
