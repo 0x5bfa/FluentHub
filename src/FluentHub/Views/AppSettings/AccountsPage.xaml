@@ -101,6 +101,7 @@
                             <ToolTip Content="{x:Bind UserBioTextBlock.Text, Mode=OneWay}" IsEnabled="{x:Bind UserBioTextBlock.IsTextTrimmed, Mode=OneWay}" />
                         </ToolTipService.ToolTip>
                     </TextBlock>
+                    <HyperlinkButton Content="Sign Out" Click="OnSignOutButton_Click"/>
                 </StackPanel>
             </Grid>
 

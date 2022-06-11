@@ -41,5 +41,11 @@ namespace FluentHub.Views.AppSettings
             if (command.CanExecute(null))
                 command.Execute(null) ;
         }
+
+        private void OnSignOutButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame rootFrame = (Frame)Window.Current.Content;
+            rootFrame.Navigate(typeof(SignIn.IntroPage));
+        }
     }
 }
