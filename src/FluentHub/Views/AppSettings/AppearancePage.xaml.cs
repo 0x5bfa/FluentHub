@@ -31,7 +31,7 @@ namespace FluentHub.Views.AppSettings
             currentItem.DisplayUrl = $"Settings / Appearance";
             currentItem.Icon = new muxc.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Settings.targetsize-96.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Appearance.png"))
             };
         }
     }

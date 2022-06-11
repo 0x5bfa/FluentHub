@@ -36,7 +36,7 @@ namespace FluentHub.Views.Organizations
             currentItem.DisplayUrl = $"{org}";
             currentItem.Icon = new muxc.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Organizations.targetsize-96.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Organizations.png"))
             };
             #endregion
 

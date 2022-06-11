@@ -33,7 +33,7 @@ namespace FluentHub.Views.Organizations
             currentItem.DisplayUrl = $"{DataContext} / Repositories";
             currentItem.Icon = new muxc.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.targetsize-96.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.png"))
             };
 
             var command = ViewModel.RefreshRepositoriesCommand;

@@ -37,7 +37,7 @@ namespace FluentHub.Views.Repositories.Discussions
             currentItem.DisplayUrl = $"{pathSegments[0]} / {pathSegments[1]} / Discussions";
             currentItem.Icon = new muxc.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Discussions.targetsize-96.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Discussions.png"))
             };
 
             var command = ViewModel.LoadDiscussionsPageCommand;

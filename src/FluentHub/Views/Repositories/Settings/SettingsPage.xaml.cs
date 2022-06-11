@@ -30,11 +30,16 @@ namespace FluentHub.Views.Repositories.Settings
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Settings";
             currentItem.Description = "Settings";
+
             currentItem.Url = url;
             currentItem.DisplayUrl = $"{pathSegments[0]} / {pathSegments[1]} / Settings";
+
+            currentItem.Url = $"{url}";
+            currentItem.DisplayUrl = $"{pathSegments[3]} / {pathSegments[4]} / Settings";
+
             currentItem.Icon = new muxc.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Settings.targetsize-96.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Settings.png"))
             };
         }
     }

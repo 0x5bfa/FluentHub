@@ -109,6 +109,7 @@ namespace FluentHub.Views.Repositories.Codes.Layouts
             currentItem.Url = url;
             currentItem.Description = currentItem.Header;
 
+
             string displayurl;
             if (ViewModel.ContextViewModel.IsRootDir)
             {
@@ -123,7 +124,7 @@ namespace FluentHub.Views.Repositories.Codes.Layouts
 
             currentItem.Icon = new muxc.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.targetsize-96.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.png"))
             };
             #endregion
 

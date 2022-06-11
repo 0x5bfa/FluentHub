@@ -34,12 +34,18 @@ namespace FluentHub.Views.AppSettings
             currentItem.DisplayUrl = $"Settings / Accounts";
             currentItem.Icon = new muxc.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Settings.targetsize-96.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Accounts.png"))
             };
 
             var command = ViewModel.LoadSignedInLoginsCommand;
             if (command.CanExecute(null))
                 command.Execute(null) ;
+        }
+
+        private void OnSignOutButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame rootFrame = (Frame)Window.Current.Content;
+            rootFrame.Navigate(typeof(SignIn.IntroPage));
         }
     }
 }

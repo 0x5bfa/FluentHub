@@ -1,6 +1,7 @@
 ﻿using FluentHub.Services;
 using FluentHub.ViewModels;
 using FluentHub.ViewModels.Repositories.PullRequests;
+using FluentHub.ViewModels.Repositories.Issues;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -47,7 +48,7 @@ namespace FluentHub.Views.Repositories.PullRequests
             currentItem.DisplayUrl = $"{pathSegments[0]} / {pathSegments[1]} / {pathSegments[3]}";
             currentItem.Icon = new muxc.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/PullRequests.targetsize-96.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/PullRequests.png"))
             };
         }
 

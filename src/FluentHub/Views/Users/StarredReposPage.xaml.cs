@@ -46,7 +46,7 @@ namespace FluentHub.Views.Users
             currentItem.Url = url;
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Starred.targetsize-96.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Starred.png"))
             };
 
             var command = ViewModel.RefreshRepositoriesCommand;

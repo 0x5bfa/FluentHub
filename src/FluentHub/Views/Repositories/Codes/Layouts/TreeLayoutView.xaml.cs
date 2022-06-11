@@ -74,6 +74,7 @@ namespace FluentHub.Views.Repositories.Codes.Layouts
 
             currentItem.Url = url;
 
+
             string displayurl;
             if (ContextViewModel.IsFile)
             {
@@ -85,9 +86,12 @@ namespace FluentHub.Views.Repositories.Codes.Layouts
             }
 
             currentItem.DisplayUrl = displayurl;
+
+            currentItem.DisplayUrl = $"{ContextViewModel.Repository.Owner.Login} / {ContextViewModel.Repository.Name} / {ContextViewModel.BranchName}";
+
             currentItem.Icon = new muxc.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.targetsize-96.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.png"))
             };
             #endregion
 

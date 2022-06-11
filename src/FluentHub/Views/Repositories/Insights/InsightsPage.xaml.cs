@@ -33,7 +33,7 @@ namespace FluentHub.Views.Repositories.Insights
             currentItem.DisplayUrl = $"{pathSegments[0]} / {pathSegments[1]} / Insights";
             currentItem.Icon = new muxc.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Insights.targetsize-96.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Insights.png"))
             };
         }
     }

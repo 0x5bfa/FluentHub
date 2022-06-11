@@ -31,9 +31,10 @@ namespace FluentHub.Views.AppSettings
             currentItem.Header = "Settings";
             currentItem.Description = "FluentHub settings";
             currentItem.Url = "fluenthub://settings";
-            currentItem.Icon = new muxc.FontIconSource
+            currentItem.DisplayUrl = currentItem.Header;
+            currentItem.Icon = new muxc.ImageIconSource
             {
-                Glyph = "\uE713"
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Settings.png"))
             };
 
             var defaultItem
@@ -73,7 +74,7 @@ namespace FluentHub.Views.AppSettings
                     break;
                 case "repositories":
                     SettingsContentFrame.Navigate(typeof(RepositoryPage));
-                    NavViewFrameTitleTextBlock.Text = "Repository";
+                    NavViewFrameTitleTextBlock.Text = "Repositories";
                     break;
             }
         }
