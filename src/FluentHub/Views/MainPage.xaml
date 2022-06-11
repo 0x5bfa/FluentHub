@@ -187,6 +187,8 @@
                 VerticalAlignment="Center"
                 IsEnabled="True"
                 KeyDown="OnUrlTextBoxKeyDown"
+                GotFocus="OnUrlTextBoxFocus"
+                LostFocus="OnUrlTextBoxLostFocus"
                 PlaceholderText="Search or input URL"
                 Text="{x:Bind TabView.SelectedItem.NavigationHistory.CurrentItem.DisplayUrl, Mode=OneWay}" />
 
