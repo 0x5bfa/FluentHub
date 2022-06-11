@@ -34,7 +34,7 @@ namespace FluentHub.Views.AppSettings
             currentItem.DisplayUrl = $"Settings / Accounts";
             currentItem.Icon = new muxc.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Settings.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Accounts.png"))
             };
 
             var command = ViewModel.LoadSignedInLoginsCommand;
