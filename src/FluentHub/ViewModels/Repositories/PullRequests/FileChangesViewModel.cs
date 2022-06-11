@@ -66,7 +66,6 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
 
                     _diffViewModels.Add(viewModel);
                 }
-
             }
             catch (Exception ex)
             {
