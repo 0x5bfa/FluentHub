@@ -116,7 +116,7 @@ namespace FluentHub.Views.Repositories
                 .FirstOrDefault(x => string.Compare(x.Tag.ToString(), tag?.ToString(), true) == 0)
                 ?? defaultItem;
 
-            RepoPageNavViewItemSelected(tag);
+            OnRepoPageNavViewItemSelected(tag);
         }
 
         private void OnRepoPageNavViewItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
@@ -125,6 +125,7 @@ namespace FluentHub.Views.Repositories
 
             switch (args.InvokedItemContainer.Tag.ToString().ToLower())
             {
+                default:
                 case "code":
                     RepoPageNavViewFrame.Navigate(typeof(CodePage), newUrl);
                     break;
@@ -149,19 +150,20 @@ namespace FluentHub.Views.Repositories
             }
         }
 
-        private void RepoPageNavViewItemSelected(string tag) // This is not muxc event method
+        private void OnRepoPageNavViewItemSelected(string tag)
         {
             string newUrl = $"{App.DefaultGitHubDomain}/{ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}";
 
             switch (tag.ToLower())
             {
+                default:
                 case "code":
                     RepoPageNavViewFrame.Navigate(typeof(CodePage), newUrl);
                     break;
                 case "issues":
                     RepoPageNavViewFrame.Navigate(typeof(Issues.IssuesPage), $"{newUrl}/issues");
                     break;
-                case " pullrequests":
+                case "pullrequests":
                     RepoPageNavViewFrame.Navigate(typeof(PullRequests.PullRequestsPage), $"{newUrl}/pulls");
                     break;
                 case "discussions":

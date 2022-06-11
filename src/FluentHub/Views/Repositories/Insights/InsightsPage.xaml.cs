@@ -24,7 +24,7 @@ namespace FluentHub.Views.Repositories.Insights
             var url = e.Parameter as string;
             var uri = new Uri(url);
             var pathSegments = uri.AbsolutePath.Split("/").ToList();
-            pathSegmentsemoveAt(0);
+            pathSegments.RemoveAt(0);
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Insights";

@@ -38,7 +38,7 @@ namespace FluentHub.Views.Repositories.Codes.Layouts
             var pathSegments = uri.AbsolutePath.Split("/").ToList();
             pathSegments.RemoveAt(0);
 
-            if (RepositoryCache is null)
+            if (RepositoryCache is null || RepositoryCache?.Name != pathSegments[1])
             {
                 // Load repository info
                 var command1 = ViewModel.LoadRepositoryCommand;
@@ -152,7 +152,7 @@ namespace FluentHub.Views.Repositories.Codes.Layouts
 
             var objType = isFile ? "blob" : "tree";
 
-            string url = $"{App.DefaultGitHubDomain}/{ViewModel.ContextViewModel.Repository.Name}/{ViewModel.ContextViewModel.Repository.Owner.Login}/{objType}/{ViewModel.ContextViewModel.BranchName}/{path}";
+            string url = $"{App.DefaultGitHubDomain}/{ViewModel.ContextViewModel.Repository.Owner.Login}/{ViewModel.ContextViewModel.Repository.Name}/{objType}/{ViewModel.ContextViewModel.BranchName}/{path}";
 
             MainPageViewModel.RepositoryContentFrame.Navigate(typeof(DetailsLayoutView), url);
         }
