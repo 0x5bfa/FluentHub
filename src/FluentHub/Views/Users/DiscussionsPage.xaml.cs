@@ -31,11 +31,12 @@ namespace FluentHub.Views.Users
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Discussions";
-            currentItem.Description = "Viewer's discussions";
+            currentItem.Description = $"{login}'s discussions";
             currentItem.Url = url;
+            currentItem.DisplayUrl = $"Discussions";
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Discussions.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Discussions.targetsize-96.png"))
             };
 
             var command = ViewModel.RefreshDiscussionsCommand;

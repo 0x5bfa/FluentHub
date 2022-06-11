@@ -32,9 +32,10 @@ namespace FluentHub.Views.Home
             currentItem.Header = "Activities";
             currentItem.Description = "Viewer's activities";
             currentItem.Url = url;
+            currentItem.DisplayUrl = $"Activities";
             currentItem.Icon = new muxc.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Activities.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Activities.targetsize-96.png"))
             };
 
             var command = ViewModel.RefreshActivitiesCommand;

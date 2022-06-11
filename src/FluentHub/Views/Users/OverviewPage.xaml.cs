@@ -1,9 +1,6 @@
 ﻿using FluentHub.Services;
 using FluentHub.ViewModels.Users;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Linq;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
@@ -36,9 +33,10 @@ namespace FluentHub.Views.Users
             currentItem.Header = $"{login}";
             currentItem.Description = $"{login}'s overview";
             currentItem.Url = url;
+            currentItem.DisplayUrl = $"{login}";
             currentItem.Icon = new muxc.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Profile.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Profile.targetsize-96.png"))
             };
 
             var command = ViewModel.RefreshRepositoryCommand;

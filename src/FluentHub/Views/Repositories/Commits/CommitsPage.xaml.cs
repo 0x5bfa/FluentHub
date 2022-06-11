@@ -35,12 +35,12 @@ namespace FluentHub.Views.Repositories.Commits
 
             #region tabitem
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = $"Releases · {ViewModel.ContextViewModel.Repository.Owner.Login}/{ViewModel.ContextViewModel.Repository.Name}";
+            currentItem.Header = $"Commits";
             currentItem.Description = currentItem.Header;
             currentItem.Url = $"https://github.com/{ViewModel.ContextViewModel.Repository.Owner.Login}/{ViewModel.ContextViewModel.Repository.Name}/releases";
             currentItem.Icon = new muxc.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Commits.targetsize-96.png"))
             };
             #endregion
 

@@ -83,5 +83,10 @@ namespace FluentHub.Views.AppSettings
             SettingsNavViewItemAccount.IsSelected = true;
             NavViewFrameTitleTextBlock.Text = "Accounts";
         }
+        private void OnSignOutButton_Click(object sender, RoutedEventArgs e)
+        {
+            Frame rootFrame = (Frame)Window.Current.Content;
+            rootFrame.Navigate(typeof(SignIn.IntroPage));
+        }
     }
 }

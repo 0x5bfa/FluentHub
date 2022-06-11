@@ -32,11 +32,12 @@ namespace FluentHub.Views.Repositories.Issues
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Issues";
-            currentItem.Description = "Viewer's issues";
+            currentItem.Description = "Issues";
             currentItem.Url = url;
+            currentItem.DisplayUrl = $"{nameAndOwner[0]} / {nameAndOwner[1]} / Issues";
             currentItem.Icon = new muxc.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Issues.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Issues.targetsize-96.png"))
             };
 
             var command = ViewModel.RefreshIssuesPageCommand;

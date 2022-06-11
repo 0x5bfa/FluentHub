@@ -41,12 +41,13 @@ namespace FluentHub.Views.Repositories.PullRequests
                 await command.ExecuteAsync(url);
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = $"{ViewModel.PullItem.Title} · Pull request #{ViewModel.PullItem.Number} · {ViewModel.PullItem.OwnerLogin}/{ViewModel.PullItem.Name}";
+            currentItem.Header = $"{ViewModel.PullItem.Title} · #{ViewModel.PullItem.Number}";
             currentItem.Description = currentItem.Header;
             currentItem.Url = url;
+            currentItem.DisplayUrl = $"{param.OwnerLogin} / {param.Name} / {param.Number}";
             currentItem.Icon = new muxc.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/PullRequests.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/PullRequests.targetsize-96.png"))
             };
         }
 

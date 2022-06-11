@@ -49,7 +49,7 @@
                     <TextBlock
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="No reviews—at least 1 approving review is required." />
+                        Text="No reviews — at least 1 approving review is required." />
 
                 </StackPanel>
 
@@ -71,7 +71,7 @@
                     <TextBlock
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="No one—assign yourself" />
+                        Text="No one — assign yourself" />
 
                 </StackPanel>
 
@@ -84,7 +84,7 @@
                     <TextBlock
                         VerticalAlignment="Center"
                         Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="Lables" />
+                        Text="Labels" />
                 </StackPanel>
 
 
@@ -191,7 +191,7 @@
                     <TextBlock
                         VerticalAlignment="Center"
                         Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="Perticipants" />
+                        Text="Participants" />
                 </StackPanel>
 
 
