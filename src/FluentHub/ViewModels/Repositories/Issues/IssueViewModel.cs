@@ -236,7 +236,7 @@ namespace FluentHub.ViewModels.Repositories.Issues
                             viewmodel.UserBlockedEvent = eventItem as UserBlockedEvent;
                             viewmodel.Actor = viewmodel?.UserBlockedEvent.Actor;
                             break;
-                    };
+                    }
 
                     var eventBlock = new IssueEventBlock()
                     {
