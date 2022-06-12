@@ -29,12 +29,12 @@
                 </uc:SettingsBlockControl.SettingsActionableElement>
             </uc:SettingsBlockControl>
 
-            <muxc:ItemsRepeater>
+            <!--<muxc:ItemsRepeater>
                 <muxc:ItemsRepeater.Layout>
                     <muxc:StackLayout Orientation="Vertical" Spacing="4" />
                 </muxc:ItemsRepeater.Layout>
                 <DataTemplate x:DataType="x:String" />
-            </muxc:ItemsRepeater>
+            </muxc:ItemsRepeater>-->
 
         </StackPanel>
     </ScrollViewer>
