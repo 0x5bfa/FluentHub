@@ -108,7 +108,7 @@ namespace FluentHub.Helpers
                                                          "My Work"),
                                                          preferredIndex++);
 
-                AddOrInsert(jumpList, CreateJumpListItem($"{argsPrefix}/starred",
+                AddOrInsert(jumpList, CreateJumpListItem($"{argsPrefix}/stars",
                                                          $"Starred repositories",
                                                          $"{iconPrefix}/Starred.png",
                                                          "",

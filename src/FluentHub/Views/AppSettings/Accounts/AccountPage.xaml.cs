@@ -5,15 +5,16 @@ using System;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using muxc = Microsoft.UI.Xaml.Controls;
 
-namespace FluentHub.Views.AppSettings
+namespace FluentHub.Views.AppSettings.Accounts
 {
-    public sealed partial class AccountsPage : Page
+    public sealed partial class AccountPage : Page
     {
-        public AccountsPage()
+        public AccountPage()
         {
             InitializeComponent();
 
@@ -30,7 +31,7 @@ namespace FluentHub.Views.AppSettings
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Account";
             currentItem.Description = "Account Settings";
-            currentItem.Url = "fluenthub://settings?page=account";
+            currentItem.Url = "fluenthub://settings/account";
             currentItem.DisplayUrl = $"Settings / Account";
             currentItem.Icon = new muxc.ImageIconSource
             {
@@ -46,6 +47,23 @@ namespace FluentHub.Views.AppSettings
         {
             Frame rootFrame = (Frame)Window.Current.Content;
             rootFrame.Navigate(typeof(SignIn.IntroPage));
+        }
+
+        private void OnYourGitHubAccountClick(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void OnYourInfoClick(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void OnSecurityClick(object sender, RoutedEventArgs e)
+        {
+        }
+
+        private void OnOtherUsersClick(object sender, RoutedEventArgs e)
+        {
+            navigationService.Navigate<AppSettings.MainSettingsPage>($"fluenthub://settings/account/otherusers", new SuppressNavigationTransitionInfo());
         }
     }
 }

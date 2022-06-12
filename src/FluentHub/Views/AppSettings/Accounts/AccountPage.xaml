@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="FluentHub.Views.AppSettings.AccountsPage"
+    x:Class="FluentHub.Views.AppSettings.Accounts.AccountPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="using:FluentHub.Converters"
@@ -101,13 +101,20 @@
                             <ToolTip Content="{x:Bind UserBioTextBlock.Text, Mode=OneWay}" IsEnabled="{x:Bind UserBioTextBlock.IsTextTrimmed, Mode=OneWay}" />
                         </ToolTipService.ToolTip>
                     </TextBlock>
-                    <HyperlinkButton Content="Sign Out" Click="OnSignOutButton_Click"/>
                 </StackPanel>
+
+                <HyperlinkButton
+                    Grid.Column="2"
+                    Click="OnSignOutButton_Click"
+                    Content="Sign Out"
+                    IsEnabled="True" />
             </Grid>
 
             <StackPanel Grid.Row="1" Spacing="4">
+
                 <uc:SettingsBlockControl
                     Title="Your GitHub account"
+                    Click="OnYourGitHubAccountClick"
                     Description="Access your GitHub account's info"
                     IsClickable="True">
                     <uc:SettingsBlockControl.Icon>
@@ -117,8 +124,10 @@
                         <FontIcon FontSize="14" Glyph="&#xE76C;" />
                     </uc:SettingsBlockControl.SettingsActionableElement>
                 </uc:SettingsBlockControl>
+
                 <uc:SettingsBlockControl
                     Title="Your info"
+                    Click="OnYourInfoClick"
                     Description="Access your FluentHub settings"
                     IsClickable="True">
                     <uc:SettingsBlockControl.Icon>
@@ -128,8 +137,10 @@
                         <FontIcon FontSize="14" Glyph="&#xE76C;" />
                     </uc:SettingsBlockControl.SettingsActionableElement>
                 </uc:SettingsBlockControl>
+
                 <uc:SettingsBlockControl
                     Title="Security"
+                    Click="OnSecurityClick"
                     Description="Manage your account security"
                     IsClickable="True">
                     <uc:SettingsBlockControl.Icon>
@@ -139,8 +150,10 @@
                         <FontIcon FontSize="14" Glyph="&#xE76C;" />
                     </uc:SettingsBlockControl.SettingsActionableElement>
                 </uc:SettingsBlockControl>
+
                 <uc:SettingsBlockControl
                     Title="Other users"
+                    Click="OnOtherUsersClick"
                     Description="Add and switch to a new user"
                     IsClickable="True">
                     <uc:SettingsBlockControl.Icon>
@@ -150,6 +163,7 @@
                         <FontIcon FontSize="14" Glyph="&#xE76C;" />
                     </uc:SettingsBlockControl.SettingsActionableElement>
                 </uc:SettingsBlockControl>
+
             </StackPanel>
 
         </Grid>

@@ -79,6 +79,7 @@
 
             </Grid>
         </ScrollViewer>
+        
         <uc:RestartInfoBar
             x:Name="RestartInfoBar"
             Grid.Row="1"

@@ -27,11 +27,16 @@ namespace FluentHub.Views.AppSettings
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            var url = e.Parameter as string;
+            var uri = new Uri(url);
+            var pathSegments = url.Split("/").ToList();
+            pathSegments.RemoveRange(0, 3);
+
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Settings";
             currentItem.Description = "FluentHub settings";
             currentItem.Url = "fluenthub://settings";
-            currentItem.DisplayUrl = currentItem.Header;
+            currentItem.DisplayUrl = "Settings";
             currentItem.Icon = new muxc.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Settings.png"))
@@ -48,8 +53,10 @@ namespace FluentHub.Views.AppSettings
                 .MenuItems
                 .Concat(SettingsNavView.FooterMenuItems)
                 .OfType<muxc.NavigationViewItem>()
-                .FirstOrDefault(x => string.Compare(x.Tag.ToString(), e.Parameter?.ToString(), true) == 0)
+                .FirstOrDefault(x => string.Compare(x.Tag.ToString(), pathSegments.FirstOrDefault(), true) == 0)
                 ?? defaultItem;
+
+            OnPageChanged(string.Join("/", pathSegments));
 
             var command = ViewModel.LoadSignedInLoginsCommand;
             if (command.CanExecute(null))
@@ -58,22 +65,33 @@ namespace FluentHub.Views.AppSettings
 
         private void SettingsNavView_SelectionChanged(muxc.NavigationView sender, muxc.NavigationViewSelectionChangedEventArgs args)
         {
-            switch (args.SelectedItemContainer?.Tag?.ToString())
+            OnPageChanged(args?.SelectedItemContainer?.Tag?.ToString());
+        }
+
+        private void OnPageChanged(string tag)
+        {
+            string newUrl = $"fluenthub://settings";
+
+            switch (tag.ToLower())
             {
                 case "appearance":
-                    SettingsContentFrame.Navigate(typeof(AppearancePage));
+                    SettingsContentFrame.Navigate(typeof(AppearancePage), $"{newUrl}/appearance");
                     NavViewFrameTitleTextBlock.Text = "Appearance";
                     break;
                 case "about":
-                    SettingsContentFrame.Navigate(typeof(AboutPage));
+                    SettingsContentFrame.Navigate(typeof(AboutPage), $"{newUrl}/about");
                     NavViewFrameTitleTextBlock.Text = "About";
                     break;
-                case "accounts":
-                    SettingsContentFrame.Navigate(typeof(AccountsPage));
+                case "account":
+                    SettingsContentFrame.Navigate(typeof(Accounts.AccountPage), $"{newUrl}/account");
                     NavViewFrameTitleTextBlock.Text = "Account";
                     break;
+                case "account/otherusers":
+                    SettingsContentFrame.Navigate(typeof(Accounts.OtherUsersPage), $"{newUrl}/account/otherusers");
+                    NavViewFrameTitleTextBlock.Text = "Account > Other users";
+                    break;
                 case "repositories":
-                    SettingsContentFrame.Navigate(typeof(RepositoryPage));
+                    SettingsContentFrame.Navigate(typeof(RepositoryPage), $"{newUrl}/repositories");
                     NavViewFrameTitleTextBlock.Text = "Repositories";
                     break;
             }
@@ -82,8 +100,9 @@ namespace FluentHub.Views.AppSettings
         private void OnAccountButtonClick(object sender, RoutedEventArgs e)
         {
             SettingsNavViewItemAccount.IsSelected = true;
-            NavViewFrameTitleTextBlock.Text = "Accounts";
+            NavViewFrameTitleTextBlock.Text = "Account";
         }
+
         private void OnSignOutButton_Click(object sender, RoutedEventArgs e)
         {
             Frame rootFrame = (Frame)Window.Current.Content;

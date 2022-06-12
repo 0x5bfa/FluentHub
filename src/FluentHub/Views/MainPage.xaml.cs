@@ -53,7 +53,7 @@ namespace FluentHub.Views
         private void OnUrlTextBoxFocus(object sender, RoutedEventArgs e)
         {
             TextBox DisplayUrlTextBox = sender as TextBox;
-            if (DisplayUrlTextBox != null)
+            if (DisplayUrlTextBox != null && TabView.SelectedItem.NavigationHistory.CurrentItem.Url != null)
             {
                 DisplayUrlTextBox.Text = TabView.SelectedItem.NavigationHistory.CurrentItem.Url;
             }
@@ -178,10 +178,10 @@ namespace FluentHub.Views
             => NavigationService.Navigate<Users.StarredReposPage>("fluenthub://stars");
 
         private void OnAppSettingsMenuFlyoutItemClick(object sender, RoutedEventArgs e)
-            => NavigationService.Navigate<AppSettings.MainSettingsPage>(App.Settings.SignedInUserName);
+            => NavigationService.Navigate<AppSettings.MainSettingsPage>("fluenthub://settings");
 
         private void OnAccountSettingsMenuFlyoutItemClick(object sender, RoutedEventArgs e)
-            => NavigationService.Navigate<AppSettings.MainSettingsPage>("accounts");
+            => NavigationService.Navigate<AppSettings.MainSettingsPage>("fluenthub://settings/account");
 
         private void OnSignOutMenuFlyoutItemClick(object sender, RoutedEventArgs e)
         {

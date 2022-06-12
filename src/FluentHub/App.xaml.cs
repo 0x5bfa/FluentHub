@@ -232,14 +232,13 @@ namespace FluentHub
                 case "discussions":
                 case "repositories":
                 case "organizations":
-                case "starred":
-                    page = typeof(Views.Home.UserHomePage);
-                    param = uri.Authority;
+                case "stars":
+                    page = typeof(Views.Users.StarredReposPage);
+                    param = uri.AbsoluteUri;
                     break;
                 case "settings":
                     page = typeof(Views.AppSettings.MainSettingsPage);
-                    if (uri.Query.Contains("page"))
-                        param = new WwwFormUrlDecoder(uri.Query).GetFirstValueByName("page");
+                    param = uri.AbsoluteUri;
                     break;
                 case "auth" when uri.Query.Contains("code"): // fluenthub://auth?code=[code]
                     var code = new WwwFormUrlDecoder(uri.Query).GetFirstValueByName("code");

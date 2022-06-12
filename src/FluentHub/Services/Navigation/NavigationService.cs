@@ -1,26 +1,21 @@
-﻿using FluentHub.Core;
-using System;
-using System.Linq;
-using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Animation;
 
 namespace FluentHub.Services.Navigation
 {
     public class NavigationService : INavigationService
     {
-        #region constructor
+        #region Constructor
         public NavigationService(ILogger logger = null) => _logger = logger;
         #endregion
 
-        #region fields
+        #region Fields and Properties
         private readonly ILogger _logger;
-        #endregion
-
-        #region properties
         public ITabView TabView { get; private set; }
         public bool IsConfigured { get; private set; }
         #endregion
 
-        #region methods
+        #region Methods
         public void Configure(ITabView tabView!!)
         {
             TabView = tabView;
@@ -28,7 +23,7 @@ namespace FluentHub.Services.Navigation
             _logger?.Info("NavigationService configured");
         }
 
-        public void Navigate(Type page, object parameter = null)
+        public void Navigate(Type page, object parameter = null, NavigationTransitionInfo transitionInfo = null)
         {
             EnsureConfigured();
 
@@ -39,10 +34,10 @@ namespace FluentHub.Services.Navigation
             }
             else
             {
-                tab.Frame.Navigate(page, parameter);
+                tab.Frame.Navigate(page, parameter, transitionInfo);
             }
         }
-        public void Navigate<T>(object parameter = null) where T : Page => Navigate(typeof(T), parameter);
+        public void Navigate<T>(object parameter = null, NavigationTransitionInfo transitionInfo = null) where T : Page => Navigate(typeof(T), parameter, transitionInfo);
 
         public Guid OpenTab(Type page, object parameter)
         {

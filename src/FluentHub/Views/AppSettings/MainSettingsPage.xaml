@@ -28,7 +28,7 @@
             IsPaneToggleButtonVisible="False"
             IsSettingsVisible="False"
             IsTitleBarAutoPaddingEnabled="False"
-            OpenPaneLength="270"
+            OpenPaneLength="290"
             PaneDisplayMode="Left"
             SelectionChanged="SettingsNavView_SelectionChanged">
 
@@ -40,8 +40,8 @@
                     HorizontalAlignment="Stretch"
                     HorizontalContentAlignment="Left"
                     Background="Transparent"
-                    Click="OnAccountButtonClick"
-                    Style="{StaticResource ClearButtonStyle}">
+                    BorderThickness="0"
+                    Click="OnAccountButtonClick">
                     <Grid ColumnSpacing="12">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
@@ -86,7 +86,7 @@
 
             <muxc:NavigationView.AutoSuggestBox>
                 <AutoSuggestBox
-                    Margin="-6,0"
+                    Margin="-10,0,0,0"
                     IsEnabled="False"
                     PlaceholderText="Search settings"
                     QueryIcon="Find" />
@@ -94,7 +94,10 @@
 
             <muxc:NavigationView.MenuItems>
 
-                <muxc:NavigationViewItem Content="Appearance" Tag="appearance">
+                <muxc:NavigationViewItem
+                    Margin="0,8,12,0"
+                    Content="Appearance"
+                    Tag="appearance">
                     <muxc:NavigationViewItem.Icon>
                         <muxc:ImageIcon Source="/Assets/Icons/Appearance.png" />
                     </muxc:NavigationViewItem.Icon>
@@ -102,20 +105,27 @@
 
                 <muxc:NavigationViewItem
                     x:Name="SettingsNavViewItemAccount"
+                    Margin="0,0,12,0"
                     Content="Account"
-                    Tag="accounts">
+                    Tag="account">
                     <muxc:NavigationViewItem.Icon>
                         <muxc:ImageIcon Source="/Assets/Icons/Accounts.png" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
-                <muxc:NavigationViewItem Content="Repositories" Tag="repositories">
+                <muxc:NavigationViewItem
+                    Margin="0,0,12,0"
+                    Content="Repositories"
+                    Tag="repositories">
                     <muxc:NavigationViewItem.Icon>
                         <muxc:ImageIcon Source="/Assets/Icons/Repositories.png" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
-                <muxc:NavigationViewItem Content="Notifications" Tag="notifications">
+                <muxc:NavigationViewItem
+                    Margin="0,0,12,0"
+                    Content="Notifications"
+                    Tag="notifications">
                     <muxc:NavigationViewItem.Icon>
                         <muxc:ImageIcon Source="/Assets/Icons/Notifications.png" />
                     </muxc:NavigationViewItem.Icon>
@@ -132,7 +142,7 @@
             </muxc:NavigationView.FooterMenuItems>
 
             <muxc:NavigationView.Content>
-                <Grid Margin="20,8,-12,-6" RowSpacing="16">
+                <Grid Margin="24,8,-12,-6" RowSpacing="16">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />

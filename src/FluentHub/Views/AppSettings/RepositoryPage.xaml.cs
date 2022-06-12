@@ -12,7 +12,7 @@ namespace FluentHub.Views.AppSettings
     {
         public RepositoryPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             var provider = App.Current.Services;
             navigationService = provider.GetRequiredService<INavigationService>();
@@ -22,9 +22,9 @@ namespace FluentHub.Views.AppSettings
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = "Repositories";
-            currentItem.Description = "Repository settings";
-            currentItem.Url = "fluenthub://settings?page=repos";
+            currentItem.Header = "Repositories settings";
+            currentItem.Description = "Repositories settings";
+            currentItem.Url = "fluenthub://settings/repositories";
             currentItem.DisplayUrl = $"Settings / Repositories";
             currentItem.Icon = new muxc.ImageIconSource
             {

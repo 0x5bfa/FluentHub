@@ -27,7 +27,7 @@ namespace FluentHub.Views.AppSettings
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Appearance";
             currentItem.Description = "Appearance settings";
-            currentItem.Url = "fluenthub://settings?page=appearance";
+            currentItem.Url = "fluenthub://settings/appearance";
             currentItem.DisplayUrl = $"Settings / Appearance";
             currentItem.Icon = new muxc.ImageIconSource
             {
