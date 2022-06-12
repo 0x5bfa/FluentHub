@@ -36,7 +36,7 @@ namespace FluentHub.Views.AppSettings.Accounts
             currentItem.DisplayUrl = "Settings / Account / Other users";
             currentItem.Icon = new muxc.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Settings.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Accounts.png"))
             };
         }
     }

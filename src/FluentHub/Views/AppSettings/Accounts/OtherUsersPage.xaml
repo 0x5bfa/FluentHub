@@ -14,8 +14,8 @@
         <StackPanel Margin="0,0,16,0">
 
             <TextBlock Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" Style="{StaticResource BodyTextBlockStyle}">
-                <Run Text="If you manage multiple accounts, add those and switch one. " />
-                <Hyperlink NavigateUri="https://docs.github.com/en/account-and-profile">Learn more about GitHub user</Hyperlink>
+                <Run Text="If you manage multiple accounts, you can add them and switch between them seamlessly." />
+                <Hyperlink NavigateUri="https://docs.github.com/en/account-and-profile">Learn more about users</Hyperlink>
             </TextBlock>
 
             <TextBlock
@@ -25,7 +25,15 @@
 
             <uc:SettingsBlockControl Title="Add other user">
                 <uc:SettingsBlockControl.SettingsActionableElement>
-                    <Button Content="Add account" Style="{StaticResource AccentButtonStyle}" />
+                    <Button
+                        Height="32"
+                        ToolTipService.ToolTip="Add"
+                        Style="{StaticResource AccentButtonStyle}">
+                        <StackPanel Orientation="Horizontal" Spacing="6">
+                            <FontIcon FontSize="16" Glyph="&#xE8C8;" />
+                            <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Copy" />
+                        </StackPanel>
+                    </Button>
                 </uc:SettingsBlockControl.SettingsActionableElement>
             </uc:SettingsBlockControl>
 
