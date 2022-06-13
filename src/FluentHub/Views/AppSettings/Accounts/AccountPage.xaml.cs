@@ -1,5 +1,5 @@
 ﻿using FluentHub.Services;
-using FluentHub.ViewModels.AppSettings;
+using FluentHub.ViewModels.AppSettings.Accounts;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Threading.Tasks;
@@ -19,12 +19,12 @@ namespace FluentHub.Views.AppSettings.Accounts
             InitializeComponent();
 
             var provider = App.Current.Services;
-            ViewModel = provider.GetRequiredService<AccountsViewModel>();
+            ViewModel = provider.GetRequiredService<AccountViewModel>();
             navigationService = App.Current.Services.GetRequiredService<INavigationService>();
         }
 
         private readonly INavigationService navigationService;
-        public AccountsViewModel ViewModel { get; }
+        public AccountViewModel ViewModel { get; }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {

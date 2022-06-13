@@ -266,7 +266,8 @@
     <Compile Include="Utils\NavigationHistory.cs" />
     <Compile Include="Utils\SerilogWrapperLogger.cs" />
     <Compile Include="ViewModels\AppSettings\AboutViewModel.cs" />
-    <Compile Include="ViewModels\AppSettings\AccountsViewModel.cs" />
+    <Compile Include="ViewModels\AppSettings\Accounts\AccountsViewModel.cs" />
+    <Compile Include="ViewModels\AppSettings\Accounts\OtherUsersViewModel.cs" />
     <Compile Include="ViewModels\AppSettings\AppearanceViewModel.cs" />
     <Compile Include="ViewModels\AppSettings\MainSettingsViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\AccountSwitchingDialogViewModel.cs" />
@@ -343,6 +344,9 @@
     </Compile>
     <Compile Include="Views\AppSettings\Accounts\OtherUsersPage.xaml.cs">
       <DependentUpon>OtherUsersPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AppSettings\NotificationsPage.xaml.cs">
+      <DependentUpon>NotificationsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AppSettings\RepositoryPage.xaml.cs">
       <DependentUpon>RepositoryPage.xaml</DependentUpon>
@@ -926,6 +930,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AppSettings\Accounts\OtherUsersPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AppSettings\NotificationsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

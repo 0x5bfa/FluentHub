@@ -3,16 +3,14 @@ using FluentHub.Helpers;
 using FluentHub.Models;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Uwp;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using Windows.UI.Xaml;
+
 namespace FluentHub.ViewModels.AppSettings
 {
     public class AppearanceViewModel : ObservableObject
     {
-        #region constructor        
+        #region Constructor        
         public AppearanceViewModel(ILogger logger = null)
         {
             _logger = logger;
@@ -26,26 +24,26 @@ namespace FluentHub.ViewModels.AppSettings
                 "Use system setting",
                 "Light theme",
                 "Dark theme",
-            }.AsReadOnly();
+            }
+            .AsReadOnly();
 
-            DefaultLanguages = App
-                                .Settings
-                                .DefaultLanguages
-                                .ToList()
-                                .AsReadOnly();
+            DefaultLanguages
+                = App
+                .Settings
+                .DefaultLanguages
+                .ToList()
+                .AsReadOnly();
         }
         #endregion
 
-        #region fields        
+        #region Fields and Properties
         private readonly ILogger _logger;
-        private int _selectedThemeIndex;
-        private int _selectedLanguageIndex;
-        private bool _showRestartMessage;
-        #endregion
 
-        #region properties        
         public ReadOnlyCollection<DefaultLanguageModel> DefaultLanguages { get; private set; }
+
         public ReadOnlyCollection<string> Themes { get; set; }
+
+        private int _selectedThemeIndex;
         public int SelectedThemeIndex
         {
             get => _selectedThemeIndex;
@@ -59,6 +57,7 @@ namespace FluentHub.ViewModels.AppSettings
             }
         }
 
+        private int _selectedLanguageIndex;
         public int SelectedLanguageIndex
         {
             get => _selectedLanguageIndex;
@@ -74,6 +73,7 @@ namespace FluentHub.ViewModels.AppSettings
             }
         }
 
+        private bool _showRestartMessage;
         public bool ShowRestartMessage
         {
             get => _showRestartMessage;

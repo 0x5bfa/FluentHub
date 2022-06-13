@@ -12,11 +12,11 @@ using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace FluentHub.ViewModels.AppSettings
+namespace FluentHub.ViewModels.AppSettings.Accounts
 {
-    public class AccountsViewModel : ObservableObject
+    public class OtherUsersViewModel : ObservableObject
     {
-        public AccountsViewModel(IMessenger messenger = null, ILogger logger = null)
+        public OtherUsersViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _logger = logger;
             _messenger = messenger;
@@ -24,32 +24,23 @@ namespace FluentHub.ViewModels.AppSettings
             _accountsItems = new();
             AccountsItems = new(_accountsItems);
 
-            LoadSignedInLoginsCommand = new AsyncRelayCommand(LoadSignedInLogins);
+            LoadSignedInLoginsCommand = new RelayCommand(LoadSignedInLogins);
         }
 
-        #region fields and properties
+        #region Fields and Properties
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
 
         private readonly ObservableCollection<AccountModel> _accountsItems;
         public ReadOnlyObservableCollection<AccountModel> AccountsItems { get; }
 
-        private User signedInUser;
-        public User SignedInUser { get => signedInUser; set => SetProperty(ref signedInUser, value); }
-
-        public IAsyncRelayCommand LoadSignedInLoginsCommand { get; }
+        public IRelayCommand LoadSignedInLoginsCommand { get; }
         #endregion
 
-        private async Task LoadSignedInLogins()
+        private void LoadSignedInLogins()
         {
             try
             {
-                UserQueries queries = new();
-                var response = await queries.GetAsync(App.Settings.SignedInUserName);
-
-                SignedInUser = response;
-
-                // Get logged in users from App Container
                 var dividedLogins = App.Settings.SignedInUserLogins.Split(",");
 
                 foreach (var item in dividedLogins)
@@ -60,8 +51,28 @@ namespace FluentHub.ViewModels.AppSettings
             }
             catch (Exception ex)
             {
+                _logger?.Error(nameof(LoadSignedInLogins), ex);
+                if (_messenger != null)
+                {
+                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+                    _messenger.Send(notification);
+                }
                 throw;
             }
+        }
+
+        public void RemoveAccount(string login)
+        {
+            for (int i = 0; _accountsItems.Count() > i; i++)
+            {
+                if (_accountsItems[i].Login == login)
+                {
+                    _accountsItems.RemoveAt(i);
+                    break;
+                }
+            }
+
+            Services.AccountService.RemoveAccount(login);
         }
     }
 }

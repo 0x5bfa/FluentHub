@@ -17,7 +17,7 @@ namespace FluentHub.ViewModels.Users
 {
     public class DiscussionsViewModel : ObservableObject
     {
-        #region constructor        
+        #region Constructor        
         public DiscussionsViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _messenger = messenger;
@@ -29,9 +29,11 @@ namespace FluentHub.ViewModels.Users
         }
         #endregion
 
-        #region fields
+        #region Fields and Properties
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
+
+        private bool CanRefreshDiscussions(string username) => !string.IsNullOrEmpty(username);
 
         private bool _displayTitle;
         public bool DisplayTitle { get => _displayTitle; set => SetProperty(ref _displayTitle, value); }
@@ -42,9 +44,7 @@ namespace FluentHub.ViewModels.Users
         public IAsyncRelayCommand RefreshDiscussionsCommand { get; }
         #endregion
 
-        #region methods
-        private bool CanRefreshDiscussions(string username) => !string.IsNullOrEmpty(username);
-
+        #region Methods
         private async Task RefreshDiscussionsAsync(string login, CancellationToken token)
         {
             try

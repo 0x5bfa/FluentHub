@@ -94,6 +94,10 @@ namespace FluentHub.Views.AppSettings
                     SettingsContentFrame.Navigate(typeof(RepositoryPage), $"{newUrl}/repositories");
                     NavViewFrameTitleTextBlock.Text = "Repositories";
                     break;
+                case "notifications":
+                    SettingsContentFrame.Navigate(typeof(RepositoryPage), $"{newUrl}/notifications");
+                    NavViewFrameTitleTextBlock.Text = "Notifications";
+                    break;
             }
         }
 
@@ -101,12 +105,6 @@ namespace FluentHub.Views.AppSettings
         {
             SettingsNavViewItemAccount.IsSelected = true;
             NavViewFrameTitleTextBlock.Text = "Account";
-        }
-
-        private void OnSignOutButton_Click(object sender, RoutedEventArgs e)
-        {
-            Frame rootFrame = (Frame)Window.Current.Content;
-            rootFrame.Navigate(typeof(SignIn.IntroPage));
         }
     }
 }

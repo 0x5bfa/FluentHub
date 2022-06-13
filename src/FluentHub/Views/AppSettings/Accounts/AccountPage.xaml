@@ -116,7 +116,8 @@
                     Title="Your GitHub account"
                     Click="OnYourGitHubAccountClick"
                     Description="Access your GitHub account's info"
-                    IsClickable="True">
+                    IsClickable="True"
+                    IsEnabled="False">
                     <uc:SettingsBlockControl.Icon>
                         <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xEA0B;" />
                     </uc:SettingsBlockControl.Icon>
@@ -129,7 +130,8 @@
                     Title="Your info"
                     Click="OnYourInfoClick"
                     Description="Access your FluentHub settings"
-                    IsClickable="True">
+                    IsClickable="True"
+                    IsEnabled="False">
                     <uc:SettingsBlockControl.Icon>
                         <FontIcon Glyph="&#xE779;" />
                     </uc:SettingsBlockControl.Icon>
@@ -142,7 +144,8 @@
                     Title="Security"
                     Click="OnSecurityClick"
                     Description="Manage your account security"
-                    IsClickable="True">
+                    IsClickable="True"
+                    IsEnabled="False">
                     <uc:SettingsBlockControl.Icon>
                         <FontIcon Glyph="&#xE8D7;" />
                     </uc:SettingsBlockControl.Icon>
