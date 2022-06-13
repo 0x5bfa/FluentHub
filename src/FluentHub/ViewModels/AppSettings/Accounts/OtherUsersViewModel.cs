@@ -45,7 +45,14 @@ namespace FluentHub.ViewModels.AppSettings.Accounts
 
                 foreach (var item in dividedLogins)
                 {
-                    AccountModel model = new() { Login = item };
+                    var isViewer = item == App.Settings.SignedInUserName ? true : false;
+
+                    AccountModel model = new()
+                    {
+                        Login = item,
+                        IsViewer = isViewer,
+                    };
+
                     _accountsItems.Add(model);
                 }
             }

@@ -95,7 +95,7 @@ namespace FluentHub.Views.AppSettings
                     NavViewFrameTitleTextBlock.Text = "Repositories";
                     break;
                 case "notifications":
-                    SettingsContentFrame.Navigate(typeof(RepositoryPage), $"{newUrl}/notifications");
+                    SettingsContentFrame.Navigate(typeof(NotificationsPage), $"{newUrl}/notifications");
                     NavViewFrameTitleTextBlock.Text = "Notifications";
                     break;
             }
