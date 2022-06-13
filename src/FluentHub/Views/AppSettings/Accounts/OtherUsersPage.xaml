@@ -21,7 +21,7 @@
 
             <TextBlock Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" Style="{StaticResource BodyTextBlockStyle}">
                 <Run Text="If you manage multiple accounts, you can add them and switch between them seamlessly." />
-                <Hyperlink NavigateUri="https://docs.github.com/en/account-and-profile">Learn more about users</Hyperlink>
+                <Hyperlink NavigateUri="https://docs.github.com/account-and-profile">Learn more about users</Hyperlink>
             </TextBlock>
 
             <TextBlock
@@ -37,8 +37,8 @@
                         Style="{StaticResource AccentButtonStyle}"
                         ToolTipService.ToolTip="Add">
                         <StackPanel Orientation="Horizontal" Spacing="6">
-                            <FontIcon FontSize="16" Glyph="&#xE8C8;" />
-                            <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Copy" />
+                            <FontIcon FontSize="16" Glyph="&#xE710;" />
+                            <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Add" />
                         </StackPanel>
                     </Button>
                 </uc:SettingsBlockControl.SettingsActionableElement>
