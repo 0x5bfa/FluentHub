@@ -26,7 +26,7 @@
   <img width="128" src="https://getbadgecdn.azureedge.net/images/English_L.png" alt="GetItFromMicrosoft" />
 </a>
 
-> **Warning**</br>**The app available on the store does not work properly.** Due to this issue, we have no plan to publish app packages yet. You need to build from source, see [building-from-source](https://github.com/fluenthub-community/FluentHub/blob/main/docs/build-from-source.md). We do apologize for any inconvenience caused.
+> **Warning**</br>The app available on the store does not work properly.</br>See [2. in the Notice section](README.md#notices)
 
 ## Screenshots
 
@@ -37,10 +37,13 @@
 
 ## Notices
 
-> HttpsClient in Octokit.GraphQL.NET does not work properly (unknown exception) for users using Windows 11 Dev/Beta versions with TLS and SSL settings disabled.</br>
->`Win+R` > `inetcpl.cpl` > `Advanced` tab > enable all TLS and SSL versions > restart
+1. HttpsClient in Octokit.GraphQL.NET does not work properly (unknown exception) for users using Windows 11 Dev/Beta versions with TLS and SSL settings disabled.</br>`Win+R` > `inetcpl.cpl` > `Advanced` tab > enable all TLS and SSL versions > restart</br>
 
-![image](https://user-images.githubusercontent.com/99880210/164863685-27770148-4c68-4920-bf87-8c0dd2b0272f.png)
+    ![image](https://user-images.githubusercontent.com/99880210/164863685-27770148-4c68-4920-bf87-8c0dd2b0272f.png)
+
+2. `Select() is not supported` Exception from Octokit.GraphQL.NET</br>Previously tracked in [#138](https://github.com/FluentHub/FluentHub/issues/138), [#129](https://github.com/FluentHub/FluentHub/issues/129), [#123](https://github.com/FluentHub/FluentHub/issues/123), [#116](https://github.com/FluentHub/FluentHub/issues/116), [#104](https://github.com/FluentHub/FluentHub/issues/104)</br>Please take a look at https://github.com/FluentHub/FluentHub/issues/138#issuecomment-1153133560
+
+    > Upon checking, there was no problem with authentication, and there was a problem with the code that was getting the user's information at the time of authentication. But this wasn't an exception caused by our code, it was caused by Octokit.GraphQL. So I [reported it to the GitHub Octokit.GraphQL team on GitHub](https://github.com/octokit/octokit.graphql.net/issues/262), but I think the project has been abandoned because I haven't received a reply for a week. We didn't want to use a non-maintainable project, and we came up with a new solution, but the cost of rewriting was huge and the code could be verbose. As a result, this project will not publish the release mode app package to the Microsoft Store or the release page on GitHub. `onein528 6/12/2022`
 
 ## FAQ
 
