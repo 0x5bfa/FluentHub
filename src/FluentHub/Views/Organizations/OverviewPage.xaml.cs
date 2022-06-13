@@ -14,10 +14,12 @@ namespace FluentHub.Views.Organizations
         public OverviewPage()
         {
             InitializeComponent();
+
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<OverviewViewModel>();
             navigationService = App.Current.Services.GetRequiredService<INavigationService>();
         }
+
         private readonly INavigationService navigationService;
         public OverviewViewModel ViewModel { get; }
 
@@ -34,16 +36,13 @@ namespace FluentHub.Views.Organizations
             currentItem.DisplayUrl = $"{org}";
             currentItem.Icon = new muxc.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Organizations.targetsize-96.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Organizations.png"))
             };
             #endregion
 
             var command = ViewModel.LoadOrganizationOverviewAsyncCommand;
             if (command.CanExecute(DataContext))
                 command.Execute(DataContext);
-
-            // Avoid duplicates
-            OrgPageFrame.Navigate(typeof(RepositoriesPage), org);
         }
     }
 }

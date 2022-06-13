@@ -2,8 +2,6 @@
 {
     public class DiscussionQueries
     {
-        public DiscussionQueries() => new App();
-
         public async Task<List<Discussion>> GetAllAsync(string login)
         {
             var query = new Query()

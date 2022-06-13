@@ -77,13 +77,17 @@ namespace FluentHub
         {
             return new ServiceCollection()
                 .AddSingleton<INavigationService, NavigationService>()
-                .AddSingleton<Backend.ILogger>(new Utils.SerilogWrapperLogger(Serilog.Log.Logger))
-                .AddSingleton<Backend.ToastService>()
+                .AddSingleton<Core.ILogger>(new Utils.SerilogWrapperLogger(Serilog.Log.Logger))
+                .AddSingleton<Core.ToastService>()
                 .AddSingleton<IMessenger>(StrongReferenceMessenger.Default)
                 // ViewModels
                 .AddSingleton<MainPageViewModel>()
                 .AddTransient<ViewModels.AppSettings.AboutViewModel>()
+                .AddTransient<ViewModels.AppSettings.Accounts.AccountViewModel>()
+                .AddTransient<ViewModels.AppSettings.Accounts.OtherUsersViewModel>()
                 .AddTransient<ViewModels.AppSettings.AppearanceViewModel>()
+                .AddTransient<ViewModels.AppSettings.MainSettingsViewModel>()
+                .AddTransient<ViewModels.Dialogs.AccountSwitchingDialogViewModel>()
                 .AddTransient<ViewModels.Home.ActivitiesViewModel>()
                 .AddTransient<ViewModels.Home.NotificationsViewModel>()
                 .AddTransient<ViewModels.Home.UserHomeViewModel>()
@@ -98,6 +102,7 @@ namespace FluentHub
                 .AddTransient<ViewModels.Repositories.Discussions.DiscussionViewModel>()
                 .AddTransient<ViewModels.Repositories.Issues.IssueViewModel>()
                 .AddTransient<ViewModels.Repositories.Issues.IssuesViewModel>()
+                .AddTransient<ViewModels.Repositories.OverviewViewModel>()
                 .AddTransient<ViewModels.Repositories.Projects.ProjectsViewModel>()
                 .AddTransient<ViewModels.Repositories.Projects.ProjectViewModel>()
                 .AddTransient<ViewModels.Repositories.PullRequests.ConversationViewModel>()
@@ -105,12 +110,14 @@ namespace FluentHub
                 .AddTransient<ViewModels.Repositories.PullRequests.FileChangesViewModel>()
                 .AddTransient<ViewModels.Repositories.PullRequests.PullRequestViewModel>()
                 .AddTransient<ViewModels.Repositories.PullRequests.PullRequestsViewModel>()
+                .AddTransient<ViewModels.SignIn.SignInViewModel>()
                 .AddTransient<ViewModels.UserControls.Blocks.FileContentBlockViewModel>()
                 .AddTransient<ViewModels.UserControls.Blocks.FileNavigationBlockViewModel>()
                 .AddTransient<ViewModels.UserControls.Blocks.ReadmeContentBlockViewModel>()
                 .AddTransient<ViewModels.UserControls.Blocks.LatestCommitBlockViewModel>()
                 .AddTransient<ViewModels.Users.FollowersViewModel>()
                 .AddTransient<ViewModels.Users.FollowingViewModel>()
+                .AddTransient<ViewModels.Dialogs.AccountSwitchingDialogViewModel>()
                 .AddTransient<ViewModels.Users.ProfilePageViewModel>()
                 .AddTransient<ViewModels.Users.IssuesViewModel>()
                 .AddTransient<ViewModels.Users.OverviewViewModel>()
@@ -119,8 +126,6 @@ namespace FluentHub
                 .AddTransient<ViewModels.Users.RepositoriesViewModel>()
                 .AddTransient<ViewModels.Users.OrganizationsViewModel>()
                 .AddTransient<ViewModels.Users.StarredReposViewModel>()
-                .AddTransient<ViewModels.Users.FollowersViewModel>()
-                .AddTransient<ViewModels.Users.FollowingViewModel>()
                 .BuildServiceProvider();
         }
 
@@ -161,6 +166,8 @@ namespace FluentHub
             {
                 if (Settings.SetupCompleted == true)
                 {
+                    FluentHub.Octokit.Authorization.InitializeOctokit.InitializeApiConnections(Settings.AccessToken);
+
                     rootFrame.Navigate(typeof(MainPage));
                 }
                 else
@@ -226,25 +233,39 @@ namespace FluentHub
                 case "discussions":
                 case "repositories":
                 case "organizations":
-                case "starred":
-                    page = typeof(Views.Home.UserHomePage);
-                    param = uri.Authority;
+                case "stars":
+                    page = typeof(Views.Users.StarredReposPage);
+                    param = uri.AbsoluteUri;
                     break;
                 case "settings":
                     page = typeof(Views.AppSettings.MainSettingsPage);
-                    if (uri.Query.Contains("page"))
-                        param = new WwwFormUrlDecoder(uri.Query).GetFirstValueByName("page");
+                    param = uri.AbsoluteUri;
                     break;
                 case "auth" when uri.Query.Contains("code"): // fluenthub://auth?code=[code]
                     var code = new WwwFormUrlDecoder(uri.Query).GetFirstValueByName("code");
+                    bool status;
 
-                    AuthorizationService authService = new();
-                    bool status = await authService.RequestOAuthTokenAsync(code);
+                    try
+                    {
+                        AuthorizationService authService = new();
+                        var accessToken = await authService.RequestOAuthTokenAsync(code);
+                        logger?.Information("Successfully authorized.");
+
+                        // Set token and login to App Settings Container
+                        await SetAccountInfo(accessToken);
+
+                        status = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        status = false;
+                        logger?.Information("Authorization failed.", ex);
+                    }
 
                     if (status)
                     {
+                        Settings.SetupProgress = true;
                         Settings.SetupCompleted = true;
-
                         rootFrame.Navigate(typeof(MainPage));
                     }
 
@@ -262,6 +283,17 @@ namespace FluentHub
                         ns.Navigate(page, param);
                 }
             }
+        }
+
+        private async Task SetAccountInfo(string accessToken)
+        {
+            Settings.AccessToken = accessToken;
+
+            Octokit.Queries.Users.UserQueries queries = new();
+            string login = await queries.GetViewerLogin();
+            Settings.SignedInUserName = login;
+
+            AccountService.AddAccount(login);
         }
 
         void OnNavigationFailed(object sender, NavigationFailedEventArgs e)

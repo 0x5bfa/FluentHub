@@ -1,28 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using FluentHub.Models;
+using FluentHub.Core;
+using FluentHub.Octokit.Models;
+using FluentHub.Octokit.Queries.Repositories;
+using FluentHub.ViewModels.UserControls.ButtonBlocks;
+using Humanizer;
+using Microsoft.Toolkit.Mvvm.ComponentModel;
+using Microsoft.Toolkit.Mvvm.Input;
+using Microsoft.Toolkit.Mvvm.Messaging;
+using System;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.Repositories
 {
-    public class RepoContextViewModel : INotifyPropertyChanged
+    public class RepoContextViewModel : ObservableObject
     {
-        public RepoContextViewModel()
-        {
-            BranchName = "main";
-            Path = "/";
-        }
-
-        public Octokit.Models.Repository Repository { get; set; }
-
-        private string _name;
-        public string Name { get => _name; set => SetProperty(ref _name, value); }
-
-        private string _owner;
-        public string Owner { get => _owner; set => SetProperty(ref _owner, value); }
+        private Repository _repository;
+        public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
 
         private string _branchName;
         public string BranchName { get => _branchName; set => SetProperty(ref _branchName, value); }
@@ -30,21 +27,21 @@ namespace FluentHub.ViewModels.Repositories
         private string _path;
         public string Path { get => _path; set => SetProperty(ref _path, value); }
 
-        private bool isRootDir;
+        private bool _isRootDir;
         public bool IsRootDir
         {
-            get => isRootDir;
+            get => _isRootDir;
             set
             {
                 if (value) IsFile = false;
-                SetProperty(ref isRootDir, value);
+                SetProperty(ref _isRootDir, value);
             }
         }
 
-        private bool isFile;
+        private bool _isFile;
         public bool IsFile
         {
-            get => isFile;
+            get => _isFile;
             set
             {
                 if (value)
@@ -53,47 +50,44 @@ namespace FluentHub.ViewModels.Repositories
                     IsDir = false;
                     IsSubDir = false;
                 }
-                SetProperty(ref isFile, value);
+                SetProperty(ref _isFile, value);
             }
         }
 
-        private bool isDir;
+        private bool _isDir;
         public bool IsDir
         {
-            get => isDir;
+            get => _isDir;
             set
             {
                 if (value) IsFile = false;
-                SetProperty(ref isDir, value);
+                SetProperty(ref _isDir, value);
             }
         }
 
-        private bool isSubDir;
+        private bool _isSubDir;
         public bool IsSubDir
         {
-            get => isSubDir;
+            get => _isSubDir;
             set
             {
                 if (value)
                 {
+                    IsDir = true;
                     IsFile = false;
                     IsRootDir = false;
                 }
-                SetProperty(ref isSubDir, value);
+                SetProperty(ref _isSubDir, value);
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
+        public static RepoContextViewModel Create(string url)
         {
-            if (!Equals(field, newValue))
-            {
-                field = newValue;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-                return true;
-            }
+            var uri = new Uri(url);
+            var pathSegments = uri.AbsolutePath.Split("/").ToList();
+            pathSegments.RemoveAt(0);
 
-            return false;
+            return new RepoContextViewModel();
         }
     }
 }

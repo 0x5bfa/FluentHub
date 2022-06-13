@@ -1,6 +1,7 @@
 ﻿using FluentHub.Services;
 using FluentHub.ViewModels;
 using FluentHub.ViewModels.Repositories.PullRequests;
+using FluentHub.ViewModels.Repositories.Issues;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -29,25 +30,26 @@ namespace FluentHub.Views.Repositories.PullRequests
         private readonly INavigationService navigationService;
         public PullRequestViewModel ViewModel { get; }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            Octokit.Models.PullRequest param = e.Parameter as Octokit.Models.PullRequest;
-
-            DataContext = e.Parameter;
-
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = $"{param.Title} · #{param.Number}";
-            currentItem.Description = currentItem.Header;
-            currentItem.Url = $"https://github.com/{param.OwnerLogin}/{param.Name}/pull/{param.Number}";
-            currentItem.DisplayUrl = $"{param.OwnerLogin} / {param.Name} / {param.Number}";
-            currentItem.Icon = new muxc.ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/PullRequests.targetsize-96.png"))
-            };
+            var url = e.Parameter as string;
+            var uri = new Uri(url);
+            var pathSegments = uri.AbsolutePath.Split("/").ToList();
+            pathSegments.RemoveAt(0);
 
             var command = ViewModel.RefreshPullRequestPageCommand;
-            if (command.CanExecute(param))
-                command.Execute(param);
+            if (command.CanExecute(url))
+                await command.ExecuteAsync(url);
+
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = $"{ViewModel.PullItem.Title} · #{ViewModel.PullItem.Number}";
+            currentItem.Description = currentItem.Header;
+            currentItem.Url = url;
+            currentItem.DisplayUrl = $"{pathSegments[0]} / {pathSegments[1]} / {pathSegments[3]}";
+            currentItem.Icon = new muxc.ImageIconSource
+            {
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/PullRequests.png"))
+            };
         }
 
         private void OnPullRequestNavigationViewSelectionChanged(muxc.NavigationView sender, muxc.NavigationViewSelectionChangedEventArgs args)

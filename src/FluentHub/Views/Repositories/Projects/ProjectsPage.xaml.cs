@@ -25,22 +25,24 @@ namespace FluentHub.Views.Repositories.Projects
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var nameWithOwner = e.Parameter as string;
-            var nameAndOwner = nameWithOwner.Split("/");
+            var url = e.Parameter as string;
+            var uri = new Uri(url);
+            var pathSegments = uri.AbsolutePath.Split("/").ToList();
+            pathSegments.RemoveAt(0);
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Projects";
             currentItem.Description = "Projects";
-            currentItem.Url = $"https://github.com/{nameAndOwner[0]}/{nameAndOwner[1]}/projects";
-            currentItem.DisplayUrl = $"{nameAndOwner[0]} / {nameAndOwner[1]} / Projects";
+            currentItem.Url = url;
+            currentItem.DisplayUrl = $"{pathSegments[0]} / {pathSegments[1]} / Projects";
             currentItem.Icon = new muxc.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Projects.targetsize-96.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Projects.png"))
             };
 
             var command = ViewModel.LoadProjectsPageCommand;
-            if (command.CanExecute(nameWithOwner))
-                command.Execute(nameWithOwner);
+            if (command.CanExecute($"{pathSegments[0]}/{pathSegments[1]}"))
+                command.Execute($"{pathSegments[0]}/{pathSegments[1]}");
         }
     }
 }

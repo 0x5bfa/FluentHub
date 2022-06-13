@@ -264,6 +264,11 @@
                                 <MenuFlyoutItem Click="OnYourOrganizationsMenuFlyoutItemClick" Text="Your organizations" />
                                 <MenuFlyoutItem Click="OnYourStarsMenuFlyoutItemClick" Text="Your stars" />
                                 <MenuFlyoutSeparator />
+                                <MenuFlyoutSubItem Text="Switch account">
+                                    <MenuFlyoutItem IsEnabled="False" Text="Not available yet" />
+                                    <MenuFlyoutSeparator />
+                                    <MenuFlyoutItem Click="OnAccountSettingsMenuFlyoutItemClick" Text="Account settings" />
+                                </MenuFlyoutSubItem>
                                 <MenuFlyoutItem Click="OnAppSettingsMenuFlyoutItemClick" Text="Settings" />
                                 <MenuFlyoutItem Click="OnSignOutMenuFlyoutItemClick" Text="Sign out" />
                             </MenuFlyout>

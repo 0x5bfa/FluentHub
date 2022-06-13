@@ -18,6 +18,7 @@ namespace FluentHub.Views.AppSettings
             ViewModel = provider.GetRequiredService<AboutViewModel>();
             navigationService = provider.GetRequiredService<INavigationService>();
         }
+
         private readonly INavigationService navigationService;
         public AboutViewModel ViewModel { get; }
 
@@ -26,11 +27,11 @@ namespace FluentHub.Views.AppSettings
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "About";
             currentItem.Description = "About FluentHub";
-            currentItem.Url = "fluenthub://settings?page=about";
+            currentItem.Url = "fluenthub://settings/about";
             currentItem.DisplayUrl = $"Settings / About";
             currentItem.Icon = new muxc.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Settings.targetsize-96.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/About.png"))
             };
         }
     }

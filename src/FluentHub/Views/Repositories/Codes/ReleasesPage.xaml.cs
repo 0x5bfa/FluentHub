@@ -36,10 +36,14 @@ namespace FluentHub.Views.Repositories.Codes
 
             #region tabitem
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = $"Releases · {ViewModel.ContextViewModel.Owner}/{ViewModel.ContextViewModel.Name}";
+            currentItem.Header = $"Releases · {ViewModel.ContextViewModel.Repository.Owner.Login}/{ViewModel.ContextViewModel.Repository.Name}";
             currentItem.Description = currentItem.Header;
-            currentItem.Url = $"https://github.com/{ViewModel.ContextViewModel.Owner}/{ViewModel.ContextViewModel.Name}/releases";
-            currentItem.DisplayUrl = $"{ViewModel.ContextViewModel.Owner}/{ViewModel.ContextViewModel.Name}/releases";
+            currentItem.Url = $"https://github.com/{ViewModel.ContextViewModel.Repository.Owner.Login}/{ViewModel.ContextViewModel.Repository.Name}/releases";
+
+            currentItem.DisplayUrl = $"{ViewModel.ContextViewModel.Repository.Owner.Login}/{ViewModel.ContextViewModel.Repository.Name}/releases";
+
+            currentItem.DisplayUrl = $"{ViewModel.ContextViewModel.Repository.Owner.Login} / {ViewModel.ContextViewModel.Repository.Name} / Releases";
+
             currentItem.Icon = new muxc.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.png"))

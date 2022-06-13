@@ -48,6 +48,12 @@ namespace FluentHub.ViewModels
             get => Get(nameof(SignedInUserName), "");
             set => Set(nameof(SignedInUserName), value);
         }
+
+        public string SignedInUserLogins // Divided with comma ','
+        {
+            get => Get(nameof(SignedInUserLogins), "");
+            set => Set(nameof(SignedInUserLogins), value);
+        }
         #endregion
 
         #region appsettings

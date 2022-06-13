@@ -36,7 +36,7 @@ namespace FluentHub.Views.Users
             currentItem.DisplayUrl = $"{login}";
             currentItem.Icon = new muxc.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Profile.targetsize-96.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Profile.png"))
             };
 
             var command = ViewModel.RefreshRepositoryCommand;

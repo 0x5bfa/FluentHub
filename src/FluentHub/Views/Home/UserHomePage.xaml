@@ -93,10 +93,10 @@
 
                                     <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind IsPrivate, Mode=OneWay}">
                                         <toolkit:Case Value="True">
-                                            <Image Width="16" Source="/Assets/Icons/Private.targetsize-96.png"/>
+                                            <Image Width="16" Source="/Assets/Icons/Private.png"/>
                                         </toolkit:Case>
                                         <toolkit:Case Value="False">
-                                            <Image Width="16" Source="/Assets/Icons/Repositories.targetsize-96.png"/>
+                                            <Image Width="16" Source="/Assets/Icons/Repositories.png"/>
                                         </toolkit:Case>
                                     </toolkit:SwitchPresenter>
 
@@ -169,7 +169,7 @@
                                                 Width="40"
                                                 Height="36"
                                                 CornerRadius="4">
-                                                <Image Source="/Assets/Icons/Issues.targetsize-96.png"/>
+                                                <Image Source="/Assets/Icons/Issues.png"/>
                                             </Border>
                                             <TextBlock HorizontalAlignment="Center" Text="Issues" />
                                         </StackPanel>
@@ -189,7 +189,7 @@
                                                 Width="40"
                                                 Height="36"
                                                 CornerRadius="4">
-                                                <Image Source="/Assets/Icons/PullRequests.targetsize-96.png"/>
+                                                <Image Source="/Assets/Icons/PullRequests.png"/>
                                             </Border>
                                             <TextBlock HorizontalAlignment="Center" Text="Pull requests" />
                                         </StackPanel>
@@ -209,7 +209,7 @@
                                                 Width="40"
                                                 Height="36"
                                                 CornerRadius="4">
-                                                <Image Source="/Assets/Icons/Discussions.targetsize-96.png"/>
+                                                <Image Source="/Assets/Icons/Discussions.png"/>
                                             </Border>
                                             <TextBlock HorizontalAlignment="Center" Text="Discussions" />
                                         </StackPanel>
@@ -229,7 +229,7 @@
                                                 Width="40"
                                                 Height="36"
                                                 CornerRadius="4">
-                                                <Image Source="/Assets/Icons/Repositories.targetsize-96.png"/>
+                                                <Image Source="/Assets/Icons/Repositories.png"/>
                                             </Border>
                                             <TextBlock HorizontalAlignment="Center" Text="Repositories" />
                                         </StackPanel>
@@ -249,7 +249,7 @@
                                                 Width="40"
                                                 Height="36"
                                                 CornerRadius="4">
-                                                <Image Source="/Assets/Icons/Organizations.targetsize-96.png"/>
+                                                <Image Source="/Assets/Icons/Organizations.png"/>
                                             </Border>
                                             <TextBlock HorizontalAlignment="Center" Text="Organizations" />
                                         </StackPanel>
@@ -269,7 +269,7 @@
                                                 Width="40"
                                                 Height="36"
                                                 CornerRadius="4">
-                                                <Image Source="/Assets/Icons/Starred.targetsize-96.png"/>
+                                                <Image Source="/Assets/Icons/Starred.png"/>
                                             </Border>
                                             <TextBlock HorizontalAlignment="Center" Text="Stars" />
                                         </StackPanel>

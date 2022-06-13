@@ -36,7 +36,7 @@ namespace FluentHub.Views.Users
             currentItem.DisplayUrl = $"Discussions";
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Discussions.targetsize-96.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Discussions.png"))
             };
 
             var command = ViewModel.RefreshDiscussionsCommand;

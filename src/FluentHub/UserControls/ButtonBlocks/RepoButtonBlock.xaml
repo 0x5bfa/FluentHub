@@ -9,7 +9,6 @@
     d:DesignHeight="180"
     d:DesignWidth="400"
     DataContext="{x:Bind ViewModel, Mode=OneWay}"
-    Loaded="OnRepoButtonBlockLoaded"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -43,8 +42,9 @@
             Padding="16,12"
             Background="Transparent"
             BorderThickness="0"
-            Click="RepoBlockButton_Click"
+            Click="OnClick"
             Style="{StaticResource ContentBlockButtonStyle}">
+
             <Grid ColumnSpacing="6">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />

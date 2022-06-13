@@ -35,7 +35,7 @@ namespace FluentHub.Views.Home
             currentItem.DisplayUrl = $"Activities";
             currentItem.Icon = new muxc.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Activities.targetsize-96.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Activities.png"))
             };
 
             var command = ViewModel.RefreshActivitiesCommand;
@@ -46,7 +46,7 @@ namespace FluentHub.Views.Home
         private void OnHomeRepositoriesListItemClick(object sender, ItemClickEventArgs e)
         {
             var clickedItem = e.ClickedItem as Repository;
-            navigationService.Navigate<Repositories.OverviewPage>(clickedItem);
+            navigationService.Navigate<Repositories.OverviewPage>($"{App.DefaultGitHubDomain}/{clickedItem.Owner.Login}/{clickedItem.Name}");
         }
     }
 }

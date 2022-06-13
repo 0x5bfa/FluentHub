@@ -124,6 +124,8 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="Authorization\AuthorizationService.cs" />
+    <Compile Include="Authorization\InitializeOctokit.cs" />
+    <Compile Include="Authorization\OctokitSecrets.cs" />
     <Compile Include="GlobalUsings.cs" />
     <Compile Include="Helpers\UserTypeDetectionHelper.cs" />
     <Compile Include="Models\ActivityPayloads\CheckRunEventPayload.cs" />
@@ -275,7 +277,12 @@
       <Version>5.0.0</Version>
     </PackageReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\FluentHub.Core\FluentHub.Core.csproj">
+      <Project>{2df9c7e4-8293-4dcd-9ea4-78784d98e957}</Project>
+      <Name>FluentHub.Core</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>
   </PropertyGroup>

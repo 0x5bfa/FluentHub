@@ -2,8 +2,6 @@
 {
     public class FollowingQueries
     {
-        public FollowingQueries() => new App();
-
         public async Task<List<Models.User>> GetAllAsync(string login)
         {
             #region query

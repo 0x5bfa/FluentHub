@@ -1,4 +1,4 @@
-﻿using FluentHub.Backend;
+﻿using FluentHub.Core;
 using FluentHub.Services.Navigation;
 using FluentHub.Utils;
 using Microsoft.Extensions.DependencyInjection;

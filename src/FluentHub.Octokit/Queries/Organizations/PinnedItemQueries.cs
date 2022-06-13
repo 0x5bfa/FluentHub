@@ -2,8 +2,6 @@
 {
     public class PinnedItemQueries
     {
-        public PinnedItemQueries() => new App();
-
         public async Task<List<Repository>> GetAllAsync(string org)
         {
             OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.IssueState>> issueState = new(new OctokitGraphQLModel.IssueState[] { OctokitGraphQLModel.IssueState.Open });

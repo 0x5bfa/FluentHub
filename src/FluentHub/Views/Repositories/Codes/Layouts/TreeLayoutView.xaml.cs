@@ -45,18 +45,18 @@ namespace FluentHub.Views.Repositories.Codes.Layouts
             {
                 if (string.IsNullOrEmpty(ContextViewModel.Repository.Description))
                 {
-                    header = $"{ContextViewModel.Owner}/{ContextViewModel.Name}";
+                    header = $"{ContextViewModel.Repository.Owner.Login}/{ContextViewModel.Repository.Name}";
                 }
                 else
                 {
-                    header = $"{ContextViewModel.Owner}/{ContextViewModel.Name}: {ContextViewModel.Repository.Description}";
+                    header = $"{ContextViewModel.Repository.Owner.Login}/{ContextViewModel.Repository.Name}: {ContextViewModel.Repository.Description}";
                 }
             }
             else
             {
                 string middlePath = ContextViewModel.Path.Remove(0, 1);
                 middlePath = middlePath.Remove(middlePath.Length - 1, 1);
-                header = $"{ContextViewModel.Name}/{middlePath} at {ContextViewModel.BranchName} · {ContextViewModel.Owner}/{ContextViewModel.Name}";
+                header = $"{ContextViewModel.Repository.Name}/{middlePath} at {ContextViewModel.BranchName} · {ContextViewModel.Repository.Owner.Login}/{ContextViewModel.Repository.Name}";
             }
 
             currentItem.Header = header;
@@ -65,11 +65,11 @@ namespace FluentHub.Views.Repositories.Codes.Layouts
             string url;
             if (ContextViewModel.IsFile)
             {
-                url = $"https://github.com/{ContextViewModel.Owner}/{ContextViewModel.Name}/blob/{ContextViewModel.BranchName}{ContextViewModel.Path.TrimEnd('/')}";
+                url = $"https://github.com/{ContextViewModel.Repository.Owner.Login}/{ContextViewModel.Repository.Name}/blob/{ContextViewModel.BranchName}{ContextViewModel.Path.TrimEnd('/')}";
             }
             else
             {
-                url = $"https://github.com/{ContextViewModel.Owner}/{ContextViewModel.Name}/tree/{ContextViewModel.BranchName}{ContextViewModel.Path.TrimEnd('/')}";
+                url = $"https://github.com/{ContextViewModel.Repository.Owner.Login}/{ContextViewModel.Repository.Name}/tree/{ContextViewModel.BranchName}{ContextViewModel.Path.TrimEnd('/')}";
             }
 
             currentItem.Url = url;
@@ -77,17 +77,20 @@ namespace FluentHub.Views.Repositories.Codes.Layouts
             string displayurl;
             if (ContextViewModel.IsFile)
             {
-                displayurl = $"{ContextViewModel.Owner}/{ContextViewModel.Name}/blob/{ContextViewModel.BranchName}{ContextViewModel.Path.TrimEnd('/')}";
+                displayurl = $"{ContextViewModel.Repository.Owner.Login}/{ContextViewModel.Repository.Name}/blob/{ContextViewModel.BranchName}{ContextViewModel.Path.TrimEnd('/')}";
             }
             else
             {
-                displayurl = $"{ContextViewModel.Owner} / {ContextViewModel.Name} / {ContextViewModel.BranchName}";
+                displayurl = $"{ContextViewModel.Repository.Owner.Login} / {ContextViewModel.Repository.Name} / {ContextViewModel.BranchName}";
             }
 
             currentItem.DisplayUrl = displayurl;
+
+            currentItem.DisplayUrl = $"{ContextViewModel.Repository.Owner.Login} / {ContextViewModel.Repository.Name} / {ContextViewModel.BranchName}";
+
             currentItem.Icon = new muxc.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.targetsize-96.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.png"))
             };
             #endregion
 
@@ -131,8 +134,6 @@ namespace FluentHub.Views.Repositories.Codes.Layouts
                 IsFile = true,
                 IsRootDir = false,
                 IsSubDir = false,
-                Owner = ViewModel.ContextViewModel.Owner,
-                Name = ViewModel.ContextViewModel.Name,
                 Repository = ViewModel.ContextViewModel.Repository,
                 BranchName = ViewModel.ContextViewModel.BranchName,
                 Path = "/" + item?.Path,

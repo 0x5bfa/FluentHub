@@ -9,6 +9,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Views.Repositories.Issues
 {
@@ -26,25 +27,30 @@ namespace FluentHub.Views.Repositories.Issues
         private readonly INavigationService navigationService;
         public IssueViewModel ViewModel { get; }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            Octokit.Models.Issue param = e.Parameter as Octokit.Models.Issue;
-
-            DataContext = e.Parameter;
-
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = $"{param.Title} · #{param.Number}";
-            currentItem.Description = currentItem.Header;
-            currentItem.Url = $"https://github.com/{param.OwnerLogin}/{param.Name}/issues/{param.Number}";
-            currentItem.DisplayUrl = $"{param.OwnerLogin} / {param.Name} / {param.Number}";
-            currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Issues.targetsize-96.png"))
-            };
+            var url = e.Parameter as string;
+            var uri = new Uri(url);
+            var pathSegments = uri.AbsolutePath.Split("/").ToList();
+            pathSegments.RemoveAt(0);
 
             var command = ViewModel.RefreshIssuePageCommand;
-            if (command.CanExecute(param))
-                command.Execute(param);
+            if (command.CanExecute(url))
+                await command.ExecuteAsync(url);
+
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = $"{ViewModel.IssueItem.Title} · #{ViewModel.IssueItem.Number}";
+            currentItem.Description = currentItem.Header;
+            currentItem.Url = url;
+
+            currentItem.DisplayUrl = $"{pathSegments[0]} / {pathSegments[1]} / {pathSegments[3]}";
+
+            currentItem.DisplayUrl = $"{ViewModel.IssueItem.OwnerLogin} / {ViewModel.IssueItem.Name} / {ViewModel.IssueItem.Number}";
+
+            currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
+            {
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Issues.png"))
+            };
         }
     }
 }
