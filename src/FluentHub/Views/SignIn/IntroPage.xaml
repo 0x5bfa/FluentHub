@@ -1,5 +1,4 @@
-﻿<Page
-    x:Class="FluentHub.Views.SignIn.IntroPage"
+﻿<Page x:Class="FluentHub.Views.SignIn.IntroPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -21,65 +20,39 @@
             <uc:TitleBar Margin="12,0,0,0" />
         </Grid>
 
-        <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
+        <StackPanel Grid.Row="1" Width="1516" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Top">
 
-            <StackPanel
-                Grid.Row="1"
-                Width="400"
-                Margin="0,-50,0,0"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center">
+            <StackPanel Orientation="Vertical">
+                <Image Source="/Assets/OOBEHERO.png" Stretch="Uniform" Width="Auto" Height="Auto"/>
 
-                <StackPanel Orientation="Vertical">
-                    <Image Source="/Assets/OOBEHERO.png" Stretch="Uniform"
-                           Width="Auto"
-                           Height="Auto"/>
+                <TextBlock x:Uid="Oobe_HowToUse" LineStackingStrategy="MaxHeight" Width="1350" TextWrapping="Wrap" Foreground="White" HorizontalAlignment="Left" Margin="80,30,0,0" FontSize="40" Style="{ThemeResource TitleTextBlockStyle}" Text="Welcome to FluentHub"/>
 
-                    <TextBlock x:Uid="Oobe_HowToUse"
-                           Style="{ThemeResource TitleTextBlockStyle}" Text="Welcome to FluentHub"/>
-                    <TextBlock x:Uid="Oobe_HowToUse"
-                           Style="{ThemeResource BodyTextBlockStyle}" 
-                           Text="A stylish yet wonderfully powerful GitHub Oauth client made with Fluent Design and WinUI 2.7"/>
-                    <!--<HyperlinkButton NavigateUri="https://aka.ms/PowerToysOverview" Style="{ThemeResource AccentButtonStyle}">
-                    <TextBlock x:Uid="Oobe_Overview_DescriptionLinkText"
-                               TextWrapping="Wrap" />
+                <TextBlock x:Uid="Oobe_HowToUse" LineStackingStrategy="MaxHeight" Width="1350" TextWrapping="Wrap" Foreground="#bbbbbb" HorizontalAlignment="Left" Margin="80,30,0,0" FontSize="25" Style="{ThemeResource BodyTextBlockStyle}" Text="A stylish yet wonderfully powerful GitHub Oauth client."/>
+
+                <TextBlock>
+                    <Run Text=""/>
+                </TextBlock>
+                <TextBlock>
+                    <Run Text=""/>
+                </TextBlock>
+
+                <TextBlock x:Uid="Oobe_HowToUse" LineStackingStrategy="MaxHeight" Width="1350" TextWrapping="Wrap" Foreground="White" HorizontalAlignment="Left" Margin="80,30,0,0" FontSize="25" Style="{ThemeResource TitleTextBlockStyle}" Text="How to Use"/>
+
+                <TextBlock x:Uid="Oobe_HowToUse" LineStackingStrategy="MaxHeight" Width="1350" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="80,10,0,0" FontSize="25" Style="{ThemeResource BodyStrongTextBlockStyle}">
+                    <Hyperlink xml:space="preserve" NavigateUri="https://hub.codrex.dev/" UnderlineStyle="None">Documentation on Codrex</Hyperlink>
+                </TextBlock>
+
+                <!--<TextBlock x:Uid="Oobe_HowToUse" Style="{ThemeResource TitleTextBlockStyle}" Text="Welcome to FluentHub"/>
+                    <TextBlock x:Uid="Oobe_HowToUse" Style="{ThemeResource BodyTextBlockStyle}" Text="A stylish yet wonderfully powerful GitHub Oauth client."/>
+                    <HyperlinkButton NavigateUri="https://aka.ms/PowerToysOverview" Style="{ThemeResource AccentButtonStyle}">
+                    <TextBlock x:Uid="Oobe_Overview_DescriptionLinkText" TextWrapping="Wrap" />
                 </HyperlinkButton>-->
 
-                    <StackPanel Orientation="Horizontal" Spacing="12" Margin="0,24,0,0">
-                        <Button x:Uid="OOBE_Settings"
-                            Style="{ThemeResource AccentButtonStyle}"
-                            Click="SetupButton_Click"
-                            Content="Setup"/>
-                    </StackPanel>
+                <StackPanel Orientation="Horizontal" Spacing="12" Margin="80,24,0,0">
+                    <Button x:Uid="OOBE_Settings" Style="{ThemeResource AccentButtonStyle}" Width="150" Height="50" FontSize="20" Foreground="White" Click="SetupButton_Click" Content="Set Up"/>
                 </StackPanel>
             </StackPanel>
-        </Grid>
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup x:Name="WideWindow">
-                <VisualState x:Name="WideState">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="800" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="ImageGrid.Visibility" Value="Visible" />
-                        <Setter Target="TextGrid.Grid.Column" Value="1" />
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState>
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="500" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="ImageGrid.Visibility" Value="Collapsed" />
-                        <Setter Target="TextGrid.Grid.Column" Value="0" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
+        </StackPanel>
     </Grid>
 
 </Page>
