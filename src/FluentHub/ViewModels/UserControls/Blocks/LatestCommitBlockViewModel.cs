@@ -1,4 +1,4 @@
-﻿using FluentHub.Backend;
+﻿using FluentHub.Core;
 using FluentHub.Helpers;
 using FluentHub.Models;
 using FluentHub.Octokit.Models;
@@ -59,7 +59,7 @@ namespace FluentHub.ViewModels.UserControls.Blocks
             try
             {
                 CommitQueries queries = new();
-                CommitOverviewItem = await queries.GetAsync(ContextViewModel.Name, ContextViewModel.Owner, ContextViewModel.BranchName, ContextViewModel.Path);
+                CommitOverviewItem = await queries.GetAsync(ContextViewModel.Repository.Name, ContextViewModel.Repository.Owner.Login, ContextViewModel.BranchName, ContextViewModel.Path);
 
                 CommitUpdatedAtHumanized = CommitOverviewItem.CommittedAtHumanized;
 

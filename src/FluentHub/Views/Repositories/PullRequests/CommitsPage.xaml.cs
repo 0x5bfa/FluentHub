@@ -34,12 +34,12 @@ namespace FluentHub.Views.Repositories.PullRequests
             DataContext = e.Parameter;
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = $"{param.Title} · Pull Request #{param.Number} · {param.OwnerLogin}/{param.Name}";
+            currentItem.Header = $"{param.Title} · #{param.Number}";
             currentItem.Description = currentItem.Header;
             currentItem.Url = $"https://github.com/{param.OwnerLogin}/{param.Name}/pull/{param.Number}";
             currentItem.Icon = new muxc.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/PullRequests.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Commits.png"))
             };
 
             var command = ViewModel.RefreshPullRequestPageCommand;

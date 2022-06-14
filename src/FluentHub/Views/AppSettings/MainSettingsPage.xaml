@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
+
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -27,45 +28,56 @@
             IsPaneToggleButtonVisible="False"
             IsSettingsVisible="False"
             IsTitleBarAutoPaddingEnabled="False"
-            OpenPaneLength="270"
+            OpenPaneLength="290"
             PaneDisplayMode="Left"
             SelectionChanged="SettingsNavView_SelectionChanged">
 
             <muxc:NavigationView.PaneHeader>
                 <Button
                     Height="76"
-                    Margin="5,12"
+                    Margin="5,0,5,12"
                     Padding="8,6"
                     HorizontalAlignment="Stretch"
                     HorizontalContentAlignment="Left"
                     Background="Transparent"
-                    Click="OnAccountButtonClick"
-                    IsEnabled="False"
-                    Style="{StaticResource ClearButtonStyle}">
+                    BorderThickness="0"
+                    Click="OnAccountButtonClick">
                     <Grid ColumnSpacing="12">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
-                        <Border
+                        <Grid
                             Width="60"
                             Height="60"
                             HorizontalAlignment="Left"
-                            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                            Background="{ThemeResource ApplicationForegroundThemeBrush}"
                             CornerRadius="30">
-                            <Image x:Name="AppSignedInUserAvatar" />
-                        </Border>
+                            <Image
+                                x:Name="AppSignedInUserAvatar"
+                                Width="60"
+                                Height="60"
+                                Source="{x:Bind ViewModel.SignedInUser.AvatarUrl, Mode=OneWay}" />
+                        </Grid>
+
+                        <Grid
+                            Width="60"
+                            Height="60"
+                            BorderBrush="{ThemeResource ApplicationForegroundThemeBrush}"
+                            BorderThickness="1"
+                            CornerRadius="30"
+                            Opacity="0.5" />
 
                         <StackPanel Grid.Column="1" VerticalAlignment="Center">
                             <TextBlock
-                                x:Name="SignedInLoginName"
-                                Style="{StaticResource BodyStrongTextBlockStyle}"
-                                Text="username" />
-                            <TextBlock
                                 x:Name="SignedInUserName"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="{x:Bind ViewModel.SignedInUser.Name, Mode=OneWay}" />
+                            <TextBlock
+                                x:Name="SignedInLoginName"
                                 Style="{StaticResource CaptionTextBlockStyle}"
-                                Text="login name" />
+                                Text="{x:Bind ViewModel.SignedInUser.Login, Mode=OneWay}" />
                         </StackPanel>
 
                     </Grid>
@@ -74,32 +86,48 @@
 
             <muxc:NavigationView.AutoSuggestBox>
                 <AutoSuggestBox
-                    Margin="-6,0"
+                    Margin="-10,0,0,0"
                     IsEnabled="False"
-                    PlaceholderText="Search app settings"
+                    PlaceholderText="Search settings"
                     QueryIcon="Find" />
             </muxc:NavigationView.AutoSuggestBox>
 
             <muxc:NavigationView.MenuItems>
 
-                <muxc:NavigationViewItem Content="Appearance" Tag="appearance">
+                <muxc:NavigationViewItem
+                    Margin="0,8,12,0"
+                    Content="Appearance"
+                    Tag="appearance">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE790;" />
+                        <muxc:ImageIcon Source="/Assets/Icons/Appearance.png" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
                 <muxc:NavigationViewItem
                     x:Name="SettingsNavViewItemAccount"
-                    Content="Accounts"
-                    Tag="accounts">
+                    Margin="0,0,12,0"
+                    Content="Account"
+                    Tag="account">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE77B;" />
+                        <muxc:ImageIcon Source="/Assets/Icons/Accounts.png" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
-                <muxc:NavigationViewItem Content="Repository" Tag="codepreview">
+                <muxc:NavigationViewItem
+                    Margin="0,0,12,0"
+                    Content="Repositories"
+                    Tag="repositories">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE14C;" />
+                        <muxc:ImageIcon Source="/Assets/Icons/Repositories.png" />
+                    </muxc:NavigationViewItem.Icon>
+                </muxc:NavigationViewItem>
+
+                <muxc:NavigationViewItem
+                    Margin="0,0,12,0"
+                    Content="Notifications"
+                    Tag="notifications">
+                    <muxc:NavigationViewItem.Icon>
+                        <muxc:ImageIcon Source="/Assets/Icons/Notifications.png" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
@@ -108,27 +136,31 @@
             <muxc:NavigationView.FooterMenuItems>
                 <muxc:NavigationViewItem Content="About" Tag="about">
                     <muxc:NavigationViewItem.Icon>
-                        <FontIcon Glyph="&#xE946;" />
+                        <muxc:ImageIcon Source="/Assets/Icons/About.png" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
             </muxc:NavigationView.FooterMenuItems>
 
             <muxc:NavigationView.Content>
-                <Grid Margin="20,8,-12,-6" RowSpacing="16">
+                <Grid Margin="24,8,-12,-6" RowSpacing="16">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
+
                     <TextBlock
                         x:Name="NavViewFrameTitleTextBlock"
                         Style="{StaticResource TitleTextBlockStyle}"
                         Text="General" />
+
                     <Frame
                         x:Name="SettingsContentFrame"
                         Grid.Row="1"
                         Background="Transparent" />
+
                 </Grid>
             </muxc:NavigationView.Content>
+
         </muxc:NavigationView>
     </Grid>
 </Page>

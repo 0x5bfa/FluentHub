@@ -1,9 +1,6 @@
 ﻿using FluentHub.Services;
 using FluentHub.ViewModels.Home;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Toolkit.Uwp;
-using System;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
@@ -31,6 +28,7 @@ namespace FluentHub.Views.Home
             currentItem.Header = "Notifications";
             currentItem.Description = "Viewer's notifications";
             currentItem.Url = "https://github.com/notifications";
+            currentItem.DisplayUrl = $"Notifications";
             currentItem.Icon = new muxc.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Notifications.png"))

@@ -129,37 +129,30 @@
 
         </Grid>
 
-        <ScrollViewer
-            Grid.Row="1"
-            Height="128"
-            HorizontalScrollBarVisibility="Hidden"
-            VerticalScrollBarVisibility="Disabled"
-            VerticalScrollMode="Disabled">
-            <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Calendar.ContributionDays, Mode=OneWay}">
+        <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Calendar.ContributionDays, Mode=OneWay}">
 
-                <muxc:ItemsRepeater.Layout>
-                    <toolkit:WrapLayout
-                        HorizontalSpacing="4"
-                        Orientation="Vertical"
-                        VerticalSpacing="4" />
-                </muxc:ItemsRepeater.Layout>
+            <muxc:ItemsRepeater.Layout>
+                <toolkit:WrapLayout
+                    HorizontalSpacing="4"
+                    Orientation="Vertical"
+                    VerticalSpacing="4" />
+            </muxc:ItemsRepeater.Layout>
 
-                <DataTemplate x:DataType="models:CalendarDay">
-                    <Border
-                        Width="14"
-                        Height="14"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                        BorderThickness="1"
-                        CornerRadius="3"
-                        ToolTipService.ToolTip="{x:Bind ContributionCount, Mode=OneWay}"
-                        Visibility="{x:Bind Visibility, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
-                        <Border.Background>
-                            <SolidColorBrush Color="{x:Bind Color, Mode=OneWay}" />
-                        </Border.Background>
-                    </Border>
-                </DataTemplate>
+            <DataTemplate x:DataType="models:CalendarDay">
+                <Grid
+                    Width="14"
+                    Height="14"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="3"
+                    ToolTipService.ToolTip="{x:Bind ContributionCount, Mode=OneWay}"
+                    Visibility="{x:Bind Visibility, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+                    <Grid.Background>
+                        <SolidColorBrush Color="{x:Bind Color, Mode=OneWay}" />
+                    </Grid.Background>
+                </Grid>
+            </DataTemplate>
 
-            </muxc:ItemsRepeater>
-        </ScrollViewer>
+        </muxc:ItemsRepeater>
     </Grid>
 </UserControl>

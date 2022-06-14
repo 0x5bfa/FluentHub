@@ -124,6 +124,8 @@
   <ItemGroup>
     <Compile Include="App.cs" />
     <Compile Include="Authorization\AuthorizationService.cs" />
+    <Compile Include="Authorization\InitializeOctokit.cs" />
+    <Compile Include="Authorization\OctokitSecrets.cs" />
     <Compile Include="GlobalUsings.cs" />
     <Compile Include="Helpers\UserTypeDetectionHelper.cs" />
     <Compile Include="Models\ActivityPayloads\CheckRunEventPayload.cs" />
@@ -263,7 +265,7 @@
       <Version>2.8.25</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.2.13</Version>
+      <Version>6.2.14</Version>
     </PackageReference>
     <PackageReference Include="Octokit">
       <Version>0.51.0</Version>
@@ -276,7 +278,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FluentHub.Backend\FluentHub.Core.csproj">
+    <ProjectReference Include="..\FluentHub.Core\FluentHub.Core.csproj">
       <Project>{2df9c7e4-8293-4dcd-9ea4-78784d98e957}</Project>
       <Name>FluentHub.Core</Name>
     </ProjectReference>

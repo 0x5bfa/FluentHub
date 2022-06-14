@@ -264,7 +264,7 @@
                                 <TextBlock
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                     Style="{StaticResource CaptionTextBlockStyle}"
-                                    Text="No release published" />
+                                    Text="No releases published" />
 
                             </StackPanel>
 

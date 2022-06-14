@@ -16,7 +16,7 @@
   <Properties>
     <DisplayName>FluentHub Alpha</DisplayName>
     <PublisherDisplayName>Tomoyuki Terashita</PublisherDisplayName>
-    <Logo>Assets\AppTilesAlpha\StoreLogo.png</Logo>
+    <Logo>Assets\AppTilesBeta\StoreLogo.png</Logo>
   </Properties>
 
   <Dependencies>
@@ -33,12 +33,12 @@
       EntryPoint="FluentHub.App">
       <uap:VisualElements
         DisplayName="FluentHub Alpha"
-        Square150x150Logo="Assets\AppTilesAlpha\Square150x150Logo.png"
-        Square44x44Logo="Assets\AppTilesAlpha\Square44x44Logo.png"
+        Square150x150Logo="Assets\AppTilesBeta\Square150x150Logo.png"
+        Square44x44Logo="Assets\AppTilesBeta\Square44x44Logo.png"
         Description="A modern GitHub client for windows"
         BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\AppTilesAlpha\Wide310x150Logo.png" Square71x71Logo="Assets\AppTilesAlpha\SmallTile.png" Square310x310Logo="Assets\AppTilesAlpha\LargeTile.png"/>
-        <uap:SplashScreen Image="Assets\AppTilesAlpha\SplashScreen.png" />
+        <uap:DefaultTile Wide310x150Logo="Assets\AppTilesBeta\Wide310x150Logo.png" Square71x71Logo="Assets\AppTilesBeta\SmallTile.png" Square310x310Logo="Assets\AppTilesBeta\LargeTile.png"/>
+        <uap:SplashScreen Image="Assets\AppTilesBeta\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
         <uap:Extension Category="windows.protocol">

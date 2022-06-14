@@ -2,8 +2,6 @@
 {
     public class NotificationQueries
     {
-        public NotificationQueries() => new App();
-
         public async Task<List<Notification>> GetAllAsync(OctokitOriginal.ApiOptions options = null)
         {
             OctokitOriginal.NotificationsRequest request = new()

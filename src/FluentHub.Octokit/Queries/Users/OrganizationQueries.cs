@@ -2,8 +2,6 @@
 {
     public class OrganizationQueries
     {
-        public OrganizationQueries() => new App();
-
         public async Task<List<Organization>> GetAllAsync(string login)
         {
             #region queries

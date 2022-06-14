@@ -64,7 +64,7 @@ namespace FluentHub.ViewModels.UserControls.Labels
                     Glyph = "\uE9C3";
                     Name = "Draft";
                     break;
-            };
+            }
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

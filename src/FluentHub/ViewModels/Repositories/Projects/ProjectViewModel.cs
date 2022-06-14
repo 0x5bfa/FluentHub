@@ -1,4 +1,4 @@
-﻿using FluentHub.Backend;
+﻿using FluentHub.Core;
 using FluentHub.Octokit.Models.Events;
 using FluentHub.Octokit.Models;
 using FluentHub.Models;
@@ -43,10 +43,10 @@ namespace FluentHub.ViewModels.Repositories.Projects
         {
             try
             {
-                var urlSegments = url.Split("/");
+                var pathSegments = url.Split("/");
 
                 ProjectQueries queries = new();
-                var response = await queries.GetAsync(urlSegments[3], urlSegments[4], Convert.ToInt32(urlSegments[6]));
+                var response = await queries.GetAsync(pathSegments[3], pathSegments[4], Convert.ToInt32(pathSegments[6]));
 
                 if (response == null) return;
 

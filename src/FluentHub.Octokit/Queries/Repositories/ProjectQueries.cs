@@ -2,8 +2,6 @@
 {
     public class ProjectQueries
     {
-        public ProjectQueries() => new App();
-
         public async Task<List<Project>> GetAllAsync(string owner, string name)
         {
             var query = new Query()

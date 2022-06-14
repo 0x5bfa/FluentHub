@@ -152,12 +152,14 @@
     <Compile Include="Models\UserNotificationMessage.cs" />
     <Compile Include="Models\UserNotificationMethod.cs" />
     <Compile Include="Models\UserNotificationType.cs" />
+    <Compile Include="Services\AccountService.cs" />
     <Compile Include="Services\Navigation\INavigationService.cs" />
     <Compile Include="Services\Navigation\ITabViewItem.cs" />
     <Compile Include="Services\Navigation\ITabView.cs" />
     <Compile Include="Services\Navigation\PageNavigationEntry.cs" />
     <Compile Include="Services\Navigation\NavigationService.cs" />
     <Compile Include="Services\Navigation\TabViewSelectionChangedEventArgs.cs" />
+    <Compile Include="Services\OctokitSecretsService.cs" />
     <Compile Include="UserControls\AvatarControl.xaml.cs">
       <DependentUpon>AvatarControl.xaml</DependentUpon>
     </Compile>
@@ -264,7 +266,8 @@
     <Compile Include="Utils\NavigationHistory.cs" />
     <Compile Include="Utils\SerilogWrapperLogger.cs" />
     <Compile Include="ViewModels\AppSettings\AboutViewModel.cs" />
-    <Compile Include="ViewModels\AppSettings\AccountsViewModel.cs" />
+    <Compile Include="ViewModels\AppSettings\Accounts\AccountsViewModel.cs" />
+    <Compile Include="ViewModels\AppSettings\Accounts\OtherUsersViewModel.cs" />
     <Compile Include="ViewModels\AppSettings\AppearanceViewModel.cs" />
     <Compile Include="ViewModels\AppSettings\MainSettingsViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\AccountSwitchingDialogViewModel.cs" />
@@ -296,6 +299,7 @@
     <Compile Include="ViewModels\Repositories\PullRequests\PullRequestViewModel.cs" />
     <Compile Include="ViewModels\SettingsManager.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\SignIn\SignInViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\ActivityBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\SingleCommentBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\SingleCommitBlockViewModel.cs" />
@@ -335,11 +339,17 @@
     <Compile Include="Views\AppSettings\AboutPage.xaml.cs">
       <DependentUpon>AboutPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AppSettings\AccountsPage.xaml.cs">
-      <DependentUpon>AccountsPage.xaml</DependentUpon>
+    <Compile Include="Views\AppSettings\Accounts\AccountPage.xaml.cs">
+      <DependentUpon>AccountPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\AppSettings\CodePreviewPage.xaml.cs">
-      <DependentUpon>CodePreviewPage.xaml</DependentUpon>
+    <Compile Include="Views\AppSettings\Accounts\OtherUsersPage.xaml.cs">
+      <DependentUpon>OtherUsersPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AppSettings\NotificationsPage.xaml.cs">
+      <DependentUpon>NotificationsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AppSettings\RepositoryPage.xaml.cs">
+      <DependentUpon>RepositoryPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AppSettings\MainSettingsPage.xaml.cs">
       <DependentUpon>MainSettingsPage.xaml</DependentUpon>
@@ -688,70 +698,25 @@
     <Content Include="Assets\AppTiles\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\AppTiles\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\AppTiles\Wide310x150Logo.scale-400.png" />
-    <Content Include="Assets\Icons\Activities.targetsize-16.png" />
-    <Content Include="Assets\Icons\Activities.targetsize-20.png" />
-    <Content Include="Assets\Icons\Activities.targetsize-24.png" />
-    <Content Include="Assets\Icons\Activities.targetsize-32.png" />
-    <Content Include="Assets\Icons\Activities.targetsize-48.png" />
-    <Content Include="Assets\Icons\Activities.targetsize-64.png" />
-    <Content Include="Assets\Icons\Activities.targetsize-96.png" />
-    <Content Include="Assets\Icons\Discussions.targetsize-16.png" />
-    <Content Include="Assets\Icons\Discussions.targetsize-20.png" />
-    <Content Include="Assets\Icons\Discussions.targetsize-24.png" />
-    <Content Include="Assets\Icons\Discussions.targetsize-32.png" />
-    <Content Include="Assets\Icons\Discussions.targetsize-48.png" />
-    <Content Include="Assets\Icons\Discussions.targetsize-64.png" />
-    <Content Include="Assets\Icons\Discussions.targetsize-96.png" />
-    <Content Include="Assets\Icons\Issues.targetsize-16.png" />
-    <Content Include="Assets\Icons\Issues.targetsize-20.png" />
-    <Content Include="Assets\Icons\Issues.targetsize-24.png" />
-    <Content Include="Assets\Icons\Issues.targetsize-32.png" />
-    <Content Include="Assets\Icons\Issues.targetsize-48.png" />
-    <Content Include="Assets\Icons\Issues.targetsize-64.png" />
-    <Content Include="Assets\Icons\Issues.targetsize-96.png" />
-    <Content Include="Assets\Icons\Notifications.targetsize-16.png" />
-    <Content Include="Assets\Icons\Notifications.targetsize-20.png" />
-    <Content Include="Assets\Icons\Notifications.targetsize-24.png" />
-    <Content Include="Assets\Icons\Notifications.targetsize-32.png" />
-    <Content Include="Assets\Icons\Notifications.targetsize-48.png" />
-    <Content Include="Assets\Icons\Notifications.targetsize-64.png" />
-    <Content Include="Assets\Icons\Notifications.targetsize-96.png" />
-    <Content Include="Assets\Icons\Organizations.targetsize-16.png" />
-    <Content Include="Assets\Icons\Organizations.targetsize-20.png" />
-    <Content Include="Assets\Icons\Organizations.targetsize-24.png" />
-    <Content Include="Assets\Icons\Organizations.targetsize-32.png" />
-    <Content Include="Assets\Icons\Organizations.targetsize-48.png" />
-    <Content Include="Assets\Icons\Organizations.targetsize-64.png" />
-    <Content Include="Assets\Icons\Organizations.targetsize-96.png" />
-    <Content Include="Assets\Icons\Profile.targetsize-16.png" />
-    <Content Include="Assets\Icons\Profile.targetsize-20.png" />
-    <Content Include="Assets\Icons\Profile.targetsize-24.png" />
-    <Content Include="Assets\Icons\Profile.targetsize-32.png" />
-    <Content Include="Assets\Icons\Profile.targetsize-48.png" />
-    <Content Include="Assets\Icons\Profile.targetsize-64.png" />
-    <Content Include="Assets\Icons\Profile.targetsize-96.png" />
-    <Content Include="Assets\Icons\PullRequests.targetsize-16.png" />
-    <Content Include="Assets\Icons\PullRequests.targetsize-20.png" />
-    <Content Include="Assets\Icons\PullRequests.targetsize-24.png" />
-    <Content Include="Assets\Icons\PullRequests.targetsize-32.png" />
-    <Content Include="Assets\Icons\PullRequests.targetsize-48.png" />
-    <Content Include="Assets\Icons\PullRequests.targetsize-64.png" />
-    <Content Include="Assets\Icons\PullRequests.targetsize-96.png" />
-    <Content Include="Assets\Icons\Repositories.targetsize-16.png" />
-    <Content Include="Assets\Icons\Repositories.targetsize-20.png" />
-    <Content Include="Assets\Icons\Repositories.targetsize-24.png" />
-    <Content Include="Assets\Icons\Repositories.targetsize-32.png" />
-    <Content Include="Assets\Icons\Repositories.targetsize-48.png" />
-    <Content Include="Assets\Icons\Repositories.targetsize-64.png" />
-    <Content Include="Assets\Icons\Repositories.targetsize-96.png" />
-    <Content Include="Assets\Icons\Starred.targetsize-16.png" />
-    <Content Include="Assets\Icons\Starred.targetsize-20.png" />
-    <Content Include="Assets\Icons\Starred.targetsize-24.png" />
-    <Content Include="Assets\Icons\Starred.targetsize-32.png" />
-    <Content Include="Assets\Icons\Starred.targetsize-48.png" />
-    <Content Include="Assets\Icons\Starred.targetsize-64.png" />
-    <Content Include="Assets\Icons\Starred.targetsize-96.png" />
     <Content Include="Assets\OOBEHERO.png" />
+    <Content Include="Assets\Icons\About.png" />
+    <Content Include="Assets\Icons\Accounts.png" />
+    <Content Include="Assets\Icons\Activities.png" />
+    <Content Include="Assets\Icons\Appearance.png" />
+    <Content Include="Assets\Icons\Commits.png" />
+    <Content Include="Assets\Icons\Discussions.png" />
+    <Content Include="Assets\Icons\Home.png" />
+    <Content Include="Assets\Icons\Insights.png" />
+    <Content Include="Assets\Icons\Issues.png" />
+    <Content Include="Assets\Icons\Notifications.png" />
+    <Content Include="Assets\Icons\Organizations.png" />
+    <Content Include="Assets\Icons\Private.png" />
+    <Content Include="Assets\Icons\Profile.png" />
+    <Content Include="Assets\Icons\Projects.png" />
+    <Content Include="Assets\Icons\PullRequests.png" />
+    <Content Include="Assets\Icons\Repositories.png" />
+    <Content Include="Assets\Icons\Settings.png" />
+    <Content Include="Assets\Icons\Starred.png" />
     <Content Include="Assets\WebView\index.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -961,11 +926,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AppSettings\AccountsPage.xaml">
+    <Page Include="Views\AppSettings\Accounts\AccountPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\AppSettings\CodePreviewPage.xaml">
+    <Page Include="Views\AppSettings\Accounts\OtherUsersPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AppSettings\NotificationsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AppSettings\RepositoryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1163,7 +1136,7 @@
       <Version>6.0.0</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.2.13</Version>
+      <Version>6.2.14</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Mvvm">
       <Version>7.1.2</Version>
@@ -1172,7 +1145,7 @@
       <Version>7.1.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.UI.Xaml">
-      <Version>2.8.0-prerelease.220413001</Version>
+      <Version>2.8.0-prerelease.220601001</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed">
       <Version>2.0.1</Version>
@@ -1188,8 +1161,8 @@
     <Content Include="Assets\Glyphs\SegoeFluentIconsNormal.ttf" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FluentHub.Backend\FluentHub.Core.csproj">
-      <Project>{2DF9C7E4-8293-4DCD-9EA4-78784D98E957}</Project>
+    <ProjectReference Include="..\FluentHub.Core\FluentHub.Core.csproj">
+      <Project>{2df9c7e4-8293-4dcd-9ea4-78784d98e957}</Project>
       <Name>FluentHub.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\FluentHub.Octokit\FluentHub.Octokit.csproj">

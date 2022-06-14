@@ -1,17 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
+﻿using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using muxc = Microsoft.UI.Xaml.Controls;
+using FluentHub.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace FluentHub.Views.Repositories.Insights
 {
@@ -20,15 +12,29 @@ namespace FluentHub.Views.Repositories.Insights
         public InsightsPage()
         {
             this.InitializeComponent();
+
+            var provider = App.Current.Services;
+            navigationService = provider.GetRequiredService<INavigationService>();
         }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
-        {
-            var nameWithOwner = e.Parameter as string;
-            var nameAndOwner = nameWithOwner.Split("/");
+        private readonly INavigationService navigationService;
 
-            var queries = new Octokit.Queries.Repositories.InsightQueries();
-            await queries.GetContributors(nameAndOwner[0], nameAndOwner[1]);
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            var url = e.Parameter as string;
+            var uri = new Uri(url);
+            var pathSegments = uri.AbsolutePath.Split("/").ToList();
+            pathSegments.RemoveAt(0);
+
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = "Insights";
+            currentItem.Description = "Insights";
+            currentItem.Url = url;
+            currentItem.DisplayUrl = $"{pathSegments[0]} / {pathSegments[1]} / Insights";
+            currentItem.Icon = new muxc.ImageIconSource
+            {
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Insights.png"))
+            };
         }
     }
 }

@@ -1,27 +1,20 @@
-﻿using FluentHub.ViewModels.UserControls.ButtonBlocks;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using FluentHub.Octokit.Models;
+using FluentHub.Services;
+using FluentHub.ViewModels;
+using FluentHub.ViewModels.UserControls.ButtonBlocks;
+using FluentHub.Views.Repositories;
+using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub.UserControls.ButtonBlocks
 {
     public sealed partial class NotificationButtonBlock : UserControl
     {
-        #region dprops
+        #region propdp
         public static readonly DependencyProperty ViewModelProperty
             = DependencyProperty.Register(
-                  nameof(global::Octokit.Notification),
+                  nameof(NotificationButtonBlockViewModel),
                   typeof(NotificationButtonBlockViewModel),
                   typeof(NotificationButtonBlock),
                   new PropertyMetadata(null)
@@ -30,21 +23,39 @@ namespace FluentHub.UserControls.ButtonBlocks
         public NotificationButtonBlockViewModel ViewModel
         {
             get => (NotificationButtonBlockViewModel)GetValue(ViewModelProperty);
-            set
-            {
-                SetValue(ViewModelProperty, value);
-                this.DataContext = ViewModel;
-            }
+            set => SetValue(ViewModelProperty, value);
         }
         #endregion
 
         public NotificationButtonBlock()
         {
             this.InitializeComponent();
+            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
         }
 
-        private async void OnUserControlLoaded(object sender, RoutedEventArgs e)
+        private readonly INavigationService navigationService;
+
+        private void OnClick(object sender, RoutedEventArgs e)
         {
+            switch (ViewModel.Item.ItemState)
+            {
+                case "IssueClosed":
+                case "IssueOpen":
+                    navigationService.Navigate<OverviewPage>($"{App.DefaultGitHubDomain}/{ViewModel.Item.Repository.Owner.Login}/{ViewModel.Item.Repository.Name}/issues/{ViewModel.Item.SubjectNumber}");
+                    break;
+                case "PullMerged":
+                case "PullClosed":
+                case "PullDraft":
+                case "PullOpen":
+                    navigationService.Navigate<OverviewPage>($"{App.DefaultGitHubDomain}/{ViewModel.Item.Repository.Owner.Login}/{ViewModel.Item.Repository.Name}/pull/{ViewModel.Item.SubjectNumber}");
+                    break;
+                case "Discussion":
+                    //navigationService.Navigate<OverviewPage>($"{App.DefaultGitHubDomain}/{ViewModel.Item.Repository.Owner.Login}/{ViewModel.Item.Repository.Name}/discussions/{ViewModel.Item.SubjectNumber}");
+                    break;
+                case "Commit":
+                    //navigationService.Navigate<OverviewPage>($"{App.DefaultGitHubDomain}/{ViewModel.Item.Repository.Owner.Login}/{ViewModel.Item.Repository.Name}/commits/{ViewModel.Item.SubjectNumber}");
+                    break;
+            }
         }
     }
 }

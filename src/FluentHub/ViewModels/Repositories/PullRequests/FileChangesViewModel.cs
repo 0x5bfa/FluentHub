@@ -1,4 +1,4 @@
-﻿using FluentHub.Backend;
+﻿using FluentHub.Core;
 using FluentHub.Octokit.Models.Events;
 using FluentHub.Octokit.Models;
 using FluentHub.Models;
@@ -66,7 +66,6 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
 
                     _diffViewModels.Add(viewModel);
                 }
-
             }
             catch (Exception ex)
             {

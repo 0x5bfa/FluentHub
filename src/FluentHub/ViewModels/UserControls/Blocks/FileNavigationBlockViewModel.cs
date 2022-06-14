@@ -1,4 +1,4 @@
-﻿using FluentHub.Backend;
+﻿using FluentHub.Core;
 using FluentHub.Helpers;
 using FluentHub.Models;
 using FluentHub.Octokit.Queries.Repositories;
@@ -54,7 +54,7 @@ namespace FluentHub.ViewModels.UserControls.Blocks
                 RepositoryQueries queries = new();
 
                 // temp workaround
-                var branchNames = await queries.GetBranchNameAllAsync(contextViewModel.Owner, contextViewModel.Name);
+                var branchNames = await queries.GetBranchNameAllAsync(contextViewModel.Repository.Owner.Login, contextViewModel.Repository.Name);
 
                 // Reorder
                 var alphabetic = new ObservableCollection<string>(branchNames.OrderBy(x => x));

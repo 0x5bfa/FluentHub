@@ -1,4 +1,6 @@
-﻿using FluentHub.Octokit.Authorization;
+﻿using FluentHub.Services;
+using FluentHub.ViewModels.SignIn;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -21,27 +23,19 @@ namespace FluentHub.Views.SignIn
     {
         public SignInPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+
+            var provider = App.Current.Services;
+            ViewModel = provider.GetRequiredService<SignInViewModel>();
         }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            Window.Current.SetTitleBar(AppTitleBar);
-            base.OnNavigatedTo(e);
-        }
+        public SignInViewModel ViewModel { get; }
 
-        private async void ContinueButton_Click(object sender, RoutedEventArgs e)
-        {
-            AuthorizationService request = new();
-            _ = await request.RequestGitHubIdentityAsync();
-
-            App.Settings.SetupProgress = true;
-            SetupProgressRing.IsActive = true;
-        }
+        protected override void OnNavigatedTo(NavigationEventArgs e) => Window.Current.SetTitleBar(AppTitleBar);
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            this.Frame.Navigate(typeof(IntroPage), null, new SlideNavigationTransitionInfo()
+            Frame.Navigate(typeof(IntroPage), null, new SlideNavigationTransitionInfo()
             {
                 Effect = SlideNavigationTransitionEffect.FromLeft
             });

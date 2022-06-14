@@ -9,7 +9,7 @@ global using global::System.Threading.Tasks;
 global using global::FluentHub.Octokit.Helpers;
 global using global::FluentHub.Octokit.Models;
 global using global::FluentHub.Octokit.Models.Events;
-global using global::FluentHub.Backend;
+global using global::FluentHub.Core;
 global using global::FluentHub.Models;
 global using global::Humanizer;
 

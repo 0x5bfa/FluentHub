@@ -2,8 +2,6 @@
 {
     public class IssueEventQueries
     {
-        public IssueEventQueries() => new App();
-
         public async Task<List<object>> GetAllAsync(string owner, string name, int number)
         {
             #region queries

@@ -1,7 +1,7 @@
-﻿using FluentHub.ViewModels;
+﻿using FluentHub.Services;
 using FluentHub.ViewModels.Repositories;
-using FluentHub.Views.Repositories.Codes.Layouts;
 using FluentHub.ViewModels.UserControls.Blocks;
+using FluentHub.Views.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -30,7 +30,12 @@ namespace FluentHub.UserControls.Blocks
         public RepoContextViewModel ContextViewModel
         {
             get => (RepoContextViewModel)GetValue(ContextViewModelProperty);
-            set => SetValue(ContextViewModelProperty, value);
+            set
+            {
+                SetValue(ContextViewModelProperty, value);
+                if (ContextViewModel is not null)
+                    ViewModel.ContextViewModel = ContextViewModel;
+            }
         }
         #endregion
 
@@ -40,12 +45,14 @@ namespace FluentHub.UserControls.Blocks
 
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<FileNavigationBlockViewModel>();
+            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
         }
 
+        private readonly INavigationService navigationService;
         public FileNavigationBlockViewModel ViewModel { get; }
         private bool FirstSelectionComplete { get; set; }
 
-        #region chevronamination
+        #region Chevron Amination
         private void OnCloneButtonLoaded(object sender, RoutedEventArgs e)
         {
             var button = (Button)sender;
@@ -55,7 +62,7 @@ namespace FluentHub.UserControls.Blocks
 
         private void OnCloneButtonPointerPressed(object sender, PointerRoutedEventArgs e) => SetState(sender as UIElement, "Pressed");
 
-        private void OnCloneButtonPointerReleased(object sender, PointerRoutedEventArgs e) => SetState(sender as UIElement, "Normal");       
+        private void OnCloneButtonPointerReleased(object sender, PointerRoutedEventArgs e) => SetState(sender as UIElement, "Normal");
 
         public void SetState(UIElement target, string state)
         {
@@ -68,8 +75,6 @@ namespace FluentHub.UserControls.Blocks
 
         private void OnFileNavigationBlockLoaded(object sender, RoutedEventArgs e)
         {
-            ViewModel.ContextViewModel = ContextViewModel;
-
             var command = ViewModel.LoadBranchNameAllCommand;
             if (command.CanExecute(null))
                 command.Execute(null);
@@ -86,9 +91,11 @@ namespace FluentHub.UserControls.Blocks
                 return;
             }
 
-            ContextViewModel.BranchName = BranchNameSelector.SelectedItem as string;
+            ViewModel.ContextViewModel.BranchName = ContextViewModel.BranchName = BranchNameSelector.SelectedItem as string;
 
-            MainPageViewModel.RepositoryContentFrame.Navigate(typeof(DetailsLayoutView), ContextViewModel);
+            var objType = ViewModel.ContextViewModel.IsFile ? "blob" : "tree";
+            var path = string.IsNullOrEmpty(ViewModel.ContextViewModel.Path) ? $"{ViewModel.ContextViewModel.Path}" : $"/{ViewModel.ContextViewModel.Path}";
+            navigationService.Navigate<OverviewPage>($"{App.DefaultGitHubDomain}/{ViewModel.ContextViewModel.Repository.Owner.Login}/{ViewModel.ContextViewModel.Repository.Name}/{objType}/{ViewModel.ContextViewModel.BranchName}{path}");
         }
     }
 }

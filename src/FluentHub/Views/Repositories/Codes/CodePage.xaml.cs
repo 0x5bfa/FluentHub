@@ -15,16 +15,13 @@ namespace FluentHub.Views.Repositories.Codes
 {
     public sealed partial class CodePage : Page
     {
-        public CodePage()
-        {
-            this.InitializeComponent();
-        }
+        public CodePage() => InitializeComponent();
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             _ = App.Settings.UseDetailsView ?
-                CodeViewLayout.Navigate(typeof(Layouts.DetailsLayoutView), e.Parameter as RepoContextViewModel) :
-                CodeViewLayout.Navigate(typeof(Layouts.TreeLayoutView), e.Parameter as RepoContextViewModel);
+                CodeViewLayout.Navigate(typeof(Layouts.DetailsLayoutView), e.Parameter) :
+                CodeViewLayout.Navigate(typeof(Layouts.TreeLayoutView), e.Parameter);
         }
     }
 }

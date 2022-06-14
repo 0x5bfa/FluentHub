@@ -65,12 +65,6 @@
                             FontWeight="SemiBold"
                             Style="{ThemeResource BodyTextBlockStyle}"
                             Text="{x:Bind ViewModel.ContextViewModel.Repository.HeadRefsCount, Mode=OneWay}" />
-
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{ThemeResource BodyTextBlockStyle}"
-                            Text="branches" />
                     </StackPanel>
                 </Button.Content>
             </Button>
@@ -94,12 +88,6 @@
                             FontWeight="SemiBold"
                             Style="{ThemeResource BodyTextBlockStyle}"
                             Text="{x:Bind ViewModel.ContextViewModel.Repository.ReleaseCount, Mode=OneWay}" />
-
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{ThemeResource BodyTextBlockStyle}"
-                            Text="tags" />
                     </StackPanel>
                 </Button.Content>
             </Button>

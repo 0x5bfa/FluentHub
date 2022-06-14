@@ -24,9 +24,11 @@ namespace FluentHub.Views.Users
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            // e.g.) https://github.com/onein528?tab=stars
-            string url = e.Parameter as string;
+            var url = e.Parameter as string;
             var uri = new Uri(url);
+            var pathSegments = uri.AbsolutePath.Split("/").ToList();
+            pathSegments.RemoveAt(0);
+
             string login;
 
             if (url == "fluenthub://stars")
@@ -36,12 +38,13 @@ namespace FluentHub.Views.Users
             }
             else
             {
-                login = uri.Segments[1];
+                login = pathSegments[0];
             }
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = $"Stars";
             currentItem.Description = $"{login}'s stars";
+            currentItem.DisplayUrl = $"Stars";
             currentItem.Url = url;
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
             {

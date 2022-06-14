@@ -9,7 +9,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentHub.Octokit", "src\Fl
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{C6265587-7328-4B9E-AF1F-69F0E7301C5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentHub.Core", "src\FluentHub.Backend\FluentHub.Core.csproj", "{2DF9C7E4-8293-4DCD-9EA4-78784D98E957}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluentHub.Core", "src\FluentHub.Core\FluentHub.Core.csproj", "{2DF9C7E4-8293-4DCD-9EA4-78784D98E957}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
