@@ -57,11 +57,6 @@
                         Foreground="#539bf5"
                         Text="{x:Bind ViewModel.UnreadCount, Mode=OneWay}" />
 
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Foreground="#539bf5"
-                        Text="new notification" />
-
                 </StackPanel>
             </Grid>
 

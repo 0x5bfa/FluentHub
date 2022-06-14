@@ -16,15 +16,16 @@
         <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
     </Page.Resources>
 
-    <Grid>
+    <Grid Padding="12">
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <StackPanel
-            Margin="16,12,16,2"
+            Margin="8,0,0,6"
             Orientation="Horizontal"
             Spacing="8">
             <FontIcon
@@ -39,11 +40,10 @@
 
         <ScrollViewer
             Grid.Row="1"
-            Height="120"
             HorizontalScrollBarVisibility="Hidden"
             VerticalScrollBarVisibility="Disabled"
             VerticalScrollMode="Disabled">
-            <muxc:ItemsRepeater Margin="12,2,12,6" ItemsSource="{x:Bind ViewModel.Repositories}">
+            <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.PinnedItems, Mode=OneWay}">
                 <muxc:ItemsRepeater.Layout>
                     <muxc:StackLayout Orientation="Horizontal" Spacing="8" />
                 </muxc:ItemsRepeater.Layout>
@@ -71,7 +71,32 @@
 
         </Grid>
 
-        <Frame x:Name="OrgPageFrame" Grid.Row="2" />
+        <StackPanel
+            Grid.Row="2"
+            Margin="8,24,0,12"
+            Orientation="Horizontal"
+            Spacing="8">
+            <FontIcon
+                FontFamily="{StaticResource Octions}"
+                FontSize="16"
+                Glyph="&#xEA52;" />
+            <TextBlock
+                FontSize="14"
+                Style="{StaticResource SubtitleTextBlockStyle}"
+                Text="Repositories" />
+        </StackPanel>
+
+        <muxc:ItemsRepeater Grid.Row="3" ItemsSource="{x:Bind ViewModel.Repositories, Mode=OneWay}">
+            <muxc:ItemsRepeater.Layout>
+                <muxc:StackLayout Orientation="Vertical" Spacing="4" />
+            </muxc:ItemsRepeater.Layout>
+            <DataTemplate x:DataType="bbvm:RepoButtonBlockViewModel">
+                <block:RepoButtonBlock
+                    x:Name="RepositoryBlock"
+                    VerticalAlignment="Stretch"
+                    ViewModel="{x:Bind}" />
+            </DataTemplate>
+        </muxc:ItemsRepeater>
 
     </Grid>
 </Page>

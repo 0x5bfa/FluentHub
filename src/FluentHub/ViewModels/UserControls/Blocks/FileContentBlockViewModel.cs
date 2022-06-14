@@ -1,5 +1,5 @@
 ﻿using ColorCode;
-using FluentHub.Backend;
+using FluentHub.Core;
 using FluentHub.Helpers;
 using FluentHub.Models;
 using FluentHub.Octokit.Queries.Repositories;
@@ -56,8 +56,8 @@ namespace FluentHub.ViewModels.UserControls.Blocks
             {
                 BlobQueries queries = new();
                 var content = await queries.GetAsync(
-                    ContextViewModel.Name,
-                    ContextViewModel.Owner,
+                    ContextViewModel.Repository.Name,
+                    ContextViewModel.Repository.Owner.Login,
                     ContextViewModel.BranchName,
                     ContextViewModel.Path);
 

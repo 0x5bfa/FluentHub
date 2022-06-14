@@ -3,6 +3,7 @@ using FluentHub.ViewModels.AppSettings;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml.Media.Imaging;
 using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Views.AppSettings
@@ -17,6 +18,7 @@ namespace FluentHub.Views.AppSettings
             ViewModel = provider.GetRequiredService<AboutViewModel>();
             navigationService = provider.GetRequiredService<INavigationService>();
         }
+
         private readonly INavigationService navigationService;
         public AboutViewModel ViewModel { get; }
 
@@ -25,10 +27,11 @@ namespace FluentHub.Views.AppSettings
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "About";
             currentItem.Description = "About FluentHub";
-            currentItem.Url = "fluenthub://settings?page=about";
-            currentItem.Icon = new muxc.FontIconSource
+            currentItem.Url = "fluenthub://settings/about";
+            currentItem.DisplayUrl = $"Settings / About";
+            currentItem.Icon = new muxc.ImageIconSource
             {
-                Glyph = "\uE713"
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/About.png"))
             };
         }
     }

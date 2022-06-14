@@ -1,4 +1,4 @@
-﻿using FluentHub.Backend;
+﻿using FluentHub.Core;
 using FluentHub.Models;
 using FluentHub.Octokit.Models;
 using FluentHub.Octokit.Queries.Users;
@@ -53,8 +53,14 @@ namespace FluentHub.ViewModels.Users
                 // For user readme
                 ContextViewModel = new RepoContextViewModel()
                 {
-                    Owner = LoginName,
-                    Name = LoginName,
+                    Repository = new()
+                    {
+                        Owner = new RepositoryOwner()
+                        {
+                            Login = LoginName,
+                        },
+                        Name = LoginName,
+                    }
                 };
 
                 PinnedItemQueries queries = new();

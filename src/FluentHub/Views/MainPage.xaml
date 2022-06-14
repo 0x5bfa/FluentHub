@@ -181,14 +181,16 @@
             </Grid>
 
             <TextBox
-                x:Name="UrlTextBox"
+                x:Name="DisplayUrlTextBox"
                 Grid.Column="1"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center"
                 IsEnabled="True"
                 KeyDown="OnUrlTextBoxKeyDown"
+                GotFocus="OnUrlTextBoxFocus"
+                LostFocus="OnUrlTextBoxLostFocus"
                 PlaceholderText="Search or input URL"
-                Text="{x:Bind TabView.SelectedItem.NavigationHistory.CurrentItem.Url, Mode=OneWay}" />
+                Text="{x:Bind TabView.SelectedItem.NavigationHistory.CurrentItem.DisplayUrl, Mode=OneWay}" />
 
             <Grid Grid.Column="2" VerticalAlignment="Center">
                 <StackPanel
@@ -262,7 +264,11 @@
                                 <MenuFlyoutItem Click="OnYourOrganizationsMenuFlyoutItemClick" Text="Your organizations" />
                                 <MenuFlyoutItem Click="OnYourStarsMenuFlyoutItemClick" Text="Your stars" />
                                 <MenuFlyoutSeparator />
-                                <MenuFlyoutItem Click="SwitchAccountFlyoutItem_Click" Text="Switch Account" />
+                                <MenuFlyoutSubItem Text="Switch account">
+                                    <MenuFlyoutItem IsEnabled="False" Text="Not available yet" />
+                                    <MenuFlyoutSeparator />
+                                    <MenuFlyoutItem Click="OnAccountSettingsMenuFlyoutItemClick" Text="Account settings" />
+                                </MenuFlyoutSubItem>
                                 <MenuFlyoutItem Click="OnAppSettingsMenuFlyoutItemClick" Text="Settings" />
                                 <MenuFlyoutItem Click="OnSignOutMenuFlyoutItemClick" Text="Sign out" />
                             </MenuFlyout>

@@ -1,5 +1,5 @@
 ﻿using FluentHub.Models;
-using FluentHub.Backend;
+using FluentHub.Core;
 using FluentHub.Octokit.Models;
 using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
@@ -27,7 +27,8 @@ namespace FluentHub.ViewModels.Repositories.Codes.Layouts
             _items = new();
             Items = new(_items);
 
-            RefreshDetailsLayoutPageCommand = new AsyncRelayCommand(RefreshDetailsLayoutPageAsync);
+            RefreshDetailsLayoutPageCommand = new AsyncRelayCommand<string>(RefreshDetailsLayoutPageAsync);
+            LoadRepositoryCommand = new AsyncRelayCommand<string>(LoadRepositoryAsync);
         }
         #endregion
 
@@ -38,30 +39,38 @@ namespace FluentHub.ViewModels.Repositories.Codes.Layouts
         private RepoContextViewModel contextViewModel;
         public RepoContextViewModel ContextViewModel { get => contextViewModel; set => SetProperty(ref contextViewModel, value); }
 
+        private Repository _repository;
+        public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
+
         private readonly ObservableCollection<DetailsLayoutListViewModel> _items;
         public ReadOnlyObservableCollection<DetailsLayoutListViewModel> Items { get; }
 
         public IAsyncRelayCommand RefreshDetailsLayoutPageCommand { get; }
+        public IAsyncRelayCommand LoadRepositoryCommand { get; }
         #endregion
 
         #region methods
-        private async Task RefreshDetailsLayoutPageAsync(CancellationToken token)
+        private async Task RefreshDetailsLayoutPageAsync(string url, CancellationToken token)
         {
             try
             {
+                // There aren't no contents in the repository
                 if (ContextViewModel.Repository.DefaultBranchName == null) return;
-                if (contextViewModel.IsFile) return;
+
+                if (ContextViewModel.IsFile) return;
+                ContextViewModel.IsDir = true;
 
                 CommitQueries queries = new();
                 var fileOverviews = await queries.GetWithObjectNameAsync(
-                    ContextViewModel.Name,
-                    ContextViewModel.Owner,
+                    ContextViewModel.Repository.Name,
+                    ContextViewModel.Repository.Owner.Login,
                     ContextViewModel.BranchName,
                     ContextViewModel.Path);
 
-                ContextViewModel.IsDir = true;
-                if (ContextViewModel.Path == "/") ContextViewModel.IsRootDir = true;
-                else ContextViewModel.IsSubDir = true;
+                if (string.IsNullOrEmpty(ContextViewModel.Path))
+                    ContextViewModel.IsRootDir = true;
+                else
+                    ContextViewModel.IsSubDir = true;
 
                 foreach (var overview in fileOverviews)
                 {
@@ -88,6 +97,30 @@ namespace FluentHub.ViewModels.Repositories.Codes.Layouts
                 var orderedByItemType = new ObservableCollection<DetailsLayoutListViewModel>(Items.OrderByDescending(x => x.ObjectTypeIconGlyph));
                 _items.Clear();
                 foreach (var orderedItem in orderedByItemType) _items.Add(orderedItem);
+            }
+            catch (OperationCanceledException) { }
+            catch (Exception ex)
+            {
+                _logger?.Error("RefreshDetailsLayoutPageAsync", ex);
+                if (_messenger != null)
+                {
+                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+                    _messenger.Send(notification);
+                }
+                throw;
+            }
+        }
+
+        private async Task LoadRepositoryAsync(string url, CancellationToken token)
+        {
+            try
+            {
+                var uri = new Uri(url);
+                var pathSegments = uri.AbsolutePath.Split("/").ToList();
+                pathSegments.RemoveAt(0);
+
+                RepositoryQueries queries = new();
+                Repository = await queries.GetDetailsAsync(pathSegments[0], pathSegments[1]);
             }
             catch (OperationCanceledException) { }
             catch (Exception ex)

@@ -50,6 +50,24 @@ namespace FluentHub.Views
             Window.Current.CoreWindow.PointerPressed -= OnWindowPointerPressed;
         }
 
+        private void OnUrlTextBoxFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox DisplayUrlTextBox = sender as TextBox;
+            if (DisplayUrlTextBox != null && TabView.SelectedItem.NavigationHistory.CurrentItem.Url != null)
+            {
+                DisplayUrlTextBox.Text = TabView.SelectedItem.NavigationHistory.CurrentItem.Url;
+            }
+        }
+
+        private void OnUrlTextBoxLostFocus(object sender, RoutedEventArgs e)
+        {
+            TextBox DisplayUrlTextBox = sender as TextBox;
+            if (DisplayUrlTextBox != null)
+            {
+                DisplayUrlTextBox.Text = TabView.SelectedItem.NavigationHistory.CurrentItem.DisplayUrl;
+            }
+        }
+
         private Microsoft.UI.Xaml.Controls.InfoBarSeverity UserNotificationToInfoBarSeverity(UserNotificationType type)
         {
             return type switch
@@ -160,20 +178,23 @@ namespace FluentHub.Views
             => NavigationService.Navigate<Users.StarredReposPage>("fluenthub://stars");
 
         private void OnAppSettingsMenuFlyoutItemClick(object sender, RoutedEventArgs e)
-            => NavigationService.Navigate<AppSettings.MainSettingsPage>(App.Settings.SignedInUserName);
+            => NavigationService.Navigate<AppSettings.MainSettingsPage>("fluenthub://settings");
+
+        private void OnAccountSettingsMenuFlyoutItemClick(object sender, RoutedEventArgs e)
+            => NavigationService.Navigate<AppSettings.MainSettingsPage>("fluenthub://settings/account");
 
         private void OnSignOutMenuFlyoutItemClick(object sender, RoutedEventArgs e)
         {
             Frame rootFrame = (Frame)Window.Current.Content;
             rootFrame.Navigate(typeof(SignIn.IntroPage));
         }
-        
+
         private async void SwitchAccountFlyoutItem_Click(object sender, RoutedEventArgs e)
         {
             AccountSwitching accountSwitchingDialog = new();
             await accountSwitchingDialog.ShowAsync();
         }
-        
+
         private void OnTabViewSelectionChanged(object sender, TabViewSelectionChangedEventArgs e)
             => RootFrameBorder.Child = e.NewSelectedItem?.Frame;
         #endregion

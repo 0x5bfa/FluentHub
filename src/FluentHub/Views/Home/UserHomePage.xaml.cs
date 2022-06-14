@@ -31,10 +31,10 @@ namespace FluentHub.Views.Home
             currentItem.Header = $"Home";
             currentItem.Description = $"Home";
             currentItem.Url = $"fluenthub://home";
-            currentItem.Icon = new muxc.FontIconSource
+            currentItem.DisplayUrl = $"Home";
+            currentItem.Icon = new muxc.ImageIconSource
             {
-                Glyph = "\uE9D5",
-                FontFamily = new Windows.UI.Xaml.Media.FontFamily("/Assets/Glyphs/Octions.ttf#octions")
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Home.png"))
             };
 
             var command = ViewModel.LoadHomeContentsCommand;
@@ -45,7 +45,7 @@ namespace FluentHub.Views.Home
         private void OnHomeRepositoriesListItemClick(object sender, ItemClickEventArgs e)
         {
             var clickedItem = e.ClickedItem as Repository;
-            navigationService.Navigate<Repositories.OverviewPage>(clickedItem);
+            navigationService.Navigate<Repositories.OverviewPage>($"{App.DefaultGitHubDomain}/{clickedItem.Owner.Login}/{clickedItem.Name}");
         }
 
         private void OnIssueButtonClick(object sender, RoutedEventArgs e)

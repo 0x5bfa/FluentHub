@@ -1,4 +1,4 @@
-﻿using FluentHub.Backend;
+﻿using FluentHub.Core;
 using FluentHub.Models;
 using FluentHub.Octokit.Models;
 using FluentHub.Octokit.Queries.Users;
@@ -21,43 +21,11 @@ namespace FluentHub.ViewModels.Dialogs
         {
             _logger = logger;
             _messenger = messenger;
-
-            _accountsItems = new();
-            AccountsItems = new(_accountsItems);
-
-            LoadSignedInLoginsCommand = new RelayCommand(LoadSignedInLogins);
         }
 
-        #region fields
+        #region Fields and Properties
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
-
-        private readonly ObservableCollection<AccountModel> _accountsItems;
-        public ReadOnlyObservableCollection<AccountModel> AccountsItems { get; }
         #endregion
-
-        #region properties
-
-        public IRelayCommand LoadSignedInLoginsCommand { get; }
-        #endregion
-
-        private void LoadSignedInLogins()
-        {
-            try
-            {
-                // Get logged in users from App Container
-                var dividedLogins = App.Settings.SignedInUserLogins.Split(",");
-
-                foreach (var item in dividedLogins)
-                {
-                    AccountModel model = new() { Login = item };
-                    _accountsItems.Add(model);
-                }
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-        }
     }
 }

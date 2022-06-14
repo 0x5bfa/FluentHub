@@ -31,8 +31,9 @@ namespace FluentHub.Views.Users
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Organizations";
-            currentItem.Description = "Viewer's organizations";
+            currentItem.Description = $"{login}'s organizations";
             currentItem.Url = url;
+            currentItem.DisplayUrl = $"Organizations";
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Organizations.png"))

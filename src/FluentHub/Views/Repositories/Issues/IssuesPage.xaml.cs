@@ -5,6 +5,7 @@ using System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Views.Repositories.Issues
 {
@@ -24,21 +25,24 @@ namespace FluentHub.Views.Repositories.Issues
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var nameWithOwner = e.Parameter as string;
-            var nameAndOwner = nameWithOwner.Split("/");
+            var url = e.Parameter as string;
+            var uri = new Uri(url);
+            var pathSegments = uri.AbsolutePath.Split("/").ToList();
+            pathSegments.RemoveAt(0);
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Issues";
-            currentItem.Description = "Viewer's issues";
-            currentItem.Url = $"https://github.com/{nameAndOwner[0]}/{nameAndOwner[1]}/issues";
-            currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
+            currentItem.Description = "Issues";
+            currentItem.Url = url;
+            currentItem.DisplayUrl = $"{pathSegments[0]} / {pathSegments[1]} / Issues";
+            currentItem.Icon = new muxc.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Issues.png"))
             };
 
             var command = ViewModel.RefreshIssuesPageCommand;
-            if (command.CanExecute(nameWithOwner))
-                command.Execute(nameWithOwner);
+            if (command.CanExecute($"{pathSegments[0]}/{pathSegments[1]}"))
+                command.Execute($"{pathSegments[0]}/{pathSegments[1]}");
         }
     }
 }

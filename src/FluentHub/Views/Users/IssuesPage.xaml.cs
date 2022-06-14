@@ -31,7 +31,8 @@ namespace FluentHub.Views.Users
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Issues";
-            currentItem.Description = "Viewer's issues";
+            currentItem.Description = $"{login}'s issues";
+            currentItem.DisplayUrl = $"Issues";
             currentItem.Url = url;
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
             {

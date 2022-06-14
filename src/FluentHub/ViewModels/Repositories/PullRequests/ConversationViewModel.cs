@@ -1,4 +1,4 @@
-﻿using FluentHub.Backend;
+﻿using FluentHub.Core;
 using FluentHub.Octokit.Models.Events;
 using FluentHub.Octokit.Models;
 using FluentHub.Models;
@@ -339,8 +339,8 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
                             viewmodel.UserBlockedEvent = eventItem as UserBlockedEvent;
                             viewmodel.Actor = viewmodel?.UserBlockedEvent.Actor;
                             break;
-                    };
-
+                    }
+                    
                     var eventBlock = new IssueEventBlock()
                     {
                         PropertyViewModel = viewmodel

@@ -2,8 +2,6 @@
 {
     public class ReleaseQueries
     {
-        public ReleaseQueries() => new App();
-
         public async Task<List<Models.Release>> GetAllAsync(string owner, string name)
         {
             OctokitGraphQLCore.Arg<OctokitGraphQLModel.ReleaseOrder> releaseOrder = new(new OctokitGraphQLModel.ReleaseOrder { Direction = OctokitGraphQLModel.OrderDirection.Desc});

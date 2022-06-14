@@ -1,4 +1,4 @@
-﻿using FluentHub.Backend;
+﻿using FluentHub.Core;
 using FluentHub.Octokit.Models.Events;
 using FluentHub.Octokit.Models;
 using FluentHub.Models;
@@ -23,10 +23,11 @@ namespace FluentHub.ViewModels.Repositories.Issues
         {
             _messenger = messenger;
             _logger = logger;
+
             _eventBlocks = new();
             EventBlocks = new(_eventBlocks);
 
-            RefreshIssuePageCommand = new AsyncRelayCommand<Issue>(RefreshIssuePageAsync);
+            RefreshIssuePageCommand = new AsyncRelayCommand<string>(LoadIssuePageAsync);
         }
         #endregion
 
@@ -47,16 +48,19 @@ namespace FluentHub.ViewModels.Repositories.Issues
         #endregion
 
         #region methods
-        private async Task RefreshIssuePageAsync(Issue issue)
+        private async Task LoadIssuePageAsync(string url)
         {
             try
             {
-                IssueItem = issue;
+                var uri = new Uri(url);
+                var pathSegments = uri.AbsolutePath.Split("/").ToList();
+                pathSegments.RemoveAt(0);
+
                 _eventBlocks.Clear();
 
                 IssueQueries issueQueries = new();
-
-                var bodyComment = await issueQueries.GetBodyAsync(issue.OwnerLogin, issue.Name, issue.Number);
+                IssueItem = await issueQueries.GetAsync(pathSegments[0], pathSegments[1], Convert.ToInt32(pathSegments[3]));
+                var bodyComment = await issueQueries.GetBodyAsync(pathSegments[0], pathSegments[1], Convert.ToInt32(pathSegments[3]));
 
                 var bodyCommentBlock = new IssueEventBlock()
                 {
@@ -70,11 +74,10 @@ namespace FluentHub.ViewModels.Repositories.Issues
                         },
                     },
                 };
-
                 _eventBlocks.Add(bodyCommentBlock);
 
                 IssueEventQueries queries = new();
-                var issueEvents = await queries.GetAllAsync(issue.OwnerLogin, issue.Name, issue.Number);
+                var issueEvents = await queries.GetAllAsync(pathSegments[0], pathSegments[1], Convert.ToInt32(pathSegments[3]));
 
                 foreach (var eventItem in issueEvents)
                 {
@@ -233,7 +236,7 @@ namespace FluentHub.ViewModels.Repositories.Issues
                             viewmodel.UserBlockedEvent = eventItem as UserBlockedEvent;
                             viewmodel.Actor = viewmodel?.UserBlockedEvent.Actor;
                             break;
-                    };
+                    }
 
                     var eventBlock = new IssueEventBlock()
                     {
@@ -245,7 +248,7 @@ namespace FluentHub.ViewModels.Repositories.Issues
             }
             catch (Exception ex)
             {
-                _logger?.Error("RefreshIssuePageAsync", ex);
+                _logger?.Error(nameof(LoadIssuePageAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);

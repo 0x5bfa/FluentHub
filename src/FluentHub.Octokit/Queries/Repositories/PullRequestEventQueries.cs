@@ -2,8 +2,6 @@
 {
     public class PullRequestEventQueries
     {
-        public PullRequestEventQueries() => new App();
-
         public async Task<List<object>> GetAllAsync(string owner, string name, int number)
         {
             #region queries

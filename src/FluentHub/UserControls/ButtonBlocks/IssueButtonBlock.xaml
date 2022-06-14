@@ -13,7 +13,6 @@
     xmlns:vm="using:FluentHub.ViewModels.UserControls.ButtonBlocks"
     d:DesignHeight="300"
     d:DesignWidth="400"
-    Loaded="OnIssueButtonBlockLoaded"
     mc:Ignorable="d">
 
     <UserControl.DataContext>
@@ -50,7 +49,7 @@
             Padding="16,12"
             Background="Transparent"
             BorderThickness="0"
-            Click="OnIssueBlockButtonClick"
+            Click="OnClick"
             Style="{StaticResource ContentBlockButtonStyle}">
 
             <Grid ColumnSpacing="6">

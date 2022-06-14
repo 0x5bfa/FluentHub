@@ -1,4 +1,4 @@
-﻿using FluentHub.Backend;
+﻿using FluentHub.Core;
 using FluentHub.Models;
 using FluentHub.Octokit.Models;
 using FluentHub.Octokit.Queries.Repositories;
@@ -52,8 +52,8 @@ namespace FluentHub.ViewModels.Repositories.Commits
             {
                 CommitQueries queries = new();
                 var items = await queries.GetAllAsync(
-                    ContextViewModel.Name,
-                    ContextViewModel.Owner,
+                    ContextViewModel.Repository.Name,
+                    ContextViewModel.Repository.Owner.Login,
                     ContextViewModel.BranchName,
                     ContextViewModel.Path);
 
