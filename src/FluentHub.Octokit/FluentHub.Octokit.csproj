@@ -265,7 +265,7 @@
       <Version>2.8.25</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
-      <Version>6.2.13</Version>
+      <Version>6.2.14</Version>
     </PackageReference>
     <PackageReference Include="Octokit">
       <Version>0.51.0</Version>
