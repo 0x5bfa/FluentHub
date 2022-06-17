@@ -40,7 +40,7 @@
                 </HyperlinkButton>-->
 
                 <StackPanel Orientation="Horizontal" Spacing="12" Margin="80,24,0,0">
-                    <Button x:Uid="OOBE_Settings" Click="SetupButton_Click" Content="Set Up"/>
+                    <Button x:Uid="OOBE_Settings" Click="SetupButton_Click" Content="Start"/>
                 </StackPanel>
             </StackPanel>
         </StackPanel>
