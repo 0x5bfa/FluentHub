@@ -20,26 +20,17 @@
             <uc:TitleBar Margin="12,0,0,0" />
         </Grid>
 
-        <StackPanel Grid.Row="1" Width="1516" Margin="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Top">
+        <StackPanel Grid.Row="1" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
 
             <StackPanel Orientation="Vertical">
                 <Image Source="/Assets/OOBEHERO.png" Stretch="Uniform" Width="Auto" Height="Auto"/>
 
-                <TextBlock x:Uid="Oobe_HowToUse" LineStackingStrategy="MaxHeight" Width="1350" TextWrapping="Wrap" Foreground="White" HorizontalAlignment="Left" Margin="80,30,0,0" FontSize="40" Style="{ThemeResource TitleTextBlockStyle}" Text="Welcome to FluentHub"/>
+                <TextBlock x:Uid="Oobe_HowToUse" LineStackingStrategy="MaxHeight" Foreground="White" HorizontalAlignment="Left" Margin="80,30,0,0" Style="{ThemeResource TitleTextBlockStyle}" Text="Welcome"/>
 
-                <TextBlock x:Uid="Oobe_HowToUse" LineStackingStrategy="MaxHeight" Width="1350" TextWrapping="Wrap" Foreground="#bbbbbb" HorizontalAlignment="Left" Margin="80,30,0,0" FontSize="25" Style="{ThemeResource BodyTextBlockStyle}" Text="A stylish yet wonderfully powerful GitHub Oauth client."/>
+                <TextBlock x:Uid="Oobe_HowToUse" LineStackingStrategy="MaxHeight" Foreground="#bbbbbb" HorizontalAlignment="Left" Margin="80,30,0,0" Style="{ThemeResource BodyTextBlockStyle}" Text="A stylish yet wonderfully powerful GitHub Oauth client."/>
 
-                <TextBlock>
-                    <Run Text=""/>
-                </TextBlock>
-                <TextBlock>
-                    <Run Text=""/>
-                </TextBlock>
-
-                <TextBlock x:Uid="Oobe_HowToUse" LineStackingStrategy="MaxHeight" Width="1350" TextWrapping="Wrap" Foreground="White" HorizontalAlignment="Left" Margin="80,30,0,0" FontSize="25" Style="{ThemeResource TitleTextBlockStyle}" Text="How to Use"/>
-
-                <TextBlock x:Uid="Oobe_HowToUse" LineStackingStrategy="MaxHeight" Width="1350" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="80,10,0,0" FontSize="25" Style="{ThemeResource BodyStrongTextBlockStyle}">
-                    <Hyperlink xml:space="preserve" NavigateUri="https://hub.codrex.dev/" UnderlineStyle="None">Documentation on Codrex</Hyperlink>
+                <TextBlock x:Uid="Oobe_HowToUse" LineStackingStrategy="MaxHeight" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="80,10,0,0" Style="{ThemeResource BodyStrongTextBlockStyle}">
+                    <Hyperlink xml:space="preserve" NavigateUri="https://hub.codrex.dev/docs/" UnderlineStyle="None">Documentation on Codrex</Hyperlink>
                 </TextBlock>
 
                 <!--<TextBlock x:Uid="Oobe_HowToUse" Style="{ThemeResource TitleTextBlockStyle}" Text="Welcome to FluentHub"/>
@@ -49,7 +40,7 @@
                 </HyperlinkButton>-->
 
                 <StackPanel Orientation="Horizontal" Spacing="12" Margin="80,24,0,0">
-                    <Button x:Uid="OOBE_Settings" Style="{ThemeResource AccentButtonStyle}" Width="150" Height="50" FontSize="20" Foreground="White" Click="SetupButton_Click" Content="Set Up"/>
+                    <Button x:Uid="OOBE_Settings" Click="SetupButton_Click" Content="Set Up"/>
                 </StackPanel>
             </StackPanel>
         </StackPanel>
