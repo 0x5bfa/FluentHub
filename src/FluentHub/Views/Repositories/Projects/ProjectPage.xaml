@@ -56,7 +56,7 @@
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Style="{StaticResource BodyStrongTextBlockStyle}"
-                Text="Contents is unavailable yet." />
+                Text="This feature is not yet available." />
         </Grid>
     </ScrollViewer>
 </Page>

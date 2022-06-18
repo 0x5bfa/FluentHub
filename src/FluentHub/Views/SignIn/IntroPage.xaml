@@ -1,4 +1,5 @@
-﻿<Page x:Class="FluentHub.Views.SignIn.IntroPage"
+﻿<Page
+    x:Class="FluentHub.Views.SignIn.IntroPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -15,7 +16,6 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-
         <Grid x:Name="AppTitleBar" Background="Transparent">
             <uc:TitleBar Margin="12,0,0,0" />
         </Grid>
@@ -23,7 +23,7 @@
         <StackPanel Grid.Row="1" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
 
             <StackPanel Orientation="Vertical">
-                <Image Source="/Assets/OOBEHERO.png" Stretch="Uniform" Width="Auto" Height="Auto"/>
+                <Image Source="/Assets/OOBEHERO.png" Stretch="UniformToFill" Width="Auto" Height="Auto"/>
 
                 <TextBlock x:Uid="Oobe_HowToUse" LineStackingStrategy="MaxHeight" Foreground="White" HorizontalAlignment="Left" Margin="80,30,0,0" Style="{ThemeResource TitleTextBlockStyle}" Text="Welcome"/>
 
@@ -45,5 +45,4 @@
             </StackPanel>
         </StackPanel>
     </Grid>
-
 </Page>

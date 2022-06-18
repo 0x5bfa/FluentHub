@@ -170,7 +170,7 @@
                     <toolkit:Case Value="False">
                         <toolkit:SwitchPresenter TargetType="x:Int32" Value="{x:Bind ViewModel.Activities.Count, Mode=OneWay}">
                             <toolkit:Case Value="0">
-                                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="No items available" />
+                                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="No recent activity." />
                             </toolkit:Case>
                         </toolkit:SwitchPresenter>
                     </toolkit:Case>
