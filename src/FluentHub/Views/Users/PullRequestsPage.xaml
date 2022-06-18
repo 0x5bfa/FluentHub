@@ -45,7 +45,7 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBox PlaceholderText="Search issues" />
+                <TextBox PlaceholderText="Search pull requests" />
 
                 <StackPanel
                     Grid.Row="1"

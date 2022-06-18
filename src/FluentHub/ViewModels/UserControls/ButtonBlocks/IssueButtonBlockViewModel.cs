@@ -29,6 +29,9 @@ namespace FluentHub.ViewModels.UserControls.ButtonBlocks
         private Issue _issueItem;
         public Issue IssueItem { get => _issueItem; set => SetProperty(ref _issueItem, value); }
 
+        private bool _compactMode;
+        public bool CompactMode { get => _compactMode; set => SetProperty(ref _compactMode, value); }
+
         private readonly ObservableCollection<LabelControlViewModel> _labelViewModels;
         public ReadOnlyObservableCollection<LabelControlViewModel> LabelViewModels { get; }
 
