@@ -23,7 +23,7 @@
         <StackPanel Grid.Row="1" Margin="0,0,0,0" HorizontalAlignment="Left" VerticalAlignment="Top">
 
             <StackPanel Orientation="Vertical">
-                <Image Source="/Assets/OOBEHERO.png" Stretch="UniformToFill" Width="Auto" Height="Auto"/>
+                <Image Source="/Assets/OOBE/HERO.png" Stretch="UniformToFill" Width="Auto" Height="Auto"/>
 
                 <TextBlock x:Uid="Oobe_HowToUse" LineStackingStrategy="MaxHeight" Foreground="White" HorizontalAlignment="Left" Margin="80,30,0,0" Style="{ThemeResource TitleTextBlockStyle}" Text="Welcome"/>
 
@@ -32,12 +32,6 @@
                 <TextBlock x:Uid="Oobe_HowToUse" LineStackingStrategy="MaxHeight" TextWrapping="Wrap" HorizontalAlignment="Left" Margin="80,10,0,0" Style="{ThemeResource BodyStrongTextBlockStyle}">
                     <Hyperlink xml:space="preserve" NavigateUri="https://hub.codrex.dev/docs/" UnderlineStyle="None">Documentation on Codrex</Hyperlink>
                 </TextBlock>
-
-                <!--<TextBlock x:Uid="Oobe_HowToUse" Style="{ThemeResource TitleTextBlockStyle}" Text="Welcome to FluentHub"/>
-                    <TextBlock x:Uid="Oobe_HowToUse" Style="{ThemeResource BodyTextBlockStyle}" Text="A stylish yet wonderfully powerful GitHub Oauth client."/>
-                    <HyperlinkButton NavigateUri="https://aka.ms/PowerToysOverview" Style="{ThemeResource AccentButtonStyle}">
-                    <TextBlock x:Uid="Oobe_Overview_DescriptionLinkText" TextWrapping="Wrap" />
-                </HyperlinkButton>-->
 
                 <StackPanel Orientation="Horizontal" Spacing="12" Margin="80,24,0,0">
                     <Button x:Uid="OOBE_Settings" Click="SetupButton_Click" Content="Start"/>
