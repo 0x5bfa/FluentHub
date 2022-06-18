@@ -208,7 +208,7 @@
                                             Grid.Row="1"
                                             FontSize="18"
                                             Style="{StaticResource BodyStrongTextBlockStyle}"
-                                            Text="No items available"
+                                            Text="No recent notifications."
                                             TextAlignment="Center" />
                                     </Grid>
                                 </toolkit:Case>

@@ -13,7 +13,6 @@
     mc:Ignorable="d">
 
     <Grid RowSpacing="12">
-
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -81,6 +80,5 @@
                 Click="OnCancelButtonClick"
                 Content="Cancel" />
         </Grid>
-
     </Grid>
 </ContentDialog>
