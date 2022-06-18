@@ -15,7 +15,6 @@ using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.Dialogs
 {
-    // Maybe don't need this view model for AccountSwitchingDialog
     public class AccountSwitchingDialogViewModel : ObservableObject
     {
         public AccountSwitchingDialogViewModel(IMessenger messenger = null, ILogger logger = null)
