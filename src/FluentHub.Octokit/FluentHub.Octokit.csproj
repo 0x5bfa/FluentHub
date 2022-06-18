@@ -215,6 +215,7 @@
     <Compile Include="Models\Events\UserBlockedEvent.cs" />
     <Compile Include="Models\Issue.cs" />
     <Compile Include="Models\Events\IssueComment.cs" />
+    <Compile Include="Models\IssueStateReason.cs" />
     <Compile Include="Models\Label.cs" />
     <Compile Include="Models\Language.cs" />
     <Compile Include="Models\Notification.cs" />
