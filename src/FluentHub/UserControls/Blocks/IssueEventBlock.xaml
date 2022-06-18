@@ -515,7 +515,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="This pull-request was merged" />
+                            Text="merged this pull-request" />
 
                     </Grid>
                 </toolkit:Case>
