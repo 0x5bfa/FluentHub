@@ -21,6 +21,7 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .AssignedEvent(y => new AssignedEvent
                 {
@@ -32,6 +33,7 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .ClosedEvent(y => new ClosedEvent
                 {

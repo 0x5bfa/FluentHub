@@ -36,18 +36,19 @@
         </Grid.RowDefinitions>
 
         <Grid>
-            <Button Style="{StaticResource LinkLikeButtonStyle}">
-                <StackPanel Orientation="Horizontal" Spacing="4">
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="{x:Bind ViewModel.Calendar.TotalContributions, Mode=OneWay}" />
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="contributions in the last year" />
-                </StackPanel>
-            </Button>
+            <StackPanel Orientation="Horizontal" Spacing="4">
+
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                    Text="{x:Bind ViewModel.Calendar.TotalContributions, Mode=OneWay}" />
+
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                    Text="contributions in the last year" />
+
+            </StackPanel>
 
             <StackPanel
                 HorizontalAlignment="Right"
@@ -129,7 +130,10 @@
 
         </Grid>
 
-        <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Calendar.ContributionDays, Mode=OneWay}">
+        <muxc:ItemsRepeater
+            Grid.Row="1"
+            Height="122"
+            ItemsSource="{x:Bind ViewModel.Calendar.ContributionDays, Mode=OneWay}">
 
             <muxc:ItemsRepeater.Layout>
                 <toolkit:WrapLayout

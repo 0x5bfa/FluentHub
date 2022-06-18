@@ -147,6 +147,7 @@
     <Compile Include="Models\ActivityPayloads\StarredEventPayload.cs" />
     <Compile Include="Models\ActivityPayloads\StatusEventPayload.cs" />
     <Compile Include="Models\ApiOptions.cs" />
+    <Compile Include="Models\Assignee.cs" />
     <Compile Include="Models\CalendarDay.cs" />
     <Compile Include="Models\ChangedFile.cs" />
     <Compile Include="Models\CheckRun.cs" />
