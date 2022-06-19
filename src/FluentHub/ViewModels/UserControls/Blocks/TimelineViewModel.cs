@@ -11,7 +11,7 @@ using Windows.UI.Xaml.Media;
 
 namespace FluentHub.ViewModels.UserControls.Blocks
 {
-    public class IssueEventBlockViewModel : ObservableObject
+    public class TimelineViewModel : ObservableObject
     {
         #region Fields and Properties
         private string _eventType;

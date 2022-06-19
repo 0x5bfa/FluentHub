@@ -18,7 +18,6 @@ namespace FluentHub.ViewModels.Repositories.Issues
 {
     public class IssueViewModel : ObservableObject
     {
-        #region constructor
         public IssueViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _messenger = messenger;
@@ -29,25 +28,23 @@ namespace FluentHub.ViewModels.Repositories.Issues
 
             RefreshIssuePageCommand = new AsyncRelayCommand<string>(LoadIssuePageAsync);
         }
-        #endregion
 
-        #region fields and properties
+        #region Fields and Properties
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
 
         private Issue _issueItem;
         public Issue IssueItem { get => _issueItem; private set => SetProperty(ref _issueItem, value); }
 
-        private IssueEventBlockViewModel _eventBlockViewModel;
-        public IssueEventBlockViewModel EventBlockViewModel { get => _eventBlockViewModel; private set => SetProperty(ref _eventBlockViewModel, value); }
+        private TimelineViewModel _eventBlockViewModel;
+        public TimelineViewModel EventBlockViewModel { get => _eventBlockViewModel; private set => SetProperty(ref _eventBlockViewModel, value); }
 
-        private readonly ObservableCollection<IssueEventBlock> _eventBlocks;
-        public ReadOnlyObservableCollection<IssueEventBlock> EventBlocks { get; }
+        private readonly ObservableCollection<Timeline> _eventBlocks;
+        public ReadOnlyObservableCollection<Timeline> EventBlocks { get; }
 
         public IAsyncRelayCommand RefreshIssuePageCommand { get; }
         #endregion
 
-        #region methods
         private async Task LoadIssuePageAsync(string url)
         {
             try
@@ -62,9 +59,9 @@ namespace FluentHub.ViewModels.Repositories.Issues
                 IssueItem = await issueQueries.GetAsync(pathSegments[0], pathSegments[1], Convert.ToInt32(pathSegments[3]));
                 var bodyComment = await issueQueries.GetBodyAsync(pathSegments[0], pathSegments[1], Convert.ToInt32(pathSegments[3]));
 
-                var bodyCommentBlock = new IssueEventBlock()
+                var bodyCommentBlock = new Timeline()
                 {
-                    PropertyViewModel = new IssueEventBlockViewModel()
+                    ViewModel = new TimelineViewModel()
                     {
                         EventType = "IssueComment",
                         IssueComment = bodyComment,
@@ -83,7 +80,7 @@ namespace FluentHub.ViewModels.Repositories.Issues
                 {
                     if (eventItem == null) continue;
 
-                    var viewmodel = new IssueEventBlockViewModel()
+                    var viewmodel = new TimelineViewModel()
                     {
                         // FluentHub.Octokit.Models.Events.*
                         EventType = eventItem.GetType().ToString().Split(".")[4],
@@ -238,9 +235,9 @@ namespace FluentHub.ViewModels.Repositories.Issues
                             break;
                     }
 
-                    var eventBlock = new IssueEventBlock()
+                    var eventBlock = new Timeline()
                     {
-                        PropertyViewModel = viewmodel
+                        ViewModel = viewmodel
                     };
 
                     _eventBlocks.Add(eventBlock);
@@ -257,6 +254,5 @@ namespace FluentHub.ViewModels.Repositories.Issues
                 throw;
             }
         }
-        #endregion
     }
 }

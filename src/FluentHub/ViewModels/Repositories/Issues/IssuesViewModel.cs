@@ -57,7 +57,7 @@ namespace FluentHub.ViewModels.Repositories.Issues
                 pathSegments.RemoveAt(0);
 
                 IssueQueries queries = new();
-                var items = await queries.GetAllAsync(pathSegments[0], pathSegments[1]);
+                var items = await queries.GetAllAsync(pathSegments[1], pathSegments[0]);
                 if (items == null) return;
 
                 _issueItems.Clear();

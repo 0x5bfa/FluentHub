@@ -178,6 +178,9 @@
     <Compile Include="UserControls\Blocks\SingleReleaseBlock.xaml.cs">
       <DependentUpon>SingleReleaseBlock.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Blocks\StyledOction.xaml.cs">
+      <DependentUpon>StyledOction.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Blocks\UserContributionGraph.xaml.cs">
       <DependentUpon>UserContributionGraph.xaml</DependentUpon>
     </Compile>
@@ -233,8 +236,8 @@
     <Compile Include="UserControls\Blocks\IssueCommentBlock.xaml.cs">
       <DependentUpon>IssueCommentBlock.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Blocks\IssueEventBlock.xaml.cs">
-      <DependentUpon>IssueEventBlock.xaml</DependentUpon>
+    <Compile Include="UserControls\Blocks\Timeline.xaml.cs">
+      <DependentUpon>Timeline.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Labels\LabelControl.xaml.cs">
       <DependentUpon>LabelControl.xaml</DependentUpon>
@@ -319,7 +322,7 @@
     <Compile Include="ViewModels\UserControls\ButtonBlocks\PullButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\RepoButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\IssueCommentBlockViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\Blocks\IssueEventBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Blocks\TimelineViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\LatestCommitBlockViewModel.cs" />
     <Compile Include="ViewModels\Home\ActivitiesViewModel.cs" />
     <Compile Include="ViewModels\Home\NotificationsViewModel.cs" />
@@ -819,6 +822,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\Blocks\StyledOction.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Blocks\UserContributionGraph.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -883,7 +890,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\Blocks\IssueEventBlock.xaml">
+    <Page Include="UserControls\Blocks\Timeline.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

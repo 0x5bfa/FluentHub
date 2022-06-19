@@ -20,7 +20,6 @@
 
         <Grid Padding="0,12">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
@@ -57,7 +56,7 @@
             </StackPanel>
 
             <StackPanel
-                Grid.Column="2"
+                Grid.Column="1"
                 Orientation="Horizontal"
                 Spacing="4">
 

@@ -37,11 +37,11 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
         private PullRequest pullItem;
         public PullRequest PullItem { get => pullItem; private set => SetProperty(ref pullItem, value); }
 
-        private IssueEventBlockViewModel _eventBlockViewModel;
-        public IssueEventBlockViewModel EventBlockViewModel { get => _eventBlockViewModel; private set => SetProperty(ref _eventBlockViewModel, value); }
+        private TimelineViewModel _eventBlockViewModel;
+        public TimelineViewModel EventBlockViewModel { get => _eventBlockViewModel; private set => SetProperty(ref _eventBlockViewModel, value); }
 
-        private readonly ObservableCollection<IssueEventBlock> _eventBlocks;
-        public ReadOnlyObservableCollection<IssueEventBlock> EventBlocks { get; }
+        private readonly ObservableCollection<Timeline> _eventBlocks;
+        public ReadOnlyObservableCollection<Timeline> EventBlocks { get; }
 
         public IAsyncRelayCommand RefreshPullRequestPageCommand { get; }
         #endregion
@@ -59,9 +59,9 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
 
                 var bodyComment = await pullRequestQueries.GetBodyAsync(PullItem.OwnerLogin, PullItem.Name, PullItem.Number);
 
-                var bodyCommentBlock = new IssueEventBlock()
+                var bodyCommentBlock = new Timeline()
                 {
-                    PropertyViewModel = new IssueEventBlockViewModel()
+                    ViewModel = new TimelineViewModel()
                     {
                         EventType = "IssueComment",
                         IssueComment = bodyComment,
@@ -81,7 +81,7 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
                 {
                     if (eventItem == null) continue;
 
-                    var viewmodel = new IssueEventBlockViewModel()
+                    var viewmodel = new TimelineViewModel()
                     {
                         // FluentHub.Octokit.Models.Events.*
                         EventType = eventItem.GetType().ToString().Split(".")[4],
@@ -341,9 +341,9 @@ namespace FluentHub.ViewModels.Repositories.PullRequests
                             break;
                     }
                     
-                    var eventBlock = new IssueEventBlock()
+                    var eventBlock = new Timeline()
                     {
-                        PropertyViewModel = viewmodel
+                        ViewModel = viewmodel
                     };
 
                     _eventBlocks.Add(eventBlock);

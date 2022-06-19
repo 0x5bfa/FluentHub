@@ -196,34 +196,7 @@
 
                     Id = y.Id.ToString(),
                 })
-                .ClosedEvent(y => new ClosedEvent
-                {
-                    Actor = y.Actor.Select(actor => new Actor
-                    {
-                        AvatarUrl = actor.AvatarUrl(100),
-                        Login = actor.Login,
-                    })
-                    .Single(),
-
-                    Closer = y.Closer.Select(closer => new Closer
-                    {
-                        Commit = closer.Switch<Commit>(whenCommit => whenCommit
-                        .Commit(commit => new Commit
-                        {
-                            CommitMessage = commit.Message,
-                        })),
-
-                        PullRequest = closer.Switch<PullRequest>(whenPr => whenPr
-                        .PullRequest(pr => new PullRequest
-                        {
-                            Title = pr.Title,
-                        })),
-                    })
-                    .SingleOrDefault(),
-
-                    CreatedAt = y.CreatedAt,
-                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
-                })
+                //.ClosedEvent(y => new ClosedEvent {})
                 .CommentDeletedEvent(y => new CommentDeletedEvent
                 {
                     Actor = y.Actor.Select(actor => new Actor

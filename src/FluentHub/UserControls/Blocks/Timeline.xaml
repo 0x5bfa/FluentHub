@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="FluentHub.UserControls.Blocks.IssueEventBlock"
+    x:Class="FluentHub.UserControls.Blocks.Timeline"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="using:FluentHub.Converters"
@@ -15,9 +15,6 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <UserControl.DataContext>
-        <vm:IssueEventBlockViewModel x:Name="ViewModel" />
-    </UserControl.DataContext>
     <UserControl.Resources>
         <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
     </UserControl.Resources>
@@ -61,7 +58,7 @@
                 BorderThickness="2"
                 CornerRadius="16">
                 <FontIcon
-                    x:Name="TimeLineBadgeFontGlyph"
+                    x:Name="TimelineBadgeFontGlyph"
                     FontFamily="{StaticResource Octions}"
                     FontSize="14"
                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
@@ -81,7 +78,9 @@
                     WidthAndHeight="20" />
 
                 <TextBlock
+                    x:Name="ActorLoginTextBlock"
                     VerticalAlignment="Center"
+                    x:Load="{x:Bind ViewModel.PullRequestCommit, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
                     Style="{StaticResource BodyStrongTextBlockStyle}"
                     Text="{x:Bind ViewModel.Actor.Login, Mode=OneWay}" />
             </StackPanel>
@@ -92,175 +91,139 @@
                 Value="{x:Bind ViewModel.EventType, Mode=OneWay}">
 
                 <toolkit:Case Value="AddedToProjectEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="AddedToProjectEvent" />
+                            Text="added this to a project" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="AssignedEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="assigned someone" />
+                            Text="assigned" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="AutomaticBaseChangeFailedEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="Failed to automatically rebase" />
+                            Text="failed to automatically rebase" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="AutomaticBaseChangeSucceededEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="Succeeded in automatically rebasing" />
+                            Text="succeeded in automatically rebasing" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="AutoMergeDisabledEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="Auto-merge was disabled" />
+                            Text="disabled auto-merge" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="AutoMergeEnabledEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="Auto-merge was enabled" />
+                            Text="enabled auto-merge" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="AutoRebaseEnabledEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="Auto-rebase was enabled" />
+                            Text="enabled auto-rebase" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="AutoSquashEnabledEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="Auto-squash was enabled" />
+                            Text="enabled auto-squash" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="BaseRefChangedEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="BaseRefChangedEvent" />
+                            Text="changed base ref" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="BaseRefDeletedEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="BaseRefDeletedEvent" />
+                            Text="deleted base ref" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="BaseRefForcePushedEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="BaseRefForcePushedEvent" />
+                            Text="forced pushing base ref" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="ClosedEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
@@ -268,149 +231,123 @@
                             Style="{StaticResource BodyTextBlockStyle}"
                             Text="closed this" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="CommentDeletedEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="A comment was deleted" />
+                            Text="deleted a comment" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="ConnectedEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="ConnectedEvent" />
+                            Text="linked an issue" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="ConvertedNoteToIssueEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="A note was converted to an issue" />
+                            Text="converted a note to an issue" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="ConvertToDraftEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="This was converted to a draft" />
+                            Text="converted this to a draft" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="CrossReferencedEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="mentioned this" />
+                            Text="referenced this" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="DemilestonedEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="A milestone was removed" />
+                            Text="removed a milestone" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="DeployedEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="A deployment was started" />
+                            Text="started a deployment" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="DeploymentEnvironmentChangedEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="The deployment environment was changed" />
+                            Text="changed the deployment environment" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="DisconnectedEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="DisconnectedEvent" />
+                            Text="deleted a reference to this" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="HeadRefDeletedEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
 
                         <TextBlock
                             VerticalAlignment="Center"
@@ -418,37 +355,38 @@
                             Style="{StaticResource BodyTextBlockStyle}"
                             Text="deleted the branch" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="HeadRefForcePushedEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="HeadRefForcePushedEvent" />
+                            Text="forced pushing head ref" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="HeadRefRestoredEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="HeadRefRestoredEvent" />
+                            Text="restored the" />
 
-                    </Grid>
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="branch" />
+
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="IssueComment">
@@ -456,10 +394,7 @@
                 </toolkit:Case>
 
                 <toolkit:Case Value="LabeledEvent">
-                    <Grid ColumnSpacing="8" ToolTipService.ToolTip="{x:Bind ViewModel.LabeledEvent.CreatedAtHumanized, Mode=OneWay}">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Spacing="8" ToolTipService.ToolTip="{x:Bind ViewModel.LabeledEvent.CreatedAtHumanized, Mode=OneWay}">
 
                         <StackPanel Orientation="Horizontal" Spacing="4">
                             <TextBlock
@@ -478,104 +413,97 @@
 
                         </StackPanel>
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="LockedEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="The conversation was locked" />
+                            Text="locked this conversation" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="MarkedAsDuplicateEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="This was marked as duplicate" />
+                            Text="marked this as duplicate" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="MergedEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="merged this pull-request" />
+                            Text="merged commit" />
 
-                    </Grid>
+                        <TextBlock Text="{x:Bind ViewModel.MergedEvent.Commit.AbbreviatedOid, Mode=OneWay}" />
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="into" />
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{x:Bind ViewModel.MergedEvent.MergeRefName, Mode=OneWay}" />
+
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="MilestonedEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="This was added to a milestone" />
+                            Text="added to a milestone" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="MovedColumnsInProjectEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="This was moved to a new column in a project" />
+                            Text="moved this to a new column in a project" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="PinnedEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="This was pinned" />
+                            Text="pinned this" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="PullRequestCommit">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
@@ -583,14 +511,11 @@
                             Style="{StaticResource BodyTextBlockStyle}"
                             Text="commited changes" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="PullRequestCommitCommentThread">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
@@ -598,14 +523,11 @@
                             Style="{StaticResource BodyTextBlockStyle}"
                             Text="PullRequestCommitCommentThread" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="PullRequestReview">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
@@ -613,14 +535,11 @@
                             Style="{StaticResource BodyTextBlockStyle}"
                             Text="PullRequestReview" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="PullRequestReviewThread">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
@@ -628,14 +547,11 @@
                             Style="{StaticResource BodyTextBlockStyle}"
                             Text="PullRequestReviewThread" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="PullRequestRevisionMarker">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
@@ -643,52 +559,43 @@
                             Style="{StaticResource BodyTextBlockStyle}"
                             Text="PullRequestRevisionMarker" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="ReadyForReviewEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="This pull-request was set as ready for review" />
+                            Text="set as ready for review" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="ReferencedEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="ReferencedEvent" />
+                            Text="added a reference to this" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="RemovedFromProjectEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="RemovedFromProjectEvent" />
+                            Text="removed this from a project" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="RenamedTitleEvent">
@@ -717,168 +624,146 @@
                 </toolkit:Case>
 
                 <toolkit:Case Value="ReopenedEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="This was reopened" />
+                            Text="reopened this" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="ReviewDismissedEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="Someone dismissed the review" />
+                            Text="dismissed previous review" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="ReviewRequestedEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="A review was requested" />
+                            Text="requested review" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="ReviewRequestRemovedEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="A review request was retracted" />
+                            Text="retracted a review request" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="TransferredEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="TransferredEvent" />
+                            Text="transferred this from" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="UnassignedEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="UnassignedEvent" />
+                            Text="unassigned" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="UnlabeledEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource BodyTextBlockStyle}"
-                            Text="UnlabeledEvent" />
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="removed the" />
 
-                    </Grid>
+                            <labels:LabelControl ViewModel="{x:Bind ViewModel.LabelControlViewModel, Mode=OneWay}" />
+
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="label" />
+
+                        </StackPanel>
+
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="UnlockedEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="The conversation was unlocked" />
+                            Text="unlocked this conversation" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="UnmarkedAsDuplicateEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="This was marked as not a duplicate" />
+                            Text="marked this as not a duplicate" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="UnpinnedEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="This was unpinned" />
+                            Text="unpinned this" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
                 <toolkit:Case Value="UserBlockedEvent">
-                    <Grid ColumnSpacing="8">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <TextBlock
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="UserBlockedEvent" />
+                            Text="blocked a user" />
 
-                    </Grid>
+                    </StackPanel>
                 </toolkit:Case>
 
             </toolkit:SwitchPresenter>
