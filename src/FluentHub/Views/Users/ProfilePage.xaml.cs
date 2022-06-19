@@ -84,5 +84,10 @@ namespace FluentHub.Views.Users
             var dialog = new Dialogs.UserProfileEditor();
             _ = await dialog.ShowAsync();
         }
+
+        private void LocationHyperlink()
+        {
+            var LocationHyperlink = "https://www.bing.com/maps?q=" + ViewModel.UserItem.Location; 
+        }
     }
 }

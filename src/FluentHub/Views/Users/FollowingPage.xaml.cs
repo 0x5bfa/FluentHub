@@ -3,6 +3,7 @@ using FluentHub.ViewModels.Users;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
 namespace FluentHub.Views.Users
@@ -41,12 +42,11 @@ namespace FluentHub.Views.Users
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = $"Following";
             currentItem.Description = $"People {login} is following";
-            currentItem.DisplayUrl = $"Following";
+            currentItem.DisplayUrl = $"{login} / Following";
             currentItem.Url = url;
-            currentItem.Icon = new Microsoft.UI.Xaml.Controls.FontIconSource
+            currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
             {
-                Glyph = "\uEA36",
-                FontFamily = new Windows.UI.Xaml.Media.FontFamily("/Assets/Glyphs/Octions.ttf#octions")
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Accounts.png"))
             };
 
             var command = ViewModel.RefreshFollowingCommand;

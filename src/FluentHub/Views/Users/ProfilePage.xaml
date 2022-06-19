@@ -150,11 +150,11 @@
                             FontSize="14"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Glyph="&#xEA03;" />
-                        <TextBlock
-                            VerticalAlignment="Center"
+                        <HyperlinkButton
+                            Padding="4"
+                            Content="{x:Bind ViewModel.UserItem.Location, Mode=OneWay}"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{ThemeResource BodyTextBlockStyle}"
-                            Text="{x:Bind ViewModel.UserItem.Location, Mode=OneWay}" />
+                            NavigateUri="https://https://www.bing.com/maps"/>
                     </StackPanel>
                     <StackPanel
                         Margin="0,0,12,0"
