@@ -698,7 +698,6 @@
     <Content Include="Assets\AppTiles\Wide310x150Logo.scale-150.png" />
     <Content Include="Assets\AppTiles\Wide310x150Logo.scale-200.png" />
     <Content Include="Assets\AppTiles\Wide310x150Logo.scale-400.png" />
-    <Content Include="Assets\OOBEHERO.png" />
     <Content Include="Assets\Icons\About.png" />
     <Content Include="Assets\Icons\Accounts.png" />
     <Content Include="Assets\Icons\Activities.png" />
@@ -717,6 +716,8 @@
     <Content Include="Assets\Icons\Repositories.png" />
     <Content Include="Assets\Icons\Settings.png" />
     <Content Include="Assets\Icons\Starred.png" />
+    <Content Include="Assets\OOBE\HERO.png" />
+    <Content Include="Assets\OOBE\HERO.targetsize-large.png" />
     <Content Include="Assets\WebView\index.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

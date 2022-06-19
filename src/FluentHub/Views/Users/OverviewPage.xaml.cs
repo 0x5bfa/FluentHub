@@ -31,7 +31,7 @@ namespace FluentHub.Views.Users
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = $"{login}";
-            currentItem.Description = $"{login}'s overview";
+            currentItem.Description = $"{login}";
             currentItem.Url = url;
             currentItem.DisplayUrl = $"{login}";
             currentItem.Icon = new muxc.ImageIconSource

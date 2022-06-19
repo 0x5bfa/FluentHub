@@ -2,6 +2,7 @@
 using FluentHub.ViewModels.Users;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -42,11 +43,10 @@ namespace FluentHub.Views.Users
             currentItem.Header = $"Followers";
             currentItem.Description = $"{login}'s followers";
             currentItem.Url = url;
-            currentItem.DisplayUrl = $"Followers";
-            currentItem.Icon = new Microsoft.UI.Xaml.Controls.FontIconSource
+            currentItem.DisplayUrl = $"{login} / Followers";
+            currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
             {
-                Glyph = "\uEA36",
-                FontFamily = new Windows.UI.Xaml.Media.FontFamily("/Assets/Glyphs/Octions.ttf#octions")
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Accounts.png"))
             };
 
             var command = ViewModel.RefreshFollowersCommand;
