@@ -114,7 +114,7 @@ namespace FluentHub.ViewModels.Repositories.Issues
                             viewmodel.Actor = viewmodel?.CommentDeletedEvent.Actor;
                             break;
                         case nameof(ConnectedEvent):
-                            viewmodel.TimelineBadgeGlyph = "\uEADB";
+                            viewmodel.TimelineBadgeGlyph = "\uE924";
                             viewmodel.ConnectedEvent = eventItem as ConnectedEvent;
                             viewmodel.Actor = viewmodel?.ConnectedEvent.Actor;
                             break;
@@ -179,7 +179,7 @@ namespace FluentHub.ViewModels.Repositories.Issues
                             viewmodel.Actor = viewmodel?.PinnedEvent.Actor;
                             break;
                         case nameof(ReferencedEvent):
-                            viewmodel.TimelineBadgeGlyph = "\uEADB";
+                            viewmodel.TimelineBadgeGlyph = "\uE968";
                             viewmodel.ReferencedEvent = eventItem as ReferencedEvent;
                             viewmodel.Actor = viewmodel?.ReferencedEvent.Actor;
                             break;
@@ -189,7 +189,7 @@ namespace FluentHub.ViewModels.Repositories.Issues
                             viewmodel.Actor = viewmodel?.RemovedFromProjectEvent.Actor;
                             break;
                         case nameof(RenamedTitleEvent):
-                            viewmodel.TimelineBadgeGlyph = "\uEADB";
+                            viewmodel.TimelineBadgeGlyph = "\uEA34";
                             viewmodel.RenamedTitleEvent = eventItem as RenamedTitleEvent;
                             viewmodel.Actor = viewmodel?.RenamedTitleEvent.Actor;
                             break;

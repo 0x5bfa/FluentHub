@@ -52,5 +52,19 @@ namespace FluentHub.Views.Repositories.Issues
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Issues.png"))
             };
         }
+
+        private void OnDisplayDetailsTogglingButtonClick(object sender, RoutedEventArgs e)
+        {
+            if (DetailsGridColumnDefinition.Width.IsStar)
+            {
+                DetailsGridColumnDefinition.Width = new GridLength(0, GridUnitType.Pixel);
+                DetailsGridColumnDefinition.MinWidth = 0;
+            }
+            else
+            {
+                DetailsGridColumnDefinition.Width = new GridLength(1, GridUnitType.Star);
+                DetailsGridColumnDefinition.MinWidth = 214;
+            }
+        }
     }
 }

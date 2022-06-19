@@ -13,9 +13,6 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <UserControl.DataContext>
-        <vm:IssueCommentBlockViewModel x:Name="ViewModel" />
-    </UserControl.DataContext>
     <UserControl.Resources>
         <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
     </UserControl.Resources>
@@ -25,7 +22,7 @@
             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
             BorderThickness="1"
-            CornerRadius="4">
+            CornerRadius="{StaticResource ControlCornerRadius}">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -37,8 +34,8 @@
             <Grid Padding="12,8">
                 <StackPanel Orientation="Horizontal" Spacing="8">
                     <Border
-                        Width="22"
-                        Height="22"
+                        Width="28"
+                        Height="28"
                         Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                         CornerRadius="16">
                         <Image Source="{x:Bind ViewModel.IssueComment.Author.AvatarUrl, Mode=OneWay}" />
@@ -62,19 +59,15 @@
                         Style="{StaticResource BodyTextBlockStyle}"
                         Text="{x:Bind ViewModel.CreatedAtHumanized, Mode=OneWay}" />
 
-                    <!--<labels:LabelControl
+                    <labels:LabelControl
                         x:Name="EditedLabel"
-                        x:Load="{x:Bind ViewModel.IssueComment.IsEdited}"
-                        IsOutlineEnable="True"
-                        LabelBackground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        LabelText="Edited" />
+                        x:Load="{x:Bind ViewModel.IssueComment.LastEditedAt, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                        ViewModel="{x:Bind ViewModel.IsEditedLabel, Mode=OneWay}" />
 
                     <labels:LabelControl
                         x:Name="AssociationLabel"
-                        x:Load="{x:Bind ViewModel.AuthorAssociation, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-                        IsOutlineEnable="True"
-                        LabelBackground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        LabelText="{x:Bind ViewModel.AuthorAssociation, Mode=OneWay}" />-->
+                        x:Load="{x:Bind ViewModel.AuthorAssociationLabel.Name, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                        ViewModel="{x:Bind ViewModel.AuthorAssociationLabel, Mode=OneWay}" />
                 </StackPanel>
 
                 <StackPanel

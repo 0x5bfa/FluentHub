@@ -452,11 +452,11 @@
                 </toolkit:Case>
 
                 <toolkit:Case Value="IssueComment">
-                    <local:IssueCommentBlock PropertyViewModel="{x:Bind ViewModel.CommentBlockViewModel, Mode=OneWay}" />
+                    <local:IssueCommentBlock ViewModel="{x:Bind ViewModel.CommentBlockViewModel, Mode=OneWay}" />
                 </toolkit:Case>
 
                 <toolkit:Case Value="LabeledEvent">
-                    <Grid ColumnSpacing="8">
+                    <Grid ColumnSpacing="8" ToolTipService.ToolTip="{x:Bind ViewModel.LabeledEvent.CreatedAtHumanized, Mode=OneWay}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
@@ -466,9 +466,15 @@
                                 VerticalAlignment="Center"
                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                 Style="{StaticResource BodyTextBlockStyle}"
-                                Text="labled this as" />
+                                Text="added the" />
 
                             <labels:LabelControl ViewModel="{x:Bind ViewModel.LabelControlViewModel, Mode=OneWay}" />
+
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="label" />
 
                         </StackPanel>
 

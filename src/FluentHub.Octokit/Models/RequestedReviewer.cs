@@ -1,12 +1,10 @@
 ﻿namespace FluentHub.Octokit.Models
 {
-    public class Assignee
+    public class RequestedReviewer
     {
-        public Bot Bot { get; set; }
-
         public Mannequin Mannequin { get; set; }
 
-        public Organization Organization { get; set; }
+        public Team Team { get; set; }
 
         public User User { get; set; }
     }

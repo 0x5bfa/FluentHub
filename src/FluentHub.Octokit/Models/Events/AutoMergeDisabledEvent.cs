@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FluentHub.Octokit.Models.Events
+﻿namespace FluentHub.Octokit.Models.Events
 {
     public class AutoMergeDisabledEvent
     {
@@ -12,5 +6,13 @@ namespace FluentHub.Octokit.Models.Events
 
         public DateTimeOffset CreatedAt { get; set; }
         public string CreatedAtHumanized { get; set; }
+
+        public string Id { get; set; }
+
+        public PullRequest PullRequest { get; set; }
+
+        public string Reason { get; set; }
+
+        public string ReasonCode { get; set; }
     }
 }

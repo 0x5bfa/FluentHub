@@ -2,6 +2,7 @@
 using FluentHub.ViewModels.UserControls.Labels;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -10,8 +11,9 @@ using Windows.UI.Xaml.Media;
 
 namespace FluentHub.ViewModels.UserControls.Blocks
 {
-    public class IssueEventBlockViewModel : INotifyPropertyChanged
+    public class IssueEventBlockViewModel : ObservableObject
     {
+        #region Fields and Properties
         private string _eventType;
         public string EventType { get => _eventType; set => SetProperty(ref _eventType, value); }
 
@@ -26,6 +28,7 @@ namespace FluentHub.ViewModels.UserControls.Blocks
 
         private string _timelineBadgeGlyph;
         public string TimelineBadgeGlyph { get => _timelineBadgeGlyph; set => SetProperty(ref _timelineBadgeGlyph, value); }
+        #endregion
 
         #region AllEvents
         private AddedToProjectEvent addedToProjectEvent;
@@ -201,18 +204,5 @@ namespace FluentHub.ViewModels.UserControls.Blocks
         private LabelControlViewModel _labelControlViewModel;
         public LabelControlViewModel LabelControlViewModel { get => _labelControlViewModel; set => SetProperty(ref _labelControlViewModel, value); }
         #endregion
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
-        {
-            if (!Equals(field, newValue))
-            {
-                field = newValue;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-                return true;
-            }
-
-            return false;
-        }
     }
 }

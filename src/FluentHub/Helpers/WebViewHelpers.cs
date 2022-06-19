@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Helpers
 {
@@ -26,6 +27,18 @@ namespace FluentHub.Helpers
             {
                 webView.Height = pageHeight;
             }
+        }
+
+        public static async void DisableWebView2VerticalScrollingAsync(muxc.WebView2 webView)
+        {
+            //_ = await webView.InvokeScriptAsync("eval", new string[] { SetBodyOverFlowHiddenString });
+
+            //var pageHeightString = await webView.InvokeScriptAsync("eval", new[] { "document.body.scrollHeight.toString()" });
+
+            //if (int.TryParse(pageHeightString, out int pageHeight))
+            //{
+            //    webView.Height = pageHeight;
+            //}
         }
     }
 }

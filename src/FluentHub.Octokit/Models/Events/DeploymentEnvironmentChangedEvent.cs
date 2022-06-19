@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FluentHub.Octokit.Models.Events
+﻿namespace FluentHub.Octokit.Models.Events
 {
     public class DeploymentEnvironmentChangedEvent
     {
@@ -12,5 +6,7 @@ namespace FluentHub.Octokit.Models.Events
 
         public DateTimeOffset CreatedAt { get; set; }
         public string CreatedAtHumanized { get; set; }
+
+        public DeploymentStatus DeploymentStatus { get; set; }
     }
 }

@@ -21,25 +21,26 @@ namespace FluentHub.UserControls.Blocks
     public sealed partial class IssueCommentBlock : UserControl
     {
         #region propdp
-        public static readonly DependencyProperty PropertyViewModelProperty =
-            DependencyProperty.Register(nameof(PropertyViewModel), typeof(IssueCommentBlockViewModel), typeof(IssueCommentBlock), new PropertyMetadata(0));
+        public static readonly DependencyProperty ViewModelProperty =
+            DependencyProperty.Register(
+                nameof(ViewModel),
+                typeof(IssueCommentBlockViewModel),
+                typeof(IssueCommentBlock),
+                new PropertyMetadata(null)
+                );
 
-        public IssueCommentBlockViewModel PropertyViewModel
+        public IssueCommentBlockViewModel ViewModel
         {
-            get => (IssueCommentBlockViewModel)GetValue(PropertyViewModelProperty);
+            get => (IssueCommentBlockViewModel)GetValue(ViewModelProperty);
             set
             {
-                SetValue(PropertyViewModelProperty, value);
-                ViewModel = PropertyViewModel;
+                SetValue(ViewModelProperty, value);
                 ViewModel?.SetWebViewContentsAsync(CommentWebView);
             }
         }
         #endregion
 
-        public IssueCommentBlock()
-        {
-            this.InitializeComponent();
-        }
+        public IssueCommentBlock() => InitializeComponent();
 
         private void OnCommentWebViewNavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
         {

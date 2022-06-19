@@ -133,7 +133,8 @@
                     })
                     .ToList(),
 
-                    AuthorAssociation = x.AuthorAssociation,
+                    AuthorAssociation = (CommentAuthorAssociation)x.AuthorAssociation,
+                    Body = x.Body,
                     BodyHTML = x.BodyHTML,
                     LastEditedAt = x.LastEditedAt,
                     UpdatedAt = x.UpdatedAt,
