@@ -226,13 +226,29 @@ namespace FluentHub
             switch (uri.Authority.ToLower())
             {
                 case "profile":
+                    page = typeof(Views.Users.OverviewPage);
+                    break;
                 case "notifications":
+                    page = typeof(Views.Home.NotificationsPage);
+                    break;
                 case "activities":
+                    page = typeof(Views.Home.ActivitiesPage);
+                    break;
                 case "issues":
+                    page = typeof(Views.Repositories.Issues.IssuesPage);
+                    break;
                 case "pullrequests":
+                    page = typeof(Views.Repositories.PullRequests.PullRequestsPage);
+                    break;
                 case "discussions":
+                    page = typeof(Views.Repositories.Discussions.DiscussionsPage);
+                    break;
                 case "repositories":
+                    page = typeof(Views.Repositories.Codes.CodePage);
+                    break;
                 case "organizations":
+                    page = typeof(Views.Organizations.ProfilePage);
+                    break;
                 case "stars":
                     page = typeof(Views.Users.StarredReposPage);
                     param = uri.AbsoluteUri;

@@ -101,7 +101,7 @@
                             </StackPanel>
                         </muxc:DropDownButton.Content>
                         <muxc:DropDownButton.Flyout>
-                            <MenuFlyout Placement="BottomEdgeAlignedLeft">
+                            <MenuFlyout Placement="BottomEdgeAlignedLeft" >
                                 <MenuFlyout.Items>
                                     <ToggleMenuFlyoutItem Text="Repository1" />
                                     <ToggleMenuFlyoutItem Text="Repository2" />

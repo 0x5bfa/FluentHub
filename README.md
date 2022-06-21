@@ -26,25 +26,32 @@
   <img width="128" src="https://getbadgecdn.azureedge.net/images/English_L.png" alt="GetItFromMicrosoft" />
 </a>
 
-> **Warning**</br>The app available on the store does not work properly.</br>See the [Notice](#notices) section
+> **Warning**</br>The app available on the store does not work properly.</br>See the [Linq problem](#2-linq-problem) section
 
 ## Screenshots
-###### May not always be up-to-date due to massive changes to the user interface
+*May not always be up-to-date due to massive changes to the user interface*
 
 ![image](https://user-images.githubusercontent.com/62196528/170248747-1c7458f6-4b22-48e3-9235-0c8561a1759a.png)
 ![image](https://user-images.githubusercontent.com/62196528/170248759-cbf061b4-6eff-4db9-b61b-12e4e3c413a2.png)
 ![image](https://user-images.githubusercontent.com/62196528/170248768-cff52abc-fdfc-4b61-bd16-8c89ee9624ce.png)
 ![image](https://user-images.githubusercontent.com/62196528/170248775-1ef2fe2f-bdf7-4f45-9a01-adbe1bc634fb.png)
 
-## Notices
+## Warnings
 
-##### 1. HttpsClient in Octokit.GraphQL.NET does not work properly (unknown exception) for users using Windows 11 Dev/Beta versions with TLS and SSL settings disabled.</br>`Win+R` > `inetcpl.cpl` > `Advanced` tab > enable all TLS and SSL versions > restart</br>
+#### 1. HttpClient problem
+
+HttpClient used in `Octokit.GraphQL.NET` does not work properly for users using Windows 11 Dev/Beta versions with `TLS` and `SSL` settings disabled. https://github.com/FluentHub/FluentHub/issues/169
+</br>Try: `Win+R` > `inetcpl.cpl` > `Advanced` tab > enable all `TLS` and `SSL` versions > restart
 
 ![image](https://user-images.githubusercontent.com/99880210/164863685-27770148-4c68-4920-bf87-8c0dd2b0272f.png)
 
-##### 2. `Select() is not supported` exception from Octokit.GraphQL.NET</br>Previously tracked in [#169](https://github.com/FluentHub/FluentHub/issues/169), [#138](https://github.com/FluentHub/FluentHub/issues/138), [#129](https://github.com/FluentHub/FluentHub/issues/129), [#123](https://github.com/FluentHub/FluentHub/issues/123), [#116](https://github.com/FluentHub/FluentHub/issues/116), [#104](https://github.com/FluentHub/FluentHub/issues/104)</br>Please take a look at https://github.com/FluentHub/FluentHub/issues/138#issuecomment-1153133560
+#### 2. Linq problem
 
-> Upon checking, there was no problem with authentication, and there was a problem with the code that was getting the user's information at the time of authentication. But this wasn't an exception caused by our code, it was caused by Octokit.GraphQL. So the lead developer [reported it to the GitHub Octokit.GraphQL team](https://github.com/octokit/octokit.graphql.net/issues/262), but the project had seemingly been abandoned as he hadn't received a reply for over a week. We didn't want to support a non-maintainable project, and we came up with a new solution, but the cost of rewriting was huge and the code would be verbose. As a result, this project will not publish the release mode app package to the Microsoft Store or the release page on GitHub. `onein528 6/12/2022`
+`Select() is not supported` exception from Octokit.GraphQL.NET https://github.com/FluentHub/FluentHub/issues/169, https://github.com/FluentHub/FluentHub/issues/138, https://github.com/FluentHub/FluentHub/issues/129, https://github.com/FluentHub/FluentHub/issues/123, https://github.com/FluentHub/FluentHub/issues/116, https://github.com/FluentHub/FluentHub/issues/104
+
+> Upon checking, there was no problem with authentication, and there was a problem with the code that was getting the user's information at the time of authentication. But this wasn't an exception caused by our code, it was caused by [Octokit.GraphQL.](https://github.com/octokit/octokit.graphql.net) So the lead developer [reported it to the GitHub Octokit.GraphQL team](https://github.com/octokit/octokit.graphql.net/issues/262), but the project had seemingly been abandoned as he hadn't received a reply for over a week. We didn't want to support a non-maintainable project, and we came up with a new solution, but the cost of utilising this idea would be huge and it would make the code utterly verbose. As a result, a decision was made: The FluentHub team shall not publish the release mode app package to the Microsoft Store or the release page on GitHub. 
+
+> *- [onein528](https://github.com/onein528) 6/12/2022*
 
 ## FAQ
 
