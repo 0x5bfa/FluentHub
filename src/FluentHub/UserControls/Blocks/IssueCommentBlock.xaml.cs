@@ -1,11 +1,5 @@
 ﻿using FluentHub.Helpers;
 using FluentHub.ViewModels.UserControls.Blocks;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -42,9 +36,20 @@ namespace FluentHub.UserControls.Blocks
 
         public IssueCommentBlock() => InitializeComponent();
 
-        private void OnCommentWebViewNavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
+        private bool WebViewIsNavigatedSuccessfully { get; set; }
+
+        private async void OnCommentWebViewNavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
         {
-            WebViewHelpers.DisableWebViewVerticalScrolling(ref CommentWebView);
+            await WebViewHelpers.DisableWebViewVerticalScrollingAsync(CommentWebView);
+            WebViewIsNavigatedSuccessfully = true;
+        }
+
+        private async void OnWebViewSizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            if (CommentWebView != null && WebViewIsNavigatedSuccessfully)
+            {
+                await WebViewHelpers.DisableWebViewVerticalScrollingAsync(CommentWebView);
+            }
         }
     }
 }

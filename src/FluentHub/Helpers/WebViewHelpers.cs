@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Xaml.Controls;
+﻿using Windows.UI.Xaml.Controls;
 using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Helpers
@@ -12,12 +7,7 @@ namespace FluentHub.Helpers
     {
         private static readonly string SetBodyOverFlowHiddenString = @"function SetBodyOverFlowHidden() { document.body.style.overflow = 'hidden'; } SetBodyOverFlowHidden();";
 
-        public static void DisableWebViewVerticalScrolling(ref WebView webView)
-        {
-            DisableWebViewVerticalScrollingAsync(webView);
-        }
-
-        public static async void DisableWebViewVerticalScrollingAsync(WebView webView)
+        public static async Task DisableWebViewVerticalScrollingAsync(WebView webView)
         {
             _ = await webView.InvokeScriptAsync("eval", new string[] { SetBodyOverFlowHiddenString });
 
@@ -29,16 +19,15 @@ namespace FluentHub.Helpers
             }
         }
 
-        public static async void DisableWebView2VerticalScrollingAsync(muxc.WebView2 webView)
+        public static async Task<double> SyncWebViewSizeAsync(WebView webView)
         {
-            //_ = await webView.InvokeScriptAsync("eval", new string[] { SetBodyOverFlowHiddenString });
+            var pageHeightString = await webView.InvokeScriptAsync("eval", new[] { "document.body.scrollHeight.toString()" });
 
-            //var pageHeightString = await webView.InvokeScriptAsync("eval", new[] { "document.body.scrollHeight.toString()" });
-
-            //if (int.TryParse(pageHeightString, out int pageHeight))
-            //{
-            //    webView.Height = pageHeight;
-            //}
+            if (int.TryParse(pageHeightString, out int pageHeight))
+            {
+                return webView.Height = pageHeight;
+            }
+            else return 0d;
         }
     }
 }
