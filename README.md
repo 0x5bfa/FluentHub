@@ -26,17 +26,17 @@
   <img width="128" src="https://getbadgecdn.azureedge.net/images/English_L.png" alt="GetItFromMicrosoft" />
 </a>
 
-> **Warning**</br>The app available on the store does not work properly.</br>See the [Notice](#notices) section
+> **Warning**</br>The app available on the store does not work properly.</br>See the [Linq problem](#2-linq-problem) section
 
 ## Screenshots
-###### May not always be up-to-date due to massive changes to the user interface
+*May not always be up-to-date due to massive changes to the user interface*
 
 ![image](https://user-images.githubusercontent.com/62196528/170248747-1c7458f6-4b22-48e3-9235-0c8561a1759a.png)
 ![image](https://user-images.githubusercontent.com/62196528/170248759-cbf061b4-6eff-4db9-b61b-12e4e3c413a2.png)
 ![image](https://user-images.githubusercontent.com/62196528/170248768-cff52abc-fdfc-4b61-bd16-8c89ee9624ce.png)
 ![image](https://user-images.githubusercontent.com/62196528/170248775-1ef2fe2f-bdf7-4f45-9a01-adbe1bc634fb.png)
 
-## Notices
+## Warnings
 
 #### 1. HttpClient problem
 
