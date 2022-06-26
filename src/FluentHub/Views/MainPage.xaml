@@ -210,7 +210,8 @@
                                 FontFamily="{StaticResource Octions}"
                                 FontSize="16"
                                 Glyph="&#xE918;" />
-                            <Ellipse
+                            <muxc:InfoBadge Visibility="{x:Bind ViewModel.UnreadCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"/>
+                            <!--<Ellipse
                                 Width="10"
                                 Height="10"
                                 Margin="0,-4,-4,0"
@@ -223,7 +224,7 @@
                                         <GradientStop x:Name="GradientStop4" Offset="1.0" Color="#006eed" />
                                     </LinearGradientBrush>
                                 </Ellipse.Fill>
-                            </Ellipse>
+                            </Ellipse>-->
                         </Grid>
                     </Button>
 
