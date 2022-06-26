@@ -50,7 +50,6 @@ namespace FluentHub.Helpers
                 var jumpList = await JumpList.LoadCurrentAsync();
                 var argsPrefix = "fluenthub:/";
                 var iconPrefix = "ms-appx:///Assets/Icons";
-                var textPrefix = "ms-resource:///Resources";
                 var preferredIndex = 0;
                 AddOrInsert(jumpList, CreateJumpListItem($"{argsPrefix}/profile",
                                                          $"Profile",

@@ -225,6 +225,9 @@ namespace FluentHub
             object param = null;
             switch (uri.Authority.ToLower())
             {
+                case "home":
+                    page = typeof(Views.Home.UserHomePage);
+                    break;
                 case "profile":
                     page = typeof(Views.Users.OverviewPage);
                     break;
@@ -251,11 +254,27 @@ namespace FluentHub
                     break;
                 case "stars":
                     page = typeof(Views.Users.StarredReposPage);
-                    param = uri.AbsoluteUri;
                     break;
                 case "settings":
                     page = typeof(Views.AppSettings.MainSettingsPage);
-                    param = uri.AbsoluteUri;
+                    break;
+                case "settings/appearance":
+                    page = typeof(Views.AppSettings.AppearancePage);
+                    break;
+                case "settings/accounts":
+                    page = typeof(Views.AppSettings.Accounts.AccountPage);
+                    break;
+                case "settings/accounts/users":
+                    page = typeof(Views.AppSettings.Accounts.OtherUsersPage);
+                    break;
+                case "settings/notifications":
+                    page = typeof(Views.AppSettings.NotificationsPage);
+                    break;
+                case "settings/repos":
+                    page = typeof(Views.AppSettings.RepositoryPage);
+                    break;
+                case "settings/about":
+                    page = typeof(Views.AppSettings.AboutPage);
                     break;
                 case "auth" when uri.Query.Contains("code"): // fluenthub://auth?code=[code]
                     var code = new WwwFormUrlDecoder(uri.Query).GetFirstValueByName("code");
