@@ -379,8 +379,23 @@
     <Compile Include="Views\Repositories\Discussions\DiscussionsPage.xaml.cs">
       <DependentUpon>DiscussionsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Repositories\Insights\CodeFrequencyPage.xaml.cs">
+      <DependentUpon>CodeFrequencyPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\Insights\CommitsPage.xaml.cs">
+      <DependentUpon>CommitsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\Insights\ContributorsPage.xaml.cs">
+      <DependentUpon>ContributorsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Repositories\Insights\InsightsPage.xaml.cs">
       <DependentUpon>InsightsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\Insights\OverviewPage.xaml.cs">
+      <DependentUpon>OverviewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\Insights\TrafficPage.xaml.cs">
+      <DependentUpon>TrafficPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Repositories\Projects\ProjectPage.xaml.cs">
       <DependentUpon>ProjectPage.xaml</DependentUpon>
@@ -976,7 +991,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Repositories\Insights\CodeFrequencyPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\Insights\CommitsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\Insights\ContributorsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Repositories\Insights\InsightsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\Insights\OverviewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\Insights\TrafficPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

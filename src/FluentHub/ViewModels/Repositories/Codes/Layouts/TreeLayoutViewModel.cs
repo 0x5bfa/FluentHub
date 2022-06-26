@@ -18,7 +18,6 @@ namespace FluentHub.ViewModels.Repositories.Codes.Layouts
 {
     public class TreeLayoutViewModel : ObservableObject
     {
-        #region constructor
         public TreeLayoutViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _messenger = messenger;
@@ -28,10 +27,10 @@ namespace FluentHub.ViewModels.Repositories.Codes.Layouts
             Items = new(_items);
 
             LoadTreeViewContentsCommand = new AsyncRelayCommand(LoadTreeViewContentsAsync);
+            LoadRepositoryCommand = new AsyncRelayCommand<string>(LoadRepositoryAsync);
         }
-        #endregion
 
-        #region fields and properties
+        #region Fields and Properties
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
 
@@ -44,6 +43,9 @@ namespace FluentHub.ViewModels.Repositories.Codes.Layouts
         private RepoContextViewModel _contextViewModel;
         public RepoContextViewModel ContextViewModel { get => _contextViewModel; set => SetProperty(ref _contextViewModel, value); }
 
+        private Repository _repository;
+        public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
+
         private RepoContextViewModel _selectedContextViewModel;
         public RepoContextViewModel SelectedContextViewModel { get => _selectedContextViewModel; set => SetProperty(ref _selectedContextViewModel, value); }
 
@@ -51,9 +53,9 @@ namespace FluentHub.ViewModels.Repositories.Codes.Layouts
         public ReadOnlyObservableCollection<TreeLayoutPageModel> Items { get; }
 
         public IAsyncRelayCommand LoadTreeViewContentsCommand { get; }
+        public IAsyncRelayCommand LoadRepositoryCommand { get; }
         #endregion
 
-        #region methods
         private async Task LoadTreeViewContentsAsync(CancellationToken token)
         {
             try
@@ -176,6 +178,29 @@ namespace FluentHub.ViewModels.Repositories.Codes.Layouts
 
             return null;
         }
-        #endregion
+
+        private async Task LoadRepositoryAsync(string url, CancellationToken token)
+        {
+            try
+            {
+                var uri = new Uri(url);
+                var pathSegments = uri.AbsolutePath.Split("/").ToList();
+                pathSegments.RemoveAt(0);
+
+                RepositoryQueries queries = new();
+                Repository = await queries.GetDetailsAsync(pathSegments[0], pathSegments[1]);
+            }
+            catch (OperationCanceledException) { }
+            catch (Exception ex)
+            {
+                _logger?.Error("RefreshDetailsLayoutPageAsync", ex);
+                if (_messenger != null)
+                {
+                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+                    _messenger.Send(notification);
+                }
+                throw;
+            }
+        }
     }
 }

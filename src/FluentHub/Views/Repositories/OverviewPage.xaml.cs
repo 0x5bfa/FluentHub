@@ -120,35 +120,7 @@ namespace FluentHub.Views.Repositories
         }
 
         private void OnRepoPageNavViewItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
-        {
-            string newUrl = $"{App.DefaultGitHubDomain}/{ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}";
-
-            switch (args.InvokedItemContainer.Tag.ToString().ToLower())
-            {
-                default:
-                case "code":
-                    RepoPageNavViewFrame.Navigate(typeof(CodePage), newUrl);
-                    break;
-                case "issues":
-                    RepoPageNavViewFrame.Navigate(typeof(Issues.IssuesPage), $"{newUrl}/issues");
-                    break;
-                case "pullrequests":
-                    RepoPageNavViewFrame.Navigate(typeof(PullRequests.PullRequestsPage), $"{newUrl}/pulls");
-                    break;
-                case "discussions":
-                    RepoPageNavViewFrame.Navigate(typeof(Discussions.DiscussionsPage), $"{newUrl}/discussions");
-                    break;
-                case "projects":
-                    RepoPageNavViewFrame.Navigate(typeof(Projects.ProjectsPage), $"{newUrl}/projects");
-                    break;
-                case "insights":
-                    RepoPageNavViewFrame.Navigate(typeof(Insights.InsightsPage), $"{newUrl}/pulse");
-                    break;
-                case "settings":
-                    RepoPageNavViewFrame.Navigate(typeof(Settings.SettingsPage), $"{newUrl}/settings");
-                    break;
-            }
-        }
+            => OnRepoPageNavViewItemSelected(args.InvokedItemContainer.Tag.ToString().ToLower());
 
         private void OnRepoPageNavViewItemSelected(string tag)
         {

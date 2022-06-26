@@ -1,9 +1,9 @@
-﻿using Windows.UI.Xaml.Controls;
+﻿using FluentHub.Services;
+using Microsoft.Extensions.DependencyInjection;
+using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using muxc = Microsoft.UI.Xaml.Controls;
-using FluentHub.Services;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace FluentHub.Views.Repositories.Insights
 {
@@ -11,7 +11,7 @@ namespace FluentHub.Views.Repositories.Insights
     {
         public InsightsPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             var provider = App.Current.Services;
             navigationService = provider.GetRequiredService<INavigationService>();
@@ -35,6 +35,34 @@ namespace FluentHub.Views.Repositories.Insights
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Insights.png"))
             };
+        }
+
+        private void OnInsightsNavViewItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
+            => OnInsightsNavViewItemSelected(args.InvokedItemContainer.Tag.ToString().ToLower());
+
+        private void OnInsightsNavViewItemSelected(string tag)
+        {
+            //string newUrl = $"{App.DefaultGitHubDomain}/{ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}";
+
+            switch (tag.ToLower())
+            {
+                default:
+                case "overview":
+                    InsightsNavViewFrame.Navigate(typeof(OverviewPage));
+                    break;
+                case "contributors":
+                    InsightsNavViewFrame.Navigate(typeof(ContributorsPage));
+                    break;
+                case "traffic":
+                    InsightsNavViewFrame.Navigate(typeof(TrafficPage));
+                    break;
+                case "commits":
+                    InsightsNavViewFrame.Navigate(typeof(CommitsPage));
+                    break;
+                case "codefrequency":
+                    InsightsNavViewFrame.Navigate(typeof(CodeFrequencyPage));
+                    break;
+            }
         }
     }
 }
