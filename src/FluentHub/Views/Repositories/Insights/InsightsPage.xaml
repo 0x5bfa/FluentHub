@@ -21,8 +21,8 @@
 
         <muxc:NavigationView
             Grid.Column="0"
+            IsPaneVisible="True"
             IsBackButtonVisible="Collapsed"
-            IsPaneOpen="True"
             IsPaneToggleButtonVisible="False"
             IsSettingsVisible="False"
             ItemInvoked="OnInsightsNavViewItemInvoked"
