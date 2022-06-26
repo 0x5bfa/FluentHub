@@ -23,7 +23,6 @@
             Grid.Column="0"
             IsPaneVisible="True"
             IsBackButtonVisible="Collapsed"
-            IsPaneToggleButtonVisible="False"
             IsSettingsVisible="False"
             ItemInvoked="OnInsightsNavViewItemInvoked"
             OpenPaneLength="256">
