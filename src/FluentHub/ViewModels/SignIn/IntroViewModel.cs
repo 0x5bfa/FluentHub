@@ -4,7 +4,6 @@ using FluentHub.Octokit.Models;
 using FluentHub.Models;
 using FluentHub.Octokit.Queries.Users;
 using FluentHub.ViewModels.UserControls.ButtonBlocks;
-using Humanizer;
 using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Mvvm.Input;
 using Microsoft.Toolkit.Mvvm.Messaging;
@@ -16,18 +15,16 @@ using System.Threading.Tasks;
 
 namespace FluentHub.ViewModels.SignIn
 {
-    public class SignInViewModel : ObservableObject
+    public class IntroViewModel : ObservableObject
     {
-        #region constructor
-        public SignInViewModel(ILogger logger = null)
+        public IntroViewModel(ILogger logger = null)
         {
             _logger = logger;
 
             AuthorizeWithBrowserCommand = new AsyncRelayCommand<string>(AuthorizeWithBrowser);
         }
-        #endregion
 
-        #region fields
+        #region Fields and Properties
         private readonly ILogger _logger;
 
         private bool isLoading;
@@ -39,7 +36,6 @@ namespace FluentHub.ViewModels.SignIn
         public IAsyncRelayCommand AuthorizeWithBrowserCommand { get; }
         #endregion
 
-        #region methods
         private async Task AuthorizeWithBrowser(string login, CancellationToken token)
         {
             try
@@ -62,6 +58,5 @@ namespace FluentHub.ViewModels.SignIn
                 throw;
             }
         }
-        #endregion
     }
 }

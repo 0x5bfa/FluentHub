@@ -302,7 +302,7 @@
     <Compile Include="ViewModels\Repositories\PullRequests\PullRequestViewModel.cs" />
     <Compile Include="ViewModels\SettingsManager.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
-    <Compile Include="ViewModels\SignIn\SignInViewModel.cs" />
+    <Compile Include="ViewModels\SignIn\IntroViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\ActivityBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\SingleCommentBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\SingleCommitBlockViewModel.cs" />

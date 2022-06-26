@@ -191,6 +191,7 @@
                             <Button
                                 Margin="0,12,0,0"
                                 HorizontalAlignment="Stretch"
+                                Command="{x:Bind ViewModel.AuthorizeWithBrowserCommand}"
                                 Content="Login"
                                 Style="{ThemeResource AccentButtonStyle}">
                                 <Button.KeyboardAccelerators>
