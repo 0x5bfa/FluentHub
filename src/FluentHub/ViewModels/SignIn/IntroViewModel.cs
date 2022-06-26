@@ -33,7 +33,7 @@ namespace FluentHub.ViewModels.SignIn
         private string authErrorMessage;
         public string AuthErrorMessage { get => authErrorMessage; set => SetProperty(ref authErrorMessage, value); }
 
-        public IAsyncRelayCommand AuthorizeWithBrowserCommand { get; }
+        public IAsyncRelayCommand AuthorizeWithBrowserCommand { get; set; }
         #endregion
 
         private async Task AuthorizeWithBrowser(string login, CancellationToken token)
