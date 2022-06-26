@@ -713,7 +713,7 @@
     <Content Include="Assets\Icons\Repositories.png" />
     <Content Include="Assets\Icons\Settings.png" />
     <Content Include="Assets\Icons\Starred.png" />
-    <Content Include="Assets\Intro\img31.jpg" />
+    <Content Include="Assets\OOBE\Hero.jpg" />
     <Content Include="Assets\WebView\index.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
