@@ -412,9 +412,6 @@
     <Compile Include="Views\Searches\MainSearchPage.xaml.cs">
       <DependentUpon>MainSearchPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\SignIn\WebView2ForAuthPage.xaml.cs">
-      <DependentUpon>WebView2ForAuthPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Users\DiscussionsPage.xaml.cs">
       <DependentUpon>DiscussionsPage.xaml</DependentUpon>
     </Compile>
@@ -457,9 +454,6 @@
     </Compile>
     <Compile Include="Views\Repositories\Issues\IssuesPage.xaml.cs">
       <DependentUpon>IssuesPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SignIn\SignInPage.xaml.cs">
-      <DependentUpon>SignInPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Home\UserHomePage.xaml.cs">
       <DependentUpon>UserHomePage.xaml</DependentUpon>
@@ -719,8 +713,7 @@
     <Content Include="Assets\Icons\Repositories.png" />
     <Content Include="Assets\Icons\Settings.png" />
     <Content Include="Assets\Icons\Starred.png" />
-    <Content Include="Assets\OOBE\HERO.png" />
-    <Content Include="Assets\OOBE\HERO.targetsize-large.png" />
+    <Content Include="Assets\Intro\img31.jpg" />
     <Content Include="Assets\WebView\index.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -1027,10 +1020,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\SignIn\WebView2ForAuthPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Users\DiscussionsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1084,10 +1073,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Repositories\Issues\IssuesPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\SignIn\SignInPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
