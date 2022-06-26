@@ -47,7 +47,7 @@
 
                             <Image Height="72" VerticalAlignment="Center">
                                 <Image.Source>
-                                    <BitmapImage DecodePixelWidth="128" UriSource="https://avatars.githubusercontent.com/u/98096883" />
+                                    <BitmapImage DecodePixelWidth="128" UriSource="ms-appx:///Assets/AppTilesAlpha/StoreLogo.scale-400.png" />
                                 </Image.Source>
                             </Image>
 
@@ -201,8 +201,8 @@
 
                             <HyperlinkButton
                                 HorizontalAlignment="Right"
-                                Content="Privacy policy"
-                                NavigateUri="https://github.com/FluentHub/FluentHub" />
+                                Content="Documentation"
+                                NavigateUri="https://hub.codrex.dev/docs" />
 
                         </StackPanel>
 
@@ -219,7 +219,7 @@
                             AlignmentY="Center"
                             Stretch="UniformToFill">
                             <ImageBrush.ImageSource>
-                                <BitmapImage UriSource="https://user-images.githubusercontent.com/71598437/175802524-e59d39c8-b24a-49cb-bc36-ff03c4e1ee11.jpg" />
+                                <BitmapImage UriSource="ms-appx:///Assets/OOBE/Hero.jpg" />
                             </ImageBrush.ImageSource>
                         </ImageBrush>
                     </Grid.Background>
