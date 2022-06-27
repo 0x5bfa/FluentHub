@@ -28,6 +28,10 @@
 
 > **Warning**</br>**The app available on the store does not work properly.** Due to this issue, we have no plan to publish app packages yet. You need to build from source, see [building-from-source](https://github.com/fluenthub-community/FluentHub/blob/main/docs/build-from-source.md). We do apologize for any inconvenience caused.
 
+## Developers in FluentHub
+
+We are mostly a student(17 and less than). We have to suspend the project for several weeks for our school exam. So if this project have no updates for few days/weeks, do not consider to be abandoned.
+
 ## Screenshots
 
 ![image](https://user-images.githubusercontent.com/62196528/170248747-1c7458f6-4b22-48e3-9235-0c8561a1759a.png)
