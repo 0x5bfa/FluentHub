@@ -28,9 +28,9 @@
 
 > **Warning**</br>The app available on the store does not work properly.</br>See the [Linq problem](#2-linq-problem) section
 
-## Developers in FluentHub
+## FluentHub Team
 
-We are mostly a student(17 and less than). We have to suspend the project for several weeks for our school exam. So if this project have no updates for few days/weeks, do not consider to be abandoned.
+Our team are mostly students (age 17 and under). We have had to suspend the project for several weeks due to our exams. So if this project has no updates for a few days/weeks, do not consider it abandoned.
 
 ## Screenshots
 *May not always be up-to-date due to massive changes to the user interface*
