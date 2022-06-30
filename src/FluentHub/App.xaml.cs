@@ -257,6 +257,10 @@ namespace FluentHub
                     page = typeof(Views.AppSettings.MainSettingsPage);
                     param = uri.AbsoluteUri;
                     break;
+                case "reset":
+                    page = typeof(Views.SignIn.IntroPage);
+                    param = uri.AbsoluteUri;
+                    break;
                 case "auth" when uri.Query.Contains("code"): // fluenthub://auth?code=[code]
                     var code = new WwwFormUrlDecoder(uri.Query).GetFirstValueByName("code");
                     bool status;
