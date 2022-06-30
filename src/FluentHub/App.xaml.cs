@@ -259,8 +259,13 @@ namespace FluentHub
                     break;
                 case "reset":
                     page = typeof(Views.SignIn.IntroPage);
+                    //  This code should work, but throws a 'Use of unassigned variable 'rootFrame'' error.
+                    //  Frame rootFrame = (Frame)Window.Current.Content;
+                    //  rootFrame.Navigate(typeof(SignIn.IntroPage));
                     param = uri.AbsoluteUri;
                     break;
+                    // The UI of this feature is slightly broken, therefore
+                    // TODO: Fix logout protocol
                 case "auth" when uri.Query.Contains("code"): // fluenthub://auth?code=[code]
                     var code = new WwwFormUrlDecoder(uri.Query).GetFirstValueByName("code");
                     bool status;
