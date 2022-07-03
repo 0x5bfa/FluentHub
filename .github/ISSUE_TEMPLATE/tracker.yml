@@ -8,7 +8,7 @@ body:
       options:
         - label: Have you checked if a similar tracker has already been reported?
           required: true
-type: textarea
+  - type: textarea
     attributes:
       label: 🛤️ Feature
       description: What feature is this related to?
@@ -23,5 +23,4 @@ type: textarea
   - type: textarea
     attributes:
       label: 📸 Assets
-      description: |
-        A list of assets (screenshots, mockups) relevant to this feature request.
+      description: A list of assets (screenshots, mockups) relevant to this feature request.
