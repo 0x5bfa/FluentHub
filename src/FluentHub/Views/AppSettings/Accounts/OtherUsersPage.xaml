@@ -21,7 +21,7 @@
 
             <TextBlock Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" Style="{StaticResource BodyTextBlockStyle}">
                 <Run Text="If you manage multiple accounts, you can add them and switch between them seamlessly." />
-                <Hyperlink NavigateUri="https://docs.github.com/account-and-profile">Learn more about users</Hyperlink>
+                <Hyperlink NavigateUri="https://docs.github.com/account-and-profile">Learn more</Hyperlink>
             </TextBlock>
 
             <TextBlock
