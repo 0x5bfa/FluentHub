@@ -5,27 +5,28 @@ My Pull Request follows the contributing guidlines, available at
 https://github.com/fluenthub-community/FluentHub/blob/main/.github/CONTRIBUTING.md
 -->
 
-### Before you start
+### ⏱️ Before you start
 <!-- Put an 'x' in the brackets to tick -->
 - [ ] Have you checked if a similar PR has already been requested? 
 - [ ] Have you built and ran the app?
 
-### Related/Fixed issues
+### ↗️ Related/Fixed issues
 ###### <sup>Address related/fixed issues</sup>
 <!-- with this format: #issueid-->
 - Related: #
 - Fixed: #
 
-### Description
+### 📄 Description
 ###### <sup>Details of changes are listed here</sup>
 
 
 
-### Motivation and Context
+### 💭 Motivation and Context
 ###### <sup>Items resolved/related issues by this PR.</sup>
 
 
 
-### Assets (if appropriate):
+### 📸 Assets (if appropriate):
 ###### <sup>A list of assets (screenshots, mockups) relevant to this pull request.</sup>
 
+###### <sup>`React with a 👍 if you'd like to see this feature implemented`</sup>

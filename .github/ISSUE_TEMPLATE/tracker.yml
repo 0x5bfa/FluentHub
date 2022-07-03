@@ -1,25 +1,25 @@
-name: ➕ Feature Request
-description: Request a new feature for FluentHub
-labels: [feature request]
+name: 💬 Feature Discussion
+description: ⚠️⚠️⚠️ ADMIN ONLY
+labels: [tracker]
 body:
   - type: checkboxes
     attributes:
       label: ⏱️ Before you start...
       options:
-        - label: Have you checked if a similar feature request has already been reported?
+        - label: Have you checked if a similar tracker has already been reported?
           required: true
+type: textarea
+    attributes:
+      label: 🛤️ Feature
+      description: What feature is this related to?
+    validations:
+      required: false
   - type: textarea
     attributes:
       label: 📄 Description
       description: A clear and concise description of what your idea is. Include things like possible use cases, drawbacks, etc.
     validations:
       required: true
-  - type: textarea
-    attributes:
-      label: 🗃️ Alternative solutions
-      description: Describe more ways this idea could be implemented.
-    validations:
-      required: false
   - type: textarea
     attributes:
       label: 📸 Assets
