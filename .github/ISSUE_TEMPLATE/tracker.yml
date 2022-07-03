@@ -1,0 +1,27 @@
+name: 💬 Feature Discussion
+description: ⚠️⚠️⚠️ ADMIN ONLY
+labels: [tracker]
+body:
+  - type: checkboxes
+    attributes:
+      label: ⏱️ Before you start...
+      options:
+        - label: Have you checked if a similar tracker has already been reported?
+          required: true
+type: textarea
+    attributes:
+      label: 🛤️ Feature
+      description: What feature is this related to?
+    validations:
+      required: false
+  - type: textarea
+    attributes:
+      label: 📄 Description
+      description: A clear and concise description of what your idea is. Include things like possible use cases, drawbacks, etc.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 📸 Assets
+      description: |
+        A list of assets (screenshots, mockups) relevant to this feature request.
