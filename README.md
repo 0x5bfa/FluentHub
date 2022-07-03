@@ -30,7 +30,7 @@
 
 ## FluentHub Team
 
-Our team are mostly students (age 17 and under). We have had to suspend the project for several weeks due to our exams. So if this project has no updates for a few days/weeks, do not consider it abandoned. FluentHub's suspension will end (approximately) on the 9th July.
+Our team are mostly students (age 17 and under). We have had to suspend the project for several weeks due to our exams. So if this project has no updates for a few days/weeks, do not consider it abandoned. FluentHub's suspension will end on the 9th July.
 
 ## Screenshots
 *May not always be up-to-date due to massive changes to the user interface*
