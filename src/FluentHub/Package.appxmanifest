@@ -9,8 +9,8 @@
 
   <Identity
     Name="FluentHubAlpha"
-    Publisher="CN=FluentHub"
-    Version="0.3.0.0" />
+    Publisher="CN=FluentHub Team"
+    Version="0.3.10.0" />
 
   <mp:PhoneIdentity PhoneProductId="69c86c00-bb72-4528-9891-0e292b6fdce0" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
