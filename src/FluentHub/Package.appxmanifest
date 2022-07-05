@@ -5,7 +5,8 @@
   xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
   xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
   xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
-  IgnorableNamespaces="uap mp uap3">
+  xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5"
+  IgnorableNamespaces="uap mp uap3 uap5">
 
   <Identity
     Name="FluentHubAlpha"
@@ -39,7 +40,7 @@
         Description="A modern GitHub client for windows"
         BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\AppTilesBeta\Wide310x150Logo.png" Square71x71Logo="Assets\AppTilesBeta\SmallTile.png" Square310x310Logo="Assets\AppTilesBeta\LargeTile.png"/>
-        <uap:SplashScreen Image="Assets\AppTilesBeta\SplashScreen.png" />
+        <uap:SplashScreen uap5:Optional="true" Image="Assets\AppTilesBeta\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
         <uap:Extension Category="windows.protocol">
