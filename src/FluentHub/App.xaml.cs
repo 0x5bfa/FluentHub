@@ -147,7 +147,7 @@ namespace FluentHub
             return logger;
         }
 
-        private void InitializeAsync()
+        private void Initialize(LaunchActivatedEventArgs args = null)
         {
             CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
             ApplicationView.GetForCurrentView().TitleBar.ButtonBackgroundColor = Colors.Transparent;
@@ -162,28 +162,33 @@ namespace FluentHub
                 Window.Current.Content = rootFrame;
             }
 
-            if (rootFrame.Content == null)
+            if (args != null && !args.PrelaunchActivated)
             {
-                if (Settings.SetupCompleted == true)
+                CoreApplication.EnablePrelaunch(true);
+
+                if (rootFrame.Content == null)
                 {
-                    FluentHub.Octokit.Authorization.InitializeOctokit.InitializeApiConnections(Settings.AccessToken);
+                    if (Settings.SetupCompleted == true)
+                    {
+                        FluentHub.Octokit.Authorization.InitializeOctokit.InitializeApiConnections(Settings.AccessToken);
 
-                    rootFrame.Navigate(typeof(MainPage));
+                        rootFrame.Navigate(typeof(MainPage));
+                    }
+                    else
+                    {
+                        Settings.SetupProgress = false;
+                        Settings.SetupCompleted = false;
+
+                        rootFrame.Navigate(typeof(IntroPage));
+                    }
                 }
-                else
-                {
-                    Settings.SetupProgress = false;
-                    Settings.SetupCompleted = false;
-
-                    rootFrame.Navigate(typeof(IntroPage));
-                }
-
-                ThemeHelper.Initialize();
-                Window.Current.Activate();
             }
 
+            ThemeHelper.Initialize();
+            Window.Current.Activate();
+
             var logger = Services.GetService<Serilog.ILogger>();
-            logger?.Debug("App.InitializeAsync() done");
+            logger?.Debug("App.Initialize() done");
         }
 
         protected override async void OnLaunched(LaunchActivatedEventArgs args)
@@ -195,7 +200,7 @@ namespace FluentHub
                 openInNewTab = true;
             }
 
-            InitializeAsync();
+            Initialize(args);
 
             if (!string.IsNullOrWhiteSpace(args.Arguments) && Uri.TryCreate(args.Arguments, UriKind.RelativeOrAbsolute, out var uri))
             {
@@ -205,7 +210,7 @@ namespace FluentHub
 
         protected async override void OnActivated(IActivatedEventArgs args)
         {
-            InitializeAsync();
+            Initialize();
 
             switch (args.Kind)
             {
