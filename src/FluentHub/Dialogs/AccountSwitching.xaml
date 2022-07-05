@@ -13,7 +13,6 @@
     mc:Ignorable="d">
 
     <Grid RowSpacing="12">
-
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -51,20 +50,124 @@
 
         <StackPanel Grid.Row="2" Spacing="12">
 
-            <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="1. Copy authorization URL" />
-
-            <TextBox IsReadOnly="True" Text="https://github.com/login/oauth/authorize?client_id=0c0d30a8cbd9465373e2&amp;scope=repo%2Cworkflow%2Cwrite%3Apackages%2Cdelete%3Apackages%2Cadmin%3Aorg%2Cadmin%3Apublic_key%2Cadmin%3Arepo_hook%2Cadmin%3Aorg_hook%2Cgist%2Cnotifications%2Cuser%2Cdelete_repo%2Cwrite%3Adiscussion%2Cadmin%3Aenterprise%2Cadmin%3Agpg_key" />
-
-            <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="2. Paste the URL to In-Private beowser URL bar" />
-
-            <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="3. Authorize this app" />
-
             <muxc:InfoBar
-                Title="Warning"
-                IsClosable="False"
+                Title="Subject to change"
                 IsOpen="True"
-                Message="The app does not take you back this page automatically.&#13;If you want to continue this page, just need to go back manually."
+                Message="Currently, FluentHub's other users method requires you to log in manually and may provide difficulty to those unfamiliar, and may be updated in a later version."
                 Severity="Warning" />
+
+            <Grid ColumnSpacing="8" RowSpacing="8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <Border
+                                    Width="20"
+                                    Height="20"
+                                    MinWidth="20"
+                                    Background="{ThemeResource SystemAccentColor}"
+                                    CornerRadius="10">
+                    <TextBlock
+                                        Margin="6,2,6,0"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="1"
+                                        TextAlignment="Center" />
+                </Border>
+
+                <Border
+                                    Grid.Row="1"
+                                    Width="20"
+                                    Height="20">
+                </Border>
+
+                <Border
+                                    Grid.Row="2"
+                                    Width="20"
+                                    Height="20"
+                                    MinWidth="20"
+                                    Background="{ThemeResource SystemAccentColor}"
+                                    CornerRadius="10">
+                    <TextBlock
+                                        Margin="6,2,6,0"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="2"
+                                        TextAlignment="Center" />
+                </Border>
+
+                <Border
+                                    Grid.Row="3"
+                                    Width="20"
+                                    Height="20"
+                                    MinWidth="20"
+                                    Background="{ThemeResource SystemAccentColor}"
+                                    CornerRadius="10">
+                    <TextBlock
+                                        Margin="6,2,6,0"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="3"
+                                        TextAlignment="Center" />
+                </Border>
+
+                <Border
+                                    Grid.Row="4"
+                                    Width="20"
+                                    Height="20"
+                                    MinWidth="20"
+                                    Background="{ThemeResource SystemAccentColor}"
+                                    CornerRadius="10">
+                    <TextBlock
+                                        Margin="6,2,6,0"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="4"
+                                        TextAlignment="Center" />
+                </Border>
+
+                <TextBlock
+                                    Grid.Column="1"
+                                    VerticalAlignment="Top"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="Copy the authorization URL;" />
+
+                <TextBox 
+                    Grid.Row="1"
+                    Grid.Column="1"
+                    IsReadOnly="True" 
+                    Text="https://github.com/login/oauth/authorize?client_id=0c0d30a8cbd9465373e2&amp;scope=repo%2Cworkflow%2Cwrite%3Apackages%2Cdelete%3Apackages%2Cadmin%3Aorg%2Cadmin%3Apublic_key%2Cadmin%3Arepo_hook%2Cadmin%3Aorg_hook%2Cgist%2Cnotifications%2Cuser%2Cdelete_repo%2Cwrite%3Adiscussion%2Cadmin%3Aenterprise%2Cadmin%3Agpg_key" />
+
+                <TextBlock
+                                    Grid.Row="2"
+                                    Grid.Column="1"
+                                    VerticalAlignment="Top"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="Open the URL in an In-Private browser;" />
+
+                <TextBlock
+                                    Grid.Row="3"
+                                    Grid.Column="1"
+                                    VerticalAlignment="Top"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="Login via GitHub with your secondary account" />
+                
+                <TextBlock
+                                    Grid.Row="4"
+                                    Grid.Column="1"
+                                    VerticalAlignment="Top"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="Navigate back to FluentHub." />
+
+            </Grid>
 
         </StackPanel>
 
@@ -81,6 +184,5 @@
                 Click="OnCancelButtonClick"
                 Content="Cancel" />
         </Grid>
-
     </Grid>
 </ContentDialog>

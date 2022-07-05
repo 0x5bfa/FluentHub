@@ -68,75 +68,6 @@
                         </Button.Flyout>
                     </Button>-->
 
-                    <muxc:DropDownButton>
-                        <muxc:DropDownButton.Content>
-                            <StackPanel Orientation="Horizontal" Spacing="4">
-                                <TextBlock
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="Type by:" />
-                                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
-                            </StackPanel>
-                        </muxc:DropDownButton.Content>
-                        <muxc:DropDownButton.Flyout>
-                            <MenuFlyout Placement="BottomEdgeAlignedLeft">
-                                <MenuFlyout.Items>
-                                    <ToggleMenuFlyoutItem Text="Repository1" />
-                                    <ToggleMenuFlyoutItem Text="Repository2" />
-                                    <ToggleMenuFlyoutItem Text="Repository3" />
-                                    <ToggleMenuFlyoutItem Text="Repository4" />
-                                    <ToggleMenuFlyoutItem Text="Repository5" />
-                                </MenuFlyout.Items>
-                            </MenuFlyout>
-                        </muxc:DropDownButton.Flyout>
-                    </muxc:DropDownButton>
-
-                    <muxc:DropDownButton>
-                        <muxc:DropDownButton.Content>
-                            <StackPanel Orientation="Horizontal" Spacing="4">
-                                <TextBlock
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="Language by:" />
-                                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
-                            </StackPanel>
-                        </muxc:DropDownButton.Content>
-                        <muxc:DropDownButton.Flyout>
-                            <MenuFlyout Placement="BottomEdgeAlignedLeft">
-                                <MenuFlyout.Items>
-                                    <ToggleMenuFlyoutItem Text="Repository1" />
-                                    <ToggleMenuFlyoutItem Text="Repository2" />
-                                    <ToggleMenuFlyoutItem Text="Repository3" />
-                                    <ToggleMenuFlyoutItem Text="Repository4" />
-                                    <ToggleMenuFlyoutItem Text="Repository5" />
-                                </MenuFlyout.Items>
-                            </MenuFlyout>
-                        </muxc:DropDownButton.Flyout>
-                    </muxc:DropDownButton>
-
-                    <muxc:DropDownButton>
-                        <muxc:DropDownButton.Content>
-                            <StackPanel Orientation="Horizontal" Spacing="4">
-                                <TextBlock
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="Sort by:" />
-                                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
-                            </StackPanel>
-                        </muxc:DropDownButton.Content>
-                        <muxc:DropDownButton.Flyout>
-                            <MenuFlyout Placement="BottomEdgeAlignedLeft">
-                                <MenuFlyout.Items>
-                                    <ToggleMenuFlyoutItem Text="Repository1" />
-                                    <ToggleMenuFlyoutItem Text="Repository2" />
-                                    <ToggleMenuFlyoutItem Text="Repository3" />
-                                    <ToggleMenuFlyoutItem Text="Repository4" />
-                                    <ToggleMenuFlyoutItem Text="Repository5" />
-                                </MenuFlyout.Items>
-                            </MenuFlyout>
-                        </muxc:DropDownButton.Flyout>
-                    </muxc:DropDownButton>
-
                 </StackPanel>
             </Grid>
 
@@ -205,7 +136,7 @@
                                             Grid.Row="1"
                                             FontSize="18"
                                             Style="{StaticResource BodyStrongTextBlockStyle}"
-                                            Text="No items available"
+                                            Text="This account has no followers"
                                             TextAlignment="Center" />
                                     </Grid>
                                 </toolkit:Case>

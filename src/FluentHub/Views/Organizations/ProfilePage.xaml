@@ -48,7 +48,7 @@
                     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
                     CornerRadius="6">
                     <Image
-                        x:Name="UserAvatorImage"
+                        x:Name="UserAvatarImage"
                         Width="84"
                         Height="84"
                         Source="{x:Bind ViewModel.Organization.AvatarUrl, Mode=OneWay}" />

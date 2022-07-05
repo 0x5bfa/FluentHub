@@ -134,23 +134,15 @@ namespace FluentHub.Views.Repositories.Codes.Layouts
 
         private void OnDirListViewDoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
-            bool isFile = false;
-            string path;
-
             var item = DirListView.SelectedItem as DetailsLayoutListViewModel;
             var tagItem = item?.ObjectTag?.Split("/");
 
-            if (tagItem.First() == "blob")
-                isFile = true;
-            // blob
-            else isFile = false;
-
-            path = ViewModel.ContextViewModel.Path;
+            string path = ViewModel.ContextViewModel.Path;
             if (!string.IsNullOrEmpty(path)) path += "/";
 
             path += tagItem.Last();
 
-            var objType = isFile ? "blob" : "tree";
+            string objType = tagItem.First() == "blob" ? "blob" : "tree";
 
             string url = $"{App.DefaultGitHubDomain}/{ViewModel.ContextViewModel.Repository.Owner.Login}/{ViewModel.ContextViewModel.Repository.Name}/{objType}/{ViewModel.ContextViewModel.BranchName}/{path}";
 

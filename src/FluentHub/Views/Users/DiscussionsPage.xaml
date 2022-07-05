@@ -101,7 +101,7 @@
                             </StackPanel>
                         </muxc:DropDownButton.Content>
                         <muxc:DropDownButton.Flyout>
-                            <MenuFlyout Placement="BottomEdgeAlignedLeft">
+                            <MenuFlyout Placement="BottomEdgeAlignedLeft" >
                                 <MenuFlyout.Items>
                                     <ToggleMenuFlyoutItem Text="Repository1" />
                                     <ToggleMenuFlyoutItem Text="Repository2" />
@@ -201,7 +201,7 @@
                                             Grid.Row="1"
                                             FontSize="18"
                                             Style="{StaticResource BodyStrongTextBlockStyle}"
-                                            Text="No items available"
+                                            Text="There are no discussions."
                                             TextAlignment="Center" />
                                     </Grid>
                                 </toolkit:Case>

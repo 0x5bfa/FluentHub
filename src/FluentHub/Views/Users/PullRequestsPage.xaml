@@ -45,7 +45,7 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBox PlaceholderText="Search issues" />
+                <TextBox PlaceholderText="Search pull requests" />
 
                 <StackPanel
                     Grid.Row="1"
@@ -73,18 +73,14 @@
                                 <TextBlock
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                     Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="Type by:" />
+                                    Text="Status:" />
                                 <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
                             </StackPanel>
                         </muxc:DropDownButton.Content>
                         <muxc:DropDownButton.Flyout>
                             <MenuFlyout Placement="BottomEdgeAlignedLeft">
                                 <MenuFlyout.Items>
-                                    <ToggleMenuFlyoutItem Text="Repository1" />
-                                    <ToggleMenuFlyoutItem Text="Repository2" />
-                                    <ToggleMenuFlyoutItem Text="Repository3" />
-                                    <ToggleMenuFlyoutItem Text="Repository4" />
-                                    <ToggleMenuFlyoutItem Text="Repository5" />
+                                    <ToggleMenuFlyoutItem IsEnabled="False" Text="Not available yet" />
                                 </MenuFlyout.Items>
                             </MenuFlyout>
                         </muxc:DropDownButton.Flyout>
@@ -96,18 +92,14 @@
                                 <TextBlock
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                     Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="Language by:" />
+                                    Text="Labels:" />
                                 <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
                             </StackPanel>
                         </muxc:DropDownButton.Content>
                         <muxc:DropDownButton.Flyout>
                             <MenuFlyout Placement="BottomEdgeAlignedLeft">
                                 <MenuFlyout.Items>
-                                    <ToggleMenuFlyoutItem Text="Repository1" />
-                                    <ToggleMenuFlyoutItem Text="Repository2" />
-                                    <ToggleMenuFlyoutItem Text="Repository3" />
-                                    <ToggleMenuFlyoutItem Text="Repository4" />
-                                    <ToggleMenuFlyoutItem Text="Repository5" />
+                                    <ToggleMenuFlyoutItem IsEnabled="False" Text="Not available yet" />
                                 </MenuFlyout.Items>
                             </MenuFlyout>
                         </muxc:DropDownButton.Flyout>
@@ -119,18 +111,14 @@
                                 <TextBlock
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                     Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="Sort by:" />
+                                    Text="Sort:" />
                                 <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
                             </StackPanel>
                         </muxc:DropDownButton.Content>
                         <muxc:DropDownButton.Flyout>
                             <MenuFlyout Placement="BottomEdgeAlignedLeft">
                                 <MenuFlyout.Items>
-                                    <ToggleMenuFlyoutItem Text="Repository1" />
-                                    <ToggleMenuFlyoutItem Text="Repository2" />
-                                    <ToggleMenuFlyoutItem Text="Repository3" />
-                                    <ToggleMenuFlyoutItem Text="Repository4" />
-                                    <ToggleMenuFlyoutItem Text="Repository5" />
+                                    <ToggleMenuFlyoutItem IsEnabled="False" Text="Not available yet" />
                                 </MenuFlyout.Items>
                             </MenuFlyout>
                         </muxc:DropDownButton.Flyout>
@@ -201,7 +189,7 @@
                                             Grid.Row="1"
                                             FontSize="18"
                                             Style="{StaticResource BodyStrongTextBlockStyle}"
-                                            Text="No items available"
+                                            Text="There are no pull-requests."
                                             TextAlignment="Center" />
                                     </Grid>
                                 </toolkit:Case>

@@ -42,11 +42,9 @@ namespace FluentHub.UserControls.Blocks
 
         public ReadmeContentBlockViewModel ViewModel { get; }
 
-        private void ReadmeWebView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
+        private async void ReadmeWebView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
         {
-            WebViewHelpers.DisableWebViewVerticalScrolling(ref ReadmeWebView);
-
-            // TODO: window size changed
+            await WebViewHelpers.DisableWebViewVerticalScrollingAsync(ReadmeWebView);
         }
 
         private void ReadmeWebView_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)

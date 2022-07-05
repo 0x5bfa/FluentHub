@@ -1,9 +1,11 @@
 ﻿using FluentHub.Helpers;
 using FluentHub.Octokit.Models.Events;
 using FluentHub.Octokit.Queries.Repositories;
+using FluentHub.ViewModels.UserControls.Labels;
 using Humanizer;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -13,40 +15,46 @@ using Windows.UI.Xaml.Controls;
 
 namespace FluentHub.ViewModels.UserControls.Blocks
 {
-    public class IssueCommentBlockViewModel : INotifyPropertyChanged
+    public class IssueCommentBlockViewModel : ObservableObject
     {
+        public IssueCommentBlockViewModel()
+        {
+            IsEditedLabel = new()
+            {
+                Color = "#36000000",
+                Name = "Edited",
+            };
+
+            AuthorAssociationLabel = new()
+            {
+                Color = "#36000000",
+            };
+        }
+
+        #region Fields and Properties
         private IssueComment issueComment;
         public IssueComment IssueComment { get => issueComment; set => SetProperty(ref issueComment, value); }
 
         private string createdAtHumanized;
         public string CreatedAtHumanized { get => createdAtHumanized; set => SetProperty(ref createdAtHumanized, value); }
 
-        private string authorAssociation;
-        public string AuthorAssociation { get => authorAssociation; set => SetProperty(ref authorAssociation, value); }
+        private LabelControlViewModel _isEditedLabel;
+        public LabelControlViewModel IsEditedLabel { get => _isEditedLabel; set => SetProperty(ref _isEditedLabel, value); }
+
+        private LabelControlViewModel _authorAssociationLabel;
+        public LabelControlViewModel AuthorAssociationLabel { get => _authorAssociationLabel; set => SetProperty(ref _authorAssociationLabel, value); }
+        #endregion
 
         public async Task SetWebViewContentsAsync(WebView webView)
         {
             CreatedAtHumanized = IssueComment?.CreatedAt.Humanize();
 
             string authorAssociation = IssueComment?.AuthorAssociation.Humanize();
-            if (authorAssociation != "None") AuthorAssociation = authorAssociation;
+            if (authorAssociation != "None") AuthorAssociationLabel.Name = authorAssociation;
 
             MarkdownQueries markdown = new();
             var html = await markdown.GetHtmlAsync(IssueComment?.BodyHTML, IssueComment?.Url, ThemeHelper.ActualTheme.ToString().ToLower(), true);
             webView.NavigateToString(html);
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
-        {
-            if (!Equals(field, newValue))
-            {
-                field = newValue;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-                return true;
-            }
-
-            return false;
         }
     }
 }

@@ -41,8 +41,8 @@ namespace FluentHub.Views.Repositories.Issues
             };
 
             var command = ViewModel.RefreshIssuesPageCommand;
-            if (command.CanExecute($"{pathSegments[0]}/{pathSegments[1]}"))
-                command.Execute($"{pathSegments[0]}/{pathSegments[1]}");
+            if (command.CanExecute(url))
+                command.Execute(url);
         }
     }
 }

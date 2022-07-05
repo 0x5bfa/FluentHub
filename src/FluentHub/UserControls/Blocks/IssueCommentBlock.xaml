@@ -5,119 +5,113 @@
     xmlns:converters="using:FluentHub.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:labels="using:FluentHub.UserControls.Labels"
-    xmlns:local="using:FluentHub.UserControls.Blocks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:vm="using:FluentHub.ViewModels.UserControls.Blocks"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <UserControl.DataContext>
-        <vm:IssueCommentBlockViewModel x:Name="ViewModel" />
-    </UserControl.DataContext>
     <UserControl.Resources>
         <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
     </UserControl.Resources>
 
-    <Grid>
-        <Grid
-            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-            BorderThickness="1"
-            CornerRadius="4">
+    <Grid
+        x:Name="IssueCommentGrid"
+        Height="Auto"
+        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+        BorderThickness="1"
+        CornerRadius="{StaticResource ControlCornerRadius}">
 
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
 
-            <Grid Padding="12,8">
-                <StackPanel Orientation="Horizontal" Spacing="8">
-                    <Border
-                        Width="22"
-                        Height="22"
-                        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                        CornerRadius="16">
-                        <Image Source="{x:Bind ViewModel.IssueComment.Author.AvatarUrl, Mode=OneWay}" />
-                    </Border>
+        <Grid Padding="12,8">
+            <StackPanel Orientation="Horizontal" Spacing="8">
+                <Border
+                    Width="28"
+                    Height="28"
+                    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                    CornerRadius="16">
+                    <Image Source="{x:Bind ViewModel.IssueComment.Author.AvatarUrl, Mode=OneWay}" />
+                </Border>
 
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="{x:Bind ViewModel.IssueComment.Author.Login, Mode=OneWay}" />
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                    Text="{x:Bind ViewModel.IssueComment.Author.Login, Mode=OneWay}" />
 
-                    <TextBlock
-                        Margin="-2,0,-4,0"
-                        VerticalAlignment="Center"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Style="{StaticResource BodyTextBlockStyle}"
-                        Text="•" />
+                <TextBlock
+                    Margin="-2,0,-4,0"
+                    VerticalAlignment="Center"
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Style="{StaticResource BodyTextBlockStyle}"
+                    Text="•" />
 
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Style="{StaticResource BodyTextBlockStyle}"
-                        Text="{x:Bind ViewModel.CreatedAtHumanized, Mode=OneWay}" />
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Style="{StaticResource BodyTextBlockStyle}"
+                    Text="{x:Bind ViewModel.CreatedAtHumanized, Mode=OneWay}" />
 
-                    <!--<labels:LabelControl
-                        x:Name="EditedLabel"
-                        x:Load="{x:Bind ViewModel.IssueComment.IsEdited}"
-                        IsOutlineEnable="True"
-                        LabelBackground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        LabelText="Edited" />
+                <labels:LabelControl
+                    x:Name="EditedLabel"
+                    x:Load="{x:Bind ViewModel.IssueComment.LastEditedAt, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                    ViewModel="{x:Bind ViewModel.IsEditedLabel, Mode=OneWay}" />
 
-                    <labels:LabelControl
-                        x:Name="AssociationLabel"
-                        x:Load="{x:Bind ViewModel.AuthorAssociation, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-                        IsOutlineEnable="True"
-                        LabelBackground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        LabelText="{x:Bind ViewModel.AuthorAssociation, Mode=OneWay}" />-->
-                </StackPanel>
+                <labels:LabelControl
+                    x:Name="AssociationLabel"
+                    x:Load="{x:Bind ViewModel.AuthorAssociationLabel.Name, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                    ViewModel="{x:Bind ViewModel.AuthorAssociationLabel, Mode=OneWay}" />
+            </StackPanel>
 
-                <StackPanel
+            <StackPanel
+                HorizontalAlignment="Right"
+                Orientation="Horizontal"
+                Spacing="4">
+                <Button
+                    Width="36"
+                    Height="32"
                     HorizontalAlignment="Right"
-                    Orientation="Horizontal"
-                    Spacing="4">
-                    <Button
-                        Width="36"
-                        Height="32"
-                        HorizontalAlignment="Right"
-                        VerticalAlignment="Center"
-                        Background="Transparent"
-                        BorderThickness="0">
-                        <FontIcon FontSize="16" Glyph="&#xE10C;" />
-                        <Button.Flyout>
-                            <MenuFlyout Placement="BottomEdgeAlignedRight">
-                                <MenuFlyoutItem Text="Share" />
-                                <MenuFlyoutItem Text="Quote reply" />
-                                <MenuFlyoutItem Text="Reference in new issue" />
-                                <MenuFlyoutSeparator />
-                                <MenuFlyoutItem IsEnabled="{x:Bind ViewModel.IssueComment.ViewerCanUpdate}" Text="Edit" />
-                                <MenuFlyoutSeparator />
-                                <MenuFlyoutItem Text="Report" />
-                                <MenuFlyoutItem IsEnabled="{x:Bind ViewModel.IssueComment.ViewerCanMinimize}" Text="Hide" />
-                                <MenuFlyoutItem IsEnabled="{x:Bind ViewModel.IssueComment.ViewerCanDelete}" Text="Delete" />
-                            </MenuFlyout>
-                        </Button.Flyout>
-                    </Button>
-                </StackPanel>
-            </Grid>
-
-            <MenuFlyoutSeparator Grid.Row="1" />
-
-            <WebView
-                x:Name="CommentWebView"
-                Grid.Row="2"
-                Margin="4"
-                DefaultBackgroundColor="Transparent"
-                NavigationCompleted="OnCommentWebViewNavigationCompleted" />
-
-            <Grid Grid.Row="3" Margin="12,0,0,12">
-                <StackPanel Orientation="Horizontal" Spacing="6" />
-            </Grid>
+                    VerticalAlignment="Center"
+                    Background="Transparent"
+                    BorderThickness="0">
+                    <FontIcon FontSize="16" Glyph="&#xE10C;" />
+                    <Button.Flyout>
+                        <MenuFlyout Placement="BottomEdgeAlignedRight">
+                            <MenuFlyoutItem Text="Share" />
+                            <MenuFlyoutItem Text="Quote reply" />
+                            <MenuFlyoutItem Text="Reference in new issue" />
+                            <MenuFlyoutSeparator />
+                            <MenuFlyoutItem IsEnabled="{x:Bind ViewModel.IssueComment.ViewerCanUpdate}" Text="Edit" />
+                            <MenuFlyoutSeparator />
+                            <MenuFlyoutItem Text="Report" />
+                            <MenuFlyoutItem IsEnabled="{x:Bind ViewModel.IssueComment.ViewerCanMinimize}" Text="Hide" />
+                            <MenuFlyoutItem IsEnabled="{x:Bind ViewModel.IssueComment.ViewerCanDelete}" Text="Delete" />
+                        </MenuFlyout>
+                    </Button.Flyout>
+                </Button>
+            </StackPanel>
         </Grid>
+
+        <MenuFlyoutSeparator Grid.Row="1" />
+
+        <WebView
+            x:Name="CommentWebView"
+            Grid.Row="2"
+            Height="Auto"
+            Margin="4"
+            DefaultBackgroundColor="Transparent"
+            NavigationCompleted="OnCommentWebViewNavigationCompleted"
+            SizeChanged="OnWebViewSizeChanged" />
+
+        <Grid Grid.Row="3" Margin="12,0,0,12">
+            <StackPanel Orientation="Horizontal" Spacing="6" />
+        </Grid>
+
     </Grid>
 </UserControl>

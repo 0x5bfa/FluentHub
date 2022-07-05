@@ -27,7 +27,6 @@ namespace FluentHub.UserControls.Blocks
             set
             {
                 SetValue(ViewModelProperty, value);
-                DataContext = ViewModel;
                 ViewModel?.LoadContentsAsync();
             }
         }

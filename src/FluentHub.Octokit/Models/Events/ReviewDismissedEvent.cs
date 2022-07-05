@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FluentHub.Octokit.Models.Events
+﻿namespace FluentHub.Octokit.Models.Events
 {
     public class ReviewDismissedEvent
     {
@@ -12,5 +6,23 @@ namespace FluentHub.Octokit.Models.Events
 
         public DateTimeOffset CreatedAt { get; set; }
         public string CreatedAtHumanized { get; set; }
+
+        public string DismissalMessage { get; set; }
+
+        public string DismissalMessageHTML { get; set; }
+
+        public string Id { get; set; }
+
+        //public PullRequestReviewState PreviousReviewState { get; set; }
+
+        public PullRequest PullRequest { get; set; }
+
+        public PullRequestCommit PullRequestCommit { get; set; }
+
+        public string ResourcePath { get; set; }
+
+        public PullRequestReview Review { get; set; }
+
+        public string Url { get; set; }
     }
 }

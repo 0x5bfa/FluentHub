@@ -23,31 +23,41 @@ namespace FluentHub.ViewModels.Repositories.Issues
             _messenger = messenger;
             _logger = logger;
             _messenger = messenger;
+
             _issueItems = new();
             IssueItems = new(_issueItems);
 
-            RefreshIssuesPageCommand = new AsyncRelayCommand<string>(RefreshIssuesPageAsync);
+            _pinnedItems = new();
+            PinnedItems = new(_pinnedItems);
+
+            RefreshIssuesPageCommand = new AsyncRelayCommand<string>(LoadIssuesPageAsync);
         }
         #endregion
 
-        #region fields
+        #region Fields and Properties
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
-        private readonly ObservableCollection<IssueButtonBlockViewModel> _issueItems;
-        #endregion
 
-        #region properties
+        private readonly ObservableCollection<IssueButtonBlockViewModel> _issueItems;
         public ReadOnlyObservableCollection<IssueButtonBlockViewModel> IssueItems { get; }
+
+        private readonly ObservableCollection<IssueButtonBlockViewModel> _pinnedItems;
+        public ReadOnlyObservableCollection<IssueButtonBlockViewModel> PinnedItems { get; }
+
         public IAsyncRelayCommand RefreshIssuesPageCommand { get; }
         #endregion
 
         #region methods
-        private async Task RefreshIssuesPageAsync(string nameWithOwner, CancellationToken token)
+        private async Task LoadIssuesPageAsync(string url, CancellationToken token)
         {
             try
             {
+                var uri = new Uri(url);
+                var pathSegments = uri.AbsolutePath.Split("/").ToList();
+                pathSegments.RemoveAt(0);
+
                 IssueQueries queries = new();
-                var items = await queries.GetAllAsync(nameWithOwner.Split("/")[1], nameWithOwner.Split("/")[0]);
+                var items = await queries.GetAllAsync(pathSegments[1], pathSegments[0]);
                 if (items == null) return;
 
                 _issueItems.Clear();
@@ -59,6 +69,21 @@ namespace FluentHub.ViewModels.Repositories.Issues
                     };
 
                     _issueItems.Add(viewModel);
+                }
+
+                var pinnedIssues = await queries.GetPinnedAllAsync(pathSegments[0], pathSegments[1]);
+                if (pinnedIssues == null) return;
+
+                _pinnedItems.Clear();
+                foreach (var item in pinnedIssues)
+                {
+                    IssueButtonBlockViewModel viewModel = new()
+                    {
+                        IssueItem = item,
+                        CompactMode = true,
+                    };
+
+                    _pinnedItems.Add(viewModel);
                 }
             }
             catch (OperationCanceledException) { }

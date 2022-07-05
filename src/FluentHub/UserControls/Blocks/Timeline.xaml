@@ -1,0 +1,780 @@
+﻿<UserControl
+    x:Class="FluentHub.UserControls.Blocks.Timeline"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:FluentHub.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:labels="using:FluentHub.UserControls.Labels"
+    xmlns:local="using:FluentHub.UserControls.Blocks"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:FluentHub.Octokit.Models.Events"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:uc="using:FluentHub.UserControls"
+    xmlns:vm="using:FluentHub.ViewModels.UserControls.Blocks"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Border
+            Grid.Row="0"
+            Width="1.5"
+            Height="10"
+            Margin="36,0,0,0"
+            HorizontalAlignment="Left"
+            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+
+        <Grid
+            Grid.Row="1"
+            Margin="4,0"
+            HorizontalAlignment="Stretch"
+            Background="Transparent"
+            BorderBrush="Transparent">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Border
+                x:Name="TimelineBadge"
+                Width="28"
+                Height="28"
+                Margin="20,0,8,0"
+                x:Load="{x:Bind ViewModel.IssueComment, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
+                Background="{x:Bind ViewModel.TimelineBadgeBackground, Mode=OneWay}"
+                BorderBrush="Transparent"
+                BorderThickness="2"
+                CornerRadius="16">
+                <FontIcon
+                    x:Name="TimelineBadgeFontGlyph"
+                    FontFamily="{StaticResource Octions}"
+                    FontSize="14"
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Glyph="{x:Bind ViewModel.TimelineBadgeGlyph, Mode=OneWay}" />
+            </Border>
+
+            <StackPanel
+                x:Name="EventActor"
+                Grid.Column="1"
+                Margin="0,0,8,0"
+                x:Load="{x:Bind ViewModel.IssueComment, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
+                Orientation="Horizontal"
+                Spacing="4">
+                <uc:AvatarControl
+                    VerticalAlignment="Center"
+                    AvatarUrl="{x:Bind ViewModel.Actor.AvatarUrl, Mode=OneWay}"
+                    WidthAndHeight="20" />
+
+                <TextBlock
+                    x:Name="ActorLoginTextBlock"
+                    VerticalAlignment="Center"
+                    x:Load="{x:Bind ViewModel.PullRequestCommit, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                    Text="{x:Bind ViewModel.Actor.Login, Mode=OneWay}" />
+            </StackPanel>
+
+            <toolkit:SwitchPresenter
+                Grid.Column="2"
+                TargetType="x:String"
+                Value="{x:Bind ViewModel.EventType, Mode=OneWay}">
+
+                <toolkit:Case Value="AddedToProjectEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="added this to a project" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="AssignedEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="assigned" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="AutomaticBaseChangeFailedEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="failed to automatically rebase" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="AutomaticBaseChangeSucceededEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="succeeded in automatically rebasing" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="AutoMergeDisabledEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="disabled auto-merge" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="AutoMergeEnabledEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="enabled auto-merge" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="AutoRebaseEnabledEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="enabled auto-rebase" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="AutoSquashEnabledEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="enabled auto-squash" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="BaseRefChangedEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="changed base ref" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="BaseRefDeletedEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="deleted base ref" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="BaseRefForcePushedEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="forced pushing base ref" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="ClosedEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="closed this" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="CommentDeletedEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="deleted a comment" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="ConnectedEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="linked an issue" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="ConvertedNoteToIssueEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="converted a note to an issue" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="ConvertToDraftEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="converted this to a draft" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="CrossReferencedEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="referenced this" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="DemilestonedEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="removed a milestone" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="DeployedEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="started a deployment" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="DeploymentEnvironmentChangedEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="changed the deployment environment" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="DisconnectedEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="deleted a reference to this" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="HeadRefDeletedEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="deleted the branch" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="HeadRefForcePushedEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="forced pushing head ref" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="HeadRefRestoredEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="restored the" />
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="branch" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="IssueComment">
+                    <local:IssueCommentBlock ViewModel="{x:Bind ViewModel.CommentBlockViewModel, Mode=OneWay}" />
+                </toolkit:Case>
+
+                <toolkit:Case Value="LabeledEvent">
+                    <StackPanel Spacing="8" ToolTipService.ToolTip="{x:Bind ViewModel.LabeledEvent.CreatedAtHumanized, Mode=OneWay}">
+
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="added the" />
+
+                            <labels:LabelControl ViewModel="{x:Bind ViewModel.LabelControlViewModel, Mode=OneWay}" />
+
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="label" />
+
+                        </StackPanel>
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="LockedEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="locked this conversation" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="MarkedAsDuplicateEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="marked this as duplicate" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="MergedEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="merged commit" />
+
+                        <TextBlock Text="{x:Bind ViewModel.MergedEvent.Commit.AbbreviatedOid, Mode=OneWay}" />
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="into" />
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{x:Bind ViewModel.MergedEvent.MergeRefName, Mode=OneWay}" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="MilestonedEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="added to a milestone" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="MovedColumnsInProjectEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="moved this to a new column in a project" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="PinnedEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="pinned this" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="PullRequestCommit">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="commited changes" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="PullRequestCommitCommentThread">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="PullRequestCommitCommentThread" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="PullRequestReview">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="PullRequestReview" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="PullRequestReviewThread">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="PullRequestReviewThread" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="PullRequestRevisionMarker">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="PullRequestRevisionMarker" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="ReadyForReviewEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="set as ready for review" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="ReferencedEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="added a reference to this" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="RemovedFromProjectEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="removed this from a project" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="RenamedTitleEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="renamed title" />
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{x:Bind ViewModel.RenamedTitleEvent.PreviousTitle}"
+                            TextDecorations="Strikethrough" />
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{x:Bind ViewModel.RenamedTitleEvent.CurrentTitle}" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="ReopenedEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="reopened this" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="ReviewDismissedEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="dismissed previous review" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="ReviewRequestedEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="requested review" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="ReviewRequestRemovedEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="retracted a review request" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="TransferredEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="transferred this from" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="UnassignedEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="unassigned" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="UnlabeledEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="removed the" />
+
+                            <labels:LabelControl ViewModel="{x:Bind ViewModel.LabelControlViewModel, Mode=OneWay}" />
+
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="label" />
+
+                        </StackPanel>
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="UnlockedEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="unlocked this conversation" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="UnmarkedAsDuplicateEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="marked this as not a duplicate" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="UnpinnedEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="unpinned this" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+                <toolkit:Case Value="UserBlockedEvent">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="blocked a user" />
+
+                    </StackPanel>
+                </toolkit:Case>
+
+            </toolkit:SwitchPresenter>
+        </Grid>
+
+        <Border
+            Grid.Row="2"
+            Width="1.5"
+            Height="10"
+            Margin="36,0,0,0"
+            HorizontalAlignment="Left"
+            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+    </Grid>
+</UserControl>

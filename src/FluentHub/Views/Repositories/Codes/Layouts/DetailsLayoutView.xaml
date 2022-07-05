@@ -277,11 +277,6 @@
                     x:Name="NoCodeGrid"
                     Margin="12,0,12,12"
                     x:Load="{x:Bind ViewModel.ContextViewModel.Repository.DefaultBranchName, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
-                    <TextBlock
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="No items available" />
                 </Grid>
             </Grid>
         </ScrollViewer>

@@ -110,7 +110,7 @@ namespace FluentHub
                 .AddTransient<ViewModels.Repositories.PullRequests.FileChangesViewModel>()
                 .AddTransient<ViewModels.Repositories.PullRequests.PullRequestViewModel>()
                 .AddTransient<ViewModels.Repositories.PullRequests.PullRequestsViewModel>()
-                .AddTransient<ViewModels.SignIn.SignInViewModel>()
+                .AddTransient<ViewModels.SignIn.IntroViewModel>()
                 .AddTransient<ViewModels.UserControls.Blocks.FileContentBlockViewModel>()
                 .AddTransient<ViewModels.UserControls.Blocks.FileNavigationBlockViewModel>()
                 .AddTransient<ViewModels.UserControls.Blocks.ReadmeContentBlockViewModel>()
@@ -226,13 +226,29 @@ namespace FluentHub
             switch (uri.Authority.ToLower())
             {
                 case "profile":
+                    page = typeof(Views.Users.OverviewPage);
+                    break;
                 case "notifications":
+                    page = typeof(Views.Home.NotificationsPage);
+                    break;
                 case "activities":
+                    page = typeof(Views.Home.ActivitiesPage);
+                    break;
                 case "issues":
+                    page = typeof(Views.Repositories.Issues.IssuesPage);
+                    break;
                 case "pullrequests":
+                    page = typeof(Views.Repositories.PullRequests.PullRequestsPage);
+                    break;
                 case "discussions":
+                    page = typeof(Views.Repositories.Discussions.DiscussionsPage);
+                    break;
                 case "repositories":
+                    page = typeof(Views.Repositories.Codes.CodePage);
+                    break;
                 case "organizations":
+                    page = typeof(Views.Organizations.ProfilePage);
+                    break;
                 case "stars":
                     page = typeof(Views.Users.StarredReposPage);
                     param = uri.AbsoluteUri;
@@ -241,6 +257,15 @@ namespace FluentHub
                     page = typeof(Views.AppSettings.MainSettingsPage);
                     param = uri.AbsoluteUri;
                     break;
+                case "reset":
+                    page = typeof(Views.SignIn.IntroPage);
+                    //  This code should work, but throws a 'Use of unassigned variable 'rootFrame'' error.
+                    //  Frame rootFrame = (Frame)Window.Current.Content;
+                    //  rootFrame.Navigate(typeof(SignIn.IntroPage));
+                    param = uri.AbsoluteUri;
+                    break;
+                    // The UI of this feature is slightly broken, therefore
+                    // TODO: Fix logout protocol
                 case "auth" when uri.Query.Contains("code"): // fluenthub://auth?code=[code]
                     var code = new WwwFormUrlDecoder(uri.Query).GetFirstValueByName("code");
                     bool status;

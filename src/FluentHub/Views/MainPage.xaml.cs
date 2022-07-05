@@ -56,6 +56,7 @@ namespace FluentHub.Views
             if (DisplayUrlTextBox != null && TabView.SelectedItem.NavigationHistory.CurrentItem.Url != null)
             {
                 DisplayUrlTextBox.Text = TabView.SelectedItem.NavigationHistory.CurrentItem.Url;
+                DisplayUrlTextBox.SelectAll();
             }
         }
 
@@ -64,7 +65,7 @@ namespace FluentHub.Views
             TextBox DisplayUrlTextBox = sender as TextBox;
             if (DisplayUrlTextBox != null)
             {
-                DisplayUrlTextBox.Text = TabView.SelectedItem.NavigationHistory.CurrentItem.DisplayUrl;
+                DisplayUrlTextBox.Text = TabView.SelectedItem.NavigationHistory?.CurrentItem?.DisplayUrl;
             }
         }
 

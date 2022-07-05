@@ -21,6 +21,7 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .AssignedEvent(y => new AssignedEvent
                 {
@@ -31,7 +32,19 @@
                     })
                     .Single(),
 
+                    Assignee = y.Assignee.Select(assignee => new Assignee
+                    {
+                        User = assignee.Switch<User>(whenUser => whenUser
+                        .User(user => new User
+                        {
+                            AvatarUrl = user.AvatarUrl(100),
+                            Login = user.Login,
+                        }))
+                    })
+                    .SingleOrDefault(),
+
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .AutoMergeDisabledEvent(y => new AutoMergeDisabledEvent
                 {
@@ -43,6 +56,13 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+
+                    Id = y.Id.ToString(),
+
+                    Reason = y.Reason,
+
+                    ReasonCode = y.ReasonCode,
                 })
                 .AutoMergeEnabledEvent(y => new AutoMergeEnabledEvent
                 {
@@ -54,6 +74,7 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .AutoRebaseEnabledEvent(y => new AutoRebaseEnabledEvent
                 {
@@ -65,6 +86,7 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .AutoSquashEnabledEvent(y => new AutoSquashEnabledEvent
                 {
@@ -76,6 +98,7 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .AutomaticBaseChangeFailedEvent(y => new AutomaticBaseChangeFailedEvent
                 {
@@ -87,6 +110,13 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+
+                    Id = y.Id.ToString(),
+
+                    NewBase = y.NewBase,
+
+                    OldBase = y.OldBase,
                 })
                 .AutomaticBaseChangeSucceededEvent(y => new AutomaticBaseChangeSucceededEvent
                 {
@@ -98,6 +128,13 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+
+                    Id = y.Id.ToString(),
+
+                    NewBase = y.NewBase,
+
+                    OldBase = y.OldBase,
                 })
                 .BaseRefChangedEvent(y => new BaseRefChangedEvent
                 {
@@ -109,6 +146,13 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+
+                    CurrentRefName = y.CurrentRefName,
+
+                    Id = y.Id.ToString(),
+
+                    PreviousRefName = y.PreviousRefName,
                 })
                 .BaseRefDeletedEvent(y => new BaseRefDeletedEvent
                 {
@@ -119,7 +163,12 @@
                     })
                     .Single(),
 
+                    BaseRefName = y.BaseRefName,
+
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+
+                    Id = y.Id.ToString(),
                 })
                 .BaseRefForcePushedEvent(y => new BaseRefForcePushedEvent
                 {
@@ -130,19 +179,24 @@
                     })
                     .Single(),
 
-                    CreatedAt = y.CreatedAt,
-                })
-                .ClosedEvent(y => new ClosedEvent
-                {
-                    Actor = y.Actor.Select(actor => new Actor
+                    AfterCommit = y.AfterCommit.Select(commit => new Commit
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
-                        Login = actor.Login,
+                        CommitMessage = commit.Message,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
+
+                    BeforeCommit = y.BeforeCommit.Select(commit => new Commit
+                    {
+                        CommitMessage = commit.Message,
+                    })
+                    .SingleOrDefault(),
 
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+
+                    Id = y.Id.ToString(),
                 })
+                //.ClosedEvent(y => new ClosedEvent {})
                 .CommentDeletedEvent(y => new CommentDeletedEvent
                 {
                     Actor = y.Actor.Select(actor => new Actor
@@ -152,7 +206,15 @@
                     })
                     .Single(),
 
+                    DeletedCommentAuthor = y.DeletedCommentAuthor.Select(deletedAuthor => new Actor
+                    {
+                        AvatarUrl = deletedAuthor.AvatarUrl(100),
+                        Login = deletedAuthor.Login,
+                    })
+                    .Single(),
+
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .ConnectedEvent(y => new ConnectedEvent
                 {
@@ -164,6 +226,43 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+
+                    Id = y.Id.ToString(),
+
+                    IsCrossRepository = y.IsCrossRepository,
+
+                    Source = y.Source.Select(source => new ReferencedSubject
+                    {
+                        Issue = source.Switch<Issue>(whenIssue => whenIssue
+                        .Issue(issue => new Issue
+                        {
+                            Title = issue.Title,
+                        })),
+
+                        PullRequest = source.Switch<PullRequest>(whenPr => whenPr
+                        .PullRequest(pr => new PullRequest
+                        {
+                            Title = pr.Title,
+                        })),
+                    })
+                    .SingleOrDefault(),
+
+                    Subject = y.Subject.Select(subject => new ReferencedSubject
+                    {
+                        Issue = subject.Switch<Issue>(whenIssue => whenIssue
+                        .Issue(issue => new Issue
+                        {
+                            Title = issue.Title,
+                        })),
+
+                        PullRequest = subject.Switch<PullRequest>(whenPr => whenPr
+                        .PullRequest(pr => new PullRequest
+                        {
+                            Title = pr.Title,
+                        })),
+                    })
+                    .SingleOrDefault(),
                 })
                 .ConvertedNoteToIssueEvent(y => new ConvertedNoteToIssueEvent
                 {
@@ -175,6 +274,7 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .CrossReferencedEvent(y => new CrossReferencedEvent
                 {
@@ -186,6 +286,50 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+
+                    Id = y.Id.ToString(),
+
+                    IsCrossRepository = y.IsCrossRepository,
+
+                    ReferencedAt = y.ReferencedAt,
+                    ReferencedAtHumanized = y.ReferencedAt.Humanize(null, null),
+
+                    Source = y.Source.Select(source => new ReferencedSubject
+                    {
+                        Issue = source.Switch<Issue>(whenIssue => whenIssue
+                        .Issue(issue => new Issue
+                        {
+                            Title = issue.Title,
+                        })),
+
+                        PullRequest = source.Switch<PullRequest>(whenPr => whenPr
+                        .PullRequest(pr => new PullRequest
+                        {
+                            Title = pr.Title,
+                        })),
+                    })
+                    .SingleOrDefault(),
+
+                    Target = y.Target.Select(target => new ReferencedSubject
+                    {
+                        Issue = target.Switch<Issue>(whenIssue => whenIssue
+                        .Issue(issue => new Issue
+                        {
+                            Title = issue.Title,
+                        })),
+
+                        PullRequest = target.Switch<PullRequest>(whenPr => whenPr
+                        .PullRequest(pr => new PullRequest
+                        {
+                            Title = pr.Title,
+                        })),
+                    })
+                    .SingleOrDefault(),
+
+                    Url = y.Url,
+
+                    WillCloseTarget = y.WillCloseTarget,
                 })
                 .DemilestonedEvent(y => new DemilestonedEvent
                 {
@@ -196,7 +340,10 @@
                     })
                     .Single(),
 
+                    MilestoneTitle = y.MilestoneTitle,
+
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .DeployedEvent(y => new DeployedEvent
                 {
@@ -208,6 +355,21 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+
+                    Deployment = y.Deployment.Select(deployment => new Deployment
+                    {
+                        Description = deployment.Description,
+                    })
+                    .Single(),
+
+                    Id = y.Id.ToString(),
+
+                    Ref = y.Ref.Select(ref1 => new Ref
+                    {
+                        Name = ref1.Name,
+                    })
+                    .Single(),
                 })
                 .DeploymentEnvironmentChangedEvent(y => new DeploymentEnvironmentChangedEvent
                 {
@@ -218,7 +380,14 @@
                     })
                     .Single(),
 
+                    DeploymentStatus = y.DeploymentStatus.Select(depStatus => new DeploymentStatus
+                    {
+                        Description = depStatus.Description,
+                    })
+                    .Single(),
+
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .DisconnectedEvent(y => new DisconnectedEvent
                 {
@@ -230,6 +399,43 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+
+                    Id = y.Id.ToString(),
+
+                    IsCrossRepository = y.IsCrossRepository,
+
+                    Source = y.Source.Select(source => new ReferencedSubject
+                    {
+                        Issue = source.Switch<Issue>(whenIssue => whenIssue
+                        .Issue(issue => new Issue
+                        {
+                            Title = issue.Title,
+                        })),
+
+                        PullRequest = source.Switch<PullRequest>(whenPr => whenPr
+                        .PullRequest(pr => new PullRequest
+                        {
+                            Title = pr.Title,
+                        })),
+                    })
+                    .SingleOrDefault(),
+
+                    Subject = y.Subject.Select(subject => new ReferencedSubject
+                    {
+                        Issue = subject.Switch<Issue>(whenIssue => whenIssue
+                        .Issue(issue => new Issue
+                        {
+                            Title = issue.Title,
+                        })),
+
+                        PullRequest = subject.Switch<PullRequest>(whenPr => whenPr
+                        .PullRequest(pr => new PullRequest
+                        {
+                            Title = pr.Title,
+                        })),
+                    })
+                    .SingleOrDefault(),
                 })
                 .HeadRefDeletedEvent(y => new HeadRefDeletedEvent
                 {
@@ -241,6 +447,15 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+
+                    HeadRef = y.HeadRef.Select(headRef => new Ref
+                    {
+                        Name = headRef.Name,
+                    })
+                    .Single(),
+
+                    HeadRefName = y.HeadRefName,
                 })
                 .HeadRefForcePushedEvent(y => new HeadRefForcePushedEvent
                 {
@@ -251,7 +466,22 @@
                     })
                     .Single(),
 
+                    AfterCommit = y.AfterCommit.Select(commit => new Commit
+                    {
+                        CommitMessage = commit.Message,
+                    })
+                    .SingleOrDefault(),
+
+                    BeforeCommit = y.BeforeCommit.Select(commit => new Commit
+                    {
+                        CommitMessage = commit.Message,
+                    })
+                    .SingleOrDefault(),
+
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+
+                    Id = y.Id.ToString(),
                 })
                 .HeadRefRestoredEvent(y => new HeadRefRestoredEvent
                 {
@@ -263,6 +493,7 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .IssueComment(y => new IssueComment
                 {
@@ -273,10 +504,19 @@
                     })
                     .Single(),
 
-                    AuthorAssociation = y.AuthorAssociation,
+                    AuthorAssociation = (CommentAuthorAssociation)y.AuthorAssociation,
+
+                    Body = y.Body,
+
                     BodyHTML = y.BodyHTML,
+
+                    CreatedAt = y.CreatedAt,
+
+                    LastEditedAt = y.LastEditedAt,
+
                     MinimizedReason = y.MinimizedReason,
-                    Url = y.Url,
+
+                    IsMinimized = y.IsMinimized,
 
                     Reactions = y.Reactions(6, null, null, null, null, null).Nodes.Select(reaction => new Reaction
                     {
@@ -285,16 +525,19 @@
                     })
                     .ToList(),
 
-                    IsMinimized = y.IsMinimized,
-                    ViewerCanDelete = y.ViewerCanDelete,
-                    ViewerCanMinimize = y.ViewerCanMinimize,
-                    ViewerCanReact = y.ViewerCanReact,
-                    ViewerCanUpdate = y.ViewerCanUpdate,
-                    ViewerDidAuthor = y.ViewerDidAuthor,
-
-                    LastEditedAt = y.LastEditedAt,
-                    CreatedAt = y.CreatedAt,
                     UpdatedAt = y.UpdatedAt,
+
+                    Url = y.Url,
+
+                    ViewerCanDelete = y.ViewerCanDelete,
+
+                    ViewerCanMinimize = y.ViewerCanMinimize,
+
+                    ViewerCanReact = y.ViewerCanReact,
+
+                    ViewerCanUpdate = y.ViewerCanUpdate,
+
+                    ViewerDidAuthor = y.ViewerDidAuthor,
                 })
                 .LabeledEvent(y => new LabeledEvent
                 {
@@ -325,9 +568,10 @@
                     })
                     .Single(),
 
-                    LockReason = y.LockReason,
-
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+
+                    LockReason = y.LockReason,
                 })
                 .MarkedAsDuplicateEvent(y => new MarkedAsDuplicateEvent
                 {
@@ -338,7 +582,24 @@
                     })
                     .Single(),
 
+                    Duplicate = y.Duplicate.Select(a => new IssueOrPullRequest
+                    {
+                        Issue = a.Switch<Issue>(i => i
+                        .Issue(j => new Issue
+                        {
+                            Title = j.Title,
+                        })),
+
+                        PullRequest = a.Switch<PullRequest>(b => b
+                        .PullRequest(p => new PullRequest
+                        {
+                            Title = p.Title,
+                        })),
+                    })
+                    .SingleOrDefault(),
+
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .MergedEvent(y => new MergedEvent
                 {
@@ -349,7 +610,16 @@
                     })
                     .Single(),
 
+                    MergeRef = y.MergeRef.Select(mergeRef => new Ref
+                    {
+                        Name = mergeRef.Name,
+                    })
+                    .Single(),
+
+                    MergeRefName = y.MergeRefName,
+
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .MilestonedEvent(y => new MilestonedEvent
                 {
@@ -360,9 +630,10 @@
                     })
                     .Single(),
 
-                    MilestoneTitle = y.MilestoneTitle,
-
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+
+                    MilestoneTitle = y.MilestoneTitle,
                 })
                 .MovedColumnsInProjectEvent(y => new MovedColumnsInProjectEvent
                 {
@@ -374,6 +645,7 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .PinnedEvent(y => new PinnedEvent
                 {
@@ -385,6 +657,7 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .PullRequestCommit(y => new PullRequestCommit
                 {
@@ -395,7 +668,11 @@
                     })
                     .Single(),
 
-                    CreatedAt = y.Commit.AuthoredDate,
+                    Commit = y.Commit.Select(commit => new Commit
+                    {
+                        CommitMessage = commit.Message,
+                    })
+                    .Single(),
                 })
                 .PullRequestReview(y => new PullRequestReview
                 {
@@ -406,7 +683,27 @@
                     })
                     .Single(),
 
+                    AuthorAssociation = (CommentAuthorAssociation)y.AuthorAssociation,
+
+                    Body = y.Body,
+
+                    BodyHTML = y.BodyHTML,
+
                     CreatedAt = y.CreatedAt,
+
+                    LastEditedAt = y.LastEditedAt,
+
+                    UpdatedAt = y.UpdatedAt,
+
+                    Url = y.Url,
+
+                    ViewerCanDelete = y.ViewerCanDelete,
+
+                    ViewerCanReact = y.ViewerCanReact,
+
+                    ViewerCanUpdate = y.ViewerCanUpdate,
+
+                    ViewerDidAuthor = y.ViewerDidAuthor,
                 })
                 .ReadyForReviewEvent(y => new ReadyForReviewEvent
                 {
@@ -418,6 +715,7 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .ReferencedEvent(y => new ReferencedEvent
                 {
@@ -428,7 +726,33 @@
                     })
                     .Single(),
 
+                    Commit = y.Commit.Select(commit => new Commit
+                    {
+                        CommitMessage = commit.Message,
+                    })
+                    .SingleOrDefault(),
+
+                    CommitRepository = y.CommitRepository.Select(from => new Repository
+                    {
+                        Owner = from.Owner.Select(owner => new RepositoryOwner
+                        {
+                            AvatarUrl = owner.AvatarUrl(100),
+                            Login = owner.Login,
+                        })
+                        .Single(),
+
+                        Name = from.Name,
+                    })
+                    .SingleOrDefault(),
+
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+
+                    Id = y.Id.ToString(),
+
+                    IsCrossRepository = y.IsCrossRepository,
+
+                    IsDirectReference = y.IsDirectReference,
                 })
                 .RemovedFromProjectEvent(y => new RemovedFromProjectEvent
                 {
@@ -439,7 +763,10 @@
                     })
                     .Single(),
 
+                    Id = y.Id.ToString(),
+
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .RenamedTitleEvent(y => new RenamedTitleEvent
                 {
@@ -451,9 +778,11 @@
                     .Single(),
 
                     CurrentTitle = y.CurrentTitle,
+
                     PreviousTitle = y.PreviousTitle,
 
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .ReopenedEvent(y => new ReopenedEvent
                 {
@@ -464,7 +793,10 @@
                     })
                     .Single(),
 
+                    //StateReason = (IssueStateReason)y.StateReason,
+
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .ReviewDismissedEvent(y => new ReviewDismissedEvent
                 {
@@ -476,6 +808,9 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+
+                    DismissalMessage = y.DismissalMessage,
                 })
                 .ReviewRequestRemovedEvent(y => new ReviewRequestRemovedEvent
                 {
@@ -486,7 +821,19 @@
                     })
                     .Single(),
 
+                    RequestedReviewer = y.RequestedReviewer.Select(reviewer => new RequestedReviewer
+                    {
+                        User = reviewer.Switch<User>(whenUser => whenUser
+                        .User(user => new User
+                        {
+                            AvatarUrl = user.AvatarUrl(100),
+                            Login = user.Login,
+                        }))
+                    })
+                    .SingleOrDefault(),
+
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .ReviewRequestedEvent(y => new ReviewRequestedEvent
                 {
@@ -497,7 +844,19 @@
                     })
                     .Single(),
 
+                    RequestedReviewer = y.RequestedReviewer.Select(reviewer => new RequestedReviewer
+                    {
+                        User = reviewer.Switch<User>(whenUser => whenUser
+                        .User(user => new User
+                        {
+                            AvatarUrl = user.AvatarUrl(100),
+                            Login = user.Login,
+                        }))
+                    })
+                    .SingleOrDefault(),
+
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .TransferredEvent(y => new TransferredEvent
                 {
@@ -522,6 +881,7 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .UnassignedEvent(y => new UnassignedEvent
                 {
@@ -532,7 +892,19 @@
                     })
                     .Single(),
 
+                    Assignee = y.Assignee.Select(assignee => new Assignee
+                    {
+                        User = assignee.Switch<User>(whenUser => whenUser
+                        .User(user => new User
+                        {
+                            AvatarUrl = user.AvatarUrl(100),
+                            Login = user.Login,
+                        }))
+                    })
+                    .SingleOrDefault(),
+
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .UnlabeledEvent(y => new UnlabeledEvent
                 {
@@ -564,6 +936,7 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .UnmarkedAsDuplicateEvent(y => new UnmarkedAsDuplicateEvent
                 {
@@ -574,7 +947,24 @@
                     })
                     .Single(),
 
+                    Duplicate = y.Duplicate.Select(a => new IssueOrPullRequest
+                    {
+                        Issue = a.Switch<Issue>(i => i
+                        .Issue(j => new Issue
+                        {
+                            Title = j.Title,
+                        })),
+
+                        PullRequest = a.Switch<PullRequest>(b => b
+                        .PullRequest(p => new PullRequest
+                        {
+                            Title = p.Title,
+                        })),
+                    })
+                    .SingleOrDefault(),
+
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .UnpinnedEvent(y => new UnpinnedEvent
                 {
@@ -586,6 +976,7 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .UserBlockedEvent(y => new UserBlockedEvent
                 {
@@ -596,9 +987,12 @@
                     })
                     .Single(),
 
-                    BlockDuration = y.BlockDuration,
+                    BlockDuration = (UserBlockDuration)y.BlockDuration,
+
+                    Id = y.Id.ToString(),
 
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 //.MentionedEvent(y => new MentionedEvent {})
                 //.PullRequestCommitCommentThread(y => new PullRequestCommitCommentThread {})

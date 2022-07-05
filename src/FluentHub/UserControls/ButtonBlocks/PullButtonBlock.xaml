@@ -164,7 +164,6 @@
 
                         <toolkit:SwitchPresenter
                             x:Name="ReviewStateSwitcher"
-                            Margin="0,0,8,0"
                             x:Load="{x:Bind ViewModel.PullItem.ReviewState, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
                             TargetType="x:String"
                             Value="{x:Bind ViewModel.PullItem.ReviewState, Mode=OneWay}">
@@ -233,7 +232,6 @@
 
                         <toolkit:SwitchPresenter
                             x:Name="StatusStateSwitcher"
-                            Margin="0,0,8,0"
                             x:Load="{x:Bind ViewModel.PullItem.StatusState.Status, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
                             TargetType="x:String"
                             Value="{x:Bind ViewModel.PullItem.StatusState.Status, Mode=OneWay}">
@@ -300,19 +298,13 @@
 
                         </toolkit:SwitchPresenter>
 
-                        <muxc:ItemsRepeater
-                            Grid.Row="2"
-                            Margin="0,4,0,0"
-                            ItemsSource="{x:Bind ViewModel.LabelViewModels, Mode=OneWay}">
-
+                        <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.LabelViewModels, Mode=OneWay}">
                             <muxc:ItemsRepeater.Layout>
                                 <muxc:StackLayout Orientation="Horizontal" Spacing="8" />
                             </muxc:ItemsRepeater.Layout>
-
                             <DataTemplate x:DataType="labelsvm:LabelControlViewModel">
                                 <labels:LabelControl ViewModel="{x:Bind Mode=OneWay}" />
                             </DataTemplate>
-
                         </muxc:ItemsRepeater>
 
                     </StackPanel>
@@ -325,7 +317,6 @@
 
                         <labels:LabelControl
                             x:Name="CommentCountLabel"
-                            Margin="0,0,8,0"
                             VerticalAlignment="Center"
                             x:Load="{x:Bind ViewModel.PullItem.CommentCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
                             ViewModel="{x:Bind ViewModel.CommentCountLabel, Mode=OneWay}">

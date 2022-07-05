@@ -133,7 +133,8 @@
                     })
                     .ToList(),
 
-                    AuthorAssociation = x.AuthorAssociation,
+                    AuthorAssociation = (CommentAuthorAssociation)x.AuthorAssociation,
+                    Body = x.Body,
                     BodyHTML = x.BodyHTML,
                     LastEditedAt = x.LastEditedAt,
                     UpdatedAt = x.UpdatedAt,
@@ -149,6 +150,44 @@
             var response = await App.Connection.Run(query);
 
             return response;
+        }
+
+        public async Task<List<Issue>> GetPinnedAllAsync(string owner, string name)
+        {
+            #region query
+            var query = new Query()
+                .Repository(name, owner)
+                .PinnedIssues(3, null, null, null)
+                .Nodes
+                .Select(x => new Issue
+                {
+                    OwnerAvatarUrl = x.Repository.Owner.AvatarUrl(100),
+                    OwnerLogin = x.Repository.Owner.Login,
+                    Name = x.Repository.Name,
+                    Title = x.Issue.Title,
+
+                    Closed = x.Issue.Closed,
+
+                    Number = x.Issue.Number,
+                    CommentCount = x.Issue.Comments(null, null, null, null, null).TotalCount,
+
+                    Labels = x.Issue.Labels(10, null, null, null, null).Nodes.Select(y => new Label
+                    {
+                        Color = y.Color,
+                        Description = y.Description,
+                        Name = y.Name,
+                    })
+                    .ToList(),
+
+                    UpdatedAt = x.Issue.UpdatedAt,
+                    UpdatedAtHumanized = x.Issue.UpdatedAt.Humanize(null, null),
+                })
+                .Compile();
+            #endregion
+
+            var response = await App.Connection.Run(query);
+
+            return response.ToList();
         }
     }
 }

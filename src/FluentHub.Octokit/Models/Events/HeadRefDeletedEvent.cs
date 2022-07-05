@@ -12,5 +12,9 @@ namespace FluentHub.Octokit.Models.Events
 
         public DateTimeOffset CreatedAt { get; set; }
         public string CreatedAtHumanized { get; set; }
+
+        public Ref HeadRef { get; set; }
+
+        public string HeadRefName { get; set; }
     }
 }

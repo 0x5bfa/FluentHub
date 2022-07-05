@@ -1,11 +1,5 @@
 ﻿using FluentHub.Helpers;
 using FluentHub.ViewModels.UserControls.Blocks;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -21,29 +15,41 @@ namespace FluentHub.UserControls.Blocks
     public sealed partial class IssueCommentBlock : UserControl
     {
         #region propdp
-        public static readonly DependencyProperty PropertyViewModelProperty =
-            DependencyProperty.Register(nameof(PropertyViewModel), typeof(IssueCommentBlockViewModel), typeof(IssueCommentBlock), new PropertyMetadata(0));
+        public static readonly DependencyProperty ViewModelProperty =
+            DependencyProperty.Register(
+                nameof(ViewModel),
+                typeof(IssueCommentBlockViewModel),
+                typeof(IssueCommentBlock),
+                new PropertyMetadata(null)
+                );
 
-        public IssueCommentBlockViewModel PropertyViewModel
+        public IssueCommentBlockViewModel ViewModel
         {
-            get => (IssueCommentBlockViewModel)GetValue(PropertyViewModelProperty);
+            get => (IssueCommentBlockViewModel)GetValue(ViewModelProperty);
             set
             {
-                SetValue(PropertyViewModelProperty, value);
-                ViewModel = PropertyViewModel;
+                SetValue(ViewModelProperty, value);
                 ViewModel?.SetWebViewContentsAsync(CommentWebView);
             }
         }
         #endregion
 
-        public IssueCommentBlock()
+        public IssueCommentBlock() => InitializeComponent();
+
+        private bool WebViewIsNavigatedSuccessfully { get; set; }
+
+        private async void OnCommentWebViewNavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
         {
-            this.InitializeComponent();
+            await WebViewHelpers.DisableWebViewVerticalScrollingAsync(CommentWebView);
+            WebViewIsNavigatedSuccessfully = true;
         }
 
-        private void OnCommentWebViewNavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
+        private async void OnWebViewSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            WebViewHelpers.DisableWebViewVerticalScrolling(ref CommentWebView);
+            if (CommentWebView != null && WebViewIsNavigatedSuccessfully)
+            {
+                await WebViewHelpers.DisableWebViewVerticalScrollingAsync(CommentWebView);
+            }
         }
     }
 }
