@@ -1,0 +1,157 @@
+﻿<UserControl
+    x:Class="FluentHub.Uwp.UserControls.Blocks.LatestCommitBlock"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:FluentHub.Uwp.UserControls.Blocks"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:uc="using:FluentHub.Uwp.UserControls"
+    Loaded="OnLatestCommitBlockLoaded"
+    mc:Ignorable="d">
+
+    <Grid Padding="12,0">
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Padding="0,12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Horizontal" Spacing="6">
+
+                <uc:AvatarControl
+                    AvatarUrl="{x:Bind ViewModel.CommitOverviewItem.AuthorAvatarUrl, Mode=OneWay}"
+                    IsOrganization="False"
+                    WidthAndHeight="24" />
+
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                    Text="{x:Bind ViewModel.CommitOverviewItem.AuthorName, Mode=OneWay}" />
+
+                <TextBlock
+                    Margin="2,0"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource BodyTextBlockStyle}"
+                    Text="{x:Bind ViewModel.CommitMessageHeadline, Mode=OneWay}"
+                    TextTrimming="CharacterEllipsis"
+                    TextWrapping="NoWrap" />
+
+                <Button
+                    x:Name="MoreCommitMessageButton"
+                    Width="24"
+                    VerticalAlignment="Center"
+                    x:Load="{x:Bind ViewModel.HasMoreCommitMessage, Mode=OneWay}"
+                    Click="MoreCommitMessageButton_Click"
+                    Style="{StaticResource ClearButtonStyle}">
+                    <FontIcon FontSize="15" Glyph="&#xE712;" />
+                </Button>
+            </StackPanel>
+
+            <StackPanel
+                Grid.Column="1"
+                Orientation="Horizontal"
+                Spacing="4">
+
+                <TextBlock
+                    Margin="0,4,0,0"
+                    VerticalAlignment="Center"
+                    FontFamily="Cascadia Code"
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="{x:Bind ViewModel.CommitOverviewItem.AbbreviatedOid, Mode=OneWay}" />
+
+                <TextBlock
+                    Margin="6,0,0,0"
+                    VerticalAlignment="Center"
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Style="{StaticResource BodyTextBlockStyle}"
+                    Text="{x:Bind ViewModel.CommitUpdatedAtHumanized, Mode=OneWay}" />
+
+                <Button
+                    Grid.Column="6"
+                    Margin="8,0,0,0"
+                    Click="Button_Click"
+                    Style="{StaticResource LinkLikeButtonStyle}">
+
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="18"
+                            Glyph="&#xE9D3;" />
+
+                        <toolkit:SwitchPresenter
+                            Grid.RowSpan="2"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            TargetType="x:Boolean"
+                            Value="{x:Bind ViewModel.ContextViewModel.IsRootDir, Mode=OneWay}">
+
+                            <toolkit:Case Value="True">
+                                <StackPanel Orientation="Horizontal" Spacing="4">
+
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                                        Text="{x:Bind ViewModel.CommitOverviewItem.TotalCount, Mode=OneWay}" />
+
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="commits" />
+
+                                </StackPanel>
+                            </toolkit:Case>
+
+                            <toolkit:Case Value="False">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                                        Text="History" />
+                                </StackPanel>
+                            </toolkit:Case>
+
+                        </toolkit:SwitchPresenter>
+                    </StackPanel>
+                </Button>
+
+            </StackPanel>
+        </Grid>
+
+        <Grid
+            x:Name="SubCommitMessagesGrid"
+            Grid.Row="2"
+            Padding="30,0,0,12"
+            Visibility="Collapsed">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock
+                IsTextSelectionEnabled="True"
+                Style="{StaticResource BodyStrongTextBlockStyle}"
+                Text="{x:Bind ViewModel.CommitMessageHeadline, Mode=OneWay}" />
+
+            <TextBlock
+                Grid.Row="1"
+                Margin="0,6,0,0"
+                FontFamily="Cascadia Code"
+                FontWeight="ExtraLight"
+                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                IsTextSelectionEnabled="True"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Text="{x:Bind ViewModel.SubCommitMessages, Mode=OneWay}" />
+        </Grid>
+    </Grid>
+</UserControl>

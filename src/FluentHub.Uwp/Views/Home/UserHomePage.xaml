@@ -1,0 +1,498 @@
+﻿<Page
+    x:Class="FluentHub.Uwp.Views.Home.UserHomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:FluentHub.Uwp.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:graphqlmodels="using:FluentHub.Octokit.Models"
+    xmlns:local="using:FluentHub.Uwp.Views.Home"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///ResourceDictionaries/DefaultGridSplitterStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <SolidColorBrush x:Key="ExpanderHeaderBackground" Color="Transparent" />
+            <SolidColorBrush x:Key="ExpanderHeaderBorderBrush" Color="Transparent" />
+            <SolidColorBrush x:Key="ExpanderHeaderBorderPointerOverBrush" Color="Transparent" />
+            <SolidColorBrush x:Key="ExpanderHeaderBorderPressedBrush" Color="Transparent" />
+            <SolidColorBrush x:Key="ExpanderContentBackground" Color="Transparent" />
+            <SolidColorBrush x:Key="ExpanderContentBorderBrush" Color="Transparent" />
+            <x:Double x:Key="ExpanderMinHeight">0</x:Double>
+            <Thickness x:Key="ExpanderHeaderPadding">0,0,0,0</Thickness>
+            <Thickness x:Key="ExpanderContentPadding">0</Thickness>
+            <Style TargetType="muxc:Expander">
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            </Style>
+            <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" MinWidth="256" />
+            <ColumnDefinition Width="1" />
+            <ColumnDefinition Width="3*" />
+        </Grid.ColumnDefinitions>
+
+        <ScrollViewer>
+            <Grid Margin="12" RowSpacing="12">
+
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Grid Margin="4,0">
+                    <TextBlock
+                        Margin="0,8"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource SubtitleTextBlockStyle}"
+                        Text="Repositories" />
+
+                    <Button HorizontalAlignment="Right" IsEnabled="False">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="14"
+                                Glyph="&#xEA52;" />
+                            <TextBlock Text="New" />
+                        </StackPanel>
+                    </Button>
+                </Grid>
+
+                <StackPanel Grid.Row="1" Spacing="8">
+
+                    <ListView
+                        x:Name="HomeRepositoriesListItem"
+                        Margin="-4,0"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        IsItemClickEnabled="True"
+                        IsRightTapEnabled="True"
+                        ItemClick="OnHomeRepositoriesListItemClick"
+                        ItemContainerTransitions="{x:Null}"
+                        ItemsSource="{x:Bind ViewModel.UserRepositories, Mode=OneWay}"
+                        SelectionMode="None">
+                        <ListView.ItemContainerStyle>
+                            <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
+                                <Setter Property="Height" Value="24" />
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            </Style>
+                        </ListView.ItemContainerStyle>
+                        <ListView.ItemTemplate>
+                            <DataTemplate x:DataType="graphqlmodels:Repository">
+
+                                <StackPanel Orientation="Horizontal" Spacing="12">
+
+                                    <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind IsPrivate, Mode=OneWay}">
+                                        <toolkit:Case Value="True">
+                                            <Image Width="16" Source="/Assets/Icons/Private.png"/>
+                                        </toolkit:Case>
+                                        <toolkit:Case Value="False">
+                                            <Image Width="16" Source="/Assets/Icons/Repositories.png"/>
+                                        </toolkit:Case>
+                                    </toolkit:SwitchPresenter>
+
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        Foreground="{ThemeResource SystemControlPageTextBaseHighBrush}"
+                                        Style="{ThemeResource BodyTextBlockStyle}"
+                                        Text="{x:Bind Name, Mode=OneWay}" />
+
+                                </StackPanel>
+
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+
+        <toolkit:GridSplitter Grid.Column="1" Style="{StaticResource DefaultGridSplitterStyle}" />
+
+        <ScrollViewer Grid.Column="2">
+            <Grid Margin="16">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <TextBlock
+                    Margin="0,8"
+                    Style="{StaticResource SubtitleTextBlockStyle}"
+                    Text="Home" />
+
+                <muxc:Expander
+                    Grid.Row="1"
+                    Padding="0"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Stretch"
+                    IsExpanded="True">
+                    <muxc:Expander.Header>
+                        <TextBlock
+                            Margin="-18,0"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="Work" />
+                    </muxc:Expander.Header>
+                    <muxc:Expander.Content>
+                        <ScrollViewer
+                            HorizontalScrollBarVisibility="Auto"
+                            HorizontalScrollMode="Auto"
+                            VerticalScrollBarVisibility="Disabled"
+                            VerticalScrollMode="Disabled">
+                            <StackPanel
+                                Margin="0,0,0,12"
+                                Orientation="Horizontal"
+                                Spacing="8">
+                                <Button
+                                    Width="128"
+                                    Height="96"
+                                    Padding="0"
+                                    Click="OnIssueButtonClick">
+                                    <Grid Width="126" Height="94">
+                                        <Border                                        
+                                            CornerRadius="4"
+                                            Opacity="0.2" />
+                                        <StackPanel VerticalAlignment="Center" Spacing="4">
+                                            <Border
+                                                Width="40"
+                                                Height="36"
+                                                CornerRadius="4">
+                                                <Image Source="/Assets/Icons/Issues.png"/>
+                                            </Border>
+                                            <TextBlock HorizontalAlignment="Center" Text="Issues" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Button>
+                                <Button
+                                    Width="128"
+                                    Height="96"
+                                    Padding="0"
+                                    Click="OnPullRequestsButtonClick">
+                                    <Grid Width="126" Height="94">
+                                        <Border                                            
+                                            CornerRadius="4"
+                                            Opacity="0.2" />
+                                        <StackPanel VerticalAlignment="Center" Spacing="4">
+                                            <Border
+                                                Width="40"
+                                                Height="36"
+                                                CornerRadius="4">
+                                                <Image Source="/Assets/Icons/PullRequests.png"/>
+                                            </Border>
+                                            <TextBlock HorizontalAlignment="Center" Text="Pull requests" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Button>
+                                <Button
+                                    Width="128"
+                                    Height="96"
+                                    Padding="0"
+                                    Click="OnDiscussionsButtonClick">
+                                    <Grid Width="126" Height="94">
+                                        <Border                                            
+                                            CornerRadius="4"
+                                            Opacity="0.2" />
+                                        <StackPanel VerticalAlignment="Center" Spacing="4">
+                                            <Border
+                                                Width="40"
+                                                Height="36"
+                                                CornerRadius="4">
+                                                <Image Source="/Assets/Icons/Discussions.png"/>
+                                            </Border>
+                                            <TextBlock HorizontalAlignment="Center" Text="Discussions" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Button>
+                                <Button
+                                    Width="128"
+                                    Height="96"
+                                    Padding="0"
+                                    Click="OnRepositoriesButtonClick">
+                                    <Grid Width="126" Height="94">
+                                        <Border                                           
+                                            CornerRadius="4"
+                                            Opacity="0.2" />
+                                        <StackPanel VerticalAlignment="Center" Spacing="4">
+                                            <Border
+                                                Width="40"
+                                                Height="36"
+                                                CornerRadius="4">
+                                                <Image Source="/Assets/Icons/Repositories.png"/>
+                                            </Border>
+                                            <TextBlock HorizontalAlignment="Center" Text="Repositories" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Button>
+                                <Button
+                                    Width="128"
+                                    Height="96"
+                                    Padding="0"
+                                    Click="OnOrganizationsButtonClick">
+                                    <Grid Width="126" Height="94">
+                                        <Border                                           
+                                            CornerRadius="4"
+                                            Opacity="0.2" />
+                                        <StackPanel VerticalAlignment="Center" Spacing="4">
+                                            <Border
+                                                Width="40"
+                                                Height="36"
+                                                CornerRadius="4">
+                                                <Image Source="/Assets/Icons/Organizations.png"/>
+                                            </Border>
+                                            <TextBlock HorizontalAlignment="Center" Text="Organizations" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Button>
+                                <Button
+                                    Width="128"
+                                    Height="96"
+                                    Padding="0"
+                                    Click="OnStarsButtonClick">
+                                    <Grid Width="126" Height="94">
+                                        <Border                                            
+                                            CornerRadius="4"
+                                            Opacity="0.2" />
+                                        <StackPanel VerticalAlignment="Center" Spacing="4">
+                                            <Border
+                                                Width="40"
+                                                Height="36"
+                                                CornerRadius="4">
+                                                <Image Source="/Assets/Icons/Starred.png"/>
+                                            </Border>
+                                            <TextBlock HorizontalAlignment="Center" Text="Stars" />
+                                        </StackPanel>
+                                    </Grid>
+                                </Button>
+                            </StackPanel>
+                        </ScrollViewer>
+                    </muxc:Expander.Content>
+                </muxc:Expander>
+
+                <muxc:Expander
+                    x:Name="FavoritesExpander"
+                    Grid.Row="2"
+                    Padding="0"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Stretch"
+                    IsExpanded="False">
+                    <muxc:Expander.Header>
+                        <TextBlock
+                            Margin="-18,0"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="Favorites" />
+                    </muxc:Expander.Header>
+                    <muxc:Expander.Content>
+                        <Grid>
+                            <ListView
+                                Margin="-4,0"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                IsItemClickEnabled="True"
+                                IsRightTapEnabled="True"
+                                ItemContainerTransitions="{x:Null}"
+                                SelectionMode="None">
+                                <ListView.ItemContainerStyle>
+                                    <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
+                                        <Setter Property="Height" Value="24" />
+                                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                            </ListView>
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="No favorite items available." />
+                        </Grid>
+                    </muxc:Expander.Content>
+                </muxc:Expander>
+
+                <muxc:Expander
+                    Grid.Row="3"
+                    Padding="0"
+                    HorizontalAlignment="Stretch"
+                    HorizontalContentAlignment="Stretch"
+                    IsExpanded="True">
+                    <muxc:Expander.Header>
+                        <TextBlock
+                            Margin="-18,0"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="Activity" />
+                    </muxc:Expander.Header>
+                    <muxc:Expander.Content>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <ListView
+                                Margin="-4,0"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                IsItemClickEnabled="True"
+                                IsRightTapEnabled="True"
+                                ItemContainerTransitions="{x:Null}"
+                                ItemsSource="{x:Bind ViewModel.UserNotifications, Mode=OneWay}"
+                                SelectionMode="None">
+                                <ListView.ItemContainerStyle>
+                                    <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
+                                        <Setter Property="Height" Value="Auto" />
+                                    </Style>
+                                </ListView.ItemContainerStyle>
+                                <ListView.ItemTemplate>
+                                    <DataTemplate x:DataType="graphqlmodels:Notification">
+                                        <Grid Padding="4,8" ColumnSpacing="12">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                            </Grid.ColumnDefinitions>
+
+                                            <toolkit:SwitchPresenter TargetType="x:String" Value="{x:Bind ItemState, Mode=OneWay}">
+
+                                                <toolkit:Case Value="IssueClosed">
+                                                    <FontIcon
+                                                        FontFamily="{StaticResource Octions}"
+                                                        Foreground="#8957e5"
+                                                        Glyph="&#xE9E6;" />
+                                                </toolkit:Case>
+
+                                                <toolkit:Case Value="IssueOpen">
+                                                    <FontIcon
+                                                        FontFamily="{StaticResource Octions}"
+                                                        Foreground="#3fb950"
+                                                        Glyph="&#xE9EA;" />
+                                                </toolkit:Case>
+
+                                                <toolkit:Case Value="PullClosed">
+                                                    <FontIcon
+                                                        FontFamily="{StaticResource Octions}"
+                                                        Foreground="#f85149"
+                                                        Glyph="&#xE9C1;" />
+                                                </toolkit:Case>
+
+                                                <toolkit:Case Value="PullMerged">
+                                                    <FontIcon
+                                                        FontFamily="{StaticResource Octions}"
+                                                        Foreground="#8957e5"
+                                                        Glyph="&#xE9BD;" />
+                                                </toolkit:Case>
+
+                                                <toolkit:Case Value="PullDraft">
+                                                    <FontIcon
+                                                        FontFamily="{StaticResource Octions}"
+                                                        Foreground="#8b949e"
+                                                        Glyph="&#xE9C3;" />
+                                                </toolkit:Case>
+
+                                                <toolkit:Case Value="PullOpen">
+                                                    <FontIcon
+                                                        FontFamily="{StaticResource Octions}"
+                                                        Foreground="#3fb950"
+                                                        Glyph="&#xE9BF;" />
+                                                </toolkit:Case>
+
+                                                <toolkit:Case Value="Discussion">
+                                                    <FontIcon
+                                                        FontFamily="{StaticResource Octions}"
+                                                        Foreground="#8b949e"
+                                                        Glyph="&#xE95D;" />
+                                                </toolkit:Case>
+
+                                                <toolkit:Case Value="Commit">
+                                                    <FontIcon
+                                                        FontFamily="{StaticResource Octions}"
+                                                        Foreground="#8b949e"
+                                                        Glyph="&#xE9B9;" />
+                                                </toolkit:Case>
+
+                                            </toolkit:SwitchPresenter>
+
+                                            <Grid Grid.Column="1">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+
+                                                <StackPanel Orientation="Horizontal" Spacing="4">
+                                                    <TextBlock
+                                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                                        Text="{x:Bind Repository.Owner.Login, Mode=OneWay}" />
+
+                                                    <TextBlock
+                                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                                        Text="/" />
+
+                                                    <TextBlock
+                                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                                        Text="{x:Bind Repository.Name, Mode=OneWay}" />
+
+                                                    <TextBlock
+                                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                                        Text="#"
+                                                        Visibility="{x:Bind SubjectNumber, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
+
+                                                    <TextBlock
+                                                        Margin="-4,0,0,0"
+                                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                                        Text="{x:Bind SubjectNumber, Mode=OneWay}"
+                                                        Visibility="{x:Bind SubjectNumber, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
+
+
+                                                </StackPanel>
+
+                                                <TextBlock
+                                                    x:Name="UpdatedAtHumanizedTextBlock"
+                                                    HorizontalAlignment="Right"
+                                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                                    Text="{x:Bind UpdatedAtHumanized, Mode=OneWay}" />
+
+                                                <TextBlock
+                                                    x:Name="TitleTextBlock"
+                                                    Grid.Row="2"
+                                                    Style="{StaticResource BodyTextBlockStyle}"
+                                                    Text="{x:Bind Subject.Title, Mode=OneWay}" />
+
+                                                <TextBlock
+                                                    x:Name="ReasonTextBlock"
+                                                    Grid.Row="3"
+                                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                                    Text="{x:Bind FullReason, Mode=OneWay}" />
+                                            </Grid>
+                                        </Grid>
+
+                                    </DataTemplate>
+                                </ListView.ItemTemplate>
+                            </ListView>
+                            <Button
+                                Grid.Row="1"
+                                HorizontalAlignment="Center"
+                                Click="OnMoreActivitiesButtonClick"
+                                Content="See more" />
+                        </Grid>
+                    </muxc:Expander.Content>
+                </muxc:Expander>
+            </Grid>
+        </ScrollViewer>
+    </Grid>
+</Page>
