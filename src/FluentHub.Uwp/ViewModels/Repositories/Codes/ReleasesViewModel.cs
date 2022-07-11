@@ -1,4 +1,4 @@
-﻿using FluentHub.Core;
+﻿using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.Models;
 using FluentHub.Octokit.Models;
 using FluentHub.Octokit.Queries.Repositories;

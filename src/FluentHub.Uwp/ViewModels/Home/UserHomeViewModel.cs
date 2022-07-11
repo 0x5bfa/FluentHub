@@ -1,4 +1,5 @@
-﻿using FluentHub.Octokit.Queries.Users;
+﻿using FluentHub.Uwp.Utils;
+using FluentHub.Octokit.Queries.Users;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.ObjectModel;

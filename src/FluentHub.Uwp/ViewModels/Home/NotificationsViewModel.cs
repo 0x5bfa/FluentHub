@@ -1,4 +1,5 @@
-﻿using FluentHub.Core;
+﻿using FluentHub.Uwp.Utils;
+using FluentHub.Uwp.Services;
 using FluentHub.Uwp.Models;
 using FluentHub.Octokit.Queries.Users;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;

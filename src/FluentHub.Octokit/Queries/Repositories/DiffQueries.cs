@@ -11,7 +11,7 @@
             CommitDetails item = new()
             {
                 CommitMessage = commit.Commit.Message,
-                CommitMessageHeadline = commit.Commit.Message.Split("\n")[0],
+                CommitMessageHeadline = commit.Commit.Message.Split('\n')[0],
                 Oid = commit.Sha,
                 AbbreviatedOid = commit.Sha.Substring(0, 7),
                 ParentOid = commit.Parents[0].Sha,

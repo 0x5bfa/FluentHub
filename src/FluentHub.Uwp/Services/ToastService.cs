@@ -1,11 +1,12 @@
-﻿using Microsoft.Toolkit;
+﻿using FluentHub.Uwp.Utils;
+using Microsoft.Toolkit;
 using Microsoft.Toolkit.Uwp.Notifications;
 using System;
 using System.Globalization;
 using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
 
-namespace FluentHub.Core
+namespace FluentHub.Uwp.Services
 {
     public class ToastService
     {

@@ -1,3 +1,4 @@
+using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.Dialogs;
 using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Services;

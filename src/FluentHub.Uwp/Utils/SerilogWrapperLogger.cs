@@ -1,4 +1,4 @@
-﻿using FluentHub.Core;
+﻿using FluentHub.Uwp.Utils;
 using System;
 
 namespace FluentHub.Uwp.Utils

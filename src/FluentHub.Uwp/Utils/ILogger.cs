@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FluentHub.Core
+namespace FluentHub.Uwp.Utils
 {
     public interface ILogger
     {

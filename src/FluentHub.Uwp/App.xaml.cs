@@ -1,4 +1,5 @@
 ﻿using FluentHub.Uwp.Helpers;
+using FluentHub.Uwp.Utils;
 using FluentHub.Octokit.Authorization;
 using FluentHub.Uwp.Services;
 using FluentHub.Uwp.Services.Navigation;
@@ -77,8 +78,8 @@ namespace FluentHub.Uwp
         {
             return new ServiceCollection()
                 .AddSingleton<INavigationService, NavigationService>()
-                .AddSingleton<Core.ILogger>(new Utils.SerilogWrapperLogger(Serilog.Log.Logger))
-                .AddSingleton<Core.ToastService>()
+                .AddSingleton<Utils.ILogger>(new Utils.SerilogWrapperLogger(Serilog.Log.Logger))
+                .AddSingleton<Services.ToastService>()
                 .AddSingleton<IMessenger>(StrongReferenceMessenger.Default)
                 // ViewModels
                 .AddSingleton<MainPageViewModel>()

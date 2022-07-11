@@ -145,7 +145,7 @@
             return branchNames;
         }
 
-        public async Task<string> GetReadmeHtml(string owner, string name, string branch, string theme)
+        public async Task<string> GetReadmeHtml(string owner, string name, string branch, string theme, string index)
         {
             string bodyHtml;
 
@@ -156,7 +156,7 @@
                 string missedPath = "https://raw.githubusercontent.com/" + owner + "/" + name + "/" + branch + "/";
 
                 MarkdownQueries markdown = new();
-                var html = await markdown.GetHtmlAsync(bodyHtml, missedPath, theme, true);
+                var html = markdown.GetHtml(index, bodyHtml, missedPath, theme, true);
 
                 return html;
             }

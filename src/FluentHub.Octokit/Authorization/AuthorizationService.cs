@@ -1,12 +1,10 @@
-﻿﻿using Windows.System;
-
-namespace FluentHub.Octokit.Authorization
+﻿namespace FluentHub.Octokit.Authorization
 {
     public class AuthorizationService
     {
         private static OctokitSecrets Secrets { get; set; }
 
-        public async Task RequestGitHubIdentityAsync(OctokitSecrets secrets)
+        public async Task<string> RequestGitHubIdentityAsync(OctokitSecrets secrets)
         {
             Secrets = secrets;
 
@@ -34,7 +32,7 @@ namespace FluentHub.Octokit.Authorization
 
             Uri oauthLoginUrl = App.Client.Oauth.GetGitHubLoginUrl(request);
 
-            await Launcher.LaunchUriAsync(oauthLoginUrl);
+            return oauthLoginUrl.ToString();
         }
 
         public async Task<string> RequestOAuthTokenAsync(string code)

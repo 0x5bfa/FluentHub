@@ -1,5 +1,5 @@
 ﻿using FluentHub.Uwp.Helpers;
-using FluentHub.Octokit.Models.Events;
+using FluentHub.Uwp.Services;
 using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls.Labels;
 using Humanizer;
@@ -52,8 +52,8 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
             string authorAssociation = IssueComment?.AuthorAssociation.Humanize();
             if (authorAssociation != "None") AuthorAssociationLabel.Name = authorAssociation;
 
-            MarkdownQueries markdown = new();
-            var html = await markdown.GetHtmlAsync(IssueComment?.BodyHTML, IssueComment?.Url, ThemeHelper.ActualTheme.ToString().ToLower(), true);
+            MarkdownApiHandler markdown = new();
+            var html = await markdown.GetHtmlAsync(IssueComment?.BodyHTML, IssueComment?.Url, ThemeHelper.ActualTheme.ToString().ToLower());
             webView.NavigateToString(html);
         }
     }

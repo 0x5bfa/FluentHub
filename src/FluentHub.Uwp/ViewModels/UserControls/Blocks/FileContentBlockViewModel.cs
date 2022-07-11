@@ -1,5 +1,5 @@
 ﻿using ColorCode;
-using FluentHub.Core;
+using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
 using FluentHub.Octokit.Queries.Repositories;

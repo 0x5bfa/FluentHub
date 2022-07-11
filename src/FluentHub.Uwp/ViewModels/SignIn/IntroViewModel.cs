@@ -1,4 +1,4 @@
-﻿using FluentHub.Core;
+﻿using FluentHub.Uwp.Utils;
 using FluentHub.Octokit.Authorization;
 using FluentHub.Octokit.Models;
 using FluentHub.Uwp.Models;
@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading;
 using System.Threading.Tasks;
+using Windows.System;
 
 namespace FluentHub.Uwp.ViewModels.SignIn
 {
@@ -43,7 +44,8 @@ namespace FluentHub.Uwp.ViewModels.SignIn
                 var secrets = await Services.OctokitSecretsService.LoadOctokitSecretsAsync();
 
                 AuthorizationService request = new();
-                await request.RequestGitHubIdentityAsync(secrets);
+                var url = await request.RequestGitHubIdentityAsync(secrets);
+                await Launcher.LaunchUriAsync(new Uri(url));
 
                 App.Settings.SetupProgress = true;
                 IsLoading = true;

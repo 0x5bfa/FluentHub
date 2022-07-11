@@ -1,5 +1,5 @@
-﻿using ColorCode;
-using FluentHub.Core;
+﻿using FluentHub.Uwp.Utils;
+using FluentHub.Uwp.Services;
 using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
 using FluentHub.Octokit.Queries.Repositories;
@@ -49,8 +49,8 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
         {
             try
             {
-                RepositoryQueries queries = new();
-                HtmlText = await queries.GetReadmeHtml(
+                MarkdownApiHandler queries = new();
+                HtmlText = await queries.GetHtmlAsync(
                     ContextViewModel.Repository.Owner.Login,
                     ContextViewModel.Repository.Name,
                     ContextViewModel.BranchName,

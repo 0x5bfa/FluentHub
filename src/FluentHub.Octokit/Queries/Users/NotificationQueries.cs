@@ -86,7 +86,7 @@
                         break;
                 }
 
-                var urlItems = indivisual.Subject.Url?.Split("/");
+                var urlItems = indivisual.Subject.Url?.Split('/');
 
                 switch (indivisual.Subject?.Type)
                 {
