@@ -17,12 +17,12 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\FluentHub\Package.appxmanifest
+      [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\FluentHub.Uwp\Package.appxmanifest
       $xmlDoc.Package.Identity.Name="49462fluenthub-uwp.FluentHub"
       $xmlDoc.Package.Identity.Publisher="CN=4E3C0825-4D00-4ECC-89F8-528E9200B125"
       $xmlDoc.Package.Properties.DisplayName="FluentHub AlphaG"
       $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub AlphaG"
-      $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub\Package.appxmanifest')
+      $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub.Uwp\Package.appxmanifest')
     failOnStderr: true
 
 - task: NuGetToolInstaller@1
