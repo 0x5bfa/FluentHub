@@ -1,11 +1,11 @@
-namespace FluentHub.Octokit.v4.Model
+namespace FluentHub.Octokit.Models.v4
 {
     using System;
 
     /// <summary>
     /// Used for return value of Repository.issueOrPullRequest.
     /// </summary>
-    public class IssueOrPullRequest
+public class IssueOrPullRequest
     {
         
             /// <summary>

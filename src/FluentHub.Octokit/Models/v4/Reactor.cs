@@ -1,11 +1,11 @@
-namespace FluentHub.Octokit.v4.Model
+namespace FluentHub.Octokit.Models.v4
 {
     using System;
 
     /// <summary>
     /// Types that can be assigned to reactions.
     /// </summary>
-    public class Reactor
+public class Reactor
     {
         
             /// <summary>

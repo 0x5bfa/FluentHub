@@ -1,11 +1,11 @@
-namespace FluentHub.Octokit.v4.Model
+namespace FluentHub.Octokit.Models.v4
 {
     using System;
 
     /// <summary>
     /// Types that can own an IP allow list.
     /// </summary>
-    public class IpAllowListOwner
+public class IpAllowListOwner
     {
         
             /// <summary>

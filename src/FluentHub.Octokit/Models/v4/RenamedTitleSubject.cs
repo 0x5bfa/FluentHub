@@ -1,11 +1,11 @@
-namespace FluentHub.Octokit.v4.Model
+namespace FluentHub.Octokit.Models.v4
 {
     using System;
 
     /// <summary>
     /// An object which has a renamable title
     /// </summary>
-    public class RenamedTitleSubject
+public class RenamedTitleSubject
     {
         
             /// <summary>

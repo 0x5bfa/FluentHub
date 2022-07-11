@@ -64,7 +64,6 @@ namespace FluentHub.Octokit.Generation
             {
                 var builder = new StringBuilder();
                 DocCommentGenerator.GenerateSummary(type.Description, 4, builder);
-                builder.Append("    ");
                 return builder.ToString().TrimStart();
             }
             else

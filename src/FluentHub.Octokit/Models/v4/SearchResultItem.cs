@@ -1,11 +1,11 @@
-namespace FluentHub.Octokit.v4.Model
+namespace FluentHub.Octokit.Models.v4
 {
     using System;
 
     /// <summary>
     /// The results of a search.
     /// </summary>
-    public class SearchResultItem
+public class SearchResultItem
     {
         
             /// <summary>

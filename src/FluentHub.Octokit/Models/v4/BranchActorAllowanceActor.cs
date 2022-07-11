@@ -1,11 +1,11 @@
-namespace FluentHub.Octokit.v4.Model
+namespace FluentHub.Octokit.Models.v4
 {
     using System;
 
     /// <summary>
     /// Types which can be actors for `BranchActorAllowance` objects.
     /// </summary>
-    public class BranchActorAllowanceActor
+public class BranchActorAllowanceActor
     {
         
             /// <summary>

@@ -1,11 +1,11 @@
-namespace FluentHub.Octokit.v4.Model
+namespace FluentHub.Octokit.Models.v4
 {
     using System;
 
     /// <summary>
     /// Types that can be requested reviewers.
     /// </summary>
-    public class RequestedReviewer
+public class RequestedReviewer
     {
         
             /// <summary>

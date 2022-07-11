@@ -1,11 +1,11 @@
-namespace FluentHub.Octokit.v4.Model
+namespace FluentHub.Octokit.Models.v4
 {
     using System;
 
     /// <summary>
     /// Project field values
     /// </summary>
-    public class ProjectV2ItemFieldValue
+public class ProjectV2ItemFieldValue
     {
         
             /// <summary>

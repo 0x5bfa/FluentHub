@@ -23,27 +23,11 @@ namespace FluentHub.Octokit.Generation
         {
             entityNamespace = entityNamespace ?? rootNamespace;
 
-            var inModelFolder = true;
-
             string result = null;
             switch (type.Kind)
             {
+                // FluentHub.Octokit doesn't need this one
                 case TypeKind.Object:
-                    //if (type.Name == queryType || type.Name == "Mutation")
-                    //{
-                    //    var interfaceName = "IQuery";
-                    //    if (type.Name != queryType)
-                    //    {
-                    //        interfaceName = "I" + type.Name;
-                    //    }
-
-                    //    result = EntityGenerator.GenerateRoot(type, rootNamespace, entityNamespace, interfaceName, queryType);
-                    //    inModelFolder = false;
-                    //}
-                    //else
-                    //{
-                    //    result = EntityGenerator.Generate(type, entityNamespace, queryType, entityNamespace: entityNamespace);
-                    //}
                     break;
 
                 case TypeKind.Interface:
@@ -63,13 +47,7 @@ namespace FluentHub.Octokit.Generation
                     break;
             }
 
-            inModelFolder = false;
             var fileName = type.Name + ".cs";
-            if (inModelFolder)
-            {
-                fileName = Path.Combine("Model", fileName);
-            }
-
             return new GeneratedFile(fileName, result);
         }
     }

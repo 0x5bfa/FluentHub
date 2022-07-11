@@ -1,11 +1,11 @@
-namespace FluentHub.Octokit.v4.Model
+namespace FluentHub.Octokit.Models.v4
 {
     using System;
 
     /// <summary>
     /// Types that can initiate an audit log event.
     /// </summary>
-    public class AuditEntryActor
+public class AuditEntryActor
     {
         
             /// <summary>

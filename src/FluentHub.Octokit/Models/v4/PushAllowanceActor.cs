@@ -1,11 +1,11 @@
-namespace FluentHub.Octokit.v4.Model
+namespace FluentHub.Octokit.Models.v4
 {
     using System;
 
     /// <summary>
     /// Types that can be an actor.
     /// </summary>
-    public class PushAllowanceActor
+public class PushAllowanceActor
     {
         
             /// <summary>

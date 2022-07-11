@@ -1,11 +1,11 @@
-namespace FluentHub.Octokit.v4.Model
+namespace FluentHub.Octokit.Models.v4
 {
     using System;
 
     /// <summary>
     /// An audit entry in an organization audit log.
     /// </summary>
-    public class OrganizationAuditEntry
+public class OrganizationAuditEntry
     {
         
             /// <summary>

@@ -43,7 +43,7 @@ namespace FluentHub.Octokit.Generation
             return $@"namespace {rootNamespace}
 {{
     using System;
-    using System.Collections.Generic;
+    using System.Collections.Generic;{includeEntities}
 
     {GenerateDocComments(type, true)}public class {className} : {interfaceName}
     {{

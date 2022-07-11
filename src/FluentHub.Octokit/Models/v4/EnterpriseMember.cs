@@ -1,11 +1,11 @@
-namespace FluentHub.Octokit.v4.Model
+namespace FluentHub.Octokit.Models.v4
 {
     using System;
 
     /// <summary>
     /// An object that is a member of an enterprise.
     /// </summary>
-    public class EnterpriseMember
+public class EnterpriseMember
     {
         
             /// <summary>

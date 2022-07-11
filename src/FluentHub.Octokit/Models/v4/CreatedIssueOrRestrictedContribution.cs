@@ -1,11 +1,11 @@
-namespace FluentHub.Octokit.v4.Model
+namespace FluentHub.Octokit.Models.v4
 {
     using System;
 
     /// <summary>
     /// Represents either a issue the viewer can access or a restricted contribution.
     /// </summary>
-    public class CreatedIssueOrRestrictedContribution
+public class CreatedIssueOrRestrictedContribution
     {
         
             /// <summary>

@@ -1,11 +1,11 @@
-namespace FluentHub.Octokit.v4.Model
+namespace FluentHub.Octokit.Models.v4
 {
     using System;
 
     /// <summary>
     /// An item in a pull request timeline
     /// </summary>
-    public class PullRequestTimelineItems
+public class PullRequestTimelineItems
     {
         
             /// <summary>

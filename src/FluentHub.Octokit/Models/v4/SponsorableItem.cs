@@ -1,11 +1,11 @@
-namespace FluentHub.Octokit.v4.Model
+namespace FluentHub.Octokit.Models.v4
 {
     using System;
 
     /// <summary>
     /// Entities that can be sponsored via GitHub Sponsors
     /// </summary>
-    public class SponsorableItem
+public class SponsorableItem
     {
         
             /// <summary>

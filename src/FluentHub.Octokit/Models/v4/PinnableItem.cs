@@ -1,11 +1,11 @@
-namespace FluentHub.Octokit.v4.Model
+namespace FluentHub.Octokit.Models.v4
 {
     using System;
 
     /// <summary>
     /// Types that can be pinned to a profile page.
     /// </summary>
-    public class PinnableItem
+public class PinnableItem
     {
         
             /// <summary>

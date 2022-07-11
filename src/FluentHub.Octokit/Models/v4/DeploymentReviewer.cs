@@ -1,11 +1,11 @@
-namespace FluentHub.Octokit.v4.Model
+namespace FluentHub.Octokit.Models.v4
 {
     using System;
 
     /// <summary>
     /// Users and teams.
     /// </summary>
-    public class DeploymentReviewer
+public class DeploymentReviewer
     {
         
             /// <summary>

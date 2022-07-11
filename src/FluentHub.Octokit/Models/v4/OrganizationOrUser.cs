@@ -1,11 +1,11 @@
-namespace FluentHub.Octokit.v4.Model
+namespace FluentHub.Octokit.Models.v4
 {
     using System;
 
     /// <summary>
     /// Used for argument of CreateProjectV2 mutation.
     /// </summary>
-    public class OrganizationOrUser
+public class OrganizationOrUser
     {
         
             /// <summary>

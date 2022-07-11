@@ -1,11 +1,11 @@
-namespace FluentHub.Octokit.v4.Model
+namespace FluentHub.Octokit.Models.v4
 {
     using System;
 
     /// <summary>
     /// An item in an issue timeline
     /// </summary>
-    public class IssueTimelineItems
+public class IssueTimelineItems
     {
         
             /// <summary>

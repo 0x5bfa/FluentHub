@@ -8,7 +8,7 @@ namespace FluentHub.Octokit.Generation
     {
         public static void GenerateSummary(string summary, int indentation, StringBuilder builder)
         {
-            if (!string.IsNullOrWhiteSpace(summary))
+            if (string.IsNullOrWhiteSpace(summary) is false)
             {
                 var indent = new string(' ', indentation);
                 builder.Append(indent);

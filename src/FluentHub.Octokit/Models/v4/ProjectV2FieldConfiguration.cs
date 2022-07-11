@@ -1,11 +1,11 @@
-namespace FluentHub.Octokit.v4.Model
+namespace FluentHub.Octokit.Models.v4
 {
     using System;
 
     /// <summary>
     /// Configurations for project fields.
     /// </summary>
-    public class ProjectV2FieldConfiguration
+public class ProjectV2FieldConfiguration
     {
         
             /// <summary>

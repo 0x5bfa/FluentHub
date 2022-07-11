@@ -1,4 +1,4 @@
-namespace FluentHub.Octokit.v4.Model
+namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
@@ -42,7 +42,7 @@ namespace FluentHub.Octokit.v4.Model
     }
 }
 
-namespace FluentHub.Octokit.v4.Model.Internal
+namespace FluentHub.Octokit.Models.v4.Internal
 {
     using System;
     using System.Collections.Generic;

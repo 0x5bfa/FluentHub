@@ -1,11 +1,11 @@
-namespace FluentHub.Octokit.v4.Model
+namespace FluentHub.Octokit.Models.v4
 {
     using System;
 
     /// <summary>
     /// Types that can own a verifiable domain.
     /// </summary>
-    public class VerifiableDomainOwner
+public class VerifiableDomainOwner
     {
         
             /// <summary>
