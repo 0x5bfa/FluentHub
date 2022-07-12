@@ -7,8 +7,7 @@ namespace FluentHub.Octokit.Models.v4
     /// Ordering options for team repository connections
     /// </summary>
     public class TeamRepositoryOrder
-    {
-        /// <summary>
+    {        /// <summary>
         /// The field to order repositories by.
         /// </summary>
         public TeamRepositoryOrderField Field { get; set; }

@@ -2,13 +2,14 @@ namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
 
     /// <summary>
     /// An entry in the audit log.
     /// </summary>
     public interface IAuditEntry
-    {
-        /// <summary>
+    {        /// <summary>
         /// The action name
         /// </summary>
         string Action { get; set; }
@@ -79,11 +80,10 @@ namespace FluentHub.Octokit.Models.v4.Internal
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
 
-    internal class StubIAuditEntry
+    internal class AuditEntry : IAuditEntry
     {
-        
-
         public string Action { get; set; }
 
         public AuditEntryActor Actor { get; set; }

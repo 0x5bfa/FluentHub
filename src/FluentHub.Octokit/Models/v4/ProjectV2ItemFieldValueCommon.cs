@@ -2,13 +2,14 @@ namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
 
     /// <summary>
     /// Common fields across different project field value types
     /// </summary>
     public interface IProjectV2ItemFieldValueCommon
-    {
-        /// <summary>
+    {        /// <summary>
         /// Identifies the date and time when the object was created.
         /// </summary>
         DateTimeOffset CreatedAt { get; set; }
@@ -46,11 +47,10 @@ namespace FluentHub.Octokit.Models.v4.Internal
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
 
-    internal class StubIProjectV2ItemFieldValueCommon
+    internal class ProjectV2ItemFieldValueCommon : IProjectV2ItemFieldValueCommon
     {
-        
-
         public DateTimeOffset CreatedAt { get; set; }
 
         public IActor Creator { get; set; }

@@ -142,8 +142,7 @@ namespace FluentHub.Octokit.Generation.Utilities
                 case TypeKind.NonNull:
                     return GetCSharpType(type.OfType, false, returnType);
                 case TypeKind.List:
-                    var enumerable = !returnType || IsCSharpPrimitive(type.OfType);
-                    return (enumerable ? "IEnumerable" : "IQueryableList") + $"<{GetCSharpType(type.OfType, type.Kind != TypeKind.NonNull, false)}>";
+                    return "List" + $"<{GetCSharpType(type.OfType, type.Kind != TypeKind.NonNull, false)}>";
                 default:
                     throw new NotSupportedException();
             }

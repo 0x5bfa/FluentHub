@@ -2,13 +2,14 @@ namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
 
     /// <summary>
     /// Information about a signature (GPG or S/MIME) on a Commit or Tag.
     /// </summary>
     public interface IGitSignature
-    {
-        /// <summary>
+    {        /// <summary>
         /// Email used to sign this object.
         /// </summary>
         string Email { get; set; }
@@ -49,11 +50,10 @@ namespace FluentHub.Octokit.Models.v4.Internal
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
 
-    internal class StubIGitSignature
+    internal class GitSignature : IGitSignature
     {
-        
-
         public string Email { get; set; }
 
         public bool IsValid { get; set; }

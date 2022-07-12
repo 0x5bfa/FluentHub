@@ -7,8 +7,7 @@ namespace FluentHub.Octokit.Models.v4
     /// Ways in which lists of issue comments can be ordered upon return.
     /// </summary>
     public class IssueCommentOrder
-    {
-        /// <summary>
+    {        /// <summary>
         /// The field in which to order issue comments by.
         /// </summary>
         public IssueCommentOrderField Field { get; set; }

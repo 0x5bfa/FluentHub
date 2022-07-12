@@ -2,13 +2,14 @@ namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
 
     /// <summary>
     /// Represents an author of discussion comments in repositories.
     /// </summary>
     public interface IRepositoryDiscussionCommentAuthor
-    {
-        /// <summary>
+    {        /// <summary>
         /// Discussion comments this user has authored.
         /// </summary>
         /// <param name="first">Returns the first _n_ elements from the list.</param>
@@ -25,11 +26,10 @@ namespace FluentHub.Octokit.Models.v4.Internal
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
 
-    internal class StubIRepositoryDiscussionCommentAuthor
+    internal class RepositoryDiscussionCommentAuthor : IRepositoryDiscussionCommentAuthor
     {
-        
-
         public DiscussionCommentConnection RepositoryDiscussionComments { get; set; }
     }
 }

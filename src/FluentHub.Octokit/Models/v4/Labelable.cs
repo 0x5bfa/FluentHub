@@ -2,13 +2,14 @@ namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
 
     /// <summary>
     /// An object that can have labels assigned to it.
     /// </summary>
     public interface ILabelable
-    {
-        /// <summary>
+    {        /// <summary>
         /// A list of labels associated with the object.
         /// </summary>
         /// <param name="first">Returns the first _n_ elements from the list.</param>
@@ -24,11 +25,10 @@ namespace FluentHub.Octokit.Models.v4.Internal
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
 
-    internal class StubILabelable
+    internal class Labelable : ILabelable
     {
-        
-
         public LabelConnection Labels { get; set; }
     }
 }

@@ -2,13 +2,14 @@ namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
 
     /// <summary>
     /// A subject that may be upvoted.
     /// </summary>
     public interface IVotable
-    {
-        /// <summary>
+    {        /// <summary>
         /// Number of upvotes that this subject has received.
         /// </summary>
         int UpvoteCount { get; set; }
@@ -29,11 +30,10 @@ namespace FluentHub.Octokit.Models.v4.Internal
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
 
-    internal class StubIVotable
+    internal class Votable : IVotable
     {
-        
-
         public int UpvoteCount { get; set; }
 
         public bool ViewerCanUpvote { get; set; }

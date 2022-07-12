@@ -2,13 +2,14 @@ namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
 
     /// <summary>
     /// Metadata for an audit entry with action repo.*
     /// </summary>
     public interface IRepositoryAuditEntryData
-    {
-        /// <summary>
+    {        /// <summary>
         /// The repository associated with the action
         /// </summary>
         Repository Repository { get; set; }
@@ -34,11 +35,10 @@ namespace FluentHub.Octokit.Models.v4.Internal
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
 
-    internal class StubIRepositoryAuditEntryData
+    internal class RepositoryAuditEntryData : IRepositoryAuditEntryData
     {
-        
-
         public Repository Repository { get; set; }
 
         public string RepositoryName { get; set; }

@@ -26,8 +26,15 @@ namespace FluentHub.Octokit.Generation
             string result = null;
             switch (type.Kind)
             {
-                // FluentHub.Octokit doesn't need this one
                 case TypeKind.Object:
+                    if (type.Name == queryType || type.Name == "Mutation")
+                    {
+                        // Mutation.cs and Query.cs is not needed
+                    }
+                    else
+                    {
+                        result = EntityGenerator.Generate(type, entityNamespace, queryType, entityNamespace: entityNamespace);
+                    }
                     break;
 
                 case TypeKind.Interface:

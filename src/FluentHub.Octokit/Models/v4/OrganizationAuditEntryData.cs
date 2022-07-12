@@ -2,13 +2,14 @@ namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
 
     /// <summary>
     /// Metadata for an audit entry with action org.*
     /// </summary>
     public interface IOrganizationAuditEntryData
-    {
-        /// <summary>
+    {        /// <summary>
         /// The Organization associated with the Audit Entry.
         /// </summary>
         Organization Organization { get; set; }
@@ -34,11 +35,10 @@ namespace FluentHub.Octokit.Models.v4.Internal
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
 
-    internal class StubIOrganizationAuditEntryData
+    internal class OrganizationAuditEntryData : IOrganizationAuditEntryData
     {
-        
-
         public Organization Organization { get; set; }
 
         public string OrganizationName { get; set; }

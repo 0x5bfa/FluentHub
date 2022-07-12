@@ -2,13 +2,14 @@ namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
 
     /// <summary>
     /// Entities that can be subscribed to for web and email notifications.
     /// </summary>
     public interface ISubscribable
-    {
-        ID Id { get; set; }
+    {        ID Id { get; set; }
 
         /// <summary>
         /// Check if the viewer is able to change their subscription status for the repository.
@@ -26,11 +27,10 @@ namespace FluentHub.Octokit.Models.v4.Internal
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
 
-    internal class StubISubscribable
+    internal class Subscribable : ISubscribable
     {
-        
-
         public ID Id { get; set; }
 
         public bool ViewerCanSubscribe { get; set; }

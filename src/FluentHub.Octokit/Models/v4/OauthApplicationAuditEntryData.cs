@@ -2,13 +2,14 @@ namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
 
     /// <summary>
     /// Metadata for an audit entry with action oauth_application.*
     /// </summary>
     public interface IOauthApplicationAuditEntryData
-    {
-        /// <summary>
+    {        /// <summary>
         /// The name of the OAuth Application.
         /// </summary>
         string OauthApplicationName { get; set; }
@@ -29,11 +30,10 @@ namespace FluentHub.Octokit.Models.v4.Internal
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
 
-    internal class StubIOauthApplicationAuditEntryData
+    internal class OauthApplicationAuditEntryData : IOauthApplicationAuditEntryData
     {
-        
-
         public string OauthApplicationName { get; set; }
 
         public string OauthApplicationResourcePath { get; set; }

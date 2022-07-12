@@ -4,7 +4,6 @@ using FluentHub.Octokit.Generation.Models;
 using FluentHub.Octokit.Generation.Utilities;
 using Octokit.GraphQL.Core.Introspection;
 
-// This generator is no longer used.
 namespace FluentHub.Octokit.Generation
 {
     internal static class InputObjectGenerator
@@ -31,8 +30,6 @@ namespace FluentHub.Octokit.Generation
             if (type.InputFields?.Count > 0)
             {
                 var first = true;
-
-                builder.AppendLine();
 
                 foreach (var field in type.InputFields)
                 {

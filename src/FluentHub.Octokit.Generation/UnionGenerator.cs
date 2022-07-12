@@ -16,6 +16,8 @@ namespace FluentHub.Octokit.Generation
             return $@"namespace {entityNamespace}
 {{
     using System;
+    using System.Linq;
+    using System.Linq.Expressions;
 
     {GenerateUnionDocComments(type)}public class {className}
     {{
@@ -53,9 +55,8 @@ namespace FluentHub.Octokit.Generation
         {
             var comments = GenerateDocComments(possibleType);
             var typeName = TypeUtilities.GetClassName(possibleType);
-            var implName = entityNamespace + '.' + typeName;
             var name = possibleType.Name;
-            return comments + $"        public {name} {name} {{ get; set; }}";
+            return comments + $"            public {name} {name} {{ get; set; }}";
         }
 
         private static string GenerateUnionDocComments(TypeModel type)
@@ -64,6 +65,7 @@ namespace FluentHub.Octokit.Generation
             {
                 var builder = new StringBuilder();
                 DocCommentGenerator.GenerateSummary(type.Description, 4, builder);
+                builder.Append("    ");
                 return builder.ToString().TrimStart();
             }
             else
@@ -77,7 +79,7 @@ namespace FluentHub.Octokit.Generation
             if (!string.IsNullOrWhiteSpace(possibleType.Description))
             {
                 var builder = new StringBuilder();
-                DocCommentGenerator.GenerateSummary(possibleType.Description, 12, builder);
+                DocCommentGenerator.GenerateSummary(possibleType.Description, 8, builder);
                 return builder.ToString();
             }
             else

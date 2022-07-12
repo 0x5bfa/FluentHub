@@ -2,13 +2,14 @@ namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
 
     /// <summary>
     /// Represents an Octoshift migration.
     /// </summary>
     public interface IMigration
-    {
-        /// <summary>
+    {        /// <summary>
         /// The Octoshift migration flag to continue on error.
         /// </summary>
         bool ContinueOnError { get; set; }
@@ -56,11 +57,10 @@ namespace FluentHub.Octokit.Models.v4.Internal
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
 
-    internal class StubIMigration
+    internal class Migration : IMigration
     {
-        
-
         public bool ContinueOnError { get; set; }
 
         public DateTimeOffset CreatedAt { get; set; }

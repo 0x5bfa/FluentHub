@@ -2,13 +2,14 @@ namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
 
     /// <summary>
     /// Represents an owner of a project (beta).
     /// </summary>
     public interface IProjectNextOwner
-    {
-        ID Id { get; set; }
+    {        ID Id { get; set; }
 
         /// <summary>
         /// Find a project by project (beta) number.
@@ -33,11 +34,10 @@ namespace FluentHub.Octokit.Models.v4.Internal
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
 
-    internal class StubIProjectNextOwner
+    internal class ProjectNextOwner : IProjectNextOwner
     {
-        
-
         public ID Id { get; set; }
 
         public ProjectNext ProjectNext { get; set; }

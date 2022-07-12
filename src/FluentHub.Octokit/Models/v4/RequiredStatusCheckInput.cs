@@ -7,8 +7,7 @@ namespace FluentHub.Octokit.Models.v4
     /// Specifies the attributes for a new or updated required status check.
     /// </summary>
     public class RequiredStatusCheckInput
-    {
-        /// <summary>
+    {        /// <summary>
         /// Status check context that must pass for commits to be accepted to the matching branch.
         /// </summary>
         public string Context { get; set; }

@@ -2,13 +2,14 @@ namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
 
     /// <summary>
     /// Represents a Git object.
     /// </summary>
     public interface IGitObject
-    {
-        /// <summary>
+    {        /// <summary>
         /// An abbreviated version of the Git object ID
         /// </summary>
         string AbbreviatedOid { get; set; }
@@ -41,11 +42,10 @@ namespace FluentHub.Octokit.Models.v4.Internal
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
 
-    internal class StubIGitObject
+    internal class GitObject : IGitObject
     {
-        
-
         public string AbbreviatedOid { get; set; }
 
         public string CommitResourcePath { get; set; }

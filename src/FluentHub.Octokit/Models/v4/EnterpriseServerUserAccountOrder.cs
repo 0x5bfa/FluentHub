@@ -7,8 +7,7 @@ namespace FluentHub.Octokit.Models.v4
     /// Ordering options for Enterprise Server user account connections.
     /// </summary>
     public class EnterpriseServerUserAccountOrder
-    {
-        /// <summary>
+    {        /// <summary>
         /// The field to order user accounts by.
         /// </summary>
         public EnterpriseServerUserAccountOrderField Field { get; set; }

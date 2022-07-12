@@ -7,8 +7,7 @@ namespace FluentHub.Octokit.Models.v4
     /// Information from a check run analysis to specific lines of code.
     /// </summary>
     public class CheckAnnotationData
-    {
-        /// <summary>
+    {        /// <summary>
         /// The path of the file to add an annotation to.
         /// </summary>
         public string Path { get; set; }

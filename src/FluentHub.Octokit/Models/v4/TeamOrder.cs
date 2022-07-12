@@ -7,8 +7,7 @@ namespace FluentHub.Octokit.Models.v4
     /// Ways in which team connections can be ordered.
     /// </summary>
     public class TeamOrder
-    {
-        /// <summary>
+    {        /// <summary>
         /// The field in which to order nodes by.
         /// </summary>
         public TeamOrderField Field { get; set; }

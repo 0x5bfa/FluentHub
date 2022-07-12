@@ -7,8 +7,7 @@ namespace FluentHub.Octokit.Models.v4
     /// Possible further actions the integrator can perform.
     /// </summary>
     public class CheckRunAction
-    {
-        /// <summary>
+    {        /// <summary>
         /// The text to be displayed on a button in the web UI.
         /// </summary>
         public string Label { get; set; }

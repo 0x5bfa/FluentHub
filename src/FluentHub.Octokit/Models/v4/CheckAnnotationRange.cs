@@ -7,8 +7,7 @@ namespace FluentHub.Octokit.Models.v4
     /// Information from a check run analysis to specific lines of code.
     /// </summary>
     public class CheckAnnotationRange
-    {
-        /// <summary>
+    {        /// <summary>
         /// The starting line of the range.
         /// </summary>
         public int StartLine { get; set; }

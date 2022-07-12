@@ -7,8 +7,7 @@ namespace FluentHub.Octokit.Models.v4
     /// Ways in which lists of discussions can be ordered upon return.
     /// </summary>
     public class DiscussionOrder
-    {
-        /// <summary>
+    {        /// <summary>
         /// The field by which to order discussions.
         /// </summary>
         public DiscussionOrderField Field { get; set; }

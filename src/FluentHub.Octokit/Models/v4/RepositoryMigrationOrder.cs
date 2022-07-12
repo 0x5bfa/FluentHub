@@ -7,8 +7,7 @@ namespace FluentHub.Octokit.Models.v4
     /// Ordering options for repository migrations.
     /// </summary>
     public class RepositoryMigrationOrder
-    {
-        /// <summary>
+    {        /// <summary>
         /// The field to order repository migrations by.
         /// </summary>
         public RepositoryMigrationOrderField Field { get; set; }

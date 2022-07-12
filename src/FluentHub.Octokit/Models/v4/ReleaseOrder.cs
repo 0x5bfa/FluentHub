@@ -7,8 +7,7 @@ namespace FluentHub.Octokit.Models.v4
     /// Ways in which lists of releases can be ordered upon return.
     /// </summary>
     public class ReleaseOrder
-    {
-        /// <summary>
+    {        /// <summary>
         /// The field in which to order releases by.
         /// </summary>
         public ReleaseOrderField Field { get; set; }

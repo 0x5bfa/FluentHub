@@ -2,22 +2,14 @@
 {
     public class ContentQueries
     {
-        /// <summary>
-        /// Not recursive method.
-        /// </summary>
-        /// <param name="name"></param>
-        /// <param name="owner"></param>
-        /// <param name="refs"></param>
-        /// <param name="path"></param>
-        /// <returns></returns>
-        public async Task<List<Content>> GetAllAsync(string name, string owner, string refs, string path)
+        public async Task<List<TreeEntry>> GetAllAsync(string name, string owner, string refs, string path)
         {
             var query = new Query()
                 .Repository(name, owner)
                 .Object(expression: refs + ":" + path)
                 .Cast<OctokitGraphQLModel.Tree>()
                 .Entries
-                .Select(x => new Content
+                .Select(x => new TreeEntry
                 {
                     Name = x.Name,
                     Path = x.Path,

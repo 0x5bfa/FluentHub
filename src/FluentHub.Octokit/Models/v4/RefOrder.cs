@@ -7,8 +7,7 @@ namespace FluentHub.Octokit.Models.v4
     /// Ways in which lists of git refs can be ordered upon return.
     /// </summary>
     public class RefOrder
-    {
-        /// <summary>
+    {        /// <summary>
         /// The field in which to order refs by.
         /// </summary>
         public RefOrderField Field { get; set; }

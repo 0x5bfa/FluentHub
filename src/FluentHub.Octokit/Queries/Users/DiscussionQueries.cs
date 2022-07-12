@@ -13,7 +13,7 @@
                     Category = x.Category.Select(category => new DiscussionCategory
                     {
                         Emoji = category.Emoji,
-                        Id = category.Id.ToString(),
+                        Id = category.Id,
                     })
                     .Single(),
 
@@ -24,14 +24,14 @@
                         Owner = repo.Owner.Select(owner => new RepositoryOwner
                         {
                             AvatarUrl = owner.AvatarUrl(100),
-                            Id = owner.Id.ToString(),
+                            Id = owner.Id,
                             Login = owner.Login,
                         })
                         .Single(),
                     })
                     .Single(),
 
-                    Id = x.Id.ToString(),
+                    Id = x.Id,
                     Locked = x.Locked,
                     Number = x.Number,
                     Title = x.Title,
@@ -40,11 +40,8 @@
                     ViewerCanDelete = x.ViewerCanDelete,
                     ViewerDidAuthor = x.ViewerDidAuthor,
                     ViewerHasUpvoted = x.ViewerHasUpvoted,
-
                     AnswerChosenAt = x.AnswerChosenAt,
                     UpdatedAt = x.UpdatedAt,
-                    AnswerChosenAtHumanized = x.AnswerChosenAt.Humanize(null, null),
-                    UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
                 })
                 .Compile();
 

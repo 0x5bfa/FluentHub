@@ -2,13 +2,14 @@ namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
 
     /// <summary>
     /// Represents an author of discussions in repositories.
     /// </summary>
     public interface IRepositoryDiscussionAuthor
-    {
-        /// <summary>
+    {        /// <summary>
         /// Discussions this user has started.
         /// </summary>
         /// <param name="first">Returns the first _n_ elements from the list.</param>
@@ -26,11 +27,10 @@ namespace FluentHub.Octokit.Models.v4.Internal
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
 
-    internal class StubIRepositoryDiscussionAuthor
+    internal class RepositoryDiscussionAuthor : IRepositoryDiscussionAuthor
     {
-        
-
         public DiscussionConnection RepositoryDiscussions { get; set; }
     }
 }

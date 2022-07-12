@@ -2,13 +2,14 @@ namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
 
     /// <summary>
     /// Represents any entity on GitHub that has a profile page.
     /// </summary>
     public interface IProfileOwner
-    {
-        /// <summary>
+    {        /// <summary>
         /// Determine if this repository owner has any items that can be pinned to their profile.
         /// </summary>
         /// <param name="type">Filter to only a particular kind of pinnable item.</param>
@@ -82,11 +83,10 @@ namespace FluentHub.Octokit.Models.v4.Internal
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
 
-    internal class StubIProfileOwner
+    internal class ProfileOwner : IProfileOwner
     {
-        
-
         public bool AnyPinnableItems { get; set; }
 
         public string Email { get; set; }

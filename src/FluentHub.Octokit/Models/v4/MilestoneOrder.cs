@@ -7,8 +7,7 @@ namespace FluentHub.Octokit.Models.v4
     /// Ordering options for milestone connections.
     /// </summary>
     public class MilestoneOrder
-    {
-        /// <summary>
+    {        /// <summary>
         /// The field to order milestones by.
         /// </summary>
         public MilestoneOrderField Field { get; set; }

@@ -7,8 +7,7 @@ namespace FluentHub.Octokit.Models.v4
     /// The filters that are available when fetching check suites.
     /// </summary>
     public class CheckSuiteFilter
-    {
-        /// <summary>
+    {        /// <summary>
         /// Filters the check suites created by this application ID.
         /// </summary>
         public int? AppId { get; set; }

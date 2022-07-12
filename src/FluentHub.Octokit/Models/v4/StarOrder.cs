@@ -7,8 +7,7 @@ namespace FluentHub.Octokit.Models.v4
     /// Ways in which star connections can be ordered.
     /// </summary>
     public class StarOrder
-    {
-        /// <summary>
+    {        /// <summary>
         /// The field in which to order nodes by.
         /// </summary>
         public StarOrderField Field { get; set; }

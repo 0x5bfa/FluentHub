@@ -7,7 +7,8 @@
             var queryToGetFileInfo = new Query()
                 .Repository(name, owner)
                 .Object(expression: branch + ":" + path)
-                .Cast<OctokitGraphQLModel.Blob>().Select(x => new
+                .Cast<OctokitGraphQLModel.Blob>()
+                .Select(x => new
                 {
                     x.Text,
                     x.ByteSize,

@@ -2,13 +2,14 @@ namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
 
     /// <summary>
     /// Represents a comment.
     /// </summary>
     public interface IComment
-    {
-        /// <summary>
+    {        /// <summary>
         /// The actor who authored the comment.
         /// </summary>
         IActor Author { get; set; }
@@ -90,11 +91,10 @@ namespace FluentHub.Octokit.Models.v4.Internal
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
 
-    internal class StubIComment
+    internal class Comment : IComment
     {
-        
-
         public IActor Author { get; set; }
 
         public CommentAuthorAssociation AuthorAssociation { get; set; }

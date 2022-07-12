@@ -2,13 +2,14 @@ namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
 
     /// <summary>
     /// Recent projects for the owner.
     /// </summary>
     public interface IProjectV2Recent
-    {
-        /// <summary>
+    {        /// <summary>
         /// Recent projects that this user has modified in the context of the owner.
         /// </summary>
         /// <param name="first">Returns the first _n_ elements from the list.</param>
@@ -23,11 +24,10 @@ namespace FluentHub.Octokit.Models.v4.Internal
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
 
-    internal class StubIProjectV2Recent
+    internal class ProjectV2Recent : IProjectV2Recent
     {
-        
-
         public ProjectV2Connection RecentProjects { get; set; }
     }
 }

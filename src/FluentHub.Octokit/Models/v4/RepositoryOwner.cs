@@ -2,13 +2,14 @@ namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
 
     /// <summary>
     /// Represents an owner of a Repository.
     /// </summary>
     public interface IRepositoryOwner
-    {
-        /// <summary>
+    {        /// <summary>
         /// A URL pointing to the owner's public avatar.
         /// </summary>
         /// <param name="size">The size of the resulting square image.</param>
@@ -59,11 +60,10 @@ namespace FluentHub.Octokit.Models.v4.Internal
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
 
-    internal class StubIRepositoryOwner
+    internal class RepositoryOwner : IRepositoryOwner
     {
-        
-
         public string AvatarUrl { get; set; }
 
         public ID Id { get; set; }

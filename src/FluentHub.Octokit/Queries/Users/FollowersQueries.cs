@@ -15,7 +15,7 @@
                         Name = x.Name,
                         Bio = x.Bio,
                         Login = x.Login,
-                        IsOrganization = UserTypeDetectionHelper.IsOrganization(x.Id),
+                        Id = x.Id,
                     })
                     .Compile();
             #endregion

@@ -7,8 +7,7 @@ namespace FluentHub.Octokit.Models.v4
     /// Descriptive details about the check run.
     /// </summary>
     public class CheckRunOutput
-    {
-        /// <summary>
+    {        /// <summary>
         /// A title to provide for this check run.
         /// </summary>
         public string Title { get; set; }
@@ -26,11 +25,11 @@ namespace FluentHub.Octokit.Models.v4
         /// <summary>
         /// The annotations that are made as part of the check run.
         /// </summary>
-        public IEnumerable<CheckAnnotationData> Annotations { get; set; }
+        public List<CheckAnnotationData> Annotations { get; set; }
 
         /// <summary>
         /// Images attached to the check run output displayed in the GitHub pull request UI.
         /// </summary>
-        public IEnumerable<CheckRunOutputImage> Images { get; set; }
+        public List<CheckRunOutputImage> Images { get; set; }
     }
 }

@@ -2,13 +2,14 @@ namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
 
     /// <summary>
     /// Represents a subject that can be reacted on.
     /// </summary>
     public interface IReactable
-    {
-        /// <summary>
+    {        /// <summary>
         /// Identifies the primary key from the database.
         /// </summary>
         int? DatabaseId { get; set; }
@@ -18,7 +19,7 @@ namespace FluentHub.Octokit.Models.v4
         /// <summary>
         /// A list of reactions grouped by content left on the subject.
         /// </summary>
-        IQueryableList<ReactionGroup> ReactionGroups { get; set; }
+        List<ReactionGroup> ReactionGroups { get; set; }
 
         /// <summary>
         /// A list of Reactions left on the Issue.
@@ -42,16 +43,15 @@ namespace FluentHub.Octokit.Models.v4.Internal
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
 
-    internal class StubIReactable
+    internal class Reactable : IReactable
     {
-        
-
         public int? DatabaseId { get; set; }
 
         public ID Id { get; set; }
 
-        public IQueryableList<ReactionGroup> ReactionGroups { get; set; }
+        public List<ReactionGroup> ReactionGroups { get; set; }
 
         public ReactionConnection Reactions { get; set; }
 

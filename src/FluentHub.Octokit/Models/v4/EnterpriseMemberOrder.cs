@@ -7,8 +7,7 @@ namespace FluentHub.Octokit.Models.v4
     /// Ordering options for enterprise member connections.
     /// </summary>
     public class EnterpriseMemberOrder
-    {
-        /// <summary>
+    {        /// <summary>
         /// The field to order enterprise members by.
         /// </summary>
         public EnterpriseMemberOrderField Field { get; set; }

@@ -20,8 +20,7 @@ namespace FluentHub.Octokit.Models.v4
     ///     }
     /// </summary>
     public class CommittableBranch
-    {
-        /// <summary>
+    {        /// <summary>
         /// The Node ID of the Ref to be updated.
         /// </summary>
         public ID? Id { get; set; }

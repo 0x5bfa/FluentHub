@@ -7,8 +7,7 @@ namespace FluentHub.Octokit.Models.v4
     /// The values that can be used to update a field of an item inside a Project. Only 1 value can be updated at a time.
     /// </summary>
     public class ProjectV2FieldValue
-    {
-        /// <summary>
+    {        /// <summary>
         /// The text to set on the field.
         /// </summary>
         public string Text { get; set; }

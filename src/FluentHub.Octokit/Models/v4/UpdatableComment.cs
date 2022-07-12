@@ -2,16 +2,17 @@ namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
 
     /// <summary>
     /// Comments that can be updated.
     /// </summary>
     public interface IUpdatableComment
-    {
-        /// <summary>
+    {        /// <summary>
         /// Reasons why the current viewer can not update this comment.
         /// </summary>
-        IEnumerable<CommentCannotUpdateReason> ViewerCannotUpdateReasons { get; set; }
+        List<CommentCannotUpdateReason> ViewerCannotUpdateReasons { get; set; }
     }
 }
 
@@ -19,11 +20,10 @@ namespace FluentHub.Octokit.Models.v4.Internal
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
 
-    internal class StubIUpdatableComment
+    internal class UpdatableComment : IUpdatableComment
     {
-        
-
-        public IEnumerable<CommentCannotUpdateReason> ViewerCannotUpdateReasons { get; set; }
+        public List<CommentCannotUpdateReason> ViewerCannotUpdateReasons { get; set; }
     }
 }

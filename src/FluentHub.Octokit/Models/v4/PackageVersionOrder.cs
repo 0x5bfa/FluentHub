@@ -7,8 +7,7 @@ namespace FluentHub.Octokit.Models.v4
     /// Ways in which lists of package versions can be ordered upon return.
     /// </summary>
     public class PackageVersionOrder
-    {
-        /// <summary>
+    {        /// <summary>
         /// The field in which to order package versions by.
         /// </summary>
         public PackageVersionOrderField? Field { get; set; }

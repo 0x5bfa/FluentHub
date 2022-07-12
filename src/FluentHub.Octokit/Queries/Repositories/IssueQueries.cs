@@ -4,7 +4,11 @@
     {
         public async Task<List<Issue>> GetAllAsync(string name, string owner)
         {
-            OctokitGraphQLModel.IssueOrder order = new() { Direction = OctokitGraphQLModel.OrderDirection.Desc, Field = OctokitGraphQLModel.IssueOrderField.CreatedAt };
+            OctokitGraphQLModel.IssueOrder order = new()
+            {
+                Direction = OctokitGraphQLModel.OrderDirection.Desc,
+                Field = OctokitGraphQLModel.IssueOrderField.CreatedAt
+            };
 
             #region queries
             var query = new Query()
@@ -13,26 +17,40 @@
                 .Nodes
                 .Select(x => new Issue
                 {
-                    OwnerAvatarUrl = x.Repository.Owner.AvatarUrl(100),
-                    OwnerLogin = x.Repository.Owner.Login,
-                    Name = x.Repository.Name,
-                    Title = x.Title,
-
-                    Closed = x.Closed,
-
-                    Number = x.Number,
-                    CommentCount = x.Comments(null, null, null, null, null).TotalCount,
-
-                    Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new Label
+                    Repository = x.Repository.Select(repo => new Repository
                     {
-                        Color = y.Color,
-                        Description = y.Description,
-                        Name = y.Name,
-                    })
-                    .ToList(),
+                        Name = repo.Name,
 
+                        Owner = repo.Owner.Select(owner => new RepositoryOwner
+                        {
+                            AvatarUrl = owner.AvatarUrl(100),
+                            Id = owner.Id,
+                            Login = owner.Login,
+                        })
+                        .Single(),
+                    })
+                    .Single(),
+
+                    Comments = new()
+                    {
+                        TotalCount = x.Comments(null, null, null, null, null).TotalCount,
+                    },
+
+                    Labels = new()
+                    {
+                        Nodes = x.Labels(10, null, null, null, null).Nodes.Select(y => new Label
+                        {
+                            Color = y.Color,
+                            Description = y.Description,
+                            Name = y.Name,
+                        })
+                        .ToList(),
+                    },
+
+                    Title = x.Title,
+                    Closed = x.Closed,
+                    Number = x.Number,
                     UpdatedAt = x.UpdatedAt,
-                    UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
                 })
                 .Compile();
             #endregion
@@ -50,26 +68,41 @@
                 .Issue(number)
                 .Select(x => new Issue
                 {
-                    OwnerAvatarUrl = x.Repository.Owner.AvatarUrl(100),
-                    OwnerLogin = x.Repository.Owner.Login,
-                    Name = x.Repository.Name,
-                    Title = x.Title,
-
-                    Closed = x.Closed,
-
-                    Number = x.Number,
-                    CommentCount = x.Comments(null, null, null, null, null).TotalCount,
-
-                    Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new Label
+                    Repository = x.Repository.Select(repo => new Repository
                     {
-                        Color = y.Color,
-                        Description = y.Description,
-                        Name = y.Name,
+                        Name = repo.Name,
+
+                        Owner = repo.Owner.Select(owner => new RepositoryOwner
+                        {
+                            AvatarUrl = owner.AvatarUrl(100),
+                            Id = owner.Id,
+                            Login = owner.Login,
+                        })
+                        .Single(),
                     })
-                    .ToList(),
+                    .Single(),
+
+                    Title = x.Title,
+                    Closed = x.Closed,
+                    Number = x.Number,
+
+                    Comments = new()
+                    {
+                        TotalCount = x.Comments(null, null, null, null, null).TotalCount,
+                    },
+
+                    Labels = new()
+                    {
+                        Nodes = x.Labels(10, null, null, null, null).Nodes.Select(y => new Label
+                        {
+                            Color = y.Color,
+                            Description = y.Description,
+                            Name = y.Name,
+                        })
+                        .ToList(),
+                    },
 
                     UpdatedAt = x.UpdatedAt,
-                    UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
                 })
                 .Compile();
             #endregion
@@ -91,16 +124,19 @@
                         assignees.Login,
                         AvatarUrl = assignees.AvatarUrl(100),
                     }),
+
                     Labels = x.Labels(10, null, null, null, null).Nodes.Select(labels => new
                     {
                         labels.Name,
                         labels.Description,
                         labels.Color,
                     }),
+
                     Projects = x.ProjectCards(6, null, null, null, null).Nodes.Select(projects => new
                     {
                         projects.Note,
                     }),
+
                     x.Milestone,
                 })
                 .Compile();
@@ -126,12 +162,19 @@
                     })
                     .Single(),
 
-                    Reactions = x.Reactions(6, null, null, null, null, null).Nodes.Select(reaction => new Reaction
+                    Reactions = new()
                     {
-                        Content = reaction.Content,
-                        ReactorLogin = reaction.User.Login,
-                    })
-                    .ToList(),
+                        Nodes = x.Reactions(6, null, null, null, null, null).Nodes.Select(reaction => new Reaction
+                        {
+                            Content = (ReactionContent)reaction.Content,
+                            User = reaction.User.Select(user => new User
+                            {
+                                Login = user.Login,
+                            })
+                            .Single(),
+                        })
+                        .ToList(),
+                    },
 
                     AuthorAssociation = (CommentAuthorAssociation)x.AuthorAssociation,
                     Body = x.Body,
@@ -161,26 +204,41 @@
                 .Nodes
                 .Select(x => new Issue
                 {
-                    OwnerAvatarUrl = x.Repository.Owner.AvatarUrl(100),
-                    OwnerLogin = x.Repository.Owner.Login,
-                    Name = x.Repository.Name,
-                    Title = x.Issue.Title,
-
-                    Closed = x.Issue.Closed,
-
-                    Number = x.Issue.Number,
-                    CommentCount = x.Issue.Comments(null, null, null, null, null).TotalCount,
-
-                    Labels = x.Issue.Labels(10, null, null, null, null).Nodes.Select(y => new Label
+                    Repository = x.Repository.Select(repo => new Repository
                     {
-                        Color = y.Color,
-                        Description = y.Description,
-                        Name = y.Name,
+                        Name = repo.Name,
+
+                        Owner = repo.Owner.Select(owner => new RepositoryOwner
+                        {
+                            AvatarUrl = owner.AvatarUrl(100),
+                            Id = owner.Id,
+                            Login = owner.Login,
+                        })
+                        .Single(),
                     })
-                    .ToList(),
+                    .Single(),
+
+                    Title = x.Issue.Title,
+                    Closed = x.Issue.Closed,
+                    Number = x.Issue.Number,
+
+                    Comments = new()
+                    {
+                        TotalCount = x.Issue.Comments(null, null, null, null, null).TotalCount,
+                    },
+
+                    Labels = new()
+                    {
+                        Nodes = x.Issue.Labels(10, null, null, null, null).Nodes.Select(y => new Label
+                        {
+                            Color = y.Color,
+                            Description = y.Description,
+                            Name = y.Name,
+                        })
+                        .ToList(),
+                    },
 
                     UpdatedAt = x.Issue.UpdatedAt,
-                    UpdatedAtHumanized = x.Issue.UpdatedAt.Humanize(null, null),
                 })
                 .Compile();
             #endregion

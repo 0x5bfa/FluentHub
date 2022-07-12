@@ -2,13 +2,14 @@ namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
 
     /// <summary>
     /// Entities that can be sponsored through GitHub Sponsors
     /// </summary>
     public interface ISponsorable
-    {
-        /// <summary>
+    {        /// <summary>
         /// The estimated next GitHub Sponsors payout for this user/organization in cents (USD).
         /// </summary>
         int EstimatedNextSponsorsPayoutInCents { get; set; }
@@ -128,11 +129,10 @@ namespace FluentHub.Octokit.Models.v4.Internal
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
 
-    internal class StubISponsorable
+    internal class Sponsorable : ISponsorable
     {
-        
-
         public int EstimatedNextSponsorsPayoutInCents { get; set; }
 
         public bool HasSponsorsListing { get; set; }

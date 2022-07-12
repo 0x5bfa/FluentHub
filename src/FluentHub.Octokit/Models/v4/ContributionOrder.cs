@@ -7,8 +7,7 @@ namespace FluentHub.Octokit.Models.v4
     /// Ordering options for contribution connections.
     /// </summary>
     public class ContributionOrder
-    {
-        /// <summary>
+    {        /// <summary>
         /// The ordering direction.
         /// </summary>
         public OrderDirection Direction { get; set; }

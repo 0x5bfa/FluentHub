@@ -7,8 +7,7 @@ namespace FluentHub.Octokit.Models.v4
     /// Ordering options for repository invitation connections.
     /// </summary>
     public class RepositoryInvitationOrder
-    {
-        /// <summary>
+    {        /// <summary>
         /// The field to order repository invitations by.
         /// </summary>
         public RepositoryInvitationOrderField Field { get; set; }

@@ -7,8 +7,7 @@ namespace FluentHub.Octokit.Models.v4
     /// Ways in which to filter lists of issues.
     /// </summary>
     public class IssueFilters
-    {
-        /// <summary>
+    {        /// <summary>
         /// List issues assigned to given name. Pass in `null` for issues with no assigned user, and `*` for issues assigned to any user.
         /// </summary>
         public string Assignee { get; set; }
@@ -21,7 +20,7 @@ namespace FluentHub.Octokit.Models.v4
         /// <summary>
         /// List issues where the list of label names exist on the issue.
         /// </summary>
-        public IEnumerable<string> Labels { get; set; }
+        public List<string> Labels { get; set; }
 
         /// <summary>
         /// List issues where the given name is mentioned in the issue.
@@ -46,7 +45,7 @@ namespace FluentHub.Octokit.Models.v4
         /// <summary>
         /// List issues filtered by the list of states given.
         /// </summary>
-        public IEnumerable<IssueState> States { get; set; }
+        public List<IssueState> States { get; set; }
 
         /// <summary>
         /// List issues subscribed to by viewer.

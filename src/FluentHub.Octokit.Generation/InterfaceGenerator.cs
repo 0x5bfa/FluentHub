@@ -16,6 +16,8 @@ namespace FluentHub.Octokit.Generation
 {{
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
 
     {GenerateDocComments(type)}public interface {className}
     {{{GenerateFields(type)}
@@ -32,8 +34,6 @@ namespace FluentHub.Octokit.Generation
             if (type.Fields?.Count > 0)
             {
                 var first = true;
-
-                builder.AppendLine();
 
                 foreach (var field in type.Fields)
                 {
@@ -139,7 +139,6 @@ namespace FluentHub.Octokit.Generation
         {
             var name = TypeUtilities.PascalCase(field.Name);
             var csharpType = TypeUtilities.GetCSharpReturnType(type);
-            var arguments = GenerateArguments(field);
 
             return $"        {csharpType} {name} {{ get; set; }}";
         }
@@ -148,7 +147,6 @@ namespace FluentHub.Octokit.Generation
         {
             var name = TypeUtilities.PascalCase(field.Name);
             var typeName = TypeUtilities.GetCSharpReturnType(type);
-            var arguments = GenerateArguments(field);
 
             return $"        {typeName} {name} {{ get; set; }}";
         }
@@ -164,50 +162,14 @@ namespace FluentHub.Octokit.Generation
         {
             var name = TypeUtilities.PascalCase(field.Name);
             var typeName = TypeUtilities.GetCSharpReturnType(type);
-            var arguments = GenerateArguments(field);
 
             return $"        {typeName} {name} {{ get; set; }}";
-        }
-
-        private static string GenerateArguments(FieldModel field)
-        {
-            var argBuilder = new StringBuilder();
-            var paramBuilder = new StringBuilder();
-            var first = true;
-
-            foreach (var arg in BuildUtilities.SortArgs(field.Args))
-            {
-                if (!first)
-                {
-                    argBuilder.Append(", ");
-                    paramBuilder.Append(", ");
-                }
-
-                var argName = TypeUtilities.GetArgName(arg);
-                argBuilder.Append(TypeUtilities.GetWrappedArgType(arg.Type));
-                argBuilder.Append(' ');
-                argBuilder.Append(argName);
-                paramBuilder.Append(argName);
-
-                if (arg.Type.Kind != TypeKind.NonNull)
-                {
-                    argBuilder.Append(" = null");
-                }
-                else if (arg.DefaultValue != null)
-                {
-                    throw new Exception("Encountered default value for non-null type.");
-                }
-
-                first = false;
-            }
-
-            return argBuilder.ToString();
         }
 
         private static string GenerateStub(TypeModel type, string entityNamespace, string queryType)
         {
             var stubType = type.Clone();
-            stubType.Name = "Stub" + TypeUtilities.GetInterfaceName(type);
+            stubType.Name = TypeUtilities.GetInterfaceName(type).TrimStart('I'); // impl
             stubType.Kind = TypeKind.Object;
             stubType.Interfaces = new[] { type };
             return EntityGenerator.Generate(stubType, entityNamespace + ".Internal", queryType, entityNamespace: entityNamespace, modifiers: "internal ", generateDocComments: false);

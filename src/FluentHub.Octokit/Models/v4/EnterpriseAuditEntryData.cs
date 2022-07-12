@@ -2,13 +2,14 @@ namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
 
     /// <summary>
     /// Metadata for an audit entry containing enterprise account information.
     /// </summary>
     public interface IEnterpriseAuditEntryData
-    {
-        /// <summary>
+    {        /// <summary>
         /// The HTTP path for this enterprise.
         /// </summary>
         string EnterpriseResourcePath { get; set; }
@@ -29,11 +30,10 @@ namespace FluentHub.Octokit.Models.v4.Internal
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
 
-    internal class StubIEnterpriseAuditEntryData
+    internal class EnterpriseAuditEntryData : IEnterpriseAuditEntryData
     {
-        
-
         public string EnterpriseResourcePath { get; set; }
 
         public string EnterpriseSlug { get; set; }

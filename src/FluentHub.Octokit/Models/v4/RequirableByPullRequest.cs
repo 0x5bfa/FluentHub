@@ -2,13 +2,14 @@ namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
 
     /// <summary>
     /// Represents a type that can be required by a pull request for merging.
     /// </summary>
     public interface IRequirableByPullRequest
-    {
-        /// <summary>
+    {        /// <summary>
         /// Whether this is required to pass before merging for a specific pull request.
         /// </summary>
         /// <param name="pullRequestId">The id of the pull request this is required for</param>
@@ -21,11 +22,10 @@ namespace FluentHub.Octokit.Models.v4.Internal
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
 
-    internal class StubIRequirableByPullRequest
+    internal class RequirableByPullRequest : IRequirableByPullRequest
     {
-        
-
         public bool IsRequired { get; set; }
     }
 }

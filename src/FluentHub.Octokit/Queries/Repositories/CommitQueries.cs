@@ -8,26 +8,45 @@
 
             #region query
             var query = new Query()
-                    .Repository(name, owner)
-                    .Ref(refs)
-                    .Target
-                    .Cast<OctokitGraphQLModel.Commit>()
-                    .History(first: 30, path: path)
-                    .Nodes
-                    .Select(x => new Commit
+                .Repository(name, owner)
+                .Ref(refs)
+                .Target
+                .Cast<OctokitGraphQLModel.Commit>()
+                .History(first: 30, path: path)
+                .Nodes
+                .Select(x => new Commit
+                {
+                    AbbreviatedOid = x.AbbreviatedOid,
+                    Oid = x.Oid,
+                    CommittedDate = x.CommittedDate,
+                    Message = x.Message,
+                    MessageHeadline = x.MessageHeadline,
+
+                    Repository = x.Repository.Select(repo => new Repository
                     {
-                        Owner = x.Repository.Owner.Login,
-                        Name = x.Repository.Name,
-                        Refs = refs,
-                        AbbreviatedOid = x.AbbreviatedOid,
-                        Oid = x.Oid,
-                        AuthorAvatarUrl = x.Author.AvatarUrl(100),
-                        AuthorName = x.Author.User.Login,
-                        CommittedAt = x.CommittedDate,
-                        CommitMessage = x.Message,
-                        CommitMessageHeadline = x.MessageHeadline,
+                        Name = repo.Name,
+                        Owner = repo.Owner.Select(owner => new RepositoryOwner
+                        {
+                            Login = owner.Login,
+                        })
+                        .Single(),
                     })
-                    .Compile();
+                    .Single(),
+
+                    //Refs = refs,
+
+                    Author = x.Author.Select(author => new GitActor
+                    {
+                        AvatarUrl = author.AvatarUrl(100),
+                        User = author.User.Select(user => new User
+                        {
+                            Login = user.Login,
+                        })
+                        .Single(),
+                    })
+                    .Single(),
+                })
+                .Compile();
             #endregion
 
             var response = await App.Connection.Run(query);
@@ -45,16 +64,25 @@
                     .Nodes
                     .Select(x => x.Commit.Select(y => new Commit
                     {
-                        Owner = owner,
-                        Name = name,
-                        PullRequestNumber = number,
+                        //Owner = owner,
+                        //Name = name,
+                        //PullRequestNumber = number,
+
                         AbbreviatedOid = y.AbbreviatedOid,
                         Oid = y.Oid,
-                        AuthorAvatarUrl = y.Author.AvatarUrl(100),
-                        AuthorName = y.Author.User.Login,
-                        CommittedAt = y.CommittedDate,
-                        CommitMessage = y.Message,
-                        CommitMessageHeadline = y.MessageHeadline,
+                        Author = new()
+                        {
+                            AvatarUrl = y.Author.AvatarUrl(100),
+                            User = y.Author.User.Select(user => new User
+                            {
+                                Login = user.Login,
+                            })
+                            .Single(),
+                        },
+
+                        CommittedDate = y.CommittedDate,
+                        Message = y.Message,
+                        MessageHeadline = y.MessageHeadline,
                     })
                     .Single())
                     .Compile();
@@ -82,12 +110,18 @@
                         {
                             AbbreviatedOid = y.AbbreviatedOid,
                             Oid =y.Oid,
-                            AuthorAvatarUrl = y.Author.Select(author => author.AvatarUrl(100)).SingleOrDefault(),
-                            AuthorName = y.Author.Select(author => author.User.Select(user => user.Login).SingleOrDefault()).SingleOrDefault(),
-                            CommitMessage = y.Message,
+                            Author = new()
+                            {
+                                AvatarUrl = y.Author.AvatarUrl(100),
+                                User = y.Author.User.Select(user => new User
+                                {
+                                    Login = user.Login,
+                                })
+                            .Single(),
+                            },
+                            Message = y.Message,
 
-                            CommittedAt = y.CommittedDate,
-                            CommittedAtHumanized = y.CommittedDate.Humanize(null, null),
+                            CommittedDate = y.CommittedDate,
                         })
                         .ToList().FirstOrDefault(),
 
@@ -98,7 +132,7 @@
 
             var response = await App.Connection.Run(query);
 
-            response.Commit.TotalCount = response.TotalCount;
+            //response.Commit.TotalCount = response.TotalCount;
 
             return response.Commit;
         }
@@ -111,11 +145,11 @@
                 .Object(expression: refs + ":" + path)
                 .Cast<OctokitGraphQLModel.Tree>()
                 .Entries
-                .Select(x => new
+                .Select(x => new TreeEntry
                 {
-                    x.Name,
-                    x.Path,
-                    x.Type,
+                    Name = x.Name,
+                    Path = x.Path,
+                    Type = x.Type,
                 })
                 .Compile();
             #endregion
@@ -137,16 +171,22 @@
                     {
                         Commit = x.Nodes.Select(y => new Commit
                         {
-                            FileName = res1.Name,
-                            FilePath = res1.Path,
-                            ObjectType = res1.Type,
+                            //Name = res1.Name,
+                            //Path = res1.Path,
+                            //Type = res1.Type,
                             AbbreviatedOid = y.AbbreviatedOid,
-                            AuthorAvatarUrl = y.Author.AvatarUrl(100),
-                            AuthorName = y.Author.Name,
-                            CommitMessage = y.Message,
+                            Author = new()
+                            {
+                                AvatarUrl = y.Author.AvatarUrl(100),
+                                User = y.Author.User.Select(user => new User
+                                {
+                                    Login = user.Login,
+                                })
+                            .Single(),
+                            },
+                            Message = y.Message,
 
-                            CommittedAt = y.CommittedDate,
-                            CommittedAtHumanized = y.CommittedDate.Humanize(null, null),
+                            CommittedDate = y.CommittedDate,
                         })
                         .ToList()
                         .FirstOrDefault(),
@@ -158,7 +198,7 @@
 
                 var response2 = await App.Connection.Run(commitQuery);
 
-                response2.Commit.TotalCount = response2.TotalCount;
+                //response2.Commit.TotalCount = response2.TotalCount;
 
                 items.Add(response2.Commit);
             }

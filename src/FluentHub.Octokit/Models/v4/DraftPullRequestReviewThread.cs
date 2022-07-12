@@ -7,8 +7,7 @@ namespace FluentHub.Octokit.Models.v4
     /// Specifies a review comment thread to be left with a Pull Request Review.
     /// </summary>
     public class DraftPullRequestReviewThread
-    {
-        /// <summary>
+    {        /// <summary>
         /// Path to the file being commented on.
         /// </summary>
         public string Path { get; set; }

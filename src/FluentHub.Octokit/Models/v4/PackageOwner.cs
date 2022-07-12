@@ -2,13 +2,14 @@ namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
 
     /// <summary>
     /// Represents an owner of a package.
     /// </summary>
     public interface IPackageOwner
-    {
-        ID Id { get; set; }
+    {        ID Id { get; set; }
 
         /// <summary>
         /// A list of packages under the owner.
@@ -29,11 +30,10 @@ namespace FluentHub.Octokit.Models.v4.Internal
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
 
-    internal class StubIPackageOwner
+    internal class PackageOwner : IPackageOwner
     {
-        
-
         public ID Id { get; set; }
 
         public PackageConnection Packages { get; set; }

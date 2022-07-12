@@ -7,8 +7,7 @@ namespace FluentHub.Octokit.Models.v4
     /// Ways in which lists of projects can be ordered upon return.
     /// </summary>
     public class ProjectOrder
-    {
-        /// <summary>
+    {        /// <summary>
         /// The field in which to order projects by.
         /// </summary>
         public ProjectOrderField Field { get; set; }

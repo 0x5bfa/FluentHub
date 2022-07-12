@@ -97,15 +97,14 @@ namespace FluentHub.Octokit.Models.v4
     ///        }
     /// </summary>
     public class FileChanges
-    {
-        /// <summary>
+    {        /// <summary>
         /// Files to delete.
         /// </summary>
-        public IEnumerable<FileDeletion> Deletions { get; set; }
+        public List<FileDeletion> Deletions { get; set; }
 
         /// <summary>
         /// File to add or change.
         /// </summary>
-        public IEnumerable<FileAddition> Additions { get; set; }
+        public List<FileAddition> Additions { get; set; }
     }
 }

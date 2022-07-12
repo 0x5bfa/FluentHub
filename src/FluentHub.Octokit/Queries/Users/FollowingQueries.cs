@@ -2,7 +2,7 @@
 {
     public class FollowingQueries
     {
-        public async Task<List<Models.User>> GetAllAsync(string login)
+        public async Task<List<User>> GetAllAsync(string login)
         {
             #region query
             var query = new Query()
@@ -15,7 +15,7 @@
                         Name = x.Name,
                         Bio = x.Bio,
                         Login = x.Login,
-                        IsOrganization = UserTypeDetectionHelper.IsOrganization(x.Id),
+                        Id = x.Id,
                     })
                     .Compile();
             #endregion

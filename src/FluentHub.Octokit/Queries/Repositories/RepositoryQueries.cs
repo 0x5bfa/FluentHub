@@ -4,47 +4,61 @@
     {
         public async Task<Repository> GetAsync(string owner, string name)
         {
-            OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.IssueState>> issueState = new(new OctokitGraphQLModel.IssueState[] { OctokitGraphQLModel.IssueState.Open });
-            OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.PullRequestState>> pullRequestState = new(new OctokitGraphQLModel.PullRequestState[] { OctokitGraphQLModel.PullRequestState.Open });
+            OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.IssueState>> issueState =
+                new(new OctokitGraphQLModel.IssueState[] {
+                    OctokitGraphQLModel.IssueState.Open
+                });
+            OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.PullRequestState>> pullRequestState =
+                new(new OctokitGraphQLModel.PullRequestState[] {
+                    OctokitGraphQLModel.PullRequestState.Open
+                });
 
             #region query
             var query = new Query()
-                    .Repository(name, owner)
-                    .Select(x => new Repository
+                .Repository(name, owner)
+                .Select(x => new Repository
+                {
+                    Name = x.Name,
+                    Description = x.Description,
+                    StargazerCount = x.StargazerCount,
+                    ForkCount = x.ForkCount,
+                    IsFork = x.IsFork,
+                    IsInOrganization = x.IsInOrganization,
+                    ViewerHasStarred = x.ViewerHasStarred,
+                    UpdatedAt = x.UpdatedAt,
+
+                    LicenseInfo = x.LicenseInfo.Select(licenseInfo => new License
                     {
-                        Name = x.Name,
-                        Description = x.Description,
-                        LicenseName = x.LicenseInfo.Select(y => y.Name).SingleOrDefault(),
-
-                        StargazerCount = x.StargazerCount,
-                        ForkCount = x.ForkCount,
-                        OpenIssueCount = x.Issues(null, null, null, null, null, null, null, issueState).TotalCount,
-                        OpenPullCount = x.PullRequests(null, null, null, null, null, null, null, null, pullRequestState).TotalCount,
-
-                        IsFork = x.IsFork,
-                        IsPrivate = x.IsPrivate,
-                        IsInOrganization = x.IsInOrganization,
-                        ViewerHasStarred = x.ViewerHasStarred,
-
-                        UpdatedAt = x.UpdatedAt,
-                        UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
-
-                        Owner = x.Owner.Select(owner => new RepositoryOwner
-                        {
-                            AvatarUrl = owner.AvatarUrl(100),
-                            Id = owner.Id.ToString(),
-                            Login = owner.Login,
-                        })
-                        .Single(),
-
-                        PrimaryLanguage = x.PrimaryLanguage.Select(y => new Language
-                        {
-                            Name = y.Name,
-                            Color = y.Color,
-                        })
-                        .SingleOrDefault(),
+                        Name = licenseInfo.Name,
                     })
-                    .Compile();
+                    .SingleOrDefault(),
+
+                    Issues = new()
+                    {
+                        TotalCount = x.Issues(null, null, null, null, null, null, null, issueState).TotalCount
+                    },
+
+                    PullRequests = new()
+                    {
+                        TotalCount = x.PullRequests(null, null, null, null, null, null, null, null, pullRequestState).TotalCount
+                    },
+
+                    Owner = x.Owner.Select(owner => new RepositoryOwner
+                    {
+                        AvatarUrl = owner.AvatarUrl(100),
+                        Id = owner.Id,
+                        Login = owner.Login,
+                    })
+                    .Single(),
+
+                    PrimaryLanguage = x.PrimaryLanguage.Select(y => new Language
+                    {
+                        Name = y.Name,
+                        Color = y.Color,
+                    })
+                    .SingleOrDefault(),
+                })
+                .Compile();
             #endregion
 
             var response = await App.Connection.Run(query);
@@ -54,66 +68,114 @@
 
         public async Task<Repository> GetDetailsAsync(string owner, string name)
         {
-            OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.IssueState>> issueState = new(new OctokitGraphQLModel.IssueState[] { OctokitGraphQLModel.IssueState.Open });
-            OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.PullRequestState>> pullRequestState = new(new OctokitGraphQLModel.PullRequestState[] { OctokitGraphQLModel.PullRequestState.Open });
+            OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.IssueState>> issueState =
+                new(new OctokitGraphQLModel.IssueState[] {
+                    OctokitGraphQLModel.IssueState.Open
+                });
+            OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.PullRequestState>> pullRequestState =
+                new(new OctokitGraphQLModel.PullRequestState[] {
+                    OctokitGraphQLModel.PullRequestState.Open
+                });
 
             var query = new Query()
-                    .Repository(owner: owner, name: name)
-                    .Select(x => new Repository
-                    {
-                        HomepageUrl = x.HomepageUrl,
-                        ForkingAllowed = x.ForkingAllowed,
-                        HasIssuesEnabled = x.HasIssuesEnabled,
-                        HasProjectsEnabled = x.HasProjectsEnabled,
-                        IsArchived = x.IsArchived,
-                        IsPrivate = x.IsPrivate,
-                        IsTemplate = x.IsTemplate,
-                        ViewerSubscription = x.ViewerSubscription,
-                        Name = x.Name,
-                        Description = x.Description,
-                        StargazerCount = x.StargazerCount,
-                        ForkCount = x.ForkCount,
-                        IsFork = x.IsFork,
-                        IsInOrganization = x.IsInOrganization,
-                        ViewerHasStarred = x.ViewerHasStarred,
-                        UpdatedAt = x.UpdatedAt,
-                        UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
-                        LicenseName = x.LicenseInfo.Select(y => y.Name).SingleOrDefault(),
-                        DefaultBranchName = x.DefaultBranchRef.Select(defaultbranchref => defaultbranchref.Name).SingleOrDefault(),
-                        WatcherCount = x.Watchers(null, null, null, null).TotalCount,
-                        HeadRefsCount = x.Refs("refs/heads/", null, null, null, null, null, null, null).TotalCount,
-                        TagCount = x.Refs("refs/tags/", null, null, null, null, null, null, null).TotalCount,
-                        ReleaseCount = x.Releases(null, null, null, null, null).TotalCount,
-                        OpenIssueCount = x.Issues(null, null, null, null, null, null, null, issueState).TotalCount,
-                        OpenPullCount = x.PullRequests(null, null, null, null, null, null, null, null, pullRequestState).TotalCount,
+                .Repository(owner: owner, name: name)
+                .Select(x => new Repository
+                {
+                    HomepageUrl = x.HomepageUrl,
+                    ForkingAllowed = x.ForkingAllowed,
+                    HasIssuesEnabled = x.HasIssuesEnabled,
+                    HasProjectsEnabled = x.HasProjectsEnabled,
+                    IsArchived = x.IsArchived,
+                    IsPrivate = x.IsPrivate,
+                    IsTemplate = x.IsTemplate,
+                    ViewerSubscription = (SubscriptionState)x.ViewerSubscription,
+                    Name = x.Name,
+                    Description = x.Description,
+                    StargazerCount = x.StargazerCount,
+                    ForkCount = x.ForkCount,
+                    IsFork = x.IsFork,
+                    IsInOrganization = x.IsInOrganization,
+                    ViewerHasStarred = x.ViewerHasStarred,
+                    UpdatedAt = x.UpdatedAt,
 
-                        Owner = x.Owner.Select(owner => new RepositoryOwner
+                    LicenseInfo = x.LicenseInfo.Select(licenseInfo => new License
+                    {
+                        Name = licenseInfo.Name,
+                    })
+                    .SingleOrDefault(),
+
+                    DefaultBranchRef = new()
+                    {
+                        Name = x.DefaultBranchRef.Select(defaultbranchref => defaultbranchref.Name).SingleOrDefault(),
+                    },
+
+                    Watchers = new()
+                    {
+                        TotalCount = x.Watchers(null, null, null, null).TotalCount,
+                    },
+
+                    Releases = new()
+                    {
+                        TotalCount = x.Releases(null, null, null, null, null).TotalCount,
+                    },
+
+                    Issues = new()
+                    {
+                        TotalCount = x.Issues(null, null, null, null, null, null, null, issueState).TotalCount
+                    },
+
+                    PullRequests = new()
+                    {
+                        TotalCount = x.PullRequests(null, null, null, null, null, null, null, null, pullRequestState).TotalCount
+                    },
+
+                    Owner = x.Owner.Select(owner => new RepositoryOwner
+                    {
+                        AvatarUrl = owner.AvatarUrl(100),
+                        Id = owner.Id,
+                        Login = owner.Login,
+                    })
+                    .Single(),
+
+                    LatestRelease = x.Releases(null, null, 1, null, null).Nodes.Select(release => new Release
+                    {
+                        DescriptionHTML = release.DescriptionHTML,
+                        IsDraft = release.IsDraft,
+                        IsLatest = release.IsLatest,
+                        IsPrerelease = release.IsPrerelease,
+                        Name = release.Name,
+                        PublishedAt = release.PublishedAt,
+
+                        Author = release.Author.Select(author => new User
                         {
-                            AvatarUrl = owner.AvatarUrl(100),
-                            Id = owner.Id.ToString(),
-                            Login = owner.Login,
+                            Login = author.Login,
+                            AvatarUrl = author.AvatarUrl(100),
                         })
                         .Single(),
-
-                        LatestRelease = x.Releases(null, null, 1, null, null).Nodes.Select(release => new Release
-                        {
-                            AuthorLogin = release.Author.Login,
-                            AuthorAvatarUrl = release.Author.AvatarUrl(100),
-                            DescriptionHTML = release.DescriptionHTML,
-                            IsDraft = release.IsDraft,
-                            IsLatest = release.IsLatest,
-                            IsPrerelease = release.IsPrerelease,
-                            Name = release.Name,
-                            PublishedAt = release.PublishedAt,
-                            PublishedAtHumanized = release.PublishedAt.Humanize(null, null),
-                        })
-                        .ToList().FirstOrDefault(),
                     })
-                    .Compile();
+                    .ToList().FirstOrDefault(),
+                })
+                .Compile();
 
             var response = await App.Connection.Run(query);
 
             return response;
+        }
+
+        public async Task<(int, int)> GetBranchAndTagCountAsync(string owner, string name)
+        {
+            var query = new Query()
+                .Repository(owner: owner, name: name)
+                .Select(x => new
+                {
+                    HeadRefsCount = x.Refs("refs/heads/", null, null, null, null, null, null, null).TotalCount,
+                    TagCount = x.Refs("refs/tags/", null, null, null, null, null, null, null).TotalCount,
+                })
+                .Compile();
+
+            var response = await App.Connection.Run(query);
+
+            return (response.HeadRefsCount, response.TagCount);
         }
 
         public async Task<List<string>> GetBranchNameAllAsync(string owner, string name)

@@ -2,13 +2,14 @@ namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
 
     /// <summary>
     /// A subset of repository info.
     /// </summary>
     public interface IRepositoryInfo
-    {
-        /// <summary>
+    {        /// <summary>
         /// Identifies the date and time when the object was created.
         /// </summary>
         DateTimeOffset CreatedAt { get; set; }
@@ -160,11 +161,10 @@ namespace FluentHub.Octokit.Models.v4.Internal
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
 
-    internal class StubIRepositoryInfo
+    internal class RepositoryInfo : IRepositoryInfo
     {
-        
-
         public DateTimeOffset CreatedAt { get; set; }
 
         public string Description { get; set; }

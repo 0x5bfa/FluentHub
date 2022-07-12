@@ -1,4 +1,5 @@
-﻿using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
+﻿using FluentHub.Octokit.Models.v3;
+using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
 using System.Collections.ObjectModel;
 
 namespace FluentHub.Uwp.ViewModels.UserControls.Blocks

@@ -12,19 +12,16 @@
                 {
                     Body = x.Body,
                     Closed = x.Closed,
-                    Id = x.Id.ToString(),
+                    Id = x.Id,
                     Name = x.Name,
                     Number = x.Number,
-                    State = x.State,
+                    State = (ProjectState)x.State,
                     Url = x.Url,
                     ViewerCanUpdate = x.ViewerCanUpdate,
 
                     ClosedAt = x.ClosedAt,
-                    ClosedAtHumanized = x.ClosedAt.Humanize(null, null),
                     CreatedAt = x.CreatedAt,
-                    CreatedAtHumanized = x.CreatedAt.Humanize(null, null),
                     UpdatedAt = x.UpdatedAt,
-                    UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
 
                     Progress = x.Progress.Select(y => new ProjectProgress
                     {
@@ -35,20 +32,6 @@
                         InProgressPercentage = y.InProgressPercentage,
                         TodoCount = y.TodoCount,
                         TodoPercentage = y.TodoPercentage,
-                    })
-                    .Single(),
-
-                    Repository = x.Owner.Cast<OctokitGraphQLModel.Repository>().Select(repo => new Repository
-                    {
-                        Name = repo.Name,
-
-                        Owner = repo.Owner.Select(owner => new RepositoryOwner
-                        {
-                            AvatarUrl = owner.AvatarUrl(100),
-                            Id = owner.Id.ToString(),
-                            Login = owner.Login,
-                        })
-                        .Single(),
                     })
                     .Single(),
                 })
@@ -68,19 +51,16 @@
                 {
                     Body = x.Body,
                     Closed = x.Closed,
-                    Id = x.Id.ToString(),
+                    Id = x.Id,
                     Name = x.Name,
                     Number = x.Number,
-                    State = x.State,
+                    State = (ProjectState)x.State,
                     Url = x.Url,
                     ViewerCanUpdate = x.ViewerCanUpdate,
 
                     ClosedAt = x.ClosedAt,
-                    ClosedAtHumanized = x.ClosedAt.Humanize(null, null),
                     CreatedAt = x.CreatedAt,
-                    CreatedAtHumanized = x.CreatedAt.Humanize(null, null),
                     UpdatedAt = x.UpdatedAt,
-                    UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
 
                     Progress = x.Progress.Select(y => new ProjectProgress
                     {
@@ -91,20 +71,6 @@
                         InProgressPercentage = y.InProgressPercentage,
                         TodoCount = y.TodoCount,
                         TodoPercentage = y.TodoPercentage,
-                    })
-                    .Single(),
-
-                    Repository = x.Owner.Cast<OctokitGraphQLModel.Repository>().Select(repo => new Repository
-                    {
-                        Name = repo.Name,
-
-                        Owner = repo.Owner.Select(owner => new RepositoryOwner
-                        {
-                            AvatarUrl = owner.AvatarUrl(100),
-                            Id = owner.Id.ToString(),
-                            Login = owner.Login,
-                        })
-                        .Single(),
                     })
                     .Single(),
                 })

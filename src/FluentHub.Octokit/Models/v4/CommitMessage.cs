@@ -7,8 +7,7 @@ namespace FluentHub.Octokit.Models.v4
     /// A message to include with a new commit
     /// </summary>
     public class CommitMessage
-    {
-        /// <summary>
+    {        /// <summary>
         /// The headline of the message.
         /// </summary>
         public string Headline { get; set; }

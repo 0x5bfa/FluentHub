@@ -2,13 +2,14 @@ namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
+    using System.Linq.Expressions;
 
     /// <summary>
     /// An individual line of a hovercard
     /// </summary>
     public interface IHovercardContext
-    {
-        /// <summary>
+    {        /// <summary>
         /// A string describing this context
         /// </summary>
         string Message { get; set; }
@@ -24,11 +25,10 @@ namespace FluentHub.Octokit.Models.v4.Internal
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
 
-    internal class StubIHovercardContext
+    internal class HovercardContext : IHovercardContext
     {
-        
-
         public string Message { get; set; }
 
         public string Octicon { get; set; }

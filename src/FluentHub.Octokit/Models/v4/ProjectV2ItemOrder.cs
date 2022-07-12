@@ -7,8 +7,7 @@ namespace FluentHub.Octokit.Models.v4
     /// Ordering options for project v2 item connections
     /// </summary>
     public class ProjectV2ItemOrder
-    {
-        /// <summary>
+    {        /// <summary>
         /// The field to order the project v2 items by.
         /// </summary>
         public ProjectV2ItemOrderField Field { get; set; }

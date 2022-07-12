@@ -25,10 +25,10 @@ namespace FluentHub.Octokit.Generation
 {{
     using System;
     using System.Collections.Generic;
+    using System.Linq.Expressions;
 
-    {GenerateDocComments(type, generateDocComments)}{modifiers}class {className}
-    {{
-        {GenerateFields(type, generateDocComments, rootNamespace, entityNamespace, queryType, pagingConnectionNodeType != null)}
+    {GenerateDocComments(type, generateDocComments)}{modifiers}class {className}{GenerateImplementedInterfaces(type, pagingConnectionNodeType)}
+    {{{GenerateFields(type, generateDocComments, rootNamespace, entityNamespace, queryType, pagingConnectionNodeType != null)}
     }}
 }}";
         }
@@ -43,11 +43,11 @@ namespace FluentHub.Octokit.Generation
             return $@"namespace {rootNamespace}
 {{
     using System;
-    using System.Collections.Generic;{includeEntities}
+    using System.Collections.Generic;
+    using System.Linq.Expressions;
 
     {GenerateDocComments(type, true)}public class {className} : {interfaceName}
-    {{
-        {GenerateFields(type, true, rootNamespace, entityNamespace, queryType, false)}
+    {{{GenerateFields(type, true, rootNamespace, entityNamespace, queryType, false)}
     }}
 }}";
         }
@@ -59,8 +59,6 @@ namespace FluentHub.Octokit.Generation
 
             if (type.Fields?.Count > 0)
             {
-                builder.AppendLine();
-
                 foreach (var field in type.Fields)
                 {
                     if (!first)
@@ -73,17 +71,6 @@ namespace FluentHub.Octokit.Generation
 
                     first = false;
                 }
-            }
-
-            if (isPagingConnection)
-            {
-                if (!first)
-                {
-                    builder.AppendLine();
-                }
-
-                builder.AppendLine();
-                builder.Append($"        IPageInfo IPagingConnection.PageInfo => PageInfo;");
             }
 
             return builder.ToString();
@@ -179,6 +166,7 @@ namespace FluentHub.Octokit.Generation
 
             var name = TypeUtilities.PascalCase(field.Name);
             var typeName = TypeUtilities.GetCSharpReturnType(type);
+
             return $"{obsoleteAttribute}        public {typeName} {name} {{ get; set; }}";
         }
 
@@ -190,7 +178,7 @@ namespace FluentHub.Octokit.Generation
 
             var name = TypeUtilities.PascalCase(field.Name);
             var typeName = TypeUtilities.GetCSharpReturnType(type);
-            var implName = GetEntityImplementationName(type,(typeName != queryType) ? entityNamespace : rootNamespace);
+
             return $"{obsoleteAttribute}        public {typeName} {name} {{ get; set; }}";
         }
 
@@ -203,8 +191,6 @@ namespace FluentHub.Octokit.Generation
             var name = TypeUtilities.PascalCase(field.Name);
             var csharpType = TypeUtilities.GetCSharpReturnType(type);
 
-            GenerateArguments(field, out string arguments, out string parameters);
-
             return $"{obsoleteAttribute}        public {csharpType} {name} {{ get; set; }}";
         }
 
@@ -212,9 +198,6 @@ namespace FluentHub.Octokit.Generation
         {
             var name = TypeUtilities.PascalCase(field.Name);
             var typeName = TypeUtilities.GetCSharpReturnType(type);
-            var implName = GetEntityImplementationName(type, entityNamespace);
-
-            GenerateArguments(field, out string arguments, out string parameters);
 
             return $"        public {typeName} {name} {{ get; set; }}";
         }
@@ -227,9 +210,6 @@ namespace FluentHub.Octokit.Generation
 
             var name = TypeUtilities.PascalCase(field.Name);
             var typeName = TypeUtilities.GetCSharpReturnType(type);
-            var getter = TypeUtilities.IsCSharpPrimitive(type.OfType) ?
-                "{ get; }" :
-                $"=> this.CreateProperty(x => x.{name});";
 
             return $"{obsoleteAttribute}        public {typeName} {name} {{ get; set; }}";
         }
@@ -239,70 +219,30 @@ namespace FluentHub.Octokit.Generation
             var name = TypeUtilities.PascalCase(field.Name);
             var typeName = TypeUtilities.GetCSharpReturnType(type);
 
-            GenerateArguments(field, out string arguments, out string parameters);
-
             return $"        public {typeName} {name} {{ get; set; }}";
-        }
-
-        private static void GenerateArguments(FieldModel field, out string arguments, out string parameters)
-        {
-            var argBuilder = new StringBuilder();
-            var paramBuilder = new StringBuilder();
-            var first = true;
-
-            foreach (var arg in BuildUtilities.SortArgs(field.Args))
-            {
-                if (!first)
-                {
-                    argBuilder.Append(", ");
-                    paramBuilder.Append(", ");
-                }
-
-                var argName = TypeUtilities.GetArgName(arg);
-                argBuilder
-                    .Append(TypeUtilities.GetWrappedArgType(arg.Type))
-                    .Append(' ')
-                    .Append(argName);
-                paramBuilder.Append(argName);
-
-                if (arg.Type.Kind != TypeKind.NonNull)
-                {
-                    argBuilder.Append(" = null");
-                }
-                else if (arg.DefaultValue != null)
-                {
-                    throw new Exception("Encountered default value for non-null type.");
-                }
-
-                first = false;
-            }
-
-            arguments = argBuilder.ToString();
-            parameters = paramBuilder.ToString();
         }
 
         private static string GenerateImplementedInterfaces(TypeModel type, TypeModel pagingConnectionNodeType)
         {
+            int numOfInterface = 0;
+
             var builder = new StringBuilder();
-
-            if (type.Name == "PageInfo")
-            {
-                builder.Append(", IPageInfo");
-            }
-
-            if (pagingConnectionNodeType != null)
-            {
-                builder.Append(", IPagingConnection<");
-                builder.Append(pagingConnectionNodeType.Name);
-                builder.Append('>');
-            }
 
             if (type.Interfaces != null)
             {
                 foreach (var iface in type.Interfaces)
                 {
-                    builder.Append(", ");
+                    if (numOfInterface == 0)
+                    {
+                        builder.Append(" : ");
+                    }
+                    else
+                    {
+                        builder.Append(", ");
+                    }
+
                     builder.Append(TypeUtilities.GetInterfaceName(iface));
+                    numOfInterface++;
                 }
             }
 
