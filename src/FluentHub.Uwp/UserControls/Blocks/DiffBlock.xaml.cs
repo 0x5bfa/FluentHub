@@ -1,9 +1,4 @@
-﻿using FluentHub.Uwp.Helpers;
-using FluentHub.Uwp.ViewModels.UserControls.Blocks;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+﻿using FluentHub.Uwp.ViewModels.UserControls.Blocks;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -39,10 +34,7 @@ namespace FluentHub.Uwp.UserControls.Blocks
         }
         #endregion
 
-        public DiffBlock()
-        {
-            this.InitializeComponent();
-        }
+        public DiffBlock() => InitializeComponent();
 
         private void OnExpandCollapseTogglingButton(object sender, RoutedEventArgs e)
         {

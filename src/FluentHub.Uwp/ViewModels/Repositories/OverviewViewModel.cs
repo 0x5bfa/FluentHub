@@ -1,17 +1,7 @@
-﻿using FluentHub.Uwp.Utils;
-using FluentHub.Uwp.Models;
-using FluentHub.Octokit.Models;
+﻿using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Utils;
 using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls.Labels;
-using Humanizer;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
-using Microsoft.Toolkit.Mvvm.Messaging;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading;
-using System.Threading.Tasks;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml;
 
@@ -19,19 +9,20 @@ namespace FluentHub.Uwp.ViewModels.Repositories
 {
     public class OverviewViewModel : ObservableObject
     {
-        #region constructor
         public OverviewViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _messenger = messenger;
             _logger = logger;
 
-            RepositoryVisibilityLabel = new() { Color = "#64000000" };
+            RepositoryVisibilityLabel = new()
+            {
+                Color = "#64000000"
+            };
 
             LoadOverviewPageCommand = new AsyncRelayCommand<string>(LoadOverviewPageAsync);
         }
-        #endregion
 
-        #region fields and properties
+        #region Fields and Properties
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
 
@@ -47,7 +38,6 @@ namespace FluentHub.Uwp.ViewModels.Repositories
         public IAsyncRelayCommand LoadOverviewPageCommand { get; }
         #endregion
 
-        #region methods
         private async Task LoadOverviewPageAsync(string url, CancellationToken token)
         {
             try
@@ -67,7 +57,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories
             catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error("LoadOverviewPageAsync", ex);
+                _logger?.Error(nameof(LoadOverviewPageAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
@@ -76,6 +66,5 @@ namespace FluentHub.Uwp.ViewModels.Repositories
                 throw;
             }
         }
-        #endregion
     }
 }

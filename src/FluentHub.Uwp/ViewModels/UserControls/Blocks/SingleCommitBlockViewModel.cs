@@ -1,5 +1,7 @@
-﻿using FluentHub.Octokit.Models.ActivityPayloads;
-using System.Collections.ObjectModel;
+﻿using FluentHub.Octokit.Queries.Repositories;
+using FluentHub.Uwp.Helpers;
+using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Utils;
 
 namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
 {

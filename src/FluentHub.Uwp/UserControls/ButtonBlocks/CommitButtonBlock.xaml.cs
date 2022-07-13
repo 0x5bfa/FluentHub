@@ -25,10 +25,7 @@ namespace FluentHub.Uwp.UserControls.ButtonBlocks
         }
         #endregion
 
-        public CommitButtonBlock()
-        {
-            this.InitializeComponent();
-        }
+        public CommitButtonBlock() => InitializeComponent();
 
         private void CommitItemButton_Click(object sender, RoutedEventArgs e)
         {

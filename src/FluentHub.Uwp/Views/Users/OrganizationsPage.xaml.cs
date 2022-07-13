@@ -5,6 +5,7 @@ using System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.Views.Users
 {
@@ -24,7 +25,7 @@ namespace FluentHub.Uwp.Views.Users
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            // e.g.) fluenthub://organizations
+            // e.g. fluenthub://organizations
             string url = e.Parameter as string;
             string login = App.Settings.SignedInUserName;
             ViewModel.DisplayTitle = true;

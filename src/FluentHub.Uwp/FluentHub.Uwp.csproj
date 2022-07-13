@@ -187,9 +187,6 @@
     <Compile Include="UserControls\Blocks\UserContributionGraph.xaml.cs">
       <DependentUpon>UserContributionGraph.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ButtonBlocks\AccountButtonBlock.xaml.cs">
-      <DependentUpon>AccountButtonBlock.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\ButtonBlocks\CommitButtonBlock.xaml.cs">
       <DependentUpon>CommitButtonBlock.xaml</DependentUpon>
     </Compile>
@@ -316,7 +313,6 @@
     <Compile Include="ViewModels\UserControls\Blocks\ReadmeContentBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\SingleReleaseBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\UserContributionGraphViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\ButtonBlocks\AccountButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\CommitButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\DiscussionButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\IssueButtonBlockViewModel.cs" />
@@ -839,10 +835,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Blocks\UserContributionGraph.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\ButtonBlocks\AccountButtonBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -24,7 +24,7 @@ namespace FluentHub.Uwp.Views.Users
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            // e.g.) https://github.com/onein528
+            // e.g. https://github.com/onein528
             string url = e.Parameter as string;
             var uri = new Uri(url);
             string login = ViewModel.LoginName = uri.Segments[1];

@@ -29,16 +29,13 @@ namespace FluentHub.Uwp.UserControls.ButtonBlocks
         }
         #endregion
 
-        public PullButtonBlock()
-        {
-            InitializeComponent();
-            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
-        }
+        public PullButtonBlock() => InitializeComponent();
 
         private readonly INavigationService navigationService;
 
         private void OnClick(object sender, RoutedEventArgs e)
         {
+            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
             navigationService.Navigate<OverviewPage>($"{App.DefaultGitHubDomain}/{ViewModel.PullItem.OwnerLogin}/{ViewModel.PullItem.Name}/pull/{ViewModel.PullItem.Number}");
         }
     }

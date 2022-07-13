@@ -1,10 +1,6 @@
 ﻿using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.Repositories.PullRequests;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
@@ -17,7 +13,7 @@ namespace FluentHub.Uwp.Views.Repositories.PullRequests
     {
         public ConversationPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<ConversationViewModel>();

@@ -1,23 +1,12 @@
-﻿using FluentHub.Uwp.Utils;
-using FluentHub.Uwp.Models;
-using FluentHub.Octokit.Models;
+﻿using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Utils;
 using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
-using Humanizer;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
-using Microsoft.Toolkit.Mvvm.Messaging;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.Issues
 {
     public class IssuesViewModel : ObservableObject
     {
-        #region constructor
         public IssuesViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _messenger = messenger;
@@ -32,7 +21,6 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
 
             RefreshIssuesPageCommand = new AsyncRelayCommand<string>(LoadIssuesPageAsync);
         }
-        #endregion
 
         #region Fields and Properties
         private readonly ILogger _logger;
@@ -47,7 +35,6 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
         public IAsyncRelayCommand RefreshIssuesPageCommand { get; }
         #endregion
 
-        #region methods
         private async Task LoadIssuesPageAsync(string url, CancellationToken token)
         {
             try
@@ -98,6 +85,5 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
                 throw;
             }
         }
-        #endregion
     }
 }

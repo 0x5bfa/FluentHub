@@ -6,7 +6,6 @@ using FluentHub.Uwp.ViewModels.Repositories;
 using FluentHub.Uwp.ViewModels.Repositories.Codes;
 using FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -77,7 +76,7 @@ namespace FluentHub.Uwp.Views.Repositories.Codes.Layouts
             }
             else
             {
-                branchName = RepositoryCache.DefaultBranchName;
+                branchName = RepositoryCache.DefaultBranchRef.Name;
                 path = null;
             }
 
@@ -112,7 +111,7 @@ namespace FluentHub.Uwp.Views.Repositories.Codes.Layouts
             string displayurl;
             if (ViewModel.ContextViewModel.IsRootDir)
             {
-                if (ViewModel.ContextViewModel.Repository.DefaultBranchName == ViewModel.ContextViewModel.BranchName)
+                if (ViewModel.ContextViewModel.Repository.DefaultBranchRef.Name == ViewModel.ContextViewModel.BranchName)
                     displayurl = $"{ViewModel.ContextViewModel.Repository.Owner.Login} / {ViewModel.ContextViewModel.Repository.Name}";
                 else
                     displayurl = $"{ViewModel.ContextViewModel.Repository.Owner.Login} / {ViewModel.ContextViewModel.Repository.Name} / {ViewModel.ContextViewModel.BranchName}";
@@ -135,16 +134,14 @@ namespace FluentHub.Uwp.Views.Repositories.Codes.Layouts
         private void OnDirListViewDoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
         {
             var item = DirListView.SelectedItem as DetailsLayoutListViewModel;
-            var tagItem = item?.ObjectTag?.Split("/");
+            var tag = item?.Type;
 
             string path = ViewModel.ContextViewModel.Path;
             if (!string.IsNullOrEmpty(path)) path += "/";
 
-            path += tagItem.Last();
+            path += item.Name;
 
-            string objType = tagItem.First() == "blob" ? "blob" : "tree";
-
-            string url = $"{App.DefaultGitHubDomain}/{ViewModel.ContextViewModel.Repository.Owner.Login}/{ViewModel.ContextViewModel.Repository.Name}/{objType}/{ViewModel.ContextViewModel.BranchName}/{path}";
+            string url = $"{App.DefaultGitHubDomain}/{ViewModel.ContextViewModel.Repository.Owner.Login}/{ViewModel.ContextViewModel.Repository.Name}/{tag}/{ViewModel.ContextViewModel.BranchName}/{path}";
 
             MainPageViewModel.RepositoryContentFrame.Navigate(typeof(DetailsLayoutView), url);
         }

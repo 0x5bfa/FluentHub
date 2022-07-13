@@ -1,22 +1,30 @@
-﻿using FluentHub.Octokit.Queries.Organizations;
-using FluentHub.Octokit.Models;
-using Serilog;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Utils;
+using FluentHub.Octokit.Queries.Organizations;
 
 namespace FluentHub.Uwp.ViewModels.Organizations
 {
-    public class ProfileViewModel : INotifyPropertyChanged
+    public class ProfileViewModel : ObservableObject
     {
+        public ProfileViewModel(IMessenger messenger = null, ILogger logger = null)
+        {
+            _messenger = messenger;
+            _logger = logger;
+
+            LoadOrganizationAsyncCommand = new AsyncRelayCommand<string>(GetOrganizationAsync);
+        }
+
+        #region Fields and Properties
+        private readonly IMessenger _messenger;
+        private readonly ILogger _logger;
+
         private Organization organization;
         public Organization Organization { get => organization; private set => SetProperty(ref organization, value); }
 
-        public async Task GetOrganization(string org)
+        public IAsyncRelayCommand LoadOrganizationAsyncCommand { get; }
+        #endregion
+
+        public async Task GetOrganizationAsync(string org)
         {
             try
             {
@@ -28,21 +36,14 @@ namespace FluentHub.Uwp.ViewModels.Organizations
             }
             catch (Exception ex)
             {
-                Log.Error(ex, ex.Message);
+                _logger?.Error("LoadOrganizationOverviewAsync", ex);
+                if (_messenger != null)
+                {
+                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+                    _messenger.Send(notification);
+                }
+                throw;
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
-        {
-            if (!Equals(field, newValue))
-            {
-                field = newValue;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-                return true;
-            }
-
-            return false;
         }
     }
 }

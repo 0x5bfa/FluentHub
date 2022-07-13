@@ -5,7 +5,6 @@ using FluentHub.Uwp.ViewModels.Repositories;
 using FluentHub.Uwp.ViewModels.Repositories.Codes;
 using FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;

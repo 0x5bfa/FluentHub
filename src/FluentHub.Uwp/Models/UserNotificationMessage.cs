@@ -1,6 +1,5 @@
 ﻿namespace FluentHub.Uwp.Models
 {
-
     public class UserNotificationMessage
     {
         public UserNotificationMessage(string title!!,
@@ -13,9 +12,10 @@
             Type = type;
             Method = method;
         }
+
         public UserNotificationType Type { get; }
         public UserNotificationMethod Method { get; }
         public string Title { get; }
-        public string Message { get; }        
+        public string Message { get; }
     }
 }

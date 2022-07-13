@@ -1,14 +1,15 @@
 ﻿// Default usings
 global using global::System;
 global using global::System.Collections.Generic;
+global using global::System.Collections.ObjectModel;
 global using global::System.Linq;
 global using global::System.Text;
+global using global::System.Threading;
 global using global::System.Threading.Tasks;
 
 // Custom usings
-global using global::FluentHub.Octokit.Helpers;
-global using global::FluentHub.Octokit.Models;
-global using global::FluentHub.Octokit.Models.Events;
+global using global::FluentHub.Octokit.Models.v3;
+global using global::FluentHub.Octokit.Models.v4;
 global using global::FluentHub.Uwp.Models;
 global using global::Humanizer;
 

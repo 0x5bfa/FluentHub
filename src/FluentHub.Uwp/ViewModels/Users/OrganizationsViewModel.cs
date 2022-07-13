@@ -1,36 +1,26 @@
-﻿using FluentHub.Uwp.Utils;
-using FluentHub.Octokit.Models;
+﻿using FluentHub.Octokit.Queries.Users;
+using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
-using FluentHub.Octokit.Queries.Users;
+using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
-using Humanizer;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
-using Microsoft.Toolkit.Mvvm.Messaging;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace FluentHub.Uwp.ViewModels.Users
 {
     public class OrganizationsViewModel : ObservableObject
     {
-        #region constructor
         public OrganizationsViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _messenger = messenger;
             _logger = logger;
             _messenger = messenger;
+
             _organizations = new();
             Organizations = new(_organizations);
 
             RefreshOrganizationsCommand = new AsyncRelayCommand<string>(RefreshOrganizationsAsync);
         }
-        #endregion
 
-        #region fields
+        #region Fields and Properties
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
 
@@ -43,7 +33,6 @@ namespace FluentHub.Uwp.ViewModels.Users
         public IAsyncRelayCommand RefreshOrganizationsCommand { get; }
         #endregion
 
-        #region methods
         private async Task RefreshOrganizationsAsync(string login, CancellationToken token)
         {
             try
@@ -61,12 +50,12 @@ namespace FluentHub.Uwp.ViewModels.Users
                     };
 
                     _organizations.Add(viewModel);
-                }                
+                }
             }
             catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error("RefreshOrganizationsAsync", ex);
+                _logger?.Error(nameof(RefreshOrganizationsAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
@@ -75,6 +64,5 @@ namespace FluentHub.Uwp.ViewModels.Users
                 throw;
             }
         }
-        #endregion
     }
 }

@@ -1,23 +1,12 @@
-﻿using FluentHub.Uwp.Utils;
-using FluentHub.Uwp.Models;
-using FluentHub.Octokit.Models;
+﻿using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Utils;
 using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls.Blocks;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
-using Microsoft.Toolkit.Mvvm.Messaging;
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.Commits
 {
     public class CommitViewModel : ObservableObject
     {
-        #region constructor
         public CommitViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _messenger = messenger;
@@ -28,35 +17,35 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Commits
             DiffViewModels = new(_diffViewModels);
             LoadCommitPageCommand = new AsyncRelayCommand(LoadCommitPageAsync);
         }
-        #endregion
 
         #region fields
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
-        private Commit _commitItem;
-        private CommitDetails _commitDetails;
-        private ObservableCollection<DiffBlockViewModel> _diffViewModels;
-        #endregion
 
-        #region properties
+        private Commit _commitItem;
         public Commit CommitItem { get => _commitItem; set => SetProperty(ref _commitItem, value); }
+
+        private CommitDetails _commitDetails;
         public CommitDetails CommitDetails { get => _commitDetails; set => SetProperty(ref _commitDetails, value); }
+
+        private ObservableCollection<DiffBlockViewModel> _diffViewModels;
         public ReadOnlyObservableCollection<DiffBlockViewModel> DiffViewModels { get; }
+
         public IAsyncRelayCommand LoadCommitPageCommand { get; }
         #endregion
 
-        #region methods
         private async Task LoadCommitPageAsync(CancellationToken token)
         {
             try
             {
                 DiffQueries queries = new();
                 CommitDetails = await queries.GetAllAsync(
-                    CommitItem.Owner,
-                    CommitItem.Name,
+                    CommitItem.Repository.Owner.Login,
+                    CommitItem.Repository.Name,
                     CommitItem.Oid);
 
-                if (CommitDetails.ChangedFiles.Count() == 0) return;
+                if (CommitDetails.ChangedFiles.Count() == 0)
+                    return;
 
                 _diffViewModels.Clear();
                 foreach (var item in CommitDetails.ChangedFiles)
@@ -72,7 +61,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Commits
             catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error("LoadCommitPageAsync", ex);
+                _logger?.Error(nameof(LoadCommitPageAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
@@ -81,6 +70,5 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Commits
                 throw;
             }
         }
-        #endregion
     }
 }

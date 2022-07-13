@@ -1,46 +1,33 @@
-﻿using FluentHub.Uwp.Utils;
-using FluentHub.Octokit.Models;
-using FluentHub.Uwp.Models;
+﻿using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Utils;
 using FluentHub.Octokit.Queries.Organizations;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
-using Humanizer;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
-using Microsoft.Toolkit.Mvvm.Messaging;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace FluentHub.Uwp.ViewModels.Organizations
 {
     public class RepositoriesViewModel : ObservableObject
     {
-        #region constructor
         public RepositoriesViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _messenger = messenger;
             _logger = logger;
+
             _repositories = new();
             Repositories = new(_repositories);
 
             RefreshRepositoriesCommand = new AsyncRelayCommand<string>(RefreshRepositoriesAsync);
         }
-        #endregion
 
-        #region fields
+        #region Fields and Properties
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
-        private readonly ObservableCollection<RepoButtonBlockViewModel> _repositories;
-        #endregion
 
-        #region properties
+        private readonly ObservableCollection<RepoButtonBlockViewModel> _repositories;
         public ReadOnlyObservableCollection<RepoButtonBlockViewModel> Repositories { get; }
+
         public IAsyncRelayCommand RefreshRepositoriesCommand { get; }
         #endregion
 
-        #region methods
         private async Task RefreshRepositoriesAsync(string login, CancellationToken token)
         {
             try
@@ -67,7 +54,7 @@ namespace FluentHub.Uwp.ViewModels.Organizations
             {
                 if (!ex.Message.Contains("has enabled OAuth App access restrictions, meaning that data access to third-parties is limited."))
                 {
-                    _logger?.Error("RefreshRepositoriesAsync", ex);
+                    _logger?.Error(nameof(RefreshRepositoriesAsync), ex);
                     if (_messenger != null)
                     {
                         UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
@@ -77,6 +64,5 @@ namespace FluentHub.Uwp.ViewModels.Organizations
                 }
             }
         }
-        #endregion
     }
 }

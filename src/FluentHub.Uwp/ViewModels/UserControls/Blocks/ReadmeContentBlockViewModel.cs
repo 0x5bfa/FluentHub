@@ -1,16 +1,9 @@
-﻿using FluentHub.Uwp.Utils;
-using FluentHub.Uwp.Services;
+﻿using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
-using FluentHub.Octokit.Queries.Repositories;
+using FluentHub.Uwp.Services;
+using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.ViewModels.Repositories;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
-using Microsoft.Toolkit.Mvvm.Messaging;
-using System;
-using System.IO;
-using System.Threading;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -18,7 +11,6 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
 {
     public class ReadmeContentBlockViewModel : ObservableObject
     {
-        #region constructor
         public ReadmeContentBlockViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _messenger = messenger;
@@ -27,24 +19,20 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
 
             LoadReadmeContentBlockCommand = new AsyncRelayCommand<WebView>(LoadReadmeContentBlockAsync);
         }
-        #endregion
 
-        #region fields
+        #region Fields and Properties
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
 
         private string _htmlText;
-        private RepoContextViewModel contextViewModel;
-        #endregion
-
-        #region properties
         public string HtmlText { get => _htmlText; set => SetProperty(ref _htmlText, value); }
+
+        private RepoContextViewModel contextViewModel;
         public RepoContextViewModel ContextViewModel { get => contextViewModel; set => SetProperty(ref contextViewModel, value); }
 
         public IAsyncRelayCommand LoadReadmeContentBlockCommand { get; }
         #endregion
 
-        #region methods
         public async Task LoadReadmeContentBlockAsync(WebView webView)
         {
             try
@@ -63,7 +51,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
             }
             catch (Exception ex)
             {
-                _logger?.Error("LoadReadmeContentBlockAsync", ex);
+                _logger?.Error(nameof(LoadReadmeContentBlockAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
@@ -72,6 +60,5 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
                 throw;
             }
         }
-        #endregion
     }
 }

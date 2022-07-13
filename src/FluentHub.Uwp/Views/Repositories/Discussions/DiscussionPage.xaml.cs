@@ -1,7 +1,6 @@
 ﻿using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.Repositories.Discussions;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
@@ -13,7 +12,7 @@ namespace FluentHub.Uwp.Views.Repositories.Discussions
     {
         public DiscussionPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<DiscussionViewModel>();

@@ -3,10 +3,6 @@ using FluentHub.Uwp.ViewModels;
 using FluentHub.Uwp.ViewModels.Repositories.PullRequests;
 using FluentHub.Uwp.ViewModels.Repositories.Issues;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
@@ -20,6 +16,7 @@ namespace FluentHub.Uwp.Views.Repositories.PullRequests
         public PullRequestPage()
         {
             InitializeComponent();
+
             MainPageViewModel.PullRequestContentFrame.Navigating += OnPullRequestContentFrameNavigating;
 
             var provider = App.Current.Services;

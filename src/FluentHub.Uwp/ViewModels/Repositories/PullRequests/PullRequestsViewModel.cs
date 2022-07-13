@@ -1,23 +1,12 @@
-﻿using FluentHub.Uwp.Utils;
-using FluentHub.Octokit.Models;
-using FluentHub.Uwp.Models;
+﻿using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Utils;
 using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
-using Humanizer;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
-using Microsoft.Toolkit.Mvvm.Messaging;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
 {
     public class PullRequestsViewModel : ObservableObject
     {
-        #region constructor
         public PullRequestsViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _messenger = messenger;
@@ -28,20 +17,17 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
 
             RefreshPullRequestsPageCommand = new AsyncRelayCommand<string>(RefreshPullRequestsPageAsync);
         }
-        #endregion
 
-        #region fields
+        #region Fields and Properties
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
-        private readonly ObservableCollection<PullButtonBlockViewModel> _pullRequests;
-        #endregion
 
-        #region properties
+        private readonly ObservableCollection<PullButtonBlockViewModel> _pullRequests;
         public ReadOnlyObservableCollection<PullButtonBlockViewModel> PullItems { get; }
+
         public IAsyncRelayCommand RefreshPullRequestsPageCommand { get; }
         #endregion
 
-        #region methods
         private async Task RefreshPullRequestsPageAsync(string nameWithOwner, CancellationToken token)
         {
             try
@@ -73,6 +59,5 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
                 throw;
             }
         }
-        #endregion
     }
 }

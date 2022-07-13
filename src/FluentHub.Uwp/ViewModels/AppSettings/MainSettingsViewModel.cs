@@ -1,16 +1,6 @@
 ﻿using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.Models;
-using FluentHub.Octokit.Models;
 using FluentHub.Octokit.Queries.Users;
-using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
-using Microsoft.Toolkit.Mvvm.Messaging;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace FluentHub.Uwp.ViewModels.AppSettings
 {
@@ -27,7 +17,7 @@ namespace FluentHub.Uwp.ViewModels.AppSettings
             LoadSignedInLoginsCommand = new AsyncRelayCommand(LoadSignedInLogins);
         }
 
-        #region fields and properties
+        #region Fields and Properties
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
 

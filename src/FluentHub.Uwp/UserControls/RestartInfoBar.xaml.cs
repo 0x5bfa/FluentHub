@@ -1,14 +1,8 @@
 ﻿using Serilog;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel.Core;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -21,10 +15,7 @@ namespace FluentHub.Uwp.UserControls
 {
     public sealed partial class RestartInfoBar : UserControl
     {
-        public RestartInfoBar()
-        {
-            this.InitializeComponent();
-        }
+        public RestartInfoBar() => InitializeComponent();
 
         private async void RestartButton_Click(object sender, RoutedEventArgs e)
         {

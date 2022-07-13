@@ -1,4 +1,5 @@
 ﻿using FluentHub.Uwp.Services;
+using FluentHub.Uwp.ViewModels.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;

@@ -19,7 +19,7 @@ namespace FluentHub.Uwp.Helpers
         {
             if (string.IsNullOrEmpty(hexColorCode)) return null;
 
-            string normalizedColorCode = "#00000000";
+            string normalizedColorCode;
 
             // If there's no alpha code, add them
             if (hexColorCode.Length == 6 || hexColorCode.Length == 7)

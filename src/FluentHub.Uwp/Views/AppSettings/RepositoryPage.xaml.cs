@@ -19,6 +19,7 @@ namespace FluentHub.Uwp.Views.AppSettings
         }
 
         private readonly INavigationService navigationService;
+
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;

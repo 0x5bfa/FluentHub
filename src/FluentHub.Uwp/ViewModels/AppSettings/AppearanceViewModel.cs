@@ -1,16 +1,14 @@
 ﻿using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
 using Microsoft.Toolkit.Uwp;
-using System.Collections.ObjectModel;
 using Windows.UI.Xaml;
 
 namespace FluentHub.Uwp.ViewModels.AppSettings
 {
     public class AppearanceViewModel : ObservableObject
     {
-        #region Constructor        
+        #region Constructor
         public AppearanceViewModel(ILogger logger = null)
         {
             _logger = logger;
@@ -40,7 +38,6 @@ namespace FluentHub.Uwp.ViewModels.AppSettings
         private readonly ILogger _logger;
 
         public ReadOnlyCollection<DefaultLanguageModel> DefaultLanguages { get; private set; }
-
         public ReadOnlyCollection<string> Themes { get; set; }
 
         private int _selectedThemeIndex;
@@ -74,11 +71,7 @@ namespace FluentHub.Uwp.ViewModels.AppSettings
         }
 
         private bool _showRestartMessage;
-        public bool ShowRestartMessage
-        {
-            get => _showRestartMessage;
-            set => SetProperty(ref _showRestartMessage, value);
-        }
+        public bool ShowRestartMessage { get => _showRestartMessage; set => SetProperty(ref _showRestartMessage, value); }
         #endregion
     }
 }

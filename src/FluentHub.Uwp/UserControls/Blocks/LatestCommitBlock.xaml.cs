@@ -4,13 +4,10 @@ using FluentHub.Uwp.ViewModels.Repositories;
 using FluentHub.Uwp.Views.Repositories.Commits;
 using FluentHub.Uwp.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.UserControls.Blocks
 {
@@ -34,7 +31,7 @@ namespace FluentHub.Uwp.UserControls.Blocks
 
         public LatestCommitBlock()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<LatestCommitBlockViewModel>();

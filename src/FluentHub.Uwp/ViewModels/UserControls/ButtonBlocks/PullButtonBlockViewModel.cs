@@ -1,17 +1,11 @@
-﻿using FluentHub.Uwp.ViewModels.UserControls.Labels;
-using FluentHub.Octokit.Models;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentHub.Uwp.Helpers;
+using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Utils;
+using FluentHub.Uwp.ViewModels.UserControls.Labels;
 
 namespace FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks
 {
-    public class PullButtonBlockViewModel : INotifyPropertyChanged
+    public class PullButtonBlockViewModel : ObservableObject
     {
         public PullButtonBlockViewModel()
         {
@@ -36,6 +30,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks
             };
         }
 
+        #region Fields and Properties
         private PullRequest _pullItem;
         public PullRequest PullItem { get => _pullItem; set => SetProperty(ref _pullItem, value); }
 
@@ -50,6 +45,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks
 
         private LabelControlViewModel _statusStateLabel;
         public LabelControlViewModel StatusStateLabel { get => _statusStateLabel; set => SetProperty(ref _statusStateLabel, value); }
+        #endregion
 
         public void LoadContents()
         {
@@ -66,19 +62,6 @@ namespace FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks
 
                 _labelViewModels.Add(viewModel);
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
-        {
-            if (!Equals(field, newValue))
-            {
-                field = newValue;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-                return true;
-            }
-
-            return false;
         }
     }
 }

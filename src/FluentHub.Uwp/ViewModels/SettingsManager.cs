@@ -1,15 +1,23 @@
-﻿using Serilog;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentHub.Uwp.Helpers;
+using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Utils;
 using Windows.Storage;
 
 namespace FluentHub.Uwp.ViewModels
 {
     public class SettingsManager
     {
+        public SettingsManager(IMessenger messenger = null, ILogger logger = null)
+        {
+            _messenger = messenger;
+            _logger = logger;
+        }
+
+        #region Fields and Properties
+        private readonly IMessenger _messenger;
+        private readonly ILogger _logger;
+        #endregion
+
         /// <summary>
         /// Gets value with the specified name from the app local settings container.
         /// </summary>
@@ -32,7 +40,12 @@ namespace FluentHub.Uwp.ViewModels
             }
             catch (Exception ex)
             {
-                Log.Error(ex, ex.Message);
+                _logger?.Error("SettingsManager.Get()", ex);
+                if (_messenger != null)
+                {
+                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+                    _messenger.Send(notification);
+                }
                 return default(T);
             }
         }
@@ -52,7 +65,13 @@ namespace FluentHub.Uwp.ViewModels
             }
             catch (Exception ex)
             {
-                Log.Error(ex, ex.Message);
+                _logger?.Error("SettingsManager.Set()", ex);
+                if (_messenger != null)
+                {
+                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+                    _messenger.Send(notification);
+                }
+                throw;
             }
         }
     }

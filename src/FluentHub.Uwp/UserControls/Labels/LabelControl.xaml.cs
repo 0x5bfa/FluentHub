@@ -52,13 +52,6 @@ namespace FluentHub.Uwp.UserControls.Labels
         }
         #endregion
 
-        public LabelControl()
-        {
-            this.InitializeComponent();
-        }
-
-        private void OnLabelControlLoaded(object sender, RoutedEventArgs e)
-        {
-        }
+        public LabelControl() => InitializeComponent();
     }
 }

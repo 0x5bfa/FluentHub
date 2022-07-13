@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentHub.Uwp.Helpers;
+using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Utils;
 using Windows.UI.Xaml.Media;
 
 namespace FluentHub.Uwp.ViewModels.UserControls.Labels
 {
-    public class LabelControlViewModel : INotifyPropertyChanged
+    public class LabelControlViewModel : ObservableObject
     {
+        #region Fields and Properties
         private string _name;
         public string Name { get => _name; set => SetProperty(ref _name, value); }
 
@@ -29,6 +25,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Labels
 
         private bool _large;
         public bool Large { get => _large; set => SetProperty(ref _large, value); }
+        #endregion
 
         public void SetColorBrush()
         {
@@ -58,19 +55,6 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Labels
             //    case "sponsors":
             //        break;
             //}
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
-        {
-            if (!Equals(field, newValue))
-            {
-                field = newValue;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-                return true;
-            }
-
-            return false;
         }
     }
 }

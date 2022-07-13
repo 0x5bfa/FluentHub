@@ -1,36 +1,25 @@
-﻿using FluentHub.Uwp.Utils;
-using FluentHub.Uwp.Models;
-using FluentHub.Octokit.Models;
+﻿using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Utils;
 using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls.Blocks;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
-using Microsoft.Toolkit.Mvvm.Messaging;
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
 {
     public class CommitViewModel : ObservableObject
     {
-        #region constructor
         public CommitViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _messenger = messenger;
             _logger = logger;
             _messenger = messenger;
-            _diffViewModels = new();
 
+            _diffViewModels = new();
             DiffViewModels = new(_diffViewModels);
+
             LoadCommitPageCommand = new AsyncRelayCommand(LoadCommitPageAsync);
         }
-        #endregion
 
-        #region properties
+        #region Fields and Properties
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
 
@@ -46,7 +35,6 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
         public IAsyncRelayCommand LoadCommitPageCommand { get; }
         #endregion
 
-        #region methods
         private async Task LoadCommitPageAsync(CancellationToken token)
         {
             try
@@ -73,7 +61,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
             catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error("LoadCommitPageAsync", ex);
+                _logger?.Error(nameof(LoadCommitPageAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
@@ -82,6 +70,5 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
                 throw;
             }
         }
-        #endregion
     }
 }

@@ -1,38 +1,25 @@
 ﻿using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
-using FluentHub.Octokit.Models;
 using FluentHub.Octokit.Queries.Repositories;
-using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
-using Humanizer;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
-using Microsoft.Toolkit.Mvvm.Messaging;
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
 {
     public class DetailsLayoutViewModel : ObservableObject
     {
-        #region constructor
         public DetailsLayoutViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _messenger = messenger;
             _logger = logger;
             _messenger = messenger;
+
             _items = new();
             Items = new(_items);
 
             RefreshDetailsLayoutPageCommand = new AsyncRelayCommand<string>(RefreshDetailsLayoutPageAsync);
             LoadRepositoryCommand = new AsyncRelayCommand<string>(LoadRepositoryAsync);
         }
-        #endregion
 
-        #region fields and properties
+        #region Fields and Properties
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
 
@@ -49,19 +36,18 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
         public IAsyncRelayCommand LoadRepositoryCommand { get; }
         #endregion
 
-        #region methods
         private async Task RefreshDetailsLayoutPageAsync(string url, CancellationToken token)
         {
             try
             {
-                // There aren't no contents in the repository
-                if (ContextViewModel.Repository.DefaultBranchName == null) return;
+                if (string.IsNullOrEmpty(ContextViewModel.Repository.DefaultBranchRef.Name))
+                    return;
 
                 if (ContextViewModel.IsFile) return;
                 ContextViewModel.IsDir = true;
 
                 CommitQueries queries = new();
-                var fileOverviews = await queries.GetWithObjectNameAsync(
+                var response = await queries.GetWithObjectNameAsync(
                     ContextViewModel.Repository.Name,
                     ContextViewModel.Repository.Owner.Login,
                     ContextViewModel.BranchName,
@@ -69,39 +55,45 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
 
                 if (string.IsNullOrEmpty(ContextViewModel.Path))
                     ContextViewModel.IsRootDir = true;
-                else
-                    ContextViewModel.IsSubDir = true;
+                else ContextViewModel.IsSubDir = true;
 
-                foreach (var overview in fileOverviews)
+                var zippedResponse =
+                    response.Files.Zip(
+                        response.Commits,
+                        (file, commit) => new
+                        {
+                            File = file,
+                            Commit = commit
+                        });
+
+                foreach (var item in zippedResponse)
                 {
-                    DetailsLayoutListViewModel listItem = new();
-
-                    if (overview.ObjectType == "tree")
+                    DetailsLayoutListViewModel listItem = new()
                     {
-                        listItem.ObjectTypeIconGlyph = "\uE9A0";
-                        listItem.ObjectTag = "tree/" + overview.FileName;
-                    }
+                        Type = item.File.Type,
+                        Name = item.File.Name,
+                        LatestCommitMessage = item.Commit.Message.Split('\n', 2).FirstOrDefault(),
+                    };
+
+                    if (item.File.Type == "tree")
+                        listItem.IconGlyph = "\uE9A0";
                     else
-                    {
-                        listItem.ObjectTypeIconGlyph = "\uE996";
-                        listItem.ObjectTag = "blob/" + overview.FileName;
-                    }
-
-                    listItem.ObjectName = overview.FileName;
-                    listItem.ObjectLatestCommitMessage = overview.CommitMessage.Split("\n").FirstOrDefault();
-                    listItem.ObjectUpdatedAtHumanized = overview.CommittedAtHumanized;
+                        listItem.IconGlyph = "\uE996";
 
                     _items.Add(listItem);
                 }
 
-                var orderedByItemType = new ObservableCollection<DetailsLayoutListViewModel>(Items.OrderByDescending(x => x.ObjectTypeIconGlyph));
+                var orderedByItemType =
+                    new ObservableCollection<DetailsLayoutListViewModel>
+                    (Items.OrderByDescending(x => x.IconGlyph));
+
                 _items.Clear();
                 foreach (var orderedItem in orderedByItemType) _items.Add(orderedItem);
             }
             catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error("RefreshDetailsLayoutPageAsync", ex);
+                _logger?.Error(nameof(RefreshDetailsLayoutPageAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
@@ -125,7 +117,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
             catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error("RefreshDetailsLayoutPageAsync", ex);
+                _logger?.Error(nameof(RefreshDetailsLayoutPageAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
@@ -134,6 +126,5 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
                 throw;
             }
         }
-        #endregion
     }
 }

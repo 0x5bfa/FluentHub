@@ -1,24 +1,13 @@
-﻿using FluentHub.Uwp.Utils;
-using FluentHub.Octokit.Models.Events;
-using FluentHub.Octokit.Models;
-using FluentHub.Uwp.Models;
+﻿using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Utils;
 using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.UserControls.Blocks;
 using FluentHub.Uwp.ViewModels.UserControls.Blocks;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
-using Microsoft.Toolkit.Mvvm.Messaging;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
 {
     public class ConversationViewModel : ObservableObject
     {
-        #region constructor
         public ConversationViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _messenger = messenger;
@@ -28,9 +17,8 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
 
             RefreshPullRequestPageCommand = new AsyncRelayCommand<PullRequest>(RefreshPullRequestPageAsync);
         }
-        #endregion
 
-        #region properties
+        #region Fields and Properties
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
 
@@ -46,12 +34,12 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
         public IAsyncRelayCommand RefreshPullRequestPageCommand { get; }
         #endregion
 
-        #region methods
         private async Task RefreshPullRequestPageAsync(PullRequest pull)
         {
             try
             {
-                if (pull != null) PullItem = pull;
+                if (pull != null)
+                    PullItem = pull;
 
                 _eventBlocks.Clear();
 
@@ -351,7 +339,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
             }
             catch (Exception ex)
             {
-                _logger?.Error("RefreshPullRequestPageAsync", ex);
+                _logger?.Error(nameof(RefreshPullRequestPageAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
@@ -360,6 +348,5 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
                 throw;
             }
         }
-        #endregion
     }
 }

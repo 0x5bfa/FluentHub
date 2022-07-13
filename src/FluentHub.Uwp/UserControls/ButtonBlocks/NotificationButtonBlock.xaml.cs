@@ -27,16 +27,14 @@ namespace FluentHub.Uwp.UserControls.ButtonBlocks
         }
         #endregion
 
-        public NotificationButtonBlock()
-        {
-            this.InitializeComponent();
-            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
-        }
+        public NotificationButtonBlock() => InitializeComponent();
 
         private readonly INavigationService navigationService;
 
         private void OnClick(object sender, RoutedEventArgs e)
         {
+            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
+
             switch (ViewModel.Item.ItemState)
             {
                 case "IssueClosed":

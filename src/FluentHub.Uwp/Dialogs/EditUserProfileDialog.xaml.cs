@@ -1,28 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using FluentHub.Uwp.Services;
+using FluentHub.Uwp.Services.Navigation;
+using FluentHub.Uwp.ViewModels.Dialogs;
+using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
-
-// コンテンツ ダイアログの項目テンプレートについては、https://go.microsoft.com/fwlink/?LinkId=234238 を参照してください
 
 namespace FluentHub.Uwp.Dialogs
 {
     public sealed partial class UserProfileEditor : ContentDialog
     {
-        public UserProfileEditor()
-        {
-            this.InitializeComponent();
-        }
+        public UserProfileEditor() => InitializeComponent();
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {

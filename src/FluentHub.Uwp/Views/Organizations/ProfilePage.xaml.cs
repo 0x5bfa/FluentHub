@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using FluentHub.Uwp.Services;
+using FluentHub.Uwp.ViewModels.Organizations;
+using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
@@ -23,7 +16,7 @@ namespace FluentHub.Uwp.Views.Organizations
 
         public ProfilePage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
@@ -38,23 +31,23 @@ namespace FluentHub.Uwp.Views.Organizations
 
         private void UpdateVisibility()
         {
-            if (!string.IsNullOrEmpty(OrgDescriptionTextBlock.Text))
+            if (string.IsNullOrEmpty(OrgDescriptionTextBlock.Text) is false)
             {
                 OrgDescriptionTextBlock.Visibility = Visibility.Visible;
             }
 
-            if (!string.IsNullOrEmpty(LocationTextBlock.Text))
+            if (string.IsNullOrEmpty(LocationTextBlock.Text) is false)
             {
                 LocationBlock.Visibility = Visibility.Visible;
             }
 
-            if (!string.IsNullOrEmpty(LinkHyperlinkButton.Content as string))
+            if (string.IsNullOrEmpty(LinkHyperlinkButton.Content as string) is false)
             {
                 LinkHyperlinkButton.NavigateUri = new UriBuilder(LinkHyperlinkButton.Content as string).Uri;
                 LinkBlock.Visibility = Visibility.Visible;
             }
 
-            if (!string.IsNullOrEmpty(MailHyperlinkButton.Content as string))
+            if (string.IsNullOrEmpty(MailHyperlinkButton.Content as string) is false)
             {
                 MailHyperlinkButton.NavigateUri = new Uri("mailto:" + MailHyperlinkButton.Content);
                 MailBlock.Visibility = Visibility.Visible;

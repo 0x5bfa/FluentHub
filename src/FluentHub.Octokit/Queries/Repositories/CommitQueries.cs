@@ -137,7 +137,7 @@
             return response.Commit;
         }
 
-        public async Task<List<Commit>> GetWithObjectNameAsync(string name, string owner, string refs, string path)
+        public async Task<(List<TreeEntry> Files, List<Commit> Commits)> GetWithObjectNameAsync(string name, string owner, string refs, string path)
         {
             #region objectQuery
             var queryToGetFileInfo = new Query()
@@ -203,7 +203,9 @@
                 items.Add(response2.Commit);
             }
 
-            return items;
+            (List<TreeEntry> Files, List<Commit> Commits) results = (response1.ToList(), items);
+
+            return results;
         }
     }
 }

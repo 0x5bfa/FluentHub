@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
+﻿using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
@@ -19,34 +15,24 @@ namespace FluentHub.Uwp.UserControls.Labels
     public sealed partial class StateLabel : UserControl
     {
         #region propdp
-        public static readonly DependencyProperty StatusProperty =
+        public static readonly DependencyProperty StateProperty =
             DependencyProperty.Register(
-                nameof(SubjectType),
-                typeof(SubjectType),
+                nameof(State),
+                typeof(string),
                 typeof(StateLabel),
                 new PropertyMetadata(null));
 
-        public SubjectType SubjectType
+        public string State
         {
-            get => (SubjectType)GetValue(StatusProperty);
+            get => (string)GetValue(StateProperty);
             set
             {
-                SetValue(StatusProperty, value);
-                ViewModel.LoadContents(SubjectType.ToString());
+                SetValue(StateProperty, value);
+                ViewModel.LoadContents(State);
             }
         }
         #endregion
 
         public StateLabel() => InitializeComponent();
-    }
-
-    public enum SubjectType
-    {
-        IssueOpen,
-        IssueClosed,
-        PullOpen,
-        PullClosed,
-        PullMerged,
-        PullDraft,
     }
 }

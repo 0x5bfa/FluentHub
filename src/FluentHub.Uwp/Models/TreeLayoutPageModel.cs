@@ -10,8 +10,11 @@ namespace FluentHub.Uwp.Models
     public class TreeLayoutPageModel
     {
         public string Name { get; set; }
+
         public string Path { get; set; }
+
         public string Glyph { get; set; }
+
         public string Tag { get; set; }
 
         public bool IsBolb { get; set; }

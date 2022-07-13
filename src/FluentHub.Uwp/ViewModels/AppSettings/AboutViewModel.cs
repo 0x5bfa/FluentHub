@@ -1,8 +1,5 @@
 ﻿using FluentHub.Uwp.Utils;
-using Microsoft.Toolkit.Mvvm.Input;
-using System;
 using System.IO;
-using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
@@ -38,6 +35,7 @@ namespace FluentHub.Uwp.ViewModels.AppSettings
         }
 
         internal IRelayCommand CopyVersionCommand { get; }
+        internal IAsyncRelayCommand OpenLogsCommand { get; }
 
         private void ExecuteCopyVersionCommand()
         {
@@ -58,8 +56,6 @@ namespace FluentHub.Uwp.ViewModels.AppSettings
                 _logger?.Error($"Failed to copy data from copy version command, version: ${Version}", ex);
             }
         }
-
-        internal IAsyncRelayCommand OpenLogsCommand { get; }
 
         private async Task ExecuteOpenLogsCommandAsync()
         {

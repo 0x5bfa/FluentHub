@@ -9,7 +9,6 @@
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
-    Loaded="OnLabelControlLoaded"
     mc:Ignorable="d">
 
     <UserControl.Resources>

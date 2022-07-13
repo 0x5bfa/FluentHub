@@ -1,11 +1,6 @@
-﻿using FluentHub.Octokit.Models;
-using FluentHub.Uwp.ViewModels;
+﻿using FluentHub.Uwp.ViewModels;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
 using FluentHub.Uwp.Views.Repositories.Projects;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;

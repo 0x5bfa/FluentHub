@@ -1,13 +1,8 @@
-﻿using FluentHub.Uwp.Utils;
+﻿using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Services;
 using FluentHub.Uwp.Models;
-using FluentHub.Uwp.Services;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
-using Microsoft.Toolkit.Mvvm.Messaging;
+using FluentHub.Uwp.Utils;
 using Microsoft.Toolkit.Uwp;
-using System;
-using System.Threading.Tasks;
 using System.Windows.Input;
 using Windows.System;
 using Windows.UI.Xaml.Controls;
@@ -17,10 +12,7 @@ namespace FluentHub.Uwp.ViewModels
 {
     public class MainPageViewModel : ObservableObject
     {
-        public MainPageViewModel(INavigationService navigationService!!,
-                                 IMessenger notificationMessenger = null,
-                                 ToastService toastService = null,
-                                 ILogger logger = null)
+        public MainPageViewModel(INavigationService navigationService!!, IMessenger notificationMessenger = null, ToastService toastService = null, ILogger logger = null)
         {
             _dispatcher = DispatcherQueue.GetForCurrentThread(); // To Access the UI thread later.
             _navigationService = navigationService;
@@ -45,7 +37,7 @@ namespace FluentHub.Uwp.ViewModels
             LoadSignedInUserCommand = new AsyncRelayCommand(LoadSignedInUserAsync);
         }
 
-        #region fields
+        #region Fields and Properties
         private readonly DispatcherQueue _dispatcher;
         private readonly INavigationService _navigationService;
         private readonly IMessenger _messenger;
@@ -55,8 +47,8 @@ namespace FluentHub.Uwp.ViewModels
         private UserNotificationMessage _lastNotification;
         public UserNotificationMessage LastNotification { get => _lastNotification; private set => SetProperty(ref _lastNotification, value); }
 
-        private Octokit.Models.User _signedInUser;
-        public Octokit.Models.User SignedInUser { get => _signedInUser; private set => SetProperty(ref _signedInUser, value); }
+        private Octokit.Models.v4.User _signedInUser;
+        public Octokit.Models.v4.User SignedInUser { get => _signedInUser; private set => SetProperty(ref _signedInUser, value); }
 
         private int _unreadCount;
         public int UnreadCount { get => _unreadCount; private set => SetProperty(ref _unreadCount, value); }
@@ -67,7 +59,7 @@ namespace FluentHub.Uwp.ViewModels
         public IAsyncRelayCommand LoadSignedInUserCommand { get; }
         #endregion
 
-        #region commands
+        #region Commands
         public ICommand AddNewTabAcceleratorCommand { get; private set; }
         public ICommand CloseTabAcceleratorCommand { get; private set; }
         public ICommand GoToNextTabAcceleratorCommand { get; private set; }
@@ -80,7 +72,7 @@ namespace FluentHub.Uwp.ViewModels
         public ICommand GoHomeCommand { get; private set; }
         #endregion
 
-        #region command-methods
+        #region Command methods
         private void AddNewTabAccelerator(KeyboardAcceleratorInvokedEventArgs e)
         {
             _navigationService.OpenTab<Views.Home.UserHomePage>();

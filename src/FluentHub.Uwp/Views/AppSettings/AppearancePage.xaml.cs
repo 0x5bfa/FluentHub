@@ -23,7 +23,7 @@ namespace FluentHub.Uwp.Views.AppSettings
         public AppearanceViewModel ViewModel { get; }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
-        {            
+        {
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Appearance";
             currentItem.Description = "Appearance settings";

@@ -1,23 +1,13 @@
-﻿using FluentHub.Uwp.Utils;
+﻿using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
-using FluentHub.Octokit.Models;
+using FluentHub.Uwp.Utils;
 using FluentHub.Octokit.Queries.Users;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
-using Humanizer;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
-using Microsoft.Toolkit.Mvvm.Messaging;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace FluentHub.Uwp.ViewModels.Users
 {
     public class FollowersViewModel : ObservableObject
     {
-        #region constructor
         public FollowersViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _logger = logger;
@@ -27,9 +17,8 @@ namespace FluentHub.Uwp.ViewModels.Users
 
             RefreshFollowersCommand = new AsyncRelayCommand<string>(LoadFollowersAsync);
         }
-        #endregion
 
-        #region fields
+        #region Fields and Properties
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
 
@@ -42,7 +31,6 @@ namespace FluentHub.Uwp.ViewModels.Users
         public IAsyncRelayCommand RefreshFollowersCommand { get; }
         #endregion
 
-        #region methods
         private async Task LoadFollowersAsync(string login, CancellationToken token)
         {
             try
@@ -73,6 +61,5 @@ namespace FluentHub.Uwp.ViewModels.Users
                 throw;
             }
         }
-        #endregion
     }
 }

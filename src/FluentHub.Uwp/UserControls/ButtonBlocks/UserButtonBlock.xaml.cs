@@ -1,5 +1,4 @@
-﻿using FluentHub.Octokit.Models;
-using FluentHub.Uwp.Services;
+﻿using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
@@ -11,7 +10,11 @@ namespace FluentHub.Uwp.UserControls.ButtonBlocks
     {
         #region propdp
         public static readonly DependencyProperty ViewModelProperty =
-            DependencyProperty.Register(nameof(User), typeof(UserButtonBlockViewModel), typeof(UserButtonBlock), new PropertyMetadata(null));
+            DependencyProperty.Register(
+                nameof(User),
+                typeof(UserButtonBlockViewModel),
+                typeof(UserButtonBlock),
+                new PropertyMetadata(null));
 
         public UserButtonBlockViewModel ViewModel
         {

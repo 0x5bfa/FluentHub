@@ -1,18 +1,6 @@
 ﻿using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
-using FluentHub.Octokit.Models;
 using FluentHub.Octokit.Queries.Repositories;
-using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
-using Humanizer;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
-using Microsoft.Toolkit.Mvvm.Messaging;
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
 {
@@ -23,6 +11,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
             _messenger = messenger;
             _logger = logger;
             _messenger = messenger;
+
             _items = new();
             Items = new(_items);
 
@@ -60,27 +49,29 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
         {
             try
             {
-                if (ContextViewModel.Repository.DefaultBranchName == null) return;
+                if (string.IsNullOrEmpty(ContextViewModel.Repository.DefaultBranchRef.Name))
+                    return;
+
                 IsLoading = true;
 
                 ContentQueries queries = new();
-                var objects = await queries.GetAllAsync(
+                var response = await queries.GetAllAsync(
                     ContextViewModel.Repository.Name,
                     ContextViewModel.Repository.Owner.Login,
                     ContextViewModel.BranchName,
                     ContextViewModel.Path);
 
-                foreach (var obj in objects)
+                foreach (var item in response)
                 {
                     TreeLayoutPageModel model = new()
                     {
-                        Name = obj.Name,
-                        Path = obj.Path,
-                        Tag = obj.Type,
+                        Name = item.Name,
+                        Path = item.Path,
+                        Tag = item.Type,
                         IsBolb = false,
                     };
 
-                    if (obj.Type == "tree")
+                    if (item.Type == "tree")
                     {
                         model.Glyph = "\uE9A0";
                     }
@@ -93,15 +84,19 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
                     _items.Add(model);
                 }
 
-                var orderedItems = new ObservableCollection<TreeLayoutPageModel>(Items.OrderByDescending(x => x.Glyph));
+                var orderedItems =
+                    new ObservableCollection<TreeLayoutPageModel>
+                    (Items.OrderByDescending(x => x.Glyph));
+
                 _items.Clear();
                 foreach (var item in orderedItems) _items.Add(item);
+
                 IsLoading = false;
             }
             catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error("LoadTreeViewContentsAsync", ex);
+                _logger?.Error(nameof(LoadTreeViewContentsAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
@@ -121,7 +116,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
                 var pathItems = path.Split("/");
                 List<TreeLayoutPageModel> subItems = new();
 
-                if (ContextViewModel.Repository.DefaultBranchName == null)
+                if (string.IsNullOrEmpty(ContextViewModel.Repository.DefaultBranchRef.Name))
                     return null;
 
                 ContentQueries queries = new();
@@ -154,7 +149,10 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
                     subItems.Add(model);
                 }
 
-                var orderedItems = new List<TreeLayoutPageModel>(subItems.OrderByDescending(x => x.Glyph));
+                var orderedItems =
+                    new List<TreeLayoutPageModel>
+                    (subItems.OrderByDescending(x => x.Glyph));
+
                 subItems.Clear();
                 foreach (var item in orderedItems) subItems.Add(item);
 
@@ -165,15 +163,17 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
             catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                IsLoading = false;
-
-                _logger?.Error("LoadSubItemsAsync", ex);
+                _logger?.Error(nameof(LoadSubItemsAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
                     _messenger.Send(notification);
                 }
                 throw;
+            }
+            finally
+            {
+                IsLoading = false;
             }
 
             return null;

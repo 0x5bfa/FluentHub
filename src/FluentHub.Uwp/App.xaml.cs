@@ -29,7 +29,11 @@ namespace FluentHub.Uwp
 
         public static SettingsViewModel Settings { get; set; } = new SettingsViewModel();
 
-        public static string AppVersion = $"{Package.Current.Id.Version.Major}.{Package.Current.Id.Version.Minor}.{Package.Current.Id.Version.Build}.{Package.Current.Id.Version.Revision}";
+        public static string AppVersion =
+            $"{Windows.ApplicationModel.Package.Current.Id.Version.Major}." +
+            $"{Windows.ApplicationModel.Package.Current.Id.Version.Minor}." +
+            $"{Windows.ApplicationModel.Package.Current.Id.Version.Build}." +
+            $"{Windows.ApplicationModel.Package.Current.Id.Version.Revision}";
 
         public readonly static string DefaultGitHubDomain = "https://github.com";
 
@@ -93,6 +97,7 @@ namespace FluentHub.Uwp
                 .AddTransient<ViewModels.Home.NotificationsViewModel>()
                 .AddTransient<ViewModels.Home.UserHomeViewModel>()
                 .AddTransient<ViewModels.Organizations.OverviewViewModel>()
+                .AddTransient<ViewModels.Organizations.ProfileViewModel>()
                 .AddTransient<ViewModels.Organizations.RepositoriesViewModel>()
                 .AddTransient<ViewModels.Repositories.Codes.Layouts.DetailsLayoutViewModel>()
                 .AddTransient<ViewModels.Repositories.Codes.Layouts.TreeLayoutViewModel>()
@@ -111,6 +116,7 @@ namespace FluentHub.Uwp
                 .AddTransient<ViewModels.Repositories.PullRequests.FileChangesViewModel>()
                 .AddTransient<ViewModels.Repositories.PullRequests.PullRequestViewModel>()
                 .AddTransient<ViewModels.Repositories.PullRequests.PullRequestsViewModel>()
+                .AddTransient<ViewModels.SettingsManager>()
                 .AddTransient<ViewModels.SignIn.IntroViewModel>()
                 .AddTransient<ViewModels.UserControls.Blocks.FileContentBlockViewModel>()
                 .AddTransient<ViewModels.UserControls.Blocks.FileNavigationBlockViewModel>()
@@ -118,7 +124,6 @@ namespace FluentHub.Uwp
                 .AddTransient<ViewModels.UserControls.Blocks.LatestCommitBlockViewModel>()
                 .AddTransient<ViewModels.Users.FollowersViewModel>()
                 .AddTransient<ViewModels.Users.FollowingViewModel>()
-                .AddTransient<ViewModels.Dialogs.AccountSwitchingDialogViewModel>()
                 .AddTransient<ViewModels.Users.ProfilePageViewModel>()
                 .AddTransient<ViewModels.Users.IssuesViewModel>()
                 .AddTransient<ViewModels.Users.OverviewViewModel>()

@@ -1,17 +1,7 @@
-﻿using FluentHub.Uwp.Utils;
-using FluentHub.Octokit.Authorization;
-using FluentHub.Octokit.Models;
-using FluentHub.Uwp.Models;
+﻿using FluentHub.Octokit.Authorization;
 using FluentHub.Octokit.Queries.Users;
-using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
-using Microsoft.Toolkit.Mvvm.Messaging;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading;
-using System.Threading.Tasks;
+using FluentHub.Uwp.Utils;
+using FluentHub.Uwp.Models;
 using Windows.System;
 
 namespace FluentHub.Uwp.ViewModels.SignIn
@@ -53,7 +43,7 @@ namespace FluentHub.Uwp.ViewModels.SignIn
             catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error("AuthorizeWithBrowser", ex);
+                _logger?.Error(nameof(AuthorizeWithBrowser), ex);
                 AuthErrorMessage = ex.Message;
                 App.Settings.SetupProgress = false;
                 IsLoading = false;

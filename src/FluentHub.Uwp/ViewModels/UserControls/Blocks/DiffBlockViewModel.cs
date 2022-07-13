@@ -1,17 +1,10 @@
-﻿using FluentHub.Octokit.Models;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
+﻿using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
 {
-    public class DiffBlockViewModel : INotifyPropertyChanged
+    public class DiffBlockViewModel : ObservableObject
     {
         public DiffBlockViewModel()
         {
@@ -20,6 +13,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
             ChangedLineBackgroundType = new(_changedLineBackgroundType);
         }
 
+        #region Fields and Properties
         private ChangedFile _changedFile;
         public ChangedFile ChangedFile { get => _changedFile; set => SetProperty(ref _changedFile, value); }
 
@@ -41,6 +35,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
         // 0: patch, 1: addition, 2: deletion, 3: no changes
         private readonly ObservableCollection<int> _changedLineBackgroundType;
         public ReadOnlyObservableCollection<int> ChangedLineBackgroundType { get; }
+        #endregion
 
         public void Creanup()
         {
@@ -139,19 +134,6 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
             }
 
             PatchRemovedfFirstLetters = string.Join("\n", lines);
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
-        {
-            if (!Equals(field, newValue))
-            {
-                field = newValue;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-                return true;
-            }
-
-            return false;
         }
     }
 }

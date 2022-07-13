@@ -1,12 +1,6 @@
-﻿using FluentHub.Octokit.Models.Events;
-using FluentHub.Uwp.ViewModels.UserControls.Labels;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
+﻿using FluentHub.Uwp.Helpers;
+using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Utils;
 using Windows.UI.Xaml.Media;
 
 namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
@@ -30,7 +24,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
         public string TimelineBadgeGlyph { get => _timelineBadgeGlyph; set => SetProperty(ref _timelineBadgeGlyph, value); }
         #endregion
 
-        #region AllEvents
+        #region All events
         private AddedToProjectEvent addedToProjectEvent;
         public AddedToProjectEvent AddedToProjectEvent { get => addedToProjectEvent; set => SetProperty(ref addedToProjectEvent, value); }
 
@@ -197,7 +191,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
         public UserBlockedEvent UserBlockedEvent { get => userBlockedEvent; set => SetProperty(ref userBlockedEvent, value); }
         #endregion
 
-        #region ViewModels
+        #region Viewmodels
         private IssueCommentBlockViewModel _commentBlockViewModel;
         public IssueCommentBlockViewModel CommentBlockViewModel { get => _commentBlockViewModel; set => SetProperty(ref _commentBlockViewModel, value); }
 

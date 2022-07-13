@@ -3,24 +3,12 @@ using FluentHub.Uwp.Services;
 using FluentHub.Uwp.Models;
 using FluentHub.Octokit.Queries.Users;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
-using Microsoft.Toolkit.Mvvm.Messaging;
-using Octokit;
-using System;
-using System.Collections.ObjectModel;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace FluentHub.Uwp.ViewModels.Home
 {
     public class NotificationsViewModel : ObservableObject
     {
-        #region constructor
-        public NotificationsViewModel(ToastService toastService,
-                                      IMessenger messenger = null,
-                                      ILogger logger = null)
+        public NotificationsViewModel(ToastService toastService, IMessenger messenger = null, ILogger logger = null)
         {
             _toastService = toastService;
             _messenger = messenger;
@@ -31,9 +19,8 @@ namespace FluentHub.Uwp.ViewModels.Home
 
             RefreshNotificationsCommand = new AsyncRelayCommand(RefreshNotificationsAsync);
         }
-        #endregion
 
-        #region properties
+        #region Fields and Poperties
         private readonly ToastService _toastService;
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
@@ -47,7 +34,6 @@ namespace FluentHub.Uwp.ViewModels.Home
         public IAsyncRelayCommand RefreshNotificationsCommand { get; }
         #endregion
 
-        #region methods
         private async Task RefreshNotificationsAsync(CancellationToken token)
         {
             try
@@ -89,6 +75,5 @@ namespace FluentHub.Uwp.ViewModels.Home
                 }
             }
         }
-        #endregion
     }
 }

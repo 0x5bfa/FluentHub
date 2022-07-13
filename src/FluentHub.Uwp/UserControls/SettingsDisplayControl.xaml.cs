@@ -7,14 +7,16 @@ namespace FluentHub.Uwp.UserControls
     [ContentProperty(Name = nameof(SettingsActionableElement))]
     public sealed partial class SettingsDisplayControl : UserControl
     {
+        #region propdp
         public FrameworkElement SettingsActionableElement { get; set; }
 
-        public static readonly DependencyProperty AdditionalDescriptionContentProperty = DependencyProperty.Register(
-          "AdditionalDescriptionContent",
-          typeof(FrameworkElement),
-          typeof(SettingsDisplayControl),
-          new PropertyMetadata(null)
-        );
+        public static readonly DependencyProperty AdditionalDescriptionContentProperty =
+            DependencyProperty.Register(
+                nameof(AdditionalDescriptionContent),
+                typeof(FrameworkElement),
+                typeof(SettingsDisplayControl),
+                new PropertyMetadata(null)
+                );
 
         public FrameworkElement AdditionalDescriptionContent
         {
@@ -22,12 +24,13 @@ namespace FluentHub.Uwp.UserControls
             set => SetValue(AdditionalDescriptionContentProperty, value);
         }
 
-        public static readonly DependencyProperty TitleProperty = DependencyProperty.Register(
-          "Title",
-          typeof(string),
-          typeof(SettingsDisplayControl),
-          new PropertyMetadata(null)
-        );
+        public static readonly DependencyProperty TitleProperty =
+            DependencyProperty.Register(
+                nameof(Title),
+                typeof(string),
+                typeof(SettingsDisplayControl),
+                new PropertyMetadata(null)
+                );
 
         public string Title
         {
@@ -35,12 +38,13 @@ namespace FluentHub.Uwp.UserControls
             set => SetValue(TitleProperty, value);
         }
 
-        public static readonly DependencyProperty DescriptionProperty = DependencyProperty.Register(
-          "Description",
-          typeof(string),
-          typeof(SettingsDisplayControl),
-          new PropertyMetadata(null)
-        );
+        public static readonly DependencyProperty DescriptionProperty =
+            DependencyProperty.Register(
+                nameof(Description),
+                typeof(string),
+                typeof(SettingsDisplayControl),
+                new PropertyMetadata(null)
+                );
 
         public string Description
         {
@@ -48,22 +52,24 @@ namespace FluentHub.Uwp.UserControls
             set => SetValue(DescriptionProperty, value);
         }
 
-        public static readonly DependencyProperty IconProperty = DependencyProperty.Register(
-          "Icon",
-          typeof(IconElement),
-          typeof(SettingsDisplayControl),
-          new PropertyMetadata(null)
-        );
+        public static readonly DependencyProperty IconProperty =
+            DependencyProperty.Register(
+                nameof(Icon),
+                typeof(IconElement),
+                typeof(SettingsDisplayControl),
+                new PropertyMetadata(null)
+                );
 
         public IconElement Icon
         {
             get => (IconElement)GetValue(IconProperty);
             set => SetValue(IconProperty, value);
         }
+        #endregion
 
         public SettingsDisplayControl()
         {
-            this.InitializeComponent();
+            InitializeComponent();
             VisualStateManager.GoToState(this, "NormalState", false);
         }
 

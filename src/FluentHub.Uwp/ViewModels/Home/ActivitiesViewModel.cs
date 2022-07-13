@@ -1,14 +1,11 @@
 ﻿using FluentHub.Uwp.Utils;
 using FluentHub.Octokit.Queries.Users;
 using FluentHub.Uwp.ViewModels.UserControls.Blocks;
-using System.Collections.ObjectModel;
-using System.Threading;
 
 namespace FluentHub.Uwp.ViewModels.Home
 {
     public class ActivitiesViewModel : ObservableObject
     {
-        #region constructor
         public ActivitiesViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _messenger = messenger;
@@ -23,9 +20,8 @@ namespace FluentHub.Uwp.ViewModels.Home
 
             RefreshActivitiesCommand = new AsyncRelayCommand(LoadActivitiesAsync);
         }
-        #endregion
 
-        #region fields and properties
+        #region Fields and Properties
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
 
@@ -38,7 +34,6 @@ namespace FluentHub.Uwp.ViewModels.Home
         public IAsyncRelayCommand RefreshActivitiesCommand { get; }
         #endregion
 
-        #region methods
         private async Task LoadActivitiesAsync(CancellationToken token)
         {
             try
@@ -75,6 +70,5 @@ namespace FluentHub.Uwp.ViewModels.Home
                 throw;
             }
         }
-        #endregion
     }
 }

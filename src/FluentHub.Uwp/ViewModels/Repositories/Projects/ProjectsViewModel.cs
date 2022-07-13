@@ -1,34 +1,24 @@
-﻿using FluentHub.Uwp.Utils;
-using FluentHub.Octokit.Models;
-using FluentHub.Uwp.Models;
+﻿using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Utils;
 using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
-using Microsoft.Toolkit.Mvvm.Messaging;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.Projects
 {
     public class ProjectsViewModel : ObservableObject
     {
-        #region constructor
         public ProjectsViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _messenger = messenger;
             _logger = logger;
+
             _items = new();
             Items = new(_items);
 
             LoadProjectsPageCommand = new AsyncRelayCommand<string>(LoadProjectsPageAsync);
         }
-        #endregion
 
-        #region properties
+        #region Fields and Properties
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
 
@@ -38,7 +28,6 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Projects
         public IAsyncRelayCommand LoadProjectsPageCommand { get; }
         #endregion
 
-        #region methods
         private async Task LoadProjectsPageAsync(string nameWithOwner)
         {
             try
@@ -59,7 +48,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Projects
             }
             catch (Exception ex)
             {
-                _logger?.Error("LoadProjectsPageAsync", ex);
+                _logger?.Error(nameof(LoadProjectsPageAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
@@ -68,6 +57,5 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Projects
                 throw;
             }
         }
-        #endregion
     }
 }

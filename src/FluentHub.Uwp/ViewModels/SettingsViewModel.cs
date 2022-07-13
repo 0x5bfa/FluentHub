@@ -1,13 +1,7 @@
-﻿using FluentHub.Uwp.Models;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using FluentHub.Uwp.Helpers;
+using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Utils;
 using Windows.Globalization;
-using Windows.Storage;
-using Windows.UI.Xaml;
 
 namespace FluentHub.Uwp.ViewModels
 {
@@ -24,7 +18,7 @@ namespace FluentHub.Uwp.ViewModels
             }
         }
 
-        #region signin
+        #region Sign in
         public string AccessToken
         {
             get => Get(nameof(AccessToken), "");
@@ -56,7 +50,7 @@ namespace FluentHub.Uwp.ViewModels
         }
         #endregion
 
-        #region appsettings
+        #region App settings
         public string AppTheme
         {
             get => Get(nameof(AppTheme), "Default");
@@ -86,7 +80,7 @@ namespace FluentHub.Uwp.ViewModels
         public DefaultLanguageModel CurrentLanguage { get; set; } = new DefaultLanguageModel(ApplicationLanguages.PrimaryLanguageOverride);
         #endregion
 
-        #region others
+        #region Others
         public string LastOpenedPageFrame
         {
             get => Get(nameof(LastOpenedPageFrame), nameof(Views.Home.UserHomePage));

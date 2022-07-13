@@ -2,8 +2,6 @@
 using FluentHub.Octokit.Queries.Users;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
 using Microsoft.Extensions.DependencyInjection;
-using System.Collections.ObjectModel;
-using System.Threading;
 
 namespace FluentHub.Uwp.ViewModels.Home
 {
@@ -25,7 +23,7 @@ namespace FluentHub.Uwp.ViewModels.Home
         }
         #endregion
 
-        #region fields and properties
+        #region Fields and Properties
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
 
@@ -38,7 +36,6 @@ namespace FluentHub.Uwp.ViewModels.Home
         public IAsyncRelayCommand LoadHomeContentsCommand { get; }
         #endregion
 
-        #region methods
         private async Task LoadHomeContentsAsync(CancellationToken token)
         {
             try
@@ -72,6 +69,5 @@ namespace FluentHub.Uwp.ViewModels.Home
                 throw;
             }
         }
-        #endregion
     }
 }

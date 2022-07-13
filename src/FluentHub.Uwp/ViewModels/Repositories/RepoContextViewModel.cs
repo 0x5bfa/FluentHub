@@ -1,18 +1,7 @@
 ﻿using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
-using FluentHub.Octokit.Models;
 using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
-using Humanizer;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
-using Microsoft.Toolkit.Mvvm.Messaging;
-using System;
-using System.Linq;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace FluentHub.Uwp.ViewModels.Repositories
 {
@@ -79,15 +68,6 @@ namespace FluentHub.Uwp.ViewModels.Repositories
                 }
                 SetProperty(ref _isSubDir, value);
             }
-        }
-
-        public static RepoContextViewModel Create(string url)
-        {
-            var uri = new Uri(url);
-            var pathSegments = uri.AbsolutePath.Split("/").ToList();
-            pathSegments.RemoveAt(0);
-
-            return new RepoContextViewModel();
         }
     }
 }

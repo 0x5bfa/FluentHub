@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.Views.Users
 {
@@ -23,7 +24,7 @@ namespace FluentHub.Uwp.Views.Users
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            // e.g.) https://github.com/pulls
+            // e.g. https://github.com/pulls
             string url = e.Parameter as string;
             string login = App.Settings.SignedInUserName;
             ViewModel.DisplayTitle = true;

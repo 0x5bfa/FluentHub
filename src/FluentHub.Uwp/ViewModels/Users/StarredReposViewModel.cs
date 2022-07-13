@@ -1,23 +1,13 @@
-﻿using FluentHub.Uwp.Utils;
-using FluentHub.Octokit.Models;
+﻿using FluentHub.Octokit.Queries.Users;
+using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
-using FluentHub.Octokit.Queries.Users;
+using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
-using Humanizer;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
-using Microsoft.Toolkit.Mvvm.Messaging;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace FluentHub.Uwp.ViewModels.Users
 {
     public class StarredReposViewModel : ObservableObject
     {
-        #region constructor        
         public StarredReposViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _messenger = messenger;
@@ -28,9 +18,8 @@ namespace FluentHub.Uwp.ViewModels.Users
 
             RefreshRepositoriesCommand = new AsyncRelayCommand<string>(LoadStarredRepositoriesAsync);
         }
-        #endregion
 
-        #region fields
+        #region Fields and Properties
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
 
@@ -43,7 +32,6 @@ namespace FluentHub.Uwp.ViewModels.Users
         public IAsyncRelayCommand RefreshRepositoriesCommand { get; }
         #endregion
 
-        #region methods
         private async Task LoadStarredRepositoriesAsync(string login, CancellationToken token)
         {
             try
@@ -77,6 +65,5 @@ namespace FluentHub.Uwp.ViewModels.Users
                 throw;
             }
         }
-        #endregion
     }
 }

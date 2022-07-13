@@ -11,12 +11,12 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.Views
 {
     public sealed partial class MainPage : Page
     {
-        #region constructor
         public MainPage()
         {
             InitializeComponent();
@@ -26,15 +26,14 @@ namespace FluentHub.Uwp.Views
             NavigationService = provider.GetRequiredService<INavigationService>();
             Logger = provider.GetService<ILogger>();
         }
-        #endregion
 
-        #region properties
+        #region Fields and Properties
         public MainPageViewModel ViewModel { get; }
         private INavigationService NavigationService { get; }
         public ILogger Logger { get; }
         #endregion
 
-        #region methods
+        #region Methods
         private void SubscribeEvents()
         {
             var titleBar = CoreApplication.GetCurrentView().TitleBar;
@@ -83,7 +82,7 @@ namespace FluentHub.Uwp.Views
         }
         #endregion
 
-        #region event handlers
+        #region Event handlers
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             SubscribeEvents();

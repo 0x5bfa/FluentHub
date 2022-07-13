@@ -1,6 +1,8 @@
-﻿using FluentHub.Octokit.Models.v3;
-using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
-using System.Collections.ObjectModel;
+﻿using FluentHub.Octokit.Authorization;
+using FluentHub.Octokit.Queries.Users;
+using FluentHub.Uwp.Utils;
+using FluentHub.Uwp.Models;
+using FluentHub.Uwp.ViewModels.UserControls.Blocks;
 
 namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
 {

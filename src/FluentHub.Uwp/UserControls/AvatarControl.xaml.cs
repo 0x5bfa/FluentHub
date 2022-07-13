@@ -74,9 +74,5 @@ namespace FluentHub.Uwp.UserControls
         #endregion
 
         public AvatarControl() => InitializeComponent();
-
-        private void OnAvatarControlLoaded(object sender, RoutedEventArgs e)
-        {
-        }
     }
 }

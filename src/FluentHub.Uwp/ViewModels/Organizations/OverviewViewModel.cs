@@ -1,23 +1,12 @@
-﻿using FluentHub.Uwp.Utils;
-using FluentHub.Octokit.Models;
-using FluentHub.Uwp.Models;
+﻿using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Utils;
 using FluentHub.Octokit.Queries.Organizations;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
-using Humanizer;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
-using Microsoft.Toolkit.Mvvm.Messaging;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace FluentHub.Uwp.ViewModels.Organizations
 {
     public class OverviewViewModel : ObservableObject
     {
-        #region constructor
         public OverviewViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _messenger = messenger;
@@ -31,9 +20,8 @@ namespace FluentHub.Uwp.ViewModels.Organizations
 
             LoadOrganizationOverviewAsyncCommand = new AsyncRelayCommand<string>(LoadOrganizationOverviewAsync);
         }
-        #endregion
 
-        #region fields
+        #region Fields and Properties
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
 
@@ -46,7 +34,6 @@ namespace FluentHub.Uwp.ViewModels.Organizations
         public IAsyncRelayCommand LoadOrganizationOverviewAsyncCommand { get; }
         #endregion
 
-        #region methods
         private async Task LoadOrganizationOverviewAsync(string org, CancellationToken token)
         {
             try
@@ -96,6 +83,5 @@ namespace FluentHub.Uwp.ViewModels.Organizations
                 throw;
             }
         }
-        #endregion
     }
 }

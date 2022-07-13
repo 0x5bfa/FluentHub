@@ -1,19 +1,11 @@
-﻿using FluentHub.Uwp.ViewModels.UserControls.Labels;
-using FluentHub.Octokit.Models;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml;
+﻿using FluentHub.Uwp.Helpers;
+using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Utils;
+using FluentHub.Uwp.ViewModels.UserControls.Labels;
 
 namespace FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks
 {
-    public class IssueButtonBlockViewModel : INotifyPropertyChanged
+    public class IssueButtonBlockViewModel : ObservableObject
     {
         public IssueButtonBlockViewModel()
         {
@@ -26,6 +18,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks
             };
         }
 
+        #region Fields and Properties
         private Issue _issueItem;
         public Issue IssueItem { get => _issueItem; set => SetProperty(ref _issueItem, value); }
 
@@ -37,13 +30,14 @@ namespace FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks
 
         private LabelControlViewModel _commentCountLabel;
         public LabelControlViewModel CommentCountLabel { get => _commentCountLabel; set => SetProperty(ref _commentCountLabel, value); }
+        #endregion
 
         public void LoadContents()
         {
-            CommentCountLabel.Name = IssueItem.CommentCount.ToString();
+            CommentCountLabel.Name = IssueItem.Comments.TotalCount.ToString();
 
             _labelViewModels.Clear();
-            foreach (var label in IssueItem.Labels)
+            foreach (var label in IssueItem.Labels.Nodes)
             {
                 LabelControlViewModel viewModel = new()
                 {
@@ -53,19 +47,6 @@ namespace FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks
 
                 _labelViewModels.Add(viewModel);
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
-        {
-            if (!Equals(field, newValue))
-            {
-                field = newValue;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-                return true;
-            }
-
-            return false;
         }
     }
 }

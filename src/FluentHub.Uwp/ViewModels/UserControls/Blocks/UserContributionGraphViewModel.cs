@@ -1,29 +1,17 @@
 ﻿using FluentHub.Uwp.Helpers;
-using FluentHub.Octokit.Models;
+using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Utils;
 using FluentHub.Octokit.Queries.Users;
-using FluentHub.Uwp.ViewModels.Repositories;
-using Serilog;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
-using GraphQLModel = global::Octokit.GraphQL.Model;
 
 namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
 {
-    public class UserContributionGraphViewModel : INotifyPropertyChanged
+    public class UserContributionGraphViewModel : ObservableObject
     {
         private string loginName;
         public string LoginName { get => loginName; set => SetProperty(ref loginName, value); }
 
-        private ContributionCalender calendar;
-        public ContributionCalender Calendar { get => calendar; set => SetProperty(ref calendar, value); }
+        private ContributionCalendar calendar;
+        public ContributionCalendar Calendar { get => calendar; set => SetProperty(ref calendar, value); }
 
         public async Task GetContributionCalendarAsync()
         {
@@ -59,36 +47,23 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
             {
                 switch (Calendar.ContributionDays[i].ContributionLevel)
                 {
-                    case GraphQLModel.ContributionLevel.None:
+                    case ContributionLevel.None:
                         Calendar.ContributionDays[i].Color = "#64000000";
                         break;
-                    case GraphQLModel.ContributionLevel.FirstQuartile:
+                    case ContributionLevel.FirstQuartile:
                         Calendar.ContributionDays[i].Color = "#0e4429";
                         break;
-                    case GraphQLModel.ContributionLevel.SecondQuartile:
+                    case ContributionLevel.SecondQuartile:
                         Calendar.ContributionDays[i].Color = "#006d32";
                         break;
-                    case GraphQLModel.ContributionLevel.ThirdQuartile:
+                    case ContributionLevel.ThirdQuartile:
                         Calendar.ContributionDays[i].Color = "#26a641";
                         break;
-                    case GraphQLModel.ContributionLevel.FourthQuartile:
+                    case ContributionLevel.FourthQuartile:
                         Calendar.ContributionDays[i].Color = "#39d353";
                         break;
                 }
             }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-        protected bool SetProperty<T>(ref T field, T newValue, [CallerMemberName] string propertyName = null)
-        {
-            if (!Equals(field, newValue))
-            {
-                field = newValue;
-                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-                return true;
-            }
-
-            return false;
         }
     }
 }

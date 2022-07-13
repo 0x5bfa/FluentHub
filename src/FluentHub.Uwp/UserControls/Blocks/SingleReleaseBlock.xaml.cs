@@ -1,8 +1,6 @@
 ﻿using FluentHub.Uwp.ViewModels.UserControls.Blocks;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -18,6 +16,7 @@ namespace FluentHub.Uwp.UserControls.Blocks
 {
     public sealed partial class SingleReleaseBlock : UserControl
     {
+        #region propdp
         public static readonly DependencyProperty ViewModelProperty =
             DependencyProperty.Register(
                 nameof(ViewModel),
@@ -34,7 +33,8 @@ namespace FluentHub.Uwp.UserControls.Blocks
                 DataContext = ViewModel;
             }
         }
+        #endregion
 
-        public SingleReleaseBlock() => this.InitializeComponent();
+        public SingleReleaseBlock() => InitializeComponent();
     }
 }

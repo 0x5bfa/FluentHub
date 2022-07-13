@@ -1,24 +1,13 @@
 ﻿using FluentHub.Uwp.Utils;
-using FluentHub.Octokit.Models.Events;
-using FluentHub.Octokit.Models;
 using FluentHub.Uwp.Models;
 using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.UserControls.Blocks;
 using FluentHub.Uwp.ViewModels.UserControls.Blocks;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
-using Microsoft.Toolkit.Mvvm.Messaging;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.Discussions
 {
     public class DiscussionViewModel : ObservableObject
     {
-        #region constructor
         public DiscussionViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _messenger = messenger;
@@ -26,9 +15,8 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Discussions
 
             LoadDiscussionPageCommand = new AsyncRelayCommand<string>(LoadDiscussionPageAsync);
         }
-        #endregion
 
-        #region properties
+        #region Fields and Properties
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
 
@@ -38,7 +26,6 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Discussions
         public IAsyncRelayCommand LoadDiscussionPageCommand { get; }
         #endregion
 
-        #region methods
         private async Task LoadDiscussionPageAsync(string url)
         {
             try
@@ -63,6 +50,5 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Discussions
                 throw;
             }
         }
-        #endregion
     }
 }

@@ -1,21 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FluentHub.Uwp.Models
+﻿namespace FluentHub.Uwp.Models
 {
     public class DetailsLayoutListViewModel
     {
-        public string ObjectTypeIconGlyph { get; set; }
+        public string IconGlyph { get; set; }
 
-        public string ObjectName { get; set; }
+        public string Name { get; set; }
 
-        public string ObjectLatestCommitMessage { get; set; }
+        public string LatestCommitMessage { get; set; }
 
-        public string ObjectUpdatedAtHumanized { get; set; }
-
-        public string ObjectTag { get; set; }
+        public string Type { get; set; }
     }
 }

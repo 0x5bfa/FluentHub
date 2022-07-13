@@ -1,5 +1,4 @@
-﻿using FluentHub.Uwp.Services;
-using FluentHub.Uwp.ViewModels.UserControls.Blocks;
+﻿using FluentHub.Uwp.ViewModels.UserControls.Blocks;
 using Microsoft.Extensions.DependencyInjection;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.UI.Xaml;

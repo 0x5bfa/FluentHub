@@ -1,23 +1,14 @@
-﻿using FluentHub.Uwp.Utils;
+﻿using FluentHub.Octokit.Queries.Users;
+using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
-using FluentHub.Octokit.Models;
-using FluentHub.Octokit.Queries.Users;
+using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.ViewModels.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
-using Humanizer;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
-using Microsoft.Toolkit.Mvvm.Messaging;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 
 namespace FluentHub.Uwp.ViewModels.Users
 {
     public class OverviewViewModel : ObservableObject
     {
-        #region constructor
         public OverviewViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _logger = logger;
@@ -27,25 +18,23 @@ namespace FluentHub.Uwp.ViewModels.Users
 
             RefreshRepositoryCommand = new AsyncRelayCommand<string>(RefreshRepositoryAsync);
         }
-        #endregion
 
-        #region fields
+        #region Fields and Properties
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
-        private readonly ObservableCollection<RepoButtonBlockViewModel> _repositoryItems;
-        private string _loginName;
-        private RepoContextViewModel _contextViewModel;
-        #endregion
 
-        #region properties
+        private readonly ObservableCollection<RepoButtonBlockViewModel> _repositoryItems;
         public ReadOnlyObservableCollection<RepoButtonBlockViewModel> RepositoryItems { get; }
+
+        private string _loginName;
         public string LoginName { get => _loginName; set => SetProperty(ref _loginName, value); }
+
+        private RepoContextViewModel _contextViewModel;
         public RepoContextViewModel ContextViewModel { get => _contextViewModel; set => SetProperty(ref _contextViewModel, value); }
 
         public IAsyncRelayCommand RefreshRepositoryCommand { get; }
         #endregion
 
-        #region methods
         private async Task RefreshRepositoryAsync(string login)
         {
             try
@@ -91,6 +80,5 @@ namespace FluentHub.Uwp.ViewModels.Users
                 throw;
             }
         }
-        #endregion
     }
 }

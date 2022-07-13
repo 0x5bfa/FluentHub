@@ -1,44 +1,33 @@
-﻿using FluentHub.Uwp.Utils;
-using FluentHub.Octokit.Models;
+﻿using FluentHub.Octokit.Queries.Users;
+using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
-using FluentHub.Octokit.Queries.Users;
+using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
-using Humanizer;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
-using Microsoft.Toolkit.Mvvm.Input;
-using Microsoft.Toolkit.Mvvm.Messaging;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
 
 namespace FluentHub.Uwp.ViewModels.Users
 {
     public class ProfilePageViewModel : ObservableObject
     {
-        #region constructor
         public ProfilePageViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _logger = logger;
             _messenger = messenger;
             RefreshUserCommand = new AsyncRelayCommand<string>(LoadUserAsync);
         }
-        #endregion
 
-        #region fields
+        #region Fields and Properties
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
-        private User _userItem;
-        private Uri _builtWebsiteUrl;
-        #endregion
 
-        #region properties
+        private User _userItem;
         public User UserItem { get => _userItem; private set => SetProperty(ref _userItem, value); }
+
+        private Uri _builtWebsiteUrl;
         public Uri BuiltWebsiteUrl { get => _builtWebsiteUrl; set => SetProperty(ref _builtWebsiteUrl, value); }
+
         public IAsyncRelayCommand RefreshUserCommand { get; }
         #endregion
 
-        #region methods
         private async Task LoadUserAsync(string login)
         {
             try
@@ -66,6 +55,5 @@ namespace FluentHub.Uwp.ViewModels.Users
                 throw;
             }
         }
-        #endregion
     }
 }
