@@ -17,13 +17,20 @@ namespace FluentHub.Uwp.Views.Organizations
         public ProfilePage()
         {
             InitializeComponent();
+
+            var provider = App.Current.Services;
+            ViewModel = provider.GetRequiredService<ProfileViewModel>();
+            navigationService = provider.GetRequiredService<INavigationService>();
         }
+
+        private readonly INavigationService navigationService;
+        public ProfileViewModel ViewModel { get; }
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
             OrganizationName = e.Parameter as string;
 
-            await ViewModel.GetOrganization(OrganizationName);
+            await ViewModel.GetOrganizationAsync(OrganizationName);
             UpdateVisibility();
 
             base.OnNavigatedTo(e);

@@ -154,7 +154,7 @@
                             Padding="4"
                             Content="{x:Bind ViewModel.UserItem.Location, Mode=OneWay}"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            NavigateUri="https://bing.com/maps"/>
+                            NavigateUri="https://bing.com/maps" />
                     </StackPanel>
                     <StackPanel
                         Margin="0,0,12,0"
@@ -191,7 +191,7 @@
                             Style="{ThemeResource BodyTextBlockStyle}"
                             Text="Developer Program Member" />
                     </StackPanel>
-                    <StackPanel Orientation="Horizontal" Visibility="{x:Bind ViewModel.UserItem.FollowersTotalCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+                    <StackPanel Orientation="Horizontal" Visibility="{x:Bind ViewModel.UserItem.Followers.TotalCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
                         <FontIcon
                             Margin="0,0,4,0"
                             VerticalAlignment="Center"
@@ -210,7 +210,7 @@
                                         VerticalAlignment="Center"
                                         FontWeight="SemiBold"
                                         Style="{ThemeResource BodyTextBlockStyle}"
-                                        Text="{x:Bind ViewModel.UserItem.FollowersTotalCount, Mode=OneWay}" />
+                                        Text="{x:Bind ViewModel.UserItem.Followers.TotalCount, Mode=OneWay}" />
                                     <TextBlock
                                         VerticalAlignment="Center"
                                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
@@ -236,7 +236,7 @@
                                         VerticalAlignment="Center"
                                         FontWeight="SemiBold"
                                         Style="{ThemeResource BodyTextBlockStyle}"
-                                        Text="{x:Bind ViewModel.UserItem.FollowingTotalCount, Mode=OneWay}" />
+                                        Text="{x:Bind ViewModel.UserItem.Following.TotalCount, Mode=OneWay}" />
                                     <TextBlock
                                         VerticalAlignment="Center"
                                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"

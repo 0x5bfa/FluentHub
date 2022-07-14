@@ -33,7 +33,7 @@ namespace FluentHub.Uwp.UserControls.Labels
             set
             {
                 SetValue(ViewModelProperty, value);
-                this.DataContext = ViewModel;
+                DataContext = ViewModel;
                 ViewModel?.SetColorBrush();
             }
         }

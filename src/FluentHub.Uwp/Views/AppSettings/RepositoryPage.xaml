@@ -9,33 +9,31 @@
     xmlns:uc="using:FluentHub.Uwp.UserControls"
     mc:Ignorable="d">
 
-    <Grid>
-        <ScrollViewer>
-            <Grid Margin="0,0,16,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
+    <ScrollViewer>
+        <Grid Margin="0,0,16,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-                <TextBlock
-                    Grid.Row="0"
-                    Margin="0,16,0,8"
-                    Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="Layout" />
+            <TextBlock
+                Grid.Row="0"
+                Margin="0,16,0,8"
+                Style="{StaticResource BodyStrongTextBlockStyle}"
+                Text="Layout" />
 
-                <StackPanel Grid.Row="1" Spacing="4">
-                    <uc:SettingsBlockControl
-                        Title="Use details list"
-                        Description="Select which layout to use"
-                        IsClickable="False">
-                        <uc:SettingsBlockControl.Icon>
-                            <FontIcon Glyph="&#xECA5;" />
-                        </uc:SettingsBlockControl.Icon>
-                        <ToggleSwitch IsOn="{x:Bind root:App.Settings.UseDetailsView, Mode=TwoWay}" />
-                    </uc:SettingsBlockControl>
-                </StackPanel>
+            <StackPanel Grid.Row="1" Spacing="4">
+                <uc:SettingsBlockControl
+                    Title="Use details list"
+                    Description="Select which layout to use"
+                    IsClickable="False">
+                    <uc:SettingsBlockControl.Icon>
+                        <FontIcon Glyph="&#xECA5;" />
+                    </uc:SettingsBlockControl.Icon>
+                    <ToggleSwitch IsOn="{x:Bind root:App.Settings.UseDetailsView, Mode=TwoWay}" />
+                </uc:SettingsBlockControl>
+            </StackPanel>
 
-            </Grid>
-        </ScrollViewer>
-    </Grid>
+        </Grid>
+    </ScrollViewer>
 </Page>

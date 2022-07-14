@@ -3,7 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
-    xmlns:contents="using:FluentHub.Uwp.UserControls.Blocks"
+    xmlns:blocks="using:FluentHub.Uwp.UserControls.Blocks"
     xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:FluentHub.Uwp.Views.Repositories.Codes.Layouts"
@@ -23,7 +23,7 @@
                 <Grid
                     x:Name="RepositoryCodeGrid"
                     Margin="12,0,12,12"
-                    x:Load="{x:Bind ViewModel.ContextViewModel.Repository.DefaultBranchName, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+                    x:Load="{x:Bind ViewModel.ContextViewModel.Repository.DefaultBranchRef.Name, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -39,7 +39,7 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <contents:FileNavigationBlock Margin="0,12,0,0" ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
+                        <blocks:FileNavigationBlock Margin="0,12,0,0" ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
 
                         <Grid
                             x:Name="DirListViewContentGrid"
@@ -56,7 +56,7 @@
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
 
-                            <contents:LatestCommitBlock x:Name="LatastCommitBlock" ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
+                            <blocks:LatestCommitBlock x:Name="LatastCommitBlock" ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
 
                             <MenuFlyoutSeparator Grid.Row="1" />
 
@@ -79,7 +79,7 @@
                                 <ListView.ItemTemplate>
                                     <DataTemplate x:DataType="models:DetailsLayoutListViewModel">
 
-                                        <Grid x:Name="ListViewItemGrid" Tag="{x:Bind ObjectTag, Mode=OneWay}">
+                                        <Grid x:Name="ListViewItemGrid" Tag="{x:Bind Type, Mode=OneWay}">
 
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="32" />
@@ -94,13 +94,13 @@
                                                 VerticalAlignment="Center"
                                                 FontFamily="{StaticResource Octions}"
                                                 FontSize="16"
-                                                Glyph="{x:Bind ObjectTypeIconGlyph, Mode=OneWay}" />
+                                                Glyph="{x:Bind IconGlyph, Mode=OneWay}" />
 
                                             <TextBlock
                                                 x:Name="ItemNameTextBox"
                                                 Grid.Column="1"
                                                 VerticalAlignment="Center"
-                                                Text="{x:Bind ObjectName, Mode=OneWay}"
+                                                Text="{x:Bind Name, Mode=OneWay}"
                                                 TextTrimming="CharacterEllipsis" />
 
                                             <TextBlock
@@ -108,7 +108,7 @@
                                                 Grid.Column="2"
                                                 VerticalAlignment="Center"
                                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                                Text="{x:Bind ObjectLatestCommitMessage, Mode=OneWay}"
+                                                Text="{x:Bind LatestCommitMessage, Mode=OneWay}"
                                                 TextTrimming="CharacterEllipsis" />
 
                                             <TextBlock
@@ -117,7 +117,7 @@
                                                 HorizontalAlignment="Right"
                                                 VerticalAlignment="Center"
                                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                                Text="{x:Bind ObjectUpdatedAtHumanized, Mode=OneWay}" />
+                                                Text="{x:Bind UpdatedAt, Mode=OneWay}" />
 
                                         </Grid>
                                     </DataTemplate>
@@ -135,17 +135,17 @@
                             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                             BorderThickness="1"
                             CornerRadius="4">
-                            <contents:LatestCommitBlock x:Name="BlobLatastCommitBlock" ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
+                            <blocks:LatestCommitBlock x:Name="BlobLatastCommitBlock" ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
                         </Grid>
 
-                        <contents:FileContentBlock
+                        <blocks:FileContentBlock
                             x:Name="BlobContentBlock"
                             Grid.Row="3"
                             Margin="0,12,0,0"
                             x:Load="{x:Bind ViewModel.ContextViewModel.IsFile, Mode=OneWay}"
                             ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
 
-                        <contents:ReadmeContentBlock
+                        <blocks:ReadmeContentBlock
                             x:Name="RepoReadmeBlock"
                             Grid.Row="4"
                             Margin="0,12,0,0"
@@ -206,14 +206,14 @@
                                     Style="{StaticResource BodyStrongTextBlockStyle}"
                                     Text="Releases" />
 
-                                <muxc:InfoBadge Value="{x:Bind ViewModel.ContextViewModel.Repository.ReleaseCount, Mode=OneWay}" />
+                                <muxc:InfoBadge Value="{x:Bind ViewModel.ContextViewModel.Repository.Releases.TotalCount, Mode=OneWay}" />
                             </StackPanel>
 
                             <Button
                                 x:Name="LatestReleaseButton"
                                 HorizontalAlignment="Stretch"
                                 HorizontalContentAlignment="Left"
-                                x:Load="{x:Bind ViewModel.ContextViewModel.Repository.ReleaseCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                                x:Load="{x:Bind ViewModel.ContextViewModel.Repository.Releases.TotalCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
                                 Click="OnLatestReleaseClick">
                                 <StackPanel Spacing="4">
 
@@ -224,7 +224,7 @@
                                         <TextBlock
                                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                             Style="{StaticResource BodyTextBlockStyle}"
-                                            Text="{x:Bind ViewModel.ContextViewModel.Repository.LatestRelease.PublishedAtHumanized, Mode=OneWay}" />
+                                            Text="{x:Bind ViewModel.ContextViewModel.Repository.LatestRelease.PublishedAt, Mode=OneWay}" />
 
                                         <StackPanel
                                             x:Name="LatestReleaseIsLatestRelease"
@@ -259,7 +259,7 @@
                                 </StackPanel>
                             </Button>
 
-                            <StackPanel x:Name="NoReleaseExist" x:Load="{x:Bind ViewModel.ContextViewModel.Repository.ReleaseCount, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
+                            <StackPanel x:Name="NoReleaseExist" x:Load="{x:Bind ViewModel.ContextViewModel.Repository.Releases.TotalCount, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
 
                                 <TextBlock
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
@@ -276,8 +276,7 @@
                 <Grid
                     x:Name="NoCodeGrid"
                     Margin="12,0,12,12"
-                    x:Load="{x:Bind ViewModel.ContextViewModel.Repository.DefaultBranchName, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
-                </Grid>
+                    x:Load="{x:Bind ViewModel.ContextViewModel.Repository.DefaultBranchRef.Name, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}" />
             </Grid>
         </ScrollViewer>
 

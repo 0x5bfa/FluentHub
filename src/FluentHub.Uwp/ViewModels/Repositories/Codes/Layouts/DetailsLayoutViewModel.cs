@@ -73,6 +73,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
                         Type = item.File.Type,
                         Name = item.File.Name,
                         LatestCommitMessage = item.Commit.Message.Split('\n', 2).FirstOrDefault(),
+                        UpdatedAt = item.Commit.CommittedDate,
                     };
 
                     if (item.File.Type == "tree")

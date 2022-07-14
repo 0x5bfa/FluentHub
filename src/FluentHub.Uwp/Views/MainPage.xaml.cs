@@ -1,9 +1,10 @@
-using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.Dialogs;
 using FluentHub.Uwp.Helpers;
+using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
 using FluentHub.Uwp.Services.Navigation;
 using FluentHub.Uwp.ViewModels;
+using FluentHub.Uwp.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.ApplicationModel.Core;
 using Windows.System;

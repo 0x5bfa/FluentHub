@@ -57,6 +57,7 @@
                 Text="Contributors" />
 
             <Frame x:Name="InsightsNavViewFrame" Grid.Row="1" />
+
         </Grid>
     </Grid>
 </Page>

@@ -43,7 +43,7 @@
                     Spacing="4"
                     Visibility="{x:Bind ViewModel.UnreadCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
 
-                    <muxc:InfoBadge Value="{x:Bind ViewModel.UnreadCount, Mode=OneWay}"/>
+                    <muxc:InfoBadge Value="{x:Bind ViewModel.UnreadCount, Mode=OneWay}" />
                     <!--<Ellipse Width="10" Height="10">
                         <Ellipse.Fill>
                             <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">

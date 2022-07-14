@@ -36,7 +36,7 @@
                     VerticalAlignment="Center"
                     FontSize="16"
                     Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="{x:Bind ViewModel.CommitItem.CommitMessageHeadline, Mode=OneWay}"
+                    Text="{x:Bind ViewModel.CommitItem.MessageHeadline, Mode=OneWay}"
                     TextTrimming="CharacterEllipsis" />
 
                 <Button
@@ -49,17 +49,17 @@
 
                 <Grid Grid.Row="3" Margin="0,12,0,0">
                     <StackPanel Orientation="Horizontal" Spacing="4">
-                        <uc:AvatarControl AvatarUrl="{x:Bind ViewModel.CommitItem.AuthorAvatarUrl, Mode=OneWay}" WidthAndHeight="20" />
+                        <uc:AvatarControl AvatarUrl="{x:Bind ViewModel.CommitItem.Author.AvatarUrl, Mode=OneWay}" WidthAndHeight="20" />
                         <TextBlock
                             Margin="4,0,0,0"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="{x:Bind ViewModel.CommitItem.AuthorName, Mode=OneWay}" />
+                            Text="{x:Bind ViewModel.CommitItem.Author.User.Login, Mode=OneWay}" />
                         <TextBlock Text="authored to" />
-                        <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.CommitItem.Refs, Mode=OneWay}" />
+                        <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.CommitItem.OnBehalfOf, Mode=OneWay}" />
                         <TextBlock
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="{x:Bind ViewModel.CommitItem.CommittedAtHumanized, Mode=OneWay}" />
+                            Text="{x:Bind ViewModel.CommitItem.CommittedDate, Mode=OneWay}" />
                     </StackPanel>
 
                     <StackPanel
@@ -73,9 +73,9 @@
                                 Text="parent" />
                             <TextBlock
                                 Style="{StaticResource CaptionTextBlockStyle}"
-                                Text="{x:Bind ViewModel.CommitDetails.AbbreviatedParentOid, Mode=OneWay}"
+                                Text="{x:Bind ViewModel.CommitItem.Parents, Mode=OneWay}"
                                 ToolTipService.Placement="Bottom"
-                                ToolTipService.ToolTip="{x:Bind ViewModel.CommitDetails.ParentOid, Mode=OneWay}" />
+                                ToolTipService.ToolTip="{x:Bind ViewModel.CommitItem.Parents, Mode=OneWay}" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Spacing="4">
                             <TextBlock
@@ -84,9 +84,9 @@
                                 Text="commit" />
                             <TextBlock
                                 Style="{StaticResource CaptionTextBlockStyle}"
-                                Text="{x:Bind ViewModel.CommitDetails.Oid, Mode=OneWay}"
+                                Text="{x:Bind ViewModel.CommitItem.Oid, Mode=OneWay}"
                                 ToolTipService.Placement="Bottom"
-                                ToolTipService.ToolTip="{x:Bind ViewModel.CommitDetails.Oid, Mode=OneWay}" />
+                                ToolTipService.ToolTip="{x:Bind ViewModel.CommitItem.Oid, Mode=OneWay}" />
                         </StackPanel>
                     </StackPanel>
                 </Grid>
@@ -101,7 +101,7 @@
                 <TextBlock
                     VerticalAlignment="Center"
                     Style="{ThemeResource BodyStrongTextBlockStyle}"
-                    Text="{x:Bind ViewModel.CommitDetails.ChangedFiles.Count, Mode=OneWay}" />
+                    Text="{x:Bind ViewModel.CommitItem.ChangedFiles, Mode=OneWay}" />
 
                 <TextBlock
                     VerticalAlignment="Center"
@@ -117,7 +117,7 @@
                     VerticalAlignment="Center"
                     Foreground="#347d39"
                     Style="{ThemeResource BodyTextBlockStyle}"
-                    Text="{x:Bind ViewModel.CommitDetails.TotalAdditions, Mode=OneWay}" />
+                    Text="{x:Bind ViewModel.CommitItem.Additions, Mode=OneWay}" />
 
                 <TextBlock
                     VerticalAlignment="Center"
@@ -134,7 +134,7 @@
                     VerticalAlignment="Center"
                     Foreground="#c93c37"
                     Style="{ThemeResource BodyTextBlockStyle}"
-                    Text="{x:Bind ViewModel.CommitDetails.TotalDeletions, Mode=OneWay}" />
+                    Text="{x:Bind ViewModel.CommitItem.Deletions, Mode=OneWay}" />
 
                 <TextBlock
                     VerticalAlignment="Center"

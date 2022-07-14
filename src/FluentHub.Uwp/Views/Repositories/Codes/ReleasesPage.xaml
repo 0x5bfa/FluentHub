@@ -3,10 +3,10 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:datamodels="using:FluentHub.Octokit.Models"
     xmlns:labels="using:FluentHub.Uwp.UserControls.Labels"
     xmlns:local="using:FluentHub.Uwp.Views.Repositories.Codes"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
@@ -56,7 +56,7 @@
 
         <ScrollViewer Grid.Row="2" VerticalScrollBarVisibility="Auto">
             <muxc:ItemsRepeater Margin="12,2,12,12" ItemsSource="{x:Bind ViewModel.Items}">
-                <DataTemplate x:DataType="datamodels:Release">
+                <DataTemplate x:DataType="modelsV4:Release">
 
                     <Button
                         x:Name="IssueBlockButton"
@@ -73,7 +73,7 @@
                                 <TextBlock
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                     Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="{x:Bind PublishedAtHumanized, Mode=OneWay}" />
+                                    Text="{x:Bind PublishedAt, Mode=OneWay}" />
 
                                 <StackPanel
                                     x:Name="LatestReleaseIsLatestRelease"

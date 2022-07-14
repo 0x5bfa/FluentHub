@@ -41,7 +41,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
                     PullItem = pull;
 
                 CommitQueries queries = new();
-                var items = await queries.GetAllAsync(PullItem.OwnerLogin, PullItem.Name, PullItem.Number);
+                var items = await queries.GetAllAsync(PullItem.Repository.Owner.Login, PullItem.Repository.Name, PullItem.Number);
 
                 _items.Clear();
                 foreach (var item in items)
@@ -56,7 +56,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
             }
             catch (Exception ex)
             {
-                _logger?.Error(nameof("RefreshPullRequestPageAsync), ex);
+                _logger?.Error(nameof(RefreshPullRequestPageAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);

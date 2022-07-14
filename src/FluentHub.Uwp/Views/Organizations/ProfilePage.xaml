@@ -12,9 +12,6 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <Page.DataContext>
-        <vm:ProfileViewModel x:Name="ViewModel" />
-    </Page.DataContext>
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -33,6 +30,7 @@
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
+
             <Grid Margin="18,18,18,24">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -43,6 +41,7 @@
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
+
                 <Border
                     Grid.RowSpan="1"
                     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
@@ -53,22 +52,26 @@
                         Height="84"
                         Source="{x:Bind ViewModel.Organization.AvatarUrl, Mode=OneWay}" />
                 </Border>
+
                 <StackPanel
                     Grid.Column="1"
                     Margin="12,0,0,0"
                     VerticalAlignment="Center">
+
                     <TextBlock
                         x:Name="OrgNameTextBlock"
                         VerticalAlignment="Center"
                         FontWeight="SemiBold"
                         Style="{StaticResource SubtitleTextBlockStyle}"
                         Text="{x:Bind ViewModel.Organization.Name, Mode=OneWay}" />
+
                     <TextBlock
                         x:Name="OrgDescriptionTextBlock"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         Style="{ThemeResource BodyTextBlockStyle}"
                         Text="{x:Bind ViewModel.Organization.Description, Mode=OneWay}"
                         Visibility="Collapsed" />
+
                     <toolkit:WrapPanel
                         Grid.Row="1"
                         Margin="0,12,0,0"
@@ -82,49 +85,58 @@
                             Orientation="Horizontal"
                             Spacing="6"
                             Visibility="Collapsed">
+
                             <FontIcon
                                 VerticalAlignment="Center"
                                 FontFamily="{StaticResource Octions}"
                                 FontSize="14"
                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                 Glyph="&#xEA03;" />
+
                             <TextBlock
                                 x:Name="LocationTextBlock"
                                 VerticalAlignment="Center"
                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                 Style="{ThemeResource BodyTextBlockStyle}"
                                 Text="{x:Bind ViewModel.Organization.Location, Mode=OneWay}" />
+
                         </StackPanel>
+
                         <StackPanel
                             x:Name="LinkBlock"
                             Margin="0,0,12,0"
                             Orientation="Horizontal"
                             Spacing="2"
                             Visibility="Collapsed">
+
                             <FontIcon
                                 VerticalAlignment="Center"
                                 FontFamily="{StaticResource Octions}"
                                 FontSize="14"
                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                 Glyph="&#xE9FB;" />
+
                             <HyperlinkButton
                                 x:Name="LinkHyperlinkButton"
                                 Padding="4"
                                 Content="{x:Bind ViewModel.Organization.WebsiteUrl, Mode=OneWay}"
                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" />
                         </StackPanel>
+
                         <StackPanel
                             x:Name="MailBlock"
                             Margin="0,0,12,0"
                             Orientation="Horizontal"
                             Spacing="2"
                             Visibility="Collapsed">
+
                             <FontIcon
                                 VerticalAlignment="Center"
                                 FontFamily="{StaticResource Octions}"
                                 FontSize="14"
                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                 Glyph="&#xEA09;" />
+
                             <HyperlinkButton
                                 x:Name="MailHyperlinkButton"
                                 Padding="4"
@@ -133,6 +145,7 @@
                         </StackPanel>
                     </toolkit:WrapPanel>
                 </StackPanel>
+
                 <StackPanel
                     Grid.Column="2"
                     VerticalAlignment="Top"
@@ -145,7 +158,9 @@
                         IsEnabled="False"
                         Visibility="Collapsed" />
                 </StackPanel>
+
             </Grid>
+
             <Grid
                 Grid.Row="1"
                 Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
@@ -159,6 +174,7 @@
                     IsSettingsVisible="False"
                     ItemInvoked="OrgNavView_ItemInvoked"
                     PaneDisplayMode="Top">
+
                     <muxc:NavigationView.MenuItems>
                         <muxc:NavigationViewItem
                             Content="Overview"
@@ -180,12 +196,15 @@
                             </muxc:NavigationViewItem.Icon>
                         </muxc:NavigationViewItem>
                     </muxc:NavigationView.MenuItems>
+
                 </muxc:NavigationView>
             </Grid>
+
             <Frame
                 x:Name="OrgNavViewContent"
                 Grid.Row="2"
-                Margin="-12,0,-12,0" />
+                Margin="-12,0" />
+
         </Grid>
     </ScrollViewer>
 </Page>

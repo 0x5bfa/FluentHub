@@ -3,10 +3,8 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
-    xmlns:blocks="using:FluentHub.Uwp.UserControls.Blocks"
-    xmlns:bvm="using:FluentHub.Uwp.ViewModels.UserControls.Blocks"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:label="using:FluentHub.Uwp.UserControls.Labels"
+    xmlns:labels="using:FluentHub.Uwp.UserControls.Labels"
     xmlns:local="using:FluentHub.Uwp.Views.Repositories.Issues"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -27,6 +25,7 @@
 
             <toolkit:Case Value="False">
                 <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.RefreshIssuePageCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
+
                     <toolkit:Case Value="True">
                         <HyperlinkButton HorizontalAlignment="Center" Command="{x:Bind ViewModel.RefreshIssuePageCommand}">
                             <StackPanel Orientation="Horizontal" Spacing="8">
@@ -92,10 +91,10 @@
                                         Spacing="8">
                                         <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.IssueItem.Closed, Mode=OneWay}">
                                             <toolkit:Case Value="True">
-                                                <label:StateLabel SubjectType="IssueClosed" />
+                                                <labels:StateLabel Type="IssueClosed" />
                                             </toolkit:Case>
                                             <toolkit:Case Value="False">
-                                                <label:StateLabel SubjectType="IssueOpen" />
+                                                <labels:StateLabel Type="IssueOpen" />
                                             </toolkit:Case>
                                         </toolkit:SwitchPresenter>
                                     </StackPanel>

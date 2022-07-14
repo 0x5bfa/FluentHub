@@ -10,13 +10,10 @@ global using global::System.Threading.Tasks;
 // Custom usings
 global using global::FluentHub.Octokit.Models.v3;
 global using global::FluentHub.Octokit.Models.v4;
-global using global::FluentHub.Uwp.Models;
 global using global::Humanizer;
 
 global using global::Octokit.GraphQL;
 global using OctokitOriginal = global::Octokit;
-global using OctokitGraphQLCore = global::Octokit.GraphQL.Core;
-global using OctokitGraphQLModel = global::Octokit.GraphQL.Model;
 
 global using global::Microsoft.Toolkit.Mvvm.ComponentModel;
 global using global::Microsoft.Toolkit.Mvvm.Input;

@@ -9,5 +9,7 @@
         public string LatestCommitMessage { get; set; }
 
         public string Type { get; set; }
+
+        public DateTimeOffset UpdatedAt { get; set; }
     }
 }

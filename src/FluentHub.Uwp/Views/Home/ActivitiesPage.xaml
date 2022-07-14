@@ -6,8 +6,8 @@
     xmlns:bvm="using:FluentHub.Uwp.ViewModels.UserControls.Blocks"
     xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:graphqlmodels="using:FluentHub.Octokit.Models"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     mc:Ignorable="d">
@@ -78,14 +78,16 @@
                         ItemContainerTransitions="{x:Null}"
                         ItemsSource="{x:Bind ViewModel.UserRepositories, Mode=OneWay}"
                         SelectionMode="None">
+
                         <ListView.ItemContainerStyle>
                             <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
                                 <Setter Property="Height" Value="24" />
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                             </Style>
                         </ListView.ItemContainerStyle>
+
                         <ListView.ItemTemplate>
-                            <DataTemplate x:DataType="graphqlmodels:Repository">
+                            <DataTemplate x:DataType="modelsV4:Repository">
 
                                 <StackPanel Orientation="Horizontal" Spacing="12">
 

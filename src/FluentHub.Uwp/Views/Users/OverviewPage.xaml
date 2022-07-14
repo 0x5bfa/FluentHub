@@ -5,7 +5,6 @@
     xmlns:bb="using:FluentHub.Uwp.UserControls.ButtonBlocks"
     xmlns:bbvm="using:FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks"
     xmlns:blocks="using:FluentHub.Uwp.UserControls.Blocks"
-    xmlns:contents="using:FluentHub.Uwp.UserControls.Blocks"
     xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:FluentHub.Uwp.Views.Users"
@@ -72,7 +71,7 @@
             LoginName="{x:Bind ViewModel.LoginName, Mode=OneWay}"
             Visibility="{x:Bind ViewModel.RefreshRepositoryCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
 
-        <contents:ReadmeContentBlock
+        <blocks:ReadmeContentBlock
             x:Name="UserSpecialReadmeBlock"
             Grid.Row="3"
             Margin="12,6"

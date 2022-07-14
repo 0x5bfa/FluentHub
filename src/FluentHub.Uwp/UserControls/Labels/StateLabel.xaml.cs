@@ -1,5 +1,4 @@
-﻿using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
+﻿using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
 using Windows.UI.Xaml;
@@ -15,20 +14,20 @@ namespace FluentHub.Uwp.UserControls.Labels
     public sealed partial class StateLabel : UserControl
     {
         #region propdp
-        public static readonly DependencyProperty StateProperty =
+        public static readonly DependencyProperty TypeProperty =
             DependencyProperty.Register(
-                nameof(State),
+                nameof(Type),
                 typeof(string),
                 typeof(StateLabel),
                 new PropertyMetadata(null));
 
-        public string State
+        public string Type
         {
-            get => (string)GetValue(StateProperty);
+            get => (string)GetValue(TypeProperty);
             set
             {
-                SetValue(StateProperty, value);
-                ViewModel.LoadContents(State);
+                SetValue(TypeProperty, value);
+                ViewModel?.LoadContents(State);
             }
         }
         #endregion

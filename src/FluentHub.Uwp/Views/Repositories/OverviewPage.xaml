@@ -152,7 +152,7 @@
 
                             </toolkit:SwitchPresenter>
 
-                            <muxc:InfoBadge x:Name="WatchersCountBadge" Value="{x:Bind ViewModel.Repository.WatcherCount, Mode=OneWay}" />
+                            <muxc:InfoBadge x:Name="WatchersCountBadge" Value="{x:Bind ViewModel.Repository.Watchers.TotalCount, Mode=OneWay}" />
 
                         </StackPanel>
                     </muxc:DropDownButton.Content>
@@ -250,8 +250,8 @@
 
                                 <muxc:InfoBadge
                                     x:Name="IssuesCountBadge"
-                                    x:Load="{x:Bind ViewModel.Repository.OpenIssueCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-                                    Value="{x:Bind ViewModel.Repository.OpenIssueCount, Mode=OneWay}" />
+                                    x:Load="{x:Bind ViewModel.Repository.Issues.TotalCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                                    Value="{x:Bind ViewModel.Repository.Issues.TotalCount, Mode=OneWay}" />
 
                             </StackPanel>
                         </muxc:NavigationViewItem.Content>
@@ -270,8 +270,8 @@
 
                                 <muxc:InfoBadge
                                     x:Name="PullsCountBadge"
-                                    x:Load="{x:Bind ViewModel.Repository.OpenPullCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-                                    Value="{x:Bind ViewModel.Repository.OpenPullCount, Mode=OneWay}" />
+                                    x:Load="{x:Bind ViewModel.Repository.PullRequests.TotalCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                                    Value="{x:Bind ViewModel.Repository.PullRequests.TotalCount, Mode=OneWay}" />
 
                             </StackPanel>
                         </muxc:NavigationViewItem.Content>

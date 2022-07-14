@@ -93,11 +93,11 @@
                                             <toolkit:Case Value="True">
                                                 <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.PullItem.Merged, Mode=OneWay}">
                                                     <toolkit:Case Value="True">
-                                                        <label:StateLabel SubjectType="PullMerged" />
+                                                        <label:StateLabel Type="PullMerged" />
                                                     </toolkit:Case>
 
                                                     <toolkit:Case Value="False">
-                                                        <label:StateLabel SubjectType="PullClosed" />
+                                                        <label:StateLabel Type="PullClosed" />
                                                     </toolkit:Case>
                                                 </toolkit:SwitchPresenter>
                                             </toolkit:Case>
@@ -105,11 +105,11 @@
                                             <toolkit:Case Value="False">
                                                 <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.PullItem.IsDraft, Mode=OneWay}">
                                                     <toolkit:Case Value="True">
-                                                        <label:StateLabel SubjectType="PullDraft" />
+                                                        <label:StateLabel Type="PullDraft" />
                                                     </toolkit:Case>
 
                                                     <toolkit:Case Value="False">
-                                                        <label:StateLabel SubjectType="PullOpen" />
+                                                        <label:StateLabel Type="PullOpen" />
                                                     </toolkit:Case>
                                                 </toolkit:SwitchPresenter>
                                             </toolkit:Case>
