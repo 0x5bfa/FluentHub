@@ -21,12 +21,12 @@ steps:
   inputs:
     targetType: 'inline'
     script: |
-      [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\FluentHub\Package.appxmanifest
+      [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\FluentHub.Uwp\Package.appxmanifest
       $xmlDoc.Package.Identity.Name="FluentHub"
       $xmlDoc.Package.Identity.Publisher="CN=FluentHub"
       $xmlDoc.Package.Properties.DisplayName="FluentHub"
       $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub"
-      $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub\Package.appxmanifest')
+      $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub.Uwp\Package.appxmanifest')
     failOnStderr: true
 
 - task: DownloadSecureFile@1
@@ -40,7 +40,7 @@ steps:
   inputs:
     SourceFolder: '$(Agent.TempDirectory)'
     Contents: '$(CredentialSecureFile.secureFilePath)'
-    TargetFolder: '$(Build.SourcesDirectory)\src\FluentHub'
+    TargetFolder: '$(Build.SourcesDirectory)\src\FluentHub.Uwp'
 
 - task: DownloadSecureFile@1
   name: caCertificate
