@@ -47,7 +47,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
                 {
                     DiffBlockViewModel viewModel = new()
                     {
-                        ChangedFile = item,
+                        ChangedPullRequestFile = item,
                     };
 
                     _diffViewModels.Add(viewModel);

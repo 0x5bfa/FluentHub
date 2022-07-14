@@ -1,7 +1,6 @@
-﻿using FluentHub.Uwp.Services;
+﻿using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Services;
 using FluentHub.Uwp.Services.Navigation;
-using FluentHub.Uwp.ViewModels;
-using FluentHub.Uwp.ViewModels.Repositories;
 using FluentHub.Uwp.ViewModels.Repositories.Commits;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
@@ -29,12 +28,12 @@ namespace FluentHub.Uwp.Views.Repositories.PullRequests
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            ViewModel.CommitItem = e.Parameter as Octokit.Models.Commit;
-            DataContext = ViewModel;
+            var args = e.Parameter as FrameNavigationArgs;
+            ViewModel.CommitItem = args.Args as Commit;
 
             var command = ViewModel.LoadCommitPageCommand;
-            if (command.CanExecute(null))
-                command.Execute(null);
+            if (command.CanExecute(args.Url))
+                command.Execute(args.Url);
         }
     }
 }

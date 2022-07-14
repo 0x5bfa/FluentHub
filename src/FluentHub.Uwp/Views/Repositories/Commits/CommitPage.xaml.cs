@@ -1,7 +1,6 @@
-﻿using FluentHub.Uwp.Services;
+﻿using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Services;
 using FluentHub.Uwp.Services.Navigation;
-using FluentHub.Uwp.ViewModels;
-using FluentHub.Uwp.ViewModels.Repositories;
 using FluentHub.Uwp.ViewModels.Repositories.Commits;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
@@ -29,15 +28,12 @@ namespace FluentHub.Uwp.Views.Repositories.Commits
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var url = e.Parameter as string;
+            var args = e.Parameter as FrameNavigationArgs;
+            ViewModel.CommitItem = args.Args as Commit;
 
-            var command1 = ViewModel.InitializeCommand;
-            if (command1.CanExecute(url))
-                command1.Execute(url);
-
-            var command2 = ViewModel.LoadCommitPageCommand;
-            if (command2.CanExecute(null))
-                command2.Execute(null);
+            var command = ViewModel.LoadCommitPageCommand;
+            if (command.CanExecute(null))
+                command.Execute(null);
         }
     }
 }

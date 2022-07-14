@@ -41,7 +41,7 @@ namespace FluentHub.Uwp.Views.Repositories.Issues
 
             currentItem.DisplayUrl = $"{pathSegments[0]} / {pathSegments[1]} / {pathSegments[3]}";
 
-            currentItem.DisplayUrl = $"{ViewModel.IssueItem.OwnerLogin} / {ViewModel.IssueItem.Name} / {ViewModel.IssueItem.Number}";
+            currentItem.DisplayUrl = $"{ViewModel.IssueItem.Repository.Owner.Login} / {ViewModel.IssueItem.Repository.Name} / {ViewModel.IssueItem.Number}";
 
             currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
             {

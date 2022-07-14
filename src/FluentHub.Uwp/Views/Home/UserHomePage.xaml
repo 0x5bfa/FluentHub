@@ -364,7 +364,7 @@
 
                                             <toolkit:SwitchPresenter TargetType="modelsV3:NotificationSubjectType" Value="{x:Bind Subject.Type, Mode=OneWay}">
 
-                                                <toolkit:Case Value="IssueClosed">
+                                                <toolkit:Case Value="IssueClosedAsCompleted">
                                                     <FontIcon
                                                         FontFamily="{StaticResource Octions}"
                                                         Foreground="#8957e5"
@@ -378,28 +378,28 @@
                                                         Glyph="&#xE9EA;" />
                                                 </toolkit:Case>
 
-                                                <toolkit:Case Value="PullClosed">
+                                                <toolkit:Case Value="PullRequestClosed">
                                                     <FontIcon
                                                         FontFamily="{StaticResource Octions}"
                                                         Foreground="#f85149"
                                                         Glyph="&#xE9C1;" />
                                                 </toolkit:Case>
 
-                                                <toolkit:Case Value="PullMerged">
+                                                <toolkit:Case Value="PullRequestMerged">
                                                     <FontIcon
                                                         FontFamily="{StaticResource Octions}"
                                                         Foreground="#8957e5"
                                                         Glyph="&#xE9BD;" />
                                                 </toolkit:Case>
 
-                                                <toolkit:Case Value="PullDraft">
+                                                <toolkit:Case Value="PullRequestDraft">
                                                     <FontIcon
                                                         FontFamily="{StaticResource Octions}"
                                                         Foreground="#8b949e"
                                                         Glyph="&#xE9C3;" />
                                                 </toolkit:Case>
 
-                                                <toolkit:Case Value="PullOpen">
+                                                <toolkit:Case Value="PullRequestOpen">
                                                     <FontIcon
                                                         FontFamily="{StaticResource Octions}"
                                                         Foreground="#3fb950"

@@ -18,20 +18,19 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
             ActivityQueries queries = new();
             Calendar = await queries.GetContributionCalendarAsync(LoginName);
 
-            if (Calendar.ContributionDays[0].WeekDay != 0)
+            if (Calendar.Weeks.First().ContributionDays.First().Weekday != 0)
             {
-                for (int i = 0; i < Calendar.ContributionDays[0].WeekDay; i++)
+                for (int i = 0; i < 7 - Calendar.Weeks.First().ContributionDays.First().Weekday; i++)
                 {
-                    CalendarDay day = new()
+                    ContributionCalendarDay day = new()
                     {
                         Color = "#FFFFFF",
                         ContributionCount = 0,
-                        ContributionLevel = global::Octokit.GraphQL.Model.ContributionLevel.None,
-                        Visibility = false,
-                        WeekDay = 0,
+                        ContributionLevel = ContributionLevel.None,
+                        Weekday = 0,
                     };
 
-                    Calendar.ContributionDays.Insert(i, day);
+                    Calendar.Weeks.First().ContributionDays.Insert(i, day);
                 }
             }
 
@@ -43,24 +42,24 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
 
         public void SetProperColor()
         {
-            for (int i = 0; i < Calendar.ContributionDays.Count(); i++)
+            for (int i = 0; i < Calendar.Weeks.First().ContributionDays.Count(); i++)
             {
-                switch (Calendar.ContributionDays[i].ContributionLevel)
+                switch (Calendar.Weeks.First().ContributionDays[i].ContributionLevel)
                 {
                     case ContributionLevel.None:
-                        Calendar.ContributionDays[i].Color = "#64000000";
+                        Calendar.Weeks.First().ContributionDays[i].Color = "#64000000";
                         break;
                     case ContributionLevel.FirstQuartile:
-                        Calendar.ContributionDays[i].Color = "#0e4429";
+                        Calendar.Weeks.First().ContributionDays[i].Color = "#0e4429";
                         break;
                     case ContributionLevel.SecondQuartile:
-                        Calendar.ContributionDays[i].Color = "#006d32";
+                        Calendar.Weeks.First().ContributionDays[i].Color = "#006d32";
                         break;
                     case ContributionLevel.ThirdQuartile:
-                        Calendar.ContributionDays[i].Color = "#26a641";
+                        Calendar.Weeks.First().ContributionDays[i].Color = "#26a641";
                         break;
                     case ContributionLevel.FourthQuartile:
-                        Calendar.ContributionDays[i].Color = "#39d353";
+                        Calendar.Weeks.First().ContributionDays[i].Color = "#39d353";
                         break;
                 }
             }

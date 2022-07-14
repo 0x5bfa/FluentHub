@@ -16,12 +16,15 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
             _diffViewModels = new();
             DiffViewModels = new(_diffViewModels);
 
-            LoadCommitPageCommand = new AsyncRelayCommand(LoadRepositoryPullRequestOneCommitAsync);
+            LoadCommitPageCommand = new AsyncRelayCommand<string>(LoadRepositoryPullRequestOneCommitAsync);
         }
 
         #region Fields and Properties
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
+
+        private PullRequest _pullRequest;
+        public PullRequest PullRequest { get => _pullRequest; set => SetProperty(ref _pullRequest, value); }
 
         private Commit _commitItem;
         public Commit CommitItem { get => _commitItem; set => SetProperty(ref _commitItem, value); }
@@ -32,22 +35,24 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
         public IAsyncRelayCommand LoadCommitPageCommand { get; }
         #endregion
 
-        private async Task LoadRepositoryPullRequestOneCommitAsync(CancellationToken token)
+        private async Task LoadRepositoryPullRequestOneCommitAsync(string url, CancellationToken token)
         {
             try
             {
+                await GetPullRequestAsync(url);
+
                 DiffQueries queries = new();
                 var response = await queries.GetAllAsync(
                     CommitItem.Repository.Owner.Login,
                     CommitItem.Repository.Name,
-                    CommitItem);
+                    PullRequest.Number);
 
                 _diffViewModels.Clear();
                 foreach (var item in response)
                 {
                     DiffBlockViewModel viewModel = new()
                     {
-                        ChangedFile = item,
+                        ChangedPullRequestFile = item,
                     };
 
                     _diffViewModels.Add(viewModel);
@@ -64,6 +69,21 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
                 }
                 throw;
             }
+        }
+
+        private async Task GetPullRequestAsync(string url)
+        {
+            var uri = new Uri(url);
+            var segments = uri.AbsolutePath.Split("/").ToList();
+            segments.RemoveAt(0);
+
+            PullRequestQueries queries = new();
+            var response = await queries.GetAsync(
+                segments[0],
+                segments[1],
+                Convert.ToInt32(segments[3]));
+
+            PullRequest = response;
         }
     }
 }

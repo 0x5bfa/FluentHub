@@ -30,7 +30,7 @@ namespace FluentHub.Uwp.UserControls.Blocks
                 if (ContextViewModel != null)
                 {
                     ViewModel.ContextViewModel = ContextViewModel;
-                    ViewModel.LoadContentsAsync(ColorCodeBlock);
+                    ViewModel.LoadRepositoryOneContentAsync(ColorCodeBlock);
                 }
             }
         }

@@ -76,7 +76,7 @@ namespace FluentHub.Uwp.Views.Repositories.Codes.Layouts
             }
             else
             {
-                branchName = RepositoryCache.DefaultBranchName;
+                branchName = RepositoryCache.DefaultBranchRef.Name;
                 path = null;
             }
 
@@ -111,7 +111,7 @@ namespace FluentHub.Uwp.Views.Repositories.Codes.Layouts
             string displayurl;
             if (ViewModel.ContextViewModel.IsRootDir)
             {
-                if (ViewModel.ContextViewModel.Repository.DefaultBranchName == ViewModel.ContextViewModel.BranchName)
+                if (ViewModel.ContextViewModel.Repository.DefaultBranchRef.Name == ViewModel.ContextViewModel.BranchName)
                     displayurl = $"{ViewModel.ContextViewModel.Repository.Owner.Login} / {ViewModel.ContextViewModel.Repository.Name}";
                 else
                     displayurl = $"{ViewModel.ContextViewModel.Repository.Owner.Login} / {ViewModel.ContextViewModel.Repository.Name} / {ViewModel.ContextViewModel.BranchName}";

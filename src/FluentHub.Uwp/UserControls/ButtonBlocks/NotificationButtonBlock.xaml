@@ -6,6 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:FluentHub.Uwp.UserControls.ButtonBlocks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:modelsV3="using:FluentHub.Octokit.Models.v3"
+    xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     d:DesignHeight="300"
@@ -58,9 +60,9 @@
                     Visibility="{x:Bind ViewModel.Item.Unread, Mode=OneWay}" />
 
                 <Grid>
-                    <toolkit:SwitchPresenter TargetType="x:String" Value="{x:Bind ViewModel.Item.Subject.Type, Mode=OneWay}">
+                    <toolkit:SwitchPresenter TargetType="modelsV3:NotificationSubjectType" Value="{x:Bind ViewModel.Item.Subject.Type, Mode=OneWay}">
 
-                        <toolkit:Case Value="IssueClosed">
+                        <toolkit:Case Value="IssueClosedAsCompleted">
                             <FontIcon
                                 Margin="0,0,8,0"
                                 FontFamily="{StaticResource Octions}"
@@ -76,7 +78,7 @@
                                 Glyph="&#xE9EA;" />
                         </toolkit:Case>
 
-                        <toolkit:Case Value="PullClosed">
+                        <toolkit:Case Value="PullRequestClosed">
                             <FontIcon
                                 Margin="0,0,8,0"
                                 FontFamily="{StaticResource Octions}"
@@ -84,7 +86,7 @@
                                 Glyph="&#xE9C1;" />
                         </toolkit:Case>
 
-                        <toolkit:Case Value="PullMerged">
+                        <toolkit:Case Value="PullRequestMerged">
                             <FontIcon
                                 Margin="0,0,8,0"
                                 FontFamily="{StaticResource Octions}"
@@ -92,7 +94,7 @@
                                 Glyph="&#xE9BD;" />
                         </toolkit:Case>
 
-                        <toolkit:Case Value="PullDraft">
+                        <toolkit:Case Value="PullRequestDraft">
                             <FontIcon
                                 Margin="0,0,8,0"
                                 FontFamily="{StaticResource Octions}"
@@ -100,7 +102,7 @@
                                 Glyph="&#xE9C3;" />
                         </toolkit:Case>
 
-                        <toolkit:Case Value="PullOpen">
+                        <toolkit:Case Value="PullRequestOpen">
                             <FontIcon
                                 Margin="0,0,8,0"
                                 FontFamily="{StaticResource Octions}"
@@ -162,7 +164,6 @@
                             Style="{StaticResource CaptionTextBlockStyle}"
                             Text="{x:Bind ViewModel.Item.Subject.Number, Mode=OneWay}"
                             Visibility="{x:Bind ViewModel.Item.Subject.Number, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
-
 
                     </StackPanel>
 

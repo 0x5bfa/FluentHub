@@ -47,14 +47,19 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
             try
             {
                 CommitQueries queries = new();
-                CommitOverviewItem = await queries.GetAsync(ContextViewModel.Repository.Name, ContextViewModel.Repository.Owner.Login, ContextViewModel.BranchName, ContextViewModel.Path);
+                var response = await queries.GetLatestAsync(
+                    ContextViewModel.Repository.Name,
+                    ContextViewModel.Repository.Owner.Login,
+                    ContextViewModel.BranchName,
+                    ContextViewModel.Path);
 
-                CommitUpdatedAtHumanized = CommitOverviewItem.CommittedDate.Humanize();
+                CommitOverviewItem = response;
 
-                CommitMessageHeadline = CommitOverviewItem.MessageHeadline;
-                var splittedMessages = CommitOverviewItem.Message.Split("\n", 2);
+                CommitUpdatedAtHumanized = CommitOverviewItem.History.Nodes.FirstOrDefault().CommittedDate.Humanize();
 
-                // Get sub commit message
+                CommitMessageHeadline = CommitOverviewItem.History.Nodes.FirstOrDefault().MessageHeadline;
+                var splittedMessages = CommitOverviewItem.History.Nodes.FirstOrDefault().Message.Split("\n", 2);
+
                 if (splittedMessages.Count() > 1)
                 {
                     HasMoreCommitMessage = true;

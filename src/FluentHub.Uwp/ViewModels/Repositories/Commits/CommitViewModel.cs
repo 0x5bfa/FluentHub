@@ -1,6 +1,6 @@
-﻿using FluentHub.Uwp.Models;
+﻿using FluentHub.Octokit.Queries.Repositories;
+using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
-using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls.Blocks;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.Commits
@@ -17,7 +17,6 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Commits
             DiffViewModels = new(_diffViewModels);
 
             LoadCommitPageCommand = new AsyncRelayCommand(LoadRepositoryOneCommitAsync);
-            InitializeCommand = new AsyncRelayCommand<string>(InitializeAsync);
         }
 
         #region Fields and Properties
@@ -31,7 +30,6 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Commits
         public ReadOnlyObservableCollection<DiffBlockViewModel> DiffViewModels { get; }
 
         public IAsyncRelayCommand LoadCommitPageCommand { get; }
-        public IAsyncRelayCommand InitializeCommand { get; }
         #endregion
 
         private async Task LoadRepositoryOneCommitAsync(CancellationToken token)
@@ -66,11 +64,6 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Commits
                 }
                 throw;
             }
-        }
-
-        private async Task InitializeAsync(string url, CancellationToken token)
-        {
-            // Load commit info
         }
     }
 }

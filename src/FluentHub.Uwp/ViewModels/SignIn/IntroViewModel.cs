@@ -33,7 +33,7 @@ namespace FluentHub.Uwp.ViewModels.SignIn
                 var secrets = await Services.OctokitSecretsService.LoadOctokitSecretsAsync();
 
                 AuthorizationService request = new();
-                var url = await request.RequestGitHubIdentityAsync(secrets);
+                var url = request.RequestGitHubIdentityAsync(secrets);
                 await Launcher.LaunchUriAsync(new Uri(url));
 
                 App.Settings.SetupProgress = true;

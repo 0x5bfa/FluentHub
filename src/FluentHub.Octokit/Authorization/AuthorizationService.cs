@@ -4,7 +4,7 @@
     {
         private static OctokitSecrets Secrets { get; set; }
 
-        public async Task<string> RequestGitHubIdentityAsync(OctokitSecrets secrets)
+        public string RequestGitHubIdentityAsync(OctokitSecrets secrets)
         {
             Secrets = secrets;
 

@@ -25,30 +25,30 @@
                 {
                     Name = x.Name,
                     Description = x.Description,
+                    StargazerCount = x.StargazerCount,
+                    ForkCount = x.ForkCount,
+                    IsFork = x.IsFork,
+                    IsInOrganization = x.IsInOrganization,
+                    ViewerHasStarred = x.ViewerHasStarred,
+                    UpdatedAt = x.UpdatedAt,
+
                     LicenseInfo = x.LicenseInfo.Select(licenseInfo => new License
                     {
                         Name = licenseInfo.Name,
                     })
                     .SingleOrDefault(),
 
-                    StargazerCount = x.StargazerCount,
-                    ForkCount = x.ForkCount,
-
-                    Issues = new()
+                    Issues = x.Issues(null, null, null, null, null, null, null, issueState).Select(issues => new IssueConnection
                     {
-                        TotalCount = x.Issues(null, null, null, null, null, null, null, issueState).TotalCount
-                    },
+                        TotalCount = issues.TotalCount
+                    })
+                    .Single(),
 
-                    PullRequests = new()
+                    PullRequests = x.PullRequests(null, null, null, null, null, null, null, null, pullRequestState).Select(issues => new PullRequestConnection
                     {
-                        TotalCount = x.PullRequests(null, null, null, null, null, null, null, null, pullRequestState).TotalCount
-                    },
-
-                    IsFork = x.IsFork,
-                    IsInOrganization = x.IsInOrganization,
-                    ViewerHasStarred = x.ViewerHasStarred,
-
-                    UpdatedAt = x.UpdatedAt,
+                        TotalCount = issues.TotalCount
+                    })
+                    .Single(),
 
                     Owner = x.Owner.Select(owner => new RepositoryOwner
                     {

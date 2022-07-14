@@ -58,18 +58,19 @@
                         .ToList(),
                     },
 
-                    Reviews = new()
+                    Reviews = x.Reviews(null, null, 1, null, null, null).Select(reviews => new PullRequestReviewConnection
                     {
-                        Nodes = x.Reviews(null, null, 1, null, null, null).Nodes.Select(y => new PullRequestReview
+                        Nodes = reviews.Nodes.Select(y => new PullRequestReview
                         {
                             State = (PullRequestReviewState)y.State,
                         })
                         .ToList()
-                    },
+                    })
+                    .Single(),
 
-                    Commits = new()
+                    Commits = x.Commits(null, null, 1, null).Select(commits => new PullRequestCommitConnection
                     {
-                        Nodes = x.Commits(null, null, 1, null).Nodes.Select(y => new PullRequestCommit
+                        Nodes = commits.Nodes.Select(y => new PullRequestCommit
                         {
                             Commit = y.Commit.Select(commit => new Commit
                             {
@@ -81,8 +82,9 @@
                             })
                             .SingleOrDefault(),
                         })
-                        .ToList()
-                    },
+                        .ToList(),
+                    })
+                    .Single(),
 
                     Title = x.Title,
                     BaseRefName = x.BaseRefName,

@@ -16,7 +16,6 @@ namespace FluentHub.Uwp.Views.SignIn
 
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<IntroViewModel>();
-            navigationService = provider.GetRequiredService<INavigationService>();
         }
 
         public IntroViewModel ViewModel { get; }

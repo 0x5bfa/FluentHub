@@ -56,60 +56,59 @@
 
         public async Task<List<Commit>> GetAllAsync(string owner, string name, int number)
         {
-            #region query
             var query = new Query()
-                    .Repository(name, owner)
-                    .PullRequest(number)
-                    .Commits(first: 30)
-                    .Nodes
-                    .Select(x => x.Commit.Select(y => new Commit
+                .Repository(name, owner)
+                .PullRequest(number)
+                .Commits(first: 30)
+                .Nodes
+                .Select(x => x.Commit.Select(y => new Commit
+                {
+                    AbbreviatedOid = y.AbbreviatedOid,
+                    CommittedDate = y.CommittedDate,
+                    Message = y.Message,
+                    MessageHeadline = y.MessageHeadline,
+                    Oid = y.Oid,
+
+                    Author = new()
                     {
-                        //Owner = owner,
-                        //Name = name,
-                        //PullRequestNumber = number,
-
-                        AbbreviatedOid = y.AbbreviatedOid,
-                        Oid = y.Oid,
-                        Author = new()
+                        AvatarUrl = y.Author.AvatarUrl(100),
+                        User = y.Author.User.Select(user => new User
                         {
-                            AvatarUrl = y.Author.AvatarUrl(100),
-                            User = y.Author.User.Select(user => new User
-                            {
-                                Login = user.Login,
-                            })
-                            .Single(),
-                        },
-
-                        CommittedDate = y.CommittedDate,
-                        Message = y.Message,
-                        MessageHeadline = y.MessageHeadline,
-                    })
-                    .Single())
-                    .Compile();
-            #endregion
+                            Login = user.Login,
+                        })
+                        .Single(),
+                    },
+                })
+                .Single())
+                .Compile();
 
             var result = await App.Connection.Run(query);
 
             return result.ToList();
         }
 
-        public async Task<Commit> GetAsync(string name, string owner, string refs, string path)
+        public async Task<Commit> GetLatestAsync(string name, string owner, string refs, string path)
         {
-            if (string.IsNullOrEmpty(path)) path = ".";
+            if (string.IsNullOrEmpty(path))
+                path = ".";
 
-            #region query
             var query = new Query()
-                    .Repository(name, owner)
-                    .Ref(refs)
-                    .Target
-                    .Cast<OctokitGraphQLModel.Commit>()
-                    .History(first: 1, path: path)
-                    .Select(x => new
+                .Repository(name, owner)
+                .Ref(refs)
+                .Target
+                .Cast<OctokitGraphQLModel.Commit>()
+                .Select(commit => new Commit
+                {
+                    History = commit.History(1, null, null, null, null, null, null, null).Select(history => new CommitHistoryConnection
                     {
-                        Commit = x.Nodes.Select(y => new Commit
+                        Nodes = history.Nodes.Select(y => new Commit
                         {
                             AbbreviatedOid = y.AbbreviatedOid,
-                            Oid =y.Oid,
+                            Oid = y.Oid,
+                            CommittedDate = y.CommittedDate,
+                            Message = y.Message,
+                            MessageHeadline = y.MessageHeadline,
+
                             Author = new()
                             {
                                 AvatarUrl = y.Author.AvatarUrl(100),
@@ -119,66 +118,18 @@
                                 })
                             .Single(),
                             },
-                            Message = y.Message,
-
-                            CommittedDate = y.CommittedDate,
                         })
-                        .ToList().FirstOrDefault(),
+                        .ToList(),
 
-                        x.TotalCount,
+                        TotalCount = history.TotalCount,
                     })
-                    .Compile();
-            #endregion
+                    .SingleOrDefault(),
+                })
+                .Compile();
 
             var response = await App.Connection.Run(query);
 
-            //response.Commit.TotalCount = response.TotalCount;
-
-            return response.Commit;
-        }
-
-        public async Task<Commit> GetAsync(string owner, string name, int number)
-        {
-            if (string.IsNullOrEmpty(path)) path = ".";
-
-            #region query
-            var query = new Query()
-                    .Repository(name, owner)
-                    .Ref(refs)
-                    .Target
-                    .Cast<OctokitGraphQLModel.Commit>()
-                    .History(first: 1, path: path)
-                    .Select(x => new
-                    {
-                        Commit = x.Nodes.Select(y => new Commit
-                        {
-                            AbbreviatedOid = y.AbbreviatedOid,
-                            Oid =y.Oid,
-                            Author = new()
-                            {
-                                AvatarUrl = y.Author.AvatarUrl(100),
-                                User = y.Author.User.Select(user => new User
-                                {
-                                    Login = user.Login,
-                                })
-                            .Single(),
-                            },
-                            Message = y.Message,
-
-                            CommittedDate = y.CommittedDate,
-                        })
-                        .ToList().FirstOrDefault(),
-
-                        x.TotalCount,
-                    })
-                    .Compile();
-            #endregion
-
-            var response = await App.Connection.Run(query);
-
-            //response.Commit.TotalCount = response.TotalCount;
-
-            return response.Commit;
+            return response;
         }
 
         public async Task<(List<TreeEntry> Files, List<Commit> Commits)> GetWithObjectNameAsync(string name, string owner, string refs, string path)

@@ -30,7 +30,7 @@ namespace FluentHub.Uwp.Views.Organizations
         {
             OrganizationName = e.Parameter as string;
 
-            await ViewModel.GetOrganizationAsync(OrganizationName);
+            await ViewModel.LoadOrganizationAsync(OrganizationName);
             UpdateVisibility();
 
             base.OnNavigatedTo(e);

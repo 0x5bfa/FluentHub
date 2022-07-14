@@ -394,7 +394,7 @@
                 </toolkit:Case>
 
                 <toolkit:Case Value="LabeledEvent">
-                    <StackPanel Spacing="8" ToolTipService.ToolTip="{x:Bind ViewModel.LabeledEvent.CreatedAtHumanized, Mode=OneWay}">
+                    <StackPanel Spacing="8" ToolTipService.ToolTip="{x:Bind ViewModel.LabeledEvent.CreatedAt, Mode=OneWay}">
 
                         <StackPanel Orientation="Horizontal" Spacing="4">
                             <TextBlock

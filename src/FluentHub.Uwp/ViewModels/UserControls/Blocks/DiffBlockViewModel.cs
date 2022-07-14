@@ -17,6 +17,9 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
         private OctokitOriginal.GitHubCommitFile _changedFile;
         public OctokitOriginal.GitHubCommitFile ChangedFile { get => _changedFile; set => SetProperty(ref _changedFile, value); }
 
+        private OctokitOriginal.PullRequestFile _changedPullRequestFile;
+        public OctokitOriginal.PullRequestFile ChangedPullRequestFile { get => _changedPullRequestFile; set => SetProperty(ref _changedPullRequestFile, value); }
+
         private string _oldLineText;
         public string OldLineText { get => _oldLineText; set => SetProperty(ref _oldLineText, value); }
 
@@ -39,7 +42,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
 
         public void Creanup()
         {
-            if (string.IsNullOrEmpty(ChangedFile.Patch)) return;
+            if (string.IsNullOrEmpty(ChangedFile?.Patch) || string.IsNullOrEmpty(ChangedPullRequestFile?.Patch)) return;
 
             OldLineText = "";
             NewLineText = "";
@@ -57,7 +60,17 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
 
         public void ParseDiffPatchString()
         {
-            var lines = ChangedFile.Patch.Split("\n");
+            string[] lines;
+
+            if (ChangedFile != null)
+            {
+                lines = ChangedFile.Patch.Split("\n");
+            }
+            else
+            {
+                lines = ChangedPullRequestFile.Patch.Split("\n");
+            }
+
             bool isPatchLine = false;
 
             // Display two line number column for added and deleted line

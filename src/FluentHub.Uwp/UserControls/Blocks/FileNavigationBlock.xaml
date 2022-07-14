@@ -64,7 +64,7 @@
                             VerticalAlignment="Center"
                             FontWeight="SemiBold"
                             Style="{ThemeResource BodyTextBlockStyle}"
-                            Text="{x:Bind ViewModel.ContextViewModel.Repository.HeadRefsCount, Mode=OneWay}" />
+                            Text="{x:Bind ViewModel.ContextViewModel.Repository.Refs.TotalCount, Mode=OneWay}" />
                     </StackPanel>
                 </Button.Content>
             </Button>
@@ -87,7 +87,7 @@
                             VerticalAlignment="Center"
                             FontWeight="SemiBold"
                             Style="{ThemeResource BodyTextBlockStyle}"
-                            Text="{x:Bind ViewModel.ContextViewModel.Repository.ReleaseCount, Mode=OneWay}" />
+                            Text="{x:Bind ViewModel.ContextViewModel.Repository.Releases.TotalCount, Mode=OneWay}" />
                     </StackPanel>
                 </Button.Content>
             </Button>

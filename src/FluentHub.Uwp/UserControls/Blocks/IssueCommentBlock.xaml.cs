@@ -29,7 +29,7 @@ namespace FluentHub.Uwp.UserControls.Blocks
             set
             {
                 SetValue(ViewModelProperty, value);
-                ViewModel?.SetWebViewContentsAsync(CommentWebView);
+                ViewModel?.SetMarkdownCommentToWebViewAsync(CommentWebView);
             }
         }
         #endregion

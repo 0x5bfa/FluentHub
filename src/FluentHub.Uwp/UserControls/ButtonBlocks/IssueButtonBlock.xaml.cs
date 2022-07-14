@@ -33,12 +33,10 @@ namespace FluentHub.Uwp.UserControls.ButtonBlocks
        
         public IssueButtonBlock() => InitializeComponent();
 
-        private readonly INavigationService navigationService;
-
         private void OnClick(object sender, RoutedEventArgs e)
         {
-            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
-            navigationService.Navigate<OverviewPage>($"{App.DefaultGitHubDomain}/{ViewModel.IssueItem.OwnerLogin}/{ViewModel.IssueItem.Name}/issues/{ViewModel.IssueItem.Number}");
+            var navigationService = App.Current.Services.GetRequiredService<INavigationService>();
+            navigationService.Navigate<OverviewPage>($"{App.DefaultGitHubDomain}/{ViewModel.IssueItem.Repository.Owner.Login}/{ViewModel.IssueItem.Repository.Name}/issues/{ViewModel.IssueItem.Number}");
         }
     }
 }

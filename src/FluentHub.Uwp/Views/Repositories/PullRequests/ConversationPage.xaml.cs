@@ -25,14 +25,14 @@ namespace FluentHub.Uwp.Views.Repositories.PullRequests
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            Octokit.Models.PullRequest param = e.Parameter as Octokit.Models.PullRequest;
+            PullRequest param = e.Parameter as PullRequest;
 
             DataContext = e.Parameter;
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = $"{param.Title} · #{param.Number}";
             currentItem.Description = currentItem.Header;
-            currentItem.Url = $"https://github.com/{param.OwnerLogin}/{param.Name}/pull/{param.Number}";
+            currentItem.Url = $"https://github.com/{param.Repository.Owner.Login}/{param.Repository.Name}/pull/{param.Number}";
             currentItem.Icon = new muxc.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Discussions.png"))

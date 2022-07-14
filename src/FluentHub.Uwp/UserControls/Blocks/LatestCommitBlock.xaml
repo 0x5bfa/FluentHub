@@ -27,14 +27,14 @@
             <StackPanel Orientation="Horizontal" Spacing="6">
 
                 <uc:AvatarControl
-                    AvatarUrl="{x:Bind ViewModel.CommitOverviewItem.AuthorAvatarUrl, Mode=OneWay}"
+                    AvatarUrl="{x:Bind ViewModel.CommitOverviewItem.Author.AvatarUrl, Mode=OneWay}"
                     IsOrganization="False"
                     WidthAndHeight="24" />
 
                 <TextBlock
                     VerticalAlignment="Center"
                     Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="{x:Bind ViewModel.CommitOverviewItem.AuthorName, Mode=OneWay}" />
+                    Text="{x:Bind ViewModel.CommitOverviewItem.Author.User.Login, Mode=OneWay}" />
 
                 <TextBlock
                     Margin="2,0"
@@ -101,7 +101,7 @@
                                     <TextBlock
                                         VerticalAlignment="Center"
                                         Style="{StaticResource BodyStrongTextBlockStyle}"
-                                        Text="{x:Bind ViewModel.CommitOverviewItem.TotalCount, Mode=OneWay}" />
+                                        Text="{x:Bind ViewModel.CommitOverviewItem.History.TotalCount, Mode=OneWay}" />
 
                                     <TextBlock
                                         VerticalAlignment="Center"

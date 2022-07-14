@@ -39,7 +39,10 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
                     PullItem = pull;
 
                 CommitQueries queries = new();
-                var items = await queries.GetAllAsync(PullItem.Repository.Owner.Login, PullItem.Repository.Name, PullItem.Number);
+                var items = await queries.GetAllAsync(
+                    PullItem.Repository.Owner.Login,
+                    PullItem.Repository.Name,
+                    PullItem.Number);
 
                 _items.Clear();
                 foreach (var item in items)

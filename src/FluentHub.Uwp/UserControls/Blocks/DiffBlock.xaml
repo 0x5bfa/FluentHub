@@ -77,7 +77,7 @@
                         Foreground="#347d39"
                         IsTextSelectionEnabled="True"
                         Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="{x:Bind ViewModel.ChangedFile.LineAdditions, Mode=OneWay}" />
+                        Text="{x:Bind ViewModel.ChangedFile.Additions, Mode=OneWay}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal">
@@ -96,7 +96,7 @@
                         Foreground="#c93c37"
                         IsTextSelectionEnabled="True"
                         Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="{x:Bind ViewModel.ChangedFile.LineDeletions, Mode=OneWay}" />
+                        Text="{x:Bind ViewModel.ChangedFile.Deletions, Mode=OneWay}" />
                 </StackPanel>
 
                 <StackPanel
@@ -125,7 +125,7 @@
                     FontWeight="SemiLight"
                     IsTextSelectionEnabled="True"
                     Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="{x:Bind ViewModel.ChangedFile.FileName, Mode=OneWay}" />
+                    Text="{x:Bind ViewModel.ChangedFile.Filename, Mode=OneWay}" />
             </StackPanel>
 
             <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">

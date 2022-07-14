@@ -57,7 +57,7 @@
                 Grid.Column="2"
                 Orientation="Horizontal"
                 Spacing="4">
-                <toolkit:SwitchPresenter TargetType="x:String" Value="{x:Bind ViewModel.Payload.PayloadType, Mode=OneWay}">
+                <toolkit:SwitchPresenter TargetType="x:String" Value="{x:Bind ViewModel.Payload.Type, Mode=OneWay}">
 
                     <toolkit:Case Value="CommitCommentEvent">
                         <StackPanel Orientation="Horizontal" Spacing="4">
@@ -115,9 +115,9 @@
                                 Text="forked" />
                             <Button Padding="4,2">
                                 <StackPanel Orientation="Horizontal">
-                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.ForkEventPayload.Forkee.Owner.Login, Mode=OneWay}" />
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.PayloadSets.ForkEventPayload.Forkee.Owner.Login, Mode=OneWay}" />
                                     <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
-                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.ForkEventPayload.Forkee.Name, Mode=OneWay}" />
+                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.Payload.PayloadSets.ForkEventPayload.Forkee.Name, Mode=OneWay}" />
                                 </StackPanel>
                             </Button>
                             <TextBlock
@@ -329,7 +329,7 @@
                 HorizontalAlignment="Right"
                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                 Style="{StaticResource CaptionTextBlockStyle}"
-                Text="{x:Bind ViewModel.Payload.CreatedAtHumanized, Mode=OneWay}" />
+                Text="{x:Bind ViewModel.Payload.CreatedAt, Mode=OneWay}" />
         </Grid>
 
         <Grid

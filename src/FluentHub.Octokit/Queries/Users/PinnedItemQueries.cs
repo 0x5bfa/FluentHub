@@ -39,15 +39,17 @@
                     })
                     .SingleOrDefault(),
 
-                    Issues = new()
+                    Issues = x.Issues(null, null, null, null, null, null, null, issueState).Select(issues => new IssueConnection
                     {
-                        TotalCount = x.Issues(null, null, null, null, null, null, null, issueState).TotalCount
-                    },
+                        TotalCount = issues.TotalCount
+                    })
+                    .Single(),
 
-                    PullRequests = new()
+                    PullRequests = x.PullRequests(null, null, null, null, null, null, null, null, pullRequestState).Select(issues => new PullRequestConnection
                     {
-                        TotalCount = x.PullRequests(null, null, null, null, null, null, null, null, pullRequestState).TotalCount
-                    },
+                        TotalCount = issues.TotalCount
+                    })
+                    .Single(),
 
                     Owner = x.Owner.Select(owner => new RepositoryOwner
                     {
