@@ -10,14 +10,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:vm="using:FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <UserControl.DataContext>
-        <vm:IssueButtonBlockViewModel />
-    </UserControl.DataContext>
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -98,7 +94,7 @@
                         <TextBlock
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="{x:Bind ViewModel.IssueItem.OwnerLogin, Mode=OneWay}" />
+                            Text="{x:Bind ViewModel.IssueItem.Repository.Owner.Login, Mode=OneWay}" />
 
                         <TextBlock
                             Margin="4,0"
@@ -109,7 +105,7 @@
                         <TextBlock
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="{x:Bind ViewModel.IssueItem.Name, Mode=OneWay}" />
+                            Text="{x:Bind ViewModel.IssueItem.Repository.Name, Mode=OneWay}" />
 
                         <TextBlock
                             Margin="4,0,0,0"
@@ -129,7 +125,7 @@
                         x:Load="{x:Bind ViewModel.CompactMode, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="{x:Bind ViewModel.IssueItem.UpdatedAtHumanized, Mode=OneWay}" />
+                        Text="{x:Bind ViewModel.IssueItem.UpdatedAt, Mode=OneWay}" />
 
                     <TextBlock
                         x:Name="TitleTextBlock"
@@ -164,7 +160,7 @@
                         <labels:LabelControl
                             x:Name="CommentCountLabel"
                             VerticalAlignment="Center"
-                            x:Load="{x:Bind ViewModel.IssueItem.CommentCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                            x:Load="{x:Bind ViewModel.IssueItem.Comments.TotalCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
                             ViewModel="{x:Bind ViewModel.CommentCountLabel, Mode=OneWay}">
                             <labels:LabelControl.Icon>
                                 <FontIcon

@@ -26,13 +26,13 @@ namespace FluentHub.Octokit.Models.v4
     }
 }
 
-namespace FluentHub.Octokit.Models.v4.Internal
+namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
 
-    internal class OauthApplicationAuditEntryData : IOauthApplicationAuditEntryData
+    public class OauthApplicationAuditEntryData : IOauthApplicationAuditEntryData
     {
         public string OauthApplicationName { get; set; }
 

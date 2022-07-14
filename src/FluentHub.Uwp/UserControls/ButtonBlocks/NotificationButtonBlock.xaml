@@ -8,14 +8,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:vm="using:FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <UserControl.DataContext>
-        <vm:NotificationButtonBlockViewModel />
-    </UserControl.DataContext>
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -62,7 +58,7 @@
                     Visibility="{x:Bind ViewModel.Item.Unread, Mode=OneWay}" />
 
                 <Grid>
-                    <toolkit:SwitchPresenter TargetType="x:String" Value="{x:Bind ViewModel.Item.ItemState, Mode=OneWay}">
+                    <toolkit:SwitchPresenter TargetType="x:String" Value="{x:Bind ViewModel.Item.Subject.Type, Mode=OneWay}">
 
                         <toolkit:Case Value="IssueClosed">
                             <FontIcon
@@ -158,14 +154,14 @@
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource CaptionTextBlockStyle}"
                             Text="#"
-                            Visibility="{x:Bind ViewModel.Item.SubjectNumber, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
+                            Visibility="{x:Bind ViewModel.Item.Subject.Number, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
 
                         <TextBlock
                             Margin="-4,0,0,0"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="{x:Bind ViewModel.Item.SubjectNumber, Mode=OneWay}"
-                            Visibility="{x:Bind ViewModel.Item.SubjectNumber, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
+                            Text="{x:Bind ViewModel.Item.Subject.Number, Mode=OneWay}"
+                            Visibility="{x:Bind ViewModel.Item.Subject.Number, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
 
 
                     </StackPanel>
@@ -175,7 +171,7 @@
                         HorizontalAlignment="Right"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="{x:Bind ViewModel.Item.UpdatedAtHumanized, Mode=OneWay}" />
+                        Text="{x:Bind ViewModel.Item.UpdatedAt, Mode=OneWay}" />
 
                     <TextBlock
                         x:Name="TitleTextBlock"

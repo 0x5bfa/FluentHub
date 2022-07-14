@@ -8,12 +8,12 @@ namespace FluentHub.Octokit.Models.v4
     /// </summary>
     public class UpdateEnterpriseMembersCanUpdateProtectedBranchesSettingInput
     {        /// <summary>
-        /// The ID of the enterprise on which to set the members can update branches setting.
+        /// The ID of the enterprise on which to set the members can update protected branches setting.
         /// </summary>
         public ID EnterpriseId { get; set; }
 
         /// <summary>
-        /// The value for the members can update branches setting on the enterprise.
+        /// The value for the members can update protected branches setting on the enterprise.
         /// </summary>
         public EnterpriseEnabledDisabledSettingValue SettingValue { get; set; }
 

@@ -4,21 +4,16 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:graphqlmodel="using:Octokit.GraphQL.Model"
     xmlns:labels="using:FluentHub.Uwp.UserControls.Labels"
     xmlns:labelsvm="using:FluentHub.Uwp.ViewModels.UserControls.Labels"
     xmlns:local="using:FluentHub.Uwp.UserControls.ButtonBlocks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:vm="using:FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <UserControl.DataContext>
-        <vm:PullButtonBlockViewModel />
-    </UserControl.DataContext>
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -117,7 +112,7 @@
                         <TextBlock
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="{x:Bind ViewModel.PullItem.OwnerLogin, Mode=OneWay}" />
+                            Text="{x:Bind ViewModel.PullItem.Repository.Owner.Login, Mode=OneWay}" />
 
                         <TextBlock
                             Margin="4,0"
@@ -128,7 +123,7 @@
                         <TextBlock
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="{x:Bind ViewModel.PullItem.Name, Mode=OneWay}" />
+                            Text="{x:Bind ViewModel.PullItem.Repository.Name, Mode=OneWay}" />
 
                         <TextBlock
                             Margin="4,0,0,0"
@@ -147,7 +142,7 @@
                         HorizontalAlignment="Right"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="{x:Bind ViewModel.PullItem.UpdatedAtHumanized, Mode=OneWay}" />
+                        Text="{x:Bind ViewModel.PullItem.UpdatedAt, Mode=OneWay}" />
 
                     <TextBlock
                         x:Name="TitleTextBlock"
@@ -164,9 +159,9 @@
 
                         <toolkit:SwitchPresenter
                             x:Name="ReviewStateSwitcher"
-                            x:Load="{x:Bind ViewModel.PullItem.ReviewState, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                            x:Load="{x:Bind ViewModel.PullItem.Reviews.Nodes, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
                             TargetType="x:String"
-                            Value="{x:Bind ViewModel.PullItem.ReviewState, Mode=OneWay}">
+                            Value="{x:Bind ViewModel.PullItem.Reviews.Nodes[0].State, Mode=OneWay}">
 
                             <toolkit:Case Value="Pending">
                                 <labels:LabelControl VerticalAlignment="Center" ViewModel="{x:Bind ViewModel.ReviewStateLabel, Mode=OneWay}">
@@ -232,9 +227,9 @@
 
                         <toolkit:SwitchPresenter
                             x:Name="StatusStateSwitcher"
-                            x:Load="{x:Bind ViewModel.PullItem.StatusState.Status, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                            x:Load="{x:Bind ViewModel.PullItem.State, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
                             TargetType="x:String"
-                            Value="{x:Bind ViewModel.PullItem.StatusState.Status, Mode=OneWay}">
+                            Value="{x:Bind ViewModel.PullItem.State, Mode=OneWay}">
 
                             <toolkit:Case Value="Expected">
                                 <labels:LabelControl VerticalAlignment="Center" ViewModel="{x:Bind ViewModel.StatusStateLabel, Mode=OneWay}">
@@ -318,7 +313,7 @@
                         <labels:LabelControl
                             x:Name="CommentCountLabel"
                             VerticalAlignment="Center"
-                            x:Load="{x:Bind ViewModel.PullItem.CommentCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                            x:Load="{x:Bind ViewModel.PullItem.Comments.TotalCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
                             ViewModel="{x:Bind ViewModel.CommentCountLabel, Mode=OneWay}">
                             <labels:LabelControl.Icon>
                                 <FontIcon

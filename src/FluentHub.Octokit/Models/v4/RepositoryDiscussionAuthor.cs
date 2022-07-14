@@ -23,13 +23,13 @@ namespace FluentHub.Octokit.Models.v4
     }
 }
 
-namespace FluentHub.Octokit.Models.v4.Internal
+namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
 
-    internal class RepositoryDiscussionAuthor : IRepositoryDiscussionAuthor
+    public class RepositoryDiscussionAuthor : IRepositoryDiscussionAuthor
     {
         public DiscussionConnection RepositoryDiscussions { get; set; }
     }

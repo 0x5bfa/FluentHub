@@ -6,6 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:FluentHub.Uwp.UserControls.ButtonBlocks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:uc="using:FluentHub.Uwp.UserControls"
     d:DesignHeight="300"
@@ -56,19 +57,19 @@
                     <TextBlock
                         Margin="0,0,0,8"
                         Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="{x:Bind ViewModel.CommitItem.CommitMessageHeadline, Mode=OneWay}" />
+                        Text="{x:Bind ViewModel.CommitItem.MessageHeadline, Mode=OneWay}" />
 
                     <StackPanel
                         Grid.Row="1"
                         Orientation="Horizontal"
                         Spacing="4">
 
-                        <uc:AvatarControl AvatarUrl="{x:Bind ViewModel.CommitItem.AuthorAvatarUrl}" WidthAndHeight="18" />
+                        <uc:AvatarControl AvatarUrl="{x:Bind ViewModel.CommitItem.Author.AvatarUrl}" WidthAndHeight="18" />
 
                         <TextBlock
                             Margin="4,0,0,0"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="{x:Bind ViewModel.CommitItem.AuthorName}" />
+                            Text="{x:Bind ViewModel.CommitItem.Author.User.Login}" />
 
                         <TextBlock
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
@@ -81,7 +82,7 @@
                     HorizontalAlignment="Right"
                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                     Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="{x:Bind ViewModel.CommitItem.CommittedAtHumanized, Mode=OneWay}" />
+                    Text="{x:Bind ViewModel.CommitItem.CommittedDate, Mode=OneWay}" />
             </Grid>
         </Button>
     </Grid>

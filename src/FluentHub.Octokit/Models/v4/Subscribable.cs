@@ -23,13 +23,13 @@ namespace FluentHub.Octokit.Models.v4
     }
 }
 
-namespace FluentHub.Octokit.Models.v4.Internal
+namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
 
-    internal class Subscribable : ISubscribable
+    public class Subscribable : ISubscribable
     {
         public ID Id { get; set; }
 

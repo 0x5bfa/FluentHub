@@ -33,7 +33,7 @@ namespace FluentHub.Uwp.UserControls.ButtonBlocks
         {
             var service = App.Current.Services.GetRequiredService<INavigationService>();
 
-            if (ViewModel.User.IsOrganization)
+            if (ViewModel.User.Id.ToString().StartsWith("O_"))
             {
                 service.Navigate<Views.Organizations.ProfilePage>(ViewModel.User.Login);
             }

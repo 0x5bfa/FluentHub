@@ -21,13 +21,13 @@ namespace FluentHub.Octokit.Models.v4
     }
 }
 
-namespace FluentHub.Octokit.Models.v4.Internal
+namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
 
-    internal class UniformResourceLocatable : IUniformResourceLocatable
+    public class UniformResourceLocatable : IUniformResourceLocatable
     {
         public string ResourcePath { get; set; }
 

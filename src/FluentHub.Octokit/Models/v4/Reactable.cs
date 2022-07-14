@@ -39,13 +39,13 @@ namespace FluentHub.Octokit.Models.v4
     }
 }
 
-namespace FluentHub.Octokit.Models.v4.Internal
+namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
 
-    internal class Reactable : IReactable
+    public class Reactable : IReactable
     {
         public int? DatabaseId { get; set; }
 

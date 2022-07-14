@@ -14,8 +14,8 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
         }
 
         #region Fields and Properties
-        private ChangedFile _changedFile;
-        public ChangedFile ChangedFile { get => _changedFile; set => SetProperty(ref _changedFile, value); }
+        private OctokitOriginal.GitHubCommitFile _changedFile;
+        public OctokitOriginal.GitHubCommitFile ChangedFile { get => _changedFile; set => SetProperty(ref _changedFile, value); }
 
         private string _oldLineText;
         public string OldLineText { get => _oldLineText; set => SetProperty(ref _oldLineText, value); }

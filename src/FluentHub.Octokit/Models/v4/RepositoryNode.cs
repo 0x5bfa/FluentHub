@@ -16,13 +16,13 @@ namespace FluentHub.Octokit.Models.v4
     }
 }
 
-namespace FluentHub.Octokit.Models.v4.Internal
+namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
 
-    internal class RepositoryNode : IRepositoryNode
+    public class RepositoryNode : IRepositoryNode
     {
         public Repository Repository { get; set; }
     }

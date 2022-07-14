@@ -7,10 +7,14 @@ namespace FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks
 {
     public class CommitButtonBlockViewModel : ObservableObject
     {
+        public CommitButtonBlockViewModel()
+        {
+        }
+
         private Commit _commitItem;
         public Commit CommitItem { get => _commitItem; set => SetProperty(ref _commitItem, value); }
 
-        private Frame _targetFrame;
-        public Frame TargetFrame { get => _targetFrame; set => SetProperty(ref _targetFrame, value); }
+        private PullRequest _pullRequest;
+        public PullRequest PullRequest { get => _pullRequest; set => SetProperty(ref _pullRequest, value); }
     }
 }

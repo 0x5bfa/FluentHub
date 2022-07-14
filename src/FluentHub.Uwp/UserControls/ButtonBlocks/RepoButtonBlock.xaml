@@ -5,6 +5,7 @@
     xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     d:DesignHeight="180"
     d:DesignWidth="400"
@@ -155,14 +156,14 @@
                                 Margin="0,0,16,0"
                                 Orientation="Horizontal"
                                 Spacing="6"
-                                Visibility="{x:Bind ViewModel.Item.LicenseName, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+                                Visibility="{x:Bind ViewModel.Item.LicenseInfo.Name, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
 
                                 <FontIcon
                                     FontFamily="{StaticResource Octions}"
                                     FontSize="14"
                                     Glyph="&#xE9F7;" />
 
-                                <TextBlock x:Name="License" Text="{x:Bind ViewModel.Item.LicenseName, Mode=OneWay}" />
+                                <TextBlock x:Name="License" Text="{x:Bind ViewModel.Item.LicenseInfo.Name, Mode=OneWay}" />
 
                             </StackPanel>
 
@@ -194,7 +195,7 @@
                                     FontSize="14"
                                     Glyph="&#xE9EA;" />
 
-                                <TextBlock x:Name="IssueCount" Text="{x:Bind ViewModel.Item.OpenIssueCount, Mode=OneWay}" />
+                                <TextBlock x:Name="IssueCount" Text="{x:Bind ViewModel.Item.Issues.TotalCount, Mode=OneWay}" />
 
                             </StackPanel>
 
@@ -210,7 +211,7 @@
                                     FontSize="14"
                                     Glyph="&#xE9BF;" />
 
-                                <TextBlock x:Name="PRCount" Text="{x:Bind ViewModel.Item.OpenPullCount, Mode=OneWay}" />
+                                <TextBlock x:Name="PRCount" Text="{x:Bind ViewModel.Item.PullRequests.TotalCount, Mode=OneWay}" />
 
                             </StackPanel>
 
@@ -226,7 +227,7 @@
                                     FontSize="14"
                                     Glyph="&#xEA9A;" />
 
-                                <TextBlock Text="{x:Bind ViewModel.Item.UpdatedAtHumanized, Mode=OneWay}" />
+                                <TextBlock Text="{x:Bind ViewModel.Item.UpdatedAt, Mode=OneWay}" />
 
                             </StackPanel>
 

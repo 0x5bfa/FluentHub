@@ -20,13 +20,13 @@ namespace FluentHub.Octokit.Models.v4
     }
 }
 
-namespace FluentHub.Octokit.Models.v4.Internal
+namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
 
-    internal class ProjectV2Recent : IProjectV2Recent
+    public class ProjectV2Recent : IProjectV2Recent
     {
         public ProjectV2Connection RecentProjects { get; set; }
     }

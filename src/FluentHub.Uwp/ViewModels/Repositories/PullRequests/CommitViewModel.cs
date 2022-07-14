@@ -26,9 +26,6 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
         private Commit _commitItem;
         public Commit CommitItem { get => _commitItem; set => SetProperty(ref _commitItem, value); }
 
-        private CommitDetails _commitDetails;
-        public CommitDetails CommitDetails { get => _commitDetails; set => SetProperty(ref _commitDetails, value); }
-
         private ObservableCollection<DiffBlockViewModel> _diffViewModels;
         public ReadOnlyObservableCollection<DiffBlockViewModel> DiffViewModels { get; }
 
@@ -40,15 +37,13 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
             try
             {
                 DiffQueries queries = new();
-                var files = await queries.GetAllAsync(
-                    CommitItem.Owner,
-                    CommitItem.Name,
-                    CommitItem.PullRequestNumber);
-
-                if (CommitDetails.ChangedFiles.Count() == 0) return;
+                var response = await queries.GetAllAsync(
+                    CommitItem.Repository.Owner.Login,
+                    CommitItem.Repository.Name,
+                    CommitItem.);
 
                 _diffViewModels.Clear();
-                foreach (var item in files)
+                foreach (var item in response)
                 {
                     DiffBlockViewModel viewModel = new()
                     {

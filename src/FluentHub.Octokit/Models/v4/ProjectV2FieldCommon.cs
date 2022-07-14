@@ -43,13 +43,13 @@ namespace FluentHub.Octokit.Models.v4
     }
 }
 
-namespace FluentHub.Octokit.Models.v4.Internal
+namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
 
-    internal class ProjectV2FieldCommon : IProjectV2FieldCommon
+    public class ProjectV2FieldCommon : IProjectV2FieldCommon
     {
         public DateTimeOffset CreatedAt { get; set; }
 

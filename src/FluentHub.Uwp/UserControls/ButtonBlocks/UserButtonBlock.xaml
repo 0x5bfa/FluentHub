@@ -5,14 +5,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:FluentHub.Uwp.UserControls.ButtonBlocks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:vm="using:FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <UserControl.DataContext>
-        <vm:UserButtonBlockViewModel />
-    </UserControl.DataContext>
     <UserControl.Resources>
         <Style
             x:Key="ContentBlockButtonStyle"

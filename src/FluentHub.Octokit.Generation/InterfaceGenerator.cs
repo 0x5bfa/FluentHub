@@ -172,7 +172,7 @@ namespace FluentHub.Octokit.Generation
             stubType.Name = TypeUtilities.GetInterfaceName(type).TrimStart('I'); // impl
             stubType.Kind = TypeKind.Object;
             stubType.Interfaces = new[] { type };
-            return EntityGenerator.Generate(stubType, entityNamespace + ".Internal", queryType, entityNamespace: entityNamespace, modifiers: "internal ", generateDocComments: false);
+            return EntityGenerator.Generate(stubType, entityNamespace, queryType, entityNamespace: entityNamespace, modifiers: "public ", generateDocComments: false);
         }
     }
 }

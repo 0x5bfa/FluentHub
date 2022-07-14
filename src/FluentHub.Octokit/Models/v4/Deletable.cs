@@ -16,13 +16,13 @@ namespace FluentHub.Octokit.Models.v4
     }
 }
 
-namespace FluentHub.Octokit.Models.v4.Internal
+namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
 
-    internal class Deletable : IDeletable
+    public class Deletable : IDeletable
     {
         public bool ViewerCanDelete { get; set; }
     }

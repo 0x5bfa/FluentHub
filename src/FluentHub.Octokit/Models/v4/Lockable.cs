@@ -21,13 +21,13 @@ namespace FluentHub.Octokit.Models.v4
     }
 }
 
-namespace FluentHub.Octokit.Models.v4.Internal
+namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
 
-    internal class Lockable : ILockable
+    public class Lockable : ILockable
     {
         public LockReason? ActiveLockReason { get; set; }
 

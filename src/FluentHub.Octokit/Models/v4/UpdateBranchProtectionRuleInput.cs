@@ -38,7 +38,7 @@ namespace FluentHub.Octokit.Models.v4
         public bool? RequiresLinearHistory { get; set; }
 
         /// <summary>
-        /// Is branch creation a operation.
+        /// Is branch creation a protected operation.
         /// </summary>
         public bool? BlocksCreations { get; set; }
 

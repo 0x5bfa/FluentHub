@@ -30,13 +30,13 @@ namespace FluentHub.Octokit.Models.v4
     }
 }
 
-namespace FluentHub.Octokit.Models.v4.Internal
+namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
 
-    internal class ProjectNextOwner : IProjectNextOwner
+    public class ProjectNextOwner : IProjectNextOwner
     {
         public ID Id { get; set; }
 

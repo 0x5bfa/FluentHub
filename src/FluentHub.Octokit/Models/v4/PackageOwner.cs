@@ -26,13 +26,13 @@ namespace FluentHub.Octokit.Models.v4
     }
 }
 
-namespace FluentHub.Octokit.Models.v4.Internal
+namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
 
-    internal class PackageOwner : IPackageOwner
+    public class PackageOwner : IPackageOwner
     {
         public ID Id { get; set; }
 

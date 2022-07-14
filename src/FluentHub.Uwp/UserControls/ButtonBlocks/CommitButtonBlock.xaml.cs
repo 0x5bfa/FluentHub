@@ -1,5 +1,4 @@
-﻿using FluentHub.Octokit.Models;
-using FluentHub.Uwp.Services;
+﻿using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
 using Microsoft.Extensions.DependencyInjection;
@@ -29,13 +28,20 @@ namespace FluentHub.Uwp.UserControls.ButtonBlocks
 
         private void CommitItemButton_Click(object sender, RoutedEventArgs e)
         {
-            if (ViewModel.CommitItem.PullRequestNumber == 0)
+            string url = $"https://github.com/{ViewModel.CommitItem.Repository.Owner.Login}/{ViewModel.CommitItem.Repository.Name}/";
+            Type frameType;
+
+            if (ViewModel.PullRequest == null)
             {
-                MainPageViewModel.RepositoryContentFrame.Navigate(typeof(Views.Repositories.Commits.CommitPage), ViewModel.CommitItem);
+                url += $"commit/{ViewModel.CommitItem.Oid}";
+                frameType = typeof(Views.Repositories.Commits.CommitPage);
+                MainPageViewModel.RepositoryContentFrame.Navigate(frameType, url);
             }
             else
             {
-                MainPageViewModel.PullRequestContentFrame.Navigate(typeof(Views.Repositories.PullRequests.CommitPage), ViewModel.CommitItem);
+                url += $"pull/{ViewModel.PullRequest.Number}/commits/{ViewModel.CommitItem.Oid}";
+                frameType = typeof(Views.Repositories.PullRequests.CommitPage);
+                MainPageViewModel.PullRequestContentFrame.Navigate(frameType, url);
             }
         }
     }

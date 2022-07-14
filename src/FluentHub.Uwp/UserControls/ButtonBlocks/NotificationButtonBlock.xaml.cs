@@ -29,23 +29,21 @@ namespace FluentHub.Uwp.UserControls.ButtonBlocks
 
         public NotificationButtonBlock() => InitializeComponent();
 
-        private readonly INavigationService navigationService;
-
         private void OnClick(object sender, RoutedEventArgs e)
         {
-            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
+            var navigationService = App.Current.Services.GetRequiredService<INavigationService>();
 
-            switch (ViewModel.Item.ItemState)
+            switch (ViewModel.Item.Subject.Type.ToString())
             {
                 case "IssueClosed":
                 case "IssueOpen":
-                    navigationService.Navigate<OverviewPage>($"{App.DefaultGitHubDomain}/{ViewModel.Item.Repository.Owner.Login}/{ViewModel.Item.Repository.Name}/issues/{ViewModel.Item.SubjectNumber}");
+                    navigationService.Navigate<OverviewPage>($"{App.DefaultGitHubDomain}/{ViewModel.Item.Repository.Owner.Login}/{ViewModel.Item.Repository.Name}/issues/{ViewModel.Item.Subject.Number}");
                     break;
                 case "PullMerged":
                 case "PullClosed":
                 case "PullDraft":
                 case "PullOpen":
-                    navigationService.Navigate<OverviewPage>($"{App.DefaultGitHubDomain}/{ViewModel.Item.Repository.Owner.Login}/{ViewModel.Item.Repository.Name}/pull/{ViewModel.Item.SubjectNumber}");
+                    navigationService.Navigate<OverviewPage>($"{App.DefaultGitHubDomain}/{ViewModel.Item.Repository.Owner.Login}/{ViewModel.Item.Repository.Name}/pull/{ViewModel.Item.Subject.Number}");
                     break;
                 case "Discussion":
                     //navigationService.Navigate<OverviewPage>($"{App.DefaultGitHubDomain}/{ViewModel.Item.Repository.Owner.Login}/{ViewModel.Item.Repository.Name}/discussions/{ViewModel.Item.SubjectNumber}");

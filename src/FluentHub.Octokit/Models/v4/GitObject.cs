@@ -38,13 +38,13 @@ namespace FluentHub.Octokit.Models.v4
     }
 }
 
-namespace FluentHub.Octokit.Models.v4.Internal
+namespace FluentHub.Octokit.Models.v4
 {
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
 
-    internal class GitObject : IGitObject
+    public class GitObject : IGitObject
     {
         public string AbbreviatedOid { get; set; }
 
