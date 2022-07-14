@@ -1,6 +1,6 @@
-﻿using FluentHub.Uwp.Models;
+﻿using FluentHub.Octokit.Queries.Repositories;
+using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
-using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls.Blocks;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
@@ -16,7 +16,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
             _diffViewModels = new();
             DiffViewModels = new(_diffViewModels);
 
-            LoadCommitPageCommand = new AsyncRelayCommand(LoadCommitPageAsync);
+            LoadCommitPageCommand = new AsyncRelayCommand(LoadRepositoryPullRequestOneCommitAsync);
         }
 
         #region Fields and Properties
@@ -32,7 +32,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
         public IAsyncRelayCommand LoadCommitPageCommand { get; }
         #endregion
 
-        private async Task LoadCommitPageAsync(CancellationToken token)
+        private async Task LoadRepositoryPullRequestOneCommitAsync(CancellationToken token)
         {
             try
             {
@@ -40,7 +40,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
                 var response = await queries.GetAllAsync(
                     CommitItem.Repository.Owner.Login,
                     CommitItem.Repository.Name,
-                    CommitItem.);
+                    CommitItem);
 
                 _diffViewModels.Clear();
                 foreach (var item in response)
@@ -56,7 +56,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
             catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error(nameof(LoadCommitPageAsync), ex);
+                _logger?.Error(nameof(LoadRepositoryPullRequestOneCommitAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);

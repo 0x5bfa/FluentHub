@@ -1,7 +1,7 @@
-﻿using FluentHub.Uwp.Utils;
-using FluentHub.Uwp.Services;
+﻿using FluentHub.Octokit.Queries.Users;
 using FluentHub.Uwp.Models;
-using FluentHub.Octokit.Queries.Users;
+using FluentHub.Uwp.Services;
+using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
 
 namespace FluentHub.Uwp.ViewModels.Home
@@ -56,7 +56,7 @@ namespace FluentHub.Uwp.ViewModels.Home
             catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error("RefreshNotificationsAsync", ex);
+                _logger?.Error(nameof(RefreshNotificationsAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);

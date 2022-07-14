@@ -1,8 +1,6 @@
-﻿using FluentHub.Uwp.Models;
+﻿using FluentHub.Octokit.Queries.Repositories;
+using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
-using FluentHub.Octokit.Queries.Repositories;
-using FluentHub.Uwp.UserControls.Blocks;
-using FluentHub.Uwp.ViewModels.UserControls.Blocks;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.Projects
 {

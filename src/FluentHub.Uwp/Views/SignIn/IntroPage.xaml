@@ -47,7 +47,7 @@
 
                             <Image Height="72" VerticalAlignment="Center">
                                 <Image.Source>
-                                    <BitmapImage DecodePixelWidth="128" UriSource="ms-appx:///Assets/AppTilesAlpha/StoreLogo.scale-400.png" />
+                                    <BitmapImage DecodePixelWidth="128" UriSource="/Assets/AppTilesAlpha/StoreLogo.scale-400.png" />
                                 </Image.Source>
                             </Image>
 

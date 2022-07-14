@@ -1,6 +1,6 @@
-﻿using FluentHub.Uwp.Models;
+﻿using FluentHub.Octokit.Queries.Organizations;
+using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
-using FluentHub.Octokit.Queries.Organizations;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
 
 namespace FluentHub.Uwp.ViewModels.Organizations
@@ -15,7 +15,7 @@ namespace FluentHub.Uwp.ViewModels.Organizations
             _repositories = new();
             Repositories = new(_repositories);
 
-            RefreshRepositoriesCommand = new AsyncRelayCommand<string>(RefreshRepositoriesAsync);
+            RefreshRepositoriesCommand = new AsyncRelayCommand<string>(LoadOrganizationRepositoriesAsync);
         }
 
         #region Fields and Properties
@@ -28,7 +28,7 @@ namespace FluentHub.Uwp.ViewModels.Organizations
         public IAsyncRelayCommand RefreshRepositoriesCommand { get; }
         #endregion
 
-        private async Task RefreshRepositoriesAsync(string login, CancellationToken token)
+        private async Task LoadOrganizationRepositoriesAsync(string login, CancellationToken token)
         {
             try
             {
@@ -54,7 +54,7 @@ namespace FluentHub.Uwp.ViewModels.Organizations
             {
                 if (!ex.Message.Contains("has enabled OAuth App access restrictions, meaning that data access to third-parties is limited."))
                 {
-                    _logger?.Error(nameof(RefreshRepositoriesAsync), ex);
+                    _logger?.Error(nameof(LoadOrganizationRepositoriesAsync), ex);
                     if (_messenger != null)
                     {
                         UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);

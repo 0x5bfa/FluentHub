@@ -1,6 +1,6 @@
-﻿using FluentHub.Uwp.Models;
+﻿using FluentHub.Octokit.Queries.Repositories;
+using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
-using FluentHub.Octokit.Queries.Repositories;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
 {
@@ -15,7 +15,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
             _items = new();
             Items = new(_items);
 
-            LoadTreeViewContentsCommand = new AsyncRelayCommand(LoadTreeViewContentsAsync);
+            LoadTreeViewContentsCommand = new AsyncRelayCommand(LoadRepositoryContentsAsync);
             LoadRepositoryCommand = new AsyncRelayCommand<string>(LoadRepositoryAsync);
         }
 
@@ -45,7 +45,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
         public IAsyncRelayCommand LoadRepositoryCommand { get; }
         #endregion
 
-        private async Task LoadTreeViewContentsAsync(CancellationToken token)
+        private async Task LoadRepositoryContentsAsync(CancellationToken token)
         {
             try
             {
@@ -96,7 +96,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
             catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error(nameof(LoadTreeViewContentsAsync), ex);
+                _logger?.Error(nameof(LoadRepositoryContentsAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
@@ -193,7 +193,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
             catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error("RefreshDetailsLayoutPageAsync", ex);
+                _logger?.Error(nameof(LoadRepositoryAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);

@@ -1,17 +1,11 @@
-﻿using FluentHub.Uwp.Utils;
+﻿using FluentHub.Octokit.Queries.Users;
+using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.Models;
-using FluentHub.Octokit.Queries.Users;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace FluentHub.Uwp.ViewModels.AppSettings.Accounts
 {
     public class AccountViewModel : ObservableObject
     {
-        #region Constructor        
         public AccountViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _logger = logger;
@@ -19,7 +13,6 @@ namespace FluentHub.Uwp.ViewModels.AppSettings.Accounts
 
             LoadSignedInLoginsCommand = new AsyncRelayCommand(LoadCurrentUserGitHubInfoAsync);
         }
-        #endregion
 
         #region Fields and Properties
         private readonly ILogger _logger;

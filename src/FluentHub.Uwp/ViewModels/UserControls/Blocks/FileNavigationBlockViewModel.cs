@@ -16,7 +16,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
 
             BranchNames = new();
 
-            LoadBranchNameAllCommand = new AsyncRelayCommand(LoadBranchNameAllAsync);
+            LoadBranchNameAllCommand = new AsyncRelayCommand(LoadRepositoryBranchsAsync);
         }
 
         #region Fields and Properties
@@ -31,7 +31,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
         public IAsyncRelayCommand LoadBranchNameAllCommand { get; }
         #endregion
 
-        public async Task LoadBranchNameAllAsync()
+        public async Task LoadRepositoryBranchsAsync()
         {
             try
             {
@@ -59,7 +59,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
             }
             catch (Exception ex)
             {
-                _logger?.Error("LoadBlobContentBlockAsync", ex);
+                _logger?.Error(nameof(LoadRepositoryBranchsAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);

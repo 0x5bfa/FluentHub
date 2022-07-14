@@ -1,6 +1,5 @@
 ﻿using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Services;
-using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls.Labels;
 using Windows.UI.Xaml.Controls;
 
@@ -36,7 +35,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
         public LabelControlViewModel AuthorAssociationLabel { get => _authorAssociationLabel; set => SetProperty(ref _authorAssociationLabel, value); }
         #endregion
 
-        public async Task SetWebViewContentsAsync(WebView webView)
+        public async Task SetMarkdownCommentToWebViewAsync(WebView webView)
         {
             CreatedAtHumanized = IssueComment?.CreatedAt.Humanize();
 

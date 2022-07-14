@@ -1,20 +1,21 @@
-﻿using FluentHub.Uwp.Utils;
+﻿using FluentHub.Uwp.Helpers;
+using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Utils;
 using System.IO;
-using Windows.ApplicationModel;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
 using Windows.System;
 
 namespace FluentHub.Uwp.ViewModels.AppSettings
 {
-    public class AboutViewModel
+    public class AboutViewModel : ObservableObject
     {
         public AboutViewModel(ILogger logger = null)
         {
             _logger = logger;
 
-            CopyVersionCommand = new RelayCommand(ExecuteCopyVersionCommand);
-            OpenLogsCommand = new AsyncRelayCommand(ExecuteOpenLogsCommandAsync);
+            CopyVersionCommand = new RelayCommand(ExecuteCopyVersion);
+            OpenLogsCommand = new AsyncRelayCommand(ExecuteOpenLogsAsync);
         }
 
         private readonly ILogger _logger;
@@ -22,7 +23,7 @@ namespace FluentHub.Uwp.ViewModels.AppSettings
         {
             get
             {
-                string architecture = Package.Current.Id.Architecture.ToString();
+                string architecture = Windows.ApplicationModel.Package.Current.Id.Architecture.ToString();
 
 #if DEBUG
                 string buildConfiguration = "DEBUG";
@@ -37,7 +38,7 @@ namespace FluentHub.Uwp.ViewModels.AppSettings
         internal IRelayCommand CopyVersionCommand { get; }
         internal IAsyncRelayCommand OpenLogsCommand { get; }
 
-        private void ExecuteCopyVersionCommand()
+        private void ExecuteCopyVersion()
         {
             try
             {
@@ -57,7 +58,7 @@ namespace FluentHub.Uwp.ViewModels.AppSettings
             }
         }
 
-        private async Task ExecuteOpenLogsCommandAsync()
+        private async Task ExecuteOpenLogsAsync()
         {
             string logsFolder = Path.Combine(ApplicationData.Current.LocalFolder.Path, "FluentHub.Logs");
             var result = await Launcher.LaunchFolderPathAsync(logsFolder);

@@ -16,7 +16,8 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Commits
             _diffViewModels = new();
             DiffViewModels = new(_diffViewModels);
 
-            LoadCommitPageCommand = new AsyncRelayCommand(LoadCommitPageAsync);
+            LoadCommitPageCommand = new AsyncRelayCommand(LoadRepositoryOneCommitAsync);
+            InitializeCommand = new AsyncRelayCommand<string>(InitializeAsync);
         }
 
         #region Fields and Properties
@@ -30,9 +31,10 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Commits
         public ReadOnlyObservableCollection<DiffBlockViewModel> DiffViewModels { get; }
 
         public IAsyncRelayCommand LoadCommitPageCommand { get; }
+        public IAsyncRelayCommand InitializeCommand { get; }
         #endregion
 
-        private async Task LoadCommitPageAsync(CancellationToken token)
+        private async Task LoadRepositoryOneCommitAsync(CancellationToken token)
         {
             try
             {
@@ -56,7 +58,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Commits
             catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error(nameof(LoadCommitPageAsync), ex);
+                _logger?.Error(nameof(LoadRepositoryOneCommitAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
@@ -64,6 +66,11 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Commits
                 }
                 throw;
             }
+        }
+
+        private async Task InitializeAsync(string url, CancellationToken token)
+        {
+            // Load commit info
         }
     }
 }

@@ -1,8 +1,8 @@
-﻿using FluentHub.Uwp.Helpers;
+﻿using FluentHub.Octokit.Queries.Users;
+using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
-using FluentHub.Uwp.Utils;
-using FluentHub.Octokit.Queries.Users;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
+using FluentHub.Uwp.Utils;
 
 namespace FluentHub.Uwp.ViewModels.Users
 {
@@ -16,7 +16,7 @@ namespace FluentHub.Uwp.ViewModels.Users
             _discussions = new();
             DiscussionItems = new(_discussions);
 
-            RefreshDiscussionsCommand = new AsyncRelayCommand<string>(RefreshDiscussionsAsync);
+            RefreshDiscussionsCommand = new AsyncRelayCommand<string>(LoadUserDiscussionsAsync);
         }
 
         #region Fields and Properties
@@ -34,7 +34,7 @@ namespace FluentHub.Uwp.ViewModels.Users
 
         private bool CanRefreshDiscussions(string username) => !string.IsNullOrEmpty(username);
 
-        private async Task RefreshDiscussionsAsync(string login, CancellationToken token)
+        private async Task LoadUserDiscussionsAsync(string login, CancellationToken token)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace FluentHub.Uwp.ViewModels.Users
             catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error(nameof(RefreshDiscussionsAsync), ex);
+                _logger?.Error(nameof(LoadUserDiscussionsAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);

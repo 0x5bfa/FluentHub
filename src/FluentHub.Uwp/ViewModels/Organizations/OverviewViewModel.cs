@@ -1,6 +1,6 @@
-﻿using FluentHub.Uwp.Models;
+﻿using FluentHub.Octokit.Queries.Organizations;
+using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
-using FluentHub.Octokit.Queries.Organizations;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
 
 namespace FluentHub.Uwp.ViewModels.Organizations
@@ -74,7 +74,7 @@ namespace FluentHub.Uwp.ViewModels.Organizations
             catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error("LoadOrganizationOverviewAsync", ex);
+                _logger?.Error(nameof(LoadOrganizationOverviewAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);

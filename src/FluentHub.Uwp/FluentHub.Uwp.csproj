@@ -424,9 +424,6 @@
     <Compile Include="Views\Repositories\Settings\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Searches\MainSearchPage.xaml.cs">
-      <DependentUpon>MainSearchPage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Users\DiscussionsPage.xaml.cs">
       <DependentUpon>DiscussionsPage.xaml</DependentUpon>
     </Compile>
@@ -1044,10 +1041,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Repositories\Settings\SettingsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Searches\MainSearchPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

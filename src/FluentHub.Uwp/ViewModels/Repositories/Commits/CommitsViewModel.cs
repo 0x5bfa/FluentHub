@@ -1,6 +1,6 @@
-﻿using FluentHub.Uwp.Models;
+﻿using FluentHub.Octokit.Queries.Repositories;
+using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
-using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.Commits
@@ -16,7 +16,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Commits
             _items = new();
             Items = new(_items);
 
-            LoadCommitsPageCommand = new AsyncRelayCommand(LoadCommitsPageAsync);
+            LoadCommitsPageCommand = new AsyncRelayCommand(LoadRepositoryCommitsAsync);
         }
 
         #region Fields and Properties
@@ -32,7 +32,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Commits
         public IAsyncRelayCommand LoadCommitsPageCommand { get; }
         #endregion
 
-        private async Task LoadCommitsPageAsync(CancellationToken token)
+        private async Task LoadRepositoryCommitsAsync(CancellationToken token)
         {
             try
             {
@@ -57,7 +57,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Commits
             catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error(nameof(LoadCommitsPageAsync), ex);
+                _logger?.Error(nameof(LoadRepositoryCommitsAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);

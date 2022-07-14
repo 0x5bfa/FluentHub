@@ -1,7 +1,7 @@
-﻿using FluentHub.Uwp.Helpers;
+﻿using FluentHub.Octokit.Queries.Repositories;
+using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
-using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.ViewModels.Repositories;
 
 namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
@@ -14,7 +14,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
             _logger = logger;
             _messenger = messenger;
 
-            LoadLatestCommitBlockCommand = new AsyncRelayCommand(LoadLatestCommitBlockAsync);
+            LoadLatestCommitBlockCommand = new AsyncRelayCommand(LoadRepositoryLatestCommitAsync);
         }
 
         #region Fields and Properties
@@ -42,7 +42,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
         public IAsyncRelayCommand LoadLatestCommitBlockCommand { get; }
         #endregion
 
-        public async Task LoadLatestCommitBlockAsync()
+        public async Task LoadRepositoryLatestCommitAsync()
         {
             try
             {
@@ -51,27 +51,20 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
 
                 CommitUpdatedAtHumanized = CommitOverviewItem.CommittedDate.Humanize();
 
-                var commitMessageLines = CommitOverviewItem.Message.Split("\n");
-                CommitMessageHeadline = commitMessageLines[0];
+                CommitMessageHeadline = CommitOverviewItem.MessageHeadline;
+                var splittedMessages = CommitOverviewItem.Message.Split("\n", 2);
 
                 // Get sub commit message
-                if (commitMessageLines.Count() > 1)
+                if (splittedMessages.Count() > 1)
                 {
                     HasMoreCommitMessage = true;
 
-                    if (commitMessageLines[1] == "")
-                    {
-                        var messageTextLinesList = commitMessageLines.ToList();
-                        messageTextLinesList.RemoveAt(1);
-                        commitMessageLines = messageTextLinesList.ToArray();
-                    }
-
-                    SubCommitMessages = string.Join('\n', commitMessageLines, 1, commitMessageLines.Count() - 1);
+                    SubCommitMessages = splittedMessages[1];
                 }
             }
             catch (Exception ex)
             {
-                _logger?.Error(nameof(LoadLatestCommitBlockAsync), ex);
+                _logger?.Error(nameof(LoadRepositoryLatestCommitAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);

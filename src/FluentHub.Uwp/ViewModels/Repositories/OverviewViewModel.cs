@@ -1,9 +1,7 @@
-﻿using FluentHub.Uwp.Models;
+﻿using FluentHub.Octokit.Queries.Repositories;
+using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
-using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls.Labels;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml;
 
 namespace FluentHub.Uwp.ViewModels.Repositories
 {
@@ -19,7 +17,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories
                 Color = "#64000000"
             };
 
-            LoadOverviewPageCommand = new AsyncRelayCommand<string>(LoadOverviewPageAsync);
+            LoadOverviewPageCommand = new AsyncRelayCommand<string>(LoadRepositoryOverviewAsync);
         }
 
         #region Fields and Properties
@@ -38,7 +36,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories
         public IAsyncRelayCommand LoadOverviewPageCommand { get; }
         #endregion
 
-        private async Task LoadOverviewPageAsync(string url, CancellationToken token)
+        private async Task LoadRepositoryOverviewAsync(string url, CancellationToken token)
         {
             try
             {
@@ -57,7 +55,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories
             catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error(nameof(LoadOverviewPageAsync), ex);
+                _logger?.Error(nameof(LoadRepositoryOverviewAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);

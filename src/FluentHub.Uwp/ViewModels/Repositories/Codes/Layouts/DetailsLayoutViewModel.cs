@@ -1,6 +1,6 @@
-﻿using FluentHub.Uwp.Models;
+﻿using FluentHub.Octokit.Queries.Repositories;
+using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
-using FluentHub.Octokit.Queries.Repositories;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
 {
@@ -15,7 +15,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
             _items = new();
             Items = new(_items);
 
-            RefreshDetailsLayoutPageCommand = new AsyncRelayCommand<string>(RefreshDetailsLayoutPageAsync);
+            RefreshDetailsLayoutPageCommand = new AsyncRelayCommand<string>(LoadRepositoryContentsAsync);
             LoadRepositoryCommand = new AsyncRelayCommand<string>(LoadRepositoryAsync);
         }
 
@@ -36,7 +36,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
         public IAsyncRelayCommand LoadRepositoryCommand { get; }
         #endregion
 
-        private async Task RefreshDetailsLayoutPageAsync(string url, CancellationToken token)
+        private async Task LoadRepositoryContentsAsync(string url, CancellationToken token)
         {
             try
             {
@@ -94,7 +94,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
             catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error(nameof(RefreshDetailsLayoutPageAsync), ex);
+                _logger?.Error(nameof(LoadRepositoryContentsAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
@@ -118,7 +118,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
             catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error(nameof(RefreshDetailsLayoutPageAsync), ex);
+                _logger?.Error(nameof(LoadRepositoryAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);

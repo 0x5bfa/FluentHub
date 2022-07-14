@@ -29,12 +29,15 @@ namespace FluentHub.Uwp.Views.Repositories.Commits
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            ViewModel.CommitItem = e.Parameter as Octokit.Models.Commit;
-            DataContext = ViewModel;
+            var url = e.Parameter as string;
 
-            var command = ViewModel.LoadCommitPageCommand;
-            if (command.CanExecute(null))
-                command.Execute(null);
+            var command1 = ViewModel.InitializeCommand;
+            if (command1.CanExecute(url))
+                command1.Execute(url);
+
+            var command2 = ViewModel.LoadCommitPageCommand;
+            if (command2.CanExecute(null))
+                command2.Execute(null);
         }
     }
 }

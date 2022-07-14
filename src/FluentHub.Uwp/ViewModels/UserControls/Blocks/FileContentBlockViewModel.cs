@@ -1,8 +1,8 @@
 ﻿using ColorCode;
 using FluentHub.Octokit.Queries.Repositories;
-using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.ViewModels.Repositories;
 using System.IO;
 using Windows.UI.Xaml.Controls;
@@ -39,7 +39,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
         public RepoContextViewModel ContextViewModel { get => contextViewModel; set => SetProperty(ref contextViewModel, value); }
         #endregion
 
-        public async Task LoadContentsAsync(RichTextBlock textBlock)
+        public async Task LoadRepositoryOneContentAsync(RichTextBlock textBlock)
         {
             try
             {
@@ -55,10 +55,10 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
                 FormattedFileSize = "";
                 LineText = "";
 
-                BlobContent = content.Text;
+                var text = BlobContent = content.Text;
 
-                var lines = BlobDetailsHelpers.GetBlobActualLines(ref content.Text);
-                var sloc = BlobDetailsHelpers.GetBlobSloc(ref content.Text);
+                var lines = BlobDetailsHelpers.GetBlobActualLines(ref text);
+                var sloc = BlobDetailsHelpers.GetBlobSloc(ref text);
 
                 FormattedFileDetails = $"{lines} lines ({sloc} sloc)";
                 FormattedFileSize = BlobDetailsHelpers.FormatSize(content.ByteSize);
@@ -98,7 +98,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
             }
             catch (Exception ex)
             {
-                _logger?.Error(nameof(LoadBlobContentBlockAsync), ex);
+                _logger?.Error(nameof(LoadRepositoryOneContentAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);

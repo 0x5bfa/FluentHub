@@ -1,8 +1,6 @@
-﻿using FluentHub.Octokit.Authorization;
-using FluentHub.Octokit.Queries.Users;
-using FluentHub.Uwp.Utils;
+﻿using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.Models;
-using FluentHub.Uwp.ViewModels.UserControls.Blocks;
+using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
 
 namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
 {
@@ -38,11 +36,14 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
             Octokit.Queries.Repositories.RepositoryQueries repositoryQueries = new();
             Octokit.Queries.Users.UserQueries userQueries = new();
 
-            switch (Payload.PayloadType)
+            switch (Payload.Type.ToString())
             {
                 case "WatchEvent":
+                    break;
                 case "ForkEvent":
+                    break;
                 case "CreateEvent":
+                    break;
                 case "DeleteEvent":
                     var response = await repositoryQueries.GetAsync(Payload.Repository.Owner.Login, Payload.Repository.Name);
 
@@ -56,19 +57,19 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
                 case "IssueCommentEvent":
                     SingleCommentBlockViewModel = new()
                     {
-                        IssueCommentPayload = Payload.IssueCommentPayload,
+                        IssueCommentPayload = Payload.PayloadSets.IssueCommentPayload,
                     };
                     break;
                 case "PushEvent":
                     SingleCommitBlockViewModel = new()
                     {
-                        PushEventPayload = Payload.PushEventPayload,
+                        PushEventPayload = Payload.PayloadSets.PushEventPayload,
                     };
                     break;
                 case "ReleaseEvent":
                     SingleReleaseBlockViewModel = new()
                     {
-                        ReleaseEventPayload = Payload.ReleaseEventPayload,
+                        ReleaseEventPayload = Payload.PayloadSets.ReleaseEventPayload,
                     };
                     break;
             }

@@ -137,6 +137,50 @@
             return response.Commit;
         }
 
+        public async Task<Commit> GetAsync(string owner, string name, int number)
+        {
+            if (string.IsNullOrEmpty(path)) path = ".";
+
+            #region query
+            var query = new Query()
+                    .Repository(name, owner)
+                    .Ref(refs)
+                    .Target
+                    .Cast<OctokitGraphQLModel.Commit>()
+                    .History(first: 1, path: path)
+                    .Select(x => new
+                    {
+                        Commit = x.Nodes.Select(y => new Commit
+                        {
+                            AbbreviatedOid = y.AbbreviatedOid,
+                            Oid =y.Oid,
+                            Author = new()
+                            {
+                                AvatarUrl = y.Author.AvatarUrl(100),
+                                User = y.Author.User.Select(user => new User
+                                {
+                                    Login = user.Login,
+                                })
+                            .Single(),
+                            },
+                            Message = y.Message,
+
+                            CommittedDate = y.CommittedDate,
+                        })
+                        .ToList().FirstOrDefault(),
+
+                        x.TotalCount,
+                    })
+                    .Compile();
+            #endregion
+
+            var response = await App.Connection.Run(query);
+
+            //response.Commit.TotalCount = response.TotalCount;
+
+            return response.Commit;
+        }
+
         public async Task<(List<TreeEntry> Files, List<Commit> Commits)> GetWithObjectNameAsync(string name, string owner, string refs, string path)
         {
             #region objectQuery

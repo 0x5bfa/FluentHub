@@ -19,7 +19,6 @@ namespace FluentHub.Uwp.Views.SignIn
             navigationService = provider.GetRequiredService<INavigationService>();
         }
 
-        private readonly INavigationService navigationService;
         public IntroViewModel ViewModel { get; }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

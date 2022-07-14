@@ -1,5 +1,5 @@
-﻿using System.Linq;
-using System.Text;
+﻿using FluentHub.Uwp.Utils;
+using FluentHub.Uwp.Models;
 using System.Text.RegularExpressions;
 
 namespace FluentHub.Uwp.ViewModels.UserControls.Blocks

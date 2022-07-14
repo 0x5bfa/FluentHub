@@ -1,7 +1,6 @@
-﻿using FluentHub.Uwp.Utils;
-using FluentHub.Uwp.Helpers;
+﻿using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
-using Microsoft.Toolkit.Uwp;
+using FluentHub.Uwp.Utils;
 using Windows.UI.Xaml;
 
 namespace FluentHub.Uwp.ViewModels.AppSettings

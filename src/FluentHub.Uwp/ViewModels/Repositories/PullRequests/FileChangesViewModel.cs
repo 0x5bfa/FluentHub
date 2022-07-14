@@ -1,7 +1,6 @@
-﻿using FluentHub.Uwp.Models;
+﻿using FluentHub.Octokit.Queries.Repositories;
+using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
-using FluentHub.Octokit.Queries.Repositories;
-using FluentHub.Uwp.UserControls.Blocks;
 using FluentHub.Uwp.ViewModels.UserControls.Blocks;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
@@ -16,7 +15,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
             _diffViewModels = new();
             DiffViewModels = new(_diffViewModels);
 
-            RefreshPullRequestPageCommand = new AsyncRelayCommand<PullRequest>(RefreshPullRequestPageAsync);
+            RefreshPullRequestPageCommand = new AsyncRelayCommand<PullRequest>(LoadRepositoryPullRequestFileChangesAsync);
         }
 
         #region Fields and Properties
@@ -32,19 +31,19 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
         public IAsyncRelayCommand RefreshPullRequestPageCommand { get; }
         #endregion
 
-        private async Task RefreshPullRequestPageAsync(PullRequest pull)
+        private async Task LoadRepositoryPullRequestFileChangesAsync(PullRequest pull)
         {
             try
             {
                 if (pull != null) PullItem = pull;
 
-                DiffQueries queries = new DiffQueries();
-                var files = await queries.GetAllAsync(PullItem.OwnerLogin, PullItem.Name, PullItem.Number);
+                DiffQueries queries = new();
+                var response = await queries.GetAllAsync(PullItem.Repository.Owner.Login, PullItem.Repository.Name, PullItem.Number);
 
-                if (!files.Any()) return;
+                if (response.Any() is false) return;
 
                 _diffViewModels.Clear();
-                foreach (var item in files)
+                foreach (var item in response)
                 {
                     DiffBlockViewModel viewModel = new()
                     {
@@ -56,7 +55,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
             }
             catch (Exception ex)
             {
-                _logger?.Error("RefreshPullRequestPageAsync", ex);
+                _logger?.Error(nameof(LoadRepositoryPullRequestFileChangesAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);

@@ -1,6 +1,6 @@
-﻿using FluentHub.Uwp.Models;
+﻿using FluentHub.Octokit.Queries.Repositories;
+using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
-using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.Issues
@@ -19,7 +19,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
             _pinnedItems = new();
             PinnedItems = new(_pinnedItems);
 
-            RefreshIssuesPageCommand = new AsyncRelayCommand<string>(LoadIssuesPageAsync);
+            RefreshIssuesPageCommand = new AsyncRelayCommand<string>(LoadRepositoryIssuesAsync);
         }
 
         #region Fields and Properties
@@ -35,7 +35,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
         public IAsyncRelayCommand RefreshIssuesPageCommand { get; }
         #endregion
 
-        private async Task LoadIssuesPageAsync(string url, CancellationToken token)
+        private async Task LoadRepositoryIssuesAsync(string url, CancellationToken token)
         {
             try
             {
@@ -76,7 +76,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
             catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error("RefreshIssuesPageAsync", ex);
+                _logger?.Error(nameof(LoadRepositoryIssuesAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);

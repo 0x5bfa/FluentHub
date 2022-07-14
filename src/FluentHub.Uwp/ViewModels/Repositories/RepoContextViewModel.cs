@@ -1,7 +1,6 @@
-﻿using FluentHub.Uwp.Models;
+﻿using FluentHub.Uwp.Helpers;
+using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
-using FluentHub.Octokit.Queries.Repositories;
-using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
 
 namespace FluentHub.Uwp.ViewModels.Repositories
 {
@@ -16,33 +15,6 @@ namespace FluentHub.Uwp.ViewModels.Repositories
         private string _path;
         public string Path { get => _path; set => SetProperty(ref _path, value); }
 
-        private bool _isRootDir;
-        public bool IsRootDir
-        {
-            get => _isRootDir;
-            set
-            {
-                if (value) IsFile = false;
-                SetProperty(ref _isRootDir, value);
-            }
-        }
-
-        private bool _isFile;
-        public bool IsFile
-        {
-            get => _isFile;
-            set
-            {
-                if (value)
-                {
-                    IsRootDir = false;
-                    IsDir = false;
-                    IsSubDir = false;
-                }
-                SetProperty(ref _isFile, value);
-            }
-        }
-
         private bool _isDir;
         public bool IsDir
         {
@@ -51,6 +23,17 @@ namespace FluentHub.Uwp.ViewModels.Repositories
             {
                 if (value) IsFile = false;
                 SetProperty(ref _isDir, value);
+            }
+        }
+
+        private bool _isRootDir;
+        public bool IsRootDir
+        {
+            get => _isRootDir;
+            set
+            {
+                if (value) IsFile = false;
+                SetProperty(ref _isRootDir, value);
             }
         }
 
@@ -67,6 +50,22 @@ namespace FluentHub.Uwp.ViewModels.Repositories
                     IsRootDir = false;
                 }
                 SetProperty(ref _isSubDir, value);
+            }
+        }
+
+        private bool _isFile;
+        public bool IsFile
+        {
+            get => _isFile;
+            set
+            {
+                if (value)
+                {
+                    IsRootDir = false;
+                    IsDir = false;
+                    IsSubDir = false;
+                }
+                SetProperty(ref _isFile, value);
             }
         }
     }

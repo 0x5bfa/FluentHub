@@ -27,7 +27,7 @@ namespace FluentHub.Uwp.UserControls.Labels
             set
             {
                 SetValue(TypeProperty, value);
-                ViewModel?.LoadContents(State);
+                ViewModel?.LoadContents(Type);
             }
         }
         #endregion

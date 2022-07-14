@@ -1,9 +1,7 @@
-﻿using FluentHub.Uwp.Models;
+﻿using FluentHub.Octokit.Queries.Repositories;
+using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
-using FluentHub.Octokit.Queries.Repositories;
-using FluentHub.Uwp.UserControls.ButtonBlocks;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
-using Windows.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
 {
@@ -17,7 +15,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
             _items = new();
             Items = new(_items);
 
-            RefreshPullRequestPageCommand = new AsyncRelayCommand<PullRequest>(RefreshPullRequestPageAsync);
+            RefreshPullRequestPageCommand = new AsyncRelayCommand<PullRequest>(LoadRepositoryPullRequestCommitsAsync);
         }
 
         #region Fields and Properties
@@ -33,7 +31,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
         public IAsyncRelayCommand RefreshPullRequestPageCommand { get; }
         #endregion
 
-        private async Task RefreshPullRequestPageAsync(PullRequest pull)
+        private async Task LoadRepositoryPullRequestCommitsAsync(PullRequest pull)
         {
             try
             {
@@ -56,7 +54,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
             }
             catch (Exception ex)
             {
-                _logger?.Error(nameof(RefreshPullRequestPageAsync), ex);
+                _logger?.Error(nameof(LoadRepositoryPullRequestCommitsAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);

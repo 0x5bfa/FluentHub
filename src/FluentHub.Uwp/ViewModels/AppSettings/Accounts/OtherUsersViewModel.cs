@@ -1,6 +1,6 @@
-﻿using FluentHub.Uwp.Utils;
+﻿using FluentHub.Octokit.Queries.Users;
+using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.Models;
-using FluentHub.Octokit.Queries.Users;
 
 namespace FluentHub.Uwp.ViewModels.AppSettings.Accounts
 {

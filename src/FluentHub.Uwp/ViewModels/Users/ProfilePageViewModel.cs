@@ -2,7 +2,6 @@
 using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
-using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
 
 namespace FluentHub.Uwp.ViewModels.Users
 {
@@ -12,7 +11,8 @@ namespace FluentHub.Uwp.ViewModels.Users
         {
             _logger = logger;
             _messenger = messenger;
-            RefreshUserCommand = new AsyncRelayCommand<string>(LoadUserAsync);
+
+            RefreshUserCommand = new AsyncRelayCommand<string>(LoadUserProfileAsync);
         }
 
         #region Fields and Properties
@@ -28,7 +28,7 @@ namespace FluentHub.Uwp.ViewModels.Users
         public IAsyncRelayCommand RefreshUserCommand { get; }
         #endregion
 
-        private async Task LoadUserAsync(string login)
+        private async Task LoadUserProfileAsync(string login)
         {
             try
             {
@@ -45,7 +45,7 @@ namespace FluentHub.Uwp.ViewModels.Users
             }
             catch (Exception ex)
             {
-                _logger?.Error("Failed to load user.", ex);
+                _logger?.Error(nameof(LoadUserProfileAsync), ex);
                 UserItem = new User();
                 if (_messenger != null)
                 {

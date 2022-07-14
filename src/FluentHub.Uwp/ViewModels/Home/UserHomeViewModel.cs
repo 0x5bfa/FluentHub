@@ -1,7 +1,6 @@
-﻿using FluentHub.Uwp.Utils;
-using FluentHub.Octokit.Queries.Users;
-using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
-using Microsoft.Extensions.DependencyInjection;
+﻿using FluentHub.Octokit.Queries.Users;
+using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Utils;
 
 namespace FluentHub.Uwp.ViewModels.Home
 {
@@ -60,7 +59,7 @@ namespace FluentHub.Uwp.ViewModels.Home
             catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error("LoadHomeContentsAsync", ex);
+                _logger?.Error(nameof(LoadHomeContentsAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);

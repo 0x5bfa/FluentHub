@@ -6,6 +6,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks
 {
     public class OrgButtonBlockViewModel : ObservableObject
     {
-        public Organization OrgItem { get; set; } = new();
+        private Organization _orgItem;
+        public Organization OrgItem { get => _orgItem; set => SetProperty(ref _orgItem, value); }
     }
 }

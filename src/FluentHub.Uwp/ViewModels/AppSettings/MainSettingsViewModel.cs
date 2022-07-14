@@ -1,6 +1,7 @@
-﻿using FluentHub.Uwp.Utils;
+﻿using FluentHub.Octokit.Queries.Users;
+using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
-using FluentHub.Octokit.Queries.Users;
+using FluentHub.Uwp.Utils;
 
 namespace FluentHub.Uwp.ViewModels.AppSettings
 {
@@ -14,7 +15,7 @@ namespace FluentHub.Uwp.ViewModels.AppSettings
             _accountsItems = new();
             AccountsItems = new(_accountsItems);
 
-            LoadSignedInLoginsCommand = new AsyncRelayCommand(LoadSignedInLogins);
+            LoadSignedInLoginsCommand = new AsyncRelayCommand(LoadSignedInLoginsAsync);
         }
 
         #region Fields and Properties
@@ -30,7 +31,7 @@ namespace FluentHub.Uwp.ViewModels.AppSettings
         public IAsyncRelayCommand LoadSignedInLoginsCommand { get; }
         #endregion
 
-        private async Task LoadSignedInLogins()
+        private async Task LoadSignedInLoginsAsync()
         {
             try
             {
@@ -50,6 +51,12 @@ namespace FluentHub.Uwp.ViewModels.AppSettings
             }
             catch (Exception ex)
             {
+                _logger?.Error(nameof(LoadSignedInLoginsAsync), ex);
+                if (_messenger != null)
+                {
+                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+                    _messenger.Send(notification);
+                }
                 throw;
             }
         }

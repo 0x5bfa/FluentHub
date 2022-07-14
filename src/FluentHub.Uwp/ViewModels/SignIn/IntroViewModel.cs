@@ -1,7 +1,6 @@
 ﻿using FluentHub.Octokit.Authorization;
-using FluentHub.Octokit.Queries.Users;
-using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Utils;
 using Windows.System;
 
 namespace FluentHub.Uwp.ViewModels.SignIn
@@ -12,7 +11,7 @@ namespace FluentHub.Uwp.ViewModels.SignIn
         {
             _logger = logger;
 
-            AuthorizeWithBrowserCommand = new AsyncRelayCommand<string>(AuthorizeWithBrowser);
+            AuthorizeWithBrowserCommand = new AsyncRelayCommand<string>(AuthorizeWithBrowserAsync);
         }
 
         #region Fields and Properties
@@ -27,7 +26,7 @@ namespace FluentHub.Uwp.ViewModels.SignIn
         public IAsyncRelayCommand AuthorizeWithBrowserCommand { get; set; }
         #endregion
 
-        private async Task AuthorizeWithBrowser(string login, CancellationToken token)
+        private async Task AuthorizeWithBrowserAsync(string login, CancellationToken token)
         {
             try
             {
@@ -43,10 +42,10 @@ namespace FluentHub.Uwp.ViewModels.SignIn
             catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error(nameof(AuthorizeWithBrowser), ex);
                 AuthErrorMessage = ex.Message;
                 App.Settings.SetupProgress = false;
-                IsLoading = false;
+
+                _logger?.Error(nameof(AuthorizeWithBrowserAsync), ex);
                 throw;
             }
         }

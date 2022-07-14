@@ -1,8 +1,6 @@
-﻿using FluentHub.Uwp.Utils;
+﻿using FluentHub.Octokit.Queries.Repositories;
+using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.Models;
-using FluentHub.Octokit.Queries.Repositories;
-using FluentHub.Uwp.UserControls.Blocks;
-using FluentHub.Uwp.ViewModels.UserControls.Blocks;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.Discussions
 {
@@ -13,7 +11,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Discussions
             _messenger = messenger;
             _logger = logger;
 
-            LoadDiscussionPageCommand = new AsyncRelayCommand<string>(LoadDiscussionPageAsync);
+            LoadDiscussionPageCommand = new AsyncRelayCommand<string>(LoadRepositoryOneDiscussionAsync);
         }
 
         #region Fields and Properties
@@ -26,7 +24,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Discussions
         public IAsyncRelayCommand LoadDiscussionPageCommand { get; }
         #endregion
 
-        private async Task LoadDiscussionPageAsync(string url)
+        private async Task LoadRepositoryOneDiscussionAsync(string url)
         {
             try
             {
@@ -41,7 +39,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Discussions
             }
             catch (Exception ex)
             {
-                _logger?.Error("LoadDiscussionPageAsync", ex);
+                _logger?.Error(nameof(LoadRepositoryOneDiscussionAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);

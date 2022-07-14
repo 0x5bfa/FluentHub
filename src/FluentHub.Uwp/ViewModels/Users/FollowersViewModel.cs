@@ -1,8 +1,8 @@
-﻿using FluentHub.Uwp.Helpers;
+﻿using FluentHub.Octokit.Queries.Users;
+using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
-using FluentHub.Uwp.Utils;
-using FluentHub.Octokit.Queries.Users;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
+using FluentHub.Uwp.Utils;
 
 namespace FluentHub.Uwp.ViewModels.Users
 {
@@ -15,7 +15,7 @@ namespace FluentHub.Uwp.ViewModels.Users
             _followersItems = new();
             FollowersItems = new(_followersItems);
 
-            RefreshFollowersCommand = new AsyncRelayCommand<string>(LoadFollowersAsync);
+            RefreshFollowersCommand = new AsyncRelayCommand<string>(LoadUserFollowersAsync);
         }
 
         #region Fields and Properties
@@ -31,7 +31,7 @@ namespace FluentHub.Uwp.ViewModels.Users
         public IAsyncRelayCommand RefreshFollowersCommand { get; }
         #endregion
 
-        private async Task LoadFollowersAsync(string login, CancellationToken token)
+        private async Task LoadUserFollowersAsync(string login, CancellationToken token)
         {
             try
             {
@@ -52,7 +52,7 @@ namespace FluentHub.Uwp.ViewModels.Users
             }
             catch (Exception ex)
             {
-                _logger?.Error("RefreshIssuesAsync", ex);
+                _logger?.Error(nameof(LoadUserFollowersAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);

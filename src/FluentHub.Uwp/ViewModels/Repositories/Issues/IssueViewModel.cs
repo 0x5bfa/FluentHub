@@ -16,7 +16,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
             _eventBlocks = new();
             EventBlocks = new(_eventBlocks);
 
-            RefreshIssuePageCommand = new AsyncRelayCommand<string>(LoadIssuePageAsync);
+            RefreshIssuePageCommand = new AsyncRelayCommand<string>(LoadRepositoryOneIssueAsync);
         }
 
         #region Fields and Properties
@@ -35,7 +35,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
         public IAsyncRelayCommand RefreshIssuePageCommand { get; }
         #endregion
 
-        private async Task LoadIssuePageAsync(string url)
+        private async Task LoadRepositoryOneIssueAsync(string url)
         {
             try
             {
@@ -82,48 +82,48 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
                         case nameof(AddedToProjectEvent):
                             viewmodel.TimelineBadgeGlyph = "\uEA48";
                             viewmodel.AddedToProjectEvent = eventItem as AddedToProjectEvent;
-                            viewmodel.Actor = viewmodel?.AddedToProjectEvent.Actor;
+                            viewmodel.Actor = viewmodel?.AddedToProjectEvent.Actor as Actor;
                             break;
                         case nameof(AssignedEvent):
                             viewmodel.TimelineBadgeGlyph = "\uEADB";
                             viewmodel.AssignedEvent = eventItem as AssignedEvent;
-                            viewmodel.Actor = viewmodel?.AssignedEvent.Actor;
+                            viewmodel.Actor = viewmodel?.AssignedEvent.Actor as Actor;
                             break;
                         case nameof(ClosedEvent):
                             viewmodel.TimelineBadgeBackground = Helpers.ColorHelpers.HexCodeToSolidColorBrush("#8256D0");
                             viewmodel.TimelineBadgeGlyph = "\uEADB";
                             viewmodel.ClosedEvent = eventItem as ClosedEvent;
-                            viewmodel.Actor = viewmodel?.ClosedEvent.Actor;
+                            viewmodel.Actor = viewmodel?.ClosedEvent.Actor as Actor;
                             break;
                         case nameof(CommentDeletedEvent):
                             viewmodel.TimelineBadgeGlyph = "\uEADB";
                             viewmodel.CommentDeletedEvent = eventItem as CommentDeletedEvent;
-                            viewmodel.Actor = viewmodel?.CommentDeletedEvent.Actor;
+                            viewmodel.Actor = viewmodel?.CommentDeletedEvent.Actor as Actor;
                             break;
                         case nameof(ConnectedEvent):
                             viewmodel.TimelineBadgeGlyph = "\uE924";
                             viewmodel.ConnectedEvent = eventItem as ConnectedEvent;
-                            viewmodel.Actor = viewmodel?.ConnectedEvent.Actor;
+                            viewmodel.Actor = viewmodel?.ConnectedEvent.Actor as Actor;
                             break;
                         case nameof(ConvertedNoteToIssueEvent):
                             viewmodel.TimelineBadgeGlyph = "\uEADB";
                             viewmodel.ConvertedNoteToIssueEvent = eventItem as ConvertedNoteToIssueEvent;
-                            viewmodel.Actor = viewmodel?.ConvertedNoteToIssueEvent.Actor;
+                            viewmodel.Actor = viewmodel?.ConvertedNoteToIssueEvent.Actor as Actor;
                             break;
                         case nameof(CrossReferencedEvent):
                             viewmodel.TimelineBadgeGlyph = "\uEADB";
                             viewmodel.CrossReferencedEvent = eventItem as CrossReferencedEvent;
-                            viewmodel.Actor = viewmodel?.CrossReferencedEvent.Actor;
+                            viewmodel.Actor = viewmodel?.CrossReferencedEvent.Actor as Actor;
                             break;
                         case nameof(DemilestonedEvent):
                             viewmodel.TimelineBadgeGlyph = "\uEADB";
                             viewmodel.DemilestonedEvent = eventItem as DemilestonedEvent;
-                            viewmodel.Actor = viewmodel?.DemilestonedEvent.Actor;
+                            viewmodel.Actor = viewmodel?.DemilestonedEvent.Actor as Actor;
                             break;
                         case nameof(DisconnectedEvent):
                             viewmodel.TimelineBadgeGlyph = "\uEADB";
                             viewmodel.DisconnectedEvent = eventItem as DisconnectedEvent;
-                            viewmodel.Actor = viewmodel?.DisconnectedEvent.Actor;
+                            viewmodel.Actor = viewmodel?.DisconnectedEvent.Actor as Actor;
                             break;
                         case nameof(IssueComment):
                             viewmodel.CommentBlockViewModel = new() { IssueComment = viewmodel.IssueComment = eventItem as IssueComment };
@@ -136,61 +136,61 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
                                 Name = viewmodel?.LabeledEvent.Label.Name,
                                 Color = viewmodel?.LabeledEvent.Label.Color,
                             };
-                            viewmodel.Actor = viewmodel?.LabeledEvent.Actor;
+                            viewmodel.Actor = viewmodel?.LabeledEvent.Actor as Actor;
                             break;
                         case nameof(LockedEvent):
                             viewmodel.TimelineBadgeBackground = Helpers.ColorHelpers.HexCodeToSolidColorBrush("#636E7B");
                             viewmodel.TimelineBadgeGlyph = "\uEA05";
                             viewmodel.LockedEvent = eventItem as LockedEvent;
-                            viewmodel.Actor = viewmodel?.LockedEvent.Actor;
+                            viewmodel.Actor = viewmodel?.LockedEvent.Actor as Actor;
                             break;
                         case nameof(MarkedAsDuplicateEvent):
                             viewmodel.TimelineBadgeGlyph = "\uE924";
                             viewmodel.MarkedAsDuplicateEvent = eventItem as MarkedAsDuplicateEvent;
-                            viewmodel.Actor = viewmodel?.MarkedAsDuplicateEvent.Actor;
+                            viewmodel.Actor = viewmodel?.MarkedAsDuplicateEvent.Actor as Actor;
                             break;
                         //case nameof(MentionedEvent):
                         case nameof(MilestonedEvent):
                             viewmodel.TimelineBadgeGlyph = "\uEA12";
                             viewmodel.MilestonedEvent = eventItem as MilestonedEvent;
-                            viewmodel.Actor = viewmodel?.MilestonedEvent.Actor;
+                            viewmodel.Actor = viewmodel?.MilestonedEvent.Actor as Actor;
                             break;
                         case nameof(MovedColumnsInProjectEvent):
                             viewmodel.TimelineBadgeGlyph = "\uEADB";
                             viewmodel.MovedColumnsInProjectEvent = eventItem as MovedColumnsInProjectEvent;
-                            viewmodel.Actor = viewmodel?.MovedColumnsInProjectEvent.Actor;
+                            viewmodel.Actor = viewmodel?.MovedColumnsInProjectEvent.Actor as Actor;
                             break;
                         case nameof(PinnedEvent):
                             viewmodel.TimelineBadgeGlyph = "\uEADB";
                             viewmodel.PinnedEvent = eventItem as PinnedEvent;
-                            viewmodel.Actor = viewmodel?.PinnedEvent.Actor;
+                            viewmodel.Actor = viewmodel?.PinnedEvent.Actor as Actor;
                             break;
                         case nameof(ReferencedEvent):
                             viewmodel.TimelineBadgeGlyph = "\uE968";
                             viewmodel.ReferencedEvent = eventItem as ReferencedEvent;
-                            viewmodel.Actor = viewmodel?.ReferencedEvent.Actor;
+                            viewmodel.Actor = viewmodel?.ReferencedEvent.Actor as Actor;
                             break;
                         case nameof(RemovedFromProjectEvent):
                             viewmodel.TimelineBadgeGlyph = "\uEA48";
                             viewmodel.RemovedFromProjectEvent = eventItem as RemovedFromProjectEvent;
-                            viewmodel.Actor = viewmodel?.RemovedFromProjectEvent.Actor;
+                            viewmodel.Actor = viewmodel?.RemovedFromProjectEvent.Actor as Actor;
                             break;
                         case nameof(RenamedTitleEvent):
                             viewmodel.TimelineBadgeGlyph = "\uEA34";
                             viewmodel.RenamedTitleEvent = eventItem as RenamedTitleEvent;
-                            viewmodel.Actor = viewmodel?.RenamedTitleEvent.Actor;
+                            viewmodel.Actor = viewmodel?.RenamedTitleEvent.Actor as Actor;
                             break;
                         case nameof(ReopenedEvent):
                             viewmodel.TimelineBadgeBackground = Helpers.ColorHelpers.HexCodeToSolidColorBrush("#347D39");
                             viewmodel.TimelineBadgeGlyph = "\uEADB";
                             viewmodel.ReopenedEvent = eventItem as ReopenedEvent;
-                            viewmodel.Actor = viewmodel?.ReopenedEvent.Actor;
+                            viewmodel.Actor = viewmodel?.ReopenedEvent.Actor as Actor;
                             break;
                         //case nameof(SubscribedEvent):
                         case nameof(UnassignedEvent):
                             viewmodel.TimelineBadgeGlyph = "\uEADB";
                             viewmodel.UnassignedEvent = eventItem as UnassignedEvent;
-                            viewmodel.Actor = viewmodel?.UnassignedEvent.Actor;
+                            viewmodel.Actor = viewmodel?.UnassignedEvent.Actor as Actor;
                             break;
                         case nameof(UnlabeledEvent):
                             viewmodel.TimelineBadgeGlyph = "\uEADB";
@@ -200,28 +200,28 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
                                 Name = viewmodel?.UnlabeledEvent.Label.Name,
                                 Color = viewmodel?.UnlabeledEvent.Label.Color,
                             };
-                            viewmodel.Actor = viewmodel?.UnlabeledEvent.Actor;
+                            viewmodel.Actor = viewmodel?.UnlabeledEvent.Actor as Actor;
                             break;
                         case nameof(UnlockedEvent):
                             viewmodel.TimelineBadgeGlyph = "\uEADB";
                             viewmodel.UnlockedEvent = eventItem as UnlockedEvent;
-                            viewmodel.Actor = viewmodel?.UnlockedEvent.Actor;
+                            viewmodel.Actor = viewmodel?.UnlockedEvent.Actor as Actor;
                             break;
                         case nameof(UnmarkedAsDuplicateEvent):
                             viewmodel.TimelineBadgeGlyph = "\uEADB";
                             viewmodel.UnmarkedAsDuplicateEvent = eventItem as UnmarkedAsDuplicateEvent;
-                            viewmodel.Actor = viewmodel?.UnmarkedAsDuplicateEvent.Actor;
+                            viewmodel.Actor = viewmodel?.UnmarkedAsDuplicateEvent.Actor as Actor;
                             break;
                         case nameof(UnpinnedEvent):
                             viewmodel.TimelineBadgeGlyph = "\uEADB";
                             viewmodel.UnpinnedEvent = eventItem as UnpinnedEvent;
-                            viewmodel.Actor = viewmodel?.UnpinnedEvent.Actor;
+                            viewmodel.Actor = viewmodel?.UnpinnedEvent.Actor as Actor;
                             break;
                         //case nameof(UnsubscribedEvent):
                         case nameof(UserBlockedEvent):
                             viewmodel.TimelineBadgeGlyph = "\uEADB";
                             viewmodel.UserBlockedEvent = eventItem as UserBlockedEvent;
-                            viewmodel.Actor = viewmodel?.UserBlockedEvent.Actor;
+                            viewmodel.Actor = viewmodel?.UserBlockedEvent.Actor as Actor;
                             break;
                     }
 
@@ -235,7 +235,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
             }
             catch (Exception ex)
             {
-                _logger?.Error(nameof(LoadIssuePageAsync), ex);
+                _logger?.Error(nameof(LoadRepositoryOneIssueAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);

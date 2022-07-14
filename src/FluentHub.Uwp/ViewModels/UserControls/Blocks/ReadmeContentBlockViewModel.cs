@@ -1,10 +1,8 @@
-﻿using FluentHub.Octokit.Queries.Repositories;
-using FluentHub.Uwp.Helpers;
+﻿using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
 using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.ViewModels.Repositories;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
@@ -17,7 +15,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
             _logger = logger;
             _messenger = messenger;
 
-            LoadReadmeContentBlockCommand = new AsyncRelayCommand<WebView>(LoadReadmeContentBlockAsync);
+            LoadReadmeContentBlockCommand = new AsyncRelayCommand<WebView>(LoadRepositoryReadmeAsync);
         }
 
         #region Fields and Properties
@@ -33,7 +31,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
         public IAsyncRelayCommand LoadReadmeContentBlockCommand { get; }
         #endregion
 
-        public async Task LoadReadmeContentBlockAsync(WebView webView)
+        public async Task LoadRepositoryReadmeAsync(WebView webView)
         {
             try
             {
@@ -51,7 +49,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
             }
             catch (Exception ex)
             {
-                _logger?.Error(nameof(LoadReadmeContentBlockAsync), ex);
+                _logger?.Error(nameof(LoadRepositoryReadmeAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);

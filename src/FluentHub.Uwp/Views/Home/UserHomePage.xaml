@@ -82,12 +82,14 @@
                         ItemContainerTransitions="{x:Null}"
                         ItemsSource="{x:Bind ViewModel.UserRepositories, Mode=OneWay}"
                         SelectionMode="None">
+
                         <ListView.ItemContainerStyle>
                             <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
                                 <Setter Property="Height" Value="24" />
                                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
                             </Style>
                         </ListView.ItemContainerStyle>
+
                         <ListView.ItemTemplate>
                             <DataTemplate x:DataType="modelsV4:Repository">
 
@@ -112,6 +114,7 @@
 
                             </DataTemplate>
                         </ListView.ItemTemplate>
+
                     </ListView>
 
                 </StackPanel>
@@ -359,7 +362,7 @@
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
 
-                                            <toolkit:SwitchPresenter TargetType="x:String" Value="{x:Bind Subject.Type, Mode=OneWay}">
+                                            <toolkit:SwitchPresenter TargetType="modelsV3:NotificationSubjectType" Value="{x:Bind Subject.Type, Mode=OneWay}">
 
                                                 <toolkit:Case Value="IssueClosed">
                                                     <FontIcon

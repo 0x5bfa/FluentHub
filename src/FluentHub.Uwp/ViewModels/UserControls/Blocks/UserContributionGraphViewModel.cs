@@ -1,7 +1,7 @@
-﻿using FluentHub.Uwp.Helpers;
+﻿using FluentHub.Octokit.Queries.Users;
+using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
-using FluentHub.Octokit.Queries.Users;
 
 namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
 {

@@ -1,8 +1,8 @@
 ﻿using FluentHub.Octokit.Queries.Users;
 using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
-using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
+using FluentHub.Uwp.Utils;
 
 namespace FluentHub.Uwp.ViewModels.Users
 {
@@ -13,10 +13,11 @@ namespace FluentHub.Uwp.ViewModels.Users
             _messenger = messenger;
             _logger = logger;
             _messenger = messenger;
+
             _repositories = new();
             Repositories = new(_repositories);
 
-            RefreshRepositoriesCommand = new AsyncRelayCommand<string>(LoadStarredRepositoriesAsync);
+            RefreshRepositoriesCommand = new AsyncRelayCommand<string>(LoadUserStarredRepositoriesAsync);
         }
 
         #region Fields and Properties
@@ -32,7 +33,7 @@ namespace FluentHub.Uwp.ViewModels.Users
         public IAsyncRelayCommand RefreshRepositoriesCommand { get; }
         #endregion
 
-        private async Task LoadStarredRepositoriesAsync(string login, CancellationToken token)
+        private async Task LoadUserStarredRepositoriesAsync(string login, CancellationToken token)
         {
             try
             {
@@ -56,7 +57,7 @@ namespace FluentHub.Uwp.ViewModels.Users
             catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error("LoadStarredRepositoriesAsync()", ex);
+                _logger?.Error(nameof(LoadUserStarredRepositoriesAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);

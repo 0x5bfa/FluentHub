@@ -1,6 +1,6 @@
-﻿using FluentHub.Uwp.Models;
+﻿using FluentHub.Octokit.Queries.Organizations;
+using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
-using FluentHub.Octokit.Queries.Organizations;
 
 namespace FluentHub.Uwp.ViewModels.Organizations
 {
@@ -11,7 +11,7 @@ namespace FluentHub.Uwp.ViewModels.Organizations
             _messenger = messenger;
             _logger = logger;
 
-            LoadOrganizationAsyncCommand = new AsyncRelayCommand<string>(GetOrganizationAsync);
+            LoadOrganizationAsyncCommand = new AsyncRelayCommand<string>(LoadOrganizationAsync);
         }
 
         #region Fields and Properties
@@ -24,7 +24,7 @@ namespace FluentHub.Uwp.ViewModels.Organizations
         public IAsyncRelayCommand LoadOrganizationAsyncCommand { get; }
         #endregion
 
-        public async Task GetOrganizationAsync(string org)
+        public async Task LoadOrganizationAsync(string org)
         {
             try
             {
@@ -36,7 +36,7 @@ namespace FluentHub.Uwp.ViewModels.Organizations
             }
             catch (Exception ex)
             {
-                _logger?.Error("LoadOrganizationOverviewAsync", ex);
+                _logger?.Error(nameof(LoadOrganizationAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);

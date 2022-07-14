@@ -49,10 +49,10 @@ namespace FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks
 
         public void LoadContents()
         {
-            CommentCountLabel.Name = PullItem.CommentCount.ToString();
+            CommentCountLabel.Name = PullItem.Comments.TotalCount.ToString();
 
             _labelViewModels.Clear();
-            foreach (var label in _pullItem.Labels)
+            foreach (var label in _pullItem.Labels.Nodes)
             {
                 LabelControlViewModel viewModel = new()
                 {
