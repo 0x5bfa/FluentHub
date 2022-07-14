@@ -40,7 +40,7 @@ steps:
   inputs:
     SourceFolder: '$(Agent.TempDirectory)'
     Contents: '$(CredentialSecureFile.secureFilePath)'
-    TargetFolder: '$(Build.SourcesDirectory)\src\FluentHub'
+    TargetFolder: '$(Build.SourcesDirectory)\src\FluentHub.Uwp'
 
 - task: DownloadSecureFile@1
   name: caCertificate
