@@ -106,30 +106,35 @@
                     })
                     .SingleOrDefault(),
 
-                    DefaultBranchRef = new()
+                    DefaultBranchRef = x.DefaultBranchRef.Select(defaultbranchref => new Ref
                     {
-                        Name = x.DefaultBranchRef.Select(defaultbranchref => defaultbranchref.Name).SingleOrDefault(),
-                    },
+                        Name = defaultbranchref.Name,
+                    })
+                    .SingleOrDefault(),
 
-                    Watchers = new()
+                    Watchers = x.Watchers(null, null, null, null).Select(watchers => new UserConnection
                     {
-                        TotalCount = x.Watchers(null, null, null, null).TotalCount,
-                    },
+                        TotalCount = watchers.TotalCount,
+                    })
+                    .Single(),
 
-                    Releases = new()
+                    Releases = x.Releases(null, null, null, null, null).Select(releases => new ReleaseConnection
                     {
-                        TotalCount = x.Releases(null, null, null, null, null).TotalCount,
-                    },
+                        TotalCount = releases.TotalCount,
+                    })
+                    .Single(),
 
-                    Issues = new()
+                    Issues = x.Issues(null, null, null, null, null, null, null, issueState).Select(issues => new IssueConnection
                     {
-                        TotalCount = x.Issues(null, null, null, null, null, null, null, issueState).TotalCount
-                    },
+                        TotalCount = issues.TotalCount
+                    })
+                    .Single(),
 
-                    PullRequests = new()
+                    PullRequests = x.PullRequests(null, null, null, null, null, null, null, null, pullRequestState).Select(issues => new PullRequestConnection
                     {
-                        TotalCount = x.PullRequests(null, null, null, null, null, null, null, null, pullRequestState).TotalCount
-                    },
+                        TotalCount = issues.TotalCount
+                    })
+                    .Single(),
 
                     Owner = x.Owner.Select(owner => new RepositoryOwner
                     {

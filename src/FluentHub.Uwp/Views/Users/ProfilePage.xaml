@@ -329,6 +329,28 @@
                             </muxc:NavigationViewItem.Icon>
                         </muxc:NavigationViewItem>
                         <muxc:NavigationViewItem
+                            x:Name="UserNavViewItemProjects"
+                            Content="Projects"
+                            Tag="Projects">
+                            <muxc:NavigationViewItem.Icon>
+                                <FontIcon
+                                    FontFamily="{StaticResource Octions}"
+                                    FontSize="16"
+                                    Glyph="&#xEAA3;" />
+                            </muxc:NavigationViewItem.Icon>
+                        </muxc:NavigationViewItem>
+                        <muxc:NavigationViewItem
+                            x:Name="UserNavViewItemPackages"
+                            Content="Packages"
+                            Tag="Packages">
+                            <muxc:NavigationViewItem.Icon>
+                                <FontIcon
+                                    FontFamily="{StaticResource Octions}"
+                                    FontSize="16"
+                                    Glyph="&#xEA29;" />
+                            </muxc:NavigationViewItem.Icon>
+                        </muxc:NavigationViewItem>
+                        <muxc:NavigationViewItem
                             x:Name="UserNavViewItemStarred"
                             Content="Stars"
                             Tag="Stars">

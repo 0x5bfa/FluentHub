@@ -36,7 +36,10 @@
         </Grid.RowDefinitions>
 
         <Grid>
-            <StackPanel Orientation="Horizontal" Spacing="4">
+            <StackPanel
+                Margin="8,0"
+                Orientation="Horizontal"
+                Spacing="4">
 
                 <TextBlock
                     VerticalAlignment="Center"

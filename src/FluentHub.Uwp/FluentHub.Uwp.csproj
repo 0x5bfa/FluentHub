@@ -270,6 +270,8 @@
     <Compile Include="Utils\ILogger.cs" />
     <Compile Include="Utils\NavigationHistory.cs" />
     <Compile Include="Utils\SerilogWrapperLogger.cs" />
+    <Compile Include="Utils\UrlHandler.cs" />
+    <Compile Include="Utils\UrlPageType.cs" />
     <Compile Include="ViewModels\AppSettings\AboutViewModel.cs" />
     <Compile Include="ViewModels\AppSettings\Accounts\AccountsViewModel.cs" />
     <Compile Include="ViewModels\AppSettings\Accounts\OtherUsersViewModel.cs" />
