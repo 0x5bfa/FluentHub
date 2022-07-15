@@ -1,8 +1,8 @@
 on: pull_request_review
-name: Label approved pull requests
+name: Labeler
 jobs:
   labelWhenApproved:
-    name: Label when approved
+    name: Approved
     runs-on: ubuntu-latest
     steps:
     - name: Label when approved
