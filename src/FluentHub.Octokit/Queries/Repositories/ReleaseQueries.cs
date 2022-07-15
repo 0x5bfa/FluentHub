@@ -2,9 +2,13 @@
 {
     public class ReleaseQueries
     {
-        public async Task<List<Models.Release>> GetAllAsync(string owner, string name)
+        public async Task<List<Release>> GetAllAsync(string owner, string name)
         {
-            OctokitGraphQLCore.Arg<OctokitGraphQLModel.ReleaseOrder> releaseOrder = new(new OctokitGraphQLModel.ReleaseOrder { Direction = OctokitGraphQLModel.OrderDirection.Desc});
+            OctokitGraphQLCore.Arg<OctokitGraphQLModel.ReleaseOrder> releaseOrder =
+                new(new OctokitGraphQLModel.ReleaseOrder
+                {
+                    Direction = OctokitGraphQLModel.OrderDirection.Desc}
+                );
 
             var query = new Query()
                 .Repository(name, owner)
@@ -12,15 +16,19 @@
                 .Nodes
                 .Select(x => new Release
                 {
-                    AuthorLogin = x.Author.Login,
-                    AuthorAvatarUrl = x.Author.AvatarUrl(100),
+                    Author = x.Author.Select(author => new User
+                    {
+                        Login = author.Login,
+                        AvatarUrl = author.AvatarUrl(100),
+                    })
+                    .Single(),
+
                     DescriptionHTML = x.DescriptionHTML,
                     IsDraft = x.IsDraft,
                     IsLatest = x.IsLatest,
                     IsPrerelease = x.IsPrerelease,
                     Name = x.Name,
                     PublishedAt = x.PublishedAt,
-                    PublishedAtHumanized = x.PublishedAt.Humanize(null, null),
                 })
                 .Compile();
 

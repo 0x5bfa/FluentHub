@@ -1,0 +1,1215 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProjectGuid>{9AF1D390-4850-42E3-A884-4CA703B1A651}</ProjectGuid>
+    <OutputType>AppContainerExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FluentHub.Uwp</RootNamespace>
+    <AssemblyName>FluentHub.Uwp</AssemblyName>
+    <DefaultLanguage>en-US</DefaultLanguage>
+    <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
+    <TargetPlatformVersion Condition=" '$(TargetPlatformVersion)' == '' ">10.0.19041.0</TargetPlatformVersion>
+    <TargetPlatformMinVersion>10.0.17763.0</TargetPlatformMinVersion>
+    <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WindowsXamlEnableOverview>true</WindowsXamlEnableOverview>
+    <AppxPackageSigningEnabled>false</AppxPackageSigningEnabled>
+    <LangVersion>preview</LangVersion>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM'">
+    <OutputPath>bin\ARM\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\ARM64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>ARM64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|ARM64'">
+    <OutputPath>bin\ARM64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>ARM64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <NoWarn>;2008;CS8618;CS8625</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE;NETFX_CORE;WINDOWS_UWP</DefineConstants>
+    <Optimize>true</Optimize>
+    <NoWarn>;2008</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <ErrorReport>prompt</ErrorReport>
+    <Prefer32Bit>true</Prefer32Bit>
+    <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
+  </PropertyGroup>
+  <PropertyGroup>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+  </PropertyGroup>
+  <PropertyGroup Label="MultilingualAppToolkit">
+    <MultilingualAppToolkitVersion>4.0</MultilingualAppToolkitVersion>
+    <MultilingualFallbackLanguage>en-US</MultilingualFallbackLanguage>
+    <TranslationReport Condition="'$(Configuration)' == 'Release'">true</TranslationReport>
+    <SuppressPseudoWarning Condition="'$(Configuration)' == 'Debug'">true</SuppressPseudoWarning>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Converters\ObjectToBoolConverter.cs" />
+    <Compile Include="Converters\SettingsControlConverter.cs" />
+    <Compile Include="Dialogs\AccountSwitching.xaml.cs">
+      <DependentUpon>AccountSwitching.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Dialogs\EditUserProfileDialog.xaml.cs">
+      <DependentUpon>EditUserProfileDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Extensions\IEnumerableExt.cs" />
+    <Compile Include="GlobalUsings.cs" />
+    <Compile Include="Helpers\BlobDetailsHelpers.cs" />
+    <Compile Include="Helpers\ColorHelpers.cs" />
+    <Compile Include="Helpers\FileTypeHelper.cs" />
+    <Compile Include="Helpers\JumpListHelper.cs" />
+    <Compile Include="Helpers\MentionHelpers.cs" />
+    <Compile Include="Helpers\ResourceHelper.cs" />
+    <Compile Include="Helpers\ThemeHelper.cs" />
+    <Compile Include="Helpers\WebViewHelpers.cs" />
+    <Compile Include="Models\AccountModel.cs" />
+    <Compile Include="Models\DefaultLanguageModel.cs" />
+    <Compile Include="Models\DetailsLayoutListViewModel.cs" />
+    <Compile Include="Models\FrameNavigationArgs.cs" />
+    <Compile Include="Models\TreeLayoutPageModel.cs" />
+    <Compile Include="Models\UserNotificationMessage.cs" />
+    <Compile Include="Models\UserNotificationMethod.cs" />
+    <Compile Include="Models\UserNotificationType.cs" />
+    <Compile Include="Services\AccountService.cs" />
+    <Compile Include="Services\BadgeGlyphType.cs" />
+    <Compile Include="Services\MarkdownApiHandler.cs" />
+    <Compile Include="Services\Navigation\INavigationService.cs" />
+    <Compile Include="Services\Navigation\ITabViewItem.cs" />
+    <Compile Include="Services\Navigation\ITabView.cs" />
+    <Compile Include="Services\Navigation\PageNavigationEntry.cs" />
+    <Compile Include="Services\Navigation\NavigationService.cs" />
+    <Compile Include="Services\Navigation\TabViewSelectionChangedEventArgs.cs" />
+    <Compile Include="Services\OctokitSecretsService.cs" />
+    <Compile Include="Services\ToastService.cs" />
+    <Compile Include="UserControls\AvatarControl.xaml.cs">
+      <DependentUpon>AvatarControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Blocks\BranchName.xaml.cs">
+      <DependentUpon>BranchName.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Blocks\SingleCommentBlock.xaml.cs">
+      <DependentUpon>SingleCommentBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Blocks\SingleCommitBlock.xaml.cs">
+      <DependentUpon>SingleCommitBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Blocks\DiffBlock.xaml.cs">
+      <DependentUpon>DiffBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Blocks\SingleReleaseBlock.xaml.cs">
+      <DependentUpon>SingleReleaseBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Blocks\StyledOction.xaml.cs">
+      <DependentUpon>StyledOction.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Blocks\UserContributionGraph.xaml.cs">
+      <DependentUpon>UserContributionGraph.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ButtonBlocks\CommitButtonBlock.xaml.cs">
+      <DependentUpon>CommitButtonBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ButtonBlocks\ProjectButtonBlock.xaml.cs">
+      <DependentUpon>ProjectButtonBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ColorfulBar.xaml.cs">
+      <DependentUpon>ColorfulBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TabViewControl\TabItem.cs" />
+    <Compile Include="UserControls\Blocks\ActivityBlock.xaml.cs">
+      <DependentUpon>ActivityBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Blocks\FileNavigationBlock.xaml.cs">
+      <DependentUpon>FileNavigationBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ButtonBlocks\DiscussionButtonBlock.xaml.cs">
+      <DependentUpon>DiscussionButtonBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ButtonBlocks\IssueButtonBlock.xaml.cs">
+      <DependentUpon>IssueButtonBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ButtonBlocks\NotificationButtonBlock.xaml.cs">
+      <DependentUpon>NotificationButtonBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ButtonBlocks\OrgButtonBlock.xaml.cs">
+      <DependentUpon>OrgButtonBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ButtonBlocks\PullButtonBlock.xaml.cs">
+      <DependentUpon>PullButtonBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ButtonBlocks\RepoButtonBlock.xaml.cs">
+      <DependentUpon>RepoButtonBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ButtonBlocks\UserButtonBlock.xaml.cs">
+      <DependentUpon>UserButtonBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\HoverCards\OrganizationCardFlyout.xaml.cs">
+      <DependentUpon>OrganizationCardFlyout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\GitCloneFlyout.xaml.cs">
+      <DependentUpon>GitCloneFlyout.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TabViewControl\CustomTabView.xaml.cs">
+      <DependentUpon>CustomTabView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Blocks\IssueCommentBlock.xaml.cs">
+      <DependentUpon>IssueCommentBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Blocks\Timeline.xaml.cs">
+      <DependentUpon>Timeline.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Labels\LabelControl.xaml.cs">
+      <DependentUpon>LabelControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Labels\StateLabel.xaml.cs">
+      <DependentUpon>StateLabel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Blocks\FileContentBlock.xaml.cs">
+      <DependentUpon>FileContentBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Blocks\ReadmeContentBlock.xaml.cs">
+      <DependentUpon>ReadmeContentBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Blocks\LatestCommitBlock.xaml.cs">
+      <DependentUpon>LatestCommitBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\RestartInfoBar.xaml.cs">
+      <DependentUpon>RestartInfoBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SettingsBlockControl.xaml.cs">
+      <DependentUpon>SettingsBlockControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SettingsDisplayControl.xaml.cs">
+      <DependentUpon>SettingsDisplayControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\TitleBar.xaml.cs">
+      <DependentUpon>TitleBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utils\ILogger.cs" />
+    <Compile Include="Utils\NavigationHistory.cs" />
+    <Compile Include="Utils\SerilogWrapperLogger.cs" />
+    <Compile Include="Utils\UrlHandler.cs" />
+    <Compile Include="Utils\UrlPageType.cs" />
+    <Compile Include="ViewModels\AppSettings\AboutViewModel.cs" />
+    <Compile Include="ViewModels\AppSettings\Accounts\AccountsViewModel.cs" />
+    <Compile Include="ViewModels\AppSettings\Accounts\OtherUsersViewModel.cs" />
+    <Compile Include="ViewModels\AppSettings\AppearanceViewModel.cs" />
+    <Compile Include="ViewModels\AppSettings\MainSettingsViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\AccountSwitchingDialogViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\EditUserProfileViewModel.cs" />
+    <Compile Include="ViewModels\Home\UserHomeViewModel.cs" />
+    <Compile Include="ViewModels\MainPageViewModel.cs" />
+    <Compile Include="ViewModels\Organizations\OverviewViewModel.cs" />
+    <Compile Include="ViewModels\Organizations\ProfileViewModel.cs" />
+    <Compile Include="ViewModels\Organizations\RepositoriesViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\Codes\CodePageViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\Codes\Layouts\TreeLayoutViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\Codes\ReleasesViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\Commits\CommitsViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\Commits\CommitViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\Discussions\DiscussionsViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\Discussions\DiscussionViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\Projects\ProjectsViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\Projects\ProjectViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\PullRequests\CommitsViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\PullRequests\CommitViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\PullRequests\ConversationViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\PullRequests\FileChangesViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\RepoContextViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\Issues\IssuesViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\Issues\IssueViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\Codes\Layouts\DetailsLayoutViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\OverviewViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\PullRequests\PullRequestsViewModel.cs" />
+    <Compile Include="ViewModels\Repositories\PullRequests\PullRequestViewModel.cs" />
+    <Compile Include="ViewModels\SettingsManager.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
+    <Compile Include="ViewModels\SignIn\IntroViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Blocks\ActivityBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Blocks\SingleCommentBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Blocks\SingleCommitBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Blocks\DiffBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Blocks\FileContentBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Blocks\FileNavigationBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Blocks\ReadmeContentBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Blocks\SingleReleaseBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Blocks\UserContributionGraphViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\ButtonBlocks\CommitButtonBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\ButtonBlocks\DiscussionButtonBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\ButtonBlocks\IssueButtonBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\ButtonBlocks\NotificationButtonBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\ButtonBlocks\OrgButtonBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\ButtonBlocks\ProjectButtonBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\ButtonBlocks\PullButtonBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\ButtonBlocks\RepoButtonBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Blocks\IssueCommentBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Blocks\TimelineViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Blocks\LatestCommitBlockViewModel.cs" />
+    <Compile Include="ViewModels\Home\ActivitiesViewModel.cs" />
+    <Compile Include="ViewModels\Home\NotificationsViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\ButtonBlocks\UserButtonBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Labels\LabelControlViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Labels\StatusLabelViewModel.cs" />
+    <Compile Include="ViewModels\Users\DiscussionsViewModel.cs" />
+    <Compile Include="ViewModels\Users\FollowersViewModel.cs" />
+    <Compile Include="ViewModels\Users\FollowingViewModel.cs" />
+    <Compile Include="ViewModels\Users\IssuesViewModel.cs" />
+    <Compile Include="ViewModels\Users\OrganizationsViewModel.cs" />
+    <Compile Include="ViewModels\Users\ProfilePageViewModel.cs" />
+    <Compile Include="ViewModels\Users\PullRequestsViewModel.cs" />
+    <Compile Include="ViewModels\Users\RepositoriesViewModel.cs" />
+    <Compile Include="ViewModels\Users\OverviewViewModel.cs" />
+    <Compile Include="ViewModels\Users\StarredReposViewModel.cs" />
+    <Compile Include="Views\AppSettings\AboutPage.xaml.cs">
+      <DependentUpon>AboutPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AppSettings\Accounts\AccountPage.xaml.cs">
+      <DependentUpon>AccountPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AppSettings\Accounts\OtherUsersPage.xaml.cs">
+      <DependentUpon>OtherUsersPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AppSettings\NotificationsPage.xaml.cs">
+      <DependentUpon>NotificationsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AppSettings\RepositoryPage.xaml.cs">
+      <DependentUpon>RepositoryPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AppSettings\MainSettingsPage.xaml.cs">
+      <DependentUpon>MainSettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AppSettings\AppearancePage.xaml.cs">
+      <DependentUpon>AppearancePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\Codes\Layouts\TreeLayoutView.xaml.cs">
+      <DependentUpon>TreeLayoutView.xaml</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Views\Repositories\Codes\ReleasesPage.xaml.cs">
+      <DependentUpon>ReleasesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\Commits\CommitPage.xaml.cs">
+      <DependentUpon>CommitPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\Commits\CommitsPage.xaml.cs">
+      <DependentUpon>CommitsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\Discussions\DiscussionPage.xaml.cs">
+      <DependentUpon>DiscussionPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\Discussions\DiscussionsPage.xaml.cs">
+      <DependentUpon>DiscussionsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\Insights\CodeFrequencyPage.xaml.cs">
+      <DependentUpon>CodeFrequencyPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\Insights\CommitsPage.xaml.cs">
+      <DependentUpon>CommitsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\Insights\ContributorsPage.xaml.cs">
+      <DependentUpon>ContributorsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\Insights\InsightsPage.xaml.cs">
+      <DependentUpon>InsightsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\Insights\OverviewPage.xaml.cs">
+      <DependentUpon>OverviewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\Insights\TrafficPage.xaml.cs">
+      <DependentUpon>TrafficPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\Projects\ProjectPage.xaml.cs">
+      <DependentUpon>ProjectPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\Projects\ProjectsPage.xaml.cs">
+      <DependentUpon>ProjectsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\PullRequests\CommitPage.xaml.cs">
+      <DependentUpon>CommitPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\PullRequests\CommitsPage.xaml.cs">
+      <DependentUpon>CommitsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\PullRequests\ConversationPage.xaml.cs">
+      <DependentUpon>ConversationPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\PullRequests\FileChangesPage.xaml.cs">
+      <DependentUpon>FileChangesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\PullRequests\PullRequestPage.xaml.cs">
+      <DependentUpon>PullRequestPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\Settings\GeneralPage.xaml.cs">
+      <DependentUpon>GeneralPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\Settings\SettingsPage.xaml.cs">
+      <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Users\DiscussionsPage.xaml.cs">
+      <DependentUpon>DiscussionsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Users\OrganizationsPage.xaml.cs">
+      <DependentUpon>OrganizationsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Users\PullRequestsPage.xaml.cs">
+      <DependentUpon>PullRequestsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Views\Organizations\MembershipPage.xaml.cs">
+      <DependentUpon>MembershipPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Organizations\OverviewPage.xaml.cs">
+      <DependentUpon>OverviewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Organizations\ProfilePage.xaml.cs">
+      <DependentUpon>ProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Organizations\RepositoriesPage.xaml.cs">
+      <DependentUpon>RepositoriesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\Codes\CodePage.xaml.cs">
+      <DependentUpon>CodePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\Issues\IssuePage.xaml.cs">
+      <DependentUpon>IssuePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\Codes\Layouts\DetailsLayoutView.xaml.cs">
+      <DependentUpon>DetailsLayoutView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\OverviewPage.xaml.cs">
+      <DependentUpon>OverviewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\PullRequests\PullRequestsPage.xaml.cs">
+      <DependentUpon>PullRequestsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\Issues\IssuesPage.xaml.cs">
+      <DependentUpon>IssuesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Home\UserHomePage.xaml.cs">
+      <DependentUpon>UserHomePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Home\ActivitiesPage.xaml.cs">
+      <DependentUpon>ActivitiesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Users\OverviewPage.xaml.cs">
+      <DependentUpon>OverviewPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Users\FollowersPage.xaml.cs">
+      <DependentUpon>FollowersPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Users\FollowingPage.xaml.cs">
+      <DependentUpon>FollowingPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Users\IssuesPage.xaml.cs">
+      <DependentUpon>IssuesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Home\NotificationsPage.xaml.cs">
+      <DependentUpon>NotificationsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Users\ProfilePage.xaml.cs">
+      <DependentUpon>ProfilePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Users\RepositoriesPage.xaml.cs">
+      <DependentUpon>RepositoriesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Users\StarredReposPage.xaml.cs">
+      <DependentUpon>StarredReposPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SignIn\IntroPage.xaml.cs">
+      <DependentUpon>IntroPage.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <AppxManifest Include="Package.appxmanifest">
+      <SubType>Designer</SubType>
+    </AppxManifest>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\AppTilesAlpha\LargeTile.scale-100.png" />
+    <Content Include="Assets\AppTilesAlpha\LargeTile.scale-125.png" />
+    <Content Include="Assets\AppTilesAlpha\LargeTile.scale-150.png" />
+    <Content Include="Assets\AppTilesAlpha\LargeTile.scale-200.png" />
+    <Content Include="Assets\AppTilesAlpha\LargeTile.scale-400.png" />
+    <Content Include="Assets\AppTilesAlpha\SmallTile.scale-100.png" />
+    <Content Include="Assets\AppTilesAlpha\SmallTile.scale-125.png" />
+    <Content Include="Assets\AppTilesAlpha\SmallTile.scale-150.png" />
+    <Content Include="Assets\AppTilesAlpha\SmallTile.scale-200.png" />
+    <Content Include="Assets\AppTilesAlpha\SmallTile.scale-400.png" />
+    <Content Include="Assets\AppTilesAlpha\SplashScreen.scale-100.png" />
+    <Content Include="Assets\AppTilesAlpha\SplashScreen.scale-125.png" />
+    <Content Include="Assets\AppTilesAlpha\SplashScreen.scale-150.png" />
+    <Content Include="Assets\AppTilesAlpha\SplashScreen.scale-200.png" />
+    <Content Include="Assets\AppTilesAlpha\SplashScreen.scale-400.png" />
+    <Content Include="Assets\AppTilesAlpha\Square150x150Logo.scale-100.png" />
+    <Content Include="Assets\AppTilesAlpha\Square150x150Logo.scale-125.png" />
+    <Content Include="Assets\AppTilesAlpha\Square150x150Logo.scale-150.png" />
+    <Content Include="Assets\AppTilesAlpha\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\AppTilesAlpha\Square150x150Logo.scale-400.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.altform-lightunplated_targetsize-16.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.altform-lightunplated_targetsize-24.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.altform-lightunplated_targetsize-256.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.altform-lightunplated_targetsize-32.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.altform-lightunplated_targetsize-48.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.altform-unplated_targetsize-16.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.altform-unplated_targetsize-24.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.altform-unplated_targetsize-256.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.altform-unplated_targetsize-32.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.altform-unplated_targetsize-48.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.scale-100.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.scale-125.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.scale-150.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.scale-400.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.targetsize-16.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.targetsize-24.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.targetsize-256.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.targetsize-32.png" />
+    <Content Include="Assets\AppTilesAlpha\Square44x44Logo.targetsize-48.png" />
+    <Content Include="Assets\AppTilesAlpha\StoreLogo.scale-100.png" />
+    <Content Include="Assets\AppTilesAlpha\StoreLogo.scale-125.png" />
+    <Content Include="Assets\AppTilesAlpha\StoreLogo.scale-150.png" />
+    <Content Include="Assets\AppTilesAlpha\StoreLogo.scale-200.png" />
+    <Content Include="Assets\AppTilesAlpha\StoreLogo.scale-400.png" />
+    <Content Include="Assets\AppTilesAlpha\Wide310x150Logo.scale-100.png" />
+    <Content Include="Assets\AppTilesAlpha\Wide310x150Logo.scale-125.png" />
+    <Content Include="Assets\AppTilesAlpha\Wide310x150Logo.scale-150.png" />
+    <Content Include="Assets\AppTilesAlpha\Wide310x150Logo.scale-200.png" />
+    <Content Include="Assets\AppTilesAlpha\Wide310x150Logo.scale-400.png" />
+    <Content Include="Assets\AppTilesBeta\LargeTile.scale-100.png" />
+    <Content Include="Assets\AppTilesBeta\LargeTile.scale-125.png" />
+    <Content Include="Assets\AppTilesBeta\LargeTile.scale-150.png" />
+    <Content Include="Assets\AppTilesBeta\LargeTile.scale-200.png" />
+    <Content Include="Assets\AppTilesBeta\LargeTile.scale-400.png" />
+    <Content Include="Assets\AppTilesBeta\SmallTile.scale-100.png" />
+    <Content Include="Assets\AppTilesBeta\SmallTile.scale-125.png" />
+    <Content Include="Assets\AppTilesBeta\SmallTile.scale-150.png" />
+    <Content Include="Assets\AppTilesBeta\SmallTile.scale-200.png" />
+    <Content Include="Assets\AppTilesBeta\SmallTile.scale-400.png" />
+    <Content Include="Assets\AppTilesBeta\SplashScreen.scale-100.png" />
+    <Content Include="Assets\AppTilesBeta\SplashScreen.scale-125.png" />
+    <Content Include="Assets\AppTilesBeta\SplashScreen.scale-150.png" />
+    <Content Include="Assets\AppTilesBeta\SplashScreen.scale-200.png" />
+    <Content Include="Assets\AppTilesBeta\SplashScreen.scale-400.png" />
+    <Content Include="Assets\AppTilesBeta\Square150x150Logo.scale-100.png" />
+    <Content Include="Assets\AppTilesBeta\Square150x150Logo.scale-125.png" />
+    <Content Include="Assets\AppTilesBeta\Square150x150Logo.scale-150.png" />
+    <Content Include="Assets\AppTilesBeta\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\AppTilesBeta\Square150x150Logo.scale-400.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.altform-lightunplated_targetsize-16.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.altform-lightunplated_targetsize-24.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.altform-lightunplated_targetsize-256.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.altform-lightunplated_targetsize-32.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.altform-lightunplated_targetsize-48.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.altform-unplated_targetsize-16.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.altform-unplated_targetsize-24.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.altform-unplated_targetsize-256.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.altform-unplated_targetsize-32.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.altform-unplated_targetsize-48.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.scale-100.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.scale-125.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.scale-150.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.scale-400.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.targetsize-16.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.targetsize-24.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.targetsize-256.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.targetsize-32.png" />
+    <Content Include="Assets\AppTilesBeta\Square44x44Logo.targetsize-48.png" />
+    <Content Include="Assets\AppTilesBeta\StoreLogo.scale-100.png" />
+    <Content Include="Assets\AppTilesBeta\StoreLogo.scale-125.png" />
+    <Content Include="Assets\AppTilesBeta\StoreLogo.scale-150.png" />
+    <Content Include="Assets\AppTilesBeta\StoreLogo.scale-200.png" />
+    <Content Include="Assets\AppTilesBeta\StoreLogo.scale-400.png" />
+    <Content Include="Assets\AppTilesBeta\Wide310x150Logo.scale-100.png" />
+    <Content Include="Assets\AppTilesBeta\Wide310x150Logo.scale-125.png" />
+    <Content Include="Assets\AppTilesBeta\Wide310x150Logo.scale-150.png" />
+    <Content Include="Assets\AppTilesBeta\Wide310x150Logo.scale-200.png" />
+    <Content Include="Assets\AppTilesBeta\Wide310x150Logo.scale-400.png" />
+    <Content Include="Assets\AppTilesDev\LargeTile.scale-100.png" />
+    <Content Include="Assets\AppTilesDev\LargeTile.scale-125.png" />
+    <Content Include="Assets\AppTilesDev\LargeTile.scale-150.png" />
+    <Content Include="Assets\AppTilesDev\LargeTile.scale-200.png" />
+    <Content Include="Assets\AppTilesDev\LargeTile.scale-400.png" />
+    <Content Include="Assets\AppTilesDev\SmallTile.scale-100.png" />
+    <Content Include="Assets\AppTilesDev\SmallTile.scale-125.png" />
+    <Content Include="Assets\AppTilesDev\SmallTile.scale-150.png" />
+    <Content Include="Assets\AppTilesDev\SmallTile.scale-200.png" />
+    <Content Include="Assets\AppTilesDev\SmallTile.scale-400.png" />
+    <Content Include="Assets\AppTilesDev\SplashScreen.scale-100.png" />
+    <Content Include="Assets\AppTilesDev\SplashScreen.scale-125.png" />
+    <Content Include="Assets\AppTilesDev\SplashScreen.scale-150.png" />
+    <Content Include="Assets\AppTilesDev\SplashScreen.scale-200.png" />
+    <Content Include="Assets\AppTilesDev\SplashScreen.scale-400.png" />
+    <Content Include="Assets\AppTilesDev\Square150x150Logo.scale-100.png" />
+    <Content Include="Assets\AppTilesDev\Square150x150Logo.scale-125.png" />
+    <Content Include="Assets\AppTilesDev\Square150x150Logo.scale-150.png" />
+    <Content Include="Assets\AppTilesDev\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\AppTilesDev\Square150x150Logo.scale-400.png" />
+    <Content Include="Assets\AppTilesDev\Square44x44Logo.altform-lightunplated_targetsize-16.png" />
+    <Content Include="Assets\AppTilesDev\Square44x44Logo.altform-lightunplated_targetsize-24.png" />
+    <Content Include="Assets\AppTilesDev\Square44x44Logo.altform-lightunplated_targetsize-256.png" />
+    <Content Include="Assets\AppTilesDev\Square44x44Logo.altform-lightunplated_targetsize-32.png" />
+    <Content Include="Assets\AppTilesDev\Square44x44Logo.altform-lightunplated_targetsize-48.png" />
+    <Content Include="Assets\AppTilesDev\Square44x44Logo.altform-unplated_targetsize-16.png" />
+    <Content Include="Assets\AppTilesDev\Square44x44Logo.altform-unplated_targetsize-24.png" />
+    <Content Include="Assets\AppTilesDev\Square44x44Logo.altform-unplated_targetsize-256.png" />
+    <Content Include="Assets\AppTilesDev\Square44x44Logo.altform-unplated_targetsize-32.png" />
+    <Content Include="Assets\AppTilesDev\Square44x44Logo.altform-unplated_targetsize-48.png" />
+    <Content Include="Assets\AppTilesDev\Square44x44Logo.scale-100.png" />
+    <Content Include="Assets\AppTilesDev\Square44x44Logo.scale-125.png" />
+    <Content Include="Assets\AppTilesDev\Square44x44Logo.scale-150.png" />
+    <Content Include="Assets\AppTilesDev\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\AppTilesDev\Square44x44Logo.scale-400.png" />
+    <Content Include="Assets\AppTilesDev\Square44x44Logo.targetsize-16.png" />
+    <Content Include="Assets\AppTilesDev\Square44x44Logo.targetsize-24.png" />
+    <Content Include="Assets\AppTilesDev\Square44x44Logo.targetsize-256.png" />
+    <Content Include="Assets\AppTilesDev\Square44x44Logo.targetsize-32.png" />
+    <Content Include="Assets\AppTilesDev\Square44x44Logo.targetsize-48.png" />
+    <Content Include="Assets\AppTilesDev\StoreLogo.scale-100.png" />
+    <Content Include="Assets\AppTilesDev\StoreLogo.scale-125.png" />
+    <Content Include="Assets\AppTilesDev\StoreLogo.scale-150.png" />
+    <Content Include="Assets\AppTilesDev\StoreLogo.scale-200.png" />
+    <Content Include="Assets\AppTilesDev\StoreLogo.scale-400.png" />
+    <Content Include="Assets\AppTilesDev\Wide310x150Logo.scale-100.png" />
+    <Content Include="Assets\AppTilesDev\Wide310x150Logo.scale-125.png" />
+    <Content Include="Assets\AppTilesDev\Wide310x150Logo.scale-150.png" />
+    <Content Include="Assets\AppTilesDev\Wide310x150Logo.scale-200.png" />
+    <Content Include="Assets\AppTilesDev\Wide310x150Logo.scale-400.png" />
+    <Content Include="Assets\AppTiles\LargeTile.scale-100.png" />
+    <Content Include="Assets\AppTiles\LargeTile.scale-125.png" />
+    <Content Include="Assets\AppTiles\LargeTile.scale-150.png" />
+    <Content Include="Assets\AppTiles\LargeTile.scale-200.png" />
+    <Content Include="Assets\AppTiles\LargeTile.scale-400.png" />
+    <Content Include="Assets\AppTiles\SmallTile.scale-100.png" />
+    <Content Include="Assets\AppTiles\SmallTile.scale-125.png" />
+    <Content Include="Assets\AppTiles\SmallTile.scale-150.png" />
+    <Content Include="Assets\AppTiles\SmallTile.scale-200.png" />
+    <Content Include="Assets\AppTiles\SmallTile.scale-400.png" />
+    <Content Include="Assets\AppTiles\SplashScreen.scale-100.png" />
+    <Content Include="Assets\AppTiles\SplashScreen.scale-125.png" />
+    <Content Include="Assets\AppTiles\SplashScreen.scale-150.png" />
+    <Content Include="Assets\AppTiles\SplashScreen.scale-200.png" />
+    <Content Include="Assets\AppTiles\SplashScreen.scale-400.png" />
+    <Content Include="Assets\AppTiles\Square150x150Logo.scale-100.png" />
+    <Content Include="Assets\AppTiles\Square150x150Logo.scale-125.png" />
+    <Content Include="Assets\AppTiles\Square150x150Logo.scale-150.png" />
+    <Content Include="Assets\AppTiles\Square150x150Logo.scale-200.png" />
+    <Content Include="Assets\AppTiles\Square150x150Logo.scale-400.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.altform-lightunplated_targetsize-16.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.altform-lightunplated_targetsize-24.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.altform-lightunplated_targetsize-256.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.altform-lightunplated_targetsize-32.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.altform-lightunplated_targetsize-48.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.altform-unplated_targetsize-16.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.altform-unplated_targetsize-24.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.altform-unplated_targetsize-256.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.altform-unplated_targetsize-32.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.altform-unplated_targetsize-48.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.scale-100.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.scale-125.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.scale-150.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.scale-200.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.scale-400.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.targetsize-16.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.targetsize-24.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.targetsize-256.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.targetsize-32.png" />
+    <Content Include="Assets\AppTiles\Square44x44Logo.targetsize-48.png" />
+    <Content Include="Assets\AppTiles\StoreLogo.scale-100.png" />
+    <Content Include="Assets\AppTiles\StoreLogo.scale-125.png" />
+    <Content Include="Assets\AppTiles\StoreLogo.scale-150.png" />
+    <Content Include="Assets\AppTiles\StoreLogo.scale-200.png" />
+    <Content Include="Assets\AppTiles\StoreLogo.scale-400.png" />
+    <Content Include="Assets\AppTiles\Wide310x150Logo.scale-100.png" />
+    <Content Include="Assets\AppTiles\Wide310x150Logo.scale-125.png" />
+    <Content Include="Assets\AppTiles\Wide310x150Logo.scale-150.png" />
+    <Content Include="Assets\AppTiles\Wide310x150Logo.scale-200.png" />
+    <Content Include="Assets\AppTiles\Wide310x150Logo.scale-400.png" />
+    <Content Include="Assets\Icons\About.png" />
+    <Content Include="Assets\Icons\Accounts.png" />
+    <Content Include="Assets\Icons\Activities.png" />
+    <Content Include="Assets\Icons\Appearance.png" />
+    <Content Include="Assets\Icons\Commits.png" />
+    <Content Include="Assets\Icons\Discussions.png" />
+    <Content Include="Assets\Icons\Home.png" />
+    <Content Include="Assets\Icons\Insights.png" />
+    <Content Include="Assets\Icons\Issues.png" />
+    <Content Include="Assets\Icons\Notifications.png" />
+    <Content Include="Assets\Icons\Organizations.png" />
+    <Content Include="Assets\Icons\Private.png" />
+    <Content Include="Assets\Icons\Profile.png" />
+    <Content Include="Assets\Icons\Projects.png" />
+    <Content Include="Assets\Icons\PullRequests.png" />
+    <Content Include="Assets\Icons\Repositories.png" />
+    <Content Include="Assets\Icons\Settings.png" />
+    <Content Include="Assets\Icons\Starred.png" />
+    <Content Include="Assets\OOBE\Hero.jpg" />
+    <Content Include="Assets\WebView\index.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\WebView\github-markdown-dark.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\WebView\github-markdown-light.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Assets\WebView\github-markdown.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Properties\Default.rd.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="Dialogs\AccountSwitching.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\EditUserProfileDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceDictionaries\CommonStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="ResourceDictionaries\DefaultGridSplitterStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceDictionaries\LinkLikeButtonStyle.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="ResourceDictionaries\ClearButtonStyle.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="ResourceDictionaries\TabViewItem_shared.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceDictionaries\TabView_themeresources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="ResourceDictionaries\TextBlockStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Themes\Default\DefaultThemeResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Themes\Default\DefaultThemeResourcesAny.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="UserControls\AvatarControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Blocks\ActivityBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Blocks\BranchName.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Blocks\SingleCommentBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Blocks\SingleCommitBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Blocks\DiffBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Blocks\FileNavigationBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Blocks\SingleReleaseBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Blocks\StyledOction.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Blocks\UserContributionGraph.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ButtonBlocks\CommitButtonBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ButtonBlocks\DiscussionButtonBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ButtonBlocks\IssueButtonBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ButtonBlocks\NotificationButtonBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ButtonBlocks\OrgButtonBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ButtonBlocks\ProjectButtonBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ButtonBlocks\PullButtonBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ButtonBlocks\RepoButtonBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ButtonBlocks\UserButtonBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ColorfulBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\HoverCards\OrganizationCardFlyout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\GitCloneFlyout.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\TabViewControl\CustomTabView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Blocks\IssueCommentBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Blocks\Timeline.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Labels\LabelControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Labels\StateLabel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Blocks\FileContentBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Blocks\ReadmeContentBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Blocks\LatestCommitBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\RestartInfoBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\SettingsBlockControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\SettingsDisplayControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\TitleBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AppSettings\AboutPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AppSettings\Accounts\AccountPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AppSettings\Accounts\OtherUsersPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AppSettings\NotificationsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AppSettings\RepositoryPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AppSettings\MainSettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AppSettings\AppearancePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\Codes\Layouts\TreeLayoutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Views\Repositories\Codes\ReleasesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\Commits\CommitPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\Commits\CommitsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\Discussions\DiscussionPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\Discussions\DiscussionsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\Insights\CodeFrequencyPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\Insights\CommitsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\Insights\ContributorsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\Insights\InsightsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\Insights\OverviewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\Insights\TrafficPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\Projects\ProjectPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\Projects\ProjectsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\PullRequests\CommitPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\PullRequests\CommitsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\PullRequests\ConversationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\PullRequests\FileChangesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\PullRequests\PullRequestPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\Settings\GeneralPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\Settings\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Users\DiscussionsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Users\OrganizationsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Users\PullRequestsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\Organizations\MembershipPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Organizations\OverviewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Organizations\ProfilePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Organizations\RepositoriesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\Codes\CodePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\Issues\IssuePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\Codes\Layouts\DetailsLayoutView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\OverviewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\PullRequests\PullRequestsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\Issues\IssuesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Home\UserHomePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Home\ActivitiesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Users\OverviewPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Users\FollowersPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Users\FollowingPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Users\IssuesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Home\NotificationsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Users\ProfilePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Users\RepositoriesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Users\StarredReposPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SignIn\IntroPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Humanizer">
+      <Version>2.8.25</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection">
+      <Version>6.0.0</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
+      <Version>6.2.14</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Mvvm">
+      <Version>7.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications">
+      <Version>7.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp.UI.Controls">
+      <Version>7.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.UI.Xaml">
+      <Version>2.8.0-prerelease.220712001</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Uwp.Managed">
+      <Version>2.0.1</Version>
+    </PackageReference>
+    <PackageReference Include="Serilog.Sinks.File">
+      <Version>5.0.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="AppCredentials.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Glyphs\SegoeFluentIconsNormal.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ViewModels\Repositories\Insights\" />
+    <Folder Include="Views\Organizations\Settings\" />
+    <Folder Include="Views\Users\Settings\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\Glyphs\Octions.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FluentHub.Octokit\FluentHub.Octokit.csproj">
+      <Project>{893edcc9-4345-4f49-a13f-1a426a7ba432}</Project>
+      <Name>FluentHub.Octokit</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
+    <VisualStudioVersion>14.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\Microsoft.Multilingual.PriResources.targets" Label="MultilingualAppToolkit" Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\v$(MultilingualAppToolkitVersion)\Microsoft.Multilingual.PriResources.targets')" />
+  <Target Name="MATPrerequisite" BeforeTargets="PrepareForBuild" Condition="!Exists('$(MSBuildExtensionsPath)\Microsoft\Multilingual App Toolkit\Microsoft.Multilingual.PriResources.targets')" Label="MultilingualAppToolkit">
+    <Warning Text="$(MSBuildProjectFile) is Multilingual build enabled, but the Multilingual App Toolkit is unavailable during the build. If building with Visual Studio, please check to ensure that toolkit is properly installed." />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
