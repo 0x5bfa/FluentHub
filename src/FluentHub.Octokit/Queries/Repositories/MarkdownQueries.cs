@@ -1,41 +1,26 @@
-﻿using Serilog;
-using System.Net;
+﻿using System.Net;
 using System.Text.RegularExpressions;
-using Windows.Storage;
 
 namespace FluentHub.Octokit.Queries.Repositories
 {
     public class MarkdownQueries
     {
-        /// <summary>
-        /// Generates full html in GFM format from raw markdown strings.
-        /// </summary>
-        /// <param name="markdown">Raw markdown string</param>
-        /// <param name="missedPath">Correct the relative paths</param>
-        /// <param name="theme">"light": Light theme, "dark": Dark theme</param>
-        public async Task<string> GetHtmlAsync(string markdown, string missedPath, string theme, bool isHtml)
+        public string GetHtml(string index, string markdown, string missedPath, string theme, bool isHtml)
         {
-            StorageFile indexFile = await StorageFile.GetFileFromApplicationUriAsync(new Uri("ms-appx:///Assets/WebView/index.html"));
-            var indexHtml = await FileIO.ReadTextAsync(indexFile);
-
-            string body;
-
             // Get rwa html string
-            body = isHtml ? markdown : GetRawHtml(markdown);
+            string body = isHtml ? markdown : GetRawHtml(markdown);
 
-            body = AddMissedLineBreaks(body);
+            //body = AddMissedLineBreaks(body);
 
             string html
-                = ((string)indexHtml!.Clone())
+                = ((string)index!.Clone())
                 .Replace("{{renderTheme}}", theme)
                 .Replace("{{htmlBody}}", body);
 
             html = CorrectRelativePaths(html, missedPath);
-
             return html;
         }
 
-        // Use raw http responding
         private string GetRawHtml(string markdown)
         {
             try
@@ -56,7 +41,6 @@ namespace FluentHub.Octokit.Queries.Repositories
             }
             catch (Exception e)
             {
-                Log.Error(e, e.Message);
                 return null;
             }
         }

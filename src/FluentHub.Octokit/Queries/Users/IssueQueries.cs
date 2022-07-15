@@ -4,7 +4,11 @@
     {
         public async Task<List<Issue>> GetAllAsync(string login)
         {
-            OctokitGraphQLModel.IssueOrder order = new() { Direction = OctokitGraphQLModel.OrderDirection.Desc, Field = OctokitGraphQLModel.IssueOrderField.CreatedAt };
+            OctokitGraphQLModel.IssueOrder order = new()
+            {
+                Direction = OctokitGraphQLModel.OrderDirection.Desc,
+                Field = OctokitGraphQLModel.IssueOrderField.CreatedAt
+            };
 
             #region query
             var query = new Query()
@@ -13,26 +17,40 @@
                 .Nodes
                 .Select(x => new Issue
                 {
-                    OwnerAvatarUrl = x.Repository.Owner.AvatarUrl(100),
-                    OwnerLogin = x.Repository.Owner.Login,
-                    Name = x.Repository.Name,
-                    Title = x.Title,
-
-                    Closed = x.Closed,
-
-                    Number = x.Number,
-                    CommentCount = x.Comments(null, null, null, null, null).TotalCount,
-
-                    Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new Label
+                    Repository = x.Repository.Select(repo => new Repository
                     {
-                        Color = y.Color,
-                        Description = y.Description,
-                        Name = y.Name,
-                    })
-                    .ToList(),
+                        Name = repo.Name,
 
+                        Owner = repo.Owner.Select(owner => new RepositoryOwner
+                        {
+                            AvatarUrl = owner.AvatarUrl(100),
+                            Id = owner.Id,
+                            Login = owner.Login,
+                        })
+                        .Single(),
+                    })
+                    .Single(),
+
+                    Comments = new()
+                    {
+                        TotalCount = x.Comments(null, null, null, null, null).TotalCount,
+                    },
+
+                    Labels = new()
+                    {
+                        Nodes = x.Labels(10, null, null, null, null).Nodes.Select(y => new Label
+                        {
+                            Color = y.Color,
+                            Description = y.Description,
+                            Name = y.Name,
+                        })
+                        .ToList(),
+                    },
+
+                    Title = x.Title,
+                    Closed = x.Closed,
+                    Number = x.Number,
                     UpdatedAt = x.UpdatedAt,
-                    UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
                 })
                 .Compile();
             #endregion

@@ -21,7 +21,6 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
-                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .AssignedEvent(y => new AssignedEvent
                 {
@@ -44,7 +43,6 @@
                     .SingleOrDefault(),
 
                     CreatedAt = y.CreatedAt,
-                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .ClosedEvent(y => new ClosedEvent
                 {
@@ -60,7 +58,7 @@
                         Commit = closer.Switch<Commit>(whenCommit => whenCommit
                         .Commit(commit => new Commit
                         {
-                            CommitMessage = commit.Message,
+                            Message = commit.Message,
                         })),
 
                         PullRequest = closer.Switch<PullRequest>(whenPr => whenPr
@@ -72,7 +70,6 @@
                     .SingleOrDefault(),
 
                     CreatedAt = y.CreatedAt,
-                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .CommentDeletedEvent(y => new CommentDeletedEvent
                 {
@@ -91,7 +88,6 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
-                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .ConnectedEvent(y => new ConnectedEvent
                 {
@@ -103,9 +99,8 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
-                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
 
-                    Id = y.Id.ToString(),
+                    Id = y.Id,
 
                     IsCrossRepository = y.IsCrossRepository,
 
@@ -151,7 +146,6 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
-                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .CrossReferencedEvent(y => new CrossReferencedEvent
                 {
@@ -163,14 +157,12 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
-                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
 
-                    Id = y.Id.ToString(),
+                    Id = y.Id,
 
                     IsCrossRepository = y.IsCrossRepository,
 
                     ReferencedAt = y.ReferencedAt,
-                    ReferencedAtHumanized = y.ReferencedAt.Humanize(null, null),
 
                     Source = y.Source.Select(source => new ReferencedSubject
                     {
@@ -220,7 +212,6 @@
                     MilestoneTitle = y.MilestoneTitle,
 
                     CreatedAt = y.CreatedAt,
-                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .DisconnectedEvent(y => new DisconnectedEvent
                 {
@@ -232,9 +223,8 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
-                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
 
-                    Id = y.Id.ToString(),
+                    Id = y.Id,
 
                     IsCrossRepository = y.IsCrossRepository,
 
@@ -293,12 +283,19 @@
 
                     IsMinimized = y.IsMinimized,
 
-                    Reactions = y.Reactions(6, null, null, null, null, null).Nodes.Select(reaction => new Reaction
+                    Reactions = new()
                     {
-                        Content = reaction.Content,
-                        ReactorLogin = reaction.User.Login,
-                    })
-                    .ToList(),
+                        Nodes = y.Reactions(6, null, null, null, null, null).Nodes.Select(reaction => new Reaction
+                        {
+                            Content = (ReactionContent)reaction.Content,
+                            User = reaction.User.Select(user => new User
+                            {
+                                Login = user.Login,
+                            })
+                            .Single(),
+                        })
+                        .ToList(),
+                    },
 
                     UpdatedAt = y.UpdatedAt,
 
@@ -332,7 +329,6 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
-                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .LockedEvent(y => new LockedEvent
                 {
@@ -344,9 +340,8 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
-                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
 
-                    LockReason = y.LockReason,
+                    LockReason = (LockReason)y.LockReason,
                 })
                 .MarkedAsDuplicateEvent(y => new MarkedAsDuplicateEvent
                 {
@@ -374,7 +369,6 @@
                     .SingleOrDefault(),
 
                     CreatedAt = y.CreatedAt,
-                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 }) 
                 .MilestonedEvent(y => new MilestonedEvent
                 {
@@ -386,7 +380,6 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
-                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
 
                     MilestoneTitle = y.MilestoneTitle,
                 })
@@ -400,7 +393,6 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
-                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .PinnedEvent(y => new PinnedEvent
                 {
@@ -412,7 +404,6 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
-                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .ReferencedEvent(y => new ReferencedEvent
                 {
@@ -425,7 +416,7 @@
 
                     Commit = y.Commit.Select(commit => new Commit
                     {
-                        CommitMessage = commit.Message,
+                        Message = commit.Message,
                     })
                     .SingleOrDefault(),
 
@@ -443,9 +434,8 @@
                     .SingleOrDefault(),
 
                     CreatedAt = y.CreatedAt,
-                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
 
-                    Id = y.Id.ToString(),
+                    Id = y.Id,
 
                     IsCrossRepository = y.IsCrossRepository,
 
@@ -460,10 +450,9 @@
                     })
                     .Single(),
 
-                    Id = y.Id.ToString(),
+                    Id = y.Id,
 
                     CreatedAt = y.CreatedAt,
-                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .RenamedTitleEvent(y => new RenamedTitleEvent
                 {
@@ -479,7 +468,6 @@
                     PreviousTitle = y.PreviousTitle,
 
                     CreatedAt = y.CreatedAt,
-                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .ReopenedEvent(y => new ReopenedEvent
                 {
@@ -493,7 +481,6 @@
                     //StateReason = (IssueStateReason)y.StateReason,
 
                     CreatedAt = y.CreatedAt,
-                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .TransferredEvent(y => new TransferredEvent
                 {
@@ -518,7 +505,6 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
-                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .UnassignedEvent(y => new UnassignedEvent
                 {
@@ -541,7 +527,6 @@
                     .SingleOrDefault(),
 
                     CreatedAt = y.CreatedAt,
-                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .UnlabeledEvent(y => new UnlabeledEvent
                 {
@@ -561,7 +546,6 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
-                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .UnlockedEvent(y => new UnlockedEvent
                 {
@@ -573,7 +557,6 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
-                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .UnmarkedAsDuplicateEvent(y => new UnmarkedAsDuplicateEvent
                 {
@@ -601,7 +584,6 @@
                     .SingleOrDefault(),
 
                     CreatedAt = y.CreatedAt,
-                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .UnpinnedEvent(y => new UnpinnedEvent
                 {
@@ -613,7 +595,6 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
-                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .UserBlockedEvent(y => new UserBlockedEvent
                 {
@@ -626,10 +607,9 @@
 
                     BlockDuration = (UserBlockDuration)y.BlockDuration,
 
-                    Id = y.Id.ToString(),
+                    Id = y.Id,
 
                     CreatedAt = y.CreatedAt,
-                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 //.MentionedEvent(y => new MentionedEvent {})
                 //.SubscribedEvent(y => new SubscribedEvent {})

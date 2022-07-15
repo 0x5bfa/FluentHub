@@ -13,7 +13,7 @@
                     Category = x.Category.Select(category => new DiscussionCategory
                     {
                         Emoji = category.Emoji,
-                        Id = category.Id.ToString(),
+                        Id = category.Id,
                     })
                     .Single(),
 
@@ -24,14 +24,14 @@
                         Owner = repo.Owner.Select(owner => new RepositoryOwner
                         {
                             AvatarUrl = owner.AvatarUrl(100),
-                            Id = owner.Id.ToString(),
+                            Id = owner.Id,
                             Login = owner.Login,
                         })
                         .Single(),
                     })
                     .Single(),
 
-                    Id = x.Id.ToString(),
+                    Id = x.Id,
                     Locked = x.Locked,
                     Number = x.Number,
                     Title = x.Title,
@@ -40,11 +40,8 @@
                     ViewerCanDelete = x.ViewerCanDelete,
                     ViewerDidAuthor = x.ViewerDidAuthor,
                     ViewerHasUpvoted = x.ViewerHasUpvoted,
-
                     AnswerChosenAt = x.AnswerChosenAt,
                     UpdatedAt = x.UpdatedAt,
-                    AnswerChosenAtHumanized = x.AnswerChosenAt.Humanize(null, null),
-                    UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
                 })
                 .Compile();
 
@@ -65,7 +62,7 @@
                         CreatedAt = category.CreatedAt,
                         Description = category.Description,
                         Emoji = category.Emoji,
-                        Id = category.Id.ToString(),
+                        Id = category.Id,
                         Name = category.Name,
                         UpdatedAt = category.UpdatedAt,
                     })
@@ -78,17 +75,17 @@
                         Owner = repo.Owner.Select(owner => new RepositoryOwner
                         {
                             AvatarUrl = owner.AvatarUrl(100),
-                            Id = owner.Id.ToString(),
+                            Id = owner.Id,
                             Login = owner.Login,
                         })
                         .Single(),
                     })
                     .Single(),
 
-                    ActiveLockReason = x.ActiveLockReason,
-                    AuthorAssociation = x.AuthorAssociation,
+                    ActiveLockReason = (LockReason)x.ActiveLockReason,
+                    AuthorAssociation = (CommentAuthorAssociation)x.AuthorAssociation,
                     BodyHTML = x.BodyHTML,
-                    Id = x.Id.ToString(),
+                    Id = x.Id,
                     IncludesCreatedEdit = x.IncludesCreatedEdit,
                     Locked = x.Locked,
                     Number = x.Number,
@@ -102,18 +99,13 @@
                     ViewerCanUpvote = x.ViewerCanUpvote,
                     ViewerDidAuthor = x.ViewerDidAuthor,
                     ViewerHasUpvoted = x.ViewerHasUpvoted,
-                    ViewerSubscription = x.ViewerSubscription,
+                    ViewerSubscription = (SubscriptionState)x.ViewerSubscription,
 
                     AnswerChosenAt = x.AnswerChosenAt,
                     CreatedAt = x.CreatedAt,
                     LastEditedAt = x.LastEditedAt,
                     PublishedAt = x.PublishedAt,
                     UpdatedAt = x.UpdatedAt,
-                    AnswerChosenAtHumanized = x.AnswerChosenAt.Humanize(null, null),
-                    CreatedAtHumanized = x.CreatedAt.Humanize(null, null),
-                    LastEditedAtHumanized = x.LastEditedAt.Humanize(null, null),
-                    PublishedAtHumanized = x.PublishedAt.Humanize(null, null),
-                    UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
                 })
                 .Compile();
 
