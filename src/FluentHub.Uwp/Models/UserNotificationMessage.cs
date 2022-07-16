@@ -2,7 +2,7 @@
 {
     public class UserNotificationMessage
     {
-        public UserNotificationMessage(string title!!,
+        public UserNotificationMessage(string title,
                                        string message = "",
                                        UserNotificationType type = UserNotificationType.Info,
                                        UserNotificationMethod method = UserNotificationMethod.InApp)

@@ -12,7 +12,7 @@ namespace FluentHub.Uwp.ViewModels
 {
     public class MainPageViewModel : ObservableObject
     {
-        public MainPageViewModel(INavigationService navigationService!!, IMessenger notificationMessenger = null, ToastService toastService = null, ILogger logger = null)
+        public MainPageViewModel(INavigationService navigationService, IMessenger notificationMessenger = null, ToastService toastService = null, ILogger logger = null)
         {
             _dispatcher = DispatcherQueue.GetForCurrentThread(); // To Access the UI thread later.
             _navigationService = navigationService;

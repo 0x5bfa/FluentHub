@@ -8,7 +8,7 @@ namespace FluentHub.Uwp.Helpers
 {
     public static class JumpListHelper
     {
-        public static JumpListItem CreateJumpListItem(string args!!, string displayName!!, string logo!!, string description = "", string groupName = "")
+        public static JumpListItem CreateJumpListItem(string args, string displayName, string logo, string description = "", string groupName = "")
         {
             var item = JumpListItem.CreateWithArguments(args.ToString(), displayName);
             item.Description = description;
