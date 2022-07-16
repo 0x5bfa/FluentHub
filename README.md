@@ -1,5 +1,6 @@
 <p align="center">
-  <img width="128" align="center" src="src/FluentHub.Uwp/Assets/AppTilesAlpha/StoreLogo.scale-400.png" />
+  <img width="256" align="center" src="https://user-images.githubusercontent.com/74561130/179355686-65652d3f-693b-4bce-a8ed-f96a168368a8.png" />
+  
 </p>
 <h1 align="center">
   FluentHub Alpha
