@@ -22,7 +22,7 @@
     </Page.Resources>
 
     <ScrollViewer>
-        <Grid Margin="12">
+        <Grid Margin="32,16,32,32">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -149,7 +149,7 @@
 
             <muxc:ItemsRepeater Grid.Row="2" ItemsSource="{x:Bind ViewModel.NotificationItems}">
                 <muxc:ItemsRepeater.Layout>
-                    <muxc:StackLayout Orientation="Vertical" Spacing="4" />
+                    <muxc:StackLayout Orientation="Vertical" Spacing="6" />
                 </muxc:ItemsRepeater.Layout>
                 <DataTemplate x:DataType="bbvm:NotificationButtonBlockViewModel">
                     <block:NotificationButtonBlock ViewModel="{x:Bind}" />

@@ -179,26 +179,27 @@
                     Orientation="Horizontal"
                     Spacing="8">
 
-                    <muxc:DropDownButton
+                    <Button
                         x:Name="ToolbarAppSettingsButton"
-                        Width="54"
-                        Height="32"
-                        Padding="4"
+                        Width="28"
+                        Height="28"
+                        Padding="0"
                         Background="Transparent"
                         BorderBrush="{StaticResource ControlStrokeColorDefault}"
                         BorderThickness="0"
+                        CornerRadius="16"
                         ToolTipService.ToolTip="More">
                         <Border
-                            Width="24"
-                            Height="24"
-                            CornerRadius="12">
+                            Width="28"
+                            Height="28"
+                            CornerRadius="14">
                             <Image
-                                Width="24"
-                                Height="24"
+                                Width="28"
+                                Height="28"
                                 Source="{x:Bind ViewModel.SignedInUser.AvatarUrl, Mode=OneWay}" />
                         </Border>
 
-                        <muxc:DropDownButton.Flyout>
+                        <Button.Flyout>
 
                             <MenuFlyout Placement="BottomEdgeAlignedRight">
                                 <MenuFlyoutItem Text="Continue with your browser" />
@@ -225,9 +226,9 @@
                                 <MenuFlyoutItem Text="Sign out" />
                             </MenuFlyout>
 
-                        </muxc:DropDownButton.Flyout>
+                        </Button.Flyout>
 
-                    </muxc:DropDownButton>
+                    </Button>
                 </StackPanel>
             </Grid>
 
@@ -277,7 +278,7 @@
                                         <FontIcon
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-                                            FontSize="20"
+                                            FontSize="22"
                                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                             Glyph="&#xE80F;" />
 
@@ -303,7 +304,7 @@
                                         <FontIcon
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-                                            FontSize="20"
+                                            FontSize="22"
                                             Foreground="{ThemeResource AccentFillColorDefaultBrush}"
                                             Glyph="&#xEA8A;" />
 
@@ -355,7 +356,7 @@
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             FontFamily="{StaticResource Octions}"
-                                            FontSize="20"
+                                            FontSize="22"
                                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                             Glyph="&#xE918;" />
 
@@ -382,7 +383,7 @@
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
                                             FontFamily="{StaticResource Octions}"
-                                            FontSize="20"
+                                            FontSize="22"
                                             Foreground="{ThemeResource AccentFillColorDefaultBrush}"
                                             Glyph="&#xE91A;" />
 
@@ -433,7 +434,7 @@
                                         <FontIcon
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-                                            FontSize="20"
+                                            FontSize="22"
                                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                             Glyph="&#xE805;" />
 
@@ -459,7 +460,7 @@
                                         <FontIcon
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-                                            FontSize="20"
+                                            FontSize="22"
                                             Foreground="{ThemeResource AccentFillColorDefaultBrush}"
                                             Glyph="&#xE726;" />
 
@@ -515,7 +516,7 @@
                                         <FontIcon
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-                                            FontSize="20"
+                                            FontSize="22"
                                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                             Glyph="&#xE77B;" />
 
@@ -541,7 +542,7 @@
                                         <FontIcon
                                             HorizontalAlignment="Center"
                                             VerticalAlignment="Center"
-                                            FontSize="20"
+                                            FontSize="22"
                                             Foreground="{ThemeResource AccentFillColorDefaultBrush}"
                                             Glyph="&#xEA8C;" />
 

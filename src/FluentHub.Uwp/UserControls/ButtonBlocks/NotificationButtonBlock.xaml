@@ -42,8 +42,6 @@
     <Grid>
         <Button
             Padding="16,12"
-            Background="Transparent"
-            BorderThickness="0"
             Click="OnClick"
             Style="{StaticResource ContentBlockButtonStyle}">
             <Grid ColumnSpacing="6">
