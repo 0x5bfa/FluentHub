@@ -38,7 +38,6 @@ namespace FluentHub.Uwp.Views
         private void SubscribeEvents()
         {
             var titleBar = CoreApplication.GetCurrentView().TitleBar;
-            titleBar.LayoutMetricsChanged += OnTitleBarLayoutMetricsChanged;
             SystemNavigationManager.GetForCurrentView().BackRequested += OnAppBackRequested;
             Window.Current.CoreWindow.PointerPressed += OnWindowPointerPressed;
         }
@@ -46,7 +45,6 @@ namespace FluentHub.Uwp.Views
         private void UnsubscribeEvents()
         {
             var titleBar = CoreApplication.GetCurrentView().TitleBar;
-            titleBar.LayoutMetricsChanged -= OnTitleBarLayoutMetricsChanged;
             SystemNavigationManager.GetForCurrentView().BackRequested -= OnAppBackRequested;
             Window.Current.CoreWindow.PointerPressed -= OnWindowPointerPressed;
         }
@@ -104,9 +102,6 @@ namespace FluentHub.Uwp.Views
             UnsubscribeEvents();
             NavigationService.Disconnect();
         }
-
-        private void OnTitleBarLayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
-           => RightPaddingColumn.Width = new GridLength(sender.SystemOverlayRightInset);
 
         private void OnAppBackRequested(object sender, BackRequestedEventArgs e)
         {

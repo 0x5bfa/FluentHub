@@ -103,6 +103,7 @@
                                         <FontIcon
                                             FontFamily="{StaticResource Octions}"
                                             FontSize="16"
+                                            Foreground="{StaticResource Yellow8}"
                                             Glyph="&#xEA96;" />
 
                                         <TextBlock Text="{x:Bind ViewModel.Item.StargazerCount, Mode=OneWay}" />
@@ -130,7 +131,7 @@
                         <StackPanel
                             x:Name="LanguageBlock"
                             Margin="0,0,16,0"
-                            x:Load="{x:Bind ViewModel.Item.PrimaryLanguage.Name, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                            x:Load="{x:Bind ViewModel.Item.PrimaryLanguage, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
                             Orientation="Horizontal"
                             Spacing="6">
 
@@ -138,8 +139,11 @@
                                 x:Name="LanguageColor"
                                 Width="14"
                                 Height="14"
-                                Background="{x:Bind ViewModel.PrimaryLangColor, Mode=OneWay}"
-                                CornerRadius="7" />
+                                CornerRadius="7">
+                                <Border.Background>
+                                    <SolidColorBrush Color="{x:Bind ViewModel.Item.PrimaryLanguage.Color, Mode=OneWay}" />
+                                </Border.Background>
+                            </Border>
 
                             <TextBlock x:Name="Language" Text="{x:Bind ViewModel.Item.PrimaryLanguage.Name, Mode=OneWay}" />
 
@@ -154,9 +158,9 @@
                             <StackPanel
                                 x:Name="LicenseBlock"
                                 Margin="0,0,16,0"
+                                x:Load="{x:Bind ViewModel.Item.LicenseInfo, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
                                 Orientation="Horizontal"
-                                Spacing="6"
-                                Visibility="{x:Bind ViewModel.Item.LicenseInfo.Name, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+                                Spacing="6">
 
                                 <FontIcon
                                     FontFamily="{StaticResource Octions}"
@@ -258,7 +262,7 @@
                                     <FontIcon
                                         FontFamily="{StaticResource Octions}"
                                         FontSize="16"
-                                        Foreground="#e3b341"
+                                        Foreground="{StaticResource Yellow8}"
                                         Glyph="&#xEA96;" />
                                     <TextBlock Text="Unstar" />
                                 </StackPanel>

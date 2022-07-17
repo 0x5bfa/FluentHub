@@ -27,13 +27,13 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Labels
             {
                 case "IssueOpen":
                     ColorBackground = ColorHelpers.HexCodeToSolidColorBrush("#347D38");
-                    ColorForeground = ColorHelpers.HexCodeToSolidColorBrush("#57AB5A");
+                    ColorForeground = ColorHelpers.HexCodeToSolidColorBrush("#3fb950");
                     Glyph = "\uE9EA";
                     Name = "Open";
                     break;
                 case "IssueClosed":
                     ColorBackground = ColorHelpers.HexCodeToSolidColorBrush("#8256D0");
-                    ColorForeground = ColorHelpers.HexCodeToSolidColorBrush("#986EE2");
+                    ColorForeground = ColorHelpers.HexCodeToSolidColorBrush("#bc8cff");
                     Glyph = "\uE9E6";
                     Name = "Closed";
                     break;
@@ -45,7 +45,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Labels
                     break;
                 case "PullClosed":
                     ColorBackground = ColorHelpers.HexCodeToSolidColorBrush("#C93C37");
-                    ColorForeground = ColorHelpers.HexCodeToSolidColorBrush("#E5534B");
+                    ColorForeground = ColorHelpers.HexCodeToSolidColorBrush("#ff7b72");
                     Glyph = "\uE9C1";
                     Name = "Closed";
                     break;
@@ -57,7 +57,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Labels
                     break;
                 case "PullDraft":
                     ColorBackground = ColorHelpers.HexCodeToSolidColorBrush("#768390");
-                    ColorForeground = ColorHelpers.HexCodeToSolidColorBrush("#ADBAC7");
+                    ColorForeground = ColorHelpers.HexCodeToSolidColorBrush("#8b939e");
                     Glyph = "\uE9C3";
                     Name = "Draft";
                     break;

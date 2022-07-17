@@ -32,7 +32,11 @@ namespace FluentHub.Uwp.ViewModels
 
             GoBackCommand = new RelayCommand(GoBack);
             GoForwardCommand = new RelayCommand(GoForward);
+
             GoHomeCommand = new RelayCommand(GoHome);
+            GoNotificationsCommand = new RelayCommand(GoNotifications);
+            GoExplorerCommand = new RelayCommand(GoExplorer);
+            GoProfileCommand = new RelayCommand(GoProfile);
 
             LoadSignedInUserCommand = new AsyncRelayCommand(LoadSignedInUserAsync);
         }
@@ -56,6 +60,18 @@ namespace FluentHub.Uwp.ViewModels
         public static Frame RepositoryContentFrame { get; set; } = new();
         public static Frame PullRequestContentFrame { get; set; } = new();
 
+        private bool _isHome;
+        public bool IsHome { get => _isHome; private set => SetProperty(ref _isHome, value); }
+
+        private bool _isNotifications;
+        public bool IsNotifications { get => _isNotifications; private set => SetProperty(ref _isNotifications, value); }
+
+        private bool _isExplorer;
+        public bool IsExplorer { get => _isExplorer; private set => SetProperty(ref _isExplorer, value); }
+
+        private bool _isProfile;
+        public bool IsProfile { get => _isProfile; private set => SetProperty(ref _isProfile, value); }
+
         public IAsyncRelayCommand LoadSignedInUserCommand { get; }
         #endregion
 
@@ -69,7 +85,11 @@ namespace FluentHub.Uwp.ViewModels
 
         public ICommand GoBackCommand { get; private set; }
         public ICommand GoForwardCommand { get; private set; }
+
         public ICommand GoHomeCommand { get; private set; }
+        public ICommand GoNotificationsCommand { get; private set; }
+        public ICommand GoExplorerCommand { get; private set; }
+        public ICommand GoProfileCommand { get; private set; }
         #endregion
 
         #region Command methods
@@ -137,8 +157,40 @@ namespace FluentHub.Uwp.ViewModels
 
         private void GoHome()
         {
+            InitializeToggles();
+            IsHome = true;
             _navigationService.Navigate<Views.Home.UserHomePage>();
         }
+
+        private void GoNotifications()
+        {
+            InitializeToggles();
+            IsNotifications = true;
+            _navigationService.Navigate<Views.Home.NotificationsPage>();
+        }
+
+        private void GoExplorer()
+        {
+            InitializeToggles();
+            IsExplorer = true;
+            //_navigationService.Navigate<Views.Home.UserHomePage>();
+        }
+
+        private void GoProfile()
+        {
+            InitializeToggles();
+            IsProfile = true;
+            //_navigationService.Navigate<Views.Home.UserHomePage>();
+        }
+
+        private void InitializeToggles()
+        {
+            IsHome = false;
+            IsNotifications = false;
+            IsExplorer = false;
+            IsProfile = false;
+        }
+
         #endregion
 
         private async void OnNewNotificationReceived(object recipient, UserNotificationMessage message)

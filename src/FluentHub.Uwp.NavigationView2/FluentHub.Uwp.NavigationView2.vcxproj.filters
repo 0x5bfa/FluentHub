@@ -1,0 +1,80 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tga;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="dllmain.cpp" />
+    <ClCompile Include="FluentHub.Uwp.NavigationView2.cpp" />
+    <ClCompile Include="pch.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationView.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewAutomationPeer.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewBackRequestedEventArgs.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewDisplayModeChangedEventArgs.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewItem.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewItemAutomationPeer.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewItemBase.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewItemCollapsedEventArgs.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewItemExpandingEventArgs.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewItemHeader.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewItemInvokedEventArgs.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewItemPresenter.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewItemPresenterTemplateSettings.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewItemSeparator.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewItemsFactory.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewPaneClosingEventArgs.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewSelectionChangedEventArgs.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewTemplateSettings.cpp" />
+    <ClCompile Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\TopNavigationViewDataProvider.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="FluentHub.Uwp.NavigationView2.h" />
+    <ClInclude Include="pch.h" />
+    <ClInclude Include="targetver.h" />
+    <ClInclude Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationView.h" />
+    <ClInclude Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewAutomationPeer.h" />
+    <ClInclude Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewBackRequestedEventArgs.h" />
+    <ClInclude Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewDisplayModeChangedEventArgs.h" />
+    <ClInclude Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewHelper.h" />
+    <ClInclude Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewItem.h" />
+    <ClInclude Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewItemAutomationPeer.h" />
+    <ClInclude Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewItemBase.h" />
+    <ClInclude Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewItemCollapsedEventArgs.h" />
+    <ClInclude Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewItemExpandingEventArgs.h" />
+    <ClInclude Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewItemHeader.h" />
+    <ClInclude Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewItemInvokedEventArgs.h" />
+    <ClInclude Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewItemPresenter.h" />
+    <ClInclude Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewItemPresenterTemplateSettings.h" />
+    <ClInclude Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewItemRevokers.h" />
+    <ClInclude Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewItemSeparator.h" />
+    <ClInclude Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewItemsFactory.h" />
+    <ClInclude Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewPaneClosingEventArgs.h" />
+    <ClInclude Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewSelectionChangedEventArgs.h" />
+    <ClInclude Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewTemplateSettings.h" />
+    <ClInclude Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\SplitDataSourceBase.h" />
+    <ClInclude Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\TopNavigationViewDataProvider.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationBackButton.xaml" />
+    <Page Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationBackButton_rs1_themeresources.xaml" />
+    <Page Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationBackButton_rs1_themeresources_v1.xaml" />
+    <Page Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationBackButton_v1.xaml" />
+    <Page Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationView.xaml" />
+    <Page Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationView_rs1_themeresources.xaml" />
+    <Page Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationView_rs1_themeresources_v1.xaml" />
+    <Page Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationView_rs2_themeresources.xaml" />
+    <Page Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationView_rs2_themeresources_v1.xaml" />
+    <Page Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationView_v1.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Midl Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationView.idl" />
+    <Midl Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewItemAutomationPeer.idl" />
+    <Midl Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationViewItemPresenter.idl" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\..\Desktop\microsoft-ui-xaml-8e41f536c0baa22f4a5d23bf20cfa82202c50452\dev\NavigationView\NavigationView.vcxitems" />
+  </ItemGroup>
+</Project>

@@ -9,8 +9,10 @@ namespace FluentHub.Uwp.Dialogs
 {
     public sealed partial class AccountSwitching : ContentDialog
     {
-        public AccountSwitching() => InitializeComponent();
+        public AccountSwitching()
+            => InitializeComponent();
 
-        private void OnCancelButtonClick(object sender, RoutedEventArgs e) => Hide();
+        private void OnCancelButtonClick(object sender, RoutedEventArgs e)
+            => Hide();
     }
 }

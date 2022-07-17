@@ -8,12 +8,13 @@
     xmlns:icore="using:Microsoft.Xaml.Interactions.Core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:triggers="using:WindowsStateTriggers"
     xmlns:uc="using:FluentHub.Uwp.UserControls.TabViewControl"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     KeyTipPlacementMode="Hidden"
     KeyboardAcceleratorPlacementMode="Hidden"
     mc:Ignorable="d">
-
     <Page.KeyboardAccelerators>
         <KeyboardAccelerator Key="T" Modifiers="Control">
             <i:Interaction.Behaviors>
@@ -63,6 +64,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
                     <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
+                    <Thickness x:Key="NavigationViewContentGridBorderThickness">0</Thickness>
                     <CornerRadius x:Key="NavigationViewContentGridCornerRadius">0</CornerRadius>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
@@ -77,208 +79,504 @@
             </TransitionCollection>
         </Grid.ChildrenTransitions>
 
-        <muxc:NavigationView
-            x:Name="NavigationViewControl"
-            Canvas.ZIndex="0"
-            IsBackButtonVisible="Collapsed"
-            IsTitleBarAutoPaddingEnabled="False"
-            OpenPaneLength="270">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="48" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
 
-            <muxc:NavigationView.AutoSuggestBox>
-                <AutoSuggestBox PlaceholderText="Search or jump to..." />
-            </muxc:NavigationView.AutoSuggestBox>
+        <Grid x:Name="ExpandedTitleBarRegion">
+            <Grid
+                x:Name="DragArea"
+                Grid.ColumnSpan="2"
+                Height="40"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Top"
+                Background="Transparent"
+                BorderThickness="0"
+                Loaded="OnDragAreaLoaded" />
 
-            <muxc:NavigationView.PaneHeader>
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <Grid Margin="12,12,0,0" VerticalAlignment="Top">
-                        <StackPanel Orientation="Horizontal">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel
+                    Margin="8,0"
+                    Orientation="Horizontal"
+                    Spacing="8">
+
+                    <StackPanel Margin="8,0,16,0" Orientation="Horizontal">
+
+                        <Image
+                            x:Name="AppFontIcon"
+                            Width="20"
+                            Height="20"
+                            HorizontalAlignment="Left"
+                            VerticalAlignment="Center"
+                            Source="https://user-images.githubusercontent.com/74561130/179355686-65652d3f-693b-4bce-a8ed-f96a168368a8.png" />
+
+                        <TextBlock
+                            Margin="18,0,0,0"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="Fluent" />
+
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            FontWeight="SemiBold"
+                            Style="{StaticResource CaptionTextBlockStyle}"
+                            Text="Hub" />
+
+                    </StackPanel>
+
+                    <Button
+                        x:Name="GoBackButton"
+                        Grid.Column="0"
+                        Width="36"
+                        Height="32"
+                        Padding="0"
+                        VerticalAlignment="Center"
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        Command="{x:Bind ViewModel.GoBackCommand, Mode=OneWay}"
+                        IsEnabled="{Binding SelectedItem.NavigationHistory.CanGoBack, ElementName=TabView, FallbackValue=false}"
+                        Style="{StaticResource ClearButtonStyle}"
+                        ToolTipService.ToolTip="Back">
+                        <FontIcon FontSize="14" Glyph="&#xE72B;" />
+                    </Button>
+
+                    <Button
+                        x:Name="GoForwardButton"
+                        Grid.Column="1"
+                        Width="36"
+                        Height="32"
+                        Padding="0"
+                        VerticalAlignment="Center"
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        Command="{x:Bind ViewModel.GoForwardCommand, Mode=OneWay}"
+                        IsEnabled="{Binding SelectedItem.NavigationHistory.CanGoForward, ElementName=TabView, FallbackValue=false}"
+                        Style="{StaticResource ClearButtonStyle}"
+                        ToolTipService.ToolTip="Forward">
+                        <FontIcon FontSize="14" Glyph="&#xE72A;" />
+                    </Button>
+                </StackPanel>
+
+                <uc:CustomTabView
+                    x:Name="TabView"
+                    Title="{x:Bind TabView.SelectedItem.NavigationHistory.CurrentItem.Header, Mode=OneWay}"
+                    Grid.Column="1"
+                    Height="44"
+                    Margin="0,-8,0,0"
+                    Background="Transparent"
+                    SelectionChanged="OnTabViewSelectionChanged" />
+
+                <StackPanel
+                    Grid.Column="2"
+                    Margin="0,0,180,0"
+                    Orientation="Horizontal"
+                    Spacing="8">
+
+                    <muxc:DropDownButton
+                        x:Name="ToolbarAppSettingsButton"
+                        Width="54"
+                        Height="32"
+                        Padding="4"
+                        Background="Transparent"
+                        BorderBrush="{StaticResource ControlStrokeColorDefault}"
+                        BorderThickness="0"
+                        ToolTipService.ToolTip="More">
+                        <Border
+                            Width="24"
+                            Height="24"
+                            CornerRadius="12">
                             <Image
-                                x:Name="AppFontIcon"
-                                Width="20"
-                                Height="20"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                Source="/Assets/AppTilesAlpha/Square44x44Logo.scale-400.png" />
-                            <TextBlock
-                                Margin="12,0,0,0"
-                                VerticalAlignment="Center"
-                                Style="{StaticResource CaptionTextBlockStyle}"
-                                Text="Fluent" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                FontWeight="SemiBold"
-                                Style="{StaticResource CaptionTextBlockStyle}"
-                                Text="Hub" />
-                        </StackPanel>
-                    </Grid>
-                    <Grid Grid.Row="1" Margin="-30,8,10,4">
-                        <Button
-                            Padding="8"
-                            HorizontalAlignment="Stretch"
-                            HorizontalContentAlignment="Left"
-                            Background="Transparent"
-                            BorderThickness="0">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
-                                <Border HorizontalAlignment="Left" CornerRadius="24">
-                                    <Image
-                                        Width="48"
-                                        Height="48"
-                                        Source="https://avatars.githubusercontent.com/u/62196528" />
-                                </Border>
-                                <StackPanel
-                                    Grid.Column="1"
-                                    Margin="12,0,0,0"
-                                    VerticalAlignment="Center">
-                                    <TextBlock
-                                        FontSize="16"
-                                        Style="{StaticResource SubtitleTextBlockStyle}"
-                                        Text="U+5BFA" />
-                                    <TextBlock
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        Style="{StaticResource BodyTextBlockStyle}"
-                                        Text="@onein528" />
-                                </StackPanel>
-                            </Grid>
-                        </Button>
-                    </Grid>
-                </Grid>
-            </muxc:NavigationView.PaneHeader>
+                                Width="24"
+                                Height="24"
+                                Source="{x:Bind ViewModel.SignedInUser.AvatarUrl, Mode=OneWay}" />
+                        </Border>
 
-            <muxc:NavigationView.MenuItems>
-                <muxc:NavigationViewItem Content="Text" Icon="Target" />
-                <muxc:NavigationViewItem Content="Text" Icon="Target" />
-                <muxc:NavigationViewItem Content="Text" Icon="Target" />
-                <muxc:NavigationViewItem Content="Text" Icon="Target" />
-                <muxc:NavigationViewItem Content="Text" Icon="Target" />
-            </muxc:NavigationView.MenuItems>
-            <Grid Background="{ThemeResource CardBackgroundFillColorSecondary}">
+                        <muxc:DropDownButton.Flyout>
+
+                            <MenuFlyout Placement="BottomEdgeAlignedRight">
+                                <MenuFlyoutItem Text="Continue with your browser" />
+                                <MenuFlyoutSeparator />
+                                <MenuFlyoutSubItem IsEnabled="False" Text="New...">
+                                    <MenuFlyoutItem Text="New repository" />
+                                    <MenuFlyoutItem Text="New organization" />
+                                </MenuFlyoutSubItem>
+                                <MenuFlyoutSeparator />
+                                <MenuFlyoutItem Text="Your profile" />
+                                <MenuFlyoutItem Text="Your repositories" />
+                                <MenuFlyoutItem Text="Your discussions" />
+                                <MenuFlyoutItem Text="Your issues" />
+                                <MenuFlyoutItem Text="Your pull requests" />
+                                <MenuFlyoutItem Text="Your organizations" />
+                                <MenuFlyoutItem Text="Your stars" />
+                                <MenuFlyoutSeparator />
+                                <MenuFlyoutSubItem Text="Switch account">
+                                    <MenuFlyoutItem IsEnabled="False" Text="Not available yet" />
+                                    <MenuFlyoutSeparator />
+                                    <MenuFlyoutItem Text="Account settings" />
+                                </MenuFlyoutSubItem>
+                                <MenuFlyoutItem Text="Settings" />
+                                <MenuFlyoutItem Text="Sign out" />
+                            </MenuFlyout>
+
+                        </muxc:DropDownButton.Flyout>
+
+                    </muxc:DropDownButton>
+                </StackPanel>
+            </Grid>
+
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="72" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
                     <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <StackPanel Margin="4,0,0,0" Spacing="4">
+                    <Button
+                        Width="64"
+                        Height="60"
+                        Padding="0"
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Command="{x:Bind ViewModel.GoHomeCommand, Mode=OneWay}">
+
+                        <Grid
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Background="Transparent">
+
+                            <toolkit:SwitchPresenter
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                TargetType="x:Boolean"
+                                Value="{x:Bind ViewModel.IsHome, Mode=OneWay}">
+
+                                <toolkit:Case Value="False">
+                                    <StackPanel
+                                        Padding="0,12,0,0"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Spacing="4">
+
+                                        <FontIcon
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="20"
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Glyph="&#xE80F;" />
+
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="10"
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="Home" />
+
+                                    </StackPanel>
+                                </toolkit:Case>
+
+                                <toolkit:Case Value="True">
+                                    <StackPanel
+                                        Padding="0,12,0,0"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Background="{ThemeResource NavigationViewItemBackgroundSelected}"
+                                        Spacing="4">
+
+                                        <FontIcon
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="20"
+                                            Foreground="{ThemeResource AccentFillColorDefaultBrush}"
+                                            Glyph="&#xEA8A;" />
+
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="10"
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="Home" />
+
+                                    </StackPanel>
+                                </toolkit:Case>
+
+                            </toolkit:SwitchPresenter>
+
+                        </Grid>
+                    </Button>
+
+                    <Button
+                        Width="64"
+                        Height="60"
+                        Padding="0"
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Command="{x:Bind ViewModel.GoNotificationsCommand, Mode=OneWay}">
+
+                        <Grid
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Background="Transparent">
+
+                            <toolkit:SwitchPresenter
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                TargetType="x:Boolean"
+                                Value="{x:Bind ViewModel.IsNotifications, Mode=OneWay}">
+
+                                <toolkit:Case Value="False">
+                                    <StackPanel
+                                        Padding="0,12,0,0"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Spacing="4">
+
+                                        <FontIcon
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontFamily="{StaticResource Octions}"
+                                            FontSize="20"
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Glyph="&#xE918;" />
+
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="10"
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="Toast" />
+
+                                    </StackPanel>
+                                </toolkit:Case>
+
+                                <toolkit:Case Value="True">
+                                    <StackPanel
+                                        Padding="0,12,0,0"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Background="{ThemeResource NavigationViewItemBackgroundSelected}"
+                                        Spacing="4">
+
+                                        <FontIcon
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontFamily="{StaticResource Octions}"
+                                            FontSize="20"
+                                            Foreground="{ThemeResource AccentFillColorDefaultBrush}"
+                                            Glyph="&#xE91A;" />
+
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="10"
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="Toast" />
+
+                                    </StackPanel>
+                                </toolkit:Case>
+
+                            </toolkit:SwitchPresenter>
+
+                        </Grid>
+                    </Button>
+
+                    <Button
+                        Width="64"
+                        Height="60"
+                        Padding="0"
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Command="{x:Bind ViewModel.GoExplorerCommand, Mode=OneWay}">
+
+                        <Grid
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Background="Transparent">
+
+                            <toolkit:SwitchPresenter
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                TargetType="x:Boolean"
+                                Value="{x:Bind ViewModel.IsExplorer, Mode=OneWay}">
+
+                                <toolkit:Case Value="False">
+                                    <StackPanel
+                                        Padding="0,12,0,0"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Spacing="4">
+
+                                        <FontIcon
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="20"
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Glyph="&#xE805;" />
+
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="10"
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="Explorer" />
+
+                                    </StackPanel>
+                                </toolkit:Case>
+
+                                <toolkit:Case Value="True">
+                                    <StackPanel
+                                        Padding="0,12,0,0"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Background="{ThemeResource NavigationViewItemBackgroundSelected}"
+                                        Spacing="4">
+
+                                        <FontIcon
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="20"
+                                            Foreground="{ThemeResource AccentFillColorDefaultBrush}"
+                                            Glyph="&#xE726;" />
+
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="10"
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="Explorer" />
+
+                                    </StackPanel>
+                                </toolkit:Case>
+
+                            </toolkit:SwitchPresenter>
+
+                        </Grid>
+                    </Button>
+                </StackPanel>
+
+                <StackPanel
+                    Grid.Row="2"
+                    Margin="4,0,0,8"
+                    Spacing="4">
+                    <Button
+                        Width="64"
+                        Height="60"
+                        Padding="0"
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Command="{x:Bind ViewModel.GoProfileCommand, Mode=OneWay}">
+
+                        <Grid
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Background="Transparent">
+
+                            <toolkit:SwitchPresenter
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                TargetType="x:Boolean"
+                                Value="{x:Bind ViewModel.IsProfile, Mode=OneWay}">
+
+                                <toolkit:Case Value="False">
+                                    <StackPanel
+                                        Padding="0,12,0,0"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Spacing="4">
+
+                                        <FontIcon
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="20"
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Glyph="&#xE77B;" />
+
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="10"
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="Profile" />
+
+                                    </StackPanel>
+                                </toolkit:Case>
+
+                                <toolkit:Case Value="True">
+                                    <StackPanel
+                                        Padding="0,12,0,0"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Background="{ThemeResource NavigationViewItemBackgroundSelected}"
+                                        Spacing="4">
+
+                                        <FontIcon
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="20"
+                                            Foreground="{ThemeResource AccentFillColorDefaultBrush}"
+                                            Glyph="&#xEA8C;" />
+
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="10"
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="Profile" />
+
+                                    </StackPanel>
+                                </toolkit:Case>
+
+                            </toolkit:SwitchPresenter>
+
+                        </Grid>
+                    </Button>
+                </StackPanel>
+            </Grid>
+
+            <Grid
+                Grid.Column="1"
+                Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8,0,0,0">
+                <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <Grid Grid.Column="1">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition x:Name="RightPaddingColumn" Width="0" />
-                    </Grid.ColumnDefinitions>
-
-                    <Grid
-                        x:Name="DragArea"
-                        Grid.ColumnSpan="2"
-                        Height="40"
-                        HorizontalAlignment="Stretch"
-                        VerticalAlignment="Top"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Loaded="OnDragAreaLoaded" />
-
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                            <ColumnDefinition Width="Auto" />
-                        </Grid.ColumnDefinitions>
-
-                        <StackPanel
-                            Margin="8,4"
-                            Orientation="Horizontal"
-                            Spacing="8">
-                            <Button
-                                Width="40"
-                                Height="36"
-                                Padding="0"
-                                VerticalAlignment="Center"
-                                Background="Transparent"
-                                BorderBrush="Transparent"
-                                Command="{x:Bind ViewModel.GoHomeCommand, Mode=OneWay}"
-                                Style="{StaticResource ClearButtonStyle}"
-                                ToolTipService.ToolTip="Home">
-                                <FontIcon FontSize="14" Glyph="&#xE80F;" />
-                            </Button>
-
-                            <Button
-                                Grid.Column="0"
-                                Width="36"
-                                Height="32"
-                                Padding="0"
-                                VerticalAlignment="Center"
-                                Background="Transparent"
-                                BorderBrush="Transparent"
-                                Command="{x:Bind ViewModel.GoBackCommand, Mode=OneWay}"
-                                IsEnabled="{Binding SelectedItem.NavigationHistory.CanGoBack, ElementName=TabView, FallbackValue=false}"
-                                Style="{StaticResource ClearButtonStyle}"
-                                ToolTipService.ToolTip="Back">
-                                <FontIcon FontSize="14" Glyph="&#xE72B;" />
-                            </Button>
-
-                            <Button
-                                Grid.Column="1"
-                                Width="36"
-                                Height="32"
-                                Padding="0"
-                                VerticalAlignment="Center"
-                                Background="Transparent"
-                                BorderBrush="Transparent"
-                                Command="{x:Bind ViewModel.GoForwardCommand, Mode=OneWay}"
-                                IsEnabled="{Binding SelectedItem.NavigationHistory.CanGoForward, ElementName=TabView, FallbackValue=false}"
-                                Style="{StaticResource ClearButtonStyle}"
-                                ToolTipService.ToolTip="Forward">
-                                <FontIcon FontSize="14" Glyph="&#xE72A;" />
-                            </Button>
-                        </StackPanel>
-
-                        <uc:CustomTabView
-                            x:Name="TabView"
-                            Title="{x:Bind TabView.SelectedItem.NavigationHistory.CurrentItem.Header, Mode=OneWay}"
-                            Grid.Column="1"
-                            Margin="0,-4,0,4"
-                            SelectionChanged="OnTabViewSelectionChanged" />
-
-                        <StackPanel
-                            Grid.Column="2"
-                            Margin="4"
-                            Orientation="Horizontal"
-                            Spacing="8">
-                            <Button
-                                Width="36"
-                                Height="32"
-                                Padding="0"
-                                Background="Transparent"
-                                BorderThickness="0"
-                                Click="OnYourNotificationButtonClick">
-                                <Grid>
-                                    <FontIcon
-                                        FontFamily="{StaticResource Octions}"
-                                        FontSize="16"
-                                        Glyph="&#xE918;" />
-                                    <muxc:InfoBadge
-                                        Width="8"
-                                        Height="8"
-                                        HorizontalAlignment="Right"
-                                        VerticalAlignment="Top"
-                                        Visibility="{x:Bind ViewModel.UnreadCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
-                                </Grid>
-                            </Button>
-                        </StackPanel>
-                    </Grid>
-
-                </Grid>
-
                 <muxc:InfoBar
                     Title="{x:Bind ViewModel.LastNotification.Title}"
-                    Grid.Row="2"
-                    Grid.Column="1"
+                    Grid.Column="0"
                     VerticalAlignment="Top"
                     x:DefaultBindMode="OneWay"
                     IsClosable="True"
@@ -286,9 +584,8 @@
                     Message="{x:Bind ViewModel.LastNotification.Message}"
                     Severity="{x:Bind UserNotificationToInfoBarSeverity(ViewModel.LastNotification.Type)}" />
 
-                <Border x:Name="RootFrameBorder" Grid.Row="3" />
+                <Border x:Name="RootFrameBorder" Grid.Row="1" />
             </Grid>
-        </muxc:NavigationView>
-
+        </Grid>
     </Grid>
 </Page>
