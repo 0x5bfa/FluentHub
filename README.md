@@ -6,7 +6,7 @@
   FluentHub Alpha
 </h1>
 <p align="center">
-  A stylish yet wonderfully powerful GitHub Oauth client made with Fluent Design and WinUI
+  A stylish yet wonderfully powerful GitHub client
 </p>
 
 <p align="center">
