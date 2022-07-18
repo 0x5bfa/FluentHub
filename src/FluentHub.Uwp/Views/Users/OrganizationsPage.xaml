@@ -22,7 +22,7 @@
     </Page.Resources>
 
     <ScrollViewer>
-        <Grid Margin="12">
+        <Grid Margin="32,0,32,32">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -31,7 +31,7 @@
 
             <Grid x:Name="TitleGrid" x:Load="{x:Bind ViewModel.DisplayTitle, Mode=OneWay}">
                 <TextBlock
-                    Margin="12,8"
+                    Margin="12,24,12,8"
                     Style="{StaticResource TitleTextBlockStyle}"
                     Text="Your Organizations" />
             </Grid>
@@ -141,7 +141,7 @@
 
             <muxc:ItemsRepeater Grid.Row="2" ItemsSource="{x:Bind ViewModel.Organizations}">
                 <muxc:ItemsRepeater.Layout>
-                    <muxc:StackLayout Orientation="Vertical" Spacing="4" />
+                    <muxc:StackLayout Orientation="Vertical" Spacing="6" />
                 </muxc:ItemsRepeater.Layout>
                 <DataTemplate x:DataType="bbvm:OrgButtonBlockViewModel">
                     <block:OrgButtonBlock ViewModel="{x:Bind}" />

@@ -23,7 +23,7 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid>
+    <Grid Margin="32,0,32,32">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -31,7 +31,7 @@
         </Grid.RowDefinitions>
 
         <Grid
-            Margin="12,12,12,6"
+            Margin="0,0,0,6"
             Padding="12"
             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
@@ -43,7 +43,7 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <StackPanel Orientation="Horizontal" Spacing="8">
+            <StackPanel Orientation="Horizontal" Spacing="4">
                 <FontIcon
                     FontFamily="{StaticResource Octions}"
                     FontSize="16"
@@ -56,6 +56,7 @@
 
             <ScrollViewer
                 Grid.Row="1"
+                Padding="4,0"
                 HorizontalScrollBarVisibility="Hidden"
                 VerticalScrollBarVisibility="Disabled"
                 VerticalScrollMode="Disabled">
@@ -76,14 +77,14 @@
 
         <blocks:UserContributionGraph
             Grid.Row="1"
-            Margin="12,6"
+            Margin="0,6"
             LoginName="{x:Bind ViewModel.LoginName, Mode=OneWay}"
             Visibility="{x:Bind ViewModel.RefreshRepositoryCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
 
         <blocks:ReadmeContentBlock
             x:Name="UserSpecialReadmeBlock"
             Grid.Row="2"
-            Margin="12,6"
+            Margin="0,6"
             VerticalAlignment="Top"
             ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}"
             Visibility="{x:Bind ViewModel.RefreshRepositoryCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />

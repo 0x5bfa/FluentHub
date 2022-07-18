@@ -7,6 +7,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     d:DesignHeight="300"
     d:DesignWidth="400"
+    DataContext="{x:Bind ViewModel, Mode=OneWay}"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -27,39 +28,35 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid>
-        <Button
-            Padding="16,12"
-            Background="Transparent"
-            BorderThickness="0"
-            Click="OrganizationOverviewButton_Click"
-            Style="{StaticResource ContentBlockButtonStyle}">
-            <Grid ColumnSpacing="12">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <Border
-                    Width="32"
-                    Height="32"
-                    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
-                    CornerRadius="6">
-                    <Image Source="{x:Bind ViewModel.OrgItem.AvatarUrl, Mode=OneWay}" />
-                </Border>
-                <Grid Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.OrgItem.Name, Mode=OneWay}" />
-                    <TextBlock
-                        Grid.Row="1"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Style="{StaticResource BodyTextBlockStyle}"
-                        Text="{x:Bind ViewModel.OrgItem.Description, Mode=OneWay}" />
-                </Grid>
+    <Button
+        Padding="16,12"
+        Click="OrganizationOverviewButton_Click"
+        Style="{StaticResource ContentBlockButtonStyle}">
+        <Grid ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Border
+                Width="32"
+                Height="32"
+                Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                CornerRadius="6">
+                <Image Source="{x:Bind ViewModel.OrgItem.AvatarUrl, Mode=OneWay}" />
+            </Border>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.OrgItem.Name, Mode=OneWay}" />
+                <TextBlock
+                    Grid.Row="1"
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Style="{StaticResource BodyTextBlockStyle}"
+                    Text="{x:Bind ViewModel.OrgItem.Description, Mode=OneWay}" />
             </Grid>
-        </Button>
-    </Grid>
+        </Grid>
+    </Button>
 </UserControl>

@@ -15,6 +15,7 @@
     KeyTipPlacementMode="Hidden"
     KeyboardAcceleratorPlacementMode="Hidden"
     mc:Ignorable="d">
+
     <Page.KeyboardAccelerators>
         <KeyboardAccelerator Key="T" Modifiers="Control">
             <i:Interaction.Behaviors>
@@ -95,41 +96,42 @@
                 BorderThickness="0"
                 Loaded="OnDragAreaLoaded" />
 
-            <Grid>
+            <Grid ColumnSpacing="8">
                 <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
+                <StackPanel Margin="18,0,8,0" Orientation="Horizontal">
+
+                    <Image
+                        x:Name="AppFontIcon"
+                        Width="20"
+                        Height="20"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Center"
+                        Source="/Assets/AppTilesAlpha/StoreLogo.scale-400.png" />
+
+                    <TextBlock
+                        Margin="12,0,0,0"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="Fluent" />
+
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        FontWeight="SemiBold"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="Hub" />
+
+                </StackPanel>
+
                 <StackPanel
-                    Margin="8,0"
+                    Grid.Column="1"
                     Orientation="Horizontal"
                     Spacing="8">
-
-                    <StackPanel Margin="8,0,16,0" Orientation="Horizontal">
-
-                        <Image
-                            x:Name="AppFontIcon"
-                            Width="20"
-                            Height="20"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center"
-                            Source="https://user-images.githubusercontent.com/74561130/179355686-65652d3f-693b-4bce-a8ed-f96a168368a8.png" />
-
-                        <TextBlock
-                            Margin="18,0,0,0"
-                            VerticalAlignment="Center"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="Fluent" />
-
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            FontWeight="SemiBold"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="Hub" />
-
-                    </StackPanel>
 
                     <Button
                         x:Name="GoBackButton"
@@ -167,27 +169,26 @@
                 <uc:CustomTabView
                     x:Name="TabView"
                     Title="{x:Bind TabView.SelectedItem.NavigationHistory.CurrentItem.Header, Mode=OneWay}"
-                    Grid.Column="1"
+                    Grid.Column="2"
                     Height="44"
                     Margin="0,-8,0,0"
                     Background="Transparent"
                     SelectionChanged="OnTabViewSelectionChanged" />
 
                 <StackPanel
-                    Grid.Column="2"
-                    Margin="0,0,180,0"
-                    Orientation="Horizontal"
-                    Spacing="8">
+                    Grid.Column="3"
+                    Margin="0,0,184,0"
+                    Orientation="Horizontal">
 
-                    <Button
+                    <muxc:DropDownButton
                         x:Name="ToolbarAppSettingsButton"
-                        Width="28"
-                        Height="28"
-                        Padding="0"
+                        Width="58"
+                        Height="36"
+                        Padding="4"
                         Background="Transparent"
                         BorderBrush="{StaticResource ControlStrokeColorDefault}"
                         BorderThickness="0"
-                        CornerRadius="16"
+                        CornerRadius="17"
                         ToolTipService.ToolTip="More">
                         <Border
                             Width="28"
@@ -199,36 +200,68 @@
                                 Source="{x:Bind ViewModel.SignedInUser.AvatarUrl, Mode=OneWay}" />
                         </Border>
 
-                        <Button.Flyout>
-
+                        <muxc:DropDownButton.Flyout>
                             <MenuFlyout Placement="BottomEdgeAlignedRight">
-                                <MenuFlyoutItem Text="Continue with your browser" />
-                                <MenuFlyoutSeparator />
                                 <MenuFlyoutSubItem IsEnabled="False" Text="New...">
-                                    <MenuFlyoutItem Text="New repository" />
-                                    <MenuFlyoutItem Text="New organization" />
+                                    <MenuFlyoutItem
+                                        Click="OnMenuFlyoutItemClick"
+                                        Tag="NewRepo"
+                                        Text="New repository" />
+                                    <MenuFlyoutItem
+                                        Click="OnMenuFlyoutItemClick"
+                                        Tag="NewOrganization"
+                                        Text="New organization" />
                                 </MenuFlyoutSubItem>
                                 <MenuFlyoutSeparator />
-                                <MenuFlyoutItem Text="Your profile" />
-                                <MenuFlyoutItem Text="Your repositories" />
-                                <MenuFlyoutItem Text="Your discussions" />
-                                <MenuFlyoutItem Text="Your issues" />
-                                <MenuFlyoutItem Text="Your pull requests" />
-                                <MenuFlyoutItem Text="Your organizations" />
-                                <MenuFlyoutItem Text="Your stars" />
+                                <MenuFlyoutItem
+                                    Click="OnMenuFlyoutItemClick"
+                                    Tag="Profile"
+                                    Text="Your profile" />
+                                <MenuFlyoutItem
+                                    Click="OnMenuFlyoutItemClick"
+                                    Tag="Repositories"
+                                    Text="Your repositories" />
+                                <MenuFlyoutItem
+                                    Click="OnMenuFlyoutItemClick"
+                                    Tag="Discussions"
+                                    Text="Your discussions" />
+                                <MenuFlyoutItem
+                                    Click="OnMenuFlyoutItemClick"
+                                    Tag="Issues"
+                                    Text="Your issues" />
+                                <MenuFlyoutItem
+                                    Click="OnMenuFlyoutItemClick"
+                                    Tag="PullRequests"
+                                    Text="Your pull requests" />
+                                <MenuFlyoutItem
+                                    Click="OnMenuFlyoutItemClick"
+                                    Tag="Organizations"
+                                    Text="Your organizations" />
+                                <MenuFlyoutItem
+                                    Click="OnMenuFlyoutItemClick"
+                                    Tag="Stars"
+                                    Text="Your stars" />
                                 <MenuFlyoutSeparator />
                                 <MenuFlyoutSubItem Text="Switch account">
                                     <MenuFlyoutItem IsEnabled="False" Text="Not available yet" />
                                     <MenuFlyoutSeparator />
-                                    <MenuFlyoutItem Text="Account settings" />
+                                    <MenuFlyoutItem
+                                        Click="OnMenuFlyoutItemClick"
+                                        Tag="AccountSettings"
+                                        Text="Account settings" />
                                 </MenuFlyoutSubItem>
-                                <MenuFlyoutItem Text="Settings" />
-                                <MenuFlyoutItem Text="Sign out" />
+                                <MenuFlyoutItem
+                                    Click="OnMenuFlyoutItemClick"
+                                    Tag="Settings"
+                                    Text="Settings" />
+                                <MenuFlyoutItem
+                                    Click="OnMenuFlyoutItemClick"
+                                    Tag="SignOut"
+                                    Text="Sign out" />
                             </MenuFlyout>
+                        </muxc:DropDownButton.Flyout>
 
-                        </Button.Flyout>
-
-                    </Button>
+                    </muxc:DropDownButton>
                 </StackPanel>
             </Grid>
 
@@ -722,7 +755,7 @@
                 Grid.Column="1"
                 Background="{ThemeResource CardBackgroundFillColorSecondary}"
                 BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                BorderThickness="1"
+                BorderThickness="1,1,0,0"
                 CornerRadius="8,0,0,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
@@ -734,10 +767,15 @@
                     Grid.Column="0"
                     VerticalAlignment="Top"
                     x:DefaultBindMode="OneWay"
+                    CornerRadius="8,0,0,0"
                     IsClosable="True"
                     IsOpen="{x:Bind ViewModel.LastNotification, Converter={StaticResource ObjectToBoolConverter}}"
                     Message="{x:Bind ViewModel.LastNotification.Message}"
-                    Severity="{x:Bind UserNotificationToInfoBarSeverity(ViewModel.LastNotification.Type)}" />
+                    Severity="{x:Bind UserNotificationToInfoBarSeverity(ViewModel.LastNotification.Type)}">
+                    <muxc:InfoBar.Resources>
+                        <Thickness x:Key="InfoBarBorderThickness">0,0,0,1</Thickness>
+                    </muxc:InfoBar.Resources>
+                </muxc:InfoBar>
 
                 <Border x:Name="RootFrameBorder" Grid.Row="1" />
             </Grid>

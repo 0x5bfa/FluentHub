@@ -27,79 +27,75 @@
         </Style>
     </UserControl.Resources>
 
-    <Grid>
-        <Button
-            Padding="16,12"
-            Background="Transparent"
-            BorderThickness="0"
-            Click="Button_Click"
-            Style="{StaticResource ContentBlockButtonStyle}">
+    <Button
+        Padding="16,12"
+        Click="Button_Click"
+        Style="{StaticResource ContentBlockButtonStyle}">
 
-            <Grid ColumnSpacing="6">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+        <Grid ColumnSpacing="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-                <TextBlock
-                    Margin="0,0,8,0"
-                    VerticalAlignment="Center"
-                    FontSize="18"
-                    Text="💡" />
+            <TextBlock
+                Margin="0,0,8,0"
+                VerticalAlignment="Center"
+                FontSize="18"
+                Text="💡" />
 
-                <Grid Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
 
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="{x:Bind ViewModel.Item.Repository.Owner.Login, Mode=OneWay}" />
-
-                        <TextBlock
-                            Margin="4,0"
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="/" />
-
-                        <TextBlock
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="{x:Bind ViewModel.Item.Repository.Name, Mode=OneWay}" />
-
-                        <TextBlock
-                            Margin="4,0,0,0"
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="#" />
-
-                        <TextBlock
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="{x:Bind ViewModel.Item.Number, Mode=OneWay}" />
-                    </StackPanel>
-
+                <StackPanel Orientation="Horizontal">
                     <TextBlock
-                        x:Name="UpdatedAtHumanized"
-                        HorizontalAlignment="Right"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="{x:Bind ViewModel.Item.UpdatedAt, Mode=OneWay}" />
+                        Text="{x:Bind ViewModel.Item.Repository.Owner.Login, Mode=OneWay}" />
 
                     <TextBlock
-                        x:Name="TitleTextBlock"
-                        Grid.Row="1"
-                        Margin="0,4"
-                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="{x:Bind ViewModel.Item.Title, Mode=OneWay}" />
+                        Margin="4,0"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="/" />
 
-                </Grid>
+                    <TextBlock
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="{x:Bind ViewModel.Item.Repository.Name, Mode=OneWay}" />
+
+                    <TextBlock
+                        Margin="4,0,0,0"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="#" />
+
+                    <TextBlock
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="{x:Bind ViewModel.Item.Number, Mode=OneWay}" />
+                </StackPanel>
+
+                <TextBlock
+                    x:Name="UpdatedAtHumanized"
+                    HorizontalAlignment="Right"
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="{x:Bind ViewModel.Item.UpdatedAt, Mode=OneWay}" />
+
+                <TextBlock
+                    x:Name="TitleTextBlock"
+                    Grid.Row="1"
+                    Margin="0,4"
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                    Text="{x:Bind ViewModel.Item.Title, Mode=OneWay}" />
+
             </Grid>
-        </Button>
-    </Grid>
+        </Grid>
+    </Button>
 </UserControl>

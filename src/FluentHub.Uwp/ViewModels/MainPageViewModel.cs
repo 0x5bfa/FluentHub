@@ -178,6 +178,7 @@ namespace FluentHub.Uwp.ViewModels
             IsNotifications = true;
             _navigationService.Navigate<Views.Home.NotificationsPage>();
         }
+
         private void GoActivities()
         {
             InitializeToggles();
@@ -203,7 +204,7 @@ namespace FluentHub.Uwp.ViewModels
         {
             InitializeToggles();
             IsProfile = true;
-            _navigationService.Navigate<Views.Users.ProfilePage>();
+            _navigationService.Navigate<Views.Users.ProfilePage>($"{App.DefaultGitHubDomain}/{App.Settings.SignedInUserName}");
         }
 
         private void InitializeToggles()
@@ -215,7 +216,6 @@ namespace FluentHub.Uwp.ViewModels
             IsMarketplace = false;
             IsProfile = false;
         }
-
         #endregion
 
         private async void OnNewNotificationReceived(object recipient, UserNotificationMessage message)

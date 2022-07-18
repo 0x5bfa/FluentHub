@@ -12,6 +12,7 @@
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
+    DataContext="{x:Bind ViewModel, Mode=OneWay}"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -39,149 +40,147 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid>
-        <Button
-            Padding="16,12"
-            Click="OnClick"
-            Style="{StaticResource ContentBlockButtonStyle}">
-            <Grid ColumnSpacing="6">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+    <Button
+        Padding="16,12"
+        Click="OnClick"
+        Style="{StaticResource ContentBlockButtonStyle}">
+        <Grid ColumnSpacing="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-                <Rectangle
-                    Grid.ColumnSpan="2"
-                    Margin="-16,-12"
-                    Fill="#539bf5"
-                    Opacity="0.1"
-                    Visibility="{x:Bind ViewModel.Item.Unread, Mode=OneWay}" />
+            <Rectangle
+                Grid.ColumnSpan="2"
+                Margin="-16,-12"
+                Fill="#539bf5"
+                Opacity="0.1"
+                Visibility="{x:Bind ViewModel.Item.Unread, Mode=OneWay}" />
 
-                <Grid>
-                    <toolkit:SwitchPresenter TargetType="modelsV3:NotificationSubjectType" Value="{x:Bind ViewModel.Item.Subject.Type, Mode=OneWay}">
+            <Grid>
+                <toolkit:SwitchPresenter TargetType="modelsV3:NotificationSubjectType" Value="{x:Bind ViewModel.Item.Subject.Type, Mode=OneWay}">
 
-                        <toolkit:Case Value="IssueClosedAsCompleted">
-                            <FontIcon
-                                Margin="0,0,8,0"
-                                FontFamily="{StaticResource Octions}"
-                                Foreground="#8957e5"
-                                Glyph="&#xE9E6;" />
-                        </toolkit:Case>
+                    <toolkit:Case Value="IssueClosedAsCompleted">
+                        <FontIcon
+                            Margin="0,0,8,0"
+                            FontFamily="{StaticResource Octions}"
+                            Foreground="#8957e5"
+                            Glyph="&#xE9E6;" />
+                    </toolkit:Case>
 
-                        <toolkit:Case Value="IssueOpen">
-                            <FontIcon
-                                Margin="0,0,8,0"
-                                FontFamily="{StaticResource Octions}"
-                                Foreground="#3fb950"
-                                Glyph="&#xE9EA;" />
-                        </toolkit:Case>
+                    <toolkit:Case Value="IssueOpen">
+                        <FontIcon
+                            Margin="0,0,8,0"
+                            FontFamily="{StaticResource Octions}"
+                            Foreground="#3fb950"
+                            Glyph="&#xE9EA;" />
+                    </toolkit:Case>
 
-                        <toolkit:Case Value="PullRequestClosed">
-                            <FontIcon
-                                Margin="0,0,8,0"
-                                FontFamily="{StaticResource Octions}"
-                                Foreground="#f85149"
-                                Glyph="&#xE9C1;" />
-                        </toolkit:Case>
+                    <toolkit:Case Value="PullRequestClosed">
+                        <FontIcon
+                            Margin="0,0,8,0"
+                            FontFamily="{StaticResource Octions}"
+                            Foreground="#f85149"
+                            Glyph="&#xE9C1;" />
+                    </toolkit:Case>
 
-                        <toolkit:Case Value="PullRequestMerged">
-                            <FontIcon
-                                Margin="0,0,8,0"
-                                FontFamily="{StaticResource Octions}"
-                                Foreground="#8957e5"
-                                Glyph="&#xE9BD;" />
-                        </toolkit:Case>
+                    <toolkit:Case Value="PullRequestMerged">
+                        <FontIcon
+                            Margin="0,0,8,0"
+                            FontFamily="{StaticResource Octions}"
+                            Foreground="#8957e5"
+                            Glyph="&#xE9BD;" />
+                    </toolkit:Case>
 
-                        <toolkit:Case Value="PullRequestDraft">
-                            <FontIcon
-                                Margin="0,0,8,0"
-                                FontFamily="{StaticResource Octions}"
-                                Foreground="#8b949e"
-                                Glyph="&#xE9C3;" />
-                        </toolkit:Case>
+                    <toolkit:Case Value="PullRequestDraft">
+                        <FontIcon
+                            Margin="0,0,8,0"
+                            FontFamily="{StaticResource Octions}"
+                            Foreground="#8b949e"
+                            Glyph="&#xE9C3;" />
+                    </toolkit:Case>
 
-                        <toolkit:Case Value="PullRequestOpen">
-                            <FontIcon
-                                Margin="0,0,8,0"
-                                FontFamily="{StaticResource Octions}"
-                                Foreground="#3fb950"
-                                Glyph="&#xE9BF;" />
-                        </toolkit:Case>
+                    <toolkit:Case Value="PullRequestOpen">
+                        <FontIcon
+                            Margin="0,0,8,0"
+                            FontFamily="{StaticResource Octions}"
+                            Foreground="#3fb950"
+                            Glyph="&#xE9BF;" />
+                    </toolkit:Case>
 
-                        <toolkit:Case Value="Discussion">
-                            <FontIcon
-                                Margin="0,0,8,0"
-                                FontFamily="{StaticResource Octions}"
-                                Foreground="#8b949e"
-                                Glyph="&#xE95D;" />
-                        </toolkit:Case>
+                    <toolkit:Case Value="Discussion">
+                        <FontIcon
+                            Margin="0,0,8,0"
+                            FontFamily="{StaticResource Octions}"
+                            Foreground="#8b949e"
+                            Glyph="&#xE95D;" />
+                    </toolkit:Case>
 
-                        <toolkit:Case Value="Commit">
-                            <FontIcon
-                                Margin="0,0,8,0"
-                                FontFamily="{StaticResource Octions}"
-                                Foreground="#8b949e"
-                                Glyph="&#xE9B9;" />
-                        </toolkit:Case>
+                    <toolkit:Case Value="Commit">
+                        <FontIcon
+                            Margin="0,0,8,0"
+                            FontFamily="{StaticResource Octions}"
+                            Foreground="#8b949e"
+                            Glyph="&#xE9B9;" />
+                    </toolkit:Case>
 
-                    </toolkit:SwitchPresenter>
-                </Grid>
+                </toolkit:SwitchPresenter>
+            </Grid>
 
-                <Grid Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
 
-                    <StackPanel Orientation="Horizontal" Spacing="4">
-                        <TextBlock
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="{x:Bind ViewModel.Item.Repository.Owner.Login, Mode=OneWay}" />
-
-                        <TextBlock
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="/" />
-
-                        <TextBlock
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="{x:Bind ViewModel.Item.Repository.Name, Mode=OneWay}" />
-
-                        <TextBlock
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="#"
-                            Visibility="{x:Bind ViewModel.Item.Subject.Number, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
-
-                        <TextBlock
-                            Margin="-4,0,0,0"
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="{x:Bind ViewModel.Item.Subject.Number, Mode=OneWay}"
-                            Visibility="{x:Bind ViewModel.Item.Subject.Number, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
-
-                    </StackPanel>
-
+                <StackPanel Orientation="Horizontal" Spacing="4">
                     <TextBlock
-                        x:Name="UpdatedAtHumanizedTextBlock"
-                        HorizontalAlignment="Right"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="{x:Bind ViewModel.Item.UpdatedAt, Mode=OneWay}" />
+                        Text="{x:Bind ViewModel.Item.Repository.Owner.Login, Mode=OneWay}" />
 
                     <TextBlock
-                        x:Name="TitleTextBlock"
-                        Grid.Row="2"
-                        Margin="0,4"
-                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="{x:Bind ViewModel.Item.Subject.Title, Mode=OneWay}" />
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="/" />
 
-                </Grid>
+                    <TextBlock
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="{x:Bind ViewModel.Item.Repository.Name, Mode=OneWay}" />
+
+                    <TextBlock
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="#"
+                        Visibility="{x:Bind ViewModel.Item.Subject.Number, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
+
+                    <TextBlock
+                        Margin="-4,0,0,0"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="{x:Bind ViewModel.Item.Subject.Number, Mode=OneWay}"
+                        Visibility="{x:Bind ViewModel.Item.Subject.Number, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
+
+                </StackPanel>
+
+                <TextBlock
+                    x:Name="UpdatedAtHumanizedTextBlock"
+                    HorizontalAlignment="Right"
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="{x:Bind ViewModel.Item.UpdatedAt, Mode=OneWay}" />
+
+                <TextBlock
+                    x:Name="TitleTextBlock"
+                    Grid.Row="2"
+                    Margin="0,4"
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                    Text="{x:Bind ViewModel.Item.Subject.Title, Mode=OneWay}" />
 
             </Grid>
-        </Button>
-    </Grid>
+
+        </Grid>
+    </Button>
 </UserControl>

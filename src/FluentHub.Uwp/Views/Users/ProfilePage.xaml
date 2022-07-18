@@ -24,14 +24,14 @@
     </Page.Resources>
 
     <ScrollViewer>
-        <Grid Margin="12,12,12,0">
+        <Grid RowSpacing="24">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
 
-            <Grid Margin="18,18,18,12">
+            <Grid Margin="48,48,48,0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -55,19 +55,22 @@
                         Grid.Column="1"
                         Margin="12,0,0,0"
                         VerticalAlignment="Center">
+
                         <TextBlock
                             VerticalAlignment="Center"
                             FontWeight="SemiBold"
                             Style="{StaticResource SubtitleTextBlockStyle}"
-                            Text="{x:Bind ViewModel.UserItem.Login, Mode=OneWay}"
-                            Visibility="{x:Bind ViewModel.UserItem.Login, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
+                            Text="{x:Bind ViewModel.UserItem.Name, Mode=OneWay}"
+                            Visibility="{x:Bind ViewModel.UserItem.Name, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
+
                         <TextBlock
                             VerticalAlignment="Center"
                             FontSize="13"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{ThemeResource CaptionTextBlockStyle}"
-                            Text="{x:Bind ViewModel.UserItem.Name, Mode=OneWay}"
-                            Visibility="{x:Bind ViewModel.UserItem.Name, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
+                            Text="{x:Bind ViewModel.UserItem.Login, Mode=OneWay}"
+                            Visibility="{x:Bind ViewModel.UserItem.Login, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
+
                         <TextBlock
                             x:Name="UserBioTextBlock"
                             MaxLines="2"
@@ -79,6 +82,7 @@
                                 <ToolTip Content="{x:Bind UserBioTextBlock.Text, Mode=OneWay}" IsEnabled="{x:Bind UserBioTextBlock.IsTextTrimmed, Mode=OneWay}" />
                             </ToolTipService.ToolTip>
                         </TextBlock>
+
                     </StackPanel>
 
                     <toolkit:SwitchPresenter
@@ -277,6 +281,7 @@
 
             <Grid
                 Grid.Row="1"
+                Margin="16,0"
                 Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                 BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                 BorderThickness="1"
@@ -315,6 +320,7 @@
                         <muxc:NavigationViewItem
                             x:Name="UserNavViewItemProjects"
                             Content="Projects"
+                            IsEnabled="False"
                             Tag="Projects">
                             <muxc:NavigationViewItem.Icon>
                                 <FontIcon
@@ -326,6 +332,7 @@
                         <muxc:NavigationViewItem
                             x:Name="UserNavViewItemPackages"
                             Content="Packages"
+                            IsEnabled="False"
                             Tag="Packages">
                             <muxc:NavigationViewItem.Icon>
                                 <FontIcon
@@ -371,10 +378,7 @@
                 </muxc:NavigationView>
             </Grid>
 
-            <Frame
-                x:Name="UserNavViewContent"
-                Grid.Row="2"
-                Margin="-12,0" />
+            <Frame x:Name="UserNavViewContent" Grid.Row="2" />
 
         </Grid>
     </ScrollViewer>

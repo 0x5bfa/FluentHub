@@ -26,15 +26,17 @@
                     ViewerIsFollowing = x.ViewerIsFollowing,
                     WebsiteUrl = x.WebsiteUrl,
 
-                    Followers = new()
+                    Followers = x.Followers(null, null, null, null).Select(followers => new FollowerConnection
                     {
-                        TotalCount = x.Followers(null, null, null, null).TotalCount,
-                    },
+                        TotalCount = followers.TotalCount,
+                    })
+                    .Single(),
 
-                    Following = new()
+                    Following = x.Following(null, null, null, null).Select(following => new FollowingConnection
                     {
-                        TotalCount = x.Followers(null, null, null, null).TotalCount,
-                    },
+                        TotalCount = following.TotalCount,
+                    })
+                    .Single(),
                 })
                 .Compile();
             #endregion
