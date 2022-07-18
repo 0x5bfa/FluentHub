@@ -366,7 +366,7 @@
                                             FontSize="10"
                                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                             Style="{StaticResource CaptionTextBlockStyle}"
-                                            Text="Toast" />
+                                            Text="Notifications" />
 
                                     </StackPanel>
                                 </toolkit:Case>
@@ -393,7 +393,161 @@
                                             FontSize="10"
                                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                             Style="{StaticResource CaptionTextBlockStyle}"
-                                            Text="Toast" />
+                                            Text="Notifications" />
+
+                                    </StackPanel>
+                                </toolkit:Case>
+
+                            </toolkit:SwitchPresenter>
+
+                        </Grid>
+                    </Button>
+
+                    <Button
+                        Width="64"
+                        Height="60"
+                        Padding="0"
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Command="{x:Bind ViewModel.GoActivitiesCommand, Mode=OneWay}">
+
+                        <Grid
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Background="Transparent">
+
+                            <toolkit:SwitchPresenter
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                TargetType="x:Boolean"
+                                Value="{x:Bind ViewModel.IsActivities, Mode=OneWay}">
+
+                                <toolkit:Case Value="False">
+                                    <StackPanel
+                                        Padding="0,12,0,0"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Spacing="4">
+
+                                        <FontIcon
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="22"
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Glyph="&#xECAD;" />
+
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="10"
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="Activity" />
+
+                                    </StackPanel>
+                                </toolkit:Case>
+
+                                <toolkit:Case Value="True">
+                                    <StackPanel
+                                        Padding="0,12,0,0"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Background="{ThemeResource NavigationViewItemBackgroundSelected}"
+                                        Spacing="4">
+
+                                        <FontIcon
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="22"
+                                            Foreground="{ThemeResource AccentFillColorDefaultBrush}"
+                                            Glyph="&#xECAD;" />
+
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="10"
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="Activity" />
+
+                                    </StackPanel>
+                                </toolkit:Case>
+
+                            </toolkit:SwitchPresenter>
+
+                        </Grid>
+                    </Button>
+
+                    <Button
+                        Width="64"
+                        Height="60"
+                        Padding="0"
+                        HorizontalContentAlignment="Stretch"
+                        VerticalContentAlignment="Stretch"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Command="{x:Bind ViewModel.GoMarketplaceCommand, Mode=OneWay}">
+
+                        <Grid
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Background="Transparent">
+
+                            <toolkit:SwitchPresenter
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                TargetType="x:Boolean"
+                                Value="{x:Bind ViewModel.IsMarketplace, Mode=OneWay}">
+
+                                <toolkit:Case Value="False">
+                                    <StackPanel
+                                        Padding="0,12,0,0"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Spacing="4">
+
+                                        <FontIcon
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="22"
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Glyph="&#xE14D;" />
+
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="10"
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="Marketplace" />
+
+                                    </StackPanel>
+                                </toolkit:Case>
+
+                                <toolkit:Case Value="True">
+                                    <StackPanel
+                                        Padding="0,12,0,0"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        Background="{ThemeResource NavigationViewItemBackgroundSelected}"
+                                        Spacing="4">
+
+                                        <FontIcon
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="22"
+                                            Foreground="{ThemeResource AccentFillColorDefaultBrush}"
+                                            Glyph="&#xE14D;" />
+
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="Center"
+                                            FontSize="10"
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="Marketplace" />
 
                                     </StackPanel>
                                 </toolkit:Case>
@@ -444,7 +598,7 @@
                                             FontSize="10"
                                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                             Style="{StaticResource CaptionTextBlockStyle}"
-                                            Text="Explorer" />
+                                            Text="Explore" />
 
                                     </StackPanel>
                                 </toolkit:Case>
@@ -470,7 +624,7 @@
                                             FontSize="10"
                                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                             Style="{StaticResource CaptionTextBlockStyle}"
-                                            Text="Explorer" />
+                                            Text="Explore" />
 
                                     </StackPanel>
                                 </toolkit:Case>

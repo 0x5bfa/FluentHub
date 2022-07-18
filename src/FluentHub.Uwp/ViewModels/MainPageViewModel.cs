@@ -35,7 +35,9 @@ namespace FluentHub.Uwp.ViewModels
 
             GoHomeCommand = new RelayCommand(GoHome);
             GoNotificationsCommand = new RelayCommand(GoNotifications);
+            GoActivitiesCommand = new RelayCommand(GoActivities);
             GoExplorerCommand = new RelayCommand(GoExplorer);
+            GoMarketplaceCommand = new RelayCommand(GoMarketplace);
             GoProfileCommand = new RelayCommand(GoProfile);
 
             LoadSignedInUserCommand = new AsyncRelayCommand(LoadSignedInUserAsync);
@@ -66,8 +68,14 @@ namespace FluentHub.Uwp.ViewModels
         private bool _isNotifications;
         public bool IsNotifications { get => _isNotifications; private set => SetProperty(ref _isNotifications, value); }
 
+        private bool _isActivities;
+        public bool IsActivities { get => _isActivities; private set => SetProperty(ref _isActivities, value); }
+
         private bool _isExplorer;
         public bool IsExplorer { get => _isExplorer; private set => SetProperty(ref _isExplorer, value); }
+
+        private bool _isMarketplace;
+        public bool IsMarketplace { get => _isMarketplace; private set => SetProperty(ref _isMarketplace, value); }
 
         private bool _isProfile;
         public bool IsProfile { get => _isProfile; private set => SetProperty(ref _isProfile, value); }
@@ -88,7 +96,9 @@ namespace FluentHub.Uwp.ViewModels
 
         public ICommand GoHomeCommand { get; private set; }
         public ICommand GoNotificationsCommand { get; private set; }
+        public ICommand GoActivitiesCommand { get; private set; }
         public ICommand GoExplorerCommand { get; private set; }
+        public ICommand GoMarketplaceCommand { get; private set; }
         public ICommand GoProfileCommand { get; private set; }
         #endregion
 
@@ -168,6 +178,12 @@ namespace FluentHub.Uwp.ViewModels
             IsNotifications = true;
             _navigationService.Navigate<Views.Home.NotificationsPage>();
         }
+        private void GoActivities()
+        {
+            InitializeToggles();
+            IsActivities = true;
+            _navigationService.Navigate<Views.Home.ActivitiesPage>();
+        }
 
         private void GoExplorer()
         {
@@ -176,18 +192,27 @@ namespace FluentHub.Uwp.ViewModels
             //_navigationService.Navigate<Views.Home.UserHomePage>();
         }
 
+        private void GoMarketplace()
+        {
+            InitializeToggles();
+            IsMarketplace = true;
+            //_navigationService.Navigate<Views.Home.UserHomePage>();
+        }
+
         private void GoProfile()
         {
             InitializeToggles();
             IsProfile = true;
-            //_navigationService.Navigate<Views.Home.UserHomePage>();
+            _navigationService.Navigate<Views.Users.ProfilePage>();
         }
 
         private void InitializeToggles()
         {
             IsHome = false;
             IsNotifications = false;
+            IsActivities = false;
             IsExplorer = false;
+            IsMarketplace = false;
             IsProfile = false;
         }
 
