@@ -11,20 +11,20 @@
 
 <p align="center">
   <a style="text-decoration:none" href="https://github.com/fluenthub-community/FluentHub/releases">
-    <img src="https://img.shields.io/github/v/release/fluenthub-community/fluenthub?include_prereleases&style=flat-square" alt="Release" />
+    <img src="https://img.shields.io/github/v/release/fluenthub-community/fluenthub?include_prereleases" alt="Release" />
   </a>
   <a style="text-decoration:none" href="https://discord.gg/8KtRkjq2Q4">
-    <img src="https://img.shields.io/discord/935562861701390336?color=blue&label=Discord&style=flat-square" alt="Discord" />
+    <img src="https://img.shields.io/discord/935562861701390336?color=blue&label=Discord" alt="Discord" />
   </a>
   <a style="text-decoration:none">
-    <img src="https://img.shields.io/badge/Platform-Windows-red?style=flat-square" alt="Platform" />
+    <img src="https://img.shields.io/badge/Platform-Windows-red" alt="Platform" />
   </a>
 </p>
 
 ## Download and Build
 
 <a style="text-decoration:none" href="https://apps.microsoft.com/store/detail/fluenthub/9nkb9hx8rjz3">
-  <img width="128" src="https://getbadgecdn.azureedge.net/images/English_L.png" alt="GetItFromMicrosoft" />
+  <img width="128" src="https://getbadgecdn.azureedge.net/images/English_L.png" alt="GetItFromMicrosoft"/>
 </a>
 
 > **Warning**</br>The app available on the store does not work properly.</br>See the [Linq problem](#2-linq-problem) section
