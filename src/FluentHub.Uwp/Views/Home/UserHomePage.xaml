@@ -327,56 +327,56 @@
                                                 <toolkit:Case Value="IssueClosedAsCompleted">
                                                     <FontIcon
                                                         FontFamily="{StaticResource Octions}"
-                                                        Foreground="#8957e5"
+                                                        Foreground="{StaticResource Purple5}"
                                                         Glyph="&#xE9E6;" />
                                                 </toolkit:Case>
 
                                                 <toolkit:Case Value="IssueOpen">
                                                     <FontIcon
                                                         FontFamily="{StaticResource Octions}"
-                                                        Foreground="#3fb950"
+                                                        Foreground="{StaticResource Green5}"
                                                         Glyph="&#xE9EA;" />
                                                 </toolkit:Case>
 
                                                 <toolkit:Case Value="PullRequestClosed">
                                                     <FontIcon
                                                         FontFamily="{StaticResource Octions}"
-                                                        Foreground="#f85149"
+                                                        Foreground="{StaticResource Red5}"
                                                         Glyph="&#xE9C1;" />
                                                 </toolkit:Case>
 
                                                 <toolkit:Case Value="PullRequestMerged">
                                                     <FontIcon
                                                         FontFamily="{StaticResource Octions}"
-                                                        Foreground="#8957e5"
+                                                        Foreground="{StaticResource Purple5}"
                                                         Glyph="&#xE9BD;" />
                                                 </toolkit:Case>
 
                                                 <toolkit:Case Value="PullRequestDraft">
                                                     <FontIcon
                                                         FontFamily="{StaticResource Octions}"
-                                                        Foreground="#8b949e"
+                                                        Foreground="{StaticResource Black5}"
                                                         Glyph="&#xE9C3;" />
                                                 </toolkit:Case>
 
                                                 <toolkit:Case Value="PullRequestOpen">
                                                     <FontIcon
                                                         FontFamily="{StaticResource Octions}"
-                                                        Foreground="#3fb950"
+                                                        Foreground="{StaticResource Green5}"
                                                         Glyph="&#xE9BF;" />
                                                 </toolkit:Case>
 
                                                 <toolkit:Case Value="Discussion">
                                                     <FontIcon
                                                         FontFamily="{StaticResource Octions}"
-                                                        Foreground="#8b949e"
+                                                        Foreground="{StaticResource Blue5}"
                                                         Glyph="&#xE95D;" />
                                                 </toolkit:Case>
 
                                                 <toolkit:Case Value="Commit">
                                                     <FontIcon
                                                         FontFamily="{StaticResource Octions}"
-                                                        Foreground="#8b949e"
+                                                        Foreground="{StaticResource Blue5}"
                                                         Glyph="&#xE9B9;" />
                                                 </toolkit:Case>
 
