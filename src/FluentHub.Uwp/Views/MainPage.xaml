@@ -86,6 +86,13 @@
         </Grid.RowDefinitions>
 
         <Grid x:Name="ExpandedTitleBarRegion">
+
+            <muxc:ProgressBar
+                x:Name="LoadingProgreeRing"
+                VerticalAlignment="Top"
+                x:Load="{x:Bind ViewModel.IsLoading, Mode=OneWay}"
+                IsIndeterminate="True" />
+
             <Grid
                 x:Name="DragArea"
                 Grid.ColumnSpan="2"

@@ -38,5 +38,14 @@ namespace FluentHub.Uwp.Views.Home
             if (command.CanExecute(null))
                 command.Execute(null);
         }
+
+        private async void OnScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            var scrollViewer = (ScrollViewer)sender;
+            if (scrollViewer.VerticalOffset == scrollViewer.ScrollableHeight)
+            {
+                await ViewModel.LoadFurtherNotificationsAsync();
+            }
+        }
     }
 }

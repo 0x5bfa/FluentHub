@@ -10,13 +10,21 @@
                 Field = OctokitGraphQLModel.IssueOrderField.CreatedAt
             };
 
-            #region queries
             var query = new Query()
                 .Repository(name, owner)
                 .PullRequests(first: 30, orderBy: order)
                 .Nodes
                 .Select(x => new PullRequest
                 {
+                    BaseRefName = x.BaseRefName,
+                    Closed = x.Closed,
+                    HeadRefName = x.HeadRefName,
+                    IsDraft = x.IsDraft,
+                    Merged = x.Merged,
+                    Number = x.Number,
+                    Title = x.Title,
+                    UpdatedAt = x.UpdatedAt,
+
                     Repository = x.Repository.Select(repo => new Repository
                     {
                         Name = repo.Name,
@@ -27,36 +35,40 @@
                             Id = owner.Id,
                             Login = owner.Login,
                         })
-                        .Single(),
+                        .SingleOrDefault(),
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     HeadRepository = x.HeadRepository.Select(repo => new Repository
                     {
                         Name = repo.Name,
+
                         Owner = repo.Owner.Select(owner => new RepositoryOwner
                         {
+                            AvatarUrl = owner.AvatarUrl(100),
                             Login = owner.Login,
                         })
-                        .Single(),
+                        .SingleOrDefault(),
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
-                    Comments = new()
+                    Comments = x.Comments(null, null, null, null, null).Select(comments => new IssueCommentConnection
                     {
-                        TotalCount = x.Comments(null, null, null, null, null).TotalCount,
-                    },
+                        TotalCount = comments.TotalCount,
+                    })
+                    .SingleOrDefault(),
 
-                    Labels = new()
+                    Labels = x.Labels(10, null, null, null, null).Select(labels => new LabelConnection
                     {
-                        Nodes = x.Labels(10, null, null, null, null).Nodes.Select(y => new Label
+                        Nodes = labels.Nodes.Select(y => new Label
                         {
                             Color = y.Color,
                             Description = y.Description,
                             Name = y.Name,
                         })
                         .ToList(),
-                    },
+                    })
+                    .SingleOrDefault(),
 
                     Reviews = x.Reviews(null, null, 1, null, null, null).Select(reviews => new PullRequestReviewConnection
                     {
@@ -64,9 +76,9 @@
                         {
                             State = (PullRequestReviewState)y.State,
                         })
-                        .ToList()
+                        .ToList(),
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     Commits = x.Commits(null, null, 1, null).Select(commits => new PullRequestCommitConnection
                     {
@@ -84,33 +96,31 @@
                         })
                         .ToList(),
                     })
-                    .Single(),
-
-                    Title = x.Title,
-                    BaseRefName = x.BaseRefName,
-                    HeadRefName = x.HeadRefName,
-                    Closed = x.Closed,
-                    Merged = x.Merged,
-                    IsDraft = x.IsDraft,
-                    Number = x.Number,
-                    UpdatedAt = x.UpdatedAt,
+                    .SingleOrDefault(),
                 })
                 .Compile();
-            #endregion
 
-            var res = await App.Connection.Run(query);
+            var response = await App.Connection.Run(query);
 
-            return res.ToList();
+            return response.ToList();
         }
 
         public async Task<PullRequest> GetAsync(string owner, string name, int number)
         {
-            #region queries
             var query = new Query()
                 .Repository(name, owner)
                 .PullRequest(number)
                 .Select(x => new PullRequest
                 {
+                    BaseRefName = x.BaseRefName,
+                    Closed = x.Closed,
+                    HeadRefName = x.HeadRefName,
+                    IsDraft = x.IsDraft,
+                    Merged = x.Merged,
+                    Number = x.Number,
+                    Title = x.Title,
+                    UpdatedAt = x.UpdatedAt,
+
                     Repository = x.Repository.Select(repo => new Repository
                     {
                         Name = repo.Name,
@@ -121,36 +131,40 @@
                             Id = owner.Id,
                             Login = owner.Login,
                         })
-                        .Single(),
+                        .SingleOrDefault(),
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     HeadRepository = x.HeadRepository.Select(repo => new Repository
                     {
                         Name = repo.Name,
+
                         Owner = repo.Owner.Select(owner => new RepositoryOwner
                         {
+                            AvatarUrl = owner.AvatarUrl(100),
                             Login = owner.Login,
                         })
-                        .Single(),
+                        .SingleOrDefault(),
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
-                    Comments = new()
+                    Comments = x.Comments(null, null, null, null, null).Select(comments => new IssueCommentConnection
                     {
-                        TotalCount = x.Comments(null, null, null, null, null).TotalCount,
-                    },
+                        TotalCount = comments.TotalCount,
+                    })
+                    .SingleOrDefault(),
 
-                    Labels = new()
+                    Labels = x.Labels(10, null, null, null, null).Select(labels => new LabelConnection
                     {
-                        Nodes = x.Labels(10, null, null, null, null).Nodes.Select(y => new Label
+                        Nodes = labels.Nodes.Select(y => new Label
                         {
                             Color = y.Color,
                             Description = y.Description,
                             Name = y.Name,
                         })
                         .ToList(),
-                    },
+                    })
+                    .SingleOrDefault(),
 
                     Reviews = x.Reviews(null, null, 1, null, null, null).Select(reviews => new PullRequestReviewConnection
                     {
@@ -158,9 +172,9 @@
                         {
                             State = (PullRequestReviewState)y.State,
                         })
-                        .ToList()
+                        .ToList(),
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     Commits = x.Commits(null, null, 1, null).Select(commits => new PullRequestCommitConnection
                     {
@@ -178,28 +192,17 @@
                         })
                         .ToList(),
                     })
-                    .Single(),
-
-                    Title = x.Title,
-                    BaseRefName = x.BaseRefName,
-                    HeadRefName = x.HeadRefName,
-                    Closed = x.Closed,
-                    Merged = x.Merged,
-                    IsDraft = x.IsDraft,
-                    Number = x.Number,
-                    UpdatedAt = x.UpdatedAt,
+                    .SingleOrDefault(),
                 })
                 .Compile();
-            #endregion
 
-            var res = await App.Connection.Run(query);
+            var response = await App.Connection.Run(query);
 
-            return res;
+            return response;
         }
 
         public async Task<IssueComment> GetBodyAsync(string owner, string name, int number)
         {
-            #region queries
             var query = new Query()
                 .Repository(name, owner)
                 .PullRequest(number)
@@ -238,7 +241,6 @@
                     CreatedAt = x.CreatedAt,
                 })
                 .Compile();
-            #endregion
 
             var response = await App.Connection.Run(query);
 
