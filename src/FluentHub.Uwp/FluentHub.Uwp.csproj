@@ -1182,9 +1182,6 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="AppCredentials.config" />
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="Assets\Glyphs\SegoeFluentIconsNormal.ttf" />
     <Content Include="Assets\Glyphs\Octions.ttf" />
   </ItemGroup>
@@ -1193,6 +1190,9 @@
       <Project>{893edcc9-4345-4f49-a13f-1a426a7ba432}</Project>
       <Name>FluentHub.Octokit</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="AppCredentials.config" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '14.0' ">
     <VisualStudioVersion>14.0</VisualStudioVersion>

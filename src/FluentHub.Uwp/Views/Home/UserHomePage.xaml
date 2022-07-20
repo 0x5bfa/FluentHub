@@ -292,7 +292,7 @@
                         <TextBlock
                             Margin="6,0"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="Activity" />
+                            Text="Recent" />
                     </muxc:Expander.Header>
 
                     <muxc:Expander.Content>
@@ -452,11 +452,11 @@
                     </muxc:Expander.Content>
                 </muxc:Expander>
 
-                <Button
+                <!--<Button
                     Grid.Row="4"
                     HorizontalAlignment="Center"
                     Click="OnMoreActivitiesButtonClick"
-                    Content="See feeds" />
+                    Content="See feeds" />-->
             </Grid>
         </ScrollViewer>
     </Grid>
