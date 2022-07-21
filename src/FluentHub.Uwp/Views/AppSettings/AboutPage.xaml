@@ -30,7 +30,7 @@
                         <muxc:ImageIcon
                             Height="36"
                             Margin="-8,0"
-                            Source="/Assets/AppTilesAlpha/StoreLogo.scale-200.png" />
+                            Source="/Assets/AppTilesDev/StoreLogo.scale-200.png" />
                     </uc:SettingsBlockControl.Icon>
 
                     <Button

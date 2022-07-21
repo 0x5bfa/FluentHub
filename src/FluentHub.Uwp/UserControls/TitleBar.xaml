@@ -20,7 +20,7 @@
                 Height="24"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
-                Source="/Assets/AppTilesAlpha/Square44x44Logo.png" />
+                Source="/Assets/AppTilesDev/Square44x44Logo.png" />
             <TextBlock
                 x:Name="AppTitle"
                 Margin="8,0,0,0"
@@ -33,7 +33,7 @@
                 VerticalAlignment="Center"
                 FontSize="11"
                 Foreground="{StaticResource TextFillColorSecondaryBrush}"
-                Text="ALPHA" />
+                Text="DEV" />
         </StackPanel>
     </Grid>
 </UserControl>
