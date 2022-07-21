@@ -1,12 +1,14 @@
 <p align="center">
-  <img width="128" align="center" src="https://user-images.githubusercontent.com/74561130/179355686-65652d3f-693b-4bce-a8ed-f96a168368a8.png" />
-  
+  <img width="128" align="center" src="https://cdn.discordapp.com/attachments/959204796848537630/999697713828479056/1.png" />
+  <img width="128" align="center" src="https://cdn.discordapp.com/attachments/959204796848537630/999697712796684308/2.png" />
+  <img width="128" align="center" src="https://cdn.discordapp.com/attachments/959204796848537630/999697713153192038/3.png" />
+  <img width="128" align="center" src="https://cdn.discordapp.com/attachments/959204796848537630/999697713501327370/4.png" />
 </p>
 <h1 align="center">
-  FluentHub Alpha
+  FluentHub
 </h1>
 <p align="center">
-  A stylish yet wonderfully powerful GitHub client for Windows
+  A stylish yet wonderfully powerful GitHub client
 </p>
 
 <p align="center">
