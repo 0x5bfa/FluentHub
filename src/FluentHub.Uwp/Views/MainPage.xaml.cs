@@ -38,7 +38,6 @@ namespace FluentHub.Uwp.Views
         private void SubscribeEvents()
         {
             var titleBar = CoreApplication.GetCurrentView().TitleBar;
-            titleBar.LayoutMetricsChanged += OnTitleBarLayoutMetricsChanged;
             SystemNavigationManager.GetForCurrentView().BackRequested += OnAppBackRequested;
             Window.Current.CoreWindow.PointerPressed += OnWindowPointerPressed;
         }
@@ -46,38 +45,18 @@ namespace FluentHub.Uwp.Views
         private void UnsubscribeEvents()
         {
             var titleBar = CoreApplication.GetCurrentView().TitleBar;
-            titleBar.LayoutMetricsChanged -= OnTitleBarLayoutMetricsChanged;
             SystemNavigationManager.GetForCurrentView().BackRequested -= OnAppBackRequested;
             Window.Current.CoreWindow.PointerPressed -= OnWindowPointerPressed;
         }
 
-        private void OnUrlTextBoxFocus(object sender, RoutedEventArgs e)
-        {
-            TextBox DisplayUrlTextBox = sender as TextBox;
-            if (DisplayUrlTextBox != null && TabView.SelectedItem.NavigationHistory.CurrentItem.Url != null)
-            {
-                DisplayUrlTextBox.Text = TabView.SelectedItem.NavigationHistory.CurrentItem.Url;
-                DisplayUrlTextBox.SelectAll();
-            }
-        }
-
-        private void OnUrlTextBoxLostFocus(object sender, RoutedEventArgs e)
-        {
-            TextBox DisplayUrlTextBox = sender as TextBox;
-            if (DisplayUrlTextBox != null)
-            {
-                DisplayUrlTextBox.Text = TabView.SelectedItem.NavigationHistory?.CurrentItem?.DisplayUrl;
-            }
-        }
-
-        private Microsoft.UI.Xaml.Controls.InfoBarSeverity UserNotificationToInfoBarSeverity(UserNotificationType type)
+        private muxc.InfoBarSeverity UserNotificationToInfoBarSeverity(UserNotificationType type)
         {
             return type switch
             {
-                UserNotificationType.Info => Microsoft.UI.Xaml.Controls.InfoBarSeverity.Informational,
-                UserNotificationType.Success => Microsoft.UI.Xaml.Controls.InfoBarSeverity.Success,
-                UserNotificationType.Warning => Microsoft.UI.Xaml.Controls.InfoBarSeverity.Warning,
-                UserNotificationType.Error => Microsoft.UI.Xaml.Controls.InfoBarSeverity.Error,
+                UserNotificationType.Info => muxc.InfoBarSeverity.Informational,
+                UserNotificationType.Success => muxc.InfoBarSeverity.Success,
+                UserNotificationType.Warning => muxc.InfoBarSeverity.Warning,
+                UserNotificationType.Error => muxc.InfoBarSeverity.Error,
                 _ => throw new ArgumentOutOfRangeException(nameof(type), type, null),
             };
         }
@@ -104,9 +83,6 @@ namespace FluentHub.Uwp.Views
             UnsubscribeEvents();
             NavigationService.Disconnect();
         }
-
-        private void OnTitleBarLayoutMetricsChanged(CoreApplicationViewTitleBar sender, object args)
-           => RightPaddingColumn.Width = new GridLength(sender.SystemOverlayRightInset);
 
         private void OnAppBackRequested(object sender, BackRequestedEventArgs e)
         {
@@ -149,66 +125,55 @@ namespace FluentHub.Uwp.Views
             }
         }
 
-        private void OnDragAreaLoaded(object sender, RoutedEventArgs e) => Window.Current.SetTitleBar(DragArea);
-
-        private async void OnContinueWithYourBrowserMenuFlyoutItemClick(object sender, RoutedEventArgs e)
-        {
-            var currentItem = NavigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            var result = await Launcher.LaunchUriAsync(new Uri(currentItem.Url));
-            Logger?.Debug("Launcher.LaunchUriAsync fired, [result: {0}]", result);
-        }
-
-        private void OnYourProfileMenuFlyoutItemClick(object sender, RoutedEventArgs e)
-            => NavigationService.Navigate<Users.ProfilePage>($"{App.DefaultGitHubDomain}/{App.Settings.SignedInUserName}");
-
-        private void OnYourRepositoriesMenuFlyoutItemClick(object sender, RoutedEventArgs e)
-            => NavigationService.Navigate<Users.RepositoriesPage>("fluenthub://repositories");
-
-        private void OnYourDiscussionsMenuFlyoutItemClick(object sender, RoutedEventArgs e)
-            => NavigationService.Navigate<Users.DiscussionsPage>("fluenthub://discussions");
-
-        private void OnYourIssuesMenuFlyoutItemClick(object sender, RoutedEventArgs e)
-            => NavigationService.Navigate<Users.IssuesPage>("https://github.com/issues");
-
-        private void OnYourPullRequestsMenuFlyoutItemClick(object sender, RoutedEventArgs e)
-            => NavigationService.Navigate<Users.PullRequestsPage>("https://github.com/pulls");
-
-        private void OnYourOrganizationsMenuFlyoutItemClick(object sender, RoutedEventArgs e)
-            => NavigationService.Navigate<Users.OrganizationsPage>("fluenthub://organizations");
-
-        private void OnYourStarsMenuFlyoutItemClick(object sender, RoutedEventArgs e)
-            => NavigationService.Navigate<Users.StarredReposPage>("fluenthub://stars");
-
-        private void OnAppSettingsMenuFlyoutItemClick(object sender, RoutedEventArgs e)
-            => NavigationService.Navigate<AppSettings.MainSettingsPage>("fluenthub://settings");
-
-        private void OnAccountSettingsMenuFlyoutItemClick(object sender, RoutedEventArgs e)
-            => NavigationService.Navigate<AppSettings.MainSettingsPage>("fluenthub://settings/account");
-
-        private void OnSignOutMenuFlyoutItemClick(object sender, RoutedEventArgs e)
-        {
-            Frame rootFrame = (Frame)Window.Current.Content;
-            rootFrame.Navigate(typeof(SignIn.IntroPage));
-        }
-
-        private async void SwitchAccountFlyoutItem_Click(object sender, RoutedEventArgs e)
-        {
-            AccountSwitching accountSwitchingDialog = new();
-            await accountSwitchingDialog.ShowAsync();
-        }
+        private void OnDragAreaLoaded(object sender, RoutedEventArgs e)
+            => Window.Current.SetTitleBar(DragArea);
 
         private void OnTabViewSelectionChanged(object sender, TabViewSelectionChangedEventArgs e)
             => RootFrameBorder.Child = e.NewSelectedItem?.Frame;
-        #endregion
 
-        private void OnUrlTextBoxKeyDown(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs e)
+        private void OnMenuFlyoutItemClick(object sender, RoutedEventArgs e)
         {
-            if (e.Key == VirtualKey.Enter)
+            var item = sender as MenuFlyoutItem;
+
+            switch (item?.Tag)
             {
+                case "NewRepo":
+                    break;
+                case "NewOrganization":
+                    break;
+                case "Profile":
+                    NavigationService.Navigate<Users.ProfilePage>($"{App.DefaultGitHubDomain}/{App.Settings.SignedInUserName}");
+                    break;
+                case "Repositories":
+                    NavigationService.Navigate<Users.RepositoriesPage>("fluenthub://repositories");
+                    break;
+                case "Discussions":
+                    NavigationService.Navigate<Users.DiscussionsPage>("fluenthub://discussions");
+                    break;
+                case "Issues":
+                    NavigationService.Navigate<Users.IssuesPage>("https://github.com/issues");
+                    break;
+                case "PullRequests":
+                    NavigationService.Navigate<Users.PullRequestsPage>("https://github.com/pulls");
+                    break;
+                case "Organizations":
+                    NavigationService.Navigate<Users.OrganizationsPage>("fluenthub://organizations");
+                    break;
+                case "Stars":
+                    NavigationService.Navigate<Users.StarredReposPage>("fluenthub://stars");
+                    break;
+                case "AccountSettings":
+                    NavigationService.Navigate<AppSettings.MainSettingsPage>("fluenthub://settings/account");
+                    break;
+                case "Settings":
+                    NavigationService.Navigate<AppSettings.MainSettingsPage>("fluenthub://settings");
+                    break;
+                case "SignOut":
+                    Frame rootFrame = (Frame)Window.Current.Content;
+                    rootFrame.Navigate(typeof(SignIn.IntroPage));
+                    break;
             }
         }
-
-        private void OnYourNotificationButtonClick(object sender, RoutedEventArgs e)
-            => NavigationService.Navigate<Home.NotificationsPage>();
+        #endregion
     }
 }

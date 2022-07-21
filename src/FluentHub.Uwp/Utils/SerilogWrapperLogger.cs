@@ -5,7 +5,7 @@ namespace FluentHub.Uwp.Utils
 {
     public class SerilogWrapperLogger : ILogger
     {
-        public SerilogWrapperLogger(Serilog.ILogger logger!!) => _logger = logger;
+        public SerilogWrapperLogger(Serilog.ILogger logger) => _logger = logger;
 
         private Serilog.ILogger _logger;
 

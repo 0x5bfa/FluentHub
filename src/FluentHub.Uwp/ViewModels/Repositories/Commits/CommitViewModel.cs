@@ -36,6 +36,8 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Commits
         {
             try
             {
+                _messenger?.Send(new LoadingMessaging(true));
+
                 DiffQueries queries = new();
                 var response = await queries.GetAllAsync(
                     CommitItem.Repository.Owner.Login,
@@ -63,6 +65,10 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Commits
                     _messenger.Send(notification);
                 }
                 throw;
+            }
+            finally
+            {
+                _messenger?.Send(new LoadingMessaging(false));
             }
         }
     }

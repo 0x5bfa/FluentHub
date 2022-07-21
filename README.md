@@ -1,22 +1,23 @@
 <p align="center">
-  <img width="128" align="center" src="src/FluentHub.Uwp/Assets/AppTilesAlpha/StoreLogo.scale-400.png" />
+  <img width="128" align="center" src="https://user-images.githubusercontent.com/74561130/179355686-65652d3f-693b-4bce-a8ed-f96a168368a8.png" />
+  
 </p>
 <h1 align="center">
   FluentHub Alpha
 </h1>
 <p align="center">
-  A stylish yet wonderfully powerful GitHub Oauth client made with Fluent Design and WinUI
+  A stylish yet wonderfully powerful GitHub client
 </p>
 
 <p align="center">
   <a style="text-decoration:none" href="https://github.com/fluenthub-community/FluentHub/releases">
-    <img src="https://img.shields.io/github/v/release/fluenthub-community/fluenthub?include_prereleases&style=flat-square" alt="Release" />
+    <img src="https://img.shields.io/github/v/release/fluenthub-community/fluenthub?include_prereleases" alt="Release" />
   </a>
   <a style="text-decoration:none" href="https://discord.gg/8KtRkjq2Q4">
-    <img src="https://img.shields.io/discord/935562861701390336?color=blue&label=Discord&style=flat-square" alt="Discord" />
+    <img src="https://img.shields.io/discord/935562861701390336?color=blue&label=Discord" alt="Discord" />
   </a>
   <a style="text-decoration:none">
-    <img src="https://img.shields.io/badge/Platform-Windows-red?style=flat-square" alt="Platform" />
+    <img src="https://img.shields.io/badge/Platform-Windows-red" alt="Platform" />
   </a>
 </p>
 

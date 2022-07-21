@@ -37,214 +37,54 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid>
-        <Button
-            x:Name="RepoBlockButton"
-            Padding="16,12"
-            Background="Transparent"
-            BorderThickness="0"
-            Click="OnClick"
-            Style="{StaticResource ContentBlockButtonStyle}">
+    <Button
+        Padding="16,12"
+        Click="OnClick"
+        Style="{StaticResource ContentBlockButtonStyle}">
 
-            <Grid ColumnSpacing="6">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+        <Grid ColumnSpacing="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
 
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
 
-                    <TextBlock
-                        x:Name="RepoName"
-                        Grid.Row="0"
-                        FontWeight="SemiBold"
-                        Style="{ThemeResource BodyTextBlockStyle}"
-                        Text="{x:Bind ViewModel.Item.Name, Mode=OneWay}"
-                        TextTrimming="CharacterEllipsis" />
+                <TextBlock
+                    x:Name="RepoName"
+                    Grid.Row="0"
+                    FontWeight="SemiBold"
+                    Style="{ThemeResource BodyTextBlockStyle}"
+                    Text="{x:Bind ViewModel.Item.Name, Mode=OneWay}"
+                    TextTrimming="CharacterEllipsis" />
 
-                    <TextBlock
-                        x:Name="ForkedFrom"
-                        Grid.Row="1"
-                        x:Load="False"
-                        Style="{StaticResource CaptionTextBlockStyle}"
-                        TextTrimming="CharacterEllipsis" />
+                <TextBlock
+                    x:Name="ForkedFrom"
+                    Grid.Row="1"
+                    x:Load="False"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    TextTrimming="CharacterEllipsis" />
 
-                    <TextBlock
-                        x:Name="Description"
-                        Grid.Row="2"
-                        Margin="0,4,0,0"
-                        x:Load="{x:Bind ViewModel.Item.Description, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-                        Text="{x:Bind ViewModel.Item.Description, Mode=OneWay}"
-                        TextTrimming="CharacterEllipsis" />
+                <TextBlock
+                    x:Name="Description"
+                    Grid.Row="2"
+                    Margin="0,4,0,0"
+                    x:Load="{x:Bind ViewModel.Item.Description, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                    Text="{x:Bind ViewModel.Item.Description, Mode=OneWay}"
+                    TextTrimming="CharacterEllipsis" />
 
-                    <StackPanel
-                        Grid.Row="3"
-                        Margin="0,8,0,0"
-                        Orientation="Horizontal">
+                <StackPanel
+                    Grid.Row="3"
+                    Margin="0,8,0,0"
+                    Orientation="Horizontal">
 
-                        <StackPanel Margin="0,0,16,0" Orientation="Horizontal">
-
-                            <toolkit:SwitchPresenter
-                                Grid.RowSpan="2"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                TargetType="x:Boolean"
-                                Value="{x:Bind ViewModel.Item.ViewerHasStarred, Mode=OneWay}">
-
-                                <toolkit:Case Value="True">
-                                    <StackPanel Orientation="Horizontal" Spacing="6">
-
-                                        <FontIcon
-                                            FontFamily="{StaticResource Octions}"
-                                            FontSize="16"
-                                            Glyph="&#xEA96;" />
-
-                                        <TextBlock Text="{x:Bind ViewModel.Item.StargazerCount, Mode=OneWay}" />
-
-                                    </StackPanel>
-                                </toolkit:Case>
-
-                                <toolkit:Case Value="False">
-                                    <StackPanel Orientation="Horizontal" Spacing="6">
-
-                                        <FontIcon
-                                            FontFamily="{StaticResource Octions}"
-                                            FontSize="16"
-                                            Glyph="&#xEA94;" />
-
-                                        <TextBlock Text="{x:Bind ViewModel.Item.StargazerCount, Mode=OneWay}" />
-
-                                    </StackPanel>
-                                </toolkit:Case>
-
-                            </toolkit:SwitchPresenter>
-
-                        </StackPanel>
-
-                        <StackPanel
-                            x:Name="LanguageBlock"
-                            Margin="0,0,16,0"
-                            x:Load="{x:Bind ViewModel.Item.PrimaryLanguage.Name, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-                            Orientation="Horizontal"
-                            Spacing="6">
-
-                            <Border
-                                x:Name="LanguageColor"
-                                Width="14"
-                                Height="14"
-                                Background="{x:Bind ViewModel.PrimaryLangColor, Mode=OneWay}"
-                                CornerRadius="7" />
-
-                            <TextBlock x:Name="Language" Text="{x:Bind ViewModel.Item.PrimaryLanguage.Name, Mode=OneWay}" />
-
-                        </StackPanel>
-
-                        <StackPanel
-                            x:Name="RepositoryDetailsBlock"
-                            Grid.Column="2"
-                            x:Load="{x:Bind ViewModel.DisplayDetails, Mode=OneWay}"
-                            Orientation="Horizontal">
-
-                            <StackPanel
-                                x:Name="LicenseBlock"
-                                Margin="0,0,16,0"
-                                Orientation="Horizontal"
-                                Spacing="6"
-                                Visibility="{x:Bind ViewModel.Item.LicenseInfo.Name, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
-
-                                <FontIcon
-                                    FontFamily="{StaticResource Octions}"
-                                    FontSize="14"
-                                    Glyph="&#xE9F7;" />
-
-                                <TextBlock x:Name="License" Text="{x:Bind ViewModel.Item.LicenseInfo.Name, Mode=OneWay}" />
-
-                            </StackPanel>
-
-                            <StackPanel
-                                x:Name="ForkCountBlock"
-                                Grid.Column="3"
-                                Margin="0,0,16,0"
-                                Orientation="Horizontal"
-                                Spacing="6">
-
-                                <FontIcon
-                                    FontFamily="{StaticResource Octions}"
-                                    FontSize="14"
-                                    Glyph="&#xEA55;" />
-
-                                <TextBlock x:Name="ForkCount" Text="{x:Bind ViewModel.Item.ForkCount, Mode=OneWay}" />
-
-                            </StackPanel>
-
-                            <StackPanel
-                                x:Name="IssueCountBlock"
-                                Grid.Column="4"
-                                Margin="0,0,16,0"
-                                Orientation="Horizontal"
-                                Spacing="6">
-
-                                <FontIcon
-                                    FontFamily="{StaticResource Octions}"
-                                    FontSize="14"
-                                    Glyph="&#xE9EA;" />
-
-                                <TextBlock x:Name="IssueCount" Text="{x:Bind ViewModel.Item.Issues.TotalCount, Mode=OneWay}" />
-
-                            </StackPanel>
-
-                            <StackPanel
-                                x:Name="PRCountBlock"
-                                Grid.Column="5"
-                                Margin="0,0,16,0"
-                                Orientation="Horizontal"
-                                Spacing="6">
-
-                                <FontIcon
-                                    FontFamily="{StaticResource Octions}"
-                                    FontSize="14"
-                                    Glyph="&#xE9BF;" />
-
-                                <TextBlock x:Name="PRCount" Text="{x:Bind ViewModel.Item.PullRequests.TotalCount, Mode=OneWay}" />
-
-                            </StackPanel>
-
-                            <StackPanel
-                                x:Name="UpdatedAtBlock"
-                                Grid.Column="6"
-                                Margin="0,0,16,0"
-                                Orientation="Horizontal">
-
-                                <FontIcon
-                                    Margin="0,0,6,0"
-                                    FontFamily="{StaticResource Octions}"
-                                    FontSize="14"
-                                    Glyph="&#xEA9A;" />
-
-                                <TextBlock Text="{x:Bind ViewModel.Item.UpdatedAt, Mode=OneWay}" />
-
-                            </StackPanel>
-
-                        </StackPanel>
-
-                    </StackPanel>
-
-                </Grid>
-
-                <Grid
-                    x:Name="StarButtonBlock"
-                    Grid.Column="1"
-                    Width="100"
-                    Margin="12,0,0,0"
-                    x:Load="{x:Bind ViewModel.DisplayStarButton, Mode=OneWay}">
-
-                    <Button HorizontalAlignment="Stretch" IsEnabled="False">
+                    <StackPanel Margin="0,0,16,0" Orientation="Horizontal">
 
                         <toolkit:SwitchPresenter
                             Grid.RowSpan="2"
@@ -255,30 +95,189 @@
 
                             <toolkit:Case Value="True">
                                 <StackPanel Orientation="Horizontal" Spacing="6">
+
                                     <FontIcon
                                         FontFamily="{StaticResource Octions}"
                                         FontSize="16"
-                                        Foreground="#e3b341"
+                                        Foreground="{StaticResource Yellow8}"
                                         Glyph="&#xEA96;" />
-                                    <TextBlock Text="Unstar" />
+
+                                    <TextBlock Text="{x:Bind ViewModel.Item.StargazerCount, Mode=OneWay}" />
+
                                 </StackPanel>
                             </toolkit:Case>
 
                             <toolkit:Case Value="False">
                                 <StackPanel Orientation="Horizontal" Spacing="6">
+
                                     <FontIcon
                                         FontFamily="{StaticResource Octions}"
                                         FontSize="16"
                                         Glyph="&#xEA94;" />
-                                    <TextBlock Text="Star" />
+
+                                    <TextBlock Text="{x:Bind ViewModel.Item.StargazerCount, Mode=OneWay}" />
+
                                 </StackPanel>
                             </toolkit:Case>
 
                         </toolkit:SwitchPresenter>
 
-                    </Button>
-                </Grid>
+                    </StackPanel>
+
+                    <StackPanel
+                        x:Name="LanguageBlock"
+                        Margin="0,0,16,0"
+                        x:Load="{x:Bind ViewModel.Item.PrimaryLanguage, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                        Orientation="Horizontal"
+                        Spacing="6">
+
+                        <Border
+                            x:Name="LanguageColor"
+                            Width="14"
+                            Height="14"
+                            CornerRadius="7">
+                            <Border.Background>
+                                <SolidColorBrush Color="{x:Bind ViewModel.Item.PrimaryLanguage.Color, Mode=OneWay}" />
+                            </Border.Background>
+                        </Border>
+
+                        <TextBlock x:Name="Language" Text="{x:Bind ViewModel.Item.PrimaryLanguage.Name, Mode=OneWay}" />
+
+                    </StackPanel>
+
+                    <StackPanel
+                        x:Name="RepositoryDetailsBlock"
+                        Grid.Column="2"
+                        x:Load="{x:Bind ViewModel.DisplayDetails, Mode=OneWay}"
+                        Orientation="Horizontal">
+
+                        <StackPanel
+                            x:Name="LicenseBlock"
+                            Margin="0,0,16,0"
+                            x:Load="{x:Bind ViewModel.Item.LicenseInfo, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                            Orientation="Horizontal"
+                            Spacing="6">
+
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="14"
+                                Glyph="&#xE9F7;" />
+
+                            <TextBlock x:Name="License" Text="{x:Bind ViewModel.Item.LicenseInfo.Name, Mode=OneWay}" />
+
+                        </StackPanel>
+
+                        <StackPanel
+                            x:Name="ForkCountBlock"
+                            Grid.Column="3"
+                            Margin="0,0,16,0"
+                            Orientation="Horizontal"
+                            Spacing="6">
+
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="14"
+                                Glyph="&#xEA55;" />
+
+                            <TextBlock x:Name="ForkCount" Text="{x:Bind ViewModel.Item.ForkCount, Mode=OneWay}" />
+
+                        </StackPanel>
+
+                        <StackPanel
+                            x:Name="IssueCountBlock"
+                            Grid.Column="4"
+                            Margin="0,0,16,0"
+                            Orientation="Horizontal"
+                            Spacing="6">
+
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="14"
+                                Glyph="&#xE9EA;" />
+
+                            <TextBlock x:Name="IssueCount" Text="{x:Bind ViewModel.Item.Issues.TotalCount, Mode=OneWay}" />
+
+                        </StackPanel>
+
+                        <StackPanel
+                            x:Name="PRCountBlock"
+                            Grid.Column="5"
+                            Margin="0,0,16,0"
+                            Orientation="Horizontal"
+                            Spacing="6">
+
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="14"
+                                Glyph="&#xE9BF;" />
+
+                            <TextBlock x:Name="PRCount" Text="{x:Bind ViewModel.Item.PullRequests.TotalCount, Mode=OneWay}" />
+
+                        </StackPanel>
+
+                        <StackPanel
+                            x:Name="UpdatedAtBlock"
+                            Grid.Column="6"
+                            Margin="0,0,16,0"
+                            Orientation="Horizontal">
+
+                            <FontIcon
+                                Margin="0,0,6,0"
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="14"
+                                Glyph="&#xEA9A;" />
+
+                            <TextBlock Text="{x:Bind ViewModel.Item.UpdatedAt, Mode=OneWay}" />
+
+                        </StackPanel>
+
+                    </StackPanel>
+
+                </StackPanel>
+
             </Grid>
-        </Button>
-    </Grid>
+
+            <Grid
+                x:Name="StarButtonBlock"
+                Grid.Column="1"
+                Width="100"
+                Margin="12,0,0,0"
+                x:Load="{x:Bind ViewModel.DisplayStarButton, Mode=OneWay}">
+
+                <Button HorizontalAlignment="Stretch" IsEnabled="False">
+
+                    <toolkit:SwitchPresenter
+                        Grid.RowSpan="2"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        TargetType="x:Boolean"
+                        Value="{x:Bind ViewModel.Item.ViewerHasStarred, Mode=OneWay}">
+
+                        <toolkit:Case Value="True">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <FontIcon
+                                    FontFamily="{StaticResource Octions}"
+                                    FontSize="16"
+                                    Foreground="{StaticResource Yellow8}"
+                                    Glyph="&#xEA96;" />
+                                <TextBlock Text="Unstar" />
+                            </StackPanel>
+                        </toolkit:Case>
+
+                        <toolkit:Case Value="False">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <FontIcon
+                                    FontFamily="{StaticResource Octions}"
+                                    FontSize="16"
+                                    Glyph="&#xEA94;" />
+                                <TextBlock Text="Star" />
+                            </StackPanel>
+                        </toolkit:Case>
+
+                    </toolkit:SwitchPresenter>
+
+                </Button>
+            </Grid>
+        </Grid>
+    </Button>
 </UserControl>

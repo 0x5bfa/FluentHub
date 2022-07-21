@@ -85,6 +85,7 @@ namespace FluentHub.Octokit.Wrappers
 
                 var urlItems = item.Subject.Url?.Split('/');
 
+                // Should get all data at once to prevent from delaying
                 switch (item.Subject?.Type)
                 {
                     case "Issue":

@@ -21,7 +21,7 @@
             x:Name="LabelBackground"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
-            Background="{x:Bind ViewModel.ColorBackground, Mode=OneWay}"
+            Background="{x:Bind ViewModel.ColorForeground, Mode=OneWay}"
             CornerRadius="4"
             Opacity="0.1" />
 
@@ -29,7 +29,7 @@
             x:Name="LabelBorder"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
-            BorderBrush="{x:Bind ViewModel.ColorBackground, Mode=OneWay}"
+            BorderBrush="{x:Bind ViewModel.ColorForeground, Mode=OneWay}"
             BorderThickness="1"
             CornerRadius="4"
             Opacity="0.4" />

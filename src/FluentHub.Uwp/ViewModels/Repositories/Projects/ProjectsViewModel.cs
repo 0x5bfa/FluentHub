@@ -32,6 +32,8 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Projects
         {
             try
             {
+                _messenger?.Send(new LoadingMessaging(true));
+
                 ProjectQueries queries = new();
                 var items = await queries.GetAllAsync(nameWithOwner.Split("/")[0], nameWithOwner.Split("/")[1]);
 
@@ -55,6 +57,10 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Projects
                     _messenger.Send(notification);
                 }
                 throw;
+            }
+            finally
+            {
+                _messenger?.Send(new LoadingMessaging(false));
             }
         }
     }

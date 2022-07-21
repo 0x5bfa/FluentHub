@@ -39,6 +39,8 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
         {
             try
             {
+                _messenger?.Send(new LoadingMessaging(true));
+
                 var uri = new Uri(url);
                 var pathSegments = uri.AbsolutePath.Split("/").ToList();
                 pathSegments.RemoveAt(0);
@@ -242,6 +244,10 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
                     _messenger.Send(notification);
                 }
                 throw;
+            }
+            finally
+            {
+                _messenger?.Send(new LoadingMessaging(false));
             }
         }
     }

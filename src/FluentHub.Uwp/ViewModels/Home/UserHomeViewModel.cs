@@ -1,6 +1,7 @@
 ﻿using FluentHub.Octokit.Queries.Users;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace FluentHub.Uwp.ViewModels.Home
 {
@@ -18,6 +19,11 @@ namespace FluentHub.Uwp.ViewModels.Home
             _userNotifications = new();
             UserNotifications = new(_userNotifications);
 
+            _folderCardItems = new();
+            FolderCardItems = new(_folderCardItems);
+
+            InitializeFolderCardItems();
+
             LoadHomeContentsCommand = new AsyncRelayCommand(LoadHomeContentsAsync);
         }
         #endregion
@@ -32,29 +38,70 @@ namespace FluentHub.Uwp.ViewModels.Home
         private readonly ObservableCollection<Notification> _userNotifications;
         public ReadOnlyObservableCollection<Notification> UserNotifications { get; }
 
+        private readonly ObservableCollection<FolderCardItem> _folderCardItems;
+        public ReadOnlyObservableCollection<FolderCardItem> FolderCardItems { get; }
+
         public IAsyncRelayCommand LoadHomeContentsCommand { get; }
         #endregion
+
+        private void InitializeFolderCardItems()
+        {
+            _folderCardItems.Add(new()
+            {
+                Thumbnail = new(new Uri("ms-appx:///Assets/Icons/Issues.png")),
+                Text = "Issues",
+            });
+            _folderCardItems.Add(new()
+            {
+                Thumbnail = new(new Uri("ms-appx:///Assets/Icons/PullRequests.png")),
+                Text = "Pull Requests",
+            });
+            _folderCardItems.Add(new()
+            {
+                Thumbnail = new(new Uri("ms-appx:///Assets/Icons/Discussions.png")),
+                Text = "Discussions",
+            });
+            _folderCardItems.Add(new()
+            {
+                Thumbnail = new(new Uri("ms-appx:///Assets/Icons/Repositories.png")),
+                Text = "Repositories",
+            });
+            _folderCardItems.Add(new()
+            {
+                Thumbnail = new(new Uri("ms-appx:///Assets/Icons/Organizations.png")),
+                Text = "Organizations",
+            });
+            _folderCardItems.Add(new()
+            {
+                Thumbnail = new(new Uri("ms-appx:///Assets/Icons/Starred.png")),
+                Text = "Starred",
+            });
+        }
 
         private async Task LoadHomeContentsAsync(CancellationToken token)
         {
             try
             {
+                _messenger?.Send(new LoadingMessaging(true));
+
                 RepositoryQueries repositoryQueries = new();
                 var repositoryResponse = await repositoryQueries.GetAllAsync(App.Settings.SignedInUserName);
 
-                foreach (var item in repositoryResponse) _userRepositories.Add(item);
+                foreach (var item in repositoryResponse)
+                    _userRepositories.Add(item);
 
                 NotificationQueries notificationQueries = new();
-                OctokitOriginal.ApiOptions options = new()
-                {
-                    PageCount = 1,
-                    PageSize = 3,
-                    StartPage = 1
-                };
+                var notificationResponse = await notificationQueries.GetAllAsync(
+                    new() { All = true },
+                    new()
+                    {
+                        PageCount = 1, // Constant
+                        PageSize = 3,
+                        StartPage = 1,
+                    });
 
-                var notificationResponse = await notificationQueries.GetAllAsync(options);
-
-                foreach (var item in notificationResponse) _userNotifications.Add(item);
+                foreach (var item in notificationResponse)
+                    _userNotifications.Add(item);
             }
             catch (OperationCanceledException) { }
             catch (Exception ex)
@@ -66,6 +113,10 @@ namespace FluentHub.Uwp.ViewModels.Home
                     _messenger.Send(notification);
                 }
                 throw;
+            }
+            finally
+            {
+                _messenger?.Send(new LoadingMessaging(false));
             }
         }
     }

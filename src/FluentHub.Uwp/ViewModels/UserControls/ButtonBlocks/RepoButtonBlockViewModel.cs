@@ -23,10 +23,10 @@ namespace FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks
 
         public void GetColorBrush()
         {
-            if (Item?.PrimaryLanguage != null)
-            {
-                PrimaryLangColor = ColorHelpers.HexCodeToSolidColorBrush(Item.PrimaryLanguage.Color);
-            }
+            //if (Item?.PrimaryLanguage != null)
+            //{
+            //    PrimaryLangColor = ColorHelpers.HexCodeToSolidColorBrush(Item.PrimaryLanguage.Color);
+            //}
         }
     }
 }

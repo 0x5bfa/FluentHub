@@ -58,7 +58,7 @@
                                         MaxWidth="400" />
                                 </Grid.ColumnDefinitions>
 
-                                <Grid Grid.ColumnSpan="2" Padding="24,12,24,0">
+                                <Grid Grid.ColumnSpan="2" Padding="32,32,32,0">
                                     <Grid.RowDefinitions>
                                         <RowDefinition Height="Auto" />
                                         <RowDefinition Height="Auto" />
@@ -105,6 +105,7 @@
                                         Height="32"
                                         HorizontalAlignment="Right"
                                         VerticalAlignment="Top"
+                                        HorizontalContentAlignment="Center"
                                         Click="OnDisplayDetailsTogglingButtonClick">
                                         <muxc:AnimatedIcon
                                             x:Name="BackAnimatedIcon"
@@ -129,7 +130,7 @@
                                 <StackPanel
                                     x:Name="IssueContentPanel"
                                     Grid.Row="2"
-                                    Padding="12,0,12,0">
+                                    Padding="32,0">
 
                                     <Border
                                         Width="1.5"
@@ -154,7 +155,10 @@
 
                                 </StackPanel>
 
-                                <StackPanel Grid.Row="3" Margin="12">
+                                <StackPanel
+                                    Grid.Row="3"
+                                    Margin="32"
+                                    VerticalAlignment="Top">
                                     <Grid
                                         Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
@@ -174,7 +178,7 @@
                                                 IsSettingsVisible="False"
                                                 PaneDisplayMode="Top">
                                                 <muxc:NavigationView.MenuItems>
-                                                    <muxc:NavigationViewItem Content="Write" />
+                                                    <muxc:NavigationViewItem Content="Write" IsSelected="True" />
                                                     <muxc:NavigationViewItem Content="Preview" />
                                                 </muxc:NavigationView.MenuItems>
                                                 <muxc:NavigationView.PaneFooter>

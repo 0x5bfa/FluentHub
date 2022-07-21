@@ -10,13 +10,17 @@
                 Field = OctokitGraphQLModel.IssueOrderField.CreatedAt
             };
 
-            #region query
             var query = new Query()
                 .User(login)
                 .Issues(first: 30, orderBy: order)
                 .Nodes
                 .Select(x => new Issue
                 {
+                    Closed = x.Closed,
+                    Number = x.Number,
+                    Title = x.Title,
+                    UpdatedAt = x.UpdatedAt,
+
                     Repository = x.Repository.Select(repo => new Repository
                     {
                         Name = repo.Name,
@@ -27,33 +31,29 @@
                             Id = owner.Id,
                             Login = owner.Login,
                         })
-                        .Single(),
+                        .SingleOrDefault(),
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
-                    Comments = new()
+                    Comments = x.Comments(null, null, null, null, null).Select(comments => new IssueCommentConnection
                     {
-                        TotalCount = x.Comments(null, null, null, null, null).TotalCount,
-                    },
+                        TotalCount = comments.TotalCount,
+                    })
+                    .SingleOrDefault(),
 
-                    Labels = new()
+                    Labels = x.Labels(10, null, null, null, null).Select(labels => new LabelConnection
                     {
-                        Nodes = x.Labels(10, null, null, null, null).Nodes.Select(y => new Label
+                        Nodes = labels.Nodes.Select(y => new Label
                         {
                             Color = y.Color,
                             Description = y.Description,
                             Name = y.Name,
                         })
                         .ToList(),
-                    },
-
-                    Title = x.Title,
-                    Closed = x.Closed,
-                    Number = x.Number,
-                    UpdatedAt = x.UpdatedAt,
+                    })
+                    .SingleOrDefault(),
                 })
                 .Compile();
-            #endregion
 
             var response = await App.Connection.Run(query);
 

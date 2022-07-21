@@ -12,6 +12,7 @@
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
+    DataContext="{x:Bind ViewModel, Mode=OneWay}"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -39,140 +40,136 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid>
-        <Button
-            x:Name="IssueBlockButton"
-            Padding="16,12"
-            Background="Transparent"
-            BorderThickness="0"
-            Click="OnClick"
-            Style="{StaticResource ContentBlockButtonStyle}">
+    <Button
+        Padding="16,12"
+        Click="OnClick"
+        Style="{StaticResource ContentBlockButtonStyle}">
 
-            <Grid ColumnSpacing="6">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+        <Grid ColumnSpacing="6">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-                <toolkit:SwitchPresenter
-                    Grid.RowSpan="2"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    TargetType="x:Boolean"
-                    Value="{x:Bind ViewModel.IssueItem.Closed, Mode=OneWay}">
+            <toolkit:SwitchPresenter
+                Grid.RowSpan="2"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                TargetType="x:Boolean"
+                Value="{x:Bind ViewModel.IssueItem.Closed, Mode=OneWay}">
 
-                    <toolkit:Case Value="True">
-                        <FontIcon
-                            Margin="0,0,8,0"
-                            FontFamily="{StaticResource Octions}"
-                            Foreground="#986EE2"
-                            Glyph="&#xE9E6;" />
-                    </toolkit:Case>
+                <toolkit:Case Value="True">
+                    <FontIcon
+                        Margin="0,0,8,0"
+                        FontFamily="{StaticResource Octions}"
+                        Foreground="#986EE2"
+                        Glyph="&#xE9E6;" />
+                </toolkit:Case>
 
-                    <toolkit:Case Value="False">
-                        <FontIcon
-                            Margin="0,0,8,0"
-                            FontFamily="{StaticResource Octions}"
-                            Foreground="#57AB5A"
-                            Glyph="&#xE9EA;" />
-                    </toolkit:Case>
+                <toolkit:Case Value="False">
+                    <FontIcon
+                        Margin="0,0,8,0"
+                        FontFamily="{StaticResource Octions}"
+                        Foreground="#57AB5A"
+                        Glyph="&#xE9EA;" />
+                </toolkit:Case>
 
-                </toolkit:SwitchPresenter>
+            </toolkit:SwitchPresenter>
 
-                <Grid Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
 
-                    <StackPanel
-                        x:Name="RepositoryInfoBlock"
-                        x:Load="{x:Bind ViewModel.CompactMode, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
-                        Orientation="Horizontal">
-                        <TextBlock
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="{x:Bind ViewModel.IssueItem.Repository.Owner.Login, Mode=OneWay}" />
-
-                        <TextBlock
-                            Margin="4,0"
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="/" />
-
-                        <TextBlock
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="{x:Bind ViewModel.IssueItem.Repository.Name, Mode=OneWay}" />
-
-                        <TextBlock
-                            Margin="4,0,0,0"
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="#" />
-
-                        <TextBlock
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{StaticResource CaptionTextBlockStyle}"
-                            Text="{x:Bind ViewModel.IssueItem.Number, Mode=OneWay}" />
-                    </StackPanel>
-
+                <StackPanel
+                    x:Name="RepositoryInfoBlock"
+                    x:Load="{x:Bind ViewModel.CompactMode, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
+                    Orientation="Horizontal">
                     <TextBlock
-                        x:Name="UpdatedAtHumanized"
-                        HorizontalAlignment="Right"
-                        x:Load="{x:Bind ViewModel.CompactMode, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="{x:Bind ViewModel.IssueItem.UpdatedAt, Mode=OneWay}" />
+                        Text="{x:Bind ViewModel.IssueItem.Repository.Owner.Login, Mode=OneWay}" />
 
                     <TextBlock
-                        x:Name="TitleTextBlock"
-                        Grid.Row="1"
-                        Margin="0,4"
-                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="{x:Bind ViewModel.IssueItem.Title, Mode=OneWay}"
-                        TextTrimming="CharacterEllipsis" />
+                        Margin="4,0"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="/" />
 
-                    <muxc:ItemsRepeater
-                        x:Name="Labels"
-                        Grid.Row="2"
-                        Margin="0,4,0,0"
-                        x:Load="{x:Bind ViewModel.CompactMode, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
-                        ItemsSource="{x:Bind ViewModel.LabelViewModels, Mode=OneWay}">
-                        <muxc:ItemsRepeater.Layout>
-                            <muxc:StackLayout Orientation="Horizontal" Spacing="8" />
-                        </muxc:ItemsRepeater.Layout>
-                        <DataTemplate x:DataType="labelsvm:LabelControlViewModel">
-                            <labels:LabelControl ViewModel="{x:Bind Mode=OneWay}" />
-                        </DataTemplate>
-                    </muxc:ItemsRepeater>
+                    <TextBlock
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="{x:Bind ViewModel.IssueItem.Repository.Name, Mode=OneWay}" />
 
-                    <StackPanel
-                        x:Name="ConversationCountLabel"
-                        Grid.Row="1"
-                        Grid.RowSpan="4"
-                        HorizontalAlignment="Right"
-                        x:Load="{x:Bind ViewModel.CompactMode, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
-                        Orientation="Horizontal">
+                    <TextBlock
+                        Margin="4,0,0,0"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="#" />
 
-                        <labels:LabelControl
-                            x:Name="CommentCountLabel"
-                            VerticalAlignment="Center"
-                            x:Load="{x:Bind ViewModel.IssueItem.Comments.TotalCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-                            ViewModel="{x:Bind ViewModel.CommentCountLabel, Mode=OneWay}">
-                            <labels:LabelControl.Icon>
-                                <FontIcon
-                                    FontFamily="{StaticResource Octions}"
-                                    FontSize="12"
-                                    Glyph="&#xE95D;" />
-                            </labels:LabelControl.Icon>
-                        </labels:LabelControl>
+                    <TextBlock
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Style="{StaticResource CaptionTextBlockStyle}"
+                        Text="{x:Bind ViewModel.IssueItem.Number, Mode=OneWay}" />
+                </StackPanel>
 
-                    </StackPanel>
-                </Grid>
+                <TextBlock
+                    x:Name="UpdatedAtHumanized"
+                    HorizontalAlignment="Right"
+                    x:Load="{x:Bind ViewModel.CompactMode, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="{x:Bind ViewModel.IssueItem.UpdatedAt, Mode=OneWay}" />
+
+                <TextBlock
+                    x:Name="TitleTextBlock"
+                    Grid.Row="1"
+                    Margin="0,4"
+                    VerticalAlignment="Top"
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                    Text="{x:Bind ViewModel.IssueItem.Title, Mode=OneWay}"
+                    TextTrimming="CharacterEllipsis" />
+
+                <muxc:ItemsRepeater
+                    x:Name="Labels"
+                    Grid.Row="2"
+                    Margin="0,4,0,0"
+                    x:Load="{x:Bind ViewModel.CompactMode, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
+                    ItemsSource="{x:Bind ViewModel.LabelViewModels, Mode=OneWay}">
+                    <muxc:ItemsRepeater.Layout>
+                        <muxc:StackLayout Orientation="Horizontal" Spacing="8" />
+                    </muxc:ItemsRepeater.Layout>
+                    <DataTemplate x:DataType="labelsvm:LabelControlViewModel">
+                        <labels:LabelControl ViewModel="{x:Bind Mode=OneWay}" />
+                    </DataTemplate>
+                </muxc:ItemsRepeater>
+
+                <StackPanel
+                    x:Name="ConversationCountLabel"
+                    Grid.Row="1"
+                    Grid.RowSpan="4"
+                    HorizontalAlignment="Right"
+                    x:Load="{x:Bind ViewModel.CompactMode, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
+                    Orientation="Horizontal">
+
+                    <labels:LabelControl
+                        x:Name="CommentCountLabel"
+                        VerticalAlignment="Center"
+                        x:Load="{x:Bind ViewModel.IssueItem.Comments.TotalCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                        ViewModel="{x:Bind ViewModel.CommentCountLabel, Mode=OneWay}">
+                        <labels:LabelControl.Icon>
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="12"
+                                Glyph="&#xE95D;" />
+                        </labels:LabelControl.Icon>
+                    </labels:LabelControl>
+
+                </StackPanel>
             </Grid>
-        </Button>
-    </Grid>
+        </Grid>
+    </Button>
 </UserControl>

@@ -82,8 +82,8 @@ namespace FluentHub.Uwp
         {
             return new ServiceCollection()
                 .AddSingleton<INavigationService, NavigationService>()
-                .AddSingleton<Utils.ILogger>(new Utils.SerilogWrapperLogger(Serilog.Log.Logger))
-                .AddSingleton<Services.ToastService>()
+                .AddSingleton<Utils.ILogger>(new SerilogWrapperLogger(Log.Logger))
+                .AddSingleton<ToastService>()
                 .AddSingleton<IMessenger>(StrongReferenceMessenger.Default)
                 // ViewModels
                 .AddSingleton<MainPageViewModel>()

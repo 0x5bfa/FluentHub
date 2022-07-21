@@ -7,6 +7,7 @@
     xmlns:humanizer="using:Humanizer"
     xmlns:local="using:FluentHub.Uwp.Views.Home"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:FluentHub.Uwp.Models"
     xmlns:modelsV3="using:FluentHub.Octokit.Models.v3"
     xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -15,23 +16,18 @@
 
     <Page.Resources>
         <ResourceDictionary>
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ms-appx:///ResourceDictionaries/DefaultGridSplitterStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
-            <SolidColorBrush x:Key="ExpanderHeaderBackground" Color="Transparent" />
-            <SolidColorBrush x:Key="ExpanderHeaderBorderBrush" Color="Transparent" />
-            <SolidColorBrush x:Key="ExpanderHeaderBorderPointerOverBrush" Color="Transparent" />
-            <SolidColorBrush x:Key="ExpanderHeaderBorderPressedBrush" Color="Transparent" />
-            <SolidColorBrush x:Key="ExpanderContentBackground" Color="Transparent" />
-            <SolidColorBrush x:Key="ExpanderContentBorderBrush" Color="Transparent" />
-            <x:Double x:Key="ExpanderMinHeight">0</x:Double>
-            <Thickness x:Key="ExpanderHeaderPadding">0,0,0,0</Thickness>
-            <Thickness x:Key="ExpanderContentPadding">0</Thickness>
+
             <Style TargetType="muxc:Expander">
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             </Style>
+
             <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+
         </ResourceDictionary>
     </Page.Resources>
 
@@ -44,16 +40,14 @@
         </Grid.ColumnDefinitions>
 
         <ScrollViewer>
-            <Grid Margin="12" RowSpacing="12">
-
+            <Grid Margin="32,24,32,24" RowSpacing="12">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <Grid Margin="4,0">
+                <Grid>
                     <TextBlock
-                        Margin="0,8"
                         VerticalAlignment="Center"
                         Style="{StaticResource SubtitleTextBlockStyle}"
                         Text="Repositories" />
@@ -73,7 +67,7 @@
 
                     <ListView
                         x:Name="HomeRepositoriesListItem"
-                        Margin="-4,0"
+                        Margin="-12,0"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
                         IsItemClickEnabled="True"
@@ -124,7 +118,7 @@
         <toolkit:GridSplitter Grid.Column="1" Style="{StaticResource DefaultGridSplitterStyle}" />
 
         <ScrollViewer Grid.Column="2">
-            <Grid Margin="16">
+            <Grid Margin="6,24,16,32" RowSpacing="8">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -134,7 +128,7 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock
-                    Margin="0,8"
+                    Margin="24,4,32,8"
                     Style="{StaticResource SubtitleTextBlockStyle}"
                     Text="Home" />
 
@@ -144,134 +138,83 @@
                     HorizontalAlignment="Stretch"
                     HorizontalContentAlignment="Stretch"
                     IsExpanded="True">
+                    <muxc:Expander.Resources>
+                        <SolidColorBrush x:Key="ExpanderHeaderBackground" Color="Transparent" />
+                        <SolidColorBrush x:Key="ExpanderHeaderBorderBrush" Color="Transparent" />
+                        <SolidColorBrush x:Key="ExpanderHeaderBorderPointerOverBrush" Color="Transparent" />
+                        <SolidColorBrush x:Key="ExpanderHeaderBorderPressedBrush" Color="Transparent" />
+                        <SolidColorBrush x:Key="ExpanderContentBackground" Color="Transparent" />
+                        <SolidColorBrush x:Key="ExpanderContentBorderBrush" Color="Transparent" />
+                        <Thickness x:Key="ExpanderHeaderPadding">0,0,0,0</Thickness>
+                        <Thickness x:Key="ExpanderContentPadding">0,0,0,0</Thickness>
+                        <x:Double x:Key="ExpanderMinHeight">0</x:Double>
+                    </muxc:Expander.Resources>
 
                     <muxc:Expander.Header>
                         <TextBlock
-                            Margin="-18,0"
+                            Margin="6,0"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
                             Text="Work" />
                     </muxc:Expander.Header>
 
                     <muxc:Expander.Content>
-                        <ScrollViewer
-                            HorizontalScrollBarVisibility="Auto"
-                            HorizontalScrollMode="Auto"
-                            VerticalScrollBarVisibility="Disabled"
-                            VerticalScrollMode="Disabled">
-                            <StackPanel
-                                Margin="0,0,0,12"
-                                Orientation="Horizontal"
-                                Spacing="8">
-                                <Button
-                                    Width="128"
-                                    Height="96"
-                                    Padding="0"
-                                    Click="OnIssueButtonClick">
-                                    <Grid Width="126" Height="94">
-                                        <Border CornerRadius="4" Opacity="0.2" />
-                                        <StackPanel VerticalAlignment="Center" Spacing="4">
-                                            <Border
-                                                Width="40"
-                                                Height="36"
-                                                CornerRadius="4">
-                                                <Image Source="/Assets/Icons/Issues.png" />
-                                            </Border>
-                                            <TextBlock HorizontalAlignment="Center" Text="Issues" />
-                                        </StackPanel>
-                                    </Grid>
-                                </Button>
-                                <Button
-                                    Width="128"
-                                    Height="96"
-                                    Padding="0"
-                                    Click="OnPullRequestsButtonClick">
-                                    <Grid Width="126" Height="94">
-                                        <Border CornerRadius="4" Opacity="0.2" />
-                                        <StackPanel VerticalAlignment="Center" Spacing="4">
-                                            <Border
-                                                Width="40"
-                                                Height="36"
-                                                CornerRadius="4">
-                                                <Image Source="/Assets/Icons/PullRequests.png" />
-                                            </Border>
-                                            <TextBlock HorizontalAlignment="Center" Text="Pull requests" />
-                                        </StackPanel>
-                                    </Grid>
-                                </Button>
-                                <Button
-                                    Width="128"
-                                    Height="96"
-                                    Padding="0"
-                                    Click="OnDiscussionsButtonClick">
-                                    <Grid Width="126" Height="94">
-                                        <Border CornerRadius="4" Opacity="0.2" />
-                                        <StackPanel VerticalAlignment="Center" Spacing="4">
-                                            <Border
-                                                Width="40"
-                                                Height="36"
-                                                CornerRadius="4">
-                                                <Image Source="/Assets/Icons/Discussions.png" />
-                                            </Border>
-                                            <TextBlock HorizontalAlignment="Center" Text="Discussions" />
-                                        </StackPanel>
-                                    </Grid>
-                                </Button>
-                                <Button
-                                    Width="128"
-                                    Height="96"
-                                    Padding="0"
-                                    Click="OnRepositoriesButtonClick">
-                                    <Grid Width="126" Height="94">
-                                        <Border CornerRadius="4" Opacity="0.2" />
-                                        <StackPanel VerticalAlignment="Center" Spacing="4">
-                                            <Border
-                                                Width="40"
-                                                Height="36"
-                                                CornerRadius="4">
-                                                <Image Source="/Assets/Icons/Repositories.png" />
-                                            </Border>
-                                            <TextBlock HorizontalAlignment="Center" Text="Repositories" />
-                                        </StackPanel>
-                                    </Grid>
-                                </Button>
-                                <Button
-                                    Width="128"
-                                    Height="96"
-                                    Padding="0"
-                                    Click="OnOrganizationsButtonClick">
-                                    <Grid Width="126" Height="94">
-                                        <Border CornerRadius="4" Opacity="0.2" />
-                                        <StackPanel VerticalAlignment="Center" Spacing="4">
-                                            <Border
-                                                Width="40"
-                                                Height="36"
-                                                CornerRadius="4">
-                                                <Image Source="/Assets/Icons/Organizations.png" />
-                                            </Border>
-                                            <TextBlock HorizontalAlignment="Center" Text="Organizations" />
-                                        </StackPanel>
-                                    </Grid>
-                                </Button>
-                                <Button
-                                    Width="128"
-                                    Height="96"
-                                    Padding="0"
-                                    Click="OnStarsButtonClick">
-                                    <Grid Width="126" Height="94">
-                                        <Border CornerRadius="4" Opacity="0.2" />
-                                        <StackPanel VerticalAlignment="Center" Spacing="4">
-                                            <Border
-                                                Width="40"
-                                                Height="36"
-                                                CornerRadius="4">
-                                                <Image Source="/Assets/Icons/Starred.png" />
-                                            </Border>
-                                            <TextBlock HorizontalAlignment="Center" Text="Stars" />
-                                        </StackPanel>
-                                    </Grid>
-                                </Button>
-                            </StackPanel>
-                        </ScrollViewer>
+                        <muxc:ItemsRepeater
+                            x:Name="CardsList"
+                            Margin="20,0"
+                            HorizontalAlignment="Stretch"
+                            ItemsSource="{x:Bind ViewModel.FolderCardItems, Mode=OneWay}">
+
+                            <muxc:ItemsRepeater.Layout>
+                                <muxc:UniformGridLayout
+                                    ItemsStretch="Fill"
+                                    MaximumRowsOrColumns="6"
+                                    MinColumnSpacing="8"
+                                    MinItemHeight="72"
+                                    MinItemWidth="100"
+                                    MinRowSpacing="8"
+                                    Orientation="Horizontal" />
+                            </muxc:ItemsRepeater.Layout>
+                            <muxc:ItemsRepeater.ItemTemplate>
+                                <DataTemplate x:DataType="models:FolderCardItem">
+                                    <Button
+                                        Padding="8"
+                                        HorizontalAlignment="Stretch"
+                                        VerticalAlignment="Stretch"
+                                        HorizontalContentAlignment="Stretch"
+                                        VerticalContentAlignment="Stretch"
+                                        CornerRadius="4">
+
+                                        <Grid
+                                            HorizontalAlignment="Stretch"
+                                            VerticalAlignment="Stretch"
+                                            RowSpacing="0">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="*" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+                                            <Image
+                                                Grid.Row="0"
+                                                Width="32"
+                                                Height="32"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Source="{x:Bind Thumbnail, Mode=OneWay}"
+                                                Stretch="Uniform" />
+                                            <TextBlock
+                                                x:Name="ItemLocationName"
+                                                Grid.Row="1"
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                FontSize="14"
+                                                HorizontalTextAlignment="Center"
+                                                Text="{x:Bind Text, Mode=OneWay}"
+                                                TextTrimming="WordEllipsis"
+                                                TextWrapping="NoWrap" />
+                                        </Grid>
+                                    </Button>
+                                </DataTemplate>
+                            </muxc:ItemsRepeater.ItemTemplate>
+                        </muxc:ItemsRepeater>
                     </muxc:Expander.Content>
                 </muxc:Expander>
 
@@ -282,10 +225,21 @@
                     HorizontalAlignment="Stretch"
                     HorizontalContentAlignment="Stretch"
                     IsExpanded="False">
+                    <muxc:Expander.Resources>
+                        <SolidColorBrush x:Key="ExpanderHeaderBackground" Color="Transparent" />
+                        <SolidColorBrush x:Key="ExpanderHeaderBorderBrush" Color="Transparent" />
+                        <SolidColorBrush x:Key="ExpanderHeaderBorderPointerOverBrush" Color="Transparent" />
+                        <SolidColorBrush x:Key="ExpanderHeaderBorderPressedBrush" Color="Transparent" />
+                        <SolidColorBrush x:Key="ExpanderContentBackground" Color="Transparent" />
+                        <SolidColorBrush x:Key="ExpanderContentBorderBrush" Color="Transparent" />
+                        <Thickness x:Key="ExpanderHeaderPadding">0,0,0,0</Thickness>
+                        <Thickness x:Key="ExpanderContentPadding">0,0,0,0</Thickness>
+                        <x:Double x:Key="ExpanderMinHeight">0</x:Double>
+                    </muxc:Expander.Resources>
 
                     <muxc:Expander.Header>
                         <TextBlock
-                            Margin="-18,0"
+                            Margin="6,0"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
                             Text="Favorites" />
                     </muxc:Expander.Header>
@@ -322,23 +276,29 @@
                     HorizontalAlignment="Stretch"
                     HorizontalContentAlignment="Stretch"
                     IsExpanded="True">
+                    <muxc:Expander.Resources>
+                        <SolidColorBrush x:Key="ExpanderHeaderBackground" Color="Transparent" />
+                        <SolidColorBrush x:Key="ExpanderHeaderBorderBrush" Color="Transparent" />
+                        <SolidColorBrush x:Key="ExpanderHeaderBorderPointerOverBrush" Color="Transparent" />
+                        <SolidColorBrush x:Key="ExpanderHeaderBorderPressedBrush" Color="Transparent" />
+                        <SolidColorBrush x:Key="ExpanderContentBackground" Color="Transparent" />
+                        <SolidColorBrush x:Key="ExpanderContentBorderBrush" Color="Transparent" />
+                        <Thickness x:Key="ExpanderHeaderPadding">0,0,0,0</Thickness>
+                        <Thickness x:Key="ExpanderContentPadding">0,0,0,0</Thickness>
+                        <x:Double x:Key="ExpanderMinHeight">0</x:Double>
+                    </muxc:Expander.Resources>
 
                     <muxc:Expander.Header>
                         <TextBlock
-                            Margin="-18,0"
+                            Margin="6,0"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="Activity" />
+                            Text="Recent" />
                     </muxc:Expander.Header>
 
                     <muxc:Expander.Content>
                         <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-
                             <ListView
-                                Margin="-4,0"
+                                Margin="6,0"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
                                 IsItemClickEnabled="True"
@@ -367,56 +327,56 @@
                                                 <toolkit:Case Value="IssueClosedAsCompleted">
                                                     <FontIcon
                                                         FontFamily="{StaticResource Octions}"
-                                                        Foreground="#8957e5"
+                                                        Foreground="{StaticResource Purple5}"
                                                         Glyph="&#xE9E6;" />
                                                 </toolkit:Case>
 
                                                 <toolkit:Case Value="IssueOpen">
                                                     <FontIcon
                                                         FontFamily="{StaticResource Octions}"
-                                                        Foreground="#3fb950"
+                                                        Foreground="{StaticResource Green5}"
                                                         Glyph="&#xE9EA;" />
                                                 </toolkit:Case>
 
                                                 <toolkit:Case Value="PullRequestClosed">
                                                     <FontIcon
                                                         FontFamily="{StaticResource Octions}"
-                                                        Foreground="#f85149"
+                                                        Foreground="{StaticResource Red5}"
                                                         Glyph="&#xE9C1;" />
                                                 </toolkit:Case>
 
                                                 <toolkit:Case Value="PullRequestMerged">
                                                     <FontIcon
                                                         FontFamily="{StaticResource Octions}"
-                                                        Foreground="#8957e5"
+                                                        Foreground="{StaticResource Purple5}"
                                                         Glyph="&#xE9BD;" />
                                                 </toolkit:Case>
 
                                                 <toolkit:Case Value="PullRequestDraft">
                                                     <FontIcon
                                                         FontFamily="{StaticResource Octions}"
-                                                        Foreground="#8b949e"
+                                                        Foreground="{StaticResource Black5}"
                                                         Glyph="&#xE9C3;" />
                                                 </toolkit:Case>
 
                                                 <toolkit:Case Value="PullRequestOpen">
                                                     <FontIcon
                                                         FontFamily="{StaticResource Octions}"
-                                                        Foreground="#3fb950"
+                                                        Foreground="{StaticResource Green5}"
                                                         Glyph="&#xE9BF;" />
                                                 </toolkit:Case>
 
                                                 <toolkit:Case Value="Discussion">
                                                     <FontIcon
                                                         FontFamily="{StaticResource Octions}"
-                                                        Foreground="#8b949e"
+                                                        Foreground="{StaticResource Blue5}"
                                                         Glyph="&#xE95D;" />
                                                 </toolkit:Case>
 
                                                 <toolkit:Case Value="Commit">
                                                     <FontIcon
                                                         FontFamily="{StaticResource Octions}"
-                                                        Foreground="#8b949e"
+                                                        Foreground="{StaticResource Blue5}"
                                                         Glyph="&#xE9B9;" />
                                                 </toolkit:Case>
 
@@ -488,16 +448,15 @@
                                 </ListView.ItemTemplate>
 
                             </ListView>
-
-                            <Button
-                                Grid.Row="1"
-                                HorizontalAlignment="Center"
-                                Click="OnMoreActivitiesButtonClick"
-                                Content="See feeds" />
-
                         </Grid>
                     </muxc:Expander.Content>
                 </muxc:Expander>
+
+                <!--<Button
+                    Grid.Row="4"
+                    HorizontalAlignment="Center"
+                    Click="OnMoreActivitiesButtonClick"
+                    Content="See feeds" />-->
             </Grid>
         </ScrollViewer>
     </Grid>

@@ -12,7 +12,7 @@ namespace FluentHub.Uwp.ViewModels
 {
     public class MainPageViewModel : ObservableObject
     {
-        public MainPageViewModel(INavigationService navigationService!!, IMessenger notificationMessenger = null, ToastService toastService = null, ILogger logger = null)
+        public MainPageViewModel(INavigationService navigationService, IMessenger notificationMessenger = null, ToastService toastService = null, ILogger logger = null)
         {
             _dispatcher = DispatcherQueue.GetForCurrentThread(); // To Access the UI thread later.
             _navigationService = navigationService;
@@ -21,7 +21,10 @@ namespace FluentHub.Uwp.ViewModels
             _logger = logger;
 
             if (_messenger != null)
+            {
                 _messenger.Register<UserNotificationMessage>(this, OnNewNotificationReceived);
+                _messenger.Register<LoadingMessaging>(this, OnIfContentIsLoadingRecieved);
+            }
 
             AddNewTabAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(AddNewTabAccelerator);
             CloseTabAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(CloseTabAccelerator);
@@ -32,7 +35,13 @@ namespace FluentHub.Uwp.ViewModels
 
             GoBackCommand = new RelayCommand(GoBack);
             GoForwardCommand = new RelayCommand(GoForward);
+
             GoHomeCommand = new RelayCommand(GoHome);
+            GoNotificationsCommand = new RelayCommand(GoNotifications);
+            GoActivitiesCommand = new RelayCommand(GoActivities);
+            GoExplorerCommand = new RelayCommand(GoExplorer);
+            GoMarketplaceCommand = new RelayCommand(GoMarketplace);
+            GoProfileCommand = new RelayCommand(GoProfile);
 
             LoadSignedInUserCommand = new AsyncRelayCommand(LoadSignedInUserAsync);
         }
@@ -50,11 +59,32 @@ namespace FluentHub.Uwp.ViewModels
         private Octokit.Models.v4.User _signedInUser;
         public Octokit.Models.v4.User SignedInUser { get => _signedInUser; private set => SetProperty(ref _signedInUser, value); }
 
+        private bool _isLoading;
+        public bool IsLoading { get => _isLoading; private set => SetProperty(ref _isLoading, value); }
+
         private int _unreadCount;
         public int UnreadCount { get => _unreadCount; private set => SetProperty(ref _unreadCount, value); }
 
         public static Frame RepositoryContentFrame { get; set; } = new();
         public static Frame PullRequestContentFrame { get; set; } = new();
+
+        private bool _isHome;
+        public bool IsHome { get => _isHome; private set => SetProperty(ref _isHome, value); }
+
+        private bool _isNotifications;
+        public bool IsNotifications { get => _isNotifications; private set => SetProperty(ref _isNotifications, value); }
+
+        private bool _isActivities;
+        public bool IsActivities { get => _isActivities; private set => SetProperty(ref _isActivities, value); }
+
+        private bool _isExplorer;
+        public bool IsExplorer { get => _isExplorer; private set => SetProperty(ref _isExplorer, value); }
+
+        private bool _isMarketplace;
+        public bool IsMarketplace { get => _isMarketplace; private set => SetProperty(ref _isMarketplace, value); }
+
+        private bool _isProfile;
+        public bool IsProfile { get => _isProfile; private set => SetProperty(ref _isProfile, value); }
 
         public IAsyncRelayCommand LoadSignedInUserCommand { get; }
         #endregion
@@ -69,7 +99,13 @@ namespace FluentHub.Uwp.ViewModels
 
         public ICommand GoBackCommand { get; private set; }
         public ICommand GoForwardCommand { get; private set; }
+
         public ICommand GoHomeCommand { get; private set; }
+        public ICommand GoNotificationsCommand { get; private set; }
+        public ICommand GoActivitiesCommand { get; private set; }
+        public ICommand GoExplorerCommand { get; private set; }
+        public ICommand GoMarketplaceCommand { get; private set; }
+        public ICommand GoProfileCommand { get; private set; }
         #endregion
 
         #region Command methods
@@ -137,7 +173,54 @@ namespace FluentHub.Uwp.ViewModels
 
         private void GoHome()
         {
+            InitializeToggles();
+            IsHome = true;
             _navigationService.Navigate<Views.Home.UserHomePage>();
+        }
+
+        private void GoNotifications()
+        {
+            InitializeToggles();
+            IsNotifications = true;
+            _navigationService.Navigate<Views.Home.NotificationsPage>();
+        }
+
+        private void GoActivities()
+        {
+            InitializeToggles();
+            IsActivities = true;
+            _navigationService.Navigate<Views.Home.ActivitiesPage>();
+        }
+
+        private void GoExplorer()
+        {
+            InitializeToggles();
+            IsExplorer = true;
+            //_navigationService.Navigate<Views.Home.UserHomePage>();
+        }
+
+        private void GoMarketplace()
+        {
+            InitializeToggles();
+            IsMarketplace = true;
+            //_navigationService.Navigate<Views.Home.UserHomePage>();
+        }
+
+        private void GoProfile()
+        {
+            InitializeToggles();
+            IsProfile = true;
+            _navigationService.Navigate<Views.Users.ProfilePage>($"{App.DefaultGitHubDomain}/{App.Settings.SignedInUserName}");
+        }
+
+        private void InitializeToggles()
+        {
+            IsHome = false;
+            IsNotifications = false;
+            IsActivities = false;
+            IsExplorer = false;
+            IsMarketplace = false;
+            IsProfile = false;
         }
         #endregion
 
@@ -167,6 +250,11 @@ namespace FluentHub.Uwp.ViewModels
                 // Show the message in the toast
                 _logger?.Info("Toast notification received: {0}", message);
             }
+        }
+
+        private void OnIfContentIsLoadingRecieved(object recipient, LoadingMessaging message)
+        {
+            IsLoading = message.IsLoading;
         }
 
         private async Task LoadSignedInUserAsync()

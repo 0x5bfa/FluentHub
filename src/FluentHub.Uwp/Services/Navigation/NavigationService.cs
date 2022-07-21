@@ -18,7 +18,7 @@ namespace FluentHub.Uwp.Services.Navigation
         #endregion
 
         #region Methods
-        public void Configure(ITabView tabView!!)
+        public void Configure(ITabView tabView)
         {
             TabView = tabView;
             IsConfigured = true;

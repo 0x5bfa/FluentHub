@@ -13,7 +13,11 @@
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary>
+
+                <ResourceDictionary Source="/ResourceDictionaries/TabView_themeresources.xaml" />
+                <ResourceDictionary Source="/ResourceDictionaries/TabViewItem_shared.xaml" />
+
+                <!--<ResourceDictionary>
 
                     <Style x:Key="TabViewCloseButtonStyle" TargetType="Button">
                         <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -177,12 +181,14 @@
                                                     IsTabStop="False" />
                                             </Viewbox>
 
-                                            <!--
-                                                If we template bind the ContentPresenter's Content property to the TabViewItem.Header property
-                                                we unfortunately run into the following issue if the header is [null] or empty:
-                                                The TabViewItem.Content property will be implictly bound to the Content property of the ContentPresenter.
-                                                To prevent this, we explicitly set a default empty content here and update the content in code behind.
-                                            -->
+                -->
+                <!--
+                    If we template bind the ContentPresenter's Content property to the TabViewItem.Header property
+                    we unfortunately run into the following issue if the header is [null] or empty:
+                    The TabViewItem.Content property will be implictly bound to the Content property of the ContentPresenter.
+                    To prevent this, we explicitly set a default empty content here and update the content in code behind.
+                -->
+                <!--
                                             <ContentPresenter
                                                 x:Name="ContentPresenter"
                                                 Grid.Column="1"
@@ -487,7 +493,7 @@
                             </Setter.Value>
                         </Setter>
                     </Style>
-                </ResourceDictionary>
+                </ResourceDictionary>-->
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -510,7 +516,7 @@
                     <muxc:TabViewItem
                         Header="{x:Bind NavigationHistory.CurrentItem.Header, Mode=OneWay}"
                         IconSource="{x:Bind NavigationHistory.CurrentItem.Icon, Mode=OneWay}"
-                        Style="{StaticResource Local.TabViewItem}"
+                        Style="{StaticResource TabViewItemStyle}"
                         ToolTipService.Placement="Bottom"
                         ToolTipService.ToolTip="{x:Bind NavigationHistory.CurrentItem.Description, Mode=OneWay}" />
                 </DataTemplate>
@@ -518,9 +524,9 @@
             <muxc:TabView.TabStripFooter>
                 <Button
                     Grid.Column="1"
-                    Width="28"
-                    Height="26"
-                    Margin="0,0,0,3"
+                    Width="34"
+                    Height="34"
+                    Margin="-4,0,0,1"
                     Padding="2"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Bottom"

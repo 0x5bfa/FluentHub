@@ -36,6 +36,8 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Commits
         {
             try
             {
+                _messenger?.Send(new LoadingMessaging(true));
+
                 CommitQueries queries = new();
                 var response = await queries.GetAllAsync(
                     ContextViewModel.Repository.Name,
@@ -64,6 +66,10 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Commits
                     _messenger.Send(notification);
                 }
                 throw;
+            }
+            finally
+            {
+                _messenger?.Send(new LoadingMessaging(false));
             }
         }
     }
