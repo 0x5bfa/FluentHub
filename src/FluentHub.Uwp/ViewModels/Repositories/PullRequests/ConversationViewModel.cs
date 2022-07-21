@@ -39,6 +39,8 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
         {
             try
             {
+                _messenger?.Send(new LoadingMessaging(true));
+
                 if (pull != null)
                     PullItem = pull;
 
@@ -347,6 +349,10 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
                     _messenger.Send(notification);
                 }
                 throw;
+            }
+            finally
+            {
+                _messenger?.Send(new LoadingMessaging(false));
             }
         }
     }

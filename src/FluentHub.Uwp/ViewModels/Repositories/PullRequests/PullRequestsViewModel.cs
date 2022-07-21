@@ -32,6 +32,8 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
         {
             try
             {
+                _messenger?.Send(new LoadingMessaging(true));
+
                 PullRequestQueries queries = new();
                 var items = await queries.GetAllAsync(nameWithOwner.Split("/")[1], nameWithOwner.Split("/")[0]);
                 if (items == null) return;
@@ -57,6 +59,10 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
                     _messenger.Send(notification);
                 }
                 throw;
+            }
+            finally
+            {
+                _messenger?.Send(new LoadingMessaging(false));
             }
         }
     }

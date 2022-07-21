@@ -20,15 +20,9 @@
 
         <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.LoadDiscussionsPageCommand.IsRunning, Mode=OneWay}">
 
-            <toolkit:Case Value="True">
-                <muxc:ProgressRing
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    IsActive="True" />
-            </toolkit:Case>
-
             <toolkit:Case Value="False">
                 <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.LoadDiscussionsPageCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
+
                     <toolkit:Case Value="True">
                         <HyperlinkButton
                             HorizontalAlignment="Center"
@@ -54,14 +48,108 @@
 
                             <toolkit:Case Value="True">
 
-                                <ScrollViewer Padding="12" VerticalScrollBarVisibility="Auto">
-                                    <Grid>
+                                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                    <Grid Margin="32">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
 
-                                        <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Items}">
+                                        <Grid
+                                            Grid.Row="0"
+                                            Margin="0,8,0,16"
+                                            RowSpacing="8">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+
+                                            <TextBox PlaceholderText="Search pull requests" />
+
+                                            <StackPanel
+                                                Grid.Row="1"
+                                                Orientation="Horizontal"
+                                                Spacing="8">
+
+                                                <!--<Button Visibility="Collapsed">
+                                                    <StackPanel Orientation="Horizontal" Spacing="4">
+                                                        <FontIcon
+                                                            FontSize="14"
+                                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                            Glyph="&#xe71c;" />
+                                                        <muxc:InfoBadge Value="2" />
+                                                    </StackPanel>
+                                                    <Button.Flyout>
+                                                        <MenuFlyout Placement="BottomEdgeAlignedLeft">
+                                                            <MenuFlyoutItem Foreground="{StaticResource DangerButtonBackground}" Text="Clear all filters" />
+                                                        </MenuFlyout>
+                                                    </Button.Flyout>
+                                                </Button>-->
+
+                                                <muxc:DropDownButton>
+                                                    <muxc:DropDownButton.Content>
+                                                        <StackPanel Orientation="Horizontal" Spacing="4">
+                                                            <TextBlock
+                                                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                                Style="{StaticResource BodyTextBlockStyle}"
+                                                                Text="Status:" />
+                                                            <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
+                                                        </StackPanel>
+                                                    </muxc:DropDownButton.Content>
+                                                    <muxc:DropDownButton.Flyout>
+                                                        <MenuFlyout Placement="BottomEdgeAlignedLeft">
+                                                            <MenuFlyout.Items>
+                                                                <ToggleMenuFlyoutItem IsEnabled="False" Text="Not available yet" />
+                                                            </MenuFlyout.Items>
+                                                        </MenuFlyout>
+                                                    </muxc:DropDownButton.Flyout>
+                                                </muxc:DropDownButton>
+
+                                                <muxc:DropDownButton>
+                                                    <muxc:DropDownButton.Content>
+                                                        <StackPanel Orientation="Horizontal" Spacing="4">
+                                                            <TextBlock
+                                                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                                Style="{StaticResource BodyTextBlockStyle}"
+                                                                Text="Labels:" />
+                                                            <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
+                                                        </StackPanel>
+                                                    </muxc:DropDownButton.Content>
+                                                    <muxc:DropDownButton.Flyout>
+                                                        <MenuFlyout Placement="BottomEdgeAlignedLeft">
+                                                            <MenuFlyout.Items>
+                                                                <ToggleMenuFlyoutItem IsEnabled="False" Text="Not available yet" />
+                                                            </MenuFlyout.Items>
+                                                        </MenuFlyout>
+                                                    </muxc:DropDownButton.Flyout>
+                                                </muxc:DropDownButton>
+
+                                                <muxc:DropDownButton>
+                                                    <muxc:DropDownButton.Content>
+                                                        <StackPanel Orientation="Horizontal" Spacing="4">
+                                                            <TextBlock
+                                                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                                Style="{StaticResource BodyTextBlockStyle}"
+                                                                Text="Sort:" />
+                                                            <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
+                                                        </StackPanel>
+                                                    </muxc:DropDownButton.Content>
+                                                    <muxc:DropDownButton.Flyout>
+                                                        <MenuFlyout Placement="BottomEdgeAlignedLeft">
+                                                            <MenuFlyout.Items>
+                                                                <ToggleMenuFlyoutItem IsEnabled="False" Text="Not available yet" />
+                                                            </MenuFlyout.Items>
+                                                        </MenuFlyout>
+                                                    </muxc:DropDownButton.Flyout>
+                                                </muxc:DropDownButton>
+
+                                            </StackPanel>
+                                        </Grid>
+
+                                        <muxc:ItemsRepeater Grid.Row="1" ItemsSource="{x:Bind ViewModel.Items}">
+                                            <muxc:ItemsRepeater.Layout>
+                                                <muxc:StackLayout Orientation="Vertical" Spacing="6" />
+                                            </muxc:ItemsRepeater.Layout>
                                             <DataTemplate x:DataType="bbvm:DiscussionButtonBlockViewModel">
                                                 <blocks:DiscussionButtonBlock ViewModel="{x:Bind}" />
                                             </DataTemplate>

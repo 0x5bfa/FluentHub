@@ -8,6 +8,7 @@
     xmlns:labelsvm="using:FluentHub.Uwp.ViewModels.UserControls.Labels"
     xmlns:local="using:FluentHub.Uwp.UserControls.ButtonBlocks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     d:DesignHeight="300"
@@ -157,7 +158,7 @@
                     <toolkit:SwitchPresenter
                         x:Name="ReviewStateSwitcher"
                         x:Load="{x:Bind ViewModel.PullItem.Reviews.Nodes, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-                        TargetType="x:String"
+                        TargetType="modelsV4:PullRequestReviewState"
                         Value="{x:Bind ViewModel.PullItem.Reviews.Nodes[0].State, Mode=OneWay}">
 
                         <toolkit:Case Value="Pending">
@@ -225,8 +226,8 @@
                     <toolkit:SwitchPresenter
                         x:Name="StatusStateSwitcher"
                         x:Load="{x:Bind ViewModel.PullItem.State, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-                        TargetType="x:String"
-                        Value="{x:Bind ViewModel.PullItem.State, Mode=OneWay}">
+                        TargetType="modelsV4:StatusState"
+                        Value="{x:Bind ViewModel.PullItem.Commits.Nodes[0].Commit.StatusCheckRollup.State, Mode=OneWay}">
 
                         <toolkit:Case Value="Expected">
                             <labels:LabelControl VerticalAlignment="Center" ViewModel="{x:Bind ViewModel.StatusStateLabel, Mode=OneWay}">

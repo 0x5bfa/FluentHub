@@ -32,6 +32,8 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Discussions
         {
             try
             {
+                _messenger?.Send(new LoadingMessaging(true));
+
                 DiscussionQueries queries = new();
                 var items = await queries.GetAllAsync(nameWithOwner.Split("/")[0], nameWithOwner.Split("/")[1]);
 
@@ -55,6 +57,10 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Discussions
                     _messenger.Send(notification);
                 }
                 throw;
+            }
+            finally
+            {
+                _messenger?.Send(new LoadingMessaging(false));
             }
         }
     }

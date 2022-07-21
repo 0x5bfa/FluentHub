@@ -20,15 +20,9 @@
 
         <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.RefreshPullRequestsPageCommand.IsRunning, Mode=OneWay}">
 
-            <toolkit:Case Value="True">
-                <muxc:ProgressRing
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    IsActive="True" />
-            </toolkit:Case>
-
             <toolkit:Case Value="False">
                 <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.RefreshPullRequestsPageCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
+
                     <toolkit:Case Value="True">
                         <HyperlinkButton
                             HorizontalAlignment="Center"
@@ -55,12 +49,10 @@
                             <toolkit:Case Value="True">
 
                                 <ScrollViewer VerticalScrollBarVisibility="Auto">
-                                    <Grid Margin="12">
+                                    <Grid Margin="32">
                                         <Grid.RowDefinitions>
                                             <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="*" />
                                         </Grid.RowDefinitions>
 
                                         <Grid
@@ -155,6 +147,9 @@
                                         </Grid>
 
                                         <muxc:ItemsRepeater Grid.Row="1" ItemsSource="{x:Bind ViewModel.PullItems}">
+                                            <muxc:ItemsRepeater.Layout>
+                                                <muxc:StackLayout Orientation="Vertical" Spacing="6" />
+                                            </muxc:ItemsRepeater.Layout>
                                             <DataTemplate x:DataType="bbvm:PullButtonBlockViewModel">
                                                 <block:PullButtonBlock ViewModel="{x:Bind}" />
                                             </DataTemplate>

@@ -17,6 +17,7 @@
 
             <DataTemplate x:Key="FolderTemplate" x:DataType="models:TreeLayoutPageModel">
                 <muxc:TreeViewItem
+                    Height="28"
                     HasUnrealizedChildren="True"
                     IsExpanded="False"
                     ItemsSource="{x:Bind Children}">
@@ -45,7 +46,7 @@
             </DataTemplate>
 
             <DataTemplate x:Key="FileTemplate" x:DataType="models:TreeLayoutPageModel">
-                <muxc:TreeViewItem>
+                <muxc:TreeViewItem Height="28">
 
                     <StackPanel
                         Orientation="Horizontal"
@@ -90,21 +91,21 @@
             <ColumnDefinition Width="4*" />
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.ColumnSpan="3" VerticalAlignment="Top">
-            <muxc:ProgressBar IsIndeterminate="True" Visibility="{x:Bind ViewModel.IsLoading, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
-        </Grid>
-
         <ScrollViewer>
-            <Grid
-                Margin="12"
-                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                BorderThickness="1"
-                CornerRadius="4">
+            <Grid Margin="12,16">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Grid>
+                    <ComboBox Margin="12,4" HorizontalAlignment="Stretch" />
+                </Grid>
 
                 <muxc:TreeView
                     x:Name="DirTreeView"
-                    Margin="0,8"
+                    Grid.Row="1"
+                    Margin="0,4"
                     CanDrag="False"
                     CanDragItems="False"
                     CanReorderItems="False"

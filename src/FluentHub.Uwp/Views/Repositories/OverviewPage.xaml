@@ -29,6 +29,8 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -48,7 +50,7 @@
 
         <Grid
             Grid.Row="1"
-            Margin="20,20,20,12"
+            Margin="32,32,32,16"
             ColumnSpacing="6">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -56,48 +58,51 @@
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <StackPanel
-                VerticalAlignment="Center"
-                Orientation="Horizontal"
-                Spacing="6">
+            <StackPanel Spacing="12">
                 <Button
+                    x:Name="RepositoryOwnerButton"
                     HorizontalAlignment="Left"
                     Background="Transparent"
                     Click="OnRepoOwnerButtonClick"
                     FontWeight="Normal"
                     Style="{StaticResource LinkLikeButtonStyle}">
-                    <StackPanel Orientation="Horizontal" Spacing="8">
+                    <StackPanel Orientation="Horizontal" Spacing="12">
 
-                        <uc:AvatarControl
-                            AvatarUrl="{x:Bind ViewModel.Repository.Owner.AvatarUrl, Mode=OneWay}"
-                            IsOrganization="{x:Bind ViewModel.Repository.IsInOrganization, Mode=OneWay}"
-                            WidthAndHeight="26" />
+                        <Grid
+                            Width="18"
+                            Height="18"
+                            CornerRadius="4">
+                            <Image
+                                Width="18"
+                                Height="18"
+                                Source="{x:Bind ViewModel.Repository.Owner.AvatarUrl, Mode=OneWay}" />
+                        </Grid>
 
                         <TextBlock
                             x:Name="RepoOwnerName"
                             VerticalAlignment="Center"
                             FontWeight="Normal"
-                            Style="{StaticResource SubtitleTextBlockStyle}"
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
                             Text="{x:Bind ViewModel.Repository.Owner.Login, Mode=OneWay}" />
 
                     </StackPanel>
                 </Button>
 
-                <TextBlock
+                <StackPanel
                     VerticalAlignment="Center"
-                    FontWeight="SemiLight"
-                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                    Style="{StaticResource SubtitleTextBlockStyle}"
-                    Text="/" />
+                    Orientation="Horizontal"
+                    Spacing="6">
 
-                <TextBlock
-                    x:Name="RepoName"
-                    VerticalAlignment="Center"
-                    FontWeight="Normal"
-                    Style="{StaticResource SubtitleTextBlockStyle}"
-                    Text="{x:Bind ViewModel.Repository.Name, Mode=OneWay}" />
+                    <TextBlock
+                        x:Name="RepositoryNameTextBlock"
+                        VerticalAlignment="Center"
+                        Style="{StaticResource SubtitleTextBlockStyle}"
+                        Text="{x:Bind ViewModel.Repository.Name, Mode=OneWay}" />
 
-                <labels:LabelControl ViewModel="{x:Bind ViewModel.RepositoryVisibilityLabel, Mode=OneWay}" />
+                    <labels:LabelControl ViewModel="{x:Bind ViewModel.RepositoryVisibilityLabel, Mode=OneWay}" />
+
+                </StackPanel>
             </StackPanel>
 
             <StackPanel
@@ -214,10 +219,118 @@
 
         </Grid>
 
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="2" Margin="32,0,32,18">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+
+            <TextBlock Margin="0,0,0,16" Text="{x:Bind ViewModel.Repository.Description, Mode=OneWay}" />
+
+            <StackPanel
+                Grid.Row="1"
+                Orientation="Horizontal"
+                Spacing="16">
+                <StackPanel Orientation="Horizontal" Spacing="4">
+                    <FontIcon
+                        Margin="0,0,2,0"
+                        VerticalAlignment="Center"
+                        FontFamily="{StaticResource Octions}"
+                        FontSize="14"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Glyph="&#xEA94;" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="{x:Bind ViewModel.Repository.StargazerCount, Mode=OneWay}" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Text="stars" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Spacing="4">
+                    <FontIcon
+                        Margin="0,0,2,0"
+                        VerticalAlignment="Center"
+                        FontFamily="{StaticResource Octions}"
+                        FontSize="14"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Glyph="&#xEA55;" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="{x:Bind ViewModel.Repository.ForkCount, Mode=OneWay}" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Text="forks" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Spacing="4">
+                    <FontIcon
+                        Margin="0,0,2,0"
+                        VerticalAlignment="Center"
+                        FontFamily="{StaticResource Octions}"
+                        FontSize="14"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Glyph="&#xEA36;" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="{x:Bind ViewModel.Repository.Watchers.TotalCount, Mode=OneWay}" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Text="watching" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Spacing="4">
+                    <FontIcon
+                        Margin="0,0,2,0"
+                        VerticalAlignment="Center"
+                        FontFamily="{StaticResource Octions}"
+                        FontSize="14"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Glyph="&#xE9F7;" />
+                    <toolkit:SwitchPresenter TargetType="x:String" Value="{x:Bind ViewModel.Repository.LicenseInfo.Name, Mode=OneWay}">
+
+                        <toolkit:Case Value="Other">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="View license" />
+                        </toolkit:Case>
+
+                        <toolkit:Case Value="True">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="{x:Bind ViewModel.Repository.LicenseInfo.Name, Mode=OneWay}" />
+                        </toolkit:Case>
+
+                    </toolkit:SwitchPresenter>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Spacing="4">
+                    <FontIcon
+                        Margin="0,0,2,0"
+                        VerticalAlignment="Center"
+                        FontFamily="{StaticResource Octions}"
+                        FontSize="14"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Glyph="&#xE94D;" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                        Text="Code of Conduct" />
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="3">
             <muxc:NavigationView
                 x:Name="RepoPageNavView"
-                Margin="10,0"
+                Margin="32,0"
                 IsBackButtonVisible="Collapsed"
                 IsSettingsVisible="False"
                 ItemInvoked="OnRepoPageNavViewItemInvoked"
@@ -314,14 +427,15 @@
                     </muxc:NavigationViewItem>
 
                 </muxc:NavigationView.MenuItems>
-
-                <muxc:NavigationView.Content>
-                    <Frame
-                        x:Name="RepoPageNavViewFrame"
-                        Margin="-10,0"
-                        Background="{ThemeResource LayerFillColorDefaultBrush}" />
-                </muxc:NavigationView.Content>
             </muxc:NavigationView>
+        </Grid>
+
+        <Grid
+            Grid.Row="4"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Background="{ThemeResource LayerFillColorDefaultBrush}">
+            <Frame x:Name="RepoPageNavViewFrame" />
         </Grid>
     </Grid>
 </Page>

@@ -28,6 +28,8 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Projects
         {
             try
             {
+                _messenger?.Send(new LoadingMessaging(true));
+
                 var pathSegments = url.Split("/");
 
                 ProjectQueries queries = new();
@@ -46,6 +48,10 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Projects
                     _messenger.Send(notification);
                 }
                 throw;
+            }
+            finally
+            {
+                _messenger?.Send(new LoadingMessaging(false));
             }
         }
     }

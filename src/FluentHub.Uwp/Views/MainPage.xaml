@@ -2,6 +2,7 @@
     x:Class="FluentHub.Uwp.Views.MainPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
     xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
@@ -141,35 +142,77 @@
                     Spacing="8">
 
                     <Button
-                        x:Name="GoBackButton"
-                        Grid.Column="0"
+                        x:Name="ToggleLeftNavigationButtons"
                         Width="36"
                         Height="32"
                         Padding="0"
                         VerticalAlignment="Center"
                         Background="Transparent"
-                        BorderBrush="Transparent"
+                        BorderThickness="0"
+                        IsEnabled="False"
+                        ToolTipService.ToolTip="Toggle">
+                        <Button.Resources>
+                            <SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="Transparent" />
+                        </Button.Resources>
+                        <muxc:AnimatedIcon Width="16" Height="16">
+                            <muxc:AnimatedIcon.Source>
+                                <animatedvisuals:AnimatedGlobalNavigationButtonVisualSource />
+                            </muxc:AnimatedIcon.Source>
+                            <muxc:AnimatedIcon.FallbackIconSource>
+                                <muxc:FontIconSource FontSize="14" Glyph="&#xE700;" />
+                            </muxc:AnimatedIcon.FallbackIconSource>
+                        </muxc:AnimatedIcon>
+                    </Button>
+
+                    <Button
+                        x:Name="GoBackButton"
+                        Width="36"
+                        Height="32"
+                        Padding="0"
+                        VerticalAlignment="Center"
+                        Background="Transparent"
+                        BorderThickness="0"
                         Command="{x:Bind ViewModel.GoBackCommand, Mode=OneWay}"
                         IsEnabled="{Binding SelectedItem.NavigationHistory.CanGoBack, ElementName=TabView, FallbackValue=false}"
-                        Style="{StaticResource ClearButtonStyle}"
                         ToolTipService.ToolTip="Back">
-                        <FontIcon FontSize="14" Glyph="&#xE72B;" />
+                        <Button.Resources>
+                            <SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="Transparent" />
+                        </Button.Resources>
+                        <muxc:AnimatedIcon Width="18" Height="18">
+                            <muxc:AnimatedIcon.Source>
+                                <animatedvisuals:AnimatedBackVisualSource />
+                            </muxc:AnimatedIcon.Source>
+                            <muxc:AnimatedIcon.FallbackIconSource>
+                                <muxc:SymbolIconSource Symbol="Back" />
+                            </muxc:AnimatedIcon.FallbackIconSource>
+                        </muxc:AnimatedIcon>
                     </Button>
 
                     <Button
                         x:Name="GoForwardButton"
-                        Grid.Column="1"
                         Width="36"
                         Height="32"
                         Padding="0"
                         VerticalAlignment="Center"
                         Background="Transparent"
-                        BorderBrush="Transparent"
+                        BorderThickness="0"
                         Command="{x:Bind ViewModel.GoForwardCommand, Mode=OneWay}"
                         IsEnabled="{Binding SelectedItem.NavigationHistory.CanGoForward, ElementName=TabView, FallbackValue=false}"
-                        Style="{StaticResource ClearButtonStyle}"
                         ToolTipService.ToolTip="Forward">
-                        <FontIcon FontSize="14" Glyph="&#xE72A;" />
+                        <Button.Resources>
+                            <SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="Transparent" />
+                        </Button.Resources>
+                        <Button.RenderTransform>
+                            <RotateTransform Angle="180" CenterX="18" CenterY="16" />
+                        </Button.RenderTransform>
+                        <muxc:AnimatedIcon Width="18" Height="18">
+                            <muxc:AnimatedIcon.Source>
+                                <animatedvisuals:AnimatedBackVisualSource />
+                            </muxc:AnimatedIcon.Source>
+                            <muxc:AnimatedIcon.FallbackIconSource>
+                                <muxc:SymbolIconSource Symbol="Back" />
+                            </muxc:AnimatedIcon.FallbackIconSource>
+                        </muxc:AnimatedIcon>
                     </Button>
                 </StackPanel>
 

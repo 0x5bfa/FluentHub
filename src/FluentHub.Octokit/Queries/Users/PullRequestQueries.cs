@@ -76,7 +76,7 @@
                         {
                             State = (PullRequestReviewState)y.State,
                         })
-                        .ToList(),
+                        .ToList().DefaultIfEmpty().ToList(),
                     })
                     .SingleOrDefault(),
 
@@ -94,7 +94,7 @@
                             })
                             .SingleOrDefault(),
                         })
-                        .ToList(),
+                        .ToList().DefaultIfEmpty().ToList(),
                     })
                     .SingleOrDefault(),
                 })

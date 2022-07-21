@@ -45,6 +45,10 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
                 }
                 throw;
             }
+            finally
+            {
+                _messenger?.Send(new LoadingMessaging(false));
+            }
         }
     }
 }

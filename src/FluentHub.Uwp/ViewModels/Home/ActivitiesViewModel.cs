@@ -39,6 +39,8 @@ namespace FluentHub.Uwp.ViewModels.Home
         {
             try
             {
+                _messenger?.Send(new LoadingMessaging(true));
+
                 RepositoryQueries repositoryQueries = new();
                 var repositoryResponse = await repositoryQueries.GetAllAsync(App.Settings.SignedInUserName);
                 if (repositoryResponse == null) return;
@@ -69,6 +71,10 @@ namespace FluentHub.Uwp.ViewModels.Home
                     _messenger.Send(notification);
                 }
                 throw;
+            }
+            finally
+            {
+                _messenger?.Send(new LoadingMessaging(false));
             }
         }
     }

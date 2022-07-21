@@ -49,6 +49,8 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
         {
             try
             {
+                _messenger?.Send(new LoadingMessaging(true));
+
                 if (string.IsNullOrEmpty(ContextViewModel.Repository.DefaultBranchRef.Name))
                     return;
 
@@ -104,6 +106,10 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
                 }
                 IsLoading = false;
                 throw;
+            }
+            finally
+            {
+                _messenger?.Send(new LoadingMessaging(false));
             }
         }
 
