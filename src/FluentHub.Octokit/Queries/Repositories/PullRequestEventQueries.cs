@@ -18,7 +18,7 @@
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     CreatedAt = y.CreatedAt,
                 })
@@ -29,7 +29,7 @@
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     Assignee = y.Assignee.Select(assignee => new Assignee
                     {
@@ -46,128 +46,117 @@
                 })
                 .AutoMergeDisabledEvent(y => new AutoMergeDisabledEvent
                 {
+                    CreatedAt = y.CreatedAt,
+                    Id = y.Id,
+                    Reason = y.Reason,
+                    ReasonCode = y.ReasonCode,
+
                     Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
-
-                    CreatedAt = y.CreatedAt,
-
-                    Id = y.Id,
-
-                    Reason = y.Reason,
-
-                    ReasonCode = y.ReasonCode,
+                    .SingleOrDefault(),
                 })
                 .AutoMergeEnabledEvent(y => new AutoMergeEnabledEvent
                 {
+                    CreatedAt = y.CreatedAt,
+
                     Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
-
-                    CreatedAt = y.CreatedAt,
+                    .SingleOrDefault(),
                 })
                 .AutoRebaseEnabledEvent(y => new AutoRebaseEnabledEvent
                 {
+                    CreatedAt = y.CreatedAt,
+
                     Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
-
-                    CreatedAt = y.CreatedAt,
+                    .SingleOrDefault(),
                 })
                 .AutoSquashEnabledEvent(y => new AutoSquashEnabledEvent
                 {
+                    CreatedAt = y.CreatedAt,
+
                     Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
-
-                    CreatedAt = y.CreatedAt,
+                    .SingleOrDefault(),
                 })
                 .AutomaticBaseChangeFailedEvent(y => new AutomaticBaseChangeFailedEvent
                 {
+                    CreatedAt = y.CreatedAt,
+                    Id = y.Id,
+                    NewBase = y.NewBase,
+                    OldBase = y.OldBase,
+
                     Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
-
-                    CreatedAt = y.CreatedAt,
-
-                    Id = y.Id,
-
-                    NewBase = y.NewBase,
-
-                    OldBase = y.OldBase,
+                    .SingleOrDefault(),
                 })
                 .AutomaticBaseChangeSucceededEvent(y => new AutomaticBaseChangeSucceededEvent
                 {
+                    CreatedAt = y.CreatedAt,
+                    Id = y.Id,
+                    NewBase = y.NewBase,
+                    OldBase = y.OldBase,
+
                     Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
-
-                    CreatedAt = y.CreatedAt,
-
-                    Id = y.Id,
-
-                    NewBase = y.NewBase,
-
-                    OldBase = y.OldBase,
+                    .SingleOrDefault(),
                 })
                 .BaseRefChangedEvent(y => new BaseRefChangedEvent
                 {
+                    CreatedAt = y.CreatedAt,
+                    CurrentRefName = y.CurrentRefName,
+                    Id = y.Id,
+                    PreviousRefName = y.PreviousRefName,
+
                     Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
-
-                    CreatedAt = y.CreatedAt,
-
-                    CurrentRefName = y.CurrentRefName,
-
-                    Id = y.Id,
-
-                    PreviousRefName = y.PreviousRefName,
+                    .SingleOrDefault(),
                 })
                 .BaseRefDeletedEvent(y => new BaseRefDeletedEvent
                 {
+                    BaseRefName = y.BaseRefName,
+                    CreatedAt = y.CreatedAt,
+                    Id = y.Id,
+
                     Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
-
-                    BaseRefName = y.BaseRefName,
-
-                    CreatedAt = y.CreatedAt,
-
-                    Id = y.Id,
+                    .SingleOrDefault(),
                 })
                 .BaseRefForcePushedEvent(y => new BaseRefForcePushedEvent
                 {
+                    CreatedAt = y.CreatedAt,
+                    Id = y.Id,
+
                     Actor = y.Actor.Select(actor => new Actor
                     {
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     AfterCommit = y.AfterCommit.Select(commit => new Commit
                     {
@@ -180,10 +169,6 @@
                         Message = commit.Message,
                     })
                     .SingleOrDefault(),
-
-                    CreatedAt = y.CreatedAt,
-
-                    Id = y.Id,
                 })
                 //.ClosedEvent(y => new ClosedEvent {})
                 .CommentDeletedEvent(y => new CommentDeletedEvent
@@ -193,14 +178,14 @@
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     DeletedCommentAuthor = y.DeletedCommentAuthor.Select(deletedAuthor => new Actor
                     {
                         AvatarUrl = deletedAuthor.AvatarUrl(100),
                         Login = deletedAuthor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     CreatedAt = y.CreatedAt,
                 })
@@ -211,12 +196,10 @@
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     CreatedAt = y.CreatedAt,
-
                     Id = y.Id,
-
                     IsCrossRepository = y.IsCrossRepository,
 
                     Source = y.Source.Select(source => new ReferencedSubject
@@ -258,7 +241,7 @@
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     CreatedAt = y.CreatedAt,
                 })
@@ -269,14 +252,11 @@
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     CreatedAt = y.CreatedAt,
-
                     Id = y.Id,
-
                     IsCrossRepository = y.IsCrossRepository,
-
                     ReferencedAt = y.ReferencedAt,
 
                     Source = y.Source.Select(source => new ReferencedSubject
@@ -312,7 +292,6 @@
                     .SingleOrDefault(),
 
                     Url = y.Url,
-
                     WillCloseTarget = y.WillCloseTarget,
                 })
                 .DemilestonedEvent(y => new DemilestonedEvent
@@ -322,10 +301,9 @@
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     MilestoneTitle = y.MilestoneTitle,
-
                     CreatedAt = y.CreatedAt,
                 })
                 .DeployedEvent(y => new DeployedEvent
@@ -335,7 +313,7 @@
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     CreatedAt = y.CreatedAt,
 
@@ -343,7 +321,7 @@
                     {
                         Description = deployment.Description,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     Id = y.Id,
 
@@ -351,7 +329,7 @@
                     {
                         Name = ref1.Name,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
                 })
                 .DeploymentEnvironmentChangedEvent(y => new DeploymentEnvironmentChangedEvent
                 {
@@ -360,13 +338,13 @@
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     DeploymentStatus = y.DeploymentStatus.Select(depStatus => new DeploymentStatus
                     {
                         Description = depStatus.Description,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     CreatedAt = y.CreatedAt,
                 })
@@ -377,7 +355,7 @@
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     CreatedAt = y.CreatedAt,
 
@@ -424,7 +402,7 @@
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     CreatedAt = y.CreatedAt,
 
@@ -432,7 +410,7 @@
                     {
                         Name = headRef.Name,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     HeadRefName = y.HeadRefName,
                 })
@@ -443,7 +421,7 @@
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     AfterCommit = y.AfterCommit.Select(commit => new Commit
                     {
@@ -468,7 +446,7 @@
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     CreatedAt = y.CreatedAt,
                 })
@@ -479,48 +457,38 @@
                         AvatarUrl = author.AvatarUrl(100),
                         Login = author.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     AuthorAssociation = (CommentAuthorAssociation)y.AuthorAssociation,
-
                     Body = y.Body,
-
                     BodyHTML = y.BodyHTML,
-
                     CreatedAt = y.CreatedAt,
-
                     LastEditedAt = y.LastEditedAt,
-
                     MinimizedReason = y.MinimizedReason,
-
                     IsMinimized = y.IsMinimized,
 
-                    Reactions = new()
+                    Reactions = y.Reactions(6, null, null, null, null, null).Select(reaction => new ReactionConnection
                     {
-                        Nodes = y.Reactions(6, null, null, null, null, null).Nodes.Select(reaction => new Reaction
+                        Nodes = reaction.Nodes.Select(z => new Reaction
                         {
-                            Content = (ReactionContent)reaction.Content,
-                            User = reaction.User.Select(user => new User
+                            Content = (ReactionContent)z.Content,
+
+                            User = z.User.Select(user => new User
                             {
                                 Login = user.Login,
                             })
-                            .Single(),
+                            .SingleOrDefault(),
                         })
-                        .ToList(),
-                    },
+                        .ToList().DefaultIfEmpty().ToList(),
+                    })
+                    .SingleOrDefault(),
 
                     UpdatedAt = y.UpdatedAt,
-
                     Url = y.Url,
-
                     ViewerCanDelete = y.ViewerCanDelete,
-
                     ViewerCanMinimize = y.ViewerCanMinimize,
-
                     ViewerCanReact = y.ViewerCanReact,
-
                     ViewerCanUpdate = y.ViewerCanUpdate,
-
                     ViewerDidAuthor = y.ViewerDidAuthor,
                 })
                 .LabeledEvent(y => new LabeledEvent
@@ -530,7 +498,7 @@
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     Label = y.Label.Select(label => new Label
                     {
@@ -538,7 +506,7 @@
                         Description = label.Description,
                         Name = label.Name,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     CreatedAt = y.CreatedAt,
                 })
@@ -549,7 +517,7 @@
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     CreatedAt = y.CreatedAt,
 
@@ -562,7 +530,7 @@
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     Duplicate = y.Duplicate.Select(a => new IssueOrPullRequest
                     {
@@ -589,13 +557,13 @@
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     MergeRef = y.MergeRef.Select(mergeRef => new Ref
                     {
                         Name = mergeRef.Name,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     MergeRefName = y.MergeRefName,
 
@@ -608,7 +576,7 @@
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     CreatedAt = y.CreatedAt,
 
@@ -621,7 +589,7 @@
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     CreatedAt = y.CreatedAt,
                 })
@@ -632,7 +600,7 @@
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     CreatedAt = y.CreatedAt,
                 })
@@ -647,9 +615,9 @@
                             {
                                 Login = user.Login,
                             })
-                            .Single(),
+                            .SingleOrDefault(),
                         })
-                        .Single(),
+                        .SingleOrDefault(),
 
                         Message = y.Commit.Message,
                     },
@@ -689,7 +657,7 @@
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     CreatedAt = y.CreatedAt,
                 })
@@ -700,7 +668,7 @@
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     Commit = y.Commit.Select(commit => new Commit
                     {
@@ -715,7 +683,7 @@
                             AvatarUrl = owner.AvatarUrl(100),
                             Login = owner.Login,
                         })
-                        .Single(),
+                        .SingleOrDefault(),
 
                         Name = from.Name,
                     })
@@ -736,7 +704,7 @@
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     Id = y.Id,
 
@@ -749,7 +717,7 @@
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     CurrentTitle = y.CurrentTitle,
 
@@ -764,7 +732,7 @@
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     //StateReason = (IssueStateReason)y.StateReason,
 
@@ -777,7 +745,7 @@
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     CreatedAt = y.CreatedAt,
 
@@ -790,7 +758,7 @@
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     RequestedReviewer = y.RequestedReviewer.Select(reviewer => new RequestedReviewer
                     {
@@ -812,7 +780,7 @@
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     RequestedReviewer = y.RequestedReviewer.Select(reviewer => new RequestedReviewer
                     {
@@ -834,7 +802,7 @@
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     FromRepository = y.FromRepository.Select(from => new Repository
                     {
@@ -847,7 +815,7 @@
 
                         Name = from.Name,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     CreatedAt = y.CreatedAt,
                 })
@@ -858,7 +826,7 @@
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     Assignee = y.Assignee.Select(assignee => new Assignee
                     {
@@ -880,7 +848,7 @@
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     Label = y.Label.Select(label => new Label
                     {
@@ -888,7 +856,7 @@
                         Description = label.Description,
                         Name = label.Name,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     CreatedAt = y.CreatedAt,
                 })
@@ -899,7 +867,7 @@
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     CreatedAt = y.CreatedAt,
                 })
@@ -910,7 +878,7 @@
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     Duplicate = y.Duplicate.Select(a => new IssueOrPullRequest
                     {
@@ -937,7 +905,7 @@
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     CreatedAt = y.CreatedAt,
                 })
@@ -948,7 +916,7 @@
                         AvatarUrl = actor.AvatarUrl(100),
                         Login = actor.Login,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     BlockDuration = (UserBlockDuration)y.BlockDuration,
 
