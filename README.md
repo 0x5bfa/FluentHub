@@ -21,13 +21,9 @@
   </a>
 </p>
 
-## Download and Build
+## Build
 
-<a style="text-decoration:none" href="https://apps.microsoft.com/store/detail/fluenthub/9nkb9hx8rjz3">
-  <img width="128" src="https://getbadgecdn.azureedge.net/images/English_L.png" alt="GetItFromMicrosoft"/>
-</a>
-
-> **Warning**</br>The app available on the store does not work properly.</br>See the [Linq problem](#2-linq-problem) section
+In order to build successfully, take a look at [docs/build-from-source](docs/build-from-source.md).
 
 ## FluentHub Team
 
