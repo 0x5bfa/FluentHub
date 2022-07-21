@@ -21,7 +21,10 @@ namespace FluentHub.Uwp.ViewModels
             _logger = logger;
 
             if (_messenger != null)
+            {
                 _messenger.Register<UserNotificationMessage>(this, OnNewNotificationReceived);
+                _messenger.Register<LoadingMessaging>(this, OnIfContentIsLoadingRecieved);
+            }
 
             AddNewTabAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(AddNewTabAccelerator);
             CloseTabAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(CloseTabAccelerator);
@@ -55,6 +58,9 @@ namespace FluentHub.Uwp.ViewModels
 
         private Octokit.Models.v4.User _signedInUser;
         public Octokit.Models.v4.User SignedInUser { get => _signedInUser; private set => SetProperty(ref _signedInUser, value); }
+
+        private bool _isLoading;
+        public bool IsLoading { get => _isLoading; private set => SetProperty(ref _isLoading, value); }
 
         private int _unreadCount;
         public int UnreadCount { get => _unreadCount; private set => SetProperty(ref _unreadCount, value); }
@@ -244,6 +250,11 @@ namespace FluentHub.Uwp.ViewModels
                 // Show the message in the toast
                 _logger?.Info("Toast notification received: {0}", message);
             }
+        }
+
+        private void OnIfContentIsLoadingRecieved(object recipient, LoadingMessaging message)
+        {
+            IsLoading = message.IsLoading;
         }
 
         private async Task LoadSignedInUserAsync()

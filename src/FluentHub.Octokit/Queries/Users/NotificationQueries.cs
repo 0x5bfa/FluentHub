@@ -2,23 +2,8 @@
 {
     public class NotificationQueries
     {
-        public async Task<List<Notification>> GetAllAsync(OctokitOriginal.ApiOptions options = null)
+        public async Task<List<Notification>> GetAllAsync(OctokitOriginal.NotificationsRequest request = null, OctokitOriginal.ApiOptions options = null)
         {
-            OctokitOriginal.NotificationsRequest request = new()
-            {
-                All = true
-            };
-
-            if (options == null)
-            {
-                options = new()
-                {
-                    PageCount = 1,
-                    PageSize = 30,
-                    StartPage = 1
-                };
-            }
-
             var response = await App.Client.Activity.Notifications.GetAllForCurrent(request, options);
 
             Wrappers.NotificationWrapper wrapper = new();
@@ -31,7 +16,7 @@
         {
             OctokitOriginal.NotificationsRequest request = new()
             {
-                All = true
+                All = true,
             };
 
             OctokitOriginal.ApiOptions options = new()

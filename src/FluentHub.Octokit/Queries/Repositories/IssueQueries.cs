@@ -10,13 +10,17 @@
                 Field = OctokitGraphQLModel.IssueOrderField.CreatedAt
             };
 
-            #region queries
             var query = new Query()
                 .Repository(name, owner)
                 .Issues(first: 30, orderBy: order)
                 .Nodes
                 .Select(x => new Issue
                 {
+                    Closed = x.Closed,
+                    Number = x.Number,
+                    Title = x.Title,
+                    UpdatedAt = x.UpdatedAt,
+
                     Repository = x.Repository.Select(repo => new Repository
                     {
                         Name = repo.Name,
@@ -27,33 +31,29 @@
                             Id = owner.Id,
                             Login = owner.Login,
                         })
-                        .Single(),
+                        .SingleOrDefault(),
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
-                    Comments = new()
+                    Comments = x.Comments(null, null, null, null, null).Select(comments => new IssueCommentConnection
                     {
-                        TotalCount = x.Comments(null, null, null, null, null).TotalCount,
-                    },
+                        TotalCount = comments.TotalCount,
+                    })
+                    .SingleOrDefault(),
 
-                    Labels = new()
+                    Labels = x.Labels(10, null, null, null, null).Select(labels => new LabelConnection
                     {
-                        Nodes = x.Labels(10, null, null, null, null).Nodes.Select(y => new Label
+                        Nodes = labels.Nodes.Select(y => new Label
                         {
                             Color = y.Color,
                             Description = y.Description,
                             Name = y.Name,
                         })
                         .ToList(),
-                    },
-
-                    Title = x.Title,
-                    Closed = x.Closed,
-                    Number = x.Number,
-                    UpdatedAt = x.UpdatedAt,
+                    })
+                    .SingleOrDefault(),
                 })
                 .Compile();
-            #endregion
 
             var response = await App.Connection.Run(query);
 
@@ -62,12 +62,16 @@
 
         public async Task<Issue> GetAsync(string owner, string name, int number)
         {
-            #region query
             var query = new Query()
                 .Repository(name, owner)
                 .Issue(number)
                 .Select(x => new Issue
                 {
+                    Closed = x.Closed,
+                    Number = x.Number,
+                    Title = x.Title,
+                    UpdatedAt = x.UpdatedAt,
+
                     Repository = x.Repository.Select(repo => new Repository
                     {
                         Name = repo.Name,
@@ -78,34 +82,29 @@
                             Id = owner.Id,
                             Login = owner.Login,
                         })
-                        .Single(),
+                        .SingleOrDefault(),
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
-                    Title = x.Title,
-                    Closed = x.Closed,
-                    Number = x.Number,
-
-                    Comments = new()
+                    Comments = x.Comments(null, null, null, null, null).Select(comments => new IssueCommentConnection
                     {
-                        TotalCount = x.Comments(null, null, null, null, null).TotalCount,
-                    },
+                        TotalCount = comments.TotalCount,
+                    })
+                    .SingleOrDefault(),
 
-                    Labels = new()
+                    Labels = x.Labels(10, null, null, null, null).Select(labels => new LabelConnection
                     {
-                        Nodes = x.Labels(10, null, null, null, null).Nodes.Select(y => new Label
+                        Nodes = labels.Nodes.Select(y => new Label
                         {
                             Color = y.Color,
                             Description = y.Description,
                             Name = y.Name,
                         })
                         .ToList(),
-                    },
-
-                    UpdatedAt = x.UpdatedAt,
+                    })
+                    .SingleOrDefault(),
                 })
                 .Compile();
-            #endregion
 
             var response = await App.Connection.Run(query);
 
@@ -204,6 +203,11 @@
                 .Nodes
                 .Select(x => new Issue
                 {
+                    Closed = x.Issue.Closed,
+                    Number = x.Issue.Number,
+                    Title = x.Issue.Title,
+                    UpdatedAt = x.Issue.UpdatedAt,
+
                     Repository = x.Repository.Select(repo => new Repository
                     {
                         Name = repo.Name,
@@ -214,31 +218,27 @@
                             Id = owner.Id,
                             Login = owner.Login,
                         })
-                        .Single(),
+                        .SingleOrDefault(),
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
-                    Title = x.Issue.Title,
-                    Closed = x.Issue.Closed,
-                    Number = x.Issue.Number,
-
-                    Comments = new()
+                    Comments = x.Issue.Comments(null, null, null, null, null).Select(comments => new IssueCommentConnection
                     {
-                        TotalCount = x.Issue.Comments(null, null, null, null, null).TotalCount,
-                    },
+                        TotalCount = comments.TotalCount,
+                    })
+                    .SingleOrDefault(),
 
-                    Labels = new()
+                    Labels = x.Issue.Labels(10, null, null, null, null).Select(labels => new LabelConnection
                     {
-                        Nodes = x.Issue.Labels(10, null, null, null, null).Nodes.Select(y => new Label
+                        Nodes = labels.Nodes.Select(y => new Label
                         {
                             Color = y.Color,
                             Description = y.Description,
                             Name = y.Name,
                         })
                         .ToList(),
-                    },
-
-                    UpdatedAt = x.Issue.UpdatedAt,
+                    })
+                    .SingleOrDefault(),
                 })
                 .Compile();
             #endregion

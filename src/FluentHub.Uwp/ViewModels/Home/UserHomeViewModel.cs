@@ -85,19 +85,21 @@ namespace FluentHub.Uwp.ViewModels.Home
                 RepositoryQueries repositoryQueries = new();
                 var repositoryResponse = await repositoryQueries.GetAllAsync(App.Settings.SignedInUserName);
 
-                foreach (var item in repositoryResponse) _userRepositories.Add(item);
+                foreach (var item in repositoryResponse)
+                    _userRepositories.Add(item);
 
                 NotificationQueries notificationQueries = new();
-                OctokitOriginal.ApiOptions options = new()
-                {
-                    PageCount = 1,
-                    PageSize = 3,
-                    StartPage = 1
-                };
+                var notificationResponse = await notificationQueries.GetAllAsync(
+                    new() { All = true },
+                    new()
+                    {
+                        PageCount = 1, // Constant
+                        PageSize = 3,
+                        StartPage = 1,
+                    });
 
-                var notificationResponse = await notificationQueries.GetAllAsync(options);
-
-                foreach (var item in notificationResponse) _userNotifications.Add(item);
+                foreach (var item in notificationResponse)
+                    _userNotifications.Add(item);
             }
             catch (OperationCanceledException) { }
             catch (Exception ex)

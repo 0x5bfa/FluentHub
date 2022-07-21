@@ -21,7 +21,7 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <ScrollViewer>
+    <ScrollViewer ViewChanged="OnScrollViewerViewChanged">
         <Grid Margin="32,16,32,32">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
@@ -162,10 +162,6 @@
                 VerticalAlignment="Center"
                 TargetType="x:Boolean"
                 Value="{x:Bind ViewModel.RefreshNotificationsCommand.IsRunning, Mode=OneWay}">
-
-                <toolkit:Case Value="True">
-                    <muxc:ProgressRing IsActive="True" />
-                </toolkit:Case>
 
                 <toolkit:Case Value="False">
                     <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.RefreshNotificationsCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
