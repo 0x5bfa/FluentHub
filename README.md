@@ -21,6 +21,9 @@
   <a style="text-decoration:none">
     <img src="https://img.shields.io/badge/Platform-Windows-red" alt="Platform" />
   </a>
+  <a title="Crowdin" target="_blank" href="https://crowdin.com/project/fluenthub">
+    <img src="https://badges.crowdin.net/fluenthub/localized.svg">
+  </a>
 </p>
 
 ## Build
