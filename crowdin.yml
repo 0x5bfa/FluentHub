@@ -1,0 +1,3 @@
+files:
+  - source: /src/FluentHub.Uwp/Strings/en-US
+    translation: /src/FluentHub.Uwp/Strings/%locale%
