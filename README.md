@@ -1,8 +1,8 @@
 <p align="center">
-  <img width="128" align="center" src="https://cdn.discordapp.com/attachments/959204796848537630/999697713828479056/1.png" />
+  <img width="128" align="center" src="src/FluentHub.Uwp/Assets/AppTiles/StoreLogo.scale-400.png" />
   <img width="128" align="center" src="https://cdn.discordapp.com/attachments/959204796848537630/999697712796684308/2.png" />
-  <img width="128" align="center" src="https://cdn.discordapp.com/attachments/959204796848537630/999697713153192038/3.png" />
-  <img width="128" align="center" src="https://cdn.discordapp.com/attachments/959204796848537630/999697713501327370/4.png" />
+  <img width="128" align="center" src="src/FluentHub.Uwp/Assets/AppTilesDev/StoreLogo.scale-400.png" />
+  <img width="128" align="center" src="src/FluentHub.Uwp/Assets/AppTilesBeta/StoreLogo.scale-400.png" />
 </p>
 <h1 align="center">
   FluentHub
