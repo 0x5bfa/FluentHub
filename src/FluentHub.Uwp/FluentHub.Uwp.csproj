@@ -1140,6 +1140,10 @@
       <Project>{893edcc9-4345-4f49-a13f-1a426a7ba432}</Project>
       <Name>FluentHub.Octokit</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\lib\octokit.graphql.net\Octokit.GraphQL\Octokit.GraphQL.csproj">
+      <Project>{66F5A0DF-F449-4D6E-922D-0AD17B813A3B}</Project>
+      <Name>Octokit.GraphQL</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <PRIResource Include="Strings\en-US\Resources.resw" />
