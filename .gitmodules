@@ -1,0 +1,3 @@
+[submodule "lib/octokit.graphql.net"]
+    path = lib/octokit.graphql.net
+    url = git@github.com:FluentHub/octokit.graphql.net.git
