@@ -48,7 +48,7 @@ steps:
 
 - task: NuGetToolInstaller@1
   inputs:
-    versionSpec: '5.2.0'
+    versionSpec: '5.9.1'
 
 - task: NuGetCommand@2
   inputs:
