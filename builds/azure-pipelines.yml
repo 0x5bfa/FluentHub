@@ -5,12 +5,20 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: '**/*.sln'
-  buildPlatform: 'x64'
-  buildConfiguration: 'Release'
-  appxPackageDir: '$(build.artifactStagingDirectory)\AppxPackages\\'
+- group: BuildPipelineVariables
+- name: solution
+  value: '**/*.sln'
+- name: buildPlatform
+  value: 'x64'
+- name: buildConfiguration
+  value: 'Sideload'
+- name: appxPackageDir
+  value: '$(build.artifactStagingDirectory)\AppxPackages\\'
 
 steps:
+
+- checkout: self
+  submodules: true
 
 - task: PowerShell@2
   displayName: 'Canonicalize package manifest'
@@ -20,12 +28,10 @@ steps:
       [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\FluentHub.Uwp\Package.appxmanifest
       $xmlDoc.Package.Identity.Name="49462fluenthub-uwp.FluentHub"
       $xmlDoc.Package.Identity.Publisher="CN=4E3C0825-4D00-4ECC-89F8-528E9200B125"
-      $xmlDoc.Package.Properties.DisplayName="FluentHub Alpha-Generated"
-      $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub Alpha-Generated"
+      $xmlDoc.Package.Properties.DisplayName="FluentHub DEV"
+      $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub DEV"
       $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub.Uwp\Package.appxmanifest')
     failOnStderr: true
-
-- task: NuGetToolInstaller@1
 
 - task: DownloadSecureFile@1
   name: CredentialSecureFile
@@ -38,23 +44,38 @@ steps:
     Contents: '$(CredentialSecureFile.secureFilePath)'
     TargetFolder: '$(Build.SourcesDirectory)\src\FluentHub.Uwp'
 
-- task: UseDotNet@2
+- task: DownloadSecureFile@1
+  name: caCertificate
+  displayName: 'Download CA certificate'
   inputs:
-    packageType: sdk
-    version: 6.0.100
+    secureFile: '$(signingCert.secureFilePath)'
 
 - task: NuGetToolInstaller@1
+  inputs:
+    versionSpec: '6.2.1'
 
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
 
 - task: VSBuild@1
+  displayName: 'Build FluentHub'
   inputs:
     platform: 'x64'
     solution: '$(solution)'
     configuration: '$(buildConfiguration)'
-    msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload'
+    msbuildArgs: '
+    /p:GenerateAppInstallerFile=True
+    /p:AppxLogTelemetryFromSideloadingScript=False
+    /p:AppInstallerUri=$(build.artifactstagingdirectory)
+    /p:AppxBundlePlatforms="$(buildPlatform)"
+    /p:AppxPackageDir="$(appxPackageDir)"
+    /p:AppxBundle=Always
+    /p:UapAppxPackageBuildMode=Release
+    /p:AppxPackageSigningEnabled=true
+    /p:PackageCertificateThumbprint=""
+    /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"
+    /p:PackageCertificatePassword="$(signingCert.password)"'
 
 - task: CopyFiles@2
   displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
@@ -64,6 +85,7 @@ steps:
     TargetFolder: '$(build.artifactstagingdirectory)'
 
 - task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: test build artifacts'
+  displayName: 'Publish Artifact'
   inputs:
     PathtoPublish: '$(build.artifactstagingdirectory)'
+    artifactName: 'Assets'
