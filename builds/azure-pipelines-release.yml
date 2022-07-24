@@ -71,7 +71,6 @@ jobs:
       solution: '$(solution)'
       configuration: '$(buildConfigurationSideload)'
       msbuildArgs: '
-      /t:build;_GenerateAppxPackage
       /p:AppInstallerUri="$(build.artifactstagingdirectory)"
       /p:AppxBundlePlatforms="$(buildPlatform)"
       /p:AppxPackageDir="$(appxPackageDir)"
