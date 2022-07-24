@@ -21,7 +21,11 @@ jobs:
 ### Sideload release ###
 - job: SideloadRelease
   timeoutInMinutes: 40
+
   steps:
+  - checkout: self
+    submodules: true
+  
   - task: PowerShell@2
     displayName: 'Canonicalize package manifest'
     inputs:
