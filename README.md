@@ -47,7 +47,7 @@ Download the `FluentHub_<versionNumber>.msixbundle` file from the `Assets` secti
 
 ```powershell
 # NOTE: If you are using PowerShell 7+, please run
-# Import-Module Appx -UseWindowsPowerShell
+#   Import-Module Appx -UseWindowsPowerShell
 # before using Add-AppxPackage.
 
 Add-AppxPackage FluentHub_<versionNumber>.msixbundle
@@ -55,9 +55,7 @@ Add-AppxPackage FluentHub_<versionNumber>.msixbundle
 
 ### Building from source
 
-This allows you to use the latest commits from the main branch. The release packages doesn't exist.
-
-Loot at the document and build it.
+See [the section](#building-the-code)
 
 ## Screenshots
 
@@ -78,7 +76,7 @@ Loot at the document and build it.
 There are many ways where you participate in this community:
 
 - [Submit bugs and feature requests](https://github.com/FluentHub/FluentHub/issues/new/choose).
-- Review the documentation and make pull requests for anything from typos to additional and new idea
+- Review [the documentation](docs/code-style.md) and make pull requests for anything from typos to additional and new idea
 - Review source code changes
 
 If you are interested in fixing issues and contributing directly to the code base, please see the document [How to Contribute](docs/), which covers the following:
@@ -92,8 +90,34 @@ If you are interested in fixing issues and contributing directly to the code bas
 
 ## Contuct Us
 
-- onein528@outlook.com
-- [Our Discord channel](https://discord.gg/8KtRkjq2Q4)
+The easiest way to contact us is to join [our Discord channel](https://discord.gg/8KtRkjq2Q4).
+
+If you would like to ask a question, please reach out to us via Twitter:
+
+- Tomoyuki Terashita, Lead developer: [@onein528](https://twitter.com/onein528)
+- Jupiter, Developer: [@DeveloperWOW64](https://twitter.com/DeveloperWOW64)
+- Gabriel Fontán, Developer: [@BobbyESPGabiles](https://twitter.com/BobbyESPGabiles)
+- Luandersonn Airton, Developer: [@luandersonn](https://twitter.com/luandersonn)
+
+## Building the Code
+
+### Prerequisites
+
+Ensure you have:
+- Running Windows 10 2004 (10.0.19041.0) or later to run FluenHub
+- Enabled Developer Mode in the Windows Settings to locally install and run FluentHub
+- Having the Windows 11 (10.0.22000.0) SDK installed
+- Running VS 2022 and having following workloads:
+  - Universal Windows Platform Development Kit
+  - .NET SDK
+
+### Build
+
+```git
+git submodule update --init --recursive
+```
+
+For more steps, see [the documentation](docs/building-from-source.md).
 
 ## License
 
