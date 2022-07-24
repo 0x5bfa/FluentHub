@@ -28,8 +28,6 @@ steps:
       $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub.Uwp\Package.appxmanifest')
     failOnStderr: true
 
-- task: NuGetToolInstaller@1
-
 - task: DownloadSecureFile@1
   name: CredentialSecureFile
   inputs:
@@ -41,12 +39,9 @@ steps:
     Contents: '$(CredentialSecureFile.secureFilePath)'
     TargetFolder: '$(Build.SourcesDirectory)\src\FluentHub.Uwp'
 
-- task: UseDotNet@2
-  inputs:
-    packageType: sdk
-    version: 6.0.100
-
 - task: NuGetToolInstaller@1
+  inputs:
+    versionSpec: '6.2.1'
 
 - task: NuGetCommand@2
   inputs:
