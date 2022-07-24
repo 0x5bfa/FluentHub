@@ -5,10 +5,15 @@ pool:
   vmImage: 'windows-latest'
 
 variables:
-  solution: '**/*.sln'
-  buildPlatform: 'x64'
-  buildConfiguration: 'Release'
-  appxPackageDir: '$(build.artifactStagingDirectory)\AppxPackages\\'
+- group: BuildPipelineVariables
+- name: solution
+  value: '**/*.sln'
+- name: buildPlatform
+  value: 'x64'
+- name: buildConfiguration
+  value: 'Sideload'
+- name: appxPackageDir
+  value: '$(build.artifactStagingDirectory)\AppxPackages\\'
 
 steps:
 
@@ -39,6 +44,12 @@ steps:
     Contents: '$(CredentialSecureFile.secureFilePath)'
     TargetFolder: '$(Build.SourcesDirectory)\src\FluentHub.Uwp'
 
+- task: DownloadSecureFile@1
+  name: caCertificate
+  displayName: 'Download CA certificate'
+  inputs:
+    secureFile: '$(signingCert.secureFilePath)'
+
 - task: NuGetToolInstaller@1
   inputs:
     versionSpec: '6.2.1'
@@ -48,15 +59,22 @@ steps:
     restoreSolution: '$(solution)'
 
 - task: VSBuild@1
+  displayName: 'Build FluentHub'
   inputs:
     platform: 'x64'
     solution: '$(solution)'
     configuration: '$(buildConfiguration)'
     msbuildArgs: '
+    /t:build;_GenerateAppxPackage
+    /p:AppInstallerUri=$(build.artifactstagingdirectory)
     /p:AppxBundlePlatforms="$(buildPlatform)"
     /p:AppxPackageDir="$(appxPackageDir)"
     /p:AppxBundle=Always
-    /p:UapAppxPackageBuildMode=SideloadOnly'
+    /p:UapAppxPackageBuildMode=Sideload
+    /p:AppxPackageSigningEnabled=true
+    /p:PackageCertificateThumbprint=""
+    /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"
+    /p:PackageCertificatePassword="$(signingCert.password)"'
 
 - task: CopyFiles@2
   displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
@@ -66,6 +84,7 @@ steps:
     TargetFolder: '$(build.artifactstagingdirectory)'
 
 - task: PublishBuildArtifacts@1
-  displayName: 'Publish Artifact: test build artifacts'
+  displayName: 'Publish Artifact'
   inputs:
     PathtoPublish: '$(build.artifactstagingdirectory)'
+    artifactName: 'Assets'
