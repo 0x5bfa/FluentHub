@@ -11,7 +11,7 @@ variables:
 - name: buildPlatform
   value: 'x64'
 - name: buildConfiguration
-  value: 'Release'
+  value: 'Sideload'
 - name: appxPackageDir
   value: '$(build.artifactStagingDirectory)\AppxPackages\\'
 
@@ -66,6 +66,8 @@ steps:
     configuration: '$(buildConfiguration)'
     msbuildArgs: '
     /t:build;_GenerateAppxPackage
+    /p:GenerateAppInstallerFile=True
+    /p:AppxLogTelemetryFromSideloadingScript=False
     /p:AppInstallerUri=$(build.artifactstagingdirectory)
     /p:AppxBundlePlatforms="$(buildPlatform)"
     /p:AppxPackageDir="$(appxPackageDir)"
