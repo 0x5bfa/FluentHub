@@ -65,7 +65,6 @@ steps:
     solution: '$(solution)'
     configuration: '$(buildConfiguration)'
     msbuildArgs: '
-    /t:build;_GenerateAppxPackage
     /p:GenerateAppInstallerFile=True
     /p:AppxLogTelemetryFromSideloadingScript=False
     /p:AppInstallerUri=$(build.artifactstagingdirectory)
