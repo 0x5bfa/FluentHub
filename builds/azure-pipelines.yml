@@ -23,8 +23,8 @@ steps:
       [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\FluentHub.Uwp\Package.appxmanifest
       $xmlDoc.Package.Identity.Name="49462fluenthub-uwp.FluentHub"
       $xmlDoc.Package.Identity.Publisher="CN=4E3C0825-4D00-4ECC-89F8-528E9200B125"
-      $xmlDoc.Package.Properties.DisplayName="FluentHub Alpha-Generated"
-      $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub Alpha-Generated"
+      $xmlDoc.Package.Properties.DisplayName="FluentHub DEV"
+      $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub DEV"
       $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub.Uwp\Package.appxmanifest')
     failOnStderr: true
 
@@ -52,7 +52,11 @@ steps:
     platform: 'x64'
     solution: '$(solution)'
     configuration: '$(buildConfiguration)'
-    msbuildArgs: '/p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload'
+    msbuildArgs: '
+    /p:AppxBundlePlatforms="$(buildPlatform)"
+    /p:AppxPackageDir="$(appxPackageDir)"
+    /p:AppxBundle=Always
+    /p:UapAppxPackageBuildMode=SideloadOnly'
 
 - task: CopyFiles@2
   displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
