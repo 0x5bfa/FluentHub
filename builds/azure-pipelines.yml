@@ -11,7 +11,7 @@ variables:
 - name: buildPlatform
   value: 'x64'
 - name: buildConfiguration
-  value: 'Sideload'
+  value: 'Release'
 - name: appxPackageDir
   value: '$(build.artifactStagingDirectory)\AppxPackages\\'
 
@@ -70,7 +70,7 @@ steps:
     /p:AppxBundlePlatforms="$(buildPlatform)"
     /p:AppxPackageDir="$(appxPackageDir)"
     /p:AppxBundle=Always
-    /p:UapAppxPackageBuildMode=Sideload
+    /p:UapAppxPackageBuildMode=Release
     /p:AppxPackageSigningEnabled=true
     /p:PackageCertificateThumbprint=""
     /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"
