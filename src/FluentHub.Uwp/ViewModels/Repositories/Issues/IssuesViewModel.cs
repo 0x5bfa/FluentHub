@@ -1,6 +1,7 @@
 ﻿using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
+using FluentHub.Uwp.ViewModels.UserControls;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.Issues
@@ -20,11 +21,18 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
             PinnedItems = new(_pinnedItems);
 
             RefreshIssuesPageCommand = new AsyncRelayCommand<string>(LoadRepositoryIssuesAsync);
+            LoadRepositoryCommand = new AsyncRelayCommand<string>(LoadRepositoryAsync);
         }
 
         #region Fields and Properties
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
+
+        private Repository _repository;
+        public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
+
+        private RepositoryOverviewViewModel _repositoryOverviewViewModel;
+        public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
 
         private readonly ObservableCollection<IssueButtonBlockViewModel> _issueItems;
         public ReadOnlyObservableCollection<IssueButtonBlockViewModel> IssueItems { get; }
@@ -33,6 +41,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
         public ReadOnlyObservableCollection<IssueButtonBlockViewModel> PinnedItems { get; }
 
         public IAsyncRelayCommand RefreshIssuesPageCommand { get; }
+        public IAsyncRelayCommand LoadRepositoryCommand { get; }
         #endregion
 
         private async Task LoadRepositoryIssuesAsync(string url, CancellationToken token)
@@ -89,6 +98,45 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
             finally
             {
                 _messenger?.Send(new LoadingMessaging(false));
+            }
+        }
+
+        private async Task LoadRepositoryAsync(string url, CancellationToken token)
+        {
+            try
+            {
+                var uri = new Uri(url);
+                var pathSegments = uri.AbsolutePath.Split("/").ToList();
+                pathSegments.RemoveAt(0);
+
+                RepositoryQueries queries = new();
+                Repository = await queries.GetDetailsAsync(pathSegments[0], pathSegments[1]);
+
+                RepositoryOverviewViewModel = new()
+                {
+                    Repository = Repository,
+                    RepositoryName = Repository.Name,
+                    RepositoryOwnerLogin = Repository.Owner.Login,
+                    RepositoryVisibilityLabel = new()
+                    {
+                        Name = Repository.IsPrivate ? "Private" : "Public",
+                        Color = "#64000000",
+                    },
+                    ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
+
+                    SelectedTag = "issues",
+                };
+            }
+            catch (OperationCanceledException) { }
+            catch (Exception ex)
+            {
+                _logger?.Error(nameof(LoadRepositoryAsync), ex);
+                if (_messenger != null)
+                {
+                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+                    _messenger.Send(notification);
+                }
+                throw;
             }
         }
     }

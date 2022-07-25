@@ -34,6 +34,10 @@ namespace FluentHub.Uwp.Views.Repositories.PullRequests
             var pathSegments = uri.AbsolutePath.Split("/").ToList();
             pathSegments.RemoveAt(0);
 
+            var command1 = ViewModel.LoadRepositoryCommand;
+            if (command1.CanExecute(url))
+                command1.Execute(url);
+
             var command = ViewModel.RefreshPullRequestPageCommand;
             if (command.CanExecute(url))
                 await command.ExecuteAsync(url);

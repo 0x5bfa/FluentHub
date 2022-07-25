@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:humanizer="using:Humanizer"
     xmlns:local="using:FluentHub.Uwp.Views.Home"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:FluentHub.Uwp.Models"
@@ -31,7 +30,11 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid>
+    <Grid
+        Background="{ThemeResource CardBackgroundFillColorSecondary}"
+        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+        BorderThickness="1,1,0,0"
+        CornerRadius="8,0,0,0">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" MinWidth="256" />

@@ -1,5 +1,6 @@
 ﻿using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.Models;
+using FluentHub.Uwp.ViewModels.UserControls;
 using FluentHub.Uwp.Utils;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
@@ -23,9 +24,6 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
 
-        private bool isLoading;
-        public bool IsLoading { get => isLoading; set => SetProperty(ref isLoading, value); }
-
         private bool _blobSelected;
         public bool BlobSelected { get => _blobSelected; set => SetProperty(ref _blobSelected, value); }
 
@@ -34,6 +32,9 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
 
         private Repository _repository;
         public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
+
+        private RepositoryOverviewViewModel _repositoryOverviewViewModel;
+        public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
 
         private RepoContextViewModel _selectedContextViewModel;
         public RepoContextViewModel SelectedContextViewModel { get => _selectedContextViewModel; set => SetProperty(ref _selectedContextViewModel, value); }
@@ -53,8 +54,6 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
 
                 if (string.IsNullOrEmpty(ContextViewModel.Repository.DefaultBranchRef.Name))
                     return;
-
-                IsLoading = true;
 
                 ContentQueries queries = new();
                 var response = await queries.GetAllAsync(
@@ -92,8 +91,6 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
 
                 _items.Clear();
                 foreach (var item in orderedItems) _items.Add(item);
-
-                IsLoading = false;
             }
             catch (OperationCanceledException) { }
             catch (Exception ex)
@@ -104,7 +101,6 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
                     _messenger.Send(notification);
                 }
-                IsLoading = false;
                 throw;
             }
             finally
@@ -117,8 +113,6 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
         {
             try
             {
-                IsLoading = true;
-
                 var pathItems = path.Split("/");
                 List<TreeLayoutPageModel> subItems = new();
 
@@ -162,8 +156,6 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
                 subItems.Clear();
                 foreach (var item in orderedItems) subItems.Add(item);
 
-                IsLoading = false;
-
                 return subItems;
             }
             catch (OperationCanceledException) { }
@@ -176,10 +168,6 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
                     _messenger.Send(notification);
                 }
                 throw;
-            }
-            finally
-            {
-                IsLoading = false;
             }
 
             return null;
@@ -195,6 +183,21 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
 
                 RepositoryQueries queries = new();
                 Repository = await queries.GetDetailsAsync(pathSegments[0], pathSegments[1]);
+
+                RepositoryOverviewViewModel = new()
+                {
+                    Repository = Repository,
+                    RepositoryName = Repository.Name,
+                    RepositoryOwnerLogin = Repository.Owner.Login,
+                    RepositoryVisibilityLabel = new()
+                    {
+                        Name = Repository.IsPrivate ? "Private" : "Public",
+                        Color = "#64000000",
+                    },
+                    ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
+
+                    SelectedTag = "code",
+                };
             }
             catch (OperationCanceledException) { }
             catch (Exception ex)

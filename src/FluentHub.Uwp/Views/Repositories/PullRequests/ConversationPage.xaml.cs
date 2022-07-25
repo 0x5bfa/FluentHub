@@ -38,6 +38,10 @@ namespace FluentHub.Uwp.Views.Repositories.PullRequests
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Discussions.png"))
             };
 
+            var command1 = ViewModel.LoadRepositoryCommand;
+            if (command1.CanExecute(param.Url))
+                command1.Execute(param.Url);
+
             var command = ViewModel.RefreshPullRequestPageCommand;
             if (command.CanExecute(param))
                 command.Execute(param);

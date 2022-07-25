@@ -801,12 +801,7 @@
                 </StackPanel>
             </Grid>
 
-            <Grid
-                Grid.Column="1"
-                Background="{ThemeResource CardBackgroundFillColorSecondary}"
-                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                BorderThickness="1,1,0,0"
-                CornerRadius="8,0,0,0">
+            <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />

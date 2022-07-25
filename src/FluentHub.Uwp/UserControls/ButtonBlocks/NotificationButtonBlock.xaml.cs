@@ -37,13 +37,13 @@ namespace FluentHub.Uwp.UserControls.ButtonBlocks
             {
                 case "IssueClosed":
                 case "IssueOpen":
-                    navigationService.Navigate<OverviewPage>($"{App.DefaultGitHubDomain}/{ViewModel.Item.Repository.Owner.Login}/{ViewModel.Item.Repository.Name}/issues/{ViewModel.Item.Subject.Number}");
+                    navigationService.Navigate<Views.Repositories.Issues.IssuePage>($"{App.DefaultGitHubDomain}/{ViewModel.Item.Repository.Owner.Login}/{ViewModel.Item.Repository.Name}/issues/{ViewModel.Item.Subject.Number}");
                     break;
                 case "PullMerged":
                 case "PullClosed":
                 case "PullDraft":
                 case "PullOpen":
-                    navigationService.Navigate<OverviewPage>($"{App.DefaultGitHubDomain}/{ViewModel.Item.Repository.Owner.Login}/{ViewModel.Item.Repository.Name}/pull/{ViewModel.Item.Subject.Number}");
+                    navigationService.Navigate<Views.Repositories.PullRequests.PullRequestsPage>($"{App.DefaultGitHubDomain}/{ViewModel.Item.Repository.Owner.Login}/{ViewModel.Item.Repository.Name}/pull/{ViewModel.Item.Subject.Number}");
                     break;
                 case "Discussion":
                     //navigationService.Navigate<OverviewPage>($"{App.DefaultGitHubDomain}/{ViewModel.Item.Repository.Owner.Login}/{ViewModel.Item.Repository.Name}/discussions/{ViewModel.Item.SubjectNumber}");

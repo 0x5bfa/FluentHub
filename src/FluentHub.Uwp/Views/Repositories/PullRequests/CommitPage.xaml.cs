@@ -1,7 +1,7 @@
 ﻿using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
 using FluentHub.Uwp.Services.Navigation;
-using FluentHub.Uwp.ViewModels.Repositories.Commits;
+using FluentHub.Uwp.ViewModels.Repositories.PullRequests;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -30,6 +30,10 @@ namespace FluentHub.Uwp.Views.Repositories.PullRequests
         {
             var args = e.Parameter as FrameNavigationArgs;
             ViewModel.CommitItem = args.Parameters as Commit;
+
+            var command1 = ViewModel.LoadRepositoryCommand;
+            if (command1.CanExecute(args.Url))
+                command1.Execute(args.Url);
 
             var command = ViewModel.LoadCommitPageCommand;
             if (command.CanExecute(args.Url))

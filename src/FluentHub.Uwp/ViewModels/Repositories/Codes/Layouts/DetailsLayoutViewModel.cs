@@ -1,5 +1,6 @@
 ﻿using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.Models;
+using FluentHub.Uwp.ViewModels.UserControls;
 using FluentHub.Uwp.Utils;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
@@ -29,6 +30,9 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
         private Repository _repository;
         public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
 
+        private RepositoryOverviewViewModel _repositoryOverviewViewModel;
+        public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
+
         private readonly ObservableCollection<DetailsLayoutListViewModel> _items;
         public ReadOnlyObservableCollection<DetailsLayoutListViewModel> Items { get; }
 
@@ -40,6 +44,8 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
         {
             try
             {
+                _messenger?.Send(new LoadingMessaging(true));
+
                 if (string.IsNullOrEmpty(ContextViewModel.Repository.DefaultBranchRef.Name))
                     return;
 
@@ -102,6 +108,10 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
                 }
                 throw;
             }
+            finally
+            {
+                _messenger?.Send(new LoadingMessaging(false));
+            }
         }
 
         private async Task LoadRepositoryAsync(string url, CancellationToken token)
@@ -114,6 +124,21 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
 
                 RepositoryQueries queries = new();
                 Repository = await queries.GetDetailsAsync(pathSegments[0], pathSegments[1]);
+
+                RepositoryOverviewViewModel = new()
+                {
+                    Repository = Repository,
+                    RepositoryName = Repository.Name,
+                    RepositoryOwnerLogin = Repository.Owner.Login,
+                    RepositoryVisibilityLabel = new()
+                    {
+                        Name = Repository.IsPrivate ? "Private" : "Public",
+                        Color = "#64000000",
+                    },
+                    ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
+
+                    SelectedTag = "code",
+                };
             }
             catch (OperationCanceledException) { }
             catch (Exception ex)

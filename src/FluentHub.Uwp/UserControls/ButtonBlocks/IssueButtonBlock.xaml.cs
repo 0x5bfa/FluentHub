@@ -36,7 +36,7 @@ namespace FluentHub.Uwp.UserControls.ButtonBlocks
         private void OnClick(object sender, RoutedEventArgs e)
         {
             var navigationService = App.Current.Services.GetRequiredService<INavigationService>();
-            navigationService.Navigate<OverviewPage>($"{App.DefaultGitHubDomain}/{ViewModel.IssueItem.Repository.Owner.Login}/{ViewModel.IssueItem.Repository.Name}/issues/{ViewModel.IssueItem.Number}");
+            navigationService.Navigate<Views.Repositories.Issues.IssuePage>($"{App.DefaultGitHubDomain}/{ViewModel.IssueItem.Repository.Owner.Login}/{ViewModel.IssueItem.Repository.Name}/issues/{ViewModel.IssueItem.Number}");
         }
     }
 }

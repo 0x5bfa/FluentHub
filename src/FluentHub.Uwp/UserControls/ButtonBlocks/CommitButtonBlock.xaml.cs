@@ -1,5 +1,4 @@
 ﻿using FluentHub.Uwp.Services;
-using FluentHub.Uwp.ViewModels;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
@@ -35,14 +34,15 @@ namespace FluentHub.Uwp.UserControls.ButtonBlocks
             {
                 url += $"commit/{ViewModel.CommitItem.Oid}";
                 frameType = typeof(Views.Repositories.Commits.CommitPage);
-                MainPageViewModel.RepositoryContentFrame.Navigate(frameType, url);
             }
             else
             {
                 url += $"pull/{ViewModel.PullRequest.Number}/commits/{ViewModel.CommitItem.Oid}";
                 frameType = typeof(Views.Repositories.PullRequests.CommitPage);
-                MainPageViewModel.PullRequestContentFrame.Navigate(frameType, url);
             }
+
+            var navigationService = App.Current.Services.GetRequiredService<INavigationService>();
+            navigationService.Navigate(frameType, url);
         }
     }
 }

@@ -1,18 +1,19 @@
-﻿<Page
-    x:Class="FluentHub.Uwp.Views.Repositories.OverviewPage"
+﻿<UserControl
+    x:Class="FluentHub.Uwp.UserControls.RepositoryOverview"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:labels="using:FluentHub.Uwp.UserControls.Labels"
-    xmlns:local="using:FluentHub.Uwp.Views.Repositories"
+    xmlns:local="using:FluentHub.Uwp.UserControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:uc="using:FluentHub.Uwp.UserControls"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <Page.Resources>
+    <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
@@ -23,9 +24,13 @@
             </ResourceDictionary.MergedDictionaries>
             <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
         </ResourceDictionary>
-    </Page.Resources>
+    </UserControl.Resources>
 
-    <Grid>
+    <Grid
+        Background="{ThemeResource CardBackgroundFillColorSecondary}"
+        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+        BorderThickness="1"
+        CornerRadius="8">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
@@ -59,10 +64,12 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel Spacing="12">
+
                 <Button
                     x:Name="RepositoryOwnerButton"
                     HorizontalAlignment="Left"
                     Background="Transparent"
+                    Command="{x:Bind ViewModel.GoOwnerProfileCommand, Mode=OneWay}"
                     FontWeight="Normal"
                     Style="{StaticResource LinkLikeButtonStyle}">
                     <StackPanel Orientation="Horizontal" Spacing="12">
@@ -332,14 +339,12 @@
                 Margin="32,0"
                 IsBackButtonVisible="Collapsed"
                 IsSettingsVisible="False"
+                ItemInvoked="OnRepoPageNavViewItemInvoked"
                 PaneDisplayMode="Top">
 
                 <muxc:NavigationView.MenuItems>
 
-                    <muxc:NavigationViewItem
-                        Content="Code"
-                        IsSelected="True"
-                        Tag="code">
+                    <muxc:NavigationViewItem Content="Code" Tag="code">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon
                                 FontFamily="{StaticResource Octions}"
@@ -425,15 +430,9 @@
                     </muxc:NavigationViewItem>
 
                 </muxc:NavigationView.MenuItems>
+
             </muxc:NavigationView>
         </Grid>
 
-        <Grid
-            Grid.Row="4"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            Background="{ThemeResource LayerFillColorDefaultBrush}">
-            <Frame x:Name="RepoPageNavViewFrame" />
-        </Grid>
     </Grid>
-</Page>
+</UserControl>

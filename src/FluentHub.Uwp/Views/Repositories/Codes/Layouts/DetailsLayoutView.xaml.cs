@@ -2,8 +2,6 @@
 using FluentHub.Uwp.Services;
 using FluentHub.Uwp.Services.Navigation;
 using FluentHub.Uwp.ViewModels;
-using FluentHub.Uwp.ViewModels.Repositories;
-using FluentHub.Uwp.ViewModels.Repositories.Codes;
 using FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
@@ -37,15 +35,11 @@ namespace FluentHub.Uwp.Views.Repositories.Codes.Layouts
             var pathSegments = uri.AbsolutePath.Split("/").ToList();
             pathSegments.RemoveAt(0);
 
-            if (RepositoryCache is null || RepositoryCache?.Name != pathSegments[1])
-            {
-                // Load repository info
-                var command1 = ViewModel.LoadRepositoryCommand;
-                if (command1.CanExecute(url))
-                    await command1.ExecuteAsync(url);
+            var command1 = ViewModel.LoadRepositoryCommand;
+            if (command1.CanExecute(url))
+                await command1.ExecuteAsync(url);
 
-                RepositoryCache = ViewModel.Repository;
-            }
+            RepositoryCache = ViewModel.Repository;
 
             bool isRootDir = false;
             bool isFile = false;
@@ -143,7 +137,7 @@ namespace FluentHub.Uwp.Views.Repositories.Codes.Layouts
 
             string url = $"{App.DefaultGitHubDomain}/{ViewModel.ContextViewModel.Repository.Owner.Login}/{ViewModel.ContextViewModel.Repository.Name}/{tag}/{ViewModel.ContextViewModel.BranchName}/{path}";
 
-            MainPageViewModel.RepositoryContentFrame.Navigate(typeof(DetailsLayoutView), url);
+            navigationService.Navigate(typeof(DetailsLayoutView), url);
         }
 
         private void OnLatestReleaseClick(object sender, RoutedEventArgs e)

@@ -40,9 +40,13 @@ namespace FluentHub.Uwp.Views.Repositories.Issues
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Issues.png"))
             };
 
-            var command = ViewModel.RefreshIssuesPageCommand;
-            if (command.CanExecute(url))
-                command.Execute(url);
+            var command1 = ViewModel.LoadRepositoryCommand;
+            if (command1.CanExecute(url))
+                command1.Execute(url);
+
+            var command2 = ViewModel.RefreshIssuesPageCommand;
+            if (command2.CanExecute(url))
+                command2.Execute(url);
         }
     }
 }

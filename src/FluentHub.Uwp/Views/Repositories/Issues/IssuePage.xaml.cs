@@ -30,6 +30,10 @@ namespace FluentHub.Uwp.Views.Repositories.Issues
             var pathSegments = uri.AbsolutePath.Split("/").ToList();
             pathSegments.RemoveAt(0);
 
+            var command1 = ViewModel.LoadRepositoryCommand;
+            if (command1.CanExecute(url))
+                command1.Execute(url);
+
             var command = ViewModel.RefreshIssuePageCommand;
             if (command.CanExecute(url))
                 await command.ExecuteAsync(url);

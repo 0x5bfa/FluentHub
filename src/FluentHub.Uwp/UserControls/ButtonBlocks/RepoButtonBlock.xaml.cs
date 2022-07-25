@@ -33,7 +33,7 @@ namespace FluentHub.Uwp.UserControls.ButtonBlocks
         private void OnClick(object sender, RoutedEventArgs e)
         {
             var service = App.Current.Services.GetRequiredService<INavigationService>();
-            service.Navigate<OverviewPage>($"{App.DefaultGitHubDomain}/{ViewModel.Item.Owner.Login}/{ViewModel.Item.Name}");
+            service.Navigate<Views.Repositories.Codes.CodePage>($"{App.DefaultGitHubDomain}/{ViewModel.Item.Owner.Login}/{ViewModel.Item.Name}");
         }
     }
 }

@@ -22,7 +22,7 @@
             x:Name="AppTitleBar"
             Background="Transparent"
             Canvas.ZIndex="1">
-            <uc:TitleBar Margin="12,0,0,0" />
+            <uc:TitleBar />
         </Grid>
 
         <muxc:TwoPaneView
@@ -39,21 +39,21 @@
                 <Grid>
                     <ScrollViewer x:Name="pane1ScrollViewer" VerticalScrollBarVisibility="Auto">
                         <StackPanel
-                            Width="320"
-                            Margin="16,8"
+                            Width="300"
+                            Margin="24,8"
                             VerticalAlignment="Center"
                             x:DefaultBindMode="TwoWay"
                             Spacing="4">
 
                             <Image Height="72" VerticalAlignment="Center">
                                 <Image.Source>
-                                    <BitmapImage DecodePixelWidth="128" UriSource="/Assets/AppTilesAlpha/StoreLogo.scale-400.png" />
+                                    <BitmapImage DecodePixelWidth="128" UriSource="/Assets/AppTilesDev/StoreLogo.scale-400.png" />
                                 </Image.Source>
                             </Image>
 
                             <TextBlock
                                 x:Name="Header"
-                                Margin="0,12,0,12"
+                                Margin="0,12"
                                 HorizontalAlignment="Center"
                                 Style="{StaticResource SubtitleTextBlockStyle}"
                                 Text="Authorize FluentHub" />
@@ -66,7 +66,7 @@
                                 Message="Message"
                                 Severity="Error" />-->
 
-                            <Grid ColumnSpacing="8" RowSpacing="8">
+                            <Grid ColumnSpacing="8" RowSpacing="12">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
@@ -86,7 +86,8 @@
                                     Background="{ThemeResource SystemAccentColor}"
                                     CornerRadius="10">
                                     <TextBlock
-                                        Margin="6,2,6,0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         Text="1"
                                         TextAlignment="Center" />
@@ -100,7 +101,8 @@
                                     Background="{ThemeResource SystemAccentColor}"
                                     CornerRadius="10">
                                     <TextBlock
-                                        Margin="6,2,6,0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         Text="2"
                                         TextAlignment="Center" />
@@ -114,7 +116,8 @@
                                     Background="{ThemeResource SystemAccentColor}"
                                     CornerRadius="10">
                                     <TextBlock
-                                        Margin="6,2,6,0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         Text="3"
                                         TextAlignment="Center" />
@@ -128,7 +131,8 @@
                                     Background="{ThemeResource SystemAccentColor}"
                                     CornerRadius="10">
                                     <TextBlock
-                                        Margin="6,2,6,0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         Text="4"
                                         TextAlignment="Center" />
@@ -142,7 +146,8 @@
                                     Background="{ThemeResource SystemAccentColor}"
                                     CornerRadius="10">
                                     <TextBlock
-                                        Margin="6,2,6,0"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         Text="5"
                                         TextAlignment="Center" />
@@ -150,15 +155,15 @@
 
                                 <TextBlock
                                     Grid.Column="1"
-                                    VerticalAlignment="Top"
+                                    VerticalAlignment="Center"
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                     Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="Click &quot;Login with Browser&quot;;" />
+                                    Text="Click &quot;Login with GitHub&quot;;" />
 
                                 <TextBlock
                                     Grid.Row="1"
                                     Grid.Column="1"
-                                    VerticalAlignment="Top"
+                                    VerticalAlignment="Center"
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                     Style="{StaticResource BodyTextBlockStyle}"
                                     Text="If you are in administration of one or more organizations, please give FluentHub access to them;" />
@@ -166,7 +171,7 @@
                                 <TextBlock
                                     Grid.Row="2"
                                     Grid.Column="1"
-                                    VerticalAlignment="Top"
+                                    VerticalAlignment="Center"
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                     Style="{StaticResource BodyTextBlockStyle}"
                                     Text="Click &quot;Authorize FluentHub&quot;;" />
@@ -174,14 +179,15 @@
                                 <TextBlock
                                     Grid.Row="3"
                                     Grid.Column="1"
-                                    VerticalAlignment="Top"
+                                    VerticalAlignment="Center"
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                     Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="Click &quot;Open FluentHub - Alpha&quot;;" />
+                                    Text="Click &quot;Open FluentHub DEV&quot;;" />
 
                                 <TextBlock
                                     Grid.Row="4"
                                     Grid.Column="1"
+                                    VerticalAlignment="Center"
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                     Style="{StaticResource BodyTextBlockStyle}"
                                     Text="Proceed to the FluentHub application." />
@@ -189,10 +195,10 @@
                             </Grid>
 
                             <Button
-                                Margin="0,12,0,0"
+                                Margin="0,32,0,0"
                                 HorizontalAlignment="Stretch"
                                 Command="{x:Bind ViewModel.AuthorizeWithBrowserCommand}"
-                                Content="Login"
+                                Content="Login with GitHub"
                                 Style="{ThemeResource AccentButtonStyle}">
                                 <Button.KeyboardAccelerators>
                                     <KeyboardAccelerator Key="Enter" />
@@ -200,6 +206,7 @@
                             </Button>
 
                             <HyperlinkButton
+                                Margin="0,8,0,0"
                                 HorizontalAlignment="Right"
                                 Content="Documentation"
                                 NavigateUri="https://hub.codrex.dev/docs" />
@@ -207,6 +214,7 @@
                         </StackPanel>
 
                     </ScrollViewer>
+
                 </Grid>
             </muxc:TwoPaneView.Pane1>
 
@@ -242,7 +250,7 @@
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
                         <Setter Target="twoPaneView.Pane1Length" Value="360" />
-                        <Setter Target="rectImageLayer.Visibility" Value="Collapsed" />
+                        <Setter Target="rectImageLayer.Opacity" Value="0.2" />
                         <Setter Target="pane1ScrollViewer.Margin" Value="0,32,0,0" />
                     </VisualState.Setters>
                 </VisualState>

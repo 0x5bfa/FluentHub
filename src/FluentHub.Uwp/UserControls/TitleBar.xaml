@@ -10,30 +10,39 @@
     mc:Ignorable="d">
 
     <Grid
-        Height="48"
+        Height="40"
         VerticalAlignment="Top"
         Background="Transparent">
-        <StackPanel Orientation="Horizontal">
+        <StackPanel Margin="18,8,0,0" Orientation="Horizontal">
+
             <Image
                 x:Name="AppFontIcon"
-                Width="24"
-                Height="24"
+                Width="22"
+                Height="22"
                 HorizontalAlignment="Left"
                 VerticalAlignment="Center"
-                Source="/Assets/AppTilesDev/Square44x44Logo.png" />
+                Source="/Assets/AppTilesDev/StoreLogo.scale-400.png" />
+
             <TextBlock
-                x:Name="AppTitle"
-                Margin="8,0,0,0"
+                Margin="12,0,0,0"
                 VerticalAlignment="Center"
                 Style="{StaticResource CaptionTextBlockStyle}"
-                Text="FluentHub" />
+                Text="Fluent" />
+
             <TextBlock
-                x:Name="PreviewTitle"
+                VerticalAlignment="Center"
+                FontWeight="SemiBold"
+                Style="{StaticResource CaptionTextBlockStyle}"
+                Text="Hub" />
+
+            <TextBlock
                 Margin="4,0,0,0"
                 VerticalAlignment="Center"
                 FontSize="11"
-                Foreground="{StaticResource TextFillColorSecondaryBrush}"
+                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                Style="{StaticResource CaptionTextBlockStyle}"
                 Text="DEV" />
+
         </StackPanel>
     </Grid>
 </UserControl>

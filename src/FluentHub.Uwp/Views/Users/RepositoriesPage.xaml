@@ -22,7 +22,12 @@
     </Page.Resources>
 
     <ScrollViewer>
-        <Grid Margin="32,0,32,32">
+        <Grid
+            Padding="32,0,32,32"
+            Background="{ThemeResource CardBackgroundFillColorSecondary}"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1,1,0,0"
+            CornerRadius="8,0,0,0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
