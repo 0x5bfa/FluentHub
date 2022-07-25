@@ -37,7 +37,9 @@
 
 This is our preferred method. This allows you to always be on the latest version when we release new builds with automatic updates.
 
-<img width="128" align="center" src="https://getbadgecdn.azureedge.net/images/English_L.png" />
+<a title="Microsoft Store" target="_blank" href="https://apps.microsoft.com/store/detail/fluenthub/9nkb9hx8rjz3">
+  <img width="128" align="center" src="https://getbadgecdn.azureedge.net/images/English_L.png" />
+</a>
 
 ### Via GitHub
 
@@ -88,7 +90,17 @@ If you are interested in fixing issues and contributing directly to the code bas
 - [Finding an issue to work on](https://github.com/FluentHub/FluentHub/issues/new/choose)
 - [Contributing to translations on Crowdin](https://crowdin.com/project/fluenthub)
 
-## Contuct Us
+## Contributors
+
+<a href="https://github.com/FluentHub/FluentHub/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=FluentHub/FluentHub" />
+</a>
+
+### Special thanks
+
+- Joseph Beattie([@josephbeattie](https://github.com/josephbeattie)) created our logo!
+
+## Contact Us
 
 The easiest way to contact us is to join [our Discord channel](https://discord.gg/8KtRkjq2Q4).
 
@@ -101,23 +113,40 @@ If you would like to ask a question, please reach out to us via Twitter:
 
 ## Building the Code
 
-### Prerequisites
+### 1. Prerequisites
 
-Ensure you have:
-- Running Windows 10 2004 (10.0.19041.0) or later to run FluenHub
-- Enabled Developer Mode in the Windows Settings to locally install and run FluentHub
-- Having the Windows 11 (10.0.22000.0) SDK installed
-- Running VS 2022 and having following workloads:
-  - Universal Windows Platform Development Kit
-  - .NET SDK
+Ensure you have following components:
 
-### Build
+- Windows 10 2004 (10.0.19041.0) or later with enabled Developer Mode in the Windows Settings
+- [Git](https://git-scm.com/)
+- [Visual Studio 2022](https://visualstudio.microsoft.com/vs/) with following individual components:
+  - the Windows 11 (10.0.22000.0) SDK
+  - UWP Development Kit
+  - [.NET SDK](https://dotnet.microsoft.com/en-us/download)
+
+### 2. Git
+
+Clone the repository:
+
+```git
+git clone https://github.com/FluentHub/FluentHub
+```
+
+Initialize submodules recursively:
 
 ```git
 git submodule update --init --recursive
 ```
 
-For more steps, see [the documentation](docs/building-from-source.md).
+### 3. Prepare OAuth credentials
+
+See [the documentation](docs/building-from-source.md).
+
+### 4. Build the project
+
+- Open `FluentHub.sln`.
+- Hit 'Set as Startup item' on `FluentHub.Uwp` in the Solution Explorer
+- Build with `DEBUG|x64|FluentHub.Uwp (Universal Windows)`
 
 ## License
 
