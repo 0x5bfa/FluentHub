@@ -142,7 +142,11 @@ namespace FluentHub.Uwp.Views
                 case "NewOrganization":
                     break;
                 case "Profile":
-                    NavigationService.Navigate<Users.ProfilePage>($"{App.DefaultGitHubDomain}/{App.Settings.SignedInUserName}");
+                    NavigationService.Navigate<Users.OverviewPage>(
+                        new FrameNavigationArgs()
+                        {
+                            Login = App.Settings.SignedInUserName,
+                        });
                     break;
                 case "Repositories":
                     NavigationService.Navigate<Users.RepositoriesPage>("fluenthub://repositories");

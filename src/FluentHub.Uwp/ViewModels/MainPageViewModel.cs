@@ -210,7 +210,11 @@ namespace FluentHub.Uwp.ViewModels
         {
             InitializeToggles();
             IsProfile = true;
-            _navigationService.Navigate<Views.Users.ProfilePage>($"{App.DefaultGitHubDomain}/{App.Settings.SignedInUserName}");
+            _navigationService.Navigate<Views.Users.OverviewPage>(
+                new FrameNavigationArgs()
+                {
+                    Login = App.Settings.SignedInUserName,
+                });
         }
 
         private void InitializeToggles()

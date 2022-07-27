@@ -11,6 +11,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:uc="using:FluentHub.Uwp.UserControls"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -23,71 +24,83 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid Margin="32,0,32,32">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <Grid Margin="0,0,8,8" RowSpacing="8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
 
-        <Grid
-            Margin="0,0,0,6"
-            Padding="12"
-            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-            BorderThickness="1"
-            CornerRadius="4"
-            RowSpacing="6">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+                <uc:UserProfileOverview ViewModel="{x:Bind ViewModel.UserProfileOverviewViewModel, Mode=OneWay}" />
 
-            <StackPanel Orientation="Horizontal" Spacing="4">
-                <FontIcon
-                    FontFamily="{StaticResource Octions}"
-                    FontSize="16"
-                    Glyph="&#xEA3E;" />
-                <TextBlock
-                    FontSize="14"
-                    Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="Pinned repositories" />
-            </StackPanel>
+                <Grid Grid.Row="1" RowSpacing="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
 
-            <ScrollViewer
-                Grid.Row="1"
-                Padding="4,0"
-                HorizontalScrollBarVisibility="Hidden"
-                VerticalScrollBarVisibility="Disabled"
-                VerticalScrollMode="Disabled">
-                <muxc:ItemsRepeater Margin="0" ItemsSource="{x:Bind ViewModel.RepositoryItems, Mode=OneWay}">
-                    <muxc:ItemsRepeater.Layout>
-                        <muxc:StackLayout Orientation="Horizontal" Spacing="8" />
-                    </muxc:ItemsRepeater.Layout>
-                    <DataTemplate x:DataType="bbvm:RepoButtonBlockViewModel">
-                        <bb:RepoButtonBlock
-                            x:Name="RepositoryBlock"
-                            Width="250"
-                            VerticalAlignment="Stretch"
-                            ViewModel="{x:Bind}" />
-                    </DataTemplate>
-                </muxc:ItemsRepeater>
-            </ScrollViewer>
-        </Grid>
+                    <Grid
+                        Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1"
+                        CornerRadius="8"
+                        RowSpacing="6">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
 
-        <blocks:UserContributionGraph
-            Grid.Row="1"
-            Margin="0,6"
-            LoginName="{x:Bind ViewModel.LoginName, Mode=OneWay}"
-            Visibility="{x:Bind ViewModel.RefreshRepositoryCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
+                        <StackPanel
+                            Padding="32,16,32,8"
+                            Orientation="Horizontal"
+                            Spacing="4">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontSize="14"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="Pinned repositories" />
+                        </StackPanel>
 
-        <blocks:ReadmeContentBlock
-            x:Name="UserSpecialReadmeBlock"
-            Grid.Row="2"
-            Margin="0,6"
-            VerticalAlignment="Top"
-            ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}"
-            Visibility="{x:Bind ViewModel.RefreshRepositoryCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
+                        <MenuFlyoutSeparator Grid.Row="1" />
+
+                        <ScrollViewer
+                            Grid.Row="2"
+                            HorizontalScrollBarVisibility="Hidden"
+                            VerticalScrollBarVisibility="Disabled"
+                            VerticalScrollMode="Disabled">
+                            <muxc:ItemsRepeater Margin="24,12,24,24" ItemsSource="{x:Bind ViewModel.RepositoryItems, Mode=OneWay}">
+                                <muxc:ItemsRepeater.Layout>
+                                    <muxc:StackLayout Orientation="Horizontal" Spacing="8" />
+                                </muxc:ItemsRepeater.Layout>
+                                <DataTemplate x:DataType="bbvm:RepoButtonBlockViewModel">
+                                    <bb:RepoButtonBlock
+                                        x:Name="RepositoryBlock"
+                                        Width="250"
+                                        VerticalAlignment="Stretch"
+                                        ViewModel="{x:Bind}" />
+                                </DataTemplate>
+                            </muxc:ItemsRepeater>
+                        </ScrollViewer>
+                    </Grid>
+
+                    <blocks:UserContributionGraph
+                        Grid.Row="1"
+                        LoginName="{x:Bind ViewModel.Login, Mode=OneWay}"
+                        Visibility="{x:Bind ViewModel.RefreshRepositoryCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
+
+                    <blocks:ReadmeContentBlock
+                        x:Name="UserSpecialReadmeBlock"
+                        Grid.Row="2"
+                        VerticalAlignment="Top"
+                        ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}"
+                        Visibility="{x:Bind ViewModel.RefreshRepositoryCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
+                </Grid>
+
+            </Grid>
+        </ScrollViewer>
 
         <toolkit:SwitchPresenter
             Grid.RowSpan="3"
@@ -96,12 +109,9 @@
             TargetType="x:Boolean"
             Value="{x:Bind ViewModel.RefreshRepositoryCommand.IsRunning, Mode=OneWay}">
 
-            <toolkit:Case Value="True">
-                <muxc:ProgressRing IsActive="True" />
-            </toolkit:Case>
-
             <toolkit:Case Value="False">
                 <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.RefreshRepositoryCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
+
                     <toolkit:Case Value="True">
                         <HyperlinkButton Command="{x:Bind ViewModel.RefreshRepositoryCommand}">
                             <StackPanel Orientation="Horizontal" Spacing="8">
@@ -110,6 +120,7 @@
                             </StackPanel>
                         </HyperlinkButton>
                     </toolkit:Case>
+
                 </toolkit:SwitchPresenter>
             </toolkit:Case>
 

@@ -54,7 +54,11 @@ namespace FluentHub.Uwp.ViewModels.UserControls
             }
             else
             {
-                service.Navigate<Views.Users.ProfilePage>($"{App.DefaultGitHubDomain}/{Repository.Owner.Login}");
+                service.Navigate<Views.Users.OverviewPage>(
+                    new Models.FrameNavigationArgs()
+                    {
+                        Login = App.Settings.SignedInUserName,
+                    });
             }
         }
         #endregion

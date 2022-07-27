@@ -360,7 +360,9 @@
     <Compile Include="ViewModels\UserControls\ButtonBlocks\UserButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Labels\LabelControlViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Labels\StatusLabelViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\OrganizationProfileOverviewViewModel.cs" />
     <Compile Include="ViewModels\UserControls\RepositoryOverviewViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\UserProfileOverviewViewModel.cs" />
     <Compile Include="ViewModels\Users\DiscussionsViewModel.cs" />
     <Compile Include="ViewModels\Users\FollowersViewModel.cs" />
     <Compile Include="ViewModels\Users\FollowingViewModel.cs" />
