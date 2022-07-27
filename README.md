@@ -140,7 +140,7 @@ git submodule update --init --recursive
 
 ### 3. Prepare OAuth credentials
 
-See [the documentation](docs/building-from-source.md).
+See [the documentation](docs/credentials.md).
 
 ### 4. Build the project
 
