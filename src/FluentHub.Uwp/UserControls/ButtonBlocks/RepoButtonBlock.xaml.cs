@@ -1,6 +1,5 @@
 ﻿using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
-using FluentHub.Uwp.Views.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -23,17 +22,10 @@ namespace FluentHub.Uwp.UserControls.ButtonBlocks
             set
             {
                 SetValue(ViewModelProperty, value);
-                ViewModel?.GetColorBrush();
             }
         }
         #endregion
 
         public RepoButtonBlock() => InitializeComponent();
-
-        private void OnClick(object sender, RoutedEventArgs e)
-        {
-            var service = App.Current.Services.GetRequiredService<INavigationService>();
-            service.Navigate<Views.Repositories.Codes.CodePage>($"{App.DefaultGitHubDomain}/{ViewModel.Item.Owner.Login}/{ViewModel.Item.Name}");
-        }
     }
 }

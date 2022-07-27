@@ -99,7 +99,7 @@
                 .Cast<OctokitGraphQLModel.Commit>()
                 .Select(commit => new Commit
                 {
-                    History = commit.History(1, null, null, null, null, null, null, null).Select(history => new CommitHistoryConnection
+                    History = commit.History(1, null, null, null, null, path, null, null).Select(history => new CommitHistoryConnection
                     {
                         Nodes = history.Nodes.Select(y => new Commit
                         {
@@ -109,15 +109,16 @@
                             Message = y.Message,
                             MessageHeadline = y.MessageHeadline,
 
-                            Author = new()
+                            Author = y.Author.Select(author => new GitActor
                             {
-                                AvatarUrl = y.Author.AvatarUrl(100),
-                                User = y.Author.User.Select(user => new User
+                                AvatarUrl = author.AvatarUrl(100),
+                                User = author.User.Select(user => new User
                                 {
                                     Login = user.Login,
                                 })
-                            .Single(),
-                            },
+                                .SingleOrDefault(),
+                            })
+                            .SingleOrDefault(),
                         })
                         .ToList(),
 
@@ -166,22 +167,20 @@
                     {
                         Commit = x.Nodes.Select(y => new Commit
                         {
-                            //Name = res1.Name,
-                            //Path = res1.Path,
-                            //Type = res1.Type,
                             AbbreviatedOid = y.AbbreviatedOid,
+                            Message = y.Message,
+                            CommittedDate = y.CommittedDate,
+
                             Author = new()
                             {
                                 AvatarUrl = y.Author.AvatarUrl(100),
+
                                 User = y.Author.User.Select(user => new User
                                 {
                                     Login = user.Login,
                                 })
-                            .Single(),
+                                .SingleOrDefault(),
                             },
-                            Message = y.Message,
-
-                            CommittedDate = y.CommittedDate,
                         })
                         .ToList()
                         .FirstOrDefault(),
@@ -192,8 +191,6 @@
                 #endregion
 
                 var response2 = await App.Connection.Run(commitQuery);
-
-                //response2.Commit.TotalCount = response2.TotalCount;
 
                 items.Add(response2.Commit);
             }

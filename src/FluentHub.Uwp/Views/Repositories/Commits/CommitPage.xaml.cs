@@ -29,7 +29,7 @@ namespace FluentHub.Uwp.Views.Repositories.Commits
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var args = e.Parameter as FrameNavigationArgs;
-            ViewModel.CommitItem = args.Parameters as Commit;
+            ViewModel.CommitItem = args.Parameters.ElementAt(0) as Commit;
 
             var command = ViewModel.LoadCommitPageCommand;
             if (command.CanExecute(null))

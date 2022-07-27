@@ -46,7 +46,7 @@ namespace FluentHub.Uwp.ViewModels.Organizations
                 {
                     RepoButtonBlockViewModel viewModel = new()
                     {
-                        Item = item,
+                        Repository = item,
                         DisplayDetails = false,
                         DisplayStarButton = false,
                     };
@@ -63,7 +63,7 @@ namespace FluentHub.Uwp.ViewModels.Organizations
                 {
                     RepoButtonBlockViewModel viewModel = new()
                     {
-                        Item = item,
+                        Repository = item,
                         DisplayDetails = false,
                         DisplayStarButton = false,
                     };

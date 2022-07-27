@@ -46,8 +46,8 @@ namespace FluentHub.Uwp.UserControls.Blocks
             ViewModel.ContextViewModel = ContextViewModel;
 
             var command = ViewModel.LoadLatestCommitBlockCommand;
-            if (command.CanExecute(DataContext))
-                command.Execute(DataContext);
+            if (command.CanExecute(null))
+                command.Execute(null);
         }
 
         private void MoreCommitMessageButton_Click(object sender, RoutedEventArgs e)

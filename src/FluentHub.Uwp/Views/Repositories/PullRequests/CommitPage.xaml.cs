@@ -29,7 +29,7 @@ namespace FluentHub.Uwp.Views.Repositories.PullRequests
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var args = e.Parameter as FrameNavigationArgs;
-            ViewModel.CommitItem = args.Parameters as Commit;
+            ViewModel.CommitItem = args.Parameters.ElementAtOrDefault(0) as Commit;
 
             var command1 = ViewModel.LoadRepositoryCommand;
             if (command1.CanExecute(args.Url))

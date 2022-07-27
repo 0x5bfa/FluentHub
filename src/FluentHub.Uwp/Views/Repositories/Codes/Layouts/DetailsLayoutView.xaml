@@ -33,7 +33,7 @@
                 <Grid
                     x:Name="RepositoryCodeGrid"
                     Grid.Row="1"
-                    Padding="32,0,32,32"
+                    Padding="32,24,32,32"
                     x:Load="{x:Bind ViewModel.ContextViewModel.Repository.DefaultBranchRef.Name, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
                     Background="{ThemeResource CardBackgroundFillColorSecondary}"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
@@ -172,7 +172,7 @@
                         x:Name="RepositoryMetaInfoBlock"
                         Grid.Column="1"
                         Width="256"
-                        Padding="12,12,0,0"
+                        Padding="24,12,0,0"
                         x:Load="{x:Bind ViewModel.ContextViewModel.IsRootDir, Mode=OneWay}"
                         RowSpacing="12">
                         <Grid.RowDefinitions>
@@ -208,7 +208,10 @@
                                 </Button>
                             </Grid>
 
-                            <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.ContextViewModel.Repository.Description, Mode=OneWay}" />
+                            <TextBlock
+                                IsTextSelectionEnabled="True"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind ViewModel.ContextViewModel.Repository.Description, Mode=OneWay}" />
 
                             <MenuFlyoutSeparator />
                         </StackPanel>
@@ -281,6 +284,20 @@
                                     Style="{StaticResource CaptionTextBlockStyle}"
                                     Text="No releases published" />
 
+                            </StackPanel>
+
+                            <MenuFlyoutSeparator />
+                        </StackPanel>
+
+                        <StackPanel Grid.Row="2" Spacing="12">
+
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="Releases" />
+
+                                <muxc:InfoBadge Value="{x:Bind ViewModel.ContextViewModel.Repository.Releases.TotalCount, Mode=OneWay}" />
                             </StackPanel>
 
                             <MenuFlyoutSeparator />

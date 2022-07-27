@@ -1,32 +1,43 @@
 ﻿using FluentHub.Uwp.Helpers;
+using FluentHub.Uwp.Services;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
-using Windows.UI.Xaml.Media;
+using Microsoft.Extensions.DependencyInjection;
+using System.Windows.Input;
 
 namespace FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks
 {
     public class RepoButtonBlockViewModel : ObservableObject
     {
+        public RepoButtonBlockViewModel()
+        {
+            GoRepositoryCommand = new RelayCommand(GoRepository);
+        }
+
         #region Fields and Properties
         private Repository _item;
-        public Repository Item { get => _item; set => SetProperty(ref _item, value); }
-
-        private Brush _primaryLangColor;
-        public Brush PrimaryLangColor { get => _primaryLangColor; set => SetProperty(ref _primaryLangColor, value); }
+        public Repository Repository { get => _item; set => SetProperty(ref _item, value); }
 
         private bool _displayDetails;
         public bool DisplayDetails { get => _displayDetails; set => SetProperty(ref _displayDetails, value); }
 
         private bool _displayStarButton;
         public bool DisplayStarButton { get => _displayStarButton; set => SetProperty(ref _displayStarButton, value); }
+
+        public ICommand GoRepositoryCommand { get; private set; }
         #endregion
 
-        public void GetColorBrush()
+        #region Command methods
+        private void GoRepository()
         {
-            //if (Item?.PrimaryLanguage != null)
-            //{
-            //    PrimaryLangColor = ColorHelpers.HexCodeToSolidColorBrush(Item.PrimaryLanguage.Color);
-            //}
+            var service = App.Current.Services.GetRequiredService<INavigationService>();
+            service.Navigate<Views.Repositories.Codes.CodePage>(
+                new FrameNavigationArgs()
+                {
+                    Login = Repository.Owner.Login,
+                    Name = Repository.Name,
+                });
         }
+        #endregion
     }
 }

@@ -1,12 +1,11 @@
-﻿using Microsoft.Toolkit.Mvvm.ComponentModel;
-using System;
-using System.Collections.ObjectModel;
+﻿using FluentHub.Uwp.Services;
+using Microsoft.Extensions.DependencyInjection;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.Utils
 {
     public class NavigationHistory<T> : ObservableObject
     {
-        #region constructor
         public NavigationHistory()
         {
             _items = new ObservableCollection<T>();
@@ -15,22 +14,24 @@ namespace FluentHub.Uwp.Utils
             _currentItem = default;
             _currentItemIndex = -1;
         }
-        #endregion
+
 #if DEBUG
         ~NavigationHistory() => System.Diagnostics.Debug.WriteLine("~NavigationHistory");
 #endif
 
         #region fields
         private bool _canGoBack;
-        private bool _canGoForward;
-        private T _currentItem;
-        private int _currentItemIndex;
-        private ObservableCollection<T> _items;
-        #endregion
+        public bool CanGoBack { get => _canGoBack; private set => SetProperty(ref _canGoBack, value); }
 
-        #region properties
-        public T this[int index] => Items[index];
+        private bool _canGoForward;
+        public bool CanGoForward { get => _canGoForward; private set => SetProperty(ref _canGoForward, value); }
+
+        private T _currentItem;
         public T CurrentItem { get => _currentItem; private set => SetProperty(ref _currentItem, value); }
+
+        private ObservableCollection<T> _items;
+
+        private int _currentItemIndex;
         public int CurrentItemIndex
         {
             get => _currentItemIndex;
@@ -48,12 +49,12 @@ namespace FluentHub.Uwp.Utils
                 Update();
             }
         }
-        public bool CanGoBack { get => _canGoBack; private set => SetProperty(ref _canGoBack, value); }
-        public bool CanGoForward { get => _canGoForward; private set => SetProperty(ref _canGoForward, value); }
+
+        public T this[int index] => Items[index];
         public ReadOnlyObservableCollection<T> Items { get; }
         #endregion
 
-        #region methods
+        #region Methods
         public bool GoBack()
         {
             if (CanGoBack)
@@ -108,6 +109,19 @@ namespace FluentHub.Uwp.Utils
         {
             CanGoBack = CurrentItemIndex > 0;
             CanGoForward = CurrentItemIndex < _items.Count - 1;
+        }
+
+        public static void SetCurrentItem(string header, string description, string url, muxc.IconSource icon)
+        {
+            INavigationService navigationService;
+            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+
+            currentItem.Header = header;
+            currentItem.Description = description;
+            currentItem.Url = url;
+            currentItem.DisplayUrl = "";
+            currentItem.Icon = icon;
         }
         #endregion
     }
