@@ -5,7 +5,10 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using Octokit;
 using muxc = Microsoft.UI.Xaml.Controls;
+using Page = Windows.UI.Xaml.Controls.Page;
+using User = FluentHub.Octokit.Models.v4.User;
 
 namespace FluentHub.Uwp.Views.Users
 {
@@ -81,13 +84,32 @@ namespace FluentHub.Uwp.Views.Users
 
         private async void EditProfileButton_Click(object sender, RoutedEventArgs e)
         {
-            var dialog = new Dialogs.UserProfileEditor();
-            _ = await dialog.ShowAsync();
+            UserUpdate updatedUser = null;
+            var dialog = new Dialogs.UserProfileEditor(ViewModel.UserItem);
+            var dialogResult = await dialog.ShowAsync();
+            if (dialogResult == ContentDialogResult.Primary)
+            {
+                updatedUser = MapUpdatedUser(dialog.UpdatedUser);
+                await Octokit.App.Client.User.Update(updatedUser);
+            }
         }
 
         private void LocationHyperlink()
         {
             var LocationHyperlink = "https://www.bing.com/maps?q=" + ViewModel.UserItem.Location; 
+        }
+
+        private UserUpdate MapUpdatedUser(User updatedUser)
+        {
+            return new UserUpdate
+            {
+                Name = updatedUser.Name,
+                Bio = updatedUser.Bio,
+                Blog = updatedUser.WebsiteUrl,
+                Company = updatedUser.Company,
+                Email = updatedUser.Email,
+                Location = updatedUser.Location
+            };
         }
     }
 }

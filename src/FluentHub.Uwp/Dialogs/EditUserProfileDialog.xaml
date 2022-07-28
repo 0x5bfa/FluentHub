@@ -8,11 +8,12 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
     PrimaryButtonText="Save"
+    CloseButtonText="Close"
     Style="{StaticResource DefaultContentDialogStyle}"
     mc:Ignorable="d">
 
     <Grid Width="384" Height="300">
-        <ScrollViewer VerticalScrollBarVisibility="Hidden">
+        <ScrollViewer>
             <StackPanel Margin="0,0,0,0" Spacing="12">
 
                 <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Edit Profile" />
@@ -26,7 +27,7 @@
                             Text="Name" />
                     </StackPanel>
 
-                    <TextBox />
+                    <TextBox Name="UserName"/>
 
                 </StackPanel>
 
@@ -39,7 +40,7 @@
                             Text="Bio" />
                     </StackPanel>
 
-                    <TextBox MinHeight="52" AcceptsReturn="True" />
+                    <TextBox MinHeight="52" Name="UserBio" AcceptsReturn="True" />
 
                 </StackPanel>
 
@@ -49,10 +50,10 @@
                         <TextBlock
                             VerticalAlignment="Center"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="Comapny" />
+                            Text="Company" />
                     </StackPanel>
 
-                    <TextBox />
+                    <TextBox Name="UserCompany" />
 
                 </StackPanel>
 
@@ -65,7 +66,20 @@
                             Text="Location" />
                     </StackPanel>
 
-                    <TextBox />
+                    <TextBox Name="UserLocation"/>
+
+                </StackPanel>
+
+                <StackPanel Spacing="4">
+
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="Email" />
+                    </StackPanel>
+
+                    <TextBox Name="UserEmail"/>
 
                 </StackPanel>
 
@@ -78,7 +92,7 @@
                             Text="Link" />
                     </StackPanel>
 
-                    <TextBox />
+                    <TextBox Name="UserLink"/>
 
                 </StackPanel>
 
