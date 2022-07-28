@@ -20,7 +20,7 @@
     </Page.Resources>
 
     <Grid>
-        <ScrollViewer>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
             <Grid Margin="0,0,8,8" RowSpacing="8">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />

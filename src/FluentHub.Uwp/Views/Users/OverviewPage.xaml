@@ -66,24 +66,27 @@
 
                         <MenuFlyoutSeparator Grid.Row="1" />
 
-                        <ScrollViewer
+                        <muxc:ItemsRepeater
                             Grid.Row="2"
-                            HorizontalScrollBarVisibility="Hidden"
-                            VerticalScrollBarVisibility="Disabled"
-                            VerticalScrollMode="Disabled">
-                            <muxc:ItemsRepeater Margin="24,12,24,24" ItemsSource="{x:Bind ViewModel.RepositoryItems, Mode=OneWay}">
-                                <muxc:ItemsRepeater.Layout>
-                                    <muxc:StackLayout Orientation="Horizontal" Spacing="8" />
-                                </muxc:ItemsRepeater.Layout>
-                                <DataTemplate x:DataType="bbvm:RepoButtonBlockViewModel">
-                                    <bb:RepoButtonBlock
-                                        x:Name="RepositoryBlock"
-                                        Width="250"
-                                        VerticalAlignment="Stretch"
-                                        ViewModel="{x:Bind}" />
-                                </DataTemplate>
-                            </muxc:ItemsRepeater>
-                        </ScrollViewer>
+                            Margin="24,12,24,24"
+                            ItemsSource="{x:Bind ViewModel.RepositoryItems, Mode=OneWay}">
+                            <muxc:ItemsRepeater.Layout>
+                                <muxc:UniformGridLayout
+                                    ItemsStretch="Fill"
+                                    MaximumRowsOrColumns="6"
+                                    MinColumnSpacing="8"
+                                    MinItemHeight="92"
+                                    MinItemWidth="250"
+                                    MinRowSpacing="8"
+                                    Orientation="Horizontal" />
+                            </muxc:ItemsRepeater.Layout>
+                            <DataTemplate x:DataType="bbvm:RepoButtonBlockViewModel">
+                                <bb:RepoButtonBlock
+                                    x:Name="RepositoryBlock"
+                                    VerticalAlignment="Stretch"
+                                    ViewModel="{x:Bind}" />
+                            </DataTemplate>
+                        </muxc:ItemsRepeater>
                     </Grid>
 
                     <blocks:UserContributionGraph

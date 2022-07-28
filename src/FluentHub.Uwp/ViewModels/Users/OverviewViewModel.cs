@@ -97,7 +97,7 @@ namespace FluentHub.Uwp.ViewModels.Users
             }
             catch (Exception ex)
             {
-                _logger?.Error(nameof(LoadUserOverviewAsync), ex);
+                _logger?.Error(nameof(LoadUserAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);

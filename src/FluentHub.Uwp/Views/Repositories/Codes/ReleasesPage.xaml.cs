@@ -1,9 +1,6 @@
 ﻿using FluentHub.Uwp.Services;
-using FluentHub.Uwp.Services.Navigation;
-using FluentHub.Uwp.ViewModels;
-using FluentHub.Uwp.ViewModels.Repositories;
+using FluentHub.Uwp.Models;
 using FluentHub.Uwp.ViewModels.Repositories.Codes;
-using FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -18,40 +15,38 @@ namespace FluentHub.Uwp.Views.Repositories.Codes
     {
         public ReleasesPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<ReleasesViewModel>();
-            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
+            navService = App.Current.Services.GetRequiredService<INavigationService>();
         }
 
         public ReleasesViewModel ViewModel { get; }
-        private readonly INavigationService navigationService;
+        private readonly INavigationService navService;
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            ViewModel.ContextViewModel = ViewModel.ContextViewModel = e.Parameter as RepoContextViewModel;
-            DataContext = ViewModel;
+            var param = e.Parameter as FrameNavigationArgs;
 
-            #region tabitem
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = $"Releases · {ViewModel.ContextViewModel.Repository.Owner.Login}/{ViewModel.ContextViewModel.Repository.Name}";
-            currentItem.Description = currentItem.Header;
-            currentItem.Url = $"https://github.com/{ViewModel.ContextViewModel.Repository.Owner.Login}/{ViewModel.ContextViewModel.Repository.Name}/releases";
+            await ViewModel.LoadRepositoryAsync(param.Login, param.Name);
 
-            currentItem.DisplayUrl = $"{ViewModel.ContextViewModel.Repository.Owner.Login}/{ViewModel.ContextViewModel.Repository.Name}/releases";
-
-            currentItem.DisplayUrl = $"{ViewModel.ContextViewModel.Repository.Owner.Login} / {ViewModel.ContextViewModel.Repository.Name} / Releases";
-
-            currentItem.Icon = new muxc.ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.png"))
-            };
-            #endregion
+            SetCurrentTabItem();
 
             var command = ViewModel.LoadReleasesPageCommand;
             if (command.CanExecute(null))
                 command.Execute(null);
+        }
+
+        private void SetCurrentTabItem()
+        {
+            var currentItem = navService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = $"Releases · {ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}";
+            currentItem.Description = $"Releases · {ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}";
+            currentItem.Icon = new muxc.ImageIconSource
+            {
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.png"))
+            };
         }
     }
 }

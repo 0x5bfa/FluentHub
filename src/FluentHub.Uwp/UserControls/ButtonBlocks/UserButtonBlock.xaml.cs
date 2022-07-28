@@ -42,7 +42,7 @@ namespace FluentHub.Uwp.UserControls.ButtonBlocks
                 service.Navigate<Views.Users.OverviewPage>(
                     new Models.FrameNavigationArgs()
                     {
-                        Login = App.Settings.SignedInUserName,
+                        Login = ViewModel.User.Login,
                     });
             }
         }

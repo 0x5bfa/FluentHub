@@ -215,7 +215,7 @@
                     <Button
                         Padding="4"
                         Background="Transparent"
-                        Click="UserFollowersButton_Click"
+                        Click="OnUserFollowersButtonClick"
                         Style="{ThemeResource LinkLikeButtonStyle}">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal" Spacing="6">
@@ -243,7 +243,7 @@
                     <Button
                         Padding="4"
                         Background="Transparent"
-                        Click="UserFollowingButton_Click"
+                        Click="OnUserFollowingButtonClick"
                         Style="{ThemeResource LinkLikeButtonStyle}">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal" Spacing="6">
@@ -279,7 +279,6 @@
                     <muxc:NavigationViewItem
                         x:Name="UserNavViewItemOverview"
                         Content="Overview"
-                        IsSelected="True"
                         Tag="Overview">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon

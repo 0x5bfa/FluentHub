@@ -8,6 +8,7 @@
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:icore="using:Microsoft.Xaml.Interactions.Core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:FluentHub.Uwp.Models"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:triggers="using:WindowsStateTriggers"
@@ -112,7 +113,7 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Margin="18,0,8,0" Orientation="Horizontal">
+                <StackPanel Margin="16,0,8,0" Orientation="Horizontal">
 
                     <Image
                         x:Name="AppFontIcon"
@@ -120,7 +121,7 @@
                         Height="22"
                         HorizontalAlignment="Left"
                         VerticalAlignment="Center"
-                        Source="/Assets/AppTilesDev/StoreLogo.scale-400.png" />
+                        Source="/Assets/AppTiles/StoreLogo.scale-400.png" />
 
                     <TextBlock
                         Margin="12,0,0,0"
@@ -232,9 +233,9 @@
 
                     <muxc:DropDownButton
                         x:Name="ToolbarAppSettingsButton"
-                        Width="58"
+                        Width="64"
                         Height="36"
-                        Padding="4"
+                        Padding="4,4,8,4"
                         Background="Transparent"
                         BorderBrush="{StaticResource ControlStrokeColorDefault}"
                         BorderThickness="0"
@@ -324,485 +325,61 @@
             </Grid.ColumnDefinitions>
 
             <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <StackPanel Margin="4,0,0,0" Spacing="4">
-                    <Button
-                        Width="64"
-                        Height="60"
-                        Padding="0"
-                        HorizontalContentAlignment="Stretch"
-                        VerticalContentAlignment="Stretch"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Command="{x:Bind ViewModel.GoHomeCommand, Mode=OneWay}">
-
-                        <Grid
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            Background="Transparent">
-
-                            <toolkit:SwitchPresenter
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                TargetType="x:Boolean"
-                                Value="{x:Bind ViewModel.IsHome, Mode=OneWay}">
-
-                                <toolkit:Case Value="False">
-                                    <StackPanel
-                                        Padding="0,12,0,0"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Stretch"
-                                        Spacing="4">
-
-                                        <FontIcon
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            FontSize="22"
-                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                            Glyph="&#xE80F;" />
-
-                                        <TextBlock
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            FontSize="10"
-                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                            Style="{StaticResource CaptionTextBlockStyle}"
-                                            Text="Home" />
-
-                                    </StackPanel>
-                                </toolkit:Case>
-
-                                <toolkit:Case Value="True">
-                                    <StackPanel
-                                        Padding="0,12,0,0"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Stretch"
-                                        Background="{ThemeResource NavigationViewItemBackgroundSelected}"
-                                        Spacing="4">
-
-                                        <FontIcon
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            FontSize="22"
-                                            Foreground="{ThemeResource AccentFillColorDefaultBrush}"
-                                            Glyph="&#xEA8A;" />
-
-                                        <TextBlock
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            FontSize="10"
-                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                            Style="{StaticResource CaptionTextBlockStyle}"
-                                            Text="Home" />
-
-                                    </StackPanel>
-                                </toolkit:Case>
-
-                            </toolkit:SwitchPresenter>
-
-                        </Grid>
-                    </Button>
-
-                    <Button
-                        Width="64"
-                        Height="60"
-                        Padding="0"
-                        HorizontalContentAlignment="Stretch"
-                        VerticalContentAlignment="Stretch"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Command="{x:Bind ViewModel.GoNotificationsCommand, Mode=OneWay}">
-
-                        <Grid
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            Background="Transparent">
-
-                            <toolkit:SwitchPresenter
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                TargetType="x:Boolean"
-                                Value="{x:Bind ViewModel.IsNotifications, Mode=OneWay}">
-
-                                <toolkit:Case Value="False">
-                                    <StackPanel
-                                        Padding="0,12,0,0"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Stretch"
-                                        Spacing="4">
-
-                                        <FontIcon
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            FontFamily="{StaticResource Octions}"
-                                            FontSize="22"
-                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                            Glyph="&#xE918;" />
-
-                                        <TextBlock
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            FontSize="10"
-                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                            Style="{StaticResource CaptionTextBlockStyle}"
-                                            Text="Notifications" />
-
-                                    </StackPanel>
-                                </toolkit:Case>
-
-                                <toolkit:Case Value="True">
-                                    <StackPanel
-                                        Padding="0,12,0,0"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Stretch"
-                                        Background="{ThemeResource NavigationViewItemBackgroundSelected}"
-                                        Spacing="4">
-
-                                        <FontIcon
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            FontFamily="{StaticResource Octions}"
-                                            FontSize="22"
-                                            Foreground="{ThemeResource AccentFillColorDefaultBrush}"
-                                            Glyph="&#xE91A;" />
-
-                                        <TextBlock
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            FontSize="10"
-                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                            Style="{StaticResource CaptionTextBlockStyle}"
-                                            Text="Notifications" />
-
-                                    </StackPanel>
-                                </toolkit:Case>
-
-                            </toolkit:SwitchPresenter>
-
-                        </Grid>
-                    </Button>
-
-                    <Button
-                        Width="64"
-                        Height="60"
-                        Padding="0"
-                        HorizontalContentAlignment="Stretch"
-                        VerticalContentAlignment="Stretch"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Command="{x:Bind ViewModel.GoActivitiesCommand, Mode=OneWay}">
-
-                        <Grid
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            Background="Transparent">
-
-                            <toolkit:SwitchPresenter
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                TargetType="x:Boolean"
-                                Value="{x:Bind ViewModel.IsActivities, Mode=OneWay}">
-
-                                <toolkit:Case Value="False">
-                                    <StackPanel
-                                        Padding="0,12,0,0"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Stretch"
-                                        Spacing="4">
-
-                                        <FontIcon
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            FontSize="22"
-                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                            Glyph="&#xECAD;" />
-
-                                        <TextBlock
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            FontSize="10"
-                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                            Style="{StaticResource CaptionTextBlockStyle}"
-                                            Text="Activity" />
-
-                                    </StackPanel>
-                                </toolkit:Case>
-
-                                <toolkit:Case Value="True">
-                                    <StackPanel
-                                        Padding="0,12,0,0"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Stretch"
-                                        Background="{ThemeResource NavigationViewItemBackgroundSelected}"
-                                        Spacing="4">
-
-                                        <FontIcon
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            FontSize="22"
-                                            Foreground="{ThemeResource AccentFillColorDefaultBrush}"
-                                            Glyph="&#xECAD;" />
-
-                                        <TextBlock
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            FontSize="10"
-                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                            Style="{StaticResource CaptionTextBlockStyle}"
-                                            Text="Activity" />
-
-                                    </StackPanel>
-                                </toolkit:Case>
-
-                            </toolkit:SwitchPresenter>
-
-                        </Grid>
-                    </Button>
-
-                    <Button
-                        Width="64"
-                        Height="60"
-                        Padding="0"
-                        HorizontalContentAlignment="Stretch"
-                        VerticalContentAlignment="Stretch"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Command="{x:Bind ViewModel.GoMarketplaceCommand, Mode=OneWay}">
-
-                        <Grid
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            Background="Transparent">
-
-                            <toolkit:SwitchPresenter
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                TargetType="x:Boolean"
-                                Value="{x:Bind ViewModel.IsMarketplace, Mode=OneWay}">
-
-                                <toolkit:Case Value="False">
-                                    <StackPanel
-                                        Padding="0,12,0,0"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Stretch"
-                                        Spacing="4">
-
-                                        <FontIcon
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            FontSize="22"
-                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                            Glyph="&#xE14D;" />
-
-                                        <TextBlock
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            FontSize="10"
-                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                            Style="{StaticResource CaptionTextBlockStyle}"
-                                            Text="Marketplace" />
-
-                                    </StackPanel>
-                                </toolkit:Case>
-
-                                <toolkit:Case Value="True">
-                                    <StackPanel
-                                        Padding="0,12,0,0"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Stretch"
-                                        Background="{ThemeResource NavigationViewItemBackgroundSelected}"
-                                        Spacing="4">
-
-                                        <FontIcon
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            FontSize="22"
-                                            Foreground="{ThemeResource AccentFillColorDefaultBrush}"
-                                            Glyph="&#xE14D;" />
-
-                                        <TextBlock
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            FontSize="10"
-                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                            Style="{StaticResource CaptionTextBlockStyle}"
-                                            Text="Marketplace" />
-
-                                    </StackPanel>
-                                </toolkit:Case>
-
-                            </toolkit:SwitchPresenter>
-
-                        </Grid>
-                    </Button>
-
-                    <Button
-                        Width="64"
-                        Height="60"
-                        Padding="0"
-                        HorizontalContentAlignment="Stretch"
-                        VerticalContentAlignment="Stretch"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Command="{x:Bind ViewModel.GoExplorerCommand, Mode=OneWay}">
-
-                        <Grid
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            Background="Transparent">
-
-                            <toolkit:SwitchPresenter
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                TargetType="x:Boolean"
-                                Value="{x:Bind ViewModel.IsExplorer, Mode=OneWay}">
-
-                                <toolkit:Case Value="False">
-                                    <StackPanel
-                                        Padding="0,12,0,0"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Stretch"
-                                        Spacing="4">
-
-                                        <FontIcon
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            FontSize="22"
-                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                            Glyph="&#xE805;" />
-
-                                        <TextBlock
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            FontSize="10"
-                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                            Style="{StaticResource CaptionTextBlockStyle}"
-                                            Text="Explore" />
-
-                                    </StackPanel>
-                                </toolkit:Case>
-
-                                <toolkit:Case Value="True">
-                                    <StackPanel
-                                        Padding="0,12,0,0"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Stretch"
-                                        Background="{ThemeResource NavigationViewItemBackgroundSelected}"
-                                        Spacing="4">
-
-                                        <FontIcon
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            FontSize="22"
-                                            Foreground="{ThemeResource AccentFillColorDefaultBrush}"
-                                            Glyph="&#xE726;" />
-
-                                        <TextBlock
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            FontSize="10"
-                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                            Style="{StaticResource CaptionTextBlockStyle}"
-                                            Text="Explore" />
-
-                                    </StackPanel>
-                                </toolkit:Case>
-
-                            </toolkit:SwitchPresenter>
-
-                        </Grid>
-                    </Button>
-                </StackPanel>
-
-                <StackPanel
-                    Grid.Row="2"
-                    Margin="4,0,0,8"
-                    Spacing="4">
-                    <Button
-                        Width="64"
-                        Height="60"
-                        Padding="0"
-                        HorizontalContentAlignment="Stretch"
-                        VerticalContentAlignment="Stretch"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Command="{x:Bind ViewModel.GoProfileCommand, Mode=OneWay}">
-
-                        <Grid
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Stretch"
-                            Background="Transparent">
-
-                            <toolkit:SwitchPresenter
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                TargetType="x:Boolean"
-                                Value="{x:Bind ViewModel.IsProfile, Mode=OneWay}">
-
-                                <toolkit:Case Value="False">
-                                    <StackPanel
-                                        Padding="0,12,0,0"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Stretch"
-                                        Spacing="4">
-
-                                        <FontIcon
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            FontSize="22"
-                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                            Glyph="&#xE77B;" />
-
-                                        <TextBlock
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            FontSize="10"
-                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                            Style="{StaticResource CaptionTextBlockStyle}"
-                                            Text="Profile" />
-
-                                    </StackPanel>
-                                </toolkit:Case>
-
-                                <toolkit:Case Value="True">
-                                    <StackPanel
-                                        Padding="0,12,0,0"
-                                        HorizontalAlignment="Stretch"
-                                        VerticalAlignment="Stretch"
-                                        Background="{ThemeResource NavigationViewItemBackgroundSelected}"
-                                        Spacing="4">
-
-                                        <FontIcon
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            FontSize="22"
-                                            Foreground="{ThemeResource AccentFillColorDefaultBrush}"
-                                            Glyph="&#xEA8C;" />
-
-                                        <TextBlock
-                                            HorizontalAlignment="Center"
-                                            VerticalAlignment="Center"
-                                            FontSize="10"
-                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                            Style="{StaticResource CaptionTextBlockStyle}"
-                                            Text="Profile" />
-
-                                    </StackPanel>
-                                </toolkit:Case>
-
-                            </toolkit:SwitchPresenter>
-
-                        </Grid>
-                    </Button>
-                </StackPanel>
+                <muxc:NavigationView
+                    Canvas.ZIndex="0"
+                    FooterMenuItemsSource="{x:Bind ViewModel.NavViewFooterItems, Mode=OneWay}"
+                    IsBackButtonVisible="Collapsed"
+                    IsPaneToggleButtonVisible="False"
+                    IsSettingsVisible="False"
+                    IsTitleBarAutoPaddingEnabled="False"
+                    ItemInvoked="OnMainNavViewItemInvoked"
+                    MenuItemsSource="{x:Bind ViewModel.NavViewItems, Mode=OneWay}"
+                    OpenPaneLength="74"
+                    PaneDisplayMode="Left">
+
+                    <muxc:NavigationView.Resources>
+                        <x:Double x:Key="NavigationViewSelectionIndicatorWidth">4</x:Double>
+                        <x:Double x:Key="NavigationViewSelectionIndicatorHeight">22</x:Double>
+                        <x:Double x:Key="NavigationViewSelectionIndicatorRadius">2</x:Double>
+                        <Thickness x:Key="NavigationViewItemContentPresenterMargin">0</Thickness>
+                    </muxc:NavigationView.Resources>
+
+                    <muxc:NavigationView.MenuItemTemplate>
+                        <DataTemplate x:DataType="models:SquareNavigationViewItemModel">
+                            <muxc:NavigationViewItem Height="70" Tag="{x:Bind Name}">
+                                <Grid
+                                    Margin="-5,0,-9,0"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    RowSpacing="8">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <FontIcon
+                                        HorizontalAlignment="Center"
+                                        FontSize="22"
+                                        Glyph="{x:Bind GlyphPrimary}" />
+
+                                    <TextBlock
+                                        Grid.Row="1"
+                                        HorizontalAlignment="Center"
+                                        FontSize="10"
+                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="{x:Bind Name}" />
+                                </Grid>
+                            </muxc:NavigationViewItem>
+                        </DataTemplate>
+                    </muxc:NavigationView.MenuItemTemplate>
+
+                </muxc:NavigationView>
             </Grid>
 
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
@@ -812,17 +389,23 @@
                     Grid.Column="0"
                     VerticalAlignment="Top"
                     x:DefaultBindMode="OneWay"
-                    CornerRadius="8,0,0,0"
+                    CornerRadius="8"
                     IsClosable="True"
                     IsOpen="{x:Bind ViewModel.LastNotification, Converter={StaticResource ObjectToBoolConverter}}"
                     Message="{x:Bind ViewModel.LastNotification.Message}"
                     Severity="{x:Bind UserNotificationToInfoBarSeverity(ViewModel.LastNotification.Type)}">
                     <muxc:InfoBar.Resources>
-                        <Thickness x:Key="InfoBarBorderThickness">0,0,0,1</Thickness>
+                        <Thickness x:Key="InfoBarBorderThickness">1</Thickness>
                     </muxc:InfoBar.Resources>
                 </muxc:InfoBar>
 
-                <Border x:Name="RootFrameBorder" Grid.Row="1" />
+                <Border
+                    x:Name="FrameTopPaddingBorder"
+                    Grid.Row="1"
+                    Height="8"
+                    x:Load="{x:Bind ViewModel.LastNotification, Converter={StaticResource ObjectToBoolConverter}}" />
+
+                <Border x:Name="RootFrameBorder" Grid.Row="2" />
             </Grid>
         </Grid>
     </Grid>

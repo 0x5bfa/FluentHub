@@ -33,15 +33,12 @@ namespace FluentHub.Uwp.UserControls
         public RepositoryOverview() => InitializeComponent();
 
         private void OnRepoPageNavViewItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
-            => OnRepoPageNavViewItemSelected(args.InvokedItemContainer.Tag.ToString().ToLower());
-
-        private void OnRepoPageNavViewItemSelected(string tag)
         {
             var service = App.Current.Services.GetRequiredService<INavigationService>();
 
             string newUrl = $"{App.DefaultGitHubDomain}/{ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}";
 
-            switch (tag)
+            switch (args.InvokedItemContainer.Tag.ToString().ToLower())
             {
                 default:
                 case "code":

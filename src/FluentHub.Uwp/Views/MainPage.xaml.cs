@@ -149,7 +149,11 @@ namespace FluentHub.Uwp.Views
                         });
                     break;
                 case "Repositories":
-                    NavigationService.Navigate<Users.RepositoriesPage>("fluenthub://repositories");
+                    NavigationService.Navigate<Users.RepositoriesPage>(
+                        new FrameNavigationArgs()
+                        {
+                            Login = App.Settings.SignedInUserName,
+                        });
                     break;
                 case "Discussions":
                     NavigationService.Navigate<Users.DiscussionsPage>("fluenthub://discussions");
@@ -175,6 +179,32 @@ namespace FluentHub.Uwp.Views
                 case "SignOut":
                     Frame rootFrame = (Frame)Window.Current.Content;
                     rootFrame.Navigate(typeof(SignIn.IntroPage));
+                    break;
+            }
+        }
+
+        private void OnMainNavViewItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
+        {
+            switch (args.InvokedItemContainer.Tag.ToString().ToLower())
+            {
+                case "home":
+                    NavigationService.Navigate<Home.UserHomePage>();
+                    break;
+                case "notifications":
+                    NavigationService.Navigate<Home.NotificationsPage>();
+                    break;
+                case "activity":
+                    break;
+                case "marketplace":
+                    break;
+                case "explore":
+                    break;
+                case "profile":
+                    NavigationService.Navigate<Users.OverviewPage>(
+                    new FrameNavigationArgs()
+                    {
+                        Login = App.Settings.SignedInUserName,
+                    });
                     break;
             }
         }

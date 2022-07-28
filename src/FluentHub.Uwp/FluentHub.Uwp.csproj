@@ -168,6 +168,7 @@
     <Compile Include="Models\FolderCardItem.cs" />
     <Compile Include="Models\FrameNavigationArgs.cs" />
     <Compile Include="Models\LoadingMessaging.cs" />
+    <Compile Include="Models\SquareNavigationViewItemModel.cs" />
     <Compile Include="Models\TreeLayoutPageModel.cs" />
     <Compile Include="Models\UserNotificationMessage.cs" />
     <Compile Include="Models\UserNotificationMethod.cs" />

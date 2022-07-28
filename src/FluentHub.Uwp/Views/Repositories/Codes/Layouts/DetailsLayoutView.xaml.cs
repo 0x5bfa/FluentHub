@@ -65,7 +65,12 @@ namespace FluentHub.Uwp.Views.Repositories.Codes.Layouts
 
         private void OnLatestReleaseClick(object sender, RoutedEventArgs e)
         {
-            navService.Navigate<ReleasesPage>(ViewModel.ContextViewModel);
+            navService.Navigate<ReleasesPage>(
+                new FrameNavigationArgs()
+                {
+                    Login = ViewModel.Repository.Owner.Login,
+                    Name = ViewModel.Repository.Name,
+                });
         }
     }
 }
