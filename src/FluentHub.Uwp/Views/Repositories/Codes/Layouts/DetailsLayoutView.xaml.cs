@@ -35,6 +35,8 @@ namespace FluentHub.Uwp.Views.Repositories.Codes.Layouts
 
             ViewModel.InitializeRepositoryContext(param.Login, param.Name, param.Parameters.ElementAtOrDefault(0) as string);
 
+            ViewModel.CreateTabHeader();
+
             await ViewModel.LoadRepositoryContentsAsync();
         }
 
@@ -70,6 +72,7 @@ namespace FluentHub.Uwp.Views.Repositories.Codes.Layouts
                 {
                     Login = ViewModel.Repository.Owner.Login,
                     Name = ViewModel.Repository.Name,
+                    Parameters = new() { ViewModel.ContextViewModel },
                 });
         }
     }

@@ -1,4 +1,5 @@
-﻿using FluentHub.Uwp.Services;
+﻿using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels;
 using FluentHub.Uwp.ViewModels.Repositories.PullRequests;
 using FluentHub.Uwp.ViewModels.Repositories.Issues;
@@ -29,24 +30,22 @@ namespace FluentHub.Uwp.Views.Repositories.PullRequests
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            var url = e.Parameter as string;
-            var uri = new Uri(url);
-            var pathSegments = uri.AbsolutePath.Split("/").ToList();
-            pathSegments.RemoveAt(0);
+            var param = e.Parameter as FrameNavigationArgs;
 
-            var command1 = ViewModel.LoadRepositoryCommand;
-            if (command1.CanExecute(url))
-                command1.Execute(url);
+            await ViewModel.LoadRepositoryAsync(param.Login, param.Name);
 
             var command = ViewModel.RefreshPullRequestPageCommand;
-            if (command.CanExecute(url))
-                await command.ExecuteAsync(url);
+            if (command.CanExecute(null))
+                await command.ExecuteAsync(null);
 
+            SetCurrentTabItem();
+        }
+
+        private void SetCurrentTabItem()
+        {
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = $"{ViewModel.PullItem.Title} · #{ViewModel.PullItem.Number}";
             currentItem.Description = currentItem.Header;
-            currentItem.Url = url;
-            currentItem.DisplayUrl = $"{pathSegments[0]} / {pathSegments[1]} / {pathSegments[3]}";
             currentItem.Icon = new muxc.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/PullRequests.png"))

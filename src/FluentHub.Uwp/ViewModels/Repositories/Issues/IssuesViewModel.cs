@@ -20,8 +20,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
             _pinnedItems = new();
             PinnedItems = new(_pinnedItems);
 
-            RefreshIssuesPageCommand = new AsyncRelayCommand<string>(LoadRepositoryIssuesAsync);
-            LoadRepositoryCommand = new AsyncRelayCommand<string>(LoadRepositoryAsync);
+            RefreshIssuesPageCommand = new AsyncRelayCommand(LoadRepositoryIssuesAsync);
         }
 
         #region Fields and Properties
@@ -41,22 +40,19 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
         public ReadOnlyObservableCollection<IssueButtonBlockViewModel> PinnedItems { get; }
 
         public IAsyncRelayCommand RefreshIssuesPageCommand { get; }
-        public IAsyncRelayCommand LoadRepositoryCommand { get; }
         #endregion
 
-        private async Task LoadRepositoryIssuesAsync(string url, CancellationToken token)
+        private async Task LoadRepositoryIssuesAsync(CancellationToken token)
         {
             try
             {
                 _messenger?.Send(new LoadingMessaging(true));
 
-                var uri = new Uri(url);
-                var pathSegments = uri.AbsolutePath.Split("/").ToList();
-                pathSegments.RemoveAt(0);
-
                 IssueQueries queries = new();
-                var items = await queries.GetAllAsync(pathSegments[1], pathSegments[0]);
-                if (items == null) return;
+                var items = await queries.GetAllAsync(
+                    Repository.Owner.Login,
+                    Repository.Name
+                    );
 
                 _issueItems.Clear();
                 foreach (var item in items)
@@ -69,7 +65,10 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
                     _issueItems.Add(viewModel);
                 }
 
-                var pinnedIssues = await queries.GetPinnedAllAsync(pathSegments[0], pathSegments[1]);
+                var pinnedIssues = await queries.GetPinnedAllAsync(
+                    Repository.Owner.Login,
+                    Repository.Name
+                    );
                 if (pinnedIssues == null) return;
 
                 _pinnedItems.Clear();
@@ -101,16 +100,12 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
             }
         }
 
-        private async Task LoadRepositoryAsync(string url, CancellationToken token)
+        public async Task LoadRepositoryAsync(string owner, string name)
         {
             try
             {
-                var uri = new Uri(url);
-                var pathSegments = uri.AbsolutePath.Split("/").ToList();
-                pathSegments.RemoveAt(0);
-
                 RepositoryQueries queries = new();
-                Repository = await queries.GetDetailsAsync(pathSegments[0], pathSegments[1]);
+                Repository = await queries.GetDetailsAsync(owner, name);
 
                 RepositoryOverviewViewModel = new()
                 {
@@ -124,7 +119,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
                     },
                     ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
 
-                    SelectedTag = "issues",
+                    SelectedTag = "code",
                 };
             }
             catch (OperationCanceledException) { }

@@ -32,7 +32,11 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <uc:UserProfileOverview ViewModel="{x:Bind ViewModel.UserProfileOverviewViewModel, Mode=OneWay}" />
+                <uc:UserProfileOverview
+                    x:Name="UserProfileOverview"
+                    Margin="0,0,0,8"
+                    x:Load="True"
+                    ViewModel="{x:Bind ViewModel.UserProfileOverviewViewModel, Mode=OneWay}" />
 
                 <Grid Grid.Row="1" RowSpacing="8">
                     <Grid.RowDefinitions>

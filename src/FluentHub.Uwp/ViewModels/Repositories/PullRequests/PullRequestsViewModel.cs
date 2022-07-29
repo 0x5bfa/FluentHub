@@ -12,12 +12,11 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
         {
             _messenger = messenger;
             _logger = logger;
-            _messenger = messenger;
+
             _pullRequests = new();
             PullItems = new(_pullRequests);
 
-            RefreshPullRequestsPageCommand = new AsyncRelayCommand<string>(LoadRepositoryPullRequestsAsync);
-            LoadRepositoryCommand = new AsyncRelayCommand<string>(LoadRepositoryAsync);
+            RefreshPullRequestsPageCommand = new AsyncRelayCommand(LoadRepositoryPullRequestsAsync);
         }
 
         #region Fields and Properties
@@ -34,17 +33,19 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
         public ReadOnlyObservableCollection<PullButtonBlockViewModel> PullItems { get; }
 
         public IAsyncRelayCommand RefreshPullRequestsPageCommand { get; }
-        public IAsyncRelayCommand LoadRepositoryCommand { get; }
         #endregion
 
-        private async Task LoadRepositoryPullRequestsAsync(string nameWithOwner, CancellationToken token)
+        private async Task LoadRepositoryPullRequestsAsync(CancellationToken token)
         {
             try
             {
                 _messenger?.Send(new LoadingMessaging(true));
 
                 PullRequestQueries queries = new();
-                var items = await queries.GetAllAsync(nameWithOwner.Split("/")[1], nameWithOwner.Split("/")[0]);
+                var items = await queries.GetAllAsync(
+                    Repository.Owner.Login,
+                    Repository.Name
+                    );
                 if (items == null) return;
 
                 _pullRequests.Clear();
@@ -75,16 +76,12 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
             }
         }
 
-        private async Task LoadRepositoryAsync(string url, CancellationToken token)
+        public async Task LoadRepositoryAsync(string owner, string name)
         {
             try
             {
-                var uri = new Uri(url);
-                var pathSegments = uri.AbsolutePath.Split("/").ToList();
-                pathSegments.RemoveAt(0);
-
                 RepositoryQueries queries = new();
-                Repository = await queries.GetDetailsAsync(pathSegments[0], pathSegments[1]);
+                Repository = await queries.GetDetailsAsync(owner, name);
 
                 RepositoryOverviewViewModel = new()
                 {
@@ -98,7 +95,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
                     },
                     ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
 
-                    SelectedTag = "pullrequests",
+                    SelectedTag = "code",
                 };
             }
             catch (OperationCanceledException) { }

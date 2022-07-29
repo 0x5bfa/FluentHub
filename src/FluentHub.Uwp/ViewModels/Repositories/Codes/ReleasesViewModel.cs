@@ -11,7 +11,6 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes
         {
             _messenger = messenger;
             _logger = logger;
-            _messenger = messenger;
 
             _items = new();
             Items = new(_items);
@@ -46,8 +45,8 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes
 
                 ReleaseQueries queries = new();
                 var items = await queries.GetAllAsync(
-                    ContextViewModel.Repository.Owner.Login,
-                    ContextViewModel.Repository.Name
+                    Repository.Owner.Login,
+                    Repository.Name
                     );
 
                 _items.Clear();

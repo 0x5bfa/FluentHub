@@ -10,6 +10,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:uc="using:FluentHub.Uwp.UserControls"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -17,15 +18,38 @@
     </Page.Resources>
 
     <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <Grid Margin="0,0,8,8" RowSpacing="8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <uc:RepositoryOverview ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
+
+                <Grid
+                    Grid.Row="1"
+                    Padding="32"
+                    Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Items}">
+                        <DataTemplate x:DataType="bbvm:ProjectButtonBlockViewModel">
+                            <block:ProjectButtonBlock ViewModel="{x:Bind}" />
+                        </DataTemplate>
+                    </muxc:ItemsRepeater>
+
+                </Grid>
+            </Grid>
+        </ScrollViewer>
 
         <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.LoadProjectsPageCommand.IsRunning, Mode=OneWay}">
-
-            <toolkit:Case Value="True">
-                <muxc:ProgressRing
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    IsActive="True" />
-            </toolkit:Case>
 
             <toolkit:Case Value="False">
                 <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.LoadProjectsPageCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
@@ -50,26 +74,6 @@
                                     VerticalAlignment="Center"
                                     Style="{StaticResource BodyStrongTextBlockStyle}"
                                     Text="There are no projects." />
-                            </toolkit:Case>
-
-                            <toolkit:Case Value="True">
-
-                                <ScrollViewer Padding="12" VerticalScrollBarVisibility="Auto">
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                        </Grid.RowDefinitions>
-
-                                        <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Items}">
-                                            <DataTemplate x:DataType="bbvm:ProjectButtonBlockViewModel">
-                                                <block:ProjectButtonBlock ViewModel="{x:Bind}" />
-                                            </DataTemplate>
-                                        </muxc:ItemsRepeater>
-
-                                    </Grid>
-                                </ScrollViewer>
-
                             </toolkit:Case>
 
                         </toolkit:SwitchPresenter>

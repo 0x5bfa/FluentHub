@@ -24,22 +24,38 @@
 
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <Grid Margin="0,0,8,8" RowSpacing="8">
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <uc:UserProfileOverview ViewModel="{x:Bind ViewModel.UserProfileOverviewViewModel, Mode=OneWay}" />
+                <uc:UserProfileOverview
+                    x:Name="UserProfileOverview"
+                    Margin="0,0,0,8"
+                    x:Load="{x:Bind ViewModel.DisplayTitle, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
+                    ViewModel="{x:Bind ViewModel.UserProfileOverviewViewModel, Mode=OneWay}" />
 
-                <Grid
+                <Border
+                    x:Name="ContentBackgroundFull"
                     Grid.Row="1"
-                    Padding="32,24,32,32"
+                    x:Load="{x:Bind ViewModel.DisplayTitle, Mode=OneWay}"
+                    Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1,1,0,0"
+                    CornerRadius="8,0,0,0" />
+
+                <Border
+                    x:Name="ContentBackgroundRounded"
+                    Grid.Row="1"
+                    Margin="0,0,8,8"
+                    x:Load="{x:Bind ViewModel.DisplayTitle, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
                     Background="{ThemeResource CardBackgroundFillColorSecondary}"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1"
-                    CornerRadius="8"
-                    RowSpacing="6">
+                    CornerRadius="8" />
+
+                <Grid Grid.Row="1" Padding="32,24,32,32">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />

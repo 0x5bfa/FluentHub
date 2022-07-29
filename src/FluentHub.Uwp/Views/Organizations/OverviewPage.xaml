@@ -10,93 +10,116 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:uc="using:FluentHub.Uwp.UserControls"
     mc:Ignorable="d">
 
     <Page.Resources>
         <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
     </Page.Resources>
 
-    <Grid Padding="12">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <Grid Margin="0,0,8,8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
 
-        <StackPanel
-            Margin="8,0,0,6"
-            Orientation="Horizontal"
-            Spacing="8">
-            <FontIcon
-                FontFamily="{StaticResource Octions}"
-                FontSize="16"
-                Glyph="&#xEA3E;" />
-            <TextBlock
-                FontSize="14"
-                Style="{StaticResource SubtitleTextBlockStyle}"
-                Text="Pinned repositories" />
-        </StackPanel>
+                <uc:OrganizationProfileOverview
+                    x:Name="OrganizationProfileOverview"
+                    Margin="0,0,0,8"
+                    ViewModel="{x:Bind ViewModel.OrganizationProfileOverviewViewModel, Mode=OneWay}" />
 
-        <ScrollViewer
-            Grid.Row="1"
-            HorizontalScrollBarVisibility="Hidden"
-            VerticalScrollBarVisibility="Disabled"
-            VerticalScrollMode="Disabled">
-            <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.PinnedItems, Mode=OneWay}">
-                <muxc:ItemsRepeater.Layout>
-                    <muxc:StackLayout Orientation="Horizontal" Spacing="8" />
-                </muxc:ItemsRepeater.Layout>
-                <DataTemplate x:DataType="bbvm:RepoButtonBlockViewModel">
-                    <block:RepoButtonBlock
-                        x:Name="RepositoryBlock"
-                        Width="250"
-                        VerticalAlignment="Stretch"
-                        ViewModel="{x:Bind}" />
-                </DataTemplate>
-            </muxc:ItemsRepeater>
+                <Grid
+                    Grid.Row="1"
+                    Padding="32,24,32,32"
+                    Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel
+                        Margin="8,0,0,6"
+                        Orientation="Horizontal"
+                        Spacing="8">
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="16"
+                            Glyph="&#xEA3E;" />
+                        <TextBlock
+                            FontSize="14"
+                            Style="{StaticResource SubtitleTextBlockStyle}"
+                            Text="Pinned repositories" />
+                    </StackPanel>
+
+                    <ScrollViewer
+                        Grid.Row="1"
+                        HorizontalScrollBarVisibility="Hidden"
+                        VerticalScrollBarVisibility="Disabled"
+                        VerticalScrollMode="Disabled">
+                        <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.PinnedItems, Mode=OneWay}">
+                            <muxc:ItemsRepeater.Layout>
+                                <muxc:StackLayout Orientation="Horizontal" Spacing="8" />
+                            </muxc:ItemsRepeater.Layout>
+                            <DataTemplate x:DataType="bbvm:RepoButtonBlockViewModel">
+                                <block:RepoButtonBlock
+                                    x:Name="RepositoryBlock"
+                                    Width="250"
+                                    VerticalAlignment="Stretch"
+                                    ViewModel="{x:Bind}" />
+                            </DataTemplate>
+                        </muxc:ItemsRepeater>
+                    </ScrollViewer>
+
+                    <Grid
+                        x:Name="NoPinnedItemsAvailable"
+                        Grid.Row="1"
+                        Height="120"
+                        x:Load="{x:Bind ViewModel.Repositories.Count, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
+
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="No pinned items available" />
+
+                    </Grid>
+
+                    <StackPanel
+                        Grid.Row="2"
+                        Margin="8,24,0,12"
+                        Orientation="Horizontal"
+                        Spacing="8">
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="16"
+                            Glyph="&#xEA52;" />
+                        <TextBlock
+                            FontSize="14"
+                            Style="{StaticResource SubtitleTextBlockStyle}"
+                            Text="Repositories" />
+                    </StackPanel>
+
+                    <muxc:ItemsRepeater Grid.Row="3" ItemsSource="{x:Bind ViewModel.Repositories, Mode=OneWay}">
+                        <muxc:ItemsRepeater.Layout>
+                            <muxc:StackLayout Orientation="Vertical" Spacing="4" />
+                        </muxc:ItemsRepeater.Layout>
+                        <DataTemplate x:DataType="bbvm:RepoButtonBlockViewModel">
+                            <block:RepoButtonBlock
+                                x:Name="RepositoryBlock"
+                                VerticalAlignment="Stretch"
+                                ViewModel="{x:Bind}" />
+                        </DataTemplate>
+                    </muxc:ItemsRepeater>
+
+                </Grid>
+            </Grid>
         </ScrollViewer>
-
-        <Grid
-            x:Name="NoPinnedItemsAvailable"
-            Grid.Row="1"
-            Height="120"
-            x:Load="{x:Bind ViewModel.Repositories.Count, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
-
-            <TextBlock
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                Style="{StaticResource BodyStrongTextBlockStyle}"
-                Text="No pinned items available" />
-
-        </Grid>
-
-        <StackPanel
-            Grid.Row="2"
-            Margin="8,24,0,12"
-            Orientation="Horizontal"
-            Spacing="8">
-            <FontIcon
-                FontFamily="{StaticResource Octions}"
-                FontSize="16"
-                Glyph="&#xEA52;" />
-            <TextBlock
-                FontSize="14"
-                Style="{StaticResource SubtitleTextBlockStyle}"
-                Text="Repositories" />
-        </StackPanel>
-
-        <muxc:ItemsRepeater Grid.Row="3" ItemsSource="{x:Bind ViewModel.Repositories, Mode=OneWay}">
-            <muxc:ItemsRepeater.Layout>
-                <muxc:StackLayout Orientation="Vertical" Spacing="4" />
-            </muxc:ItemsRepeater.Layout>
-            <DataTemplate x:DataType="bbvm:RepoButtonBlockViewModel">
-                <block:RepoButtonBlock
-                    x:Name="RepositoryBlock"
-                    VerticalAlignment="Stretch"
-                    ViewModel="{x:Bind}" />
-            </DataTemplate>
-        </muxc:ItemsRepeater>
-
     </Grid>
 </Page>

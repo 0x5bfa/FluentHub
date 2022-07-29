@@ -1,6 +1,7 @@
 ﻿using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
+using FluentHub.Uwp.ViewModels.UserControls;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.Discussions
@@ -15,12 +16,18 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Discussions
             _items = new();
             Items = new(_items);
 
-            LoadDiscussionsPageCommand = new AsyncRelayCommand<string>(LoadRepositoryDiscussionsAsync);
+            LoadDiscussionsPageCommand = new AsyncRelayCommand(LoadRepositoryDiscussionsAsync);
         }
 
         #region Fields and Properties
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
+
+        private Repository _repository;
+        public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
+
+        private RepositoryOverviewViewModel _repositoryOverviewViewModel;
+        public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
 
         private readonly ObservableCollection<DiscussionButtonBlockViewModel> _items;
         public ReadOnlyObservableCollection<DiscussionButtonBlockViewModel> Items { get; }
@@ -28,14 +35,17 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Discussions
         public IAsyncRelayCommand LoadDiscussionsPageCommand { get; }
         #endregion
 
-        private async Task LoadRepositoryDiscussionsAsync(string nameWithOwner)
+        private async Task LoadRepositoryDiscussionsAsync(CancellationToken token)
         {
             try
             {
                 _messenger?.Send(new LoadingMessaging(true));
 
                 DiscussionQueries queries = new();
-                var items = await queries.GetAllAsync(nameWithOwner.Split("/")[0], nameWithOwner.Split("/")[1]);
+                var items = await queries.GetAllAsync(
+                    Repository.Owner.Login,
+                    Repository.Name
+                    );
 
                 _items.Clear();
                 foreach (var item in items)
@@ -61,6 +71,41 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Discussions
             finally
             {
                 _messenger?.Send(new LoadingMessaging(false));
+            }
+        }
+
+        public async Task LoadRepositoryAsync(string owner, string name)
+        {
+            try
+            {
+                RepositoryQueries queries = new();
+                Repository = await queries.GetDetailsAsync(owner, name);
+
+                RepositoryOverviewViewModel = new()
+                {
+                    Repository = Repository,
+                    RepositoryName = Repository.Name,
+                    RepositoryOwnerLogin = Repository.Owner.Login,
+                    RepositoryVisibilityLabel = new()
+                    {
+                        Name = Repository.IsPrivate ? "Private" : "Public",
+                        Color = "#64000000",
+                    },
+                    ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
+
+                    SelectedTag = "code",
+                };
+            }
+            catch (OperationCanceledException) { }
+            catch (Exception ex)
+            {
+                _logger?.Error(nameof(LoadRepositoryAsync), ex);
+                if (_messenger != null)
+                {
+                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+                    _messenger.Send(notification);
+                }
+                throw;
             }
         }
     }

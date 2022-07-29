@@ -50,14 +50,18 @@ namespace FluentHub.Uwp.ViewModels.UserControls
 
             if (Repository.IsInOrganization)
             {
-                service.Navigate<Views.Organizations.ProfilePage>(Repository.Owner.Login);
+                service.Navigate<Views.Organizations.OverviewPage>(
+                    new Models.FrameNavigationArgs()
+                    {
+                        Login = Repository.Owner.Login,
+                    });
             }
             else
             {
                 service.Navigate<Views.Users.OverviewPage>(
                     new Models.FrameNavigationArgs()
                     {
-                        Login = App.Settings.SignedInUserName,
+                        Login = Repository.Owner.Login,
                     });
             }
         }

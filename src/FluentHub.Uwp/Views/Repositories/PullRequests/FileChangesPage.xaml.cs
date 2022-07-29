@@ -1,4 +1,5 @@
-﻿using FluentHub.Uwp.Services;
+﻿using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.Repositories.PullRequests;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
@@ -23,28 +24,31 @@ namespace FluentHub.Uwp.Views.Repositories.PullRequests
         private readonly INavigationService navigationService;
         public FileChangesViewModel ViewModel { get; }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            PullRequest param = e.Parameter as PullRequest;
+            var param = e.Parameter as FrameNavigationArgs;
+            ViewModel.Number = param.Number;
 
-            DataContext = e.Parameter;
+            await ViewModel.LoadRepositoryAsync(param.Login, param.Name);
 
+            await ViewModel.LoadPullRequestAsync();
+
+            SetCurrentTabItem();
+
+            var command = ViewModel.RefreshPullRequestPageCommand;
+            if (command.CanExecute(null))
+                command.Execute(null);
+        }
+
+        private void SetCurrentTabItem()
+        {
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = $"{param.Title} · #{param.Number}";
+            currentItem.Header = $"{ViewModel.PullItem.Title} · #{ViewModel.PullItem.Number}";
             currentItem.Description = currentItem.Header;
-            currentItem.Url = $"https://github.com/{param.Repository.Owner.Login}/{param.Repository.Name}/pull/{param.Number}";
             currentItem.Icon = new muxc.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/PullRequests.png"))
             };
-
-            var command1 = ViewModel.LoadRepositoryCommand;
-            if (command1.CanExecute(param.Url))
-                command1.Execute(param.Url);
-
-            var command = ViewModel.RefreshPullRequestPageCommand;
-            if (command.CanExecute(param))
-                command.Execute(param);
         }
     }
 }

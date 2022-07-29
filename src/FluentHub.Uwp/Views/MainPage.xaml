@@ -320,11 +320,11 @@
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="72" />
+                <ColumnDefinition Width="76" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Grid>
+            <Grid Margin="0,0,1,0">
                 <muxc:NavigationView
                     Canvas.ZIndex="0"
                     FooterMenuItemsSource="{x:Bind ViewModel.NavViewFooterItems, Mode=OneWay}"
@@ -334,7 +334,7 @@
                     IsTitleBarAutoPaddingEnabled="False"
                     ItemInvoked="OnMainNavViewItemInvoked"
                     MenuItemsSource="{x:Bind ViewModel.NavViewItems, Mode=OneWay}"
-                    OpenPaneLength="74"
+                    OpenPaneLength="80"
                     PaneDisplayMode="Left">
 
                     <muxc:NavigationView.Resources>
@@ -386,10 +386,9 @@
 
                 <muxc:InfoBar
                     Title="{x:Bind ViewModel.LastNotification.Title}"
-                    Grid.Column="0"
+                    Margin="0,0,8,0"
                     VerticalAlignment="Top"
                     x:DefaultBindMode="OneWay"
-                    CornerRadius="8"
                     IsClosable="True"
                     IsOpen="{x:Bind ViewModel.LastNotification, Converter={StaticResource ObjectToBoolConverter}}"
                     Message="{x:Bind ViewModel.LastNotification.Message}"

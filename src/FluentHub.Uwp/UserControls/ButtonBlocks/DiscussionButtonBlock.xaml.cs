@@ -1,4 +1,5 @@
-﻿using FluentHub.Uwp.Services;
+﻿using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
 using FluentHub.Uwp.Views.Repositories.Discussions;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,8 +34,14 @@ namespace FluentHub.Uwp.UserControls.ButtonBlocks
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var navigationService = App.Current.Services.GetRequiredService<INavigationService>();
-            navigationService.Navigate<Views.Repositories.Discussions.DiscussionsPage>(ViewModel.Item.Url);
+            var navService = App.Current.Services.GetRequiredService<INavigationService>();
+            navService.Navigate<Views.Repositories.Discussions.DiscussionsPage>(
+                new FrameNavigationArgs()
+                {
+                    Login = ViewModel.Item.Repository.Owner.Login,
+                    Name = ViewModel.Item.Repository.Name,
+                    Number = ViewModel.Item.Number,
+                });
         }
     }
 }

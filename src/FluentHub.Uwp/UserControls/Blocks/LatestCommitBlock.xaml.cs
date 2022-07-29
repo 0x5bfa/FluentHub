@@ -58,7 +58,13 @@ namespace FluentHub.Uwp.UserControls.Blocks
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MainPageViewModel.RepositoryContentFrame.Navigate(typeof(CommitsPage), ViewModel.ContextViewModel);
+            navigationService.Navigate<CommitsPage>(
+                new Models.FrameNavigationArgs()
+                {
+                    Login = ViewModel.ContextViewModel.Repository.Owner.Login,
+                    Name = ViewModel.ContextViewModel.Repository.Name,
+                    Parameters = new() { ViewModel.ContextViewModel },
+                });
         }
     }
 }

@@ -1,6 +1,5 @@
-﻿using FluentHub.Uwp.Services;
-using FluentHub.Uwp.Services.Navigation;
-using FluentHub.Uwp.ViewModels;
+﻿using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.Repositories;
 using FluentHub.Uwp.ViewModels.Repositories.Commits;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,7 +16,7 @@ namespace FluentHub.Uwp.Views.Repositories.Commits
     {
         public CommitsPage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<CommitsViewModel>();
@@ -27,25 +26,29 @@ namespace FluentHub.Uwp.Views.Repositories.Commits
         public CommitsViewModel ViewModel { get; }
         private readonly INavigationService navigationService;
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected async override void OnNavigatedTo(NavigationEventArgs e)
         {
-            ViewModel.ContextViewModel = ViewModel.ContextViewModel = e.Parameter as RepoContextViewModel;
-            DataContext = ViewModel;
+            var param = e.Parameter as FrameNavigationArgs;
+            ViewModel.ContextViewModel = param.Parameters.ElementAt(0) as RepoContextViewModel;
 
-            #region tabitem
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = $"Commits";
-            currentItem.Description = currentItem.Header;
-            currentItem.Url = $"https://github.com/{ViewModel.ContextViewModel.Repository.Owner.Login}/{ViewModel.ContextViewModel.Repository.Name}/releases";
-            currentItem.Icon = new muxc.ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Commits.png"))
-            };
-            #endregion
+            await ViewModel.LoadRepositoryAsync(param.Login, param.Name);
+
+            SetCurrentTabItem();
 
             var command = ViewModel.LoadCommitsPageCommand;
             if (command.CanExecute(null))
                 command.Execute(null);
+        }
+
+        private void SetCurrentTabItem()
+        {
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = "Commits";
+            currentItem.Description = "Commits";
+            currentItem.Icon = new muxc.ImageIconSource
+            {
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Commits.png"))
+            };
         }
     }
 }

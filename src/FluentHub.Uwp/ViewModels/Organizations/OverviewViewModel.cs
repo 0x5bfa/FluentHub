@@ -1,6 +1,7 @@
 ﻿using FluentHub.Octokit.Queries.Organizations;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
+using FluentHub.Uwp.ViewModels.UserControls;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
 
 namespace FluentHub.Uwp.ViewModels.Organizations
@@ -18,12 +19,21 @@ namespace FluentHub.Uwp.ViewModels.Organizations
             _repositories = new();
             Repositories = new(_repositories);
 
-            LoadOrganizationOverviewAsyncCommand = new AsyncRelayCommand<string>(LoadOrganizationOverviewAsync);
+            LoadOrganizationOverviewAsyncCommand = new AsyncRelayCommand(LoadOrganizationOverviewAsync);
         }
 
         #region Fields and Properties
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
+
+        private Organization _organization;
+        public Organization Organization { get => _organization; set => SetProperty(ref _organization, value); }
+
+        private OrganizationProfileOverviewViewModel _organizationProfileOverviewViewModel;
+        public OrganizationProfileOverviewViewModel OrganizationProfileOverviewViewModel { get => _organizationProfileOverviewViewModel; set => SetProperty(ref _organizationProfileOverviewViewModel, value); }
+
+        private string _login;
+        public string Login { get => _login; set => SetProperty(ref _login, value); }
 
         private readonly ObservableCollection<RepoButtonBlockViewModel> _pinnedItems;
         public ReadOnlyObservableCollection<RepoButtonBlockViewModel> PinnedItems { get; }
@@ -34,12 +44,12 @@ namespace FluentHub.Uwp.ViewModels.Organizations
         public IAsyncRelayCommand LoadOrganizationOverviewAsyncCommand { get; }
         #endregion
 
-        private async Task LoadOrganizationOverviewAsync(string org, CancellationToken token)
+        private async Task LoadOrganizationOverviewAsync(CancellationToken token)
         {
             try
             {
                 RepositoryQueries repoQueries = new();
-                var repoItems = await repoQueries.GetAllAsync(org);
+                var repoItems = await repoQueries.GetAllAsync(Login);
 
                 _repositories.Clear();
                 foreach (var item in repoItems)
@@ -55,7 +65,7 @@ namespace FluentHub.Uwp.ViewModels.Organizations
                 }
 
                 PinnedItemQueries queries = new();
-                var pinnedItems = await queries.GetAllAsync(org);
+                var pinnedItems = await queries.GetAllAsync(Login);
                 if (pinnedItems == null) return;
 
                 _pinnedItems.Clear();
@@ -75,6 +85,34 @@ namespace FluentHub.Uwp.ViewModels.Organizations
             catch (Exception ex)
             {
                 _logger?.Error(nameof(LoadOrganizationOverviewAsync), ex);
+                if (_messenger != null)
+                {
+                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+                    _messenger.Send(notification);
+                }
+                throw;
+            }
+        }
+
+        public async Task LoadOrganizationAsync(string org)
+        {
+            try
+            {
+                OrganizationQueries queries = new();
+                var response = await queries.GetOverview(org);
+
+                Organization = response ?? new();
+
+                // View model
+                OrganizationProfileOverviewViewModel = new()
+                {
+                    Organization = Organization,
+                    SelectedTag = "overview",
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger?.Error(nameof(LoadOrganizationAsync), ex);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);

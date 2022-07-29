@@ -16,8 +16,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
             _items = new();
             Items = new(_items);
 
-            RefreshPullRequestPageCommand = new AsyncRelayCommand<PullRequest>(LoadRepositoryPullRequestCommitsAsync);
-            LoadRepositoryCommand = new AsyncRelayCommand<string>(LoadRepositoryAsync);
+            RefreshPullRequestPageCommand = new AsyncRelayCommand(LoadRepositoryPullRequestCommitsAsync);
         }
 
         #region Fields and Properties
@@ -30,6 +29,9 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
         private RepositoryOverviewViewModel _repositoryOverviewViewModel;
         public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
 
+        private int _number;
+        public int Number { get => _number; set => SetProperty(ref _number, value); }
+
         private PullRequest pullItem;
         public PullRequest PullItem { get => pullItem; private set => SetProperty(ref pullItem, value); }
 
@@ -37,17 +39,13 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
         public ReadOnlyObservableCollection<CommitButtonBlockViewModel> Items { get; }
 
         public IAsyncRelayCommand RefreshPullRequestPageCommand { get; }
-        public IAsyncRelayCommand LoadRepositoryCommand { get; }
         #endregion
 
-        private async Task LoadRepositoryPullRequestCommitsAsync(PullRequest pull)
+        private async Task LoadRepositoryPullRequestCommitsAsync(CancellationToken token)
         {
             try
             {
                 _messenger?.Send(new LoadingMessaging(true));
-
-                if (pull != null)
-                    PullItem = pull;
 
                 CommitQueries queries = new();
                 var items = await queries.GetAllAsync(
@@ -82,16 +80,36 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
             }
         }
 
-        private async Task LoadRepositoryAsync(string url, CancellationToken token)
+        public async Task LoadPullRequestAsync()
         {
             try
             {
-                var uri = new Uri(url);
-                var pathSegments = uri.AbsolutePath.Split("/").ToList();
-                pathSegments.RemoveAt(0);
+                PullRequestQueries queries = new();
+                var response = await queries.GetAsync(
+                    Repository.Owner.Login,
+                    Repository.Name,
+                    Number);
 
+                PullItem = response;
+            }
+            catch (Exception ex)
+            {
+                _logger?.Error(nameof(LoadPullRequestAsync), ex);
+                if (_messenger != null)
+                {
+                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+                    _messenger.Send(notification);
+                }
+                throw;
+            }
+        }
+
+        public async Task LoadRepositoryAsync(string owner, string name)
+        {
+            try
+            {
                 RepositoryQueries queries = new();
-                Repository = await queries.GetDetailsAsync(pathSegments[0], pathSegments[1]);
+                Repository = await queries.GetDetailsAsync(owner, name);
 
                 RepositoryOverviewViewModel = new()
                 {
@@ -105,7 +123,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
                     },
                     ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
 
-                    SelectedTag = "pullrequests",
+                    SelectedTag = "code",
                 };
             }
             catch (OperationCanceledException) { }

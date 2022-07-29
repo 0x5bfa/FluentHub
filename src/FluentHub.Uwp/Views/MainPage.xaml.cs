@@ -24,13 +24,13 @@ namespace FluentHub.Uwp.Views
 
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<MainPageViewModel>();
-            NavigationService = provider.GetRequiredService<INavigationService>();
+            navService = provider.GetRequiredService<INavigationService>();
             Logger = provider.GetService<ILogger>();
         }
 
         #region Fields and Properties
         public MainPageViewModel ViewModel { get; }
-        private INavigationService NavigationService { get; }
+        private INavigationService navService { get; }
         public ILogger Logger { get; }
         #endregion
 
@@ -67,8 +67,8 @@ namespace FluentHub.Uwp.Views
         {
             SubscribeEvents();
             TabView.NewTabPage = typeof(Home.UserHomePage);
-            NavigationService.Configure(TabView);
-            NavigationService.Navigate<Home.UserHomePage>();
+            navService.Configure(TabView);
+            navService.Navigate<Home.UserHomePage>();
 
             var command = ViewModel.LoadSignedInUserCommand;
             if (command.CanExecute(null))
@@ -81,14 +81,14 @@ namespace FluentHub.Uwp.Views
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
         {
             UnsubscribeEvents();
-            NavigationService.Disconnect();
+            navService.Disconnect();
         }
 
         private void OnAppBackRequested(object sender, BackRequestedEventArgs e)
         {
-            if (NavigationService.CanGoBack())
+            if (navService.CanGoBack())
             {
-                NavigationService.GoBack();
+                navService.GoBack();
                 e.Handled = true;
             }
 
@@ -100,10 +100,10 @@ namespace FluentHub.Uwp.Views
             // Mouse back button pressed
             if (e.CurrentPoint.Properties.IsXButton1Pressed)
             {
-                bool canGoBack = NavigationService.CanGoBack();
+                bool canGoBack = navService.CanGoBack();
                 if (canGoBack)
                 {
-                    NavigationService.GoBack();
+                    navService.GoBack();
                     e.Handled = true;
                 }
                 Logger?.Debug("CoreWindow.PointerPressed [button: {0}, canGoBack: {1}]",
@@ -113,10 +113,10 @@ namespace FluentHub.Uwp.Views
             // Mouse forward button pressed
             else if (e.CurrentPoint.Properties.IsXButton2Pressed)
             {
-                bool canGoForward = NavigationService.CanGoForward();
+                bool canGoForward = navService.CanGoForward();
                 if (canGoForward)
                 {
-                    NavigationService.GoForward();
+                    navService.GoForward();
                     e.Handled = true;
                 }
                 Logger?.Debug("CoreWindow.PointerPressed [button: {0}, CanGoForward: {1}]",
@@ -142,39 +142,65 @@ namespace FluentHub.Uwp.Views
                 case "NewOrganization":
                     break;
                 case "Profile":
-                    NavigationService.Navigate<Users.OverviewPage>(
+                    navService.Navigate<Users.OverviewPage>(
                         new FrameNavigationArgs()
                         {
                             Login = App.Settings.SignedInUserName,
                         });
                     break;
                 case "Repositories":
-                    NavigationService.Navigate<Users.RepositoriesPage>(
+                    navService.Navigate<Users.RepositoriesPage>(
                         new FrameNavigationArgs()
                         {
                             Login = App.Settings.SignedInUserName,
+                            Parameters = new() { "AsViewer" },
                         });
                     break;
                 case "Discussions":
-                    NavigationService.Navigate<Users.DiscussionsPage>("fluenthub://discussions");
+                    navService.Navigate<Users.DiscussionsPage>(
+                    new Models.FrameNavigationArgs()
+                    {
+                        Login = App.Settings.SignedInUserName,
+                        Parameters = new() { "AsViewer" },
+                    });
                     break;
                 case "Issues":
-                    NavigationService.Navigate<Users.IssuesPage>("https://github.com/issues");
+                    navService.Navigate<Users.IssuesPage>(
+                    new Models.FrameNavigationArgs()
+                    {
+                        Login = App.Settings.SignedInUserName,
+                        Parameters = new() { "AsViewer" },
+                    });
                     break;
                 case "PullRequests":
-                    NavigationService.Navigate<Users.PullRequestsPage>("https://github.com/pulls");
+                    navService.Navigate<Users.PullRequestsPage>(
+                    new Models.FrameNavigationArgs()
+                    {
+                        Login = App.Settings.SignedInUserName,
+                        Parameters = new() { "AsViewer" },
+                    });
                     break;
                 case "Organizations":
-                    NavigationService.Navigate<Users.OrganizationsPage>("fluenthub://organizations");
+                    navService.Navigate<Users.OrganizationsPage>(
+                    new Models.FrameNavigationArgs()
+                    {
+                        Login = App.Settings.SignedInUserName,
+                        Parameters = new() { "AsViewer" },
+                    });
                     break;
                 case "Stars":
-                    NavigationService.Navigate<Users.StarredReposPage>("fluenthub://stars");
+                    navService.Navigate<Users.StarredReposPage>(
+                    new Models.FrameNavigationArgs()
+                    {
+                        Login = App.Settings.SignedInUserName,
+                        Parameters = new() { "AsViewer" },
+                    });
                     break;
                 case "AccountSettings":
-                    NavigationService.Navigate<AppSettings.MainSettingsPage>("fluenthub://settings/account");
+                    navService.Navigate<AppSettings.MainSettingsPage>("fluenthub://settings/account");
                     break;
                 case "Settings":
-                    NavigationService.Navigate<AppSettings.MainSettingsPage>("fluenthub://settings");
+                    navService.Navigate<AppSettings.MainSettingsPage>("fluenthub://settings");
                     break;
                 case "SignOut":
                     Frame rootFrame = (Frame)Window.Current.Content;
@@ -188,10 +214,10 @@ namespace FluentHub.Uwp.Views
             switch (args.InvokedItemContainer.Tag.ToString().ToLower())
             {
                 case "home":
-                    NavigationService.Navigate<Home.UserHomePage>();
+                    navService.Navigate<Home.UserHomePage>();
                     break;
                 case "notifications":
-                    NavigationService.Navigate<Home.NotificationsPage>();
+                    navService.Navigate<Home.NotificationsPage>();
                     break;
                 case "activity":
                     break;
@@ -200,7 +226,7 @@ namespace FluentHub.Uwp.Views
                 case "explore":
                     break;
                 case "profile":
-                    NavigationService.Navigate<Users.OverviewPage>(
+                    navService.Navigate<Users.OverviewPage>(
                     new FrameNavigationArgs()
                     {
                         Login = App.Settings.SignedInUserName,

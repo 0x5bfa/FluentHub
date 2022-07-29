@@ -36,8 +36,6 @@ namespace FluentHub.Uwp.UserControls
         {
             var service = App.Current.Services.GetRequiredService<INavigationService>();
 
-            string newUrl = $"{App.DefaultGitHubDomain}/{ViewModel.Repository.Owner.Login}/{ViewModel.Repository.Name}";
-
             switch (args.InvokedItemContainer.Tag.ToString().ToLower())
             {
                 default:
@@ -51,22 +49,46 @@ namespace FluentHub.Uwp.UserControls
                         });
                     break;
                 case "issues":
-                    service.Navigate(typeof(Views.Repositories.Issues.IssuesPage), $"{newUrl}/issues");
+                    service.Navigate(
+                        typeof(Views.Repositories.Issues.IssuesPage),
+                        new Models.FrameNavigationArgs()
+                        {
+                            Login = ViewModel.Repository.Owner.Login,
+                            Name = ViewModel.Repository.Name,
+                        });
                     break;
                 case "pullrequests":
-                    service.Navigate(typeof(Views.Repositories.PullRequests.PullRequestsPage), $"{newUrl}/pulls");
+                    service.Navigate(
+                        typeof(Views.Repositories.PullRequests.PullRequestsPage),
+                        new Models.FrameNavigationArgs()
+                        {
+                            Login = ViewModel.Repository.Owner.Login,
+                            Name = ViewModel.Repository.Name,
+                        });
                     break;
                 case "discussions":
-                    service.Navigate(typeof(Views.Repositories.Discussions.DiscussionsPage), $"{newUrl}/discussions");
+                    service.Navigate(
+                        typeof(Views.Repositories.Discussions.DiscussionsPage),
+                        new Models.FrameNavigationArgs()
+                        {
+                            Login = ViewModel.Repository.Owner.Login,
+                            Name = ViewModel.Repository.Name,
+                        });
                     break;
                 case "projects":
-                    service.Navigate(typeof(Views.Repositories.Projects.ProjectsPage), $"{newUrl}/projects");
+                    service.Navigate(
+                        typeof(Views.Repositories.Projects.ProjectsPage),
+                        new Models.FrameNavigationArgs()
+                        {
+                            Login = ViewModel.Repository.Owner.Login,
+                            Name = ViewModel.Repository.Name,
+                        });
                     break;
                 case "insights":
-                    service.Navigate(typeof(Views.Repositories.Insights.InsightsPage), $"{newUrl}/pulse");
+                    service.Navigate(typeof(Views.Repositories.Insights.InsightsPage));
                     break;
                 case "settings":
-                    service.Navigate(typeof(Views.Repositories.Settings.SettingsPage), $"{newUrl}/settings");
+                    service.Navigate(typeof(Views.Repositories.Settings.SettingsPage));
                     break;
             }
         }
