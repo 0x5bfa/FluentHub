@@ -324,7 +324,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Grid Margin="0,0,1,0">
+            <Grid Margin="0,-6,1,0">
                 <muxc:NavigationView
                     Canvas.ZIndex="0"
                     FooterMenuItemsSource="{x:Bind ViewModel.NavViewFooterItems, Mode=OneWay}"
@@ -346,7 +346,7 @@
 
                     <muxc:NavigationView.MenuItemTemplate>
                         <DataTemplate x:DataType="models:SquareNavigationViewItemModel">
-                            <muxc:NavigationViewItem Height="70" Tag="{x:Bind Name}">
+                            <muxc:NavigationViewItem Height="64" Tag="{x:Bind Name}">
                                 <Grid
                                     Margin="-5,0,-9,0"
                                     HorizontalAlignment="Stretch"
@@ -360,6 +360,7 @@
                                     <FontIcon
                                         HorizontalAlignment="Center"
                                         FontSize="22"
+                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                         Glyph="{x:Bind GlyphPrimary}" />
 
                                     <TextBlock
@@ -380,7 +381,6 @@
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
@@ -399,12 +399,9 @@
                 </muxc:InfoBar>
 
                 <Border
-                    x:Name="FrameTopPaddingBorder"
+                    x:Name="RootFrameBorder"
                     Grid.Row="1"
-                    Height="8"
-                    x:Load="{x:Bind ViewModel.LastNotification, Converter={StaticResource ObjectToBoolConverter}}" />
-
-                <Border x:Name="RootFrameBorder" Grid.Row="2" />
+                    CornerRadius="8,0,0,0" />
             </Grid>
         </Grid>
     </Grid>

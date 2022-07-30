@@ -86,7 +86,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Discussions
                     },
                     ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
 
-                    SelectedTag = "code",
+                    SelectedTag = "discussions",
                 };
             }
             catch (OperationCanceledException) { }

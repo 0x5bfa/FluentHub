@@ -50,8 +50,8 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
 
                 IssueQueries queries = new();
                 var items = await queries.GetAllAsync(
-                    Repository.Owner.Login,
-                    Repository.Name
+                    Repository.Name,
+                    Repository.Owner.Login
                     );
 
                 _issueItems.Clear();
@@ -119,7 +119,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
                     },
                     ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
 
-                    SelectedTag = "code",
+                    SelectedTag = "issues",
                 };
             }
             catch (OperationCanceledException) { }

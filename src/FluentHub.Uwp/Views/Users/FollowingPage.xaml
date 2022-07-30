@@ -24,7 +24,7 @@
 
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <Grid Margin="0,0,8,8" RowSpacing="8">
+            <Grid RowSpacing="8">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -32,7 +32,7 @@
 
                 <uc:UserProfileOverview
                     x:Name="UserProfileOverview"
-                    Margin="0,0,0,8"
+                    Margin="0,0,8,16"
                     x:Load="{x:Bind ViewModel.DisplayTitle, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
                     ViewModel="{x:Bind ViewModel.UserProfileOverviewViewModel, Mode=OneWay}" />
 

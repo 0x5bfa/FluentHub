@@ -93,7 +93,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Projects
                     },
                     ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
 
-                    SelectedTag = "code",
+                    SelectedTag = "projects",
                 };
             }
             catch (OperationCanceledException) { }

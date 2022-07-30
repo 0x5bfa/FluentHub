@@ -80,7 +80,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
                     },
                     ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
 
-                    SelectedTag = "code",
+                    SelectedTag = "pullrequests",
                 };
             }
             catch (OperationCanceledException) { }

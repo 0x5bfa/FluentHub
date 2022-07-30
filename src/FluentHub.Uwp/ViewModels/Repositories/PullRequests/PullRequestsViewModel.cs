@@ -43,8 +43,8 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
 
                 PullRequestQueries queries = new();
                 var items = await queries.GetAllAsync(
-                    Repository.Owner.Login,
-                    Repository.Name
+                    Repository.Name,
+                    Repository.Owner.Login
                     );
                 if (items == null) return;
 
@@ -95,7 +95,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
                     },
                     ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
 
-                    SelectedTag = "code",
+                    SelectedTag = "pullrequests",
                 };
             }
             catch (OperationCanceledException) { }
