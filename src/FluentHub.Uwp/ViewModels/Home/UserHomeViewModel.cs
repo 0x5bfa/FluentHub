@@ -50,31 +50,37 @@ namespace FluentHub.Uwp.ViewModels.Home
             {
                 Thumbnail = new(new Uri("ms-appx:///Assets/Icons/Issues.png")),
                 Text = "Issues",
+                Tag = "issues",
             });
             _folderCardItems.Add(new()
             {
                 Thumbnail = new(new Uri("ms-appx:///Assets/Icons/PullRequests.png")),
                 Text = "Pull Requests",
+                Tag = "pullrequests",
             });
             _folderCardItems.Add(new()
             {
                 Thumbnail = new(new Uri("ms-appx:///Assets/Icons/Discussions.png")),
                 Text = "Discussions",
+                Tag = "discussions",
             });
             _folderCardItems.Add(new()
             {
                 Thumbnail = new(new Uri("ms-appx:///Assets/Icons/Repositories.png")),
                 Text = "Repositories",
+                Tag = "repositories",
             });
             _folderCardItems.Add(new()
             {
                 Thumbnail = new(new Uri("ms-appx:///Assets/Icons/Organizations.png")),
                 Text = "Organizations",
+                Tag = "organizations",
             });
             _folderCardItems.Add(new()
             {
                 Thumbnail = new(new Uri("ms-appx:///Assets/Icons/Starred.png")),
-                Text = "Starred",
+                Text = "Stars",
+                Tag = "stars",
             });
         }
 

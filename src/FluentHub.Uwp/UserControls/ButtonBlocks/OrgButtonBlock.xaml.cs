@@ -1,5 +1,4 @@
-﻿using FluentHub.Octokit.Models;
-using FluentHub.Uwp.Services;
+﻿using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
@@ -24,7 +23,6 @@ namespace FluentHub.Uwp.UserControls.ButtonBlocks
             set
             {
                 SetValue(ViewModelProperty, value);
-                DataContext = ViewModel;
             }
         }
         #endregion
@@ -34,7 +32,11 @@ namespace FluentHub.Uwp.UserControls.ButtonBlocks
         private void OrganizationOverviewButton_Click(object sender, RoutedEventArgs e)
         {
             var service = App.Current.Services.GetRequiredService<INavigationService>();
-            service.Navigate<Views.Organizations.ProfilePage>(ViewModel.OrgItem.Login);
+            service.Navigate<Views.Organizations.OverviewPage>(
+                new Models.FrameNavigationArgs()
+                {
+                    Login = ViewModel.OrgItem.Login,
+                });
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using FluentHub.Octokit.Queries.Organizations;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
+using FluentHub.Uwp.ViewModels.UserControls;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
 
 namespace FluentHub.Uwp.ViewModels.Organizations
@@ -15,12 +16,21 @@ namespace FluentHub.Uwp.ViewModels.Organizations
             _repositories = new();
             Repositories = new(_repositories);
 
-            RefreshRepositoriesCommand = new AsyncRelayCommand<string>(LoadOrganizationRepositoriesAsync);
+            RefreshRepositoriesCommand = new AsyncRelayCommand(LoadOrganizationRepositoriesAsync);
         }
 
         #region Fields and Properties
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
+
+        private Organization _organization;
+        public Organization Organization { get => _organization; set => SetProperty(ref _organization, value); }
+
+        private OrganizationProfileOverviewViewModel _organizationProfileOverviewViewModel;
+        public OrganizationProfileOverviewViewModel OrganizationProfileOverviewViewModel { get => _organizationProfileOverviewViewModel; set => SetProperty(ref _organizationProfileOverviewViewModel, value); }
+
+        private string _login;
+        public string Login { get => _login; set => SetProperty(ref _login, value); }
 
         private readonly ObservableCollection<RepoButtonBlockViewModel> _repositories;
         public ReadOnlyObservableCollection<RepoButtonBlockViewModel> Repositories { get; }
@@ -28,20 +38,19 @@ namespace FluentHub.Uwp.ViewModels.Organizations
         public IAsyncRelayCommand RefreshRepositoriesCommand { get; }
         #endregion
 
-        private async Task LoadOrganizationRepositoriesAsync(string login, CancellationToken token)
+        private async Task LoadOrganizationRepositoriesAsync(CancellationToken token)
         {
             try
             {
                 RepositoryQueries queries = new();
-                var items = await queries.GetAllAsync(login);
-                if (items == null) return;
+                var response = await queries.GetAllAsync(Login);
 
                 _repositories.Clear();
-                foreach (var item in items)
+                foreach (var item in response)
                 {
                     RepoButtonBlockViewModel viewModel = new()
                     {
-                        Item = item,
+                        Repository = item,
                         DisplayDetails = true,
                         DisplayStarButton = true,
                     };
@@ -62,6 +71,34 @@ namespace FluentHub.Uwp.ViewModels.Organizations
                     }
                     throw;
                 }
+            }
+        }
+
+        public async Task LoadOrganizationAsync(string org)
+        {
+            try
+            {
+                OrganizationQueries queries = new();
+                var response = await queries.GetOverview(org);
+
+                Organization = response ?? new();
+
+                // View model
+                OrganizationProfileOverviewViewModel = new()
+                {
+                    Organization = Organization,
+                    SelectedTag = "repositories",
+                };
+            }
+            catch (Exception ex)
+            {
+                _logger?.Error(nameof(LoadOrganizationAsync), ex);
+                if (_messenger != null)
+                {
+                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+                    _messenger.Send(notification);
+                }
+                throw;
             }
         }
     }

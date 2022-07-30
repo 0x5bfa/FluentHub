@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:humanizer="using:Humanizer"
     xmlns:local="using:FluentHub.Uwp.Views.Home"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:FluentHub.Uwp.Models"
@@ -31,7 +30,11 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid>
+    <Grid
+        Background="{ThemeResource CardBackgroundFillColorSecondary}"
+        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+        BorderThickness="1,1,0,0"
+        CornerRadius="8,0,0,0">
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" MinWidth="256" />
@@ -182,7 +185,9 @@
                                         VerticalAlignment="Stretch"
                                         HorizontalContentAlignment="Stretch"
                                         VerticalContentAlignment="Stretch"
-                                        CornerRadius="4">
+                                        Click="OnOneFolderCardClick"
+                                        CornerRadius="4"
+                                        Tag="{x:Bind Tag}">
 
                                         <Grid
                                             HorizontalAlignment="Stretch"
@@ -198,7 +203,7 @@
                                                 Height="32"
                                                 HorizontalAlignment="Center"
                                                 VerticalAlignment="Center"
-                                                Source="{x:Bind Thumbnail, Mode=OneWay}"
+                                                Source="{x:Bind Thumbnail}"
                                                 Stretch="Uniform" />
                                             <TextBlock
                                                 x:Name="ItemLocationName"
@@ -207,7 +212,7 @@
                                                 VerticalAlignment="Center"
                                                 FontSize="14"
                                                 HorizontalTextAlignment="Center"
-                                                Text="{x:Bind Text, Mode=OneWay}"
+                                                Text="{x:Bind Text}"
                                                 TextTrimming="WordEllipsis"
                                                 TextWrapping="NoWrap" />
                                         </Grid>
@@ -452,11 +457,11 @@
                     </muxc:Expander.Content>
                 </muxc:Expander>
 
-                <!--<Button
+                <Button
                     Grid.Row="4"
                     HorizontalAlignment="Center"
-                    Click="OnMoreActivitiesButtonClick"
-                    Content="See feeds" />-->
+                    Click="OnSeeFeedsButtonClick"
+                    Content="See feeds" />
             </Grid>
         </ScrollViewer>
     </Grid>

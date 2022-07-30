@@ -26,6 +26,19 @@ namespace FluentHub.Uwp.ViewModels
                 _messenger.Register<LoadingMessaging>(this, OnIfContentIsLoadingRecieved);
             }
 
+            _navViewItems = new();
+            NavViewItems = new(_navViewItems);
+
+            _navViewFooterItems = new();
+            NavViewFooterItems = new(_navViewFooterItems);
+
+            _navViewItems.Add(new (name: "Home", glyphPrimary: "\uE80F", glyphSecondary: "\uEA8A"));
+            _navViewItems.Add(new (name: "Notifications", glyphPrimary: "\uE8BD", glyphSecondary: "\uE717"));
+            _navViewItems.Add(new (name: "Activity", glyphPrimary: "\uECAD", glyphSecondary: "\uECAD"));
+            _navViewItems.Add(new (name: "Marketplace", glyphPrimary: "\uE14D", glyphSecondary: "\uE14D"));
+            _navViewItems.Add(new (name: "Explore", glyphPrimary: "\uE805", glyphSecondary: "\uE805"));
+            _navViewFooterItems.Add(new (name: "Profile", glyphPrimary: "\uE77B", glyphSecondary: "\uE77B"));
+
             AddNewTabAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(AddNewTabAccelerator);
             CloseTabAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(CloseTabAccelerator);
             GoToNextTabAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(GoToNextTabAccelerator);
@@ -85,6 +98,12 @@ namespace FluentHub.Uwp.ViewModels
 
         private bool _isProfile;
         public bool IsProfile { get => _isProfile; private set => SetProperty(ref _isProfile, value); }
+
+        private readonly ObservableCollection<SquareNavigationViewItemModel> _navViewItems;
+        public ReadOnlyObservableCollection<SquareNavigationViewItemModel> NavViewItems;
+
+        private readonly ObservableCollection<SquareNavigationViewItemModel> _navViewFooterItems;
+        public ReadOnlyObservableCollection<SquareNavigationViewItemModel> NavViewFooterItems;
 
         public IAsyncRelayCommand LoadSignedInUserCommand { get; }
         #endregion
@@ -210,7 +229,11 @@ namespace FluentHub.Uwp.ViewModels
         {
             InitializeToggles();
             IsProfile = true;
-            _navigationService.Navigate<Views.Users.ProfilePage>($"{App.DefaultGitHubDomain}/{App.Settings.SignedInUserName}");
+            _navigationService.Navigate<Views.Users.OverviewPage>(
+                new FrameNavigationArgs()
+                {
+                    Login = App.Settings.SignedInUserName,
+                });
         }
 
         private void InitializeToggles()

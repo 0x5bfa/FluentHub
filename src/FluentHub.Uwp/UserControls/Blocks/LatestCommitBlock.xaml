@@ -26,15 +26,18 @@
 
             <StackPanel Orientation="Horizontal" Spacing="6">
 
-                <uc:AvatarControl
-                    AvatarUrl="{x:Bind ViewModel.CommitOverviewItem.Author.AvatarUrl, Mode=OneWay}"
-                    IsOrganization="False"
-                    WidthAndHeight="24" />
+                <Grid
+                    Width="24"
+                    Height="24"
+                    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                    CornerRadius="12">
+                    <Image Source="{x:Bind ViewModel.CommitOverviewItem.History.Nodes[0].Author.AvatarUrl, Mode=OneWay}" />
+                </Grid>
 
                 <TextBlock
                     VerticalAlignment="Center"
                     Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="{x:Bind ViewModel.CommitOverviewItem.Author.User.Login, Mode=OneWay}" />
+                    Text="{x:Bind ViewModel.CommitOverviewItem.History.Nodes[0].Author.User.Login, Mode=OneWay}" />
 
                 <TextBlock
                     Margin="2,0"

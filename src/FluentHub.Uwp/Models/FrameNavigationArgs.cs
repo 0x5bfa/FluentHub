@@ -25,11 +25,22 @@
         /// <summary>
         /// Other needed parameters
         /// </summary>
-        public object Parameters { get; set; }
+        public List<object> Parameters { get; set; } = new();
 
         /// <summary>
         /// Page type of the URL
         /// </summary>
         public Utils.UrlPageType PageType { get; set; }
+
+        public static FrameNavigationArgs Create(string owner, string name, Utils.UrlPageType pageType, int number)
+        {
+            return new()
+            {
+                Login = owner,
+                Name = name,
+                Number = number,
+                PageType = pageType,
+            };
+        }
     }
 }

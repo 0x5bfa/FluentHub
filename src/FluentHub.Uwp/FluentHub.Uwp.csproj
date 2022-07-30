@@ -168,6 +168,7 @@
     <Compile Include="Models\FolderCardItem.cs" />
     <Compile Include="Models\FrameNavigationArgs.cs" />
     <Compile Include="Models\LoadingMessaging.cs" />
+    <Compile Include="Models\SquareNavigationViewItemModel.cs" />
     <Compile Include="Models\TreeLayoutPageModel.cs" />
     <Compile Include="Models\UserNotificationMessage.cs" />
     <Compile Include="Models\UserNotificationMethod.cs" />
@@ -215,6 +216,12 @@
     </Compile>
     <Compile Include="UserControls\ColorfulBar.xaml.cs">
       <DependentUpon>ColorfulBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\OrganizationProfileOverview.xaml.cs">
+      <DependentUpon>OrganizationProfileOverview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\RepositoryOverview.xaml.cs">
+      <DependentUpon>RepositoryOverview.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\TabViewControl\TabItem.cs" />
     <Compile Include="UserControls\Blocks\ActivityBlock.xaml.cs">
@@ -286,6 +293,9 @@
     <Compile Include="UserControls\TitleBar.xaml.cs">
       <DependentUpon>TitleBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\UserProfileOverview.xaml.cs">
+      <DependentUpon>UserProfileOverview.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Utils\ILogger.cs" />
     <Compile Include="Utils\NavigationHistory.cs" />
     <Compile Include="Utils\SerilogWrapperLogger.cs" />
@@ -351,6 +361,9 @@
     <Compile Include="ViewModels\UserControls\ButtonBlocks\UserButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Labels\LabelControlViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Labels\StatusLabelViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\OrganizationProfileOverviewViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\RepositoryOverviewViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\UserProfileOverviewViewModel.cs" />
     <Compile Include="ViewModels\Users\DiscussionsViewModel.cs" />
     <Compile Include="ViewModels\Users\FollowersViewModel.cs" />
     <Compile Include="ViewModels\Users\FollowingViewModel.cs" />
@@ -857,6 +870,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\OrganizationProfileOverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\RepositoryOverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\TabViewControl\CustomTabView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -902,6 +923,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\TitleBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\UserProfileOverview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -20,8 +20,6 @@ namespace FluentHub.Uwp.Views.Repositories
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<OverviewViewModel>();
             navigationService = App.Current.Services.GetRequiredService<INavigationService>();
-
-            MainPageViewModel.RepositoryContentFrame.Navigating += OnRepositoryContentFrameNavigating;
         }
 
         private readonly INavigationService navigationService;

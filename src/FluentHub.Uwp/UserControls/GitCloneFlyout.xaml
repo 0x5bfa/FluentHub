@@ -23,10 +23,10 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <StackPanel Width="320">
+    <StackPanel Width="340">
         <muxc:NavigationView
             x:Name="GitCloneFlyoutNavView"
-            Margin="-8"
+            Margin="0"
             CornerRadius="4"
             IsBackButtonVisible="Collapsed"
             IsSettingsVisible="False"
@@ -41,8 +41,9 @@
                 <muxc:NavigationViewItem Content="GitHub CLI" Tag="GitHubCli" />
             </muxc:NavigationView.MenuItems>
             <muxc:NavigationView.PaneFooter>
+
                 <Button
-                    Margin="0,0,4,0"
+                    Margin="0,0,8,0"
                     HorizontalAlignment="Stretch"
                     Click="CopyGitCommand_Click"
                     IsEnabled="True"
@@ -52,25 +53,35 @@
                         <TextBlock Text="Git" />
                     </StackPanel>
                 </Button>
+
             </muxc:NavigationView.PaneFooter>
         </muxc:NavigationView>
-        <MenuFlyoutSeparator Margin="-8,8" />
-        <Grid ColumnSpacing="8" RowSpacing="8">
+
+        <MenuFlyoutSeparator Margin="-4,0,-4,8" />
+
+        <Grid
+            Margin="8"
+            ColumnSpacing="8"
+            RowSpacing="8">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
+
             <StackPanel Spacing="6">
+
                 <Grid ColumnSpacing="4">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
+
                     <TextBox
                         x:Name="CloneUriTextBox"
                         HorizontalAlignment="Stretch"
                         IsReadOnly="True" />
+
                     <Button
                         x:Name="CopyButton"
                         Grid.Column="1"
@@ -81,7 +92,9 @@
                         ToolTipService.ToolTip="Copy">
                         <FontIcon FontSize="16" Glyph="&#xE8c8;" />
                     </Button>
+
                 </Grid>
+
                 <TextBlock
                     x:Name="CloneDescriptionTextBlock"
                     Grid.Row="1"
@@ -90,11 +103,13 @@
                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                     Style="{ThemeResource BodyTextBlockStyle}" />
             </StackPanel>
+
             <StackPanel
                 Grid.Row="2"
                 Grid.ColumnSpan="2"
                 Margin="0,8,0,0"
                 Spacing="8">
+
                 <Button
                     HorizontalAlignment="Stretch"
                     Click="GitHubDeskButton_Click"
@@ -107,6 +122,7 @@
                         <TextBlock Text="Open with GitHub Desktop" />
                     </StackPanel>
                 </Button>
+
                 <Button
                     HorizontalAlignment="Stretch"
                     Click="OpenVSButton_Click"
@@ -115,6 +131,7 @@
                         <TextBlock Text="Open with Visual Studio" />
                     </StackPanel>
                 </Button>
+
                 <Button
                     HorizontalAlignment="Stretch"
                     Click="DownloadZipButton_Click"
@@ -128,6 +145,7 @@
                         <TextBlock Text="Download zip" />
                     </StackPanel>
                 </Button>
+
             </StackPanel>
         </Grid>
     </StackPanel>

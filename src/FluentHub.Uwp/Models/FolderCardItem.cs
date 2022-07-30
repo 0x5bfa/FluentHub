@@ -12,5 +12,8 @@ namespace FluentHub.Uwp.Models
 
         private string _path;
         public string Path { get => _path; set => SetProperty(ref _path, value); }
+
+        private string _tag;
+        public string Tag { get => _tag; set => SetProperty(ref _tag, value); }
     }
 }

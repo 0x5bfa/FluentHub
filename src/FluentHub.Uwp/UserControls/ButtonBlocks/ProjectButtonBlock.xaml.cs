@@ -1,6 +1,9 @@
-﻿using FluentHub.Uwp.ViewModels;
+﻿using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Services;
+using FluentHub.Uwp.ViewModels;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
 using FluentHub.Uwp.Views.Repositories.Projects;
+using Microsoft.Extensions.DependencyInjection;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -40,7 +43,14 @@ namespace FluentHub.Uwp.UserControls.ButtonBlocks
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            MainPageViewModel.RepositoryContentFrame.Navigate(typeof(ProjectPage), ViewModel.Item.Url);
+            //var navService = App.Current.Services.GetRequiredService<INavigationService>();
+            //navService.Navigate<ProjectPage>(
+            //    new FrameNavigationArgs()
+            //    {
+            //        Login = ViewModel.Item.Repository.Owner.Login,
+            //        Name = ViewModel.Item.Repository.Name,
+            //        Number = ViewModel.Item.Number,
+            //    });
         }
     }
 }

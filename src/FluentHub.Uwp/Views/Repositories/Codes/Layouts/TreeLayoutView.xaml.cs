@@ -135,8 +135,6 @@ namespace FluentHub.Uwp.Views.Repositories.Codes.Layouts
         {
             if (args.Node.HasUnrealizedChildren && !(args.Item as TreeLayoutPageModel).IsBolb)
             {
-                ViewModel.IsLoading = true;
-
                 var item = args.Item as TreeLayoutPageModel;
                 string path = item?.Path;
 
@@ -146,7 +144,6 @@ namespace FluentHub.Uwp.Views.Repositories.Codes.Layouts
                 foreach (var res in result) item.Children.Add(res);
 
                 args.Node.HasUnrealizedChildren = false;
-                ViewModel.IsLoading = false;
             }
         }
 
@@ -157,7 +154,6 @@ namespace FluentHub.Uwp.Views.Repositories.Codes.Layouts
             ViewModel.BlobSelected = false;
             if (!item.IsBolb) return;
 
-            ViewModel.IsLoading = true;
             ViewModel.BlobSelected = true;
 
             RepoContextViewModel viewmodel = new()
@@ -172,7 +168,6 @@ namespace FluentHub.Uwp.Views.Repositories.Codes.Layouts
             };
 
             ViewModel.SelectedContextViewModel = viewmodel;
-            ViewModel.IsLoading = false;
         }
     }
 

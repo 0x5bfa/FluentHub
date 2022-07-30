@@ -2,6 +2,7 @@
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.UserControls.Blocks;
+using FluentHub.Uwp.ViewModels.UserControls;
 using FluentHub.Uwp.ViewModels.UserControls.Blocks;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
@@ -16,12 +17,21 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
             _eventBlocks = new();
             EventBlocks = new(_eventBlocks);
 
-            RefreshPullRequestPageCommand = new AsyncRelayCommand<PullRequest>(LoadRepositoryPullRequestCommentsAsync);
+            RefreshPullRequestPageCommand = new AsyncRelayCommand(LoadRepositoryPullRequestCommentsAsync);
         }
 
         #region Fields and Properties
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
+
+        private Repository _repository;
+        public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
+
+        private RepositoryOverviewViewModel _repositoryOverviewViewModel;
+        public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
+
+        private int _number;
+        public int Number { get => _number; set => SetProperty(ref _number, value); }
 
         private PullRequest pullItem;
         public PullRequest PullItem { get => pullItem; private set => SetProperty(ref pullItem, value); }
@@ -35,14 +45,11 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
         public IAsyncRelayCommand RefreshPullRequestPageCommand { get; }
         #endregion
 
-        private async Task LoadRepositoryPullRequestCommentsAsync(PullRequest pull)
+        private async Task LoadRepositoryPullRequestCommentsAsync(CancellationToken token)
         {
             try
             {
                 _messenger?.Send(new LoadingMessaging(true));
-
-                if (pull != null)
-                    PullItem = pull;
 
                 _eventBlocks.Clear();
 
@@ -353,6 +360,65 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
             finally
             {
                 _messenger?.Send(new LoadingMessaging(false));
+            }
+        }
+
+        public async Task LoadPullRequestAsync()
+        {
+            try
+            {
+                PullRequestQueries queries = new();
+                var response = await queries.GetAsync(
+                    Repository.Owner.Login,
+                    Repository.Name,
+                    Number);
+
+                PullItem = response;
+            }
+            catch (Exception ex)
+            {
+                _logger?.Error(nameof(LoadPullRequestAsync), ex);
+                if (_messenger != null)
+                {
+                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+                    _messenger.Send(notification);
+                }
+                throw;
+            }
+        }
+
+        public async Task LoadRepositoryAsync(string owner, string name)
+        {
+            try
+            {
+                RepositoryQueries queries = new();
+                Repository = await queries.GetDetailsAsync(owner, name);
+
+                RepositoryOverviewViewModel = new()
+                {
+                    Repository = Repository,
+                    RepositoryName = Repository.Name,
+                    RepositoryOwnerLogin = Repository.Owner.Login,
+                    RepositoryVisibilityLabel = new()
+                    {
+                        Name = Repository.IsPrivate ? "Private" : "Public",
+                        Color = "#64000000",
+                    },
+                    ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
+
+                    SelectedTag = "pullrequests",
+                };
+            }
+            catch (OperationCanceledException) { }
+            catch (Exception ex)
+            {
+                _logger?.Error(nameof(LoadRepositoryAsync), ex);
+                if (_messenger != null)
+                {
+                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+                    _messenger.Send(notification);
+                }
+                throw;
             }
         }
     }

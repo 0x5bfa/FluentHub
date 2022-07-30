@@ -22,38 +22,34 @@ namespace FluentHub.Uwp.Views.Users
         private readonly INavigationService navigationService;
         public StarredReposViewModel ViewModel { get; }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            var url = e.Parameter as string;
-            var uri = new Uri(url);
-            var pathSegments = uri.AbsolutePath.Split("/").ToList();
-            pathSegments.RemoveAt(0);
+            var param = e.Parameter as Models.FrameNavigationArgs;
+            ViewModel.Login = param.Login;
 
-            string login;
-
-            if (url == "fluenthub://stars")
+            if (param.Parameters.ElementAtOrDefault(0) as string is "AsViewer")
             {
-                login = App.Settings.SignedInUserName;
                 ViewModel.DisplayTitle = true;
             }
-            else
-            {
-                login = pathSegments[0];
-            }
 
+            await ViewModel.LoadUserAsync(param.Login);
+
+            SetCurrentTabItem();
+
+            var command = ViewModel.RefreshRepositoriesCommand;
+            if (command.CanExecute(null))
+                command.Execute(null);
+        }
+
+        private void SetCurrentTabItem()
+        {
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = $"Stars";
-            currentItem.Description = $"{login}'s stars";
-            currentItem.DisplayUrl = $"{login} / Stars";
-            currentItem.Url = url;
-            currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
+            currentItem.Description = $"{ViewModel.Login}'s stars";
+            currentItem.Icon = new muxc.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Starred.png"))
             };
-
-            var command = ViewModel.RefreshRepositoriesCommand;
-            if (command.CanExecute(login))
-                command.Execute(login);
         }
     }
 }

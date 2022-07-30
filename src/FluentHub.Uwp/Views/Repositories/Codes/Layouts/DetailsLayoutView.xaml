@@ -11,19 +11,34 @@
     xmlns:models="using:FluentHub.Uwp.Models"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:uc="using:FluentHub.Uwp.UserControls"
     mc:Ignorable="d">
 
     <Page.Resources>
-        <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+        <ResourceDictionary>
+            <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+        </ResourceDictionary>
     </Page.Resources>
 
     <Grid>
         <ScrollViewer>
-            <Grid>
+            <Grid Margin="0,0,8,8" RowSpacing="8">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <uc:RepositoryOverview ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
+
                 <Grid
                     x:Name="RepositoryCodeGrid"
-                    Margin="12,0,12,12"
-                    x:Load="{x:Bind ViewModel.ContextViewModel.Repository.DefaultBranchRef.Name, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+                    Grid.Row="1"
+                    Padding="32,24,32,32"
+                    x:Load="{x:Bind ViewModel.ContextViewModel.Repository.DefaultBranchRef.Name, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                    Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8">
 
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*" />
@@ -49,7 +64,7 @@
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
                             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                             BorderThickness="1"
-                            CornerRadius="4">
+                            CornerRadius="8">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -157,7 +172,7 @@
                         x:Name="RepositoryMetaInfoBlock"
                         Grid.Column="1"
                         Width="256"
-                        Padding="12,12,0,0"
+                        Padding="24,12,0,0"
                         x:Load="{x:Bind ViewModel.ContextViewModel.IsRootDir, Mode=OneWay}"
                         RowSpacing="12">
                         <Grid.RowDefinitions>
@@ -193,7 +208,10 @@
                                 </Button>
                             </Grid>
 
-                            <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.ContextViewModel.Repository.Description, Mode=OneWay}" />
+                            <TextBlock
+                                IsTextSelectionEnabled="True"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind ViewModel.ContextViewModel.Repository.Description, Mode=OneWay}" />
 
                             <MenuFlyoutSeparator />
                         </StackPanel>
@@ -270,11 +288,26 @@
 
                             <MenuFlyoutSeparator />
                         </StackPanel>
+
+                        <StackPanel Grid.Row="2" Spacing="12">
+
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="Releases" />
+
+                                <muxc:InfoBadge Value="{x:Bind ViewModel.ContextViewModel.Repository.Releases.TotalCount, Mode=OneWay}" />
+                            </StackPanel>
+
+                            <MenuFlyoutSeparator />
+                        </StackPanel>
                     </Grid>
                 </Grid>
 
                 <Grid
                     x:Name="NoCodeGrid"
+                    Grid.RowSpan="2"
                     Margin="12,0,12,12"
                     x:Load="{x:Bind ViewModel.ContextViewModel.Repository.DefaultBranchRef.Name, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}" />
             </Grid>
@@ -286,10 +319,24 @@
             VerticalAlignment="Center"
             TargetType="x:Boolean"
             Value="{x:Bind ViewModel.RefreshDetailsLayoutPageCommand.IsRunning, Mode=OneWay}">
-            <toolkit:Case Value="True">
-                <muxc:ProgressRing IsActive="True" />
+
+            <toolkit:Case Value="False">
+                <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.RefreshDetailsLayoutPageCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
+
+                    <toolkit:Case Value="True">
+                        <HyperlinkButton
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Command="{x:Bind ViewModel.RefreshDetailsLayoutPageCommand}">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon FontSize="16" Glyph="&#xE149;" />
+                                <TextBlock Text="Refresh" />
+                            </StackPanel>
+                        </HyperlinkButton>
+                    </toolkit:Case>
+
+                </toolkit:SwitchPresenter>
             </toolkit:Case>
         </toolkit:SwitchPresenter>
-
     </Grid>
 </Page>

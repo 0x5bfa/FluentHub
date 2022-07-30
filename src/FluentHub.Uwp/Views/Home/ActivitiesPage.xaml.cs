@@ -17,35 +17,42 @@ namespace FluentHub.Uwp.Views.Home
 
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<ActivitiesViewModel>();
-            navigationService = provider.GetRequiredService<INavigationService>();
+            navService = provider.GetRequiredService<INavigationService>();
         }
 
-        private readonly INavigationService navigationService;
+        private readonly INavigationService navService;
         public ActivitiesViewModel ViewModel { get; }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            string url = e.Parameter as string;
-
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = "Activities";
-            currentItem.Description = "Viewer's activities";
-            currentItem.Url = url;
-            currentItem.DisplayUrl = $"Activities";
-            currentItem.Icon = new muxc.ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Activities.png"))
-            };
+            SetCurrentTabItem();
 
             var command = ViewModel.RefreshActivitiesCommand;
             if (command.CanExecute(null))
                 command.Execute(null);
         }
 
+        private void SetCurrentTabItem()
+        {
+            var currentItem = navService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = "Activities";
+            currentItem.Description = "Viewer's activities";
+            currentItem.Icon = new muxc.ImageIconSource
+            {
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Activities.png"))
+            };
+        }
+
         private void OnHomeRepositoriesListItemClick(object sender, ItemClickEventArgs e)
         {
             var clickedItem = e.ClickedItem as Repository;
-            navigationService.Navigate<Repositories.OverviewPage>($"{App.DefaultGitHubDomain}/{clickedItem.Owner.Login}/{clickedItem.Name}");
+
+            navService.Navigate<Repositories.Codes.CodePage>(
+                new Models.FrameNavigationArgs()
+                {
+                    Login = clickedItem.Owner.Login,
+                    Name = clickedItem.Name,
+                });
         }
     }
 }

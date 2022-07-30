@@ -2,6 +2,7 @@
 using FluentHub.Uwp.Utils;
 using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.UserControls.Blocks;
+using FluentHub.Uwp.ViewModels.UserControls;
 using FluentHub.Uwp.ViewModels.UserControls.Blocks;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.Issues
@@ -16,12 +17,21 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
             _eventBlocks = new();
             EventBlocks = new(_eventBlocks);
 
-            RefreshIssuePageCommand = new AsyncRelayCommand<string>(LoadRepositoryOneIssueAsync);
+            RefreshIssuePageCommand = new AsyncRelayCommand(LoadRepositoryOneIssueAsync);
         }
 
         #region Fields and Properties
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
+
+        private Repository _repository;
+        public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
+
+        private RepositoryOverviewViewModel _repositoryOverviewViewModel;
+        public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
+
+        private int _number;
+        public int Number { get => _number; set => SetProperty(ref _number, value); }
 
         private Issue _issueItem;
         public Issue IssueItem { get => _issueItem; private set => SetProperty(ref _issueItem, value); }
@@ -35,21 +45,26 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
         public IAsyncRelayCommand RefreshIssuePageCommand { get; }
         #endregion
 
-        private async Task LoadRepositoryOneIssueAsync(string url)
+        private async Task LoadRepositoryOneIssueAsync(CancellationToken token)
         {
             try
             {
                 _messenger?.Send(new LoadingMessaging(true));
 
-                var uri = new Uri(url);
-                var pathSegments = uri.AbsolutePath.Split("/").ToList();
-                pathSegments.RemoveAt(0);
-
                 _eventBlocks.Clear();
 
                 IssueQueries issueQueries = new();
-                IssueItem = await issueQueries.GetAsync(pathSegments[0], pathSegments[1], Convert.ToInt32(pathSegments[3]));
-                var bodyComment = await issueQueries.GetBodyAsync(pathSegments[0], pathSegments[1], Convert.ToInt32(pathSegments[3]));
+                IssueItem = await issueQueries.GetAsync(
+                    Repository.Owner.Login,
+                    Repository.Name,
+                    Number
+                    );
+
+                var bodyComment = await issueQueries.GetBodyAsync(
+                    Repository.Owner.Login,
+                    Repository.Name,
+                    Number
+                    );
 
                 var bodyCommentBlock = new Timeline()
                 {
@@ -66,7 +81,11 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
                 _eventBlocks.Add(bodyCommentBlock);
 
                 IssueEventQueries queries = new();
-                var issueEvents = await queries.GetAllAsync(pathSegments[0], pathSegments[1], Convert.ToInt32(pathSegments[3]));
+                var issueEvents = await queries.GetAllAsync(
+                    Repository.Owner.Login,
+                    Repository.Name,
+                    Number
+                    );
 
                 foreach (var eventItem in issueEvents)
                 {
@@ -248,6 +267,41 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
             finally
             {
                 _messenger?.Send(new LoadingMessaging(false));
+            }
+        }
+
+        public async Task LoadRepositoryAsync(string owner, string name)
+        {
+            try
+            {
+                RepositoryQueries queries = new();
+                Repository = await queries.GetDetailsAsync(owner, name);
+
+                RepositoryOverviewViewModel = new()
+                {
+                    Repository = Repository,
+                    RepositoryName = Repository.Name,
+                    RepositoryOwnerLogin = Repository.Owner.Login,
+                    RepositoryVisibilityLabel = new()
+                    {
+                        Name = Repository.IsPrivate ? "Private" : "Public",
+                        Color = "#64000000",
+                    },
+                    ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
+
+                    SelectedTag = "issues",
+                };
+            }
+            catch (OperationCanceledException) { }
+            catch (Exception ex)
+            {
+                _logger?.Error(nameof(LoadRepositoryAsync), ex);
+                if (_messenger != null)
+                {
+                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+                    _messenger.Send(notification);
+                }
+                throw;
             }
         }
     }

@@ -63,7 +63,6 @@
                     x:Name="RepositoryOwnerButton"
                     HorizontalAlignment="Left"
                     Background="Transparent"
-                    Click="OnRepoOwnerButtonClick"
                     FontWeight="Normal"
                     Style="{StaticResource LinkLikeButtonStyle}">
                     <StackPanel Orientation="Horizontal" Spacing="12">
@@ -333,7 +332,6 @@
                 Margin="32,0"
                 IsBackButtonVisible="Collapsed"
                 IsSettingsVisible="False"
-                ItemInvoked="OnRepoPageNavViewItemInvoked"
                 PaneDisplayMode="Top">
 
                 <muxc:NavigationView.MenuItems>

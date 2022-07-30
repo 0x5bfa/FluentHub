@@ -1,6 +1,9 @@
 ﻿using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
+using FluentHub.Uwp.ViewModels.UserControls;
+using Windows.UI.Xaml.Media.Imaging;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
 {
@@ -14,9 +17,6 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
 
             _items = new();
             Items = new(_items);
-
-            RefreshDetailsLayoutPageCommand = new AsyncRelayCommand<string>(LoadRepositoryContentsAsync);
-            LoadRepositoryCommand = new AsyncRelayCommand<string>(LoadRepositoryAsync);
         }
 
         #region Fields and Properties
@@ -29,6 +29,9 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
         private Repository _repository;
         public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
 
+        private RepositoryOverviewViewModel _repositoryOverviewViewModel;
+        public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
+
         private readonly ObservableCollection<DetailsLayoutListViewModel> _items;
         public ReadOnlyObservableCollection<DetailsLayoutListViewModel> Items { get; }
 
@@ -36,10 +39,12 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
         public IAsyncRelayCommand LoadRepositoryCommand { get; }
         #endregion
 
-        private async Task LoadRepositoryContentsAsync(string url, CancellationToken token)
+        public async Task LoadRepositoryContentsAsync()
         {
             try
             {
+                _messenger?.Send(new LoadingMessaging(true));
+
                 if (string.IsNullOrEmpty(ContextViewModel.Repository.DefaultBranchRef.Name))
                     return;
 
@@ -48,8 +53,8 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
 
                 CommitQueries queries = new();
                 var response = await queries.GetWithObjectNameAsync(
-                    ContextViewModel.Repository.Name,
-                    ContextViewModel.Repository.Owner.Login,
+                    Repository.Name,
+                    Repository.Owner.Login,
                     ContextViewModel.BranchName,
                     ContextViewModel.Path);
 
@@ -102,18 +107,33 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
                 }
                 throw;
             }
+            finally
+            {
+                _messenger?.Send(new LoadingMessaging(false));
+            }
         }
 
-        private async Task LoadRepositoryAsync(string url, CancellationToken token)
+        public async Task LoadRepositoryAsync(string owner, string name)
         {
             try
             {
-                var uri = new Uri(url);
-                var pathSegments = uri.AbsolutePath.Split("/").ToList();
-                pathSegments.RemoveAt(0);
-
                 RepositoryQueries queries = new();
-                Repository = await queries.GetDetailsAsync(pathSegments[0], pathSegments[1]);
+                Repository = await queries.GetDetailsAsync(owner, name);
+
+                RepositoryOverviewViewModel = new()
+                {
+                    Repository = Repository,
+                    RepositoryName = Repository.Name,
+                    RepositoryOwnerLogin = Repository.Owner.Login,
+                    RepositoryVisibilityLabel = new()
+                    {
+                        Name = Repository.IsPrivate ? "Private" : "Public",
+                        Color = "#64000000",
+                    },
+                    ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
+
+                    SelectedTag = "code",
+                };
             }
             catch (OperationCanceledException) { }
             catch (Exception ex)
@@ -126,6 +146,92 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
                 }
                 throw;
             }
+        }
+
+        public void InitializeRepositoryContext(string owner, string name, string path)
+        {
+            bool isRootDir = false;
+            bool isFile = false;
+            bool isSubDir = false;
+            bool isDir = false;
+            string actualPath = path;
+            var pathItems = path?.Split("/").ToList();
+            string branchName = "";
+
+            // owner/name
+            if (pathItems == null || pathItems.Count() == 0)
+            {
+                isDir = isRootDir = true;
+                branchName = Repository.DefaultBranchRef?.Name;
+            }
+            // owner/name/tree/main
+            else if (pathItems.Count() == 2)
+            {
+                isDir = isRootDir = true;
+                branchName = pathItems.ElementAt(1);
+
+                pathItems.RemoveRange(0, 2);
+                actualPath = string.Join("/", pathItems);
+            }
+            // owner/name/(tree|blob)/main/path
+            else if (pathItems.Count() > 2)
+            {
+                isRootDir = false;
+                branchName = pathItems.ElementAt(1);
+
+                isFile = pathItems.ElementAt(0).ToLower() == "blob" ? true : false;
+                isSubDir = isDir = pathItems.ElementAt(0).ToLower() == "tree" ? true : false;
+
+                pathItems.RemoveRange(0, 2);
+                actualPath = string.Join("/", pathItems);
+            }
+
+            ContextViewModel = new()
+            {
+                Repository = Repository,
+
+                BranchName = branchName,
+                IsDir = isDir,
+                IsFile = isFile,
+                IsSubDir = isSubDir,
+                IsRootDir = isRootDir,
+                Path = actualPath,
+            };
+        }
+
+        public void CreateTabHeader()
+        {
+            string header;
+            string description;
+            string url;
+            muxc.ImageIconSource icon;
+            
+            if (ContextViewModel.IsRootDir)
+            {
+                if (string.IsNullOrEmpty(Repository.Description))
+                {
+                    header = $"{Repository.Owner.Login}/{Repository.Name}";
+                }
+                else
+                {
+                    header = $"{Repository.Owner.Login}/{Repository.Name}: {Repository.Description}";
+                }
+            }
+            else
+            {
+                header = $"{Repository.Name}/{ContextViewModel.Path} at {ContextViewModel.BranchName} · {Repository.Owner.Login}/{Repository.Name}";
+            }
+
+            description = header;
+            url = Repository.Url;
+
+            icon = new muxc.ImageIconSource
+            {
+                ImageSource = new BitmapImage(new("ms-appx:///Assets/Icons/Repositories.png"))
+            };
+
+            NavigationHistory<Services.Navigation.PageNavigationEntry>
+                .SetCurrentItem(header, description, url, icon);
         }
     }
 }
