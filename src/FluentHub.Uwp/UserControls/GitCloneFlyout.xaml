@@ -24,6 +24,7 @@
     </UserControl.Resources>
 
     <StackPanel Width="340">
+
         <muxc:NavigationView
             x:Name="GitCloneFlyoutNavView"
             Margin="0"
@@ -32,6 +33,7 @@
             IsSettingsVisible="False"
             ItemInvoked="GitCloneFlyoutNavView_ItemInvoked"
             PaneDisplayMode="Top">
+
             <muxc:NavigationView.MenuItems>
                 <muxc:NavigationViewItem
                     Content="HTTPS"
@@ -40,8 +42,8 @@
                 <muxc:NavigationViewItem Content="SSH" Tag="Ssh" />
                 <muxc:NavigationViewItem Content="GitHub CLI" Tag="GitHubCli" />
             </muxc:NavigationView.MenuItems>
-            <muxc:NavigationView.PaneFooter>
 
+            <muxc:NavigationView.PaneFooter>
                 <Button
                     Margin="0,0,8,0"
                     HorizontalAlignment="Stretch"
@@ -53,8 +55,8 @@
                         <TextBlock Text="Git" />
                     </StackPanel>
                 </Button>
-
             </muxc:NavigationView.PaneFooter>
+
         </muxc:NavigationView>
 
         <MenuFlyoutSeparator Margin="-4,0,-4,8" />

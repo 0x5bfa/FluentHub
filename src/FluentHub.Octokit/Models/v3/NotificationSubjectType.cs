@@ -2,11 +2,15 @@
 {
     public enum NotificationSubjectType
     {
+        Issue,
+
         IssueOpen,
 
         IssueClosedAsCompleted,
 
         IssueClosedAsNotPlanned,
+
+        PullRequest,
 
         PullRequestOpen,
 

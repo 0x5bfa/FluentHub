@@ -57,7 +57,7 @@
                 Opacity="0.1"
                 Visibility="{x:Bind ViewModel.Item.Unread, Mode=OneWay}" />
 
-            <Grid Margin="0,0,3,0">
+            <Grid Margin="0,0,8,0">
                 <toolkit:SwitchPresenter TargetType="modelsV3:NotificationSubjectType" Value="{x:Bind ViewModel.Item.Subject.Type, Mode=OneWay}">
 
                     <toolkit:Case Value="IssueClosedAsCompleted">
@@ -124,9 +124,11 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <StackPanel Orientation="Horizontal" Spacing="4">
+
                     <TextBlock
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         Style="{StaticResource CaptionTextBlockStyle}"
@@ -170,6 +172,14 @@
                     Margin="0,4"
                     Style="{StaticResource BodyStrongTextBlockStyle}"
                     Text="{x:Bind ViewModel.Item.Subject.Title, Mode=OneWay}" />
+
+                <TextBlock
+                    x:Name="ReasonTextBlock"
+                    Grid.Row="3"
+                    Margin="0,4,0,-4"
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="{x:Bind ViewModel.Item.Reason, Mode=OneWay}" />
 
             </Grid>
 

@@ -8,7 +8,7 @@
         {
             Secrets = secrets;
 
-            OctokitOriginal.OauthLoginRequest request = new(Secrets.ClientId)
+            OctokitV3.OauthLoginRequest request = new(Secrets.ClientId)
             {
                 // All scopes
                 Scopes = {
@@ -39,7 +39,7 @@
         {
             if (Secrets == null) return null; 
 
-            var request = new OctokitOriginal.OauthTokenRequest(Secrets.ClientId, Secrets.ClientSecret, code);
+            var request = new OctokitV3.OauthTokenRequest(Secrets.ClientId, Secrets.ClientSecret, code);
             var token = await App.Client.Oauth.CreateAccessToken(request);
 
             if (token != null)

@@ -22,17 +22,25 @@
             <Grid RowSpacing="8">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <uc:RepositoryOverview ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
+                <uc:RepositoryOverview Margin="0,0,8,0" ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
+
+                <uc:PullRequestOverview
+                    Grid.Row="1"
+                    Margin="0,0,8,0"
+                    ViewModel="{x:Bind ViewModel.PullRequestOverviewViewModel, Mode=OneWay}" />
 
                 <Grid
-                    Grid.Row="1"
+                    Grid.Row="2"
+                    Margin="0,0,8,8"
                     Padding="32"
                     Background="{ThemeResource CardBackgroundFillColorSecondary}"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1"
+                    ColumnSpacing="24"
                     CornerRadius="8">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3*" />
@@ -42,11 +50,11 @@
                             MaxWidth="400" />
                     </Grid.ColumnDefinitions>
 
-                    <StackPanel x:Name="PullRequestContentPanel" Padding="12,0">
+                    <StackPanel x:Name="PullRequestContentPanel" Margin="0,-32,0,0">
 
                         <Border
                             Width="1.5"
-                            Height="16"
+                            Height="24"
                             Margin="36,0,0,0"
                             HorizontalAlignment="Left"
                             Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
@@ -57,7 +65,7 @@
 
                     <StackPanel
                         Grid.Column="1"
-                        Margin="0,32,30,0"
+                        Margin="0,4,0,0"
                         Spacing="12">
                         <StackPanel Spacing="12">
 

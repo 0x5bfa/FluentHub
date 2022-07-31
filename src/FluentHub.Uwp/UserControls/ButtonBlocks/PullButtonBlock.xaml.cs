@@ -34,14 +34,14 @@ namespace FluentHub.Uwp.UserControls.ButtonBlocks
 
         private void OnClick(object sender, RoutedEventArgs e)
         {
-            //var navService = App.Current.Services.GetRequiredService<INavigationService>();
-            //navService.Navigate<Views.Repositories.PullRequests.PullRequestPage>(
-            //    new FrameNavigationArgs()
-            //    {
-            //        Login = ViewModel.PullItem.Repository.Owner.Login,
-            //        Name = ViewModel.PullItem.Repository.Name,
-            //        Number = ViewModel.PullItem.Number,
-            //    });
+            var navService = App.Current.Services.GetRequiredService<INavigationService>();
+            navService.Navigate<Views.Repositories.PullRequests.ConversationPage>(
+                new FrameNavigationArgs()
+                {
+                    Login = ViewModel.PullItem.Repository.Owner.Login,
+                    Name = ViewModel.PullItem.Repository.Name,
+                    Number = ViewModel.PullItem.Number,
+                });
         }
     }
 }

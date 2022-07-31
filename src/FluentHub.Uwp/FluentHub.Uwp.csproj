@@ -184,7 +184,10 @@
     <Compile Include="Services\Navigation\TabViewSelectionChangedEventArgs.cs" />
     <Compile Include="Services\OctokitSecretsService.cs" />
     <Compile Include="Services\ToastService.cs" />
-    <Compile Include="UserControls\AvatarControl.xaml.cs">
+    <Compile Include="UserControls\Overview\AppSettingsOverview.xaml.cs">
+      <DependentUpon>AppSettingsOverview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\PrimerControls\AvatarControl.xaml.cs">
       <DependentUpon>AvatarControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Blocks\BranchName.xaml.cs">
@@ -214,13 +217,13 @@
     <Compile Include="UserControls\ButtonBlocks\ProjectButtonBlock.xaml.cs">
       <DependentUpon>ProjectButtonBlock.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\ColorfulBar.xaml.cs">
-      <DependentUpon>ColorfulBar.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\OrganizationProfileOverview.xaml.cs">
+    <Compile Include="UserControls\Overview\OrganizationProfileOverview.xaml.cs">
       <DependentUpon>OrganizationProfileOverview.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\RepositoryOverview.xaml.cs">
+    <Compile Include="UserControls\Overview\PullRequestOverview.xaml.cs">
+      <DependentUpon>PullRequestOverview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Overview\RepositoryOverview.xaml.cs">
       <DependentUpon>RepositoryOverview.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\TabViewControl\TabItem.cs" />
@@ -281,9 +284,6 @@
     <Compile Include="UserControls\Blocks\LatestCommitBlock.xaml.cs">
       <DependentUpon>LatestCommitBlock.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\RestartInfoBar.xaml.cs">
-      <DependentUpon>RestartInfoBar.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\SettingsBlockControl.xaml.cs">
       <DependentUpon>SettingsBlockControl.xaml</DependentUpon>
     </Compile>
@@ -293,7 +293,7 @@
     <Compile Include="UserControls\TitleBar.xaml.cs">
       <DependentUpon>TitleBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\UserProfileOverview.xaml.cs">
+    <Compile Include="UserControls\Overview\UserProfileOverview.xaml.cs">
       <DependentUpon>UserProfileOverview.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\ILogger.cs" />
@@ -361,9 +361,10 @@
     <Compile Include="ViewModels\UserControls\ButtonBlocks\UserButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Labels\LabelControlViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Labels\StatusLabelViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\OrganizationProfileOverviewViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\RepositoryOverviewViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\UserProfileOverviewViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Overview\OrganizationProfileOverviewViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Overview\PullRequestOverviewViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Overview\RepositoryOverviewViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Overview\UserProfileOverviewViewModel.cs" />
     <Compile Include="ViewModels\Users\DiscussionsViewModel.cs" />
     <Compile Include="ViewModels\Users\FollowersViewModel.cs" />
     <Compile Include="ViewModels\Users\FollowingViewModel.cs" />
@@ -505,8 +506,8 @@
     <Compile Include="Views\Home\UserHomePage.xaml.cs">
       <DependentUpon>UserHomePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Home\ActivitiesPage.xaml.cs">
-      <DependentUpon>ActivitiesPage.xaml</DependentUpon>
+    <Compile Include="Views\Home\FeedsPage.xaml.cs">
+      <DependentUpon>FeedsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Users\OverviewPage.xaml.cs">
       <DependentUpon>OverviewPage.xaml</DependentUpon>
@@ -782,7 +783,11 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
-    <Page Include="UserControls\AvatarControl.xaml">
+    <Page Include="UserControls\Overview\AppSettingsOverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\PrimerControls\AvatarControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -858,10 +863,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\ColorfulBar.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UserControls\HoverCards\OrganizationCardFlyout.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -870,11 +871,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\OrganizationProfileOverview.xaml">
+    <Page Include="UserControls\Overview\OrganizationProfileOverview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\RepositoryOverview.xaml">
+    <Page Include="UserControls\Overview\PullRequestOverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Overview\RepositoryOverview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -910,10 +915,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\RestartInfoBar.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UserControls\SettingsBlockControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -926,7 +927,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\UserProfileOverview.xaml">
+    <Page Include="UserControls\Overview\UserProfileOverview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1103,7 +1104,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Home\ActivitiesPage.xaml">
+    <Page Include="Views\Home\FeedsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1200,6 +1201,7 @@
   <ItemGroup>
     <PRIResource Include="Strings\en-US\Resources.resw" />
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '17.0' ">
     <VisualStudioVersion>17.0</VisualStudioVersion>
   </PropertyGroup>

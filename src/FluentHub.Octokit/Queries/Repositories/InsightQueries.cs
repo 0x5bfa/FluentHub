@@ -10,8 +10,8 @@
             //var contributors = await App.Client.Repository.Statistics.GetContributors(owner, name);
             //var participation = await App.Client.Repository.Statistics.GetParticipation(owner, name);
             //var allreferrers  = await App.Client.Repository.Traffic.GetAllReferrers(owner, name);
-            //var clones = await App.Client.Repository.Traffic.GetClones(owner, name, new OctokitOriginal.RepositoryTrafficRequest());
-            //var views = await App.Client.Repository.Traffic.GetViews(owner, name, new OctokitOriginal.RepositoryTrafficRequest());
+            //var clones = await App.Client.Repository.Traffic.GetClones(owner, name, new OctokitV3.RepositoryTrafficRequest());
+            //var views = await App.Client.Repository.Traffic.GetViews(owner, name, new OctokitV3.RepositoryTrafficRequest());
             //var allpaths = await App.Client.Repository.Traffic.GetAllPaths(owner, name);
         }
     }

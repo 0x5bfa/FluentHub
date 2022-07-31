@@ -4,13 +4,16 @@
     {
         public static void InitializeApiConnections(string accessToken)
         {
+            App.AccessToken = accessToken;
+
             // Octokit.NET
-            App.Client.Credentials = new OctokitOriginal.Credentials(accessToken);
+            App.Client.Credentials = new OctokitV3.Credentials(accessToken);
 
             // Octokit.GraphQL.NET
             App.Connection = new Connection(App.ProductInformation, accessToken);
 
-            App.AccessToken = accessToken;
+            // GraphQL.NET
+            App.GraphQLHttpClient.HttpClient.DefaultRequestHeaders.Add("Authorization", $"bearer {accessToken}");
         }
     }
 }

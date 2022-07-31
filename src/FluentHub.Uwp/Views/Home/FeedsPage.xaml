@@ -45,15 +45,14 @@
         </Grid.ColumnDefinitions>
 
         <ScrollViewer>
-            <Grid Margin="12" RowSpacing="12">
+            <Grid Margin="32,24,24,24" RowSpacing="12">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <Grid Margin="4,0">
+                <Grid>
                     <TextBlock
-                        Margin="0,8"
                         VerticalAlignment="Center"
                         Style="{StaticResource SubtitleTextBlockStyle}"
                         Text="Repositories" />
@@ -73,7 +72,7 @@
 
                     <ListView
                         x:Name="HomeRepositoriesListItem"
-                        Margin="-4,0"
+                        Margin="-12,0"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
                         IsItemClickEnabled="True"
@@ -123,7 +122,7 @@
         <toolkit:GridSplitter Grid.Column="1" Style="{StaticResource DefaultGridSplitterStyle}" />
 
         <ScrollViewer Grid.Column="2">
-            <Grid Margin="16">
+            <Grid Margin="24,24,32,24" RowSpacing="8">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
@@ -149,10 +148,6 @@
             VerticalAlignment="Center"
             TargetType="x:Boolean"
             Value="{x:Bind ViewModel.RefreshActivitiesCommand.IsRunning, Mode=OneWay}">
-
-            <toolkit:Case Value="True">
-                <muxc:ProgressRing IsActive="True" />
-            </toolkit:Case>
 
             <toolkit:Case Value="False">
                 <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.RefreshActivitiesCommand.ExecutionTask.IsFaulted, Mode=OneWay}">

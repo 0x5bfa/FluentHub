@@ -15,13 +15,16 @@
         Height="84"
         Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
         CornerRadius="42">
+
         <Image x:Name="UserAvatarImage">
             <Image.Source>
+
                 <BitmapImage
                     x:Name="BitMapImage"
                     DecodePixelHeight="128"
                     DecodePixelWidth="128" />
             </Image.Source>
         </Image>
+
     </Border>
 </UserControl>

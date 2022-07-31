@@ -79,12 +79,5 @@
 
             </Grid>
         </ScrollViewer>
-
-        <uc:RestartInfoBar
-            x:Name="RestartInfoBar"
-            Grid.Row="1"
-            Margin="0,0,16,0"
-            VerticalAlignment="Bottom"
-            x:Load="{x:Bind ViewModel.ShowRestartMessage, Mode=OneWay}" />
     </Grid>
 </Page>
