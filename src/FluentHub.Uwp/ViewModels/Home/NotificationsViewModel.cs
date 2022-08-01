@@ -43,6 +43,7 @@ namespace FluentHub.Uwp.ViewModels.Home
         {
             try
             {
+                _logger?.Error("Entered LoadNotificationsAsync()");
                 _messenger?.Send(new LoadingMessaging(true));
 
                 if (_loadedToTheEnd) return;
