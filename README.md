@@ -35,15 +35,16 @@
 
 ### Via Microsoft Store
 
-This is our preferred method. This allows you to always be on the latest version when we release new builds with automatic updates.
+~This is our preferred method.~ This allows you to always be on the latest version when we release new builds with automatic updates.
 
 <a title="Microsoft Store" target="_blank" href="https://apps.microsoft.com/store/detail/fluenthub/9nkb9hx8rjz3">
   <img width="128" align="center" src="https://getbadgecdn.azureedge.net/images/English_L.png" />
 </a>
 
-### Via GitHub
+### Via GitHub ⭐Recommended⭐
 
-Released builds can be manually downloaded from this repository's Releases page.
+This is our preferred method.
+Released builds can be manually downloaded from this [repository's Releases page](https://github.com/FluentHub/FluentHub/releases).
 
 Download the `FluentHub_<versionNumber>.msixbundle` file from the `Assets` section. In order too install the app, you can simply double-click on the .msixbundle file, and the app installer should automatically run. If that fails for any reason, you can try the following command at a PowerShell prompt:
 
