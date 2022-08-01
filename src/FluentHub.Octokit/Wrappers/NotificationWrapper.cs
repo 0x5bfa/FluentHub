@@ -111,6 +111,8 @@ namespace FluentHub.Octokit.Wrappers
                         }
                 }
 
+                indivisual.Subject.TypeHumanized = indivisual.Subject.Type.ToString();
+
                 notifications.Add(indivisual);
             }
 

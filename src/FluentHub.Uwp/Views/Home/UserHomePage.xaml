@@ -335,7 +335,7 @@
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
 
-                                            <toolkit:SwitchPresenter TargetType="modelsV3:NotificationSubjectType" Value="{x:Bind Subject.Type, Mode=OneWay}">
+                                            <toolkit:SwitchPresenter TargetType="x:String" Value="{x:Bind Subject.TypeHumanized, Mode=OneWay}">
 
                                                 <toolkit:Case Value="IssueClosedAsCompleted">
                                                     <FontIcon
