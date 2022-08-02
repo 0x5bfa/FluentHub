@@ -4,38 +4,56 @@
     {
         public async Task<List<Issue>> GetAllAsync(string login)
         {
-            OctokitGraphQLModel.IssueOrder order = new() { Direction = OctokitGraphQLModel.OrderDirection.Desc, Field = OctokitGraphQLModel.IssueOrderField.CreatedAt };
+            OctokitGraphQLModel.IssueOrder order = new()
+            {
+                Direction = OctokitGraphQLModel.OrderDirection.Desc,
+                Field = OctokitGraphQLModel.IssueOrderField.CreatedAt
+            };
 
-            #region query
             var query = new Query()
                 .User(login)
                 .Issues(first: 30, orderBy: order)
                 .Nodes
                 .Select(x => new Issue
                 {
-                    OwnerAvatarUrl = x.Repository.Owner.AvatarUrl(100),
-                    OwnerLogin = x.Repository.Owner.Login,
-                    Name = x.Repository.Name,
-                    Title = x.Title,
-
                     Closed = x.Closed,
-
                     Number = x.Number,
-                    CommentCount = x.Comments(null, null, null, null, null).TotalCount,
-
-                    Labels = x.Labels(10, null, null, null, null).Nodes.Select(y => new Label
-                    {
-                        Color = y.Color,
-                        Description = y.Description,
-                        Name = y.Name,
-                    })
-                    .ToList(),
-
+                    Title = x.Title,
                     UpdatedAt = x.UpdatedAt,
-                    UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
+
+                    Repository = x.Repository.Select(repo => new Repository
+                    {
+                        Name = repo.Name,
+
+                        Owner = repo.Owner.Select(owner => new RepositoryOwner
+                        {
+                            AvatarUrl = owner.AvatarUrl(100),
+                            Id = owner.Id,
+                            Login = owner.Login,
+                        })
+                        .SingleOrDefault(),
+                    })
+                    .SingleOrDefault(),
+
+                    Comments = x.Comments(null, null, null, null, null).Select(comments => new IssueCommentConnection
+                    {
+                        TotalCount = comments.TotalCount,
+                    })
+                    .SingleOrDefault(),
+
+                    Labels = x.Labels(10, null, null, null, null).Select(labels => new LabelConnection
+                    {
+                        Nodes = labels.Nodes.Select(y => new Label
+                        {
+                            Color = y.Color,
+                            Description = y.Description,
+                            Name = y.Name,
+                        })
+                        .ToList(),
+                    })
+                    .SingleOrDefault(),
                 })
                 .Compile();
-            #endregion
 
             var response = await App.Connection.Run(query);
 

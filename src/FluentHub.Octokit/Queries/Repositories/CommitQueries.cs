@@ -8,26 +8,45 @@
 
             #region query
             var query = new Query()
-                    .Repository(name, owner)
-                    .Ref(refs)
-                    .Target
-                    .Cast<OctokitGraphQLModel.Commit>()
-                    .History(first: 30, path: path)
-                    .Nodes
-                    .Select(x => new Commit
+                .Repository(name, owner)
+                .Ref(refs)
+                .Target
+                .Cast<OctokitGraphQLModel.Commit>()
+                .History(first: 30, path: path)
+                .Nodes
+                .Select(x => new Commit
+                {
+                    AbbreviatedOid = x.AbbreviatedOid,
+                    Oid = x.Oid,
+                    CommittedDate = x.CommittedDate,
+                    Message = x.Message,
+                    MessageHeadline = x.MessageHeadline,
+
+                    Repository = x.Repository.Select(repo => new Repository
                     {
-                        Owner = x.Repository.Owner.Login,
-                        Name = x.Repository.Name,
-                        Refs = refs,
-                        AbbreviatedOid = x.AbbreviatedOid,
-                        Oid = x.Oid,
-                        AuthorAvatarUrl = x.Author.AvatarUrl(100),
-                        AuthorName = x.Author.User.Login,
-                        CommittedAt = x.CommittedDate,
-                        CommitMessage = x.Message,
-                        CommitMessageHeadline = x.MessageHeadline,
+                        Name = repo.Name,
+                        Owner = repo.Owner.Select(owner => new RepositoryOwner
+                        {
+                            Login = owner.Login,
+                        })
+                        .Single(),
                     })
-                    .Compile();
+                    .Single(),
+
+                    //Refs = refs,
+
+                    Author = x.Author.Select(author => new GitActor
+                    {
+                        AvatarUrl = author.AvatarUrl(100),
+                        User = author.User.Select(user => new User
+                        {
+                            Login = user.Login,
+                        })
+                        .Single(),
+                    })
+                    .Single(),
+                })
+                .Compile();
             #endregion
 
             var response = await App.Connection.Run(query);
@@ -37,73 +56,84 @@
 
         public async Task<List<Commit>> GetAllAsync(string owner, string name, int number)
         {
-            #region query
             var query = new Query()
-                    .Repository(name, owner)
-                    .PullRequest(number)
-                    .Commits(first: 30)
-                    .Nodes
-                    .Select(x => x.Commit.Select(y => new Commit
+                .Repository(name, owner)
+                .PullRequest(number)
+                .Commits(first: 30)
+                .Nodes
+                .Select(x => x.Commit.Select(y => new Commit
+                {
+                    AbbreviatedOid = y.AbbreviatedOid,
+                    CommittedDate = y.CommittedDate,
+                    Message = y.Message,
+                    MessageHeadline = y.MessageHeadline,
+                    Oid = y.Oid,
+
+                    Author = new()
                     {
-                        Owner = owner,
-                        Name = name,
-                        PullRequestNumber = number,
-                        AbbreviatedOid = y.AbbreviatedOid,
-                        Oid = y.Oid,
-                        AuthorAvatarUrl = y.Author.AvatarUrl(100),
-                        AuthorName = y.Author.User.Login,
-                        CommittedAt = y.CommittedDate,
-                        CommitMessage = y.Message,
-                        CommitMessageHeadline = y.MessageHeadline,
-                    })
-                    .Single())
-                    .Compile();
-            #endregion
+                        AvatarUrl = y.Author.AvatarUrl(100),
+                        User = y.Author.User.Select(user => new User
+                        {
+                            Login = user.Login,
+                        })
+                        .Single(),
+                    },
+                })
+                .Single())
+                .Compile();
 
             var result = await App.Connection.Run(query);
 
             return result.ToList();
         }
 
-        public async Task<Commit> GetAsync(string name, string owner, string refs, string path)
+        public async Task<Commit> GetLatestAsync(string name, string owner, string refs, string path)
         {
-            if (string.IsNullOrEmpty(path)) path = ".";
+            if (string.IsNullOrEmpty(path))
+                path = ".";
 
-            #region query
             var query = new Query()
-                    .Repository(name, owner)
-                    .Ref(refs)
-                    .Target
-                    .Cast<OctokitGraphQLModel.Commit>()
-                    .History(first: 1, path: path)
-                    .Select(x => new
+                .Repository(name, owner)
+                .Ref(refs)
+                .Target
+                .Cast<OctokitGraphQLModel.Commit>()
+                .Select(commit => new Commit
+                {
+                    History = commit.History(1, null, null, null, null, path, null, null).Select(history => new CommitHistoryConnection
                     {
-                        Commit = x.Nodes.Select(y => new Commit
+                        Nodes = history.Nodes.Select(y => new Commit
                         {
                             AbbreviatedOid = y.AbbreviatedOid,
-                            Oid =y.Oid,
-                            AuthorAvatarUrl = y.Author.Select(author => author.AvatarUrl(100)).SingleOrDefault(),
-                            AuthorName = y.Author.Select(author => author.User.Select(user => user.Login).SingleOrDefault()).SingleOrDefault(),
-                            CommitMessage = y.Message,
+                            Oid = y.Oid,
+                            CommittedDate = y.CommittedDate,
+                            Message = y.Message,
+                            MessageHeadline = y.MessageHeadline,
 
-                            CommittedAt = y.CommittedDate,
-                            CommittedAtHumanized = y.CommittedDate.Humanize(null, null),
+                            Author = y.Author.Select(author => new GitActor
+                            {
+                                AvatarUrl = author.AvatarUrl(100),
+                                User = author.User.Select(user => new User
+                                {
+                                    Login = user.Login,
+                                })
+                                .SingleOrDefault(),
+                            })
+                            .SingleOrDefault(),
                         })
-                        .ToList().FirstOrDefault(),
+                        .ToList(),
 
-                        x.TotalCount,
+                        TotalCount = history.TotalCount,
                     })
-                    .Compile();
-            #endregion
+                    .SingleOrDefault(),
+                })
+                .Compile();
 
             var response = await App.Connection.Run(query);
 
-            response.Commit.TotalCount = response.TotalCount;
-
-            return response.Commit;
+            return response;
         }
 
-        public async Task<List<Commit>> GetWithObjectNameAsync(string name, string owner, string refs, string path)
+        public async Task<(List<TreeEntry> Files, List<Commit> Commits)> GetWithObjectNameAsync(string name, string owner, string refs, string path)
         {
             #region objectQuery
             var queryToGetFileInfo = new Query()
@@ -111,11 +141,11 @@
                 .Object(expression: refs + ":" + path)
                 .Cast<OctokitGraphQLModel.Tree>()
                 .Entries
-                .Select(x => new
+                .Select(x => new TreeEntry
                 {
-                    x.Name,
-                    x.Path,
-                    x.Type,
+                    Name = x.Name,
+                    Path = x.Path,
+                    Type = x.Type,
                 })
                 .Compile();
             #endregion
@@ -137,16 +167,20 @@
                     {
                         Commit = x.Nodes.Select(y => new Commit
                         {
-                            FileName = res1.Name,
-                            FilePath = res1.Path,
-                            ObjectType = res1.Type,
                             AbbreviatedOid = y.AbbreviatedOid,
-                            AuthorAvatarUrl = y.Author.AvatarUrl(100),
-                            AuthorName = y.Author.Name,
-                            CommitMessage = y.Message,
+                            Message = y.Message,
+                            CommittedDate = y.CommittedDate,
 
-                            CommittedAt = y.CommittedDate,
-                            CommittedAtHumanized = y.CommittedDate.Humanize(null, null),
+                            Author = new()
+                            {
+                                AvatarUrl = y.Author.AvatarUrl(100),
+
+                                User = y.Author.User.Select(user => new User
+                                {
+                                    Login = user.Login,
+                                })
+                                .SingleOrDefault(),
+                            },
                         })
                         .ToList()
                         .FirstOrDefault(),
@@ -158,12 +192,12 @@
 
                 var response2 = await App.Connection.Run(commitQuery);
 
-                response2.Commit.TotalCount = response2.TotalCount;
-
                 items.Add(response2.Commit);
             }
 
-            return items;
+            (List<TreeEntry> Files, List<Commit> Commits) results = (response1.ToList(), items);
+
+            return results;
         }
     }
 }

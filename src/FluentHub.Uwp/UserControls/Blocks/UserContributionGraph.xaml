@@ -1,0 +1,170 @@
+﻿<UserControl
+    x:Class="FluentHub.Uwp.UserControls.Blocks.UserContributionGraph"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
+    xmlns:converters="using:FluentHub.Uwp.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:FluentHub.Uwp.UserControls.Blocks"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:vm="using:FluentHub.Uwp.ViewModels.UserControls.Blocks"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <UserControl.DataContext>
+        <vm:UserContributionGraphViewModel x:Name="ViewModel" />
+    </UserControl.DataContext>
+    <UserControl.Resources>
+        <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+    </UserControl.Resources>
+
+    <Grid
+        Grid.Row="1"
+        Background="{ThemeResource CardBackgroundFillColorSecondary}"
+        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+        BorderThickness="1"
+        CornerRadius="8"
+        RowSpacing="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Padding="32,8,32,0">
+            <StackPanel Orientation="Horizontal" Spacing="4">
+
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                    Text="{x:Bind ViewModel.Calendar.TotalContributions, Mode=OneWay}" />
+
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                    Text="contributions in the last year" />
+
+            </StackPanel>
+
+            <StackPanel
+                HorizontalAlignment="Right"
+                Orientation="Horizontal"
+                Spacing="4">
+
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="Less" />
+
+                <Border
+                    Width="14"
+                    Height="14"
+                    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="3" />
+
+                <Border
+                    Width="14"
+                    Height="14"
+                    Background="#0e4429"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="3" />
+
+                <Border
+                    Width="14"
+                    Height="14"
+                    Background="#006d32"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="3" />
+
+                <Border
+                    Width="14"
+                    Height="14"
+                    Background="#26a641"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="3" />
+
+                <Border
+                    Width="14"
+                    Height="14"
+                    Background="#39d353"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="3" />
+
+                <TextBlock
+                    VerticalAlignment="Center"
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="More" />
+
+                <Button
+                    x:Name="SettingsButton"
+                    Width="36"
+                    Height="32"
+                    Margin="12,0,0,0"
+                    Padding="0"
+                    HorizontalAlignment="Right"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    IsEnabled="False">
+                    <muxc:AnimatedIcon x:Name="SettingAnimatedIcon" Height="16">
+                        <muxc:AnimatedIcon.Source>
+                            <animatedvisuals:AnimatedSettingsVisualSource />
+                        </muxc:AnimatedIcon.Source>
+                        <muxc:AnimatedIcon.FallbackIconSource>
+                            <muxc:SymbolIconSource Symbol="Setting" />
+                        </muxc:AnimatedIcon.FallbackIconSource>
+                    </muxc:AnimatedIcon>
+                </Button>
+            </StackPanel>
+
+        </Grid>
+
+        <MenuFlyoutSeparator Grid.Row="1" />
+
+        <TextBlock
+            Grid.Row="2"
+            Margin="32"
+            HorizontalAlignment="Center"
+            Text="Disabled for now." />
+
+        <!--<muxc:ItemsRepeater
+            Grid.Row="2"
+            Height="122"
+            ItemsSource="{x:Bind ViewModel.Calendar.ContributionDays, Mode=OneWay}">
+
+            <muxc:ItemsRepeater.Layout>
+                <toolkit:WrapLayout
+                    HorizontalSpacing="4"
+                    Orientation="Vertical"
+                    VerticalSpacing="4" />
+            </muxc:ItemsRepeater.Layout>
+
+            <DataTemplate x:DataType="models:CalendarDay">
+                <Grid
+                    Width="14"
+                    Height="14"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="3"
+                    ToolTipService.ToolTip="{x:Bind ContributionCount, Mode=OneWay}"
+                    Visibility="{x:Bind Visibility, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+                    <Grid.Background>
+                        <SolidColorBrush Color="{x:Bind Color, Mode=OneWay}" />
+                    </Grid.Background>
+                </Grid>
+            </DataTemplate>
+
+        </muxc:ItemsRepeater>-->
+    </Grid>
+</UserControl>
