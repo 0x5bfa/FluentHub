@@ -7,7 +7,8 @@ namespace FluentHub.Octokit.Models.v4
     /// The auto-trigger preferences that are available for check suites.
     /// </summary>
     public class CheckSuiteAutoTriggerPreference
-    {        /// <summary>
+    {
+        /// <summary>
         /// The node ID of the application that owns the check suite.
         /// </summary>
         public ID AppId { get; set; }

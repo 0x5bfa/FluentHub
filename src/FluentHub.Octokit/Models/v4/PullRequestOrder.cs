@@ -7,7 +7,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Ways in which lists of issues can be ordered upon return.
     /// </summary>
     public class PullRequestOrder
-    {        /// <summary>
+    {
+        /// <summary>
         /// The field in which to order pull requests by.
         /// </summary>
         public PullRequestOrderField Field { get; set; }

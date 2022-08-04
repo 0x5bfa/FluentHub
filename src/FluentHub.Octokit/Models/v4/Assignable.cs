@@ -9,7 +9,8 @@ namespace FluentHub.Octokit.Models.v4
     /// An object that can have users assigned to it.
     /// </summary>
     public interface IAssignable
-    {        /// <summary>
+    {
+        /// <summary>
         /// A list of Users assigned to this object.
         /// </summary>
         /// <param name="first">Returns the first _n_ elements from the list.</param>

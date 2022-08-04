@@ -7,7 +7,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Ordering options for Audit Log connections.
     /// </summary>
     public class AuditLogOrder
-    {        /// <summary>
+    {
+        /// <summary>
         /// The field to order Audit Logs by.
         /// </summary>
         public AuditLogOrderField? Field { get; set; }

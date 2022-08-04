@@ -7,7 +7,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Specifies a review comment to be left with a Pull Request Review.
     /// </summary>
     public class DraftPullRequestReviewComment
-    {        /// <summary>
+    {
+        /// <summary>
         /// Path to the file being commented on.
         /// </summary>
         public string Path { get; set; }

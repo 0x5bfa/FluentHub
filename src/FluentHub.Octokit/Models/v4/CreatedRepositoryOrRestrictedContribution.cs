@@ -9,15 +9,14 @@ namespace FluentHub.Octokit.Models.v4
     /// </summary>
     public class CreatedRepositoryOrRestrictedContribution
     {
-        
         /// <summary>
         /// Represents the contribution a user made on GitHub by creating a repository.
         /// </summary>
-            public CreatedRepositoryContribution CreatedRepositoryContribution { get; set; }
+        public CreatedRepositoryContribution CreatedRepositoryContribution { get; set; }
 
         /// <summary>
         /// Represents a private contribution a user made on GitHub.
         /// </summary>
-            public RestrictedContribution RestrictedContribution { get; set; }
+        public RestrictedContribution RestrictedContribution { get; set; }
     }
 }

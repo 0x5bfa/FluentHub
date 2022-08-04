@@ -14,9 +14,11 @@
 
     <Page.Resources>
         <ResourceDictionary>
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ms-appx:///ResourceDictionaries/DefaultGridSplitterStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
+
             <SolidColorBrush x:Key="ExpanderHeaderBackground" Color="Transparent" />
             <SolidColorBrush x:Key="ExpanderHeaderBorderBrush" Color="Transparent" />
             <SolidColorBrush x:Key="ExpanderHeaderBorderPointerOverBrush" Color="Transparent" />
@@ -25,11 +27,14 @@
             <SolidColorBrush x:Key="ExpanderContentBorderBrush" Color="Transparent" />
             <x:Double x:Key="ExpanderMinHeight">0</x:Double>
             <Thickness x:Key="ExpanderContentPadding">0</Thickness>
+
             <Style TargetType="muxc:Expander">
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             </Style>
+
             <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+
         </ResourceDictionary>
     </Page.Resources>
 

@@ -9,7 +9,8 @@ namespace FluentHub.Octokit.Models.v4
     /// An object with an ID.
     /// </summary>
     public interface INode
-    {        /// <summary>
+    {
+        /// <summary>
         /// ID of the object.
         /// </summary>
         ID Id { get; set; }

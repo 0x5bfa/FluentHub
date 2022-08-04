@@ -7,7 +7,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Ordering options for Sponsors tiers connections.
     /// </summary>
     public class SponsorsTierOrder
-    {        /// <summary>
+    {
+        /// <summary>
         /// The field to order tiers by.
         /// </summary>
         public SponsorsTierOrderField Field { get; set; }

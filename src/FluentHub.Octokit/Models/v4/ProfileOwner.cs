@@ -9,7 +9,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Represents any entity on GitHub that has a profile page.
     /// </summary>
     public interface IProfileOwner
-    {        /// <summary>
+    {
+        /// <summary>
         /// Determine if this repository owner has any items that can be pinned to their profile.
         /// </summary>
         /// <param name="type">Filter to only a particular kind of pinnable item.</param>

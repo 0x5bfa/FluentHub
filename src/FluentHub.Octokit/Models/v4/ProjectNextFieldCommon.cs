@@ -9,10 +9,16 @@ namespace FluentHub.Octokit.Models.v4
     /// Common fields across different field types
     /// </summary>
     public interface IProjectNextFieldCommon
-    {        /// <summary>
+    {
+        /// <summary>
         /// Identifies the date and time when the object was created.
         /// </summary>
         DateTimeOffset CreatedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was created."
+        /// <summary>
+        string CreatedAtHumanized { get; set; }
 
         /// <summary>
         /// The field's type.
@@ -45,6 +51,11 @@ namespace FluentHub.Octokit.Models.v4
         /// Identifies the date and time when the object was last updated.
         /// </summary>
         DateTimeOffset UpdatedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was last updated."
+        /// <summary>
+        string UpdatedAtHumanized { get; set; }
     }
 }
 
@@ -58,6 +69,8 @@ namespace FluentHub.Octokit.Models.v4
     {
         [Obsolete(@"The `ProjectNext` API is deprecated in favour of the more capable `ProjectV2` API. Follow the ProjectV2 guide at https://github.blog/changelog/2022-06-23-the-new-github-issues-june-23rd-update/, to find a suitable replacement. Removal on 2022-10-01 UTC.")]
         public DateTimeOffset CreatedAt { get; set; }
+
+        public string CreatedAtHumanized { get; set; }
 
         [Obsolete(@"The `ProjectNext` API is deprecated in favour of the more capable `ProjectV2` API. Follow the ProjectV2 guide at https://github.blog/changelog/2022-06-23-the-new-github-issues-june-23rd-update/, to find a suitable replacement. Removal on 2022-10-01 UTC.")]
         public ProjectNextFieldType DataType { get; set; }
@@ -79,5 +92,7 @@ namespace FluentHub.Octokit.Models.v4
 
         [Obsolete(@"The `ProjectNext` API is deprecated in favour of the more capable `ProjectV2` API. Follow the ProjectV2 guide at https://github.blog/changelog/2022-06-23-the-new-github-issues-june-23rd-update/, to find a suitable replacement. Removal on 2022-10-01 UTC.")]
         public DateTimeOffset UpdatedAt { get; set; }
+
+        public string UpdatedAtHumanized { get; set; }
     }
 }

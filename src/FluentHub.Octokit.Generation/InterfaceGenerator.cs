@@ -34,6 +34,7 @@ namespace FluentHub.Octokit.Generation
             if (type.Fields?.Count > 0)
             {
                 var first = true;
+                builder.AppendLine();
 
                 foreach (var field in type.Fields)
                 {
@@ -125,7 +126,19 @@ namespace FluentHub.Octokit.Generation
         private static string GenerateScalarField(FieldModel field, TypeModel type)
         {
             var name = TypeUtilities.PascalCase(field.Name);
-            return $"        {TypeUtilities.GetCSharpReturnType(type)} {name} {{ get; set; }}";
+            string result = $"        {TypeUtilities.GetCSharpReturnType(type)} {name} {{ get; set; }}";
+
+            if (TypeUtilities.GetCSharpReturnType(type) == "DateTimeOffset"
+                || TypeUtilities.GetCSharpReturnType(type) == "DateTimeOffset?")
+            {
+                result += "\r\n\r\n";
+                result += $"        /// <summary>\r\n";
+                result += $"        /// Humanized string of \"{field.Description}\"\r\n";
+                result += $"        /// <summary>\r\n";
+                result += $"        string {name}Humanized {{ get; set; }}";
+            }
+
+            return result;
         }
 
         private static string GenerateObjectField(FieldModel field, TypeModel type)

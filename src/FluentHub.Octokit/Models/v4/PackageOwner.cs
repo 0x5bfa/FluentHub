@@ -9,7 +9,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Represents an owner of a package.
     /// </summary>
     public interface IPackageOwner
-    {        ID Id { get; set; }
+    {
+        ID Id { get; set; }
 
         /// <summary>
         /// A list of packages under the owner.

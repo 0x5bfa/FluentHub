@@ -7,7 +7,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Ordering options for sponsorship connections.
     /// </summary>
     public class SponsorshipOrder
-    {        /// <summary>
+    {
+        /// <summary>
         /// The field to order sponsorship by.
         /// </summary>
         public SponsorshipOrderField Field { get; set; }

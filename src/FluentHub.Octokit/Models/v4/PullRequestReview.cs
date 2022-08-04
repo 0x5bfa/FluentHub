@@ -59,6 +59,11 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset CreatedAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was created."
+        /// <summary>
+        public string CreatedAtHumanized { get; set; }
+
+        /// <summary>
         /// Check if this comment was created via an email reply.
         /// </summary>
         public bool CreatedViaEmail { get; set; }
@@ -86,6 +91,11 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset? LastEditedAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "The moment the editor made the last edit"
+        /// <summary>
+        public string LastEditedAtHumanized { get; set; }
+
+        /// <summary>
         /// A list of teams that this review was made on behalf of.
         /// </summary>
         /// <param name="first">Returns the first _n_ elements from the list.</param>
@@ -98,6 +108,11 @@ namespace FluentHub.Octokit.Models.v4
         /// Identifies when the comment was published at.
         /// </summary>
         public DateTimeOffset? PublishedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies when the comment was published at."
+        /// <summary>
+        public string PublishedAtHumanized { get; set; }
 
         /// <summary>
         /// Identifies the pull request associated with this pull request review.
@@ -141,9 +156,19 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset? SubmittedAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "Identifies when the Pull Request Review was submitted"
+        /// <summary>
+        public string SubmittedAtHumanized { get; set; }
+
+        /// <summary>
         /// Identifies the date and time when the object was last updated.
         /// </summary>
         public DateTimeOffset UpdatedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was last updated."
+        /// <summary>
+        public string UpdatedAtHumanized { get; set; }
 
         /// <summary>
         /// The HTTP URL permalink for this PullRequestReview.

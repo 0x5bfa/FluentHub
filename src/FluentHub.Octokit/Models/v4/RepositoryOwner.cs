@@ -9,7 +9,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Represents an owner of a Repository.
     /// </summary>
     public interface IRepositoryOwner
-    {        /// <summary>
+    {
+        /// <summary>
         /// A URL pointing to the owner's public avatar.
         /// </summary>
         /// <param name="size">The size of the resulting square image.</param>

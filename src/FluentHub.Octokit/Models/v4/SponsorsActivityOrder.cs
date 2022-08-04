@@ -7,7 +7,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Ordering options for GitHub Sponsors activity connections.
     /// </summary>
     public class SponsorsActivityOrder
-    {        /// <summary>
+    {
+        /// <summary>
         /// The field to order activity by.
         /// </summary>
         public SponsorsActivityOrderField Field { get; set; }

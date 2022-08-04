@@ -9,10 +9,16 @@ namespace FluentHub.Octokit.Models.v4
     /// A subset of repository info.
     /// </summary>
     public interface IRepositoryInfo
-    {        /// <summary>
+    {
+        /// <summary>
         /// Identifies the date and time when the object was created.
         /// </summary>
         DateTimeOffset CreatedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was created."
+        /// <summary>
+        string CreatedAtHumanized { get; set; }
 
         /// <summary>
         /// The description of the repository.
@@ -125,6 +131,11 @@ namespace FluentHub.Octokit.Models.v4
         DateTimeOffset? PushedAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "Identifies when the repository was last pushed to."
+        /// <summary>
+        string PushedAtHumanized { get; set; }
+
+        /// <summary>
         /// The HTTP path for this repository
         /// </summary>
         string ResourcePath { get; set; }
@@ -139,6 +150,11 @@ namespace FluentHub.Octokit.Models.v4
         /// Identifies the date and time when the object was last updated.
         /// </summary>
         DateTimeOffset UpdatedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was last updated."
+        /// <summary>
+        string UpdatedAtHumanized { get; set; }
 
         /// <summary>
         /// The HTTP URL for this repository
@@ -166,6 +182,8 @@ namespace FluentHub.Octokit.Models.v4
     public class RepositoryInfo : IRepositoryInfo
     {
         public DateTimeOffset CreatedAt { get; set; }
+
+        public string CreatedAtHumanized { get; set; }
 
         public string Description { get; set; }
 
@@ -211,11 +229,15 @@ namespace FluentHub.Octokit.Models.v4
 
         public DateTimeOffset? PushedAt { get; set; }
 
+        public string PushedAtHumanized { get; set; }
+
         public string ResourcePath { get; set; }
 
         public string ShortDescriptionHTML { get; set; }
 
         public DateTimeOffset UpdatedAt { get; set; }
+
+        public string UpdatedAtHumanized { get; set; }
 
         public string Url { get; set; }
 

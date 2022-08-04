@@ -9,7 +9,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Represents an author of discussions in repositories.
     /// </summary>
     public interface IRepositoryDiscussionAuthor
-    {        /// <summary>
+    {
+        /// <summary>
         /// Discussions this user has started.
         /// </summary>
         /// <param name="first">Returns the first _n_ elements from the list.</param>

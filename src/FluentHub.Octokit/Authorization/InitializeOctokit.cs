@@ -13,6 +13,7 @@
             App.Connection = new Connection(App.ProductInformation, accessToken);
 
             // GraphQL.NET
+            App.GraphQLHttpClient.HttpClient.DefaultRequestHeaders.Clear();
             App.GraphQLHttpClient.HttpClient.DefaultRequestHeaders.Add("Authorization", $"bearer {accessToken}");
         }
     }

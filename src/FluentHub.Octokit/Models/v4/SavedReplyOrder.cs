@@ -7,7 +7,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Ordering options for saved reply connections.
     /// </summary>
     public class SavedReplyOrder
-    {        /// <summary>
+    {
+        /// <summary>
         /// The field to order saved replies by.
         /// </summary>
         public SavedReplyOrderField Field { get; set; }

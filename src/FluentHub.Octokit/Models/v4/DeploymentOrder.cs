@@ -7,7 +7,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Ordering options for deployment connections
     /// </summary>
     public class DeploymentOrder
-    {        /// <summary>
+    {
+        /// <summary>
         /// The field to order deployments by.
         /// </summary>
         public DeploymentOrderField Field { get; set; }

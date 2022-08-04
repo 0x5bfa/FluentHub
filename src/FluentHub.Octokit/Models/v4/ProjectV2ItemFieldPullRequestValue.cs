@@ -21,6 +21,7 @@ namespace FluentHub.Octokit.Models.v4
         /// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
         /// <param name="last">Returns the last _n_ elements from the list.</param>
         /// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
+        /// <param name="orderBy">Ordering options for pull requests.</param>
         public PullRequestConnection PullRequests { get; set; }
     }
 }

@@ -40,6 +40,11 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset CreatedAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was created."
+        /// <summary>
+        public string CreatedAtHumanized { get; set; }
+
+        /// <summary>
         /// Check if this comment was created via an email reply.
         /// </summary>
         public bool CreatedViaEmail { get; set; }
@@ -77,6 +82,11 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset? LastEditedAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "The moment the editor made the last edit"
+        /// <summary>
+        public string LastEditedAtHumanized { get; set; }
+
+        /// <summary>
         /// Returns why the comment was minimized.
         /// </summary>
         public string MinimizedReason { get; set; }
@@ -85,6 +95,11 @@ namespace FluentHub.Octokit.Models.v4
         /// Identifies when the comment was published at.
         /// </summary>
         public DateTimeOffset? PublishedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies when the comment was published at."
+        /// <summary>
+        public string PublishedAtHumanized { get; set; }
 
         /// <summary>
         /// Returns the pull request associated with the comment, if this comment was made on a
@@ -122,6 +137,11 @@ namespace FluentHub.Octokit.Models.v4
         /// Identifies the date and time when the object was last updated.
         /// </summary>
         public DateTimeOffset UpdatedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was last updated."
+        /// <summary>
+        public string UpdatedAtHumanized { get; set; }
 
         /// <summary>
         /// The HTTP URL for this issue comment

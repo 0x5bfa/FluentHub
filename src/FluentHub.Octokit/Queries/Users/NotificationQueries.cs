@@ -55,7 +55,7 @@ namespace FluentHub.Octokit.Queries.Users
 
             var mappedNotifications = Map(notifications, zippedData);
 
-            return notifications;
+            return mappedNotifications;
         }
 
         private string GetGetheredRepositoryFragment(IReadOnlyList<Notification> notifications)
@@ -107,7 +107,7 @@ repo{index}: repository(name: ""{notifications.ElementAt(index).Repository.Name}
             return getheredFragments;
         }
 
-        private IReadOnlyList<Notification> Map(List<Notification> notifications, IReadOnlyList<Repository> details)
+        private List<Notification> Map(List<Notification> notifications, IReadOnlyList<Repository> details)
         {
             int index = 0;
 
@@ -174,6 +174,7 @@ repo{index}: repository(name: ""{notifications.ElementAt(index).Repository.Name}
                         }
                 }
 
+                item.Subject.TypeHumanized = item.Subject.Type.ToString();
                 index++;
             }
 

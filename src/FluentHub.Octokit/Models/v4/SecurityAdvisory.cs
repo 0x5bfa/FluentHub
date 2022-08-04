@@ -71,6 +71,11 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset PublishedAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "When the advisory was published"
+        /// <summary>
+        public string PublishedAtHumanized { get; set; }
+
+        /// <summary>
         /// A list of references for this advisory
         /// </summary>
         public List<SecurityAdvisoryReference> References { get; set; }
@@ -91,6 +96,11 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset UpdatedAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "When the advisory was last updated"
+        /// <summary>
+        public string UpdatedAtHumanized { get; set; }
+
+        /// <summary>
         /// Vulnerabilities associated with this Advisory
         /// </summary>
         /// <param name="first">Returns the first _n_ elements from the list.</param>
@@ -108,5 +118,10 @@ namespace FluentHub.Octokit.Models.v4
         /// When the advisory was withdrawn, if it has been withdrawn
         /// </summary>
         public DateTimeOffset? WithdrawnAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "When the advisory was withdrawn, if it has been withdrawn"
+        /// <summary>
+        public string WithdrawnAtHumanized { get; set; }
     }
 }

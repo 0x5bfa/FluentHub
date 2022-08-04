@@ -4,9 +4,9 @@
     {
         public async Task<List<Commit>> GetAllAsync(string name, string owner, string refs, string path)
         {
-            if (string.IsNullOrEmpty(path)) path = ".";
+            if (string.IsNullOrEmpty(path))
+                path = ".";
 
-            #region query
             var query = new Query()
                 .Repository(name, owner)
                 .Ref(refs)
@@ -29,11 +29,9 @@
                         {
                             Login = owner.Login,
                         })
-                        .Single(),
+                        .SingleOrDefault(),
                     })
-                    .Single(),
-
-                    //Refs = refs,
+                    .SingleOrDefault(),
 
                     Author = x.Author.Select(author => new GitActor
                     {
@@ -42,12 +40,11 @@
                         {
                             Login = user.Login,
                         })
-                        .Single(),
+                        .SingleOrDefault(),
                     })
-                    .Single(),
+                    .SingleOrDefault(),
                 })
                 .Compile();
-            #endregion
 
             var response = await App.Connection.Run(query);
 
@@ -76,7 +73,7 @@
                         {
                             Login = user.Login,
                         })
-                        .Single(),
+                        .SingleOrDefault(),
                     },
                 })
                 .Single())

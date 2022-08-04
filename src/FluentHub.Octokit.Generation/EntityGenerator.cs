@@ -86,7 +86,7 @@ namespace FluentHub.Octokit.Generation
             {
                 result += method ?
                     GenerateScalarMethod(field, reduced) :
-                    GenerateScalarField(field, reduced);
+                    GenerateScalarField(field, reduced, generateDocComments);
             }
             else if (reduced.Kind == TypeKind.List)
             {
@@ -158,7 +158,7 @@ namespace FluentHub.Octokit.Generation
             }
         }
 
-        private static string GenerateScalarField(FieldModel field, TypeModel type)
+        private static string GenerateScalarField(FieldModel field, TypeModel type, bool generateDocComments = true)
         {
             var obsoleteAttribute = field.IsDeprecated
                     ? $@"        {AttributeGenerator.GenerateObsoleteAttribute(field.DeprecationReason)}{Environment.NewLine}"
@@ -167,7 +167,22 @@ namespace FluentHub.Octokit.Generation
             var name = TypeUtilities.PascalCase(field.Name);
             var typeName = TypeUtilities.GetCSharpReturnType(type);
 
-            return $"{obsoleteAttribute}        public {typeName} {name} {{ get; set; }}";
+            string result = $"{obsoleteAttribute}        public {typeName} {name} {{ get; set; }}";
+
+            if (TypeUtilities.GetCSharpReturnType(type) == "DateTimeOffset"
+                || TypeUtilities.GetCSharpReturnType(type) == "DateTimeOffset?")
+            {
+                result += "\r\n\r\n";
+                if (generateDocComments)
+                {
+                    result += $"        /// <summary>\r\n";
+                    result += $"        /// Humanized string of \"{field.Description}\"\r\n";
+                    result += $"        /// <summary>\r\n";
+                }
+                result += $"        public string {name}Humanized {{ get; set; }}";
+            }
+
+            return result;
         }
 
         private static string GenerateObjectField(FieldModel field, TypeModel type, string rootNamespace, string entityNamespace, string queryType)

@@ -29,6 +29,11 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset? CompletedAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "Identifies the date and time when the check run was completed."
+        /// <summary>
+        public string CompletedAtHumanized { get; set; }
+
+        /// <summary>
         /// The conclusion of the check run.
         /// </summary>
         public CheckConclusionState? Conclusion { get; set; }
@@ -91,6 +96,11 @@ namespace FluentHub.Octokit.Models.v4
         /// Identifies the date and time when the check run was started.
         /// </summary>
         public DateTimeOffset? StartedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies the date and time when the check run was started."
+        /// <summary>
+        public string StartedAtHumanized { get; set; }
 
         /// <summary>
         /// The current status of the check run.

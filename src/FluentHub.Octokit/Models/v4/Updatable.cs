@@ -9,7 +9,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Entities that can be updated.
     /// </summary>
     public interface IUpdatable
-    {        /// <summary>
+    {
+        /// <summary>
         /// Check if the current viewer can update this object.
         /// </summary>
         bool ViewerCanUpdate { get; set; }

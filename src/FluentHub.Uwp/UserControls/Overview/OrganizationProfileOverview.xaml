@@ -2,6 +2,7 @@
     x:Class="FluentHub.Uwp.UserControls.OrganizationProfileOverview"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:FluentHub.Uwp.UserControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -19,6 +20,7 @@
                     <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
+            <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -32,126 +34,201 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid Margin="32,32,32,18">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
+        <Grid Margin="32,32,32,12">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
 
-            <Border Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" CornerRadius="6">
-                <Image
-                    x:Name="UserAvatarImage"
-                    Width="84"
-                    Height="84"
-                    Source="{x:Bind ViewModel.Organization.AvatarUrl, Mode=OneWay}" />
-            </Border>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
 
-            <StackPanel
-                Grid.Column="1"
-                Margin="20,0,0,0"
-                VerticalAlignment="Center">
+                <Border Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" CornerRadius="12">
+                    <Image
+                        x:Name="UserAvatarImage"
+                        Width="84"
+                        Height="84"
+                        Source="{x:Bind ViewModel.Organization.AvatarUrl, Mode=OneWay}" />
+                </Border>
 
-                <TextBlock
-                    x:Name="OrgNameTextBlock"
-                    VerticalAlignment="Center"
-                    FontWeight="SemiBold"
-                    Style="{StaticResource SubtitleTextBlockStyle}"
-                    Text="{x:Bind ViewModel.Organization.Name, Mode=OneWay}" />
+                <StackPanel
+                    Grid.Column="1"
+                    Margin="20,0,0,0"
+                    VerticalAlignment="Center">
 
-                <TextBlock
-                    x:Name="OrgDescriptionTextBlock"
-                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                    Style="{ThemeResource BodyTextBlockStyle}"
-                    Text="{x:Bind ViewModel.Organization.Description, Mode=OneWay}"
-                    Visibility="Collapsed" />
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        FontWeight="SemiBold"
+                        Style="{StaticResource SubtitleTextBlockStyle}"
+                        Text="{x:Bind ViewModel.Organization.Name, Mode=OneWay}" />
 
-                <toolkit:WrapPanel
-                    Grid.Row="1"
-                    Margin="0,12,0,0"
-                    HorizontalAlignment="Stretch"
-                    HorizontalSpacing="6"
-                    Orientation="Horizontal">
-                    <StackPanel
-                        x:Name="LocationBlock"
-                        Margin="0,0,12,0"
-                        HorizontalAlignment="Left"
-                        Orientation="Horizontal"
-                        Spacing="6"
-                        Visibility="Collapsed">
+                    <TextBlock
+                        VerticalAlignment="Center"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Style="{ThemeResource BodyTextBlockStyle}"
+                        Text="{x:Bind ViewModel.Organization.Login, Mode=OneWay}" />
 
-                        <FontIcon
-                            VerticalAlignment="Center"
-                            FontFamily="{StaticResource Octions}"
-                            FontSize="14"
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Glyph="&#xEA03;" />
+                    <TextBlock
+                        Margin="0,12,0,0"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Style="{ThemeResource BodyTextBlockStyle}"
+                        Text="{x:Bind ViewModel.Organization.Description, Mode=OneWay}" />
 
-                        <TextBlock
-                            x:Name="LocationTextBlock"
-                            VerticalAlignment="Center"
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Style="{ThemeResource BodyTextBlockStyle}"
-                            Text="{x:Bind ViewModel.Organization.Location, Mode=OneWay}" />
+                </StackPanel>
 
-                    </StackPanel>
+                <Grid Grid.Column="2" VerticalAlignment="Top">
+                    <Button Width="120">
 
-                    <StackPanel
-                        x:Name="LinkBlock"
-                        Margin="0,0,12,0"
-                        Orientation="Horizontal"
-                        Spacing="2"
-                        Visibility="Collapsed">
+                        <Button.Content>
+                            <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.Organization.ViewerIsFollowing, Mode=OneWay}">
+                                <toolkit:Case Value="True">
+                                    <TextBlock Text="Unfollow" />
+                                </toolkit:Case>
+                                <toolkit:Case Value="False">
+                                    <TextBlock Text="Follow" />
+                                </toolkit:Case>
+                            </toolkit:SwitchPresenter>
+                        </Button.Content>
 
-                        <FontIcon
-                            VerticalAlignment="Center"
-                            FontFamily="{StaticResource Octions}"
-                            FontSize="14"
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Glyph="&#xE9FB;" />
+                    </Button>
+                </Grid>
 
-                        <HyperlinkButton
-                            x:Name="LinkHyperlinkButton"
-                            Padding="4"
-                            Content="{x:Bind ViewModel.Organization.WebsiteUrl, Mode=OneWay}"
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" />
-                    </StackPanel>
+            </Grid>
 
-                    <StackPanel
-                        x:Name="MailBlock"
-                        Margin="0,0,12,0"
-                        Orientation="Horizontal"
-                        Spacing="2"
-                        Visibility="Collapsed">
+            <toolkit:WrapPanel
+                Grid.Row="1"
+                Margin="0,12,0,0"
+                HorizontalAlignment="Stretch"
+                HorizontalSpacing="6"
+                Orientation="Horizontal">
 
-                        <FontIcon
-                            VerticalAlignment="Center"
-                            FontFamily="{StaticResource Octions}"
-                            FontSize="14"
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Glyph="&#xEA09;" />
+                <StackPanel
+                    x:Name="LocationBlock"
+                    Margin="0,0,12,0"
+                    HorizontalAlignment="Left"
+                    x:Load="{x:Bind ViewModel.Organization.Location, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                    Orientation="Horizontal"
+                    Spacing="6">
 
-                        <HyperlinkButton
-                            x:Name="MailHyperlinkButton"
-                            Padding="4"
-                            Content="{x:Bind ViewModel.Organization.Email, Mode=OneWay}"
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" />
-                    </StackPanel>
-                </toolkit:WrapPanel>
-            </StackPanel>
+                    <FontIcon
+                        VerticalAlignment="Center"
+                        FontFamily="{StaticResource Octions}"
+                        FontSize="14"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Glyph="&#xEA03;" />
 
-            <StackPanel
-                Grid.Column="2"
-                VerticalAlignment="Top"
-                Orientation="Horizontal"
-                Spacing="8">
-                <Button
-                    x:Name="EditProfileButton"
-                    Width="120"
-                    Content="Edit profile"
-                    IsEnabled="False"
-                    Visibility="Collapsed" />
-            </StackPanel>
+                    <TextBlock
+                        x:Name="LocationTextBlock"
+                        VerticalAlignment="Center"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Style="{ThemeResource BodyTextBlockStyle}"
+                        Text="{x:Bind ViewModel.Organization.Location, Mode=OneWay}" />
+
+                </StackPanel>
+
+                <StackPanel
+                    x:Name="LinkBlock"
+                    Margin="0,0,12,0"
+                    x:Load="{x:Bind ViewModel.Organization.WebsiteUrl, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                    Orientation="Horizontal"
+                    Spacing="2">
+
+                    <FontIcon
+                        VerticalAlignment="Center"
+                        FontFamily="{StaticResource Octions}"
+                        FontSize="14"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Glyph="&#xE9FB;" />
+
+                    <HyperlinkButton
+                        x:Name="LinkHyperlinkButton"
+                        Padding="4"
+                        Content="{x:Bind ViewModel.Organization.WebsiteUrl, Mode=OneWay}"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" />
+                </StackPanel>
+
+                <StackPanel
+                    x:Name="MailBlock"
+                    Margin="0,0,12,0"
+                    x:Load="{x:Bind ViewModel.Organization.Email, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                    Orientation="Horizontal"
+                    Spacing="2">
+
+                    <FontIcon
+                        VerticalAlignment="Center"
+                        FontFamily="{StaticResource Octions}"
+                        FontSize="14"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Glyph="&#xEA09;" />
+
+                    <HyperlinkButton
+                        x:Name="MailHyperlinkButton"
+                        Padding="4"
+                        Content="{x:Bind ViewModel.Organization.Email, Mode=OneWay}"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" />
+                </StackPanel>
+
+                <StackPanel
+                    x:Name="IsVerifiedDomain"
+                    Margin="0,0,12,0"
+                    x:Load="{x:Bind ViewModel.Organization.IsVerified, Mode=OneWay}"
+                    Orientation="Horizontal"
+                    Spacing="2">
+                    <Button
+                        Height="24"
+                        Padding="0"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        CornerRadius="12">
+                        <Button.Content>
+                            <Grid
+                                Height="24"
+                                Padding="8,2,8,0"
+                                BorderBrush="#347d39"
+                                BorderThickness="1"
+                                CornerRadius="12">
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    FontWeight="SemiBold"
+                                    Foreground="#57ab5a"
+                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                    Text="Verified" />
+                            </Grid>
+                        </Button.Content>
+                        <Button.Flyout>
+                            <Flyout Placement="Bottom">
+                                <StackPanel Width="260" Spacing="12">
+                                    <TextBlock
+                                        Text="GitHub have verified that this organization controls the domain:"
+                                        TextTrimming="CharacterEllipsis"
+                                        TextWrapping="Wrap" />
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <FontIcon
+                                            FontFamily="{StaticResource Octions}"
+                                            FontSize="18"
+                                            Foreground="#57ab5a"
+                                            Glyph="&#xEACC;" />
+                                        <TextBlock
+                                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                                            Text="{x:Bind ViewModel.Organization.WebsiteUrl, Mode=OneWay}"
+                                            TextTrimming="CharacterEllipsis"
+                                            TextWrapping="Wrap" />
+                                    </StackPanel>
+                                    <TextBlock>
+                                        <Hyperlink NavigateUri="https://docs.github.com/organizations/managing-organization-settings/verifying-or-approving-a-domain-for-your-organization">
+                                            Learn more about verified organizations
+                                        </Hyperlink>
+                                    </TextBlock>
+                                </StackPanel>
+                            </Flyout>
+                        </Button.Flyout>
+                    </Button>
+                </StackPanel>
+            </toolkit:WrapPanel>
 
         </Grid>
 

@@ -9,7 +9,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Represents a Git object.
     /// </summary>
     public interface IGitObject
-    {        /// <summary>
+    {
+        /// <summary>
         /// An abbreviated version of the Git object ID
         /// </summary>
         string AbbreviatedOid { get; set; }

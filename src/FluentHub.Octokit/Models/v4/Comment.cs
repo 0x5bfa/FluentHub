@@ -9,7 +9,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Represents a comment.
     /// </summary>
     public interface IComment
-    {        /// <summary>
+    {
+        /// <summary>
         /// The actor who authored the comment.
         /// </summary>
         IActor Author { get; set; }
@@ -40,6 +41,11 @@ namespace FluentHub.Octokit.Models.v4
         DateTimeOffset CreatedAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was created."
+        /// <summary>
+        string CreatedAtHumanized { get; set; }
+
+        /// <summary>
         /// Check if this comment was created via an email reply.
         /// </summary>
         bool CreatedViaEmail { get; set; }
@@ -62,14 +68,29 @@ namespace FluentHub.Octokit.Models.v4
         DateTimeOffset? LastEditedAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "The moment the editor made the last edit"
+        /// <summary>
+        string LastEditedAtHumanized { get; set; }
+
+        /// <summary>
         /// Identifies when the comment was published at.
         /// </summary>
         DateTimeOffset? PublishedAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "Identifies when the comment was published at."
+        /// <summary>
+        string PublishedAtHumanized { get; set; }
+
+        /// <summary>
         /// Identifies the date and time when the object was last updated.
         /// </summary>
         DateTimeOffset UpdatedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was last updated."
+        /// <summary>
+        string UpdatedAtHumanized { get; set; }
 
         /// <summary>
         /// A list of edits to this content.
@@ -107,6 +128,8 @@ namespace FluentHub.Octokit.Models.v4
 
         public DateTimeOffset CreatedAt { get; set; }
 
+        public string CreatedAtHumanized { get; set; }
+
         public bool CreatedViaEmail { get; set; }
 
         public IActor Editor { get; set; }
@@ -117,9 +140,15 @@ namespace FluentHub.Octokit.Models.v4
 
         public DateTimeOffset? LastEditedAt { get; set; }
 
+        public string LastEditedAtHumanized { get; set; }
+
         public DateTimeOffset? PublishedAt { get; set; }
 
+        public string PublishedAtHumanized { get; set; }
+
         public DateTimeOffset UpdatedAt { get; set; }
+
+        public string UpdatedAtHumanized { get; set; }
 
         public UserContentEditConnection UserContentEdits { get; set; }
 

@@ -7,7 +7,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Ordering options for IP allow list entry connections.
     /// </summary>
     public class IpAllowListEntryOrder
-    {        /// <summary>
+    {
+        /// <summary>
         /// The field to order IP allow list entries by.
         /// </summary>
         public IpAllowListEntryOrderField Field { get; set; }

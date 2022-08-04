@@ -20,6 +20,11 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset CreatedAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was created."
+        /// <summary>
+        public string CreatedAtHumanized { get; set; }
+
+        /// <summary>
         /// The actor who created the item.
         /// </summary>
         public IActor Creator { get; set; }
@@ -30,12 +35,19 @@ namespace FluentHub.Octokit.Models.v4
         public int? DatabaseId { get; set; }
 
         /// <summary>
+        /// A specific field value given a field name
+        /// </summary>
+        /// <param name="name">The name of the field to return the field value of</param>
+        public ProjectV2ItemFieldValue FieldValueByName { get; set; }
+
+        /// <summary>
         /// List of field values
         /// </summary>
         /// <param name="first">Returns the first _n_ elements from the list.</param>
         /// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
         /// <param name="last">Returns the last _n_ elements from the list.</param>
         /// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
+        /// <param name="orderBy">Ordering options for project v2 item field values returned from the connection</param>
         public ProjectV2ItemFieldValueConnection FieldValues { get; set; }
 
         public ID Id { get; set; }
@@ -59,5 +71,10 @@ namespace FluentHub.Octokit.Models.v4
         /// Identifies the date and time when the object was last updated.
         /// </summary>
         public DateTimeOffset UpdatedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was last updated."
+        /// <summary>
+        public string UpdatedAtHumanized { get; set; }
     }
 }

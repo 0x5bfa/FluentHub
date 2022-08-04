@@ -7,7 +7,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Ways in which lists of issues can be ordered upon return.
     /// </summary>
     public class IssueOrder
-    {        /// <summary>
+    {
+        /// <summary>
         /// The field in which to order issues by.
         /// </summary>
         public IssueOrderField Field { get; set; }

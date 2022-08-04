@@ -21,10 +21,20 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset? ClosedAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was closed."
+        /// <summary>
+        public string ClosedAtHumanized { get; set; }
+
+        /// <summary>
         /// Identifies the date and time when the object was created.
         /// </summary>
         [Obsolete(@"The `ProjectNext` API is deprecated in favour of the more capable `ProjectV2` API. Follow the ProjectV2 guide at https://github.blog/changelog/2022-06-23-the-new-github-issues-june-23rd-update/, to find a suitable replacement. Removal on 2022-10-01 UTC.")]
         public DateTimeOffset CreatedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was created."
+        /// <summary>
+        public string CreatedAtHumanized { get; set; }
 
         /// <summary>
         /// The actor who originally created the project.
@@ -114,6 +124,11 @@ namespace FluentHub.Octokit.Models.v4
         /// </summary>
         [Obsolete(@"The `ProjectNext` API is deprecated in favour of the more capable `ProjectV2` API. Follow the ProjectV2 guide at https://github.blog/changelog/2022-06-23-the-new-github-issues-june-23rd-update/, to find a suitable replacement. Removal on 2022-10-01 UTC.")]
         public DateTimeOffset UpdatedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was last updated."
+        /// <summary>
+        public string UpdatedAtHumanized { get; set; }
 
         /// <summary>
         /// The HTTP URL for this project

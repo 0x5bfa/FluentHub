@@ -7,7 +7,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Images attached to the check run output displayed in the GitHub pull request UI.
     /// </summary>
     public class CheckRunOutputImage
-    {        /// <summary>
+    {
+        /// <summary>
         /// The alternative text for the image.
         /// </summary>
         public string Alt { get; set; }

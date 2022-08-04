@@ -9,7 +9,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Metadata for an audit entry with action org.*
     /// </summary>
     public interface IOrganizationAuditEntryData
-    {        /// <summary>
+    {
+        /// <summary>
         /// The Organization associated with the Audit Entry.
         /// </summary>
         Organization Organization { get; set; }

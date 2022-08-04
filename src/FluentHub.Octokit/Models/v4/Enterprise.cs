@@ -26,6 +26,11 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset CreatedAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was created."
+        /// <summary>
+        public string CreatedAtHumanized { get; set; }
+
+        /// <summary>
         /// Identifies the primary key from the database.
         /// </summary>
         public int? DatabaseId { get; set; }
@@ -97,15 +102,6 @@ namespace FluentHub.Octokit.Models.v4
         /// The HTTP URL for this enterprise.
         /// </summary>
         public string Url { get; set; }
-
-        /// <summary>
-        /// A list of user accounts on this enterprise.
-        /// </summary>
-        /// <param name="first">Returns the first _n_ elements from the list.</param>
-        /// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
-        /// <param name="last">Returns the last _n_ elements from the list.</param>
-        /// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
-        public EnterpriseUserAccountConnection UserAccounts { get; set; }
 
         /// <summary>
         /// Is the current viewer an admin of this enterprise?

@@ -20,9 +20,19 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset? ClosedAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was closed."
+        /// <summary>
+        public string ClosedAtHumanized { get; set; }
+
+        /// <summary>
         /// Identifies the date and time when the object was created.
         /// </summary>
         public DateTimeOffset CreatedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was created."
+        /// <summary>
+        public string CreatedAtHumanized { get; set; }
 
         /// <summary>
         /// Identifies the actor who created the milestone.
@@ -38,6 +48,11 @@ namespace FluentHub.Octokit.Models.v4
         /// Identifies the due date of the milestone.
         /// </summary>
         public DateTimeOffset? DueOn { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies the due date of the milestone."
+        /// <summary>
+        public string DueOnHumanized { get; set; }
 
         public ID Id { get; set; }
 
@@ -102,6 +117,11 @@ namespace FluentHub.Octokit.Models.v4
         /// Identifies the date and time when the object was last updated.
         /// </summary>
         public DateTimeOffset UpdatedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was last updated."
+        /// <summary>
+        public string UpdatedAtHumanized { get; set; }
 
         /// <summary>
         /// The HTTP URL for this milestone

@@ -9,7 +9,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Entities that can be deleted.
     /// </summary>
     public interface IDeletable
-    {        /// <summary>
+    {
+        /// <summary>
         /// Check if the current viewer can delete this object.
         /// </summary>
         bool ViewerCanDelete { get; set; }

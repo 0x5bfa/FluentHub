@@ -37,5 +37,10 @@ namespace FluentHub.Octokit.Models.v4
         /// The wait timer in minutes configured in the environment
         /// </summary>
         public DateTimeOffset? WaitTimerStartedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "The wait timer in minutes configured in the environment"
+        /// <summary>
+        public string WaitTimerStartedAtHumanized { get; set; }
     }
 }

@@ -7,7 +7,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Descriptive details about the check run.
     /// </summary>
     public class CheckRunOutput
-    {        /// <summary>
+    {
+        /// <summary>
         /// A title to provide for this check run.
         /// </summary>
         public string Title { get; set; }

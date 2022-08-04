@@ -7,7 +7,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Specifies an author for filtering Git commits.
     /// </summary>
     public class CommitAuthor
-    {        /// <summary>
+    {
+        /// <summary>
         /// ID of a User to filter by. If non-null, only commits authored by this user will be returned. This field takes precedence over emails.
         /// </summary>
         public ID? Id { get; set; }

@@ -20,5 +20,10 @@ namespace FluentHub.Octokit.Models.v4
         /// The moment when the user made the reaction.
         /// </summary>
         public DateTimeOffset ReactedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "The moment when the user made the reaction."
+        /// <summary>
+        public string ReactedAtHumanized { get; set; }
     }
 }

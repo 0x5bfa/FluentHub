@@ -15,6 +15,11 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset CreatedAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was created."
+        /// <summary>
+        public string CreatedAtHumanized { get; set; }
+
+        /// <summary>
         /// Identifies the primary key from the database.
         /// </summary>
         public int? DatabaseId { get; set; }
@@ -31,18 +36,10 @@ namespace FluentHub.Octokit.Models.v4
         /// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
         /// <param name="last">Returns the last _n_ elements from the list.</param>
         /// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
+        /// <param name="orderBy">Ordering options for the project v2 fields returned from the connection.</param>
         public ProjectV2FieldConnection GroupBy { get; set; }
 
         public ID Id { get; set; }
-
-        /// <summary>
-        /// The view's filtered items.
-        /// </summary>
-        /// <param name="first">Returns the first _n_ elements from the list.</param>
-        /// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
-        /// <param name="last">Returns the last _n_ elements from the list.</param>
-        /// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
-        public ProjectV2ItemConnection Items { get; set; }
 
         /// <summary>
         /// The project view's layout.
@@ -79,12 +76,18 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset UpdatedAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was last updated."
+        /// <summary>
+        public string UpdatedAtHumanized { get; set; }
+
+        /// <summary>
         /// The view's vertical-group-by field.
         /// </summary>
         /// <param name="first">Returns the first _n_ elements from the list.</param>
         /// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
         /// <param name="last">Returns the last _n_ elements from the list.</param>
         /// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
+        /// <param name="orderBy">Ordering options for the project v2 fields returned from the connection.</param>
         public ProjectV2FieldConnection VerticalGroupBy { get; set; }
 
         /// <summary>
@@ -94,6 +97,7 @@ namespace FluentHub.Octokit.Models.v4
         /// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
         /// <param name="last">Returns the last _n_ elements from the list.</param>
         /// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
+        /// <param name="orderBy">Ordering options for the project v2 fields returned from the connection.</param>
         public ProjectV2FieldConnection VisibleFields { get; set; }
     }
 }

@@ -9,7 +9,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Represents a subject that can be reacted on.
     /// </summary>
     public interface IReactable
-    {        /// <summary>
+    {
+        /// <summary>
         /// Identifies the primary key from the database.
         /// </summary>
         int? DatabaseId { get; set; }
