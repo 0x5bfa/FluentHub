@@ -45,10 +45,10 @@ namespace FluentHub.Uwp.UserControls.Blocks
 
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<FileNavigationBlockViewModel>();
-            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
+            navService = App.Current.Services.GetRequiredService<INavigationService>();
         }
 
-        private readonly INavigationService navigationService;
+        private readonly INavigationService navService;
         public FileNavigationBlockViewModel ViewModel { get; }
         private bool FirstSelectionComplete { get; set; }
 
@@ -95,7 +95,17 @@ namespace FluentHub.Uwp.UserControls.Blocks
 
             var objType = ViewModel.ContextViewModel.IsFile ? "blob" : "tree";
             var path = string.IsNullOrEmpty(ViewModel.ContextViewModel.Path) ? $"{ViewModel.ContextViewModel.Path}" : $"/{ViewModel.ContextViewModel.Path}";
-            navigationService.Navigate<OverviewPage>($"{App.DefaultGitHubDomain}/{ViewModel.ContextViewModel.Repository.Owner.Login}/{ViewModel.ContextViewModel.Repository.Name}/{objType}/{ViewModel.ContextViewModel.BranchName}{path}");
+
+            List<object> param = new();
+            param.Add($"{objType}/{ViewModel.ContextViewModel.BranchName}{path}");
+
+            navService.Navigate<Views.Repositories.Codes.Layouts.DetailsLayoutView>(
+                new Models.FrameNavigationArgs()
+                {
+                    Login = ViewModel.ContextViewModel.Repository.Owner.Login,
+                    Name = ViewModel.ContextViewModel.Repository.Name,
+                    Parameters = param,
+                });
         }
     }
 }

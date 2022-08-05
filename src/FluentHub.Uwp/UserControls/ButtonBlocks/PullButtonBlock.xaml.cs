@@ -1,4 +1,5 @@
-﻿using FluentHub.Uwp.Services;
+﻿using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
 using FluentHub.Uwp.Views.Repositories;
 using Microsoft.Extensions.DependencyInjection;
@@ -33,8 +34,14 @@ namespace FluentHub.Uwp.UserControls.ButtonBlocks
 
         private void OnClick(object sender, RoutedEventArgs e)
         {
-            var navigationService = App.Current.Services.GetRequiredService<INavigationService>();
-            navigationService.Navigate<OverviewPage>($"{App.DefaultGitHubDomain}/{ViewModel.PullItem.Repository.Owner.Login}/{ViewModel.PullItem.Repository.Name}/pull/{ViewModel.PullItem.Number}");
+            //var navService = App.Current.Services.GetRequiredService<INavigationService>();
+            //navService.Navigate<Views.Repositories.PullRequests.PullRequestPage>(
+            //    new FrameNavigationArgs()
+            //    {
+            //        Login = ViewModel.PullItem.Repository.Owner.Login,
+            //        Name = ViewModel.PullItem.Repository.Name,
+            //        Number = ViewModel.PullItem.Number,
+            //    });
         }
     }
 }

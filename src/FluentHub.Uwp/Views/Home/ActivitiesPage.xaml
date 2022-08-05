@@ -33,7 +33,11 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid>
+    <Grid
+        Background="{ThemeResource CardBackgroundFillColorSecondary}"
+        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+        BorderThickness="1,1,0,0"
+        CornerRadius="8,0,0,0">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*" MinWidth="256" />
             <ColumnDefinition Width="1" />

@@ -1,4 +1,5 @@
-﻿using FluentHub.Uwp.Services;
+﻿using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.Repositories.Issues;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
@@ -25,25 +26,24 @@ namespace FluentHub.Uwp.Views.Repositories.Issues
 
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            var url = e.Parameter as string;
-            var uri = new Uri(url);
-            var pathSegments = uri.AbsolutePath.Split("/").ToList();
-            pathSegments.RemoveAt(0);
+            var param = e.Parameter as FrameNavigationArgs;
+            ViewModel.Number = param.Number;
+
+            await ViewModel.LoadRepositoryAsync(param.Login, param.Name);
 
             var command = ViewModel.RefreshIssuePageCommand;
-            if (command.CanExecute(url))
-                await command.ExecuteAsync(url);
+            if (command.CanExecute(null))
+                await command.ExecuteAsync(null);
 
+            SetCurrentTabItem();
+        }
+
+        private void SetCurrentTabItem()
+        {
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = $"{ViewModel.IssueItem.Title} · #{ViewModel.IssueItem.Number}";
             currentItem.Description = currentItem.Header;
-            currentItem.Url = url;
-
-            currentItem.DisplayUrl = $"{pathSegments[0]} / {pathSegments[1]} / {pathSegments[3]}";
-
-            currentItem.DisplayUrl = $"{ViewModel.IssueItem.Repository.Owner.Login} / {ViewModel.IssueItem.Repository.Name} / {ViewModel.IssueItem.Number}";
-
-            currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
+            currentItem.Icon = new muxc.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Issues.png"))
             };

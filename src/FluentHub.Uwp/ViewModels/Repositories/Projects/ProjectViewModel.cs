@@ -1,6 +1,7 @@
 ﻿using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
+using FluentHub.Uwp.ViewModels.UserControls;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.Projects
 {
@@ -11,12 +12,21 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Projects
             _messenger = messenger;
             _logger = logger;
 
-            LoadProjectPageCommand = new AsyncRelayCommand<string>(LoadProjectPageAsync);
+            LoadProjectPageCommand = new AsyncRelayCommand(LoadProjectPageAsync);
         }
 
         #region Fields and Properties
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
+
+        private Repository _repository;
+        public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
+
+        private RepositoryOverviewViewModel _repositoryOverviewViewModel;
+        public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
+
+        private int _number;
+        public int Number { get => _number; set => SetProperty(ref _number, value); }
 
         private Project _project;
         public Project Project { get => _project; set => SetProperty(ref _project, value); }
@@ -24,18 +34,18 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Projects
         public IAsyncRelayCommand LoadProjectPageCommand { get; }
         #endregion
 
-        private async Task LoadProjectPageAsync(string url)
+        private async Task LoadProjectPageAsync(CancellationToken token)
         {
             try
             {
                 _messenger?.Send(new LoadingMessaging(true));
 
-                var pathSegments = url.Split("/");
-
                 ProjectQueries queries = new();
-                var response = await queries.GetAsync(pathSegments[3], pathSegments[4], Convert.ToInt32(pathSegments[6]));
-
-                if (response == null) return;
+                var response = await queries.GetAsync(
+                    Repository.Owner.Login,
+                    Repository.Name,
+                    Number
+                    );
 
                 Project = response;
             }
@@ -52,6 +62,41 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Projects
             finally
             {
                 _messenger?.Send(new LoadingMessaging(false));
+            }
+        }
+
+        public async Task LoadRepositoryAsync(string owner, string name)
+        {
+            try
+            {
+                RepositoryQueries queries = new();
+                Repository = await queries.GetDetailsAsync(owner, name);
+
+                RepositoryOverviewViewModel = new()
+                {
+                    Repository = Repository,
+                    RepositoryName = Repository.Name,
+                    RepositoryOwnerLogin = Repository.Owner.Login,
+                    RepositoryVisibilityLabel = new()
+                    {
+                        Name = Repository.IsPrivate ? "Private" : "Public",
+                        Color = "#64000000",
+                    },
+                    ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
+
+                    SelectedTag = "projects",
+                };
+            }
+            catch (OperationCanceledException) { }
+            catch (Exception ex)
+            {
+                _logger?.Error(nameof(LoadRepositoryAsync), ex);
+                if (_messenger != null)
+                {
+                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+                    _messenger.Send(notification);
+                }
+                throw;
             }
         }
     }

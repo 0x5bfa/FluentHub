@@ -2,13 +2,14 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp3.1</TargetFramework>
-    <LangVersion>9</LangVersion>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
     <PlatformTarget>x64</PlatformTarget>
+    <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Octokit.GraphQL" Version="0.1.9-beta" />
+    <ProjectReference Include="..\..\lib\octokit.graphql.net\Octokit.GraphQL\Octokit.GraphQL.csproj" />
   </ItemGroup>
 
 </Project>

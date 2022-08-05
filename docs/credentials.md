@@ -1,14 +1,4 @@
-# Build from source
-
-## Preparation
-
-Make sure these packages are local:
-
-- Visual Studio 2022 and Windows SDK.
-- UWP SDK
-- .NET SDK (.NET Standard 2.0)
-
-## Add an credentials
+# Prepare OAuth credentials
 
 This application uses Oauth, so you must independently get a client ID and secret in your account. This is because it uses something similar to a password and cannot be disclosed.
 
@@ -19,10 +9,10 @@ This application uses Oauth, so you must independently get a client ID and secre
 		|Name|Value|Requred|
 		|-|-|-|
 		|Application name|`FluentHub`|True|
-		|Homepage URL|`https://github.com/fluenthub-community/FluentHub`|True|
+		|Homepage URL|`https://github.com/FluentHub/FluentHub`|True|
 		|Application description|A fluent GitHub app for Windows|False|
 		|Authorization callback URL|`fluenthub://auth`|True|
-		|Application logo|Use [this](https://github.com/fluenthub-community/FluentHub/blob/main/src/FluentHub/Assets/AppTilesDev/StoreLogo.scale-400.png)|True|
+		|Application logo|Use [this](https://user-images.githubusercontent.com/62196528/181265200-0f331fd0-e0b3-4896-8c6c-8468c8fd714f.png)|True|
 		|Badge background color|`#FFFFFF`|True (whatever)|
 
  2.  Create a file named `AppCredentials.config` in the root of your FluentHub repo with Solution Explorer

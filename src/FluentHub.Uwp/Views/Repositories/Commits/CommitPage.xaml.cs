@@ -26,14 +26,29 @@ namespace FluentHub.Uwp.Views.Repositories.Commits
         public CommitViewModel ViewModel { get; }
         private readonly INavigationService navigationService;
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            var args = e.Parameter as FrameNavigationArgs;
-            ViewModel.CommitItem = args.Parameters as Commit;
+            var param = e.Parameter as FrameNavigationArgs;
+            ViewModel.CommitItem = param.Parameters.ElementAt(0) as Commit;
+
+            await ViewModel.LoadRepositoryAsync(param.Login, param.Name);
+
+            SetCurrentTabItem();
 
             var command = ViewModel.LoadCommitPageCommand;
             if (command.CanExecute(null))
                 command.Execute(null);
+        }
+
+        private void SetCurrentTabItem()
+        {
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = "Commits";
+            currentItem.Description = "Commits";
+            currentItem.Icon = new muxc.ImageIconSource
+            {
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Commits.png"))
+            };
         }
     }
 }

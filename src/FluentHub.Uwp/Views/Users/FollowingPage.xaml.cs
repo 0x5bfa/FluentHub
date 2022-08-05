@@ -22,36 +22,34 @@ namespace FluentHub.Uwp.Views.Users
         private readonly INavigationService navigationService;
         public FollowingViewModel ViewModel { get; }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            // e.g. https://github.com/onein528?tab=following
-            string url = e.Parameter as string;
-            var uri = new Uri(url);
-            string login;
+            var param = e.Parameter as Models.FrameNavigationArgs;
+            ViewModel.Login = param.Login;
 
-            if (url == "fluenthub://followers")
+            if (param.Parameters.ElementAtOrDefault(0) as string is "AsViewer")
             {
-                login = App.Settings.SignedInUserName;
                 ViewModel.DisplayTitle = true;
             }
-            else
-            {
-                login = uri.Segments[1];
-            }
 
+            await ViewModel.LoadUserAsync(param.Login);
+
+            SetCurrentTabItem();
+
+            var command = ViewModel.RefreshFollowingCommand;
+            if (command.CanExecute(null))
+                command.ExecuteAsync(null);
+        }
+
+        private void SetCurrentTabItem()
+        {
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = $"Following";
-            currentItem.Description = $"People {login} is following";
-            currentItem.DisplayUrl = $"{login} / Following";
-            currentItem.Url = url;
-            currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
+            currentItem.Description = $"People {ViewModel.Login} is following";
+            currentItem.Icon = new muxc.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Accounts.png"))
             };
-
-            var command = ViewModel.RefreshFollowingCommand;
-            if (command.CanExecute(login))
-                command.ExecuteAsync(login);
         }
     }
 }

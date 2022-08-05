@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Newtonsoft.Json;
 
 namespace FluentHub.Octokit.Wrappers
 {
@@ -12,34 +13,42 @@ namespace FluentHub.Octokit.Wrappers
 
             foreach (var item in response)
             {
+                Repository itemRep = new()
+                {
+                    Name = item.Repo?.Name.Split('/')[1],
+                    Owner = new RepositoryOwner()
+                    {
+                        AvatarUrl = item.Repo?.Owner?.AvatarUrl,
+                        Login = item.Repo?.Owner?.Login.Split('/')[0],
+                    }
+                };
+
+                User itemUser = new()
+                {
+                    AvatarUrl = item.Actor.AvatarUrl,
+                    Login = item.Actor.Login,
+                    Name = item.Actor.Name,
+                };
+
+                Organization itemOrganization = new()
+                {
+                    AvatarUrl = item.Org?.AvatarUrl,
+                    Login = item.Org?.Login,
+                    Name = item.Org?.Name
+                };
+
                 Activity indivisual = new()
                 {
                     CreatedAt = item.CreatedAt,
 
-                    Repository = new()
-                    {
-                        Name = item.Repo?.Name.Split('/')[1],
-                        Owner = new RepositoryOwner()
-                        {
-                            AvatarUrl = item.Repo?.Owner.AvatarUrl,
-                            Login = item.Repo?.Owner.Login.Split('/')[0],
-                        },
-                    },
+                    Repository = itemRep,
 
-                    Actor = new()
-                    {
-                        AvatarUrl = item.Actor.AvatarUrl,
-                        Login = item.Actor.Login,
-                        Name = item.Actor.Name,
-                    },
+                    Actor = itemUser,
 
-                    Organization = new()
-                    {
-                        AvatarUrl = item.Org?.AvatarUrl,
-                        Login = item.Org?.Login,
-                        Name = item.Org?.Name,
-                    },
+                    Organization = itemOrganization
                 };
+
+                indivisual.PayloadSets = new ActivityPayloads();
 
                 switch (item.Type)
                 {
@@ -61,6 +70,7 @@ namespace FluentHub.Octokit.Wrappers
                             MasterBranch = createEventPayload.MasterBranch,
                             Ref = createEventPayload.Ref,
                         };
+
                         break;
                     case "DeleteEvent":
                         indivisual.Type = ActivityPayloadType.DeleteEvent;
@@ -79,7 +89,7 @@ namespace FluentHub.Octokit.Wrappers
                             {
                                 Name = forkEventPayload.Forkee.Name,
                                 Owner = new RepositoryOwner()
-                                { 
+                                {
                                     AvatarUrl = forkEventPayload.Forkee.Owner.AvatarUrl,
                                     Login = forkEventPayload.Forkee.Owner.Login,
                                 },

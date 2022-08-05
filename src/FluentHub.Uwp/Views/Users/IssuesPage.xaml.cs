@@ -23,26 +23,30 @@ namespace FluentHub.Uwp.Views.Users
         private readonly INavigationService navigationService;
         public IssuesViewModel ViewModel { get; }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            // e.g. https://github.com/issues
-            string url = e.Parameter as string;
-            string login = App.Settings.SignedInUserName;
+            var param = e.Parameter as Models.FrameNavigationArgs;
+            ViewModel.Login = param.Login;
             ViewModel.DisplayTitle = true;
 
+            await ViewModel.LoadUserAsync(param.Login);
+
+            SetCurrentTabItem();
+
+            var command = ViewModel.RefreshIssuesPageCommand;
+            if (command.CanExecute(null))
+                command.Execute(null);
+        }
+
+        private void SetCurrentTabItem()
+        {
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Issues";
-            currentItem.Description = $"{login}'s issues";
-            currentItem.DisplayUrl = $"Issues";
-            currentItem.Url = url;
-            currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
+            currentItem.Description = $"{ViewModel.User.Login}'s issues";
+            currentItem.Icon = new muxc.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Issues.png"))
             };
-
-            var command = ViewModel.RefreshIssuesPageCommand;
-            if (command.CanExecute(login))
-                command.Execute(login);
         }
     }
 }

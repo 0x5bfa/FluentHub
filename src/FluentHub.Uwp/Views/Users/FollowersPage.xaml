@@ -9,7 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:vm="using:FluentHub.Uwp.ViewModels.Users"
+    xmlns:uc="using:FluentHub.Uwp.UserControls"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -22,38 +22,70 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <ScrollViewer>
-        <Grid Margin="32,0,32,32">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-
-            <Grid x:Name="TitleGrid" x:Load="{x:Bind ViewModel.DisplayTitle, Mode=OneWay}">
-                <TextBlock
-                    Margin="12,24,12,8"
-                    Style="{StaticResource TitleTextBlockStyle}"
-                    Text="Your Followers" />
-            </Grid>
-
-            <Grid
-                Grid.Row="1"
-                Margin="0,8,0,16"
-                RowSpacing="8">
+    <Grid>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
+            <Grid>
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <TextBox PlaceholderText="Search followers" />
+                <uc:UserProfileOverview
+                    x:Name="UserProfileOverview"
+                    Margin="0,0,8,16"
+                    x:Load="{x:Bind ViewModel.DisplayTitle, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
+                    ViewModel="{x:Bind ViewModel.UserProfileOverviewViewModel, Mode=OneWay}" />
 
-                <StackPanel
+                <Border
+                    x:Name="ContentBackgroundFull"
                     Grid.Row="1"
-                    Orientation="Horizontal"
-                    Spacing="8">
+                    x:Load="{x:Bind ViewModel.DisplayTitle, Mode=OneWay}"
+                    Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1,1,0,0"
+                    CornerRadius="8,0,0,0" />
 
-                    <!--<Button Visibility="Collapsed">
+                <Border
+                    x:Name="ContentBackgroundRounded"
+                    Grid.Row="1"
+                    Margin="0,0,8,8"
+                    x:Load="{x:Bind ViewModel.DisplayTitle, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
+                    Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8" />
+
+                <Grid Grid.Row="1" Padding="32,24,32,32">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid x:Name="TitleGrid" x:Load="{x:Bind ViewModel.DisplayTitle, Mode=OneWay}">
+                        <TextBlock
+                            Margin="12,24,12,8"
+                            Style="{StaticResource TitleTextBlockStyle}"
+                            Text="Your Followers" />
+                    </Grid>
+
+                    <Grid
+                        Grid.Row="1"
+                        Margin="0,8,0,16"
+                        RowSpacing="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBox PlaceholderText="Search followers" />
+
+                        <StackPanel
+                            Grid.Row="1"
+                            Orientation="Horizontal"
+                            Spacing="8">
+
+                            <!--<Button Visibility="Collapsed">
                         <StackPanel Orientation="Horizontal" Spacing="4">
                             <FontIcon
                                 FontSize="14"
@@ -68,84 +100,82 @@
                         </Button.Flyout>
                     </Button>-->
 
-                </StackPanel>
+                        </StackPanel>
+                    </Grid>
+
+                    <muxc:ItemsRepeater Grid.Row="2" ItemsSource="{x:Bind ViewModel.FollowersItems, Mode=OneWay}">
+                        <muxc:ItemsRepeater.Layout>
+                            <muxc:StackLayout Orientation="Vertical" Spacing="6" />
+                        </muxc:ItemsRepeater.Layout>
+                        <DataTemplate x:DataType="bbvm:UserButtonBlockViewModel">
+                            <buttonblock:UserButtonBlock
+                                x:Name="RepositoryBlock"
+                                Margin="0,2"
+                                ViewModel="{x:Bind}" />
+                        </DataTemplate>
+                    </muxc:ItemsRepeater>
+
+                </Grid>
             </Grid>
+        </ScrollViewer>
 
-            <muxc:ItemsRepeater Grid.Row="2" ItemsSource="{x:Bind ViewModel.FollowersItems, Mode=OneWay}">
-                <muxc:ItemsRepeater.Layout>
-                    <muxc:StackLayout Orientation="Vertical" Spacing="6" />
-                </muxc:ItemsRepeater.Layout>
-                <DataTemplate x:DataType="bbvm:UserButtonBlockViewModel">
-                    <buttonblock:UserButtonBlock
-                        x:Name="RepositoryBlock"
-                        Margin="0,2"
-                        ViewModel="{x:Bind}" />
-                </DataTemplate>
-            </muxc:ItemsRepeater>
+        <toolkit:SwitchPresenter
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center"
+            TargetType="x:Boolean"
+            Value="{x:Bind ViewModel.RefreshFollowersCommand.IsRunning, Mode=OneWay}">
 
-            <toolkit:SwitchPresenter
-                Grid.Row="2"
-                HorizontalAlignment="Center"
-                VerticalAlignment="Center"
-                TargetType="x:Boolean"
-                Value="{x:Bind ViewModel.RefreshFollowersCommand.IsRunning, Mode=OneWay}">
+            <toolkit:Case Value="False">
+                <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.RefreshFollowersCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
+                    <toolkit:Case Value="True">
+                        <HyperlinkButton Command="{x:Bind ViewModel.RefreshFollowersCommand}">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon FontSize="16" Glyph="&#xE149;" />
+                                <TextBlock Text="Refresh" />
+                            </StackPanel>
+                        </HyperlinkButton>
+                    </toolkit:Case>
 
-                <toolkit:Case Value="True">
-                    <muxc:ProgressRing IsActive="True" />
-                </toolkit:Case>
+                    <toolkit:Case Value="False">
+                        <toolkit:SwitchPresenter TargetType="x:Int32" Value="{x:Bind ViewModel.FollowersItems.Count, Mode=OneWay}">
+                            <toolkit:Case Value="0">
+                                <!--#region Empty state-->
+                                <Grid
+                                    Grid.Row="1"
+                                    MaxWidth="180"
+                                    Margin="30"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Viewbox>
+                                        <Grid>
+                                            <Path Data="m440.929688 375.699219-184.929688 101.546875-184.929688-101.546875v-203.089844l184.929688-101.546875 184.929688 101.546875zm0 0" Fill="DarkGray" />
+                                            <Path Data="m71.070312 172.609375v.003906l184.929688 101.546875 184.929688-101.546875v-.003906l-184.929688-101.546875zm0 0" Fill="#FF525252" />
+                                            <Path Data="m71.070312 172.671875v203.027344l184.929688 101.546875.109375-.058594v-203.03125l-184.929687-101.546875zm0 0" Fill="Gray" />
 
-                <toolkit:Case Value="False">
-                    <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.RefreshFollowersCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
-                        <toolkit:Case Value="True">
-                            <HyperlinkButton Command="{x:Bind ViewModel.RefreshFollowersCommand}">
-                                <StackPanel Orientation="Horizontal" Spacing="8">
-                                    <FontIcon FontSize="16" Glyph="&#xE149;" />
-                                    <TextBlock Text="Refresh" />
-                                </StackPanel>
-                            </HyperlinkButton>
-                        </toolkit:Case>
+                                            <Path Data="m440.929688 172.613281 61.070312 61.066407-184.929688 101.546874-61.070312-61.070312zm0 0" Fill="LightGray" />
+                                            <Path Data="m71.070312 172.613281-61.070312 61.066407 184.929688 101.546874 61.070312-61.070312zm0 0" Fill="LightGray" />
+                                            <Path Data="m440.929688 172.613281 61.070312-61.066406-184.929688-101.546875-61.070312 61.070312zm0 0" Fill="LightGray" />
+                                            <Path Data="m71.070312 172.613281-61.070312-61.066406 184.929688-101.546875 61.070312 61.070312zm0 0" Fill="LightGray" />
+                                        </Grid>
+                                    </Viewbox>
 
-                        <toolkit:Case Value="False">
-                            <toolkit:SwitchPresenter TargetType="x:Int32" Value="{x:Bind ViewModel.FollowersItems.Count, Mode=OneWay}">
-                                <toolkit:Case Value="0">
-                                    <!--#region Empty state-->
-                                    <Grid
+                                    <TextBlock
                                         Grid.Row="1"
-                                        MaxWidth="180"
-                                        Margin="30"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition />
-                                            <RowDefinition />
-                                        </Grid.RowDefinitions>
-                                        <Viewbox>
-                                            <Grid>
-                                                <Path Data="m440.929688 375.699219-184.929688 101.546875-184.929688-101.546875v-203.089844l184.929688-101.546875 184.929688 101.546875zm0 0" Fill="DarkGray" />
-                                                <Path Data="m71.070312 172.609375v.003906l184.929688 101.546875 184.929688-101.546875v-.003906l-184.929688-101.546875zm0 0" Fill="#FF525252" />
-                                                <Path Data="m71.070312 172.671875v203.027344l184.929688 101.546875.109375-.058594v-203.03125l-184.929687-101.546875zm0 0" Fill="Gray" />
+                                        FontSize="18"
+                                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                                        Text="This account has no followers"
+                                        TextAlignment="Center" />
+                                </Grid>
+                            </toolkit:Case>
+                        </toolkit:SwitchPresenter>
+                    </toolkit:Case>
+                </toolkit:SwitchPresenter>
+            </toolkit:Case>
 
-                                                <Path Data="m440.929688 172.613281 61.070312 61.066407-184.929688 101.546874-61.070312-61.070312zm0 0" Fill="LightGray" />
-                                                <Path Data="m71.070312 172.613281-61.070312 61.066407 184.929688 101.546874 61.070312-61.070312zm0 0" Fill="LightGray" />
-                                                <Path Data="m440.929688 172.613281 61.070312-61.066406-184.929688-101.546875-61.070312 61.070312zm0 0" Fill="LightGray" />
-                                                <Path Data="m71.070312 172.613281-61.070312-61.066406 184.929688-101.546875 61.070312 61.070312zm0 0" Fill="LightGray" />
-                                            </Grid>
-                                        </Viewbox>
-
-                                        <TextBlock
-                                            Grid.Row="1"
-                                            FontSize="18"
-                                            Style="{StaticResource BodyStrongTextBlockStyle}"
-                                            Text="This account has no followers"
-                                            TextAlignment="Center" />
-                                    </Grid>
-                                </toolkit:Case>
-                            </toolkit:SwitchPresenter>
-                        </toolkit:Case>
-                    </toolkit:SwitchPresenter>
-                </toolkit:Case>
-
-            </toolkit:SwitchPresenter>
-        </Grid>
-    </ScrollViewer>
+        </toolkit:SwitchPresenter>
+    </Grid>
 </Page>

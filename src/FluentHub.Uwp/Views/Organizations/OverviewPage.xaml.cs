@@ -23,17 +23,17 @@ namespace FluentHub.Uwp.Views.Organizations
         private readonly INavigationService navigationService;
         public OverviewViewModel ViewModel { get; }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            string org = e.Parameter as string;
-            DataContext = org;
+            var param = e.Parameter as Models.FrameNavigationArgs;
+            ViewModel.Login = param.Login;
+
+            await ViewModel.LoadOrganizationAsync(param.Login);
 
             #region tabitem
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = $"{org}";
-            currentItem.Description = $"{org}";
-            currentItem.Url = $"https://github.com/{org}";
-            currentItem.DisplayUrl = $"{org}";
+            currentItem.Header = param.Login;
+            currentItem.Description = param.Login;
             currentItem.Icon = new muxc.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Organizations.png"))
@@ -41,8 +41,8 @@ namespace FluentHub.Uwp.Views.Organizations
             #endregion
 
             var command = ViewModel.LoadOrganizationOverviewAsyncCommand;
-            if (command.CanExecute(DataContext))
-                command.Execute(DataContext);
+            if (command.CanExecute(null))
+                command.Execute(null);
         }
     }
 }

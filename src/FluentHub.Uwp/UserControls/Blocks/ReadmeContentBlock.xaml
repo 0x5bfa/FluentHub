@@ -19,10 +19,10 @@
     </UserControl.Resources>
 
     <Grid
-        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+        Background="{ThemeResource CardBackgroundFillColorSecondary}"
         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
         BorderThickness="1"
-        CornerRadius="4"
+        CornerRadius="8"
         Visibility="{x:Bind ViewModel.HtmlText, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
 
         <Grid.RowDefinitions>
@@ -31,10 +31,9 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid Padding="8,6">
+        <Grid Padding="32,16,32,16">
 
             <TextBlock
-                Margin="10,0"
                 VerticalAlignment="Center"
                 Style="{StaticResource BodyStrongTextBlockStyle}"
                 Text="README" />
@@ -45,7 +44,8 @@
                 HorizontalAlignment="Right"
                 Background="Transparent"
                 IsEnabled="False"
-                Style="{StaticResource ClearButtonStyle}">
+                Style="{StaticResource ClearButtonStyle}"
+                Visibility="Collapsed">
                 <FontIcon
                     FontSize="14"
                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"

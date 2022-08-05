@@ -1,4 +1,5 @@
-﻿using FluentHub.Uwp.Services;
+﻿using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.Repositories.Discussions;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml.Controls;
@@ -22,26 +23,28 @@ namespace FluentHub.Uwp.Views.Repositories.Discussions
         private readonly INavigationService navigationService;
         public DiscussionsViewModel ViewModel { get; }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            var url = e.Parameter as string;
-            var uri = new Uri(url);
-            var pathSegments = uri.AbsolutePath.Split("/").ToList();
-            pathSegments.RemoveAt(0);
+            var param = e.Parameter as FrameNavigationArgs;
 
+            await ViewModel.LoadRepositoryAsync(param.Login, param.Name);
+
+            SetCurrentTabItem();
+
+            var command = ViewModel.LoadDiscussionsPageCommand;
+            if (command.CanExecute(null))
+                command.Execute(null);
+        }
+
+        private void SetCurrentTabItem()
+        {
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Discussions";
             currentItem.Description = "Discussions";
-            currentItem.Url = url;
-            currentItem.DisplayUrl = $"{pathSegments[0]} / {pathSegments[1]} / Discussions";
             currentItem.Icon = new muxc.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Discussions.png"))
             };
-
-            var command = ViewModel.LoadDiscussionsPageCommand;
-            if (command.CanExecute($"{pathSegments[0]}/{pathSegments[1]}"))
-                command.Execute($"{pathSegments[0]}/{pathSegments[1]}");
         }
     }
 }

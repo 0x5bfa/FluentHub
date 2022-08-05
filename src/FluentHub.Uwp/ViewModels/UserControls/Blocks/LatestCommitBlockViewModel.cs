@@ -12,7 +12,6 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
         {
             _messenger = messenger;
             _logger = logger;
-            _messenger = messenger;
 
             LoadLatestCommitBlockCommand = new AsyncRelayCommand(LoadRepositoryLatestCommitAsync);
         }

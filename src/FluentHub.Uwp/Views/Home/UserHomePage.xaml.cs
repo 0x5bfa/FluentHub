@@ -1,4 +1,5 @@
-﻿using FluentHub.Uwp.Services;
+﻿using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.Home;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
@@ -17,54 +18,102 @@ namespace FluentHub.Uwp.Views.Home
 
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<UserHomeViewModel>();
-            navigationService = provider.GetRequiredService<INavigationService>();
+            navService = provider.GetRequiredService<INavigationService>();
         }
 
-        private readonly INavigationService navigationService;
+        private readonly INavigationService navService;
         public UserHomeViewModel ViewModel { get; }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = $"Home";
-            currentItem.Description = $"Home";
-            currentItem.Url = $"fluenthub://home";
-            currentItem.DisplayUrl = $"Home";
-            currentItem.Icon = new muxc.ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Home.png"))
-            };
+            SetCurrentTabItem();
 
             var command = ViewModel.LoadHomeContentsCommand;
             if (command.CanExecute(null))
                 command.Execute(null);
         }
 
+        private void SetCurrentTabItem()
+        {
+            var currentItem = navService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = $"Home";
+            currentItem.Description = $"Home";
+            currentItem.Icon = new muxc.ImageIconSource
+            {
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Home.png"))
+            };
+        }
+
         private void OnHomeRepositoriesListItemClick(object sender, ItemClickEventArgs e)
         {
             var clickedItem = e.ClickedItem as Repository;
-            navigationService.Navigate<Repositories.OverviewPage>($"{App.DefaultGitHubDomain}/{clickedItem.Owner.Login}/{clickedItem.Name}");
+
+            navService.Navigate<Repositories.Codes.CodePage>(
+                new FrameNavigationArgs()
+                {
+                    Login = clickedItem.Owner.Login,
+                    Name = clickedItem.Name,
+                });
         }
 
-        private void OnIssueButtonClick(object sender, RoutedEventArgs e)
-            => navigationService.Navigate<Users.IssuesPage>("https://github.com/issues");
+        private void OnOneFolderCardClick(object sender, RoutedEventArgs e)
+        {
+            var clickedButton = sender as Button;
 
-        private void OnPullRequestsButtonClick(object sender, RoutedEventArgs e)
-            => navigationService.Navigate<Users.PullRequestsPage>("https://github.com/pulls");
+            switch (clickedButton.Tag)
+            {
+                case "issues":
+                    navService.Navigate<Users.IssuesPage>(
+                    new FrameNavigationArgs()
+                    {
+                        Login = App.Settings.SignedInUserName,
+                        Parameters = new() { "AsViewer" },
+                    });
+                    break;
+                case "pullrequests":
+                    navService.Navigate<Users.PullRequestsPage>(
+                    new FrameNavigationArgs()
+                    {
+                        Login = App.Settings.SignedInUserName,
+                        Parameters = new() { "AsViewer" },
+                    });
+                    break;
+                case "discussions":
+                    navService.Navigate<Users.DiscussionsPage>(
+                    new FrameNavigationArgs()
+                    {
+                        Login = App.Settings.SignedInUserName,
+                        Parameters = new() { "AsViewer" },
+                    });
+                    break;
+                case "repositories":
+                    navService.Navigate<Users.RepositoriesPage>(
+                    new FrameNavigationArgs()
+                    {
+                        Login = App.Settings.SignedInUserName,
+                        Parameters = new() { "AsViewer" },
+                    });
+                    break;
+                case "organizations":
+                    navService.Navigate<Users.OrganizationsPage>(
+                    new FrameNavigationArgs()
+                    {
+                        Login = App.Settings.SignedInUserName,
+                        Parameters = new() { "AsViewer" },
+                    });
+                    break;
+                case "stars":
+                    navService.Navigate<Users.StarredReposPage>(
+                    new FrameNavigationArgs()
+                    {
+                        Login = App.Settings.SignedInUserName,
+                        Parameters = new() { "AsViewer" },
+                    });
+                    break;
+            }
+        }
 
-        private void OnDiscussionsButtonClick(object sender, RoutedEventArgs e)
-            => navigationService.Navigate<Users.DiscussionsPage>("fluenthub://discussions");
-
-        private void OnRepositoriesButtonClick(object sender, RoutedEventArgs e)
-            => navigationService.Navigate<Users.RepositoriesPage>("fluenthub://repositories");
-
-        private void OnOrganizationsButtonClick(object sender, RoutedEventArgs e)
-            => navigationService.Navigate<Users.OrganizationsPage>("fluenthub://organizations");
-
-        private void OnStarsButtonClick(object sender, RoutedEventArgs e)
-            => navigationService.Navigate<Users.StarredReposPage>("fluenthub://stars");
-
-        private void OnMoreActivitiesButtonClick(object sender, RoutedEventArgs e)
-            => navigationService.Navigate<Home.ActivitiesPage>("fluenthub://activities");
+        private void OnSeeFeedsButtonClick(object sender, RoutedEventArgs e)
+            => navService.Navigate<ActivitiesPage>();
     }
 }

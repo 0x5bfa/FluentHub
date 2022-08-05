@@ -51,7 +51,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
                     {
                         DisplayDetails = true,
                         DisplayStarButton = true,
-                        Item = response,
+                        Repository = response,
                     };
                     break;
                 case "IssueCommentEvent":

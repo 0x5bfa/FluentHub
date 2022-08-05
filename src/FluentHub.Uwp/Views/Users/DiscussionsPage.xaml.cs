@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.Views.Users
 {
@@ -21,26 +22,30 @@ namespace FluentHub.Uwp.Views.Users
         private readonly INavigationService navigationService;
         public DiscussionsViewModel ViewModel { get; }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            // e.g. https://github.com/discussions
-            string url = e.Parameter as string;
-            string login = App.Settings.SignedInUserName;
+            var param = e.Parameter as Models.FrameNavigationArgs;
+            ViewModel.Login = param.Login;
             ViewModel.DisplayTitle = true;
 
+            await ViewModel.LoadUserAsync(param.Login);
+
+            SetCurrentTabItem();
+
+            var command = ViewModel.RefreshDiscussionsCommand;
+            if (command.CanExecute(null))
+                command.Execute(null);
+        }
+
+        private void SetCurrentTabItem()
+        {
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Discussions";
-            currentItem.Description = $"{login}'s discussions";
-            currentItem.Url = url;
-            currentItem.DisplayUrl = $"Discussions";
-            currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
+            currentItem.Description = $"{ViewModel.User.Login}'s discussions";
+            currentItem.Icon = new muxc.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Discussions.png"))
             };
-
-            var command = ViewModel.RefreshDiscussionsCommand;
-            if (command.CanExecute(login))
-                command.Execute(login);
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
+using FluentHub.Uwp.ViewModels.UserControls;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.Issues
@@ -19,12 +20,18 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
             _pinnedItems = new();
             PinnedItems = new(_pinnedItems);
 
-            RefreshIssuesPageCommand = new AsyncRelayCommand<string>(LoadRepositoryIssuesAsync);
+            RefreshIssuesPageCommand = new AsyncRelayCommand(LoadRepositoryIssuesAsync);
         }
 
         #region Fields and Properties
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
+
+        private Repository _repository;
+        public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
+
+        private RepositoryOverviewViewModel _repositoryOverviewViewModel;
+        public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
 
         private readonly ObservableCollection<IssueButtonBlockViewModel> _issueItems;
         public ReadOnlyObservableCollection<IssueButtonBlockViewModel> IssueItems { get; }
@@ -35,19 +42,17 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
         public IAsyncRelayCommand RefreshIssuesPageCommand { get; }
         #endregion
 
-        private async Task LoadRepositoryIssuesAsync(string url, CancellationToken token)
+        private async Task LoadRepositoryIssuesAsync(CancellationToken token)
         {
             try
             {
                 _messenger?.Send(new LoadingMessaging(true));
 
-                var uri = new Uri(url);
-                var pathSegments = uri.AbsolutePath.Split("/").ToList();
-                pathSegments.RemoveAt(0);
-
                 IssueQueries queries = new();
-                var items = await queries.GetAllAsync(pathSegments[1], pathSegments[0]);
-                if (items == null) return;
+                var items = await queries.GetAllAsync(
+                    Repository.Name,
+                    Repository.Owner.Login
+                    );
 
                 _issueItems.Clear();
                 foreach (var item in items)
@@ -60,7 +65,10 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
                     _issueItems.Add(viewModel);
                 }
 
-                var pinnedIssues = await queries.GetPinnedAllAsync(pathSegments[0], pathSegments[1]);
+                var pinnedIssues = await queries.GetPinnedAllAsync(
+                    Repository.Owner.Login,
+                    Repository.Name
+                    );
                 if (pinnedIssues == null) return;
 
                 _pinnedItems.Clear();
@@ -89,6 +97,41 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
             finally
             {
                 _messenger?.Send(new LoadingMessaging(false));
+            }
+        }
+
+        public async Task LoadRepositoryAsync(string owner, string name)
+        {
+            try
+            {
+                RepositoryQueries queries = new();
+                Repository = await queries.GetDetailsAsync(owner, name);
+
+                RepositoryOverviewViewModel = new()
+                {
+                    Repository = Repository,
+                    RepositoryName = Repository.Name,
+                    RepositoryOwnerLogin = Repository.Owner.Login,
+                    RepositoryVisibilityLabel = new()
+                    {
+                        Name = Repository.IsPrivate ? "Private" : "Public",
+                        Color = "#64000000",
+                    },
+                    ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
+
+                    SelectedTag = "issues",
+                };
+            }
+            catch (OperationCanceledException) { }
+            catch (Exception ex)
+            {
+                _logger?.Error(nameof(LoadRepositoryAsync), ex);
+                if (_messenger != null)
+                {
+                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+                    _messenger.Send(notification);
+                }
+                throw;
             }
         }
     }

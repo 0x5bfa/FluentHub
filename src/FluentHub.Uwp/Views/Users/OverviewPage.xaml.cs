@@ -22,26 +22,42 @@ namespace FluentHub.Uwp.Views.Users
         private readonly INavigationService navigationService;
         public OverviewViewModel ViewModel { get; }
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
-            // e.g. https://github.com/onein528
-            string url = e.Parameter as string;
-            var uri = new Uri(url);
-            string login = ViewModel.LoginName = uri.Segments[1];
+            var param = e.Parameter as Models.FrameNavigationArgs;
+            ViewModel.Login = param.Login;
 
+            ViewModel.ContextViewModel = new ViewModels.Repositories.RepoContextViewModel()
+            {
+                Repository = new()
+                {
+                    Name = ViewModel.Login,
+
+                    Owner = new RepositoryOwner()
+                    {
+                        Login = ViewModel.Login,
+                    },
+                }
+            };
+
+            await ViewModel.LoadUserAsync(param.Login);
+
+            SetCurrentTabItem();
+
+            var command = ViewModel.RefreshRepositoryCommand;
+            if (command.CanExecute(param.Login))
+                command.Execute(param.Login);
+        }
+
+        private void SetCurrentTabItem()
+        {
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = $"{login}";
-            currentItem.Description = $"{login}";
-            currentItem.Url = url;
-            currentItem.DisplayUrl = $"{login}";
+            currentItem.Header = $"{ViewModel.User.Login}";
+            currentItem.Description = $"{ViewModel.User.Login}";
             currentItem.Icon = new muxc.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Profile.png"))
             };
-
-            var command = ViewModel.RefreshRepositoryCommand;
-            if (command.CanExecute(login))
-                command.Execute(login);
         }
     }
 }

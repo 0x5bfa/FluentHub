@@ -4,7 +4,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>FluentHub.Octokit</RootNamespace>
     <AssemblyName>FluentHub.Octokit</AssemblyName>
-    <Platforms>x86;x64;arm64</Platforms>
+    <Platforms>x64</Platforms>
     <RuntimeIdentifiers>win-arm64;win-x86;win-x64</RuntimeIdentifiers>
     <LangVersion>latest</LangVersion>
     <Configurations>Debug;Release;Sideload</Configurations>
@@ -12,8 +12,12 @@
 
   <ItemGroup>
     <PackageReference Include="Humanizer" Version="2.8.25" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
-    <PackageReference Include="Octokit" Version="1.0.0" />
-    <PackageReference Include="Octokit.GraphQL" Version="0.1.9-beta" />
+    <PackageReference Include="Octokit" Version="2.0.0" />
   </ItemGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\lib\octokit.graphql.net\Octokit.GraphQL\Octokit.GraphQL.csproj" />
+    </ItemGroup>
 </Project>
