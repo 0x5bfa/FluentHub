@@ -35,10 +35,16 @@ namespace FluentHub.Octokit.Wrappers
                 };
 
                 if (item.LastReadAt != null)
+                {
                     indivisual.LastReadAt = DateTimeOffset.Parse(item.LastReadAt);
+                    indivisual.LastReadAtHumanized = indivisual.LastReadAt.Humanize();
+                }
 
                 if (item.UpdatedAt != null)
+                {
                     indivisual.UpdatedAt = DateTimeOffset.Parse(item.UpdatedAt);
+                    indivisual.UpdatedAtHumanized = indivisual.UpdatedAt.Humanize();
+                }
 
                 switch (item.Reason)
                 {

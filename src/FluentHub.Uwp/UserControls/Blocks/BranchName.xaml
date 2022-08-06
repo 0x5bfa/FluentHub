@@ -9,40 +9,4 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <Grid Height="26" HorizontalAlignment="Left">
-
-        <Grid
-            x:Name="LabelBackground"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            Background="#539bf5"
-            CornerRadius="4"
-            Opacity="0.1" />
-
-        <Grid
-            x:Name="LabelBorder"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Stretch"
-            BorderBrush="#539bf5"
-            BorderThickness="1"
-            CornerRadius="4"
-            Opacity="0.8" />
-
-        <StackPanel
-            Padding="8,0"
-            Orientation="Horizontal"
-            Spacing="4">
-
-            <TextBlock
-                x:Name="StateLabelTextBlock"
-                VerticalAlignment="Center"
-                FontFamily="Cascadia Code"
-                FontWeight="Light"
-                Foreground="#539bf5"
-                Style="{StaticResource CaptionTextBlockStyle}"
-                Text="{x:Bind Branch, Mode=OneWay}" />
-
-        </StackPanel>
-
-    </Grid>
 </UserControl>

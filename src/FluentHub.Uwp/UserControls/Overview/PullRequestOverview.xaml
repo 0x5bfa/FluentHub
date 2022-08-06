@@ -37,7 +37,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid Padding="32,32,32,24">
+        <Grid Padding="32,24,32,16">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -67,7 +67,7 @@
                 Grid.Row="1"
                 Margin="0,16,0,0"
                 Orientation="Horizontal"
-                Spacing="8">
+                Spacing="16">
 
                 <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.PullRequest.Closed, Mode=OneWay}">
 
@@ -96,14 +96,81 @@
                     </toolkit:Case>
                 </toolkit:SwitchPresenter>
 
-                <blocks:BranchName Branch="{x:Bind ViewModel.PullRequest.HeadRefName, Mode=OneWay}" />
+                <StackPanel Orientation="Horizontal" Spacing="8">
 
-                <FontIcon
-                    FontSize="12"
-                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                    Glyph="&#xE72A;" />
+                    <Grid Height="26" HorizontalAlignment="Left">
 
-                <blocks:BranchName Branch="{x:Bind ViewModel.PullRequest.BaseRefName, Mode=OneWay}" />
+                        <Grid
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Background="#539bf5"
+                            CornerRadius="4"
+                            Opacity="0.1" />
+
+                        <Grid
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            BorderBrush="#539bf5"
+                            BorderThickness="1"
+                            CornerRadius="4"
+                            Opacity="0.8" />
+
+                        <StackPanel
+                            Padding="8,0"
+                            Orientation="Horizontal"
+                            Spacing="4">
+
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontFamily="Cascadia Code"
+                                FontWeight="Light"
+                                Foreground="#539bf5"
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                Text="{x:Bind ViewModel.PullRequest.HeadRefName, Mode=OneWay}" />
+
+                        </StackPanel>
+
+                    </Grid>
+
+                    <FontIcon
+                        FontSize="12"
+                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Glyph="&#xE72A;" />
+
+                    <Grid Height="26" HorizontalAlignment="Left">
+
+                        <Grid
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            Background="#539bf5"
+                            CornerRadius="4"
+                            Opacity="0.1" />
+
+                        <Grid
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            BorderBrush="#539bf5"
+                            BorderThickness="1"
+                            CornerRadius="4"
+                            Opacity="0.8" />
+
+                        <StackPanel
+                            Padding="8,0"
+                            Orientation="Horizontal"
+                            Spacing="4">
+
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontFamily="Cascadia Code"
+                                FontWeight="Light"
+                                Foreground="#539bf5"
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                Text="{x:Bind ViewModel.PullRequest.BaseRefName, Mode=OneWay}" />
+
+                        </StackPanel>
+
+                    </Grid>
+                </StackPanel>
 
             </StackPanel>
 

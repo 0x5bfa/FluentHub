@@ -132,7 +132,7 @@
                                                 HorizontalAlignment="Right"
                                                 VerticalAlignment="Center"
                                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                                Text="{x:Bind UpdatedAt, Mode=OneWay}" />
+                                                Text="{x:Bind UpdatedAtHumanized, Mode=OneWay}" />
 
                                         </Grid>
                                     </DataTemplate>

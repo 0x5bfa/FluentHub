@@ -51,7 +51,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
                 if (ContextViewModel.IsFile) return;
                 ContextViewModel.IsDir = true;
 
-                CommitQueries queries = new();
+                TreeQueries queries = new();
                 var response = await queries.GetWithObjectNameAsync(
                     Repository.Name,
                     Repository.Owner.Login,
@@ -79,6 +79,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
                         Name = item.File.Name,
                         LatestCommitMessage = item.Commit.Message.Split('\n', 2).FirstOrDefault(),
                         UpdatedAt = item.Commit.CommittedDate,
+                        UpdatedAtHumanized = item.Commit.CommittedDateHumanized,
                     };
 
                     if (item.File.Type == "tree")

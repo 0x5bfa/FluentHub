@@ -293,6 +293,7 @@
                                 VerticalAlignment="Stretch"
                                 IsItemClickEnabled="True"
                                 IsRightTapEnabled="True"
+                                ItemClick="OnRecentUserNotificationListViewItemClick"
                                 ItemContainerTransitions="{x:Null}"
                                 ItemsSource="{x:Bind ViewModel.UserNotifications, Mode=OneWay}"
                                 SelectionMode="None">

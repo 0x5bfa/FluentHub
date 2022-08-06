@@ -102,7 +102,7 @@ namespace FluentHub.Uwp.ViewModels.Home
                     new()
                     {
                         PageCount = 1, // Constant
-                        PageSize = 3,
+                        PageSize = 10,
                         StartPage = 1,
                     });
 

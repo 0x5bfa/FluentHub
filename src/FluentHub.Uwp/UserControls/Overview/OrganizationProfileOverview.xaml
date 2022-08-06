@@ -185,7 +185,7 @@
                         BorderThickness="0"
                         CornerRadius="12">
                         <Button.Content>
-                            <Grid
+                            <Border
                                 Height="24"
                                 Padding="8,2,8,0"
                                 BorderBrush="#347d39"
@@ -197,7 +197,7 @@
                                     Foreground="#57ab5a"
                                     Style="{StaticResource CaptionTextBlockStyle}"
                                     Text="Verified" />
-                            </Grid>
+                            </Border>
                         </Button.Content>
                         <Button.Flyout>
                             <Flyout Placement="Bottom">
