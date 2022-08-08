@@ -146,6 +146,7 @@
     </Compile>
     <Compile Include="Converters\ObjectToBoolConverter.cs" />
     <Compile Include="Converters\SettingsControlConverter.cs" />
+    <Compile Include="Converters\SizeToCornerRadiusConverter.cs" />
     <Compile Include="Dialogs\AccountSwitching.xaml.cs">
       <DependentUpon>AccountSwitching.xaml</DependentUpon>
     </Compile>

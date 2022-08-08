@@ -9,6 +9,7 @@
     xmlns:local="using:FluentHub.Uwp.Views.Repositories.Issues"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:FluentHub.Uwp.Models"
+    xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:primer="using:FluentHub.Uwp.UserControls.PrimerControls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
@@ -19,49 +20,214 @@
         <ResourceDictionary>
             <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
 
-            <DataTemplate x:Key="AddedToProjectEventDataTemplate">
-                <Grid />
+            <DataTemplate x:Key="AddedToProjectEventDataTemplate" x:DataType="modelsV4:AddedToProjectEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEA48;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="added this to a project" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
             </DataTemplate>
 
-            <DataTemplate x:Key="AssignedEventDataTemplate">
-                <Grid />
+            <DataTemplate x:Key="AssignedEventDataTemplate" x:DataType="modelsV4:AssignedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="assigned someone" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
             </DataTemplate>
 
-            <DataTemplate x:Key="ClosedEventDataTemplate">
-                <Grid />
+            <DataTemplate x:Key="ClosedEventDataTemplate" x:DataType="modelsV4:ClosedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="closed this" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
             </DataTemplate>
 
-            <DataTemplate x:Key="CommentDeletedEventDataTemplate">
-                <Grid />
+            <DataTemplate x:Key="CommentDeletedEventDataTemplate" x:DataType="modelsV4:CommentDeletedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="deleted a comment" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
             </DataTemplate>
 
-            <DataTemplate x:Key="ConnectedEventDataTemplate">
-                <Grid />
+            <DataTemplate x:Key="ConnectedEventDataTemplate" x:DataType="modelsV4:ConnectedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xE924;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="made a connection" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
             </DataTemplate>
 
-            <DataTemplate x:Key="ConvertedNoteToIssueEventDataTemplate">
-                <Grid />
+            <DataTemplate x:Key="ConvertedNoteToIssueEventDataTemplate" x:DataType="modelsV4:ConvertedNoteToIssueEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="converted note to issue" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
             </DataTemplate>
 
-            <DataTemplate x:Key="CrossReferencedEventDataTemplate">
-                <Grid />
+            <DataTemplate x:Key="CrossReferencedEventDataTemplate" x:DataType="modelsV4:CrossReferencedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="referenced something" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
             </DataTemplate>
 
-            <DataTemplate x:Key="DemilestonedEventDataTemplate">
-                <Grid />
+            <DataTemplate x:Key="DemilestonedEventDataTemplate" x:DataType="modelsV4:DemilestonedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="removed this from a milestone" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
             </DataTemplate>
 
-            <DataTemplate x:Key="DisconnectedEventDataTemplate">
-                <Grid />
+            <DataTemplate x:Key="DisconnectedEventDataTemplate" x:DataType="modelsV4:DisconnectedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="removed a connection" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
             </DataTemplate>
 
-            <DataTemplate x:Key="IssueCommentDataTemplate">
-                <Grid>
-                    <TextBlock Text="Issue comment" />
-                </Grid>
-            </DataTemplate>
-
-            <DataTemplate x:Key="LabeledEventDataTemplate">
+            <DataTemplate x:Key="IssueCommentDataTemplate" x:DataType="modelsV4:IssueComment">
                 <primer:Timeline>
                     <primer:Timeline.Badge>
                         <FontIcon
@@ -70,76 +236,405 @@
                             Glyph="&#xEAA5;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            Style="{StaticResource BodyTextBlockStyle}"
-                            Text="Labeled" />
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Author.Login}"
+                                Size="20"
+                                Source="{x:Bind Author.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="commented" />
+                        </StackPanel>
                     </primer:Timeline.Body>
                 </primer:Timeline>
             </DataTemplate>
 
-            <DataTemplate x:Key="LockedEventDataTemplate">
-                <Grid />
+            <DataTemplate x:Key="LabeledEventDataTemplate" x:DataType="modelsV4:LabeledEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEA05;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="labeled 1 or more label(s)" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
             </DataTemplate>
 
-            <DataTemplate x:Key="MarkedAsDuplicateEventDataTemplate">
-                <Grid />
+            <DataTemplate x:Key="LockedEventDataTemplate" x:DataType="modelsV4:LockedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEA05;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="locked this" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
             </DataTemplate>
 
-            <DataTemplate x:Key="MilestonedEventDataTemplate">
-                <Grid />
+            <DataTemplate x:Key="MarkedAsDuplicateEventDataTemplate" x:DataType="modelsV4:MarkedAsDuplicateEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xE924;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="marked this as duplicate" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
             </DataTemplate>
 
-            <DataTemplate x:Key="MovedColumnsInProjectEventDataTemplate">
-                <Grid />
+            <DataTemplate x:Key="MilestonedEventDataTemplate" x:DataType="modelsV4:MilestonedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEAA5;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="added this to a milestoned" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
             </DataTemplate>
 
-            <DataTemplate x:Key="PinnedEventDataTemplate">
-                <Grid />
+            <DataTemplate x:Key="MovedColumnsInProjectEventDataTemplate" x:DataType="modelsV4:MovedColumnsInProjectEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="moved this to other column in project" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
             </DataTemplate>
 
-            <DataTemplate x:Key="ReferencedEventDataTemplate">
-                <Grid />
+            <DataTemplate x:Key="PinnedEventDataTemplate" x:DataType="modelsV4:PinnedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="pinned this" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
             </DataTemplate>
 
-            <DataTemplate x:Key="RemovedFromProjectEventDataTemplate">
-                <Grid />
+            <DataTemplate x:Key="ReferencedEventDataTemplate" x:DataType="modelsV4:ReferencedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xE968;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="referenced" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
             </DataTemplate>
 
-            <DataTemplate x:Key="RenamedTitleEventDataTemplate">
-                <Grid />
+            <DataTemplate x:Key="RemovedFromProjectEventDataTemplate" x:DataType="modelsV4:RemovedFromProjectEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEA48;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="removed this from project" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
             </DataTemplate>
 
-            <DataTemplate x:Key="ReopenedEventDataTemplate">
-                <Grid />
+            <DataTemplate x:Key="RenamedTitleEventDataTemplate" x:DataType="modelsV4:RenamedTitleEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEA34;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="renamed title" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
             </DataTemplate>
 
-            <DataTemplate x:Key="UnassignedEventDataTemplate">
-                <Grid />
+            <DataTemplate x:Key="ReopenedEventDataTemplate" x:DataType="modelsV4:ReopenedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="reopened this" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
             </DataTemplate>
 
-            <DataTemplate x:Key="UnlabeledEventDataTemplate">
-                <Grid />
+            <DataTemplate x:Key="UnassignedEventDataTemplate" x:DataType="modelsV4:UnassignedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="unassigne someone" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
             </DataTemplate>
 
-            <DataTemplate x:Key="UnlockedEventDataTemplate">
-                <Grid />
+            <DataTemplate x:Key="UnlabeledEventDataTemplate" x:DataType="modelsV4:UnlabeledEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="unlabeled 1 or more label(s)" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
             </DataTemplate>
 
-            <DataTemplate x:Key="UnmarkedAsDuplicateEventDataTemplate">
-                <Grid />
+            <DataTemplate x:Key="UnlockedEventDataTemplate" x:DataType="modelsV4:UnlockedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="unlocked this" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
             </DataTemplate>
 
-            <DataTemplate x:Key="UnpinnedEventDataTemplate">
-                <Grid />
+            <DataTemplate x:Key="UnmarkedAsDuplicateEventDataTemplate" x:DataType="modelsV4:UnmarkedAsDuplicateEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="unmarked as duplicate" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
             </DataTemplate>
 
-            <DataTemplate x:Key="UserBlockedEventDataTemplate">
-                <Grid />
+            <DataTemplate x:Key="UnpinnedEventDataTemplate" x:DataType="modelsV4:UnpinnedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="unpinned this" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="UserBlockedEventDataTemplate" x:DataType="modelsV4:UserBlockedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="blocked someone" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
             </DataTemplate>
 
             <DataTemplate x:Key="DefaultDataTemplate">
-                <Grid />
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="made an unknown event" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
             </DataTemplate>
 
             <models:TimelineItemSelector
