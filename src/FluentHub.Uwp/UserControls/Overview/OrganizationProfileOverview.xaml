@@ -258,6 +258,61 @@
                                 Glyph="&#xEA52;" />
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
+                    <muxc:NavigationViewItem
+                        Content="Discussions"
+                        IsEnabled="False"
+                        Tag="Discussions">
+                        <muxc:NavigationViewItem.Icon>
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="16"
+                                Glyph="&#xE95D;" />
+                        </muxc:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem>
+                    <muxc:NavigationViewItem
+                        Content="Projects"
+                        IsEnabled="False"
+                        Tag="Projects">
+                        <muxc:NavigationViewItem.Icon>
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="16"
+                                Glyph="&#xEA48;" />
+                        </muxc:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem>
+                    <muxc:NavigationViewItem
+                        Content="Packages"
+                        IsEnabled="False"
+                        Tag="Packages">
+                        <muxc:NavigationViewItem.Icon>
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="16"
+                                Glyph="&#xEA29;" />
+                        </muxc:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem>
+                    <muxc:NavigationViewItem
+                        Content="People"
+                        IsEnabled="False"
+                        Tag="People">
+                        <muxc:NavigationViewItem.Icon>
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="16"
+                                Glyph="&#xEA38;" />
+                        </muxc:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem>
+                    <muxc:NavigationViewItem
+                        Content="Settings"
+                        IsEnabled="False"
+                        Tag="Settings">
+                        <muxc:NavigationViewItem.Icon>
+                            <FontIcon
+                                FontFamily="{StaticResource Octions}"
+                                FontSize="16"
+                                Glyph="&#xE9B3;" />
+                        </muxc:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem>
                 </muxc:NavigationView.MenuItems>
 
             </muxc:NavigationView>

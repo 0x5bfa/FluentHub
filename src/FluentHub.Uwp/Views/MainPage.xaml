@@ -331,6 +331,7 @@
                     IsBackButtonVisible="Collapsed"
                     IsPaneToggleButtonVisible="False"
                     IsSettingsVisible="False"
+                    x:Name="MainNavView"
                     IsTitleBarAutoPaddingEnabled="False"
                     ItemInvoked="OnMainNavViewItemInvoked"
                     MenuItemsSource="{x:Bind ViewModel.NavViewItems, Mode=OneWay}"

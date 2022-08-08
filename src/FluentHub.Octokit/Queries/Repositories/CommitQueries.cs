@@ -19,6 +19,7 @@
                     AbbreviatedOid = x.AbbreviatedOid,
                     Oid = x.Oid,
                     CommittedDate = x.CommittedDate,
+                    CommittedDateHumanized = x.CommittedDate.Humanize(null, null),
                     Message = x.Message,
                     MessageHeadline = x.MessageHeadline,
 

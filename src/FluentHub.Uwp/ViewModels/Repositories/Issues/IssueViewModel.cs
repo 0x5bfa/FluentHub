@@ -51,8 +51,6 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
             {
                 _messenger?.Send(new LoadingMessaging(true));
 
-                _eventBlocks.Clear();
-
                 IssueQueries issueQueries = new();
                 IssueItem = await issueQueries.GetAsync(
                     Repository.Owner.Login,
@@ -66,19 +64,19 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
                     Number
                     );
 
-                var bodyCommentBlock = new Timeline()
+                _eventBlocks.Clear();
+                _eventBlocks.Add(new Timeline()
                 {
                     ViewModel = new TimelineViewModel()
                     {
-                        EventType = "IssueComment",
+                        EventType = nameof(IssueComment),
                         IssueComment = bodyComment,
                         CommentBlockViewModel = new()
                         {
                             IssueComment = bodyComment,
                         },
                     },
-                };
-                _eventBlocks.Add(bodyCommentBlock);
+                });
 
                 IssueEventQueries queries = new();
                 var issueEvents = await queries.GetAllAsync(
@@ -89,12 +87,13 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
 
                 foreach (var eventItem in issueEvents)
                 {
-                    if (eventItem == null) continue;
+                    if (eventItem is null)
+                        continue;
 
                     var viewmodel = new TimelineViewModel()
                     {
                         // FluentHub.Octokit.Models.Events.*
-                        EventType = eventItem.GetType().ToString().Split(".")[4],
+                        EventType = eventItem.GetType().ToString().Split(".").ElementAtOrDefault(4),
                         Event = eventItem,
                     };
 

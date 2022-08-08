@@ -169,6 +169,7 @@
     <Compile Include="Models\FrameNavigationArgs.cs" />
     <Compile Include="Models\LoadingMessaging.cs" />
     <Compile Include="Models\SquareNavigationViewItemModel.cs" />
+    <Compile Include="Models\TimelineItemSelector.cs" />
     <Compile Include="Models\TreeLayoutPageModel.cs" />
     <Compile Include="Models\UserNotificationMessage.cs" />
     <Compile Include="Models\UserNotificationMethod.cs" />
@@ -225,6 +226,9 @@
     </Compile>
     <Compile Include="UserControls\Overview\RepositoryOverview.xaml.cs">
       <DependentUpon>RepositoryOverview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\PrimerControls\Timeline.xaml.cs">
+      <DependentUpon>Timeline.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\TabViewControl\TabItem.cs" />
     <Compile Include="UserControls\Blocks\ActivityBlock.xaml.cs">
@@ -880,6 +884,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Overview\RepositoryOverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\PrimerControls\Timeline.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -25,7 +25,6 @@
     </UserControl.Resources>
 
     <Grid
-        Grid.Row="1"
         Background="{ThemeResource CardBackgroundFillColorSecondary}"
         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
         BorderThickness="1"

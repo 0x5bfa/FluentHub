@@ -254,12 +254,20 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
                         case nameof(PullRequestCommit):
                             viewmodel.TimelineBadgeGlyph = "\uE9B9";
                             viewmodel.PullRequestCommit = eventItem as PullRequestCommit;
-                            //viewmodel.Actor = viewmodel?.PullRequestCommit.Commit.Author as Actor;
+                            viewmodel.Actor = new()
+                            {
+                                AvatarUrl = viewmodel?.PullRequestCommit.Commit.Author?.AvatarUrl,
+                                Login = viewmodel?.PullRequestCommit.Commit.Author?.User?.Login,
+                            };
                             break;
                         case nameof(PullRequestReview):
                             viewmodel.TimelineBadgeGlyph = "\uE98B";
                             viewmodel.PullRequestReview = eventItem as PullRequestReview;
-                            //viewmodel.Actor = viewmodel?.PullRequestReview.Commit.Author as Actor;
+                            viewmodel.Actor = new()
+                            {
+                                AvatarUrl = viewmodel?.PullRequestReview.Commit.Author?.AvatarUrl,
+                                Login = viewmodel?.PullRequestReview.Commit.Author?.User?.Login,
+                            };
                             break;
                         case nameof(ReadyForReviewEvent):
                             viewmodel.TimelineBadgeGlyph = "\uE9BF";
