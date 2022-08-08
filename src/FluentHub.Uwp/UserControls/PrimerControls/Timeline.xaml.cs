@@ -62,8 +62,6 @@ namespace FluentHub.Uwp.UserControls.PrimerControls
         #endregion
 
         public Timeline()
-        {
-            this.InitializeComponent();
-        }
+            => InitializeComponent();
     }
 }

@@ -188,6 +188,9 @@
     <Compile Include="UserControls\Overview\AppSettingsOverview.xaml.cs">
       <DependentUpon>AppSettingsOverview.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\PrimerControls\Avatar.xaml.cs">
+      <DependentUpon>Avatar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\PrimerControls\AvatarControl.xaml.cs">
       <DependentUpon>AvatarControl.xaml</DependentUpon>
     </Compile>
@@ -788,6 +791,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="UserControls\Overview\AppSettingsOverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\PrimerControls\Avatar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

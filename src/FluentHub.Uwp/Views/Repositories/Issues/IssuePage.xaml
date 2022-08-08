@@ -8,6 +8,7 @@
     xmlns:labels="using:FluentHub.Uwp.UserControls.Labels"
     xmlns:local="using:FluentHub.Uwp.Views.Repositories.Issues"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:FluentHub.Uwp.Models"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:primer="using:FluentHub.Uwp.UserControls.PrimerControls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
@@ -17,11 +18,160 @@
     <Page.Resources>
         <ResourceDictionary>
             <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
-        </ResourceDictionary>
 
-        <DataTemplate>
-            <primer:Timeline />
-        </DataTemplate>
+            <DataTemplate x:Key="AddedToProjectEventDataTemplate">
+                <Grid />
+            </DataTemplate>
+
+            <DataTemplate x:Key="AssignedEventDataTemplate">
+                <Grid />
+            </DataTemplate>
+
+            <DataTemplate x:Key="ClosedEventDataTemplate">
+                <Grid />
+            </DataTemplate>
+
+            <DataTemplate x:Key="CommentDeletedEventDataTemplate">
+                <Grid />
+            </DataTemplate>
+
+            <DataTemplate x:Key="ConnectedEventDataTemplate">
+                <Grid />
+            </DataTemplate>
+
+            <DataTemplate x:Key="ConvertedNoteToIssueEventDataTemplate">
+                <Grid />
+            </DataTemplate>
+
+            <DataTemplate x:Key="CrossReferencedEventDataTemplate">
+                <Grid />
+            </DataTemplate>
+
+            <DataTemplate x:Key="DemilestonedEventDataTemplate">
+                <Grid />
+            </DataTemplate>
+
+            <DataTemplate x:Key="DisconnectedEventDataTemplate">
+                <Grid />
+            </DataTemplate>
+
+            <DataTemplate x:Key="IssueCommentDataTemplate">
+                <Grid>
+                    <TextBlock Text="Issue comment" />
+                </Grid>
+            </DataTemplate>
+
+            <DataTemplate x:Key="LabeledEventDataTemplate">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEAA5;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <TextBlock
+                            VerticalAlignment="Center"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="Labeled" />
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="LockedEventDataTemplate">
+                <Grid />
+            </DataTemplate>
+
+            <DataTemplate x:Key="MarkedAsDuplicateEventDataTemplate">
+                <Grid />
+            </DataTemplate>
+
+            <DataTemplate x:Key="MilestonedEventDataTemplate">
+                <Grid />
+            </DataTemplate>
+
+            <DataTemplate x:Key="MovedColumnsInProjectEventDataTemplate">
+                <Grid />
+            </DataTemplate>
+
+            <DataTemplate x:Key="PinnedEventDataTemplate">
+                <Grid />
+            </DataTemplate>
+
+            <DataTemplate x:Key="ReferencedEventDataTemplate">
+                <Grid />
+            </DataTemplate>
+
+            <DataTemplate x:Key="RemovedFromProjectEventDataTemplate">
+                <Grid />
+            </DataTemplate>
+
+            <DataTemplate x:Key="RenamedTitleEventDataTemplate">
+                <Grid />
+            </DataTemplate>
+
+            <DataTemplate x:Key="ReopenedEventDataTemplate">
+                <Grid />
+            </DataTemplate>
+
+            <DataTemplate x:Key="UnassignedEventDataTemplate">
+                <Grid />
+            </DataTemplate>
+
+            <DataTemplate x:Key="UnlabeledEventDataTemplate">
+                <Grid />
+            </DataTemplate>
+
+            <DataTemplate x:Key="UnlockedEventDataTemplate">
+                <Grid />
+            </DataTemplate>
+
+            <DataTemplate x:Key="UnmarkedAsDuplicateEventDataTemplate">
+                <Grid />
+            </DataTemplate>
+
+            <DataTemplate x:Key="UnpinnedEventDataTemplate">
+                <Grid />
+            </DataTemplate>
+
+            <DataTemplate x:Key="UserBlockedEventDataTemplate">
+                <Grid />
+            </DataTemplate>
+
+            <DataTemplate x:Key="DefaultDataTemplate">
+                <Grid />
+            </DataTemplate>
+
+            <models:TimelineItemSelector
+                x:Key="TimelineItemSelector"
+                AddedToProjectEventDataTemplate="{StaticResource AddedToProjectEventDataTemplate}"
+                AssignedEventDataTemplate="{StaticResource AssignedEventDataTemplate}"
+                ClosedEventDataTemplate="{StaticResource ClosedEventDataTemplate}"
+                CommentDeletedEventDataTemplate="{StaticResource CommentDeletedEventDataTemplate}"
+                ConnectedEventDataTemplate="{StaticResource ConnectedEventDataTemplate}"
+                ConvertedNoteToIssueEventDataTemplate="{StaticResource ConvertedNoteToIssueEventDataTemplate}"
+                CrossReferencedEventDataTemplate="{StaticResource CrossReferencedEventDataTemplate}"
+                DefaultDataTemplate="{StaticResource DefaultDataTemplate}"
+                DemilestonedEventDataTemplate="{StaticResource DemilestonedEventDataTemplate}"
+                DisconnectedEventDataTemplate="{StaticResource DisconnectedEventDataTemplate}"
+                IssueCommentDataTemplate="{StaticResource IssueCommentDataTemplate}"
+                LabeledEventDataTemplate="{StaticResource LabeledEventDataTemplate}"
+                LockedEventDataTemplate="{StaticResource LockedEventDataTemplate}"
+                MarkedAsDuplicateEventDataTemplate="{StaticResource MarkedAsDuplicateEventDataTemplate}"
+                MilestonedEventDataTemplate="{StaticResource MilestonedEventDataTemplate}"
+                MovedColumnsInProjectEventDataTemplate="{StaticResource MovedColumnsInProjectEventDataTemplate}"
+                PinnedEventDataTemplate="{StaticResource PinnedEventDataTemplate}"
+                ReferencedEventDataTemplate="{StaticResource ReferencedEventDataTemplate}"
+                RemovedFromProjectEventDataTemplate="{StaticResource RemovedFromProjectEventDataTemplate}"
+                RenamedTitleEventDataTemplate="{StaticResource RenamedTitleEventDataTemplate}"
+                ReopenedEventDataTemplate="{StaticResource ReopenedEventDataTemplate}"
+                UnassignedEventDataTemplate="{StaticResource UnassignedEventDataTemplate}"
+                UnlabeledEventDataTemplate="{StaticResource UnlabeledEventDataTemplate}"
+                UnlockedEventDataTemplate="{StaticResource UnlockedEventDataTemplate}"
+                UnmarkedAsDuplicateEventDataTemplate="{StaticResource UnmarkedAsDuplicateEventDataTemplate}"
+                UnpinnedEventDataTemplate="{StaticResource UnpinnedEventDataTemplate}"
+                UserBlockedEventDataTemplate="{StaticResource UserBlockedEventDataTemplate}" />
+        </ResourceDictionary>
     </Page.Resources>
 
     <Grid>
@@ -142,7 +292,8 @@
                             Background="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Opacity="0.3" />
 
-                        <ItemsControl ItemsSource="{x:Bind ViewModel.EventBlocks, Mode=OneWay}" />
+                        <!--<ItemsControl ItemsSource="{x:Bind ViewModel.EventBlocks, Mode=OneWay}" />-->
+                        <muxc:ItemsRepeater ItemTemplate="{StaticResource TimelineItemSelector}" ItemsSource="{x:Bind ViewModel.TimelineItems, Mode=OneWay}" />
 
                         <Border
                             Width="1.5"

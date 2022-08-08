@@ -17,6 +17,7 @@
         <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
     </UserControl.Resources>
 
+    <!--  Obsolete  -->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />

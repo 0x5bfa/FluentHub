@@ -17,6 +17,9 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
             _eventBlocks = new();
             EventBlocks = new(_eventBlocks);
 
+            _timelineItems = new();
+            TimelineItems = new(_timelineItems);
+
             RefreshIssuePageCommand = new AsyncRelayCommand(LoadRepositoryOneIssueAsync);
         }
 
@@ -35,6 +38,9 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
 
         private Issue _issueItem;
         public Issue IssueItem { get => _issueItem; private set => SetProperty(ref _issueItem, value); }
+
+        private readonly ObservableCollection<object> _timelineItems;
+        public ReadOnlyObservableCollection<object> TimelineItems { get; set; }
 
         private TimelineViewModel _eventBlockViewModel;
         public TimelineViewModel EventBlockViewModel { get => _eventBlockViewModel; private set => SetProperty(ref _eventBlockViewModel, value); }
@@ -78,6 +84,9 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
                     },
                 });
 
+                _timelineItems.Clear();
+                _timelineItems.Add(bodyComment as object);
+
                 IssueEventQueries queries = new();
                 var issueEvents = await queries.GetAllAsync(
                     Repository.Owner.Login,
@@ -85,6 +94,10 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
                     Number
                     );
 
+                foreach (var item in issueEvents)
+                    _timelineItems.Add(item);
+
+                /*
                 foreach (var eventItem in issueEvents)
                 {
                     if (eventItem is null)
@@ -252,6 +265,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
 
                     _eventBlocks.Add(eventBlock);
                 }
+                */
             }
             catch (Exception ex)
             {

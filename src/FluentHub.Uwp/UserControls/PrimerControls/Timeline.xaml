@@ -14,10 +14,6 @@
 
     <UserControl.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary />
-            </ResourceDictionary.MergedDictionaries>
-
             <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
@@ -48,30 +44,42 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
 
-            <Border
-                x:Name="TimelineBadge"
+            <Grid
                 Width="28"
                 Height="28"
                 Margin="20,0,8,0"
+                HorizontalAlignment="Left"
+                Background="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                BorderBrush="Transparent"
+                BorderThickness="2"
+                CornerRadius="16"
+                Opacity="0.3" />
+
+            <Grid
+                Width="28"
+                Height="28"
+                Margin="20,0,8,0"
+                HorizontalAlignment="Center"
                 BorderBrush="Transparent"
                 BorderThickness="2"
                 CornerRadius="16">
+
                 <ContentPresenter
-                    x:Name="SettingsIconElement"
-                    Margin="2,0,20,0"
-                    x:Load="{x:Bind Badge, Mode=OneWay, Converter={StaticResource NullToFalseConverter}}"
+                    x:Name="TimelineBadgeContentPresenter"
+                    x:Load="{x:Bind Badge, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
                     Content="{x:Bind Badge, Mode=OneWay}" />
 
-            </Border>
+            </Grid>
 
-            <ContentPresenter
-                x:Name="SettingsIconElement"
-                Grid.Column="1"
-                x:Load="{x:Bind Body, Mode=OneWay, Converter={StaticResource NullToFalseConverter}}"
-                Content="{x:Bind Body, Mode=OneWay}" />
+            <Grid Grid.Column="1">
+                <ContentPresenter
+                    x:Name="TimelineBodyContentPresenter"
+                    VerticalAlignment="Center"
+                    x:Load="{x:Bind Body, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                    Content="{x:Bind Body, Mode=OneWay}" />
+            </Grid>
 
         </Grid>
 
