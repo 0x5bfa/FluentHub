@@ -7,7 +7,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Ordering options for an organization's enterprise owner connections.
     /// </summary>
     public class OrgEnterpriseOwnerOrder
-    {        /// <summary>
+    {
+        /// <summary>
         /// The field to order enterprise owners by.
         /// </summary>
         public OrgEnterpriseOwnerOrderField Field { get; set; }

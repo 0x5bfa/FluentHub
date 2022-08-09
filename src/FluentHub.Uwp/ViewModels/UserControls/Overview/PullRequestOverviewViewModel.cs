@@ -5,18 +5,14 @@ using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.ViewModels.UserControls.Labels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Uwp;
-using System.Windows.Input;
 
-namespace FluentHub.Uwp.ViewModels.UserControls
+namespace FluentHub.Uwp.ViewModels.UserControls.Overview
 {
-    public class OrganizationProfileOverviewViewModel : ObservableObject
+    public class PullRequestOverviewViewModel : ObservableObject
     {
         #region Fields and Properties
-        private Organization _organization;
-        public Organization Organization { get => _organization; set => SetProperty(ref _organization, value); }
-
-        private Uri _builtWebsiteUrl;
-        public Uri BuiltWebsiteUrl { get => _builtWebsiteUrl; set => SetProperty(ref _builtWebsiteUrl, value); }
+        private PullRequest _pullRequest;
+        public PullRequest PullRequest { get => _pullRequest; set => SetProperty(ref _pullRequest, value); }
 
         private string _selectedTag;
         public string SelectedTag { get => _selectedTag; set => SetProperty(ref _selectedTag, value); }

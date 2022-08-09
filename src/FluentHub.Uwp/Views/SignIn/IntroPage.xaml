@@ -47,7 +47,7 @@
 
                             <Image Height="72" VerticalAlignment="Center">
                                 <Image.Source>
-                                    <BitmapImage DecodePixelWidth="128" UriSource="/Assets/AppTilesDev/StoreLogo.scale-400.png" />
+                                    <BitmapImage DecodePixelWidth="128" UriSource="/Assets/AppTiles/StoreLogo.scale-400.png" />
                                 </Image.Source>
                             </Image>
 
@@ -236,6 +236,11 @@
                         x:Name="rectImageLayer"
                         Fill="{ThemeResource SystemAltHighColor}"
                         Opacity="0.3" />
+
+                    <TextBlock
+                        Margin="48,64"
+                        Style="{StaticResource TitleLargeTextBlockStyle}"
+                        Text="Welcome back, devs!" />
 
                 </Grid>
             </muxc:TwoPaneView.Pane2>

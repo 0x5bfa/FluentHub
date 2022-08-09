@@ -9,7 +9,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Information about a signature (GPG or S/MIME) on a Commit or Tag.
     /// </summary>
     public interface IGitSignature
-    {        /// <summary>
+    {
+        /// <summary>
         /// Email used to sign this object.
         /// </summary>
         string Email { get; set; }

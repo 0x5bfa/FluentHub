@@ -7,7 +7,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Ordering options for connections to get sponsorable entities for GitHub Sponsors.
     /// </summary>
     public class SponsorableOrder
-    {        /// <summary>
+    {
+        /// <summary>
         /// The field to order sponsorable entities by.
         /// </summary>
         public SponsorableOrderField Field { get; set; }

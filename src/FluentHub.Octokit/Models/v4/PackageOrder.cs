@@ -7,7 +7,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Ways in which lists of packages can be ordered upon return.
     /// </summary>
     public class PackageOrder
-    {        /// <summary>
+    {
+        /// <summary>
         /// The field in which to order packages by.
         /// </summary>
         public PackageOrderField? Field { get; set; }

@@ -7,7 +7,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Ordering options for Enterprise Server user account email connections.
     /// </summary>
     public class EnterpriseServerUserAccountEmailOrder
-    {        /// <summary>
+    {
+        /// <summary>
         /// The field to order emails by.
         /// </summary>
         public EnterpriseServerUserAccountEmailOrderField Field { get; set; }

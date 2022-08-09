@@ -15,6 +15,11 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset CreatedAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was created."
+        /// <summary>
+        public string CreatedAtHumanized { get; set; }
+
+        /// <summary>
         /// The email of the person who was invited to the enterprise.
         /// </summary>
         public string Email { get; set; }

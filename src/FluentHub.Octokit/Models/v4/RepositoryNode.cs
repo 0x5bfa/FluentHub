@@ -9,7 +9,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Represents a object that belongs to a repository.
     /// </summary>
     public interface IRepositoryNode
-    {        /// <summary>
+    {
+        /// <summary>
         /// The repository associated with this node.
         /// </summary>
         Repository Repository { get; set; }

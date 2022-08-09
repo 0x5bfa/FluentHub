@@ -69,6 +69,11 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset? ClosedAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was closed."
+        /// <summary>
+        public string ClosedAtHumanized { get; set; }
+
+        /// <summary>
         /// A list of comments associated with the Issue.
         /// </summary>
         /// <param name="first">Returns the first _n_ elements from the list.</param>
@@ -82,6 +87,11 @@ namespace FluentHub.Octokit.Models.v4
         /// Identifies the date and time when the object was created.
         /// </summary>
         public DateTimeOffset CreatedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was created."
+        /// <summary>
+        public string CreatedAtHumanized { get; set; }
 
         /// <summary>
         /// Check if this comment was created via an email reply.
@@ -135,6 +145,11 @@ namespace FluentHub.Octokit.Models.v4
         /// The moment the editor made the last edit
         /// </summary>
         public DateTimeOffset? LastEditedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "The moment the editor made the last edit"
+        /// <summary>
+        public string LastEditedAtHumanized { get; set; }
 
         /// <summary>
         /// `true` if the object is locked
@@ -228,6 +243,11 @@ namespace FluentHub.Octokit.Models.v4
         /// Identifies when the comment was published at.
         /// </summary>
         public DateTimeOffset? PublishedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies when the comment was published at."
+        /// <summary>
+        public string PublishedAtHumanized { get; set; }
 
         /// <summary>
         /// A list of reactions grouped by content left on the subject.
@@ -325,6 +345,11 @@ namespace FluentHub.Octokit.Models.v4
         /// Identifies the date and time when the object was last updated.
         /// </summary>
         public DateTimeOffset UpdatedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was last updated."
+        /// <summary>
+        public string UpdatedAtHumanized { get; set; }
 
         /// <summary>
         /// The HTTP URL for this issue

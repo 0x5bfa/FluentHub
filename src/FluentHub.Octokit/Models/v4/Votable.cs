@@ -9,7 +9,8 @@ namespace FluentHub.Octokit.Models.v4
     /// A subject that may be upvoted.
     /// </summary>
     public interface IVotable
-    {        /// <summary>
+    {
+        /// <summary>
         /// Number of upvotes that this subject has received.
         /// </summary>
         int UpvoteCount { get; set; }

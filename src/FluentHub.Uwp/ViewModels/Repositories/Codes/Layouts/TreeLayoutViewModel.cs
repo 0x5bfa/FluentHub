@@ -55,7 +55,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
                 if (string.IsNullOrEmpty(ContextViewModel.Repository.DefaultBranchRef.Name))
                     return;
 
-                ContentQueries queries = new();
+                TreeQueries queries = new();
                 var response = await queries.GetAllAsync(
                     ContextViewModel.Repository.Name,
                     ContextViewModel.Repository.Owner.Login,
@@ -119,7 +119,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
                 if (string.IsNullOrEmpty(ContextViewModel.Repository.DefaultBranchRef.Name))
                     return null;
 
-                ContentQueries queries = new();
+                TreeQueries queries = new();
                 var objects = await queries.GetAllAsync(
                     ContextViewModel.Repository.Name,
                     ContextViewModel.Repository.Owner.Login,

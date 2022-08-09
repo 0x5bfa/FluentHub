@@ -16,7 +16,6 @@
                     OctokitGraphQLModel.PullRequestState.Open
                 });
 
-            #region query
             var query = new Query()
                 .Organization(org)
                 .PinnedItems(first: 6)
@@ -67,7 +66,6 @@
                     .SingleOrDefault(),
                 })
                 .Compile();
-            #endregion
 
             var response = await App.Connection.Run(query);
 

@@ -27,6 +27,11 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset OccurredAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "When this contribution was made."
+        /// <summary>
+        public string OccurredAtHumanized { get; set; }
+
+        /// <summary>
         /// The repository the user made a commit in.
         /// </summary>
         public Repository Repository { get; set; }

@@ -14,6 +14,11 @@ namespace FluentHub.Octokit.Models.v4
         /// </summary>
         public DateTimeOffset CreatedAt { get; set; }
 
+        /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was created."
+        /// <summary>
+        public string CreatedAtHumanized { get; set; }
+
         public ID Id { get; set; }
 
         /// <summary>
@@ -62,5 +67,10 @@ namespace FluentHub.Octokit.Models.v4
         /// Identifies the date and time when the current tier was chosen for this sponsorship.
         /// </summary>
         public DateTimeOffset? TierSelectedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies the date and time when the current tier was chosen for this sponsorship."
+        /// <summary>
+        public string TierSelectedAtHumanized { get; set; }
     }
 }

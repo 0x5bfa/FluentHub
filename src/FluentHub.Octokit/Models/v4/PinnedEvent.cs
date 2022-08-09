@@ -19,6 +19,11 @@ namespace FluentHub.Octokit.Models.v4
         /// </summary>
         public DateTimeOffset CreatedAt { get; set; }
 
+        /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was created."
+        /// <summary>
+        public string CreatedAtHumanized { get; set; }
+
         public ID Id { get; set; }
 
         /// <summary>

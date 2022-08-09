@@ -4,6 +4,7 @@ using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.UserControls.Blocks;
 using FluentHub.Uwp.ViewModels.UserControls;
 using FluentHub.Uwp.ViewModels.UserControls.Blocks;
+using FluentHub.Uwp.ViewModels.UserControls.Overview;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
 {
@@ -29,6 +30,9 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
 
         private RepositoryOverviewViewModel _repositoryOverviewViewModel;
         public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
+
+        private PullRequestOverviewViewModel _pullRequestOverviewViewModel;
+        public PullRequestOverviewViewModel PullRequestOverviewViewModel { get => _pullRequestOverviewViewModel; set => SetProperty(ref _pullRequestOverviewViewModel, value); }
 
         private int _number;
         public int Number { get => _number; set => SetProperty(ref _number, value); }
@@ -250,12 +254,20 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
                         case nameof(PullRequestCommit):
                             viewmodel.TimelineBadgeGlyph = "\uE9B9";
                             viewmodel.PullRequestCommit = eventItem as PullRequestCommit;
-                            //viewmodel.Actor = viewmodel?.PullRequestCommit.Commit.Author as Actor;
+                            viewmodel.Actor = new()
+                            {
+                                AvatarUrl = viewmodel?.PullRequestCommit.Commit.Author?.AvatarUrl,
+                                Login = viewmodel?.PullRequestCommit.Commit.Author?.User?.Login,
+                            };
                             break;
                         case nameof(PullRequestReview):
                             viewmodel.TimelineBadgeGlyph = "\uE98B";
                             viewmodel.PullRequestReview = eventItem as PullRequestReview;
-                            //viewmodel.Actor = viewmodel?.PullRequestReview.Commit.Author as Actor;
+                            viewmodel.Actor = new()
+                            {
+                                AvatarUrl = viewmodel?.PullRequestReview.Commit.Author?.AvatarUrl,
+                                Login = viewmodel?.PullRequestReview.Commit.Author?.User?.Login,
+                            };
                             break;
                         case nameof(ReadyForReviewEvent):
                             viewmodel.TimelineBadgeGlyph = "\uE9BF";
@@ -368,12 +380,13 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
             try
             {
                 PullRequestQueries queries = new();
-                var response = await queries.GetAsync(
-                    Repository.Owner.Login,
-                    Repository.Name,
-                    Number);
+                PullItem = await queries.GetAsync(Repository.Owner.Login, Repository.Name, Number);
 
-                PullItem = response;
+                PullRequestOverviewViewModel = new()
+                {
+                    PullRequest = PullItem,
+                    SelectedTag = "conversation",
+                };
             }
             catch (Exception ex)
             {

@@ -9,10 +9,16 @@ namespace FluentHub.Octokit.Models.v4
     /// Common fields across different project field types
     /// </summary>
     public interface IProjectV2FieldCommon
-    {        /// <summary>
+    {
+        /// <summary>
         /// Identifies the date and time when the object was created.
         /// </summary>
         DateTimeOffset CreatedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was created."
+        /// <summary>
+        string CreatedAtHumanized { get; set; }
 
         /// <summary>
         /// The field's type.
@@ -40,6 +46,11 @@ namespace FluentHub.Octokit.Models.v4
         /// Identifies the date and time when the object was last updated.
         /// </summary>
         DateTimeOffset UpdatedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was last updated."
+        /// <summary>
+        string UpdatedAtHumanized { get; set; }
     }
 }
 
@@ -53,6 +64,8 @@ namespace FluentHub.Octokit.Models.v4
     {
         public DateTimeOffset CreatedAt { get; set; }
 
+        public string CreatedAtHumanized { get; set; }
+
         public ProjectV2FieldType DataType { get; set; }
 
         public int? DatabaseId { get; set; }
@@ -64,5 +77,7 @@ namespace FluentHub.Octokit.Models.v4
         public ProjectV2 Project { get; set; }
 
         public DateTimeOffset UpdatedAt { get; set; }
+
+        public string UpdatedAtHumanized { get; set; }
     }
 }

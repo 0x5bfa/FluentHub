@@ -9,7 +9,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Represents an owner of a Project.
     /// </summary>
     public interface IProjectOwner
-    {        ID Id { get; set; }
+    {
+        ID Id { get; set; }
 
         /// <summary>
         /// Find project by number.

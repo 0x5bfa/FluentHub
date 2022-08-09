@@ -20,6 +20,16 @@
                 <ResourceDictionary Source="ms-appx:///ResourceDictionaries/DefaultGridSplitterStyle.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
+            <SolidColorBrush x:Key="ExpanderHeaderBackground" Color="Transparent" />
+            <SolidColorBrush x:Key="ExpanderHeaderBorderBrush" Color="Transparent" />
+            <SolidColorBrush x:Key="ExpanderHeaderBorderPointerOverBrush" Color="Transparent" />
+            <SolidColorBrush x:Key="ExpanderHeaderBorderPressedBrush" Color="Transparent" />
+            <SolidColorBrush x:Key="ExpanderContentBackground" Color="Transparent" />
+            <SolidColorBrush x:Key="ExpanderContentBorderBrush" Color="Transparent" />
+            <Thickness x:Key="ExpanderHeaderPadding">0,0,0,0</Thickness>
+            <Thickness x:Key="ExpanderContentPadding">0,0,0,0</Thickness>
+            <x:Double x:Key="ExpanderMinHeight">0</x:Double>
+
             <Style TargetType="muxc:Expander">
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
@@ -127,13 +137,21 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBlock
-                    Margin="24,4,32,8"
-                    Style="{StaticResource SubtitleTextBlockStyle}"
-                    Text="Home" />
+                <Grid>
+                    <TextBlock
+                        Margin="24,4,0,8"
+                        Style="{StaticResource SubtitleTextBlockStyle}"
+                        Text="Home" />
+
+                    <Button
+                        Margin="8,0,32,0"
+                        HorizontalAlignment="Right"
+                        Click="OnSeeFeedsButtonClick"
+                        Content="See feeds of your followers" />
+
+                </Grid>
 
                 <muxc:Expander
                     Grid.Row="1"
@@ -141,17 +159,6 @@
                     HorizontalAlignment="Stretch"
                     HorizontalContentAlignment="Stretch"
                     IsExpanded="True">
-                    <muxc:Expander.Resources>
-                        <SolidColorBrush x:Key="ExpanderHeaderBackground" Color="Transparent" />
-                        <SolidColorBrush x:Key="ExpanderHeaderBorderBrush" Color="Transparent" />
-                        <SolidColorBrush x:Key="ExpanderHeaderBorderPointerOverBrush" Color="Transparent" />
-                        <SolidColorBrush x:Key="ExpanderHeaderBorderPressedBrush" Color="Transparent" />
-                        <SolidColorBrush x:Key="ExpanderContentBackground" Color="Transparent" />
-                        <SolidColorBrush x:Key="ExpanderContentBorderBrush" Color="Transparent" />
-                        <Thickness x:Key="ExpanderHeaderPadding">0,0,0,0</Thickness>
-                        <Thickness x:Key="ExpanderContentPadding">0,0,0,0</Thickness>
-                        <x:Double x:Key="ExpanderMinHeight">0</x:Double>
-                    </muxc:Expander.Resources>
 
                     <muxc:Expander.Header>
                         <TextBlock
@@ -230,17 +237,6 @@
                     HorizontalAlignment="Stretch"
                     HorizontalContentAlignment="Stretch"
                     IsExpanded="False">
-                    <muxc:Expander.Resources>
-                        <SolidColorBrush x:Key="ExpanderHeaderBackground" Color="Transparent" />
-                        <SolidColorBrush x:Key="ExpanderHeaderBorderBrush" Color="Transparent" />
-                        <SolidColorBrush x:Key="ExpanderHeaderBorderPointerOverBrush" Color="Transparent" />
-                        <SolidColorBrush x:Key="ExpanderHeaderBorderPressedBrush" Color="Transparent" />
-                        <SolidColorBrush x:Key="ExpanderContentBackground" Color="Transparent" />
-                        <SolidColorBrush x:Key="ExpanderContentBorderBrush" Color="Transparent" />
-                        <Thickness x:Key="ExpanderHeaderPadding">0,0,0,0</Thickness>
-                        <Thickness x:Key="ExpanderContentPadding">0,0,0,0</Thickness>
-                        <x:Double x:Key="ExpanderMinHeight">0</x:Double>
-                    </muxc:Expander.Resources>
 
                     <muxc:Expander.Header>
                         <TextBlock
@@ -281,17 +277,6 @@
                     HorizontalAlignment="Stretch"
                     HorizontalContentAlignment="Stretch"
                     IsExpanded="True">
-                    <muxc:Expander.Resources>
-                        <SolidColorBrush x:Key="ExpanderHeaderBackground" Color="Transparent" />
-                        <SolidColorBrush x:Key="ExpanderHeaderBorderBrush" Color="Transparent" />
-                        <SolidColorBrush x:Key="ExpanderHeaderBorderPointerOverBrush" Color="Transparent" />
-                        <SolidColorBrush x:Key="ExpanderHeaderBorderPressedBrush" Color="Transparent" />
-                        <SolidColorBrush x:Key="ExpanderContentBackground" Color="Transparent" />
-                        <SolidColorBrush x:Key="ExpanderContentBorderBrush" Color="Transparent" />
-                        <Thickness x:Key="ExpanderHeaderPadding">0,0,0,0</Thickness>
-                        <Thickness x:Key="ExpanderContentPadding">0,0,0,0</Thickness>
-                        <x:Double x:Key="ExpanderMinHeight">0</x:Double>
-                    </muxc:Expander.Resources>
 
                     <muxc:Expander.Header>
                         <TextBlock
@@ -308,6 +293,7 @@
                                 VerticalAlignment="Stretch"
                                 IsItemClickEnabled="True"
                                 IsRightTapEnabled="True"
+                                ItemClick="OnRecentUserNotificationListViewItemClick"
                                 ItemContainerTransitions="{x:Null}"
                                 ItemsSource="{x:Bind ViewModel.UserNotifications, Mode=OneWay}"
                                 SelectionMode="None">
@@ -321,13 +307,13 @@
                                 <ListView.ItemTemplate>
                                     <DataTemplate x:DataType="modelsV3:Notification">
 
-                                        <Grid Padding="4,8" ColumnSpacing="12">
+                                        <Grid Padding="0,12" ColumnSpacing="8">
                                             <Grid.ColumnDefinitions>
                                                 <ColumnDefinition Width="Auto" />
                                                 <ColumnDefinition Width="*" />
                                             </Grid.ColumnDefinitions>
 
-                                            <toolkit:SwitchPresenter TargetType="modelsV3:NotificationSubjectType" Value="{x:Bind Subject.Type, Mode=OneWay}">
+                                            <toolkit:SwitchPresenter TargetType="x:String" Value="{x:Bind Subject.TypeHumanized, Mode=OneWay}">
 
                                                 <toolkit:Case Value="IssueClosedAsCompleted">
                                                     <FontIcon
@@ -437,12 +423,14 @@
                                                 <TextBlock
                                                     x:Name="TitleTextBlock"
                                                     Grid.Row="2"
+                                                    Margin="0,4"
                                                     Style="{StaticResource BodyTextBlockStyle}"
                                                     Text="{x:Bind Subject.Title, Mode=OneWay}" />
 
                                                 <TextBlock
                                                     x:Name="ReasonTextBlock"
                                                     Grid.Row="3"
+                                                    Margin="0,4,0,-4"
                                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                                     Style="{StaticResource CaptionTextBlockStyle}"
                                                     Text="{x:Bind Reason, Mode=OneWay}" />
@@ -457,11 +445,6 @@
                     </muxc:Expander.Content>
                 </muxc:Expander>
 
-                <Button
-                    Grid.Row="4"
-                    HorizontalAlignment="Center"
-                    Click="OnSeeFeedsButtonClick"
-                    Content="See feeds" />
             </Grid>
         </ScrollViewer>
     </Grid>

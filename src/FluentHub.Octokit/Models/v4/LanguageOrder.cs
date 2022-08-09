@@ -7,7 +7,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Ordering options for language connections.
     /// </summary>
     public class LanguageOrder
-    {        /// <summary>
+    {
+        /// <summary>
         /// The field to order languages by.
         /// </summary>
         public LanguageOrderField Field { get; set; }

@@ -10,6 +10,6 @@ global using global::FluentHub.Octokit.Models.v3;
 global using global::FluentHub.Octokit.Models.v4;
 global using global::Humanizer;
 global using global::Octokit.GraphQL;
-global using OctokitOriginal = global::Octokit;
+global using OctokitV3 = global::Octokit;
 global using OctokitGraphQLCore = global::Octokit.GraphQL.Core;
 global using OctokitGraphQLModel = global::Octokit.GraphQL.Model;

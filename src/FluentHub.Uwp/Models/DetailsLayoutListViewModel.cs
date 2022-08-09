@@ -11,5 +11,7 @@
         public string Type { get; set; }
 
         public DateTimeOffset UpdatedAt { get; set; }
+
+        public string UpdatedAtHumanized { get; set; }
     }
 }

@@ -9,7 +9,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Recent projects for the owner.
     /// </summary>
     public interface IProjectV2Recent
-    {        /// <summary>
+    {
+        /// <summary>
         /// Recent projects that this user has modified in the context of the owner.
         /// </summary>
         /// <param name="first">Returns the first _n_ elements from the list.</param>

@@ -20,6 +20,11 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset? CreatedAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "Identifies when the reaction was created."
+        /// <summary>
+        public string CreatedAtHumanized { get; set; }
+
+        /// <summary>
         /// Reactors to the reaction subject with the emotion represented by this reaction group.
         /// </summary>
         /// <param name="first">Returns the first _n_ elements from the list.</param>

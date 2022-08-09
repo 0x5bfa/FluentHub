@@ -64,17 +64,32 @@
 
                         <Grid Grid.Row="3" Margin="0,12,0,0">
                             <StackPanel Orientation="Horizontal" Spacing="4">
-                                <uc:AvatarControl AvatarUrl="{x:Bind ViewModel.CommitItem.Author.AvatarUrl, Mode=OneWay}" WidthAndHeight="20" />
+
+                                <Grid
+                                    Width="20"
+                                    Height="20"
+                                    CornerRadius="10">
+                                    <Image Source="{x:Bind ViewModel.CommitItem.Author.AvatarUrl, Mode=OneWay}" />
+                                </Grid>
+
                                 <TextBlock
                                     Margin="4,0,0,0"
+                                    VerticalAlignment="Center"
                                     Style="{StaticResource BodyStrongTextBlockStyle}"
                                     Text="{x:Bind ViewModel.CommitItem.Author.User.Login, Mode=OneWay}" />
-                                <TextBlock Text="authored to" />
-                                <TextBlock Style="{ThemeResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.CommitItem.OnBehalfOf, Mode=OneWay}" />
                                 <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{ThemeResource BodyTextBlockStyle}"
+                                    Text="authored to" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{ThemeResource BodyTextBlockStyle}"
+                                    Text="{x:Bind ViewModel.CommitItem.OnBehalfOf, Mode=OneWay}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                     Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="{x:Bind ViewModel.CommitItem.CommittedDate, Mode=OneWay}" />
+                                    Text="{x:Bind ViewModel.CommitItem.CommittedDateHumanized, Mode=OneWay}" />
                             </StackPanel>
 
                             <StackPanel
@@ -99,7 +114,7 @@
                                         Text="commit" />
                                     <TextBlock
                                         Style="{StaticResource CaptionTextBlockStyle}"
-                                        Text="{x:Bind ViewModel.CommitItem.Oid, Mode=OneWay}"
+                                        Text="{x:Bind ViewModel.CommitItem.AbbreviatedOid, Mode=OneWay}"
                                         ToolTipService.Placement="Bottom"
                                         ToolTipService.ToolTip="{x:Bind ViewModel.CommitItem.Oid, Mode=OneWay}" />
                                 </StackPanel>
@@ -109,7 +124,7 @@
 
                     <StackPanel
                         Grid.Row="1"
-                        Margin="12,6,12,0"
+                        Margin="12,12,12,0"
                         Orientation="Horizontal"
                         Spacing="4">
 
@@ -159,7 +174,7 @@
 
                     </StackPanel>
 
-                    <Grid Grid.Row="2">
+                    <Grid Grid.Row="2" Margin="0,12,0,0">
                         <ScrollViewer VerticalScrollBarVisibility="Auto">
                             <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.DiffViewModels, Mode=OneWay}">
                                 <muxc:ItemsRepeater.Layout>

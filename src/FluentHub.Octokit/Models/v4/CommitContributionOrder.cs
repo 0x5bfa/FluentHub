@@ -7,7 +7,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Ordering options for commit contribution connections.
     /// </summary>
     public class CommitContributionOrder
-    {        /// <summary>
+    {
+        /// <summary>
         /// The field by which to order commit contributions.
         /// </summary>
         public CommitContributionOrderField Field { get; set; }

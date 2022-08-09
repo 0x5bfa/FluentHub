@@ -1,4 +1,4 @@
-﻿using FluentHub.Octokit.Models;
+﻿using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
@@ -31,25 +31,32 @@ namespace FluentHub.Uwp.UserControls.ButtonBlocks
 
         private void OnClick(object sender, RoutedEventArgs e)
         {
-            var navigationService = App.Current.Services.GetRequiredService<INavigationService>();
+            var navService = App.Current.Services.GetRequiredService<INavigationService>();
 
-            switch (ViewModel.Item.Subject.Type.ToString())
+            switch (ViewModel.Item.Subject.Type)
             {
-                case "IssueClosed":
-                case "IssueOpen":
-                    //navigationService.Navigate<Views.Repositories.Issues.IssuePage>($"{App.DefaultGitHubDomain}/{ViewModel.Item.Repository.Owner.Login}/{ViewModel.Item.Repository.Name}/issues/{ViewModel.Item.Subject.Number}");
+                case NotificationSubjectType.IssueClosedAsCompleted:
+                case NotificationSubjectType.IssueClosedAsNotPlanned:
+                case NotificationSubjectType.IssueOpen:
+                    navService.Navigate<Views.Repositories.Issues.IssuePage>(
+                    new FrameNavigationArgs()
+                    {
+                        Login = ViewModel.Item.Repository.Owner.Login,
+                        Name = ViewModel.Item.Repository.Name,
+                        Number = ViewModel.Item.Subject.Number,
+                    });
                     break;
-                case "PullMerged":
-                case "PullClosed":
-                case "PullDraft":
-                case "PullOpen":
-                    //navigationService.Navigate<Views.Repositories.PullRequests.PullRequestsPage>($"{App.DefaultGitHubDomain}/{ViewModel.Item.Repository.Owner.Login}/{ViewModel.Item.Repository.Name}/pull/{ViewModel.Item.Subject.Number}");
-                    break;
-                case "Discussion":
-                    //navigationService.Navigate<OverviewPage>($"{App.DefaultGitHubDomain}/{ViewModel.Item.Repository.Owner.Login}/{ViewModel.Item.Repository.Name}/discussions/{ViewModel.Item.SubjectNumber}");
-                    break;
-                case "Commit":
-                    //navigationService.Navigate<OverviewPage>($"{App.DefaultGitHubDomain}/{ViewModel.Item.Repository.Owner.Login}/{ViewModel.Item.Repository.Name}/commits/{ViewModel.Item.SubjectNumber}");
+                case NotificationSubjectType.PullRequestOpen:
+                case NotificationSubjectType.PullRequestClosed:
+                case NotificationSubjectType.PullRequestMerged:
+                case NotificationSubjectType.PullRequestDraft:
+                    navService.Navigate<Views.Repositories.PullRequests.ConversationPage>(
+                    new FrameNavigationArgs()
+                    {
+                        Login = ViewModel.Item.Repository.Owner.Login,
+                        Name = ViewModel.Item.Repository.Name,
+                        Number = ViewModel.Item.Subject.Number,
+                    });
                     break;
             }
         }

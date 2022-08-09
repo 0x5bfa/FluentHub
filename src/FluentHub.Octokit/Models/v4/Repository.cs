@@ -80,6 +80,11 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset CreatedAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was created."
+        /// <summary>
+        public string CreatedAtHumanized { get; set; }
+
+        /// <summary>
         /// Identifies the primary key from the database.
         /// </summary>
         public int? DatabaseId { get; set; }
@@ -558,6 +563,11 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset? PushedAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "Identifies when the repository was last pushed to."
+        /// <summary>
+        public string PushedAtHumanized { get; set; }
+
+        /// <summary>
         /// Whether or not rebase-merging is enabled on this repository.
         /// </summary>
         public bool RebaseMergeAllowed { get; set; }
@@ -684,6 +694,11 @@ namespace FluentHub.Octokit.Models.v4
         /// Identifies the date and time when the object was last updated.
         /// </summary>
         public DateTimeOffset UpdatedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was last updated."
+        /// <summary>
+        public string UpdatedAtHumanized { get; set; }
 
         /// <summary>
         /// The HTTP URL for this repository

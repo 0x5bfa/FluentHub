@@ -30,6 +30,7 @@ namespace FluentHub.Octokit.Generation
             if (type.InputFields?.Count > 0)
             {
                 var first = true;
+                builder.AppendLine();
 
                 foreach (var field in type.InputFields)
                 {

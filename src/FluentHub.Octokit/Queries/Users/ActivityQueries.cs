@@ -5,7 +5,7 @@
         public async Task<List<Activity>> GetAllAsync(string login)
         {
             #region query
-            OctokitOriginal.ApiOptions options = new()
+            OctokitV3.ApiOptions options = new()
             {
                 PageCount = 1,
                 PageSize = 60,

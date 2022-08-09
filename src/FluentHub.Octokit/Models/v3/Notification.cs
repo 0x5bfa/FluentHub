@@ -18,7 +18,11 @@ namespace FluentHub.Octokit.Models.v3
 
         public DateTimeOffset UpdatedAt { get; set; }
 
+        public string UpdatedAtHumanized { get; set; }
+
         public DateTimeOffset LastReadAt { get; set; }
+
+        public string LastReadAtHumanized { get; set; }
 
         public string Url { get; set; }
 

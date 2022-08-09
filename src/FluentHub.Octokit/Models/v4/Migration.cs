@@ -9,7 +9,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Represents an Octoshift migration.
     /// </summary>
     public interface IMigration
-    {        /// <summary>
+    {
+        /// <summary>
         /// The Octoshift migration flag to continue on error.
         /// </summary>
         bool ContinueOnError { get; set; }
@@ -18,6 +19,11 @@ namespace FluentHub.Octokit.Models.v4
         /// Identifies the date and time when the object was created.
         /// </summary>
         DateTimeOffset CreatedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was created."
+        /// <summary>
+        string CreatedAtHumanized { get; set; }
 
         /// <summary>
         /// The reason the migration failed.
@@ -64,6 +70,8 @@ namespace FluentHub.Octokit.Models.v4
         public bool ContinueOnError { get; set; }
 
         public DateTimeOffset CreatedAt { get; set; }
+
+        public string CreatedAtHumanized { get; set; }
 
         public string FailureReason { get; set; }
 

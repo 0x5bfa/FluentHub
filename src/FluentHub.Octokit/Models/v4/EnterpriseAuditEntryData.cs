@@ -9,7 +9,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Metadata for an audit entry containing enterprise account information.
     /// </summary>
     public interface IEnterpriseAuditEntryData
-    {        /// <summary>
+    {
+        /// <summary>
         /// The HTTP path for this enterprise.
         /// </summary>
         string EnterpriseResourcePath { get; set; }

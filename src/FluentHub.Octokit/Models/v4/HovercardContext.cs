@@ -9,7 +9,8 @@ namespace FluentHub.Octokit.Models.v4
     /// An individual line of a hovercard
     /// </summary>
     public interface IHovercardContext
-    {        /// <summary>
+    {
+        /// <summary>
         /// A string describing this context
         /// </summary>
         string Message { get; set; }

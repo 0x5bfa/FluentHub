@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "FluentHub.Octokit.Generation": {
+      "commandName": "Project",
+      "commandLineArgs": "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 C:\\Users\\onein\\source\\repos\\FluentHub-1\\src\\FluentHub.Octokit\\Models\\v4\\"
+    }
+  }
+}

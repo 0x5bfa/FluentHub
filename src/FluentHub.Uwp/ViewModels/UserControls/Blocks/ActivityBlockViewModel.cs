@@ -39,21 +39,33 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
             switch (Payload.Type.ToString())
             {
                 case "WatchEvent":
-                    break;
+                    {
+                        var response = await repositoryQueries.GetAsync(Payload.Repository.Owner.Login, Payload.Repository.Name);
+
+                        RepoBlockViewModel = new()
+                        {
+                            DisplayDetails = true,
+                            DisplayStarButton = true,
+                            Repository = response,
+                        };
+                        break;
+                    }
                 case "ForkEvent":
                     break;
                 case "CreateEvent":
                     break;
                 case "DeleteEvent":
-                    var response = await repositoryQueries.GetAsync(Payload.Repository.Owner.Login, Payload.Repository.Name);
-
-                    RepoBlockViewModel = new()
                     {
-                        DisplayDetails = true,
-                        DisplayStarButton = true,
-                        Repository = response,
-                    };
-                    break;
+                        var response = await repositoryQueries.GetAsync(Payload.Repository.Owner.Login, Payload.Repository.Name);
+
+                        RepoBlockViewModel = new()
+                        {
+                            DisplayDetails = true,
+                            DisplayStarButton = true,
+                            Repository = response,
+                        };
+                        break;
+                    }
                 case "IssueCommentEvent":
                     SingleCommentBlockViewModel = new()
                     {

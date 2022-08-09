@@ -6,7 +6,7 @@ namespace FluentHub.Octokit.Wrappers
 {
     internal class NotificationWrapper
     {
-        public async Task<List<Notification>> WrapAsync(IReadOnlyList<OctokitOriginal.Notification> response)
+        public List<Notification> WrapAsync(IReadOnlyList<OctokitV3.Notification> response)
         {
             List<Notification> notifications = new();
 
@@ -35,10 +35,16 @@ namespace FluentHub.Octokit.Wrappers
                 };
 
                 if (item.LastReadAt != null)
+                {
                     indivisual.LastReadAt = DateTimeOffset.Parse(item.LastReadAt);
+                    indivisual.LastReadAtHumanized = indivisual.LastReadAt.Humanize();
+                }
 
                 if (item.UpdatedAt != null)
+                {
                     indivisual.UpdatedAt = DateTimeOffset.Parse(item.UpdatedAt);
+                    indivisual.UpdatedAtHumanized = indivisual.UpdatedAt.Humanize();
+                }
 
                 switch (item.Reason)
                 {
@@ -85,75 +91,28 @@ namespace FluentHub.Octokit.Wrappers
 
                 var urlItems = item.Subject.Url?.Split('/');
 
-                // Should get all data at once to prevent from delaying
                 switch (item.Subject?.Type)
                 {
                     case "Issue":
                         {
-                            Queries.Repositories.IssueQueries issueQueries = new();
-                            var issue = await issueQueries.GetAsync(
-                                indivisual.Repository.Owner.Login,
-                                indivisual.Repository.Name,
-                                Convert.ToInt32(urlItems[urlItems.Count() - 1]));
-
-                            if (issue.Closed)
-                            {
-                                indivisual.Subject.Type = NotificationSubjectType.IssueClosedAsCompleted;
-                            }
-                            else
-                            {
-                                indivisual.Subject.Type = NotificationSubjectType.IssueOpen;
-                            }
-
-                            indivisual.Subject.Number = issue.Number;
-
+                            indivisual.Subject.Type = NotificationSubjectType.Issue;
+                            indivisual.Subject.Number = Convert.ToInt32(urlItems[urlItems.Count() - 1]);
                             break;
                         }
                     case "PullRequest":
                         {
-                            Queries.Repositories.PullRequestQueries pullQueries = new();
-                            var pull = await pullQueries.GetAsync(
-                                indivisual.Repository.Owner.Login,
-                                indivisual.Repository.Name,
-                                Convert.ToInt32(urlItems[urlItems.Count() - 1]));
-
-                            if (pull.Closed)
-                            {
-                                if (pull.Merged)
-                                {
-                                    indivisual.Subject.Type = NotificationSubjectType.PullRequestMerged;
-                                }
-                                else
-                                {
-                                    indivisual.Subject.Type = NotificationSubjectType.PullRequestClosed;
-                                }
-                            }
-                            else
-                            {
-                                if (pull.IsDraft)
-                                {
-                                    indivisual.Subject.Type = NotificationSubjectType.PullRequestDraft;
-                                }
-                                else
-                                {
-                                    indivisual.Subject.Type = NotificationSubjectType.PullRequestOpen;
-                                }
-                            }
-
-                            indivisual.Subject.Number = pull.Number;
-
+                            indivisual.Subject.Type = NotificationSubjectType.PullRequest;
+                            indivisual.Subject.Number = Convert.ToInt32(urlItems[urlItems.Count() - 1]);
                             break;
                         }
                     case "Discussion":
                         {
                             indivisual.Subject.Type = NotificationSubjectType.Discussion;
-
                             break;
                         }
                     case "Commit":
                         {
                             indivisual.Subject.Type = NotificationSubjectType.Commit;
-
                             break;
                         }
                 }

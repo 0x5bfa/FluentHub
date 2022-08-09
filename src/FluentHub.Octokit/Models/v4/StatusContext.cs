@@ -31,6 +31,11 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset CreatedAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was created."
+        /// <summary>
+        public string CreatedAtHumanized { get; set; }
+
+        /// <summary>
         /// The actor who created this status context.
         /// </summary>
         public IActor Creator { get; set; }

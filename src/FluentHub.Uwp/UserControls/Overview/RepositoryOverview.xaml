@@ -72,7 +72,7 @@
                     Command="{x:Bind ViewModel.GoOwnerProfileCommand, Mode=OneWay}"
                     FontWeight="Normal"
                     Style="{StaticResource LinkLikeButtonStyle}">
-                    <StackPanel Orientation="Horizontal" Spacing="12">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
 
                         <Grid
                             Width="18"

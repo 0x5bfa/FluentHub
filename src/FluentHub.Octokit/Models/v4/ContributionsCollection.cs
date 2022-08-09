@@ -41,6 +41,11 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset EndedAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "The ending date and time of this collection."
+        /// <summary>
+        public string EndedAtHumanized { get; set; }
+
+        /// <summary>
         /// The first issue the user opened on GitHub. This will be null if that issue was opened outside the collection's time range and ignoreTimeRange is false. If the issue is not visible but the user has opted to show private contributions, a RestrictedContribution will be returned.
         /// </summary>
         public CreatedIssueOrRestrictedContribution FirstIssueContribution { get; set; }
@@ -186,6 +191,11 @@ namespace FluentHub.Octokit.Models.v4
         /// The beginning date and time of this collection.
         /// </summary>
         public DateTimeOffset StartedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "The beginning date and time of this collection."
+        /// <summary>
+        public string StartedAtHumanized { get; set; }
 
         /// <summary>
         /// How many commits were made by the user in this time span.

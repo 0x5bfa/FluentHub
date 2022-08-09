@@ -8,7 +8,10 @@
     xmlns:labels="using:FluentHub.Uwp.UserControls.Labels"
     xmlns:local="using:FluentHub.Uwp.Views.Repositories.Issues"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:FluentHub.Uwp.Models"
+    xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:primer="using:FluentHub.Uwp.UserControls.PrimerControls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:uc="using:FluentHub.Uwp.UserControls"
     mc:Ignorable="d">
@@ -16,37 +19,756 @@
     <Page.Resources>
         <ResourceDictionary>
             <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+
+            <DataTemplate x:Key="AddedToProjectEventDataTemplate" x:DataType="modelsV4:AddedToProjectEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEA48;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="added this to a project" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="AssignedEventDataTemplate" x:DataType="modelsV4:AssignedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="assigned someone" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="ClosedEventDataTemplate" x:DataType="modelsV4:ClosedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="closed this" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="CommentDeletedEventDataTemplate" x:DataType="modelsV4:CommentDeletedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="deleted a comment" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="ConnectedEventDataTemplate" x:DataType="modelsV4:ConnectedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xE924;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="made a connection" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="ConvertedNoteToIssueEventDataTemplate" x:DataType="modelsV4:ConvertedNoteToIssueEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="converted note to issue" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="CrossReferencedEventDataTemplate" x:DataType="modelsV4:CrossReferencedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="referenced something" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="DemilestonedEventDataTemplate" x:DataType="modelsV4:DemilestonedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="removed this from a milestone" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="DisconnectedEventDataTemplate" x:DataType="modelsV4:DisconnectedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="removed a connection" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="IssueCommentDataTemplate" x:DataType="modelsV4:IssueComment">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEAA5;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Author.Login}"
+                                Size="20"
+                                Source="{x:Bind Author.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="commented" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="LabeledEventDataTemplate" x:DataType="modelsV4:LabeledEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEA05;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="labeled 1 or more label(s)" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="LockedEventDataTemplate" x:DataType="modelsV4:LockedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEA05;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="locked this" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="MarkedAsDuplicateEventDataTemplate" x:DataType="modelsV4:MarkedAsDuplicateEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xE924;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="marked this as duplicate" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="MilestonedEventDataTemplate" x:DataType="modelsV4:MilestonedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEAA5;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="added this to a milestoned" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="MovedColumnsInProjectEventDataTemplate" x:DataType="modelsV4:MovedColumnsInProjectEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="moved this to other column in project" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="PinnedEventDataTemplate" x:DataType="modelsV4:PinnedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="pinned this" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="ReferencedEventDataTemplate" x:DataType="modelsV4:ReferencedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xE968;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="referenced" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="RemovedFromProjectEventDataTemplate" x:DataType="modelsV4:RemovedFromProjectEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEA48;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="removed this from project" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="RenamedTitleEventDataTemplate" x:DataType="modelsV4:RenamedTitleEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEA34;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="renamed title" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="ReopenedEventDataTemplate" x:DataType="modelsV4:ReopenedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="reopened this" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="UnassignedEventDataTemplate" x:DataType="modelsV4:UnassignedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="unassigne someone" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="UnlabeledEventDataTemplate" x:DataType="modelsV4:UnlabeledEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="unlabeled 1 or more label(s)" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="UnlockedEventDataTemplate" x:DataType="modelsV4:UnlockedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="unlocked this" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="UnmarkedAsDuplicateEventDataTemplate" x:DataType="modelsV4:UnmarkedAsDuplicateEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="unmarked as duplicate" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="UnpinnedEventDataTemplate" x:DataType="modelsV4:UnpinnedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="unpinned this" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="UserBlockedEventDataTemplate" x:DataType="modelsV4:UserBlockedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="blocked someone" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="DefaultDataTemplate">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="made an unknown event" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <models:TimelineItemSelector
+                x:Key="TimelineItemSelector"
+                AddedToProjectEventDataTemplate="{StaticResource AddedToProjectEventDataTemplate}"
+                AssignedEventDataTemplate="{StaticResource AssignedEventDataTemplate}"
+                ClosedEventDataTemplate="{StaticResource ClosedEventDataTemplate}"
+                CommentDeletedEventDataTemplate="{StaticResource CommentDeletedEventDataTemplate}"
+                ConnectedEventDataTemplate="{StaticResource ConnectedEventDataTemplate}"
+                ConvertedNoteToIssueEventDataTemplate="{StaticResource ConvertedNoteToIssueEventDataTemplate}"
+                CrossReferencedEventDataTemplate="{StaticResource CrossReferencedEventDataTemplate}"
+                DefaultDataTemplate="{StaticResource DefaultDataTemplate}"
+                DemilestonedEventDataTemplate="{StaticResource DemilestonedEventDataTemplate}"
+                DisconnectedEventDataTemplate="{StaticResource DisconnectedEventDataTemplate}"
+                IssueCommentDataTemplate="{StaticResource IssueCommentDataTemplate}"
+                LabeledEventDataTemplate="{StaticResource LabeledEventDataTemplate}"
+                LockedEventDataTemplate="{StaticResource LockedEventDataTemplate}"
+                MarkedAsDuplicateEventDataTemplate="{StaticResource MarkedAsDuplicateEventDataTemplate}"
+                MilestonedEventDataTemplate="{StaticResource MilestonedEventDataTemplate}"
+                MovedColumnsInProjectEventDataTemplate="{StaticResource MovedColumnsInProjectEventDataTemplate}"
+                PinnedEventDataTemplate="{StaticResource PinnedEventDataTemplate}"
+                ReferencedEventDataTemplate="{StaticResource ReferencedEventDataTemplate}"
+                RemovedFromProjectEventDataTemplate="{StaticResource RemovedFromProjectEventDataTemplate}"
+                RenamedTitleEventDataTemplate="{StaticResource RenamedTitleEventDataTemplate}"
+                ReopenedEventDataTemplate="{StaticResource ReopenedEventDataTemplate}"
+                UnassignedEventDataTemplate="{StaticResource UnassignedEventDataTemplate}"
+                UnlabeledEventDataTemplate="{StaticResource UnlabeledEventDataTemplate}"
+                UnlockedEventDataTemplate="{StaticResource UnlockedEventDataTemplate}"
+                UnmarkedAsDuplicateEventDataTemplate="{StaticResource UnmarkedAsDuplicateEventDataTemplate}"
+                UnpinnedEventDataTemplate="{StaticResource UnpinnedEventDataTemplate}"
+                UserBlockedEventDataTemplate="{StaticResource UserBlockedEventDataTemplate}" />
         </ResourceDictionary>
     </Page.Resources>
 
     <Grid>
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <RepositionThemeTransition />
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
+
         <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <Grid Margin="0,0,8,8" RowSpacing="8">
+            <Grid Margin="0,0,0,8">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <uc:RepositoryOverview ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
+                <uc:RepositoryOverview Margin="0,0,8,0" ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
 
                 <Grid
                     Grid.Row="1"
-                    Padding="32"
+                    Margin="0,8,8,0"
+                    Padding="32,24,32,16"
                     Background="{ThemeResource CardBackgroundFillColorSecondary}"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1"
                     CornerRadius="8">
-                    <Grid.ChildrenTransitions>
-                        <TransitionCollection>
-                            <RepositionThemeTransition />
-                        </TransitionCollection>
-                    </Grid.ChildrenTransitions>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
+
+                    <StackPanel
+                        Margin="8,0"
+                        Orientation="Horizontal"
+                        Spacing="8">
+                        <TextBlock
+                            x:Name="IssueTitleTextBlock"
+                            FontWeight="Normal"
+                            Style="{StaticResource TitleTextBlockStyle}"
+                            Text="{x:Bind ViewModel.IssueItem.Title, Mode=OneWay}" />
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock
+                                FontWeight="ExtraLight"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Style="{StaticResource TitleTextBlockStyle}"
+                                Text="#" />
+                            <TextBlock
+                                FontWeight="ExtraLight"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Style="{StaticResource TitleTextBlockStyle}"
+                                Text="{x:Bind ViewModel.IssueItem.Number, Mode=OneWay}" />
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel
+                        Grid.Row="1"
+                        Margin="8"
+                        Orientation="Horizontal"
+                        Spacing="8">
+                        <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.IssueItem.Closed, Mode=OneWay}">
+                            <toolkit:Case Value="True">
+                                <labels:StateLabel Type="IssueClosed" />
+                            </toolkit:Case>
+                            <toolkit:Case Value="False">
+                                <labels:StateLabel Type="IssueOpen" />
+                            </toolkit:Case>
+                        </toolkit:SwitchPresenter>
+                    </StackPanel>
+
+                    <Button
+                        Grid.RowSpan="2"
+                        Width="36"
+                        Height="32"
+                        HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        HorizontalContentAlignment="Center"
+                        Click="OnDisplayDetailsTogglingButtonClick">
+                        <muxc:AnimatedIcon
+                            x:Name="BackAnimatedIcon"
+                            Width="16"
+                            Height="16">
+                            <muxc:AnimatedIcon.Source>
+                                <animatedvisuals:AnimatedGlobalNavigationButtonVisualSource />
+                            </muxc:AnimatedIcon.Source>
+                            <muxc:AnimatedIcon.FallbackIconSource>
+                                <muxc:FontIconSource FontSize="14" Glyph="&#xE700;" />
+                            </muxc:AnimatedIcon.FallbackIconSource>
+                        </muxc:AnimatedIcon>
+                    </Button>
+
+                </Grid>
+
+                <Grid
+                    Grid.Row="2"
+                    Margin="0,8,8,0"
+                    Padding="32,0,32,32"
+                    Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="3*" />
                         <ColumnDefinition
@@ -55,229 +777,32 @@
                             MaxWidth="400" />
                     </Grid.ColumnDefinitions>
 
-                    <Grid Grid.ColumnSpan="2">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                        </Grid.RowDefinitions>
-
-                        <StackPanel
-                            Margin="8,0"
-                            Orientation="Horizontal"
-                            Spacing="8">
-                            <TextBlock
-                                x:Name="IssueTitleTextBlock"
-                                FontWeight="Normal"
-                                Style="{StaticResource TitleTextBlockStyle}"
-                                Text="{x:Bind ViewModel.IssueItem.Title, Mode=OneWay}" />
-                            <StackPanel Orientation="Horizontal">
-                                <TextBlock
-                                    FontWeight="ExtraLight"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Style="{StaticResource TitleTextBlockStyle}"
-                                    Text="#" />
-                                <TextBlock
-                                    FontWeight="ExtraLight"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Style="{StaticResource TitleTextBlockStyle}"
-                                    Text="{x:Bind ViewModel.IssueItem.Number, Mode=OneWay}" />
-                            </StackPanel>
-                        </StackPanel>
-
-                        <StackPanel
-                            Grid.Row="1"
-                            Margin="8"
-                            Orientation="Horizontal"
-                            Spacing="8">
-                            <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.IssueItem.Closed, Mode=OneWay}">
-                                <toolkit:Case Value="True">
-                                    <labels:StateLabel Type="IssueClosed" />
-                                </toolkit:Case>
-                                <toolkit:Case Value="False">
-                                    <labels:StateLabel Type="IssueOpen" />
-                                </toolkit:Case>
-                            </toolkit:SwitchPresenter>
-                        </StackPanel>
-
-                        <Button
-                            Grid.RowSpan="2"
-                            Width="36"
-                            Height="32"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Top"
-                            HorizontalContentAlignment="Center"
-                            Click="OnDisplayDetailsTogglingButtonClick">
-                            <muxc:AnimatedIcon
-                                x:Name="BackAnimatedIcon"
-                                Width="16"
-                                Height="16">
-                                <muxc:AnimatedIcon.Source>
-                                    <animatedvisuals:AnimatedGlobalNavigationButtonVisualSource />
-                                </muxc:AnimatedIcon.Source>
-                                <muxc:AnimatedIcon.FallbackIconSource>
-                                    <muxc:FontIconSource FontSize="14" Glyph="&#xE700;" />
-                                </muxc:AnimatedIcon.FallbackIconSource>
-                            </muxc:AnimatedIcon>
-                        </Button>
-
-                    </Grid>
-
-                    <MenuFlyoutSeparator
-                        Grid.Row="1"
-                        Grid.ColumnSpan="2"
-                        Margin="0,-2" />
-
-                    <StackPanel x:Name="IssueContentPanel" Grid.Row="2">
+                    <StackPanel x:Name="IssueContentPanel">
 
                         <Border
                             Width="1.5"
                             Height="16"
                             Margin="36,0,0,0"
                             HorizontalAlignment="Left"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+                            Background="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Opacity="0.3" />
 
                         <ItemsControl ItemsSource="{x:Bind ViewModel.EventBlocks, Mode=OneWay}" />
+                        <!--<muxc:ItemsRepeater ItemTemplate="{StaticResource TimelineItemSelector}" ItemsSource="{x:Bind ViewModel.TimelineItems, Mode=OneWay}" />-->
 
                         <Border
                             Width="1.5"
                             Height="16"
                             Margin="36,0,0,0"
                             HorizontalAlignment="Left"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
-
-                        <Border
-                            Height="3"
-                            HorizontalAlignment="Stretch"
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+                            Background="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Opacity="0.3" />
 
                     </StackPanel>
 
                     <StackPanel
-                        Grid.Row="3"
-                        Margin="0,8"
-                        VerticalAlignment="Top">
-                        <Grid
-                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                            BorderThickness="1"
-                            CornerRadius="4">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
-
-                            <Grid>
-                                <muxc:NavigationView
-                                    Margin="12,4,24,4"
-                                    IsBackButtonVisible="Collapsed"
-                                    IsSettingsVisible="False"
-                                    PaneDisplayMode="Top">
-                                    <muxc:NavigationView.MenuItems>
-                                        <muxc:NavigationViewItem Content="Write" IsSelected="True" />
-                                        <muxc:NavigationViewItem Content="Preview" />
-                                    </muxc:NavigationView.MenuItems>
-                                    <muxc:NavigationView.PaneFooter>
-                                        <StackPanel Orientation="Horizontal" Spacing="4">
-                                            <Button
-                                                Width="32"
-                                                Height="32"
-                                                Padding="0"
-                                                Background="Transparent"
-                                                BorderThickness="0">
-                                                <FontIcon
-                                                    FontFamily="{StaticResource Octions}"
-                                                    FontSize="14"
-                                                    Glyph="&#xE9CD;" />
-                                            </Button>
-                                            <Button
-                                                Width="32"
-                                                Height="32"
-                                                Padding="0"
-                                                Background="Transparent"
-                                                BorderThickness="0">
-                                                <FontIcon
-                                                    FontFamily="{StaticResource Octions}"
-                                                    FontSize="14"
-                                                    Glyph="&#xEAA7;" />
-                                            </Button>
-                                            <Button
-                                                Width="32"
-                                                Height="32"
-                                                Padding="0"
-                                                Background="Transparent"
-                                                BorderThickness="0">
-                                                <FontIcon
-                                                    FontFamily="{StaticResource Octions}"
-                                                    FontSize="14"
-                                                    Glyph="&#xEA0F;" />
-                                            </Button>
-                                            <Button
-                                                Width="32"
-                                                Height="32"
-                                                Padding="0"
-                                                Background="Transparent"
-                                                BorderThickness="0">
-                                                <FontIcon
-                                                    FontFamily="{StaticResource Octions}"
-                                                    FontSize="14"
-                                                    Glyph="&#xE968;" />
-                                            </Button>
-                                            <Button
-                                                Width="32"
-                                                Height="32"
-                                                Padding="0"
-                                                Background="Transparent"
-                                                BorderThickness="0">
-                                                <FontIcon
-                                                    FontFamily="{StaticResource Octions}"
-                                                    FontSize="14"
-                                                    Glyph="&#xEA50;" />
-                                            </Button>
-                                        </StackPanel>
-                                    </muxc:NavigationView.PaneFooter>
-                                </muxc:NavigationView>
-                            </Grid>
-
-                            <MenuFlyoutSeparator Grid.Row="1" />
-
-                            <Grid
-                                Grid.Row="2"
-                                Height="256"
-                                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
-                                <TextBox
-                                    Margin="12"
-                                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                                    IsEnabled="False"
-                                    PlaceholderText="Leave a comment" />
-                            </Grid>
-
-                            <Grid
-                                Grid.Row="3"
-                                Padding="12,0,12,12"
-                                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
-
-                                <StackPanel
-                                    HorizontalAlignment="Right"
-                                    Orientation="Horizontal"
-                                    Spacing="8">
-                                    <Button Content="Close issue" IsEnabled="False" />
-                                    <Button
-                                        Content="Comment"
-                                        IsEnabled="False"
-                                        Style="{StaticResource AccentButtonStyle}" />
-                                </StackPanel>
-                            </Grid>
-
-                        </Grid>
-                    </StackPanel>
-
-                    <StackPanel
-                        Grid.Row="1"
-                        Grid.RowSpan="4"
                         Grid.Column="1"
-                        Margin="12,32,30,0"
+                        Margin="12,32,0,0"
                         Spacing="12">
                         <StackPanel Spacing="12">
 
@@ -453,7 +978,137 @@
                         </StackPanel>
 
                     </StackPanel>
+
+                    <Border
+                        Grid.ColumnSpan="2"
+                        Height="3"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Bottom"
+                        Background="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Opacity="0.3" />
+
                 </Grid>
+
+                <StackPanel
+                    Grid.Row="3"
+                    Margin="0,8,8,0"
+                    VerticalAlignment="Top">
+                    <Grid
+                        Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1"
+                        CornerRadius="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Grid>
+                            <muxc:NavigationView
+                                Margin="12,4,24,4"
+                                IsBackButtonVisible="Collapsed"
+                                IsSettingsVisible="False"
+                                PaneDisplayMode="Top">
+                                <muxc:NavigationView.MenuItems>
+                                    <muxc:NavigationViewItem Content="Write" IsSelected="True" />
+                                    <muxc:NavigationViewItem Content="Preview" />
+                                </muxc:NavigationView.MenuItems>
+                                <muxc:NavigationView.PaneFooter>
+                                    <StackPanel Orientation="Horizontal" Spacing="4">
+                                        <Button
+                                            Width="32"
+                                            Height="32"
+                                            Padding="0"
+                                            Background="Transparent"
+                                            BorderThickness="0">
+                                            <FontIcon
+                                                FontFamily="{StaticResource Octions}"
+                                                FontSize="14"
+                                                Glyph="&#xE9CD;" />
+                                        </Button>
+                                        <Button
+                                            Width="32"
+                                            Height="32"
+                                            Padding="0"
+                                            Background="Transparent"
+                                            BorderThickness="0">
+                                            <FontIcon
+                                                FontFamily="{StaticResource Octions}"
+                                                FontSize="14"
+                                                Glyph="&#xEAA7;" />
+                                        </Button>
+                                        <Button
+                                            Width="32"
+                                            Height="32"
+                                            Padding="0"
+                                            Background="Transparent"
+                                            BorderThickness="0">
+                                            <FontIcon
+                                                FontFamily="{StaticResource Octions}"
+                                                FontSize="14"
+                                                Glyph="&#xEA0F;" />
+                                        </Button>
+                                        <Button
+                                            Width="32"
+                                            Height="32"
+                                            Padding="0"
+                                            Background="Transparent"
+                                            BorderThickness="0">
+                                            <FontIcon
+                                                FontFamily="{StaticResource Octions}"
+                                                FontSize="14"
+                                                Glyph="&#xE968;" />
+                                        </Button>
+                                        <Button
+                                            Width="32"
+                                            Height="32"
+                                            Padding="0"
+                                            Background="Transparent"
+                                            BorderThickness="0">
+                                            <FontIcon
+                                                FontFamily="{StaticResource Octions}"
+                                                FontSize="14"
+                                                Glyph="&#xEA50;" />
+                                        </Button>
+                                    </StackPanel>
+                                </muxc:NavigationView.PaneFooter>
+                            </muxc:NavigationView>
+                        </Grid>
+
+                        <MenuFlyoutSeparator Grid.Row="1" />
+
+                        <Grid
+                            Grid.Row="2"
+                            Height="256"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
+                            <TextBox
+                                Margin="12"
+                                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                IsEnabled="False"
+                                PlaceholderText="Leave a comment" />
+                        </Grid>
+
+                        <Grid
+                            Grid.Row="3"
+                            Padding="12,0,12,12"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
+
+                            <StackPanel
+                                HorizontalAlignment="Right"
+                                Orientation="Horizontal"
+                                Spacing="8">
+                                <Button Content="Close issue" IsEnabled="False" />
+                                <Button
+                                    Content="Comment"
+                                    IsEnabled="False"
+                                    Style="{StaticResource AccentButtonStyle}" />
+                            </StackPanel>
+                        </Grid>
+
+                    </Grid>
+                </StackPanel>
             </Grid>
         </ScrollViewer>
 

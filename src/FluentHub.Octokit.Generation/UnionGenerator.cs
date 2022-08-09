@@ -20,8 +20,7 @@ namespace FluentHub.Octokit.Generation
     using System.Linq.Expressions;
 
     {GenerateUnionDocComments(type)}public class {className}
-    {{
-        {GeneratePossibleTypes(type, entityNamespace)}
+    {{{GeneratePossibleTypes(type, entityNamespace)}
     }}
 }}";
         }
@@ -56,7 +55,7 @@ namespace FluentHub.Octokit.Generation
             var comments = GenerateDocComments(possibleType);
             var typeName = TypeUtilities.GetClassName(possibleType);
             var name = possibleType.Name;
-            return comments + $"            public {name} {name} {{ get; set; }}";
+            return comments + $"        public {name} {name} {{ get; set; }}";
         }
 
         private static string GenerateUnionDocComments(TypeModel type)

@@ -7,7 +7,8 @@ namespace FluentHub.Octokit.Models.v4
     /// An advisory identifier to filter results on.
     /// </summary>
     public class SecurityAdvisoryIdentifierFilter
-    {        /// <summary>
+    {
+        /// <summary>
         /// The identifier type.
         /// </summary>
         public SecurityAdvisoryIdentifierType Type { get; set; }

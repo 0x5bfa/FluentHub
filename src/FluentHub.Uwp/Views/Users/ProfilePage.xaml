@@ -49,7 +49,12 @@
                         <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
-                    <uc:AvatarControl AvatarUrl="{x:Bind ViewModel.UserItem.AvatarUrl, Mode=OneWay}" WidthAndHeight="84" />
+                    <Grid
+                        Width="84"
+                        Height="84"
+                        CornerRadius="42">
+                        <Image Source="{x:Bind ViewModel.UserItem.AvatarUrl, Mode=OneWay}" />
+                    </Grid>
 
                     <StackPanel
                         Grid.Column="1"

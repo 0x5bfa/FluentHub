@@ -45,6 +45,11 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset CreatedAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "Identifies when the comment was created."
+        /// <summary>
+        public string CreatedAtHumanized { get; set; }
+
+        /// <summary>
         /// Check if this comment was created via an email reply.
         /// </summary>
         public bool CreatedViaEmail { get; set; }
@@ -63,6 +68,11 @@ namespace FluentHub.Octokit.Models.v4
         /// Identifies when the comment was created in a draft state.
         /// </summary>
         public DateTimeOffset DraftedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies when the comment was created in a draft state."
+        /// <summary>
+        public string DraftedAtHumanized { get; set; }
 
         /// <summary>
         /// The actor who edited the comment.
@@ -85,6 +95,11 @@ namespace FluentHub.Octokit.Models.v4
         /// The moment the editor made the last edit
         /// </summary>
         public DateTimeOffset? LastEditedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "The moment the editor made the last edit"
+        /// <summary>
+        public string LastEditedAtHumanized { get; set; }
 
         /// <summary>
         /// Returns why the comment was minimized.
@@ -120,6 +135,11 @@ namespace FluentHub.Octokit.Models.v4
         /// Identifies when the comment was published at.
         /// </summary>
         public DateTimeOffset? PublishedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies when the comment was published at."
+        /// <summary>
+        public string PublishedAtHumanized { get; set; }
 
         /// <summary>
         /// The pull request associated with this review comment.
@@ -171,6 +191,11 @@ namespace FluentHub.Octokit.Models.v4
         /// Identifies when the comment was last updated.
         /// </summary>
         public DateTimeOffset UpdatedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies when the comment was last updated."
+        /// <summary>
+        public string UpdatedAtHumanized { get; set; }
 
         /// <summary>
         /// The HTTP URL permalink for this review comment.

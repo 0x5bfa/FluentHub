@@ -42,7 +42,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
 
         public void Creanup()
         {
-            if (string.IsNullOrEmpty(ChangedFile?.Patch) || string.IsNullOrEmpty(ChangedPullRequestFile?.Patch)) return;
+            if (string.IsNullOrEmpty(ChangedFile?.Patch) && string.IsNullOrEmpty(ChangedPullRequestFile?.Patch)) return;
 
             OldLineText = "";
             NewLineText = "";

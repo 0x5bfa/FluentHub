@@ -9,7 +9,8 @@ namespace FluentHub.Octokit.Models.v4
     /// An object that can be locked.
     /// </summary>
     public interface ILockable
-    {        /// <summary>
+    {
+        /// <summary>
         /// Reason that the conversation was locked.
         /// </summary>
         LockReason? ActiveLockReason { get; set; }

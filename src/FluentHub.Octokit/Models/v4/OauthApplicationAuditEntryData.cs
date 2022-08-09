@@ -9,7 +9,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Metadata for an audit entry with action oauth_application.*
     /// </summary>
     public interface IOauthApplicationAuditEntryData
-    {        /// <summary>
+    {
+        /// <summary>
         /// The name of the OAuth Application.
         /// </summary>
         string OauthApplicationName { get; set; }

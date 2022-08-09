@@ -9,7 +9,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Metadata for an audit entry with action repo.*
     /// </summary>
     public interface IRepositoryAuditEntryData
-    {        /// <summary>
+    {
+        /// <summary>
         /// The repository associated with the action
         /// </summary>
         Repository Repository { get; set; }

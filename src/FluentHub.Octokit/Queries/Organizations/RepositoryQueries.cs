@@ -16,7 +16,6 @@
                     OctokitGraphQLModel.PullRequestState.Open
                 });
 
-            #region query
             var query = new Query()
                 .Organization(org)
                 .Repositories(first: 30)
@@ -66,7 +65,6 @@
                     .SingleOrDefault(),
                 })
                 .Compile();
-            #endregion
 
             var response = await App.Connection.Run(query);
 

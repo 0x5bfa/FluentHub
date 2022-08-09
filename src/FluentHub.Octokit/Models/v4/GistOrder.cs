@@ -7,7 +7,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Ordering options for gist connections
     /// </summary>
     public class GistOrder
-    {        /// <summary>
+    {
+        /// <summary>
         /// The field to order repositories by.
         /// </summary>
         public GistOrderField Field { get; set; }

@@ -9,7 +9,8 @@ namespace FluentHub.Octokit.Models.v4
     /// An entry in the audit log.
     /// </summary>
     public interface IAuditEntry
-    {        /// <summary>
+    {
+        /// <summary>
         /// The action name
         /// </summary>
         string Action { get; set; }

@@ -170,7 +170,19 @@
                     })
                     .SingleOrDefault(),
                 })
-                //.ClosedEvent(y => new ClosedEvent {})
+                .ClosedEvent(y => new ClosedEvent
+                {
+                    Actor = y.Actor.Select(actor => new Actor
+                    {
+                        AvatarUrl = actor.AvatarUrl(100),
+                        Login = actor.Login,
+                    })
+                    .Single(),
+
+                    CreatedAt = y.CreatedAt,
+
+                    Id = y.Id,
+                })
                 .CommentDeletedEvent(y => new CommentDeletedEvent
                 {
                     Actor = y.Actor.Select(actor => new Actor
@@ -234,6 +246,19 @@
                     })
                     .SingleOrDefault(),
                 })
+                .ConvertToDraftEvent(y => new ConvertToDraftEvent
+                {
+                    Actor = y.Actor.Select(actor => new Actor
+                    {
+                        AvatarUrl = actor.AvatarUrl(100),
+                        Login = actor.Login,
+                    })
+                    .Single(),
+
+                    CreatedAt = y.CreatedAt,
+
+                    Id = y.Id,
+                })
                 .ConvertedNoteToIssueEvent(y => new ConvertedNoteToIssueEvent
                 {
                     Actor = y.Actor.Select(actor => new Actor
@@ -244,6 +269,19 @@
                     .SingleOrDefault(),
 
                     CreatedAt = y.CreatedAt,
+                })
+                .ConvertedToDiscussionEvent(y => new ConvertedToDiscussionEvent
+                {
+                    Actor = y.Actor.Select(actor => new Actor
+                    {
+                        AvatarUrl = actor.AvatarUrl(100),
+                        Login = actor.Login,
+                    })
+                    .Single(),
+
+                    CreatedAt = y.CreatedAt,
+
+                    Id = y.Id,
                 })
                 .CrossReferencedEvent(y => new CrossReferencedEvent
                 {
@@ -550,6 +588,19 @@
 
                     CreatedAt = y.CreatedAt,
                 })
+                .MentionedEvent(y => new MentionedEvent
+                {
+                    Actor = y.Actor.Select(actor => new Actor
+                    {
+                        AvatarUrl = actor.AvatarUrl(100),
+                        Login = actor.Login,
+                    })
+                    .Single(),
+
+                    CreatedAt = y.CreatedAt,
+
+                    Id = y.Id,
+                })
                 .MergedEvent(y => new MergedEvent
                 {
                     Actor = y.Actor.Select(actor => new Actor
@@ -622,6 +673,10 @@
                         Message = y.Commit.Message,
                     },
                 })
+                .PullRequestCommitCommentThread(y => new PullRequestCommitCommentThread
+                {
+                    Id = y.Id,
+                })
                 .PullRequestReview(y => new PullRequestReview
                 {
                     Commit = new()
@@ -649,6 +704,14 @@
                     ViewerCanReact = y.ViewerCanReact,
                     ViewerCanUpdate = y.ViewerCanUpdate,
                     ViewerDidAuthor = y.ViewerDidAuthor,
+                })
+                .PullRequestReviewThread(y => new PullRequestReviewThread
+                {
+                    Id = y.Id,
+                })
+                .PullRequestRevisionMarker(y => new PullRequestRevisionMarker
+                {
+                    CreatedAt = y.CreatedAt,
                 })
                 .ReadyForReviewEvent(y => new ReadyForReviewEvent
                 {
@@ -734,7 +797,7 @@
                     })
                     .SingleOrDefault(),
 
-                    //StateReason = (IssueStateReason)y.StateReason,
+                    StateReason = (IssueStateReason)y.StateReason,
 
                     CreatedAt = y.CreatedAt,
                 })
@@ -794,6 +857,19 @@
                     .SingleOrDefault(),
 
                     CreatedAt = y.CreatedAt,
+                })
+                .SubscribedEvent(y => new SubscribedEvent
+                {
+                    Actor = y.Actor.Select(actor => new Actor
+                    {
+                        AvatarUrl = actor.AvatarUrl(100),
+                        Login = actor.Login,
+                    })
+                    .Single(),
+
+                    CreatedAt = y.CreatedAt,
+
+                    Id = y.Id,
                 })
                 .TransferredEvent(y => new TransferredEvent
                 {
@@ -909,6 +985,19 @@
 
                     CreatedAt = y.CreatedAt,
                 })
+                .UnsubscribedEvent(y => new UnsubscribedEvent
+                {
+                    Actor = y.Actor.Select(actor => new Actor
+                    {
+                        AvatarUrl = actor.AvatarUrl(100),
+                        Login = actor.Login,
+                    })
+                    .Single(),
+
+                    CreatedAt = y.CreatedAt,
+
+                    Id = y.Id,
+                })
                 .UserBlockedEvent(y => new UserBlockedEvent
                 {
                     Actor = y.Actor.Select(actor => new Actor
@@ -924,12 +1013,6 @@
 
                     CreatedAt = y.CreatedAt,
                 })
-                //.MentionedEvent(y => new MentionedEvent {})
-                //.PullRequestCommitCommentThread(y => new PullRequestCommitCommentThread {})
-                //.PullRequestReviewThread(y => new PullRequestReviewThread {})
-                //.PullRequestRevisionMarker(y => new PullRequestRevisionMarker {})
-                //.SubscribedEvent(y => new SubscribedEvent {})
-                //.UnsubscribedEvent(y => new UnsubscribedEvent {})
                 ))
                 .Compile();
             #endregion

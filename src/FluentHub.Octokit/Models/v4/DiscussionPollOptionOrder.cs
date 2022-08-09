@@ -7,7 +7,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Ordering options for discussion poll option connections.
     /// </summary>
     public class DiscussionPollOptionOrder
-    {        /// <summary>
+    {
+        /// <summary>
         /// The field to order poll options by.
         /// </summary>
         public DiscussionPollOptionOrderField Field { get; set; }

@@ -15,9 +15,19 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset CreatedAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was created."
+        /// <summary>
+        public string CreatedAtHumanized { get; set; }
+
+        /// <summary>
         /// Identifies the date and time when the object was deleted.
         /// </summary>
         public DateTimeOffset? DeletedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was deleted."
+        /// <summary>
+        public string DeletedAtHumanized { get; set; }
 
         /// <summary>
         /// The actor who deleted this content
@@ -35,6 +45,11 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset EditedAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "When this content was edited"
+        /// <summary>
+        public string EditedAtHumanized { get; set; }
+
+        /// <summary>
         /// The actor who edited this content
         /// </summary>
         public IActor Editor { get; set; }
@@ -45,5 +60,10 @@ namespace FluentHub.Octokit.Models.v4
         /// Identifies the date and time when the object was last updated.
         /// </summary>
         public DateTimeOffset UpdatedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was last updated."
+        /// <summary>
+        public string UpdatedAtHumanized { get; set; }
     }
 }

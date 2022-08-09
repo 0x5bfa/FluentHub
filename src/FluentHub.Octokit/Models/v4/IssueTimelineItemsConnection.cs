@@ -43,5 +43,10 @@ namespace FluentHub.Octokit.Models.v4
         /// Identifies the date and time when the timeline was last updated.
         /// </summary>
         public DateTimeOffset UpdatedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies the date and time when the timeline was last updated."
+        /// <summary>
+        public string UpdatedAtHumanized { get; set; }
     }
 }

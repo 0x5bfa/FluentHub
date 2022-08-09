@@ -20,6 +20,11 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset CreatedAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was created."
+        /// <summary>
+        public string CreatedAtHumanized { get; set; }
+
+        /// <summary>
         /// Identifies the primary key from the database.
         /// </summary>
         public int? DatabaseId { get; set; }
@@ -69,6 +74,11 @@ namespace FluentHub.Octokit.Models.v4
         /// Identifies the date and time when the release was created.
         /// </summary>
         public DateTimeOffset? PublishedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies the date and time when the release was created."
+        /// <summary>
+        public string PublishedAtHumanized { get; set; }
 
         /// <summary>
         /// A list of reactions grouped by content left on the subject.
@@ -131,6 +141,11 @@ namespace FluentHub.Octokit.Models.v4
         /// Identifies the date and time when the object was last updated.
         /// </summary>
         public DateTimeOffset UpdatedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was last updated."
+        /// <summary>
+        public string UpdatedAtHumanized { get; set; }
 
         /// <summary>
         /// The HTTP URL for this issue
