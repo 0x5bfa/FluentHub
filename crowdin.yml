@@ -1,3 +1,4 @@
+commit_message: 'Updated app translations by Crowdin'
 files:
   - source: /src/FluentHub.Uwp/Strings/en-US/*.resw
     translation: /src/FluentHub.Uwp/Strings/%locale%/%original_file_name%
