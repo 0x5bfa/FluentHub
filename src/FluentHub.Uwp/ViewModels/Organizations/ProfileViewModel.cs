@@ -29,7 +29,7 @@ namespace FluentHub.Uwp.ViewModels.Organizations
             try
             {
                 OrganizationQueries queries = new();
-                var organization = await queries.GetOverview(org);
+                var organization = await queries.GetAsync(org);
                 if (organization == null) return;
 
                 Organization = organization;

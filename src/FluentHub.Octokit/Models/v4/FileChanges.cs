@@ -97,7 +97,8 @@ namespace FluentHub.Octokit.Models.v4
     ///        }
     /// </summary>
     public class FileChanges
-    {        /// <summary>
+    {
+        /// <summary>
         /// Files to delete.
         /// </summary>
         public List<FileDeletion> Deletions { get; set; }

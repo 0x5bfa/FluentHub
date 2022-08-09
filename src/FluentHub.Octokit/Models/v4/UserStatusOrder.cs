@@ -7,7 +7,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Ordering options for user status connections.
     /// </summary>
     public class UserStatusOrder
-    {        /// <summary>
+    {
+        /// <summary>
         /// The field to order user statuses by.
         /// </summary>
         public UserStatusOrderField Field { get; set; }

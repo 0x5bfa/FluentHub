@@ -7,7 +7,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Ordering options for verifiable domain connections.
     /// </summary>
     public class VerifiableDomainOrder
-    {        /// <summary>
+    {
+        /// <summary>
         /// The field to order verifiable domains by.
         /// </summary>
         public VerifiableDomainOrderField Field { get; set; }

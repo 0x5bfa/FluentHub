@@ -7,7 +7,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Ordering options for Enterprise Server installation connections.
     /// </summary>
     public class EnterpriseServerInstallationOrder
-    {        /// <summary>
+    {
+        /// <summary>
         /// The field to order Enterprise Server installations by.
         /// </summary>
         public EnterpriseServerInstallationOrderField Field { get; set; }

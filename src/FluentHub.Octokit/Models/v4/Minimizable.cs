@@ -9,7 +9,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Entities that can be minimized.
     /// </summary>
     public interface IMinimizable
-    {        /// <summary>
+    {
+        /// <summary>
         /// Returns whether or not a comment has been minimized.
         /// </summary>
         bool IsMinimized { get; set; }

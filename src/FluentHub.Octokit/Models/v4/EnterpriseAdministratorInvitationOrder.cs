@@ -7,7 +7,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Ordering options for enterprise administrator invitation connections
     /// </summary>
     public class EnterpriseAdministratorInvitationOrder
-    {        /// <summary>
+    {
+        /// <summary>
         /// The field to order enterprise administrator invitations by.
         /// </summary>
         public EnterpriseAdministratorInvitationOrderField Field { get; set; }

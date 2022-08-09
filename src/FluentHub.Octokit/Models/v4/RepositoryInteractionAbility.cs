@@ -15,6 +15,11 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset? ExpiresAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "The time the currently active limit expires."
+        /// <summary>
+        public string ExpiresAtHumanized { get; set; }
+
+        /// <summary>
         /// The current limit that is enabled on this object.
         /// </summary>
         public RepositoryInteractionLimit Limit { get; set; }

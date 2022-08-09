@@ -7,7 +7,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Ordering options for security advisory connections
     /// </summary>
     public class SecurityAdvisoryOrder
-    {        /// <summary>
+    {
+        /// <summary>
         /// The field to order security advisories by.
         /// </summary>
         public SecurityAdvisoryOrderField Field { get; set; }

@@ -9,7 +9,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Entities that can be subscribed to for web and email notifications.
     /// </summary>
     public interface ISubscribable
-    {        ID Id { get; set; }
+    {
+        ID Id { get; set; }
 
         /// <summary>
         /// Check if the viewer is able to change their subscription status for the repository.

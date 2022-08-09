@@ -15,7 +15,7 @@
         <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
     </UserControl.Resources>
 
-    <Grid Height="22" HorizontalAlignment="Left">
+    <Grid Height="24" HorizontalAlignment="Left">
 
         <Grid
             x:Name="LabelBorderGrid"
@@ -29,7 +29,7 @@
             x:Name="LabelBackgroundGrid"
             x:Load="{x:Bind ViewModel.OutlineEnable, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
             Background="{x:Bind ViewModel.ColorBrush, Mode=OneWay}"
-            CornerRadius="11"
+            CornerRadius="12"
             Opacity="0.3" />
 
         <Grid Padding="8,0">

@@ -47,6 +47,11 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset UpdatedAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was last updated."
+        /// <summary>
+        public string UpdatedAtHumanized { get; set; }
+
+        /// <summary>
         /// URL to download the asset.
         /// </summary>
         public string Url { get; set; }

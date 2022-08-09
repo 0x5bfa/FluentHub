@@ -7,7 +7,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Ordering options for organization connections.
     /// </summary>
     public class OrganizationOrder
-    {        /// <summary>
+    {
+        /// <summary>
         /// The field to order organizations by.
         /// </summary>
         public OrganizationOrderField Field { get; set; }

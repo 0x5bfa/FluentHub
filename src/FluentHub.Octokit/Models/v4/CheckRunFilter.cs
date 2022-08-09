@@ -7,7 +7,8 @@ namespace FluentHub.Octokit.Models.v4
     /// The filters that are available when fetching check runs.
     /// </summary>
     public class CheckRunFilter
-    {        /// <summary>
+    {
+        /// <summary>
         /// Filters the check runs by this type.
         /// </summary>
         public CheckRunType? CheckType { get; set; }

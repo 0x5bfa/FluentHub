@@ -9,15 +9,14 @@ namespace FluentHub.Octokit.Models.v4
     /// </summary>
     public class Closer
     {
-        
         /// <summary>
         /// Represents a Git commit.
         /// </summary>
-            public Commit Commit { get; set; }
+        public Commit Commit { get; set; }
 
         /// <summary>
         /// A repository pull request.
         /// </summary>
-            public PullRequest PullRequest { get; set; }
+        public PullRequest PullRequest { get; set; }
     }
 }

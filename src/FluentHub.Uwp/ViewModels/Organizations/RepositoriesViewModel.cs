@@ -3,6 +3,7 @@ using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.ViewModels.UserControls;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
+using System.Text.RegularExpressions;
 
 namespace FluentHub.Uwp.ViewModels.Organizations
 {
@@ -31,6 +32,9 @@ namespace FluentHub.Uwp.ViewModels.Organizations
 
         private string _login;
         public string Login { get => _login; set => SetProperty(ref _login, value); }
+
+        private bool _oauthAppIsRestrictedByOrgSettings;
+        public bool OAuthAppIsRestrictedByOrgSettings { get => _oauthAppIsRestrictedByOrgSettings; set => SetProperty(ref _oauthAppIsRestrictedByOrgSettings, value); }
 
         private readonly ObservableCollection<RepoButtonBlockViewModel> _repositories;
         public ReadOnlyObservableCollection<RepoButtonBlockViewModel> Repositories { get; }
@@ -61,16 +65,20 @@ namespace FluentHub.Uwp.ViewModels.Organizations
             catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                if (!ex.Message.Contains("has enabled OAuth App access restrictions, meaning that data access to third-parties is limited."))
+                _logger?.Error(nameof(LoadOrganizationRepositoriesAsync), ex);
+
+                // OAuth restriction exception
+                if (Regex.IsMatch(ex.Message, @"Although you appear to have the correct authorization credentials, the `.*` organization has enabled OAuth App access restrictions, meaning that data access to third-parties is limited. For more information on these restrictions, including how to enable this app, visit https://docs.github.com/articles/restricting-access-to-your-organization-s-data/"))
                 {
-                    _logger?.Error(nameof(LoadOrganizationRepositoriesAsync), ex);
-                    if (_messenger != null)
-                    {
-                        UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                        _messenger.Send(notification);
-                    }
-                    throw;
+                    OAuthAppIsRestrictedByOrgSettings = true;
+                    return;
                 }
+                else if (_messenger != null)
+                {
+                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
+                    _messenger.Send(notification);
+                }
+                throw;
             }
         }
 
@@ -79,7 +87,7 @@ namespace FluentHub.Uwp.ViewModels.Organizations
             try
             {
                 OrganizationQueries queries = new();
-                var response = await queries.GetOverview(org);
+                var response = await queries.GetAsync(org);
 
                 Organization = response ?? new();
 
@@ -93,7 +101,13 @@ namespace FluentHub.Uwp.ViewModels.Organizations
             catch (Exception ex)
             {
                 _logger?.Error(nameof(LoadOrganizationAsync), ex);
-                if (_messenger != null)
+
+                // OAuth restriction exception
+                if (Regex.IsMatch(ex.Message, @"Although you appear to have the correct authorization credentials, the `.*` organization has enabled OAuth App access restrictions, meaning that data access to third-parties is limited. For more information on these restrictions, including how to enable this app, visit https://docs.github.com/articles/restricting-access-to-your-organization-s-data/"))
+                {
+                    OAuthAppIsRestrictedByOrgSettings = true;
+                }
+                else if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
                     _messenger.Send(notification);

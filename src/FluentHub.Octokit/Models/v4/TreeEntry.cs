@@ -55,6 +55,11 @@ namespace FluentHub.Octokit.Models.v4
         public Repository Repository { get; set; }
 
         /// <summary>
+        /// Entry byte size
+        /// </summary>
+        public int Size { get; set; }
+
+        /// <summary>
         /// If the TreeEntry is for a directory occupied by a submodule project, this returns the corresponding submodule
         /// </summary>
         public Submodule Submodule { get; set; }

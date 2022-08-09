@@ -9,7 +9,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Entities that can be sponsored through GitHub Sponsors
     /// </summary>
     public interface ISponsorable
-    {        /// <summary>
+    {
+        /// <summary>
         /// The estimated next GitHub Sponsors payout for this user/organization in cents (USD).
         /// </summary>
         int EstimatedNextSponsorsPayoutInCents { get; set; }
@@ -63,8 +64,9 @@ namespace FluentHub.Octokit.Models.v4
         /// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
         /// <param name="last">Returns the last _n_ elements from the list.</param>
         /// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
+        /// <param name="actions">Filter activities to only the specified actions.</param>
         /// <param name="orderBy">Ordering options for activity returned from the connection.</param>
-        /// <param name="period">Filter activities returned to only those that occurred in a given time range.</param>
+        /// <param name="period">Filter activities returned to only those that occurred in the most recent specified time period. Set to ALL to avoid filtering by when the activity occurred.</param>
         SponsorsActivityConnection SponsorsActivities { get; set; }
 
         /// <summary>

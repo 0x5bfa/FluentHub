@@ -7,10 +7,8 @@
     xmlns:labels="using:FluentHub.Uwp.UserControls.Labels"
     xmlns:local="using:FluentHub.Uwp.UserControls.Blocks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:models="using:FluentHub.Octokit.Models.Events"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:uc="using:FluentHub.Uwp.UserControls"
-    xmlns:vm="using:FluentHub.Uwp.ViewModels.UserControls.Blocks"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -19,6 +17,7 @@
         <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
     </UserControl.Resources>
 
+    <!--  Obsolete  -->
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -29,10 +28,11 @@
         <Border
             Grid.Row="0"
             Width="1.5"
-            Height="10"
+            Height="16"
             Margin="36,0,0,0"
             HorizontalAlignment="Left"
-            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+            Background="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+            Opacity="0.3" />
 
         <Grid
             Grid.Row="1"
@@ -69,13 +69,18 @@
                 x:Name="EventActor"
                 Grid.Column="1"
                 Margin="0,0,8,0"
+                VerticalAlignment="Center"
                 x:Load="{x:Bind ViewModel.IssueComment, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
                 Orientation="Horizontal"
-                Spacing="4">
-                <uc:AvatarControl
-                    VerticalAlignment="Center"
-                    AvatarUrl="{x:Bind ViewModel.Actor.AvatarUrl, Mode=OneWay}"
-                    WidthAndHeight="20" />
+                Spacing="8">
+
+                <Grid
+                    x:Name="ActorAvatarGrid"
+                    Width="20"
+                    Height="20"
+                    CornerRadius="10">
+                    <Image Source="{x:Bind ViewModel.Actor.AvatarUrl, Mode=OneWay}" />
+                </Grid>
 
                 <TextBlock
                     x:Name="ActorLoginTextBlock"
@@ -87,6 +92,7 @@
 
             <toolkit:SwitchPresenter
                 Grid.Column="2"
+                VerticalAlignment="Center"
                 TargetType="x:String"
                 Value="{x:Bind ViewModel.EventType, Mode=OneWay}">
 
@@ -509,7 +515,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="commited changes" />
+                            Text="{x:Bind ViewModel.PullRequestCommit.Commit.Message, Mode=OneWay}" />
 
                     </StackPanel>
                 </toolkit:Case>
@@ -521,7 +527,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="PullRequestCommitCommentThread" />
+                            Text="created commit comment thread" />
 
                     </StackPanel>
                 </toolkit:Case>
@@ -533,7 +539,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="PullRequestReview" />
+                            Text="reviewed changes" />
 
                     </StackPanel>
                 </toolkit:Case>
@@ -545,7 +551,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="PullRequestReviewThread" />
+                            Text="created review thread" />
 
                     </StackPanel>
                 </toolkit:Case>
@@ -557,7 +563,7 @@
                             VerticalAlignment="Center"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
-                            Text="PullRequestRevisionMarker" />
+                            Text="added revision marker" />
 
                     </StackPanel>
                 </toolkit:Case>
@@ -775,6 +781,7 @@
             Height="10"
             Margin="36,0,0,0"
             HorizontalAlignment="Left"
-            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}" />
+            Background="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+            Opacity="0.3" />
     </Grid>
 </UserControl>

@@ -9,7 +9,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Represents a type that can be required by a pull request for merging.
     /// </summary>
     public interface IRequirableByPullRequest
-    {        /// <summary>
+    {
+        /// <summary>
         /// Whether this is required to pass before merging for a specific pull request.
         /// </summary>
         /// <param name="pullRequestId">The id of the pull request this is required for</param>

@@ -47,7 +47,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
             {
                 _messenger?.Send(new LoadingMessaging(true));
 
-                CommitQueries queries = new();
+                PullRequestCommitQueries queries = new();
                 var items = await queries.GetAllAsync(
                     PullItem.Repository.Owner.Login,
                     PullItem.Repository.Name,

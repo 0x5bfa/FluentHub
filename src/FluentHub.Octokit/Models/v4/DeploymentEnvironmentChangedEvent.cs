@@ -20,6 +20,11 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset CreatedAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was created."
+        /// <summary>
+        public string CreatedAtHumanized { get; set; }
+
+        /// <summary>
         /// The deployment status that updated the deployment environment.
         /// </summary>
         public DeploymentStatus DeploymentStatus { get; set; }

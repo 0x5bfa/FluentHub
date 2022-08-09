@@ -115,5 +115,37 @@ namespace FluentHub.Uwp.Views.Home
 
         private void OnSeeFeedsButtonClick(object sender, RoutedEventArgs e)
             => navService.Navigate<ActivitiesPage>();
+
+        private void OnRecentUserNotificationListViewItemClick(object sender, ItemClickEventArgs e)
+        {
+            var notification = e.ClickedItem as Notification;
+
+            switch (notification.Subject.Type)
+            {
+                case NotificationSubjectType.IssueClosedAsCompleted:
+                case NotificationSubjectType.IssueClosedAsNotPlanned:
+                case NotificationSubjectType.IssueOpen:
+                    navService.Navigate<Repositories.Issues.IssuePage>(
+                    new FrameNavigationArgs()
+                    {
+                        Login = notification.Repository.Owner.Login,
+                        Name = notification.Repository.Name,
+                        Number = notification.Subject.Number,
+                    });
+                    break;
+                case NotificationSubjectType.PullRequestClosed:
+                case NotificationSubjectType.PullRequestDraft:
+                case NotificationSubjectType.PullRequestMerged:
+                case NotificationSubjectType.PullRequestOpen:
+                    navService.Navigate<Repositories.PullRequests.ConversationPage>(
+                    new FrameNavigationArgs()
+                    {
+                        Login = notification.Repository.Owner.Login,
+                        Name = notification.Repository.Name,
+                        Number = notification.Subject.Number,
+                    });
+                    break;
+            }
+        }
     }
 }

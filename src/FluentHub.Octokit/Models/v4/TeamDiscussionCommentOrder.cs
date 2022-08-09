@@ -7,7 +7,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Ways in which team discussion comment connections can be ordered.
     /// </summary>
     public class TeamDiscussionCommentOrder
-    {        /// <summary>
+    {
+        /// <summary>
         /// The field by which to order nodes.
         /// </summary>
         public TeamDiscussionCommentOrderField Field { get; set; }

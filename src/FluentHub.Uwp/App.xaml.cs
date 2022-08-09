@@ -212,7 +212,7 @@ namespace FluentHub.Uwp
             ThemeHelper.Initialize();
             Window.Current.Activate();
 
-            var logger = Services.GetService<Serilog.ILogger>();
+            var logger = Services.GetService<Utils.ILogger>();
             logger?.Debug("App.Initialize() done");
         }
 
@@ -248,7 +248,7 @@ namespace FluentHub.Uwp
 
         private async Task HandleUriActivationAsync(Uri uri, bool openInNewTab)
         {
-            var logger = Services.GetService<Serilog.ILogger>();
+            var logger = Services.GetService<Utils.ILogger>();
             logger?.Debug("App.HandleUriActivationAsync(): {uri}", uri);
 
             Type page = null;
@@ -304,7 +304,7 @@ namespace FluentHub.Uwp
                     {
                         AuthorizationService authService = new();
                         var accessToken = await authService.RequestOAuthTokenAsync(code);
-                        logger?.Information("Successfully authorized.");
+                        logger?.Info("FluentHub is authorized successfully.");
 
                         // Set token and login to App Settings Container
                         await SetAccountInfo(accessToken);
@@ -314,7 +314,7 @@ namespace FluentHub.Uwp
                     catch (Exception ex)
                     {
                         status = false;
-                        logger?.Information("Authorization failed.", ex);
+                        logger?.Info("FluentHub failed to authorize.", ex);
                     }
 
                     if (status)

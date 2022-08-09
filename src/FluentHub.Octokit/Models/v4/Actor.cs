@@ -9,7 +9,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Represents an object which can take actions on GitHub. Typically a User or Bot.
     /// </summary>
     public interface IActor
-    {        /// <summary>
+    {
+        /// <summary>
         /// A URL pointing to the actor's public avatar.
         /// </summary>
         /// <param name="size">The size of the resulting square image.</param>

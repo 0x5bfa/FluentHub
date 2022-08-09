@@ -7,7 +7,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Ordering options for sponsorship newsletter connections.
     /// </summary>
     public class SponsorshipNewsletterOrder
-    {        /// <summary>
+    {
+        /// <summary>
         /// The field to order sponsorship newsletters by.
         /// </summary>
         public SponsorshipNewsletterOrderField Field { get; set; }

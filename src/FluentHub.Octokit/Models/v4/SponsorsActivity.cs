@@ -40,5 +40,10 @@ namespace FluentHub.Octokit.Models.v4
         /// The timestamp of this event.
         /// </summary>
         public DateTimeOffset? Timestamp { get; set; }
+
+        /// <summary>
+        /// Humanized string of "The timestamp of this event."
+        /// <summary>
+        public string TimestampHumanized { get; set; }
     }
 }

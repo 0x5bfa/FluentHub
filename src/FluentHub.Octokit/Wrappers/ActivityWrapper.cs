@@ -7,7 +7,7 @@ namespace FluentHub.Octokit.Wrappers
 {
     internal class ActivityWrapper
     {
-        public List<Activity> Wrap(IReadOnlyList<OctokitOriginal.Activity> response)
+        public List<Activity> Wrap(IReadOnlyList<OctokitV3.Activity> response)
         {
             List<Activity> activities = new();
 
@@ -19,7 +19,7 @@ namespace FluentHub.Octokit.Wrappers
                     Owner = new RepositoryOwner()
                     {
                         AvatarUrl = item.Repo?.Owner?.AvatarUrl,
-                        Login = item.Repo?.Owner?.Login.Split('/')[0],
+                        Login = item.Repo?.Name.Split('/')[0],
                     }
                 };
 
@@ -63,7 +63,7 @@ namespace FluentHub.Octokit.Wrappers
                         break;
                     case "CreateEvent":
                         indivisual.Type = ActivityPayloadType.CreateEvent;
-                        var createEventPayload = (OctokitOriginal.CreateEventPayload)item.Payload;
+                        var createEventPayload = (OctokitV3.CreateEventPayload)item.Payload;
                         indivisual.PayloadSets.CreateEventPayload = new()
                         {
                             Description = createEventPayload.Description,
@@ -74,7 +74,7 @@ namespace FluentHub.Octokit.Wrappers
                         break;
                     case "DeleteEvent":
                         indivisual.Type = ActivityPayloadType.DeleteEvent;
-                        var deleteEventPayload = (OctokitOriginal.DeleteEventPayload)item.Payload;
+                        var deleteEventPayload = (OctokitV3.DeleteEventPayload)item.Payload;
                         indivisual.PayloadSets.DeleteEventPayload = new()
                         {
                             Ref = deleteEventPayload.Ref,
@@ -82,7 +82,7 @@ namespace FluentHub.Octokit.Wrappers
                         break;
                     case "ForkEvent":
                         indivisual.Type = ActivityPayloadType.ForkEvent;
-                        var forkEventPayload = (OctokitOriginal.ForkEventPayload)item.Payload;
+                        var forkEventPayload = (OctokitV3.ForkEventPayload)item.Payload;
                         indivisual.PayloadSets.ForkEventPayload = new()
                         {
                             Forkee = new()
@@ -98,7 +98,7 @@ namespace FluentHub.Octokit.Wrappers
                         break;
                     case "IssueCommentEvent":
                         indivisual.Type = ActivityPayloadType.IssueCommentEvent;
-                        var issueCommentPayload = (OctokitOriginal.IssueCommentPayload)item.Payload;
+                        var issueCommentPayload = (OctokitV3.IssueCommentPayload)item.Payload;
                         indivisual.PayloadSets.IssueCommentPayload = new()
                         {
                             Action = issueCommentPayload.Action,
@@ -128,7 +128,7 @@ namespace FluentHub.Octokit.Wrappers
                         break;
                     case "PushEvent":
                         indivisual.Type = ActivityPayloadType.PushEvent;
-                        var pushEventPayload = (OctokitOriginal.PushEventPayload)item.Payload;
+                        var pushEventPayload = (OctokitV3.PushEventPayload)item.Payload;
                         indivisual.PayloadSets.PushEventPayload = new()
                         {
                             Head = pushEventPayload.Head,
@@ -147,7 +147,7 @@ namespace FluentHub.Octokit.Wrappers
                         break;
                     case "ReleaseEvent":
                         indivisual.Type = ActivityPayloadType.ReleaseEvent;
-                        var releaseEventPayload = (OctokitOriginal.ReleaseEventPayload)item.Payload;
+                        var releaseEventPayload = (OctokitV3.ReleaseEventPayload)item.Payload;
                         indivisual.PayloadSets.ReleaseEventPayload = new()
                         {
                             Action = releaseEventPayload.Action,
@@ -159,7 +159,7 @@ namespace FluentHub.Octokit.Wrappers
                         break;
                     case "WatchEvent":
                         indivisual.Type = ActivityPayloadType.WatchEvent;
-                        var watchEventPayload = (OctokitOriginal.StarredEventPayload)item.Payload;
+                        var watchEventPayload = (OctokitV3.StarredEventPayload)item.Payload;
                         indivisual.PayloadSets.StarredEventPayload = new()
                         {
                             Action = watchEventPayload.Action,

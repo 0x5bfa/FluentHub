@@ -9,7 +9,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Things that can be starred.
     /// </summary>
     public interface IStarrable
-    {        ID Id { get; set; }
+    {
+        ID Id { get; set; }
 
         /// <summary>
         /// Returns a count of how many stargazers there are on this object

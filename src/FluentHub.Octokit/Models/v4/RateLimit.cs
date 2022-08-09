@@ -35,6 +35,11 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset ResetAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "The time at which the current rate limit window resets in UTC epoch seconds."
+        /// <summary>
+        public string ResetAtHumanized { get; set; }
+
+        /// <summary>
         /// The number of points used in the current rate limit window.
         /// </summary>
         public int Used { get; set; }

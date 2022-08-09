@@ -9,7 +9,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Metadata for an audit entry with a topic.
     /// </summary>
     public interface ITopicAuditEntryData
-    {        /// <summary>
+    {
+        /// <summary>
         /// The name of the topic added to the repository
         /// </summary>
         Topic Topic { get; set; }

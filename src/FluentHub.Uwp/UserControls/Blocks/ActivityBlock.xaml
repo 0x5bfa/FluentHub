@@ -6,9 +6,9 @@
     xmlns:bb="using:FluentHub.Uwp.UserControls.ButtonBlocks"
     xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:graphqlmodels="using:FluentHub.Octokit.Models"
     xmlns:local="using:FluentHub.Uwp.UserControls.Blocks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:modelsV3="using:FluentHub.Octokit.Models.v3"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     d:DesignHeight="300"
@@ -327,6 +327,7 @@
             <TextBlock
                 Grid.ColumnSpan="3"
                 HorizontalAlignment="Right"
+                VerticalAlignment="Center"
                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                 Style="{StaticResource CaptionTextBlockStyle}"
                 Text="{x:Bind ViewModel.Payload.CreatedAt, Mode=OneWay}" />

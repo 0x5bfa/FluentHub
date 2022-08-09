@@ -136,6 +136,19 @@
                     })
                     .SingleOrDefault(),
                 })
+                .ConvertedToDiscussionEvent(y => new ConvertedToDiscussionEvent
+                {
+                    Actor = y.Actor.Select(actor => new Actor
+                    {
+                        AvatarUrl = actor.AvatarUrl(100),
+                        Login = actor.Login,
+                    })
+                    .Single(),
+
+                    CreatedAt = y.CreatedAt,
+
+                    Id = y.Id,
+                })
                 .ConvertedNoteToIssueEvent(y => new ConvertedNoteToIssueEvent
                 {
                     Actor = y.Actor.Select(actor => new Actor
@@ -369,7 +382,20 @@
                     .SingleOrDefault(),
 
                     CreatedAt = y.CreatedAt,
-                }) 
+                })
+                .MentionedEvent(y => new  MentionedEvent
+                {
+                    Actor = y.Actor.Select(actor => new Actor
+                    {
+                        AvatarUrl = actor.AvatarUrl(100),
+                        Login = actor.Login,
+                    })
+                    .Single(),
+
+                    CreatedAt = y.CreatedAt,
+
+                    Id = y.Id,
+                })
                 .MilestonedEvent(y => new MilestonedEvent
                 {
                     Actor = y.Actor.Select(actor => new Actor
@@ -481,6 +507,19 @@
                     //StateReason = (IssueStateReason)y.StateReason,
 
                     CreatedAt = y.CreatedAt,
+                })
+                .SubscribedEvent(y => new SubscribedEvent
+                {
+                    Actor = y.Actor.Select(actor => new Actor
+                    {
+                        AvatarUrl = actor.AvatarUrl(100),
+                        Login = actor.Login,
+                    })
+                    .Single(),
+
+                    CreatedAt = y.CreatedAt,
+
+                    Id = y.Id,
                 })
                 .TransferredEvent(y => new TransferredEvent
                 {
@@ -596,6 +635,19 @@
 
                     CreatedAt = y.CreatedAt,
                 })
+                .UnsubscribedEvent(y => new UnsubscribedEvent
+                {
+                    Actor = y.Actor.Select(actor => new Actor
+                    {
+                        AvatarUrl = actor.AvatarUrl(100),
+                        Login = actor.Login,
+                    })
+                    .Single(),
+
+                    CreatedAt = y.CreatedAt,
+
+                    Id = y.Id,
+                })
                 .UserBlockedEvent(y => new UserBlockedEvent
                 {
                     Actor = y.Actor.Select(actor => new Actor
@@ -611,9 +663,6 @@
 
                     CreatedAt = y.CreatedAt,
                 })
-                //.MentionedEvent(y => new MentionedEvent {})
-                //.SubscribedEvent(y => new SubscribedEvent {})
-                //.UnsubscribedEvent(y => new UnsubscribedEvent {})
                 ))
                 .Compile();
             #endregion

@@ -22,6 +22,11 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset OccurredAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "When this contribution was made."
+        /// <summary>
+        public string OccurredAtHumanized { get; set; }
+
+        /// <summary>
         /// The HTTP path for this contribution.
         /// </summary>
         public string ResourcePath { get; set; }

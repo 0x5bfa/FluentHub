@@ -45,6 +45,11 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset AuthoredDate { get; set; }
 
         /// <summary>
+        /// Humanized string of "The datetime when this commit was authored."
+        /// <summary>
+        public string AuthoredDateHumanized { get; set; }
+
+        /// <summary>
         /// The list of authors for this commit based on the git author and the Co-authored-by
         /// message trailer. The git author will always be first.
         /// </summary>
@@ -98,6 +103,11 @@ namespace FluentHub.Octokit.Models.v4
         /// The datetime when this commit was committed.
         /// </summary>
         public DateTimeOffset CommittedDate { get; set; }
+
+        /// <summary>
+        /// Humanized string of "The datetime when this commit was committed."
+        /// <summary>
+        public string CommittedDateHumanized { get; set; }
 
         /// <summary>
         /// Check if committed via GitHub web UI.
@@ -194,6 +204,11 @@ namespace FluentHub.Octokit.Models.v4
         /// The datetime when this commit was pushed.
         /// </summary>
         public DateTimeOffset? PushedDate { get; set; }
+
+        /// <summary>
+        /// Humanized string of "The datetime when this commit was pushed."
+        /// <summary>
+        public string PushedDateHumanized { get; set; }
 
         /// <summary>
         /// The Repository this commit belongs to

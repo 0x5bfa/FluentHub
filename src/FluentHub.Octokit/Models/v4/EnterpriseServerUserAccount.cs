@@ -15,6 +15,11 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset CreatedAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was created."
+        /// <summary>
+        public string CreatedAtHumanized { get; set; }
+
+        /// <summary>
         /// User emails belonging to this user account.
         /// </summary>
         /// <param name="first">Returns the first _n_ elements from the list.</param>
@@ -52,6 +57,11 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset RemoteCreatedAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "The date and time when the user account was created on the Enterprise Server installation."
+        /// <summary>
+        public string RemoteCreatedAtHumanized { get; set; }
+
+        /// <summary>
         /// The ID of the user account on the Enterprise Server installation.
         /// </summary>
         public int RemoteUserId { get; set; }
@@ -60,5 +70,10 @@ namespace FluentHub.Octokit.Models.v4
         /// Identifies the date and time when the object was last updated.
         /// </summary>
         public DateTimeOffset UpdatedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was last updated."
+        /// <summary>
+        public string UpdatedAtHumanized { get; set; }
     }
 }

@@ -7,7 +7,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Ordering options for Enterprise Server user accounts upload connections.
     /// </summary>
     public class EnterpriseServerUserAccountsUploadOrder
-    {        /// <summary>
+    {
+        /// <summary>
         /// The field to order user accounts uploads by.
         /// </summary>
         public EnterpriseServerUserAccountsUploadOrderField Field { get; set; }

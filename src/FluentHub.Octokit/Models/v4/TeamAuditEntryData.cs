@@ -9,7 +9,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Metadata for an audit entry with action team.*
     /// </summary>
     public interface ITeamAuditEntryData
-    {        /// <summary>
+    {
+        /// <summary>
         /// The team associated with the action
         /// </summary>
         Team Team { get; set; }

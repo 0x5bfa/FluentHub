@@ -9,40 +9,40 @@
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <Grid
+    <StackPanel
         Height="40"
+        Margin="18,8,0,0"
         VerticalAlignment="Top"
-        Background="Transparent">
-        <StackPanel Margin="18,8,0,0" Orientation="Horizontal">
+        Background="Transparent"
+        Orientation="Horizontal">
 
-            <Image
-                x:Name="AppFontIcon"
-                Width="22"
-                Height="22"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Source="/Assets/AppTilesDev/StoreLogo.scale-400.png" />
+        <Image
+            x:Name="AppFontIcon"
+            Width="22"
+            Height="22"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Center"
+            Source="/Assets/AppTiles/StoreLogo.scale-400.png" />
 
-            <TextBlock
-                Margin="12,0,0,0"
-                VerticalAlignment="Center"
-                Style="{StaticResource CaptionTextBlockStyle}"
-                Text="Fluent" />
+        <TextBlock
+            Margin="12,0,0,0"
+            VerticalAlignment="Center"
+            Style="{StaticResource CaptionTextBlockStyle}"
+            Text="Fluent" />
 
-            <TextBlock
-                VerticalAlignment="Center"
-                FontWeight="SemiBold"
-                Style="{StaticResource CaptionTextBlockStyle}"
-                Text="Hub" />
+        <TextBlock
+            VerticalAlignment="Center"
+            FontWeight="SemiBold"
+            Style="{StaticResource CaptionTextBlockStyle}"
+            Text="Hub" />
 
-            <TextBlock
-                Margin="4,0,0,0"
-                VerticalAlignment="Center"
-                FontSize="11"
-                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                Style="{StaticResource CaptionTextBlockStyle}"
-                Text="DEV" />
+        <TextBlock
+            Margin="4,0,0,0"
+            VerticalAlignment="Center"
+            FontSize="11"
+            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+            Style="{StaticResource CaptionTextBlockStyle}"
+            Text="DEV" />
 
-        </StackPanel>
-    </Grid>
+    </StackPanel>
 </UserControl>

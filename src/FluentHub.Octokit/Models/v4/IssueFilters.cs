@@ -7,7 +7,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Ways in which to filter lists of issues.
     /// </summary>
     public class IssueFilters
-    {        /// <summary>
+    {
+        /// <summary>
         /// List issues assigned to given name. Pass in `null` for issues with no assigned user, and `*` for issues assigned to any user.
         /// </summary>
         public string Assignee { get; set; }

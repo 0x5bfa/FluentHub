@@ -7,7 +7,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Ways in which lists of reactions can be ordered upon return.
     /// </summary>
     public class ReactionOrder
-    {        /// <summary>
+    {
+        /// <summary>
         /// The field in which to order reactions by.
         /// </summary>
         public ReactionOrderField Field { get; set; }

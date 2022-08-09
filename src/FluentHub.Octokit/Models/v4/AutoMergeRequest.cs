@@ -30,6 +30,11 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset? EnabledAt { get; set; }
 
         /// <summary>
+        /// Humanized string of "When was this auto-merge request was enabled."
+        /// <summary>
+        public string EnabledAtHumanized { get; set; }
+
+        /// <summary>
         /// The actor who created the auto-merge request.
         /// </summary>
         public IActor EnabledBy { get; set; }

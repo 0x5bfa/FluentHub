@@ -9,7 +9,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Comments that can be updated.
     /// </summary>
     public interface IUpdatableComment
-    {        /// <summary>
+    {
+        /// <summary>
         /// Reasons why the current viewer can not update this comment.
         /// </summary>
         List<CommentCannotUpdateReason> ViewerCannotUpdateReasons { get; set; }

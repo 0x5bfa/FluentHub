@@ -64,7 +64,12 @@
                         Orientation="Horizontal"
                         Spacing="4">
 
-                        <uc:AvatarControl AvatarUrl="{x:Bind ViewModel.CommitItem.Author.AvatarUrl}" WidthAndHeight="18" />
+                        <Grid
+                            Width="18"
+                            Height="18"
+                            CornerRadius="9">
+                            <Image Source="{x:Bind ViewModel.CommitItem.Author.AvatarUrl}" />
+                        </Grid>
 
                         <TextBlock
                             Margin="4,0,0,0"

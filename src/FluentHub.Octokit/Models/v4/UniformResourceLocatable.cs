@@ -9,7 +9,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Represents a type that can be retrieved by a URL.
     /// </summary>
     public interface IUniformResourceLocatable
-    {        /// <summary>
+    {
+        /// <summary>
         /// The HTML path to this resource.
         /// </summary>
         string ResourcePath { get; set; }

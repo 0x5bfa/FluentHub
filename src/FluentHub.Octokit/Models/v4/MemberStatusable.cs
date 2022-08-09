@@ -9,7 +9,8 @@ namespace FluentHub.Octokit.Models.v4
     /// Entities that have members who can set status messages.
     /// </summary>
     public interface IMemberStatusable
-    {        /// <summary>
+    {
+        /// <summary>
         /// Get the status messages members of this entity have set that are either public or visible only to the organization.
         /// </summary>
         /// <param name="first">Returns the first _n_ elements from the list.</param>
