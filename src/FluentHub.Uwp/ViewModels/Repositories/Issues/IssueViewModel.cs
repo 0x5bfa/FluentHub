@@ -97,7 +97,6 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
                 foreach (var item in issueEvents)
                     _timelineItems.Add(item);
 
-                /*
                 foreach (var eventItem in issueEvents)
                 {
                     if (eventItem is null)
@@ -265,7 +264,6 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
 
                     _eventBlocks.Add(eventBlock);
                 }
-                */
             }
             catch (Exception ex)
             {
