@@ -8,7 +8,27 @@
         {
             Secrets = secrets;
 
-            OctokitV3.OauthLoginRequest request = new(Secrets.ClientId);
+            OctokitV3.OauthLoginRequest request = new(Secrets.ClientId)
+            {
+                // All scopes
+                Scopes = {
+                    "repo",
+                    "workflow",
+                    "write:packages",
+                    "delete:packages",
+                    "admin:org",
+                    "admin:public_key",
+                    "admin:repo_hook",
+                    "admin:org_hook",
+                    "gist",
+                    "notifications",
+                    "user",
+                    "delete_repo",
+                    "write:discussion",
+                    "admin:enterprise",
+                    "admin:gpg_key"
+                },
+            };
 
             Uri oauthLoginUrl = App.Client.Oauth.GetGitHubLoginUrl(request);
 
