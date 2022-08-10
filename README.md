@@ -8,7 +8,7 @@
   FluentHub
 </h1>
 <p align="center">
-  A stylish yet wonderfully powerful GitHub client
+  A stylish yet powerful GitHub client.
 </p>
 
 <p align="center">
