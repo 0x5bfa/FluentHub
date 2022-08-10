@@ -116,7 +116,7 @@
 
                     <FontIcon
                         VerticalAlignment="Center"
-                        FontFamily="{StaticResource Octions}"
+                        FontFamily="{StaticResource Octicons}"
                         FontSize="14"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         Glyph="&#xEA03;" />
@@ -139,7 +139,7 @@
 
                     <FontIcon
                         VerticalAlignment="Center"
-                        FontFamily="{StaticResource Octions}"
+                        FontFamily="{StaticResource Octicons}"
                         FontSize="14"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         Glyph="&#xE9FB;" />
@@ -160,7 +160,7 @@
 
                     <FontIcon
                         VerticalAlignment="Center"
-                        FontFamily="{StaticResource Octions}"
+                        FontFamily="{StaticResource Octicons}"
                         FontSize="14"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         Glyph="&#xEA09;" />
@@ -208,7 +208,7 @@
                                         TextWrapping="Wrap" />
                                     <StackPanel Orientation="Horizontal" Spacing="8">
                                         <FontIcon
-                                            FontFamily="{StaticResource Octions}"
+                                            FontFamily="{StaticResource Octicons}"
                                             FontSize="18"
                                             Foreground="#57ab5a"
                                             Glyph="&#xEACC;" />
@@ -245,7 +245,7 @@
                     <muxc:NavigationViewItem Content="Overview" Tag="Overview">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon
-                                FontFamily="{StaticResource Octions}"
+                                FontFamily="{StaticResource Octicons}"
                                 FontSize="16"
                                 Glyph="&#xE922;" />
                         </muxc:NavigationViewItem.Icon>
@@ -253,7 +253,7 @@
                     <muxc:NavigationViewItem Content="Repositories" Tag="Repositories">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon
-                                FontFamily="{StaticResource Octions}"
+                                FontFamily="{StaticResource Octicons}"
                                 FontSize="16"
                                 Glyph="&#xEA52;" />
                         </muxc:NavigationViewItem.Icon>
@@ -264,7 +264,7 @@
                         Tag="Discussions">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon
-                                FontFamily="{StaticResource Octions}"
+                                FontFamily="{StaticResource Octicons}"
                                 FontSize="16"
                                 Glyph="&#xE95D;" />
                         </muxc:NavigationViewItem.Icon>
@@ -275,7 +275,7 @@
                         Tag="Projects">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon
-                                FontFamily="{StaticResource Octions}"
+                                FontFamily="{StaticResource Octicons}"
                                 FontSize="16"
                                 Glyph="&#xEA48;" />
                         </muxc:NavigationViewItem.Icon>
@@ -286,7 +286,7 @@
                         Tag="Packages">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon
-                                FontFamily="{StaticResource Octions}"
+                                FontFamily="{StaticResource Octicons}"
                                 FontSize="16"
                                 Glyph="&#xEA29;" />
                         </muxc:NavigationViewItem.Icon>
@@ -297,7 +297,7 @@
                         Tag="People">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon
-                                FontFamily="{StaticResource Octions}"
+                                FontFamily="{StaticResource Octicons}"
                                 FontSize="16"
                                 Glyph="&#xEA38;" />
                         </muxc:NavigationViewItem.Icon>
@@ -308,7 +308,7 @@
                         Tag="Settings">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon
-                                FontFamily="{StaticResource Octions}"
+                                FontFamily="{StaticResource Octicons}"
                                 FontSize="16"
                                 Glyph="&#xE9B3;" />
                         </muxc:NavigationViewItem.Icon>

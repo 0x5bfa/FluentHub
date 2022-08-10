@@ -68,7 +68,7 @@
                     <Button HorizontalAlignment="Right" IsEnabled="False">
                         <StackPanel Orientation="Horizontal" Spacing="4">
                             <FontIcon
-                                FontFamily="{StaticResource Octions}"
+                                FontFamily="{StaticResource Octicons}"
                                 FontSize="14"
                                 Glyph="&#xEA52;" />
                             <TextBlock Text="New" />
@@ -317,56 +317,63 @@
 
                                                 <toolkit:Case Value="IssueClosedAsCompleted">
                                                     <FontIcon
-                                                        FontFamily="{StaticResource Octions}"
+                                                        FontFamily="{StaticResource Octicons}"
                                                         Foreground="{StaticResource Purple5}"
                                                         Glyph="&#xE9E6;" />
                                                 </toolkit:Case>
 
+                                                <toolkit:Case Value="IssueClosedAsNotPlanned">
+                                                    <FontIcon
+                                                        FontFamily="{StaticResource Octicons}"
+                                                        Foreground="{StaticResource Black3}"
+                                                        Glyph="&#xEA84;" />
+                                                </toolkit:Case>
+
                                                 <toolkit:Case Value="IssueOpen">
                                                     <FontIcon
-                                                        FontFamily="{StaticResource Octions}"
+                                                        FontFamily="{StaticResource Octicons}"
                                                         Foreground="{StaticResource Green5}"
                                                         Glyph="&#xE9EA;" />
                                                 </toolkit:Case>
 
                                                 <toolkit:Case Value="PullRequestClosed">
                                                     <FontIcon
-                                                        FontFamily="{StaticResource Octions}"
+                                                        FontFamily="{StaticResource Octicons}"
                                                         Foreground="{StaticResource Red5}"
                                                         Glyph="&#xE9C1;" />
                                                 </toolkit:Case>
 
                                                 <toolkit:Case Value="PullRequestMerged">
                                                     <FontIcon
-                                                        FontFamily="{StaticResource Octions}"
+                                                        FontFamily="{StaticResource Octicons}"
                                                         Foreground="{StaticResource Purple5}"
                                                         Glyph="&#xE9BD;" />
                                                 </toolkit:Case>
 
                                                 <toolkit:Case Value="PullRequestDraft">
                                                     <FontIcon
-                                                        FontFamily="{StaticResource Octions}"
+                                                        FontFamily="{StaticResource Octicons}"
                                                         Foreground="{StaticResource Black5}"
                                                         Glyph="&#xE9C3;" />
                                                 </toolkit:Case>
 
                                                 <toolkit:Case Value="PullRequestOpen">
                                                     <FontIcon
-                                                        FontFamily="{StaticResource Octions}"
+                                                        FontFamily="{StaticResource Octicons}"
                                                         Foreground="{StaticResource Green5}"
                                                         Glyph="&#xE9BF;" />
                                                 </toolkit:Case>
 
                                                 <toolkit:Case Value="Discussion">
                                                     <FontIcon
-                                                        FontFamily="{StaticResource Octions}"
+                                                        FontFamily="{StaticResource Octicons}"
                                                         Foreground="{StaticResource Blue5}"
                                                         Glyph="&#xE95D;" />
                                                 </toolkit:Case>
 
                                                 <toolkit:Case Value="Commit">
                                                     <FontIcon
-                                                        FontFamily="{StaticResource Octions}"
+                                                        FontFamily="{StaticResource Octicons}"
                                                         Foreground="{StaticResource Blue5}"
                                                         Glyph="&#xE9B9;" />
                                                 </toolkit:Case>

@@ -117,7 +117,7 @@
                     IsClickable="True"
                     IsEnabled="False">
                     <uc:SettingsBlockControl.Icon>
-                        <FontIcon FontFamily="{StaticResource Octions}" Glyph="&#xEA0B;" />
+                        <FontIcon FontFamily="{StaticResource Octicons}" Glyph="&#xEA0B;" />
                     </uc:SettingsBlockControl.Icon>
                     <uc:SettingsBlockControl.SettingsActionableElement>
                         <FontIcon FontSize="14" Glyph="&#xE76C;" />

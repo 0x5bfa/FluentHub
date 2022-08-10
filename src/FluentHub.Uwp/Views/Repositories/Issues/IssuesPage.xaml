@@ -49,7 +49,7 @@
                         Orientation="Horizontal"
                         Spacing="6">
                         <FontIcon
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="16"
                             Glyph="&#xEA3E;" />
                         <TextBlock

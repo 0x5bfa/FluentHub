@@ -1198,7 +1198,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Glyphs\SegoeFluentIconsNormal.ttf" />
-    <Content Include="Assets\Glyphs\Octions.ttf" />
+    <Content Include="Assets\Glyphs\Octicons.ttf" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\lib\octokit.graphql.net\Octokit.GraphQL.Core\Octokit.GraphQL.Core.csproj">

@@ -118,7 +118,7 @@
                     IsEnabled="True">
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <FontIcon
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="14"
                             Glyph="&#xE970;" />
                         <TextBlock Text="Open with GitHub Desktop" />
@@ -141,7 +141,7 @@
                     Style="{ThemeResource AccentButtonStyle}">
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <FontIcon
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="14"
                             Glyph="&#xE9A7;" />
                         <TextBlock Text="Download zip" />

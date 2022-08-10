@@ -22,16 +22,83 @@ namespace FluentHub.Octokit.Queries.Users
                 Query = @$"query {{ {fragments} }}",
             };
 
-            var response2 = await App.GraphQLHttpClient.SendQueryAsync<DynamicClass>(request2);
+            var response2 = await App.GraphQLHttpClient.SendQueryAsync<object>(request2);
             List<Repository> zippedData = new();
 
-            for (int idx = 0; idx < 30; idx++)
+            var json = response2.Data as JToken;
+
+            var errors = json["errors"];
+            if (errors is not null)
             {
-                var data = response2.Data[$"repo{idx}"];
-                Repository result = new();
-                Parse(0, data as JToken, result);
-                string parsedData = ParsedJsonString.ToString();
-                zippedData.Add(result);
+                return notifications;
+            }
+
+            for (int idx = 0; idx < options.PageSize; idx++)
+            {
+                var repo = json[$"repo{idx}"];
+                if (repo is null)
+                {
+                    // Add empty data
+                    zippedData.Add(new());
+                    continue;
+                }
+
+                var issue = repo["Issue"];
+                var pr = repo["PullRequest"];
+
+                if (issue is not null)
+                {
+                    Enum.TryParse(
+                        issue["state"].ToString(),
+                        true,
+                        out IssueState state);
+                    Enum.TryParse(
+                        issue["stateReason"].ToString(),
+                        true,
+                        out IssueStateReason stateReason);
+                    var id = new ID(
+                        issue["id"].ToString());
+                    int.TryParse(
+                        issue["number"].ToString(),
+                        out int number);
+
+                    zippedData.Add(new()
+                    {
+                        Issue = new()
+                        {
+                            Id = id,
+                            Number = number,
+                            State = state,
+                            StateReason = stateReason,
+                        },
+                    });
+                }
+                else if (pr is not null)
+                {
+                    Enum.TryParse(
+                        pr["state"].ToString(),
+                        true,
+                        out PullRequestState state);
+                    var id = new ID(
+                        pr["id"].ToString());
+                    int.TryParse(
+                        pr["number"].ToString(),
+                        out int number);
+                    bool.TryParse(
+                        pr["isDraft"].ToString(),
+                        out bool isDraft);
+
+                    zippedData.Add(new()
+                    {
+                        PullRequest = new()
+                        {
+                            Id = id,
+                            Number = number,
+                            IsDraft = isDraft,
+                            State = state,
+                        },
+                    });
+                }
             }
 
             var mappedNotifications = Map(notifications, zippedData);
@@ -160,178 +227,6 @@ repo{index}: repository(name: ""{notifications.ElementAt(index).Repository.Name}
             }
 
             return notifications;
-        }
-
-        private class DynamicClass : DynamicObject
-        {
-            private Dictionary<string, dynamic> dicProperties = new Dictionary<string, dynamic>();
-
-            public override bool TrySetMember(SetMemberBinder binder, object value)
-            {
-                this.dicProperties[binder.Name] = value;
-                return true;
-            }
-
-            public override bool TryGetMember(GetMemberBinder binder, out object result)
-            {
-                return this.dicProperties.TryGetValue(binder.Name, out result);
-            }
-
-            public object this[string propertyName]
-            {
-                get
-                {
-                    object result;
-                    this.dicProperties.TryGetValue(propertyName, out result);
-                    return result;
-                }
-            }
-
-            public int PropX { get; set; }
-        }
-
-        StringBuilder ParsedJsonString { get; set; } = new();
-
-        private void Parse(int padding, JToken jtoken, Repository res)
-        {
-            if (jtoken is JValue)
-            {
-                JValue jvalue = (JValue)jtoken;
-                string str = $"value = {jvalue.Value}";
-                ParsedJsonString.AppendLine(str.PadLeft(str.Length + padding));
-            }
-            else if (jtoken is JObject)
-            {
-                bool isPR = false;
-
-                foreach (KeyValuePair<string, JToken> kvp in (JObject)jtoken)
-                {
-                    if (kvp.Value is JValue)
-                    {
-                        JValue jvalue = (JValue)kvp.Value;
-                        string str = $"name = {kvp.Key}, value = {jvalue.Value}";
-
-                        // Whether PR or Issue
-                        if (kvp.Key == "id" && jvalue.Value.ToString().StartsWith("PR"))
-                        {
-                            isPR = true;
-                        }
-                        if (jvalue.Value is null)
-                        {
-                            continue;
-                        }
-
-                        if (isPR)
-                        {
-                            switch (kvp.Key)
-                            {
-                                case "id":
-                                    ID id = new(jvalue.Value?.ToString());
-                                    res.PullRequest.Id = id;
-                                    break;
-                                case "number":
-                                    res.PullRequest.Number = Convert.ToInt32(jvalue.Value?.ToString());
-                                    break;
-                                case "isDraft":
-                                    bool.TryParse(jvalue.Value?.ToString(), out var isDraft);
-                                    res.PullRequest.IsDraft = isDraft;
-                                    break;
-                                case "state":
-                                    var original = jvalue.Value?.ToString();
-                                    var src = original.ToLower();
-                                    TextInfo info = CultureInfo.CurrentCulture.TextInfo;
-                                    src = info.ToTitleCase(src).Replace(" ", string.Empty);
-                                    Enum.TryParse(src, out PullRequestState state);
-                                    res.PullRequest.State = state;
-                                    break;
-                            }
-                        }
-                        else
-                        {
-                            switch (kvp.Key)
-                            {
-                                case "id":
-                                    ID id = new(jvalue.Value?.ToString());
-                                    res.Issue.Id = id;
-                                    break;
-                                case "number":
-                                    res.Issue.Number = Convert.ToInt32(jvalue.Value?.ToString());
-                                    break;
-                                case "state":
-                                    {
-                                        var original = jvalue.Value?.ToString();
-                                        var src = original.ToLower();
-                                        TextInfo info = CultureInfo.CurrentCulture.TextInfo;
-                                        src = info.ToTitleCase(src).Replace(" ", string.Empty);
-                                        Enum.TryParse(src, out IssueState state);
-                                        res.Issue.State = state;
-                                    }
-                                    break;
-                                case "stateReason":
-                                    {
-                                        var original = jvalue.Value?.ToString();
-                                        var src = original.ToLower();
-                                        TextInfo info = CultureInfo.CurrentCulture.TextInfo;
-                                        src = info.ToTitleCase(src).Replace(" ", string.Empty);
-                                        Enum.TryParse(src, out IssueStateReason stateReason);
-                                        res.Issue.StateReason = stateReason;
-                                    }
-                                    break;
-                            }
-                        }
-
-                        ParsedJsonString.AppendLine(str.PadLeft(str.Length + padding));
-                    }
-                    else if (kvp.Value is JObject)
-                    {
-                        string str = $"name = {kvp.Key}";
-                        if (kvp.Key == "PullRequest")
-                        {
-                            res.PullRequest = new();
-                        }
-                        else if (kvp.Key == "Issue")
-                        {
-                            res.Issue = new();
-                        }
-                        ParsedJsonString.AppendLine(str.PadLeft(str.Length + padding));
-                        Parse(padding + 2, kvp.Value, res);
-                    }
-                    else if (kvp.Value is JArray)
-                    {
-                        string str = $"name = {kvp.Key}";
-                        ParsedJsonString.AppendLine(str.PadLeft(str.Length + padding));
-                        JArray jarray = (JArray)kvp.Value;
-                        int index = 1;
-
-                        foreach (JToken token in jarray)
-                        {
-                            string idx = $"array index {index}";
-                            ParsedJsonString.AppendLine(idx.PadLeft(idx.Length + padding + 1));
-                            Parse(padding + 2, token, res);
-                            index++;
-                        }
-                    }
-                }
-            }
-            else if (jtoken is JArray)
-            {
-                JArray jarray = (JArray)jtoken;
-                int index = 1;
-                foreach (JToken token in jarray)
-                {
-                    string str = $"array index {index}";
-                    ParsedJsonString.AppendLine(str.PadLeft(str.Length + padding + 1));
-                    Parse(padding + 2, token, res);
-                    index++;
-                }
-            }
-            else if (jtoken is null)
-            {
-            }
-            else
-            {
-                ParsedJsonString.Append(jtoken.ToString());
-            }
         }
 
         public async Task<int> GetUnreadCount()

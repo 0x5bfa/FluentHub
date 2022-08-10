@@ -65,7 +65,7 @@
                         </Grid.ColumnDefinitions>
 
                         <FontIcon
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="24"
                             Glyph="&#xEA0B;" />
 
