@@ -3,7 +3,7 @@ using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.ViewModels.UserControls;
 
-namespace FluentHub.Uwp.ViewModels.Repositories.Codes
+namespace FluentHub.Uwp.ViewModels.Repositories.Code
 {
     public class ReleasesViewModel : ObservableObject
     {

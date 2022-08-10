@@ -5,7 +5,7 @@ using FluentHub.Uwp.ViewModels.UserControls;
 using Windows.UI.Xaml.Media.Imaging;
 using muxc = Microsoft.UI.Xaml.Controls;
 
-namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
+namespace FluentHub.Uwp.ViewModels.Repositories.Code.Layouts
 {
     public class DetailsLayoutViewModel : ObservableObject
     {

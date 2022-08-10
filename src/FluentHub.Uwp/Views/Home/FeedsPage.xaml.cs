@@ -47,7 +47,7 @@ namespace FluentHub.Uwp.Views.Home
         {
             var clickedItem = e.ClickedItem as Repository;
 
-            navService.Navigate<Repositories.Codes.CodePage>(
+            navService.Navigate<Repositories.Code.CodePage>(
                 new Models.FrameNavigationArgs()
                 {
                     Login = clickedItem.Owner.Login,

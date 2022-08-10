@@ -1,6 +1,6 @@
 ﻿using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels;
-using FluentHub.Uwp.Views.Repositories.Codes;
+using FluentHub.Uwp.Views.Repositories.Code;
 using FluentHub.Uwp.ViewModels.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
