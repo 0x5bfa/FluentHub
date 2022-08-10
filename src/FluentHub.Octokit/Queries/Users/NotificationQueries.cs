@@ -27,29 +27,47 @@ namespace FluentHub.Octokit.Queries.Users
 
             var json = response2.Data as JToken;
 
+            var errors = json["errors"];
+            if (errors is not null)
+            {
+                return notifications;
+            }
+
             for (int idx = 0; idx < options.PageSize; idx++)
             {
-                if (json[$"repo{idx}"] is null)
+                var repo = json[$"repo{idx}"];
+                if (repo is null)
                 {
                     // Add empty data
                     zippedData.Add(new());
                     continue;
                 }
 
-                var issue = json[$"repo{idx}"]["Issue"];
-                var pr = json[$"repo{idx}"]["PullRequest"];
+                var issue = repo["Issue"];
+                var pr = repo["PullRequest"];
 
                 if (issue is not null)
                 {
-                    Enum.TryParse(issue["state"].ToString(), true, out IssueState state);
-                    Enum.TryParse(issue["stateReason"].ToString(), true, out IssueStateReason stateReason);
+                    Enum.TryParse(
+                        issue["state"].ToString(),
+                        true,
+                        out IssueState state);
+                    Enum.TryParse(
+                        issue["stateReason"].ToString(),
+                        true,
+                        out IssueStateReason stateReason);
+                    var id = new ID(
+                        issue["id"].ToString());
+                    int.TryParse(
+                        issue["number"].ToString(),
+                        out int number);
 
                     zippedData.Add(new()
                     {
                         Issue = new()
                         {
-                            Id = new(issue["id"].ToString()),
-                            Number = Convert.ToInt32(issue["number"].ToString()),
+                            Id = id,
+                            Number = number,
                             State = state,
                             StateReason = stateReason,
                         },
@@ -57,15 +75,26 @@ namespace FluentHub.Octokit.Queries.Users
                 }
                 else if (pr is not null)
                 {
-                    Enum.TryParse(pr["state"].ToString(), true, out PullRequestState state);
+                    Enum.TryParse(
+                        pr["state"].ToString(),
+                        true,
+                        out PullRequestState state);
+                    var id = new ID(
+                        pr["id"].ToString());
+                    int.TryParse(
+                        pr["number"].ToString(),
+                        out int number);
+                    bool.TryParse(
+                        pr["isDraft"].ToString(),
+                        out bool isDraft);
 
                     zippedData.Add(new()
                     {
                         PullRequest = new()
                         {
-                            Id = new(pr["id"].ToString()),
-                            Number = Convert.ToInt32(pr["number"].ToString()),
-                            IsDraft = Convert.ToBoolean(pr["isDraft"].ToString()),
+                            Id = id,
+                            Number = number,
+                            IsDraft = isDraft,
                             State = state,
                         },
                     });

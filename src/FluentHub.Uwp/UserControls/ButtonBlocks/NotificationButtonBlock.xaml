@@ -67,6 +67,13 @@
                             Glyph="&#xE9E6;" />
                     </toolkit:Case>
 
+                    <toolkit:Case Value="IssueClosedAsNotPlanned">
+                        <FontIcon
+                            FontFamily="{StaticResource Octions}"
+                            Foreground="{StaticResource Black3}"
+                            Glyph="&#xEA84;" />
+                    </toolkit:Case>
+
                     <toolkit:Case Value="IssueOpen">
                         <FontIcon
                             FontFamily="{StaticResource Octions}"
