@@ -324,7 +324,7 @@
 
                                                 <toolkit:Case Value="IssueClosedAsNotPlanned">
                                                     <FontIcon
-                                                        FontFamily="{StaticResource Octions}"
+                                                        FontFamily="{StaticResource Octicons}"
                                                         Foreground="{StaticResource Black3}"
                                                         Glyph="&#xEA84;" />
                                                 </toolkit:Case>
