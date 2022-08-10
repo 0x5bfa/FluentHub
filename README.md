@@ -60,7 +60,7 @@ Add-AppxPackage FluentHub_<versionNumber>.msixbundle
 ###### ⭐Recommended⭐
 
 This is our preferred method.
-See [this section](#building-the-code)
+See [this section](#-building-the-code)
 
 ## 📸 Screenshots
 
