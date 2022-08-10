@@ -6,7 +6,7 @@
 
     <Application.Resources>
         <ResourceDictionary>
-            <FontFamily x:Key="Octicons">/Assets/Glyphs/Octicons.ttf#Octicons</FontFamily>
+            <FontFamily x:Key="Octicons">/Assets/Glyphs/Octicons.ttf#Octions</FontFamily>
             <FontFamily x:Key="FluentIcons">/Assets/Glyphs/SegoeFluentIconsNormal.ttf#Segoe Fluent Icons</FontFamily>
             <ResourceDictionary.MergedDictionaries>
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" ControlsResourcesVersion="Version2" />
