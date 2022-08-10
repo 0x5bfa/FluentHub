@@ -32,9 +32,9 @@ jobs:
       targetType: 'inline'
       script: |
         [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\FluentHub.Uwp\Package.appxmanifest
-        $xmlDoc.Package.Identity.Name="FluentHubDev"
+        $xmlDoc.Package.Identity.Name="FluentHubSideload"
         $xmlDoc.Package.Identity.Publisher="FluentHub Team"
-        $xmlDoc.Package.Properties.DisplayName="FluentHub Dev"
+        $xmlDoc.Package.Properties.DisplayName="FluentHub"
         $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub Dev"
         $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub.Uwp\Package.appxmanifest')
       failOnStderr: true
