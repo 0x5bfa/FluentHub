@@ -298,7 +298,7 @@
                                             Background="Transparent"
                                             BorderThickness="0">
                                             <FontIcon
-                                                FontFamily="{StaticResource Octions}"
+                                                FontFamily="{StaticResource Octicons}"
                                                 FontSize="14"
                                                 Glyph="&#xE9CD;" />
                                         </Button>
@@ -309,7 +309,7 @@
                                             Background="Transparent"
                                             BorderThickness="0">
                                             <FontIcon
-                                                FontFamily="{StaticResource Octions}"
+                                                FontFamily="{StaticResource Octicons}"
                                                 FontSize="14"
                                                 Glyph="&#xEAA7;" />
                                         </Button>
@@ -320,7 +320,7 @@
                                             Background="Transparent"
                                             BorderThickness="0">
                                             <FontIcon
-                                                FontFamily="{StaticResource Octions}"
+                                                FontFamily="{StaticResource Octicons}"
                                                 FontSize="14"
                                                 Glyph="&#xEA0F;" />
                                         </Button>
@@ -331,7 +331,7 @@
                                             Background="Transparent"
                                             BorderThickness="0">
                                             <FontIcon
-                                                FontFamily="{StaticResource Octions}"
+                                                FontFamily="{StaticResource Octicons}"
                                                 FontSize="14"
                                                 Glyph="&#xE968;" />
                                         </Button>
@@ -342,7 +342,7 @@
                                             Background="Transparent"
                                             BorderThickness="0">
                                             <FontIcon
-                                                FontFamily="{StaticResource Octions}"
+                                                FontFamily="{StaticResource Octicons}"
                                                 FontSize="14"
                                                 Glyph="&#xEA50;" />
                                         </Button>

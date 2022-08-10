@@ -41,7 +41,7 @@
 
             <FontIcon
                 x:Name="StateLabelFont"
-                FontFamily="{StaticResource Octions}"
+                FontFamily="{StaticResource Octicons}"
                 FontSize="14"
                 Foreground="{x:Bind ViewModel.ColorForeground, Mode=OneWay}"
                 Glyph="{x:Bind ViewModel.Glyph, Mode=OneWay}" />

@@ -124,7 +124,7 @@
                                 <toolkit:Case Value="Unsubscribed">
                                     <StackPanel Orientation="Horizontal" Spacing="8">
                                         <FontIcon
-                                            FontFamily="{StaticResource Octions}"
+                                            FontFamily="{StaticResource Octicons}"
                                             FontSize="14"
                                             Glyph="&#xE98B;" />
 
@@ -135,7 +135,7 @@
                                 <toolkit:Case Value="Subscribed">
                                     <StackPanel Orientation="Horizontal" Spacing="8">
                                         <FontIcon
-                                            FontFamily="{StaticResource Octions}"
+                                            FontFamily="{StaticResource Octicons}"
                                             FontSize="14"
                                             Glyph="&#xE98D;" />
 
@@ -146,7 +146,7 @@
                                 <toolkit:Case Value="Ignored">
                                     <StackPanel Orientation="Horizontal" Spacing="8">
                                         <FontIcon
-                                            FontFamily="{StaticResource Octions}"
+                                            FontFamily="{StaticResource Octicons}"
                                             FontSize="14"
                                             Glyph="&#xE91C;" />
 
@@ -166,7 +166,7 @@
                     <Button.Content>
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <FontIcon
-                                FontFamily="{StaticResource Octions}"
+                                FontFamily="{StaticResource Octicons}"
                                 FontSize="14"
                                 Glyph="&#xea55;" />
 
@@ -190,7 +190,7 @@
                                 <toolkit:Case Value="True">
                                     <StackPanel Orientation="Horizontal" Spacing="8">
                                         <FontIcon
-                                            FontFamily="{StaticResource Octions}"
+                                            FontFamily="{StaticResource Octicons}"
                                             FontSize="16"
                                             Foreground="#e3b341"
                                             Glyph="&#xEA96;" />
@@ -201,7 +201,7 @@
                                 <toolkit:Case Value="False">
                                     <StackPanel Orientation="Horizontal" Spacing="8">
                                         <FontIcon
-                                            FontFamily="{StaticResource Octions}"
+                                            FontFamily="{StaticResource Octicons}"
                                             FontSize="16"
                                             Glyph="&#xEA94;" />
                                         <TextBlock Text="Star" />
@@ -234,7 +234,7 @@
                     <FontIcon
                         Margin="0,0,2,0"
                         VerticalAlignment="Center"
-                        FontFamily="{StaticResource Octions}"
+                        FontFamily="{StaticResource Octicons}"
                         FontSize="14"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         Glyph="&#xEA94;" />
@@ -252,7 +252,7 @@
                     <FontIcon
                         Margin="0,0,2,0"
                         VerticalAlignment="Center"
-                        FontFamily="{StaticResource Octions}"
+                        FontFamily="{StaticResource Octicons}"
                         FontSize="14"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         Glyph="&#xEA55;" />
@@ -270,7 +270,7 @@
                     <FontIcon
                         Margin="0,0,2,0"
                         VerticalAlignment="Center"
-                        FontFamily="{StaticResource Octions}"
+                        FontFamily="{StaticResource Octicons}"
                         FontSize="14"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         Glyph="&#xEA36;" />
@@ -288,7 +288,7 @@
                     <FontIcon
                         Margin="0,0,2,0"
                         VerticalAlignment="Center"
-                        FontFamily="{StaticResource Octions}"
+                        FontFamily="{StaticResource Octicons}"
                         FontSize="14"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         Glyph="&#xE9F7;" />
@@ -314,7 +314,7 @@
                     <FontIcon
                         Margin="0,0,2,0"
                         VerticalAlignment="Center"
-                        FontFamily="{StaticResource Octions}"
+                        FontFamily="{StaticResource Octicons}"
                         FontSize="14"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         Glyph="&#xE94D;" />
@@ -342,7 +342,7 @@
                         Tag="code">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon
-                                FontFamily="{StaticResource Octions}"
+                                FontFamily="{StaticResource Octicons}"
                                 FontSize="16"
                                 Glyph="&#xE94b;" />
                         </muxc:NavigationViewItem.Icon>
@@ -353,7 +353,7 @@
                             <StackPanel Orientation="Horizontal" Spacing="8">
 
                                 <FontIcon
-                                    FontFamily="{StaticResource Octions}"
+                                    FontFamily="{StaticResource Octicons}"
                                     FontSize="16"
                                     Glyph="&#xE9EA;" />
 
@@ -373,7 +373,7 @@
                             <StackPanel Orientation="Horizontal" Spacing="8">
 
                                 <FontIcon
-                                    FontFamily="{StaticResource Octions}"
+                                    FontFamily="{StaticResource Octicons}"
                                     FontSize="16"
                                     Glyph="&#xE9BF;" />
 
@@ -391,7 +391,7 @@
                     <muxc:NavigationViewItem Content="Discussions" Tag="discussions">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon
-                                FontFamily="{StaticResource Octions}"
+                                FontFamily="{StaticResource Octicons}"
                                 FontSize="16"
                                 Glyph="&#xE95D;" />
                         </muxc:NavigationViewItem.Icon>
@@ -400,7 +400,7 @@
                     <muxc:NavigationViewItem Content="Projects" Tag="projects">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon
-                                FontFamily="{StaticResource Octions}"
+                                FontFamily="{StaticResource Octicons}"
                                 FontSize="16"
                                 Glyph="&#xEA48;" />
                         </muxc:NavigationViewItem.Icon>
@@ -409,7 +409,7 @@
                     <muxc:NavigationViewItem Content="Insights" Tag="insights">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon
-                                FontFamily="{StaticResource Octions}"
+                                FontFamily="{StaticResource Octicons}"
                                 FontSize="16"
                                 Glyph="&#xE9C9;" />
                         </muxc:NavigationViewItem.Icon>
@@ -418,7 +418,7 @@
                     <muxc:NavigationViewItem Content="Settings" Tag="settings">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon
-                                FontFamily="{StaticResource Octions}"
+                                FontFamily="{StaticResource Octicons}"
                                 FontSize="16"
                                 Glyph="&#xE9B3;" />
                         </muxc:NavigationViewItem.Icon>

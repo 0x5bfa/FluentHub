@@ -94,7 +94,7 @@
 
                             <toolkit:Case Value="True">
                                 <FontIcon
-                                    FontFamily="{StaticResource Octions}"
+                                    FontFamily="{StaticResource Octicons}"
                                     FontSize="16"
                                     Foreground="{StaticResource Yellow8}"
                                     Glyph="&#xEA96;" />
@@ -103,7 +103,7 @@
 
                             <toolkit:Case Value="False">
                                 <FontIcon
-                                    FontFamily="{StaticResource Octions}"
+                                    FontFamily="{StaticResource Octicons}"
                                     FontSize="16"
                                     Glyph="&#xEA94;" />
                             </toolkit:Case>
@@ -147,7 +147,7 @@
                             Spacing="6">
 
                             <FontIcon
-                                FontFamily="{StaticResource Octions}"
+                                FontFamily="{StaticResource Octicons}"
                                 FontSize="14"
                                 Glyph="&#xE9F7;" />
 
@@ -162,7 +162,7 @@
                             Spacing="6">
 
                             <FontIcon
-                                FontFamily="{StaticResource Octions}"
+                                FontFamily="{StaticResource Octicons}"
                                 FontSize="14"
                                 Glyph="&#xEA55;" />
 
@@ -177,7 +177,7 @@
                             Spacing="6">
 
                             <FontIcon
-                                FontFamily="{StaticResource Octions}"
+                                FontFamily="{StaticResource Octicons}"
                                 FontSize="14"
                                 Glyph="&#xE9EA;" />
 
@@ -192,7 +192,7 @@
                             Spacing="6">
 
                             <FontIcon
-                                FontFamily="{StaticResource Octions}"
+                                FontFamily="{StaticResource Octicons}"
                                 FontSize="14"
                                 Glyph="&#xE9BF;" />
 
@@ -207,7 +207,7 @@
 
                             <FontIcon
                                 Margin="0,0,6,0"
-                                FontFamily="{StaticResource Octions}"
+                                FontFamily="{StaticResource Octicons}"
                                 FontSize="14"
                                 Glyph="&#xEA9A;" />
 
@@ -239,7 +239,7 @@
                         <toolkit:Case Value="True">
                             <StackPanel Orientation="Horizontal" Spacing="6">
                                 <FontIcon
-                                    FontFamily="{StaticResource Octions}"
+                                    FontFamily="{StaticResource Octicons}"
                                     FontSize="16"
                                     Foreground="{StaticResource Yellow8}"
                                     Glyph="&#xEA96;" />
@@ -250,7 +250,7 @@
                         <toolkit:Case Value="False">
                             <StackPanel Orientation="Horizontal" Spacing="6">
                                 <FontIcon
-                                    FontFamily="{StaticResource Octions}"
+                                    FontFamily="{StaticResource Octicons}"
                                     FontSize="16"
                                     Glyph="&#xEA94;" />
                                 <TextBlock Text="Star" />

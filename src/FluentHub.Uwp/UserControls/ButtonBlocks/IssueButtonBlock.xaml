@@ -61,7 +61,7 @@
                 <toolkit:Case Value="True">
                     <FontIcon
                         Margin="0,0,8,0"
-                        FontFamily="{StaticResource Octions}"
+                        FontFamily="{StaticResource Octicons}"
                         Foreground="#986EE2"
                         Glyph="&#xE9E6;" />
                 </toolkit:Case>
@@ -69,7 +69,7 @@
                 <toolkit:Case Value="False">
                     <FontIcon
                         Margin="0,0,8,0"
-                        FontFamily="{StaticResource Octions}"
+                        FontFamily="{StaticResource Octicons}"
                         Foreground="#57AB5A"
                         Glyph="&#xE9EA;" />
                 </toolkit:Case>
@@ -162,7 +162,7 @@
                         ViewModel="{x:Bind ViewModel.CommentCountLabel, Mode=OneWay}">
                         <labels:LabelControl.Icon>
                             <FontIcon
-                                FontFamily="{StaticResource Octions}"
+                                FontFamily="{StaticResource Octicons}"
                                 FontSize="12"
                                 Glyph="&#xE95D;" />
                         </labels:LabelControl.Icon>

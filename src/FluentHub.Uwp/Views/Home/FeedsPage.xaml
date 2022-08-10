@@ -65,7 +65,7 @@
                     <Button HorizontalAlignment="Right" IsEnabled="False">
                         <StackPanel Orientation="Horizontal" Spacing="4">
                             <FontIcon
-                                FontFamily="{StaticResource Octions}"
+                                FontFamily="{StaticResource Octicons}"
                                 FontSize="14"
                                 Glyph="&#xEA52;" />
                             <TextBlock Text="New" />

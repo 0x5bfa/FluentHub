@@ -32,7 +32,7 @@
                             x:Name="ItemIcon"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="16"
                             Glyph="&#xE9A0;" />
 
@@ -58,7 +58,7 @@
                             x:Name="ItemIcon"
                             HorizontalAlignment="Left"
                             VerticalAlignment="Center"
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="16"
                             Glyph="&#xE996;" />
 
