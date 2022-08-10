@@ -41,7 +41,7 @@
 
             <FontIcon
                 VerticalAlignment="Center"
-                FontFamily="{StaticResource Octions}"
+                FontFamily="{StaticResource Octicons}"
                 FontSize="18"
                 Glyph="&#xEA48;" />
 

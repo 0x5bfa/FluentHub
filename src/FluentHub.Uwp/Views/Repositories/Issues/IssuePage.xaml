@@ -24,7 +24,7 @@
                 <primer:Timeline>
                     <primer:Timeline.Badge>
                         <FontIcon
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="14"
                             Glyph="&#xEA48;" />
                     </primer:Timeline.Badge>
@@ -47,7 +47,7 @@
                 <primer:Timeline>
                     <primer:Timeline.Badge>
                         <FontIcon
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="14"
                             Glyph="&#xEADB;" />
                     </primer:Timeline.Badge>
@@ -70,7 +70,7 @@
                 <primer:Timeline>
                     <primer:Timeline.Badge>
                         <FontIcon
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="14"
                             Glyph="&#xEADB;" />
                     </primer:Timeline.Badge>
@@ -93,7 +93,7 @@
                 <primer:Timeline>
                     <primer:Timeline.Badge>
                         <FontIcon
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="14"
                             Glyph="&#xEADB;" />
                     </primer:Timeline.Badge>
@@ -116,7 +116,7 @@
                 <primer:Timeline>
                     <primer:Timeline.Badge>
                         <FontIcon
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="14"
                             Glyph="&#xE924;" />
                     </primer:Timeline.Badge>
@@ -139,7 +139,7 @@
                 <primer:Timeline>
                     <primer:Timeline.Badge>
                         <FontIcon
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="14"
                             Glyph="&#xEADB;" />
                     </primer:Timeline.Badge>
@@ -162,7 +162,7 @@
                 <primer:Timeline>
                     <primer:Timeline.Badge>
                         <FontIcon
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="14"
                             Glyph="&#xEADB;" />
                     </primer:Timeline.Badge>
@@ -185,7 +185,7 @@
                 <primer:Timeline>
                     <primer:Timeline.Badge>
                         <FontIcon
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="14"
                             Glyph="&#xEADB;" />
                     </primer:Timeline.Badge>
@@ -208,7 +208,7 @@
                 <primer:Timeline>
                     <primer:Timeline.Badge>
                         <FontIcon
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="14"
                             Glyph="&#xEADB;" />
                     </primer:Timeline.Badge>
@@ -231,7 +231,7 @@
                 <primer:Timeline>
                     <primer:Timeline.Badge>
                         <FontIcon
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="14"
                             Glyph="&#xEAA5;" />
                     </primer:Timeline.Badge>
@@ -254,7 +254,7 @@
                 <primer:Timeline>
                     <primer:Timeline.Badge>
                         <FontIcon
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="14"
                             Glyph="&#xEA05;" />
                     </primer:Timeline.Badge>
@@ -277,7 +277,7 @@
                 <primer:Timeline>
                     <primer:Timeline.Badge>
                         <FontIcon
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="14"
                             Glyph="&#xEA05;" />
                     </primer:Timeline.Badge>
@@ -300,7 +300,7 @@
                 <primer:Timeline>
                     <primer:Timeline.Badge>
                         <FontIcon
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="14"
                             Glyph="&#xE924;" />
                     </primer:Timeline.Badge>
@@ -323,7 +323,7 @@
                 <primer:Timeline>
                     <primer:Timeline.Badge>
                         <FontIcon
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="14"
                             Glyph="&#xEAA5;" />
                     </primer:Timeline.Badge>
@@ -346,7 +346,7 @@
                 <primer:Timeline>
                     <primer:Timeline.Badge>
                         <FontIcon
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="14"
                             Glyph="&#xEADB;" />
                     </primer:Timeline.Badge>
@@ -369,7 +369,7 @@
                 <primer:Timeline>
                     <primer:Timeline.Badge>
                         <FontIcon
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="14"
                             Glyph="&#xEADB;" />
                     </primer:Timeline.Badge>
@@ -392,7 +392,7 @@
                 <primer:Timeline>
                     <primer:Timeline.Badge>
                         <FontIcon
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="14"
                             Glyph="&#xE968;" />
                     </primer:Timeline.Badge>
@@ -415,7 +415,7 @@
                 <primer:Timeline>
                     <primer:Timeline.Badge>
                         <FontIcon
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="14"
                             Glyph="&#xEA48;" />
                     </primer:Timeline.Badge>
@@ -438,7 +438,7 @@
                 <primer:Timeline>
                     <primer:Timeline.Badge>
                         <FontIcon
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="14"
                             Glyph="&#xEA34;" />
                     </primer:Timeline.Badge>
@@ -461,7 +461,7 @@
                 <primer:Timeline>
                     <primer:Timeline.Badge>
                         <FontIcon
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="14"
                             Glyph="&#xEADB;" />
                     </primer:Timeline.Badge>
@@ -484,7 +484,7 @@
                 <primer:Timeline>
                     <primer:Timeline.Badge>
                         <FontIcon
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="14"
                             Glyph="&#xEADB;" />
                     </primer:Timeline.Badge>
@@ -507,7 +507,7 @@
                 <primer:Timeline>
                     <primer:Timeline.Badge>
                         <FontIcon
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="14"
                             Glyph="&#xEADB;" />
                     </primer:Timeline.Badge>
@@ -530,7 +530,7 @@
                 <primer:Timeline>
                     <primer:Timeline.Badge>
                         <FontIcon
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="14"
                             Glyph="&#xEADB;" />
                     </primer:Timeline.Badge>
@@ -553,7 +553,7 @@
                 <primer:Timeline>
                     <primer:Timeline.Badge>
                         <FontIcon
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="14"
                             Glyph="&#xEADB;" />
                     </primer:Timeline.Badge>
@@ -576,7 +576,7 @@
                 <primer:Timeline>
                     <primer:Timeline.Badge>
                         <FontIcon
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="14"
                             Glyph="&#xEADB;" />
                     </primer:Timeline.Badge>
@@ -599,7 +599,7 @@
                 <primer:Timeline>
                     <primer:Timeline.Badge>
                         <FontIcon
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="14"
                             Glyph="&#xEADB;" />
                     </primer:Timeline.Badge>
@@ -622,7 +622,7 @@
                 <primer:Timeline>
                     <primer:Timeline.Badge>
                         <FontIcon
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="14"
                             Glyph="&#xEADB;" />
                     </primer:Timeline.Badge>
@@ -1024,7 +1024,7 @@
                                             Background="Transparent"
                                             BorderThickness="0">
                                             <FontIcon
-                                                FontFamily="{StaticResource Octions}"
+                                                FontFamily="{StaticResource Octicons}"
                                                 FontSize="14"
                                                 Glyph="&#xE9CD;" />
                                         </Button>
@@ -1035,7 +1035,7 @@
                                             Background="Transparent"
                                             BorderThickness="0">
                                             <FontIcon
-                                                FontFamily="{StaticResource Octions}"
+                                                FontFamily="{StaticResource Octicons}"
                                                 FontSize="14"
                                                 Glyph="&#xEAA7;" />
                                         </Button>
@@ -1046,7 +1046,7 @@
                                             Background="Transparent"
                                             BorderThickness="0">
                                             <FontIcon
-                                                FontFamily="{StaticResource Octions}"
+                                                FontFamily="{StaticResource Octicons}"
                                                 FontSize="14"
                                                 Glyph="&#xEA0F;" />
                                         </Button>
@@ -1057,7 +1057,7 @@
                                             Background="Transparent"
                                             BorderThickness="0">
                                             <FontIcon
-                                                FontFamily="{StaticResource Octions}"
+                                                FontFamily="{StaticResource Octicons}"
                                                 FontSize="14"
                                                 Glyph="&#xE968;" />
                                         </Button>
@@ -1068,7 +1068,7 @@
                                             Background="Transparent"
                                             BorderThickness="0">
                                             <FontIcon
-                                                FontFamily="{StaticResource Octions}"
+                                                FontFamily="{StaticResource Octicons}"
                                                 FontSize="14"
                                                 Glyph="&#xEA50;" />
                                         </Button>

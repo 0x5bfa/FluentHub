@@ -87,7 +87,7 @@
                     <StackPanel Orientation="Horizontal" Spacing="4">
 
                         <FontIcon
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="18"
                             Glyph="&#xE9D3;" />
 

@@ -107,7 +107,7 @@
                                                 x:Name="ItemIcon"
                                                 HorizontalAlignment="Left"
                                                 VerticalAlignment="Center"
-                                                FontFamily="{StaticResource Octions}"
+                                                FontFamily="{StaticResource Octicons}"
                                                 FontSize="16"
                                                 Glyph="{x:Bind IconGlyph, Mode=OneWay}" />
 

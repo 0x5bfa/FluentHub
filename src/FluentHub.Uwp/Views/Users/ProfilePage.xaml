@@ -138,7 +138,7 @@
                         Visibility="{x:Bind ViewModel.UserItem.Company, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
                         <FontIcon
                             VerticalAlignment="Center"
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="14"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Glyph="&#xEA27;" />
@@ -155,7 +155,7 @@
                         Visibility="{x:Bind ViewModel.UserItem.Location, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
                         <FontIcon
                             VerticalAlignment="Center"
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="14"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Glyph="&#xEA03;" />
@@ -172,7 +172,7 @@
                         Visibility="{x:Bind ViewModel.BuiltWebsiteUrl, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
                         <FontIcon
                             VerticalAlignment="Center"
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="14"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Glyph="&#xE9FB;" />
@@ -190,7 +190,7 @@
                         Spacing="6">
                         <FontIcon
                             VerticalAlignment="Center"
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="14"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Glyph="&#xE964;" />
@@ -204,7 +204,7 @@
                         <FontIcon
                             Margin="0,0,4,0"
                             VerticalAlignment="Center"
-                            FontFamily="{StaticResource Octions}"
+                            FontFamily="{StaticResource Octicons}"
                             FontSize="14"
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Glyph="&#xEA36;" />
@@ -306,7 +306,7 @@
                             Tag="Overview">
                             <muxc:NavigationViewItem.Icon>
                                 <FontIcon
-                                    FontFamily="{StaticResource Octions}"
+                                    FontFamily="{StaticResource Octicons}"
                                     FontSize="16"
                                     Glyph="&#xE922;" />
                             </muxc:NavigationViewItem.Icon>
@@ -317,7 +317,7 @@
                             Tag="Repositories">
                             <muxc:NavigationViewItem.Icon>
                                 <FontIcon
-                                    FontFamily="{StaticResource Octions}"
+                                    FontFamily="{StaticResource Octicons}"
                                     FontSize="16"
                                     Glyph="&#xEA52;" />
                             </muxc:NavigationViewItem.Icon>
@@ -329,7 +329,7 @@
                             Tag="Projects">
                             <muxc:NavigationViewItem.Icon>
                                 <FontIcon
-                                    FontFamily="{StaticResource Octions}"
+                                    FontFamily="{StaticResource Octicons}"
                                     FontSize="16"
                                     Glyph="&#xEAA3;" />
                             </muxc:NavigationViewItem.Icon>
@@ -341,7 +341,7 @@
                             Tag="Packages">
                             <muxc:NavigationViewItem.Icon>
                                 <FontIcon
-                                    FontFamily="{StaticResource Octions}"
+                                    FontFamily="{StaticResource Octicons}"
                                     FontSize="16"
                                     Glyph="&#xEA29;" />
                             </muxc:NavigationViewItem.Icon>
@@ -352,7 +352,7 @@
                             Tag="Stars">
                             <muxc:NavigationViewItem.Icon>
                                 <FontIcon
-                                    FontFamily="{StaticResource Octions}"
+                                    FontFamily="{StaticResource Octicons}"
                                     FontSize="16"
                                     Glyph="&#xEA94;" />
                             </muxc:NavigationViewItem.Icon>
@@ -363,7 +363,7 @@
                             Tag="Followers">
                             <muxc:NavigationViewItem.Icon>
                                 <FontIcon
-                                    FontFamily="{StaticResource Octions}"
+                                    FontFamily="{StaticResource Octicons}"
                                     FontSize="16"
                                     Glyph="&#xEA36;" />
                             </muxc:NavigationViewItem.Icon>
@@ -374,7 +374,7 @@
                             Tag="Following">
                             <muxc:NavigationViewItem.Icon>
                                 <FontIcon
-                                    FontFamily="{StaticResource Octions}"
+                                    FontFamily="{StaticResource Octicons}"
                                     FontSize="16"
                                     Glyph="&#xEA36;" />
                             </muxc:NavigationViewItem.Icon>

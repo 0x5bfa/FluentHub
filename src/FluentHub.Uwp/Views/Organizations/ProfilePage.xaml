@@ -88,7 +88,7 @@
 
                             <FontIcon
                                 VerticalAlignment="Center"
-                                FontFamily="{StaticResource Octions}"
+                                FontFamily="{StaticResource Octicons}"
                                 FontSize="14"
                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                 Glyph="&#xEA03;" />
@@ -111,7 +111,7 @@
 
                             <FontIcon
                                 VerticalAlignment="Center"
-                                FontFamily="{StaticResource Octions}"
+                                FontFamily="{StaticResource Octicons}"
                                 FontSize="14"
                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                 Glyph="&#xE9FB;" />
@@ -132,7 +132,7 @@
 
                             <FontIcon
                                 VerticalAlignment="Center"
-                                FontFamily="{StaticResource Octions}"
+                                FontFamily="{StaticResource Octicons}"
                                 FontSize="14"
                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                 Glyph="&#xEA09;" />
@@ -182,7 +182,7 @@
                             Tag="Overview">
                             <muxc:NavigationViewItem.Icon>
                                 <FontIcon
-                                    FontFamily="{StaticResource Octions}"
+                                    FontFamily="{StaticResource Octicons}"
                                     FontSize="16"
                                     Glyph="&#xE922;" />
                             </muxc:NavigationViewItem.Icon>
@@ -190,7 +190,7 @@
                         <muxc:NavigationViewItem Content="Repositories" Tag="Repositories">
                             <muxc:NavigationViewItem.Icon>
                                 <FontIcon
-                                    FontFamily="{StaticResource Octions}"
+                                    FontFamily="{StaticResource Octicons}"
                                     FontSize="16"
                                     Glyph="&#xEA52;" />
                             </muxc:NavigationViewItem.Icon>

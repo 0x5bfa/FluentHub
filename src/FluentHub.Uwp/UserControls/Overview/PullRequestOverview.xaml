@@ -187,7 +187,7 @@
                     <muxc:NavigationViewItem Content="Conversation" Tag="conversation">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon
-                                FontFamily="{StaticResource Octions}"
+                                FontFamily="{StaticResource Octicons}"
                                 FontSize="16"
                                 Glyph="&#xE95D;" />
                         </muxc:NavigationViewItem.Icon>
@@ -195,7 +195,7 @@
                     <muxc:NavigationViewItem Content="Commits" Tag="commits">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon
-                                FontFamily="{StaticResource Octions}"
+                                FontFamily="{StaticResource Octicons}"
                                 FontSize="16"
                                 Glyph="&#xE9B9;" />
                         </muxc:NavigationViewItem.Icon>
@@ -206,7 +206,7 @@
                         Tag="checks">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon
-                                FontFamily="{StaticResource Octions}"
+                                FontFamily="{StaticResource Octicons}"
                                 FontSize="16"
                                 Glyph="&#xE9B9;" />
                         </muxc:NavigationViewItem.Icon>
@@ -214,7 +214,7 @@
                     <muxc:NavigationViewItem Content="File changes" Tag="filechanges">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon
-                                FontFamily="{StaticResource Octions}"
+                                FontFamily="{StaticResource Octicons}"
                                 FontSize="16"
                                 Glyph="&#xE99D;" />
                         </muxc:NavigationViewItem.Icon>

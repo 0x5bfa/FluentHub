@@ -60,7 +60,7 @@
                         <toolkit:Case Value="True">
                             <FontIcon
                                 Margin="0,0,8,0"
-                                FontFamily="{StaticResource Octions}"
+                                FontFamily="{StaticResource Octicons}"
                                 Foreground="#986EE2"
                                 Glyph="&#xE9BD;" />
                         </toolkit:Case>
@@ -68,7 +68,7 @@
                         <toolkit:Case Value="False">
                             <FontIcon
                                 Margin="0,0,8,0"
-                                FontFamily="{StaticResource Octions}"
+                                FontFamily="{StaticResource Octicons}"
                                 Foreground="#E5534B"
                                 Glyph="&#xE9C1;" />
                         </toolkit:Case>
@@ -82,7 +82,7 @@
                         <toolkit:Case Value="True">
                             <FontIcon
                                 Margin="0,0,8,0"
-                                FontFamily="{StaticResource Octions}"
+                                FontFamily="{StaticResource Octicons}"
                                 Foreground="#ADBAC7"
                                 Glyph="&#xE9C3;" />
                         </toolkit:Case>
@@ -90,7 +90,7 @@
                         <toolkit:Case Value="False">
                             <FontIcon
                                 Margin="0,0,8,0"
-                                FontFamily="{StaticResource Octions}"
+                                FontFamily="{StaticResource Octicons}"
                                 Foreground="#57AB5A"
                                 Glyph="&#xE9BF;" />
                         </toolkit:Case>
@@ -165,7 +165,7 @@
                             <labels:LabelControl VerticalAlignment="Center" ViewModel="{x:Bind ViewModel.ReviewStateLabel, Mode=OneWay}">
                                 <labels:LabelControl.Icon>
                                     <FontIcon
-                                        FontFamily="{StaticResource Octions}"
+                                        FontFamily="{StaticResource Octicons}"
                                         FontSize="12"
                                         Foreground="#db6d28"
                                         Glyph="&#xE983;" />
@@ -177,7 +177,7 @@
                             <labels:LabelControl VerticalAlignment="Center" ViewModel="{x:Bind ViewModel.ReviewStateLabel, Mode=OneWay}">
                                 <labels:LabelControl.Icon>
                                     <FontIcon
-                                        FontFamily="{StaticResource Octions}"
+                                        FontFamily="{StaticResource Octicons}"
                                         FontSize="12"
                                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                         Glyph="&#xE933;" />
@@ -189,7 +189,7 @@
                             <labels:LabelControl VerticalAlignment="Center" ViewModel="{x:Bind ViewModel.ReviewStateLabel, Mode=OneWay}">
                                 <labels:LabelControl.Icon>
                                     <FontIcon
-                                        FontFamily="{StaticResource Octions}"
+                                        FontFamily="{StaticResource Octicons}"
                                         FontSize="12"
                                         Foreground="#3fb950"
                                         Glyph="&#xE933;" />
@@ -201,7 +201,7 @@
                             <labels:LabelControl VerticalAlignment="Center" ViewModel="{x:Bind ViewModel.ReviewStateLabel, Mode=OneWay}">
                                 <labels:LabelControl.Icon>
                                     <FontIcon
-                                        FontFamily="{StaticResource Octions}"
+                                        FontFamily="{StaticResource Octicons}"
                                         FontSize="12"
                                         Foreground="#f85149"
                                         Glyph="&#xEAD3;" />
@@ -213,7 +213,7 @@
                             <labels:LabelControl VerticalAlignment="Center" ViewModel="{x:Bind ViewModel.ReviewStateLabel, Mode=OneWay}">
                                 <labels:LabelControl.Icon>
                                     <FontIcon
-                                        FontFamily="{StaticResource Octions}"
+                                        FontFamily="{StaticResource Octicons}"
                                         FontSize="12"
                                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                         Glyph="&#xE983;" />
@@ -233,7 +233,7 @@
                             <labels:LabelControl VerticalAlignment="Center" ViewModel="{x:Bind ViewModel.StatusStateLabel, Mode=OneWay}">
                                 <labels:LabelControl.Icon>
                                     <FontIcon
-                                        FontFamily="{StaticResource Octions}"
+                                        FontFamily="{StaticResource Octicons}"
                                         FontSize="14"
                                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                         Glyph="&#xE983;" />
@@ -245,7 +245,7 @@
                             <labels:LabelControl VerticalAlignment="Center" ViewModel="{x:Bind ViewModel.StatusStateLabel, Mode=OneWay}">
                                 <labels:LabelControl.Icon>
                                     <FontIcon
-                                        FontFamily="{StaticResource Octions}"
+                                        FontFamily="{StaticResource Octicons}"
                                         FontSize="14"
                                         Foreground="#f85149"
                                         Glyph="&#xEAD3;" />
@@ -257,7 +257,7 @@
                             <labels:LabelControl VerticalAlignment="Center" ViewModel="{x:Bind ViewModel.StatusStateLabel, Mode=OneWay}">
                                 <labels:LabelControl.Icon>
                                     <FontIcon
-                                        FontFamily="{StaticResource Octions}"
+                                        FontFamily="{StaticResource Octicons}"
                                         FontSize="14"
                                         Foreground="#f85149"
                                         Glyph="&#xEAD3;" />
@@ -269,7 +269,7 @@
                             <labels:LabelControl VerticalAlignment="Center" ViewModel="{x:Bind ViewModel.StatusStateLabel, Mode=OneWay}">
                                 <labels:LabelControl.Icon>
                                     <FontIcon
-                                        FontFamily="{StaticResource Octions}"
+                                        FontFamily="{StaticResource Octicons}"
                                         FontSize="14"
                                         Foreground="#db6d28"
                                         Glyph="&#xE983;" />
@@ -281,7 +281,7 @@
                             <labels:LabelControl VerticalAlignment="Center" ViewModel="{x:Bind ViewModel.StatusStateLabel, Mode=OneWay}">
                                 <labels:LabelControl.Icon>
                                     <FontIcon
-                                        FontFamily="{StaticResource Octions}"
+                                        FontFamily="{StaticResource Octicons}"
                                         FontSize="12"
                                         Foreground="#3fb950"
                                         Glyph="&#xE933;" />
@@ -315,7 +315,7 @@
                         ViewModel="{x:Bind ViewModel.CommentCountLabel, Mode=OneWay}">
                         <labels:LabelControl.Icon>
                             <FontIcon
-                                FontFamily="{StaticResource Octions}"
+                                FontFamily="{StaticResource Octicons}"
                                 FontSize="12"
                                 Glyph="&#xE95D;" />
                         </labels:LabelControl.Icon>

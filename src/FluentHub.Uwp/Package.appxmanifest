@@ -37,7 +37,7 @@
         DisplayName="FluentHub Dev"
         Square150x150Logo="Assets\AppTilesDev\Square150x150Logo.png"
         Square44x44Logo="Assets\AppTilesDev\Square44x44Logo.png"
-        Description="A modern GitHub client for windows"
+        Description="A stylish yet powerful GitHub client"
         BackgroundColor="transparent">
         <uap:DefaultTile Wide310x150Logo="Assets\AppTilesDev\Wide310x150Logo.png" Square71x71Logo="Assets\AppTilesDev\SmallTile.png" Square310x310Logo="Assets\AppTilesDev\LargeTile.png"/>
         <uap:SplashScreen uap5:Optional="true" Image="Assets\AppTilesDev\SplashScreen.png" />

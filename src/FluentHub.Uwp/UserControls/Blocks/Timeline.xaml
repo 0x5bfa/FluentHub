@@ -59,7 +59,7 @@
                 CornerRadius="16">
                 <FontIcon
                     x:Name="TimelineBadgeFontGlyph"
-                    FontFamily="{StaticResource Octions}"
+                    FontFamily="{StaticResource Octicons}"
                     FontSize="14"
                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                     Glyph="{x:Bind ViewModel.TimelineBadgeGlyph, Mode=OneWay}" />
