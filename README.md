@@ -1,8 +1,6 @@
 <p align="center">
   <img width="128" align="center" src="assets/fluenthub.png" />
-  <img width="128" align="center" src="assets/fluenthub-canary.png" />
   <img width="128" align="center" src="assets/fluenthub-dev.png" />
-  <img width="128" align="center" src="assets/fluenthub-beta.png" />
 </p>
 <h1 align="center">
   FluentHub
