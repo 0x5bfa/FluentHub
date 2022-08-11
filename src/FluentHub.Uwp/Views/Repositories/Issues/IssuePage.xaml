@@ -49,7 +49,7 @@
                         <FontIcon
                             FontFamily="{StaticResource Octicons}"
                             FontSize="14"
-                            Glyph="&#xEADB;" />
+                            Glyph="&#xEA38;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
                         <StackPanel Orientation="Horizontal" Spacing="8">
@@ -72,7 +72,7 @@
                         <FontIcon
                             FontFamily="{StaticResource Octicons}"
                             FontSize="14"
-                            Glyph="&#xEADB;" />
+                            Glyph="&#xE9E6;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
                         <StackPanel Orientation="Horizontal" Spacing="8">
@@ -83,7 +83,7 @@
                             <TextBlock
                                 VerticalAlignment="Center"
                                 Style="{StaticResource BodyTextBlockStyle}"
-                                Text="closed this" />
+                                Text="closed this as" />
                         </StackPanel>
                     </primer:Timeline.Body>
                 </primer:Timeline>
@@ -95,7 +95,7 @@
                         <FontIcon
                             FontFamily="{StaticResource Octicons}"
                             FontSize="14"
-                            Glyph="&#xEADB;" />
+                            Glyph="&#xEAD4;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
                         <StackPanel Orientation="Horizontal" Spacing="8">
@@ -106,7 +106,7 @@
                             <TextBlock
                                 VerticalAlignment="Center"
                                 Style="{StaticResource BodyTextBlockStyle}"
-                                Text="deleted a comment" />
+                                Text="deleted a comment from" />
                         </StackPanel>
                     </primer:Timeline.Body>
                 </primer:Timeline>
@@ -130,6 +130,29 @@
                                 VerticalAlignment="Center"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="made a connection" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="ConvertedToDiscussionEventDataTemplate" x:DataType="modelsV4:ConvertedToDiscussionEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octicons}"
+                            FontSize="14"
+                            Glyph="&#xE95D;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="converted this to discussion" />
                         </StackPanel>
                     </primer:Timeline.Body>
                 </primer:Timeline>
@@ -164,7 +187,7 @@
                         <FontIcon
                             FontFamily="{StaticResource Octicons}"
                             FontSize="14"
-                            Glyph="&#xEADB;" />
+                            Glyph="&#xE968;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
                         <StackPanel Orientation="Horizontal" Spacing="8">
@@ -187,7 +210,7 @@
                         <FontIcon
                             FontFamily="{StaticResource Octicons}"
                             FontSize="14"
-                            Glyph="&#xEADB;" />
+                            Glyph="&#xEA12;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
                         <StackPanel Orientation="Horizontal" Spacing="8">
@@ -210,7 +233,7 @@
                         <FontIcon
                             FontFamily="{StaticResource Octicons}"
                             FontSize="14"
-                            Glyph="&#xEADB;" />
+                            Glyph="&#xE924;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
                         <StackPanel Orientation="Horizontal" Spacing="8">
@@ -233,7 +256,7 @@
                         <FontIcon
                             FontFamily="{StaticResource Octicons}"
                             FontSize="14"
-                            Glyph="&#xEAA5;" />
+                            Glyph="&#xE95B;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
                         <StackPanel Orientation="Horizontal" Spacing="8">
@@ -256,7 +279,7 @@
                         <FontIcon
                             FontFamily="{StaticResource Octicons}"
                             FontSize="14"
-                            Glyph="&#xEA05;" />
+                            Glyph="&#xEAA5;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
                         <StackPanel Orientation="Horizontal" Spacing="8">
@@ -319,13 +342,36 @@
                 </primer:Timeline>
             </DataTemplate>
 
+            <DataTemplate x:Key="MentionedEventDataTemplate" x:DataType="modelsV4:MentionedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octicons}"
+                            FontSize="14"
+                            Glyph="&#xE95B;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="mentioned someone" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
             <DataTemplate x:Key="MilestonedEventDataTemplate" x:DataType="modelsV4:MilestonedEvent">
                 <primer:Timeline>
                     <primer:Timeline.Badge>
                         <FontIcon
                             FontFamily="{StaticResource Octicons}"
                             FontSize="14"
-                            Glyph="&#xEAA5;" />
+                            Glyph="&#xEA12;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
                         <StackPanel Orientation="Horizontal" Spacing="8">
@@ -348,7 +394,7 @@
                         <FontIcon
                             FontFamily="{StaticResource Octicons}"
                             FontSize="14"
-                            Glyph="&#xEADB;" />
+                            Glyph="&#xEA48;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
                         <StackPanel Orientation="Horizontal" Spacing="8">
@@ -371,7 +417,7 @@
                         <FontIcon
                             FontFamily="{StaticResource Octicons}"
                             FontSize="14"
-                            Glyph="&#xEADB;" />
+                            Glyph="&#xEA3E;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
                         <StackPanel Orientation="Horizontal" Spacing="8">
@@ -463,7 +509,7 @@
                         <FontIcon
                             FontFamily="{StaticResource Octicons}"
                             FontSize="14"
-                            Glyph="&#xEADB;" />
+                            Glyph="&#xE9EC;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
                         <StackPanel Orientation="Horizontal" Spacing="8">
@@ -480,13 +526,59 @@
                 </primer:Timeline>
             </DataTemplate>
 
-            <DataTemplate x:Key="UnassignedEventDataTemplate" x:DataType="modelsV4:UnassignedEvent">
+            <DataTemplate x:Key="SubscribedEventDataTemplate" x:DataType="modelsV4:SubscribedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octicons}"
+                            FontSize="14"
+                            Glyph="&#xE924;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="subscribed someone" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="TransferredEventDataTemplate" x:DataType="modelsV4:TransferredEvent">
                 <primer:Timeline>
                     <primer:Timeline.Badge>
                         <FontIcon
                             FontFamily="{StaticResource Octicons}"
                             FontSize="14"
                             Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="transferred this from somewhere" />
+                        </StackPanel>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="UnassignedEventDataTemplate" x:DataType="modelsV4:UnassignedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octicons}"
+                            FontSize="14"
+                            Glyph="&#xEA38;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
                         <StackPanel Orientation="Horizontal" Spacing="8">
@@ -509,7 +601,7 @@
                         <FontIcon
                             FontFamily="{StaticResource Octicons}"
                             FontSize="14"
-                            Glyph="&#xEADB;" />
+                            Glyph="&#xEAA5;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
                         <StackPanel Orientation="Horizontal" Spacing="8">
@@ -532,7 +624,7 @@
                         <FontIcon
                             FontFamily="{StaticResource Octicons}"
                             FontSize="14"
-                            Glyph="&#xEADB;" />
+                            Glyph="&#xEAC4;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
                         <StackPanel Orientation="Horizontal" Spacing="8">
@@ -555,7 +647,7 @@
                         <FontIcon
                             FontFamily="{StaticResource Octicons}"
                             FontSize="14"
-                            Glyph="&#xEADB;" />
+                            Glyph="&#xE927;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
                         <StackPanel Orientation="Horizontal" Spacing="8">
@@ -578,7 +670,7 @@
                         <FontIcon
                             FontFamily="{StaticResource Octicons}"
                             FontSize="14"
-                            Glyph="&#xEADB;" />
+                            Glyph="&#xEA3E;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
                         <StackPanel Orientation="Horizontal" Spacing="8">
@@ -595,7 +687,7 @@
                 </primer:Timeline>
             </DataTemplate>
 
-            <DataTemplate x:Key="UserBlockedEventDataTemplate" x:DataType="modelsV4:UserBlockedEvent">
+            <DataTemplate x:Key="UnsubscribedEventDataTemplate" x:DataType="modelsV4:UnsubscribedEvent">
                 <primer:Timeline>
                     <primer:Timeline.Badge>
                         <FontIcon
@@ -612,26 +704,30 @@
                             <TextBlock
                                 VerticalAlignment="Center"
                                 Style="{StaticResource BodyTextBlockStyle}"
-                                Text="blocked someone" />
+                                Text="unsubscribed someone" />
                         </StackPanel>
                     </primer:Timeline.Body>
                 </primer:Timeline>
             </DataTemplate>
 
-            <DataTemplate x:Key="DefaultDataTemplate">
+            <DataTemplate x:Key="UserBlockedEventDataTemplate" x:DataType="modelsV4:UserBlockedEvent">
                 <primer:Timeline>
                     <primer:Timeline.Badge>
                         <FontIcon
                             FontFamily="{StaticResource Octicons}"
                             FontSize="14"
-                            Glyph="&#xEADB;" />
+                            Glyph="&#xEAD6;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
                         <StackPanel Orientation="Horizontal" Spacing="8">
+                            <primer:Avatar
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
                             <TextBlock
                                 VerticalAlignment="Center"
                                 Style="{StaticResource BodyTextBlockStyle}"
-                                Text="made an unknown event" />
+                                Text="blocked someone" />
                         </StackPanel>
                     </primer:Timeline.Body>
                 </primer:Timeline>
@@ -645,14 +741,15 @@
                 CommentDeletedEventDataTemplate="{StaticResource CommentDeletedEventDataTemplate}"
                 ConnectedEventDataTemplate="{StaticResource ConnectedEventDataTemplate}"
                 ConvertedNoteToIssueEventDataTemplate="{StaticResource ConvertedNoteToIssueEventDataTemplate}"
+                ConvertedToDiscussionEventDataTemplate="{StaticResource ConvertedToDiscussionEventDataTemplate}"
                 CrossReferencedEventDataTemplate="{StaticResource CrossReferencedEventDataTemplate}"
-                DefaultDataTemplate="{StaticResource DefaultDataTemplate}"
                 DemilestonedEventDataTemplate="{StaticResource DemilestonedEventDataTemplate}"
                 DisconnectedEventDataTemplate="{StaticResource DisconnectedEventDataTemplate}"
                 IssueCommentDataTemplate="{StaticResource IssueCommentDataTemplate}"
                 LabeledEventDataTemplate="{StaticResource LabeledEventDataTemplate}"
                 LockedEventDataTemplate="{StaticResource LockedEventDataTemplate}"
                 MarkedAsDuplicateEventDataTemplate="{StaticResource MarkedAsDuplicateEventDataTemplate}"
+                MentionedEventDataTemplate="{StaticResource MentionedEventDataTemplate}"
                 MilestonedEventDataTemplate="{StaticResource MilestonedEventDataTemplate}"
                 MovedColumnsInProjectEventDataTemplate="{StaticResource MovedColumnsInProjectEventDataTemplate}"
                 PinnedEventDataTemplate="{StaticResource PinnedEventDataTemplate}"
@@ -660,11 +757,14 @@
                 RemovedFromProjectEventDataTemplate="{StaticResource RemovedFromProjectEventDataTemplate}"
                 RenamedTitleEventDataTemplate="{StaticResource RenamedTitleEventDataTemplate}"
                 ReopenedEventDataTemplate="{StaticResource ReopenedEventDataTemplate}"
+                SubscribedEventDataTemplate="{StaticResource SubscribedEventDataTemplate}"
+                TransferredEventDataTemplate="{StaticResource TransferredEventDataTemplate}"
                 UnassignedEventDataTemplate="{StaticResource UnassignedEventDataTemplate}"
                 UnlabeledEventDataTemplate="{StaticResource UnlabeledEventDataTemplate}"
                 UnlockedEventDataTemplate="{StaticResource UnlockedEventDataTemplate}"
                 UnmarkedAsDuplicateEventDataTemplate="{StaticResource UnmarkedAsDuplicateEventDataTemplate}"
                 UnpinnedEventDataTemplate="{StaticResource UnpinnedEventDataTemplate}"
+                UnsubscribedEventDataTemplate="{StaticResource UnsubscribedEventDataTemplate}"
                 UserBlockedEventDataTemplate="{StaticResource UserBlockedEventDataTemplate}" />
         </ResourceDictionary>
     </Page.Resources>
@@ -787,8 +887,7 @@
                             Background="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Opacity="0.3" />
 
-                        <ItemsControl ItemsSource="{x:Bind ViewModel.EventBlocks, Mode=OneWay}" />
-                        <!--<muxc:ItemsRepeater ItemTemplate="{StaticResource TimelineItemSelector}" ItemsSource="{x:Bind ViewModel.TimelineItems, Mode=OneWay}" />-->
+                        <muxc:ItemsRepeater ItemTemplate="{StaticResource TimelineItemSelector}" ItemsSource="{x:Bind ViewModel.TimelineItems, Mode=OneWay}" />
 
                         <Border
                             Width="1.5"

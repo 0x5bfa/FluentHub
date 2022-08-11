@@ -192,9 +192,6 @@
     <Compile Include="UserControls\PrimerControls\Avatar.xaml.cs">
       <DependentUpon>Avatar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\PrimerControls\AvatarControl.xaml.cs">
-      <DependentUpon>AvatarControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="UserControls\Blocks\BranchName.xaml.cs">
       <DependentUpon>BranchName.xaml</DependentUpon>
     </Compile>
@@ -230,6 +227,9 @@
     </Compile>
     <Compile Include="UserControls\Overview\RepositoryOverview.xaml.cs">
       <DependentUpon>RepositoryOverview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\PrimerControls\Label.xaml.cs">
+      <DependentUpon>Label.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\PrimerControls\Timeline.xaml.cs">
       <DependentUpon>Timeline.xaml</DependentUpon>
@@ -799,10 +799,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\PrimerControls\AvatarControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UserControls\Blocks\ActivityBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -892,6 +888,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Overview\RepositoryOverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\PrimerControls\Label.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

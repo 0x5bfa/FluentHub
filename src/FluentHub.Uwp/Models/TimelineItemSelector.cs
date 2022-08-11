@@ -15,6 +15,7 @@ namespace FluentHub.Uwp.Models
         public DataTemplate ClosedEventDataTemplate { get; set; }
         public DataTemplate CommentDeletedEventDataTemplate { get; set; }
         public DataTemplate ConnectedEventDataTemplate { get; set; }
+        public DataTemplate ConvertedToDiscussionEventDataTemplate { get; set; }
         public DataTemplate ConvertedNoteToIssueEventDataTemplate { get; set; }
         public DataTemplate CrossReferencedEventDataTemplate { get; set; }
         public DataTemplate DemilestonedEventDataTemplate { get; set; }
@@ -23,6 +24,7 @@ namespace FluentHub.Uwp.Models
         public DataTemplate LabeledEventDataTemplate { get; set; }
         public DataTemplate LockedEventDataTemplate { get; set; }
         public DataTemplate MarkedAsDuplicateEventDataTemplate { get; set; }
+        public DataTemplate MentionedEventDataTemplate { get; set; }
         public DataTemplate MilestonedEventDataTemplate { get; set; }
         public DataTemplate MovedColumnsInProjectEventDataTemplate { get; set; }
         public DataTemplate PinnedEventDataTemplate { get; set; }
@@ -30,11 +32,14 @@ namespace FluentHub.Uwp.Models
         public DataTemplate RemovedFromProjectEventDataTemplate { get; set; }
         public DataTemplate RenamedTitleEventDataTemplate { get; set; }
         public DataTemplate ReopenedEventDataTemplate { get; set; }
+        public DataTemplate SubscribedEventDataTemplate { get; set; }
+        public DataTemplate TransferredEventDataTemplate { get; set; }
         public DataTemplate UnassignedEventDataTemplate { get; set; }
         public DataTemplate UnlabeledEventDataTemplate { get; set; }
         public DataTemplate UnlockedEventDataTemplate { get; set; }
         public DataTemplate UnmarkedAsDuplicateEventDataTemplate { get; set; }
         public DataTemplate UnpinnedEventDataTemplate { get; set; }
+        public DataTemplate UnsubscribedEventDataTemplate { get; set; }
         public DataTemplate UserBlockedEventDataTemplate { get; set; }
         public DataTemplate DefaultDataTemplate { get; set; }
 
@@ -57,6 +62,8 @@ namespace FluentHub.Uwp.Models
                     return CommentDeletedEventDataTemplate;
                 case nameof(ConnectedEvent):
                     return ConnectedEventDataTemplate;
+                case nameof(ConvertedToDiscussionEvent):
+                    return ConvertedToDiscussionEventDataTemplate;
                 case nameof(ConvertedNoteToIssueEvent):
                     return ConvertedNoteToIssueEventDataTemplate;
                 case nameof(CrossReferencedEvent):
@@ -73,6 +80,8 @@ namespace FluentHub.Uwp.Models
                     return LockedEventDataTemplate;
                 case nameof(MarkedAsDuplicateEvent):
                     return MarkedAsDuplicateEventDataTemplate;
+                case nameof(MentionedEvent):
+                    return MentionedEventDataTemplate;
                 case nameof(MilestonedEvent):
                     return MilestonedEventDataTemplate;
                 case nameof(MovedColumnsInProjectEvent):
@@ -87,6 +96,10 @@ namespace FluentHub.Uwp.Models
                     return RenamedTitleEventDataTemplate;
                 case nameof(ReopenedEvent):
                     return ReopenedEventDataTemplate;
+                case nameof(SubscribedEvent):
+                    return SubscribedEventDataTemplate;
+                case nameof(TransferredEvent):
+                    return TransferredEventDataTemplate;
                 case nameof(UnassignedEvent):
                     return UnassignedEventDataTemplate;
                 case nameof(UnlabeledEvent):
@@ -97,6 +110,8 @@ namespace FluentHub.Uwp.Models
                     return UnmarkedAsDuplicateEventDataTemplate;
                 case nameof(UnpinnedEvent):
                     return UnpinnedEventDataTemplate;
+                case nameof(UnsubscribedEvent):
+                    return UnsubscribedEventDataTemplate;
                 case nameof(UserBlockedEvent):
                     return UserBlockedEventDataTemplate;
                 default:
