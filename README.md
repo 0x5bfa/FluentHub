@@ -86,6 +86,19 @@ If you are interested in fixing issues and contributing directly to the code bas
 - [Finding an issue to work on](https://github.com/FluentHub/FluentHub/issues/)
 - [Contributing to translations on Crowdin](https://crowdin.com/project/fluenthub)
 
+### 🏗️ Codebase Structure
+
+```
+.
+├──lib                               // Library for submodules.
+|  └──octokit.graphql.net            // Official library for GitHub API.
+└──src                               // The source code.
+   ├──FluentHub.Uwp                  // Code for most front-end elements of the app
+   ├──FluentHub.Core
+   ├──FluentHub.Octokit              // Code for most back-end and API-related elements of the app such as mutations and queries.
+   └──FluentHub.Octokit.Generation   
+```
+
 ## 🦜 Feedback
 
 - [Request a new feature](https://github.com/FluentHub/FluentHub/pulls)
@@ -148,7 +161,7 @@ If you would like to ask a question, please reach out to us via Twitter:
 
 Copyright (c) 2022 FluentHub Team
 
-Licensed under the MIT license stated in the [LICENSE](LICENSE).
+Licensed under the MIT license as stated in the [LICENSE](LICENSE).
 
 ---
 

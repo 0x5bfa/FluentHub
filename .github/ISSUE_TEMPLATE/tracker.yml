@@ -1,13 +1,7 @@
 name: 💬 Feature Discussion
-description: ⚠️⚠️⚠️ ADMIN ONLY
+description: Tracker for a feature
 labels: [tracker]
 body:
-  - type: checkboxes
-    attributes:
-      label: ⏱️ Before you start...
-      options:
-        - label: Have you checked if a similar tracker has already been reported?
-          required: true
   - type: textarea
     attributes:
       label: 🛤️ Feature
