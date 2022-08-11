@@ -22,7 +22,7 @@ namespace FluentHub.Uwp.UserControls.PrimerControls
                 nameof(Variant),
                 typeof(string),
                 typeof(Label),
-                new PropertyMetadata(null)
+                new PropertyMetadata("default")
                 );
 
         public string Variant
@@ -36,7 +36,7 @@ namespace FluentHub.Uwp.UserControls.PrimerControls
                 nameof(Size),
                 typeof(string),
                 typeof(Label),
-                new PropertyMetadata(null)
+                new PropertyMetadata("small")
                 );
 
         public string Size

@@ -181,6 +181,7 @@
                     Spacing="2">
                     <primer:Label
                         Size="large"
+                        Tapped="OnVerifiedLabelTapped"
                         Text="Verified"
                         Variant="success">
                         <FlyoutBase.AttachedFlyout>

@@ -52,16 +52,25 @@
                             Glyph="&#xEA38;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <primer:Avatar
-                                Label="{x:Bind Actor.Login}"
-                                Size="20"
-                                Source="{x:Bind Actor.AvatarUrl}" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="assigned someone" />
-                        </StackPanel>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <primer:Avatar
+                                    Label="{x:Bind Actor.Login}"
+                                    Size="20"
+                                    Source="{x:Bind Actor.AvatarUrl}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="assigned" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="{x:Bind Assignee.User.Login}" />
+                            </StackPanel>
+                            <StackPanel>
+                                <TextBlock Text="{x:Bind CreatedAtHumanized}" />
+                            </StackPanel>
+                        </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
             </DataTemplate>

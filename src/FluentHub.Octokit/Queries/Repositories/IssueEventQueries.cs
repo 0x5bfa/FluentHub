@@ -21,6 +21,7 @@
                     .Single(),
 
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .AssignedEvent(y => new AssignedEvent
                 {
@@ -43,6 +44,7 @@
                     .SingleOrDefault(),
 
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .ClosedEvent(y => new ClosedEvent
                 {
@@ -69,7 +71,10 @@
                     })
                     .SingleOrDefault(),
 
+                    StateReason = (IssueStateReason)y.StateReason,
+
                     CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
                 })
                 .CommentDeletedEvent(y => new CommentDeletedEvent
                 {

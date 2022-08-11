@@ -228,6 +228,9 @@
     <Compile Include="UserControls\Overview\RepositoryOverview.xaml.cs">
       <DependentUpon>RepositoryOverview.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\PrimerControls\IssueLabelToken.xaml.cs">
+      <DependentUpon>IssueLabelToken.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\PrimerControls\Label.xaml.cs">
       <DependentUpon>Label.xaml</DependentUpon>
     </Compile>
@@ -888,6 +891,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Overview\RepositoryOverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\PrimerControls\IssueLabelToken.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

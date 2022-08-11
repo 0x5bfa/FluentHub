@@ -31,14 +31,15 @@
                         <toolkit:Case Value="default">
                             <Grid Height="20">
                                 <Border
-                                    BorderBrush="{StaticResource Black8}"
+                                    BorderBrush="{StaticResource Black5}"
                                     BorderThickness="1"
-                                    CornerRadius="10" />
+                                    CornerRadius="12" />
                                 <Grid>
                                     <TextBlock
                                         Margin="7,0"
+                                        VerticalAlignment="Center"
                                         FontWeight="SemiBold"
-                                        Foreground="{StaticResource Black9}"
+                                        Foreground="{StaticResource Black7}"
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         Text="{x:Bind Text, Mode=OneWay}" />
                                 </Grid>
@@ -46,10 +47,16 @@
                         </toolkit:Case>
                         <toolkit:Case Value="primary">
                             <Grid Height="20">
-                                <Border BorderThickness="1" CornerRadius="12" />
+                                <Border
+                                    BorderBrush="{StaticResource Black5}"
+                                    BorderThickness="1"
+                                    CornerRadius="12" />
                                 <Grid>
                                     <TextBlock
+                                        Margin="7,0"
+                                        VerticalAlignment="Center"
                                         FontWeight="SemiBold"
+                                        Foreground="{StaticResource Black7}"
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         Text="{x:Bind Text, Mode=OneWay}" />
                                 </Grid>
@@ -57,10 +64,16 @@
                         </toolkit:Case>
                         <toolkit:Case Value="secondary">
                             <Grid Height="20">
-                                <Border BorderThickness="1" CornerRadius="12" />
+                                <Border
+                                    BorderBrush="{StaticResource Green7}"
+                                    BorderThickness="1"
+                                    CornerRadius="12" />
                                 <Grid>
                                     <TextBlock
+                                        Margin="7,0"
+                                        VerticalAlignment="Center"
                                         FontWeight="SemiBold"
+                                        Foreground="{StaticResource Green9}"
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         Text="{x:Bind Text, Mode=OneWay}" />
                                 </Grid>
@@ -68,10 +81,16 @@
                         </toolkit:Case>
                         <toolkit:Case Value="accent">
                             <Grid Height="20">
-                                <Border BorderThickness="1" CornerRadius="12" />
+                                <Border
+                                    BorderBrush="{StaticResource Blue5}"
+                                    BorderThickness="1"
+                                    CornerRadius="12" />
                                 <Grid>
                                     <TextBlock
+                                        Margin="7,0"
+                                        VerticalAlignment="Center"
                                         FontWeight="SemiBold"
+                                        Foreground="{StaticResource Blue7}"
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         Text="{x:Bind Text, Mode=OneWay}" />
                                 </Grid>
@@ -79,10 +98,16 @@
                         </toolkit:Case>
                         <toolkit:Case Value="success">
                             <Grid Height="20">
-                                <Border BorderThickness="1" CornerRadius="12" />
+                                <Border
+                                    BorderBrush="{StaticResource Green5}"
+                                    BorderThickness="1"
+                                    CornerRadius="12" />
                                 <Grid>
                                     <TextBlock
+                                        Margin="7,0"
+                                        VerticalAlignment="Center"
                                         FontWeight="SemiBold"
+                                        Foreground="{StaticResource Green7}"
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         Text="{x:Bind Text, Mode=OneWay}" />
                                 </Grid>
@@ -90,10 +115,16 @@
                         </toolkit:Case>
                         <toolkit:Case Value="attention">
                             <Grid Height="20">
-                                <Border BorderThickness="1" CornerRadius="12" />
+                                <Border
+                                    BorderBrush="{StaticResource Yellow5}"
+                                    BorderThickness="1"
+                                    CornerRadius="12" />
                                 <Grid>
                                     <TextBlock
+                                        Margin="7,0"
+                                        VerticalAlignment="Center"
                                         FontWeight="SemiBold"
+                                        Foreground="{StaticResource Yellow7}"
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         Text="{x:Bind Text, Mode=OneWay}" />
                                 </Grid>
@@ -101,10 +132,16 @@
                         </toolkit:Case>
                         <toolkit:Case Value="severe">
                             <Grid Height="20">
-                                <Border BorderThickness="1" CornerRadius="12" />
+                                <Border
+                                    BorderBrush="{StaticResource Orange5}"
+                                    BorderThickness="1"
+                                    CornerRadius="12" />
                                 <Grid>
                                     <TextBlock
+                                        Margin="7,0"
+                                        VerticalAlignment="Center"
                                         FontWeight="SemiBold"
+                                        Foreground="{StaticResource Orange7}"
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         Text="{x:Bind Text, Mode=OneWay}" />
                                 </Grid>
@@ -112,10 +149,16 @@
                         </toolkit:Case>
                         <toolkit:Case Value="danger">
                             <Grid Height="20">
-                                <Border BorderThickness="1" CornerRadius="12" />
+                                <Border
+                                    BorderBrush="{StaticResource Red5}"
+                                    BorderThickness="1"
+                                    CornerRadius="12" />
                                 <Grid>
                                     <TextBlock
+                                        Margin="7,0"
+                                        VerticalAlignment="Center"
                                         FontWeight="SemiBold"
+                                        Foreground="{StaticResource Red7}"
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         Text="{x:Bind Text, Mode=OneWay}" />
                                 </Grid>
@@ -123,10 +166,16 @@
                         </toolkit:Case>
                         <toolkit:Case Value="done">
                             <Grid Height="20">
-                                <Border BorderThickness="1" CornerRadius="12" />
+                                <Border
+                                    BorderBrush="{StaticResource Purple5}"
+                                    BorderThickness="1"
+                                    CornerRadius="12" />
                                 <Grid>
                                     <TextBlock
+                                        Margin="7,0"
+                                        VerticalAlignment="Center"
                                         FontWeight="SemiBold"
+                                        Foreground="{StaticResource Purple7}"
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         Text="{x:Bind Text, Mode=OneWay}" />
                                 </Grid>
@@ -134,10 +183,16 @@
                         </toolkit:Case>
                         <toolkit:Case Value="sponsors">
                             <Grid Height="20">
-                                <Border BorderThickness="1" CornerRadius="12" />
+                                <Border
+                                    BorderBrush="{StaticResource Pink5}"
+                                    BorderThickness="1"
+                                    CornerRadius="12" />
                                 <Grid>
                                     <TextBlock
+                                        Margin="7,0"
+                                        VerticalAlignment="Center"
                                         FontWeight="SemiBold"
+                                        Foreground="{StaticResource Pink7}"
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         Text="{x:Bind Text, Mode=OneWay}" />
                                 </Grid>
@@ -155,10 +210,16 @@
                         Value="{x:Bind Variant, Mode=OneWay}">
                         <toolkit:Case Value="default">
                             <Grid Height="24">
-                                <Border BorderThickness="1" CornerRadius="12" />
+                                <Border
+                                    BorderBrush="{StaticResource Black5}"
+                                    BorderThickness="1"
+                                    CornerRadius="12" />
                                 <Grid>
                                     <TextBlock
+                                        Margin="10,0"
+                                        VerticalAlignment="Center"
                                         FontWeight="SemiBold"
+                                        Foreground="{StaticResource Black7}"
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         Text="{x:Bind Text, Mode=OneWay}" />
                                 </Grid>
@@ -166,10 +227,16 @@
                         </toolkit:Case>
                         <toolkit:Case Value="primary">
                             <Grid Height="24">
-                                <Border BorderThickness="1" CornerRadius="12" />
+                                <Border
+                                    BorderBrush="{StaticResource Black5}"
+                                    BorderThickness="1"
+                                    CornerRadius="12" />
                                 <Grid>
                                     <TextBlock
+                                        Margin="10,0"
+                                        VerticalAlignment="Center"
                                         FontWeight="SemiBold"
+                                        Foreground="{StaticResource Black7}"
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         Text="{x:Bind Text, Mode=OneWay}" />
                                 </Grid>
@@ -177,10 +244,16 @@
                         </toolkit:Case>
                         <toolkit:Case Value="secondary">
                             <Grid Height="24">
-                                <Border BorderThickness="1" CornerRadius="12" />
+                                <Border
+                                    BorderBrush="{StaticResource Green7}"
+                                    BorderThickness="1"
+                                    CornerRadius="12" />
                                 <Grid>
                                     <TextBlock
+                                        Margin="10,0"
+                                        VerticalAlignment="Center"
                                         FontWeight="SemiBold"
+                                        Foreground="{StaticResource Green9}"
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         Text="{x:Bind Text, Mode=OneWay}" />
                                 </Grid>
@@ -188,10 +261,16 @@
                         </toolkit:Case>
                         <toolkit:Case Value="accent">
                             <Grid Height="24">
-                                <Border BorderThickness="1" CornerRadius="12" />
+                                <Border
+                                    BorderBrush="{StaticResource Blue5}"
+                                    BorderThickness="1"
+                                    CornerRadius="12" />
                                 <Grid>
                                     <TextBlock
+                                        Margin="10,0"
+                                        VerticalAlignment="Center"
                                         FontWeight="SemiBold"
+                                        Foreground="{StaticResource Blue7}"
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         Text="{x:Bind Text, Mode=OneWay}" />
                                 </Grid>
@@ -216,10 +295,16 @@
                         </toolkit:Case>
                         <toolkit:Case Value="attention">
                             <Grid Height="24">
-                                <Border BorderThickness="1" CornerRadius="12" />
+                                <Border
+                                    BorderBrush="{StaticResource Yellow5}"
+                                    BorderThickness="1"
+                                    CornerRadius="12" />
                                 <Grid>
                                     <TextBlock
+                                        Margin="10,0"
+                                        VerticalAlignment="Center"
                                         FontWeight="SemiBold"
+                                        Foreground="{StaticResource Yellow7}"
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         Text="{x:Bind Text, Mode=OneWay}" />
                                 </Grid>
@@ -227,10 +312,16 @@
                         </toolkit:Case>
                         <toolkit:Case Value="severe">
                             <Grid Height="24">
-                                <Border BorderThickness="1" CornerRadius="12" />
+                                <Border
+                                    BorderBrush="{StaticResource Orange5}"
+                                    BorderThickness="1"
+                                    CornerRadius="12" />
                                 <Grid>
                                     <TextBlock
+                                        Margin="10,0"
+                                        VerticalAlignment="Center"
                                         FontWeight="SemiBold"
+                                        Foreground="{StaticResource Orange7}"
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         Text="{x:Bind Text, Mode=OneWay}" />
                                 </Grid>
@@ -238,10 +329,16 @@
                         </toolkit:Case>
                         <toolkit:Case Value="danger">
                             <Grid Height="24">
-                                <Border BorderThickness="1" CornerRadius="12" />
+                                <Border
+                                    BorderBrush="{StaticResource Red5}"
+                                    BorderThickness="1"
+                                    CornerRadius="12" />
                                 <Grid>
                                     <TextBlock
+                                        Margin="10,0"
+                                        VerticalAlignment="Center"
                                         FontWeight="SemiBold"
+                                        Foreground="{StaticResource Red7}"
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         Text="{x:Bind Text, Mode=OneWay}" />
                                 </Grid>
@@ -249,10 +346,16 @@
                         </toolkit:Case>
                         <toolkit:Case Value="done">
                             <Grid Height="24">
-                                <Border BorderThickness="1" CornerRadius="12" />
+                                <Border
+                                    BorderBrush="{StaticResource Purple5}"
+                                    BorderThickness="1"
+                                    CornerRadius="12" />
                                 <Grid>
                                     <TextBlock
+                                        Margin="10,0"
+                                        VerticalAlignment="Center"
                                         FontWeight="SemiBold"
+                                        Foreground="{StaticResource Purple7}"
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         Text="{x:Bind Text, Mode=OneWay}" />
                                 </Grid>
@@ -260,10 +363,16 @@
                         </toolkit:Case>
                         <toolkit:Case Value="sponsors">
                             <Grid Height="24">
-                                <Border BorderThickness="1" CornerRadius="12" />
+                                <Border
+                                    BorderBrush="{StaticResource Pink5}"
+                                    BorderThickness="1"
+                                    CornerRadius="12" />
                                 <Grid>
                                     <TextBlock
+                                        Margin="10,0"
+                                        VerticalAlignment="Center"
                                         FontWeight="SemiBold"
+                                        Foreground="{StaticResource Pink7}"
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         Text="{x:Bind Text, Mode=OneWay}" />
                                 </Grid>
