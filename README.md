@@ -161,7 +161,7 @@ If you would like to ask a question, please reach out to us via Twitter:
 
 Copyright (c) 2022 FluentHub Team
 
-Licensed under the MIT license stated in the [LICENSE](LICENSE).
+Licensed under the MIT license as stated in the [LICENSE](LICENSE).
 
 ---
 
