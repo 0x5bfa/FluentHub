@@ -96,6 +96,10 @@ namespace FluentHub.Uwp.Views
             UnsubscribeEvents();
             navService.Disconnect();
         }
+        private void ShowSearchTeachingTip(object sender, RoutedEventArgs e)
+        {
+            SearchTeachingTip.IsOpen = true;
+        }
 
         private void OnAppBackRequested(object sender, BackRequestedEventArgs e)
         {

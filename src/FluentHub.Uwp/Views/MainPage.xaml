@@ -142,28 +142,18 @@
                     Orientation="Horizontal"
                     Spacing="8">
 
-                    <Button
-                        x:Name="ToggleLeftNavigationButtons"
-                        Width="36"
-                        Height="32"
-                        Padding="0"
-                        VerticalAlignment="Center"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        IsEnabled="False"
-                        ToolTipService.ToolTip="Toggle">
-                        <Button.Resources>
-                            <SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="Transparent" />
-                        </Button.Resources>
-                        <muxc:AnimatedIcon Width="16" Height="16">
-                            <muxc:AnimatedIcon.Source>
-                                <animatedvisuals:AnimatedGlobalNavigationButtonVisualSource />
-                            </muxc:AnimatedIcon.Source>
-                            <muxc:AnimatedIcon.FallbackIconSource>
-                                <muxc:FontIconSource FontSize="14" Glyph="&#xE700;" />
-                            </muxc:AnimatedIcon.FallbackIconSource>
-                        </muxc:AnimatedIcon>
-                    </Button>
+                    <AppBarButton Click="ShowSearchTeachingTip">
+                        <SymbolIcon Symbol="Find"/>
+                    </AppBarButton>
+
+                    <muxc:TeachingTip x:Name="SearchTeachingTip"
+                        Title="Search"
+                        Subtitle=" "
+                        PreferredPlacement="Auto">
+                        <muxc:TeachingTip.Content>
+                            <TextBox></TextBox>
+                        </muxc:TeachingTip.Content>
+                    </muxc:TeachingTip>
 
                     <Button
                         x:Name="GoBackButton"
