@@ -16,7 +16,7 @@ namespace FluentHub.Uwp.Views.AppSettings
 
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<AppearanceViewModel>();
-            navigationService = provider.GetRequiredService<INavigationService>();            
+            navigationService = provider.GetRequiredService<INavigationService>();
         }
 
         private readonly INavigationService navigationService;

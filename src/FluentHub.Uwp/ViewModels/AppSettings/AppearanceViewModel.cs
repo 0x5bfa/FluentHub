@@ -18,9 +18,9 @@ namespace FluentHub.Uwp.ViewModels.AppSettings
 
             Themes = new List<string>()
             {
-                "Use system setting",
-                "Light theme",
-                "Dark theme",
+                "Sync with system setting",
+                "Light",
+                "Dark",
             }
             .AsReadOnly();
 

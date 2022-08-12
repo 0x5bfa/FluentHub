@@ -213,7 +213,7 @@ namespace FluentHub.Uwp.Views
                     navService.Navigate<AppSettings.MainSettingsPage>("fluenthub://settings/account");
                     break;
                 case "Settings":
-                    navService.Navigate<AppSettings.MainSettingsPage>("fluenthub://settings");
+                    navService.Navigate<AppSettings.AppearancePage>();
                     break;
                 case "SignOut":
                     Frame rootFrame = (Frame)Window.Current.Content;

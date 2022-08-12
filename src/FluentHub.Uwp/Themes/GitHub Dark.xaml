@@ -1,0 +1,231 @@
+﻿<ResourceDictionary
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:BelowWindows10version1809="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractNotPresent(Windows.Foundation.UniversalApiContract, 7)"
+    xmlns:Windows10version1809="http://schemas.microsoft.com/winfx/2006/xaml/presentation?IsApiContractPresent(Windows.Foundation.UniversalApiContract, 7)">
+    <ResourceDictionary.ThemeDictionaries>
+        <ResourceDictionary x:Key="Deafult">
+            <!--  Color scales  -->
+            <SolidColorBrush x:Key="PrimerScaleBlack" Color="#010409" />
+            <SolidColorBrush x:Key="PrimerScaleWhite0" Color="#ffffff" />
+            <SolidColorBrush x:Key="PrimerScaleWhite1" Color="#f0f6fc" />
+            <SolidColorBrush x:Key="PrimerScaleWhite2" Color="#c9d1d9" />
+            <SolidColorBrush x:Key="PrimerScaleWhite3" Color="#b1bac4" />
+            <SolidColorBrush x:Key="PrimerScaleWhite4" Color="#8b949e" />
+            <SolidColorBrush x:Key="PrimerScaleWhite5" Color="#6e7681" />
+            <SolidColorBrush x:Key="PrimerScaleWhite6" Color="#484f58" />
+            <SolidColorBrush x:Key="PrimerScaleWhite7" Color="#30363d" />
+            <SolidColorBrush x:Key="PrimerScaleWhite8" Color="#21262d" />
+            <SolidColorBrush x:Key="PrimerScaleWhite9" Color="#161b22" />
+            <SolidColorBrush x:Key="PrimerScaleWhite" Color="#0d1117" />
+            <SolidColorBrush x:Key="PrimerScaleBlue0" Color="#cae8ff" />
+            <SolidColorBrush x:Key="PrimerScaleBlue1" Color="#a5d6ff" />
+            <SolidColorBrush x:Key="PrimerScaleBlue2" Color="#79c0ff" />
+            <SolidColorBrush x:Key="PrimerScaleBlue3" Color="#58a6ff" />
+            <SolidColorBrush x:Key="PrimerScaleBlue4" Color="#388bfd" />
+            <SolidColorBrush x:Key="PrimerScaleBlue5" Color="#1f6feb" />
+            <SolidColorBrush x:Key="PrimerScaleBlue6" Color="#1158c7" />
+            <SolidColorBrush x:Key="PrimerScaleBlue7" Color="#0d419d" />
+            <SolidColorBrush x:Key="PrimerScaleBlue8" Color="#0c2d6b" />
+            <SolidColorBrush x:Key="PrimerScaleBlue9" Color="#051d4d" />
+            <SolidColorBrush x:Key="PrimerScaleGreen0" Color="#aff5b4" />
+            <SolidColorBrush x:Key="PrimerScaleGreen1" Color="#7ee787" />
+            <SolidColorBrush x:Key="PrimerScaleGreen2" Color="#56d364" />
+            <SolidColorBrush x:Key="PrimerScaleGreen3" Color="#3fb950" />
+            <SolidColorBrush x:Key="PrimerScaleGreen4" Color="#2ea043" />
+            <SolidColorBrush x:Key="PrimerScaleGreen5" Color="#238636" />
+            <SolidColorBrush x:Key="PrimerScaleGreen6" Color="#196c2e" />
+            <SolidColorBrush x:Key="PrimerScaleGreen7" Color="#0f5323" />
+            <SolidColorBrush x:Key="PrimerScaleGreen8" Color="#033a16" />
+            <SolidColorBrush x:Key="PrimerScaleGreen9" Color="#04260f" />
+            <SolidColorBrush x:Key="PrimerScaleYellow0" Color="#f8e3a1" />
+            <SolidColorBrush x:Key="PrimerScaleYellow1" Color="#f2cc60" />
+            <SolidColorBrush x:Key="PrimerScaleYellow2" Color="#e3b341" />
+            <SolidColorBrush x:Key="PrimerScaleYellow3" Color="#d29922" />
+            <SolidColorBrush x:Key="PrimerScaleYellow4" Color="#bb8009" />
+            <SolidColorBrush x:Key="PrimerScaleYellow5" Color="#9e6a03" />
+            <SolidColorBrush x:Key="PrimerScaleYellow6" Color="#845306" />
+            <SolidColorBrush x:Key="PrimerScaleYellow7" Color="#693e00" />
+            <SolidColorBrush x:Key="PrimerScaleYellow8" Color="#4b2900" />
+            <SolidColorBrush x:Key="PrimerScaleYellow9" Color="#341a00" />
+            <SolidColorBrush x:Key="PrimerScaleOrange0" Color="#ffdfb6" />
+            <SolidColorBrush x:Key="PrimerScaleOrange1" Color="#ffc680" />
+            <SolidColorBrush x:Key="PrimerScaleOrange2" Color="#ffa657" />
+            <SolidColorBrush x:Key="PrimerScaleOrange3" Color="#f0883e" />
+            <SolidColorBrush x:Key="PrimerScaleOrange4" Color="#db6d28" />
+            <SolidColorBrush x:Key="PrimerScaleOrange5" Color="#bd561d" />
+            <SolidColorBrush x:Key="PrimerScaleOrange6" Color="#9b4215" />
+            <SolidColorBrush x:Key="PrimerScaleOrange7" Color="#762d0a" />
+            <SolidColorBrush x:Key="PrimerScaleOrange8" Color="#5a1e02" />
+            <SolidColorBrush x:Key="PrimerScaleOrange9" Color="#3d1300" />
+            <SolidColorBrush x:Key="PrimerScaleRed0" Color="#ffdcd7" />
+            <SolidColorBrush x:Key="PrimerScaleRed1" Color="#ffc1ba" />
+            <SolidColorBrush x:Key="PrimerScaleRed2" Color="#ffa198" />
+            <SolidColorBrush x:Key="PrimerScaleRed3" Color="#ff7b72" />
+            <SolidColorBrush x:Key="PrimerScaleRed4" Color="#f85149" />
+            <SolidColorBrush x:Key="PrimerScaleRed5" Color="#da3633" />
+            <SolidColorBrush x:Key="PrimerScaleRed6" Color="#b62324" />
+            <SolidColorBrush x:Key="PrimerScaleRed7" Color="#8e1519" />
+            <SolidColorBrush x:Key="PrimerScaleRed8" Color="#67060c" />
+            <SolidColorBrush x:Key="PrimerScaleRed9" Color="#490202" />
+            <SolidColorBrush x:Key="PrimerScalePurple0" Color="#eddeff" />
+            <SolidColorBrush x:Key="PrimerScalePurple1" Color="#e2c5ff" />
+            <SolidColorBrush x:Key="PrimerScalePurple2" Color="#d2a8ff" />
+            <SolidColorBrush x:Key="PrimerScalePurple3" Color="#bc8cff" />
+            <SolidColorBrush x:Key="PrimerScalePurple4" Color="#a371f7" />
+            <SolidColorBrush x:Key="PrimerScalePurple5" Color="#8957e5" />
+            <SolidColorBrush x:Key="PrimerScalePurple6" Color="#6e40c9" />
+            <SolidColorBrush x:Key="PrimerScalePurple7" Color="#553098" />
+            <SolidColorBrush x:Key="PrimerScalePurple8" Color="#3c1e70" />
+            <SolidColorBrush x:Key="PrimerScalePurple9" Color="#271052" />
+            <SolidColorBrush x:Key="PrimerScalePink0" Color="#ffdaec" />
+            <SolidColorBrush x:Key="PrimerScalePink1" Color="#ffbedd" />
+            <SolidColorBrush x:Key="PrimerScalePink2" Color="#ff9bce" />
+            <SolidColorBrush x:Key="PrimerScalePink3" Color="#f778ba" />
+            <SolidColorBrush x:Key="PrimerScalePink4" Color="#db61a2" />
+            <SolidColorBrush x:Key="PrimerScalePink5" Color="#bf4b8a" />
+            <SolidColorBrush x:Key="PrimerScalePink6" Color="#9e3670" />
+            <SolidColorBrush x:Key="PrimerScalePink7" Color="#7d2457" />
+            <SolidColorBrush x:Key="PrimerScalePink8" Color="#5e103e" />
+            <SolidColorBrush x:Key="PrimerScalePink9" Color="#42062a" />
+            <SolidColorBrush x:Key="PrimerScaleCoral0" Color="#ffddd2" />
+            <SolidColorBrush x:Key="PrimerScaleCoral1" Color="#ffc2b2" />
+            <SolidColorBrush x:Key="PrimerScaleCoral2" Color="#ffa28b" />
+            <SolidColorBrush x:Key="PrimerScaleCoral3" Color="#f78166" />
+            <SolidColorBrush x:Key="PrimerScaleCoral4" Color="#ea6045" />
+            <SolidColorBrush x:Key="PrimerScaleCoral5" Color="#cf462d" />
+            <SolidColorBrush x:Key="PrimerScaleCoral6" Color="#ac3220" />
+            <SolidColorBrush x:Key="PrimerScaleCoral7" Color="#872012" />
+            <SolidColorBrush x:Key="PrimerScaleCoral8" Color="#640d04" />
+            <SolidColorBrush x:Key="PrimerScaleCoral9" Color="#460701" />
+
+            <!--  Foreground  -->
+            <SolidColorBrush x:Key="PrimerForegroundDefault" Color="#c9d1d9" />
+            <SolidColorBrush x:Key="PrimerForegroundMuted" Color="#8b949e" />
+            <SolidColorBrush x:Key="PrimerForegroundSubtle" Color="#6e7681" />
+            <SolidColorBrush x:Key="PrimerForegroundEmphasis" Color="#ffffff" />
+            <!--  Canvas  -->
+            <SolidColorBrush x:Key="PrimerCanvasDefault" Color="#0d1117" />
+            <SolidColorBrush x:Key="PrimerCanvasOverlay" Color="#161b22" />
+            <SolidColorBrush x:Key="PrimerCanvasInset" Color="#010409" />
+            <SolidColorBrush x:Key="PrimerCanvasSubtle" Color="#161b22" />
+            <!--  Border  -->
+            <SolidColorBrush x:Key="PrimerBorderDefault" Color="#30363d" />
+            <SolidColorBrush x:Key="PrimerBorderMuted" Color="#21262d" />
+            <SolidColorBrush
+                x:Key="PrimerBorderSubtle"
+                Opacity="0.1"
+                Color="#f0f6fc" />
+            <!--  Neutral  -->
+            <SolidColorBrush x:Key="PrimerNeutralEmphasisPlus" Color="#6e7681" />
+            <SolidColorBrush x:Key="PrimerNeutralEmphasis" Color="#6e7681" />
+            <SolidColorBrush
+                x:Key="PrimerNeutralMuted"
+                Opacity="0.4"
+                Color="#6e7681" />
+            <SolidColorBrush
+                x:Key="PrimerNeutralSubtle"
+                Opacity="0.1"
+                Color="#6e7681" />
+            <!--  Accent  -->
+            <SolidColorBrush x:Key="PrimerAccentForeground" Color="#58a6ff" />
+            <SolidColorBrush x:Key="PrimerAccentEmphasis" Color="#1f6feb" />
+            <SolidColorBrush
+                x:Key="PrimerAccentMuted"
+                Opacity="0.4"
+                Color="#388bfd" />
+            <SolidColorBrush
+                x:Key="PrimerAccentSubtle"
+                Opacity="0.15"
+                Color="#388bfd" />
+            <!--  Success  -->
+            <SolidColorBrush x:Key="PrimerSuccessForeground" Color="#3fb950" />
+            <SolidColorBrush x:Key="PrimerSuccessEmphasis" Color="#238636" />
+            <SolidColorBrush
+                x:Key="PrimerSuccessMuted"
+                Opacity="0.4"
+                Color="#2ea043" />
+            <SolidColorBrush
+                x:Key="PrimerSuccessSubtle"
+                Opacity="0.15"
+                Color="#2ea043" />
+            <!--  Attention  -->
+            <SolidColorBrush x:Key="PrimerAttentionForeground" Color="#d29922" />
+            <SolidColorBrush x:Key="PrimerAttentionEmphasis" Color="#9e6a03" />
+            <SolidColorBrush
+                x:Key="PrimerAttentionMuted"
+                Opacity="0.4"
+                Color="#bb8009" />
+            <SolidColorBrush
+                x:Key="PrimerAttentionSubtle"
+                Opacity="0.15"
+                Color="#bb8009" />
+            <!--  Severe  -->
+            <SolidColorBrush x:Key="PrimerSevereForeground" Color="#db6d28" />
+            <SolidColorBrush x:Key="PrimerSevereEmphasis" Color="#bd561d" />
+            <SolidColorBrush
+                x:Key="PrimerSevereMuted"
+                Opacity="0.4"
+                Color="#db6d28" />
+            <SolidColorBrush
+                x:Key="PrimerSevereSubtle"
+                Opacity="0.15"
+                Color="#db6d28" />
+            <!--  Danger  -->
+            <SolidColorBrush x:Key="PrimerDangerForeground" Color="#f85149" />
+            <SolidColorBrush x:Key="PrimerDangerEmphasis" Color="#da3633" />
+            <SolidColorBrush
+                x:Key="PrimerDangerMuted"
+                Opacity="0.4"
+                Color="#f85149" />
+            <SolidColorBrush
+                x:Key="PrimerDangerSubtle"
+                Opacity="0.15"
+                Color="#f85149" />
+            <!--  Open (== Success)  -->
+            <SolidColorBrush x:Key="PrimerOpenForeground" Color="#3fb950" />
+            <SolidColorBrush x:Key="PrimerOpenEmphasis" Color="#238636" />
+            <SolidColorBrush
+                x:Key="PrimerOpenMuted"
+                Opacity="0.4"
+                Color="#2ea043" />
+            <SolidColorBrush
+                x:Key="PrimerOpenSubtle"
+                Opacity="0.15"
+                Color="#2ea043" />
+            <!--  Danger (== Closed)  -->
+            <SolidColorBrush x:Key="PrimerClosedForeground" Color="#f85149" />
+            <SolidColorBrush x:Key="PrimerClosedEmphasis" Color="#da3633" />
+            <SolidColorBrush
+                x:Key="PrimerClosedMuted"
+                Opacity="0.4"
+                Color="#f85149" />
+            <SolidColorBrush
+                x:Key="PrimerClosedSubtle"
+                Opacity="0.15"
+                Color="#f85149" />
+            <!--  Done  -->
+            <SolidColorBrush x:Key="PrimerDoneForeground" Color="#a371f7" />
+            <SolidColorBrush x:Key="PrimerDoneEmphasis" Color="#8957e5" />
+            <SolidColorBrush
+                x:Key="PrimerDoneMuted"
+                Opacity="0.4"
+                Color="#a371f7" />
+            <SolidColorBrush
+                x:Key="PrimerDoneSubtle"
+                Opacity="0.15"
+                Color="#a371f7" />
+            <!--  Sponsors  -->
+            <SolidColorBrush x:Key="PrimerSponsorsForeground" Color="#db61a2" />
+            <SolidColorBrush x:Key="PrimerSponsorsEmphasis" Color="#bf4b8a" />
+            <SolidColorBrush
+                x:Key="PrimerSponsorsMuted"
+                Opacity="0.4"
+                Color="#db61a2" />
+            <SolidColorBrush
+                x:Key="PrimerSponsorsSubtle"
+                Opacity="0.15"
+                Color="#db61a2" />
+        </ResourceDictionary>
+    </ResourceDictionary.ThemeDictionaries>
+</ResourceDictionary>
