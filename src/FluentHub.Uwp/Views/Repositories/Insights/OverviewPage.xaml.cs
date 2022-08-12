@@ -1,6 +1,8 @@
 ﻿using FluentHub.Uwp.Services;
+using FluentHub.Uwp.ViewModels;
 using FluentHub.Uwp.ViewModels.Repositories;
 using Microsoft.Extensions.DependencyInjection;
+using Windows.Services.Maps;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
@@ -14,5 +16,11 @@ namespace FluentHub.Uwp.Views.Repositories.Insights
         {
             InitializeComponent();
         }
+
+        // TODO: Add Insights ViewModel
+        //private void OnSeeIndepthButtonClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        //{
+        //    navService.Navigate<Users.OrganizationsPage>();
+        //}
     }
 }
