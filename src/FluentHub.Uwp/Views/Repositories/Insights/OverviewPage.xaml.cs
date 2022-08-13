@@ -16,11 +16,5 @@ namespace FluentHub.Uwp.Views.Repositories.Insights
         {
             InitializeComponent();
         }
-
-        // TODO: Add Insights ViewModel
-        //private void OnSeeIndepthButtonClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        //{
-        //    navService.Navigate<Users.OrganizationsPage>();
-        //}
     }
 }
