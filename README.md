@@ -1,6 +1,6 @@
-# <img width="64" align="center" src="assets/fluenthub.png" /> <img width="64" align="center" src="assets/fluenthub-dev.png" /> FluentHub
+# <img width="64" align="center" src="assets/fluenthub.png" /> <img width="64" align="center" src="assets/fluenthub-beta.png" /> <img width="64" align="center" src="assets/fluenthub-dev.png" /> FluentHub
 
-###### A stylish yet powerful GitHub client
+#### A stylish yet powerful GitHub client
 
 <p align="center">
   <a title="Azure Pipeline" target="_blank" href="https://dev.azure.com/fluenthub/FluentHub">
@@ -26,7 +26,7 @@
 
 ## ➕ Installation
 
-##### Via Microsoft Store
+### Via Microsoft Store
 
 Release mode is currently unstable and therefore packages shall not be uploaded for new versions.
 
@@ -38,7 +38,7 @@ This is our preferred method. This allows you to always be on the latest version
 </a>
 -->
 
-##### Via GitHub
+### Via GitHub
 
 Release mode is currently unstable and therefore packages shall not be uploaded for new versions.
 
@@ -56,7 +56,7 @@ Add-AppxPackage FluentHub_<versionNumber>.msixbundle
 ```
 -->
 
-##### Building from source
+### Building from source
 ###### ⭐Recommended⭐
 
 This is our preferred method.
@@ -99,6 +99,12 @@ If you are interested in fixing issues and contributing directly to the code bas
    └──FluentHub.Octokit.Generation   
 ```
 
+### 🗃️ Contributors
+
+<a href="https://github.com/FluentHub/FluentHub/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=FluentHub/FluentHub" />
+</a>
+
 ## 🦜 Feedback
 
 - [Request a new feature](https://github.com/FluentHub/FluentHub/pulls)
@@ -119,7 +125,7 @@ Ensure you have following components:
   - UWP Development Kit
   - [.NET SDK](https://dotnet.microsoft.com/en-us/download)
 
-##### 2. Git
+### 2. Git
 
 Clone the repository:
 
@@ -133,11 +139,11 @@ Initialize submodules recursively:
 git submodule update --init --recursive
 ```
 
-##### 3. Prepare OAuth credentials
+### 3. Prepare OAuth credentials
 
 See [the documentation](docs/credentials.md).
 
-##### 4. Build the project
+### 4. Build the project
 
 - Open `FluentHub.sln`.
 - Hit 'Set as Startup item' on `FluentHub.Uwp` in the Solution Explorer
@@ -162,9 +168,3 @@ If you would like to ask a question, please reach out to us via Twitter:
 Copyright (c) 2022 FluentHub Team
 
 Licensed under the MIT license as stated in the [LICENSE](LICENSE).
-
----
-
-<a href="https://github.com/FluentHub/FluentHub/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=FluentHub/FluentHub" />
-</a>
