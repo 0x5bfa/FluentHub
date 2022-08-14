@@ -84,13 +84,13 @@
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <FontIcon FontSize="14" Glyph="&#xE9CE;" />
                             <TextBlock Style="{StaticResource BodyTextBlockStyle}">
-                                <Hyperlink NavigateUri="https://github.com/FluentHub/FluentHub">Get help</Hyperlink>
+                                <Hyperlink NavigateUri="https://github.com/FluentHub/FluentHub#-contact">Get help</Hyperlink>
                             </TextBlock>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <FontIcon FontSize="14" Glyph="&#xED15;" />
                             <TextBlock Style="{StaticResource BodyTextBlockStyle}">
-                                <Hyperlink NavigateUri="https://github.com/FluentHub/FluentHub/issues/new/choose">Give feedback</Hyperlink>
+                                <Hyperlink NavigateUri="https://github.com/FluentHub/FluentHub#-feedback">Give feedback</Hyperlink>
                             </TextBlock>
                         </StackPanel>
                     </StackPanel>
