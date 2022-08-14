@@ -2,7 +2,7 @@
 using FluentHub.Uwp.Services.Navigation;
 using FluentHub.Uwp.ViewModels;
 using FluentHub.Uwp.ViewModels.Repositories;
-using FluentHub.Uwp.ViewModels.Repositories.Codes;
+using FluentHub.Uwp.ViewModels.Repositories.Code;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Media.Imaging;
 
-namespace FluentHub.Uwp.Views.Repositories.Codes
+namespace FluentHub.Uwp.Views.Repositories.Code
 {
     public sealed partial class CodePage : Page
     {

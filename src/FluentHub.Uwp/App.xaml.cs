@@ -99,9 +99,9 @@ namespace FluentHub.Uwp
                 .AddTransient<ViewModels.Organizations.OverviewViewModel>()
                 .AddTransient<ViewModels.Organizations.ProfileViewModel>()
                 .AddTransient<ViewModels.Organizations.RepositoriesViewModel>()
-                .AddTransient<ViewModels.Repositories.Codes.Layouts.DetailsLayoutViewModel>()
-                .AddTransient<ViewModels.Repositories.Codes.Layouts.TreeLayoutViewModel>()
-                .AddTransient<ViewModels.Repositories.Codes.ReleasesViewModel>()
+                .AddTransient<ViewModels.Repositories.Code.Layouts.DetailsLayoutViewModel>()
+                .AddTransient<ViewModels.Repositories.Code.Layouts.TreeLayoutViewModel>()
+                .AddTransient<ViewModels.Repositories.Code.ReleasesViewModel>()
                 .AddTransient<ViewModels.Repositories.Commits.CommitsViewModel>()
                 .AddTransient<ViewModels.Repositories.Commits.CommitViewModel>()
                 .AddTransient<ViewModels.Repositories.Discussions.DiscussionsViewModel>()
@@ -273,7 +273,7 @@ namespace FluentHub.Uwp
                     page = typeof(Views.Repositories.Discussions.DiscussionsPage);
                     break;
                 case "repositories":
-                    page = typeof(Views.Repositories.Codes.CodePage);
+                    page = typeof(Views.Repositories.Code.CodePage);
                     break;
                 case "organizations":
                     page = typeof(Views.Organizations.ProfilePage);
