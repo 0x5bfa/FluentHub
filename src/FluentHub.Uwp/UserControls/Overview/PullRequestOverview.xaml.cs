@@ -44,7 +44,7 @@ namespace FluentHub.Uwp.UserControls
                 default:
                 case "conversation":
                     service.Navigate(
-                        typeof(Views.Repositories.Codes.CodePage),
+                        typeof(Views.Repositories.Code.CodePage),
                         new Models.FrameNavigationArgs()
                         {
                             Login = ViewModel.PullRequest.Repository.Owner.Login,

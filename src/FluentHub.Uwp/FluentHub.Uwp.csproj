@@ -408,11 +408,11 @@
     <Compile Include="Views\AppSettings\AppearancePage.xaml.cs">
       <DependentUpon>AppearancePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Repositories\Codes\Layouts\TreeLayoutView.xaml.cs">
+    <Compile Include="Views\Repositories\Code\Layouts\TreeLayoutView.xaml.cs">
       <DependentUpon>TreeLayoutView.xaml</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Views\Repositories\Codes\ReleasesPage.xaml.cs">
+    <Compile Include="Views\Repositories\Code\ReleasesPage.xaml.cs">
       <DependentUpon>ReleasesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Repositories\Commits\CommitPage.xaml.cs">
@@ -497,13 +497,13 @@
     <Compile Include="Views\Organizations\RepositoriesPage.xaml.cs">
       <DependentUpon>RepositoriesPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Repositories\Codes\CodePage.xaml.cs">
+    <Compile Include="Views\Repositories\Code\CodePage.xaml.cs">
       <DependentUpon>CodePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Repositories\Issues\IssuePage.xaml.cs">
       <DependentUpon>IssuePage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Repositories\Codes\Layouts\DetailsLayoutView.xaml.cs">
+    <Compile Include="Views\Repositories\Code\Layouts\DetailsLayoutView.xaml.cs">
       <DependentUpon>DetailsLayoutView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Repositories\OverviewPage.xaml.cs">
@@ -973,12 +973,12 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Repositories\Codes\Layouts\TreeLayoutView.xaml">
+    <Page Include="Views\Repositories\Code\Layouts\TreeLayoutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
-    <Page Include="Views\Repositories\Codes\ReleasesPage.xaml">
+    <Page Include="Views\Repositories\Code\ReleasesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1090,7 +1090,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Repositories\Codes\CodePage.xaml">
+    <Page Include="Views\Repositories\Code\CodePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1098,7 +1098,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Repositories\Codes\Layouts\DetailsLayoutView.xaml">
+    <Page Include="Views\Repositories\Code\Layouts\DetailsLayoutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

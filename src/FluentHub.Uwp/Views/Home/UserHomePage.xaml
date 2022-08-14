@@ -145,12 +145,6 @@
                         Style="{StaticResource SubtitleTextBlockStyle}"
                         Text="Home" />
 
-                    <Button
-                        Margin="8,0,32,0"
-                        HorizontalAlignment="Right"
-                        Click="OnSeeFeedsButtonClick"
-                        Content="See feeds of your followers" />
-
                 </Grid>
 
                 <muxc:Expander

@@ -1,7 +1,7 @@
 ﻿using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
 
-namespace FluentHub.Uwp.ViewModels.Repositories.Codes
+namespace FluentHub.Uwp.ViewModels.Repositories.Code
 {
     public class CodePageViewModel : ObservableObject
     {

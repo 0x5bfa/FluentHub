@@ -237,11 +237,6 @@
                         Fill="{ThemeResource SystemAltHighColor}"
                         Opacity="0.3" />
 
-                    <TextBlock
-                        Margin="48,64"
-                        Style="{StaticResource TitleLargeTextBlockStyle}"
-                        Text="Welcome back, devs!" />
-
                 </Grid>
             </muxc:TwoPaneView.Pane2>
         </muxc:TwoPaneView>

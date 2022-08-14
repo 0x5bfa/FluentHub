@@ -1,6 +1,6 @@
 ﻿using FluentHub.Uwp.Services;
 using FluentHub.Uwp.Models;
-using FluentHub.Uwp.ViewModels.Repositories.Codes;
+using FluentHub.Uwp.ViewModels.Repositories.Code;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -9,7 +9,7 @@ using Windows.UI.Xaml.Navigation;
 using Windows.UI.Xaml.Media.Imaging;
 using muxc = Microsoft.UI.Xaml.Controls;
 
-namespace FluentHub.Uwp.Views.Repositories.Codes
+namespace FluentHub.Uwp.Views.Repositories.Code
 {
     public sealed partial class ReleasesPage : Page
     {
