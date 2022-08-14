@@ -1,30 +1,34 @@
-# <img width="64" align="center" src="assets/fluenthub.png" /> <img width="64" align="center" src="assets/fluenthub-beta.png" /> <img width="64" align="center" src="assets/fluenthub-dev.png" /> FluentHub
-
-#### A stylish yet powerful GitHub client
+<p align="center">
+  <img width="128" align="center" src="assets/fluenthub-dev.png" />
+  <img width="128" align="center" src="assets/fluenthub-beta.png" />
+</p>
+<h1 align="center">
+  FluentHub
+</h1>
+<p align="center">
+  A stylish yet powerful GitHub client.
+</p>
 
 <p align="center">
   <a title="Azure Pipeline" target="_blank" href="https://dev.azure.com/fluenthub/FluentHub">
-    <img align="left" src="https://dev.azure.com/fluenthub/FluentHub/_apis/build/status/Build%20Pipeline%20(x64)?branchName=main">
+    <img src="https://dev.azure.com/fluenthub/FluentHub/_apis/build/status/Build%20Pipeline%20(x64)?branchName=main">
   </a>
   <a title="Crowdin" target="_blank" href="https://crowdin.com/project/fluenthub">
-    <img align="left" src="https://badges.crowdin.net/fluenthub/localized.svg">
+    <img src="https://badges.crowdin.net/fluenthub/localized.svg">
   </a>
   <a title="GitHub Releases" target="_blank" href="https://github.com/fluenthub-community/FluentHub/releases">
-    <img align="left" src="https://img.shields.io/github/v/release/fluenthub-community/fluenthub?include_prereleases" alt="Release" />
+    <img src="https://img.shields.io/github/v/release/fluenthub-community/fluenthub?include_prereleases" alt="Release" />
   </a>
   <a title="Discord" target="_blank" href="https://discord.gg/8KtRkjq2Q4">
-    <img align="left" src="https://img.shields.io/discord/935562861701390336?color=blue&label=Discord" alt="Discord" />
+    <img src="https://img.shields.io/discord/935562861701390336?color=blue&label=Discord" alt="Discord" />
   </a>
   <a title="Platform" target="_blank">
-    <img align="left" src="https://img.shields.io/badge/Platform-Windows-red" alt="Platform" />
+    <img src="https://img.shields.io/badge/Platform-Windows-red" alt="Platform" />
   </a>
 </p>
 
-<br/>
-
 ---
-
-## ➕ Installation
+## 🎁 Installation
 
 ### Via Microsoft Store
 
@@ -56,11 +60,10 @@ Add-AppxPackage FluentHub_<versionNumber>.msixbundle
 ```
 -->
 
-### Building from source
-###### ⭐Recommended⭐
+### Building from source ⭐Recommended⭐
 
 This is our preferred method.
-See [this section](#-building-the-code)
+See [build section](#-building-the-code)
 
 ## 📸 Screenshots
 
@@ -91,12 +94,12 @@ If you are interested in fixing issues and contributing directly to the code bas
 ```
 .
 ├──lib                               // Library for submodules.
-|  └──octokit.graphql.net            // Official library for GitHub API.
+|  └──octokit.graphql.net            // Official library for GitHub GraphQL API.
 └──src                               // The source code.
    ├──FluentHub.Uwp                  // Code for most front-end elements of the app
-   ├──FluentHub.Core
+   ├──FluentHub.Core                 // Core elements of the app
    ├──FluentHub.Octokit              // Code for most back-end and API-related elements of the app such as mutations and queries.
-   └──FluentHub.Octokit.Generation   
+   └──FluentHub.Octokit.Generation   // GitHub GraphQL API model generator
 ```
 
 ### 🗃️ Contributors
@@ -114,7 +117,7 @@ If you are interested in fixing issues and contributing directly to the code bas
 
 ## 🔨 Building the Code
 
-##### 1. Prerequisites
+### 1. Prerequisites
 
 Ensure you have following components:
 
