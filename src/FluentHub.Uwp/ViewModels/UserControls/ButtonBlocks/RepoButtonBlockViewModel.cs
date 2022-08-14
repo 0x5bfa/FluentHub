@@ -31,7 +31,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks
         private void GoRepository()
         {
             var service = App.Current.Services.GetRequiredService<INavigationService>();
-            service.Navigate<Views.Repositories.Codes.CodePage>(
+            service.Navigate<Views.Repositories.Code.CodePage>(
                 new FrameNavigationArgs()
                 {
                     Login = Repository.Owner.Login,

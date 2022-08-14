@@ -3,7 +3,7 @@ using FluentHub.Uwp.Models;
 using FluentHub.Uwp.ViewModels.UserControls;
 using FluentHub.Uwp.Utils;
 
-namespace FluentHub.Uwp.ViewModels.Repositories.Codes.Layouts
+namespace FluentHub.Uwp.ViewModels.Repositories.Code.Layouts
 {
     public class TreeLayoutViewModel : ObservableObject
     {
