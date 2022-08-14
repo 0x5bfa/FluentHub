@@ -29,16 +29,22 @@
                             Glyph="&#xEA48;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <primer:Avatar
-                                Label="{x:Bind Actor.Login}"
-                                Size="20"
-                                Source="{x:Bind Actor.AvatarUrl}" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="added this to a project" />
-                        </StackPanel>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <primer:Avatar
+                                    Margin="0,0,4,0"
+                                    Label="{x:Bind Actor.Login}"
+                                    Size="20"
+                                    Source="{x:Bind Actor.AvatarUrl}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="added this to a project" />
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Right">
+                                <TextBlock Text="{x:Bind CreatedAtHumanized}" />
+                            </StackPanel>
+                        </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
             </DataTemplate>
@@ -53,8 +59,9 @@
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
                         <Grid>
-                            <StackPanel Orientation="Horizontal" Spacing="8">
+                            <StackPanel Orientation="Horizontal" Spacing="4">
                                 <primer:Avatar
+                                    Margin="0,0,4,0"
                                     Label="{x:Bind Actor.Login}"
                                     Size="20"
                                     Source="{x:Bind Actor.AvatarUrl}" />
@@ -67,7 +74,7 @@
                                     Style="{StaticResource BodyStrongTextBlockStyle}"
                                     Text="{x:Bind Assignee.User.Login}" />
                             </StackPanel>
-                            <StackPanel>
+                            <StackPanel HorizontalAlignment="Right">
                                 <TextBlock Text="{x:Bind CreatedAtHumanized}" />
                             </StackPanel>
                         </Grid>
@@ -76,26 +83,64 @@
             </DataTemplate>
 
             <DataTemplate x:Key="ClosedEventDataTemplate" x:DataType="modelsV4:ClosedEvent">
-                <primer:Timeline>
-                    <primer:Timeline.Badge>
-                        <FontIcon
-                            FontFamily="{StaticResource Octicons}"
-                            FontSize="14"
-                            Glyph="&#xE9E6;" />
-                    </primer:Timeline.Badge>
-                    <primer:Timeline.Body>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <primer:Avatar
-                                Label="{x:Bind Actor.Login}"
-                                Size="20"
-                                Source="{x:Bind Actor.AvatarUrl}" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="closed this as" />
-                        </StackPanel>
-                    </primer:Timeline.Body>
-                </primer:Timeline>
+                <Grid>
+                    <toolkit:SwitchPresenter TargetType="x:String" Value="{x:Bind StateReason.ToString(), Mode=OneWay}">
+                        <toolkit:Case Value="NotPlanned">
+                            <primer:Timeline BadgeBackground="{ThemeResource PrimerForegroundMuted}">
+                                <primer:Timeline.Badge>
+                                    <FontIcon
+                                        FontFamily="{StaticResource Octicons}"
+                                        FontSize="14"
+                                        Glyph="&#xEA84;" />
+                                </primer:Timeline.Badge>
+                                <primer:Timeline.Body>
+                                    <Grid>
+                                        <StackPanel Orientation="Horizontal" Spacing="4">
+                                            <primer:Avatar
+                                                Label="{x:Bind Actor.Login}"
+                                                Size="20"
+                                                Source="{x:Bind Actor.AvatarUrl}" />
+                                            <TextBlock
+                                                VerticalAlignment="Center"
+                                                Style="{StaticResource BodyTextBlockStyle}"
+                                                Text="closed this as not planned" />
+                                        </StackPanel>
+                                        <StackPanel HorizontalAlignment="Right">
+                                            <TextBlock Text="{x:Bind CreatedAtHumanized}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </primer:Timeline.Body>
+                            </primer:Timeline>
+                        </toolkit:Case>
+                        <toolkit:Case Value="Completed">
+                            <primer:Timeline BadgeBackground="{ThemeResource PrimerDoneForeground}">
+                                <primer:Timeline.Badge>
+                                    <FontIcon
+                                        FontFamily="{StaticResource Octicons}"
+                                        FontSize="14"
+                                        Glyph="&#xE9E6;" />
+                                </primer:Timeline.Badge>
+                                <primer:Timeline.Body>
+                                    <Grid>
+                                        <StackPanel Orientation="Horizontal" Spacing="4">
+                                            <primer:Avatar
+                                                Label="{x:Bind Actor.Login}"
+                                                Size="20"
+                                                Source="{x:Bind Actor.AvatarUrl}" />
+                                            <TextBlock
+                                                VerticalAlignment="Center"
+                                                Style="{StaticResource BodyTextBlockStyle}"
+                                                Text="closed this as completed" />
+                                        </StackPanel>
+                                        <StackPanel HorizontalAlignment="Right">
+                                            <TextBlock Text="{x:Bind CreatedAtHumanized}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </primer:Timeline.Body>
+                            </primer:Timeline>
+                        </toolkit:Case>
+                    </toolkit:SwitchPresenter>
+                </Grid>
             </DataTemplate>
 
             <DataTemplate x:Key="CommentDeletedEventDataTemplate" x:DataType="modelsV4:CommentDeletedEvent">
@@ -107,16 +152,25 @@
                             Glyph="&#xEAD4;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <primer:Avatar
-                                Label="{x:Bind Actor.Login}"
-                                Size="20"
-                                Source="{x:Bind Actor.AvatarUrl}" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="deleted a comment from" />
-                        </StackPanel>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <primer:Avatar
+                                    Label="{x:Bind Actor.Login}"
+                                    Size="20"
+                                    Source="{x:Bind Actor.AvatarUrl}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="deleted a comment from" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="{x:Bind DeletedCommentAuthor.Login}" />
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Right">
+                                <TextBlock Text="{x:Bind CreatedAtHumanized}" />
+                            </StackPanel>
+                        </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
             </DataTemplate>
@@ -130,16 +184,21 @@
                             Glyph="&#xE924;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <primer:Avatar
-                                Label="{x:Bind Actor.Login}"
-                                Size="20"
-                                Source="{x:Bind Actor.AvatarUrl}" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="made a connection" />
-                        </StackPanel>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <primer:Avatar
+                                    Label="{x:Bind Actor.Login}"
+                                    Size="20"
+                                    Source="{x:Bind Actor.AvatarUrl}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="made a connection" />
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Right">
+                                <TextBlock Text="{x:Bind CreatedAtHumanized}" />
+                            </StackPanel>
+                        </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
             </DataTemplate>
@@ -153,16 +212,21 @@
                             Glyph="&#xE95D;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <primer:Avatar
-                                Label="{x:Bind Actor.Login}"
-                                Size="20"
-                                Source="{x:Bind Actor.AvatarUrl}" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="converted this to discussion" />
-                        </StackPanel>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <primer:Avatar
+                                    Label="{x:Bind Actor.Login}"
+                                    Size="20"
+                                    Source="{x:Bind Actor.AvatarUrl}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="converted this to discussion" />
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Right">
+                                <TextBlock Text="{x:Bind CreatedAtHumanized}" />
+                            </StackPanel>
+                        </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
             </DataTemplate>
@@ -176,16 +240,21 @@
                             Glyph="&#xEADB;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <primer:Avatar
-                                Label="{x:Bind Actor.Login}"
-                                Size="20"
-                                Source="{x:Bind Actor.AvatarUrl}" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="converted note to issue" />
-                        </StackPanel>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <primer:Avatar
+                                    Label="{x:Bind Actor.Login}"
+                                    Size="20"
+                                    Source="{x:Bind Actor.AvatarUrl}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="converted note to issue" />
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Right">
+                                <TextBlock Text="{x:Bind CreatedAtHumanized}" />
+                            </StackPanel>
+                        </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
             </DataTemplate>
@@ -199,16 +268,21 @@
                             Glyph="&#xE968;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <primer:Avatar
-                                Label="{x:Bind Actor.Login}"
-                                Size="20"
-                                Source="{x:Bind Actor.AvatarUrl}" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="referenced something" />
-                        </StackPanel>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <primer:Avatar
+                                    Label="{x:Bind Actor.Login}"
+                                    Size="20"
+                                    Source="{x:Bind Actor.AvatarUrl}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="referenced something" />
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Right">
+                                <TextBlock Text="{x:Bind CreatedAtHumanized}" />
+                            </StackPanel>
+                        </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
             </DataTemplate>
@@ -222,16 +296,25 @@
                             Glyph="&#xEA12;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <primer:Avatar
-                                Label="{x:Bind Actor.Login}"
-                                Size="20"
-                                Source="{x:Bind Actor.AvatarUrl}" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="removed this from a milestone" />
-                        </StackPanel>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <primer:Avatar
+                                    Label="{x:Bind Actor.Login}"
+                                    Size="20"
+                                    Source="{x:Bind Actor.AvatarUrl}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="removed this from the" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="{x:Bind MilestoneTitle}" />
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Right">
+                                <TextBlock Text="{x:Bind CreatedAtHumanized}" />
+                            </StackPanel>
+                        </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
             </DataTemplate>
@@ -245,16 +328,21 @@
                             Glyph="&#xE924;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <primer:Avatar
-                                Label="{x:Bind Actor.Login}"
-                                Size="20"
-                                Source="{x:Bind Actor.AvatarUrl}" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="removed a connection" />
-                        </StackPanel>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <primer:Avatar
+                                    Label="{x:Bind Actor.Login}"
+                                    Size="20"
+                                    Source="{x:Bind Actor.AvatarUrl}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="removed a connection" />
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Right">
+                                <TextBlock Text="{x:Bind CreatedAtHumanized}" />
+                            </StackPanel>
+                        </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
             </DataTemplate>
@@ -268,16 +356,22 @@
                             Glyph="&#xE95B;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <primer:Avatar
-                                Label="{x:Bind Author.Login}"
-                                Size="20"
-                                Source="{x:Bind Author.AvatarUrl}" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="commented" />
-                        </StackPanel>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <primer:Avatar
+                                    Margin="0,0,4,0"
+                                    Label="{x:Bind Author.Login}"
+                                    Size="20"
+                                    Source="{x:Bind Author.AvatarUrl}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="commented" />
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Right">
+                                <TextBlock Text="{x:Bind CreatedAtHumanized}" />
+                            </StackPanel>
+                        </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
             </DataTemplate>
@@ -291,39 +385,61 @@
                             Glyph="&#xEAA5;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <primer:Avatar
-                                Label="{x:Bind Actor.Login}"
-                                Size="20"
-                                Source="{x:Bind Actor.AvatarUrl}" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="labeled 1 or more label(s)" />
-                        </StackPanel>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <primer:Avatar
+                                    Margin="0,0,4,0"
+                                    Label="{x:Bind Actor.Login}"
+                                    Size="20"
+                                    Source="{x:Bind Actor.AvatarUrl}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="added the" />
+                                <!--<primer:IssueLabelToken>
+                                    <primer:IssueLabelToken.FillColor>
+                                        <SolidColorBrush Color="{x:Bind Label.Color}" />
+                                    </primer:IssueLabelToken.FillColor>
+                                </primer:IssueLabelToken>-->
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="label" />
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Right">
+                                <TextBlock Text="{x:Bind CreatedAtHumanized}" />
+                            </StackPanel>
+                        </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
             </DataTemplate>
 
             <DataTemplate x:Key="LockedEventDataTemplate" x:DataType="modelsV4:LockedEvent">
-                <primer:Timeline>
+                <primer:Timeline BadgeBackground="{ThemeResource PrimerNeutralEmphasisPlus}">
                     <primer:Timeline.Badge>
                         <FontIcon
                             FontFamily="{StaticResource Octicons}"
                             FontSize="14"
+                            Foreground="{ThemeResource PrimerNeutralEmphasis}"
                             Glyph="&#xEA05;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <primer:Avatar
-                                Label="{x:Bind Actor.Login}"
-                                Size="20"
-                                Source="{x:Bind Actor.AvatarUrl}" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="locked this" />
-                        </StackPanel>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <primer:Avatar
+                                    Margin="0,0,4,0"
+                                    Label="{x:Bind Actor.Login}"
+                                    Size="20"
+                                    Source="{x:Bind Actor.AvatarUrl}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="locked this" />
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Right">
+                                <TextBlock Text="{x:Bind CreatedAtHumanized}" />
+                            </StackPanel>
+                        </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
             </DataTemplate>
@@ -337,16 +453,36 @@
                             Glyph="&#xE924;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <primer:Avatar
-                                Label="{x:Bind Actor.Login}"
-                                Size="20"
-                                Source="{x:Bind Actor.AvatarUrl}" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="marked this as duplicate" />
-                        </StackPanel>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <primer:Avatar
+                                    Margin="0,0,4,0"
+                                    Label="{x:Bind Actor.Login}"
+                                    Size="20"
+                                    Source="{x:Bind Actor.AvatarUrl}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="marked this as a duplicate of" />
+                                <TextBlock
+                                    Margin="0,0,-4,0"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="#" />
+                                <TextBlock
+                                    x:Name="DuplicatedOriginalIssueSource"
+                                    x:Load="{x:Bind Duplicate.Issue, Converter={StaticResource ObjectToBoolConverter}}"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="{x:Bind Duplicate.Issue.Number}" />
+                                <TextBlock
+                                    x:Name="DuplicatedOriginalPullRequestSource"
+                                    x:Load="{x:Bind Duplicate.PullRequest, Converter={StaticResource ObjectToBoolConverter}}"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="{x:Bind Duplicate.PullRequest.Number}" />
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Right">
+                                <TextBlock Text="{x:Bind CreatedAtHumanized}" />
+                            </StackPanel>
+                        </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
             </DataTemplate>
@@ -360,16 +496,22 @@
                             Glyph="&#xE95B;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <primer:Avatar
-                                Label="{x:Bind Actor.Login}"
-                                Size="20"
-                                Source="{x:Bind Actor.AvatarUrl}" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="mentioned someone" />
-                        </StackPanel>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <primer:Avatar
+                                    Margin="0,0,4,0"
+                                    Label="{x:Bind Actor.Login}"
+                                    Size="20"
+                                    Source="{x:Bind Actor.AvatarUrl}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="mentioned" />
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Right">
+                                <TextBlock Text="{x:Bind CreatedAtHumanized}" />
+                            </StackPanel>
+                        </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
             </DataTemplate>
@@ -383,16 +525,26 @@
                             Glyph="&#xEA12;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <primer:Avatar
-                                Label="{x:Bind Actor.Login}"
-                                Size="20"
-                                Source="{x:Bind Actor.AvatarUrl}" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="added this to a milestoned" />
-                        </StackPanel>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <primer:Avatar
+                                    Margin="0,0,4,0"
+                                    Label="{x:Bind Actor.Login}"
+                                    Size="20"
+                                    Source="{x:Bind Actor.AvatarUrl}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="added this to the" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="{x:Bind MilestoneTitle}" />
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Right">
+                                <TextBlock Text="{x:Bind CreatedAtHumanized}" />
+                            </StackPanel>
+                        </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
             </DataTemplate>
@@ -406,16 +558,22 @@
                             Glyph="&#xEA48;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <primer:Avatar
-                                Label="{x:Bind Actor.Login}"
-                                Size="20"
-                                Source="{x:Bind Actor.AvatarUrl}" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="moved this to other column in project" />
-                        </StackPanel>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <primer:Avatar
+                                    Margin="0,0,4,0"
+                                    Label="{x:Bind Actor.Login}"
+                                    Size="20"
+                                    Source="{x:Bind Actor.AvatarUrl}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="moved this to other column in project" />
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Right">
+                                <TextBlock Text="{x:Bind CreatedAtHumanized}" />
+                            </StackPanel>
+                        </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
             </DataTemplate>
@@ -429,16 +587,22 @@
                             Glyph="&#xEA3E;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <primer:Avatar
-                                Label="{x:Bind Actor.Login}"
-                                Size="20"
-                                Source="{x:Bind Actor.AvatarUrl}" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="pinned this" />
-                        </StackPanel>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <primer:Avatar
+                                    Margin="0,0,4,0"
+                                    Label="{x:Bind Actor.Login}"
+                                    Size="20"
+                                    Source="{x:Bind Actor.AvatarUrl}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="pinned this" />
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Right">
+                                <TextBlock Text="{x:Bind CreatedAtHumanized}" />
+                            </StackPanel>
+                        </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
             </DataTemplate>
@@ -452,16 +616,22 @@
                             Glyph="&#xE968;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <primer:Avatar
-                                Label="{x:Bind Actor.Login}"
-                                Size="20"
-                                Source="{x:Bind Actor.AvatarUrl}" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="referenced" />
-                        </StackPanel>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <primer:Avatar
+                                    Margin="0,0,4,0"
+                                    Label="{x:Bind Actor.Login}"
+                                    Size="20"
+                                    Source="{x:Bind Actor.AvatarUrl}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="referenced" />
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Right">
+                                <TextBlock Text="{x:Bind CreatedAtHumanized}" />
+                            </StackPanel>
+                        </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
             </DataTemplate>
@@ -475,16 +645,22 @@
                             Glyph="&#xEA48;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <primer:Avatar
-                                Label="{x:Bind Actor.Login}"
-                                Size="20"
-                                Source="{x:Bind Actor.AvatarUrl}" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="removed this from project" />
-                        </StackPanel>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <primer:Avatar
+                                    Margin="0,0,4,0"
+                                    Label="{x:Bind Actor.Login}"
+                                    Size="20"
+                                    Source="{x:Bind Actor.AvatarUrl}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="removed this from a project" />
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Right">
+                                <TextBlock Text="{x:Bind CreatedAtHumanized}" />
+                            </StackPanel>
+                        </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
             </DataTemplate>
@@ -498,22 +674,41 @@
                             Glyph="&#xEA34;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <primer:Avatar
-                                Label="{x:Bind Actor.Login}"
-                                Size="20"
-                                Source="{x:Bind Actor.AvatarUrl}" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="renamed title" />
-                        </StackPanel>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <primer:Avatar
+                                    Margin="0,0,4,0"
+                                    Label="{x:Bind Actor.Login}"
+                                    Size="20"
+                                    Source="{x:Bind Actor.AvatarUrl}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="renamed title from" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="{x:Bind PreviousTitle}"
+                                    TextDecorations="Strikethrough" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="to" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="{x:Bind CurrentTitle}" />
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Right">
+                                <TextBlock Text="{x:Bind CreatedAtHumanized}" />
+                            </StackPanel>
+                        </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
             </DataTemplate>
 
             <DataTemplate x:Key="ReopenedEventDataTemplate" x:DataType="modelsV4:ReopenedEvent">
-                <primer:Timeline>
+                <primer:Timeline BadgeBackground="{ThemeResource PrimerOpenEmphasis}">
                     <primer:Timeline.Badge>
                         <FontIcon
                             FontFamily="{StaticResource Octicons}"
@@ -521,16 +716,22 @@
                             Glyph="&#xE9EC;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <primer:Avatar
-                                Label="{x:Bind Actor.Login}"
-                                Size="20"
-                                Source="{x:Bind Actor.AvatarUrl}" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="reopened this" />
-                        </StackPanel>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <primer:Avatar
+                                    Margin="0,0,4,0"
+                                    Label="{x:Bind Actor.Login}"
+                                    Size="20"
+                                    Source="{x:Bind Actor.AvatarUrl}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="reopened this" />
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Right">
+                                <TextBlock Text="{x:Bind CreatedAtHumanized}" />
+                            </StackPanel>
+                        </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
             </DataTemplate>
@@ -544,16 +745,22 @@
                             Glyph="&#xE924;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <primer:Avatar
-                                Label="{x:Bind Actor.Login}"
-                                Size="20"
-                                Source="{x:Bind Actor.AvatarUrl}" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="subscribed someone" />
-                        </StackPanel>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <primer:Avatar
+                                    Margin="0,0,4,0"
+                                    Label="{x:Bind Actor.Login}"
+                                    Size="20"
+                                    Source="{x:Bind Actor.AvatarUrl}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="subscribed" />
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Right">
+                                <TextBlock Text="{x:Bind CreatedAtHumanized}" />
+                            </StackPanel>
+                        </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
             </DataTemplate>
@@ -567,16 +774,35 @@
                             Glyph="&#xEADB;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <primer:Avatar
-                                Label="{x:Bind Actor.Login}"
-                                Size="20"
-                                Source="{x:Bind Actor.AvatarUrl}" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="transferred this from somewhere" />
-                        </StackPanel>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <primer:Avatar
+                                    Margin="0,0,4,0"
+                                    Label="{x:Bind Actor.Login}"
+                                    Size="20"
+                                    Source="{x:Bind Actor.AvatarUrl}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="transferred this from" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="{x:Bind FromRepository.Owner.Login}" />
+                                <TextBlock
+                                    Margin="-4,0"
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="/" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="{x:Bind FromRepository.Name}" />
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Right">
+                                <TextBlock Text="{x:Bind CreatedAtHumanized}" />
+                            </StackPanel>
+                        </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
             </DataTemplate>
@@ -590,16 +816,26 @@
                             Glyph="&#xEA38;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <primer:Avatar
-                                Label="{x:Bind Actor.Login}"
-                                Size="20"
-                                Source="{x:Bind Actor.AvatarUrl}" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="unassigne someone" />
-                        </StackPanel>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <primer:Avatar
+                                    Margin="0,0,4,0"
+                                    Label="{x:Bind Actor.Login}"
+                                    Size="20"
+                                    Source="{x:Bind Actor.AvatarUrl}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="unassigned" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="{x:Bind Assignee.User.Login}" />
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Right">
+                                <TextBlock Text="{x:Bind CreatedAtHumanized}" />
+                            </StackPanel>
+                        </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
             </DataTemplate>
@@ -613,39 +849,61 @@
                             Glyph="&#xEAA5;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <primer:Avatar
-                                Label="{x:Bind Actor.Login}"
-                                Size="20"
-                                Source="{x:Bind Actor.AvatarUrl}" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="unlabeled 1 or more label(s)" />
-                        </StackPanel>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <primer:Avatar
+                                    Margin="0,0,4,0"
+                                    Label="{x:Bind Actor.Login}"
+                                    Size="20"
+                                    Source="{x:Bind Actor.AvatarUrl}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="removed the" />
+                                <!--<primer:IssueLabelToken>
+                                    <primer:IssueLabelToken.FillColor>
+                                        <SolidColorBrush Color="{x:Bind Label.Color}" />
+                                    </primer:IssueLabelToken.FillColor>
+                                </primer:IssueLabelToken>-->
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="label" />
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Right">
+                                <TextBlock Text="{x:Bind CreatedAtHumanized}" />
+                            </StackPanel>
+                        </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
             </DataTemplate>
 
             <DataTemplate x:Key="UnlockedEventDataTemplate" x:DataType="modelsV4:UnlockedEvent">
-                <primer:Timeline>
+                <primer:Timeline BadgeBackground="{ThemeResource PrimerNeutralEmphasisPlus}">
                     <primer:Timeline.Badge>
                         <FontIcon
                             FontFamily="{StaticResource Octicons}"
                             FontSize="14"
+                            Foreground="{ThemeResource PrimerNeutralEmphasis}"
                             Glyph="&#xEAC4;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <primer:Avatar
-                                Label="{x:Bind Actor.Login}"
-                                Size="20"
-                                Source="{x:Bind Actor.AvatarUrl}" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="unlocked this" />
-                        </StackPanel>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <primer:Avatar
+                                    Margin="0,0,4,0"
+                                    Label="{x:Bind Actor.Login}"
+                                    Size="20"
+                                    Source="{x:Bind Actor.AvatarUrl}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="unlocked this" />
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Right">
+                                <TextBlock Text="{x:Bind CreatedAtHumanized}" />
+                            </StackPanel>
+                        </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
             </DataTemplate>
@@ -659,16 +917,36 @@
                             Glyph="&#xE927;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <primer:Avatar
-                                Label="{x:Bind Actor.Login}"
-                                Size="20"
-                                Source="{x:Bind Actor.AvatarUrl}" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="unmarked as duplicate" />
-                        </StackPanel>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <primer:Avatar
+                                    Margin="0,0,4,0"
+                                    Label="{x:Bind Actor.Login}"
+                                    Size="20"
+                                    Source="{x:Bind Actor.AvatarUrl}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="unmarked as a duplicate of" />
+                                <TextBlock
+                                    Margin="0,0,-4,0"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="#" />
+                                <TextBlock
+                                    x:Name="DuplicatedOriginalIssueSource"
+                                    x:Load="{x:Bind Duplicate.Issue, Converter={StaticResource ObjectToBoolConverter}}"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="{x:Bind Duplicate.Issue.Number}" />
+                                <TextBlock
+                                    x:Name="DuplicatedOriginalPullRequestSource"
+                                    x:Load="{x:Bind Duplicate.PullRequest, Converter={StaticResource ObjectToBoolConverter}}"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="{x:Bind Duplicate.PullRequest.Number}" />
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Right">
+                                <TextBlock Text="{x:Bind CreatedAtHumanized}" />
+                            </StackPanel>
+                        </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
             </DataTemplate>
@@ -682,16 +960,22 @@
                             Glyph="&#xEA3E;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <primer:Avatar
-                                Label="{x:Bind Actor.Login}"
-                                Size="20"
-                                Source="{x:Bind Actor.AvatarUrl}" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="unpinned this" />
-                        </StackPanel>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <primer:Avatar
+                                    Margin="0,0,4,0"
+                                    Label="{x:Bind Actor.Login}"
+                                    Size="20"
+                                    Source="{x:Bind Actor.AvatarUrl}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="unpinned this" />
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Right">
+                                <TextBlock Text="{x:Bind CreatedAtHumanized}" />
+                            </StackPanel>
+                        </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
             </DataTemplate>
@@ -705,16 +989,22 @@
                             Glyph="&#xEADB;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <primer:Avatar
-                                Label="{x:Bind Actor.Login}"
-                                Size="20"
-                                Source="{x:Bind Actor.AvatarUrl}" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="unsubscribed someone" />
-                        </StackPanel>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <primer:Avatar
+                                    Margin="0,0,4,0"
+                                    Label="{x:Bind Actor.Login}"
+                                    Size="20"
+                                    Source="{x:Bind Actor.AvatarUrl}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="unsubscribed" />
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Right">
+                                <TextBlock Text="{x:Bind CreatedAtHumanized}" />
+                            </StackPanel>
+                        </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
             </DataTemplate>
@@ -728,16 +1018,34 @@
                             Glyph="&#xEAD6;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <primer:Avatar
-                                Label="{x:Bind Actor.Login}"
-                                Size="20"
-                                Source="{x:Bind Actor.AvatarUrl}" />
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="blocked someone" />
-                        </StackPanel>
+                        <Grid>
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <primer:Avatar
+                                    Margin="0,0,4,0"
+                                    Label="{x:Bind Actor.Login}"
+                                    Size="20"
+                                    Source="{x:Bind Actor.AvatarUrl}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="blocked" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="{x:Bind Subject.Login}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="in" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="{x:Bind BlockDuration}" />
+                            </StackPanel>
+                            <StackPanel HorizontalAlignment="Right">
+                                <TextBlock Text="{x:Bind CreatedAtHumanized}" />
+                            </StackPanel>
+                        </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
             </DataTemplate>

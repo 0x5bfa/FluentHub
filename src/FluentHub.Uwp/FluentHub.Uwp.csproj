@@ -753,42 +753,38 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ResourceDictionaries\CommonStyles.xaml">
+    <Content Include="ResourceDictionaries\CommonStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Page>
-    <Page Include="ResourceDictionaries\DefaultGridSplitterStyle.xaml">
+    </Content>
+    <Content Include="ResourceDictionaries\DefaultGridSplitterStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ResourceDictionaries\LinkLikeButtonStyle.xaml">
+    </Content>
+    <Content Include="ResourceDictionaries\LinkLikeButtonStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Page>
-    <Page Include="ResourceDictionaries\ClearButtonStyle.xaml">
+    </Content>
+    <Content Include="ResourceDictionaries\ClearButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Page>
-    <Page Include="ResourceDictionaries\TabViewItem_shared.xaml">
+    </Content>
+    <Content Include="ResourceDictionaries\TabViewItem_shared.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ResourceDictionaries\TabView_themeresources.xaml">
+    </Content>
+    <Content Include="ResourceDictionaries\TabView_themeresources.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ResourceDictionaries\TextBlockStyles.xaml">
+    </Content>
+    <Content Include="ResourceDictionaries\TextBlockStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Page>
-    <Page Include="Themes\GitHub Dark.xaml">
+    </Content>
+    <Content Include="Themes\GitHub Default.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
+    </Content>
     <Page Include="UserControls\Overview\AppSettingsOverview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

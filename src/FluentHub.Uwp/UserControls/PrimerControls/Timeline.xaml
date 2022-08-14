@@ -31,8 +31,7 @@
             Height="16"
             Margin="36,0,0,0"
             HorizontalAlignment="Left"
-            Background="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-            Opacity="0.3" />
+            Background="{ThemeResource PrimerBorderMuted}" />
 
         <Grid
             Grid.Row="1"
@@ -51,11 +50,10 @@
                 Height="28"
                 Margin="20,0,8,0"
                 HorizontalAlignment="Left"
-                Background="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                Background="{x:Bind BadgeBackground, Mode=OneWay}"
                 BorderBrush="Transparent"
                 BorderThickness="2"
-                CornerRadius="16"
-                Opacity="0.3" />
+                CornerRadius="16" />
 
             <Grid
                 Width="28"
@@ -89,7 +87,6 @@
             Height="10"
             Margin="36,0,0,0"
             HorizontalAlignment="Left"
-            Background="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-            Opacity="0.3" />
+            Background="{ThemeResource PrimerBorderMuted}" />
     </Grid>
 </UserControl>

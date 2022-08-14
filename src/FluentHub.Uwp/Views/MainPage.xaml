@@ -326,12 +326,12 @@
 
             <Grid Margin="0,-6,1,0">
                 <muxc:NavigationView
+                    x:Name="MainNavView"
                     Canvas.ZIndex="0"
                     FooterMenuItemsSource="{x:Bind ViewModel.NavViewFooterItems, Mode=OneWay}"
                     IsBackButtonVisible="Collapsed"
                     IsPaneToggleButtonVisible="False"
                     IsSettingsVisible="False"
-                    x:Name="MainNavView"
                     IsTitleBarAutoPaddingEnabled="False"
                     ItemInvoked="OnMainNavViewItemInvoked"
                     MenuItemsSource="{x:Bind ViewModel.NavViewItems, Mode=OneWay}"

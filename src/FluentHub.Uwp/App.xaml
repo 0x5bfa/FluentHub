@@ -73,6 +73,7 @@
                         </LinearGradientBrush.GradientStops>
                     </LinearGradientBrush>
                 </ResourceDictionary>
+                <ResourceDictionary Source="ms-appx:///Themes/GitHub Default.xaml" />
                 <ResourceDictionary Source="ms-appx:///ResourceDictionaries/CommonStyles.xaml" />
                 <ResourceDictionary Source="ms-appx:///ResourceDictionaries/ClearButtonStyle.xaml" />
                 <ResourceDictionary Source="ms-appx:///ResourceDictionaries/LinkLikeButtonStyle.xaml" />
