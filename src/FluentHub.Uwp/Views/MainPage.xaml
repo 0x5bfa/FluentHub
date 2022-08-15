@@ -142,9 +142,21 @@
                     Orientation="Horizontal"
                     Spacing="8">
 
-                    <AppBarButton Click="ShowSearchTeachingTip">
-                        <SymbolIcon Symbol="Find"/>
-                    </AppBarButton>
+                    <Button
+                        x:Name="SearchTeachingTipButton"
+                        Width="36"
+                        Height="32"
+                        Padding="0"
+                        VerticalAlignment="Center"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Click="ShowSearchTeachingTip"
+                        ToolTipService.ToolTip="Search">
+                        <Button.Resources>
+                            <SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="Transparent" />
+                        </Button.Resources>
+                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE11A;" FontSize="18"/>
+                    </Button>
 
                     <muxc:TeachingTip x:Name="SearchTeachingTip"
                         Title="Search"
