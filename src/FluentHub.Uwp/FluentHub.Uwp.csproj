@@ -188,6 +188,9 @@
     <Compile Include="Services\Navigation\TabViewSelectionChangedEventArgs.cs" />
     <Compile Include="Services\OctokitSecretsService.cs" />
     <Compile Include="Services\ToastService.cs" />
+    <Compile Include="UserControls\CustomWebView.xaml.cs">
+      <DependentUpon>CustomWebView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Overview\AppSettingsOverview.xaml.cs">
       <DependentUpon>AppSettingsOverview.xaml</DependentUpon>
     </Compile>
@@ -785,6 +788,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Content>
+    <Page Include="UserControls\CustomWebView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Overview\AppSettingsOverview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

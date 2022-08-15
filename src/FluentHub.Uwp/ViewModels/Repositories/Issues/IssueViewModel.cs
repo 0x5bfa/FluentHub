@@ -20,6 +20,8 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
             _timelineItems = new();
             TimelineItems = new(_timelineItems);
 
+            _issueCommentDataItems = new();
+
             RefreshIssuePageCommand = new AsyncRelayCommand(LoadRepositoryOneIssueAsync);
         }
 
@@ -41,6 +43,9 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
 
         private readonly ObservableCollection<object> _timelineItems;
         public ReadOnlyObservableCollection<object> TimelineItems { get; set; }
+
+        private List<string> _issueCommentDataItems;
+        public List<string> IssueCommentDataItems { get => _issueCommentDataItems; set => SetProperty(ref _issueCommentDataItems, value); }
 
         private TimelineViewModel _eventBlockViewModel;
         public TimelineViewModel EventBlockViewModel { get => _eventBlockViewModel; private set => SetProperty(ref _eventBlockViewModel, value); }

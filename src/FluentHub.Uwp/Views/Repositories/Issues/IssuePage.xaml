@@ -348,32 +348,120 @@
             </DataTemplate>
 
             <DataTemplate x:Key="IssueCommentDataTemplate" x:DataType="modelsV4:IssueComment">
-                <primer:Timeline>
-                    <primer:Timeline.Badge>
-                        <FontIcon
-                            FontFamily="{StaticResource Octicons}"
-                            FontSize="14"
-                            Glyph="&#xE95B;" />
-                    </primer:Timeline.Badge>
-                    <primer:Timeline.Body>
-                        <Grid>
-                            <StackPanel Orientation="Horizontal" Spacing="4">
-                                <primer:Avatar
-                                    Margin="0,0,4,0"
-                                    Label="{x:Bind Author.Login}"
-                                    Size="20"
-                                    Source="{x:Bind Author.AvatarUrl}" />
+                <StackPanel>
+                    <Border
+                        Grid.Row="0"
+                        Width="1.5"
+                        Height="16"
+                        Margin="36,0,0,0"
+                        HorizontalAlignment="Left"
+                        Background="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Opacity="0.3" />
+                    <Grid
+                        x:Name="IssueCommentGrid"
+                        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1"
+                        CornerRadius="8">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Grid Padding="12,8">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <Border
+                                    Width="28"
+                                    Height="28"
+                                    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                                    CornerRadius="16">
+                                    <Image Source="{x:Bind Author.AvatarUrl, Mode=OneWay}" />
+                                </Border>
+
                                 <TextBlock
                                     VerticalAlignment="Center"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="{x:Bind Author.Login, Mode=OneWay}" />
+
+                                <TextBlock
+                                    Margin="-2,0,-4,0"
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                     Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="commented" />
+                                    Text="•" />
+
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="{x:Bind CreatedAtHumanized, Mode=OneWay}" />
+
+                                <!--<labels:LabelControl
+                                x:Name="EditedLabel"
+                                x:Load="{x:Bind LastEditedAt, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                                ViewModel="{x:Bind ViewModel.IsEditedLabel, Mode=OneWay}" />
+
+                            <labels:LabelControl
+                                x:Name="AssociationLabel"
+                                x:Load="{x:Bind ViewModel.AuthorAssociationLabel.Name, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                                ViewModel="{x:Bind ViewModel.AuthorAssociationLabel, Mode=OneWay}" />-->
                             </StackPanel>
-                            <StackPanel HorizontalAlignment="Right">
-                                <TextBlock Text="{x:Bind CreatedAtHumanized}" />
+
+                            <StackPanel
+                                HorizontalAlignment="Right"
+                                Orientation="Horizontal"
+                                Spacing="4">
+                                <Button
+                                    Width="36"
+                                    Height="32"
+                                    HorizontalAlignment="Right"
+                                    VerticalAlignment="Center"
+                                    Background="Transparent"
+                                    BorderThickness="0">
+                                    <FontIcon FontSize="16" Glyph="&#xE10C;" />
+                                    <Button.Flyout>
+                                        <MenuFlyout Placement="BottomEdgeAlignedRight">
+                                            <MenuFlyoutItem Text="Share" />
+                                            <MenuFlyoutItem Text="Quote reply" />
+                                            <MenuFlyoutItem Text="Reference in new issue" />
+                                            <MenuFlyoutSeparator />
+                                            <MenuFlyoutItem IsEnabled="{x:Bind ViewerCanUpdate}" Text="Edit" />
+                                            <MenuFlyoutSeparator />
+                                            <MenuFlyoutItem Text="Report" />
+                                            <MenuFlyoutItem IsEnabled="{x:Bind ViewerCanMinimize}" Text="Hide" />
+                                            <MenuFlyoutItem IsEnabled="{x:Bind ViewerCanDelete}" Text="Delete" />
+                                        </MenuFlyout>
+                                    </Button.Flyout>
+                                </Button>
                             </StackPanel>
                         </Grid>
-                    </primer:Timeline.Body>
-                </primer:Timeline>
+
+                        <MenuFlyoutSeparator Grid.Row="1" />
+
+                        <uc:CustomWebView
+                            x:Name="CommentCustomWebView"
+                            Grid.Row="2"
+                            Height="Auto"
+                            Margin="8"
+                            Comment="{x:Bind}" />
+
+                        <!--<Grid Grid.Row="3" Margin="12,0,0,12">
+                        <StackPanel Orientation="Horizontal" Spacing="6" />
+                    </Grid>-->
+
+                    </Grid>
+                    <Border
+                        Grid.Row="0"
+                        Width="1.5"
+                        Height="16"
+                        Margin="36,0,0,0"
+                        HorizontalAlignment="Left"
+                        Background="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Opacity="0.3" />
+                </StackPanel>
             </DataTemplate>
 
             <DataTemplate x:Key="LabeledEventDataTemplate" x:DataType="modelsV4:LabeledEvent">
@@ -1087,11 +1175,11 @@
     </Page.Resources>
 
     <Grid>
-        <Grid.ChildrenTransitions>
+        <!--<Grid.ChildrenTransitions>
             <TransitionCollection>
                 <RepositionThemeTransition />
             </TransitionCollection>
-        </Grid.ChildrenTransitions>
+        </Grid.ChildrenTransitions>-->
 
         <ScrollViewer VerticalScrollBarVisibility="Auto">
             <Grid Margin="0,0,0,8">
