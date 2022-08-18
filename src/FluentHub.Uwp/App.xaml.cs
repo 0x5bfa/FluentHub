@@ -119,6 +119,7 @@ namespace FluentHub.Uwp
                 .AddTransient<ViewModels.SignIn.IntroViewModel>()
                 .AddTransient<ViewModels.UserControls.Blocks.FileContentBlockViewModel>()
                 .AddTransient<ViewModels.UserControls.Blocks.FileNavigationBlockViewModel>()
+                .AddTransient<ViewModels.UserControls.Blocks.IssueCommentBlockViewModel>()
                 .AddTransient<ViewModels.UserControls.Blocks.ReadmeContentBlockViewModel>()
                 .AddTransient<ViewModels.UserControls.Blocks.LatestCommitBlockViewModel>()
                 .AddTransient<ViewModels.Users.FollowersViewModel>()

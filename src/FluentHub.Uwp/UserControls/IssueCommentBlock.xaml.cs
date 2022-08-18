@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace FluentHub.Uwp.UserControls.Blocks
+namespace FluentHub.Uwp.UserControls
 {
     public sealed partial class IssueCommentBlock : UserControl
     {
@@ -38,18 +38,16 @@ namespace FluentHub.Uwp.UserControls.Blocks
 
         private bool WebViewIsNavigatedSuccessfully { get; set; }
 
-        private async void OnCommentWebViewNavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
+        private void OnCommentWebViewNavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
         {
-            await WebViewHelpers.DisableWebViewVerticalScrollingAsync(CommentWebView);
-            WebViewIsNavigatedSuccessfully = true;
         }
 
-        private async void OnWebViewSizeChanged(object sender, SizeChangedEventArgs e)
+        private void OnWebViewSizeChanged(object sender, SizeChangedEventArgs e)
         {
-            if (CommentWebView != null && WebViewIsNavigatedSuccessfully)
-            {
-                await WebViewHelpers.DisableWebViewVerticalScrollingAsync(CommentWebView);
-            }
+            //if (CommentWebView != null && WebViewIsNavigatedSuccessfully)
+            //{
+            //    await WebViewHelpers.DisableWebViewVerticalScrollingAsync(CommentWebView);
+            //}
         }
     }
 }

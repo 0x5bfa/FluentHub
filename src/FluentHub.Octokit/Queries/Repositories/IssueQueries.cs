@@ -180,11 +180,14 @@
                     BodyHTML = x.BodyHTML,
                     LastEditedAt = x.LastEditedAt,
                     UpdatedAt = x.UpdatedAt,
+                    UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
                     ViewerCanReact = x.ViewerCanReact,
                     ViewerCanUpdate = x.ViewerCanUpdate,
                     ViewerDidAuthor = x.ViewerDidAuthor,
                     Url = x.Url,
+                    Id = x.Id,
                     CreatedAt = x.CreatedAt,
+                    CreatedAtHumanized = x.CreatedAt.Humanize(null, null),
                 })
                 .Compile();
             #endregion

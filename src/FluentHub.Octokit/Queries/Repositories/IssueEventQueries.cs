@@ -308,6 +308,8 @@
 
                     IsMinimized = y.IsMinimized,
 
+                    Id = y.Id,
+
                     Reactions = new()
                     {
                         Nodes = y.Reactions(6, null, null, null, null, null).Nodes.Select(reaction => new Reaction
@@ -323,6 +325,7 @@
                     },
 
                     UpdatedAt = y.UpdatedAt,
+                    UpdatedAtHumanized = y.UpdatedAt.Humanize(null, null),
 
                     Url = y.Url,
 

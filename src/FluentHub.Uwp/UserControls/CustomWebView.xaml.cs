@@ -32,7 +32,12 @@ namespace FluentHub.Uwp.UserControls
             set
             {
                 SetValue(CommentProperty, value);
-                _ = LoadWebViewContent();
+
+                //if (string.IsNullOrEmpty(LoadedIssueCommentIds.FirstOrDefault(x => x.Key == Comment.Id.ToString()).Key))
+                //{
+                //    LoadedIssueCommentIds.Add(Comment.Id.ToString(), false);
+                //    _ = LoadWebViewContent();
+                //}
             }
         }
         #endregion
@@ -40,12 +45,43 @@ namespace FluentHub.Uwp.UserControls
         public CustomWebView()
         {
             InitializeComponent();
+
+            //if (LoadedIssueCommentIds is null)
+            //    LoadedIssueCommentIds = new();
         }
 
-        private async void OnCommentWebViewNavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
-            => await Helpers.WebViewHelpers.DisableWebViewVerticalScrollingAsync(sender);
+        //private static Dictionary<string, bool> LoadedIssueCommentIds { get; set; }
 
-        private async Task LoadWebViewContent()
+        //private async void OnCommentWebViewNavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
+        //{
+        //    if (LoadedIssueCommentIds[Comment.Id.ToString()] == false)
+        //    {
+        //        await DisableWebViewVerticalScrollingAsync(sender);
+        //        LoadedIssueCommentIds[Comment.Id.ToString()] = true;
+        //    }
+        //}
+
+        //private async Task LoadWebViewContent()
+        //{
+        //}
+
+        //private async Task DisableWebViewVerticalScrollingAsync(WebView webView)
+        //{
+        //    _ = await webView.InvokeScriptAsync("eval", new[] { @"function SetBodyOverFlowHidden() { document.body.style.overflow = 'hidden'; } SetBodyOverFlowHidden();" });
+
+        //    // get the total height
+        //    var heightString = await webView.InvokeScriptAsync("eval", new[] { "document.body.scrollHeight.toString()" });
+
+        //    if (!int.TryParse(heightString, out int height))
+        //    {
+        //        throw new Exception("Unable to get page height");
+        //    }
+
+        //    // resize the webview to the content
+        //    webView.Height = height;
+        //}
+
+        private async void OnWebViewControlLoaded(object sender, RoutedEventArgs e)
         {
             Services.MarkdownApiHandler markdown = new();
             string html = await markdown.GetHtmlAsync(Comment?.BodyHTML, Comment?.Url, Helpers.ThemeHelper.ActualTheme.ToString().ToLower());

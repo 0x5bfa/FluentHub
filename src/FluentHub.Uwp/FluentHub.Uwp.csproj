@@ -144,6 +144,8 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\HexColorCodeToSolidColorBrushConverter.cs" />
+    <Compile Include="Converters\IssueCommentToIssueCommentBlockViewModelConverter.cs" />
     <Compile Include="Converters\ObjectToBoolConverter.cs" />
     <Compile Include="Converters\SettingsControlConverter.cs" />
     <Compile Include="Converters\SizeToCornerRadiusConverter.cs" />
@@ -279,7 +281,7 @@
     <Compile Include="UserControls\TabViewControl\CustomTabView.xaml.cs">
       <DependentUpon>CustomTabView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Blocks\IssueCommentBlock.xaml.cs">
+    <Compile Include="UserControls\IssueCommentBlock.xaml.cs">
       <DependentUpon>IssueCommentBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Blocks\Timeline.xaml.cs">
@@ -908,7 +910,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\Blocks\IssueCommentBlock.xaml">
+    <Page Include="UserControls\IssueCommentBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
