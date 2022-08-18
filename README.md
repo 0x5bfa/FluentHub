@@ -154,7 +154,8 @@ See [the documentation](docs/credentials.md).
 
 ## 💳 Credit
 
-- Many thanks to Joseph Beattie ([@josephbeattie](https://github.com/josephbeattie)) for creating our current logo.
+- Some application icons created by [Icons8](https://github.com/icons8).
+- Many thanks to [Joseph Beattie](https://github.com/josephbeattie) for creating our current logo.
 
 ## 📱 Contact
 The easiest way to contact us is to join [our Discord](https://discord.gg/8KtRkjq2Q4).
