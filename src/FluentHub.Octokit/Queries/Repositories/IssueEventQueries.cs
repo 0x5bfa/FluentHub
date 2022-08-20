@@ -192,12 +192,34 @@
                         .Issue(issue => new Issue
                         {
                             Title = issue.Title,
+                            Repository = issue.Repository.Select(repo => new Repository
+                            {
+                                Owner = repo.Owner.Select(owner => new RepositoryOwner
+                                {
+                                    AvatarUrl = owner.AvatarUrl(100),
+                                    Login = owner.Login,
+                                })
+                                .SingleOrDefault(),
+                                Name = repo.Name,
+                            })
+                            .SingleOrDefault(),
                         })),
 
                         PullRequest = source.Switch<PullRequest>(whenPr => whenPr
                         .PullRequest(pr => new PullRequest
                         {
                             Title = pr.Title,
+                            Repository = pr.Repository.Select(repo => new Repository
+                            {
+                                Owner = repo.Owner.Select(owner => new RepositoryOwner
+                                {
+                                    AvatarUrl = owner.AvatarUrl(100),
+                                    Login = owner.Login,
+                                })
+                                .SingleOrDefault(),
+                                Name = repo.Name,
+                            })
+                            .SingleOrDefault(),
                         })),
                     })
                     .SingleOrDefault(),
@@ -208,12 +230,34 @@
                         .Issue(issue => new Issue
                         {
                             Title = issue.Title,
+                            Repository = issue.Repository.Select(repo => new Repository
+                            {
+                                Owner = repo.Owner.Select(owner => new RepositoryOwner
+                                {
+                                    AvatarUrl = owner.AvatarUrl(100),
+                                    Login = owner.Login,
+                                })
+                                .SingleOrDefault(),
+                                Name = repo.Name,
+                            })
+                            .SingleOrDefault(),
                         })),
 
                         PullRequest = target.Switch<PullRequest>(whenPr => whenPr
                         .PullRequest(pr => new PullRequest
                         {
                             Title = pr.Title,
+                            Repository = pr.Repository.Select(repo => new Repository
+                            {
+                                Owner = repo.Owner.Select(owner => new RepositoryOwner
+                                {
+                                    AvatarUrl = owner.AvatarUrl(100),
+                                    Login = owner.Login,
+                                })
+                                .SingleOrDefault(),
+                                Name = repo.Name,
+                            })
+                            .SingleOrDefault(),
                         })),
                     })
                     .SingleOrDefault(),

@@ -50,73 +50,41 @@ namespace FluentHub.Uwp.Models
 
             var itemType = item.GetType().ToString().Split(".").ToList().Last();
 
-            switch (itemType)
+            return itemType switch
             {
-                case nameof(AddedToProjectEvent):
-                    return AddedToProjectEventDataTemplate;
-                case nameof(AssignedEvent):
-                    return AssignedEventDataTemplate;
-                case nameof(ClosedEvent):
-                    return ClosedEventDataTemplate;
-                case nameof(CommentDeletedEvent):
-                    return CommentDeletedEventDataTemplate;
-                case nameof(ConnectedEvent):
-                    return ConnectedEventDataTemplate;
-                case nameof(ConvertedToDiscussionEvent):
-                    return ConvertedToDiscussionEventDataTemplate;
-                case nameof(ConvertedNoteToIssueEvent):
-                    return ConvertedNoteToIssueEventDataTemplate;
-                case nameof(CrossReferencedEvent):
-                    return CrossReferencedEventDataTemplate;
-                case nameof(DemilestonedEvent):
-                    return DemilestonedEventDataTemplate;
-                case nameof(DisconnectedEvent):
-                    return DisconnectedEventDataTemplate;
-                case nameof(IssueComment):
-                    return IssueCommentDataTemplate;
-                case nameof(LabeledEvent):
-                    return LabeledEventDataTemplate;
-                case nameof(LockedEvent):
-                    return LockedEventDataTemplate;
-                case nameof(MarkedAsDuplicateEvent):
-                    return MarkedAsDuplicateEventDataTemplate;
-                case nameof(MentionedEvent):
-                    return MentionedEventDataTemplate;
-                case nameof(MilestonedEvent):
-                    return MilestonedEventDataTemplate;
-                case nameof(MovedColumnsInProjectEvent):
-                    return MovedColumnsInProjectEventDataTemplate;
-                case nameof(PinnedEvent):
-                    return PinnedEventDataTemplate;
-                case nameof(ReferencedEvent):
-                    return ReferencedEventDataTemplate;
-                case nameof(RemovedFromProjectEvent):
-                    return RemovedFromProjectEventDataTemplate;
-                case nameof(RenamedTitleEvent):
-                    return RenamedTitleEventDataTemplate;
-                case nameof(ReopenedEvent):
-                    return ReopenedEventDataTemplate;
-                case nameof(SubscribedEvent):
-                    return SubscribedEventDataTemplate;
-                case nameof(TransferredEvent):
-                    return TransferredEventDataTemplate;
-                case nameof(UnassignedEvent):
-                    return UnassignedEventDataTemplate;
-                case nameof(UnlabeledEvent):
-                    return UnlabeledEventDataTemplate;
-                case nameof(UnlockedEvent):
-                    return UnlockedEventDataTemplate;
-                case nameof(UnmarkedAsDuplicateEvent):
-                    return UnmarkedAsDuplicateEventDataTemplate;
-                case nameof(UnpinnedEvent):
-                    return UnpinnedEventDataTemplate;
-                case nameof(UnsubscribedEvent):
-                    return UnsubscribedEventDataTemplate;
-                case nameof(UserBlockedEvent):
-                    return UserBlockedEventDataTemplate;
-                default:
-                    return DefaultDataTemplate;
-            }
+                nameof(AddedToProjectEvent) => AddedToProjectEventDataTemplate,
+                nameof(AssignedEvent) => AssignedEventDataTemplate,
+                nameof(ClosedEvent) => ClosedEventDataTemplate,
+                nameof(CommentDeletedEvent) => CommentDeletedEventDataTemplate,
+                nameof(ConnectedEvent) => ConnectedEventDataTemplate,
+                nameof(ConvertedToDiscussionEvent) => ConvertedToDiscussionEventDataTemplate,
+                nameof(ConvertedNoteToIssueEvent) => ConvertedNoteToIssueEventDataTemplate,
+                nameof(CrossReferencedEvent) => CrossReferencedEventDataTemplate,
+                nameof(DemilestonedEvent) => DemilestonedEventDataTemplate,
+                nameof(DisconnectedEvent) => DisconnectedEventDataTemplate,
+                nameof(IssueComment) => IssueCommentDataTemplate,
+                nameof(LabeledEvent) => LabeledEventDataTemplate,
+                nameof(LockedEvent) => LockedEventDataTemplate,
+                nameof(MarkedAsDuplicateEvent) => MarkedAsDuplicateEventDataTemplate,
+                //nameof(MentionedEvent) => MentionedEventDataTemplate;
+                nameof(MilestonedEvent) => MilestonedEventDataTemplate,
+                nameof(MovedColumnsInProjectEvent) => MovedColumnsInProjectEventDataTemplate,
+                nameof(PinnedEvent) => PinnedEventDataTemplate,
+                nameof(ReferencedEvent) => ReferencedEventDataTemplate,
+                nameof(RemovedFromProjectEvent) => RemovedFromProjectEventDataTemplate,
+                nameof(RenamedTitleEvent) => RenamedTitleEventDataTemplate,
+                nameof(ReopenedEvent) => ReopenedEventDataTemplate,
+                //nameof(SubscribedEvent) => SubscribedEventDataTemplate;
+                nameof(TransferredEvent) => TransferredEventDataTemplate,
+                nameof(UnassignedEvent) => UnassignedEventDataTemplate,
+                nameof(UnlabeledEvent) => UnlabeledEventDataTemplate,
+                nameof(UnlockedEvent) => UnlockedEventDataTemplate,
+                nameof(UnmarkedAsDuplicateEvent) => UnmarkedAsDuplicateEventDataTemplate,
+                nameof(UnpinnedEvent) => UnpinnedEventDataTemplate,
+                //nameof(UnsubscribedEvent) => UnsubscribedEventDataTemplate;
+                nameof(UserBlockedEvent) => UserBlockedEventDataTemplate,
+                _ => DefaultDataTemplate,
+            };
         }
     }
 }

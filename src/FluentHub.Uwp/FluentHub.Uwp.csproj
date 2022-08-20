@@ -241,8 +241,14 @@
     <Compile Include="UserControls\PrimerControls\Label.xaml.cs">
       <DependentUpon>Label.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\PrimerControls\StateLabel.xaml.cs">
+      <DependentUpon>StateLabel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\PrimerControls\Timeline.xaml.cs">
       <DependentUpon>Timeline.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ReferencedSubjectButton.xaml.cs">
+      <DependentUpon>ReferencedSubjectButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\TabViewControl\TabItem.cs" />
     <Compile Include="UserControls\Blocks\ActivityBlock.xaml.cs">
@@ -790,6 +796,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Content>
+    <Content Include="Themes\FluentHub Default.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Content>
     <Page Include="UserControls\CustomWebView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -902,7 +912,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\PrimerControls\StateLabel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\PrimerControls\Timeline.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ReferencedSubjectButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

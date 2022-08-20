@@ -20,6 +20,7 @@
         <ResourceDictionary>
             <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
             <converters:IssueCommentToIssueCommentBlockViewModelConverter x:Key="IssueCommentToIssueCommentBlockViewModelConverter" />
+            <converters:HexColorCodeToSolidColorBrushConverter x:Key="HexColorCodeToSolidColorBrushConverter" />
 
             <DataTemplate x:Key="AddedToProjectEventDataTemplate" x:DataType="modelsV4:AddedToProjectEvent">
                 <primer:Timeline>
@@ -37,10 +38,14 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <primer:Avatar
+                                VerticalAlignment="Top"
                                 Label="{x:Bind Actor.Login}"
                                 Size="20"
                                 Source="{x:Bind Actor.AvatarUrl}" />
-                            <StackPanel Grid.Column="1" Spacing="4">
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     Style="{StaticResource BodyTextBlockStyle}"
@@ -73,10 +78,14 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <primer:Avatar
+                                VerticalAlignment="Top"
                                 Label="{x:Bind Actor.Login}"
                                 Size="20"
                                 Source="{x:Bind Actor.AvatarUrl}" />
-                            <StackPanel Grid.Column="1" Spacing="4">
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     Style="{StaticResource BodyTextBlockStyle}"
@@ -116,10 +125,14 @@
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
                                         <primer:Avatar
+                                            VerticalAlignment="Top"
                                             Label="{x:Bind Actor.Login}"
                                             Size="20"
                                             Source="{x:Bind Actor.AvatarUrl}" />
-                                        <StackPanel Grid.Column="1" Spacing="4">
+                                        <StackPanel
+                                            Grid.Column="1"
+                                            Orientation="Horizontal"
+                                            Spacing="4">
                                             <TextBlock
                                                 VerticalAlignment="Center"
                                                 Style="{StaticResource BodyTextBlockStyle}"
@@ -151,10 +164,14 @@
                                             <ColumnDefinition Width="Auto" />
                                         </Grid.ColumnDefinitions>
                                         <primer:Avatar
+                                            VerticalAlignment="Top"
                                             Label="{x:Bind Actor.Login}"
                                             Size="20"
                                             Source="{x:Bind Actor.AvatarUrl}" />
-                                        <StackPanel Grid.Column="1" Spacing="4">
+                                        <StackPanel
+                                            Grid.Column="1"
+                                            Orientation="Horizontal"
+                                            Spacing="4">
                                             <TextBlock
                                                 VerticalAlignment="Center"
                                                 Style="{StaticResource BodyTextBlockStyle}"
@@ -190,10 +207,14 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <primer:Avatar
+                                VerticalAlignment="Top"
                                 Label="{x:Bind Actor.Login}"
                                 Size="20"
                                 Source="{x:Bind Actor.AvatarUrl}" />
-                            <StackPanel Grid.Column="1" Spacing="4">
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     Style="{StaticResource BodyTextBlockStyle}"
@@ -230,10 +251,14 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <primer:Avatar
+                                VerticalAlignment="Top"
                                 Label="{x:Bind Actor.Login}"
                                 Size="20"
                                 Source="{x:Bind Actor.AvatarUrl}" />
-                            <StackPanel Grid.Column="1" Spacing="4">
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     Style="{StaticResource BodyTextBlockStyle}"
@@ -266,10 +291,14 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <primer:Avatar
+                                VerticalAlignment="Top"
                                 Label="{x:Bind Actor.Login}"
                                 Size="20"
                                 Source="{x:Bind Actor.AvatarUrl}" />
-                            <StackPanel Grid.Column="1" Spacing="4">
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     Style="{StaticResource BodyTextBlockStyle}"
@@ -302,10 +331,14 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <primer:Avatar
+                                VerticalAlignment="Top"
                                 Label="{x:Bind Actor.Login}"
                                 Size="20"
                                 Source="{x:Bind Actor.AvatarUrl}" />
-                            <StackPanel Grid.Column="1" Spacing="4">
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     Style="{StaticResource BodyTextBlockStyle}"
@@ -332,20 +365,55 @@
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
                         <Grid ColumnSpacing="8">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <primer:Avatar
+                                VerticalAlignment="Top"
                                 Label="{x:Bind Actor.Login}"
                                 Size="20"
                                 Source="{x:Bind Actor.AvatarUrl}" />
-                            <StackPanel Grid.Column="1" Spacing="4">
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="referenced something" />
+                                    Text="referenced this" />
+                                <StackPanel
+                                    x:Name="CrossReferencedEventSourceRepoTextBlock"
+                                    VerticalAlignment="Center"
+                                    x:Load="{x:Bind IsCrossRepository}"
+                                    Orientation="Horizontal"
+                                    Spacing="4">
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        Style="{StaticResource BodyTextBlockStyle}"
+                                        Text="from" />
+                                    <StackPanel
+                                        x:Name="CrossReferencedEventSourceIssueRepository"
+                                        x:Load="{x:Bind Source.Issue, Converter={StaticResource ObjectToBoolConverter}}"
+                                        Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind Source.Issue.Repository.Owner.Login}" />
+                                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
+                                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind Source.Issue.Repository.Name}" />
+                                    </StackPanel>
+                                    <StackPanel
+                                        x:Name="CrossReferencedEventSourcePullRequestRepository"
+                                        x:Load="{x:Bind Source.PullRequest, Converter={StaticResource ObjectToBoolConverter}}"
+                                        Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind Source.PullRequest.Repository.Owner.Login}" />
+                                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
+                                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind Source.PullRequest.Repository.Name}" />
+                                    </StackPanel>
+                                </StackPanel>
                             </StackPanel>
                             <StackPanel Grid.Column="2" HorizontalAlignment="Right">
                                 <TextBlock
@@ -353,6 +421,147 @@
                                     Style="{StaticResource BodyTextBlockStyle}"
                                     Text="{x:Bind CreatedAtHumanized}" />
                             </StackPanel>
+                            <Button
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="2"
+                                Margin="0,4,0,0"
+                                Padding="8"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Left">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <Grid>
+                                        <toolkit:SwitchPresenter
+                                            x:Name="CrossReferencedEventSourceIssueStateSwitchPresenter"
+                                            x:Load="{x:Bind Source.Issue, Converter={StaticResource ObjectToBoolConverter}}"
+                                            TargetType="x:String"
+                                            Value="{x:Bind Source.Issue.State}">
+                                            <toolkit:Case Value="Open">
+                                                <Border
+                                                    Width="24"
+                                                    Height="24"
+                                                    Background="{ThemeResource PrimerOpenEmphasis}"
+                                                    CornerRadius="4">
+                                                    <FontIcon
+                                                        FontFamily="{StaticResource Octicons}"
+                                                        FontSize="16"
+                                                        Glyph="&#xE9BF;" />
+                                                </Border>
+                                            </toolkit:Case>
+                                            <toolkit:Case Value="Closed">
+                                                <Grid>
+                                                    <toolkit:SwitchPresenter
+                                                        x:Name="CrossReferencedEventSourceIssueStateReasonSwitchPresenter"
+                                                        x:Load="{x:Bind Source.Issue, Converter={StaticResource ObjectToBoolConverter}}"
+                                                        TargetType="x:String"
+                                                        Value="{x:Bind Source.Issue.StateReason.ToString()}">
+                                                        <toolkit:Case Value="NotPlanned">
+                                                            <Border
+                                                                Width="24"
+                                                                Height="24"
+                                                                Background="{ThemeResource PrimerNeutralEmphasis}"
+                                                                CornerRadius="4">
+                                                                <FontIcon
+                                                                    FontFamily="{StaticResource Octicons}"
+                                                                    FontSize="16"
+                                                                    Glyph="&#xE9E6;" />
+                                                            </Border>
+                                                        </toolkit:Case>
+                                                        <toolkit:Case Value="Completed">
+                                                            <Border
+                                                                Width="24"
+                                                                Height="24"
+                                                                Background="{ThemeResource PrimerDoneEmphasis}"
+                                                                CornerRadius="4">
+                                                                <FontIcon
+                                                                    FontFamily="{StaticResource Octicons}"
+                                                                    FontSize="16"
+                                                                    Glyph="&#xE9E6;" />
+                                                            </Border>
+                                                        </toolkit:Case>
+                                                    </toolkit:SwitchPresenter>
+                                                </Grid>
+                                            </toolkit:Case>
+                                        </toolkit:SwitchPresenter>
+                                        <toolkit:SwitchPresenter
+                                            x:Name="CrossReferencedEventSourcePullRequestIsDraftSwitchPresenter"
+                                            x:Load="{x:Bind Source.PullRequest, Converter={StaticResource ObjectToBoolConverter}}"
+                                            TargetType="x:String"
+                                            Value="{x:Bind Source.PullRequest.IsDraft}">
+                                            <toolkit:Case Value="True">
+                                                <Border
+                                                    Width="24"
+                                                    Height="24"
+                                                    Background="{ThemeResource PrimerNeutralEmphasis}"
+                                                    CornerRadius="4">
+                                                    <FontIcon
+                                                        FontFamily="{StaticResource Octicons}"
+                                                        FontSize="16"
+                                                        Glyph="&#xE9C3;" />
+                                                </Border>
+                                            </toolkit:Case>
+                                            <toolkit:Case Value="False">
+                                                <Grid>
+                                                    <toolkit:SwitchPresenter
+                                                        x:Name="CrossReferencedEventSourcePullRequestStateSwitchPresenter"
+                                                        x:Load="{x:Bind Source.PullRequest, Converter={StaticResource ObjectToBoolConverter}}"
+                                                        TargetType="x:String"
+                                                        Value="{x:Bind Source.PullRequest.State}">
+                                                        <toolkit:Case Value="Open">
+                                                            <Border
+                                                                Width="24"
+                                                                Height="24"
+                                                                Background="{ThemeResource PrimerOpenEmphasis}"
+                                                                CornerRadius="4">
+                                                                <FontIcon
+                                                                    FontFamily="{StaticResource Octicons}"
+                                                                    FontSize="16"
+                                                                    Glyph="&#xE9BF;" />
+                                                            </Border>
+                                                        </toolkit:Case>
+                                                        <toolkit:Case Value="Closed">
+                                                            <Border
+                                                                Width="24"
+                                                                Height="24"
+                                                                Background="{ThemeResource PrimerDangerEmphasis}"
+                                                                CornerRadius="4">
+                                                                <FontIcon
+                                                                    FontFamily="{StaticResource Octicons}"
+                                                                    FontSize="16"
+                                                                    Glyph="&#xE9C1;" />
+                                                            </Border>
+                                                        </toolkit:Case>
+                                                        <toolkit:Case Value="Merged">
+                                                            <Border
+                                                                Width="24"
+                                                                Height="24"
+                                                                Background="{ThemeResource PrimerDoneEmphasis}"
+                                                                CornerRadius="4">
+                                                                <FontIcon
+                                                                    FontFamily="{StaticResource Octicons}"
+                                                                    FontSize="16"
+                                                                    Glyph="&#xE9BD;" />
+                                                            </Border>
+                                                        </toolkit:Case>
+                                                    </toolkit:SwitchPresenter>
+                                                </Grid>
+                                            </toolkit:Case>
+                                        </toolkit:SwitchPresenter>
+                                    </Grid>
+                                    <TextBlock
+                                        x:Name="CrossReferencedEventSourceIssueTitleTextBlock"
+                                        VerticalAlignment="Center"
+                                        x:Load="{x:Bind Source.Issue, Converter={StaticResource ObjectToBoolConverter}}"
+                                        Style="{StaticResource BodyTextBlockStyle}"
+                                        Text="{x:Bind Source.Issue.Title}" />
+                                    <TextBlock
+                                        x:Name="CrossReferencedEventSourcePullRequestTitleTextBlock"
+                                        VerticalAlignment="Center"
+                                        x:Load="{x:Bind Source.PullRequest, Converter={StaticResource ObjectToBoolConverter}}"
+                                        Style="{StaticResource BodyTextBlockStyle}"
+                                        Text="{x:Bind Source.PullRequest.Title}" />
+                                </StackPanel>
+                            </Button>
                         </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
@@ -374,10 +583,14 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <primer:Avatar
+                                VerticalAlignment="Top"
                                 Label="{x:Bind Actor.Login}"
                                 Size="20"
                                 Source="{x:Bind Actor.AvatarUrl}" />
-                            <StackPanel Grid.Column="1" Spacing="4">
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     Style="{StaticResource BodyTextBlockStyle}"
@@ -414,10 +627,14 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <primer:Avatar
+                                VerticalAlignment="Top"
                                 Label="{x:Bind Actor.Login}"
                                 Size="20"
                                 Source="{x:Bind Actor.AvatarUrl}" />
-                            <StackPanel Grid.Column="1" Spacing="4">
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     Style="{StaticResource BodyTextBlockStyle}"
@@ -470,19 +687,19 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <primer:Avatar
+                                VerticalAlignment="Top"
                                 Label="{x:Bind Actor.Login}"
                                 Size="20"
                                 Source="{x:Bind Actor.AvatarUrl}" />
-                            <StackPanel Grid.Column="1" Spacing="4">
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     Style="{StaticResource BodyTextBlockStyle}"
                                     Text="added the" />
-                                <!--<primer:IssueLabelToken>
-                                    <primer:IssueLabelToken.FillColor>
-                                        <SolidColorBrush Color="{x:Bind Label.Color}" />
-                                    </primer:IssueLabelToken.FillColor>
-                                </primer:IssueLabelToken>-->
+                                <primer:IssueLabelToken FillColor="{x:Bind Label.Color, Converter={StaticResource HexColorCodeToSolidColorBrushConverter}}" Text="{x:Bind Label.Name}" />
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     Style="{StaticResource BodyTextBlockStyle}"
@@ -516,10 +733,14 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <primer:Avatar
+                                VerticalAlignment="Top"
                                 Label="{x:Bind Actor.Login}"
                                 Size="20"
                                 Source="{x:Bind Actor.AvatarUrl}" />
-                            <StackPanel Grid.Column="1" Spacing="4">
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     Style="{StaticResource BodyTextBlockStyle}"
@@ -552,10 +773,14 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <primer:Avatar
+                                VerticalAlignment="Top"
                                 Label="{x:Bind Actor.Login}"
                                 Size="20"
                                 Source="{x:Bind Actor.AvatarUrl}" />
-                            <StackPanel Grid.Column="1" Spacing="4">
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     Style="{StaticResource BodyTextBlockStyle}"
@@ -602,10 +827,14 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <primer:Avatar
+                                VerticalAlignment="Top"
                                 Label="{x:Bind Actor.Login}"
                                 Size="20"
                                 Source="{x:Bind Actor.AvatarUrl}" />
-                            <StackPanel Grid.Column="1" Spacing="4">
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     Style="{StaticResource BodyTextBlockStyle}"
@@ -638,10 +867,14 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <primer:Avatar
+                                VerticalAlignment="Top"
                                 Label="{x:Bind Actor.Login}"
                                 Size="20"
                                 Source="{x:Bind Actor.AvatarUrl}" />
-                            <StackPanel Grid.Column="1" Spacing="4">
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     Style="{StaticResource BodyTextBlockStyle}"
@@ -678,10 +911,14 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <primer:Avatar
+                                VerticalAlignment="Top"
                                 Label="{x:Bind Actor.Login}"
                                 Size="20"
                                 Source="{x:Bind Actor.AvatarUrl}" />
-                            <StackPanel Grid.Column="1" Spacing="4">
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     Style="{StaticResource BodyTextBlockStyle}"
@@ -714,10 +951,14 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <primer:Avatar
+                                VerticalAlignment="Top"
                                 Label="{x:Bind Actor.Login}"
                                 Size="20"
                                 Source="{x:Bind Actor.AvatarUrl}" />
-                            <StackPanel Grid.Column="1" Spacing="4">
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     Style="{StaticResource BodyTextBlockStyle}"
@@ -750,10 +991,14 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <primer:Avatar
+                                VerticalAlignment="Top"
                                 Label="{x:Bind Actor.Login}"
                                 Size="20"
                                 Source="{x:Bind Actor.AvatarUrl}" />
-                            <StackPanel Grid.Column="1" Spacing="4">
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     Style="{StaticResource BodyTextBlockStyle}"
@@ -786,15 +1031,15 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <primer:Avatar
+                                VerticalAlignment="Top"
                                 Label="{x:Bind Actor.Login}"
                                 Size="20"
                                 Source="{x:Bind Actor.AvatarUrl}" />
-                            <StackPanel Grid.Column="1" Spacing="4">
-                                <TextBlock
-                                    VerticalAlignment="Center"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="removed this from a project" />
-                            </StackPanel>
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="removed this from a project" />
                             <StackPanel Grid.Column="2" HorizontalAlignment="Right">
                                 <TextBlock
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
@@ -822,21 +1067,21 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <primer:Avatar
+                                VerticalAlignment="Top"
                                 Label="{x:Bind Actor.Login}"
                                 Size="20"
                                 Source="{x:Bind Actor.AvatarUrl}" />
-                            <StackPanel Grid.Column="1" Spacing="4">
-                                <TextBlock
-                                    VerticalAlignment="Center"
-                                    IsTextSelectionEnabled="True"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    TextWrapping="Wrap">
-                                    <Run Text="renamed title from" />
-                                    <Run Text="{x:Bind PreviousTitle}" TextDecorations="Strikethrough" />
-                                    <Run Text="to" />
-                                    <Run FontWeight="SemiBold" Text="{x:Bind CurrentTitle}" />
-                                </TextBlock>
-                            </StackPanel>
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                IsTextSelectionEnabled="True"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                TextWrapping="Wrap">
+                                <Run Text="renamed title from" />
+                                <Run Text="{x:Bind PreviousTitle}" TextDecorations="Strikethrough" />
+                                <Run Text="to" />
+                                <Run FontWeight="SemiBold" Text="{x:Bind CurrentTitle}" />
+                            </TextBlock>
                             <StackPanel Grid.Column="2" HorizontalAlignment="Right">
                                 <TextBlock
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
@@ -864,10 +1109,14 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <primer:Avatar
+                                VerticalAlignment="Top"
                                 Label="{x:Bind Actor.Login}"
                                 Size="20"
                                 Source="{x:Bind Actor.AvatarUrl}" />
-                            <StackPanel Grid.Column="1" Spacing="4">
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     Style="{StaticResource BodyTextBlockStyle}"
@@ -900,10 +1149,14 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <primer:Avatar
+                                VerticalAlignment="Top"
                                 Label="{x:Bind Actor.Login}"
                                 Size="20"
                                 Source="{x:Bind Actor.AvatarUrl}" />
-                            <StackPanel Grid.Column="1" Spacing="4">
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     Style="{StaticResource BodyTextBlockStyle}"
@@ -936,10 +1189,14 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <primer:Avatar
+                                VerticalAlignment="Top"
                                 Label="{x:Bind Actor.Login}"
                                 Size="20"
                                 Source="{x:Bind Actor.AvatarUrl}" />
-                            <StackPanel Grid.Column="1" Spacing="4">
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     Style="{StaticResource BodyTextBlockStyle}"
@@ -985,10 +1242,14 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <primer:Avatar
+                                VerticalAlignment="Top"
                                 Label="{x:Bind Actor.Login}"
                                 Size="20"
                                 Source="{x:Bind Actor.AvatarUrl}" />
-                            <StackPanel Grid.Column="1" Spacing="4">
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     Style="{StaticResource BodyTextBlockStyle}"
@@ -1025,19 +1286,19 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <primer:Avatar
+                                VerticalAlignment="Top"
                                 Label="{x:Bind Actor.Login}"
                                 Size="20"
                                 Source="{x:Bind Actor.AvatarUrl}" />
-                            <StackPanel Grid.Column="1" Spacing="4">
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     Style="{StaticResource BodyTextBlockStyle}"
                                     Text="removed the" />
-                                <!--<primer:IssueLabelToken>
-                                    <primer:IssueLabelToken.FillColor>
-                                        <SolidColorBrush Color="{x:Bind Label.Color}" />
-                                    </primer:IssueLabelToken.FillColor>
-                                </primer:IssueLabelToken>-->
+                                <primer:IssueLabelToken FillColor="{x:Bind Label.Color, Converter={StaticResource HexColorCodeToSolidColorBrushConverter}}" Text="{x:Bind Label.Name}" />
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     Style="{StaticResource BodyTextBlockStyle}"
@@ -1071,15 +1332,15 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <primer:Avatar
+                                VerticalAlignment="Top"
                                 Label="{x:Bind Actor.Login}"
                                 Size="20"
                                 Source="{x:Bind Actor.AvatarUrl}" />
-                            <StackPanel Grid.Column="1" Spacing="4">
-                                <TextBlock
-                                    VerticalAlignment="Center"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="unlocked this" />
-                            </StackPanel>
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="unlocked this" />
                             <StackPanel Grid.Column="2" HorizontalAlignment="Right">
                                 <TextBlock
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
@@ -1107,10 +1368,14 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <primer:Avatar
+                                VerticalAlignment="Top"
                                 Label="{x:Bind Actor.Login}"
                                 Size="20"
                                 Source="{x:Bind Actor.AvatarUrl}" />
-                            <StackPanel Grid.Column="1" Spacing="4">
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     Style="{StaticResource BodyTextBlockStyle}"
@@ -1157,15 +1422,15 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <primer:Avatar
+                                VerticalAlignment="Top"
                                 Label="{x:Bind Actor.Login}"
                                 Size="20"
                                 Source="{x:Bind Actor.AvatarUrl}" />
-                            <StackPanel Grid.Column="1" Spacing="4">
-                                <TextBlock
-                                    VerticalAlignment="Center"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="unpinned this" />
-                            </StackPanel>
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="unpinned this" />
                             <StackPanel Grid.Column="2" HorizontalAlignment="Right">
                                 <TextBlock
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
@@ -1193,15 +1458,15 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <primer:Avatar
+                                VerticalAlignment="Top"
                                 Label="{x:Bind Actor.Login}"
                                 Size="20"
                                 Source="{x:Bind Actor.AvatarUrl}" />
-                            <StackPanel Grid.Column="1" Spacing="4">
-                                <TextBlock
-                                    VerticalAlignment="Center"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="unsubscribed" />
-                            </StackPanel>
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="unsubscribed" />
                             <StackPanel Grid.Column="2" HorizontalAlignment="Right">
                                 <TextBlock
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
@@ -1229,10 +1494,14 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
                             <primer:Avatar
+                                VerticalAlignment="Top"
                                 Label="{x:Bind Actor.Login}"
                                 Size="20"
                                 Source="{x:Bind Actor.AvatarUrl}" />
-                            <StackPanel Grid.Column="1" Spacing="4">
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
                                     Style="{StaticResource BodyTextBlockStyle}"
@@ -1261,6 +1530,15 @@
                 </primer:Timeline>
             </DataTemplate>
 
+            <DataTemplate x:Key="DefaultDataTemplate">
+                <Grid />
+            </DataTemplate>
+
+            <!--
+                MentionedEventDataTemplate="{StaticResource MentionedEventDataTemplate}"
+                SubscribedEventDataTemplate="{StaticResource SubscribedEventDataTemplate}"
+                UnsubscribedEventDataTemplate="{StaticResource UnsubscribedEventDataTemplate}"
+            -->
             <models:TimelineItemSelector
                 x:Key="TimelineItemSelector"
                 AddedToProjectEventDataTemplate="{StaticResource AddedToProjectEventDataTemplate}"
@@ -1271,13 +1549,13 @@
                 ConvertedNoteToIssueEventDataTemplate="{StaticResource ConvertedNoteToIssueEventDataTemplate}"
                 ConvertedToDiscussionEventDataTemplate="{StaticResource ConvertedToDiscussionEventDataTemplate}"
                 CrossReferencedEventDataTemplate="{StaticResource CrossReferencedEventDataTemplate}"
+                DefaultDataTemplate="{StaticResource DefaultDataTemplate}"
                 DemilestonedEventDataTemplate="{StaticResource DemilestonedEventDataTemplate}"
                 DisconnectedEventDataTemplate="{StaticResource DisconnectedEventDataTemplate}"
                 IssueCommentDataTemplate="{StaticResource IssueCommentDataTemplate}"
                 LabeledEventDataTemplate="{StaticResource LabeledEventDataTemplate}"
                 LockedEventDataTemplate="{StaticResource LockedEventDataTemplate}"
                 MarkedAsDuplicateEventDataTemplate="{StaticResource MarkedAsDuplicateEventDataTemplate}"
-                MentionedEventDataTemplate="{StaticResource MentionedEventDataTemplate}"
                 MilestonedEventDataTemplate="{StaticResource MilestonedEventDataTemplate}"
                 MovedColumnsInProjectEventDataTemplate="{StaticResource MovedColumnsInProjectEventDataTemplate}"
                 PinnedEventDataTemplate="{StaticResource PinnedEventDataTemplate}"
@@ -1285,14 +1563,12 @@
                 RemovedFromProjectEventDataTemplate="{StaticResource RemovedFromProjectEventDataTemplate}"
                 RenamedTitleEventDataTemplate="{StaticResource RenamedTitleEventDataTemplate}"
                 ReopenedEventDataTemplate="{StaticResource ReopenedEventDataTemplate}"
-                SubscribedEventDataTemplate="{StaticResource SubscribedEventDataTemplate}"
                 TransferredEventDataTemplate="{StaticResource TransferredEventDataTemplate}"
                 UnassignedEventDataTemplate="{StaticResource UnassignedEventDataTemplate}"
                 UnlabeledEventDataTemplate="{StaticResource UnlabeledEventDataTemplate}"
                 UnlockedEventDataTemplate="{StaticResource UnlockedEventDataTemplate}"
                 UnmarkedAsDuplicateEventDataTemplate="{StaticResource UnmarkedAsDuplicateEventDataTemplate}"
                 UnpinnedEventDataTemplate="{StaticResource UnpinnedEventDataTemplate}"
-                UnsubscribedEventDataTemplate="{StaticResource UnsubscribedEventDataTemplate}"
                 UserBlockedEventDataTemplate="{StaticResource UserBlockedEventDataTemplate}" />
         </ResourceDictionary>
     </Page.Resources>
@@ -1329,28 +1605,57 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <StackPanel
-                            Margin="8,0"
-                            Orientation="Horizontal"
-                            Spacing="8">
-                            <TextBlock
-                                x:Name="IssueTitleTextBlock"
-                                FontWeight="Normal"
-                                Style="{StaticResource TitleTextBlockStyle}"
-                                Text="{x:Bind ViewModel.IssueItem.Title, Mode=OneWay}" />
-                            <StackPanel Orientation="Horizontal">
+                        <Grid ColumnSpacing="8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel
+                                Margin="8,0"
+                                Orientation="Horizontal"
+                                Spacing="8"
+                                ToolTipService.ToolTip="{x:Bind ViewModel.IssueItem.Title, Mode=OneWay}">
                                 <TextBlock
-                                    FontWeight="ExtraLight"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    x:Name="IssueTitleTextBlock"
+                                    FontWeight="Normal"
                                     Style="{StaticResource TitleTextBlockStyle}"
-                                    Text="#" />
-                                <TextBlock
-                                    FontWeight="ExtraLight"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Style="{StaticResource TitleTextBlockStyle}"
-                                    Text="{x:Bind ViewModel.IssueItem.Number, Mode=OneWay}" />
+                                    Text="{x:Bind ViewModel.IssueItem.Title, Mode=OneWay}" />
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock
+                                        FontWeight="ExtraLight"
+                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        Style="{StaticResource TitleTextBlockStyle}"
+                                        Text="#" />
+                                    <TextBlock
+                                        FontWeight="ExtraLight"
+                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        Style="{StaticResource TitleTextBlockStyle}"
+                                        Text="{x:Bind ViewModel.IssueItem.Number, Mode=OneWay}" />
+                                </StackPanel>
                             </StackPanel>
-                        </StackPanel>
+
+                            <Button
+                                Grid.Column="1"
+                                Width="36"
+                                Height="32"
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Top"
+                                HorizontalContentAlignment="Center"
+                                Click="OnDisplayDetailsTogglingButtonClick">
+                                <muxc:AnimatedIcon
+                                    x:Name="BackAnimatedIcon"
+                                    Width="16"
+                                    Height="16">
+                                    <muxc:AnimatedIcon.Source>
+                                        <animatedvisuals:AnimatedGlobalNavigationButtonVisualSource />
+                                    </muxc:AnimatedIcon.Source>
+                                    <muxc:AnimatedIcon.FallbackIconSource>
+                                        <muxc:FontIconSource FontSize="14" Glyph="&#xE700;" />
+                                    </muxc:AnimatedIcon.FallbackIconSource>
+                                </muxc:AnimatedIcon>
+                            </Button>
+                        </Grid>
 
                         <StackPanel
                             Grid.Row="1"
@@ -1359,34 +1664,13 @@
                             Spacing="8">
                             <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.IssueItem.Closed, Mode=OneWay}">
                                 <toolkit:Case Value="True">
-                                    <labels:StateLabel Type="IssueClosed" />
+                                    <primer:StateLabel Status="IssueClosed" />
                                 </toolkit:Case>
                                 <toolkit:Case Value="False">
-                                    <labels:StateLabel Type="IssueOpen" />
+                                    <primer:StateLabel Status="IssueOpen" />
                                 </toolkit:Case>
                             </toolkit:SwitchPresenter>
                         </StackPanel>
-
-                        <Button
-                            Grid.RowSpan="2"
-                            Width="36"
-                            Height="32"
-                            HorizontalAlignment="Right"
-                            VerticalAlignment="Top"
-                            HorizontalContentAlignment="Center"
-                            Click="OnDisplayDetailsTogglingButtonClick">
-                            <muxc:AnimatedIcon
-                                x:Name="BackAnimatedIcon"
-                                Width="16"
-                                Height="16">
-                                <muxc:AnimatedIcon.Source>
-                                    <animatedvisuals:AnimatedGlobalNavigationButtonVisualSource />
-                                </muxc:AnimatedIcon.Source>
-                                <muxc:AnimatedIcon.FallbackIconSource>
-                                    <muxc:FontIconSource FontSize="14" Glyph="&#xE700;" />
-                                </muxc:AnimatedIcon.FallbackIconSource>
-                            </muxc:AnimatedIcon>
-                        </Button>
 
                     </Grid>
 
@@ -1427,7 +1711,7 @@
 
                         <StackPanel
                             Grid.Column="1"
-                            Margin="12,32,0,0"
+                            Margin="24,32,0,0"
                             Spacing="12">
                             <StackPanel Spacing="12">
 
@@ -1437,7 +1721,6 @@
                                         Style="{StaticResource BodyStrongTextBlockStyle}"
                                         Text="Reviews" />
                                 </StackPanel>
-
 
                                 <StackPanel>
 

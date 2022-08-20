@@ -70,19 +70,6 @@ namespace FluentHub.Uwp.Views
             navService.Configure(TabView);
             navService.Navigate<Home.UserHomePage>();
 
-            var defaultItem
-                = MainNavView
-                .MenuItems
-                .OfType<muxc.NavigationViewItem>()
-                .FirstOrDefault();
-
-            MainNavView.SelectedItem
-                = MainNavView
-                .MenuItems
-                .OfType<muxc.NavigationViewItem>()
-                .FirstOrDefault(x => string.Compare(x.Tag.ToString(), "home", true) == 0)
-                ?? defaultItem;
-
             var command = ViewModel.LoadSignedInUserCommand;
             if (command.CanExecute(null))
                 command.Execute(null);

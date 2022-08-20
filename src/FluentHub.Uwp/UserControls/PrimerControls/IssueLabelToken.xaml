@@ -33,7 +33,7 @@
                     <TextBlock
                         Margin="{x:Bind Context.Margin, Mode=OneWay}"
                         VerticalAlignment="Center"
-                        Style="{StaticResource BodyTextBlockStyle}"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
                         Text="{x:Bind Text, Mode=OneWay}" />
                 </Grid>
             </toolkit:Case>
@@ -48,12 +48,12 @@
                         VerticalAlignment="Stretch"
                         Background="{x:Bind FillColor, Mode=OneWay}"
                         CornerRadius="{x:Bind Context.CornerRadius, Mode=OneWay}"
-                        Opacity="0.2" />
+                        Opacity="0.1" />
                     <TextBlock
                         Margin="{x:Bind Context.Margin, Mode=OneWay}"
                         VerticalAlignment="Center"
                         Foreground="{x:Bind FillColor, Mode=OneWay}"
-                        Style="{StaticResource BodyTextBlockStyle}"
+                        Style="{StaticResource BodyStrongTextBlockStyle}"
                         Text="{x:Bind Text, Mode=OneWay}" />
                 </Grid>
             </toolkit:Case>

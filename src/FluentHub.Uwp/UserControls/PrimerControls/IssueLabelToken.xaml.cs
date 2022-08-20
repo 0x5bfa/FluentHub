@@ -72,7 +72,7 @@ namespace FluentHub.Uwp.UserControls.PrimerControls
                     "large" => 24D,
                     "xlarge" => 32D,
                     "extralarge" => 32D,
-                    _ => 16D, // same as small
+                    _ => 20D, // same as medium
                 };
 
                 Context.CornerRadius = new(Context.TokenHeight/2);
@@ -84,7 +84,7 @@ namespace FluentHub.Uwp.UserControls.PrimerControls
                     "large" => new(8, 0, 8, 0),
                     "xlarge" => new(16, 0, 16, 0),
                     "extralarge" => new(16, 0, 16, 0),
-                    _ => new(4, 0, 4, 0), // same as small
+                    _ => new(8, 0, 8, 0), // same as medium
                 };
             }
         }
@@ -129,8 +129,8 @@ namespace FluentHub.Uwp.UserControls.PrimerControls
             {
                 IsLightMode = (Application.Current.RequestedTheme == ApplicationTheme.Light);
                 TokenHeight = 20D;
-                Margin = new();
-                CornerRadius = new(4);
+                Margin = new(8, 0, 8, 0);
+                CornerRadius = new(10);
             }
 
             private bool _isLightMode;

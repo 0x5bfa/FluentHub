@@ -114,7 +114,7 @@
                 </Grid.ColumnDefinitions>
 
                 <StackPanel Margin="16,0,8,0" Orientation="Horizontal">
-                    
+
                     <Image
                         x:Name="AppFontIcon"
                         Width="22"
@@ -155,15 +155,19 @@
                         <Button.Resources>
                             <SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="Transparent" />
                         </Button.Resources>
-                        <FontIcon FontFamily="Segoe Fluent Icons" Glyph="&#xE11A;" FontSize="18"/>
+                        <FontIcon
+                            FontFamily="Segoe Fluent Icons"
+                            FontSize="18"
+                            Glyph="&#xE11A;" />
                     </Button>
 
-                    <muxc:TeachingTip x:Name="SearchTeachingTip"
+                    <muxc:TeachingTip
+                        x:Name="SearchTeachingTip"
                         Title="Search"
-                        Subtitle=" "
-                        PreferredPlacement="Auto">
+                        PreferredPlacement="Auto"
+                        Subtitle=" ">
                         <muxc:TeachingTip.Content>
-                            <TextBox></TextBox>
+                            <TextBox />
                         </muxc:TeachingTip.Content>
                     </muxc:TeachingTip>
 
@@ -326,7 +330,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Grid Margin="0,-6,1,0">
+            <Grid Margin="0,-4,1,2">
                 <muxc:NavigationView
                     x:Name="MainNavView"
                     Canvas.ZIndex="0"
@@ -349,7 +353,10 @@
 
                     <muxc:NavigationView.MenuItemTemplate>
                         <DataTemplate x:DataType="models:SquareNavigationViewItemModel">
-                            <muxc:NavigationViewItem Height="64" Tag="{x:Bind Name}">
+                            <muxc:NavigationViewItem
+                                Height="64"
+                                IsSelected="{x:Bind IsSelected, Mode=TwoWay}"
+                                Tag="{x:Bind Name}">
                                 <Grid
                                     Margin="-5,4,-9,0"
                                     HorizontalAlignment="Stretch"
