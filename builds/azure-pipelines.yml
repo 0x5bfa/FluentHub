@@ -34,6 +34,7 @@ steps:
     failOnStderr: true
 
 - task: DownloadSecureFile@1
+  displayName: 'Download OAuth credentials'
   name: CredentialSecureFile
   inputs:
     secureFile: AppCredentials.config
