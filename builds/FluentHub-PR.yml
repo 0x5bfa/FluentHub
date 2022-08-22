@@ -71,7 +71,7 @@ jobs:
     inputs:
       platform: 'x64'
       solution: '$(solution)'
-      configuration: '$(buildConfiguration)'
+      configuration: '$(buildConfigurationSideload)'
       msbuildArgs: '
       /p:GenerateAppInstallerFile=True
       /p:AppxLogTelemetryFromSideloadingScript=False
@@ -89,7 +89,7 @@ jobs:
     displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
     inputs:
       SourceFolder: '$(system.defaultworkingdirectory)'
-      Contents: '**\bin\$(BuildConfiguration)\**'
+      Contents: '**\bin\$(buildConfigurationSideload)\**'
       TargetFolder: '$(build.artifactstagingdirectory)'
 
   - task: PublishBuildArtifacts@1
