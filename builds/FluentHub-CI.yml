@@ -18,7 +18,7 @@ variables:
 jobs:
 
 # Debug
-- job: Build-Debug_x64
+- job: Build_Debug_x64
   timeoutInMinutes: 120
 
   steps:
@@ -97,7 +97,7 @@ jobs:
       artifactName: 'Assets'
 
 # Sideload
-- job: Build-Sideload_x64
+- job: Build_Sideload_x64
   timeoutInMinutes: 120
 
   steps:
@@ -172,7 +172,7 @@ jobs:
       artifactName: 'Sideload'
 
 # Store
-- job: Build-StoreUpload_x64
+- job: Build_StoreUpload_x64
   timeoutInMinutes: 120
 
   steps:
