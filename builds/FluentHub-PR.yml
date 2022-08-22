@@ -10,7 +10,9 @@ variables:
   value: '**/*.sln'
 - name: buildPlatform
   value: 'x64'
-- name: buildConfiguration
+- name: buildConfigurationRelease
+  value: 'Release'
+- name: buildConfigurationSideload
   value: 'Sideload'
 - name: appxPackageDir
   value: '$(build.artifactStagingDirectory)\AppxPackages\\'
