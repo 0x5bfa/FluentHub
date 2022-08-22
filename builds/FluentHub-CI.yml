@@ -18,7 +18,7 @@ variables:
 jobs:
 
 # Debug
-- job: Build Debug_x64
+- job: Build-Debug_x64
   timeoutInMinutes: 120
 
   steps:
@@ -37,33 +37,33 @@ jobs:
         $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub DEV"
         $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub.Uwp\Package.appxmanifest')
       failOnStderr: true
-  
+
   - task: DownloadSecureFile@1
     displayName: 'Download OAuth credentials'
     name: CredentialSecureFile
     inputs:
       secureFile: AppCredentials.config
-  
+
   - task: CopyFiles@2
     inputs:
       SourceFolder: '$(Agent.TempDirectory)'
       Contents: '$(CredentialSecureFile.secureFilePath)'
       TargetFolder: '$(Build.SourcesDirectory)\src\FluentHub.Uwp'
-  
+
   - task: DownloadSecureFile@1
     name: caCertificate
     displayName: 'Download CA certificate'
     inputs:
       secureFile: '$(signingCert.secureFilePath)'
-  
+
   - task: NuGetToolInstaller@1
     inputs:
       versionSpec: '6.2.1'
-  
+
   - task: NuGetCommand@2
     inputs:
       restoreSolution: '$(solution)'
-  
+
   - task: VSBuild@1
     displayName: 'Build FluentHub'
     inputs:
@@ -82,23 +82,23 @@ jobs:
       /p:PackageCertificateThumbprint=""
       /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"
       /p:PackageCertificatePassword="$(signingCert.password)"'
-  
+
   - task: CopyFiles@2
     displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
     inputs:
       SourceFolder: '$(system.defaultworkingdirectory)'
       Contents: '**\bin\$(BuildConfiguration)\**'
       TargetFolder: '$(build.artifactstagingdirectory)'
-  
+
   - task: PublishBuildArtifacts@1
     displayName: 'Publish Artifact'
     inputs:
       PathtoPublish: '$(build.artifactstagingdirectory)'
       artifactName: 'Assets'
-    
+
 # Sideload
-- job: Build Sideload_x64
-  timeoutInMinutes: 40
+- job: Build-Sideload_x64
+  timeoutInMinutes: 120
 
   steps:
   - checkout: self
@@ -172,8 +172,8 @@ jobs:
       artifactName: 'Sideload'
 
 # Store
-- job: Build StoreRelease_x64
-  timeoutInMinutes: 40
+- job: Build-StoreUpload_x64
+  timeoutInMinutes: 120
 
   steps:
   - checkout: self
@@ -241,4 +241,3 @@ jobs:
     inputs:
       PathtoPublish: '$(build.artifactstagingdirectory)'
       artifactName: 'StoreUpload'
-
