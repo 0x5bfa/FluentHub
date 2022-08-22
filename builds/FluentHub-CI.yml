@@ -1,5 +1,6 @@
 trigger:
 - main
+pr: none
 
 pool:
   vmImage: 'windows-latest'
