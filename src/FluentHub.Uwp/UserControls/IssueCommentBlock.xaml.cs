@@ -1,4 +1,5 @@
-﻿using FluentHub.Uwp.Helpers;
+﻿using FluentHub.Uwp.Extensions;
+using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.ViewModels.UserControls.Blocks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -38,16 +39,14 @@ namespace FluentHub.Uwp.UserControls
 
         private bool WebViewIsNavigatedSuccessfully { get; set; }
 
-        private void OnCommentWebViewNavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
-        {
-        }
+        private async void OnCommentWebViewNavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
+            => await((WebView)sender).HandleResize();
 
-        private void OnWebViewSizeChanged(object sender, SizeChangedEventArgs e)
+        private async void OnWebViewSizeChanged(object sender, SizeChangedEventArgs e)
+            => await ((WebView)sender).HandleResize();
+
+        private async void OnCommentWebViewLoaded(object sender, RoutedEventArgs e)
         {
-            //if (CommentWebView != null && WebViewIsNavigatedSuccessfully)
-            //{
-            //    await WebViewHelpers.DisableWebViewVerticalScrollingAsync(CommentWebView);
-            //}
         }
     }
 }

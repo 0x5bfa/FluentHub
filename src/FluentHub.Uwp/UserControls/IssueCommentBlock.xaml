@@ -104,7 +104,8 @@
             x:Name="CommentWebView"
             Grid.Row="2"
             Height="Auto"
-            Margin="4"
+            Margin="12"
+            Loaded="OnCommentWebViewLoaded"
             DefaultBackgroundColor="Transparent"
             NavigationCompleted="OnCommentWebViewNavigationCompleted"
             SizeChanged="OnWebViewSizeChanged" />
