@@ -45,6 +45,7 @@
                             <TextBlock
                                 Grid.Column="1"
                                 VerticalAlignment="Center"
+                                IsTextSelectionEnabled="True"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="added this to a project" />
                             <TextBlock
@@ -313,7 +314,7 @@
                                 Grid.Column="1"
                                 VerticalAlignment="Center"
                                 Style="{StaticResource BodyTextBlockStyle}"
-                                Text="converted note to issue" />
+                                Text="converted note to an issue" />
                             <TextBlock
                                 Grid.Column="2"
                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
@@ -699,12 +700,27 @@
                                 Label="{x:Bind Actor.Login}"
                                 Size="20"
                                 Source="{x:Bind Actor.AvatarUrl}" />
-                            <TextBlock
+                            <StackPanel
                                 Grid.Column="1"
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyTextBlockStyle}">
-                                <Run Text="locked this as" />
-                            </TextBlock>
+                                Orientation="Horizontal"
+                                Spacing="4">
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="locked" />
+                                <TextBlock
+                                    x:Name="LockedEventLockReasonTextBlock"
+                                    VerticalAlignment="Center"
+                                    x:Load="{x:Bind LockReason, Converter={StaticResource ObjectToBoolConverter}}"
+                                    Style="{StaticResource BodyTextBlockStyle}">
+                                    <Run Text="as" />
+                                    <Run FontWeight="SemiBold" Text="{x:Bind LockReason}" />
+                                </TextBlock>
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="and limited conversation to collaborators " />
+                            </StackPanel>
                             <TextBlock
                                 Grid.Column="2"
                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
@@ -1069,7 +1085,7 @@
                 </primer:Timeline>
             </DataTemplate>
 
-            <DataTemplate x:Key="SubscribedEventDataTemplate" x:DataType="modelsV4:SubscribedEvent">
+            <!--<DataTemplate x:Key="SubscribedEventDataTemplate" x:DataType="modelsV4:SubscribedEvent">
                 <primer:Timeline>
                     <primer:Timeline.Badge>
                         <FontIcon
@@ -1089,25 +1105,20 @@
                                 Label="{x:Bind Actor.Login}"
                                 Size="20"
                                 Source="{x:Bind Actor.AvatarUrl}" />
-                            <StackPanel
+                            <TextBlock
                                 Grid.Column="1"
-                                Orientation="Horizontal"
-                                Spacing="4">
-                                <TextBlock
-                                    VerticalAlignment="Center"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="subscribed" />
-                            </StackPanel>
-                            <StackPanel Grid.Column="2" HorizontalAlignment="Right">
-                                <TextBlock
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="{x:Bind CreatedAtHumanized}" />
-                            </StackPanel>
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="subscribed" />
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
                         </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
-            </DataTemplate>
+            </DataTemplate>-->
 
             <DataTemplate x:Key="TransferredEventDataTemplate" x:DataType="modelsV4:TransferredEvent">
                 <primer:Timeline>
@@ -1403,12 +1414,11 @@
                                 VerticalAlignment="Center"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="unsubscribed" />
-                            <StackPanel Grid.Column="2" HorizontalAlignment="Right">
-                                <TextBlock
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="{x:Bind CreatedAtHumanized}" />
-                            </StackPanel>
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
                         </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
