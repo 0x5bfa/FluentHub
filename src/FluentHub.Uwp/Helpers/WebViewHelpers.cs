@@ -9,14 +9,27 @@ namespace FluentHub.Uwp.Helpers
 
         public static async Task DisableWebViewVerticalScrollingAsync(WebView webView)
         {
-            _ = await webView.InvokeScriptAsync("eval", new string[] { SetBodyOverFlowHiddenString });
+            _ = await webView.InvokeScriptAsync("eval", new[] { @"function SetBodyOverFlowHidden() { document.body.style.overflow = 'hidden'; } SetBodyOverFlowHidden();" });
 
-            var pageHeightString = await webView.InvokeScriptAsync("eval", new[] { "document.body.scrollHeight.toString()" });
+            int width;
+            int height;
 
-            if (int.TryParse(pageHeightString, out int pageHeight))
+            // get the total width and height
+            var widthString = await webView.InvokeScriptAsync("eval", new[] { "document.body.scrollWidth.toString()" });
+            var heightString = await webView.InvokeScriptAsync("eval", new[] { "document.body.scrollHeight.toString()" });
+
+            if (!int.TryParse(widthString, out width))
             {
-                webView.Height = pageHeight;
+                throw new Exception("Unable to get page width");
             }
+            if (!int.TryParse(heightString, out height))
+            {
+                throw new Exception("Unable to get page height");
+            }
+
+            // resize the webview to the content
+            //webView.Width = width;
+            webView.Height = height;
         }
 
         public static async Task<double> SyncWebViewSizeAsync(WebView webView)

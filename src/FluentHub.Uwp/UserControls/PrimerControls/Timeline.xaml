@@ -31,8 +31,7 @@
             Height="16"
             Margin="36,0,0,0"
             HorizontalAlignment="Left"
-            Background="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-            Opacity="0.3" />
+            Background="{ThemeResource PrimerBorderMuted}" />
 
         <Grid
             Grid.Row="1"
@@ -40,6 +39,11 @@
             HorizontalAlignment="Stretch"
             Background="Transparent"
             BorderBrush="Transparent">
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -51,17 +55,18 @@
                 Height="28"
                 Margin="20,0,8,0"
                 HorizontalAlignment="Left"
-                Background="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                VerticalAlignment="Top"
+                Background="{x:Bind BadgeBackground, Mode=OneWay}"
                 BorderBrush="Transparent"
                 BorderThickness="2"
-                CornerRadius="16"
-                Opacity="0.3" />
+                CornerRadius="16" />
 
             <Grid
                 Width="28"
                 Height="28"
                 Margin="20,0,8,0"
                 HorizontalAlignment="Center"
+                VerticalAlignment="Top"
                 BorderBrush="Transparent"
                 BorderThickness="2"
                 CornerRadius="16">
@@ -73,7 +78,18 @@
 
             </Grid>
 
-            <Grid Grid.Column="1">
+            <Border
+                Grid.Row="1"
+                Width="1.5"
+                Margin="32,0,0,0"
+                HorizontalAlignment="Left"
+                Background="{ThemeResource PrimerBorderMuted}" />
+
+            <Grid
+                Grid.RowSpan="3"
+                Grid.Column="1"
+                Margin="0,4,0,0"
+                VerticalAlignment="Top">
                 <ContentPresenter
                     x:Name="TimelineBodyContentPresenter"
                     VerticalAlignment="Center"
@@ -89,7 +105,6 @@
             Height="10"
             Margin="36,0,0,0"
             HorizontalAlignment="Left"
-            Background="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-            Opacity="0.3" />
+            Background="{ThemeResource PrimerBorderMuted}" />
     </Grid>
 </UserControl>

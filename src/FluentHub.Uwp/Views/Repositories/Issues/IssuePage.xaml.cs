@@ -62,5 +62,35 @@ namespace FluentHub.Uwp.Views.Repositories.Issues
                 DetailsGridColumnDefinition.MinWidth = 214;
             }
         }
+
+        //private async void OnCommentWebViewNavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
+        //{
+        //    await Helpers.WebViewHelpers.DisableWebViewVerticalScrollingAsync(sender);
+        //}
+
+        //private async void OnWebViewSizeChanged(object sender, SizeChangedEventArgs e)
+        //{
+        //    if (sender as WebView != null && WebViewIsNavigatedSuccessfully)
+        //    {
+        //        await Helpers.WebViewHelpers.DisableWebViewVerticalScrollingAsync(sender as WebView);
+        //    }
+        //}
+
+        //private async void OnCommentWebViewLoaded(object sender, RoutedEventArgs e)
+        //{
+        //    WebView wv = sender as WebView;
+        //    IssueComment ic = wv.Tag as IssueComment;
+
+        //    if (!string.IsNullOrEmpty(ViewModel.IssueCommentDataItems.FirstOrDefault(x => x == ic.Id.ToString())))
+        //    {
+        //        return;
+        //    }
+
+        //    Services.MarkdownApiHandler markdown = new();
+        //    var html = await markdown.GetHtmlAsync(ic?.BodyHTML, ic?.Url, Helpers.ThemeHelper.ActualTheme.ToString().ToLower());
+        //    wv.NavigateToString(html);
+
+        //    ViewModel.IssueCommentDataItems.Add(ic.Id.ToString());
+        //}
     }
 }

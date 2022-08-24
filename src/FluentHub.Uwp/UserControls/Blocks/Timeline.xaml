@@ -396,7 +396,7 @@
                 </toolkit:Case>
 
                 <toolkit:Case Value="IssueComment">
-                    <local:IssueCommentBlock ViewModel="{x:Bind ViewModel.CommentBlockViewModel, Mode=OneWay}" />
+                    <uc:IssueCommentBlock ViewModel="{x:Bind ViewModel.CommentBlockViewModel, Mode=OneWay}" />
                 </toolkit:Case>
 
                 <toolkit:Case Value="LabeledEvent">

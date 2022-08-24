@@ -87,6 +87,7 @@ namespace FluentHub.Uwp.UserControls.PrimerControls
         }
         #endregion
 
-        public Avatar() => InitializeComponent();
+        public Avatar()
+            => InitializeComponent();
     }
 }

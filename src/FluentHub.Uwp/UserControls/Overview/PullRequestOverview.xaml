@@ -169,6 +169,73 @@
                         </StackPanel>
 
                     </Grid>
+
+                    <Grid
+                        Height="26"
+                        Margin="8,0,0,0"
+                        HorizontalAlignment="Left"
+                        Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                        BorderBrush="{ThemeResource ButtonBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="4">
+
+
+                        <StackPanel
+                            Padding="8,0"
+                            Orientation="Horizontal"
+                            Spacing="4">
+
+                            <FontIcon
+                                FontFamily="{StaticResource Octicons}"
+                                FontSize="12"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Glyph="&#xEA38;" />
+
+                            <FontIcon
+                                FontFamily="{StaticResource Octicons}"
+                                FontSize="12"
+                                Foreground="{ThemeResource PrimerSuccessForeground}"
+                                Glyph="&#xE939;" />
+
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                Text="Reviews" />
+
+                        </StackPanel>
+
+                    </Grid>
+
+                    <Grid
+                        Height="26"
+                        HorizontalAlignment="Left"
+                        Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                        BorderBrush="{ThemeResource ButtonBorderBrush}"
+                        BorderThickness="1"
+                        CornerRadius="4">
+
+
+                        <StackPanel
+                            Padding="8,0"
+                            Orientation="Horizontal"
+                            Spacing="4">
+
+                            <FontIcon
+                                FontFamily="{StaticResource Octicons}"
+                                FontSize="12"
+                                Foreground="{ThemeResource PrimerSuccessForeground}"
+                                Glyph="&#xE939;" />
+
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Style="{StaticResource CaptionTextBlockStyle}"
+                                Text="Checks" />
+
+                        </StackPanel>
+
+                    </Grid>
                 </StackPanel>
 
             </StackPanel>

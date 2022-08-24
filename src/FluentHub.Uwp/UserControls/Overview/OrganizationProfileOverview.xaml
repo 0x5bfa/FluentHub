@@ -7,6 +7,7 @@
     xmlns:local="using:FluentHub.Uwp.UserControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:primer="using:FluentHub.Uwp.UserControls.PrimerControls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
@@ -178,28 +179,12 @@
                     x:Load="{x:Bind ViewModel.Organization.IsVerified, Mode=OneWay}"
                     Orientation="Horizontal"
                     Spacing="2">
-                    <Button
-                        Height="24"
-                        Padding="0"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        CornerRadius="12">
-                        <Button.Content>
-                            <Border
-                                Height="24"
-                                Padding="8,2,8,0"
-                                BorderBrush="#347d39"
-                                BorderThickness="1"
-                                CornerRadius="12">
-                                <TextBlock
-                                    VerticalAlignment="Center"
-                                    FontWeight="SemiBold"
-                                    Foreground="#57ab5a"
-                                    Style="{StaticResource CaptionTextBlockStyle}"
-                                    Text="Verified" />
-                            </Border>
-                        </Button.Content>
-                        <Button.Flyout>
+                    <primer:Label
+                        Size="large"
+                        Tapped="OnVerifiedLabelTapped"
+                        Text="Verified"
+                        Variant="success">
+                        <FlyoutBase.AttachedFlyout>
                             <Flyout Placement="Bottom">
                                 <StackPanel Width="260" Spacing="12">
                                     <TextBlock
@@ -225,8 +210,8 @@
                                     </TextBlock>
                                 </StackPanel>
                             </Flyout>
-                        </Button.Flyout>
-                    </Button>
+                        </FlyoutBase.AttachedFlyout>
+                    </primer:Label>
                 </StackPanel>
             </toolkit:WrapPanel>
 

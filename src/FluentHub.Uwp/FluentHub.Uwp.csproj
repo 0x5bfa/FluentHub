@@ -144,6 +144,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\HexColorCodeToSolidColorBrushConverter.cs" />
+    <Compile Include="Converters\IssueCommentToIssueCommentBlockViewModelConverter.cs" />
+    <Compile Include="Converters\NumberToNumberWithHashtagConverter.cs" />
     <Compile Include="Converters\ObjectToBoolConverter.cs" />
     <Compile Include="Converters\SettingsControlConverter.cs" />
     <Compile Include="Converters\SizeToCornerRadiusConverter.cs" />
@@ -154,9 +157,11 @@
       <DependentUpon>EditUserProfileDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extensions\IEnumerableExt.cs" />
+    <Compile Include="Extensions\WebViewExtentions.cs" />
     <Compile Include="GlobalUsings.cs" />
     <Compile Include="Helpers\BlobDetailsHelpers.cs" />
     <Compile Include="Helpers\ColorHelpers.cs" />
+    <Compile Include="Helpers\ExternalResourcesHelper.cs" />
     <Compile Include="Helpers\FileTypeHelper.cs" />
     <Compile Include="Helpers\JumpListHelper.cs" />
     <Compile Include="Helpers\MentionHelpers.cs" />
@@ -164,6 +169,7 @@
     <Compile Include="Helpers\ThemeHelper.cs" />
     <Compile Include="Helpers\WebViewHelpers.cs" />
     <Compile Include="Models\AccountModel.cs" />
+    <Compile Include="Models\CustomThemeItem.cs" />
     <Compile Include="Models\DefaultLanguageModel.cs" />
     <Compile Include="Models\DetailsLayoutListViewModel.cs" />
     <Compile Include="Models\FolderCardItem.cs" />
@@ -186,14 +192,14 @@
     <Compile Include="Services\Navigation\TabViewSelectionChangedEventArgs.cs" />
     <Compile Include="Services\OctokitSecretsService.cs" />
     <Compile Include="Services\ToastService.cs" />
+    <Compile Include="UserControls\CustomWebView.xaml.cs">
+      <DependentUpon>CustomWebView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Overview\AppSettingsOverview.xaml.cs">
       <DependentUpon>AppSettingsOverview.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\PrimerControls\Avatar.xaml.cs">
       <DependentUpon>Avatar.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\PrimerControls\AvatarControl.xaml.cs">
-      <DependentUpon>AvatarControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Blocks\BranchName.xaml.cs">
       <DependentUpon>BranchName.xaml</DependentUpon>
@@ -231,8 +237,23 @@
     <Compile Include="UserControls\Overview\RepositoryOverview.xaml.cs">
       <DependentUpon>RepositoryOverview.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\PrimerControls\IssueLabelToken.xaml.cs">
+      <DependentUpon>IssueLabelToken.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\PrimerControls\Label.xaml.cs">
+      <DependentUpon>Label.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\PrimerControls\StateLabel.xaml.cs">
+      <DependentUpon>StateLabel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\PrimerControls\StyledOcticon.xaml.cs">
+      <DependentUpon>StyledOcticon.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\PrimerControls\Timeline.xaml.cs">
       <DependentUpon>Timeline.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\ReferencedSubjectButton.xaml.cs">
+      <DependentUpon>ReferencedSubjectButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\TabViewControl\TabItem.cs" />
     <Compile Include="UserControls\Blocks\ActivityBlock.xaml.cs">
@@ -271,7 +292,7 @@
     <Compile Include="UserControls\TabViewControl\CustomTabView.xaml.cs">
       <DependentUpon>CustomTabView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Blocks\IssueCommentBlock.xaml.cs">
+    <Compile Include="UserControls\IssueCommentBlock.xaml.cs">
       <DependentUpon>IssueCommentBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Blocks\Timeline.xaml.cs">
@@ -341,7 +362,6 @@
     <Compile Include="ViewModels\Repositories\OverviewViewModel.cs" />
     <Compile Include="ViewModels\Repositories\PullRequests\PullRequestsViewModel.cs" />
     <Compile Include="ViewModels\Repositories\PullRequests\PullRequestViewModel.cs" />
-    <Compile Include="ViewModels\SettingsManager.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\SignIn\IntroViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\ActivityBlockViewModel.cs" />
@@ -721,6 +741,520 @@
     <Content Include="Assets\Icons\Repositories.png" />
     <Content Include="Assets\Icons\Settings.png" />
     <Content Include="Assets\Icons\Starred.png" />
+    <Content Include="Assets\Octicons\accessibility-16.svg" />
+    <Content Include="Assets\Octicons\alert-16.svg" />
+    <Content Include="Assets\Octicons\alert-24.svg" />
+    <Content Include="Assets\Octicons\alert-fill-12.svg" />
+    <Content Include="Assets\Octicons\apps-16.svg" />
+    <Content Include="Assets\Octicons\archive-16.svg" />
+    <Content Include="Assets\Octicons\archive-24.svg" />
+    <Content Include="Assets\Octicons\arrow-both-16.svg" />
+    <Content Include="Assets\Octicons\arrow-both-24.svg" />
+    <Content Include="Assets\Octicons\arrow-down-16.svg" />
+    <Content Include="Assets\Octicons\arrow-down-24.svg" />
+    <Content Include="Assets\Octicons\arrow-down-left-24.svg" />
+    <Content Include="Assets\Octicons\arrow-down-right-24.svg" />
+    <Content Include="Assets\Octicons\arrow-left-16.svg" />
+    <Content Include="Assets\Octicons\arrow-left-24.svg" />
+    <Content Include="Assets\Octicons\arrow-right-16.svg" />
+    <Content Include="Assets\Octicons\arrow-right-24.svg" />
+    <Content Include="Assets\Octicons\arrow-switch-16.svg" />
+    <Content Include="Assets\Octicons\arrow-switch-24.svg" />
+    <Content Include="Assets\Octicons\arrow-up-16.svg" />
+    <Content Include="Assets\Octicons\arrow-up-24.svg" />
+    <Content Include="Assets\Octicons\arrow-up-left-24.svg" />
+    <Content Include="Assets\Octicons\arrow-up-right-24.svg" />
+    <Content Include="Assets\Octicons\beaker-16.svg" />
+    <Content Include="Assets\Octicons\beaker-24.svg" />
+    <Content Include="Assets\Octicons\bell-16.svg" />
+    <Content Include="Assets\Octicons\bell-24.svg" />
+    <Content Include="Assets\Octicons\bell-fill-16.svg" />
+    <Content Include="Assets\Octicons\bell-fill-24.svg" />
+    <Content Include="Assets\Octicons\bell-slash-16.svg" />
+    <Content Include="Assets\Octicons\bell-slash-24.svg" />
+    <Content Include="Assets\Octicons\blocked-16.svg" />
+    <Content Include="Assets\Octicons\blocked-24.svg" />
+    <Content Include="Assets\Octicons\bold-16.svg" />
+    <Content Include="Assets\Octicons\bold-24.svg" />
+    <Content Include="Assets\Octicons\book-16.svg" />
+    <Content Include="Assets\Octicons\book-24.svg" />
+    <Content Include="Assets\Octicons\bookmark-16.svg" />
+    <Content Include="Assets\Octicons\bookmark-24.svg" />
+    <Content Include="Assets\Octicons\bookmark-fill-24.svg" />
+    <Content Include="Assets\Octicons\bookmark-slash-16.svg" />
+    <Content Include="Assets\Octicons\bookmark-slash-24.svg" />
+    <Content Include="Assets\Octicons\bookmark-slash-fill-24.svg" />
+    <Content Include="Assets\Octicons\briefcase-16.svg" />
+    <Content Include="Assets\Octicons\briefcase-24.svg" />
+    <Content Include="Assets\Octicons\broadcast-16.svg" />
+    <Content Include="Assets\Octicons\broadcast-24.svg" />
+    <Content Include="Assets\Octicons\browser-16.svg" />
+    <Content Include="Assets\Octicons\browser-24.svg" />
+    <Content Include="Assets\Octicons\bug-16.svg" />
+    <Content Include="Assets\Octicons\bug-24.svg" />
+    <Content Include="Assets\Octicons\cache-16.svg" />
+    <Content Include="Assets\Octicons\calendar-16.svg" />
+    <Content Include="Assets\Octicons\calendar-24.svg" />
+    <Content Include="Assets\Octicons\check-16.svg" />
+    <Content Include="Assets\Octicons\check-24.svg" />
+    <Content Include="Assets\Octicons\check-circle-16.svg" />
+    <Content Include="Assets\Octicons\check-circle-24.svg" />
+    <Content Include="Assets\Octicons\check-circle-fill-12.svg" />
+    <Content Include="Assets\Octicons\check-circle-fill-16.svg" />
+    <Content Include="Assets\Octicons\check-circle-fill-24.svg" />
+    <Content Include="Assets\Octicons\checkbox-16.svg" />
+    <Content Include="Assets\Octicons\checkbox-24.svg" />
+    <Content Include="Assets\Octicons\checklist-16.svg" />
+    <Content Include="Assets\Octicons\checklist-24.svg" />
+    <Content Include="Assets\Octicons\chevron-down-16.svg" />
+    <Content Include="Assets\Octicons\chevron-down-24.svg" />
+    <Content Include="Assets\Octicons\chevron-left-16.svg" />
+    <Content Include="Assets\Octicons\chevron-left-24.svg" />
+    <Content Include="Assets\Octicons\chevron-right-16.svg" />
+    <Content Include="Assets\Octicons\chevron-right-24.svg" />
+    <Content Include="Assets\Octicons\chevron-up-16.svg" />
+    <Content Include="Assets\Octicons\chevron-up-24.svg" />
+    <Content Include="Assets\Octicons\circle-16.svg" />
+    <Content Include="Assets\Octicons\circle-24.svg" />
+    <Content Include="Assets\Octicons\circle-slash-16.svg" />
+    <Content Include="Assets\Octicons\circle-slash-24.svg" />
+    <Content Include="Assets\Octicons\clock-16.svg" />
+    <Content Include="Assets\Octicons\clock-24.svg" />
+    <Content Include="Assets\Octicons\cloud-16.svg" />
+    <Content Include="Assets\Octicons\cloud-24.svg" />
+    <Content Include="Assets\Octicons\cloud-offline-16.svg" />
+    <Content Include="Assets\Octicons\cloud-offline-24.svg" />
+    <Content Include="Assets\Octicons\code-16.svg" />
+    <Content Include="Assets\Octicons\code-24.svg" />
+    <Content Include="Assets\Octicons\code-of-conduct-16.svg" />
+    <Content Include="Assets\Octicons\code-of-conduct-24.svg" />
+    <Content Include="Assets\Octicons\code-review-16.svg" />
+    <Content Include="Assets\Octicons\code-review-24.svg" />
+    <Content Include="Assets\Octicons\code-square-16.svg" />
+    <Content Include="Assets\Octicons\code-square-24.svg" />
+    <Content Include="Assets\Octicons\codescan-16.svg" />
+    <Content Include="Assets\Octicons\codescan-24.svg" />
+    <Content Include="Assets\Octicons\codescan-checkmark-16.svg" />
+    <Content Include="Assets\Octicons\codescan-checkmark-24.svg" />
+    <Content Include="Assets\Octicons\codespaces-16.svg" />
+    <Content Include="Assets\Octicons\codespaces-24.svg" />
+    <Content Include="Assets\Octicons\columns-16.svg" />
+    <Content Include="Assets\Octicons\columns-24.svg" />
+    <Content Include="Assets\Octicons\command-palette-16.svg" />
+    <Content Include="Assets\Octicons\command-palette-24.svg" />
+    <Content Include="Assets\Octicons\comment-16.svg" />
+    <Content Include="Assets\Octicons\comment-24.svg" />
+    <Content Include="Assets\Octicons\comment-discussion-16.svg" />
+    <Content Include="Assets\Octicons\comment-discussion-24.svg" />
+    <Content Include="Assets\Octicons\commit-24.svg" />
+    <Content Include="Assets\Octicons\container-16.svg" />
+    <Content Include="Assets\Octicons\container-24.svg" />
+    <Content Include="Assets\Octicons\copilot-16.svg" />
+    <Content Include="Assets\Octicons\copilot-24.svg" />
+    <Content Include="Assets\Octicons\copilot-48.svg" />
+    <Content Include="Assets\Octicons\copilot-96.svg" />
+    <Content Include="Assets\Octicons\copilot-error-16.svg" />
+    <Content Include="Assets\Octicons\copilot-warning-16.svg" />
+    <Content Include="Assets\Octicons\copy-16.svg" />
+    <Content Include="Assets\Octicons\copy-24.svg" />
+    <Content Include="Assets\Octicons\cpu-16.svg" />
+    <Content Include="Assets\Octicons\cpu-24.svg" />
+    <Content Include="Assets\Octicons\credit-card-16.svg" />
+    <Content Include="Assets\Octicons\credit-card-24.svg" />
+    <Content Include="Assets\Octicons\cross-reference-16.svg" />
+    <Content Include="Assets\Octicons\cross-reference-24.svg" />
+    <Content Include="Assets\Octicons\dash-16.svg" />
+    <Content Include="Assets\Octicons\dash-24.svg" />
+    <Content Include="Assets\Octicons\database-16.svg" />
+    <Content Include="Assets\Octicons\database-24.svg" />
+    <Content Include="Assets\Octicons\dependabot-16.svg" />
+    <Content Include="Assets\Octicons\dependabot-24.svg" />
+    <Content Include="Assets\Octicons\desktop-download-16.svg" />
+    <Content Include="Assets\Octicons\desktop-download-24.svg" />
+    <Content Include="Assets\Octicons\device-camera-16.svg" />
+    <Content Include="Assets\Octicons\device-camera-video-16.svg" />
+    <Content Include="Assets\Octicons\device-camera-video-24.svg" />
+    <Content Include="Assets\Octicons\device-desktop-16.svg" />
+    <Content Include="Assets\Octicons\device-desktop-24.svg" />
+    <Content Include="Assets\Octicons\device-mobile-16.svg" />
+    <Content Include="Assets\Octicons\device-mobile-24.svg" />
+    <Content Include="Assets\Octicons\diamond-16.svg" />
+    <Content Include="Assets\Octicons\diamond-24.svg" />
+    <Content Include="Assets\Octicons\diff-16.svg" />
+    <Content Include="Assets\Octicons\diff-24.svg" />
+    <Content Include="Assets\Octicons\diff-added-16.svg" />
+    <Content Include="Assets\Octicons\diff-ignored-16.svg" />
+    <Content Include="Assets\Octicons\diff-modified-16.svg" />
+    <Content Include="Assets\Octicons\diff-removed-16.svg" />
+    <Content Include="Assets\Octicons\diff-renamed-16.svg" />
+    <Content Include="Assets\Octicons\dot-16.svg" />
+    <Content Include="Assets\Octicons\dot-24.svg" />
+    <Content Include="Assets\Octicons\dot-fill-16.svg" />
+    <Content Include="Assets\Octicons\dot-fill-24.svg" />
+    <Content Include="Assets\Octicons\download-16.svg" />
+    <Content Include="Assets\Octicons\download-24.svg" />
+    <Content Include="Assets\Octicons\duplicate-16.svg" />
+    <Content Include="Assets\Octicons\duplicate-24.svg" />
+    <Content Include="Assets\Octicons\ellipsis-16.svg" />
+    <Content Include="Assets\Octicons\eye-16.svg" />
+    <Content Include="Assets\Octicons\eye-24.svg" />
+    <Content Include="Assets\Octicons\eye-closed-16.svg" />
+    <Content Include="Assets\Octicons\eye-closed-24.svg" />
+    <Content Include="Assets\Octicons\feed-discussion-16.svg" />
+    <Content Include="Assets\Octicons\feed-forked-16.svg" />
+    <Content Include="Assets\Octicons\feed-heart-16.svg" />
+    <Content Include="Assets\Octicons\feed-merged-16.svg" />
+    <Content Include="Assets\Octicons\feed-person-16.svg" />
+    <Content Include="Assets\Octicons\feed-repo-16.svg" />
+    <Content Include="Assets\Octicons\feed-rocket-16.svg" />
+    <Content Include="Assets\Octicons\feed-star-16.svg" />
+    <Content Include="Assets\Octicons\feed-tag-16.svg" />
+    <Content Include="Assets\Octicons\feed-trophy-16.svg" />
+    <Content Include="Assets\Octicons\file-16.svg" />
+    <Content Include="Assets\Octicons\file-24.svg" />
+    <Content Include="Assets\Octicons\file-added-16.svg" />
+    <Content Include="Assets\Octicons\file-badge-16.svg" />
+    <Content Include="Assets\Octicons\file-binary-16.svg" />
+    <Content Include="Assets\Octicons\file-binary-24.svg" />
+    <Content Include="Assets\Octicons\file-code-16.svg" />
+    <Content Include="Assets\Octicons\file-code-24.svg" />
+    <Content Include="Assets\Octicons\file-diff-16.svg" />
+    <Content Include="Assets\Octicons\file-diff-24.svg" />
+    <Content Include="Assets\Octicons\file-directory-16.svg" />
+    <Content Include="Assets\Octicons\file-directory-24.svg" />
+    <Content Include="Assets\Octicons\file-directory-fill-16.svg" />
+    <Content Include="Assets\Octicons\file-directory-fill-24.svg" />
+    <Content Include="Assets\Octicons\file-directory-open-fill-16.svg" />
+    <Content Include="Assets\Octicons\file-media-24.svg" />
+    <Content Include="Assets\Octicons\file-moved-16.svg" />
+    <Content Include="Assets\Octicons\file-removed-16.svg" />
+    <Content Include="Assets\Octicons\file-submodule-16.svg" />
+    <Content Include="Assets\Octicons\file-submodule-24.svg" />
+    <Content Include="Assets\Octicons\file-symlink-file-16.svg" />
+    <Content Include="Assets\Octicons\file-symlink-file-24.svg" />
+    <Content Include="Assets\Octicons\file-zip-16.svg" />
+    <Content Include="Assets\Octicons\file-zip-24.svg" />
+    <Content Include="Assets\Octicons\filter-16.svg" />
+    <Content Include="Assets\Octicons\filter-24.svg" />
+    <Content Include="Assets\Octicons\flame-16.svg" />
+    <Content Include="Assets\Octicons\flame-24.svg" />
+    <Content Include="Assets\Octicons\fold-16.svg" />
+    <Content Include="Assets\Octicons\fold-24.svg" />
+    <Content Include="Assets\Octicons\fold-down-16.svg" />
+    <Content Include="Assets\Octicons\fold-down-24.svg" />
+    <Content Include="Assets\Octicons\fold-up-16.svg" />
+    <Content Include="Assets\Octicons\fold-up-24.svg" />
+    <Content Include="Assets\Octicons\gear-16.svg" />
+    <Content Include="Assets\Octicons\gear-24.svg" />
+    <Content Include="Assets\Octicons\gift-16.svg" />
+    <Content Include="Assets\Octicons\gift-24.svg" />
+    <Content Include="Assets\Octicons\git-branch-16.svg" />
+    <Content Include="Assets\Octicons\git-branch-24.svg" />
+    <Content Include="Assets\Octicons\git-commit-16.svg" />
+    <Content Include="Assets\Octicons\git-commit-24.svg" />
+    <Content Include="Assets\Octicons\git-compare-16.svg" />
+    <Content Include="Assets\Octicons\git-compare-24.svg" />
+    <Content Include="Assets\Octicons\git-merge-16.svg" />
+    <Content Include="Assets\Octicons\git-merge-24.svg" />
+    <Content Include="Assets\Octicons\git-merge-queue-16.svg" />
+    <Content Include="Assets\Octicons\git-pull-request-16.svg" />
+    <Content Include="Assets\Octicons\git-pull-request-24.svg" />
+    <Content Include="Assets\Octicons\git-pull-request-closed-16.svg" />
+    <Content Include="Assets\Octicons\git-pull-request-closed-24.svg" />
+    <Content Include="Assets\Octicons\git-pull-request-draft-16.svg" />
+    <Content Include="Assets\Octicons\git-pull-request-draft-24.svg" />
+    <Content Include="Assets\Octicons\globe-16.svg" />
+    <Content Include="Assets\Octicons\globe-24.svg" />
+    <Content Include="Assets\Octicons\grabber-16.svg" />
+    <Content Include="Assets\Octicons\grabber-24.svg" />
+    <Content Include="Assets\Octicons\graph-16.svg" />
+    <Content Include="Assets\Octicons\graph-24.svg" />
+    <Content Include="Assets\Octicons\hash-16.svg" />
+    <Content Include="Assets\Octicons\hash-24.svg" />
+    <Content Include="Assets\Octicons\heading-16.svg" />
+    <Content Include="Assets\Octicons\heading-24.svg" />
+    <Content Include="Assets\Octicons\heart-16.svg" />
+    <Content Include="Assets\Octicons\heart-24.svg" />
+    <Content Include="Assets\Octicons\heart-fill-16.svg" />
+    <Content Include="Assets\Octicons\heart-fill-24.svg" />
+    <Content Include="Assets\Octicons\history-16.svg" />
+    <Content Include="Assets\Octicons\history-24.svg" />
+    <Content Include="Assets\Octicons\home-16.svg" />
+    <Content Include="Assets\Octicons\home-24.svg" />
+    <Content Include="Assets\Octicons\home-fill-24.svg" />
+    <Content Include="Assets\Octicons\horizontal-rule-16.svg" />
+    <Content Include="Assets\Octicons\horizontal-rule-24.svg" />
+    <Content Include="Assets\Octicons\hourglass-16.svg" />
+    <Content Include="Assets\Octicons\hourglass-24.svg" />
+    <Content Include="Assets\Octicons\hubot-16.svg" />
+    <Content Include="Assets\Octicons\hubot-24.svg" />
+    <Content Include="Assets\Octicons\id-badge-16.svg" />
+    <Content Include="Assets\Octicons\image-16.svg" />
+    <Content Include="Assets\Octicons\image-24.svg" />
+    <Content Include="Assets\Octicons\inbox-16.svg" />
+    <Content Include="Assets\Octicons\inbox-24.svg" />
+    <Content Include="Assets\Octicons\infinity-16.svg" />
+    <Content Include="Assets\Octicons\infinity-24.svg" />
+    <Content Include="Assets\Octicons\info-16.svg" />
+    <Content Include="Assets\Octicons\info-24.svg" />
+    <Content Include="Assets\Octicons\issue-closed-16.svg" />
+    <Content Include="Assets\Octicons\issue-closed-24.svg" />
+    <Content Include="Assets\Octicons\issue-draft-16.svg" />
+    <Content Include="Assets\Octicons\issue-draft-24.svg" />
+    <Content Include="Assets\Octicons\issue-opened-16.svg" />
+    <Content Include="Assets\Octicons\issue-opened-24.svg" />
+    <Content Include="Assets\Octicons\issue-reopened-16.svg" />
+    <Content Include="Assets\Octicons\issue-reopened-24.svg" />
+    <Content Include="Assets\Octicons\italic-16.svg" />
+    <Content Include="Assets\Octicons\italic-24.svg" />
+    <Content Include="Assets\Octicons\iterations-16.svg" />
+    <Content Include="Assets\Octicons\iterations-24.svg" />
+    <Content Include="Assets\Octicons\kebab-horizontal-16.svg" />
+    <Content Include="Assets\Octicons\kebab-horizontal-24.svg" />
+    <Content Include="Assets\Octicons\key-16.svg" />
+    <Content Include="Assets\Octicons\key-24.svg" />
+    <Content Include="Assets\Octicons\key-asterisk-16.svg" />
+    <Content Include="Assets\Octicons\law-16.svg" />
+    <Content Include="Assets\Octicons\law-24.svg" />
+    <Content Include="Assets\Octicons\light-bulb-16.svg" />
+    <Content Include="Assets\Octicons\light-bulb-24.svg" />
+    <Content Include="Assets\Octicons\link-16.svg" />
+    <Content Include="Assets\Octicons\link-24.svg" />
+    <Content Include="Assets\Octicons\link-external-16.svg" />
+    <Content Include="Assets\Octicons\link-external-24.svg" />
+    <Content Include="Assets\Octicons\list-ordered-16.svg" />
+    <Content Include="Assets\Octicons\list-ordered-24.svg" />
+    <Content Include="Assets\Octicons\list-unordered-16.svg" />
+    <Content Include="Assets\Octicons\list-unordered-24.svg" />
+    <Content Include="Assets\Octicons\location-16.svg" />
+    <Content Include="Assets\Octicons\location-24.svg" />
+    <Content Include="Assets\Octicons\lock-16.svg" />
+    <Content Include="Assets\Octicons\lock-24.svg" />
+    <Content Include="Assets\Octicons\log-16.svg" />
+    <Content Include="Assets\Octicons\logo-gist-16.svg" />
+    <Content Include="Assets\Octicons\logo-github-16.svg" />
+    <Content Include="Assets\Octicons\mail-16.svg" />
+    <Content Include="Assets\Octicons\mail-24.svg" />
+    <Content Include="Assets\Octicons\mark-github-16.svg" />
+    <Content Include="Assets\Octicons\markdown-16.svg" />
+    <Content Include="Assets\Octicons\megaphone-16.svg" />
+    <Content Include="Assets\Octicons\megaphone-24.svg" />
+    <Content Include="Assets\Octicons\mention-16.svg" />
+    <Content Include="Assets\Octicons\mention-24.svg" />
+    <Content Include="Assets\Octicons\meter-16.svg" />
+    <Content Include="Assets\Octicons\milestone-16.svg" />
+    <Content Include="Assets\Octicons\milestone-24.svg" />
+    <Content Include="Assets\Octicons\mirror-16.svg" />
+    <Content Include="Assets\Octicons\mirror-24.svg" />
+    <Content Include="Assets\Octicons\moon-16.svg" />
+    <Content Include="Assets\Octicons\moon-24.svg" />
+    <Content Include="Assets\Octicons\mortar-board-16.svg" />
+    <Content Include="Assets\Octicons\mortar-board-24.svg" />
+    <Content Include="Assets\Octicons\multi-select-16.svg" />
+    <Content Include="Assets\Octicons\multi-select-24.svg" />
+    <Content Include="Assets\Octicons\mute-16.svg" />
+    <Content Include="Assets\Octicons\mute-24.svg" />
+    <Content Include="Assets\Octicons\no-entry-16.svg" />
+    <Content Include="Assets\Octicons\no-entry-24.svg" />
+    <Content Include="Assets\Octicons\no-entry-fill-12.svg" />
+    <Content Include="Assets\Octicons\north-star-16.svg" />
+    <Content Include="Assets\Octicons\north-star-24.svg" />
+    <Content Include="Assets\Octicons\note-16.svg" />
+    <Content Include="Assets\Octicons\note-24.svg" />
+    <Content Include="Assets\Octicons\number-16.svg" />
+    <Content Include="Assets\Octicons\number-24.svg" />
+    <Content Include="Assets\Octicons\organization-16.svg" />
+    <Content Include="Assets\Octicons\organization-24.svg" />
+    <Content Include="Assets\Octicons\package-16.svg" />
+    <Content Include="Assets\Octicons\package-24.svg" />
+    <Content Include="Assets\Octicons\package-dependencies-16.svg" />
+    <Content Include="Assets\Octicons\package-dependencies-24.svg" />
+    <Content Include="Assets\Octicons\package-dependents-16.svg" />
+    <Content Include="Assets\Octicons\package-dependents-24.svg" />
+    <Content Include="Assets\Octicons\paintbrush-16.svg" />
+    <Content Include="Assets\Octicons\paper-airplane-16.svg" />
+    <Content Include="Assets\Octicons\paper-airplane-24.svg" />
+    <Content Include="Assets\Octicons\paperclip-16.svg" />
+    <Content Include="Assets\Octicons\paperclip-24.svg" />
+    <Content Include="Assets\Octicons\paste-16.svg" />
+    <Content Include="Assets\Octicons\paste-24.svg" />
+    <Content Include="Assets\Octicons\pencil-16.svg" />
+    <Content Include="Assets\Octicons\pencil-24.svg" />
+    <Content Include="Assets\Octicons\people-16.svg" />
+    <Content Include="Assets\Octicons\people-24.svg" />
+    <Content Include="Assets\Octicons\person-16.svg" />
+    <Content Include="Assets\Octicons\person-24.svg" />
+    <Content Include="Assets\Octicons\person-add-16.svg" />
+    <Content Include="Assets\Octicons\person-add-24.svg" />
+    <Content Include="Assets\Octicons\person-fill-16.svg" />
+    <Content Include="Assets\Octicons\person-fill-24.svg" />
+    <Content Include="Assets\Octicons\pin-16.svg" />
+    <Content Include="Assets\Octicons\pin-24.svg" />
+    <Content Include="Assets\Octicons\play-16.svg" />
+    <Content Include="Assets\Octicons\play-24.svg" />
+    <Content Include="Assets\Octicons\plug-16.svg" />
+    <Content Include="Assets\Octicons\plug-24.svg" />
+    <Content Include="Assets\Octicons\plus-16.svg" />
+    <Content Include="Assets\Octicons\plus-24.svg" />
+    <Content Include="Assets\Octicons\plus-circle-16.svg" />
+    <Content Include="Assets\Octicons\plus-circle-24.svg" />
+    <Content Include="Assets\Octicons\project-16.svg" />
+    <Content Include="Assets\Octicons\project-24.svg" />
+    <Content Include="Assets\Octicons\pulse-16.svg" />
+    <Content Include="Assets\Octicons\pulse-24.svg" />
+    <Content Include="Assets\Octicons\question-16.svg" />
+    <Content Include="Assets\Octicons\question-24.svg" />
+    <Content Include="Assets\Octicons\quote-16.svg" />
+    <Content Include="Assets\Octicons\quote-24.svg" />
+    <Content Include="Assets\Octicons\reply-16.svg" />
+    <Content Include="Assets\Octicons\reply-24.svg" />
+    <Content Include="Assets\Octicons\repo-16.svg" />
+    <Content Include="Assets\Octicons\repo-24.svg" />
+    <Content Include="Assets\Octicons\repo-clone-16.svg" />
+    <Content Include="Assets\Octicons\repo-deleted-16.svg" />
+    <Content Include="Assets\Octicons\repo-forked-16.svg" />
+    <Content Include="Assets\Octicons\repo-forked-24.svg" />
+    <Content Include="Assets\Octicons\repo-locked-16.svg" />
+    <Content Include="Assets\Octicons\repo-locked-24.svg" />
+    <Content Include="Assets\Octicons\repo-pull-16.svg" />
+    <Content Include="Assets\Octicons\repo-push-16.svg" />
+    <Content Include="Assets\Octicons\repo-push-24.svg" />
+    <Content Include="Assets\Octicons\repo-template-16.svg" />
+    <Content Include="Assets\Octicons\repo-template-24.svg" />
+    <Content Include="Assets\Octicons\report-16.svg" />
+    <Content Include="Assets\Octicons\report-24.svg" />
+    <Content Include="Assets\Octicons\rocket-16.svg" />
+    <Content Include="Assets\Octicons\rocket-24.svg" />
+    <Content Include="Assets\Octicons\rows-16.svg" />
+    <Content Include="Assets\Octicons\rows-24.svg" />
+    <Content Include="Assets\Octicons\rss-16.svg" />
+    <Content Include="Assets\Octicons\rss-24.svg" />
+    <Content Include="Assets\Octicons\ruby-16.svg" />
+    <Content Include="Assets\Octicons\ruby-24.svg" />
+    <Content Include="Assets\Octicons\screen-full-16.svg" />
+    <Content Include="Assets\Octicons\screen-full-24.svg" />
+    <Content Include="Assets\Octicons\screen-normal-16.svg" />
+    <Content Include="Assets\Octicons\screen-normal-24.svg" />
+    <Content Include="Assets\Octicons\search-16.svg" />
+    <Content Include="Assets\Octicons\search-24.svg" />
+    <Content Include="Assets\Octicons\server-16.svg" />
+    <Content Include="Assets\Octicons\server-24.svg" />
+    <Content Include="Assets\Octicons\share-16.svg" />
+    <Content Include="Assets\Octicons\share-24.svg" />
+    <Content Include="Assets\Octicons\share-android-16.svg" />
+    <Content Include="Assets\Octicons\share-android-24.svg" />
+    <Content Include="Assets\Octicons\shield-16.svg" />
+    <Content Include="Assets\Octicons\shield-24.svg" />
+    <Content Include="Assets\Octicons\shield-check-16.svg" />
+    <Content Include="Assets\Octicons\shield-check-24.svg" />
+    <Content Include="Assets\Octicons\shield-lock-16.svg" />
+    <Content Include="Assets\Octicons\shield-lock-24.svg" />
+    <Content Include="Assets\Octicons\shield-x-16.svg" />
+    <Content Include="Assets\Octicons\shield-x-24.svg" />
+    <Content Include="Assets\Octicons\sidebar-collapse-16.svg" />
+    <Content Include="Assets\Octicons\sidebar-collapse-24.svg" />
+    <Content Include="Assets\Octicons\sidebar-expand-16.svg" />
+    <Content Include="Assets\Octicons\sidebar-expand-24.svg" />
+    <Content Include="Assets\Octicons\sign-in-16.svg" />
+    <Content Include="Assets\Octicons\sign-in-24.svg" />
+    <Content Include="Assets\Octicons\sign-out-16.svg" />
+    <Content Include="Assets\Octicons\sign-out-24.svg" />
+    <Content Include="Assets\Octicons\single-select-16.svg" />
+    <Content Include="Assets\Octicons\single-select-24.svg" />
+    <Content Include="Assets\Octicons\skip-16.svg" />
+    <Content Include="Assets\Octicons\skip-24.svg" />
+    <Content Include="Assets\Octicons\sliders-16.svg" />
+    <Content Include="Assets\Octicons\smiley-16.svg" />
+    <Content Include="Assets\Octicons\smiley-24.svg" />
+    <Content Include="Assets\Octicons\sort-asc-16.svg" />
+    <Content Include="Assets\Octicons\sort-asc-24.svg" />
+    <Content Include="Assets\Octicons\sort-desc-16.svg" />
+    <Content Include="Assets\Octicons\sort-desc-24.svg" />
+    <Content Include="Assets\Octicons\square-16.svg" />
+    <Content Include="Assets\Octicons\square-24.svg" />
+    <Content Include="Assets\Octicons\square-fill-16.svg" />
+    <Content Include="Assets\Octicons\square-fill-24.svg" />
+    <Content Include="Assets\Octicons\squirrel-16.svg" />
+    <Content Include="Assets\Octicons\squirrel-24.svg" />
+    <Content Include="Assets\Octicons\stack-16.svg" />
+    <Content Include="Assets\Octicons\stack-24.svg" />
+    <Content Include="Assets\Octicons\star-16.svg" />
+    <Content Include="Assets\Octicons\star-24.svg" />
+    <Content Include="Assets\Octicons\star-fill-16.svg" />
+    <Content Include="Assets\Octicons\star-fill-24.svg" />
+    <Content Include="Assets\Octicons\stop-16.svg" />
+    <Content Include="Assets\Octicons\stop-24.svg" />
+    <Content Include="Assets\Octicons\stopwatch-16.svg" />
+    <Content Include="Assets\Octicons\stopwatch-24.svg" />
+    <Content Include="Assets\Octicons\strikethrough-16.svg" />
+    <Content Include="Assets\Octicons\strikethrough-24.svg" />
+    <Content Include="Assets\Octicons\sun-16.svg" />
+    <Content Include="Assets\Octicons\sun-24.svg" />
+    <Content Include="Assets\Octicons\sync-16.svg" />
+    <Content Include="Assets\Octicons\sync-24.svg" />
+    <Content Include="Assets\Octicons\tab-24.svg" />
+    <Content Include="Assets\Octicons\tab-external-16.svg" />
+    <Content Include="Assets\Octicons\table-16.svg" />
+    <Content Include="Assets\Octicons\table-24.svg" />
+    <Content Include="Assets\Octicons\tag-16.svg" />
+    <Content Include="Assets\Octicons\tag-24.svg" />
+    <Content Include="Assets\Octicons\tasklist-16.svg" />
+    <Content Include="Assets\Octicons\tasklist-24.svg" />
+    <Content Include="Assets\Octicons\telescope-16.svg" />
+    <Content Include="Assets\Octicons\telescope-24.svg" />
+    <Content Include="Assets\Octicons\telescope-fill-16.svg" />
+    <Content Include="Assets\Octicons\telescope-fill-24.svg" />
+    <Content Include="Assets\Octicons\terminal-16.svg" />
+    <Content Include="Assets\Octicons\terminal-24.svg" />
+    <Content Include="Assets\Octicons\three-bars-16.svg" />
+    <Content Include="Assets\Octicons\thumbsdown-16.svg" />
+    <Content Include="Assets\Octicons\thumbsdown-24.svg" />
+    <Content Include="Assets\Octicons\thumbsup-16.svg" />
+    <Content Include="Assets\Octicons\thumbsup-24.svg" />
+    <Content Include="Assets\Octicons\tools-16.svg" />
+    <Content Include="Assets\Octicons\tools-24.svg" />
+    <Content Include="Assets\Octicons\trash-16.svg" />
+    <Content Include="Assets\Octicons\trash-24.svg" />
+    <Content Include="Assets\Octicons\triangle-down-16.svg" />
+    <Content Include="Assets\Octicons\triangle-down-24.svg" />
+    <Content Include="Assets\Octicons\triangle-left-16.svg" />
+    <Content Include="Assets\Octicons\triangle-left-24.svg" />
+    <Content Include="Assets\Octicons\triangle-right-16.svg" />
+    <Content Include="Assets\Octicons\triangle-right-24.svg" />
+    <Content Include="Assets\Octicons\triangle-up-16.svg" />
+    <Content Include="Assets\Octicons\triangle-up-24.svg" />
+    <Content Include="Assets\Octicons\trophy-16.svg" />
+    <Content Include="Assets\Octicons\trophy-24.svg" />
+    <Content Include="Assets\Octicons\typography-16.svg" />
+    <Content Include="Assets\Octicons\typography-24.svg" />
+    <Content Include="Assets\Octicons\unfold-16.svg" />
+    <Content Include="Assets\Octicons\unfold-24.svg" />
+    <Content Include="Assets\Octicons\unlock-16.svg" />
+    <Content Include="Assets\Octicons\unlock-24.svg" />
+    <Content Include="Assets\Octicons\unmute-16.svg" />
+    <Content Include="Assets\Octicons\unmute-24.svg" />
+    <Content Include="Assets\Octicons\unverified-16.svg" />
+    <Content Include="Assets\Octicons\unverified-24.svg" />
+    <Content Include="Assets\Octicons\upload-16.svg" />
+    <Content Include="Assets\Octicons\upload-24.svg" />
+    <Content Include="Assets\Octicons\verified-16.svg" />
+    <Content Include="Assets\Octicons\verified-24.svg" />
+    <Content Include="Assets\Octicons\versions-16.svg" />
+    <Content Include="Assets\Octicons\versions-24.svg" />
+    <Content Include="Assets\Octicons\video-16.svg" />
+    <Content Include="Assets\Octicons\video-24.svg" />
+    <Content Include="Assets\Octicons\webhook-16.svg" />
+    <Content Include="Assets\Octicons\workflow-16.svg" />
+    <Content Include="Assets\Octicons\workflow-24.svg" />
+    <Content Include="Assets\Octicons\x-16.svg" />
+    <Content Include="Assets\Octicons\x-24.svg" />
+    <Content Include="Assets\Octicons\x-circle-16.svg" />
+    <Content Include="Assets\Octicons\x-circle-24.svg" />
+    <Content Include="Assets\Octicons\x-circle-fill-12.svg" />
+    <Content Include="Assets\Octicons\x-circle-fill-16.svg" />
+    <Content Include="Assets\Octicons\x-circle-fill-24.svg" />
+    <Content Include="Assets\Octicons\zap-16.svg" />
+    <Content Include="Assets\Octicons\zap-24.svg" />
     <Content Include="Assets\OOBE\Hero.jpg" />
     <Content Include="Assets\WebView\index.html">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -749,57 +1283,51 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="ResourceDictionaries\CommonStyles.xaml">
+    <Content Include="ResourceDictionaries\CommonStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Page>
-    <Page Include="ResourceDictionaries\DefaultGridSplitterStyle.xaml">
+    </Content>
+    <Content Include="ResourceDictionaries\DefaultGridSplitterStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ResourceDictionaries\LinkLikeButtonStyle.xaml">
+    </Content>
+    <Content Include="ResourceDictionaries\LinkLikeButtonStyle.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Page>
-    <Page Include="ResourceDictionaries\ClearButtonStyle.xaml">
+    </Content>
+    <Content Include="ResourceDictionaries\ClearButtonStyle.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Page>
-    <Page Include="ResourceDictionaries\TabViewItem_shared.xaml">
+    </Content>
+    <Content Include="ResourceDictionaries\TabViewItem_shared.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ResourceDictionaries\TabView_themeresources.xaml">
+    </Content>
+    <Content Include="ResourceDictionaries\TabView_themeresources.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="ResourceDictionaries\TextBlockStyles.xaml">
+    </Content>
+    <Content Include="ResourceDictionaries\TextBlockStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Page>
-    <Page Include="Themes\Default\DefaultThemeResources.xaml">
+    </Content>
+    <Content Include="Themes\GitHub Default.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Page>
-    <Page Include="Themes\Default\DefaultThemeResourcesAny.xaml">
+    </Content>
+    <Content Include="Themes\FluentHub Default.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Page Include="UserControls\CustomWebView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Overview\AppSettingsOverview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\PrimerControls\Avatar.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\PrimerControls\AvatarControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -895,7 +1423,27 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\PrimerControls\IssueLabelToken.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\PrimerControls\Label.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\PrimerControls\StateLabel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\PrimerControls\StyledOcticon.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\PrimerControls\Timeline.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ReferencedSubjectButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -903,7 +1451,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\Blocks\IssueCommentBlock.xaml">
+    <Page Include="UserControls\IssueCommentBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

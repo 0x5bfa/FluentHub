@@ -63,7 +63,7 @@ Add-AppxPackage FluentHub_<versionNumber>.msixbundle
 ### Building from source ⭐Recommended⭐
 
 This is our preferred method.
-See the [build section](#-building-the-code)
+See the [build section](#-building-the-code).
 
 ## 📸 Screenshots
 
@@ -96,10 +96,10 @@ If you are interested in fixing issues and contributing directly to the code bas
 ├──lib                               // Library for submodules.
 |  └──octokit.graphql.net            // Official library for GitHub GraphQL API.
 └──src                               // The source code.
-   ├──FluentHub.Uwp                  // Code for most front-end elements of the app
-   ├──FluentHub.Core                 // Core elements of the app
+   ├──FluentHub.Uwp                  // Code for most front-end elements of the app.
+   ├──FluentHub.Core                 // Core elements of the app.
    ├──FluentHub.Octokit              // Code for most back-end and API-related elements of the app such as mutations and queries.
-   └──FluentHub.Octokit.Generation   // GitHub GraphQL API model generator
+   └──FluentHub.Octokit.Generation   // GitHub GraphQL API model generator.
 ```
 
 ### 🗃️ Contributors
@@ -146,15 +146,18 @@ git submodule update --init --recursive
 
 See [the documentation](docs/credentials.md).
 
+**Warning:** If you skip this step, Visual Studio will give a fatal error that the `AppCrededntials.config` file does not exist.
+
 ### 4. Build the project
 
 - Open `FluentHub.sln`.
-- Hit 'Set as Startup item' on `FluentHub.Uwp` in the Solution Explorer
-- Build with `DEBUG|x64|FluentHub.Uwp (Universal Windows)`
+- Hit 'Set as Startup item' on `FluentHub.Uwp` in the Solution Explorer.
+- Build with `DEBUG|x64|FluentHub.Uwp (Universal Windows)`.
 
 ## 💳 Credit
 
-- Many thanks to Joseph Beattie ([@josephbeattie](https://github.com/josephbeattie)) for creating our current logo.
+- Some application icons created by [Icons8](https://github.com/icons8).
+- Many thanks to [Joseph Beattie](https://github.com/josephbeattie) for creating our current logo.
 
 ## 📱 Contact
 The easiest way to contact us is to join [our Discord](https://discord.gg/8KtRkjq2Q4).
