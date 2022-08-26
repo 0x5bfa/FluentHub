@@ -7,6 +7,7 @@ using FluentHub.Uwp.ViewModels.UserControls;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.UserControls
@@ -77,5 +78,8 @@ namespace FluentHub.Uwp.UserControls
                     break;
             }
         }
+
+        private void OnVerifiedLabelTapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
+         => FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
     }
 }

@@ -1,0 +1,53 @@
+﻿<UserControl
+    x:Class="FluentHub.Uwp.UserControls.PrimerControls.StateLabel"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:FluentHub.Uwp.UserControls.PrimerControls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <Grid Height="32" HorizontalAlignment="Left">
+
+        <Grid
+            x:Name="LabelBackground"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            Background="{x:Bind Context.StatusColor, Mode=OneWay}"
+            CornerRadius="16"
+            Opacity="0.8" />
+
+        <Grid
+            x:Name="LabelBorder"
+            HorizontalAlignment="Stretch"
+            VerticalAlignment="Stretch"
+            BorderBrush="{x:Bind Context.StatusColor, Mode=OneWay}"
+            BorderThickness="1"
+            CornerRadius="16"
+            Opacity="1" />
+
+        <StackPanel
+            Padding="12,2"
+            Orientation="Horizontal"
+            Spacing="4">
+
+            <FontIcon
+                x:Name="StateLabelFont"
+                FontFamily="{StaticResource Octicons}"
+                FontSize="16"
+                Foreground="{ThemeResource PrimerForegroundOnEmphasis}"
+                Glyph="{x:Bind Context.StatusGlyph, Mode=OneWay}" />
+
+            <TextBlock
+                x:Name="StateLabelTextBlock"
+                VerticalAlignment="Center"
+                Foreground="{ThemeResource PrimerForegroundOnEmphasis}"
+                Style="{StaticResource BodyStrongTextBlockStyle}"
+                Text="{x:Bind Context.StatusText, Mode=OneWay}" />
+
+        </StackPanel>
+
+    </Grid>
+</UserControl>

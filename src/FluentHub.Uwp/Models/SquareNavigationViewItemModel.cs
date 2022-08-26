@@ -2,15 +2,14 @@
 {
     public class SquareNavigationViewItemModel
     {
-        public SquareNavigationViewItemModel()
-        {
-        }
+        public SquareNavigationViewItemModel() { }
 
-        public SquareNavigationViewItemModel(string name, string glyphPrimary, string glyphSecondary)
+        public SquareNavigationViewItemModel(string name, string glyphPrimary, string glyphSecondary, bool isSelected = false)
         {
             Name = name;
             GlyphPrimary = glyphPrimary;
             GlyphSecondary = glyphSecondary;
+            IsSelected = isSelected;
         }
 
         public string Name { get; set; }

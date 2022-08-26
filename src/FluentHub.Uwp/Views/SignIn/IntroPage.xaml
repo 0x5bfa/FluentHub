@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="using:FluentHub.Uwp.Helpers"
     xmlns:local="using:FluentHub.Uwp.Views.SignIn"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -45,18 +46,17 @@
                             x:DefaultBindMode="TwoWay"
                             Spacing="4">
 
-                            <Image Height="72" VerticalAlignment="Center">
-                                <Image.Source>
-                                    <BitmapImage DecodePixelWidth="128" UriSource="/Assets/AppTiles/StoreLogo.scale-400.png" />
-                                </Image.Source>
-                            </Image>
+                            <muxc:ImageIcon
+                                Height="72"
+                                VerticalAlignment="Center"
+                                Source="/Assets/AppTiles/StoreLogo.scale-400.png" />
 
                             <TextBlock
-                                x:Name="Header"
+                                x:Name="IntroHeader"
                                 Margin="0,12"
                                 HorizontalAlignment="Center"
                                 Style="{StaticResource SubtitleTextBlockStyle}"
-                                Text="Authorize FluentHub" />
+                                Text="{helpers:ResourceString Name=IntroHeader/Text}" />
 
                             <!--<muxc:InfoBar
                                 x:Name="infoBar"
@@ -158,7 +158,7 @@
                                     VerticalAlignment="Center"
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                     Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="Click &quot;Login with GitHub&quot;;" />
+                                    Text="{helpers:ResourceString Name=FirstStepToAuthorize/Text}" />
 
                                 <TextBlock
                                     Grid.Row="1"
@@ -166,7 +166,7 @@
                                     VerticalAlignment="Center"
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                     Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="If you are in administration of one or more organizations, please give FluentHub access to them;" />
+                                    Text="{helpers:ResourceString Name=SecondStepToAuthorize/Text}" />
 
                                 <TextBlock
                                     Grid.Row="2"
@@ -174,7 +174,7 @@
                                     VerticalAlignment="Center"
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                     Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="Click &quot;Authorize FluentHub&quot;;" />
+                                    Text="{helpers:ResourceString Name=ThirdStepToAuthorize/Text}" />
 
                                 <TextBlock
                                     Grid.Row="3"
@@ -182,7 +182,7 @@
                                     VerticalAlignment="Center"
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                     Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="Click &quot;Open FluentHub DEV&quot;;" />
+                                    Text="{helpers:ResourceString Name=ForthStepToAuthorize/Text}" />
 
                                 <TextBlock
                                     Grid.Row="4"
@@ -190,7 +190,7 @@
                                     VerticalAlignment="Center"
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                     Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="Proceed to the FluentHub application." />
+                                    Text="{helpers:ResourceString Name=FifthStepToAuthorize/Text}" />
 
                             </Grid>
 
@@ -198,7 +198,7 @@
                                 Margin="0,32,0,0"
                                 HorizontalAlignment="Stretch"
                                 Command="{x:Bind ViewModel.AuthorizeWithBrowserCommand}"
-                                Content="Login with GitHub"
+                                Content="{helpers:ResourceString Name=LoginWithGitHub/Content}"
                                 Style="{ThemeResource AccentButtonStyle}">
                                 <Button.KeyboardAccelerators>
                                     <KeyboardAccelerator Key="Enter" />
@@ -208,7 +208,7 @@
                             <HyperlinkButton
                                 Margin="0,8,0,0"
                                 HorizontalAlignment="Right"
-                                Content="Documentation"
+                                Content="{helpers:ResourceString Name=IntroDocumentationLink/Content}"
                                 NavigateUri="https://hub.codrex.dev/docs" />
 
                         </StackPanel>

@@ -4,80 +4,98 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:overview="using:FluentHub.Uwp.UserControls.Overview"
     xmlns:uc="using:FluentHub.Uwp.UserControls"
     mc:Ignorable="d">
 
     <Grid>
-        <ScrollViewer>
-            <Grid Margin="0,0,16,0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
 
-                <TextBlock
-                    Margin="0,16,0,8"
-                    Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="General" />
+        <overview:AppSettingsOverview Margin="0,0,0,8" />
 
-                <StackPanel Grid.Row="1" Spacing="4">
+        <Grid Grid.Column="1">
+            <ScrollViewer>
+                <Grid
+                    Margin="8,0,8,8"
+                    Padding="32"
+                    Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
 
-                    <uc:SettingsBlockControl
-                        Title="Theme"
-                        Description="Select app theme"
-                        IsClickable="False">
-                        <uc:SettingsBlockControl.Icon>
-                            <FontIcon Glyph="&#xE771;" />
-                        </uc:SettingsBlockControl.Icon>
-                        <ComboBox ItemsSource="{x:Bind ViewModel.Themes}" SelectedIndex="{x:Bind ViewModel.SelectedThemeIndex, Mode=TwoWay}" />
-                    </uc:SettingsBlockControl>
+                    <TextBlock
+                        Margin="0,0,0,20"
+                        Style="{StaticResource TitleTextBlockStyle}"
+                        Text="Appearance" />
 
-                    <uc:SettingsBlockControl
-                        Title="Language"
-                        Description="Select language - Your build of FluentHub does not allow this"
-                        IsClickable="False">
-                        <uc:SettingsBlockControl.Icon>
-                            <FontIcon Glyph="&#xF2B7;" />
-                        </uc:SettingsBlockControl.Icon>
-                        <ComboBox
-                            IsEnabled="False"
-                            ItemsSource="{x:Bind ViewModel.DefaultLanguages}"
-                            SelectedIndex="{x:Bind ViewModel.SelectedLanguageIndex, Mode=TwoWay}" />
-                    </uc:SettingsBlockControl>
+                    <StackPanel Grid.Row="1">
 
-                </StackPanel>
+                        <TextBlock
+                            Margin="0,16,0,8"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="General" />
 
-                <TextBlock
-                    Grid.Row="2"
-                    Margin="0,16,0,8"
-                    Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="Contribution " />
+                        <StackPanel Spacing="4">
 
-                <StackPanel Grid.Row="3" Spacing="4">
-                    <uc:SettingsBlockControl
-                        Title="Color"
-                        Description="Select accent color for contribution graph"
-                        IsClickable="False">
-                        <uc:SettingsBlockControl.Icon>
-                            <FontIcon Glyph="&#xE771;" />
-                        </uc:SettingsBlockControl.Icon>
-                        <Button Content="Pick" IsEnabled="False">
-                            <Button.Flyout>
-                                <Flyout>
-                                    <Grid>
-                                        <ColorPicker />
+                            <uc:SettingsBlockControl Title="FluentHub color" IsClickable="False">
+                                <uc:SettingsBlockControl.Icon>
+                                    <FontIcon Glyph="&#xE790;" />
+                                </uc:SettingsBlockControl.Icon>
+
+                                <ComboBox ItemsSource="{x:Bind ViewModel.Themes}" SelectedIndex="{x:Bind ViewModel.SelectedThemeIndex, Mode=TwoWay}" />
+                            </uc:SettingsBlockControl>
+
+                            <uc:SettingsBlockControl Title="Custom themes" IsClickable="False">
+                                <uc:SettingsBlockControl.Icon>
+                                    <FontIcon Glyph="&#xE771;" />
+                                </uc:SettingsBlockControl.Icon>
+
+                                <uc:SettingsBlockControl.ExpandableContent>
+                                    <Grid Margin="16">
+                                        <TextBlock Text="Here's various custom themes" />
                                     </Grid>
-                                </Flyout>
-                            </Button.Flyout>
-                        </Button>
-                    </uc:SettingsBlockControl>
-                </StackPanel>
+                                </uc:SettingsBlockControl.ExpandableContent>
+                            </uc:SettingsBlockControl>
 
-            </Grid>
-        </ScrollViewer>
+                            <uc:SettingsBlockControl Title="Language" IsClickable="False">
+                                <uc:SettingsBlockControl.Icon>
+                                    <FontIcon Glyph="&#xF2B7;" />
+                                </uc:SettingsBlockControl.Icon>
+                                <ComboBox ItemsSource="{x:Bind ViewModel.DefaultLanguages}" SelectedIndex="{x:Bind ViewModel.SelectedLanguageIndex, Mode=TwoWay}" />
+                            </uc:SettingsBlockControl>
+
+                        </StackPanel>
+
+                    </StackPanel>
+
+                    <StackPanel
+                        x:Name="ThisWillBeUserControl"
+                        Grid.Row="2"
+                        Margin="0,32,0,0"
+                        Spacing="4">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon FontSize="14" Glyph="&#xE9CE;" />
+                            <TextBlock Style="{StaticResource BodyTextBlockStyle}">
+                                <Hyperlink NavigateUri="https://github.com/FluentHub/FluentHub#-contact">Get help</Hyperlink>
+                            </TextBlock>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon FontSize="14" Glyph="&#xED15;" />
+                            <TextBlock Style="{StaticResource BodyTextBlockStyle}">
+                                <Hyperlink NavigateUri="https://github.com/FluentHub/FluentHub#-feedback">Give feedback</Hyperlink>
+                            </TextBlock>
+                        </StackPanel>
+                    </StackPanel>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
     </Grid>
 </Page>

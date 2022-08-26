@@ -1,11 +1,22 @@
 ﻿using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
+using Microsoft.Toolkit.Uwp;
+using System;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Reflection;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
+using System.Windows.Input;
+using Windows.ApplicationModel.AppService;
+using Windows.Foundation.Collections;
 using Windows.Globalization;
+using Windows.Storage;
 
 namespace FluentHub.Uwp.ViewModels
 {
-    public class SettingsViewModel : SettingsManager
+    public class SettingsViewModel : ObservableObject
     {
         public SettingsViewModel()
         {
@@ -18,55 +29,74 @@ namespace FluentHub.Uwp.ViewModels
             }
         }
 
+        private readonly ApplicationDataContainer localSettings = ApplicationData.Current.LocalSettings;
+
         #region Sign in
         public string AccessToken
         {
-            get => Get(nameof(AccessToken), "");
-            set => Set(nameof(AccessToken), value);
+            get => Get("");
+            set => Set(value);
         }
 
         public bool SetupCompleted
         {
-            get => Get(nameof(SetupCompleted), false);
-            set => Set(nameof(SetupCompleted), value);
+            get => Get(false);
+            set => Set(value);
         }
 
         public bool SetupProgress
         {
-            get => Get(nameof(SetupProgress), false);
-            set => Set(nameof(SetupProgress), value);
+            get => Get(false);
+            set => Set(value);
         }
 
         public string SignedInUserName
         {
-            get => Get(nameof(SignedInUserName), "");
-            set => Set(nameof(SignedInUserName), value);
+            get => Get("");
+            set => Set(value);
         }
 
         public string SignedInUserLogins // Divided with comma ','
         {
-            get => Get(nameof(SignedInUserLogins), "");
-            set => Set(nameof(SignedInUserLogins), value);
+            get => Get("");
+            set => Set(value);
         }
         #endregion
 
         #region App settings
+
         public string AppTheme
         {
-            get => Get(nameof(AppTheme), "Default");
-            set => Set(nameof(AppTheme), value);
+            get => Get("Default");
+            set => Set(value);
         }
+
+        public CustomThemeItem SelectedThemeItem
+        {
+            get => Newtonsoft.Json.JsonConvert.DeserializeObject<CustomThemeItem>(
+                Get(System.Text.Json.JsonSerializer.Serialize(
+                    new CustomThemeItem()
+                    {
+                        Name = "Default"
+                    }))
+                );
+            set => Set(Newtonsoft.Json.JsonConvert.SerializeObject(value));
+        }
+
+        #endregion
+
+        #region Settings
 
         public string AppVersion
         {
-            get => Get(nameof(AppVersion), "Unknown version");
-            set => Set(nameof(AppVersion), value);
+            get => Get("Unknown version");
+            set => Set(value);
         }
 
         public bool UseDetailsView
         {
-            get => Get(nameof(UseDetailsView), true);
-            set => Set(nameof(UseDetailsView), value);
+            get => Get(true);
+            set => Set(value);
         }
 
         public ObservableCollection<DefaultLanguageModel> DefaultLanguages { get; private set; }
@@ -77,15 +107,61 @@ namespace FluentHub.Uwp.ViewModels
             set => ApplicationLanguages.PrimaryLanguageOverride = value.ID;
         }
 
-        public DefaultLanguageModel CurrentLanguage { get; set; } = new DefaultLanguageModel(ApplicationLanguages.PrimaryLanguageOverride);
+        public DefaultLanguageModel CurrentLanguage { get; set; }
+            = new DefaultLanguageModel(ApplicationLanguages.PrimaryLanguageOverride);
+
         #endregion
 
-        #region Others
-        public string LastOpenedPageFrame
+        #region ReadAndSave
+
+        public TValue Get<TValue>(TValue defaultValue, [CallerMemberName] string propertyName = null)
         {
-            get => Get(nameof(LastOpenedPageFrame), nameof(Views.Home.UserHomePage));
-            set => Set(nameof(LastOpenedPageFrame), value);
+            propertyName = propertyName ??
+                       throw new ArgumentNullException(nameof(propertyName), "Cannot store property of unnamed.");
+
+            if (localSettings.Values.ContainsKey(propertyName))
+            {
+                var value = localSettings.Values[propertyName];
+
+                if (value is not TValue tValue)
+                {
+                    // Put the corrected value in settings.
+                    TValue originalValue = default;
+                    Set(originalValue, propertyName);
+
+                    return originalValue;
+                }
+
+                return (TValue)value;
+            }
+
+            localSettings.Values[propertyName] = defaultValue;
+
+            return defaultValue;
         }
+
+        public bool Set<TValue>(TValue value, [CallerMemberName] string propertyName = null)
+        {
+            TValue originalValue = default;
+
+            if (localSettings.Values.ContainsKey(propertyName))
+            {
+                originalValue = Get(originalValue, propertyName);
+                localSettings.Values[propertyName] = value;
+
+                if (!SetProperty(ref originalValue, value, propertyName))
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                localSettings.Values[propertyName] = value;
+            }
+
+            return true;
+        }
+
         #endregion
     }
 }

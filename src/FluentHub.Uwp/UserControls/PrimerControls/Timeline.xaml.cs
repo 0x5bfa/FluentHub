@@ -27,6 +27,20 @@ namespace FluentHub.Uwp.UserControls.PrimerControls
             set => SetValue(BadgeProperty, value);
         }
 
+        public static readonly DependencyProperty BadgeBackgroundProperty =
+            DependencyProperty.Register(
+                nameof(BadgeBackground),
+                typeof(SolidColorBrush),
+                typeof(Timeline),
+                new PropertyMetadata((SolidColorBrush)App.Current.Resources["PrimerBorderMuted"])
+                );
+
+        public SolidColorBrush BadgeBackground
+        {
+            get => (SolidColorBrush)GetValue(BadgeBackgroundProperty);
+            set => SetValue(BadgeBackgroundProperty, value);
+        }
+
         public static readonly DependencyProperty BodyProperty =
             DependencyProperty.Register(
                 nameof(Body),

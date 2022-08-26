@@ -32,7 +32,7 @@ namespace FluentHub.Uwp.ViewModels
             _navViewFooterItems = new();
             NavViewFooterItems = new(_navViewFooterItems);
 
-            _navViewItems.Add(new (name: "Home", glyphPrimary: "\uE80F", glyphSecondary: "\uEA8A"));
+            _navViewItems.Add(new (name: "Home", glyphPrimary: "\uE80F", glyphSecondary: "\uEA8A", isSelected: true));
             _navViewItems.Add(new (name: "Notifications", glyphPrimary: "\uE8BD", glyphSecondary: "\uE717"));
             _navViewItems.Add(new (name: "Activity", glyphPrimary: "\uECAD", glyphSecondary: "\uECAD"));
             _navViewItems.Add(new (name: "Marketplace", glyphPrimary: "\uE14D", glyphSecondary: "\uE14D"));
