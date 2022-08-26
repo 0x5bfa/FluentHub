@@ -133,10 +133,10 @@
     <value>FluentHub Autoriseren</value>
   </data>
   <data name="LoginWithGitHub.Content" xml:space="preserve">
-    <value>Login met GitHub</value>
+    <value>Inloggen met GitHub</value>
   </data>
   <data name="SecondStepToAuthorize.Text" xml:space="preserve">
-    <value>Als u in beheer bent van een of meer organisaties, geef dan FluentHub toegang tot hen;</value>
+    <value>Als u een of meer organisaties beheert, geef ze dan toegang tot FluentHub;</value>
   </data>
   <data name="ThirdStepToAuthorize.Text" xml:space="preserve">
     <value>Klik op "Autoriseren FluentHub";</value>
