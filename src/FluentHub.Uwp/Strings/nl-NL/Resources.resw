@@ -121,7 +121,7 @@
     <value>FluentHub openen</value>
   </data>
   <data name="FirstStepToAuthorize.Text" xml:space="preserve">
-    <value>Klik op "Login with GitHub";</value>
+    <value>Klik op "Login met GitHub";</value>
   </data>
   <data name="ForthStepToAuthorize.Text" xml:space="preserve">
     <value>Klik op "FluentHub DEV openen";</value>
