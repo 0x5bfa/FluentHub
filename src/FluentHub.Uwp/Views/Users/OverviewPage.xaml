@@ -60,7 +60,7 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <Grid Padding="32,12,32,4">
+                        <Grid Padding="32,8,32,4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
@@ -82,8 +82,8 @@
                                 HorizontalAlignment="Right"
                                 Background="Transparent"
                                 BorderThickness="0"
-                                IsEnabled="False">
-                                <StackPanel Orientation="Horizontal" Spacing="4">
+                                Click="OnEditPinnedReposButtonClick">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
                                     <muxc:AnimatedIcon Height="16">
                                         <muxc:AnimatedIcon.Source>
                                             <animatedvisuals:AnimatedSettingsVisualSource />
@@ -137,7 +137,7 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <Grid Padding="32,12,32,4">
+                        <Grid Padding="32,8,32,4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
@@ -159,8 +159,8 @@
                                 HorizontalAlignment="Right"
                                 Background="Transparent"
                                 BorderThickness="0"
-                                IsEnabled="False">
-                                <StackPanel Orientation="Horizontal" Spacing="4">
+                                Click="OnEditPinnedReposButtonClick">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
                                     <muxc:AnimatedIcon Height="16">
                                         <muxc:AnimatedIcon.Source>
                                             <animatedvisuals:AnimatedSettingsVisualSource />
