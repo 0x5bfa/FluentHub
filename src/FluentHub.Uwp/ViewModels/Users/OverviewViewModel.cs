@@ -14,8 +14,12 @@ namespace FluentHub.Uwp.ViewModels.Users
         {
             _logger = logger;
             _messenger = messenger;
-            _repositoryItems = new();
-            RepositoryItems = new(_repositoryItems);
+
+            _pinnedRepositories = new();
+            PinnedRepositories = new(_pinnedRepositories);
+
+            _pinnableRepositories = new();
+            PinnableRepositories = new(_pinnableRepositories);
 
             RefreshRepositoryCommand = new AsyncRelayCommand<string>(LoadUserOverviewAsync);
         }
@@ -24,8 +28,11 @@ namespace FluentHub.Uwp.ViewModels.Users
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
 
-        private readonly ObservableCollection<RepoButtonBlockViewModel> _repositoryItems;
-        public ReadOnlyObservableCollection<RepoButtonBlockViewModel> RepositoryItems { get; }
+        private readonly ObservableCollection<RepoButtonBlockViewModel> _pinnedRepositories;
+        public ReadOnlyObservableCollection<RepoButtonBlockViewModel> PinnedRepositories { get; }
+
+        private readonly ObservableCollection<RepoButtonBlockViewModel> _pinnableRepositories;
+        public ReadOnlyObservableCollection<RepoButtonBlockViewModel> PinnableRepositories { get; }
 
         private User _user;
         public User User { get => _user; set => SetProperty(ref _user, value); }
@@ -46,21 +53,43 @@ namespace FluentHub.Uwp.ViewModels.Users
         {
             try
             {
+                _pinnableRepositories.Clear();
+                _pinnedRepositories.Clear();
+
                 PinnedItemQueries queries = new();
-                var response = await queries.GetAllAsync(login);
-                if (response == null) return;
+                var pinnedItemsRes = await queries.GetAllAsync(login);
+                if (pinnedItemsRes == null) return;
 
-                _repositoryItems.Clear();
-                foreach (var item in response)
+                if (pinnedItemsRes.Count == 0)
                 {
-                    RepoButtonBlockViewModel viewModel = new()
-                    {
-                        Repository = item,
-                        DisplayDetails = false,
-                        DisplayStarButton = false,
-                    };
+                    var pinnableItemsRes = await queries.GetAllPinnableItems(login);
+                    if (pinnableItemsRes == null) return;
 
-                    _repositoryItems.Add(viewModel);
+                    foreach (var item in pinnableItemsRes)
+                    {
+                        RepoButtonBlockViewModel viewModel = new()
+                        {
+                            Repository = item,
+                            DisplayDetails = false,
+                            DisplayStarButton = false,
+                        };
+
+                        _pinnableRepositories.Add(viewModel);
+                    }
+                }
+                else
+                {
+                    foreach (var item in pinnedItemsRes)
+                    {
+                        RepoButtonBlockViewModel viewModel = new()
+                        {
+                            Repository = item,
+                            DisplayDetails = false,
+                            DisplayStarButton = false,
+                        };
+
+                        _pinnedRepositories.Add(viewModel);
+                    }
                 }
             }
             catch (Exception ex)

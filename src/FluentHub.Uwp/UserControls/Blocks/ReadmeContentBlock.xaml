@@ -59,7 +59,7 @@
         <WebView
             x:Name="ReadmeWebView"
             Grid.Row="2"
-            Margin="8"
+            Margin="32"
             DefaultBackgroundColor="Transparent"
             NavigationCompleted="ReadmeWebView_NavigationCompleted"
             NavigationStarting="ReadmeWebView_NavigationStarting" />
