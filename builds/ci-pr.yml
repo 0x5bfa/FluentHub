@@ -9,14 +9,14 @@ pr:
       - samples/*
       - tools/*
 
-name: $(Date:yyMM).$(Date:dd)$(Rev:rr)
-
 variables:
 - group: BuildPipelineVariables
 - name: solution
   value: '**/*.sln'
 - name: appxPackageDir
   value: '$(build.artifactStagingDirectory)\AppxPackages\\'
+
+name: $(Date:yyMM).$(Date:dd)$(Rev:rr)
 
 stages:
   - stage: Build_Debug_x64
