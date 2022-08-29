@@ -62,7 +62,7 @@ namespace FluentHub.Uwp.Views.Users
 
         private async void OnEditPinnedReposButtonClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
         {
-            var dialogs = new Dialogs.EditPinnedRepositoriesDialog();
+            var dialogs = new Dialogs.EditPinnedRepositoriesDialog(ViewModel.Login);
             _ = await dialogs.ShowAsync();
         }
     }
