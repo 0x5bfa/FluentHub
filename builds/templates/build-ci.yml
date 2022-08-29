@@ -1,0 +1,17 @@
+parameters:
+  configuration: 'Debug'
+  branding: 'Dev'
+  platform: 'x64'
+
+jobs:
+- job: Build${{ parameters.platform }}${{ parameters.configuration }}${{ parameters.branding }}
+  displayName: Build ${{ parameters.platform }} ${{ parameters.configuration }} ${{ parameters.branding }}
+  variables:
+    BuildConfiguration: ${{ parameters.configuration }}
+    BuildPlatform: ${{ parameters.platform }}
+    FluentHubBranding: ${{ parameters.branding }}
+  pool:
+    vmImage: 'windows-latest'
+
+  steps:
+  - template: build-steps.yml
