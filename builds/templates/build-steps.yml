@@ -8,26 +8,17 @@ parameters:
   visualDisplayName: 'FluentHub'
   msbuildArgs: ''
 
-variables:
-- name: buildArgs
-  ${{ if eq(parameters.configuration, 'Debug') }}:
-    value: '/p:GenerateAppInstallerFile=True /p:AppxLogTelemetryFromSideloadingScript=False /p:AppxBundle=Always /p:UapAppxPackageBuildMode=Release /p:AppxPackageSigningEnabled=true'
-  ${{ elseif eq(parameters.configuration, 'Sideload') }}:
-    value: '/p:UapAppxPackageBuildMode=Sideload /p:AppxPackageSigningEnabled=true'
-  ${{ elseif eq(parameters.configuration, 'Sideload') }}:
-    value: '/p:UapAppxPackageBuildMode=StoreUpload'
-
-- bash: |
-    echo "##vso[task.setvariable variable=msBuildArgs;]/p:GenerateAppInstallerFile=True /p:AppxLogTelemetryFromSideloadingScript=False /p:AppInstallerUri=$(build.artifactstagingdirectory) /p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=${{ parameters.configuration }} /p:AppxPackageSigningEnabled=true /p:PackageCertificateThumbprint="" /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)" /p:PackageCertificatePassword="$(signingCert.password)""
-
-- bash: |
-    echo "##vso[task.setvariable variable=msBuildArgs;]/p:AppInstallerUri="$(build.artifactstagingdirectory)" /p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:UapAppxPackageBuildMode=${{ parameters.configuration }} /p:AppxPackageSigningEnabled=true /p:PackageCertificateThumbprint="" /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)" /p:PackageCertificatePassword="$(signingCert.password)""
-
-- bash: |
-    echo "##vso[task.setvariable variable=msBuildArgs;]/p:AppInstallerUri="$(build.artifactstagingdirectory)" /p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:UapAppxPackageBuildMode=${{ parameters.configuration }}"
-
 steps:
-    
+
+  variables:
+  - name: buildArgs
+    ${{ if eq(parameters.configuration, 'Debug') }}:
+      value: '/p:GenerateAppInstallerFile=True /p:AppxLogTelemetryFromSideloadingScript=False /p:AppxBundle=Always /p:UapAppxPackageBuildMode=Release /p:AppxPackageSigningEnabled=true'
+    ${{ elseif eq(parameters.configuration, 'Sideload') }}:
+      value: '/p:UapAppxPackageBuildMode=Sideload /p:AppxPackageSigningEnabled=true'
+    ${{ elseif eq(parameters.configuration, 'Sideload') }}:
+      value: '/p:UapAppxPackageBuildMode=StoreUpload'
+
 - checkout: self
   submodules: true
   clean: true
