@@ -5,8 +5,11 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:FluentHub.Uwp.Dialogs"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:FluentHub.Uwp.Models"
+    Loaded="OnEditPinnedRepositoriesDialogLoaded"
     PrimaryButtonClick="OnPrimaryButtonClick"
     PrimaryButtonText="Save pins"
+    SecondaryButtonText="Cancel"
     Style="{StaticResource DefaultContentDialogStyle}"
     mc:Ignorable="d">
 
@@ -15,14 +18,24 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
         <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Edit pinned items" />
         <TextBlock
             Grid.Row="1"
             Style="{StaticResource BodyTextBlockStyle}"
-            Text="Select up to six public repositories or gists you'd like to show to anyone." />
-        <Grid Grid.Row="2" Margin="-24,0">
-            <ScrollViewer Padding="20,0">
+            Text="Select up to 6 public repositories you'd like to show to anyone." />
+        <TextBlock
+            Grid.Row="2"
+            Margin="0,12,0,0"
+            Foreground="{ThemeResource SystemFillColorCautionBrush}"
+            Style="{StaticResource BodyTextBlockStyle}"
+            Text="Currently, editing pinned items is not available." />
+        <Grid
+            Grid.Row="3"
+            Height="300"
+            Margin="-24,12,-24,0">
+            <ScrollViewer Padding="12,0" VerticalScrollBarVisibility="Hidden">
                 <Grid>
                     <ListView
                         HorizontalAlignment="Stretch"
@@ -30,6 +43,7 @@
                         IsItemClickEnabled="True"
                         IsRightTapEnabled="True"
                         ItemContainerTransitions="{x:Null}"
+                        ItemsSource="{x:Bind ViewModel.PinnableItems, Mode=OneWay}"
                         SelectionMode="None">
 
                         <ListView.ItemContainerStyle>
@@ -39,22 +53,20 @@
                         </ListView.ItemContainerStyle>
 
                         <ListView.ItemTemplate>
-                            <DataTemplate>
+                            <DataTemplate x:DataType="models:PinnableRepository">
 
                                 <StackPanel
-                                    Padding="0,12"
+                                    Padding="0,0"
                                     Orientation="Horizontal"
                                     Spacing="8">
-                                    <CheckBox />
-                                    <TextBlock Text="Repository name" />
+                                    <CheckBox
+                                        Content="{x:Bind PinnableItem.NameWithOwner}"
+                                        IsChecked="{x:Bind IsPinned, Mode=TwoWay}"
+                                        IsEnabled="False" />
                                 </StackPanel>
 
                             </DataTemplate>
                         </ListView.ItemTemplate>
-
-                        <ListView.Items>
-                            <ListViewItem />
-                        </ListView.Items>
 
                     </ListView>
                 </Grid>

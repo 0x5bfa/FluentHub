@@ -178,6 +178,7 @@
     <Compile Include="Models\FolderCardItem.cs" />
     <Compile Include="Models\FrameNavigationArgs.cs" />
     <Compile Include="Models\LoadingMessaging.cs" />
+    <Compile Include="Models\PinnableRepository.cs" />
     <Compile Include="Models\SquareNavigationViewItemModel.cs" />
     <Compile Include="Models\TimelineItemSelector.cs" />
     <Compile Include="Models\TreeLayoutPageModel.cs" />
@@ -339,6 +340,7 @@
     <Compile Include="ViewModels\AppSettings\AppearanceViewModel.cs" />
     <Compile Include="ViewModels\AppSettings\MainSettingsViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\AccountSwitchingDialogViewModel.cs" />
+    <Compile Include="ViewModels\Dialogs\EditPinnedRepositoriesDialogViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\EditUserProfileViewModel.cs" />
     <Compile Include="ViewModels\Home\UserHomeViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
