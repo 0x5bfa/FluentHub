@@ -6,82 +6,70 @@ parameters:
   identityPublisher: 'CN=FluentHubCI'
   displayName: 'FluentHub'
   visualDisplayName: 'FluentHub'
+  buildArgs: ''
 
-jobs:
+steps:
+- checkout: self
+  submodules: true
+  clean: true
+  fetchDepth: 1
 
-- job:
+- task: PowerShell@2
+  displayName: 'Canonicalize package manifest'
+  inputs:
+    targetType: 'inline'
+    script: |
+      [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\FluentHub.Uwp\Package.appxmanifest
+      $xmlDoc.Package.Identity.Name="${{ parameters.identityName }}"
+      $xmlDoc.Package.Identity.Publisher="${{ parameters.identityPublisher }}"
+      $xmlDoc.Package.Properties.DisplayName="${{ parameters.displayName }}"
+      $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="${{ parameters.visualDisplayName }}"
+      $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub.Uwp\Package.appxmanifest')
+    failOnStderr: true
 
-  variables:
-  - name: buildArgs
-    ${{ if eq(parameters.configuration, 'Debug') }}:
-      value: '/p:GenerateAppInstallerFile=True /p:AppxLogTelemetryFromSideloadingScript=False /p:AppxBundle=Always /p:UapAppxPackageBuildMode=Release /p:AppxPackageSigningEnabled=true'
-    ${{ elseif eq(parameters.configuration, 'Sideload') }}:
-      value: '/p:UapAppxPackageBuildMode=Sideload /p:AppxPackageSigningEnabled=true'
-    ${{ elseif eq(parameters.configuration, 'Sideload') }}:
-      value: '/p:UapAppxPackageBuildMode=StoreUpload'
+- task: DownloadSecureFile@1
+  displayName: 'Download OAuth credentials'
+  name: CredentialSecureFile
+  inputs:
+    secureFile: AppCredentials.config
 
-  steps:
-  - checkout: self
-    submodules: true
-    clean: true
-    fetchDepth: 1
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Agent.TempDirectory)'
+    Contents: '$(CredentialSecureFile.secureFilePath)'
+    TargetFolder: '$(Build.SourcesDirectory)\src\FluentHub.Uwp'
 
-  - task: PowerShell@2
-    displayName: 'Canonicalize package manifest'
-    inputs:
-      targetType: 'inline'
-      script: |
-        [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\FluentHub.Uwp\Package.appxmanifest
-        $xmlDoc.Package.Identity.Name="${{ parameters.identityName }}"
-        $xmlDoc.Package.Identity.Publisher="${{ parameters.identityPublisher }}"
-        $xmlDoc.Package.Properties.DisplayName="${{ parameters.displayName }}"
-        $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="${{ parameters.visualDisplayName }}"
-        $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub.Uwp\Package.appxmanifest')
-      failOnStderr: true
+- task: DownloadSecureFile@1
+  name: caCertificate
+  displayName: 'Download CA certificate'
+  inputs:
+    secureFile: '$(signingCert.secureFilePath)'
 
-  - task: DownloadSecureFile@1
-    displayName: 'Download OAuth credentials'
-    name: CredentialSecureFile
-    inputs:
-      secureFile: AppCredentials.config
+- task: NuGetToolInstaller@1
+  inputs:
+    versionSpec: '6.2.1'
 
-  - task: CopyFiles@2
-    inputs:
-      SourceFolder: '$(Agent.TempDirectory)'
-      Contents: '$(CredentialSecureFile.secureFilePath)'
-      TargetFolder: '$(Build.SourcesDirectory)\src\FluentHub.Uwp'
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
 
-  - task: DownloadSecureFile@1
-    name: caCertificate
-    displayName: 'Download CA certificate'
-    inputs:
-      secureFile: '$(signingCert.secureFilePath)'
-
-  - task: NuGetToolInstaller@1
-    inputs:
-      versionSpec: '6.2.1'
-
-  - task: NuGetCommand@2
-    inputs:
-      restoreSolution: '$(solution)'
-
-  - task: VSBuild@1
-    displayName: 'Build FluentHub'
-    inputs:
-      platform: '${{ parameters.platform }}'
-      solution: '$(solution)'
-      configuration: '${{ parameters.configuration }}'
-      msBuildArgs: '/p:AppInstallerUri=$(build.artifactstagingdirectory) /p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" $(buildArgs) /p:PackageCertificateThumbprint="" /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)" /p:PackageCertificatePassword="$(signingCert.password)"'
+- task: VSBuild@1
+  displayName: 'Build FluentHub'
+  inputs:
+    platform: '${{ parameters.platform }}'
+    solution: '$(solution)'
+    configuration: '${{ parameters.configuration }}'
+    msBuildArgs: '/p:AppInstallerUri=$(build.artifactstagingdirectory) /p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" ${{ parameters.buildArgs }} /p:PackageCertificateThumbprint="" /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)" /p:PackageCertificatePassword="$(signingCert.password)"'
     
-  - task: CopyFiles@2
-    displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
-    inputs:
-      SourceFolder: '$(system.defaultworkingdirectory)'
-      Contents: '**\bin\$(buildConfigurationSideload)\**'
-      TargetFolder: '$(build.artifactstagingdirectory)'
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+  inputs:
+    SourceFolder: '$(system.defaultworkingdirectory)'
+    Contents: '**\bin\$(buildConfigurationSideload)\**'
+    TargetFolder: '$(build.artifactstagingdirectory)'
 
-  - task: PublishBuildArtifacts@1
-    displayName: 'Publish Artifact'
-    inputs:
-      PathtoPublish: '$(build.artifactstagingdirectory)'
-      artifactName: 'Assets'
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact'
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)'
+    artifactName: 'Assets'
