@@ -15,6 +15,7 @@ variables:
   value: '$(build.artifactStagingDirectory)\AppxPackages\\'
 
 steps:
+    
 - checkout: self
   submodules: true
   clean: true
@@ -59,24 +60,44 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
+  variables:
+  ${{ if eq(parameters.configuration, 'Debug') }}:
+    msBuildArgs: '
+      /p:GenerateAppInstallerFile=True
+      /p:AppxLogTelemetryFromSideloadingScript=False
+      /p:AppInstallerUri=$(build.artifactstagingdirectory)
+      /p:AppxBundlePlatforms="$(buildPlatform)"
+      /p:AppxPackageDir="$(appxPackageDir)"
+      /p:AppxBundle=Always
+      /p:UapAppxPackageBuildMode=${{ parameters.configuration }}
+      /p:AppxPackageSigningEnabled=true
+      /p:PackageCertificateThumbprint=""
+      /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"
+      /p:PackageCertificatePassword="$(signingCert.password)"'
+  ${{ elseif eq(parameters.configuration, 'Sideload') }}:
+    msBuildArgs: '
+      /p:AppInstallerUri="$(build.artifactstagingdirectory)"
+      /p:AppxBundlePlatforms="$(buildPlatform)"
+      /p:AppxPackageDir="$(appxPackageDir)"
+      /p:UapAppxPackageBuildMode=${{ parameters.configuration }}
+      /p:AppxPackageSigningEnabled=true
+      /p:PackageCertificateThumbprint=""
+      /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"
+      /p:PackageCertificatePassword="$(signingCert.password)"'
+  ${{ elseif eq(parameters.configuration, 'Sideload') }}:
+    msBuildArgs: '
+      /p:AppInstallerUri="$(build.artifactstagingdirectory)"
+      /p:AppxBundlePlatforms="$(buildPlatform)"
+      /p:AppxPackageDir="$(appxPackageDir)"
+      /p:UapAppxPackageBuildMode=${{ parameters.configuration }}'
+
 - task: VSBuild@1
   displayName: 'Build FluentHub'
   inputs:
     platform: '${{ parameters.platform }}'
     solution: '$(solution)'
     configuration: '${{ parameters.configuration }}'
-    msbuildArgs: '
-    /p:GenerateAppInstallerFile=True
-    /p:AppxLogTelemetryFromSideloadingScript=False
-    /p:AppInstallerUri=$(build.artifactstagingdirectory)
-    /p:AppxBundlePlatforms="$(buildPlatform)"
-    /p:AppxPackageDir="$(appxPackageDir)"
-    /p:AppxBundle=Always
-    /p:UapAppxPackageBuildMode=${{ parameters.configuration }}
-    /p:AppxPackageSigningEnabled=true
-    /p:PackageCertificateThumbprint=""
-    /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"
-    /p:PackageCertificatePassword="$(signingCert.password)"'
+    msbuildArgs: '$(msBuildArgs)'
 
 - task: CopyFiles@2
   displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
