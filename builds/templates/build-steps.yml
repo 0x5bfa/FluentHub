@@ -6,13 +6,7 @@ parameters:
   identityPublisher: 'CN=FluentHubCI'
   displayName: 'FluentHub'
   visualDisplayName: 'FluentHub'
-  
-variables:
-- group: BuildPipelineVariables
-- name: solution
-  value: '**/*.sln'
-- name: appxPackageDir
-  value: '$(build.artifactStagingDirectory)\AppxPackages\\'
+  msbuildArgs: ''
 
 steps:
     
@@ -60,44 +54,13 @@ steps:
   inputs:
     restoreSolution: '$(solution)'
 
-  variables:
-  ${{ if eq(parameters.configuration, 'Debug') }}:
-    msBuildArgs: '
-      /p:GenerateAppInstallerFile=True
-      /p:AppxLogTelemetryFromSideloadingScript=False
-      /p:AppInstallerUri=$(build.artifactstagingdirectory)
-      /p:AppxBundlePlatforms="$(buildPlatform)"
-      /p:AppxPackageDir="$(appxPackageDir)"
-      /p:AppxBundle=Always
-      /p:UapAppxPackageBuildMode=${{ parameters.configuration }}
-      /p:AppxPackageSigningEnabled=true
-      /p:PackageCertificateThumbprint=""
-      /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"
-      /p:PackageCertificatePassword="$(signingCert.password)"'
-  ${{ elseif eq(parameters.configuration, 'Sideload') }}:
-    msBuildArgs: '
-      /p:AppInstallerUri="$(build.artifactstagingdirectory)"
-      /p:AppxBundlePlatforms="$(buildPlatform)"
-      /p:AppxPackageDir="$(appxPackageDir)"
-      /p:UapAppxPackageBuildMode=${{ parameters.configuration }}
-      /p:AppxPackageSigningEnabled=true
-      /p:PackageCertificateThumbprint=""
-      /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"
-      /p:PackageCertificatePassword="$(signingCert.password)"'
-  ${{ elseif eq(parameters.configuration, 'Sideload') }}:
-    msBuildArgs: '
-      /p:AppInstallerUri="$(build.artifactstagingdirectory)"
-      /p:AppxBundlePlatforms="$(buildPlatform)"
-      /p:AppxPackageDir="$(appxPackageDir)"
-      /p:UapAppxPackageBuildMode=${{ parameters.configuration }}'
-
 - task: VSBuild@1
   displayName: 'Build FluentHub'
   inputs:
     platform: '${{ parameters.platform }}'
     solution: '$(solution)'
     configuration: '${{ parameters.configuration }}'
-    msbuildArgs: '$(msBuildArgs)'
+    msbuildArgs: '${{ parameters.msbuildArgs }}'
 
 - task: CopyFiles@2
   displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
