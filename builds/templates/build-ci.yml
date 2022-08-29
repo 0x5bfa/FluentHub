@@ -2,6 +2,10 @@ parameters:
   configuration: 'Debug'
   branding: 'Dev'
   platform: 'x64'
+  identityName: 'FluentHubCI'
+  identityPublisher: 'FluentHub CI'
+  displayName: 'FluentHub'
+  visualDisplayName: 'FluentHub'
 
 jobs:
 - job: Build${{ parameters.platform }}${{ parameters.configuration }}${{ parameters.branding }}
@@ -15,3 +19,11 @@ jobs:
 
   steps:
   - template: build-steps.yml
+    parameters:
+      configuration: ${{ parameters.configuration }}
+      branding: ${{ parameters.branding }}
+      platform: ${{ parameters.platform }}
+      identityName: ${{ parameters.identityName }}
+      identityPublisher: ${{ parameters.identityPublisher }}
+      displayName: ${{ parameters.displayName }}
+      visualDisplayName: ${{ parameters.visualDisplayName }}
