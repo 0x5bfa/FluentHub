@@ -6,6 +6,7 @@ parameters:
   identityPublisher: 'FluentHub CI'
   displayName: 'FluentHub'
   visualDisplayName: 'FluentHub'
+  buildArgs: ''
 
 jobs:
 - job: Build${{ parameters.platform }}${{ parameters.configuration }}${{ parameters.branding }}
@@ -27,3 +28,4 @@ jobs:
       identityPublisher: ${{ parameters.identityPublisher }}
       displayName: ${{ parameters.displayName }}
       visualDisplayName: ${{ parameters.visualDisplayName }}
+      buildArgs: ${{ parameters.buildArgs }}
