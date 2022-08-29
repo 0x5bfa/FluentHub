@@ -8,6 +8,24 @@ parameters:
   visualDisplayName: 'FluentHub'
   msbuildArgs: ''
 
+variables:
+- name: buildArgs
+  ${{ if eq(parameters.configuration, 'Debug') }}:
+    value: '/p:GenerateAppInstallerFile=True /p:AppxLogTelemetryFromSideloadingScript=False /p:AppxBundle=Always /p:UapAppxPackageBuildMode=Release /p:AppxPackageSigningEnabled=true'
+  ${{ elseif eq(parameters.configuration, 'Sideload') }}:
+    value: '/p:UapAppxPackageBuildMode=Sideload /p:AppxPackageSigningEnabled=true'
+  ${{ elseif eq(parameters.configuration, 'Sideload') }}:
+    value: '/p:UapAppxPackageBuildMode=StoreUpload'
+
+- bash: |
+    echo "##vso[task.setvariable variable=msBuildArgs;]/p:GenerateAppInstallerFile=True /p:AppxLogTelemetryFromSideloadingScript=False /p:AppInstallerUri=$(build.artifactstagingdirectory) /p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=${{ parameters.configuration }} /p:AppxPackageSigningEnabled=true /p:PackageCertificateThumbprint="" /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)" /p:PackageCertificatePassword="$(signingCert.password)""
+
+- bash: |
+    echo "##vso[task.setvariable variable=msBuildArgs;]/p:AppInstallerUri="$(build.artifactstagingdirectory)" /p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:UapAppxPackageBuildMode=${{ parameters.configuration }} /p:AppxPackageSigningEnabled=true /p:PackageCertificateThumbprint="" /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)" /p:PackageCertificatePassword="$(signingCert.password)""
+
+- bash: |
+    echo "##vso[task.setvariable variable=msBuildArgs;]/p:AppInstallerUri="$(build.artifactstagingdirectory)" /p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:UapAppxPackageBuildMode=${{ parameters.configuration }}"
+
 steps:
     
 - checkout: self
@@ -53,16 +71,6 @@ steps:
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
-    
-${{ if eq(parameters.configuration, 'Debug') }}:
-- bash: |
-    echo "##vso[task.setvariable variable=msBuildArgs;]/p:GenerateAppInstallerFile=True /p:AppxLogTelemetryFromSideloadingScript=False /p:AppInstallerUri=$(build.artifactstagingdirectory) /p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=${{ parameters.configuration }} /p:AppxPackageSigningEnabled=true /p:PackageCertificateThumbprint="" /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)" /p:PackageCertificatePassword="$(signingCert.password)""
-${{ elseif eq(parameters.configuration, 'Sideload') }}:
-- bash: |
-    echo "##vso[task.setvariable variable=msBuildArgs;]/p:AppInstallerUri="$(build.artifactstagingdirectory)" /p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:UapAppxPackageBuildMode=${{ parameters.configuration }} /p:AppxPackageSigningEnabled=true /p:PackageCertificateThumbprint="" /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)" /p:PackageCertificatePassword="$(signingCert.password)""
-${{ elseif eq(parameters.configuration, 'Sideload') }}:
-- bash: |
-    echo "##vso[task.setvariable variable=msBuildArgs;]/p:AppInstallerUri="$(build.artifactstagingdirectory)" /p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:UapAppxPackageBuildMode=${{ parameters.configuration }}"
 
 - task: VSBuild@1
   displayName: 'Build FluentHub'
@@ -70,7 +78,7 @@ ${{ elseif eq(parameters.configuration, 'Sideload') }}:
     platform: '${{ parameters.platform }}'
     solution: '$(solution)'
     configuration: '${{ parameters.configuration }}'
-    msBuildArgs: '$(msBuildArgs)'
+    msBuildArgs: '/p:AppInstallerUri=$(build.artifactstagingdirectory) /p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" $(buildArgs) /p:PackageCertificateThumbprint="" /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)" /p:PackageCertificatePassword="$(signingCert.password)"'
     
 - task: CopyFiles@2
   displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
