@@ -1,3 +1,19 @@
+parameters:
+  configuration: 'Debug'
+  branding: 'Dev'
+  platform: 'x64'
+  identityName: 'FluentHubCI'
+  identityPublisher: 'CN=FluentHubCI'
+  displayName: 'FluentHub'
+  visualDisplayName: 'FluentHub'
+  
+variables:
+- group: BuildPipelineVariables
+- name: solution
+  value: '**/*.sln'
+- name: appxPackageDir
+  value: '$(build.artifactStagingDirectory)\AppxPackages\\'
+
 steps:
 - checkout: self
   submodules: true
@@ -10,10 +26,10 @@ steps:
     targetType: 'inline'
     script: |
       [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\FluentHub.Uwp\Package.appxmanifest
-      $xmlDoc.Package.Identity.Name="49462fluenthub-uwp.FluentHub"
-      $xmlDoc.Package.Identity.Publisher="CN=4E3C0825-4D00-4ECC-89F8-528E9200B125"
-      $xmlDoc.Package.Properties.DisplayName="FluentHub DEV"
-      $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub DEV"
+      $xmlDoc.Package.Identity.Name="${{ parameters.identityName }}"
+      $xmlDoc.Package.Identity.Publisher="${{ parameters.identityPublisher }}"
+      $xmlDoc.Package.Properties.DisplayName="${{ parameters.displayName }}"
+      $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="${{ parameters.visualDisplayName }}"
       $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub.Uwp\Package.appxmanifest')
     failOnStderr: true
 
@@ -46,9 +62,9 @@ steps:
 - task: VSBuild@1
   displayName: 'Build FluentHub'
   inputs:
-    platform: 'x64'
+    platform: '${{ parameters.platform }}'
     solution: '$(solution)'
-    configuration: '$(buildConfigurationSideload)'
+    configuration: '${{ parameters.configuration }}'
     msbuildArgs: '
     /p:GenerateAppInstallerFile=True
     /p:AppxLogTelemetryFromSideloadingScript=False
@@ -56,7 +72,7 @@ steps:
     /p:AppxBundlePlatforms="$(buildPlatform)"
     /p:AppxPackageDir="$(appxPackageDir)"
     /p:AppxBundle=Always
-    /p:UapAppxPackageBuildMode=Release
+    /p:UapAppxPackageBuildMode=${{ parameters.configuration }}
     /p:AppxPackageSigningEnabled=true
     /p:PackageCertificateThumbprint=""
     /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"
