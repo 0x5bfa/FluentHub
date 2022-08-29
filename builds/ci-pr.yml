@@ -9,13 +9,6 @@ pr:
       - samples/*
       - tools/*
 
-variables:
-- group: BuildPipelineVariables
-- name: solution
-  value: '**/*.sln'
-- name: appxPackageDir
-  value: '$(build.artifactStagingDirectory)\AppxPackages\\'
-
 name: $(Date:yyMM).$(Date:dd)$(Rev:rr)
 
 stages:
@@ -33,18 +26,6 @@ stages:
           identityPublisher: 'CN=FluentHubCI'
           displayName: 'FluentHub'
           visualDisplayName: 'FluentHub'
-          msBuildArgs: '
-            /p:GenerateAppInstallerFile=True
-            /p:AppxLogTelemetryFromSideloadingScript=False
-            /p:AppInstallerUri=$(build.artifactstagingdirectory)
-            /p:AppxBundlePlatforms="$(buildPlatform)"
-            /p:AppxPackageDir="$(appxPackageDir)"
-            /p:AppxBundle=Always
-            /p:UapAppxPackageBuildMode=${{ parameters.configuration }}
-            /p:AppxPackageSigningEnabled=true
-            /p:PackageCertificateThumbprint=""
-            /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"
-            /p:PackageCertificatePassword="$(signingCert.password)"'
 
   - stage: Build_Sideload_x64
     displayName: Build Sideload x64
@@ -60,15 +41,6 @@ stages:
           identityPublisher: 'CN=FluentHubCI'
           displayName: 'FluentHub'
           visualDisplayName: 'FluentHub'
-          msBuildArgs: '
-            /p:AppInstallerUri="$(build.artifactstagingdirectory)"
-            /p:AppxBundlePlatforms="$(buildPlatform)"
-            /p:AppxPackageDir="$(appxPackageDir)"
-            /p:UapAppxPackageBuildMode=${{ parameters.configuration }}
-            /p:AppxPackageSigningEnabled=true
-            /p:PackageCertificateThumbprint=""
-            /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"
-            /p:PackageCertificatePassword="$(signingCert.password)"'
 
   - stage: Build_StoreUpload_x64
     displayName: Build StoreUpload x64
@@ -84,8 +56,4 @@ stages:
           identityPublisher: 'CN=FluentHubCI'
           displayName: 'FluentHub'
           visualDisplayName: 'FluentHub'
-          msBuildArgs: '
-            /p:AppInstallerUri="$(build.artifactstagingdirectory)"
-            /p:AppxBundlePlatforms="$(buildPlatform)"
-            /p:AppxPackageDir="$(appxPackageDir)"
-            /p:UapAppxPackageBuildMode=${{ parameters.configuration }}'
+
