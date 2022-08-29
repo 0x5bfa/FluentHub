@@ -59,7 +59,7 @@ stages:
           identityName: 'FluentHubCI'
           identityPublisher: 'CN=FluentHubCI'
           displayName: 'FluentHub'
-          visualDisplayName: 'FluentHub'variables:
+          visualDisplayName: 'FluentHub'
           msBuildArgs: '
             /p:AppInstallerUri="$(build.artifactstagingdirectory)"
             /p:AppxBundlePlatforms="$(buildPlatform)"
