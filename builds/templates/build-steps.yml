@@ -1,0 +1,76 @@
+steps:
+- checkout: self
+  submodules: true
+  clean: true
+  fetchDepth: 1
+
+- task: PowerShell@2
+  displayName: 'Canonicalize package manifest'
+  inputs:
+    targetType: 'inline'
+    script: |
+      [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\FluentHub.Uwp\Package.appxmanifest
+      $xmlDoc.Package.Identity.Name="49462fluenthub-uwp.FluentHub"
+      $xmlDoc.Package.Identity.Publisher="CN=4E3C0825-4D00-4ECC-89F8-528E9200B125"
+      $xmlDoc.Package.Properties.DisplayName="FluentHub DEV"
+      $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub DEV"
+      $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub.Uwp\Package.appxmanifest')
+    failOnStderr: true
+
+- task: DownloadSecureFile@1
+  displayName: 'Download OAuth credentials'
+  name: CredentialSecureFile
+  inputs:
+    secureFile: AppCredentials.config
+
+- task: CopyFiles@2
+  inputs:
+    SourceFolder: '$(Agent.TempDirectory)'
+    Contents: '$(CredentialSecureFile.secureFilePath)'
+    TargetFolder: '$(Build.SourcesDirectory)\src\FluentHub.Uwp'
+
+- task: DownloadSecureFile@1
+  name: caCertificate
+  displayName: 'Download CA certificate'
+  inputs:
+    secureFile: '$(signingCert.secureFilePath)'
+
+- task: NuGetToolInstaller@1
+  inputs:
+    versionSpec: '6.2.1'
+
+- task: NuGetCommand@2
+  inputs:
+    restoreSolution: '$(solution)'
+
+- task: VSBuild@1
+  displayName: 'Build FluentHub'
+  inputs:
+    platform: 'x64'
+    solution: '$(solution)'
+    configuration: '$(buildConfigurationSideload)'
+    msbuildArgs: '
+    /p:GenerateAppInstallerFile=True
+    /p:AppxLogTelemetryFromSideloadingScript=False
+    /p:AppInstallerUri=$(build.artifactstagingdirectory)
+    /p:AppxBundlePlatforms="$(buildPlatform)"
+    /p:AppxPackageDir="$(appxPackageDir)"
+    /p:AppxBundle=Always
+    /p:UapAppxPackageBuildMode=Release
+    /p:AppxPackageSigningEnabled=true
+    /p:PackageCertificateThumbprint=""
+    /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"
+    /p:PackageCertificatePassword="$(signingCert.password)"'
+
+- task: CopyFiles@2
+  displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+  inputs:
+    SourceFolder: '$(system.defaultworkingdirectory)'
+    Contents: '**\bin\$(buildConfigurationSideload)\**'
+    TargetFolder: '$(build.artifactstagingdirectory)'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact'
+  inputs:
+    PathtoPublish: '$(build.artifactstagingdirectory)'
+    artifactName: 'Assets'
