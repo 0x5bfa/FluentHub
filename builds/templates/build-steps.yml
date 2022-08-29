@@ -7,8 +7,10 @@ parameters:
   displayName: 'FluentHub'
   visualDisplayName: 'FluentHub'
 
+jobs:
 
 - job:
+
   variables:
   - name: buildArgs
     ${{ if eq(parameters.configuration, 'Debug') }}:
