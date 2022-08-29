@@ -153,6 +153,9 @@
     <Compile Include="Dialogs\AccountSwitching.xaml.cs">
       <DependentUpon>AccountSwitching.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\EditPinnedRepositoriesDialog.xaml.cs">
+      <DependentUpon>EditPinnedRepositoriesDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Dialogs\EditUserProfileDialog.xaml.cs">
       <DependentUpon>EditUserProfileDialog.xaml</DependentUpon>
     </Compile>
@@ -1276,6 +1279,10 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="Dialogs\AccountSwitching.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Dialogs\EditPinnedRepositoriesDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
