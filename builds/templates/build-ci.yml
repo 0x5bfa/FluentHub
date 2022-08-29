@@ -1,5 +1,5 @@
 parameters:
-  configuration: 'Debug'
+  configuration: 'Release'
   branding: 'Dev'
   platform: 'x64'
   identityName: 'FluentHubCI'
