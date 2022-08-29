@@ -26,6 +26,7 @@ stages:
           identityPublisher: 'CN=FluentHubCI'
           displayName: 'FluentHub'
           visualDisplayName: 'FluentHub'
+          buildArgs: '/p:GenerateAppInstallerFile=True /p:AppxLogTelemetryFromSideloadingScript=False /p:AppxBundle=Always /p:UapAppxPackageBuildMode=Release /p:AppxPackageSigningEnabled=true'
 
   - stage: Build_Sideload_x64
     displayName: Build Sideload x64
@@ -41,6 +42,7 @@ stages:
           identityPublisher: 'CN=FluentHubCI'
           displayName: 'FluentHub'
           visualDisplayName: 'FluentHub'
+          buildArgs: '/p:UapAppxPackageBuildMode=Sideload /p:AppxPackageSigningEnabled=true'
 
   - stage: Build_StoreUpload_x64
     displayName: Build StoreUpload x64
@@ -56,4 +58,4 @@ stages:
           identityPublisher: 'CN=FluentHubCI'
           displayName: 'FluentHub'
           visualDisplayName: 'FluentHub'
-
+          buildArgs: '/p:UapAppxPackageBuildMode=StoreUpload'
