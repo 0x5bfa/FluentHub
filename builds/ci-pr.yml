@@ -26,9 +26,9 @@ stages:
     jobs:
       - template: ./templates/build-ci.yml
         parameters:
-          platform: x64
-          configuration: Release
-          branding: Dev
+          platform: 'x64'
+          configuration: 'Release'
+          branding: 'Dev'
           identityName: 'FluentHubCI'
           identityPublisher: 'CN=FluentHubCI'
           displayName: 'FluentHub'
@@ -53,9 +53,9 @@ stages:
     jobs:
       - template: ./templates/build-ci.yml
         parameters:
-          platform: x64
-          configuration: Sideload
-          branding: Beta
+          platform: 'x64'
+          configuration: 'Sideload'
+          branding: 'Beta'
           identityName: 'FluentHubCI'
           identityPublisher: 'CN=FluentHubCI'
           displayName: 'FluentHub'
@@ -77,9 +77,9 @@ stages:
     jobs:
       - template: ./templates/build-ci.yml
         parameters:
-          platform: x64
-          configuration: Release
-          branding: Beta
+          platform: 'x64'
+          configuration: 'Release'
+          branding: 'Beta'
           identityName: 'FluentHubCI'
           identityPublisher: 'CN=FluentHubCI'
           displayName: 'FluentHub'
