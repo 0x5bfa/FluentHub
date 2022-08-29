@@ -1,7 +1,7 @@
 parameters:
+  platform: 'x64'
   configuration: 'Release'
   branding: 'Dev'
-  platform: 'x64'
   identityName: 'FluentHubCI'
   identityPublisher: 'CN=FluentHubCI'
   displayName: 'FluentHub'
