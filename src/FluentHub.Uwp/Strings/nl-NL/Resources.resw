@@ -117,13 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AppName" xml:space="preserve">
-    <value>FluentHub</value>
+  <data name="FifthStepToAuthorize.Text" xml:space="preserve">
+    <value>Graag vandaan FluentHub openen.</value>
   </data>
-  <data name="AppSuffix" xml:space="preserve">
-    <value>DEV</value>
+  <data name="FirstStepToAuthorize.Text" xml:space="preserve">
+    <value>Klik op "Login met GitHub";</value>
   </data>
-  <data name="AppVersion" xml:space="preserve">
-    <value>0.3.30</value>
+  <data name="ForthStepToAuthorize.Text" xml:space="preserve">
+    <value>Klik op "FluentHub DEV openen";</value>
+  </data>
+  <data name="IntroDocumentationLink.Content" xml:space="preserve">
+    <value>Documentatie</value>
+  </data>
+  <data name="IntroHeader.Text" xml:space="preserve">
+    <value>FluentHub Autoriseren</value>
+  </data>
+  <data name="LoginWithGitHub.Content" xml:space="preserve">
+    <value>Inloggen met GitHub</value>
+  </data>
+  <data name="SecondStepToAuthorize.Text" xml:space="preserve">
+    <value>Als u een of meer organisaties beheert, geef ze dan toegang tot FluentHub;</value>
+  </data>
+  <data name="ThirdStepToAuthorize.Text" xml:space="preserve">
+    <value>Klik op "FluentHub Autoriseren";</value>
   </data>
 </root>
