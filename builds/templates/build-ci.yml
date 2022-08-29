@@ -12,6 +12,7 @@ jobs:
 - job: Build${{ parameters.platform }}${{ parameters.configuration }}${{ parameters.branding }}
   displayName: Build ${{ parameters.platform }} ${{ parameters.configuration }} ${{ parameters.branding }}
   variables:
+  - group: BuildPipelineVariables
     BuildConfiguration: ${{ parameters.configuration }}
     BuildPlatform: ${{ parameters.platform }}
     FluentHubBranding: ${{ parameters.branding }}
