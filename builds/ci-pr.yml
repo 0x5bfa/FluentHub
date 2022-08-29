@@ -42,7 +42,7 @@ stages:
           displayName: 'FluentHub'
           visualDisplayName: 'FluentHub'
 
-- stage: Build_StoreUpload_x64
+  - stage: Build_StoreUpload_x64
     displayName: Build StoreUpload x64
     dependsOn: []
     condition: succeeded()
