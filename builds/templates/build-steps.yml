@@ -60,35 +60,33 @@ steps:
     platform: '${{ parameters.platform }}'
     solution: '$(solution)'
     configuration: '${{ parameters.configuration }}'
+    msBuildArgs:
     ${{ if eq(parameters.configuration, 'Debug') }}:
-    msBuildArgs: '
-      /p:GenerateAppInstallerFile=True
-      /p:AppxLogTelemetryFromSideloadingScript=False
-      /p:AppInstallerUri=$(build.artifactstagingdirectory)
-      /p:AppxBundlePlatforms="$(buildPlatform)"
-      /p:AppxPackageDir="$(appxPackageDir)"
-      /p:AppxBundle=Always
-      /p:UapAppxPackageBuildMode=${{ parameters.configuration }}
-      /p:AppxPackageSigningEnabled=true
-      /p:PackageCertificateThumbprint=""
-      /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"
-      /p:PackageCertificatePassword="$(signingCert.password)"'
+      '/p:GenerateAppInstallerFile=True
+       /p:AppxLogTelemetryFromSideloadingScript=False
+       /p:AppInstallerUri=$(build.artifactstagingdirectory)
+       /p:AppxBundlePlatforms="$(buildPlatform)"
+       /p:AppxPackageDir="$(appxPackageDir)"
+       /p:AppxBundle=Always
+       /p:UapAppxPackageBuildMode=${{ parameters.configuration }}
+       /p:AppxPackageSigningEnabled=true
+       /p:PackageCertificateThumbprint=""
+       /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"
+       /p:PackageCertificatePassword="$(signingCert.password)"'
     ${{ elseif eq(parameters.configuration, 'Sideload') }}:
-    msBuildArgs: '
-      /p:AppInstallerUri="$(build.artifactstagingdirectory)"
-      /p:AppxBundlePlatforms="$(buildPlatform)"
-      /p:AppxPackageDir="$(appxPackageDir)"
-      /p:UapAppxPackageBuildMode=${{ parameters.configuration }}
-      /p:AppxPackageSigningEnabled=true
-      /p:PackageCertificateThumbprint=""
-      /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"
-      /p:PackageCertificatePassword="$(signingCert.password)"'
+      '/p:AppInstallerUri="$(build.artifactstagingdirectory)"
+       /p:AppxBundlePlatforms="$(buildPlatform)"
+       /p:AppxPackageDir="$(appxPackageDir)"
+       /p:UapAppxPackageBuildMode=${{ parameters.configuration }}
+       /p:AppxPackageSigningEnabled=true
+       /p:PackageCertificateThumbprint=""
+       /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"
+       /p:PackageCertificatePassword="$(signingCert.password)"'
     ${{ elseif eq(parameters.configuration, 'Sideload') }}:
-    msBuildArgs: '
-      /p:AppInstallerUri="$(build.artifactstagingdirectory)"
-      /p:AppxBundlePlatforms="$(buildPlatform)"
-      /p:AppxPackageDir="$(appxPackageDir)"
-      /p:UapAppxPackageBuildMode=${{ parameters.configuration }}'
+      '/p:AppInstallerUri="$(build.artifactstagingdirectory)"
+       /p:AppxBundlePlatforms="$(buildPlatform)"
+       /p:AppxPackageDir="$(appxPackageDir)"
+       /p:UapAppxPackageBuildMode=${{ parameters.configuration }}'
 
 - task: CopyFiles@2
   displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
