@@ -13,19 +13,6 @@ pr: none
 
 name: $(Date:yyMM).$(Date:dd)$(Rev:rr)
 
-variables:
-- group: BuildPipelineVariables
-- name: solution
-  value: '**/*.sln'
-- name: buildPlatform
-  value: 'x64'
-- name: buildConfigurationRelease
-  value: 'Release'
-- name: buildConfigurationSideload
-  value: 'Sideload'
-- name: appxPackageDir
-  value: '$(build.artifactStagingDirectory)\AppxPackages\\'
-
 stages:
   - stage: Build_Debug_x64
     displayName: Build Debug x64
@@ -37,6 +24,10 @@ stages:
           platform: x64
           configuration: Debug
           branding: Dev
+          identityName: 'FluentHubCI'
+          identityPublisher: 'CN=FluentHubCI'
+          displayName: 'FluentHub'
+          visualDisplayName: 'FluentHub'
 
   - stage: Build_Sideload_x64
     displayName: Build Sideload x64
@@ -48,8 +39,12 @@ stages:
           platform: x64
           configuration: Sideload
           branding: Beta
+          identityName: 'FluentHubCI'
+          identityPublisher: 'CN=FluentHubCI'
+          displayName: 'FluentHub'
+          visualDisplayName: 'FluentHub'
 
-  - stage: Build_StoreUpload_x64
+- stage: Build_StoreUpload_x64
     displayName: Build StoreUpload x64
     dependsOn: []
     condition: succeeded()
@@ -59,3 +54,7 @@ stages:
           platform: x64
           configuration: Release
           branding: Beta
+          identityName: 'FluentHubCI'
+          identityPublisher: 'CN=FluentHubCI'
+          displayName: 'FluentHub'
+          visualDisplayName: 'FluentHub'
