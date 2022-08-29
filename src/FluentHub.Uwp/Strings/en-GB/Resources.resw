@@ -118,27 +118,27 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="FifthStepToAuthorize.Text" xml:space="preserve">
-    <value>Graag vandaan FluentHub openen.</value>
+    <value>Proceed to the FluentHub application.</value>
   </data>
   <data name="FirstStepToAuthorize.Text" xml:space="preserve">
-    <value>Klik op "Login met GitHub";</value>
+    <value>Click "Login with GitHub";</value>
   </data>
   <data name="ForthStepToAuthorize.Text" xml:space="preserve">
-    <value>Klik op "FluentHub DEV openen";</value>
+    <value>Click "Open FluentHub DEV";</value>
   </data>
   <data name="IntroDocumentationLink.Content" xml:space="preserve">
-    <value>Documentatie</value>
+    <value>Documentation</value>
   </data>
   <data name="IntroHeader.Text" xml:space="preserve">
-    <value>FluentHub Autoriseren</value>
+    <value>Authorise FluentHub</value>
   </data>
   <data name="LoginWithGitHub.Content" xml:space="preserve">
-    <value>Inloggen met GitHub</value>
+    <value>Login with GitHub</value>
   </data>
   <data name="SecondStepToAuthorize.Text" xml:space="preserve">
-    <value>Als u een of meer organisaties beheert, geef ze dan toegang tot FluentHub;</value>
+    <value>If you are in administration of one or more organisations, please give FluentHub access to them;</value>
   </data>
   <data name="ThirdStepToAuthorize.Text" xml:space="preserve">
-    <value>Klik op "FluentHub Autoriseren";</value>
+    <value>Click "Authorise FluentHub";</value>
   </data>
 </root>
