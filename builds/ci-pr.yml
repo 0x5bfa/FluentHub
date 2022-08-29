@@ -16,11 +16,12 @@ variables:
   value: 'Sideload'
 - name: appxPackageDir
   value: '$(build.artifactStagingDirectory)\AppxPackages\\'
-    
+
 jobs:
 
 # Debug
-- job: Build_Debug_x64
+- job: BuildDebugx64
+  displayName: Build Debug x64
   timeoutInMinutes: 120
 
   steps:
@@ -99,7 +100,8 @@ jobs:
       artifactName: 'Assets'
 
 # Sideload
-- job: Build_Sideload_x64
+- job: BuildSideloadx64
+  displayName: Build Sideload x64
   timeoutInMinutes: 120
 
   steps:
@@ -174,7 +176,8 @@ jobs:
       artifactName: 'Sideload'
 
 # Store
-- job: Build_StoreUpload_x64
+- job: BuildStoreUploadx64
+  displayName: Build StoreUpload x64
   timeoutInMinutes: 120
 
   steps:
