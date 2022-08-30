@@ -256,24 +256,24 @@
     <value>Click "Authorize FluentHub";</value>
   </data>
   <data name="UserDiscussionsButton.Text" xml:space="preserve">
-    <value>Your Discussions</value>
+    <value>Your discussions</value>
   </data>
   <data name="UserIssuesButton.Text" xml:space="preserve">
-    <value>Your Issues</value>
+    <value>Your issues</value>
   </data>
   <data name="UserOrganizationsButton.Text" xml:space="preserve">
-    <value>Your Organizations</value>
+    <value>Your organizations</value>
   </data>
   <data name="UserProfileButton.Text" xml:space="preserve">
-    <value>Your Profile</value>
+    <value>Your profile</value>
   </data>
   <data name="UserPullRequestsButton.Text" xml:space="preserve">
-    <value>Your Pull Requests</value>
+    <value>Your pull requests</value>
   </data>
   <data name="UserRepositoriesButton.Text" xml:space="preserve">
-    <value>Your Repositories</value>
+    <value>Your repositories</value>
   </data>
   <data name="UserStarsButton.Text" xml:space="preserve">
-    <value>Your Stars</value>
+    <value>Your stars</value>
   </data>
 </root>
