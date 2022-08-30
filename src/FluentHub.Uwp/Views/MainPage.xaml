@@ -144,14 +144,14 @@
                     Spacing="8">
 
                     <Button
-                        x:Name="SearchTeachingTipButton"
+                        x:Name="SearchBarButton"
                         Width="36"
                         Height="32"
                         Padding="0"
                         VerticalAlignment="Center"
                         Background="Transparent"
                         BorderThickness="0"
-                        Click="ShowSearchTeachingTip"
+                        Click="OnSearchBarButtonClick"
                         ToolTipService.ToolTip="Search">
                         <Button.Resources>
                             <SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="Transparent" />
@@ -162,15 +162,13 @@
                             Glyph="&#xE11A;" />
                     </Button>
 
-                    <muxc:TeachingTip
-                        x:Name="SearchTeachingTip"
-                        Title="Search"
-                        PreferredPlacement="Auto"
-                        Subtitle=" ">
-                        <muxc:TeachingTip.Content>
-                            <TextBox />
-                        </muxc:TeachingTip.Content>
-                    </muxc:TeachingTip>
+                    <TextBox
+                        x:Name="SearchBar"
+                        LostFocus="OnSearchBarLostFocus"
+                        Visibility="Collapsed"
+                        PlaceholderText="Search"
+                        Width="256"
+                        Height="32"/>
 
                     <Button
                         x:Name="GoBackButton"

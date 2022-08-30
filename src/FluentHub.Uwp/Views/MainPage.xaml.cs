@@ -83,9 +83,17 @@ namespace FluentHub.Uwp.Views
             UnsubscribeEvents();
             navService.Disconnect();
         }
-        private void ShowSearchTeachingTip(object sender, RoutedEventArgs e)
+        private void OnSearchBarButtonClick(object sender, RoutedEventArgs e)
         {
-            SearchTeachingTip.IsOpen = true;
+            SearchBar.Visibility = Visibility.Visible;
+            SearchBar.Focus(FocusState.Programmatic);
+            SearchBarButton.Visibility = Visibility.Collapsed;
+        }
+
+        private void OnSearchBarLostFocus(object sender, RoutedEventArgs e)
+        {
+            SearchBar.Visibility = Visibility.Collapsed;
+            SearchBarButton.Visibility = Visibility.Visible;
         }
 
         private void OnAppBackRequested(object sender, BackRequestedEventArgs e)
