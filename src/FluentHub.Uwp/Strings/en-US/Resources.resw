@@ -120,6 +120,27 @@
   <data name="AccountSettingsButton.Text" xml:space="preserve">
     <value>Account Settings</value>
   </data>
+  <data name="AppearancePageColorBlock.Title" xml:space="preserve">
+    <value>Choose your color</value>
+  </data>
+  <data name="AppearancePageGeneralHeader.Text" xml:space="preserve">
+    <value>General</value>
+  </data>
+  <data name="AppearancePageHeader" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="AppearancePageHeader.Text" xml:space="preserve">
+    <value>Appearance</value>
+  </data>
+  <data name="AppearancePageLocaleBlock.Title" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="AppearancePageLocaleHeader.Text" xml:space="preserve">
+    <value>Language</value>
+  </data>
+  <data name="AppearancePageThemeBlock.Title" xml:space="preserve">
+    <value>Custom themes</value>
+  </data>
   <data name="FeatureNotAvailable.Text" xml:space="preserve">
     <value>Not available yet.</value>
   </data>
@@ -156,7 +177,7 @@
   <data name="HomePageHeader.Text" xml:space="preserve">
     <value>Home</value>
   </data>
-  <data name="HomePageRecentActivitiesHeader.Text" xml:space="preserve">
+  <data name="HomePageRecentActivityHeader.Text" xml:space="preserve">
     <value>Recent</value>
   </data>
   <data name="IntroDocumentationLink.Content" xml:space="preserve">
@@ -245,6 +266,12 @@
   </data>
   <data name="SettingsButton.Text" xml:space="preserve">
     <value>Settings</value>
+  </data>
+  <data name="SettingsFeedbackButton.Content" xml:space="preserve">
+    <value>Feedback</value>
+  </data>
+  <data name="SettingsGetHelpButton.Content" xml:space="preserve">
+    <value>Get help</value>
   </data>
   <data name="SignOutButton.Text" xml:space="preserve">
     <value>Sign Out</value>
