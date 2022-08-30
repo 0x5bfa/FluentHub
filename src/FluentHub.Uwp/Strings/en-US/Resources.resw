@@ -138,6 +138,12 @@
   <data name="ForthStepToAuthorize.Text" xml:space="preserve">
     <value>Click "Open FluentHub DEV";</value>
   </data>
+  <data name="GoBackButton.TooltipService.Tooltip" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="GoForwardButton.TooltipService.Tooltip" xml:space="preserve">
+    <value>Forward</value>
+  </data>
   <data name="HomePageFavoritesHeader.Text" xml:space="preserve">
     <value>Favorites</value>
   </data>
@@ -227,6 +233,12 @@
   </data>
   <data name="RepositoriesListHeader.Text" xml:space="preserve">
     <value>Repositories</value>
+  </data>
+  <data name="SearchBar.PlaceholderText" xml:space="preserve">
+    <value>Search</value>
+  </data>
+  <data name="SearchBarButton.TooltipService.Tooltip" xml:space="preserve">
+    <value>Search</value>
   </data>
   <data name="SecondStepToAuthorize.Text" xml:space="preserve">
     <value>If you are in administration of one or more organizations, please give FluentHub access to them;</value>
