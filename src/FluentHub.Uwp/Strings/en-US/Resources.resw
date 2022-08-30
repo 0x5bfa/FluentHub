@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccountSettingsButton.Text" xml:space="preserve">
+    <value>Account Settings</value>
+  </data>
+  <data name="FeatureNotAvailable.Text" xml:space="preserve">
+    <value>Not available yet.</value>
+  </data>
   <data name="FeedsPageHeader.Text" xml:space="preserve">
     <value>Activity</value>
   </data>
@@ -156,8 +162,14 @@
   <data name="LoginWithGitHub.Content" xml:space="preserve">
     <value>Login with GitHub</value>
   </data>
-  <data name="NewRepositoryButton.Text" xml:space="preserve">
+  <data name="NewMutation.Text" xml:space="preserve">
     <value>New</value>
+  </data>
+  <data name="NewMutationOrganizationButton.Text" xml:space="preserve">
+    <value>New organization</value>
+  </data>
+  <data name="NewMutationRepoButton.Text" xml:space="preserve">
+    <value>New repository</value>
   </data>
   <data name="NotificationsPageFilterByReasonAssigned.Text" xml:space="preserve">
     <value>📋 Assigned</value>
@@ -219,7 +231,37 @@
   <data name="SecondStepToAuthorize.Text" xml:space="preserve">
     <value>If you are in administration of one or more organizations, please give FluentHub access to them;</value>
   </data>
+  <data name="SettingsButton.Text" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SignOutButton.Text" xml:space="preserve">
+    <value>Sign Out</value>
+  </data>
+  <data name="SwitchAccountFlyoutSub.Text" xml:space="preserve">
+    <value>Switch account</value>
+  </data>
   <data name="ThirdStepToAuthorize.Text" xml:space="preserve">
     <value>Click "Authorize FluentHub";</value>
+  </data>
+  <data name="UserDiscussionsButton.Text" xml:space="preserve">
+    <value>Your Discussions</value>
+  </data>
+  <data name="UserIssuesButton.Text" xml:space="preserve">
+    <value>Your Issues</value>
+  </data>
+  <data name="UserOrganizationsButton.Text" xml:space="preserve">
+    <value>Your Organizations</value>
+  </data>
+  <data name="UserProfileButton.Text" xml:space="preserve">
+    <value>Your Profile</value>
+  </data>
+  <data name="UserPullRequestsButton.Text" xml:space="preserve">
+    <value>Your Pull Requests</value>
+  </data>
+  <data name="UserRepositoriesButton.Text" xml:space="preserve">
+    <value>Your Repositories</value>
+  </data>
+  <data name="UserStarsButton.Text" xml:space="preserve">
+    <value>Your Stars</value>
   </data>
 </root>

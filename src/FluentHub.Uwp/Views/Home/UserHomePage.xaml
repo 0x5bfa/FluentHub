@@ -65,7 +65,7 @@
                         x:Name="RepositoriesListHeader"
                         VerticalAlignment="Center"
                         Style="{StaticResource SubtitleTextBlockStyle}"
-                        Text="{helpers:ResourceString Name=RepositoriesHeader/Text}" />
+                        Text="{helpers:ResourceString Name=RepositoriesListHeader/Text}" />
 
                     <Button HorizontalAlignment="Right" IsEnabled="False">
                         <StackPanel Orientation="Horizontal" Spacing="4">
@@ -73,7 +73,7 @@
                                 FontFamily="{StaticResource Octicons}"
                                 FontSize="14"
                                 Glyph="&#xEA52;" />
-                            <TextBlock x:Name="NewRepositoryButton" Text="{helpers:ResourceString Name=NewRepositoryButton/Text}" />
+                            <TextBlock x:Name="NewRepositoryButton" Text="{helpers:ResourceString Name=NewMutation/Text}" />
                         </StackPanel>
                     </Button>
                 </Grid>

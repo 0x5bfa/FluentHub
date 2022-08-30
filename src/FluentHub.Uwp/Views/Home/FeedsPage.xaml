@@ -70,7 +70,7 @@
                                 FontFamily="{StaticResource Octicons}"
                                 FontSize="14"
                                 Glyph="&#xEA52;" />
-                            <TextBlock x:Name="NewRepositoryButton" Text="{helpers:ResourceString Name=NewRepositoryButton/Text}" />
+                            <TextBlock x:Name="NewRepositoryButton" Text="{helpers:ResourceString Name=NewMutation/Text}" />
                         </StackPanel>
                     </Button>
                 </Grid>
