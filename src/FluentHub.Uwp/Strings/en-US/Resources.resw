@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="FeedsPageHeader.Text" xml:space="preserve">
+    <value>Activity</value>
+  </data>
+  <data name="FeedsPageNoRecentActivityBody.Text" xml:space="preserve">
+    <value>No recent activity.</value>
+  </data>
   <data name="FifthStepToAuthorize.Text" xml:space="preserve">
     <value>Proceed to the FluentHub application.</value>
   </data>
@@ -196,7 +202,7 @@
     <value>Notifications</value>
   </data>
   <data name="NotificationsPageNoRecentNotificationsBody.Text" xml:space="preserve">
-    <value>No recent notifications..</value>
+    <value>No recent notifications.</value>
   </data>
   <data name="NotificationsPageSearchBar.PlaceholderText" xml:space="preserve">
     <value>Search notifications</value>
