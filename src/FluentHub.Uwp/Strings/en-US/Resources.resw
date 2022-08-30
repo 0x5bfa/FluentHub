@@ -153,6 +153,60 @@
   <data name="NewRepositoryButton.Text" xml:space="preserve">
     <value>New</value>
   </data>
+  <data name="NotificationsPageFilterByReasonAssigned.Text" xml:space="preserve">
+    <value>📋 Assigned</value>
+  </data>
+  <data name="NotificationsPageFilterByReasonDone.Text" xml:space="preserve">
+    <value>Done</value>
+  </data>
+  <data name="NotificationsPageFilterByReasonFlyoutBody.Text" xml:space="preserve">
+    <value>Filter by:</value>
+  </data>
+  <data name="NotificationsPageFilterByReasonInbox.Text" xml:space="preserve">
+    <value>Inbox</value>
+  </data>
+  <data name="NotificationsPageFilterByReasonMentioned.Text" xml:space="preserve">
+    <value>✉️ Mentioned</value>
+  </data>
+  <data name="NotificationsPageFilterByReasonMentionedTeam.Text" xml:space="preserve">
+    <value>📧 Team Mentioned</value>
+  </data>
+  <data name="NotificationsPageFilterByReasonParticipating.Text" xml:space="preserve">
+    <value>🤝‍ Participating</value>
+  </data>
+  <data name="NotificationsPageFilterByReasonReview.Text" xml:space="preserve">
+    <value>👀 Review Requested</value>
+  </data>
+  <data name="NotificationsPageFilterByReasonSaved.Text" xml:space="preserve">
+    <value>Saved</value>
+  </data>
+  <data name="NotificationsPageGroupByViewFlyoutBody.Text" xml:space="preserve">
+    <value>Group by:</value>
+  </data>
+  <data name="NotificationsPageGroupByViewNone.Text" xml:space="preserve">
+    <value>None</value>
+  </data>
+  <data name="NotificationsPageGroupByViewPrimaryDate.Text" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="NotificationsPageGroupByViewRepository.Text" xml:space="preserve">
+    <value>Repository</value>
+  </data>
+  <data name="NotificationsPageHeader.Text" xml:space="preserve">
+    <value>Notifications</value>
+  </data>
+  <data name="NotificationsPageNoRecentNotificationsBody.Text" xml:space="preserve">
+    <value>No recent notifications..</value>
+  </data>
+  <data name="NotificationsPageSearchBar.PlaceholderText" xml:space="preserve">
+    <value>Search notifications</value>
+  </data>
+  <data name="NotificationsPageUnreadToggle.Content" xml:space="preserve">
+    <value>Unread</value>
+  </data>
+  <data name="RefreshBody.Text" xml:space="preserve">
+    <value>Refresh</value>
+  </data>
   <data name="RepositoriesListHeader.Text" xml:space="preserve">
     <value>Repositories</value>
   </data>
