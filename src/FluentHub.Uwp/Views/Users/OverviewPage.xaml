@@ -39,13 +39,7 @@
                     x:Load="True"
                     ViewModel="{x:Bind ViewModel.UserProfileOverviewViewModel, Mode=OneWay}" />
 
-                <Grid Grid.Row="1" RowSpacing="8">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
+                <StackPanel Grid.Row="1" Spacing="8">
 
                     <Grid
                         x:Name="PinnedRepositoriesGrid"
@@ -92,7 +86,10 @@
                                             <muxc:SymbolIconSource Symbol="Setting" />
                                         </muxc:AnimatedIcon.FallbackIconSource>
                                     </muxc:AnimatedIcon>
-                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Settings" />
+                                    <TextBlock
+                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        Style="{StaticResource BodyTextBlockStyle}"
+                                        Text="Customize your pins" />
                                 </StackPanel>
                             </Button>
                         </Grid>
@@ -169,7 +166,10 @@
                                             <muxc:SymbolIconSource Symbol="Setting" />
                                         </muxc:AnimatedIcon.FallbackIconSource>
                                     </muxc:AnimatedIcon>
-                                    <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Settings" />
+                                    <TextBlock
+                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        Style="{StaticResource BodyTextBlockStyle}"
+                                        Text="Customize your pins" />
                                 </StackPanel>
                             </Button>
                         </Grid>
@@ -200,18 +200,10 @@
                         </Grid>
                     </Grid>
 
-                    <blocks:UserContributionGraph
-                        Grid.Row="2"
-                        LoginName="{x:Bind ViewModel.Login, Mode=OneWay}"
-                        Visibility="{x:Bind ViewModel.RefreshRepositoryCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
+                    <blocks:UserContributionGraph LoginName="{x:Bind ViewModel.Login, Mode=OneWay}" />
 
-                    <blocks:ReadmeContentBlock
-                        x:Name="UserSpecialReadmeBlock"
-                        Grid.Row="3"
-                        VerticalAlignment="Top"
-                        ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}"
-                        Visibility="{x:Bind ViewModel.RefreshRepositoryCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
-                </Grid>
+                    <blocks:ReadmeContentBlock x:Name="UserSpecialReadmeBlock" ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
+                </StackPanel>
 
             </Grid>
         </ScrollViewer>
