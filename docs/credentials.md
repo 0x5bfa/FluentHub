@@ -6,7 +6,7 @@ This application uses Oauth, so you must independently get a client ID and secre
 
 		![image](https://user-images.githubusercontent.com/62196528/161755644-1de8e2ec-ddea-4b47-ae14-bc3c326a33f8.png)
 
-		|Name|Value|Requred|
+		|Name|Value|Required|
 		|-|-|-|
 		|Application name|`FluentHub`|True|
 		|Homepage URL|`https://github.com/FluentHub/FluentHub`|True|
