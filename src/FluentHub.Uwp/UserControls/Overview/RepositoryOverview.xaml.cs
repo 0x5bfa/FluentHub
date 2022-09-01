@@ -33,7 +33,6 @@ namespace FluentHub.Uwp.UserControls
 
         public RepositoryOverview() => InitializeComponent();
         
-
         private void OnRepoPageNavViewItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
         {
             var service = App.Current.Services.GetRequiredService<INavigationService>();
