@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices.WindowsRuntime;
+﻿using FluentHub.Uwp.ViewModels.UserControls.Blocks;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -14,25 +15,32 @@ namespace FluentHub.Uwp.UserControls.Blocks
     public sealed partial class UserContributionGraph : UserControl
     {
         #region propdp
-        public static readonly DependencyProperty LoginNameProperty =
+        public static readonly DependencyProperty LoginProperty =
             DependencyProperty.Register(
-                nameof(LoginName),
+                nameof(Login),
                 typeof(string),
                 typeof(UserContributionGraph),
                 new PropertyMetadata(null));
 
-        public string LoginName
+        public string Login
         {
-            get => (string)GetValue(LoginNameProperty);
+            get => (string)GetValue(LoginProperty);
             set
             {
-                SetValue(LoginNameProperty, value);
-                ViewModel.LoginName = LoginName;
+                SetValue(LoginProperty, value);
+
+                ViewModel.Login = value;
                 _ = ViewModel.GetContributionCalendarAsync();
             }
         }
         #endregion
 
-        public UserContributionGraph() => InitializeComponent();
+        public UserContributionGraphViewModel ViewModel { get; }
+
+        public UserContributionGraph()
+        {
+            InitializeComponent();
+            ViewModel = new();
+        }
     }
 }

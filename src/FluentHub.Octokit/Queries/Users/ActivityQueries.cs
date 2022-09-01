@@ -30,6 +30,7 @@
                 .Select(x => new ContributionCalendar
                 {
                     TotalContributions = x.TotalContributions,
+
                     Weeks = x.Weeks.Select(week => new ContributionCalendarWeek
                     {
                         ContributionDays = week.ContributionDays.Select(day => new ContributionCalendarDay

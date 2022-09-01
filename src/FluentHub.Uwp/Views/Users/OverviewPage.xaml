@@ -54,7 +54,7 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <Grid Padding="32,8,32,4">
+                        <Grid Height="44" Padding="32,8,32,4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
@@ -76,7 +76,8 @@
                                 HorizontalAlignment="Right"
                                 Background="Transparent"
                                 BorderThickness="0"
-                                Click="OnEditPinnedReposButtonClick">
+                                Click="OnEditPinnedReposButtonClick"
+                                Visibility="{x:Bind ViewModel.User.IsViewer, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
                                 <StackPanel Orientation="Horizontal" Spacing="8">
                                     <muxc:AnimatedIcon Height="16">
                                         <muxc:AnimatedIcon.Source>
@@ -134,7 +135,7 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <Grid Padding="32,8,32,4">
+                        <Grid Height="44" Padding="32,8,32,4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
@@ -156,7 +157,8 @@
                                 HorizontalAlignment="Right"
                                 Background="Transparent"
                                 BorderThickness="0"
-                                Click="OnEditPinnedReposButtonClick">
+                                Click="OnEditPinnedReposButtonClick"
+                                Visibility="{x:Bind ViewModel.User.IsViewer, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
                                 <StackPanel Orientation="Horizontal" Spacing="8">
                                     <muxc:AnimatedIcon Height="16">
                                         <muxc:AnimatedIcon.Source>
@@ -200,7 +202,7 @@
                         </Grid>
                     </Grid>
 
-                    <blocks:UserContributionGraph LoginName="{x:Bind ViewModel.Login, Mode=OneWay}" />
+                    <blocks:UserContributionGraph Login="{x:Bind ViewModel.Login, Mode=OneWay}" />
 
                     <blocks:ReadmeContentBlock x:Name="UserSpecialReadmeBlock" ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
                 </StackPanel>
