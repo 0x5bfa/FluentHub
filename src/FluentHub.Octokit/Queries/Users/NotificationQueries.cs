@@ -167,6 +167,7 @@ repo{index}: repository(name: ""{notifications.ElementAt(index).Repository.Name}
                     case NotificationSubjectType.Discussion:
                     case NotificationSubjectType.Commit:
                     case NotificationSubjectType.Release:
+                        index--;
                         break;
                     case NotificationSubjectType.Issue:
                         {
@@ -237,6 +238,9 @@ repo{index}: repository(name: ""{notifications.ElementAt(index).Repository.Name}
 
                             break;
                         }
+                    default:
+                        index--;
+                        break;
                 }
 
                 item.Subject.TypeHumanized = item.Subject.Type.ToString();
