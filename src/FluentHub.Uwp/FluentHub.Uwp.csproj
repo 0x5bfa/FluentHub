@@ -168,6 +168,7 @@
     <Compile Include="Helpers\FileTypeHelper.cs" />
     <Compile Include="Helpers\JumpListHelper.cs" />
     <Compile Include="Helpers\MentionHelpers.cs" />
+    <Compile Include="Helpers\NumberNormalizerHelper.cs" />
     <Compile Include="Helpers\ResourceHelper.cs" />
     <Compile Include="Helpers\ThemeHelper.cs" />
     <Compile Include="Helpers\WebViewHelpers.cs" />

@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
+using FluentHub.Uwp.Helpers;
 using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.UserControls
@@ -31,7 +32,7 @@ namespace FluentHub.Uwp.UserControls
         #endregion
 
         public RepositoryOverview() => InitializeComponent();
-
+        
         private void OnRepoPageNavViewItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
         {
             var service = App.Current.Services.GetRequiredService<INavigationService>();
@@ -107,6 +108,11 @@ namespace FluentHub.Uwp.UserControls
                 .OfType<muxc.NavigationViewItem>()
                 .FirstOrDefault(x => string.Compare(x.Tag.ToString(), tag?.ToString(), true) == 0)
                 ?? defaultItem;
+
+            //TO REMOVE
+            StargazersCountBadge.Text = NumberNormalizerHelper.NormalizeNumber(ViewModel.Repository.StargazerCount);
+            ForksCountBadge.Text = NumberNormalizerHelper.NormalizeNumber(ViewModel.Repository.ForkCount);
+            WatchersCountBadge.Text = NumberNormalizerHelper.NormalizeNumber(ViewModel.Repository.Watchers.TotalCount);
         }
     }
 }
