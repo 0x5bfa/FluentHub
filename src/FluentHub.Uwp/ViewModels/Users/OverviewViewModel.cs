@@ -1,10 +1,14 @@
 ﻿using FluentHub.Octokit.Queries.Users;
 using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
 using FluentHub.Uwp.Utils;
+using Microsoft.Extensions.DependencyInjection;
+using Windows.UI.Xaml.Media.Imaging;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.ViewModels.Users
 {
@@ -21,7 +25,8 @@ namespace FluentHub.Uwp.ViewModels.Users
             _pinnableRepositories = new();
             PinnableRepositories = new(_pinnableRepositories);
 
-            RefreshRepositoryCommand = new AsyncRelayCommand<string>(LoadUserOverviewAsync);
+            LoadUserOverviewCommand = new AsyncRelayCommand(LoadUserOverviewAsync);
+            ShowPinnedRepositoriesEditorDialogCommand = new AsyncRelayCommand(ShowPinnedRepositoriesEditorDialogAsync);
         }
 
         #region Fields and Properties
@@ -46,94 +51,119 @@ namespace FluentHub.Uwp.ViewModels.Users
         private RepoContextViewModel _contextViewModel;
         public RepoContextViewModel ContextViewModel { get => _contextViewModel; set => SetProperty(ref _contextViewModel, value); }
 
-        public IAsyncRelayCommand RefreshRepositoryCommand { get; }
+        private Exception _taskException;
+        public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
+
+        public IAsyncRelayCommand LoadUserOverviewCommand { get; }
+        public IAsyncRelayCommand ShowPinnedRepositoriesEditorDialogCommand { get; }
         #endregion
 
-        private async Task LoadUserOverviewAsync(string login)
+        private async Task LoadUserOverviewAsync()
         {
+            string _currentTaskingMethodName = nameof(LoadUserOverviewAsync);
+            _messenger?.Send(new LoadingMessaging(true));
+
             try
             {
-                _pinnableRepositories.Clear();
-                _pinnedRepositories.Clear();
+                _currentTaskingMethodName = nameof(LoadUserAsync);
+                await LoadUserAsync(Login);
 
-                PinnedItemQueries queries = new();
-                var pinnedItemsRes = await queries.GetAllAsync(login);
-                if (pinnedItemsRes == null) return;
-
-                if (pinnedItemsRes.Count == 0)
-                {
-                    var pinnableItemsRes = await queries.GetAllPinnableItems(login);
-                    if (pinnableItemsRes == null) return;
-
-                    foreach (var item in pinnableItemsRes)
-                    {
-                        RepoButtonBlockViewModel viewModel = new()
-                        {
-                            Repository = item,
-                            DisplayDetails = false,
-                            DisplayStarButton = false,
-                        };
-
-                        _pinnableRepositories.Add(viewModel);
-                    }
-                }
-                else
-                {
-                    foreach (var item in pinnedItemsRes)
-                    {
-                        RepoButtonBlockViewModel viewModel = new()
-                        {
-                            Repository = item,
-                            DisplayDetails = false,
-                            DisplayStarButton = false,
-                        };
-
-                        _pinnedRepositories.Add(viewModel);
-                    }
-                }
+                _currentTaskingMethodName = nameof(LoadUserPinnableAndPinnedRepositoriesAsync);
+                await LoadUserPinnableAndPinnedRepositoriesAsync(Login);
             }
             catch (Exception ex)
             {
-                _logger?.Error(nameof(LoadUserOverviewAsync), ex);
-                if (_messenger != null)
-                {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
+                TaskException = ex;
+
+                _logger?.Error(_currentTaskingMethodName, ex);
                 throw;
+            }
+            finally
+            {
+                SetCurrentTabItem();
+                _messenger?.Send(new LoadingMessaging(false));
             }
         }
 
-        public async Task LoadUserAsync(string login)
+        private async Task LoadUserPinnableAndPinnedRepositoriesAsync(string login)
         {
-            try
+            _pinnableRepositories.Clear();
+            _pinnedRepositories.Clear();
+
+            PinnedItemQueries queries = new();
+            var pinnedItemsRes = await queries.GetAllAsync(login);
+            if (pinnedItemsRes == null) return;
+
+            if (pinnedItemsRes.Count == 0)
             {
-                UserQueries queries = new();
-                var response = await queries.GetAsync(login);
+                var pinnableItemsRes = await queries.GetAllPinnableItems(login);
+                if (pinnableItemsRes == null) return;
 
-                User = response ?? new();
-
-                // View model
-                UserProfileOverviewViewModel = new()
+                foreach (var item in pinnableItemsRes)
                 {
-                    User = User,
-                };
+                    RepoButtonBlockViewModel viewModel = new()
+                    {
+                        Repository = item,
+                        DisplayDetails = false,
+                        DisplayStarButton = false,
+                    };
 
-                if (string.IsNullOrEmpty(User.WebsiteUrl) is false)
-                {
-                    UserProfileOverviewViewModel.BuiltWebsiteUrl = new UriBuilder(User.WebsiteUrl).Uri;
+                    _pinnableRepositories.Add(viewModel);
                 }
             }
-            catch (Exception ex)
+            else
             {
-                _logger?.Error(nameof(LoadUserAsync), ex);
-                if (_messenger != null)
+                foreach (var item in pinnedItemsRes)
                 {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
+                    RepoButtonBlockViewModel viewModel = new()
+                    {
+                        Repository = item,
+                        DisplayDetails = false,
+                        DisplayStarButton = false,
+                    };
+
+                    _pinnedRepositories.Add(viewModel);
                 }
-                throw;
             }
+        }
+
+        private async Task LoadUserAsync(string login)
+        {
+            UserQueries queries = new();
+            var response = await queries.GetAsync(login);
+
+            User = response ?? new();
+
+            // View model
+            UserProfileOverviewViewModel = new()
+            {
+                User = User,
+            };
+
+            if (string.IsNullOrEmpty(User.WebsiteUrl) is false)
+            {
+                UserProfileOverviewViewModel.BuiltWebsiteUrl = new UriBuilder(User.WebsiteUrl).Uri;
+            }
+        }
+
+        private void SetCurrentTabItem()
+        {
+            var provider = App.Current.Services;
+            INavigationService navigationService = provider.GetRequiredService<INavigationService>();
+
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = $"{User?.Login}";
+            currentItem.Description = $"{User?.Login}";
+            currentItem.Icon = new muxc.ImageIconSource
+            {
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Profile.png"))
+            };
+        }
+
+        private async Task ShowPinnedRepositoriesEditorDialogAsync()
+        {
+            var dialogs = new Uwp.Dialogs.EditPinnedRepositoriesDialog(Login);
+            _ = await dialogs.ShowAsync();
         }
     }
 }

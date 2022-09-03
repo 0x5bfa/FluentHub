@@ -159,6 +159,9 @@
     <Compile Include="Dialogs\EditUserProfileDialog.xaml.cs">
       <DependentUpon>EditUserProfileDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\ExceptionStackTraceDialog.xaml.cs">
+      <DependentUpon>ExceptionStackTraceDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\IEnumerableExt.cs" />
     <Compile Include="Extensions\WebViewExtentions.cs" />
     <Compile Include="GlobalUsings.cs" />
@@ -200,6 +203,9 @@
     <Compile Include="Services\ToastService.cs" />
     <Compile Include="UserControls\CustomWebView.xaml.cs">
       <DependentUpon>CustomWebView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\LoadErrorDisplay.xaml.cs">
+      <DependentUpon>LoadErrorDisplay.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Overview\AppSettingsOverview.xaml.cs">
       <DependentUpon>AppSettingsOverview.xaml</DependentUpon>
@@ -1330,7 +1336,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Content>
+    <Page Include="Dialogs\ExceptionStackTraceDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\CustomWebView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\LoadErrorDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

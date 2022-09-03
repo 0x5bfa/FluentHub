@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.Views.Users
 {
@@ -22,7 +21,7 @@ namespace FluentHub.Uwp.Views.Users
         private readonly INavigationService navigationService;
         public OverviewViewModel ViewModel { get; }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var param = e.Parameter as Models.FrameNavigationArgs;
             ViewModel.Login = param.Login;
@@ -40,30 +39,9 @@ namespace FluentHub.Uwp.Views.Users
                 }
             };
 
-            await ViewModel.LoadUserAsync(param.Login);
-
-            SetCurrentTabItem();
-
-            var command = ViewModel.RefreshRepositoryCommand;
-            if (command.CanExecute(param.Login))
-                command.Execute(param.Login);
-        }
-
-        private void SetCurrentTabItem()
-        {
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = $"{ViewModel.User.Login}";
-            currentItem.Description = $"{ViewModel.User.Login}";
-            currentItem.Icon = new muxc.ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Profile.png"))
-            };
-        }
-
-        private async void OnEditPinnedReposButtonClick(object sender, Windows.UI.Xaml.RoutedEventArgs e)
-        {
-            var dialogs = new Dialogs.EditPinnedRepositoriesDialog(ViewModel.Login);
-            _ = await dialogs.ShowAsync();
+            var command = ViewModel.LoadUserOverviewCommand;
+            if (command.CanExecute(null))
+                command.Execute(null);
         }
     }
 }
