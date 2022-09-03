@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace FluentHub.Uwp.Helpers
+﻿namespace FluentHub.Uwp.Helpers
 {
     public static class NumberNormalizerHelper
     {
@@ -13,9 +7,9 @@ namespace FluentHub.Uwp.Helpers
         private const int Billion = 1000000000;
 
         /// <summary>
-        /// This method convert number (greater then 999) to readable form, like 25.5k, 1.2m, 2.4b  
+        /// This method converts numbers (greater then 999) to a readable form, such as 25.5k, 1.2m, 2.4b  
         /// </summary>
-        /// <param name="number">Positive integer value which more then 999</param>
+        /// <param name="number">Positive integer value that is more than 999</param>
         /// <returns>String value of normalized number (e.g. 25.5k)</returns>
         public static string NormalizeNumber(int number)
         {
