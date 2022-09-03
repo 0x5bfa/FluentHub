@@ -126,9 +126,6 @@
   <data name="AppearancePageGeneralHeader.Text" xml:space="preserve">
     <value>General</value>
   </data>
-  <data name="AppearancePageHeader" xml:space="preserve">
-    <value>Appearance</value>
-  </data>
   <data name="AppearancePageHeader.Text" xml:space="preserve">
     <value>Appearance</value>
   </data>
