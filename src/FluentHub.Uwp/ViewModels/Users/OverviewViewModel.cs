@@ -33,11 +33,8 @@ namespace FluentHub.Uwp.ViewModels.Users
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
 
-        private readonly ObservableCollection<RepoButtonBlockViewModel> _pinnedRepositories;
-        public ReadOnlyObservableCollection<RepoButtonBlockViewModel> PinnedRepositories { get; }
-
-        private readonly ObservableCollection<RepoButtonBlockViewModel> _pinnableRepositories;
-        public ReadOnlyObservableCollection<RepoButtonBlockViewModel> PinnableRepositories { get; }
+        private string _login;
+        public string Login { get => _login; set => SetProperty(ref _login, value); }
 
         private User _user;
         public User User { get => _user; set => SetProperty(ref _user, value); }
@@ -45,8 +42,11 @@ namespace FluentHub.Uwp.ViewModels.Users
         private UserProfileOverviewViewModel _userProfileOverviewViewModel;
         public UserProfileOverviewViewModel UserProfileOverviewViewModel { get => _userProfileOverviewViewModel; set => SetProperty(ref _userProfileOverviewViewModel, value); }
 
-        private string _login;
-        public string Login { get => _login; set => SetProperty(ref _login, value); }
+        private readonly ObservableCollection<RepoButtonBlockViewModel> _pinnedRepositories;
+        public ReadOnlyObservableCollection<RepoButtonBlockViewModel> PinnedRepositories { get; }
+
+        private readonly ObservableCollection<RepoButtonBlockViewModel> _pinnableRepositories;
+        public ReadOnlyObservableCollection<RepoButtonBlockViewModel> PinnableRepositories { get; }
 
         private RepoContextViewModel _contextViewModel;
         public RepoContextViewModel ContextViewModel { get => _contextViewModel; set => SetProperty(ref _contextViewModel, value); }
@@ -60,8 +60,8 @@ namespace FluentHub.Uwp.ViewModels.Users
 
         private async Task LoadUserOverviewAsync()
         {
-            string _currentTaskingMethodName = nameof(LoadUserOverviewAsync);
             _messenger?.Send(new LoadingMessaging(true));
+            string _currentTaskingMethodName = nameof(LoadUserOverviewAsync);
 
             try
             {
@@ -134,7 +134,6 @@ namespace FluentHub.Uwp.ViewModels.Users
 
             User = response ?? new();
 
-            // View model
             UserProfileOverviewViewModel = new()
             {
                 User = User,

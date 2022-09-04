@@ -16,13 +16,11 @@ namespace FluentHub.Uwp.Views.Users
 
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<FollowingViewModel>();
-            navigationService = provider.GetRequiredService<INavigationService>();
         }
 
-        private readonly INavigationService navigationService;
         public FollowingViewModel ViewModel { get; }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var param = e.Parameter as Models.FrameNavigationArgs;
             ViewModel.Login = param.Login;
@@ -32,24 +30,9 @@ namespace FluentHub.Uwp.Views.Users
                 ViewModel.DisplayTitle = true;
             }
 
-            await ViewModel.LoadUserAsync(param.Login);
-
-            SetCurrentTabItem();
-
-            var command = ViewModel.RefreshFollowingCommand;
+            var command = ViewModel.LoadUserFollowingPageCommand;
             if (command.CanExecute(null))
                 command.ExecuteAsync(null);
-        }
-
-        private void SetCurrentTabItem()
-        {
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = $"Following";
-            currentItem.Description = $"People {ViewModel.Login} is following";
-            currentItem.Icon = new muxc.ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Accounts.png"))
-            };
         }
     }
 }

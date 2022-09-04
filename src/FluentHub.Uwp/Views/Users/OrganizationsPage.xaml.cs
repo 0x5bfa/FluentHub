@@ -17,36 +17,20 @@ namespace FluentHub.Uwp.Views.Users
 
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<OrganizationsViewModel>();
-            navigationService = provider.GetRequiredService<INavigationService>();
         }
 
-        private readonly INavigationService navigationService;
         public OrganizationsViewModel ViewModel { get; }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var param = e.Parameter as Models.FrameNavigationArgs;
             ViewModel.Login = param.Login;
+
             ViewModel.DisplayTitle = true;
 
-            await ViewModel.LoadUserAsync(param.Login);
-
-            SetCurrentTabItem();
-
-            var command = ViewModel.RefreshOrganizationsCommand;
+            var command = ViewModel.LoadUserOrganizationsPageCommand;
             if (command.CanExecute(null))
                 command.Execute(null);
-        }
-
-        private void SetCurrentTabItem()
-        {
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = "Organizations";
-            currentItem.Description = $"{ViewModel.User.Login}'s organizations";
-            currentItem.Icon = new muxc.ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Organizations.png"))
-            };
         }
     }
 }

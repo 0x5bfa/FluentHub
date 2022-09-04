@@ -10,27 +10,64 @@
     Style="{StaticResource DefaultContentDialogStyle}"
     mc:Ignorable="d">
 
+    <ContentDialog.Resources>
+        <ResourceDictionary>
+            <x:Double x:Key="ContentDialogMaxWidth">800</x:Double>
+        </ResourceDictionary>
+    </ContentDialog.Resources>
+
     <Grid RowSpacing="8">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Exception details" />
-        <TextBlock
+
+        <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="Exception details" />
+
+        <StackPanel
             Grid.Row="1"
             Margin="0,12,0,0"
-            Style="{StaticResource BodyStrongTextBlockStyle}"
-            Text="{x:Bind Context.TaskException.Message, Mode=OneWay}" />
-        <Grid
+            Spacing="8">
+            <TextBlock
+                IsTextSelectionEnabled="True"
+                Style="{StaticResource BodyStrongTextBlockStyle}"
+                Text="Exception title:" />
+            <TextBlock
+                IsTextSelectionEnabled="True"
+                Style="{StaticResource BodyTextBlockStyle}"
+                Text="{x:Bind Context.TaskException.Message, Mode=OneWay}" />
+        </StackPanel>
+
+        <TextBlock
             Grid.Row="2"
+            Margin="0,12,0,0"
+            IsTextSelectionEnabled="True"
+            Style="{StaticResource BodyStrongTextBlockStyle}"
+            Text="Exception stack trace:" />
+
+        <Grid
+            Grid.Row="3"
             Height="300"
-            MinWidth="800"
-            Margin="0,12,0,0">
-            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                <Grid>
-                    <TextBlock IsTextSelectionEnabled="True" Text="{x:Bind Context.TaskException.StackTrace, Mode=OneWay}" />
+            Margin="-6,0"
+            Background="{ThemeResource CardBackgroundFillColorSecondary}"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="8">
+            <ScrollViewer
+                Padding="8"
+                HorizontalScrollBarVisibility="Auto"
+                VerticalScrollBarVisibility="Auto">
+                <Grid CornerRadius="4">
+                    <TextBlock
+                        IsTextSelectionEnabled="True"
+                        Style="{StaticResource BodyTextBlockStyle}"
+                        Text="{x:Bind Context.TaskException.StackTrace, Mode=OneWay}"
+                        TextWrapping="Wrap" />
                 </Grid>
             </ScrollViewer>
         </Grid>
+
     </Grid>
 </ContentDialog>

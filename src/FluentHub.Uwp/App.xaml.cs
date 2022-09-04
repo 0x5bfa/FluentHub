@@ -125,7 +125,6 @@ namespace FluentHub.Uwp
                 .AddTransient<ViewModels.UserControls.Blocks.LatestCommitBlockViewModel>()
                 .AddTransient<ViewModels.Users.FollowersViewModel>()
                 .AddTransient<ViewModels.Users.FollowingViewModel>()
-                .AddTransient<ViewModels.Users.ProfilePageViewModel>()
                 .AddTransient<ViewModels.Users.IssuesViewModel>()
                 .AddTransient<ViewModels.Users.OverviewViewModel>()
                 .AddTransient<ViewModels.Users.PullRequestsViewModel>()

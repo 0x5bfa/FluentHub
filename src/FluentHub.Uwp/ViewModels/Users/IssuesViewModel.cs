@@ -1,9 +1,14 @@
 ﻿using FluentHub.Octokit.Queries.Users;
 using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
-using FluentHub.Uwp.Utils;
+using FluentHub.Uwp.Services;
+using FluentHub.Uwp.ViewModels.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
+using FluentHub.Uwp.Utils;
+using Microsoft.Extensions.DependencyInjection;
+using Windows.UI.Xaml.Media.Imaging;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.ViewModels.Users
 {
@@ -17,15 +22,15 @@ namespace FluentHub.Uwp.ViewModels.Users
             _issueItems = new();
             IssueItems = new(_issueItems);
 
-            RefreshIssuesPageCommand = new AsyncRelayCommand(LoadUserIssuesAsync);
+            LoadUserIssuesPageCommand = new AsyncRelayCommand(LoadUserIssuesPageAsync);
         }
 
         #region Fields and Properties
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
 
-        private bool _displayTitle;
-        public bool DisplayTitle { get => _displayTitle; set => SetProperty(ref _displayTitle, value); }
+        private string _login;
+        public string Login { get => _login; set => SetProperty(ref _login, value); }
 
         private User _user;
         public User User { get => _user; set => SetProperty(ref _user, value); }
@@ -33,77 +38,93 @@ namespace FluentHub.Uwp.ViewModels.Users
         private UserProfileOverviewViewModel _userProfileOverviewViewModel;
         public UserProfileOverviewViewModel UserProfileOverviewViewModel { get => _userProfileOverviewViewModel; set => SetProperty(ref _userProfileOverviewViewModel, value); }
 
-        private string _login;
-        public string Login { get => _login; set => SetProperty(ref _login, value); }
+        private bool _displayTitle;
+        public bool DisplayTitle { get => _displayTitle; set => SetProperty(ref _displayTitle, value); }
 
         private readonly ObservableCollection<IssueButtonBlockViewModel> _issueItems;
         public ReadOnlyObservableCollection<IssueButtonBlockViewModel> IssueItems { get; }
 
-        public IAsyncRelayCommand RefreshIssuesPageCommand { get; }
+        private Exception _taskException;
+        public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
+
+        public IAsyncRelayCommand LoadUserIssuesPageCommand { get; }
         #endregion
 
-        private async Task LoadUserIssuesAsync(CancellationToken token)
+        private async Task LoadUserIssuesPageAsync()
         {
+            _messenger?.Send(new LoadingMessaging(true));
+            string _currentTaskingMethodName = nameof(LoadUserIssuesPageAsync);
+
             try
             {
-                IssueQueries queries = new();
-                var items = await queries.GetAllAsync(Login);
-                if (items == null) return;
+                _currentTaskingMethodName = nameof(LoadUserAsync);
+                await LoadUserAsync(Login);
 
-                _issueItems.Clear();
-                foreach (var item in items)
-                {
-                    IssueButtonBlockViewModel viewModel = new()
-                    {
-                        IssueItem = item,
-                    };
-
-                    _issueItems.Add(viewModel);
-                }
+                _currentTaskingMethodName = nameof(LoadUserIssuesAsync);
+                await LoadUserIssuesAsync(Login);
             }
-            catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error(nameof(LoadUserIssuesAsync), ex);
-                if (_messenger != null)
-                {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
+                TaskException = ex;
+
+                _logger?.Error(_currentTaskingMethodName, ex);
                 throw;
+            }
+            finally
+            {
+                SetCurrentTabItem();
+                _messenger?.Send(new LoadingMessaging(false));
+            }
+        }
+
+        private async Task LoadUserIssuesAsync(string login)
+        {
+            IssueQueries queries = new();
+            var items = await queries.GetAllAsync(login);
+            if (items == null) return;
+
+            _issueItems.Clear();
+            foreach (var item in items)
+            {
+                IssueButtonBlockViewModel viewModel = new()
+                {
+                    IssueItem = item,
+                };
+
+                _issueItems.Add(viewModel);
             }
         }
 
         public async Task LoadUserAsync(string login)
         {
-            try
+            UserQueries queries = new();
+            var response = await queries.GetAsync(login);
+
+            User = response ?? new();
+
+            UserProfileOverviewViewModel = new()
             {
-                UserQueries queries = new();
-                var response = await queries.GetAsync(login);
+                User = User,
+            };
 
-                User = response ?? new();
-
-                // View model
-                UserProfileOverviewViewModel = new()
-                {
-                    User = User,
-                };
-
-                if (string.IsNullOrEmpty(User.WebsiteUrl) is false)
-                {
-                    UserProfileOverviewViewModel.BuiltWebsiteUrl = new UriBuilder(User.WebsiteUrl).Uri;
-                }
-            }
-            catch (Exception ex)
+            if (string.IsNullOrEmpty(User.WebsiteUrl) is false)
             {
-                _logger?.Error(nameof(LoadUserAsync), ex);
-                if (_messenger != null)
-                {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
-                throw;
+                UserProfileOverviewViewModel.BuiltWebsiteUrl = new UriBuilder(User.WebsiteUrl).Uri;
             }
+        }
+
+        private void SetCurrentTabItem()
+        {
+            var provider = App.Current.Services;
+            INavigationService navigationService = provider.GetRequiredService<INavigationService>();
+
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = "Issues";
+            currentItem.Description = $"{User?.Login}'s issues";
+            currentItem.Icon = new muxc.ImageIconSource
+            {
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Issues.png"))
+            };
         }
     }
 }

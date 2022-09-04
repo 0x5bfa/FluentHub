@@ -411,7 +411,6 @@
     <Compile Include="ViewModels\Users\FollowingViewModel.cs" />
     <Compile Include="ViewModels\Users\IssuesViewModel.cs" />
     <Compile Include="ViewModels\Users\OrganizationsViewModel.cs" />
-    <Compile Include="ViewModels\Users\ProfilePageViewModel.cs" />
     <Compile Include="ViewModels\Users\PullRequestsViewModel.cs" />
     <Compile Include="ViewModels\Users\RepositoriesViewModel.cs" />
     <Compile Include="ViewModels\Users\OverviewViewModel.cs" />
@@ -564,9 +563,6 @@
     </Compile>
     <Compile Include="Views\Home\NotificationsPage.xaml.cs">
       <DependentUpon>NotificationsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Users\ProfilePage.xaml.cs">
-      <DependentUpon>ProfilePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Users\RepositoriesPage.xaml.cs">
       <DependentUpon>RepositoriesPage.xaml</DependentUpon>
@@ -1714,10 +1710,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Home\NotificationsPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Users\ProfilePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

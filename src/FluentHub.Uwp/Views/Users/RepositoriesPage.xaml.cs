@@ -1,7 +1,6 @@
 ﻿using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.Users;
 using Microsoft.Extensions.DependencyInjection;
-using System;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
@@ -17,13 +16,11 @@ namespace FluentHub.Uwp.Views.Users
 
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<RepositoriesViewModel>();
-            navigationService = provider.GetRequiredService<INavigationService>();
         }
 
-        private readonly INavigationService navigationService;
         public RepositoriesViewModel ViewModel { get; }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var param = e.Parameter as Models.FrameNavigationArgs;
             ViewModel.Login = param.Login;
@@ -33,24 +30,9 @@ namespace FluentHub.Uwp.Views.Users
                 ViewModel.DisplayTitle = true;
             }
 
-            await ViewModel.LoadUserAsync(param.Login);
-
-            SetCurrentTabItem();
-
-            var command = ViewModel.RefreshRepositoriesCommand;
+            var command = ViewModel.LoadUserRepositoriesPageCommand;
             if (command.CanExecute(null))
                 command.Execute(null);
-        }
-
-        private void SetCurrentTabItem()
-        {
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = $"Repositories";
-            currentItem.Description = $"{ViewModel.Login}'s repositories";
-            currentItem.Icon = new muxc.ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.png"))
-            };
         }
     }
 }

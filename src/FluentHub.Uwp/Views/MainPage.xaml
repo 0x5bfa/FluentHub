@@ -152,22 +152,24 @@
                         BorderThickness="0"
                         Click="OnSearchBarButtonClick"
                         ToolTipService.ToolTip="Search">
-                        <Button.Resources>
-                            <SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="Transparent" />
-                        </Button.Resources>
-                        <FontIcon
-                            FontFamily="Segoe Fluent Icons"
-                            FontSize="18"
-                            Glyph="&#xE11A;" />
+                        <muxc:AnimatedIcon Width="20" Height="20">
+                            <muxc:AnimatedIcon.Source>
+                                <animatedvisuals:AnimatedFindVisualSource />
+                            </muxc:AnimatedIcon.Source>
+                            <muxc:AnimatedIcon.FallbackIconSource>
+                                <muxc:SymbolIconSource Symbol="Find" />
+                            </muxc:AnimatedIcon.FallbackIconSource>
+                        </muxc:AnimatedIcon>
+
                     </Button>
 
                     <TextBox
                         x:Name="SearchBar"
-                        LostFocus="OnSearchBarLostFocus"
-                        Visibility="Collapsed"
-                        PlaceholderText="Search"
                         Width="256"
-                        Height="32"/>
+                        Height="32"
+                        LostFocus="OnSearchBarLostFocus"
+                        PlaceholderText="Search on GitHub"
+                        Visibility="Collapsed" />
 
                     <Button
                         x:Name="GoBackButton"
@@ -183,7 +185,7 @@
                         <Button.Resources>
                             <SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="Transparent" />
                         </Button.Resources>
-                        <muxc:AnimatedIcon Width="18" Height="18">
+                        <muxc:AnimatedIcon Width="20" Height="20">
                             <muxc:AnimatedIcon.Source>
                                 <animatedvisuals:AnimatedBackVisualSource />
                             </muxc:AnimatedIcon.Source>
@@ -210,7 +212,7 @@
                         <Button.RenderTransform>
                             <RotateTransform Angle="180" CenterX="18" CenterY="16" />
                         </Button.RenderTransform>
-                        <muxc:AnimatedIcon Width="18" Height="18">
+                        <muxc:AnimatedIcon Width="20" Height="20">
                             <muxc:AnimatedIcon.Source>
                                 <animatedvisuals:AnimatedBackVisualSource />
                             </muxc:AnimatedIcon.Source>

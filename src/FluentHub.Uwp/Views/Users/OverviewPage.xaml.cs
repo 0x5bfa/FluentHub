@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.Views.Users
 {
@@ -15,10 +16,8 @@ namespace FluentHub.Uwp.Views.Users
 
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<OverviewViewModel>();
-            navigationService = provider.GetRequiredService<INavigationService>();
         }
 
-        private readonly INavigationService navigationService;
         public OverviewViewModel ViewModel { get; }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

@@ -1,9 +1,14 @@
 ﻿using FluentHub.Octokit.Queries.Users;
 using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
-using FluentHub.Uwp.Utils;
+using FluentHub.Uwp.Services;
+using FluentHub.Uwp.ViewModels.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
+using FluentHub.Uwp.Utils;
+using Microsoft.Extensions.DependencyInjection;
+using Windows.UI.Xaml.Media.Imaging;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.ViewModels.Users
 {
@@ -17,15 +22,15 @@ namespace FluentHub.Uwp.ViewModels.Users
             _pullRequests = new();
             PullItems = new(_pullRequests);
 
-            RefreshPullRequestsPageCommand = new AsyncRelayCommand(LoadUserPullRequestsAsync);
+            LoadUserPullRequestsPageCommand = new AsyncRelayCommand(LoadUserPullRequestsPageAsync);
         }
 
         #region Fields and Properties
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
 
-        private bool _displayTitle;
-        public bool DisplayTitle { get => _displayTitle; set => SetProperty(ref _displayTitle, value); }
+        private string _login;
+        public string Login { get => _login; set => SetProperty(ref _login, value); }
 
         private User _user;
         public User User { get => _user; set => SetProperty(ref _user, value); }
@@ -33,77 +38,93 @@ namespace FluentHub.Uwp.ViewModels.Users
         private UserProfileOverviewViewModel _userProfileOverviewViewModel;
         public UserProfileOverviewViewModel UserProfileOverviewViewModel { get => _userProfileOverviewViewModel; set => SetProperty(ref _userProfileOverviewViewModel, value); }
 
-        private string _login;
-        public string Login { get => _login; set => SetProperty(ref _login, value); }
+        private bool _displayTitle;
+        public bool DisplayTitle { get => _displayTitle; set => SetProperty(ref _displayTitle, value); }
 
         private readonly ObservableCollection<PullButtonBlockViewModel> _pullRequests;
         public ReadOnlyObservableCollection<PullButtonBlockViewModel> PullItems { get; }
 
-        public IAsyncRelayCommand RefreshPullRequestsPageCommand { get; }
+        private Exception _taskException;
+        public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
+
+        public IAsyncRelayCommand LoadUserPullRequestsPageCommand { get; }
         #endregion
 
-        private async Task LoadUserPullRequestsAsync(CancellationToken token)
+        private async Task LoadUserPullRequestsPageAsync()
         {
+            _messenger?.Send(new LoadingMessaging(true));
+            string _currentTaskingMethodName = nameof(LoadUserPullRequestsPageAsync);
+
             try
             {
-                PullRequestQueries queries = new();
-                var items = await queries.GetAllAsync(Login);
-                if (items == null) return;
+                _currentTaskingMethodName = nameof(LoadUserAsync);
+                await LoadUserAsync(Login);
 
-                _pullRequests.Clear();
-                foreach (var item in items)
-                {
-                    PullButtonBlockViewModel viewModel = new()
-                    {
-                        PullItem = item,
-                    };
-
-                    _pullRequests.Add(viewModel);
-                }
+                _currentTaskingMethodName = nameof(LoadUserPullRequestsAsync);
+                await LoadUserPullRequestsAsync(Login);
             }
-            catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error(nameof(LoadUserPullRequestsAsync), ex);
-                if (_messenger != null)
-                {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
+                TaskException = ex;
+
+                _logger?.Error(_currentTaskingMethodName, ex);
                 throw;
+            }
+            finally
+            {
+                SetCurrentTabItem();
+                _messenger?.Send(new LoadingMessaging(false));
+            }
+        }
+
+        private async Task LoadUserPullRequestsAsync(string login)
+        {
+            PullRequestQueries queries = new();
+            var items = await queries.GetAllAsync(login);
+            if (items == null) return;
+
+            _pullRequests.Clear();
+            foreach (var item in items)
+            {
+                PullButtonBlockViewModel viewModel = new()
+                {
+                    PullItem = item,
+                };
+
+                _pullRequests.Add(viewModel);
             }
         }
 
         public async Task LoadUserAsync(string login)
         {
-            try
+            UserQueries queries = new();
+            var response = await queries.GetAsync(login);
+
+            User = response ?? new();
+
+            UserProfileOverviewViewModel = new()
             {
-                UserQueries queries = new();
-                var response = await queries.GetAsync(login);
+                User = User,
+            };
 
-                User = response ?? new();
-
-                // View model
-                UserProfileOverviewViewModel = new()
-                {
-                    User = User,
-                };
-
-                if (string.IsNullOrEmpty(User.WebsiteUrl) is false)
-                {
-                    UserProfileOverviewViewModel.BuiltWebsiteUrl = new UriBuilder(User.WebsiteUrl).Uri;
-                }
-            }
-            catch (Exception ex)
+            if (string.IsNullOrEmpty(User.WebsiteUrl) is false)
             {
-                _logger?.Error(nameof(LoadUserAsync), ex);
-                if (_messenger != null)
-                {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
-                throw;
+                UserProfileOverviewViewModel.BuiltWebsiteUrl = new UriBuilder(User.WebsiteUrl).Uri;
             }
+        }
+
+        private void SetCurrentTabItem()
+        {
+            var provider = App.Current.Services;
+            INavigationService navigationService = provider.GetRequiredService<INavigationService>();
+
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = "Pull Requests";
+            currentItem.Description = $"{User?.Login}'s pull requests";
+            currentItem.Icon = new muxc.ImageIconSource
+            {
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/PullRequests.png"))
+            };
         }
     }
 }

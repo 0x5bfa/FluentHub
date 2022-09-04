@@ -150,12 +150,12 @@ namespace FluentHub.Uwp.Views.Repositories
 
         private void OnRepoOwnerButtonClick(object sender, RoutedEventArgs e)
         {
-            var service = App.Current.Services.GetRequiredService<INavigationService>();
+            //var service = App.Current.Services.GetRequiredService<INavigationService>();
 
-            if (ViewModel.Repository.IsInOrganization)
-                service.Navigate<Organizations.ProfilePage>(ViewModel.Repository.Owner.Login);
-            else
-                service.Navigate<Users.ProfilePage>($"{App.DefaultGitHubDomain}/{ViewModel.Repository.Owner.Login}");
+            //if (ViewModel.Repository.IsInOrganization)
+            //    service.Navigate<Organizations.ProfilePage>(ViewModel.Repository.Owner.Login);
+            //else
+            //    service.Navigate<Users.ProfilePage>($"{App.DefaultGitHubDomain}/{ViewModel.Repository.Owner.Login}");
         }
 
         private void OnRepositoryContentFrameNavigating(object sender, NavigatingCancelEventArgs e)
