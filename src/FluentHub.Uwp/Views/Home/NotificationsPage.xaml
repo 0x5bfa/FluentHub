@@ -6,6 +6,7 @@
     xmlns:block="using:FluentHub.Uwp.UserControls.ButtonBlocks"
     xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="using:FluentHub.Uwp.Helpers"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
@@ -36,9 +37,10 @@
 
             <Grid>
                 <TextBlock
+                    x:Name="NotificationsPageHeader"
                     Margin="12,8"
                     Style="{StaticResource TitleTextBlockStyle}"
-                    Text="Notifications" />
+                    Text="{helpers:ResourceString Name=NotificationsPageHeader/Text}" />
 
                 <StackPanel
                     Margin="16,4,16,4"
@@ -75,7 +77,9 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBox PlaceholderText="Search notifications" />
+                <TextBox
+                    x:Name="NotificationsPageSearchBar"
+                    PlaceholderText="{helpers:ResourceString Name=NotificationsPageSearchBar/PlaceholderText}" />
 
                 <StackPanel
                     Grid.Row="1"
@@ -101,49 +105,49 @@
                         <muxc:DropDownButton.Content>
                             <StackPanel Orientation="Horizontal" Spacing="4">
                                 <TextBlock
+                                    x:Name="NotificationsPageFilterByReasonFlyoutBody"
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                     Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="Filter by:" />
-                                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Inbox" />
+                                    Text="{helpers:ResourceString Name=NotificationsPageFilterByReasonFlyoutBody/Text}" />
+                                <TextBlock x:Name="NotificationsPageFilterByReasonFlyoutPrimarySelection" Style="{StaticResource BodyTextBlockStyle}" Text="{helpers:ResourceString Name=NotificationsPageFilterByReasonInbox/Text}" />
                             </StackPanel>
                         </muxc:DropDownButton.Content>
                         <muxc:DropDownButton.Flyout>
                             <MenuFlyout Placement="BottomEdgeAlignedLeft">
                                 <MenuFlyout.Items>
-                                    <ToggleMenuFlyoutItem Text="Inbox" />
-                                    <ToggleMenuFlyoutItem Text="Saved" />
-                                    <ToggleMenuFlyoutItem Text="Done" />
+                                    <ToggleMenuFlyoutItem x:Name="NotificationsPageFilterByReasonInbox" Text="{helpers:ResourceString Name=NotificationsPageFilterByReasonInbox/Text}" />
+                                    <ToggleMenuFlyoutItem x:Name="NotificationsPageFilterByReasonSaved" Text="{helpers:ResourceString Name=NotificationsPageFilterByReasonSaved/Text}" />
+                                    <ToggleMenuFlyoutItem x:Name="NotificationsPageFilterByReasonDone" Text="{helpers:ResourceString Name=NotificationsPageFilterByReasonDone/Text}" />
                                     <MenuFlyoutSeparator />
-                                    <ToggleMenuFlyoutItem Text="🎯 Assigned" />
-                                    <ToggleMenuFlyoutItem Text="💬 Participating" />
-                                    <ToggleMenuFlyoutItem Text="✋ Mentioned" />
-                                    <ToggleMenuFlyoutItem Text="🙌 Team mentioned" />
-                                    <ToggleMenuFlyoutItem Text="👀 Review requested" />
+                                    <ToggleMenuFlyoutItem x:Name="NotificationsPageFilterByReasonAssigned" Text="{helpers:ResourceString Name=NotificationsPageFilterByReasonAssigned/Text}" />
+                                    <ToggleMenuFlyoutItem x:Name="NotificationsPageFilterByReasonParticipating" Text="{helpers:ResourceString Name=NotificationsPageFilterByReasonParticipating/Text}" />
+                                    <ToggleMenuFlyoutItem x:Name="NotificationsPageFilterByReasonMentioned" Text="{helpers:ResourceString Name=NotificationsPageFilterByReasonMentioned/Text}" />
+                                    <ToggleMenuFlyoutItem x:Name="NotificationsPageFilterByReasonMentionedTeam" Text="{helpers:ResourceString Name=NotificationsPageFilterByReasonMentionedTeam/Text}" />
+                                    <ToggleMenuFlyoutItem x:Name="NotificationsPageFilterByReasonReview" Text="{helpers:ResourceString Name=NotificationsPageFilterByReasonReview/Text}" />
                                 </MenuFlyout.Items>
                             </MenuFlyout>
                         </muxc:DropDownButton.Flyout>
                     </muxc:DropDownButton>
 
-                    <ToggleButton Content="Unread" />
+                    <ToggleButton x:Name="NotificationsPageUnreadToggle" Content="{helpers:ResourceString Name=NotificationsPageUnreadToggle/Content}" />
 
                     <muxc:DropDownButton>
                         <muxc:DropDownButton.Content>
                             <StackPanel Orientation="Horizontal" Spacing="4">
                                 <TextBlock
+                                    x:Name="NotificationsPageGroupByViewFlyoutBody"
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                     Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="Group by:" />
-                                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
+                                    Text="{helpers:ResourceString Name=NotificationsPageGroupByViewFlyoutBody/Text}" />
+                                <TextBlock x:Name="NotificationsPageGroupByViewPrimarySelection" Style="{StaticResource BodyTextBlockStyle}" Text="{helpers:ResourceString Name=NotificationsPageGroupByViewNone/Text}" />
                             </StackPanel>
                         </muxc:DropDownButton.Content>
                         <muxc:DropDownButton.Flyout>
                             <MenuFlyout x:Name="GroupByMenuFlyout" Placement="BottomEdgeAlignedLeft">
                                 <MenuFlyout.Items>
-                                    <ToggleMenuFlyoutItem Text="Repository1" />
-                                    <ToggleMenuFlyoutItem Text="Repository2" />
-                                    <ToggleMenuFlyoutItem Text="Repository3" />
-                                    <ToggleMenuFlyoutItem Text="Repository4" />
-                                    <ToggleMenuFlyoutItem Text="Repository5" />
+                                    <ToggleMenuFlyoutItem x:Name="NotificationsPageGroupByViewNone" Text="{helpers:ResourceString Name=NotificationsPageGroupByViewNone/Text}" />
+                                    <ToggleMenuFlyoutItem x:Name="NotificationsPageGroupByViewRepository" Text="{helpers:ResourceString Name=NotificationsPageGroupByViewRepository/Text}" />
+                                    <ToggleMenuFlyoutItem x:Name="NotificationsPageGroupByViewPrimaryDate" Text="{helpers:ResourceString Name=NotificationsPageGroupByViewDate/Text}" />
                                 </MenuFlyout.Items>
                             </MenuFlyout>
                         </muxc:DropDownButton.Flyout>
@@ -174,7 +178,7 @@
                             <HyperlinkButton Command="{x:Bind ViewModel.RefreshNotificationsCommand}">
                                 <StackPanel Orientation="Horizontal" Spacing="8">
                                     <FontIcon FontSize="16" Glyph="&#xE149;" />
-                                    <TextBlock Text="Refresh" />
+                                    <TextBlock x:Name="RefreshBody" Text="{helpers:ResourceString Name=RefreshBody/Text}" />
                                 </StackPanel>
                             </HyperlinkButton>
                         </toolkit:Case>
@@ -207,10 +211,11 @@
                                         </Viewbox>
 
                                         <TextBlock
+                                            x:Name="NotificationsPageNoRecentNotificationsBody"
                                             Grid.Row="1"
                                             FontSize="18"
                                             Style="{StaticResource BodyStrongTextBlockStyle}"
-                                            Text="No recent notifications."
+                                            Text="{helpers:ResourceString Name=NotificationsPageNoRecentNotificationsBody/Text}"
                                             TextAlignment="Center" />
                                     </Grid>
                                 </toolkit:Case>
