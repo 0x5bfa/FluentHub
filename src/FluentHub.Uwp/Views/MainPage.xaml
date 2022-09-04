@@ -5,6 +5,7 @@
     xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
     xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="using:FluentHub.Uwp.Helpers"
     xmlns:i="using:Microsoft.Xaml.Interactivity"
     xmlns:icore="using:Microsoft.Xaml.Interactions.Core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -151,7 +152,7 @@
                         Background="Transparent"
                         BorderThickness="0"
                         Click="OnSearchBarButtonClick"
-                        ToolTipService.ToolTip="Search">
+                        ToolTipService.ToolTip="{helpers:ResourceString Name=SearchBarButton/ToolTipService/Tooltip}">
                         <Button.Resources>
                             <SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="Transparent" />
                         </Button.Resources>
@@ -165,7 +166,7 @@
                         x:Name="SearchBar"
                         LostFocus="OnSearchBarLostFocus"
                         Visibility="Collapsed"
-                        PlaceholderText="Search"
+                        PlaceholderText="{helpers:ResourceString Name=SearchBar/PlaceholderText}"
                         Width="256"
                         Height="32"/>
 
@@ -179,7 +180,7 @@
                         BorderThickness="0"
                         Command="{x:Bind ViewModel.GoBackCommand, Mode=OneWay}"
                         IsEnabled="{Binding SelectedItem.NavigationHistory.CanGoBack, ElementName=TabView, FallbackValue=false}"
-                        ToolTipService.ToolTip="Back">
+                        ToolTipService.ToolTip="{helpers:ResourceString Name=GoBackButton/ToolTipService/Tooltip}">
                         <Button.Resources>
                             <SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="Transparent" />
                         </Button.Resources>
@@ -203,7 +204,7 @@
                         BorderThickness="0"
                         Command="{x:Bind ViewModel.GoForwardCommand, Mode=OneWay}"
                         IsEnabled="{Binding SelectedItem.NavigationHistory.CanGoForward, ElementName=TabView, FallbackValue=false}"
-                        ToolTipService.ToolTip="Forward">
+                        ToolTipService.ToolTip="{helpers:ResourceString Name=GoForwardButton/TooltipService/Tooltip}">
                         <Button.Resources>
                             <SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="Transparent" />
                         </Button.Resources>
@@ -257,65 +258,76 @@
 
                         <muxc:DropDownButton.Flyout>
                             <MenuFlyout Placement="BottomEdgeAlignedRight">
-                                <MenuFlyoutSubItem IsEnabled="False" Text="New...">
+                                <MenuFlyoutSubItem x:Name="NewMutation" IsEnabled="False" Text="{helpers:ResourceString Name=NewMutation/Text}">
                                     <MenuFlyoutItem
+                                        x:Name="NewMutationRepoButton"
                                         Click="OnMenuFlyoutItemClick"
                                         Tag="NewRepo"
-                                        Text="New repository" />
+                                        Text="{helpers:ResourceString Name=NewMutationRepoButton/Text}" />
                                     <MenuFlyoutItem
+                                        x:Name="NewMutationOrganizationButton"
                                         Click="OnMenuFlyoutItemClick"
                                         Tag="NewOrganization"
-                                        Text="New organization" />
+                                        Text="{helpers:ResourceString Name=NewMutationOrganizationButton/Text}" />
                                 </MenuFlyoutSubItem>
                                 <MenuFlyoutSeparator />
                                 <MenuFlyoutItem
+                                    x:Name="UserProfileButton"
                                     Click="OnMenuFlyoutItemClick"
                                     Tag="Profile"
-                                    Text="Your profile" />
+                                    Text="{helpers:ResourceString Name=UserProfileButton/Text}" />
                                 <MenuFlyoutItem
+                                    x:Name="UserRepositoriesButton"
                                     Click="OnMenuFlyoutItemClick"
                                     Tag="Repositories"
-                                    Text="Your repositories" />
+                                    Text="{helpers:ResourceString Name=UserRepositoriesButton/Text}" />
                                 <MenuFlyoutItem
+                                    x:Name="UserDiscussionsButton"
                                     Click="OnMenuFlyoutItemClick"
                                     Tag="Discussions"
-                                    Text="Your discussions" />
+                                    Text="{helpers:ResourceString Name=UserDiscussionsButton/Text}" />
                                 <MenuFlyoutItem
+                                    x:Name="UserIssuesButton"
                                     Click="OnMenuFlyoutItemClick"
                                     Tag="Issues"
-                                    Text="Your issues" />
+                                    Text="{helpers:ResourceString Name=UserIssuesButton/Text}" />
                                 <MenuFlyoutItem
+                                    x:Name="UserPullRequestsButton"
                                     Click="OnMenuFlyoutItemClick"
                                     Tag="PullRequests"
-                                    Text="Your pull requests" />
+                                    Text="{helpers:ResourceString Name=UserPullRequestsButton/Text}" />
                                 <MenuFlyoutItem
+                                    x:Name="UserOrganizationsButton"
                                     Click="OnMenuFlyoutItemClick"
                                     Tag="Organizations"
-                                    Text="Your organizations" />
+                                    Text="{helpers:ResourceString Name=UserOrganizationsButton/Text}" />
                                 <MenuFlyoutItem
+                                    x:Name="UserStarsButton"
                                     Click="OnMenuFlyoutItemClick"
                                     Tag="Stars"
-                                    Text="Your stars" />
+                                    Text="{helpers:ResourceString Name=UserStarsButton/Text}" />
                                 <MenuFlyoutSeparator />
-                                <MenuFlyoutSubItem Text="Switch account">
-                                    <MenuFlyoutItem IsEnabled="False" Text="Not available yet" />
+                                <MenuFlyoutSubItem x:Name="SwitchAccountFlyoutSub" Text="{helpers:ResourceString Name=SwitchAccountFlyoutSub/Text}">
+                                    <MenuFlyoutItem x:Name="SwitchAccountNotAvailableYetButton" IsEnabled="False" Text="{helpers:ResourceString Name=FeatureNotAvailable/Text}" />
                                     <MenuFlyoutSeparator />
                                     <MenuFlyoutItem
+                                        x:Name="AccountSettingsButton"
                                         Click="OnMenuFlyoutItemClick"
                                         Tag="AccountSettings"
-                                        Text="Account settings" />
+                                        Text="{helpers:ResourceString Name=AccountSettingsButton/Text}" />
                                 </MenuFlyoutSubItem>
                                 <MenuFlyoutItem
+                                    x:Name="SettingsButton"
                                     Click="OnMenuFlyoutItemClick"
                                     Tag="Settings"
-                                    Text="Settings" />
+                                    Text="{helpers:ResourceString Name=SettingsButton/Text}" />
                                 <MenuFlyoutItem
+                                    x:Name="SignOutButton"
                                     Click="OnMenuFlyoutItemClick"
                                     Tag="SignOut"
-                                    Text="Sign out" />
+                                    Text="{helpers:ResourceString Name=SignOutButton/Text}" />
                             </MenuFlyout>
                         </muxc:DropDownButton.Flyout>
-
                     </muxc:DropDownButton>
                 </StackPanel>
             </Grid>
