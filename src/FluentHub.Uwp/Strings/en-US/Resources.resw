@@ -184,22 +184,22 @@
     <value>Authorize FluentHub</value>
   </data>
   <data name="LoadErrorDisplayHeader.Text" xml:space="preserve">
-    <value>Something went wrong</value>
+    <value>Something went wrong 😿</value>
   </data>
   <data name="LoadErrorDisplayOpenLogFileLocationButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Open the log folder where app error details are stored in File Explorer.</value>
+    <value>Opens the log folder where app error details are stored on the local disk.</value>
   </data>
   <data name="LoadErrorDisplayOpenLogFileLocationButtonBody.Text" xml:space="preserve">
     <value>Open log location</value>
   </data>
   <data name="LoadErrorDisplayReportThisIssueButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>In the future, app will automatically paste the error contents, details, logs, and send them to FluentHub team on GitHub when you repot this issue. Currently, if you perform this action, you will be redirected to the GitHub web page.</value>
+    <value>Opens our GitHub page in order to create an issue. Note: In the future, FluentHub will automatically paste the error contents, details, logs, and send them to the FluentHub team via GitHub when you click this button.</value>
   </data>
   <data name="LoadErrorDisplayReportThisIssueButtonBody.Text" xml:space="preserve">
     <value>Report this issue</value>
   </data>
   <data name="LoadErrorDisplayShowExceptionDetailsContentDialogButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Display the stack trace results in the dialog.</value>
+    <value>Displays the stack trace results in a dialog.</value>
   </data>
   <data name="LoadErrorDisplayShowExceptionDetailsContentDialogButtonBody.Text" xml:space="preserve">
     <value>See stack trace</value>
