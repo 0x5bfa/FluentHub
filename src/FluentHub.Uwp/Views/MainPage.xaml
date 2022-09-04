@@ -170,10 +170,7 @@
                         Visibility="Collapsed"
                         PlaceholderText="{helpers:ResourceString Name=SearchBar/PlaceholderText}"
                         Width="256"
-                        Height="32"
-                        LostFocus="OnSearchBarLostFocus"
-                        PlaceholderText="Search on GitHub"
-                        Visibility="Collapsed" />
+                        Height="32" />
 
                     <Button
                         x:Name="GoBackButton"
