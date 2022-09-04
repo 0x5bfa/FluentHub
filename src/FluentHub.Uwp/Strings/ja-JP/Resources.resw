@@ -117,28 +117,187 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="AccountSettingsButton.Text" xml:space="preserve">
+    <value>アカウント設定</value>
+  </data>
+  <data name="AppearancePageColorBlock.Title" xml:space="preserve">
+    <value>色の選択</value>
+  </data>
+  <data name="AppearancePageGeneralHeader.Text" xml:space="preserve">
+    <value>一般</value>
+  </data>
+  <data name="AppearancePageHeader.Text" xml:space="preserve">
+    <value>外観</value>
+  </data>
+  <data name="AppearancePageLocaleBlock.Title" xml:space="preserve">
+    <value>言語</value>
+  </data>
+  <data name="AppearancePageLocaleHeader.Text" xml:space="preserve">
+    <value>言語</value>
+  </data>
+  <data name="AppearancePageThemeBlock.Title" xml:space="preserve">
+    <value>カスタムテーマ</value>
+  </data>
+  <data name="FeatureNotAvailable.Text" xml:space="preserve">
+    <value>まだ利用できません</value>
+  </data>
+  <data name="FeedsPageHeader.Text" xml:space="preserve">
+    <value>アクティビティ</value>
+  </data>
+  <data name="FeedsPageNoRecentActivityBody.Text" xml:space="preserve">
+    <value>最近のアクティビティはありません。</value>
+  </data>
   <data name="FifthStepToAuthorize.Text" xml:space="preserve">
-    <value>Proceed to the FluentHub application.</value>
+    <value>FluentHub に移動します。</value>
   </data>
   <data name="FirstStepToAuthorize.Text" xml:space="preserve">
-    <value>Click "Login with GitHub";</value>
+    <value>「GitHub でログイン」をクリックする。</value>
   </data>
   <data name="ForthStepToAuthorize.Text" xml:space="preserve">
-    <value>Click "Open FluentHub DEV";</value>
+    <value>「FluentHub DEV を開く」をクリックします。</value>
+  </data>
+  <data name="GoBackButton.TooltipService.Tooltip" xml:space="preserve">
+    <value>戻る</value>
+  </data>
+  <data name="GoForwardButton.TooltipService.Tooltip" xml:space="preserve">
+    <value>進む</value>
+  </data>
+  <data name="HomePageFavoritesHeader.Text" xml:space="preserve">
+    <value>お気に入り</value>
+  </data>
+  <data name="HomePageFavoritesNotAvailableBody.Text" xml:space="preserve">
+    <value>お気に入りのアイテムは使用できません。</value>
+  </data>
+  <data name="HomePageGeneralHeader.Text" xml:space="preserve">
+    <value>ワーク</value>
+  </data>
+  <data name="HomePageHeader.Text" xml:space="preserve">
+    <value>ホーム</value>
+  </data>
+  <data name="HomePageRecentActivityHeader.Text" xml:space="preserve">
+    <value>最近</value>
   </data>
   <data name="IntroDocumentationLink.Content" xml:space="preserve">
-    <value>Documentation</value>
+    <value>ドキュメント</value>
   </data>
   <data name="IntroHeader.Text" xml:space="preserve">
-    <value>Authorize FluentHub</value>
+    <value>FluentHub を認証する</value>
   </data>
   <data name="LoginWithGitHub.Content" xml:space="preserve">
-    <value>Login with GitHub</value>
+    <value>GitHub でログイン</value>
+  </data>
+  <data name="NewMutation.Text" xml:space="preserve">
+    <value>新規</value>
+  </data>
+  <data name="NewMutationOrganizationButton.Text" xml:space="preserve">
+    <value>新しい組織</value>
+  </data>
+  <data name="NewMutationRepoButton.Text" xml:space="preserve">
+    <value>新しいリポジトリ</value>
+  </data>
+  <data name="NotificationsPageFilterByReasonAssigned.Text" xml:space="preserve">
+    <value>📋 割り当て済み</value>
+  </data>
+  <data name="NotificationsPageFilterByReasonDone.Text" xml:space="preserve">
+    <value>完了</value>
+  </data>
+  <data name="NotificationsPageFilterByReasonFlyoutBody.Text" xml:space="preserve">
+    <value>フィルタ：</value>
+  </data>
+  <data name="NotificationsPageFilterByReasonInbox.Text" xml:space="preserve">
+    <value>受信トレイ</value>
+  </data>
+  <data name="NotificationsPageFilterByReasonMentioned.Text" xml:space="preserve">
+    <value>✉️ メンション済み</value>
+  </data>
+  <data name="NotificationsPageFilterByReasonMentionedTeam.Text" xml:space="preserve">
+    <value>📧メンションされたチーム</value>
+  </data>
+  <data name="NotificationsPageFilterByReasonParticipating.Text" xml:space="preserve">
+    <value>🤝 参加中</value>
+  </data>
+  <data name="NotificationsPageFilterByReasonReview.Text" xml:space="preserve">
+    <value>👀 リクエストされたレビュー</value>
+  </data>
+  <data name="NotificationsPageFilterByReasonSaved.Text" xml:space="preserve">
+    <value>保存済み</value>
+  </data>
+  <data name="NotificationsPageGroupByViewFlyoutBody.Text" xml:space="preserve">
+    <value>グループ化:</value>
+  </data>
+  <data name="NotificationsPageGroupByViewNone.Text" xml:space="preserve">
+    <value>なし</value>
+  </data>
+  <data name="NotificationsPageGroupByViewPrimaryDate.Text" xml:space="preserve">
+    <value>日付</value>
+  </data>
+  <data name="NotificationsPageGroupByViewRepository.Text" xml:space="preserve">
+    <value>リポジトリ</value>
+  </data>
+  <data name="NotificationsPageHeader.Text" xml:space="preserve">
+    <value>通知</value>
+  </data>
+  <data name="NotificationsPageNoRecentNotificationsBody.Text" xml:space="preserve">
+    <value>最近の通知がありません。</value>
+  </data>
+  <data name="NotificationsPageSearchBar.PlaceholderText" xml:space="preserve">
+    <value>通知を検索</value>
+  </data>
+  <data name="NotificationsPageUnreadToggle.Content" xml:space="preserve">
+    <value>未読</value>
+  </data>
+  <data name="RefreshBody.Text" xml:space="preserve">
+    <value>再読み込み</value>
+  </data>
+  <data name="RepositoriesListHeader.Text" xml:space="preserve">
+    <value>リポジトリ</value>
+  </data>
+  <data name="SearchBar.PlaceholderText" xml:space="preserve">
+    <value>検索</value>
+  </data>
+  <data name="SearchBarButton.TooltipService.Tooltip" xml:space="preserve">
+    <value>検索</value>
   </data>
   <data name="SecondStepToAuthorize.Text" xml:space="preserve">
-    <value>If you are in administration of one or more organizations, please give FluentHub access to them;</value>
+    <value>1 つ以上の組織を管理している場合は、FluentHub からアクセスできるようにしてください。</value>
+  </data>
+  <data name="SettingsButton.Text" xml:space="preserve">
+    <value>設定</value>
+  </data>
+  <data name="SettingsFeedbackButton.Content" xml:space="preserve">
+    <value>フィードバック</value>
+  </data>
+  <data name="SettingsGetHelpButton.Content" xml:space="preserve">
+    <value>ヘルプを得る</value>
+  </data>
+  <data name="SignOutButton.Text" xml:space="preserve">
+    <value>サイン アウト</value>
+  </data>
+  <data name="SwitchAccountFlyoutSub.Text" xml:space="preserve">
+    <value>アカウントの切り替え</value>
   </data>
   <data name="ThirdStepToAuthorize.Text" xml:space="preserve">
-    <value>Click "Authorize FluentHub";</value>
+    <value>"Authorize FluentHub" をクリックしてください。</value>
+  </data>
+  <data name="UserDiscussionsButton.Text" xml:space="preserve">
+    <value>ディスカッション</value>
+  </data>
+  <data name="UserIssuesButton.Text" xml:space="preserve">
+    <value>Issue</value>
+  </data>
+  <data name="UserOrganizationsButton.Text" xml:space="preserve">
+    <value>Organization</value>
+  </data>
+  <data name="UserProfileButton.Text" xml:space="preserve">
+    <value>プロフィール</value>
+  </data>
+  <data name="UserPullRequestsButton.Text" xml:space="preserve">
+    <value>Your pull requests</value>
+  </data>
+  <data name="UserRepositoriesButton.Text" xml:space="preserve">
+    <value>Your repositories</value>
+  </data>
+  <data name="UserStarsButton.Text" xml:space="preserve">
+    <value>Your stars</value>
   </data>
 </root>
