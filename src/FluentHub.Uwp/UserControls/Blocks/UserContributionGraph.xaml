@@ -7,19 +7,35 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:FluentHub.Uwp.UserControls.Blocks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:FluentHub.Uwp.Models"
     xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:vm="using:FluentHub.Uwp.ViewModels.UserControls.Blocks"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
 
-    <UserControl.DataContext>
-        <vm:UserContributionGraphViewModel x:Name="ViewModel" />
-    </UserControl.DataContext>
     <UserControl.Resources>
-        <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+        <ResourceDictionary>
+            <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="PrimerColorCalendarGraphDayBackground" Color="#ebedf0" />
+                    <SolidColorBrush x:Key="PrimerColorCalendarGraphDayLevel1Background" Color="#9be9a8" />
+                    <SolidColorBrush x:Key="PrimerColorCalendarGraphDayLevel2Background" Color="#40c463" />
+                    <SolidColorBrush x:Key="PrimerColorCalendarGraphDayLevel3Background" Color="#30a14e" />
+                    <SolidColorBrush x:Key="PrimerColorCalendarGraphDayLevel4Background" Color="#216e39" />
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <StaticResource x:Key="PrimerColorCalendarGraphDayBackground" ResourceKey="PrimerScaleGray8" />
+                    <SolidColorBrush x:Key="PrimerColorCalendarGraphDayLevel1Background" Color="#0e4429" />
+                    <SolidColorBrush x:Key="PrimerColorCalendarGraphDayLevel2Background" Color="#006d32" />
+                    <SolidColorBrush x:Key="PrimerColorCalendarGraphDayLevel3Background" Color="#26a641" />
+                    <SolidColorBrush x:Key="PrimerColorCalendarGraphDayLevel4Background" Color="#39d353" />
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid
@@ -27,31 +43,34 @@
         Background="{ThemeResource CardBackgroundFillColorSecondary}"
         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
         BorderThickness="1"
-        CornerRadius="8"
-        RowSpacing="8">
+        CornerRadius="8">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid Padding="32,8,32,0">
+        <Grid Padding="32,8,32,4" ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
             <StackPanel Orientation="Horizontal" Spacing="4">
 
-                <TextBlock
-                    VerticalAlignment="Center"
-                    Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="{x:Bind ViewModel.Calendar.TotalContributions, Mode=OneWay}" />
+                <TextBlock VerticalAlignment="Center" Style="{StaticResource BodyStrongTextBlockStyle}">
+                    <Run Text="{x:Bind ViewModel.Calendar.TotalContributions, Mode=OneWay}" />
+                    <Run Text="contributions in the last year" />
+                </TextBlock>
 
-                <TextBlock
-                    VerticalAlignment="Center"
-                    Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="contributions in the last year" />
 
             </StackPanel>
 
             <StackPanel
-                HorizontalAlignment="Right"
+                Grid.Column="1"
+                VerticalAlignment="Center"
                 Orientation="Horizontal"
                 Spacing="4">
 
@@ -64,7 +83,7 @@
                 <Border
                     Width="14"
                     Height="14"
-                    Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                    Background="{ThemeResource PrimerColorCalendarGraphDayBackground}"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1"
                     CornerRadius="3" />
@@ -72,7 +91,7 @@
                 <Border
                     Width="14"
                     Height="14"
-                    Background="#0e4429"
+                    Background="{ThemeResource PrimerColorCalendarGraphDayLevel1Background}"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1"
                     CornerRadius="3" />
@@ -80,7 +99,7 @@
                 <Border
                     Width="14"
                     Height="14"
-                    Background="#006d32"
+                    Background="{ThemeResource PrimerColorCalendarGraphDayLevel2Background}"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1"
                     CornerRadius="3" />
@@ -88,7 +107,7 @@
                 <Border
                     Width="14"
                     Height="14"
-                    Background="#26a641"
+                    Background="{ThemeResource PrimerColorCalendarGraphDayLevel3Background}"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1"
                     CornerRadius="3" />
@@ -96,7 +115,7 @@
                 <Border
                     Width="14"
                     Height="14"
-                    Background="#39d353"
+                    Background="{ThemeResource PrimerColorCalendarGraphDayLevel4Background}"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1"
                     CornerRadius="3" />
@@ -107,24 +126,22 @@
                     Style="{StaticResource CaptionTextBlockStyle}"
                     Text="More" />
 
+            </StackPanel>
+
+            <StackPanel Grid.Column="3">
                 <Button
-                    x:Name="SettingsButton"
-                    Width="36"
                     Height="32"
-                    Margin="12,0,0,0"
-                    Padding="0"
+                    Margin="24,0,0,0"
+                    Padding="8,0"
                     HorizontalAlignment="Right"
                     Background="Transparent"
-                    BorderThickness="0"
-                    IsEnabled="False">
-                    <muxc:AnimatedIcon x:Name="SettingAnimatedIcon" Height="16">
-                        <muxc:AnimatedIcon.Source>
-                            <animatedvisuals:AnimatedSettingsVisualSource />
-                        </muxc:AnimatedIcon.Source>
-                        <muxc:AnimatedIcon.FallbackIconSource>
-                            <muxc:SymbolIconSource Symbol="Setting" />
-                        </muxc:AnimatedIcon.FallbackIconSource>
-                    </muxc:AnimatedIcon>
+                    BorderThickness="0">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="View more details" />
+                    </StackPanel>
                 </Button>
             </StackPanel>
 
@@ -132,16 +149,11 @@
 
         <MenuFlyoutSeparator Grid.Row="1" />
 
-        <TextBlock
-            Grid.Row="2"
-            Margin="32"
-            HorizontalAlignment="Center"
-            Text="Disabled for now." />
-
-        <!--<muxc:ItemsRepeater
+        <muxc:ItemsRepeater
             Grid.Row="2"
             Height="122"
-            ItemsSource="{x:Bind ViewModel.Calendar.ContributionDays, Mode=OneWay}">
+            Margin="24,12,24,24"
+            ItemsSource="{x:Bind ViewModel.MergedCalendar, Mode=OneWay}">
 
             <muxc:ItemsRepeater.Layout>
                 <toolkit:WrapLayout
@@ -150,7 +162,7 @@
                     VerticalSpacing="4" />
             </muxc:ItemsRepeater.Layout>
 
-            <DataTemplate x:DataType="models:CalendarDay">
+            <DataTemplate x:DataType="models:MergedCalendarDays">
                 <Grid
                     Width="14"
                     Height="14"
@@ -158,13 +170,13 @@
                     BorderThickness="1"
                     CornerRadius="3"
                     ToolTipService.ToolTip="{x:Bind ContributionCount, Mode=OneWay}"
-                    Visibility="{x:Bind Visibility, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+                    Visibility="{x:Bind IsVaild, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
                     <Grid.Background>
                         <SolidColorBrush Color="{x:Bind Color, Mode=OneWay}" />
                     </Grid.Background>
                 </Grid>
             </DataTemplate>
 
-        </muxc:ItemsRepeater>-->
+        </muxc:ItemsRepeater>
     </Grid>
 </UserControl>

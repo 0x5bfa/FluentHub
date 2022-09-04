@@ -2,66 +2,101 @@
 using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Media;
 
 namespace FluentHub.Uwp.ViewModels.UserControls.Blocks
 {
     public class UserContributionGraphViewModel : ObservableObject
     {
-        private string loginName;
-        public string LoginName { get => loginName; set => SetProperty(ref loginName, value); }
+        public UserContributionGraphViewModel()
+        {
+            _mergedCalendar = new();
+            MergedCalendar = new(_mergedCalendar);
+        }
 
-        private ContributionCalendar calendar;
-        public ContributionCalendar Calendar { get => calendar; set => SetProperty(ref calendar, value); }
+        private string _login;
+        public string Login { get => _login; set => SetProperty(ref _login, value); }
+
+        private ContributionCalendar _calendar;
+        public ContributionCalendar Calendar { get => _calendar; set => SetProperty(ref _calendar, value); }
+
+        private readonly ObservableCollection<MergedCalendarDays> _mergedCalendar;
+        public ReadOnlyObservableCollection<MergedCalendarDays> MergedCalendar { get; }
 
         public async Task GetContributionCalendarAsync()
         {
             ActivityQueries queries = new();
-            Calendar = await queries.GetContributionCalendarAsync(LoginName);
+            var response = await queries.GetContributionCalendarAsync(Login);
 
-            if (Calendar.Weeks.First().ContributionDays.First().Weekday != 0)
+            Calendar = response;
+
+            // Flatting
+            foreach (var weekItem in response.Weeks)
             {
-                for (int i = 0; i < 7 - Calendar.Weeks.First().ContributionDays.First().Weekday; i++)
+                foreach (var dayItem in weekItem.ContributionDays)
                 {
-                    ContributionCalendarDay day = new()
+                    var item = new MergedCalendarDays()
                     {
-                        Color = "#FFFFFF",
-                        ContributionCount = 0,
-                        ContributionLevel = ContributionLevel.None,
-                        Weekday = 0,
+                        Color = dayItem.Color,
+                        ContributionCount = dayItem.ContributionCount,
+                        ContributionLevel = dayItem.ContributionLevel,
+                        Weekday = dayItem.Weekday,
+                        IsVaild = true,
                     };
 
-                    Calendar.Weeks.First().ContributionDays.Insert(i, day);
+                    item.Color = GetProperColor(item.ContributionLevel);
+
+                    _mergedCalendar.Add(item);
                 }
             }
 
-            if (ThemeHelper.ActualTheme.ToString().ToLower() == "dark")
+            int weekDay = _mergedCalendar.FirstOrDefault().Weekday;
+
+            // If the first day is not Sunday (Weekday != 0), fill in the vacancies to correct the position.
+            if (weekDay != 0)
             {
-                SetProperColor();
+                for (int index = 0; index < weekDay; index++)
+                {
+                    _mergedCalendar.Insert(
+                        0,
+                        new()
+                        {
+                            Color = "#FFFFFF",
+                            ContributionCount = 0,
+                            ContributionLevel = ContributionLevel.None,
+                            Weekday = weekDay - (index + 1), // prevent the value of Weekday from descending order.
+                            IsVaild = false,
+                        });
+                }
             }
         }
 
-        public void SetProperColor()
+        public string GetProperColor(ContributionLevel level)
         {
-            for (int i = 0; i < Calendar.Weeks.First().ContributionDays.Count(); i++)
+            if (ThemeHelper.ActualTheme.ToString().ToLower() == "light")
             {
-                switch (Calendar.Weeks.First().ContributionDays[i].ContributionLevel)
+                return level switch
                 {
-                    case ContributionLevel.None:
-                        Calendar.Weeks.First().ContributionDays[i].Color = "#64000000";
-                        break;
-                    case ContributionLevel.FirstQuartile:
-                        Calendar.Weeks.First().ContributionDays[i].Color = "#0e4429";
-                        break;
-                    case ContributionLevel.SecondQuartile:
-                        Calendar.Weeks.First().ContributionDays[i].Color = "#006d32";
-                        break;
-                    case ContributionLevel.ThirdQuartile:
-                        Calendar.Weeks.First().ContributionDays[i].Color = "#26a641";
-                        break;
-                    case ContributionLevel.FourthQuartile:
-                        Calendar.Weeks.First().ContributionDays[i].Color = "#39d353";
-                        break;
-                }
+                    ContributionLevel.None =>           "#EBEDF0",
+                    ContributionLevel.FirstQuartile =>  "#9BE9A8",
+                    ContributionLevel.SecondQuartile => "#40C463",
+                    ContributionLevel.ThirdQuartile =>  "#30A14E",
+                    ContributionLevel.FourthQuartile => "#216E39",
+                    _ => "#EBEDF0",
+                };
+            }
+            else // dark
+            {
+                return level switch
+                {
+                    ContributionLevel.None => (Application.Current.Resources["PrimerScaleGray8"] as SolidColorBrush).Color.ToString(),
+                    ContributionLevel.FirstQuartile =>  "#0E4429",
+                    ContributionLevel.SecondQuartile => "#006D32",
+                    ContributionLevel.ThirdQuartile =>  "#26A641",
+                    ContributionLevel.FourthQuartile => "#39D353",
+                    _ => (Application.Current.Resources["PrimerScaleGray8"] as SolidColorBrush).Color.ToString(),
+                };
             }
         }
     }

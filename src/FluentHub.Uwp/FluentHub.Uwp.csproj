@@ -168,6 +168,7 @@
     <Compile Include="Helpers\FileTypeHelper.cs" />
     <Compile Include="Helpers\JumpListHelper.cs" />
     <Compile Include="Helpers\MentionHelpers.cs" />
+    <Compile Include="Helpers\NumberNormalizerHelper.cs" />
     <Compile Include="Helpers\ResourceHelper.cs" />
     <Compile Include="Helpers\ThemeHelper.cs" />
     <Compile Include="Helpers\WebViewHelpers.cs" />
@@ -178,6 +179,7 @@
     <Compile Include="Models\FolderCardItem.cs" />
     <Compile Include="Models\FrameNavigationArgs.cs" />
     <Compile Include="Models\LoadingMessaging.cs" />
+    <Compile Include="Models\MergedCalendarDays.cs" />
     <Compile Include="Models\PinnableRepository.cs" />
     <Compile Include="Models\SquareNavigationViewItemModel.cs" />
     <Compile Include="Models\TimelineItemSelector.cs" />

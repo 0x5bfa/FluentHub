@@ -36,7 +36,7 @@ namespace FluentHub.Octokit.Queries.Users
             for (int idx = 0; idx < options.PageSize; idx++)
             {
                 var repo = json[$"repo{idx}"];
-                if (repo is null)
+                if (repo is null || !repo.HasValues)
                 {
                     // Add empty data
                     zippedData.Add(new());
@@ -46,7 +46,8 @@ namespace FluentHub.Octokit.Queries.Users
                 var issue = repo["Issue"];
                 var pr = repo["PullRequest"];
 
-                if (issue is not null)
+                //HasValues because issue can be empty
+                if (issue is not null && issue.HasValues)
                 {
                     Enum.TryParse(
                         issue["state"].ToString(),
@@ -73,7 +74,7 @@ namespace FluentHub.Octokit.Queries.Users
                         },
                     });
                 }
-                else if (pr is not null)
+                else if (pr is not null && pr.HasValues)
                 {
                     Enum.TryParse(
                         pr["state"].ToString(),
@@ -166,19 +167,22 @@ repo{index}: repository(name: ""{notifications.ElementAt(index).Repository.Name}
                     case NotificationSubjectType.Discussion:
                     case NotificationSubjectType.Commit:
                     case NotificationSubjectType.Release:
+                        index--;
                         break;
                     case NotificationSubjectType.Issue:
                         {
-                            item.Subject.Number = details.ElementAt(index).Issue.Number;
-
-                            switch (details.ElementAt(index).Issue.State)
+                            if (details.ElementAt(index).Issue is not null)
                             {
-                                case IssueState.Open:
+                                item.Subject.Number = details.ElementAt(index).Issue.Number;
+
+                                switch (details.ElementAt(index).Issue.State)
+                                {
+                                    case IssueState.Open:
                                     {
                                         item.Subject.Type = NotificationSubjectType.IssueOpen;
                                         break;
                                     }
-                                case IssueState.Closed:
+                                    case IssueState.Closed:
                                     {
                                         switch (details.ElementAt(index).Issue.StateReason)
                                         {
@@ -191,35 +195,52 @@ repo{index}: repository(name: ""{notifications.ElementAt(index).Repository.Name}
                                         }
                                         break;
                                     }
+                                }
                             }
+                            else //Prevent index out of range
+                            {
+                                index--;
+                            }
+                            
                             break;
                         }
                     case NotificationSubjectType.PullRequest:
                         {
-                            item.Subject.Number = details.ElementAt(index).PullRequest.Number;
-
-                            switch (details.ElementAt(index).PullRequest.State)
+                            if (details.ElementAt(index).PullRequest is not null)
                             {
-                                case PullRequestState.Open:
+                                item.Subject.Number = details.ElementAt(index).PullRequest.Number;
+
+                                switch (details.ElementAt(index).PullRequest.State)
+                                {
+                                    case PullRequestState.Open:
                                     {
                                         item.Subject.Type = details.ElementAt(index).PullRequest.IsDraft ?
                                             NotificationSubjectType.PullRequestDraft :
                                             NotificationSubjectType.PullRequestOpen;
                                         break;
                                     }
-                                case PullRequestState.Closed:
+                                    case PullRequestState.Closed:
                                     {
                                         item.Subject.Type = NotificationSubjectType.PullRequestClosed;
                                         break;
                                     }
-                                case PullRequestState.Merged:
+                                    case PullRequestState.Merged:
                                     {
                                         item.Subject.Type = NotificationSubjectType.PullRequestMerged;
                                         break;
                                     }
+                                }
                             }
+                            else // Prevent index out of range
+                            {
+                                index--;
+                            }
+
                             break;
                         }
+                    default:
+                        index--;
+                        break;
                 }
 
                 item.Subject.TypeHumanized = item.Subject.Type.ToString();

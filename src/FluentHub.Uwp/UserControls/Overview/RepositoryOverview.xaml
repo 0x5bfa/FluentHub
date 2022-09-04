@@ -9,6 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:helpers="using:FluentHub.Uwp.Helpers"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -163,8 +164,8 @@
 
                             </toolkit:SwitchPresenter>
 
-                            <muxc:InfoBadge x:Name="WatchersCountBadge" Value="{x:Bind ViewModel.Repository.Watchers.TotalCount, Mode=OneWay}" />
-
+                            <!--<muxc:InfoBadge x:Name="WatchersCountBadge" Value="{x:Bind ViewModel.Repository.Watchers.TotalCount, Mode=OneWay}" />-->
+                            <TextBlock x:Name="WatchersCountBadge"/>
                         </StackPanel>
                     </muxc:DropDownButton.Content>
                 </muxc:DropDownButton>
@@ -179,7 +180,8 @@
 
                             <TextBlock Text="Fork" />
 
-                            <muxc:InfoBadge x:Name="ForksCountBadge" Value="{x:Bind ViewModel.Repository.ForkCount, Mode=OneWay}" />
+                            <!--<muxc:InfoBadge x:Name="ForksCountBadge" Value="{x:Bind ViewModel.Repository.ForkCount, Mode=OneWay}" />-->
+                            <TextBlock x:Name="ForksCountBadge"/>
                         </StackPanel>
                     </Button.Content>
                 </Button>
@@ -217,7 +219,8 @@
 
                             </toolkit:SwitchPresenter>
 
-                            <muxc:InfoBadge x:Name="StargazersCountBadge" Value="{x:Bind ViewModel.Repository.StargazerCount, Mode=OneWay}" />
+                            <!--<muxc:InfoBadge x:Name="StargazersCountBadge" Value="{x:Bind ViewModel.Repository.StargazerCount, Mode=OneWay}" />-->
+                            <TextBlock x:Name="StargazersCountBadge"/>
                         </StackPanel>
                     </muxc:SplitButton.Content>
                 </muxc:SplitButton>
