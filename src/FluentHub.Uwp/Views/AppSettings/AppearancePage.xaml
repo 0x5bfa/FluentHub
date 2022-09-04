@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="using:FluentHub.Uwp.Helpers"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:overview="using:FluentHub.Uwp.UserControls.Overview"
     xmlns:uc="using:FluentHub.Uwp.UserControls"
@@ -32,20 +33,22 @@
                     </Grid.RowDefinitions>
 
                     <TextBlock
+                        x:Name="AppearancePageHeader"
                         Margin="0,0,0,20"
                         Style="{StaticResource TitleTextBlockStyle}"
-                        Text="Appearance" />
+                        Text="{helpers:ResourceString Name=AppearancePageHeader/Text}" />
 
                     <StackPanel Grid.Row="1">
 
                         <TextBlock
+                            x:Name="AppearancePageGeneralHeader"
                             Margin="0,16,0,8"
                             Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="General" />
+                            Text="{helpers:ResourceString Name=AppearancePageGeneralHeader/Text}" />
 
                         <StackPanel Spacing="4">
 
-                            <uc:SettingsBlockControl Title="FluentHub color" IsClickable="False">
+                            <uc:SettingsBlockControl x:Name="AppearancePageColorBlock" Title="{helpers:ResourceString Name=AppearancePageColorBlock/Title}" IsClickable="False">
                                 <uc:SettingsBlockControl.Icon>
                                     <FontIcon Glyph="&#xE790;" />
                                 </uc:SettingsBlockControl.Icon>
@@ -53,25 +56,34 @@
                                 <ComboBox ItemsSource="{x:Bind ViewModel.Themes}" SelectedIndex="{x:Bind ViewModel.SelectedThemeIndex, Mode=TwoWay}" />
                             </uc:SettingsBlockControl>
 
-                            <uc:SettingsBlockControl Title="Custom themes" IsClickable="False">
+                            <uc:SettingsBlockControl x:Name="AppearancePageThemeBlock" Title="{helpers:ResourceString Name=AppearancePageThemeBlock/Title}" IsClickable="False">
                                 <uc:SettingsBlockControl.Icon>
                                     <FontIcon Glyph="&#xE771;" />
                                 </uc:SettingsBlockControl.Icon>
 
                                 <uc:SettingsBlockControl.ExpandableContent>
                                     <Grid Margin="16">
-                                        <TextBlock Text="Here's various custom themes" />
+                                        <TextBlock x:Name="AppearancePageThemeBlockBody" Text="{helpers:ResourceString Name=FeatureNotAvailable/Text}" />
                                     </Grid>
                                 </uc:SettingsBlockControl.ExpandableContent>
                             </uc:SettingsBlockControl>
 
-                            <uc:SettingsBlockControl Title="Language" IsClickable="False">
+                        </StackPanel>
+
+                        <TextBlock
+                            x:Name="AppearancePageLocaleHeader"
+                            Margin="0,16,0,8"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="{helpers:ResourceString Name=AppearancePageLocaleHeader/Text}" />
+
+                        <StackPanel Spacing="4">
+                            <uc:SettingsBlockControl x:Name="AppearancePageLocaleBlock" Title="{helpers:ResourceString Name=AppearancePageLocaleBlock/Title}" IsClickable="False">
                                 <uc:SettingsBlockControl.Icon>
                                     <FontIcon Glyph="&#xF2B7;" />
                                 </uc:SettingsBlockControl.Icon>
                                 <ComboBox ItemsSource="{x:Bind ViewModel.DefaultLanguages}" SelectedIndex="{x:Bind ViewModel.SelectedLanguageIndex, Mode=TwoWay}" />
                             </uc:SettingsBlockControl>
-
+                            
                         </StackPanel>
 
                     </StackPanel>
@@ -83,15 +95,11 @@
                         Spacing="4">
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <FontIcon FontSize="14" Glyph="&#xE9CE;" />
-                            <TextBlock Style="{StaticResource BodyTextBlockStyle}">
-                                <Hyperlink NavigateUri="https://github.com/FluentHub/FluentHub#-contact">Get help</Hyperlink>
-                            </TextBlock>
+                            <HyperlinkButton x:Name="AppearancePageGetHelpButton" NavigateUri="https://github.com/FluentHub/FluentHub#-contact" Content="{helpers:ResourceString Name=SettingsGetHelpButton/Content}"/>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <FontIcon FontSize="14" Glyph="&#xED15;" />
-                            <TextBlock Style="{StaticResource BodyTextBlockStyle}">
-                                <Hyperlink NavigateUri="https://github.com/FluentHub/FluentHub#-feedback">Give feedback</Hyperlink>
-                            </TextBlock>
+                            <HyperlinkButton x:Name="AppearancePageFeedbackButton" NavigateUri="https://github.com/FluentHub/FluentHub#-feedback" Content="{helpers:ResourceString Name=SettingsFeedbackButton/Content}"/>
                         </StackPanel>
                     </StackPanel>
                 </Grid>
