@@ -6,6 +6,7 @@
     xmlns:bbvm="using:FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks"
     xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="using:FluentHub.Uwp.Helpers"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
@@ -66,9 +67,10 @@
 
                         <Grid x:Name="TitleGrid" x:Load="{x:Bind ViewModel.DisplayTitle, Mode=OneWay}">
                             <TextBlock
+                                x:Name="UserIssuesHeader"
                                 Margin="12,24,12,8"
                                 Style="{StaticResource TitleTextBlockStyle}"
-                                Text="Your Issues" />
+                                Text="{helpers:ResourceString Name=YourFollowing}" />
                         </Grid>
 
                         <Grid
@@ -80,7 +82,10 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
-                            <TextBox IsEnabled="False" PlaceholderText="Search issues" />
+                            <TextBox
+                                x:Name="SearchIssuesTextBox"
+                                IsEnabled="False"
+                                PlaceholderText="{helpers:ResourceString Name=SearchIssuesTextBox/PlaceholderText}" />
 
                             <StackPanel
                                 Grid.Row="1"
@@ -147,14 +152,32 @@
                             </StackPanel>
                         </Grid>
 
-                        <muxc:ItemsRepeater Grid.Row="2" ItemsSource="{x:Bind ViewModel.IssueItems, Mode=OneWay}">
-                            <muxc:ItemsRepeater.Layout>
-                                <muxc:StackLayout Orientation="Vertical" Spacing="6" />
-                            </muxc:ItemsRepeater.Layout>
-                            <DataTemplate x:DataType="bbvm:IssueButtonBlockViewModel">
-                                <bbuc:IssueButtonBlock VerticalAlignment="Stretch" ViewModel="{x:Bind}" />
-                            </DataTemplate>
-                        </muxc:ItemsRepeater>
+                        <Grid>
+                            <muxc:ItemsRepeater Grid.Row="2" ItemsSource="{x:Bind ViewModel.IssueItems, Mode=OneWay}">
+                                <muxc:ItemsRepeater.Layout>
+                                    <muxc:StackLayout Orientation="Vertical" Spacing="6" />
+                                </muxc:ItemsRepeater.Layout>
+                                <DataTemplate x:DataType="bbvm:IssueButtonBlockViewModel">
+                                    <bbuc:IssueButtonBlock VerticalAlignment="Stretch" ViewModel="{x:Bind}" />
+                                </DataTemplate>
+                            </muxc:ItemsRepeater>
+
+                            <toolkit:SwitchPresenter
+                                x:Name="NoIssuesSwitchPresenter"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                TargetType="x:Int32"
+                                Value="{x:Bind ViewModel.IssueItems.Count, Mode=OneWay}">
+                                <toolkit:Case Value="0">
+                                    <TextBlock
+                                        x:Name="NoIssuesTextBlock"
+                                        FontSize="18"
+                                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                                        Text="{helpers:ResourceString Name=NoUserIssues}"
+                                        TextAlignment="Center" />
+                                </toolkit:Case>
+                            </toolkit:SwitchPresenter>
+                        </Grid>
                     </Grid>
                 </Grid>
             </ScrollViewer>
@@ -173,7 +196,7 @@
                             Command="{x:Bind ViewModel.LoadUserIssuesPageCommand}">
                             <StackPanel Orientation="Horizontal" Spacing="8">
                                 <FontIcon FontSize="16" Glyph="&#xE149;" />
-                                <TextBlock Text="Try Again" />
+                                <TextBlock Text="{helpers:ResourceString Name=TryAgainWithCap}" />
                             </StackPanel>
                         </Button>
                     </Grid>

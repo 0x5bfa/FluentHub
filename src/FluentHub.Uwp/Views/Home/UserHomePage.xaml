@@ -70,7 +70,7 @@
                             x:Name="RepositoriesListHeader"
                             VerticalAlignment="Center"
                             Style="{StaticResource SubtitleTextBlockStyle}"
-                            Text="{helpers:ResourceString Name=RepositoriesHeader/Text}" />
+                            Text="{helpers:ResourceString Name=Repositories}" />
 
                         <Button HorizontalAlignment="Right" IsEnabled="False">
                             <StackPanel Orientation="Horizontal" Spacing="4">

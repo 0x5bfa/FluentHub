@@ -6,6 +6,7 @@
     xmlns:bbvm="using:FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks"
     xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="using:FluentHub.Uwp.Helpers"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
@@ -66,9 +67,10 @@
 
                         <Grid x:Name="TitleGrid" x:Load="{x:Bind ViewModel.DisplayTitle, Mode=OneWay}">
                             <TextBlock
+                                x:Name="UserOrganizationsHeader"
                                 Margin="12,24,12,8"
                                 Style="{StaticResource TitleTextBlockStyle}"
-                                Text="Your Organizations" />
+                                Text="{helpers:ResourceString Name=YourOrganizations}" />
                         </Grid>
 
                         <Grid
@@ -80,27 +82,15 @@
                                 <RowDefinition Height="Auto" />
                             </Grid.RowDefinitions>
 
-                            <TextBox IsEnabled="False" PlaceholderText="Search organizations" />
+                            <TextBox
+                                x:Name="SearchOrganizationsTextBox"
+                                IsEnabled="False"
+                                PlaceholderText="{helpers:ResourceString Name=SearchOrganizationsTextBox/PlaceholderText}" />
 
                             <StackPanel
                                 Grid.Row="1"
                                 Orientation="Horizontal"
                                 Spacing="8">
-
-                                <!--<Button Visibility="Collapsed">
-                                    <StackPanel Orientation="Horizontal" Spacing="4">
-                                        <FontIcon
-                                            FontSize="14"
-                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                            Glyph="&#xe71c;" />
-                                        <muxc:InfoBadge Value="2" />
-                                    </StackPanel>
-                                    <Button.Flyout>
-                                        <MenuFlyout Placement="BottomEdgeAlignedLeft">
-                                            <MenuFlyoutItem Foreground="{StaticResource DangerButtonBackground}" Text="Clear all filters" />
-                                        </MenuFlyout>
-                                    </Button.Flyout>
-                                </Button>-->
 
                                 <muxc:DropDownButton IsEnabled="False">
                                     <muxc:DropDownButton.Content>
@@ -174,14 +164,32 @@
                             </StackPanel>
                         </Grid>
 
-                        <muxc:ItemsRepeater Grid.Row="2" ItemsSource="{x:Bind ViewModel.Organizations, Mode=OneWay}">
-                            <muxc:ItemsRepeater.Layout>
-                                <muxc:StackLayout Orientation="Vertical" Spacing="6" />
-                            </muxc:ItemsRepeater.Layout>
-                            <DataTemplate x:DataType="bbvm:OrgButtonBlockViewModel">
-                                <bbuc:OrgButtonBlock ViewModel="{x:Bind}" />
-                            </DataTemplate>
-                        </muxc:ItemsRepeater>
+                        <Grid Grid.Row="2">
+                            <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Organizations, Mode=OneWay}">
+                                <muxc:ItemsRepeater.Layout>
+                                    <muxc:StackLayout Orientation="Vertical" Spacing="6" />
+                                </muxc:ItemsRepeater.Layout>
+                                <DataTemplate x:DataType="bbvm:OrgButtonBlockViewModel">
+                                    <bbuc:OrgButtonBlock ViewModel="{x:Bind}" />
+                                </DataTemplate>
+                            </muxc:ItemsRepeater>
+
+                            <toolkit:SwitchPresenter
+                                x:Name="NoOrganizationsSwitchPresenter"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                TargetType="x:Int32"
+                                Value="{x:Bind ViewModel.Organizations.Count, Mode=OneWay}">
+                                <toolkit:Case Value="0">
+                                    <TextBlock
+                                        x:Name="NoOrganizationsTextBlock"
+                                        FontSize="18"
+                                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                                        Text="{helpers:ResourceString Name=NoUserOrganizations}"
+                                        TextAlignment="Center" />
+                                </toolkit:Case>
+                            </toolkit:SwitchPresenter>
+                        </Grid>
                     </Grid>
                 </Grid>
             </ScrollViewer>
@@ -200,7 +208,7 @@
                             Command="{x:Bind ViewModel.LoadUserOrganizationsPageCommand}">
                             <StackPanel Orientation="Horizontal" Spacing="8">
                                 <FontIcon FontSize="16" Glyph="&#xE149;" />
-                                <TextBlock Text="Try Again" />
+                                <TextBlock Text="{helpers:ResourceString Name=TryAgainWithCap}" />
                             </StackPanel>
                         </Button>
                     </Grid>

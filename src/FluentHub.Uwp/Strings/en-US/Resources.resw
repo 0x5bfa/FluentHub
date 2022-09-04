@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string"/>
-              <xsd:attribute name="type" type="xsd:string"/>
-              <xsd:attribute name="mimetype" type="xsd:string"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string"/>
-              <xsd:attribute name="name" type="xsd:string"/>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
-              <xsd:attribute ref="xml:space"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required"/>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -120,6 +120,9 @@
   <data name="AccountSettingsButton.Text" xml:space="preserve">
     <value>Account Settings</value>
   </data>
+  <data name="Activities" xml:space="preserve">
+    <value>Activities</value>
+  </data>
   <data name="AppearancePageColorBlock.Title" xml:space="preserve">
     <value>Choose your color</value>
   </data>
@@ -138,6 +141,18 @@
   <data name="AppearancePageThemeBlock.Title" xml:space="preserve">
     <value>Custom themes</value>
   </data>
+  <data name="Back" xml:space="preserve">
+    <value>Back</value>
+  </data>
+  <data name="CustomizeYourPins" xml:space="preserve">
+    <value>Customize your pins</value>
+  </data>
+  <data name="DeveloperProgramMember" xml:space="preserve">
+    <value>Developer Program Member</value>
+  </data>
+  <data name="EditUserProfile" xml:space="preserve">
+    <value>Edit user profile</value>
+  </data>
   <data name="FeatureNotAvailable.Text" xml:space="preserve">
     <value>Not available yet.</value>
   </data>
@@ -153,14 +168,35 @@
   <data name="FirstStepToAuthorize.Text" xml:space="preserve">
     <value>Click "Login with GitHub";</value>
   </data>
+  <data name="Follow" xml:space="preserve">
+    <value>Follow</value>
+  </data>
+  <data name="Followers" xml:space="preserve">
+    <value>Followers</value>
+  </data>
+  <data name="FollowersWithoutCaps" xml:space="preserve">
+    <value>followers</value>
+  </data>
+  <data name="Following" xml:space="preserve">
+    <value>Following</value>
+  </data>
+  <data name="FollowingWithoutCaps" xml:space="preserve">
+    <value>following</value>
+  </data>
   <data name="ForthStepToAuthorize.Text" xml:space="preserve">
     <value>Click "Open FluentHub DEV";</value>
+  </data>
+  <data name="Forward" xml:space="preserve">
+    <value>Forward</value>
   </data>
   <data name="GoBackButton.TooltipService.Tooltip" xml:space="preserve">
     <value>Back</value>
   </data>
   <data name="GoForwardButton.TooltipService.Tooltip" xml:space="preserve">
     <value>Forward</value>
+  </data>
+  <data name="Home" xml:space="preserve">
+    <value>Home</value>
   </data>
   <data name="HomePageFavoritesHeader.Text" xml:space="preserve">
     <value>Favorites</value>
@@ -182,6 +218,9 @@
   </data>
   <data name="IntroHeader.Text" xml:space="preserve">
     <value>Authorize FluentHub</value>
+  </data>
+  <data name="Issues" xml:space="preserve">
+    <value>Issues</value>
   </data>
   <data name="LoadErrorDisplayHeader.Text" xml:space="preserve">
     <value>Something went wrong 😿</value>
@@ -215,6 +254,9 @@
   </data>
   <data name="NewMutationRepoButton.Text" xml:space="preserve">
     <value>New repository</value>
+  </data>
+  <data name="Notifications" xml:space="preserve">
+    <value>Notifications</value>
   </data>
   <data name="NotificationsPageFilterByReasonAssigned.Text" xml:space="preserve">
     <value>📋 Assigned</value>
@@ -267,8 +309,56 @@
   <data name="NotificationsPageUnreadToggle.Content" xml:space="preserve">
     <value>Unread</value>
   </data>
+  <data name="NoUserDiscussions" xml:space="preserve">
+    <value>No discussions</value>
+  </data>
+  <data name="NoUserFollowers" xml:space="preserve">
+    <value>No followers</value>
+  </data>
+  <data name="NoUserFollowing" xml:space="preserve">
+    <value>No following</value>
+  </data>
+  <data name="NoUserIssues" xml:space="preserve">
+    <value>No issues</value>
+  </data>
+  <data name="NoUserOrganizations" xml:space="preserve">
+    <value>No organizations</value>
+  </data>
+  <data name="NoUserPopularRepositories" xml:space="preserve">
+    <value>No popular repositories</value>
+  </data>
+  <data name="NoUserPullRequests" xml:space="preserve">
+    <value>No pull requests</value>
+  </data>
+  <data name="NoUserRepositories" xml:space="preserve">
+    <value>No repositories</value>
+  </data>
+  <data name="NoUserStars" xml:space="preserve">
+    <value>No stars</value>
+  </data>
+  <data name="Overview" xml:space="preserve">
+    <value>Overview</value>
+  </data>
+  <data name="Packages" xml:space="preserve">
+    <value>Packages</value>
+  </data>
+  <data name="PinnedRepositories" xml:space="preserve">
+    <value>Pinned repositories</value>
+  </data>
+  <data name="PopularRepositories" xml:space="preserve">
+    <value>Popular repositories</value>
+  </data>
+  <data name="Projects" xml:space="preserve">
+    <value>Projects</value>
+  </data>
+  <data name="Pull Requests" xml:space="preserve">
+    <value>Pull Requests</value>
+  </data>
   <data name="RefreshBody.Text" xml:space="preserve">
     <value>Refresh</value>
+  </data>
+  <data name="Repositories" xml:space="preserve">
+    <value>Repositories</value>
   </data>
   <data name="RepositoriesListHeader.Text" xml:space="preserve">
     <value>Repositories</value>
@@ -279,8 +369,35 @@
   <data name="SearchBarButton.TooltipService.Tooltip" xml:space="preserve">
     <value>Search</value>
   </data>
+  <data name="SearchDiscussionsTextBox.PlaceholderText" xml:space="preserve">
+    <value>Search discussions</value>
+  </data>
+  <data name="SearchFollowersTextBox.PlaceholderText" xml:space="preserve">
+    <value>Search followers</value>
+  </data>
+  <data name="SearchFollowingTextBox.PlaceholderText" xml:space="preserve">
+    <value>Search following</value>
+  </data>
+  <data name="SearchIssuesTextBox.PlaceholderText" xml:space="preserve">
+    <value>Search issues</value>
+  </data>
+  <data name="SearchOrganizationsTextBox.PlaceholderText" xml:space="preserve">
+    <value>Search organizations</value>
+  </data>
+  <data name="SearchPullRequestsTextBox.PlaceholderText" xml:space="preserve">
+    <value>Search pull requests</value>
+  </data>
+  <data name="SearchRepositoriesTextBox.PlaceholderText" xml:space="preserve">
+    <value>Search repositories</value>
+  </data>
+  <data name="SearchStarsTextBox.PlaceholderText" xml:space="preserve">
+    <value>Search stars</value>
+  </data>
   <data name="SecondStepToAuthorize.Text" xml:space="preserve">
     <value>If you are in administration of one or more organizations, please give FluentHub access to them;</value>
+  </data>
+  <data name="Settings" xml:space="preserve">
+    <value>Settings</value>
   </data>
   <data name="SettingsButton.Text" xml:space="preserve">
     <value>Settings</value>
@@ -294,11 +411,20 @@
   <data name="SignOutButton.Text" xml:space="preserve">
     <value>Sign Out</value>
   </data>
+  <data name="Stars" xml:space="preserve">
+    <value>Stars</value>
+  </data>
   <data name="SwitchAccountFlyoutSub.Text" xml:space="preserve">
     <value>Switch account</value>
   </data>
   <data name="ThirdStepToAuthorize.Text" xml:space="preserve">
     <value>Click "Authorize FluentHub";</value>
+  </data>
+  <data name="TryAgainWithCap" xml:space="preserve">
+    <value>Try Again</value>
+  </data>
+  <data name="Unfollow" xml:space="preserve">
+    <value>Unfollow</value>
   </data>
   <data name="UserDiscussionsButton.Text" xml:space="preserve">
     <value>Your discussions</value>
@@ -319,6 +445,30 @@
     <value>Your repositories</value>
   </data>
   <data name="UserStarsButton.Text" xml:space="preserve">
+    <value>Your stars</value>
+  </data>
+  <data name="YourDiscussions" xml:space="preserve">
+    <value>Your discussions</value>
+  </data>
+  <data name="YourFollowers" xml:space="preserve">
+    <value>Your followers</value>
+  </data>
+  <data name="YourFollowing" xml:space="preserve">
+    <value>Your following</value>
+  </data>
+  <data name="YourIssues" xml:space="preserve">
+    <value>Your issues</value>
+  </data>
+  <data name="YourOrganizations" xml:space="preserve">
+    <value>Your organizations</value>
+  </data>
+  <data name="YourPullRequests" xml:space="preserve">
+    <value>Your pull requests</value>
+  </data>
+  <data name="YourRepositories" xml:space="preserve">
+    <value>Your repositories</value>
+  </data>
+  <data name="YourStars" xml:space="preserve">
     <value>Your stars</value>
   </data>
 </root>
