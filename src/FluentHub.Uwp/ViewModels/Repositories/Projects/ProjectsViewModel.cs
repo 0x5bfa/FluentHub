@@ -37,10 +37,11 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Projects
 
         private async Task LoadProjectsPageAsync(CancellationToken token)
         {
+            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+            bool faulted = false;
+
             try
             {
-                _messenger?.Send(new LoadingMessaging(true));
-
                 ProjectQueries queries = new();
                 var items = await queries.GetAllAsync(
                     Repository.Owner.Login,
@@ -70,7 +71,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Projects
             }
             finally
             {
-                _messenger?.Send(new LoadingMessaging(false));
+                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
             }
         }
 

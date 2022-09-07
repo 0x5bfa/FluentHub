@@ -44,10 +44,11 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
 
         private async Task LoadRepositoryOneIssueAsync(CancellationToken token)
         {
+            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+            bool faulted = false;
+
             try
             {
-                _messenger?.Send(new LoadingMessaging(true));
-
                 IssueQueries issueQueries = new();
                 IssueEventQueries queries = new();
                 _timelineItems.Clear();
@@ -76,7 +77,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
             }
             finally
             {
-                _messenger?.Send(new LoadingMessaging(false));
+                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
             }
         }
 

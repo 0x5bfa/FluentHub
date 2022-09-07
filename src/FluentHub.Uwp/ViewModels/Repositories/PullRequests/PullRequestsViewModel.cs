@@ -37,10 +37,11 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
 
         private async Task LoadRepositoryPullRequestsAsync(CancellationToken token)
         {
+            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+            bool faulted = false;
+
             try
             {
-                _messenger?.Send(new LoadingMessaging(true));
-
                 PullRequestQueries queries = new();
                 var items = await queries.GetAllAsync(
                     Repository.Name,
@@ -72,7 +73,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
             }
             finally
             {
-                _messenger?.Send(new LoadingMessaging(false));
+                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
             }
         }
 

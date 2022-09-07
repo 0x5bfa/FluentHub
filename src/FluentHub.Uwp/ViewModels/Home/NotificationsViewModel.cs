@@ -54,7 +54,9 @@ namespace FluentHub.Uwp.ViewModels.Home
 
         private async Task LoadUserNotificationsPageAsync()
         {
-            _messenger?.Send(new LoadingMessaging(true));
+            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+            bool faulted = false;
+
             string _currentTaskingMethodName = nameof(LoadUserNotificationsPageAsync);
 
             try
@@ -65,6 +67,7 @@ namespace FluentHub.Uwp.ViewModels.Home
             catch (Exception ex)
             {
                 TaskException = ex;
+                faulted = true;
 
                 _logger?.Error(_currentTaskingMethodName, ex);
                 throw;
@@ -72,7 +75,6 @@ namespace FluentHub.Uwp.ViewModels.Home
             finally
             {
                 SetCurrentTabItem();
-                _messenger?.Send(new LoadingMessaging(false));
 
                 _toastService?.UpdateBadgeGlyph(BadgeGlyphType.Number, UnreadCount);
                 if (_messenger != null)
@@ -80,6 +82,8 @@ namespace FluentHub.Uwp.ViewModels.Home
                     UserNotificationMessage notification = new("NotificationCount", UnreadCount.ToString(), UserNotificationType.Info);
                     _messenger.Send(notification);
                 }
+
+                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
             }
         }
 
@@ -117,10 +121,11 @@ namespace FluentHub.Uwp.ViewModels.Home
 
         public async Task LoadFurtherNotificationsAsync()
         {
+            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+            bool faulted = false;
+
             try
             {
-                _messenger?.Send(new LoadingMessaging(true));
-
                 if (_loadedToTheEnd) return;
 
                 NotificationQueries queries = new();
@@ -152,17 +157,15 @@ namespace FluentHub.Uwp.ViewModels.Home
             catch (OperationCanceledException) { }
             catch (Exception ex)
             {
+                TaskException = ex;
+                faulted = true;
+
                 _logger?.Error(nameof(LoadFurtherNotificationsAsync), ex);
-                if (_messenger != null)
-                {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
                 throw;
             }
             finally
             {
-                _messenger?.Send(new LoadingMessaging(false));
+                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
             }
         }
 

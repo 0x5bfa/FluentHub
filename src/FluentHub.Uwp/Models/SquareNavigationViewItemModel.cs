@@ -1,6 +1,6 @@
 ﻿namespace FluentHub.Uwp.Models
 {
-    public class SquareNavigationViewItemModel
+    public class SquareNavigationViewItemModel : ObservableObject
     {
         public SquareNavigationViewItemModel() { }
 
@@ -12,12 +12,16 @@
             IsSelected = isSelected;
         }
 
-        public string Name { get; set; }
+        private string _name;
+        public string Name { get => _name; set => SetProperty(ref _name, value); }
 
-        public string GlyphPrimary { get; set; }
+        private string _glyphPrimary;
+        public string GlyphPrimary { get => _glyphPrimary; set => SetProperty(ref _glyphPrimary, value); }
 
-        public string GlyphSecondary { get; set; }
+        private string _glyphSecondary;
+        public string GlyphSecondary { get => _glyphSecondary; set => SetProperty(ref _glyphSecondary, value); }
 
-        public bool IsSelected { get; set; }
+        private bool _isSelected;
+        public bool IsSelected { get => _isSelected; set => SetProperty(ref _isSelected, value); }
     }
 }

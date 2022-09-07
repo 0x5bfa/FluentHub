@@ -7,6 +7,7 @@ using FluentHub.Uwp.ViewModels.UserControls;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
 using FluentHub.Uwp.Utils;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Toolkit.Uwp;
 using Windows.UI.Xaml.Media.Imaging;
 using muxc = Microsoft.UI.Xaml.Controls;
 
@@ -63,44 +64,46 @@ namespace FluentHub.Uwp.ViewModels.Home
             _folderCardItems.Add(new()
             {
                 Thumbnail = new(new Uri("ms-appx:///Assets/Icons/Issues.png")),
-                Text = "Issues",
+                Text = "Issues".GetLocalized(),
                 Tag = "issues",
             });
             _folderCardItems.Add(new()
             {
                 Thumbnail = new(new Uri("ms-appx:///Assets/Icons/PullRequests.png")),
-                Text = "Pull Requests",
+                Text = "PullRequests".GetLocalized(),
                 Tag = "pullrequests",
             });
             _folderCardItems.Add(new()
             {
                 Thumbnail = new(new Uri("ms-appx:///Assets/Icons/Discussions.png")),
-                Text = "Discussions",
+                Text = "Discussions".GetLocalized(),
                 Tag = "discussions",
             });
             _folderCardItems.Add(new()
             {
                 Thumbnail = new(new Uri("ms-appx:///Assets/Icons/Repositories.png")),
-                Text = "Repositories",
+                Text = "Repositories".GetLocalized(),
                 Tag = "repositories",
             });
             _folderCardItems.Add(new()
             {
                 Thumbnail = new(new Uri("ms-appx:///Assets/Icons/Organizations.png")),
-                Text = "Organizations",
+                Text = "Organizations".GetLocalized(),
                 Tag = "organizations",
             });
             _folderCardItems.Add(new()
             {
                 Thumbnail = new(new Uri("ms-appx:///Assets/Icons/Starred.png")),
-                Text = "Stars",
+                Text = "Stars".GetLocalized(),
                 Tag = "stars",
             });
         }
 
         private async Task LoadUserHomePageAsync()
         {
-            _messenger?.Send(new LoadingMessaging(true));
+            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+            bool faulted = false;
+
             string _currentTaskingMethodName = nameof(LoadUserHomePageAsync);
 
             try
@@ -111,6 +114,7 @@ namespace FluentHub.Uwp.ViewModels.Home
             catch (Exception ex)
             {
                 TaskException = ex;
+                faulted = true;
 
                 _logger?.Error(_currentTaskingMethodName, ex);
                 throw;
@@ -118,7 +122,7 @@ namespace FluentHub.Uwp.ViewModels.Home
             finally
             {
                 SetCurrentTabItem();
-                _messenger?.Send(new LoadingMessaging(false));
+                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
             }
         }
 

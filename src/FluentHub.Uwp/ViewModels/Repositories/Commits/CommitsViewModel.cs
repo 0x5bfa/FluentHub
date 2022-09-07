@@ -40,10 +40,11 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Commits
 
         private async Task LoadRepositoryCommitsAsync(CancellationToken token)
         {
+            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+            bool faulted = false;
+
             try
             {
-                _messenger?.Send(new LoadingMessaging(true));
-
                 CommitQueries queries = new();
                 var response = await queries.GetAllAsync(
                     Repository.Name,
@@ -75,7 +76,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Commits
             }
             finally
             {
-                _messenger?.Send(new LoadingMessaging(false));
+                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
             }
         }
 

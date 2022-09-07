@@ -78,12 +78,12 @@
                                     FontFamily="{StaticResource Octicons}"
                                     FontSize="14"
                                     Glyph="&#xEA52;" />
-                                <TextBlock x:Name="NewRepositoryButton" Text="{helpers:ResourceString Name=NewRepositoryButton/Text}" />
+                                <TextBlock x:Name="NewRepositoryButton" Text="{helpers:ResourceString Name=New}" />
                             </StackPanel>
                         </Button>
                     </Grid>
 
-                    <StackPanel Grid.Row="1" Spacing="8">
+                    <Grid Grid.Row="1">
 
                         <ListView
                             x:Name="HomeRepositoriesListItem"
@@ -131,7 +131,23 @@
 
                         </ListView>
 
-                    </StackPanel>
+                        <toolkit:SwitchPresenter
+                            x:Name="NoRepositoriesSwitchPresenter"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            TargetType="x:Int32"
+                            Value="{x:Bind ViewModel.UserRepositories.Count, Mode=OneWay}">
+                            <toolkit:Case Value="0">
+                                <TextBlock
+                                    x:Name="NoRepositoriesTextBlock"
+                                    FontSize="18"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="{helpers:ResourceString Name=NoUserRepositories}"
+                                    TextAlignment="Center" />
+                            </toolkit:Case>
+                        </toolkit:SwitchPresenter>
+
+                    </Grid>
                 </Grid>
             </ScrollViewer>
 
@@ -151,7 +167,7 @@
                             x:Name="HomePageHeader"
                             Margin="24,4,0,8"
                             Style="{StaticResource SubtitleTextBlockStyle}"
-                            Text="{helpers:ResourceString Name=HomePageHeader/Text}" />
+                            Text="{helpers:ResourceString Name=Home}" />
 
                     </Grid>
 
@@ -293,6 +309,7 @@
 
                         <muxc:Expander.Content>
                             <Grid>
+
                                 <ListView
                                     Margin="6,0"
                                     HorizontalAlignment="Stretch"
@@ -313,7 +330,7 @@
                                     <ListView.ItemTemplate>
                                         <DataTemplate x:DataType="modelsV3:Notification">
 
-                                            <Grid Padding="0,12" ColumnSpacing="8">
+                                            <Grid Padding="0,12" ColumnSpacing="16">
                                                 <Grid.ColumnDefinitions>
                                                     <ColumnDefinition Width="Auto" />
                                                     <ColumnDefinition Width="*" />
@@ -324,6 +341,7 @@
                                                     <toolkit:Case Value="IssueClosedAsCompleted">
                                                         <FontIcon
                                                             FontFamily="{StaticResource Octicons}"
+                                                            FontSize="22"
                                                             Foreground="{StaticResource Purple5}"
                                                             Glyph="&#xE9E6;" />
                                                     </toolkit:Case>
@@ -331,6 +349,7 @@
                                                     <toolkit:Case Value="IssueClosedAsNotPlanned">
                                                         <FontIcon
                                                             FontFamily="{StaticResource Octicons}"
+                                                            FontSize="22"
                                                             Foreground="{StaticResource Black3}"
                                                             Glyph="&#xEA84;" />
                                                     </toolkit:Case>
@@ -338,6 +357,7 @@
                                                     <toolkit:Case Value="IssueOpen">
                                                         <FontIcon
                                                             FontFamily="{StaticResource Octicons}"
+                                                            FontSize="22"
                                                             Foreground="{StaticResource Green5}"
                                                             Glyph="&#xE9EA;" />
                                                     </toolkit:Case>
@@ -345,6 +365,7 @@
                                                     <toolkit:Case Value="PullRequestClosed">
                                                         <FontIcon
                                                             FontFamily="{StaticResource Octicons}"
+                                                            FontSize="22"
                                                             Foreground="{StaticResource Red5}"
                                                             Glyph="&#xE9C1;" />
                                                     </toolkit:Case>
@@ -352,6 +373,7 @@
                                                     <toolkit:Case Value="PullRequestMerged">
                                                         <FontIcon
                                                             FontFamily="{StaticResource Octicons}"
+                                                            FontSize="22"
                                                             Foreground="{StaticResource Purple5}"
                                                             Glyph="&#xE9BD;" />
                                                     </toolkit:Case>
@@ -359,6 +381,7 @@
                                                     <toolkit:Case Value="PullRequestDraft">
                                                         <FontIcon
                                                             FontFamily="{StaticResource Octicons}"
+                                                            FontSize="22"
                                                             Foreground="{StaticResource Black5}"
                                                             Glyph="&#xE9C3;" />
                                                     </toolkit:Case>
@@ -366,6 +389,7 @@
                                                     <toolkit:Case Value="PullRequestOpen">
                                                         <FontIcon
                                                             FontFamily="{StaticResource Octicons}"
+                                                            FontSize="22"
                                                             Foreground="{StaticResource Green5}"
                                                             Glyph="&#xE9BF;" />
                                                     </toolkit:Case>
@@ -373,6 +397,7 @@
                                                     <toolkit:Case Value="Discussion">
                                                         <FontIcon
                                                             FontFamily="{StaticResource Octicons}"
+                                                            FontSize="22"
                                                             Foreground="{StaticResource Blue5}"
                                                             Glyph="&#xE95D;" />
                                                     </toolkit:Case>
@@ -380,6 +405,7 @@
                                                     <toolkit:Case Value="Commit">
                                                         <FontIcon
                                                             FontFamily="{StaticResource Octicons}"
+                                                            FontSize="22"
                                                             Foreground="{StaticResource Blue5}"
                                                             Glyph="&#xE9B9;" />
                                                     </toolkit:Case>
@@ -431,7 +457,7 @@
                                                         HorizontalAlignment="Right"
                                                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                                         Style="{StaticResource CaptionTextBlockStyle}"
-                                                        Text="{x:Bind UpdatedAt, Mode=OneWay}" />
+                                                        Text="{x:Bind UpdatedAtHumanized, Mode=OneWay}" />
 
                                                     <TextBlock
                                                         x:Name="TitleTextBlock"
@@ -454,6 +480,23 @@
                                     </ListView.ItemTemplate>
 
                                 </ListView>
+
+                                <toolkit:SwitchPresenter
+                                    x:Name="NoNotificationsSwitchPresenter"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    TargetType="x:Int32"
+                                    Value="{x:Bind ViewModel.UserNotifications.Count, Mode=OneWay}">
+                                    <toolkit:Case Value="0">
+                                        <TextBlock
+                                            x:Name="NoNotificationsTextBlock"
+                                            Grid.Row="1"
+                                            FontSize="18"
+                                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                                            Text="{helpers:ResourceString Name=NotificationsPageNoRecentNotificationsBody/Text}"
+                                            TextAlignment="Center" />
+                                    </toolkit:Case>
+                                </toolkit:SwitchPresenter>
                             </Grid>
                         </muxc:Expander.Content>
                     </muxc:Expander>
@@ -475,7 +518,7 @@
                             Command="{x:Bind ViewModel.LoadUserHomePageCommand}">
                             <StackPanel Orientation="Horizontal" Spacing="8">
                                 <FontIcon FontSize="16" Glyph="&#xE149;" />
-                                <TextBlock Text="Try Again" />
+                                <TextBlock Text="{helpers:ResourceString Name=TryAgainWithCap}" />
                             </StackPanel>
                         </Button>
                     </Grid>

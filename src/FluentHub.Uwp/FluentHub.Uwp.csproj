@@ -163,6 +163,7 @@
       <DependentUpon>ExceptionStackTraceDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="Extensions\IEnumerableExt.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\WebViewExtentions.cs" />
     <Compile Include="GlobalUsings.cs" />
     <Compile Include="Helpers\BlobDetailsHelpers.cs" />
@@ -181,10 +182,11 @@
     <Compile Include="Models\DetailsLayoutListViewModel.cs" />
     <Compile Include="Models\FolderCardItem.cs" />
     <Compile Include="Models\FrameNavigationArgs.cs" />
-    <Compile Include="Models\LoadingMessaging.cs" />
+    <Compile Include="Models\TaskStateMessaging.cs" />
     <Compile Include="Models\MergedCalendarDays.cs" />
     <Compile Include="Models\PinnableRepository.cs" />
     <Compile Include="Models\SquareNavigationViewItemModel.cs" />
+    <Compile Include="Models\TaskStatusType.cs" />
     <Compile Include="Models\TimelineItemSelector.cs" />
     <Compile Include="Models\TreeLayoutPageModel.cs" />
     <Compile Include="Models\UserNotificationMessage.cs" />
@@ -356,9 +358,7 @@
     <Compile Include="ViewModels\Home\UserHomeViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\Organizations\OverviewViewModel.cs" />
-    <Compile Include="ViewModels\Organizations\ProfileViewModel.cs" />
     <Compile Include="ViewModels\Organizations\RepositoriesViewModel.cs" />
-    <Compile Include="ViewModels\Repositories\Codes\CodePageViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Codes\Layouts\TreeLayoutViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Codes\ReleasesViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Commits\CommitsViewModel.cs" />
@@ -375,7 +375,6 @@
     <Compile Include="ViewModels\Repositories\Issues\IssuesViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Issues\IssueViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Codes\Layouts\DetailsLayoutViewModel.cs" />
-    <Compile Include="ViewModels\Repositories\OverviewViewModel.cs" />
     <Compile Include="ViewModels\Repositories\PullRequests\PullRequestsViewModel.cs" />
     <Compile Include="ViewModels\Repositories\PullRequests\PullRequestViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
@@ -400,7 +399,7 @@
     <Compile Include="ViewModels\UserControls\Blocks\IssueCommentBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\TimelineViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\LatestCommitBlockViewModel.cs" />
-    <Compile Include="ViewModels\Home\ActivitiesViewModel.cs" />
+    <Compile Include="ViewModels\Home\FeedsViewModel.cs" />
     <Compile Include="ViewModels\Home\NotificationsViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\UserButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Labels\LabelControlViewModel.cs" />
@@ -522,23 +521,14 @@
     <Compile Include="Views\Organizations\OverviewPage.xaml.cs">
       <DependentUpon>OverviewPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Organizations\ProfilePage.xaml.cs">
-      <DependentUpon>ProfilePage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Organizations\RepositoriesPage.xaml.cs">
       <DependentUpon>RepositoriesPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Repositories\Code\CodePage.xaml.cs">
-      <DependentUpon>CodePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Repositories\Issues\IssuePage.xaml.cs">
       <DependentUpon>IssuePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Repositories\Code\Layouts\DetailsLayoutView.xaml.cs">
       <DependentUpon>DetailsLayoutView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Repositories\OverviewPage.xaml.cs">
-      <DependentUpon>OverviewPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Repositories\PullRequests\PullRequestsPage.xaml.cs">
       <DependentUpon>PullRequestsPage.xaml</DependentUpon>
@@ -1660,15 +1650,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Organizations\ProfilePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Organizations\RepositoriesPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Repositories\Code\CodePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1677,10 +1659,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Repositories\Code\Layouts\DetailsLayoutView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Repositories\OverviewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1744,6 +1722,9 @@
       <Version>6.2.14</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Mvvm">
+      <Version>7.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp">
       <Version>7.1.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications">

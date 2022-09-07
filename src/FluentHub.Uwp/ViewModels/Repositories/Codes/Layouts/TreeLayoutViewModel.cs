@@ -50,7 +50,9 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Code.Layouts
         {
             try
             {
-                _messenger?.Send(new LoadingMessaging(true));
+                _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+            bool faulted = false;
+
 
                 if (string.IsNullOrEmpty(ContextViewModel.Repository.DefaultBranchRef.Name))
                     return;
@@ -105,7 +107,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Code.Layouts
             }
             finally
             {
-                _messenger?.Send(new LoadingMessaging(false));
+                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
             }
         }
 

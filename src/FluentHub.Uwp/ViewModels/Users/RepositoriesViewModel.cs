@@ -52,7 +52,9 @@ namespace FluentHub.Uwp.ViewModels.Users
 
         private async Task LoadUserRepositoriesPageAsync(CancellationToken token)
         {
-            _messenger?.Send(new LoadingMessaging(true));
+            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+            bool faulted = false;
+
             string _currentTaskingMethodName = nameof(LoadUserRepositoriesPageAsync);
 
             try
@@ -63,10 +65,10 @@ namespace FluentHub.Uwp.ViewModels.Users
                 _currentTaskingMethodName = nameof(LoadUserRepositoriesAsync);
                 await LoadUserRepositoriesAsync(Login);
             }
-            //catch (OperationCanceledException) { }
             catch (Exception ex)
             {
                 TaskException = ex;
+                faulted = true;
 
                 _logger?.Error(_currentTaskingMethodName, ex);
                 throw;
@@ -74,7 +76,7 @@ namespace FluentHub.Uwp.ViewModels.Users
             finally
             {
                 SetCurrentTabItem();
-                _messenger?.Send(new LoadingMessaging(false));
+                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
             }
         }
 

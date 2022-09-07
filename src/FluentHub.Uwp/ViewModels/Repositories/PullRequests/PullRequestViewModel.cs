@@ -57,7 +57,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
             }
             finally
             {
-                _messenger?.Send(new LoadingMessaging(false));
+                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
             }
         }
 

@@ -150,6 +150,9 @@
   <data name="DeveloperProgramMember" xml:space="preserve">
     <value>Developer Program Member</value>
   </data>
+  <data name="Discussions" xml:space="preserve">
+    <value>Discussions</value>
+  </data>
   <data name="EditUserProfile" xml:space="preserve">
     <value>Edit user profile</value>
   </data>
@@ -246,6 +249,9 @@
   <data name="LoginWithGitHub.Content" xml:space="preserve">
     <value>Login with GitHub</value>
   </data>
+  <data name="New" xml:space="preserve">
+    <value>New</value>
+  </data>
   <data name="NewMutation.Text" xml:space="preserve">
     <value>New</value>
   </data>
@@ -336,6 +342,9 @@
   <data name="NoUserStars" xml:space="preserve">
     <value>No stars</value>
   </data>
+  <data name="Organizations" xml:space="preserve">
+    <value>Organizations</value>
+  </data>
   <data name="Overview" xml:space="preserve">
     <value>Overview</value>
   </data>
@@ -351,7 +360,7 @@
   <data name="Projects" xml:space="preserve">
     <value>Projects</value>
   </data>
-  <data name="Pull Requests" xml:space="preserve">
+  <data name="PullRequests" xml:space="preserve">
     <value>Pull Requests</value>
   </data>
   <data name="RefreshBody.Text" xml:space="preserve">
@@ -416,6 +425,15 @@
   </data>
   <data name="SwitchAccountFlyoutSub.Text" xml:space="preserve">
     <value>Switch account</value>
+  </data>
+  <data name="ThemeAuto" xml:space="preserve">
+    <value>Sync with system setting</value>
+  </data>
+  <data name="ThemeDark" xml:space="preserve">
+    <value>Dark</value>
+  </data>
+  <data name="ThemeLight" xml:space="preserve">
+    <value>Light</value>
   </data>
   <data name="ThirdStepToAuthorize.Text" xml:space="preserve">
     <value>Click "Authorize FluentHub";</value>

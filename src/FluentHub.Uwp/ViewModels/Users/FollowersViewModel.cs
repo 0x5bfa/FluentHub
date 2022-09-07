@@ -52,7 +52,9 @@ namespace FluentHub.Uwp.ViewModels.Users
 
         private async Task LoadUserFollowersPageAsync()
         {
-            _messenger?.Send(new LoadingMessaging(true));
+            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+            bool faulted = false;
+
             string _currentTaskingMethodName = nameof(LoadUserFollowersPageAsync);
 
             try
@@ -66,6 +68,7 @@ namespace FluentHub.Uwp.ViewModels.Users
             catch (Exception ex)
             {
                 TaskException = ex;
+                faulted = true;
 
                 _logger?.Error(_currentTaskingMethodName, ex);
                 throw;
@@ -73,7 +76,7 @@ namespace FluentHub.Uwp.ViewModels.Users
             finally
             {
                 SetCurrentTabItem();
-                _messenger?.Send(new LoadingMessaging(false));
+                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
             }
         }
 

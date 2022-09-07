@@ -12,7 +12,6 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
         {
             _messenger = messenger;
             _logger = logger;
-            _messenger = messenger;
 
             _issueItems = new();
             IssueItems = new(_issueItems);
@@ -44,10 +43,11 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
 
         private async Task LoadRepositoryIssuesAsync(CancellationToken token)
         {
+            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+            bool faulted = false;
+
             try
             {
-                _messenger?.Send(new LoadingMessaging(true));
-
                 IssueQueries queries = new();
                 var items = await queries.GetAllAsync(
                     Repository.Name,
@@ -96,7 +96,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
             }
             finally
             {
-                _messenger?.Send(new LoadingMessaging(false));
+                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
             }
         }
 

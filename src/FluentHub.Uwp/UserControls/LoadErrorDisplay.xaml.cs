@@ -28,7 +28,11 @@ namespace FluentHub.Uwp.UserControls
         public Exception TaskException
         {
             get => (Exception)GetValue(TaskExceptionProperty);
-            set => SetValue(TaskExceptionProperty, value);
+            set
+            {
+                SetValue(TaskExceptionProperty, value);
+                NotifyErrorContent();
+            }
         }
 
         public static readonly DependencyProperty ActionProperty =
@@ -82,6 +86,15 @@ namespace FluentHub.Uwp.UserControls
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Something went wrong";
             currentItem.Description = "Something went wrong";
+        }
+
+        private void  NotifyErrorContent()
+        {
+            var provider = App.Current.Services;
+            var messenger = provider.GetRequiredService<IMessenger>();
+
+            UserNotificationMessage notification = new("Something went wrong", TaskException?.Message, UserNotificationType.Error);
+            messenger?.Send(notification);
         }
     }
 }

@@ -93,7 +93,7 @@
             <muxc:ProgressBar
                 x:Name="LoadingProgreeRing"
                 VerticalAlignment="Top"
-                x:Load="{x:Bind ViewModel.IsLoading, Mode=OneWay}"
+                x:Load="{x:Bind ViewModel.TaskIsInProgress, Mode=OneWay}"
                 IsIndeterminate="True" />
 
             <Grid
@@ -166,11 +166,11 @@
 
                     <TextBox
                         x:Name="SearchBar"
-                        LostFocus="OnSearchBarLostFocus"
-                        Visibility="Collapsed"
-                        PlaceholderText="{helpers:ResourceString Name=SearchBar/PlaceholderText}"
                         Width="256"
-                        Height="32" />
+                        Height="32"
+                        LostFocus="OnSearchBarLostFocus"
+                        PlaceholderText="{helpers:ResourceString Name=SearchBar/PlaceholderText}"
+                        Visibility="Collapsed" />
 
                     <Button
                         x:Name="GoBackButton"
@@ -260,7 +260,10 @@
 
                         <muxc:DropDownButton.Flyout>
                             <MenuFlyout Placement="BottomEdgeAlignedRight">
-                                <MenuFlyoutSubItem x:Name="NewMutation" IsEnabled="False" Text="{helpers:ResourceString Name=NewMutation/Text}">
+                                <MenuFlyoutSubItem
+                                    x:Name="NewMutation"
+                                    IsEnabled="False"
+                                    Text="{helpers:ResourceString Name=New}">
                                     <MenuFlyoutItem
                                         x:Name="NewMutationRepoButton"
                                         Click="OnMenuFlyoutItemClick"
@@ -282,35 +285,38 @@
                                     x:Name="UserRepositoriesButton"
                                     Click="OnMenuFlyoutItemClick"
                                     Tag="Repositories"
-                                    Text="{helpers:ResourceString Name=UserRepositoriesButton/Text}" />
+                                    Text="{helpers:ResourceString Name=YourRepositories}" />
                                 <MenuFlyoutItem
                                     x:Name="UserDiscussionsButton"
                                     Click="OnMenuFlyoutItemClick"
                                     Tag="Discussions"
-                                    Text="{helpers:ResourceString Name=UserDiscussionsButton/Text}" />
+                                    Text="{helpers:ResourceString Name=YourDiscussions}" />
                                 <MenuFlyoutItem
                                     x:Name="UserIssuesButton"
                                     Click="OnMenuFlyoutItemClick"
                                     Tag="Issues"
-                                    Text="{helpers:ResourceString Name=UserIssuesButton/Text}" />
+                                    Text="{helpers:ResourceString Name=YourIssues}" />
                                 <MenuFlyoutItem
                                     x:Name="UserPullRequestsButton"
                                     Click="OnMenuFlyoutItemClick"
                                     Tag="PullRequests"
-                                    Text="{helpers:ResourceString Name=UserPullRequestsButton/Text}" />
+                                    Text="{helpers:ResourceString Name=YourPullRequests}" />
                                 <MenuFlyoutItem
                                     x:Name="UserOrganizationsButton"
                                     Click="OnMenuFlyoutItemClick"
                                     Tag="Organizations"
-                                    Text="{helpers:ResourceString Name=UserOrganizationsButton/Text}" />
+                                    Text="{helpers:ResourceString Name=YourOrganizations}" />
                                 <MenuFlyoutItem
                                     x:Name="UserStarsButton"
                                     Click="OnMenuFlyoutItemClick"
                                     Tag="Stars"
-                                    Text="{helpers:ResourceString Name=UserStarsButton/Text}" />
+                                    Text="{helpers:ResourceString Name=YourStars}" />
                                 <MenuFlyoutSeparator />
                                 <MenuFlyoutSubItem x:Name="SwitchAccountFlyoutSub" Text="{helpers:ResourceString Name=SwitchAccountFlyoutSub/Text}">
-                                    <MenuFlyoutItem x:Name="SwitchAccountNotAvailableYetButton" IsEnabled="False" Text="{helpers:ResourceString Name=FeatureNotAvailable/Text}" />
+                                    <MenuFlyoutItem
+                                        x:Name="SwitchAccountNotAvailableYetButton"
+                                        IsEnabled="False"
+                                        Text="{helpers:ResourceString Name=FeatureNotAvailable/Text}" />
                                     <MenuFlyoutSeparator />
                                     <MenuFlyoutItem
                                         x:Name="AccountSettingsButton"
@@ -338,13 +344,15 @@
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="76" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
             <Grid Margin="0,-4,1,2">
                 <muxc:NavigationView
                     x:Name="MainNavView"
+                    Width="76"
+                    x:Load="{x:Bind ViewModel.TaskIsCompletedSuccessfully, Mode=OneWay}"
                     Canvas.ZIndex="0"
                     FooterMenuItemsSource="{x:Bind ViewModel.NavViewFooterItems, Mode=OneWay}"
                     IsBackButtonVisible="Collapsed"
@@ -352,7 +360,7 @@
                     IsSettingsVisible="False"
                     IsTitleBarAutoPaddingEnabled="False"
                     ItemInvoked="OnMainNavViewItemInvoked"
-                    MenuItemsSource="{x:Bind ViewModel.NavViewItems, Mode=OneWay}"
+                    MenuItemsSource="{x:Bind ViewModel.NavViewItems, Mode=TwoWay}"
                     OpenPaneLength="80"
                     PaneDisplayMode="Left">
 
@@ -368,30 +376,58 @@
                             <muxc:NavigationViewItem
                                 Height="64"
                                 IsSelected="{x:Bind IsSelected, Mode=TwoWay}"
-                                Tag="{x:Bind Name}">
+                                Tag="{x:Bind Name, Mode=OneWay}">
                                 <Grid
                                     Margin="-5,4,-9,0"
                                     HorizontalAlignment="Stretch"
                                     VerticalAlignment="Stretch"
                                     RowSpacing="4">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
+                                    <Grid
+                                        x:Name="SelectedSquareNavViewItem"
+                                        x:Load="{x:Bind IsSelected, Mode=OneWay}"
+                                        RowSpacing="2">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
 
-                                    <FontIcon
-                                        HorizontalAlignment="Center"
-                                        FontSize="22"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        Glyph="{x:Bind GlyphPrimary}" />
+                                        <FontIcon
+                                            HorizontalAlignment="Center"
+                                            FontSize="22"
+                                            Foreground="{ThemeResource AccentFillColorDefaultBrush}"
+                                            Glyph="{x:Bind GlyphSecondary, Mode=OneWay}" />
 
-                                    <TextBlock
-                                        Grid.Row="1"
-                                        HorizontalAlignment="Center"
-                                        FontSize="10"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        Style="{StaticResource CaptionTextBlockStyle}"
-                                        Text="{x:Bind Name}" />
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            HorizontalAlignment="Center"
+                                            FontSize="10"
+                                            Foreground="{ThemeResource AccentFillColorDefaultBrush}"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="{x:Bind Name, Mode=OneWay}" />
+                                    </Grid>
+                                    <Grid
+                                        x:Name="UnselectedSquareNavViewItem"
+                                        x:Load="{x:Bind IsSelected, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
+                                        RowSpacing="2">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+
+                                        <FontIcon
+                                            HorizontalAlignment="Center"
+                                            FontSize="22"
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Glyph="{x:Bind GlyphPrimary, Mode=OneWay}" />
+
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            HorizontalAlignment="Center"
+                                            FontSize="10"
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="{x:Bind Name, Mode=OneWay}" />
+                                    </Grid>
                                 </Grid>
                             </muxc:NavigationViewItem>
                         </DataTemplate>
@@ -406,7 +442,7 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <muxc:InfoBar
+                <!--<muxc:InfoBar
                     Title="{x:Bind ViewModel.LastNotification.Title}"
                     Margin="0,0,8,0"
                     VerticalAlignment="Top"
@@ -418,7 +454,7 @@
                     <muxc:InfoBar.Resources>
                         <Thickness x:Key="InfoBarBorderThickness">1</Thickness>
                     </muxc:InfoBar.Resources>
-                </muxc:InfoBar>
+                </muxc:InfoBar>-->
 
                 <Border
                     x:Name="RootFrameBorder"
