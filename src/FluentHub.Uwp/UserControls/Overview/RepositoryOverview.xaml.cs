@@ -41,13 +41,16 @@ namespace FluentHub.Uwp.UserControls
             {
                 default:
                 case "code":
-                    service.Navigate(
-                        typeof(Views.Repositories.Code.CodePage),
-                        new Models.FrameNavigationArgs()
-                        {
-                            Login = ViewModel.Repository.Owner.Login,
-                            Name = ViewModel.Repository.Name,
-                        });
+                    var param = new Models.FrameNavigationArgs()
+                    {
+                        Login = ViewModel.Repository.Owner.Login,
+                        Name = ViewModel.Repository.Name,
+                    };
+
+                    if (App.Settings.UseDetailsView)
+                        service.Navigate<Views.Repositories.Code.Layouts.DetailsLayoutView>(param);
+                    else
+                        service.Navigate<Views.Repositories.Code.Layouts.TreeLayoutView>(param);
                     break;
                 case "issues":
                     service.Navigate(
@@ -108,11 +111,6 @@ namespace FluentHub.Uwp.UserControls
                 .OfType<muxc.NavigationViewItem>()
                 .FirstOrDefault(x => string.Compare(x.Tag.ToString(), tag?.ToString(), true) == 0)
                 ?? defaultItem;
-
-            //TO REMOVE
-            StargazersCountBadge.Text = NumberNormalizerHelper.NormalizeNumber(ViewModel.Repository.StargazerCount);
-            ForksCountBadge.Text = NumberNormalizerHelper.NormalizeNumber(ViewModel.Repository.ForkCount);
-            WatchersCountBadge.Text = NumberNormalizerHelper.NormalizeNumber(ViewModel.Repository.Watchers.TotalCount);
         }
     }
 }

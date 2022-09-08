@@ -285,14 +285,16 @@ namespace FluentHub.Uwp.ViewModels
                 case TaskStatusType.IsStarted:
                     TaskIsInProgress = true;
                     break;
-                case faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully:
+                case TaskStatusType.IsCompleted:
                     TaskIsInProgress = false;
                     break;
-                case faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfullySuccessfully:
+                case TaskStatusType.IsCompletedSuccessfully:
                     TaskIsCompletedSuccessfully = true;
+                    TaskIsInProgress = false;
                     break;
                 case TaskStatusType.IsFaulted:
                     TaskIsCompletedSuccessfully = false;
+                    TaskIsInProgress = false;
                     break;
             }
         }

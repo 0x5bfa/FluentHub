@@ -36,6 +36,9 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
 
         private async Task LoadRepositoryOnePullRequestAsync(CancellationToken token)
         {
+            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+            bool faulted = false;
+
             try
             {
                 PullRequestQueries queries = new();

@@ -9,6 +9,7 @@
     xmlns:local="using:FluentHub.Uwp.UserControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:primer="using:FluentHub.Uwp.UserControls.PrimerControls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
@@ -24,6 +25,7 @@
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
             <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+            <converters:DecimalToMetricConverter x:Key="DecimalToMetricConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -165,7 +167,10 @@
                             </toolkit:SwitchPresenter>
 
                             <!--<muxc:InfoBadge x:Name="WatchersCountBadge" Value="{x:Bind ViewModel.Repository.Watchers.TotalCount, Mode=OneWay}" />-->
-                            <TextBlock x:Name="WatchersCountBadge" />
+                            <primer:CounterLabel
+                                x:Name="WatchersCounter"
+                                Scheme="accent"
+                                Text="{x:Bind ViewModel.Repository.Watchers.TotalCount, Converter={StaticResource DecimalToMetricConverter}, Mode=OneWay}" />
                         </StackPanel>
                     </muxc:DropDownButton.Content>
                 </muxc:DropDownButton>
@@ -181,7 +186,10 @@
                             <TextBlock Text="Fork" />
 
                             <!--<muxc:InfoBadge x:Name="ForksCountBadge" Value="{x:Bind ViewModel.Repository.ForkCount, Mode=OneWay}" />-->
-                            <TextBlock x:Name="ForksCountBadge" />
+                            <primer:CounterLabel
+                                x:Name="ForksCounter"
+                                Scheme="accent"
+                                Text="{x:Bind ViewModel.Repository.ForkCount, Converter={StaticResource DecimalToMetricConverter}, Mode=OneWay}" />
                         </StackPanel>
                     </Button.Content>
                 </Button>
@@ -220,7 +228,10 @@
                             </toolkit:SwitchPresenter>
 
                             <!--<muxc:InfoBadge x:Name="StargazersCountBadge" Value="{x:Bind ViewModel.Repository.StargazerCount, Mode=OneWay}" />-->
-                            <TextBlock x:Name="StargazersCountBadge" />
+                            <primer:CounterLabel
+                                x:Name="StargazersCounter"
+                                Scheme="accent"
+                                Text="{x:Bind ViewModel.Repository.StargazerCount, Converter={StaticResource DecimalToMetricConverter}, Mode=OneWay}" />
                         </StackPanel>
                     </muxc:SplitButton.Content>
                 </muxc:SplitButton>

@@ -43,14 +43,17 @@ namespace FluentHub.Uwp.UserControls
             {
                 default:
                 case "conversation":
-                    service.Navigate(
-                        typeof(Views.Repositories.Code.CodePage),
-                        new Models.FrameNavigationArgs()
-                        {
-                            Login = ViewModel.PullRequest.Repository.Owner.Login,
-                            Name = ViewModel.PullRequest.Repository.Name,
-                            Number = ViewModel.PullRequest.Number,
-                        });
+                    var param = new Models.FrameNavigationArgs()
+                    {
+                        Login = ViewModel.PullRequest.Repository.Owner.Login,
+                        Name = ViewModel.PullRequest.Repository.Name,
+                        Number = ViewModel.PullRequest.Number,
+                    };
+
+                    if (App.Settings.UseDetailsView)
+                        service.Navigate<Views.Repositories.Code.Layouts.DetailsLayoutView>(param);
+                    else
+                        service.Navigate<Views.Repositories.Code.Layouts.TreeLayoutView>(param);
                     break;
                 case "commits":
                     service.Navigate(

@@ -272,10 +272,12 @@ namespace FluentHub.Uwp
                     page = typeof(Views.Repositories.Discussions.DiscussionsPage);
                     break;
                 case "repositories":
-                    page = typeof(Views.Repositories.Code.CodePage);
+                    page = App.Settings.UseDetailsView ?
+                        typeof(Views.Repositories.Code.Layouts.DetailsLayoutView) :
+                        typeof(Views.Repositories.Code.Layouts.TreeLayoutView);
                     break;
                 case "organizations":
-                    page = typeof(Views.Organizations.ProfilePage);
+                    page = typeof(Views.Organizations.OverviewPage);
                     break;
                 case "stars":
                     page = typeof(Views.Users.StarredReposPage);

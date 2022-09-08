@@ -35,12 +35,16 @@ namespace FluentHub.Uwp.Views.Home
         {
             var clickedItem = e.ClickedItem as Repository;
 
-            _navigation.Navigate<Repositories.Code.CodePage>(
-                new FrameNavigationArgs()
-                {
-                    Login = clickedItem.Owner.Login,
-                    Name = clickedItem.Name,
-                });
+            var param = new Models.FrameNavigationArgs()
+            {
+                Login = clickedItem.Owner.Login,
+                Name = clickedItem.Name,
+            };
+
+            if (App.Settings.UseDetailsView)
+                _navigation.Navigate<Views.Repositories.Code.Layouts.DetailsLayoutView>(param);
+            else
+                _navigation.Navigate<Views.Repositories.Code.Layouts.TreeLayoutView>(param);
         }
 
         private void OnOneFolderCardClick(object sender, RoutedEventArgs e)
