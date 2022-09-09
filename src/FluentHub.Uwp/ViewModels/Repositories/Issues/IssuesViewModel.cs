@@ -77,7 +77,6 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
                     IssueButtonBlockViewModel viewModel = new()
                     {
                         IssueItem = item,
-                        CompactMode = true,
                     };
 
                     _pinnedItems.Add(viewModel);

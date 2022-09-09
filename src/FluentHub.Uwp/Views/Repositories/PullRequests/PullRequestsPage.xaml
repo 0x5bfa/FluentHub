@@ -27,7 +27,7 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <uc:RepositoryOverview ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
+                <uc:RepositoryOverview Margin="0,0,0,8" ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
 
                 <Grid
                     Grid.Row="1"
@@ -50,14 +50,14 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <TextBox PlaceholderText="Search pull requests" />
+                        <TextBox IsEnabled="False" PlaceholderText="Search pull requests" />
 
                         <StackPanel
                             Grid.Row="1"
                             Orientation="Horizontal"
                             Spacing="8">
 
-                            <muxc:DropDownButton>
+                            <muxc:DropDownButton IsEnabled="False">
                                 <muxc:DropDownButton.Content>
                                     <StackPanel Orientation="Horizontal" Spacing="4">
                                         <TextBlock
@@ -76,7 +76,7 @@
                                 </muxc:DropDownButton.Flyout>
                             </muxc:DropDownButton>
 
-                            <muxc:DropDownButton>
+                            <muxc:DropDownButton IsEnabled="False">
                                 <muxc:DropDownButton.Content>
                                     <StackPanel Orientation="Horizontal" Spacing="4">
                                         <TextBlock
@@ -95,7 +95,7 @@
                                 </muxc:DropDownButton.Flyout>
                             </muxc:DropDownButton>
 
-                            <muxc:DropDownButton>
+                            <muxc:DropDownButton IsEnabled="False">
                                 <muxc:DropDownButton.Content>
                                     <StackPanel Orientation="Horizontal" Spacing="4">
                                         <TextBlock

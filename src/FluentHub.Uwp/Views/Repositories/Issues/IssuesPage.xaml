@@ -2,10 +2,11 @@
     x:Class="FluentHub.Uwp.Views.Repositories.Issues.IssuesPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:bbuc="using:FluentHub.Uwp.UserControls.ButtonBlocks"
     xmlns:bbvm="using:FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks"
-    xmlns:blocks="using:FluentHub.Uwp.UserControls.ButtonBlocks"
     xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="using:FluentHub.Uwp.Helpers"
     xmlns:local="using:FluentHub.Uwp.Views.Repositories.Issues"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -24,13 +25,69 @@
             <Grid Margin="0,0,8,8" RowSpacing="8">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <uc:RepositoryOverview ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
+                <uc:RepositoryOverview Margin="0,0,0,8" ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
 
                 <Grid
                     Grid.Row="1"
+                    Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid Height="44" Padding="32,8,32,4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontSize="14"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="Pinned issues" />
+                        </StackPanel>
+
+                    </Grid>
+
+                    <MenuFlyoutSeparator Grid.Row="1" />
+
+                    <Grid Grid.Row="2">
+
+                        <muxc:ItemsRepeater Margin="24,12,24,24" ItemsSource="{x:Bind ViewModel.PinnedItems, Mode=OneWay}">
+                            <muxc:ItemsRepeater.Layout>
+                                <muxc:UniformGridLayout
+                                    ItemsStretch="Fill"
+                                    MaximumRowsOrColumns="3"
+                                    MinColumnSpacing="8"
+                                    MinItemHeight="90"
+                                    MinItemWidth="100"
+                                    MinRowSpacing="8"
+                                    Orientation="Horizontal" />
+                            </muxc:ItemsRepeater.Layout>
+                            <DataTemplate x:DataType="bbvm:IssueButtonBlockViewModel">
+                                <bbuc:IssueButtonBlock
+                                    MaxWidth="360"
+                                    VerticalAlignment="Stretch"
+                                    ViewModel="{x:Bind}" />
+                            </DataTemplate>
+                        </muxc:ItemsRepeater>
+
+
+                    </Grid>
+                </Grid>
+
+                <Grid
+                    Grid.Row="2"
                     Padding="32"
                     Background="{ThemeResource CardBackgroundFillColorSecondary}"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
@@ -43,44 +100,6 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <StackPanel
-                        Margin="8,0"
-                        VerticalAlignment="Center"
-                        Orientation="Horizontal"
-                        Spacing="6">
-                        <FontIcon
-                            FontFamily="{StaticResource Octicons}"
-                            FontSize="16"
-                            Glyph="&#xEA3E;" />
-                        <TextBlock
-                            VerticalAlignment="Center"
-                            FontSize="15"
-                            Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="Pinned Issues" />
-                    </StackPanel>
-
-                    <muxc:ItemsRepeater
-                        Grid.Row="1"
-                        Margin="0,4,0,16"
-                        ItemsSource="{x:Bind ViewModel.PinnedItems, Mode=OneWay}">
-                        <muxc:ItemsRepeater.Layout>
-                            <muxc:UniformGridLayout
-                                ItemsStretch="Fill"
-                                MaximumRowsOrColumns="3"
-                                MinColumnSpacing="8"
-                                MinItemHeight="72"
-                                MinItemWidth="100"
-                                MinRowSpacing="8"
-                                Orientation="Horizontal" />
-                        </muxc:ItemsRepeater.Layout>
-                        <DataTemplate x:DataType="bbvm:IssueButtonBlockViewModel">
-                            <blocks:IssueButtonBlock
-                                MaxWidth="360"
-                                VerticalAlignment="Stretch"
-                                ViewModel="{x:Bind}" />
-                        </DataTemplate>
-                    </muxc:ItemsRepeater>
-
                     <Grid
                         Grid.Row="2"
                         Margin="0,8,0,16"
@@ -90,29 +109,14 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <TextBox PlaceholderText="Search issues" />
+                        <TextBox IsEnabled="False" PlaceholderText="Search issues" />
 
                         <StackPanel
                             Grid.Row="1"
                             Orientation="Horizontal"
                             Spacing="8">
 
-                            <!--<Button Visibility="Collapsed">
-                                <StackPanel Orientation="Horizontal" Spacing="4">
-                                    <FontIcon
-                                        FontSize="14"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        Glyph="&#xe71c;" />
-                                    <muxc:InfoBadge Value="2" />
-                                </StackPanel>
-                                <Button.Flyout>
-                                    <MenuFlyout Placement="BottomEdgeAlignedLeft">
-                                        <MenuFlyoutItem Foreground="{StaticResource DangerButtonBackground}" Text="Clear all filters" />
-                                    </MenuFlyout>
-                                </Button.Flyout>
-                            </Button>-->
-
-                            <muxc:DropDownButton>
+                            <muxc:DropDownButton IsEnabled="False">
                                 <muxc:DropDownButton.Content>
                                     <StackPanel Orientation="Horizontal" Spacing="4">
                                         <TextBlock
@@ -131,7 +135,7 @@
                                 </muxc:DropDownButton.Flyout>
                             </muxc:DropDownButton>
 
-                            <muxc:DropDownButton>
+                            <muxc:DropDownButton IsEnabled="False">
                                 <muxc:DropDownButton.Content>
                                     <StackPanel Orientation="Horizontal" Spacing="4">
                                         <TextBlock
@@ -150,7 +154,7 @@
                                 </muxc:DropDownButton.Flyout>
                             </muxc:DropDownButton>
 
-                            <muxc:DropDownButton>
+                            <muxc:DropDownButton IsEnabled="False">
                                 <muxc:DropDownButton.Content>
                                     <StackPanel Orientation="Horizontal" Spacing="4">
                                         <TextBlock
@@ -177,7 +181,7 @@
                             <muxc:StackLayout Orientation="Vertical" Spacing="6" />
                         </muxc:ItemsRepeater.Layout>
                         <DataTemplate x:DataType="bbvm:IssueButtonBlockViewModel">
-                            <blocks:IssueButtonBlock VerticalAlignment="Stretch" ViewModel="{x:Bind}" />
+                            <bbuc:IssueButtonBlock VerticalAlignment="Stretch" ViewModel="{x:Bind}" />
                         </DataTemplate>
                     </muxc:ItemsRepeater>
                 </Grid>

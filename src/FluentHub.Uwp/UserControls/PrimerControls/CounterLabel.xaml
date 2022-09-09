@@ -21,9 +21,10 @@
         <toolkit:SwitchPresenter
             x:Name="SchemeSwitchPresenter"
             x:Load="{x:Bind Scheme, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-            Value="{x:Bind Scheme}">
+            Value="{x:Bind Scheme, Mode=OneWay}">
             <toolkit:Case Value="primary">
                 <Border
+                    MinWidth="16"
                     Padding="4,0,4,2"
                     Background="{ThemeResource PrimerNeutralEmphasis}"
                     CornerRadius="8">
@@ -31,12 +32,13 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         FontSize="11"
-                        Foreground="{ThemeResource PrimerForegroundOnEmphasis}"
-                        Text="{x:Bind Text}" />
+                        Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
+                        Text="{x:Bind Text, Mode=OneWay}" />
                 </Border>
             </toolkit:Case>
             <toolkit:Case Value="secondary">
                 <Border
+                    MinWidth="16"
                     Padding="4,0,4,2"
                     Background="{ThemeResource PrimerNeutralMuted}"
                     CornerRadius="8">
@@ -44,12 +46,13 @@
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"
                         FontSize="11"
-                        Foreground="{ThemeResource PrimerForegroundDefault}"
-                        Text="{x:Bind Text}" />
+                        Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
+                        Text="{x:Bind Text, Mode=OneWay}" />
                 </Border>
             </toolkit:Case>
             <toolkit:Case Value="accent">
                 <Border
+                    MinWidth="16"
                     Padding="4,0,4,2"
                     Background="{ThemeResource AccentFillColorDefaultBrush}"
                     CornerRadius="8">
@@ -58,7 +61,7 @@
                         VerticalAlignment="Center"
                         FontSize="11"
                         Foreground="{ThemeResource TextOnAccentFillColorPrimaryBrush}"
-                        Text="{x:Bind Text}" />
+                        Text="{x:Bind Text, Mode=OneWay}" />
                 </Border>
             </toolkit:Case>
         </toolkit:SwitchPresenter>
