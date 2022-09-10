@@ -17,35 +17,22 @@ namespace FluentHub.Uwp.Views.Repositories.Projects
 
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<ProjectViewModel>();
-            navigationService = provider.GetRequiredService<INavigationService>();
+            _navigation = provider.GetRequiredService<INavigationService>();
         }
 
-        private readonly INavigationService navigationService;
+        private readonly INavigationService _navigation;
         public ProjectViewModel ViewModel { get; }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var param = e.Parameter as FrameNavigationArgs;
+            ViewModel.Login = param.Login;
+            ViewModel.Name = param.Name;
             ViewModel.Number = param.Number;
 
-            await ViewModel.LoadRepositoryAsync(param.Login, param.Name);
-
-            SetCurrentTabItem();
-
-            var command = ViewModel.LoadProjectPageCommand;
+            var command = ViewModel.LoadRepositoryProjectPageCommand;
             if (command.CanExecute(null))
                 command.Execute(null);
-        }
-
-        private void SetCurrentTabItem()
-        {
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = "Project";
-            currentItem.Description = "Project";
-            currentItem.Icon = new Microsoft.UI.Xaml.Controls.ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Projects.png"))
-            };
         }
     }
 }

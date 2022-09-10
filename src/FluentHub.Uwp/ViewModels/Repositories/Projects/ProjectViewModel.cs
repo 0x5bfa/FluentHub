@@ -1,7 +1,14 @@
 ﻿using FluentHub.Octokit.Queries.Repositories;
+using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
-using FluentHub.Uwp.Utils;
+using FluentHub.Uwp.Services;
+using FluentHub.Uwp.ViewModels.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls;
+using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
+using FluentHub.Uwp.Utils;
+using Microsoft.Extensions.DependencyInjection;
+using Windows.UI.Xaml.Media.Imaging;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.Projects
 {
@@ -12,12 +19,21 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Projects
             _messenger = messenger;
             _logger = logger;
 
-            LoadProjectPageCommand = new AsyncRelayCommand(LoadProjectPageAsync);
+            LoadRepositoryProjectPageCommand = new AsyncRelayCommand(LoadRepositoryProjectPageAsync);
         }
 
         #region Fields and Properties
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
+
+        private string _login;
+        public string Login { get => _login; set => SetProperty(ref _login, value); }
+
+        private string _name;
+        public string Name { get => _name; set => SetProperty(ref _name, value); }
+
+        private int _number;
+        public int Number { get => _number; set => SetProperty(ref _number, value); }
 
         private Repository _repository;
         public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
@@ -25,80 +41,90 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Projects
         private RepositoryOverviewViewModel _repositoryOverviewViewModel;
         public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
 
-        private int _number;
-        public int Number { get => _number; set => SetProperty(ref _number, value); }
-
         private Project _project;
         public Project Project { get => _project; set => SetProperty(ref _project, value); }
 
-        public IAsyncRelayCommand LoadProjectPageCommand { get; }
+        private Exception _taskException;
+        public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
+
+        public IAsyncRelayCommand LoadRepositoryProjectPageCommand { get; }
         #endregion
 
-        private async Task LoadProjectPageAsync(CancellationToken token)
+        private async Task LoadRepositoryProjectPageAsync()
         {
             _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
             bool faulted = false;
 
+            string _currentTaskingMethodName = nameof(LoadRepositoryProjectPageAsync);
+
             try
             {
-                ProjectQueries queries = new();
-                var response = await queries.GetAsync(
-                    Repository.Owner.Login,
-                    Repository.Name,
-                    Number
-                    );
+                _currentTaskingMethodName = nameof(LoadRepositoryAsync);
+                await LoadRepositoryAsync(Login, Name);
 
-                Project = response;
+                _currentTaskingMethodName = nameof(LoadProjectPageAsync);
+                await LoadProjectPageAsync(Login, Name);
             }
             catch (Exception ex)
             {
-                _logger?.Error(nameof(LoadProjectPageAsync), ex);
-                if (_messenger != null)
-                {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
+                TaskException = ex;
+                faulted = true;
+
+                _logger?.Error(_currentTaskingMethodName, ex);
                 throw;
             }
             finally
             {
+                SetCurrentTabItem();
                 _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
             }
         }
 
-        public async Task LoadRepositoryAsync(string owner, string name)
+        private async Task LoadProjectPageAsync(string owner, string name)
         {
-            try
-            {
-                RepositoryQueries queries = new();
-                Repository = await queries.GetDetailsAsync(owner, name);
+            ProjectQueries queries = new();
+            var response = await queries.GetAsync(
+                Repository.Owner.Login,
+                Repository.Name,
+                Number
+                );
 
-                RepositoryOverviewViewModel = new()
-                {
-                    Repository = Repository,
-                    RepositoryName = Repository.Name,
-                    RepositoryOwnerLogin = Repository.Owner.Login,
-                    RepositoryVisibilityLabel = new()
-                    {
-                        Name = Repository.IsPrivate ? "Private" : "Public",
-                        Color = "#64000000",
-                    },
-                    ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
+            Project = response;
+        }
 
-                    SelectedTag = "projects",
-                };
-            }
-            catch (OperationCanceledException) { }
-            catch (Exception ex)
+        private async Task LoadRepositoryAsync(string owner, string name)
+        {
+            RepositoryQueries queries = new();
+            Repository = await queries.GetDetailsAsync(owner, name);
+
+            RepositoryOverviewViewModel = new()
             {
-                _logger?.Error(nameof(LoadRepositoryAsync), ex);
-                if (_messenger != null)
+                Repository = Repository,
+                RepositoryName = Repository.Name,
+                RepositoryOwnerLogin = Repository.Owner.Login,
+                RepositoryVisibilityLabel = new()
                 {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
-                throw;
-            }
+                    Name = Repository.IsPrivate ? "Private" : "Public",
+                    Color = "#64000000",
+                },
+                ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
+
+                SelectedTag = "projects",
+            };
+        }
+
+        private void SetCurrentTabItem()
+        {
+            var provider = App.Current.Services;
+            INavigationService navigationService = provider.GetRequiredService<INavigationService>();
+
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = "Project";
+            currentItem.Description = "Project";
+            currentItem.Icon = new muxc.ImageIconSource
+            {
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Projects.png"))
+            };
         }
     }
 }

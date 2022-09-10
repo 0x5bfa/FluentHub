@@ -37,14 +37,14 @@ namespace FluentHub.Uwp.UserControls
         {
             var service = App.Current.Services.GetRequiredService<INavigationService>();
 
-            switch (args.InvokedItemContainer.Tag.ToString().ToLower())
+            switch (args.InvokedItemContainer?.Tag?.ToString().ToLower())
             {
                 default:
                 case "code":
                     var param = new Models.FrameNavigationArgs()
                     {
-                        Login = ViewModel.Repository.Owner.Login,
-                        Name = ViewModel.Repository.Name,
+                        Login = ViewModel.Repository?.Owner?.Login,
+                        Name = ViewModel.Repository?.Name,
                     };
 
                     if (App.Settings.UseDetailsView)
@@ -57,8 +57,8 @@ namespace FluentHub.Uwp.UserControls
                         typeof(Views.Repositories.Issues.IssuesPage),
                         new Models.FrameNavigationArgs()
                         {
-                            Login = ViewModel.Repository.Owner.Login,
-                            Name = ViewModel.Repository.Name,
+                            Login = ViewModel.Repository?.Owner?.Login,
+                            Name = ViewModel.Repository?.Name,
                         });
                     break;
                 case "pullrequests":
@@ -66,8 +66,8 @@ namespace FluentHub.Uwp.UserControls
                         typeof(Views.Repositories.PullRequests.PullRequestsPage),
                         new Models.FrameNavigationArgs()
                         {
-                            Login = ViewModel.Repository.Owner.Login,
-                            Name = ViewModel.Repository.Name,
+                            Login = ViewModel.Repository?.Owner?.Login,
+                            Name = ViewModel.Repository?.Name,
                         });
                     break;
                 case "discussions":
@@ -75,8 +75,8 @@ namespace FluentHub.Uwp.UserControls
                         typeof(Views.Repositories.Discussions.DiscussionsPage),
                         new Models.FrameNavigationArgs()
                         {
-                            Login = ViewModel.Repository.Owner.Login,
-                            Name = ViewModel.Repository.Name,
+                            Login = ViewModel.Repository?.Owner?.Login,
+                            Name = ViewModel.Repository?.Name,
                         });
                     break;
                 case "projects":
@@ -84,8 +84,8 @@ namespace FluentHub.Uwp.UserControls
                         typeof(Views.Repositories.Projects.ProjectsPage),
                         new Models.FrameNavigationArgs()
                         {
-                            Login = ViewModel.Repository.Owner.Login,
-                            Name = ViewModel.Repository.Name,
+                            Login = ViewModel.Repository?.Owner?.Login,
+                            Name = ViewModel.Repository?.Name,
                         });
                     break;
                 case "insights":

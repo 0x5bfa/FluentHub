@@ -18,35 +18,22 @@ namespace FluentHub.Uwp.Views.Repositories.Issues
 
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<IssueViewModel>();
-            navigationService = provider.GetRequiredService<INavigationService>();
+            _navigation = provider.GetRequiredService<INavigationService>();
         }
 
-        private readonly INavigationService navigationService;
         public IssueViewModel ViewModel { get; }
+        private readonly INavigationService _navigation;
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var param = e.Parameter as FrameNavigationArgs;
+            ViewModel.Login = param.Login;
+            ViewModel.Name = param.Name;
             ViewModel.Number = param.Number;
 
-            await ViewModel.LoadRepositoryAsync(param.Login, param.Name);
-
-            var command = ViewModel.RefreshIssuePageCommand;
+            var command = ViewModel.LoadRepositoryIssuePageCommand;
             if (command.CanExecute(null))
-                await command.ExecuteAsync(null);
-
-            SetCurrentTabItem();
-        }
-
-        private void SetCurrentTabItem()
-        {
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = $"{ViewModel.IssueItem.Title} · #{ViewModel.IssueItem.Number}";
-            currentItem.Description = currentItem.Header;
-            currentItem.Icon = new muxc.ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Issues.png"))
-            };
+                command.Execute(null);
         }
 
         private void OnDisplayDetailsTogglingButtonClick(object sender, RoutedEventArgs e)
@@ -62,35 +49,5 @@ namespace FluentHub.Uwp.Views.Repositories.Issues
                 DetailsGridColumnDefinition.MinWidth = 214;
             }
         }
-
-        //private async void OnCommentWebViewNavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
-        //{
-        //    await Helpers.WebViewHelpers.DisableWebViewVerticalScrollingAsync(sender);
-        //}
-
-        //private async void OnWebViewSizeChanged(object sender, SizeChangedEventArgs e)
-        //{
-        //    if (sender as WebView != null && WebViewIsNavigatedSuccessfully)
-        //    {
-        //        await Helpers.WebViewHelpers.DisableWebViewVerticalScrollingAsync(sender as WebView);
-        //    }
-        //}
-
-        //private async void OnCommentWebViewLoaded(object sender, RoutedEventArgs e)
-        //{
-        //    WebView wv = sender as WebView;
-        //    IssueComment ic = wv.Tag as IssueComment;
-
-        //    if (!string.IsNullOrEmpty(ViewModel.IssueCommentDataItems.FirstOrDefault(x => x == ic.Id.ToString())))
-        //    {
-        //        return;
-        //    }
-
-        //    Services.MarkdownApiHandler markdown = new();
-        //    var html = await markdown.GetHtmlAsync(ic?.BodyHTML, ic?.Url, Helpers.ThemeHelper.ActualTheme.ToString().ToLower());
-        //    wv.NavigateToString(html);
-
-        //    ViewModel.IssueCommentDataItems.Add(ic.Id.ToString());
-        //}
     }
 }

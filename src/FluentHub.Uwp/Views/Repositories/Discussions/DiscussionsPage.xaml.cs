@@ -17,34 +17,21 @@ namespace FluentHub.Uwp.Views.Repositories.Discussions
 
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<DiscussionsViewModel>();
-            navigationService = provider.GetRequiredService<INavigationService>();
+            _navigation = provider.GetRequiredService<INavigationService>();
         }
 
-        private readonly INavigationService navigationService;
         public DiscussionsViewModel ViewModel { get; }
+        private readonly INavigationService _navigation;
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var param = e.Parameter as FrameNavigationArgs;
+            ViewModel.Login = param.Login;
+            ViewModel.Name = param.Name;
 
-            await ViewModel.LoadRepositoryAsync(param.Login, param.Name);
-
-            SetCurrentTabItem();
-
-            var command = ViewModel.LoadDiscussionsPageCommand;
+            var command = ViewModel.LoadRepositoryDiscussionsPageCommand;
             if (command.CanExecute(null))
                 command.Execute(null);
-        }
-
-        private void SetCurrentTabItem()
-        {
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = "Discussions";
-            currentItem.Description = "Discussions";
-            currentItem.Icon = new muxc.ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Discussions.png"))
-            };
         }
     }
 }

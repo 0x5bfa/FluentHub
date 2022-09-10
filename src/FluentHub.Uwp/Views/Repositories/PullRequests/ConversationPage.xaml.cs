@@ -18,37 +18,22 @@ namespace FluentHub.Uwp.Views.Repositories.PullRequests
 
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<ConversationViewModel>();
-            navigationService = provider.GetRequiredService<INavigationService>();
+            _navigation = provider.GetRequiredService<INavigationService>();
         }
 
-        private readonly INavigationService navigationService;
         public ConversationViewModel ViewModel { get; }
+        private readonly INavigationService _navigation;
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var param = e.Parameter as FrameNavigationArgs;
+            ViewModel.Login = param.Login;
+            ViewModel.Name = param.Name;
             ViewModel.Number = param.Number;
 
-            await ViewModel.LoadRepositoryAsync(param.Login, param.Name);
-
-            await ViewModel.LoadPullRequestAsync();
-
-            SetCurrentTabItem();
-
-            var command = ViewModel.RefreshPullRequestPageCommand;
+            var command = ViewModel.LoadRepositoryPullRequestConversationPageCommand;
             if (command.CanExecute(null))
                 command.Execute(null);
-        }
-
-        private void SetCurrentTabItem()
-        {
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = $"{ViewModel.PullItem.Title} · #{ViewModel.PullItem.Number}";
-            currentItem.Description = currentItem.Header;
-            currentItem.Icon = new muxc.ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Discussions.png"))
-            };
         }
     }
 }

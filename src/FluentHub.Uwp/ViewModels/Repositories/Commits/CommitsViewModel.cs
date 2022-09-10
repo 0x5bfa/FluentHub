@@ -1,8 +1,14 @@
 ﻿using FluentHub.Octokit.Queries.Repositories;
+using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
-using FluentHub.Uwp.Utils;
+using FluentHub.Uwp.Services;
+using FluentHub.Uwp.ViewModels.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
+using FluentHub.Uwp.Utils;
+using Microsoft.Extensions.DependencyInjection;
+using Windows.UI.Xaml.Media.Imaging;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.Commits
 {
@@ -16,12 +22,18 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Commits
             _items = new();
             Items = new(_items);
 
-            LoadCommitsPageCommand = new AsyncRelayCommand(LoadRepositoryCommitsAsync);
+            LoadRepositoryCommitsPageCommand = new AsyncRelayCommand(LoadRepositoryCommitsPageAsync);
         }
 
         #region Fields and Properties
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
+
+        private string _login;
+        public string Login { get => _login; set => SetProperty(ref _login, value); }
+
+        private string _name;
+        public string Name { get => _name; set => SetProperty(ref _name, value); }
 
         private Repository _repository;
         public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
@@ -35,84 +47,96 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Commits
         private readonly ObservableCollection<CommitButtonBlockViewModel> _items;
         public ReadOnlyObservableCollection<CommitButtonBlockViewModel> Items { get; }
 
-        public IAsyncRelayCommand LoadCommitsPageCommand { get; }
+        private Exception _taskException;
+        public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
+
+        public IAsyncRelayCommand LoadRepositoryCommitsPageCommand { get; }
         #endregion
 
-        private async Task LoadRepositoryCommitsAsync(CancellationToken token)
+        private async Task LoadRepositoryCommitsPageAsync()
         {
             _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
             bool faulted = false;
 
+            string _currentTaskingMethodName = nameof(LoadRepositoryCommitsPageAsync);
+
             try
             {
-                CommitQueries queries = new();
-                var response = await queries.GetAllAsync(
-                    Repository.Name,
-                    Repository.Owner.Login,
-                    ContextViewModel.BranchName,
-                    ContextViewModel.Path);
+                _currentTaskingMethodName = nameof(LoadRepositoryAsync);
+                await LoadRepositoryAsync(Login, Name);
 
-                _items.Clear();
-                foreach (var item in response)
-                {
-                    CommitButtonBlockViewModel viewModel = new()
-                    {
-                        CommitItem = item,
-                    };
-
-                    _items.Add(viewModel);
-                }
+                _currentTaskingMethodName = nameof(LoadRepositoryCommitsAsync);
+                await LoadRepositoryCommitsAsync(Login, Name);
             }
-            catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error(nameof(LoadRepositoryCommitsAsync), ex);
-                if (_messenger != null)
-                {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
+                TaskException = ex;
+                faulted = true;
+
+                _logger?.Error(_currentTaskingMethodName, ex);
                 throw;
             }
             finally
             {
+                SetCurrentTabItem();
                 _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
             }
         }
 
-        public async Task LoadRepositoryAsync(string owner, string name)
+        private async Task LoadRepositoryCommitsAsync(string owner, string name)
         {
-            try
+            CommitQueries queries = new();
+            var response = await queries.GetAllAsync(
+                Name,
+                Login,
+                ContextViewModel.BranchName,
+                ContextViewModel.Path);
+
+            _items.Clear();
+            foreach (var item in response)
             {
-                RepositoryQueries queries = new();
-                Repository = await queries.GetDetailsAsync(owner, name);
-
-                RepositoryOverviewViewModel = new()
+                CommitButtonBlockViewModel viewModel = new()
                 {
-                    Repository = Repository,
-                    RepositoryName = Repository.Name,
-                    RepositoryOwnerLogin = Repository.Owner.Login,
-                    RepositoryVisibilityLabel = new()
-                    {
-                        Name = Repository.IsPrivate ? "Private" : "Public",
-                        Color = "#64000000",
-                    },
-                    ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
-
-                    SelectedTag = "code",
+                    CommitItem = item,
                 };
+
+                _items.Add(viewModel);
             }
-            catch (OperationCanceledException) { }
-            catch (Exception ex)
+        }
+
+        private async Task LoadRepositoryAsync(string owner, string name)
+        {
+            RepositoryQueries queries = new();
+            Repository = await queries.GetDetailsAsync(owner, name);
+
+            RepositoryOverviewViewModel = new()
             {
-                _logger?.Error(nameof(LoadRepositoryAsync), ex);
-                if (_messenger != null)
+                Repository = Repository,
+                RepositoryName = Repository.Name,
+                RepositoryOwnerLogin = Repository.Owner.Login,
+                RepositoryVisibilityLabel = new()
                 {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
-                throw;
-            }
+                    Name = Repository.IsPrivate ? "Private" : "Public",
+                    Color = "#64000000",
+                },
+                ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
+
+                SelectedTag = "code",
+            };
+        }
+
+        private void SetCurrentTabItem()
+        {
+            var provider = App.Current.Services;
+            INavigationService navigationService = provider.GetRequiredService<INavigationService>();
+
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = "Commits";
+            currentItem.Description = "Commits";
+            currentItem.Icon = new muxc.ImageIconSource
+            {
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Commits.png"))
+            };
         }
     }
 }

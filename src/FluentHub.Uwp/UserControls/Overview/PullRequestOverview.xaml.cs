@@ -45,8 +45,8 @@ namespace FluentHub.Uwp.UserControls
                 case "conversation":
                     var param = new Models.FrameNavigationArgs()
                     {
-                        Login = ViewModel.PullRequest.Repository.Owner.Login,
-                        Name = ViewModel.PullRequest.Repository.Name,
+                        Login = ViewModel.PullRequest?.Repository?.Owner?.Login,
+                        Name = ViewModel.PullRequest?.Repository?.Name,
                         Number = ViewModel.PullRequest.Number,
                     };
 
@@ -60,8 +60,8 @@ namespace FluentHub.Uwp.UserControls
                         typeof(Views.Repositories.Issues.IssuesPage),
                         new Models.FrameNavigationArgs()
                         {
-                            Login = ViewModel.PullRequest.Repository.Owner.Login,
-                            Name = ViewModel.PullRequest.Repository.Name,
+                            Login = ViewModel.PullRequest?.Repository?.Owner?.Login,
+                            Name = ViewModel.PullRequest?.Repository?.Name,
                             Number = ViewModel.PullRequest.Number,
                         });
                     break;
@@ -70,8 +70,8 @@ namespace FluentHub.Uwp.UserControls
                         typeof(Views.Repositories.PullRequests.PullRequestsPage),
                         new Models.FrameNavigationArgs()
                         {
-                            Login = ViewModel.PullRequest.Repository.Owner.Login,
-                            Name = ViewModel.PullRequest.Repository.Name,
+                            Login = ViewModel.PullRequest?.Repository?.Owner?.Login,
+                            Name = ViewModel.PullRequest?.Repository?.Name,
                             Number = ViewModel.PullRequest.Number,
                         });
                     break;
@@ -80,8 +80,8 @@ namespace FluentHub.Uwp.UserControls
                         typeof(Views.Repositories.Discussions.DiscussionsPage),
                         new Models.FrameNavigationArgs()
                         {
-                            Login = ViewModel.PullRequest.Repository.Owner.Login,
-                            Name = ViewModel.PullRequest.Repository.Name,
+                            Login = ViewModel.PullRequest?.Repository?.Owner?.Login,
+                            Name = ViewModel.PullRequest?.Repository?.Name,
                             Number = ViewModel.PullRequest.Number,
                         });
                     break;
