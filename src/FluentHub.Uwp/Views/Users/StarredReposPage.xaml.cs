@@ -16,13 +16,11 @@ namespace FluentHub.Uwp.Views.Users
 
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<StarredReposViewModel>();
-            navigationService = provider.GetRequiredService<INavigationService>();
         }
 
-        private readonly INavigationService navigationService;
         public StarredReposViewModel ViewModel { get; }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var param = e.Parameter as Models.FrameNavigationArgs;
             ViewModel.Login = param.Login;
@@ -32,24 +30,9 @@ namespace FluentHub.Uwp.Views.Users
                 ViewModel.DisplayTitle = true;
             }
 
-            await ViewModel.LoadUserAsync(param.Login);
-
-            SetCurrentTabItem();
-
-            var command = ViewModel.RefreshRepositoriesCommand;
+            var command = ViewModel.LoadUserStarredRepositoriesPageCommand;
             if (command.CanExecute(null))
                 command.Execute(null);
-        }
-
-        private void SetCurrentTabItem()
-        {
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = $"Stars";
-            currentItem.Description = $"{ViewModel.Login}'s stars";
-            currentItem.Icon = new muxc.ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Starred.png"))
-            };
         }
     }
 }

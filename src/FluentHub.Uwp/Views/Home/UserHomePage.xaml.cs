@@ -18,42 +18,33 @@ namespace FluentHub.Uwp.Views.Home
 
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<UserHomeViewModel>();
-            navService = provider.GetRequiredService<INavigationService>();
+            _navigation = provider.GetRequiredService<INavigationService>();
         }
 
-        private readonly INavigationService navService;
+        private readonly INavigationService _navigation;
         public UserHomeViewModel ViewModel { get; }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            SetCurrentTabItem();
-
-            var command = ViewModel.LoadHomeContentsCommand;
+            var command = ViewModel.LoadUserHomePageCommand;
             if (command.CanExecute(null))
                 command.Execute(null);
-        }
-
-        private void SetCurrentTabItem()
-        {
-            var currentItem = navService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = $"Home";
-            currentItem.Description = $"Home";
-            currentItem.Icon = new muxc.ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Home.png"))
-            };
         }
 
         private void OnHomeRepositoriesListItemClick(object sender, ItemClickEventArgs e)
         {
             var clickedItem = e.ClickedItem as Repository;
 
-            navService.Navigate<Repositories.Code.CodePage>(
-                new FrameNavigationArgs()
-                {
-                    Login = clickedItem.Owner.Login,
-                    Name = clickedItem.Name,
-                });
+            var param = new Models.FrameNavigationArgs()
+            {
+                Login = clickedItem.Owner.Login,
+                Name = clickedItem.Name,
+            };
+
+            if (App.Settings.UseDetailsView)
+                _navigation.Navigate<Views.Repositories.Code.Layouts.DetailsLayoutView>(param);
+            else
+                _navigation.Navigate<Views.Repositories.Code.Layouts.TreeLayoutView>(param);
         }
 
         private void OnOneFolderCardClick(object sender, RoutedEventArgs e)
@@ -63,7 +54,7 @@ namespace FluentHub.Uwp.Views.Home
             switch (clickedButton.Tag)
             {
                 case "issues":
-                    navService.Navigate<Users.IssuesPage>(
+                    _navigation.Navigate<Users.IssuesPage>(
                     new FrameNavigationArgs()
                     {
                         Login = App.Settings.SignedInUserName,
@@ -71,7 +62,7 @@ namespace FluentHub.Uwp.Views.Home
                     });
                     break;
                 case "pullrequests":
-                    navService.Navigate<Users.PullRequestsPage>(
+                    _navigation.Navigate<Users.PullRequestsPage>(
                     new FrameNavigationArgs()
                     {
                         Login = App.Settings.SignedInUserName,
@@ -79,7 +70,7 @@ namespace FluentHub.Uwp.Views.Home
                     });
                     break;
                 case "discussions":
-                    navService.Navigate<Users.DiscussionsPage>(
+                    _navigation.Navigate<Users.DiscussionsPage>(
                     new FrameNavigationArgs()
                     {
                         Login = App.Settings.SignedInUserName,
@@ -87,7 +78,7 @@ namespace FluentHub.Uwp.Views.Home
                     });
                     break;
                 case "repositories":
-                    navService.Navigate<Users.RepositoriesPage>(
+                    _navigation.Navigate<Users.RepositoriesPage>(
                     new FrameNavigationArgs()
                     {
                         Login = App.Settings.SignedInUserName,
@@ -95,7 +86,7 @@ namespace FluentHub.Uwp.Views.Home
                     });
                     break;
                 case "organizations":
-                    navService.Navigate<Users.OrganizationsPage>(
+                    _navigation.Navigate<Users.OrganizationsPage>(
                     new FrameNavigationArgs()
                     {
                         Login = App.Settings.SignedInUserName,
@@ -103,7 +94,7 @@ namespace FluentHub.Uwp.Views.Home
                     });
                     break;
                 case "stars":
-                    navService.Navigate<Users.StarredReposPage>(
+                    _navigation.Navigate<Users.StarredReposPage>(
                     new FrameNavigationArgs()
                     {
                         Login = App.Settings.SignedInUserName,
@@ -114,7 +105,7 @@ namespace FluentHub.Uwp.Views.Home
         }
 
         private void OnSeeFeedsButtonClick(object sender, RoutedEventArgs e)
-            => navService.Navigate<ActivitiesPage>();
+            => _navigation.Navigate<ActivitiesPage>();
 
         private void OnRecentUserNotificationListViewItemClick(object sender, ItemClickEventArgs e)
         {
@@ -125,7 +116,7 @@ namespace FluentHub.Uwp.Views.Home
                 case NotificationSubjectType.IssueClosedAsCompleted:
                 case NotificationSubjectType.IssueClosedAsNotPlanned:
                 case NotificationSubjectType.IssueOpen:
-                    navService.Navigate<Repositories.Issues.IssuePage>(
+                    _navigation.Navigate<Repositories.Issues.IssuePage>(
                     new FrameNavigationArgs()
                     {
                         Login = notification.Repository.Owner.Login,
@@ -137,7 +128,7 @@ namespace FluentHub.Uwp.Views.Home
                 case NotificationSubjectType.PullRequestDraft:
                 case NotificationSubjectType.PullRequestMerged:
                 case NotificationSubjectType.PullRequestOpen:
-                    navService.Navigate<Repositories.PullRequests.ConversationPage>(
+                    _navigation.Navigate<Repositories.PullRequests.ConversationPage>(
                     new FrameNavigationArgs()
                     {
                         Login = notification.Repository.Owner.Login,

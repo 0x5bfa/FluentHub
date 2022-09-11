@@ -46,6 +46,7 @@ namespace FluentHub.Uwp.UserControls.ButtonBlocks
                 {
                     Login = ViewModel.CommitItem.Repository.Owner.Login,
                     Name = ViewModel.CommitItem.Repository.Name,
+                    Number = ViewModel.PullRequest.Number,
                     Parameters = new() { ViewModel.CommitItem },
                 });
         }

@@ -18,28 +18,16 @@ namespace FluentHub.Uwp.Views.Organizations
 
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<RepositoriesViewModel>();
-            navigationService = provider.GetRequiredService<INavigationService>();
         }
 
-        private readonly INavigationService navigationService;
         public RepositoriesViewModel ViewModel { get; }
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var param = e.Parameter as Models.FrameNavigationArgs;
             ViewModel.Login = param.Login;
 
-            await ViewModel.LoadOrganizationAsync(param.Login);
-
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = $"Repositories";
-            currentItem.Description = $"{param.Login}'s repositories";
-            currentItem.Icon = new muxc.ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.png"))
-            };
-
-            var command = ViewModel.RefreshRepositoriesCommand;
+            var command = ViewModel.LoadOrganizationRepositoriesPageCommand;
             if (command.CanExecute(null))
                 command.Execute(null);
         }

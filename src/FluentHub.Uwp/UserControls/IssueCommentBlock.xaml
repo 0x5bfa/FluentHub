@@ -105,8 +105,8 @@
             Grid.Row="2"
             Height="Auto"
             Margin="12"
-            Loaded="OnCommentWebViewLoaded"
             DefaultBackgroundColor="Transparent"
+            Loaded="OnCommentWebViewLoaded"
             NavigationCompleted="OnCommentWebViewNavigationCompleted"
             SizeChanged="OnWebViewSizeChanged" />
 

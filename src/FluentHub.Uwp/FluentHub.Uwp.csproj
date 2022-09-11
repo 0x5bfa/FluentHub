@@ -144,12 +144,15 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Converters\DecimalToMetricConverter.cs" />
+    <Compile Include="Converters\DecimalToSubjectNumberConverter.cs" />
     <Compile Include="Converters\HexColorCodeToSolidColorBrushConverter.cs" />
     <Compile Include="Converters\IssueCommentToIssueCommentBlockViewModelConverter.cs" />
     <Compile Include="Converters\NumberToNumberWithHashtagConverter.cs" />
     <Compile Include="Converters\ObjectToBoolConverter.cs" />
     <Compile Include="Converters\SettingsControlConverter.cs" />
     <Compile Include="Converters\SizeToCornerRadiusConverter.cs" />
+    <Compile Include="Converters\SubjectToButtonTitleConverter.cs" />
     <Compile Include="Dialogs\AccountSwitching.xaml.cs">
       <DependentUpon>AccountSwitching.xaml</DependentUpon>
     </Compile>
@@ -159,7 +162,11 @@
     <Compile Include="Dialogs\EditUserProfileDialog.xaml.cs">
       <DependentUpon>EditUserProfileDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Dialogs\ExceptionStackTraceDialog.xaml.cs">
+      <DependentUpon>ExceptionStackTraceDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Extensions\IEnumerableExt.cs" />
+    <Compile Include="Extensions\StringExtensions.cs" />
     <Compile Include="Extensions\WebViewExtentions.cs" />
     <Compile Include="GlobalUsings.cs" />
     <Compile Include="Helpers\BlobDetailsHelpers.cs" />
@@ -178,10 +185,11 @@
     <Compile Include="Models\DetailsLayoutListViewModel.cs" />
     <Compile Include="Models\FolderCardItem.cs" />
     <Compile Include="Models\FrameNavigationArgs.cs" />
-    <Compile Include="Models\LoadingMessaging.cs" />
+    <Compile Include="Models\TaskStateMessaging.cs" />
     <Compile Include="Models\MergedCalendarDays.cs" />
     <Compile Include="Models\PinnableRepository.cs" />
     <Compile Include="Models\SquareNavigationViewItemModel.cs" />
+    <Compile Include="Models\TaskStatusType.cs" />
     <Compile Include="Models\TimelineItemSelector.cs" />
     <Compile Include="Models\TreeLayoutPageModel.cs" />
     <Compile Include="Models\UserNotificationMessage.cs" />
@@ -200,6 +208,9 @@
     <Compile Include="Services\ToastService.cs" />
     <Compile Include="UserControls\CustomWebView.xaml.cs">
       <DependentUpon>CustomWebView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\LoadErrorDisplay.xaml.cs">
+      <DependentUpon>LoadErrorDisplay.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Overview\AppSettingsOverview.xaml.cs">
       <DependentUpon>AppSettingsOverview.xaml</DependentUpon>
@@ -242,6 +253,9 @@
     </Compile>
     <Compile Include="UserControls\Overview\RepositoryOverview.xaml.cs">
       <DependentUpon>RepositoryOverview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\PrimerControls\CounterLabel.xaml.cs">
+      <DependentUpon>CounterLabel.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\PrimerControls\IssueLabelToken.xaml.cs">
       <DependentUpon>IssueLabelToken.xaml</DependentUpon>
@@ -347,9 +361,7 @@
     <Compile Include="ViewModels\Home\UserHomeViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
     <Compile Include="ViewModels\Organizations\OverviewViewModel.cs" />
-    <Compile Include="ViewModels\Organizations\ProfileViewModel.cs" />
     <Compile Include="ViewModels\Organizations\RepositoriesViewModel.cs" />
-    <Compile Include="ViewModels\Repositories\Codes\CodePageViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Codes\Layouts\TreeLayoutViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Codes\ReleasesViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Commits\CommitsViewModel.cs" />
@@ -366,7 +378,6 @@
     <Compile Include="ViewModels\Repositories\Issues\IssuesViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Issues\IssueViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Codes\Layouts\DetailsLayoutViewModel.cs" />
-    <Compile Include="ViewModels\Repositories\OverviewViewModel.cs" />
     <Compile Include="ViewModels\Repositories\PullRequests\PullRequestsViewModel.cs" />
     <Compile Include="ViewModels\Repositories\PullRequests\PullRequestViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
@@ -391,7 +402,7 @@
     <Compile Include="ViewModels\UserControls\Blocks\IssueCommentBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\TimelineViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\LatestCommitBlockViewModel.cs" />
-    <Compile Include="ViewModels\Home\ActivitiesViewModel.cs" />
+    <Compile Include="ViewModels\Home\FeedsViewModel.cs" />
     <Compile Include="ViewModels\Home\NotificationsViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\UserButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Labels\LabelControlViewModel.cs" />
@@ -405,7 +416,6 @@
     <Compile Include="ViewModels\Users\FollowingViewModel.cs" />
     <Compile Include="ViewModels\Users\IssuesViewModel.cs" />
     <Compile Include="ViewModels\Users\OrganizationsViewModel.cs" />
-    <Compile Include="ViewModels\Users\ProfilePageViewModel.cs" />
     <Compile Include="ViewModels\Users\PullRequestsViewModel.cs" />
     <Compile Include="ViewModels\Users\RepositoriesViewModel.cs" />
     <Compile Include="ViewModels\Users\OverviewViewModel.cs" />
@@ -514,23 +524,14 @@
     <Compile Include="Views\Organizations\OverviewPage.xaml.cs">
       <DependentUpon>OverviewPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\Organizations\ProfilePage.xaml.cs">
-      <DependentUpon>ProfilePage.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\Organizations\RepositoriesPage.xaml.cs">
       <DependentUpon>RepositoriesPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Repositories\Code\CodePage.xaml.cs">
-      <DependentUpon>CodePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Repositories\Issues\IssuePage.xaml.cs">
       <DependentUpon>IssuePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Repositories\Code\Layouts\DetailsLayoutView.xaml.cs">
       <DependentUpon>DetailsLayoutView.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Repositories\OverviewPage.xaml.cs">
-      <DependentUpon>OverviewPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Repositories\PullRequests\PullRequestsPage.xaml.cs">
       <DependentUpon>PullRequestsPage.xaml</DependentUpon>
@@ -558,9 +559,6 @@
     </Compile>
     <Compile Include="Views\Home\NotificationsPage.xaml.cs">
       <DependentUpon>NotificationsPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Users\ProfilePage.xaml.cs">
-      <DependentUpon>ProfilePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Users\RepositoriesPage.xaml.cs">
       <DependentUpon>RepositoriesPage.xaml</DependentUpon>
@@ -1330,7 +1328,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Content>
+    <Page Include="Dialogs\ExceptionStackTraceDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\CustomWebView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\LoadErrorDisplay.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1431,6 +1437,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Overview\RepositoryOverview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\PrimerControls\CounterLabel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1643,15 +1653,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Organizations\ProfilePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Organizations\RepositoriesPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Repositories\Code\CodePage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1660,10 +1662,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Repositories\Code\Layouts\DetailsLayoutView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Repositories\OverviewPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1703,10 +1701,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Users\ProfilePage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Users\RepositoriesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1731,6 +1725,9 @@
       <Version>6.2.14</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Mvvm">
+      <Version>7.1.2</Version>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Toolkit.Uwp">
       <Version>7.1.2</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Toolkit.Uwp.Notifications">

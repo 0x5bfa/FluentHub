@@ -1,7 +1,14 @@
 ﻿using FluentHub.Octokit.Queries.Repositories;
+using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
-using FluentHub.Uwp.Utils;
+using FluentHub.Uwp.Services;
+using FluentHub.Uwp.ViewModels.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls;
+using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
+using FluentHub.Uwp.Utils;
+using Microsoft.Extensions.DependencyInjection;
+using Windows.UI.Xaml.Media.Imaging;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.Discussions
 {
@@ -12,12 +19,18 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Discussions
             _messenger = messenger;
             _logger = logger;
 
-            LoadDiscussionPageCommand = new AsyncRelayCommand(LoadRepositoryOneDiscussionAsync);
+            LoadRepositoryDiscussionPageCommand = new AsyncRelayCommand(LoadRepositoryDiscussionPageAsync);
         }
 
         #region Fields and Properties
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
+
+        private string _login;
+        public string Login { get => _login; set => SetProperty(ref _login, value); }
+
+        private string _name;
+        public string Name { get => _name; set => SetProperty(ref _name, value); }
 
         private Repository _repository;
         public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
@@ -31,75 +44,89 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Discussions
         private Discussion _discussion;
         public Discussion Discussion { get => _discussion; set => SetProperty(ref _discussion, value); }
 
-        public IAsyncRelayCommand LoadDiscussionPageCommand { get; }
+        private Exception _taskException;
+        public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
+
+        public IAsyncRelayCommand LoadRepositoryDiscussionPageCommand { get; }
         #endregion
 
-        private async Task LoadRepositoryOneDiscussionAsync(CancellationToken token)
+        private async Task LoadRepositoryDiscussionPageAsync()
         {
+            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+            bool faulted = false;
+
+            string _currentTaskingMethodName = nameof(LoadRepositoryDiscussionPageAsync);
+
             try
             {
-                _messenger?.Send(new LoadingMessaging(true));
+                _currentTaskingMethodName = nameof(LoadRepositoryAsync);
+                await LoadRepositoryAsync(Login, Name);
 
-                DiscussionQueries queries = new();
-                var response = await queries.GetAsync(
-                    Repository.Owner.Login,
-                    Repository.Name,
-                    Number
-                    );
-
-                if (response == null) return;
-
-                Discussion = response;
+                _currentTaskingMethodName = nameof(LoadRepositoryOneDiscussionAsync);
+                await LoadRepositoryOneDiscussionAsync(Login, Name);
             }
             catch (Exception ex)
             {
-                _logger?.Error(nameof(LoadRepositoryOneDiscussionAsync), ex);
-                if (_messenger != null)
-                {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
+                TaskException = ex;
+                faulted = true;
+
+                _logger?.Error(_currentTaskingMethodName, ex);
                 throw;
             }
             finally
             {
-                _messenger?.Send(new LoadingMessaging(false));
+                SetCurrentTabItem();
+                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
             }
         }
 
-        public async Task LoadRepositoryAsync(string owner, string name)
+        private async Task LoadRepositoryOneDiscussionAsync(string owner, string name)
         {
-            try
-            {
-                RepositoryQueries queries = new();
-                Repository = await queries.GetDetailsAsync(owner, name);
+            DiscussionQueries queries = new();
+            var response = await queries.GetAsync(
+                Repository.Owner.Login,
+                Repository.Name,
+                Number
+                );
 
-                RepositoryOverviewViewModel = new()
-                {
-                    Repository = Repository,
-                    RepositoryName = Repository.Name,
-                    RepositoryOwnerLogin = Repository.Owner.Login,
-                    RepositoryVisibilityLabel = new()
-                    {
-                        Name = Repository.IsPrivate ? "Private" : "Public",
-                        Color = "#64000000",
-                    },
-                    ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
+            if (response == null) return;
 
-                    SelectedTag = "discussions",
-                };
-            }
-            catch (OperationCanceledException) { }
-            catch (Exception ex)
+            Discussion = response;
+        }
+
+        private async Task LoadRepositoryAsync(string owner, string name)
+        {
+            RepositoryQueries queries = new();
+            Repository = await queries.GetDetailsAsync(owner, name);
+
+            RepositoryOverviewViewModel = new()
             {
-                _logger?.Error(nameof(LoadRepositoryAsync), ex);
-                if (_messenger != null)
+                Repository = Repository,
+                RepositoryName = Repository.Name,
+                RepositoryOwnerLogin = Repository.Owner.Login,
+                RepositoryVisibilityLabel = new()
                 {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
-                throw;
-            }
+                    Name = Repository.IsPrivate ? "Private" : "Public",
+                    Color = "#64000000",
+                },
+                ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
+
+                SelectedTag = "discussions",
+            };
+        }
+
+        private void SetCurrentTabItem()
+        {
+            var provider = App.Current.Services;
+            INavigationService navigationService = provider.GetRequiredService<INavigationService>();
+
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = "Discussion";
+            currentItem.Description = "Discussion";
+            currentItem.Icon = new muxc.ImageIconSource
+            {
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Discussions.png"))
+            };
         }
     }
 }

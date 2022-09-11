@@ -5,11 +5,11 @@
     xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:labels="using:FluentHub.Uwp.UserControls.Labels"
-    xmlns:labelsvm="using:FluentHub.Uwp.ViewModels.UserControls.Labels"
     xmlns:local="using:FluentHub.Uwp.UserControls.ButtonBlocks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:primer="using:FluentHub.Uwp.UserControls.PrimerControls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
@@ -35,7 +35,10 @@
                         <Setter Property="MinHeight" Value="{StaticResource ExpanderMinHeight}" />
                         <Setter Property="CornerRadius" Value="{ThemeResource ControlCornerRadius}" />
                     </Style>
+
                     <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+                    <converters:HexColorCodeToSolidColorBrushConverter x:Key="HexColorCodeToSolidColorBrushConverter" />
+                    <converters:SubjectToButtonTitleConverter x:Key="SubjectToButtonTitleConverter" />
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
@@ -45,14 +48,18 @@
         Padding="16,12"
         Click="OnClick"
         Style="{StaticResource ContentBlockButtonStyle}">
-        <Grid ColumnSpacing="6">
 
+        <Grid ColumnSpacing="18">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.PullItem.Closed, Mode=OneWay}">
+            <toolkit:SwitchPresenter
+                Margin="6,0,0,0"
+                VerticalAlignment="Center"
+                TargetType="x:Boolean"
+                Value="{x:Bind ViewModel.PullItem.Closed, Mode=OneWay}">
 
                 <toolkit:Case Value="True">
                     <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.PullItem.Merged, Mode=OneWay}">
@@ -99,55 +106,39 @@
                 </toolkit:Case>
             </toolkit:SwitchPresenter>
 
-            <Grid Grid.Column="1">
+            <Grid Grid.Column="1" ColumnSpacing="8">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="{x:Bind ViewModel.PullItem.Repository.Owner.Login, Mode=OneWay}" />
-
-                    <TextBlock
-                        Margin="4,0"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="/" />
-
-                    <TextBlock
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="{x:Bind ViewModel.PullItem.Repository.Name, Mode=OneWay}" />
-
-                    <TextBlock
-                        Margin="4,0,0,0"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="#" />
-
-                    <TextBlock
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="{x:Bind ViewModel.PullItem.Number, Mode=OneWay}" />
-                </StackPanel>
+                <TextBlock
+                    x:Name="RepositoryInfoTextBlock"
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="{x:Bind ViewModel.PullItem, Converter={StaticResource SubjectToButtonTitleConverter}, Mode=OneWay}" />
 
                 <TextBlock
                     x:Name="UpdatedAtHumanized"
+                    Grid.ColumnSpan="2"
                     HorizontalAlignment="Right"
                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                     Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="{x:Bind ViewModel.PullItem.UpdatedAt, Mode=OneWay}" />
+                    Text="{x:Bind ViewModel.PullItem.UpdatedAtHumanized, Mode=OneWay}" />
 
                 <TextBlock
                     x:Name="TitleTextBlock"
                     Grid.Row="1"
                     Margin="0,4"
                     Style="{StaticResource BodyStrongTextBlockStyle}"
-                    Text="{x:Bind ViewModel.PullItem.Title, Mode=OneWay}" />
+                    Text="{x:Bind ViewModel.PullItem.Title, Mode=OneWay}"
+                    TextTrimming="CharacterEllipsis"
+                    TextWrapping="NoWrap">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="{x:Bind TitleTextBlock.Text, Mode=OneWay}" IsEnabled="{x:Bind TitleTextBlock.IsTextTrimmed, Mode=OneWay}" />
+                    </ToolTipService.ToolTip>
+                </TextBlock>
 
                 <StackPanel
                     Grid.Row="2"
@@ -291,20 +282,19 @@
 
                     </toolkit:SwitchPresenter>
 
-                    <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.LabelViewModels, Mode=OneWay}">
+                    <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.PullItem.Labels.Nodes, Mode=OneWay}">
                         <muxc:ItemsRepeater.Layout>
                             <muxc:StackLayout Orientation="Horizontal" Spacing="8" />
                         </muxc:ItemsRepeater.Layout>
-                        <DataTemplate x:DataType="labelsvm:LabelControlViewModel">
-                            <labels:LabelControl ViewModel="{x:Bind Mode=OneWay}" />
+                        <DataTemplate x:DataType="modelsV4:Label">
+                            <primer:IssueLabelToken FillColor="{x:Bind Color, Converter={StaticResource HexColorCodeToSolidColorBrushConverter}}" Text="{x:Bind Name}" />
                         </DataTemplate>
                     </muxc:ItemsRepeater>
 
                 </StackPanel>
 
                 <StackPanel
-                    Grid.Row="1"
-                    Grid.RowSpan="3"
+                    Grid.Row="2"
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
 

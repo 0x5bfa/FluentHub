@@ -23,7 +23,7 @@ namespace FluentHub.Uwp.ViewModels
             if (_messenger != null)
             {
                 _messenger.Register<UserNotificationMessage>(this, OnNewNotificationReceived);
-                _messenger.Register<LoadingMessaging>(this, OnIfContentIsLoadingRecieved);
+                _messenger.Register<TaskStateMessaging>(this, OnIfContentIsLoadingRecieved);
             }
 
             _navViewItems = new();
@@ -33,11 +33,11 @@ namespace FluentHub.Uwp.ViewModels
             NavViewFooterItems = new(_navViewFooterItems);
 
             _navViewItems.Add(new (name: "Home", glyphPrimary: "\uE80F", glyphSecondary: "\uEA8A", isSelected: true));
-            _navViewItems.Add(new (name: "Notifications", glyphPrimary: "\uE8BD", glyphSecondary: "\uE717"));
+            _navViewItems.Add(new (name: "Notifications", glyphPrimary: "\uEA8F", glyphSecondary: "\uEA8F"));
             _navViewItems.Add(new (name: "Activity", glyphPrimary: "\uECAD", glyphSecondary: "\uECAD"));
             _navViewItems.Add(new (name: "Marketplace", glyphPrimary: "\uE14D", glyphSecondary: "\uE14D"));
             _navViewItems.Add(new (name: "Explore", glyphPrimary: "\uE805", glyphSecondary: "\uE805"));
-            _navViewFooterItems.Add(new (name: "Profile", glyphPrimary: "\uE77B", glyphSecondary: "\uE77B"));
+            _navViewFooterItems.Add(new (name: "Profile", glyphPrimary: "\uE77B", glyphSecondary: "\uEA8C"));
 
             AddNewTabAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(AddNewTabAccelerator);
             CloseTabAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(CloseTabAccelerator);
@@ -72,8 +72,11 @@ namespace FluentHub.Uwp.ViewModels
         private Octokit.Models.v4.User _signedInUser;
         public Octokit.Models.v4.User SignedInUser { get => _signedInUser; private set => SetProperty(ref _signedInUser, value); }
 
-        private bool _isLoading;
-        public bool IsLoading { get => _isLoading; private set => SetProperty(ref _isLoading, value); }
+        private bool _taskIsInProgress;
+        public bool TaskIsInProgress { get => _taskIsInProgress; private set => SetProperty(ref _taskIsInProgress, value); }
+
+        private bool _taskIsCompletedSuccessfully;
+        public bool TaskIsCompletedSuccessfully { get => _taskIsCompletedSuccessfully; private set => SetProperty(ref _taskIsCompletedSuccessfully, value); }
 
         private int _unreadCount;
         public int UnreadCount { get => _unreadCount; private set => SetProperty(ref _unreadCount, value); }
@@ -275,9 +278,25 @@ namespace FluentHub.Uwp.ViewModels
             }
         }
 
-        private void OnIfContentIsLoadingRecieved(object recipient, LoadingMessaging message)
+        private void OnIfContentIsLoadingRecieved(object recipient, TaskStateMessaging message)
         {
-            IsLoading = message.IsLoading;
+            switch (message.StatusType)
+            {
+                case TaskStatusType.IsStarted:
+                    TaskIsInProgress = true;
+                    break;
+                case TaskStatusType.IsCompleted:
+                    TaskIsInProgress = false;
+                    break;
+                case TaskStatusType.IsCompletedSuccessfully:
+                    TaskIsCompletedSuccessfully = true;
+                    TaskIsInProgress = false;
+                    break;
+                case TaskStatusType.IsFaulted:
+                    TaskIsCompletedSuccessfully = false;
+                    TaskIsInProgress = false;
+                    break;
+            }
         }
 
         private async Task LoadSignedInUserAsync()
