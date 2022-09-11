@@ -30,13 +30,18 @@ namespace FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks
         #region Command methods
         private void GoRepository()
         {
-            var service = App.Current.Services.GetRequiredService<INavigationService>();
-            service.Navigate<Views.Repositories.Code.CodePage>(
-                new FrameNavigationArgs()
-                {
-                    Login = Repository.Owner.Login,
-                    Name = Repository.Name,
-                });
+            var _navigation = App.Current.Services.GetRequiredService<INavigationService>();
+
+            var parameter = new FrameNavigationArgs()
+            {
+                Login = Repository.Owner.Login,
+                Name = Repository.Name,
+            };
+
+            if (App.Settings.UseDetailsView)
+                _navigation.Navigate<Views.Repositories.Code.Layouts.DetailsLayoutView>(parameter);
+            else
+                _navigation.Navigate<Views.Repositories.Code.Layouts.TreeLayoutView>(parameter);
         }
         #endregion
     }

@@ -27,17 +27,16 @@ namespace FluentHub.Uwp.Views.Repositories.Code.Layouts
         public DetailsLayoutViewModel ViewModel { get; }
         private readonly INavigationService navService;
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var param = e.Parameter as FrameNavigationArgs;
+            ViewModel.Login = param.Login;
+            ViewModel.Name = param.Name;
+            ViewModel.CurrentPath = param.Parameters.ElementAtOrDefault(0) as string;
 
-            await ViewModel.LoadRepositoryAsync(param.Login, param.Name);
-
-            ViewModel.InitializeRepositoryContext(param.Login, param.Name, param.Parameters.ElementAtOrDefault(0) as string);
-
-            ViewModel.CreateTabHeader();
-
-            await ViewModel.LoadRepositoryContentsAsync();
+            var command = ViewModel.LoadDetailsViewPageCommand;
+            if (command.CanExecute(null))
+                command.Execute(null);
         }
 
         private void OnDirListViewDoubleTapped(object sender, DoubleTappedRoutedEventArgs e)

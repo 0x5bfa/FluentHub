@@ -35,7 +35,7 @@ namespace FluentHub.Uwp.UserControls.ButtonBlocks
 
             if (ViewModel.User.Id.ToString().StartsWith("O_"))
             {
-                service.Navigate<Views.Organizations.ProfilePage>(ViewModel.User.Login);
+                service.Navigate<Views.Organizations.OverviewPage>(ViewModel.User.Login);
             }
             else
             {

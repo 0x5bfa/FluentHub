@@ -1,9 +1,16 @@
 ﻿using FluentHub.Octokit.Queries.Organizations;
+using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
-using FluentHub.Uwp.Utils;
+using FluentHub.Uwp.Services;
+using FluentHub.Uwp.ViewModels.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
+using FluentHub.Uwp.Utils;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Toolkit.Uwp;
 using System.Text.RegularExpressions;
+using Windows.UI.Xaml.Media.Imaging;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.ViewModels.Organizations
 {
@@ -20,21 +27,21 @@ namespace FluentHub.Uwp.ViewModels.Organizations
             _repositories = new();
             Repositories = new(_repositories);
 
-            LoadOrganizationOverviewAsyncCommand = new AsyncRelayCommand(LoadOrganizationOverviewAsync);
+            LoadOrganizationOverviewPageCommand = new AsyncRelayCommand(LoadOrganizationOverviewPageAsync);
         }
 
         #region Fields and Properties
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
 
+        private string _login;
+        public string Login { get => _login; set => SetProperty(ref _login, value); }
+
         private Organization _organization;
         public Organization Organization { get => _organization; set => SetProperty(ref _organization, value); }
 
         private OrganizationProfileOverviewViewModel _organizationProfileOverviewViewModel;
         public OrganizationProfileOverviewViewModel OrganizationProfileOverviewViewModel { get => _organizationProfileOverviewViewModel; set => SetProperty(ref _organizationProfileOverviewViewModel, value); }
-
-        private string _login;
-        public string Login { get => _login; set => SetProperty(ref _login, value); }
 
         private bool _oauthAppIsRestrictedByOrgSettings;
         public bool OAuthAppIsRestrictedByOrgSettings { get => _oauthAppIsRestrictedByOrgSettings; set => SetProperty(ref _oauthAppIsRestrictedByOrgSettings, value); }
@@ -45,15 +52,48 @@ namespace FluentHub.Uwp.ViewModels.Organizations
         private readonly ObservableCollection<RepoButtonBlockViewModel> _repositories;
         public ReadOnlyObservableCollection<RepoButtonBlockViewModel> Repositories { get; }
 
-        public IAsyncRelayCommand LoadOrganizationOverviewAsyncCommand { get; }
+        private Exception _taskException;
+        public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
+
+        public IAsyncRelayCommand LoadOrganizationOverviewPageCommand { get; }
         #endregion
 
-        private async Task LoadOrganizationOverviewAsync(CancellationToken token)
+        private async Task LoadOrganizationOverviewPageAsync()
+        {
+            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+            bool faulted = false;
+
+            string _currentTaskingMethodName = nameof(LoadOrganizationOverviewPageAsync);
+
+            try
+            {
+                _currentTaskingMethodName = nameof(LoadOrganizationAsync);
+                await LoadOrganizationAsync(Login);
+
+                _currentTaskingMethodName = nameof(LoadOrganizationOverviewAsync);
+                await LoadOrganizationOverviewAsync(Login);
+            }
+            catch (Exception ex)
+            {
+                TaskException = ex;
+                faulted = true;
+
+                _logger?.Error(_currentTaskingMethodName, ex);
+                throw;
+            }
+            finally
+            {
+                SetCurrentTabItem();
+                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+            }
+        }
+
+        private async Task LoadOrganizationOverviewAsync(string org)
         {
             try
             {
                 RepositoryQueries repoQueries = new();
-                var repoItems = await repoQueries.GetAllAsync(Login);
+                var repoItems = await repoQueries.GetAllAsync(org);
 
                 _repositories.Clear();
                 foreach (var item in repoItems)
@@ -69,7 +109,7 @@ namespace FluentHub.Uwp.ViewModels.Organizations
                 }
 
                 PinnedItemQueries queries = new();
-                var pinnedItems = await queries.GetAllAsync(Login);
+                var pinnedItems = await queries.GetAllAsync(org);
                 if (pinnedItems == null) return;
 
                 _pinnedItems.Clear();
@@ -104,7 +144,7 @@ namespace FluentHub.Uwp.ViewModels.Organizations
             }
         }
 
-        public async Task LoadOrganizationAsync(string org)
+        private async Task LoadOrganizationAsync(string org)
         {
             try
             {
@@ -130,6 +170,20 @@ namespace FluentHub.Uwp.ViewModels.Organizations
                 }
                 throw;
             }
+        }
+
+        private void SetCurrentTabItem()
+        {
+            var provider = App.Current.Services;
+            INavigationService navigationService = provider.GetRequiredService<INavigationService>();
+
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = $"{Login}";
+            currentItem.Description = $"{Login}";
+            currentItem.Icon = new muxc.ImageIconSource
+            {
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Organizations.png"))
+            };
         }
     }
 }

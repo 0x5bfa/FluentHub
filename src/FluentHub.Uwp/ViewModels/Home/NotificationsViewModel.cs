@@ -1,8 +1,14 @@
 ﻿using FluentHub.Octokit.Queries.Users;
+using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
-using FluentHub.Uwp.Utils;
+using FluentHub.Uwp.ViewModels.Repositories;
+using FluentHub.Uwp.ViewModels.UserControls;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
+using FluentHub.Uwp.Utils;
+using Microsoft.Extensions.DependencyInjection;
+using Windows.UI.Xaml.Media.Imaging;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.ViewModels.Home
 {
@@ -13,11 +19,14 @@ namespace FluentHub.Uwp.ViewModels.Home
             _toastService = toastService;
             _messenger = messenger;
             _logger = logger;
+
             _notifications = new();
-            _unreadCount = 0;
             NotificationItems = new(_notifications);
 
-            RefreshNotificationsCommand = new AsyncRelayCommand(LoadNotificationsAsync);
+            _unreadCount = 0;
+
+            LoadUserNotificationsPageCommand = new AsyncRelayCommand(LoadUserNotificationsPageAsync);
+            LoadFurtherUserNotificationsPageCommand = new AsyncRelayCommand(LoadFurtherNotificationsAsync);
         }
 
         #region Fields and Poperties
@@ -36,74 +45,87 @@ namespace FluentHub.Uwp.ViewModels.Home
         private readonly ObservableCollection<NotificationButtonBlockViewModel> _notifications;
         public ReadOnlyObservableCollection<NotificationButtonBlockViewModel> NotificationItems { get; }
 
-        public IAsyncRelayCommand RefreshNotificationsCommand { get; }
+        private Exception _taskException;
+        public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
+
+        public IAsyncRelayCommand LoadUserNotificationsPageCommand { get; }
+        public IAsyncRelayCommand LoadFurtherUserNotificationsPageCommand { get; }
         #endregion
 
-        private async Task LoadNotificationsAsync(CancellationToken token)
+        private async Task LoadUserNotificationsPageAsync()
         {
+            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+            bool faulted = false;
+
+            string _currentTaskingMethodName = nameof(LoadUserNotificationsPageAsync);
+
             try
             {
-                _logger?.Error("Entered LoadNotificationsAsync()");
-                _messenger?.Send(new LoadingMessaging(true));
-
-                if (_loadedToTheEnd) return;
-
-                NotificationQueries queries = new();
-                var response = await queries.GetAllAsync(
-                    new() { All = true },
-                    new()
-                    {
-                        PageCount = 1, // Constant
-                        PageSize = _itemCountPerPage,
-                        StartPage = _loadedPageCount + 1,
-                    });
-
-                _loadedItemCount += response.Count();
-                _loadedPageCount++;
-                if (response.Count() < _itemCountPerPage)
-                    _loadedToTheEnd = true;
-
-                _notifications.Clear();
-                foreach (var item in response)
-                {
-                    NotificationButtonBlockViewModel viewmodel = new()
-                    {
-                        Item = item,
-                    };
-
-                    if (item.Unread) UnreadCount++;
-                    _notifications.Add(viewmodel);
-                }
+                _currentTaskingMethodName = nameof(LoadNotificationsAsync);
+                await LoadNotificationsAsync();
             }
-            catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error(nameof(LoadNotificationsAsync), ex);
-                if (_messenger != null)
-                {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
+                TaskException = ex;
+                faulted = true;
+
+                _logger?.Error(_currentTaskingMethodName, ex);
                 throw;
             }
             finally
             {
-                _messenger?.Send(new LoadingMessaging(false));
+                SetCurrentTabItem();
+
                 _toastService?.UpdateBadgeGlyph(BadgeGlyphType.Number, UnreadCount);
                 if (_messenger != null)
                 {
                     UserNotificationMessage notification = new("NotificationCount", UnreadCount.ToString(), UserNotificationType.Info);
                     _messenger.Send(notification);
                 }
+
+                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+            }
+        }
+
+        private async Task LoadNotificationsAsync()
+        {
+            if (_loadedToTheEnd) return;
+
+            NotificationQueries queries = new();
+            var response = await queries.GetAllAsync(
+                new() { All = true },
+                new()
+                {
+                    PageCount = 1, // Constant
+                    PageSize = _itemCountPerPage,
+                    StartPage = _loadedPageCount + 1,
+                });
+
+            _loadedItemCount += response.Count();
+            _loadedPageCount++;
+            if (response.Count() < _itemCountPerPage)
+                _loadedToTheEnd = true;
+
+            _notifications.Clear();
+            foreach (var item in response)
+            {
+                NotificationButtonBlockViewModel viewmodel = new()
+                {
+                    Item = item,
+                };
+
+                if (item.Unread) UnreadCount++;
+                _notifications.Add(viewmodel);
             }
         }
 
         public async Task LoadFurtherNotificationsAsync()
         {
+            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+            bool faulted = false;
+
             try
             {
-                _messenger?.Send(new LoadingMessaging(true));
-
                 if (_loadedToTheEnd) return;
 
                 NotificationQueries queries = new();
@@ -135,18 +157,30 @@ namespace FluentHub.Uwp.ViewModels.Home
             catch (OperationCanceledException) { }
             catch (Exception ex)
             {
+                TaskException = ex;
+                faulted = true;
+
                 _logger?.Error(nameof(LoadFurtherNotificationsAsync), ex);
-                if (_messenger != null)
-                {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
                 throw;
             }
             finally
             {
-                _messenger?.Send(new LoadingMessaging(false));
+                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
             }
+        }
+
+        private void SetCurrentTabItem()
+        {
+            var provider = App.Current.Services;
+            INavigationService navigationService = provider.GetRequiredService<INavigationService>();
+
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = "Notifications";
+            currentItem.Description = "Notifications";
+            currentItem.Icon = new muxc.ImageIconSource
+            {
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Notifications.png"))
+            };
         }
     }
 }

@@ -1,9 +1,14 @@
 ﻿using FluentHub.Octokit.Queries.Users;
 using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Services;
+using FluentHub.Uwp.ViewModels.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
 using FluentHub.Uwp.Utils;
+using Microsoft.Extensions.DependencyInjection;
+using Windows.UI.Xaml.Media.Imaging;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.ViewModels.Users
 {
@@ -13,21 +18,19 @@ namespace FluentHub.Uwp.ViewModels.Users
         {
             _logger = logger;
             _messenger = messenger;
+
             _followingItems = new();
             FollowingItems = new(_followingItems);
 
-            RefreshFollowingCommand = new AsyncRelayCommand(LoadUserFollowingAsync);
+            LoadUserFollowingPageCommand = new AsyncRelayCommand(LoadUserFollowingPageAsync);
         }
 
         #region Fields and Properties
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
 
-        private bool _displayTitle;
-        public bool DisplayTitle { get => _displayTitle; set => SetProperty(ref _displayTitle, value); }
-
-        private readonly ObservableCollection<UserButtonBlockViewModel> _followingItems;
-        public ReadOnlyObservableCollection<UserButtonBlockViewModel> FollowingItems { get; }
+        private string _login;
+        public string Login { get => _login; set => SetProperty(ref _login, value); }
 
         private User _user;
         public User User { get => _user; set => SetProperty(ref _user, value); }
@@ -35,81 +38,96 @@ namespace FluentHub.Uwp.ViewModels.Users
         private UserProfileOverviewViewModel _userProfileOverviewViewModel;
         public UserProfileOverviewViewModel UserProfileOverviewViewModel { get => _userProfileOverviewViewModel; set => SetProperty(ref _userProfileOverviewViewModel, value); }
 
-        private string _login;
-        public string Login { get => _login; set => SetProperty(ref _login, value); }
+        private bool _displayTitle;
+        public bool DisplayTitle { get => _displayTitle; set => SetProperty(ref _displayTitle, value); }
 
-        public IAsyncRelayCommand RefreshFollowingCommand { get; }
+        private readonly ObservableCollection<UserButtonBlockViewModel> _followingItems;
+        public ReadOnlyObservableCollection<UserButtonBlockViewModel> FollowingItems { get; }
+
+        private Exception _taskException;
+        public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
+
+        public IAsyncRelayCommand LoadUserFollowingPageCommand { get; }
         #endregion
 
-        private async Task LoadUserFollowingAsync(CancellationToken token)
+        private async Task LoadUserFollowingPageAsync()
         {
+            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+            bool faulted = false;
+
+            string _currentTaskingMethodName = nameof(LoadUserFollowingPageAsync);
+
             try
             {
-                _messenger?.Send(new LoadingMessaging(true));
+                _currentTaskingMethodName = nameof(LoadUserAsync);
+                await LoadUserAsync(Login);
 
-                FollowingQueries queries = new();
-                var response = await queries.GetAllAsync(Login);
-
-                _followingItems.Clear();
-                foreach (var item in response)
-                {
-                    UserButtonBlockViewModel viewModel = new()
-                    {
-                        User = item,
-                    };
-
-                    _followingItems.Add(viewModel);
-                }
+                _currentTaskingMethodName = nameof(LoadUserFollowingAsync);
+                await LoadUserFollowingAsync(Login);
             }
             catch (Exception ex)
             {
-                _logger?.Error(nameof(LoadUserFollowingAsync), ex);
-                if (_messenger != null)
-                {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
+                TaskException = ex;
+                faulted = true;
+
+                _logger?.Error(_currentTaskingMethodName, ex);
                 throw;
             }
             finally
             {
-                _messenger?.Send(new LoadingMessaging(false));
+                SetCurrentTabItem();
+                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+            }
+        }
+
+        private async Task LoadUserFollowingAsync(string login)
+        {
+            FollowingQueries queries = new();
+            var response = await queries.GetAllAsync(login);
+
+            _followingItems.Clear();
+            foreach (var item in response)
+            {
+                UserButtonBlockViewModel viewModel = new()
+                {
+                    User = item,
+                };
+
+                _followingItems.Add(viewModel);
             }
         }
 
         public async Task LoadUserAsync(string login)
         {
-            try
+            UserQueries queries = new();
+            var response = await queries.GetAsync(login);
+
+            User = response ?? new();
+
+            UserProfileOverviewViewModel = new()
             {
-                _messenger?.Send(new LoadingMessaging(true));
+                User = User,
+                SelectedTag = "following",
+            };
 
-                UserQueries queries = new();
-                var response = await queries.GetAsync(login);
-
-                User = response ?? new();
-
-                // View model
-                UserProfileOverviewViewModel = new()
-                {
-                    User = User,
-                    SelectedTag = "following",
-                };
-
-                if (string.IsNullOrEmpty(User.WebsiteUrl) is false)
-                {
-                    UserProfileOverviewViewModel.BuiltWebsiteUrl = new UriBuilder(User.WebsiteUrl).Uri;
-                }
-            }
-            catch (Exception ex)
+            if (string.IsNullOrEmpty(User.WebsiteUrl) is false)
             {
-                _logger?.Error(nameof(LoadUserAsync), ex);
-                if (_messenger != null)
-                {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
-                throw;
+                UserProfileOverviewViewModel.BuiltWebsiteUrl = new UriBuilder(User.WebsiteUrl).Uri;
             }
+        }
+
+        private void SetCurrentTabItem()
+        {
+            var provider = App.Current.Services;
+            INavigationService navigationService = provider.GetRequiredService<INavigationService>();
+
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = "Following";
+            currentItem.Description = $"People {User?.Login} is following";
+            currentItem.Icon = new muxc.ImageIconSource
+            {
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Accounts.png"))
+            };
         }
     }
 }

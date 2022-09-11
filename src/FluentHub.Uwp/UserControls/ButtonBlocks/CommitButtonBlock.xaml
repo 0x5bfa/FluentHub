@@ -38,7 +38,7 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid d:Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" d:CornerRadius="8">
+    <Grid>
 
         <Button
             x:Name="RepoBlockButton"
@@ -80,14 +80,33 @@
                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                             Style="{StaticResource BodyTextBlockStyle}"
                             Text="authored" />
+
+                        <TextBlock
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="{x:Bind ViewModel.CommitItem.CommittedDateHumanized, Mode=OneWay}" />
                     </StackPanel>
                 </Grid>
 
-                <TextBlock
-                    HorizontalAlignment="Right"
-                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                    Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="{x:Bind ViewModel.CommitItem.CommittedDate, Mode=OneWay}" />
+                <Grid HorizontalAlignment="Right">
+                    <StackPanel Orientation="Horizontal">
+                        <Button
+                            Height="32"
+                            CornerRadius="4,0,0,4"
+                            ToolTipService.ToolTip="Copy the full commit oid">
+                            <FontIcon FontSize="16" Glyph="&#xE8C8;" />
+                        </Button>
+                        <Border
+                            Width="1"
+                            Height="32"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                            BorderThickness="1" />
+                        <Button
+                            Content="{x:Bind ViewModel.CommitItem.AbbreviatedOid, Mode=OneWay}"
+                            CornerRadius="0,4,4,0"
+                            IsEnabled="False" />
+                    </StackPanel>
+                </Grid>
             </Grid>
         </Button>
     </Grid>

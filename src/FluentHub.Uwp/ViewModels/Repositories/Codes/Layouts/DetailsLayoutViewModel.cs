@@ -13,143 +13,142 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Code.Layouts
         {
             _messenger = messenger;
             _logger = logger;
-            _messenger = messenger;
 
             _items = new();
             Items = new(_items);
+
+            LoadDetailsViewPageCommand = new AsyncRelayCommand(LoadDetailsViewPageAsync);
         }
 
         #region Fields and Properties
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
 
-        private RepoContextViewModel contextViewModel;
-        public RepoContextViewModel ContextViewModel { get => contextViewModel; set => SetProperty(ref contextViewModel, value); }
+        private string _login;
+        public string Login { get => _login; set => SetProperty(ref _login, value); }
+
+        private string _name;
+        public string Name { get => _name; set => SetProperty(ref _name, value); }
 
         private Repository _repository;
         public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
 
+        private RepoContextViewModel contextViewModel;
+        public RepoContextViewModel ContextViewModel { get => contextViewModel; set => SetProperty(ref contextViewModel, value); }
+
         private RepositoryOverviewViewModel _repositoryOverviewViewModel;
         public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
+
+        private string _currentPath;
+        public string CurrentPath { get => _currentPath; set => SetProperty(ref _currentPath, value); }
 
         private readonly ObservableCollection<DetailsLayoutListViewModel> _items;
         public ReadOnlyObservableCollection<DetailsLayoutListViewModel> Items { get; }
 
-        public IAsyncRelayCommand RefreshDetailsLayoutPageCommand { get; }
-        public IAsyncRelayCommand LoadRepositoryCommand { get; }
+        private Exception _taskException;
+        public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
+
+        public IAsyncRelayCommand LoadDetailsViewPageCommand { get; }
         #endregion
 
-        public async Task LoadRepositoryContentsAsync()
+        private async Task LoadDetailsViewPageAsync()
         {
+            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+            bool faulted = false;
+
+            string _currentTaskingMethodName = nameof(LoadDetailsViewPageAsync);
+
             try
             {
-                _messenger?.Send(new LoadingMessaging(true));
+                _currentTaskingMethodName = nameof(LoadRepositoryAsync);
+                await LoadRepositoryAsync(Login, Name);
 
-                if (string.IsNullOrEmpty(ContextViewModel.Repository.DefaultBranchRef.Name))
-                    return;
+                _currentTaskingMethodName = nameof(InitializeRepositoryContext);
+                InitializeRepositoryContext(Login, Name, CurrentPath);
 
-                if (ContextViewModel.IsFile) return;
-                ContextViewModel.IsDir = true;
-
-                TreeQueries queries = new();
-                var response = await queries.GetWithObjectNameAsync(
-                    Repository.Name,
-                    Repository.Owner.Login,
-                    ContextViewModel.BranchName,
-                    ContextViewModel.Path);
-
-                if (string.IsNullOrEmpty(ContextViewModel.Path))
-                    ContextViewModel.IsRootDir = true;
-                else ContextViewModel.IsSubDir = true;
-
-                var zippedResponse =
-                    response.Files.Zip(
-                        response.Commits,
-                        (file, commit) => new
-                        {
-                            File = file,
-                            Commit = commit
-                        });
-
-                foreach (var item in zippedResponse)
-                {
-                    DetailsLayoutListViewModel listItem = new()
-                    {
-                        Type = item.File.Type,
-                        Name = item.File.Name,
-                        LatestCommitMessage = item.Commit.Message.Split('\n', 2).FirstOrDefault(),
-                        UpdatedAt = item.Commit.CommittedDate,
-                        UpdatedAtHumanized = item.Commit.CommittedDateHumanized,
-                    };
-
-                    if (item.File.Type == "tree")
-                        listItem.IconGlyph = "\uE9A0";
-                    else
-                        listItem.IconGlyph = "\uE996";
-
-                    _items.Add(listItem);
-                }
-
-                var orderedByItemType =
-                    new ObservableCollection<DetailsLayoutListViewModel>
-                    (Items.OrderByDescending(x => x.IconGlyph));
-
-                _items.Clear();
-                foreach (var orderedItem in orderedByItemType) _items.Add(orderedItem);
+                _currentTaskingMethodName = nameof(LoadRepositoryContentsAsync);
+                await LoadRepositoryContentsAsync(Login, Name, ContextViewModel.BranchName, ContextViewModel.Path);
             }
-            catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error(nameof(LoadRepositoryContentsAsync), ex);
-                if (_messenger != null)
-                {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
+                TaskException = ex;
+
+                _logger?.Error(_currentTaskingMethodName, ex);
+                _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsFaulted));
                 throw;
             }
             finally
             {
-                _messenger?.Send(new LoadingMessaging(false));
+                SetCurrentTabItem();
+                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
             }
         }
 
-        public async Task LoadRepositoryAsync(string owner, string name)
+        private async Task LoadRepositoryContentsAsync(string login, string name, string branch, string path)
         {
-            try
+            if (string.IsNullOrEmpty(ContextViewModel.Repository.DefaultBranchRef.Name))
+                return;
+
+            if (ContextViewModel.IsFile) return;
+            ContextViewModel.IsDir = true;
+
+            TreeQueries queries = new();
+            var response = await queries.GetWithObjectNameAsync(name, login, branch, path);
+
+            if (string.IsNullOrEmpty(path))
+                ContextViewModel.IsRootDir = true;
+            else ContextViewModel.IsSubDir = true;
+
+            var zippedResponse = response.Files.Zip(response.Commits, (file, commit) => new { File = file, Commit = commit });
+
+            foreach (var item in zippedResponse)
             {
-                RepositoryQueries queries = new();
-                Repository = await queries.GetDetailsAsync(owner, name);
-
-                RepositoryOverviewViewModel = new()
+                DetailsLayoutListViewModel listItem = new()
                 {
-                    Repository = Repository,
-                    RepositoryName = Repository.Name,
-                    RepositoryOwnerLogin = Repository.Owner.Login,
-                    RepositoryVisibilityLabel = new()
-                    {
-                        Name = Repository.IsPrivate ? "Private" : "Public",
-                        Color = "#64000000",
-                    },
-                    ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
-
-                    SelectedTag = "code",
+                    Type = item.File.Type,
+                    Name = item.File.Name,
+                    LatestCommitMessage = item.Commit.Message.Split('\n', 2).FirstOrDefault(),
+                    UpdatedAt = item.Commit.CommittedDate,
+                    UpdatedAtHumanized = item.Commit.CommittedDateHumanized,
                 };
+
+                if (item.File.Type == "tree")
+                    listItem.IconGlyph = "\uE9A0";
+                else
+                    listItem.IconGlyph = "\uE996";
+
+                _items.Add(listItem);
             }
-            catch (OperationCanceledException) { }
-            catch (Exception ex)
-            {
-                _logger?.Error(nameof(LoadRepositoryAsync), ex);
-                if (_messenger != null)
-                {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
-                throw;
-            }
+
+            var orderedByItemType =
+                new ObservableCollection<DetailsLayoutListViewModel>(Items.OrderByDescending(x => x.IconGlyph));
+
+            _items.Clear();
+            foreach (var orderedItem in orderedByItemType) _items.Add(orderedItem);
         }
 
-        public void InitializeRepositoryContext(string owner, string name, string path)
+        private async Task LoadRepositoryAsync(string owner, string name)
+        {
+            RepositoryQueries queries = new();
+            Repository = await queries.GetDetailsAsync(owner, name);
+
+            RepositoryOverviewViewModel = new()
+            {
+                Repository = Repository,
+                RepositoryName = Repository.Name,
+                RepositoryOwnerLogin = Repository.Owner.Login,
+                RepositoryVisibilityLabel = new()
+                {
+                    Name = Repository.IsPrivate ? "Private" : "Public",
+                    Color = "#64000000",
+                },
+                ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
+
+                SelectedTag = "code",
+            };
+        }
+
+        private void InitializeRepositoryContext(string owner, string name, string path)
         {
             bool isRootDir = false;
             bool isFile = false;
@@ -200,7 +199,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Code.Layouts
             };
         }
 
-        public void CreateTabHeader()
+        private void SetCurrentTabItem()
         {
             string header;
             string description;

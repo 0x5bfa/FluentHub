@@ -1,9 +1,14 @@
 ﻿using FluentHub.Octokit.Queries.Users;
 using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
-using FluentHub.Uwp.Utils;
+using FluentHub.Uwp.Services;
+using FluentHub.Uwp.ViewModels.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
+using FluentHub.Uwp.Utils;
+using Microsoft.Extensions.DependencyInjection;
+using Windows.UI.Xaml.Media.Imaging;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.ViewModels.Users
 {
@@ -13,21 +18,19 @@ namespace FluentHub.Uwp.ViewModels.Users
         {
             _messenger = messenger;
             _logger = logger;
+
             _repositories = new();
             Repositories = new(_repositories);
 
-            RefreshRepositoriesCommand = new AsyncRelayCommand(LoadUserRepositoriesAsync);
+            LoadUserRepositoriesPageCommand = new AsyncRelayCommand(LoadUserRepositoriesPageAsync);
         }
 
         #region Fields and Properties
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
 
-        private bool _displayTitle;
-        public bool DisplayTitle { get => _displayTitle; set => SetProperty(ref _displayTitle, value); }
-
-        private readonly ObservableCollection<RepoButtonBlockViewModel> _repositories;
-        public ReadOnlyObservableCollection<RepoButtonBlockViewModel> Repositories { get; }
+        private string _login;
+        public string Login { get => _login; set => SetProperty(ref _login, value); }
 
         private User _user;
         public User User { get => _user; set => SetProperty(ref _user, value); }
@@ -35,82 +38,98 @@ namespace FluentHub.Uwp.ViewModels.Users
         private UserProfileOverviewViewModel _userProfileOverviewViewModel;
         public UserProfileOverviewViewModel UserProfileOverviewViewModel { get => _userProfileOverviewViewModel; set => SetProperty(ref _userProfileOverviewViewModel, value); }
 
-        private string _login;
-        public string Login { get => _login; set => SetProperty(ref _login, value); }
+        private bool _displayTitle;
+        public bool DisplayTitle { get => _displayTitle; set => SetProperty(ref _displayTitle, value); }
 
-        public IAsyncRelayCommand RefreshRepositoriesCommand { get; }
+        private readonly ObservableCollection<RepoButtonBlockViewModel> _repositories;
+        public ReadOnlyObservableCollection<RepoButtonBlockViewModel> Repositories { get; }
+
+        private Exception _taskException;
+        public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
+
+        public IAsyncRelayCommand LoadUserRepositoriesPageCommand { get; }
         #endregion
 
-        private async Task LoadUserRepositoriesAsync(CancellationToken token)
+        private async Task LoadUserRepositoriesPageAsync(CancellationToken token)
         {
+            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+            bool faulted = false;
+
+            string _currentTaskingMethodName = nameof(LoadUserRepositoriesPageAsync);
+
             try
             {
-                _messenger?.Send(new LoadingMessaging(true));
+                _currentTaskingMethodName = nameof(LoadUserAsync);
+                await LoadUserAsync(Login);
 
-                RepositoryQueries queries = new();
-                var response = await queries.GetAllAsync(Login);
-
-                _repositories.Clear();
-                foreach (var item in response)
-                {
-                    RepoButtonBlockViewModel viewModel = new()
-                    {
-                        Repository = item,
-                        DisplayDetails = true,
-                        DisplayStarButton = true,
-                    };
-
-                    _repositories.Add(viewModel);
-                }
+                _currentTaskingMethodName = nameof(LoadUserRepositoriesAsync);
+                await LoadUserRepositoriesAsync(Login);
             }
-            catch (OperationCanceledException) { }
             catch (Exception ex)
             {
-                _logger?.Error(nameof(LoadUserRepositoriesAsync), ex);
-                if (_messenger != null)
-                {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
+                TaskException = ex;
+                faulted = true;
+
+                _logger?.Error(_currentTaskingMethodName, ex);
                 throw;
             }
             finally
             {
-                _messenger?.Send(new LoadingMessaging(false));
+                SetCurrentTabItem();
+                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
             }
         }
 
-        public async Task LoadUserAsync(string login)
+        private async Task LoadUserRepositoriesAsync(string login)
         {
-            try
+            RepositoryQueries queries = new();
+            var response = await queries.GetAllAsync(login);
+
+            _repositories.Clear();
+            foreach (var item in response)
             {
-                UserQueries queries = new();
-                var response = await queries.GetAsync(login);
-
-                User = response ?? new();
-
-                // View model
-                UserProfileOverviewViewModel = new()
+                RepoButtonBlockViewModel viewModel = new()
                 {
-                    User = User,
-                    SelectedTag = "repositories",
+                    Repository = item,
+                    DisplayDetails = true,
+                    DisplayStarButton = true,
                 };
 
-                if (string.IsNullOrEmpty(User.WebsiteUrl) is false)
-                {
-                    UserProfileOverviewViewModel.BuiltWebsiteUrl = new UriBuilder(User.WebsiteUrl).Uri;
-                }
+                _repositories.Add(viewModel);
             }
-            catch (Exception ex)
+        }
+
+        private async Task LoadUserAsync(string login)
+        {
+            UserQueries queries = new();
+            var response = await queries.GetAsync(login);
+
+            User = response ?? new();
+
+            UserProfileOverviewViewModel = new()
             {
-                _logger?.Error(nameof(LoadUserAsync), ex);
-                if (_messenger != null)
-                {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
-                throw;
+                User = User,
+                SelectedTag = "repositories",
+            };
+
+            if (string.IsNullOrEmpty(User.WebsiteUrl) is false)
+            {
+                UserProfileOverviewViewModel.BuiltWebsiteUrl = new UriBuilder(User.WebsiteUrl).Uri;
             }
+        }
+
+        private void SetCurrentTabItem()
+        {
+            var provider = App.Current.Services;
+            INavigationService navigationService = provider.GetRequiredService<INavigationService>();
+
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = "Repositories";
+            currentItem.Description = $"{Login}'s repositories";
+            currentItem.Icon = new muxc.ImageIconSource
+            {
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.png"))
+            };
         }
     }
 }

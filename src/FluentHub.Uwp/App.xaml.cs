@@ -91,14 +91,12 @@ namespace FluentHub.Uwp
                 .AddTransient<ViewModels.AppSettings.Accounts.AccountViewModel>()
                 .AddTransient<ViewModels.AppSettings.Accounts.OtherUsersViewModel>()
                 .AddTransient<ViewModels.AppSettings.AppearanceViewModel>()
-                .AddTransient<ViewModels.AppSettings.MainSettingsViewModel>()
                 .AddTransient<ViewModels.Dialogs.AccountSwitchingDialogViewModel>()
                 .AddTransient<ViewModels.Dialogs.EditPinnedRepositoriesDialogViewModel>()
-                .AddTransient<ViewModels.Home.ActivitiesViewModel>()
+                .AddTransient<ViewModels.Home.FeedsViewModel>()
                 .AddTransient<ViewModels.Home.NotificationsViewModel>()
                 .AddTransient<ViewModels.Home.UserHomeViewModel>()
                 .AddTransient<ViewModels.Organizations.OverviewViewModel>()
-                .AddTransient<ViewModels.Organizations.ProfileViewModel>()
                 .AddTransient<ViewModels.Organizations.RepositoriesViewModel>()
                 .AddTransient<ViewModels.Repositories.Code.Layouts.DetailsLayoutViewModel>()
                 .AddTransient<ViewModels.Repositories.Code.Layouts.TreeLayoutViewModel>()
@@ -109,13 +107,12 @@ namespace FluentHub.Uwp
                 .AddTransient<ViewModels.Repositories.Discussions.DiscussionViewModel>()
                 .AddTransient<ViewModels.Repositories.Issues.IssueViewModel>()
                 .AddTransient<ViewModels.Repositories.Issues.IssuesViewModel>()
-                .AddTransient<ViewModels.Repositories.OverviewViewModel>()
                 .AddTransient<ViewModels.Repositories.Projects.ProjectsViewModel>()
                 .AddTransient<ViewModels.Repositories.Projects.ProjectViewModel>()
                 .AddTransient<ViewModels.Repositories.PullRequests.ConversationViewModel>()
+                .AddTransient<ViewModels.Repositories.PullRequests.CommitViewModel>()
                 .AddTransient<ViewModels.Repositories.PullRequests.CommitsViewModel>()
                 .AddTransient<ViewModels.Repositories.PullRequests.FileChangesViewModel>()
-                .AddTransient<ViewModels.Repositories.PullRequests.PullRequestViewModel>()
                 .AddTransient<ViewModels.Repositories.PullRequests.PullRequestsViewModel>()
                 .AddTransient<ViewModels.SignIn.IntroViewModel>()
                 .AddTransient<ViewModels.UserControls.Blocks.FileContentBlockViewModel>()
@@ -125,7 +122,6 @@ namespace FluentHub.Uwp
                 .AddTransient<ViewModels.UserControls.Blocks.LatestCommitBlockViewModel>()
                 .AddTransient<ViewModels.Users.FollowersViewModel>()
                 .AddTransient<ViewModels.Users.FollowingViewModel>()
-                .AddTransient<ViewModels.Users.ProfilePageViewModel>()
                 .AddTransient<ViewModels.Users.IssuesViewModel>()
                 .AddTransient<ViewModels.Users.OverviewViewModel>()
                 .AddTransient<ViewModels.Users.PullRequestsViewModel>()
@@ -275,10 +271,12 @@ namespace FluentHub.Uwp
                     page = typeof(Views.Repositories.Discussions.DiscussionsPage);
                     break;
                 case "repositories":
-                    page = typeof(Views.Repositories.Code.CodePage);
+                    page = App.Settings.UseDetailsView ?
+                        typeof(Views.Repositories.Code.Layouts.DetailsLayoutView) :
+                        typeof(Views.Repositories.Code.Layouts.TreeLayoutView);
                     break;
                 case "organizations":
-                    page = typeof(Views.Organizations.ProfilePage);
+                    page = typeof(Views.Organizations.OverviewPage);
                     break;
                 case "stars":
                     page = typeof(Views.Users.StarredReposPage);

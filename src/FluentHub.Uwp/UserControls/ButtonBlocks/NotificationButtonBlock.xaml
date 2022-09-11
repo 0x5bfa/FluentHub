@@ -171,7 +171,7 @@
                     HorizontalAlignment="Right"
                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                     Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="{x:Bind ViewModel.Item.UpdatedAt, Mode=OneWay}" />
+                    Text="{x:Bind ViewModel.Item.UpdatedAtHumanized, Mode=OneWay}" />
 
                 <TextBlock
                     x:Name="TitleTextBlock"

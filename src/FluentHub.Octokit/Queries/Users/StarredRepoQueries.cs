@@ -16,7 +16,6 @@
                     OctokitGraphQLModel.PullRequestState.Open
                 });
 
-            #region query
             var query = new Query()
                 .User(login)
                 .StarredRepositories(first: 30)
@@ -31,6 +30,7 @@
                     IsInOrganization = x.IsInOrganization,
                     ViewerHasStarred = x.ViewerHasStarred,
                     UpdatedAt = x.UpdatedAt,
+                    UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
 
                     LicenseInfo = x.LicenseInfo.Select(licenseInfo => new License
                     {
@@ -66,7 +66,6 @@
                     .SingleOrDefault(),
                 })
                 .Compile();
-            #endregion
 
             var response = await App.Connection.Run(query);
 

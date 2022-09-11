@@ -44,41 +44,33 @@ namespace FluentHub.Uwp.UserControls
                 default:
                 case "conversation":
                     service.Navigate(
-                        typeof(Views.Repositories.Code.CodePage),
+                        typeof(Views.Repositories.PullRequests.ConversationPage),
                         new Models.FrameNavigationArgs()
                         {
-                            Login = ViewModel.PullRequest.Repository.Owner.Login,
-                            Name = ViewModel.PullRequest.Repository.Name,
+                            Login = ViewModel.PullRequest?.Repository?.Owner?.Login,
+                            Name = ViewModel.PullRequest?.Repository?.Name,
                             Number = ViewModel.PullRequest.Number,
                         });
                     break;
                 case "commits":
                     service.Navigate(
-                        typeof(Views.Repositories.Issues.IssuesPage),
+                        typeof(Views.Repositories.PullRequests.CommitsPage),
                         new Models.FrameNavigationArgs()
                         {
-                            Login = ViewModel.PullRequest.Repository.Owner.Login,
-                            Name = ViewModel.PullRequest.Repository.Name,
+                            Login = ViewModel.PullRequest?.Repository?.Owner?.Login,
+                            Name = ViewModel.PullRequest?.Repository?.Name,
                             Number = ViewModel.PullRequest.Number,
                         });
                     break;
                 case "checks":
-                    service.Navigate(
-                        typeof(Views.Repositories.PullRequests.PullRequestsPage),
-                        new Models.FrameNavigationArgs()
-                        {
-                            Login = ViewModel.PullRequest.Repository.Owner.Login,
-                            Name = ViewModel.PullRequest.Repository.Name,
-                            Number = ViewModel.PullRequest.Number,
-                        });
                     break;
                 case "filechanges":
                     service.Navigate(
-                        typeof(Views.Repositories.Discussions.DiscussionsPage),
+                        typeof(Views.Repositories.PullRequests.FileChangesPage),
                         new Models.FrameNavigationArgs()
                         {
-                            Login = ViewModel.PullRequest.Repository.Owner.Login,
-                            Name = ViewModel.PullRequest.Repository.Name,
+                            Login = ViewModel.PullRequest?.Repository?.Owner?.Login,
+                            Name = ViewModel.PullRequest?.Repository?.Name,
                             Number = ViewModel.PullRequest.Number,
                         });
                     break;

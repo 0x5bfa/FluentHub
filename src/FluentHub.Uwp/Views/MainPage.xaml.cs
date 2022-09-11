@@ -83,6 +83,7 @@ namespace FluentHub.Uwp.Views
             UnsubscribeEvents();
             navService.Disconnect();
         }
+
         private void OnSearchBarButtonClick(object sender, RoutedEventArgs e)
         {
             SearchBar.Visibility = Visibility.Visible;

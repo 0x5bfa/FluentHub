@@ -1,8 +1,16 @@
 ﻿using FluentHub.Octokit.Queries.Repositories;
+using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
-using FluentHub.Uwp.Utils;
+using FluentHub.Uwp.Services;
+using FluentHub.Uwp.ViewModels.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls;
 using FluentHub.Uwp.ViewModels.UserControls.Blocks;
+using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
+using FluentHub.Uwp.ViewModels.UserControls.Overview;
+using FluentHub.Uwp.Utils;
+using Microsoft.Extensions.DependencyInjection;
+using Windows.UI.Xaml.Media.Imaging;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
 {
@@ -16,12 +24,21 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
             _diffViewModels = new();
             DiffViewModels = new(_diffViewModels);
 
-            RefreshPullRequestPageCommand = new AsyncRelayCommand(LoadRepositoryPullRequestFileChangesAsync);
+            LoadRepositoryPullRequestFileChangesPageCommand = new AsyncRelayCommand(LoadRepositoryPullRequestFileChangesPageAsync);
         }
 
         #region Fields and Properties
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
+
+        private string _login;
+        public string Login { get => _login; set => SetProperty(ref _login, value); }
+
+        private string _name;
+        public string Name { get => _name; set => SetProperty(ref _name, value); }
+
+        private int _number;
+        public int Number { get => _number; set => SetProperty(ref _number, value); }
 
         private Repository _repository;
         public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
@@ -29,8 +46,8 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
         private RepositoryOverviewViewModel _repositoryOverviewViewModel;
         public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
 
-        private int _number;
-        public int Number { get => _number; set => SetProperty(ref _number, value); }
+        private PullRequestOverviewViewModel _pullRequestOverviewViewModel;
+        public PullRequestOverviewViewModel PullRequestOverviewViewModel { get => _pullRequestOverviewViewModel; set => SetProperty(ref _pullRequestOverviewViewModel, value); }
 
         private PullRequest pullItem;
         public PullRequest PullItem { get => pullItem; private set => SetProperty(ref pullItem, value); }
@@ -38,69 +55,74 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
         private ObservableCollection<DiffBlockViewModel> _diffViewModels;
         public ReadOnlyObservableCollection<DiffBlockViewModel> DiffViewModels { get; }
 
-        public IAsyncRelayCommand RefreshPullRequestPageCommand { get; }
+        private Exception _taskException;
+        public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
+
+        public IAsyncRelayCommand LoadRepositoryPullRequestFileChangesPageCommand { get; }
         #endregion
 
-        private async Task LoadRepositoryPullRequestFileChangesAsync(CancellationToken token)
+        private async Task LoadRepositoryPullRequestFileChangesPageAsync()
         {
+            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+            bool faulted = false;
+
+            string _currentTaskingMethodName = nameof(LoadRepositoryPullRequestFileChangesPageAsync);
+
             try
             {
-                _messenger?.Send(new LoadingMessaging(true));
+                _currentTaskingMethodName = nameof(LoadRepositoryAsync);
+                await LoadRepositoryAsync(Login, Name);
 
-                DiffQueries queries = new();
-                var response = await queries.GetAllAsync(PullItem.Repository.Owner.Login, PullItem.Repository.Name, PullItem.Number);
+                _currentTaskingMethodName = nameof(LoadPullRequestAsync);
+                await LoadPullRequestAsync(Login, Name);
 
-                if (response.Any() is false) return;
-
-                _diffViewModels.Clear();
-                foreach (var item in response)
-                {
-                    DiffBlockViewModel viewModel = new()
-                    {
-                        ChangedPullRequestFile = item,
-                    };
-
-                    _diffViewModels.Add(viewModel);
-                }
+                _currentTaskingMethodName = nameof(LoadRepositoryPullRequestFileChangesAsync);
+                await LoadRepositoryPullRequestFileChangesAsync(Login, Name);
             }
             catch (Exception ex)
             {
-                _logger?.Error(nameof(LoadRepositoryPullRequestFileChangesAsync), ex);
-                if (_messenger != null)
-                {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
+                TaskException = ex;
+                faulted = true;
+
+                _logger?.Error(_currentTaskingMethodName, ex);
                 throw;
             }
             finally
             {
-                _messenger?.Send(new LoadingMessaging(false));
+                SetCurrentTabItem();
+                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
             }
         }
 
-        public async Task LoadPullRequestAsync()
+        private async Task LoadRepositoryPullRequestFileChangesAsync(string owner, string name)
         {
-            try
-            {
-                PullRequestQueries queries = new();
-                var response = await queries.GetAsync(
-                    Repository.Owner.Login,
-                    Repository.Name,
-                    Number);
+            DiffQueries queries = new();
+            var response = await queries.GetAllAsync(PullItem.Repository.Owner.Login, PullItem.Repository.Name, PullItem.Number);
 
-                PullItem = response;
-            }
-            catch (Exception ex)
+            if (response.Any() is false) return;
+
+            _diffViewModels.Clear();
+            foreach (var item in response)
             {
-                _logger?.Error(nameof(LoadPullRequestAsync), ex);
-                if (_messenger != null)
+                DiffBlockViewModel viewModel = new()
                 {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
-                throw;
+                    ChangedPullRequestFile = item,
+                };
+
+                _diffViewModels.Add(viewModel);
             }
+        }
+
+        public async Task LoadPullRequestAsync(string owner, string name)
+        {
+            PullRequestQueries queries = new();
+            PullItem = await queries.GetAsync(Repository.Owner.Login, Repository.Name, Number);
+
+            PullRequestOverviewViewModel = new()
+            {
+                PullRequest = PullItem,
+                SelectedTag = "filechanges",
+            };
         }
 
         public async Task LoadRepositoryAsync(string owner, string name)
@@ -136,6 +158,20 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
                 }
                 throw;
             }
+        }
+
+        private void SetCurrentTabItem()
+        {
+            var provider = App.Current.Services;
+            INavigationService navigationService = provider.GetRequiredService<INavigationService>();
+
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = "Discussions";
+            currentItem.Description = "Discussions";
+            currentItem.Icon = new muxc.ImageIconSource
+            {
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Discussions.png"))
+            };
         }
     }
 }

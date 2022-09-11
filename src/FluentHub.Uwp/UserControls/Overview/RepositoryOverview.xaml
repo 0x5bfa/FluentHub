@@ -4,12 +4,13 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="using:FluentHub.Uwp.Helpers"
     xmlns:labels="using:FluentHub.Uwp.UserControls.Labels"
     xmlns:local="using:FluentHub.Uwp.UserControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:primer="using:FluentHub.Uwp.UserControls.PrimerControls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
-    xmlns:helpers="using:FluentHub.Uwp.Helpers"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -24,6 +25,7 @@
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
             <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+            <converters:DecimalToMetricConverter x:Key="DecimalToMetricConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -33,8 +35,6 @@
         BorderThickness="1"
         CornerRadius="8">
         <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
@@ -164,8 +164,7 @@
 
                             </toolkit:SwitchPresenter>
 
-                            <!--<muxc:InfoBadge x:Name="WatchersCountBadge" Value="{x:Bind ViewModel.Repository.Watchers.TotalCount, Mode=OneWay}" />-->
-                            <TextBlock x:Name="WatchersCountBadge"/>
+                            <primer:CounterLabel x:Name="WatchersCounter" Text="{x:Bind ViewModel.Repository.Watchers.TotalCount, Converter={StaticResource DecimalToMetricConverter}, Mode=OneWay}" />
                         </StackPanel>
                     </muxc:DropDownButton.Content>
                 </muxc:DropDownButton>
@@ -173,6 +172,7 @@
                 <Button IsEnabled="False">
                     <Button.Content>
                         <StackPanel Orientation="Horizontal" Spacing="8">
+
                             <FontIcon
                                 FontFamily="{StaticResource Octicons}"
                                 FontSize="14"
@@ -180,8 +180,7 @@
 
                             <TextBlock Text="Fork" />
 
-                            <!--<muxc:InfoBadge x:Name="ForksCountBadge" Value="{x:Bind ViewModel.Repository.ForkCount, Mode=OneWay}" />-->
-                            <TextBlock x:Name="ForksCountBadge"/>
+                            <primer:CounterLabel x:Name="ForksCounter" Text="{x:Bind ViewModel.Repository.ForkCount, Converter={StaticResource DecimalToMetricConverter}, Mode=OneWay}" />
                         </StackPanel>
                     </Button.Content>
                 </Button>
@@ -189,6 +188,7 @@
                 <muxc:SplitButton IsEnabled="False">
                     <muxc:SplitButton.Content>
                         <StackPanel Orientation="Horizontal" Spacing="8">
+
                             <toolkit:SwitchPresenter
                                 Grid.RowSpan="2"
                                 HorizontalAlignment="Center"
@@ -219,8 +219,7 @@
 
                             </toolkit:SwitchPresenter>
 
-                            <!--<muxc:InfoBadge x:Name="StargazersCountBadge" Value="{x:Bind ViewModel.Repository.StargazerCount, Mode=OneWay}" />-->
-                            <TextBlock x:Name="StargazersCountBadge"/>
+                            <primer:CounterLabel x:Name="StargazersCounter" Text="{x:Bind ViewModel.Repository.StargazerCount, Converter={StaticResource DecimalToMetricConverter}, Mode=OneWay}" />
                         </StackPanel>
                     </muxc:SplitButton.Content>
                 </muxc:SplitButton>
@@ -228,115 +227,7 @@
 
         </Grid>
 
-        <Grid Grid.Row="2" Margin="32,0,32,18">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-
-            <TextBlock Margin="0,0,0,16" Text="{x:Bind ViewModel.Repository.Description, Mode=OneWay}" />
-
-            <StackPanel
-                Grid.Row="1"
-                Orientation="Horizontal"
-                Spacing="16">
-                <StackPanel Orientation="Horizontal" Spacing="4">
-                    <FontIcon
-                        Margin="0,0,2,0"
-                        VerticalAlignment="Center"
-                        FontFamily="{StaticResource Octicons}"
-                        FontSize="14"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Glyph="&#xEA94;" />
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="{x:Bind ViewModel.Repository.StargazerCount, Mode=OneWay}" />
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Style="{StaticResource BodyTextBlockStyle}"
-                        Text="stars" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Spacing="4">
-                    <FontIcon
-                        Margin="0,0,2,0"
-                        VerticalAlignment="Center"
-                        FontFamily="{StaticResource Octicons}"
-                        FontSize="14"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Glyph="&#xEA55;" />
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="{x:Bind ViewModel.Repository.ForkCount, Mode=OneWay}" />
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Style="{StaticResource BodyTextBlockStyle}"
-                        Text="forks" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Spacing="4">
-                    <FontIcon
-                        Margin="0,0,2,0"
-                        VerticalAlignment="Center"
-                        FontFamily="{StaticResource Octicons}"
-                        FontSize="14"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Glyph="&#xEA36;" />
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="{x:Bind ViewModel.Repository.Watchers.TotalCount, Mode=OneWay}" />
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Style="{StaticResource BodyTextBlockStyle}"
-                        Text="watching" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Spacing="4">
-                    <FontIcon
-                        Margin="0,0,2,0"
-                        VerticalAlignment="Center"
-                        FontFamily="{StaticResource Octicons}"
-                        FontSize="14"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Glyph="&#xE9F7;" />
-                    <toolkit:SwitchPresenter TargetType="x:String" Value="{x:Bind ViewModel.Repository.LicenseInfo.Name, Mode=OneWay}">
-
-                        <toolkit:Case Value="Other">
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyStrongTextBlockStyle}"
-                                Text="View license" />
-                        </toolkit:Case>
-
-                        <toolkit:Case Value="True">
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyStrongTextBlockStyle}"
-                                Text="{x:Bind ViewModel.Repository.LicenseInfo.Name, Mode=OneWay}" />
-                        </toolkit:Case>
-
-                    </toolkit:SwitchPresenter>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Spacing="4">
-                    <FontIcon
-                        Margin="0,0,2,0"
-                        VerticalAlignment="Center"
-                        FontFamily="{StaticResource Octicons}"
-                        FontSize="14"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Glyph="&#xE94D;" />
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="Code of Conduct" />
-                </StackPanel>
-            </StackPanel>
-        </Grid>
-
-        <Grid Grid.Row="3">
+        <Grid Grid.Row="2">
             <muxc:NavigationView
                 x:Name="RepoPageNavView"
                 Margin="32,0"
@@ -367,10 +258,10 @@
 
                                 <TextBlock Text="Issues" />
 
-                                <muxc:InfoBadge
-                                    x:Name="IssuesCountBadge"
+                                <primer:CounterLabel
+                                    x:Name="IssuesCounter"
                                     x:Load="{x:Bind ViewModel.Repository.Issues.TotalCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-                                    Value="{x:Bind ViewModel.Repository.Issues.TotalCount, Mode=OneWay}" />
+                                    Text="{x:Bind ViewModel.Repository.Issues.TotalCount, Converter={StaticResource DecimalToMetricConverter}, Mode=OneWay}" />
 
                             </StackPanel>
                         </muxc:NavigationViewItem.Content>
@@ -387,10 +278,10 @@
 
                                 <TextBlock Text="Pull Requests" />
 
-                                <muxc:InfoBadge
-                                    x:Name="PullsCountBadge"
+                                <primer:CounterLabel
+                                    x:Name="PullRequestsCounter"
                                     x:Load="{x:Bind ViewModel.Repository.PullRequests.TotalCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-                                    Value="{x:Bind ViewModel.Repository.PullRequests.TotalCount, Mode=OneWay}" />
+                                    Text="{x:Bind ViewModel.Repository.PullRequests.TotalCount, Converter={StaticResource DecimalToMetricConverter}, Mode=OneWay}" />
 
                             </StackPanel>
                         </muxc:NavigationViewItem.Content>
@@ -414,7 +305,10 @@
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
 
-                    <muxc:NavigationViewItem Content="Insights" Tag="insights">
+                    <muxc:NavigationViewItem
+                        Content="Insights"
+                        IsEnabled="False"
+                        Tag="insights">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon
                                 FontFamily="{StaticResource Octicons}"
@@ -423,7 +317,10 @@
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
 
-                    <muxc:NavigationViewItem Content="Settings" Tag="settings">
+                    <muxc:NavigationViewItem
+                        Content="Settings"
+                        IsEnabled="False"
+                        Tag="settings">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon
                                 FontFamily="{StaticResource Octicons}"

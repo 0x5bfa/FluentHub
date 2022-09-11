@@ -48,10 +48,11 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Code.Layouts
 
         private async Task LoadRepositoryContentsAsync(CancellationToken token)
         {
+            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+            bool faulted = false;
+
             try
             {
-                _messenger?.Send(new LoadingMessaging(true));
-
                 if (string.IsNullOrEmpty(ContextViewModel.Repository.DefaultBranchRef.Name))
                     return;
 
@@ -105,7 +106,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Code.Layouts
             }
             finally
             {
-                _messenger?.Send(new LoadingMessaging(false));
+                _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
             }
         }
 

@@ -20,38 +20,23 @@ namespace FluentHub.Uwp.Views.Repositories.PullRequests
 
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<CommitViewModel>();
-            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
+            _navigation = App.Current.Services.GetRequiredService<INavigationService>();
         }
 
         public CommitViewModel ViewModel { get; }
-        private readonly INavigationService navigationService;
+        private readonly INavigationService _navigation;
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var param = e.Parameter as FrameNavigationArgs;
+            ViewModel.Login = param.Login;
+            ViewModel.Name = param.Name;
             ViewModel.Number = param.Number;
             ViewModel.CommitItem = param.Parameters.ElementAtOrDefault(0) as Commit;
 
-            await ViewModel.LoadRepositoryAsync(param.Login, param.Name);
-
-            await ViewModel.LoadPullRequestAsync();
-
-            SetCurrentTabItem();
-
-            var command = ViewModel.LoadCommitPageCommand;
+            var command = ViewModel.LoadRepositoryPullRequestCommitPageCommand;
             if (command.CanExecute(null))
                 command.Execute(null);
-        }
-
-        private void SetCurrentTabItem()
-        {
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = "Discussions";
-            currentItem.Description = "Discussions";
-            currentItem.Icon = new muxc.ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Discussions.png"))
-            };
         }
     }
 }

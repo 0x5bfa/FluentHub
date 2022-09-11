@@ -4,6 +4,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="using:FluentHub.Uwp.Helpers"
     xmlns:local="using:FluentHub.Uwp.UserControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -103,10 +104,10 @@
 
                                 <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.User.ViewerIsFollowing, Mode=OneWay}">
                                     <toolkit:Case Value="True">
-                                        <TextBlock Text="Unfollow" />
+                                        <TextBlock Text="{helpers:ResourceString Name=Unfollow}" />
                                     </toolkit:Case>
-                                    <toolkit:Case Value="True">
-                                        <TextBlock Text="Follow" />
+                                    <toolkit:Case Value="False">
+                                        <TextBlock Text="{helpers:ResourceString Name=Follow}" />
                                     </toolkit:Case>
                                 </toolkit:SwitchPresenter>
 
@@ -118,7 +119,7 @@
                         <Button
                             Width="120"
                             Click="EditProfileButton_Click"
-                            Content="Edit profile" />
+                            Content="{helpers:ResourceString Name=EditUserProfile}" />
                     </toolkit:Case>
 
                 </toolkit:SwitchPresenter>
@@ -200,7 +201,7 @@
                         VerticalAlignment="Center"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         Style="{ThemeResource BodyTextBlockStyle}"
-                        Text="Developer Program Member" />
+                        Text="{helpers:ResourceString Name=DeveloperProgramMember}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Visibility="{x:Bind ViewModel.User.Followers.TotalCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
@@ -228,7 +229,7 @@
                                     VerticalAlignment="Center"
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                     Style="{ThemeResource BodyTextBlockStyle}"
-                                    Text="followers" />
+                                    Text="{helpers:ResourceString Name=FollowersWithoutCaps}" />
                             </StackPanel>
                         </Button.Content>
                     </Button>
@@ -256,7 +257,7 @@
                                     VerticalAlignment="Center"
                                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                     Style="{ThemeResource BodyTextBlockStyle}"
-                                    Text="following" />
+                                    Text="{helpers:ResourceString Name=FollowingWithoutCaps}" />
                             </StackPanel>
                         </Button.Content>
                     </Button>
@@ -278,7 +279,7 @@
                 <muxc:NavigationView.MenuItems>
                     <muxc:NavigationViewItem
                         x:Name="UserNavViewItemOverview"
-                        Content="Overview"
+                        Content="{helpers:ResourceString Name=Overview}"
                         Tag="Overview">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon
@@ -289,7 +290,7 @@
                     </muxc:NavigationViewItem>
                     <muxc:NavigationViewItem
                         x:Name="UserNavViewItemRepositories"
-                        Content="Repositories"
+                        Content="{helpers:ResourceString Name=Repositories}"
                         Tag="Repositories">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon
@@ -300,7 +301,7 @@
                     </muxc:NavigationViewItem>
                     <muxc:NavigationViewItem
                         x:Name="UserNavViewItemProjects"
-                        Content="Projects"
+                        Content="{helpers:ResourceString Name=Projects}"
                         IsEnabled="False"
                         Tag="Projects">
                         <muxc:NavigationViewItem.Icon>
@@ -312,7 +313,7 @@
                     </muxc:NavigationViewItem>
                     <muxc:NavigationViewItem
                         x:Name="UserNavViewItemPackages"
-                        Content="Packages"
+                        Content="{helpers:ResourceString Name=Packages}"
                         IsEnabled="False"
                         Tag="Packages">
                         <muxc:NavigationViewItem.Icon>
@@ -324,7 +325,7 @@
                     </muxc:NavigationViewItem>
                     <muxc:NavigationViewItem
                         x:Name="UserNavViewItemStarred"
-                        Content="Stars"
+                        Content="{helpers:ResourceString Name=Stars}"
                         Tag="Stars">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon
@@ -335,7 +336,7 @@
                     </muxc:NavigationViewItem>
                     <muxc:NavigationViewItem
                         x:Name="UserNavViewItemFollowers"
-                        Content="Followers"
+                        Content="{helpers:ResourceString Name=Followers}"
                         Tag="Followers">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon
@@ -346,7 +347,7 @@
                     </muxc:NavigationViewItem>
                     <muxc:NavigationViewItem
                         x:Name="UserNavViewItemFollowing"
-                        Content="Following"
+                        Content="{helpers:ResourceString Name=Following}"
                         Tag="Following">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon

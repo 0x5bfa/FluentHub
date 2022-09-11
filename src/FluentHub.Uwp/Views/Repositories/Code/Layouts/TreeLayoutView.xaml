@@ -85,82 +85,84 @@
         </ResourceDictionary>
     </Page.Resources>
 
-    <Grid Margin="0,0,8,8" RowSpacing="8">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+    <Grid>
+        <Grid Margin="0,0,8,8" RowSpacing="8">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-        <uc:RepositoryOverview ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
+            <uc:RepositoryOverview ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
 
-        <Grid
-            Background="{ThemeResource CardBackgroundFillColorSecondary}"
-            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-            BorderThickness="1"
-            CornerRadius="8">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" MinWidth="256" />
-                <ColumnDefinition Width="2" />
-                <ColumnDefinition Width="4*" />
-            </Grid.ColumnDefinitions>
+            <Grid
+                Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                BorderThickness="1"
+                CornerRadius="8">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" MinWidth="256" />
+                    <ColumnDefinition Width="2" />
+                    <ColumnDefinition Width="4*" />
+                </Grid.ColumnDefinitions>
 
-            <ScrollViewer>
-                <Grid Margin="12,16">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
+                <ScrollViewer>
+                    <Grid Margin="12,16">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
 
-                    <Grid>
-                        <ComboBox Margin="12,4" HorizontalAlignment="Stretch" />
+                        <Grid>
+                            <ComboBox Margin="12,4" HorizontalAlignment="Stretch" />
+                        </Grid>
+
+                        <muxc:TreeView
+                            x:Name="DirTreeView"
+                            Grid.Row="1"
+                            Margin="0,4"
+                            CanDrag="False"
+                            CanDragItems="False"
+                            CanReorderItems="False"
+                            Expanding="OnDirTreeViewExpanding"
+                            ItemInvoked="OnDirTreeViewItemInvoked"
+                            ItemTemplateSelector="{StaticResource ExpolrerItemTemplateSelector}"
+                            ItemsSource="{x:Bind ViewModel.Items}"
+                            SelectionMode="Single" />
                     </Grid>
 
-                    <muxc:TreeView
-                        x:Name="DirTreeView"
-                        Grid.Row="1"
-                        Margin="0,4"
-                        CanDrag="False"
-                        CanDragItems="False"
-                        CanReorderItems="False"
-                        Expanding="OnDirTreeViewExpanding"
-                        ItemInvoked="OnDirTreeViewItemInvoked"
-                        ItemTemplateSelector="{StaticResource ExpolrerItemTemplateSelector}"
-                        ItemsSource="{x:Bind ViewModel.Items}"
-                        SelectionMode="Single" />
-                </Grid>
+                </ScrollViewer>
 
-            </ScrollViewer>
+                <controls:GridSplitter
+                    Grid.Column="1"
+                    Width="2"
+                    Margin="-6,0"
+                    ResizeBehavior="BasedOnAlignment"
+                    ResizeDirection="Auto"
+                    Style="{StaticResource DefaultGridSplitterStyle}" />
 
-            <controls:GridSplitter
-                Grid.Column="1"
-                Width="2"
-                Margin="-6,0"
-                ResizeBehavior="BasedOnAlignment"
-                ResizeDirection="Auto"
-                Style="{StaticResource DefaultGridSplitterStyle}" />
+                <ScrollViewer Grid.Column="2">
+                    <Grid
+                        x:Name="BlobContentGrid"
+                        Margin="12"
+                        x:Load="{x:Bind ViewModel.BlobSelected, Mode=OneWay}">
 
-            <ScrollViewer Grid.Column="2">
-                <Grid
-                    x:Name="BlobContentGrid"
-                    Margin="12"
-                    x:Load="{x:Bind ViewModel.BlobSelected, Mode=OneWay}">
+                        <TextBlock
+                            x:Name="NoItemSelectedTextBlock"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            x:Load="{x:Bind ViewModel.BlobSelected, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="No item selected" />
 
-                    <TextBlock
-                        x:Name="NoItemSelectedTextBlock"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        x:Load="{x:Bind ViewModel.BlobSelected, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
-                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="No item selected" />
+                        <blocks:FileContentBlock
+                            x:Name="BlobBlock"
+                            VerticalAlignment="Top"
+                            x:Load="{x:Bind ViewModel.BlobSelected, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                            ContextViewModel="{x:Bind ViewModel.SelectedContextViewModel, Mode=OneWay}" />
 
-                    <blocks:FileContentBlock
-                        x:Name="BlobBlock"
-                        VerticalAlignment="Top"
-                        x:Load="{x:Bind ViewModel.BlobSelected, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-                        ContextViewModel="{x:Bind ViewModel.SelectedContextViewModel, Mode=OneWay}" />
-
-                </Grid>
-            </ScrollViewer>
+                    </Grid>
+                </ScrollViewer>
+            </Grid>
         </Grid>
     </Grid>
 </Page>

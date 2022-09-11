@@ -24,6 +24,7 @@
                     Number = x.Number,
                     Title = x.Title,
                     UpdatedAt = x.UpdatedAt,
+                    UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
 
                     Repository = x.Repository.Select(repo => new Repository
                     {

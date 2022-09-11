@@ -211,7 +211,7 @@
                                 FontSize="14"
                                 Glyph="&#xEA9A;" />
 
-                            <TextBlock Text="{x:Bind ViewModel.Repository.UpdatedAt, Mode=OneWay}" />
+                            <TextBlock Text="{x:Bind ViewModel.Repository.UpdatedAtHumanized, Mode=OneWay}" />
 
                         </StackPanel>
 

@@ -1,6 +1,6 @@
 ﻿using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
-using FluentHub.Uwp.Services.Navigation;
+using FluentHub.Uwp.ViewModels.Repositories;
 using FluentHub.Uwp.ViewModels.Repositories.Commits;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
@@ -20,35 +20,22 @@ namespace FluentHub.Uwp.Views.Repositories.Commits
 
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<CommitViewModel>();
-            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
+            _navigation = App.Current.Services.GetRequiredService<INavigationService>();
         }
 
         public CommitViewModel ViewModel { get; }
-        private readonly INavigationService navigationService;
+        private readonly INavigationService _navigation;
 
-        protected override async void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var param = e.Parameter as FrameNavigationArgs;
+            ViewModel.Login = param.Login;
+            ViewModel.Name = param.Name;
             ViewModel.CommitItem = param.Parameters.ElementAt(0) as Commit;
 
-            await ViewModel.LoadRepositoryAsync(param.Login, param.Name);
-
-            SetCurrentTabItem();
-
-            var command = ViewModel.LoadCommitPageCommand;
+            var command = ViewModel.LoadRepositoryCommitPageCommand;
             if (command.CanExecute(null))
                 command.Execute(null);
-        }
-
-        private void SetCurrentTabItem()
-        {
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = "Commits";
-            currentItem.Description = "Commits";
-            currentItem.Icon = new muxc.ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Commits.png"))
-            };
         }
     }
 }

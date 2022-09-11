@@ -3,6 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="using:FluentHub.Uwp.Helpers"
     xmlns:local="using:FluentHub.Uwp.Views.Repositories.Discussions"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
@@ -11,80 +12,105 @@
     mc:Ignorable="d">
 
     <Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Auto">
-            <Grid Margin="0,0,8,8" RowSpacing="8">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
 
-                <uc:RepositoryOverview ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
-
-                <Grid
-                    Grid.Row="1"
-                    Padding="32"
-                    Background="{ThemeResource CardBackgroundFillColorSecondary}"
-                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                    BorderThickness="1"
-                    CornerRadius="8">
+        <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryDiscussionPageCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <Grid Margin="0,0,8,8" RowSpacing="8">
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <Grid RowSpacing="4">
+                    <uc:RepositoryOverview Margin="0,0,0,8" ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
+
+                    <Grid
+                        Grid.Row="1"
+                        Padding="32"
+                        Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1"
+                        CornerRadius="8">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <TextBlock
-                                x:Name="IssueTitleTextBlock"
-                                FontWeight="Normal"
-                                Style="{StaticResource TitleTextBlockStyle}"
-                                Text="{x:Bind ViewModel.Discussion.Title, Mode=OneWay}" />
-                            <StackPanel Orientation="Horizontal">
+                        <Grid RowSpacing="4">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Orientation="Horizontal" Spacing="8">
                                 <TextBlock
-                                    FontWeight="ExtraLight"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    x:Name="IssueTitleTextBlock"
+                                    FontWeight="Normal"
                                     Style="{StaticResource TitleTextBlockStyle}"
-                                    Text="#" />
-                                <TextBlock
-                                    FontWeight="ExtraLight"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Style="{StaticResource TitleTextBlockStyle}"
-                                    Text="{x:Bind ViewModel.Discussion.Number, Mode=OneWay}" />
+                                    Text="{x:Bind ViewModel.Discussion.Title, Mode=OneWay}" />
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock
+                                        FontWeight="ExtraLight"
+                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        Style="{StaticResource TitleTextBlockStyle}"
+                                        Text="#" />
+                                    <TextBlock
+                                        FontWeight="ExtraLight"
+                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        Style="{StaticResource TitleTextBlockStyle}"
+                                        Text="{x:Bind ViewModel.Discussion.Number, Mode=OneWay}" />
+                                </StackPanel>
                             </StackPanel>
-                        </StackPanel>
 
-                        <StackPanel
-                            Grid.Row="1"
-                            Orientation="Horizontal"
-                            Spacing="4">
-                            <TextBlock
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Style="{StaticResource CaptionTextBlockStyle}"
-                                Text="this conversation is in" />
-                            <TextBlock
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Style="{StaticResource CaptionTextBlockStyle}"
-                                Text="{x:Bind ViewModel.Discussion.Category.Name, Mode=OneWay}" />
-                        </StackPanel>
+                            <StackPanel
+                                Grid.Row="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
+                                <TextBlock
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                    Text="this conversation is in" />
+                                <TextBlock
+                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                    Text="{x:Bind ViewModel.Discussion.Category.Name, Mode=OneWay}" />
+                            </StackPanel>
 
+                        </Grid>
+
+                        <MenuFlyoutSeparator Grid.Row="1" Margin="12,6" />
+
+                        <TextBlock
+                            Grid.Row="2"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                            Text="This feature is not yet available." />
                     </Grid>
-
-                    <MenuFlyoutSeparator Grid.Row="1" Margin="12,6" />
-
-                    <TextBlock
-                        Grid.Row="2"
-                        HorizontalAlignment="Center"
-                        VerticalAlignment="Center"
-                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="This feature is not yet available." />
                 </Grid>
-            </Grid>
-        </ScrollViewer>
+            </ScrollViewer>
+        </Grid>
+
+        <Grid x:Name="ErrorDisplayingContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryDiscussionPageCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
+            <uc:LoadErrorDisplay
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                TaskException="{x:Bind ViewModel.TaskException, Mode=OneWay}">
+                <uc:LoadErrorDisplay.Action>
+                    <Grid>
+                        <Button
+                            Margin="0,24,0,0"
+                            HorizontalAlignment="Center"
+                            Command="{x:Bind ViewModel.LoadRepositoryDiscussionPageCommand}">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon FontSize="16" Glyph="&#xE149;" />
+                                <TextBlock Text="{helpers:ResourceString Name=TryAgainWithCap}" />
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </uc:LoadErrorDisplay.Action>
+            </uc:LoadErrorDisplay>
+        </Grid>
+
     </Grid>
 </Page>

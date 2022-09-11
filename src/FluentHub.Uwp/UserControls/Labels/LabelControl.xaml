@@ -15,7 +15,7 @@
         <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
     </UserControl.Resources>
 
-    <Grid Height="24" HorizontalAlignment="Left">
+    <Grid Height="20" HorizontalAlignment="Left">
 
         <Grid
             x:Name="LabelBorderGrid"
@@ -32,12 +32,12 @@
             CornerRadius="12"
             Opacity="0.3" />
 
-        <Grid Padding="8,0">
+        <Grid Padding="6,0">
             <StackPanel Orientation="Horizontal">
 
                 <ContentPresenter
                     x:Name="LabelIconElement"
-                    Margin="2,2,4,0"
+                    Margin="2,2,8,0"
                     VerticalAlignment="Center"
                     x:Load="{x:Bind Icon, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
                     Content="{x:Bind Icon, Mode=OneWay}" />

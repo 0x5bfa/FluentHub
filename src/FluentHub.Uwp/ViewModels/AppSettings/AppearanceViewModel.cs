@@ -1,6 +1,7 @@
 ﻿using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
+using Microsoft.Toolkit.Uwp;
 using Windows.UI.Xaml;
 
 namespace FluentHub.Uwp.ViewModels.AppSettings
@@ -18,9 +19,9 @@ namespace FluentHub.Uwp.ViewModels.AppSettings
 
             Themes = new List<string>()
             {
-                "Sync with system setting",
-                "Light",
-                "Dark",
+                "ThemeAuto".GetLocalized(),
+                "ThemeLight".GetLocalized(),
+                "ThemeDark".GetLocalized(),
             }
             .AsReadOnly();
 

@@ -26,6 +26,17 @@
                         })
                         .SingleOrDefault(),
                     },
+
+                    Repository = y.Repository.Select(repo => new Repository
+                    {
+                        Name = repo.Name,
+                        Owner = repo.Owner.Select(owner => new RepositoryOwner
+                        {
+                            Login = owner.Login,
+                        })
+                        .SingleOrDefault(),
+                    })
+                    .SingleOrDefault(),
                 })
                 .Single())
                 .Compile();
