@@ -110,6 +110,7 @@ namespace FluentHub.Uwp
                 .AddTransient<ViewModels.Repositories.Projects.ProjectsViewModel>()
                 .AddTransient<ViewModels.Repositories.Projects.ProjectViewModel>()
                 .AddTransient<ViewModels.Repositories.PullRequests.ConversationViewModel>()
+                .AddTransient<ViewModels.Repositories.PullRequests.CommitViewModel>()
                 .AddTransient<ViewModels.Repositories.PullRequests.CommitsViewModel>()
                 .AddTransient<ViewModels.Repositories.PullRequests.FileChangesViewModel>()
                 .AddTransient<ViewModels.Repositories.PullRequests.PullRequestsViewModel>()

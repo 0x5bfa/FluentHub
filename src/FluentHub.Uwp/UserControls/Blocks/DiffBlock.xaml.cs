@@ -29,7 +29,7 @@ namespace FluentHub.Uwp.UserControls.Blocks
             {
                 SetValue(ViewModelProperty, value);
                 DataContext = ViewModel;
-                ViewModel.Creanup();
+                ViewModel?.Creanup();
             }
         }
         #endregion

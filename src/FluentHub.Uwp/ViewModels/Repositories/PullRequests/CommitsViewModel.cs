@@ -45,6 +45,9 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
         private RepositoryOverviewViewModel _repositoryOverviewViewModel;
         public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
 
+        private PullRequestOverviewViewModel _pullRequestOverviewViewModel;
+        public PullRequestOverviewViewModel PullRequestOverviewViewModel { get => _pullRequestOverviewViewModel; set => SetProperty(ref _pullRequestOverviewViewModel, value); }
+
         private PullRequest pullItem;
         public PullRequest PullItem { get => pullItem; private set => SetProperty(ref pullItem, value); }
 
@@ -104,6 +107,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
                 CommitButtonBlockViewModel viewModel = new()
                 {
                     CommitItem = item,
+                    PullRequest = pullItem,
                 };
 
                 _items.Add(viewModel);
@@ -113,12 +117,13 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
         private async Task LoadPullRequestAsync(string owner, string name)
         {
             PullRequestQueries queries = new();
-            var response = await queries.GetAsync(
-                Repository.Owner.Login,
-                Repository.Name,
-                Number);
+            PullItem = await queries.GetAsync(Repository.Owner.Login, Repository.Name, Number);
 
-            PullItem = response;
+            PullRequestOverviewViewModel = new()
+            {
+                PullRequest = PullItem,
+                SelectedTag = "commits",
+            };
         }
 
         private async Task LoadRepositoryAsync(string owner, string name)

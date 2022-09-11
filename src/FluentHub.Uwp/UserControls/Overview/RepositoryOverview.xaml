@@ -37,8 +37,6 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
@@ -229,115 +227,7 @@
 
         </Grid>
 
-        <Grid Grid.Row="2" Margin="32,0,32,18">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
-
-            <TextBlock Margin="0,0,0,16" Text="{x:Bind ViewModel.Repository.Description, Mode=OneWay}" />
-
-            <StackPanel
-                Grid.Row="1"
-                Orientation="Horizontal"
-                Spacing="16">
-                <StackPanel Orientation="Horizontal" Spacing="4">
-                    <FontIcon
-                        Margin="0,0,2,0"
-                        VerticalAlignment="Center"
-                        FontFamily="{StaticResource Octicons}"
-                        FontSize="14"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Glyph="&#xEA94;" />
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="{x:Bind ViewModel.Repository.StargazerCount, Mode=OneWay}" />
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Style="{StaticResource BodyTextBlockStyle}"
-                        Text="stars" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Spacing="4">
-                    <FontIcon
-                        Margin="0,0,2,0"
-                        VerticalAlignment="Center"
-                        FontFamily="{StaticResource Octicons}"
-                        FontSize="14"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Glyph="&#xEA55;" />
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="{x:Bind ViewModel.Repository.ForkCount, Mode=OneWay}" />
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Style="{StaticResource BodyTextBlockStyle}"
-                        Text="forks" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Spacing="4">
-                    <FontIcon
-                        Margin="0,0,2,0"
-                        VerticalAlignment="Center"
-                        FontFamily="{StaticResource Octicons}"
-                        FontSize="14"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Glyph="&#xEA36;" />
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="{x:Bind ViewModel.Repository.Watchers.TotalCount, Mode=OneWay}" />
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Style="{StaticResource BodyTextBlockStyle}"
-                        Text="watching" />
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Spacing="4">
-                    <FontIcon
-                        Margin="0,0,2,0"
-                        VerticalAlignment="Center"
-                        FontFamily="{StaticResource Octicons}"
-                        FontSize="14"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Glyph="&#xE9F7;" />
-                    <toolkit:SwitchPresenter TargetType="x:String" Value="{x:Bind ViewModel.Repository.LicenseInfo.Name, Mode=OneWay}">
-
-                        <toolkit:Case Value="Other">
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyStrongTextBlockStyle}"
-                                Text="View license" />
-                        </toolkit:Case>
-
-                        <toolkit:Case Value="True">
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{StaticResource BodyStrongTextBlockStyle}"
-                                Text="{x:Bind ViewModel.Repository.LicenseInfo.Name, Mode=OneWay}" />
-                        </toolkit:Case>
-
-                    </toolkit:SwitchPresenter>
-                </StackPanel>
-                <StackPanel Orientation="Horizontal" Spacing="4">
-                    <FontIcon
-                        Margin="0,0,2,0"
-                        VerticalAlignment="Center"
-                        FontFamily="{StaticResource Octicons}"
-                        FontSize="14"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                        Glyph="&#xE94D;" />
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                        Text="Code of Conduct" />
-                </StackPanel>
-            </StackPanel>
-        </Grid>
-
-        <Grid Grid.Row="3">
+        <Grid Grid.Row="2">
             <muxc:NavigationView
                 x:Name="RepoPageNavView"
                 Margin="32,0"
@@ -415,7 +305,10 @@
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
 
-                    <muxc:NavigationViewItem Content="Insights" Tag="insights">
+                    <muxc:NavigationViewItem
+                        Content="Insights"
+                        IsEnabled="False"
+                        Tag="insights">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon
                                 FontFamily="{StaticResource Octicons}"
@@ -424,7 +317,10 @@
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
 
-                    <muxc:NavigationViewItem Content="Settings" Tag="settings">
+                    <muxc:NavigationViewItem
+                        Content="Settings"
+                        IsEnabled="False"
+                        Tag="settings">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon
                                 FontFamily="{StaticResource Octicons}"
