@@ -1,6 +1,7 @@
 ﻿using GraphQL;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Dynamic;
 using System.Globalization;
 
@@ -101,16 +102,21 @@ namespace FluentHub.Octokit.Queries.Users
                     });
                 }
             }
-
-            var mappedNotifications = Map(notifications, zippedData);
+            
+            
+            var slicedNotifications = new List<Notification>();
+            for (int i = 0; i < zippedData.Count; i++)
+            {
+                slicedNotifications.Add(notifications[i]);
+            }
+            var mappedNotifications = Map(slicedNotifications, zippedData);
 
             return mappedNotifications;
         }
 
         private string GetGatheredRepositoryFragment(IReadOnlyList<Notification> notifications)
         {
-            string getheredFragments = "";
-
+            string gatheredFragments = "";
             for (int index = 0; index < notifications.Count; index++)
             {
                 switch (notifications.ElementAt(index).Subject.Type)
@@ -131,7 +137,7 @@ repo{index}: repository(name: ""{notifications.ElementAt(index).Repository.Name}
     stateReason
   }}
 }}";
-                            getheredFragments += (issueFragment + "\n");
+                            gatheredFragments += (issueFragment + "\n");
                             break;
                         }
                     case NotificationSubjectType.PullRequest:
@@ -146,14 +152,13 @@ repo{index}: repository(name: ""{notifications.ElementAt(index).Repository.Name}
     state
   }}
 }}";
-                            getheredFragments += (prFragment + "\n");
+                            gatheredFragments += (prFragment + "\n");
                             break;
                         }
                 }
-
             }
 
-            return getheredFragments;
+            return gatheredFragments;
         }
 
         private List<Notification> Map(List<Notification> notifications, IReadOnlyList<Repository> details)
@@ -162,12 +167,13 @@ repo{index}: repository(name: ""{notifications.ElementAt(index).Repository.Name}
 
             foreach (var item in notifications)
             {
+                Debug.WriteLine(index);
                 switch (item.Subject.Type)
                 {
                     case NotificationSubjectType.Discussion:
                     case NotificationSubjectType.Commit:
                     case NotificationSubjectType.Release:
-                        index--;
+                        index++;
                         break;
                     case NotificationSubjectType.Issue:
                         {
@@ -199,7 +205,7 @@ repo{index}: repository(name: ""{notifications.ElementAt(index).Repository.Name}
                             }
                             else //Prevent index out of range
                             {
-                                index--;
+                                index++;
                             }
                             
                             break;
@@ -233,13 +239,13 @@ repo{index}: repository(name: ""{notifications.ElementAt(index).Repository.Name}
                             }
                             else // Prevent index out of range
                             {
-                                index--;
+                                index++;
                             }
 
                             break;
                         }
                     default:
-                        index--;
+                        index++;
                         break;
                 }
 
