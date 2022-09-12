@@ -15,7 +15,7 @@ namespace FluentHub.Octokit.Queries.Users
             Wrappers.NotificationWrapper wrapper = new();
             var notifications = wrapper.WrapAsync(response);
 
-            var fragments = GetGetheredRepositoryFragment(notifications);
+            var fragments = GetGatheredRepositoryFragment(notifications);
 
             var request2 = new GraphQLRequest
             {
@@ -107,7 +107,7 @@ namespace FluentHub.Octokit.Queries.Users
             return mappedNotifications;
         }
 
-        private string GetGetheredRepositoryFragment(IReadOnlyList<Notification> notifications)
+        private string GetGatheredRepositoryFragment(IReadOnlyList<Notification> notifications)
         {
             string getheredFragments = "";
 
