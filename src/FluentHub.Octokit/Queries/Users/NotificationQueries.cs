@@ -1,7 +1,6 @@
 ﻿using GraphQL;
 using Newtonsoft.Json.Linq;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Dynamic;
 using System.Globalization;
 
@@ -167,7 +166,6 @@ repo{index}: repository(name: ""{notifications.ElementAt(index).Repository.Name}
 
             foreach (var item in notifications)
             {
-                Debug.WriteLine(index);
                 switch (item.Subject.Type)
                 {
                     case NotificationSubjectType.Discussion:
