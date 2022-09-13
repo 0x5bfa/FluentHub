@@ -2,6 +2,7 @@
     x:Class="FluentHub.Uwp.Views.AppSettings.AppearancePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="using:FluentHub.Uwp.Helpers"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
@@ -9,20 +10,33 @@
     xmlns:uc="using:FluentHub.Uwp.UserControls"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <overview:AppSettingsOverview Margin="0,0,0,8" />
+        <overview:AppSettingsOverview
+            x:Name="UserProfileOverview"
+            Margin="0,0,0,8"
+            ViewModel="{x:Bind ViewModel.AppSettingsOverviewViewModel, Mode=OneWay}" />
 
         <Grid Grid.Column="1">
             <ScrollViewer>
                 <Grid
                     Margin="8,0,8,8"
                     Padding="32"
-                    Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                    Background="{ThemeResource LayerFillColorDefaultBrush}"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1"
                     CornerRadius="8">
@@ -104,17 +118,19 @@
                         Spacing="4">
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <FontIcon FontSize="14" Glyph="&#xE9CE;" />
-                            <HyperlinkButton
-                                x:Name="AppearancePageGetHelpButton"
-                                Content="{helpers:ResourceString Name=SettingsGetHelpButton/Content}"
-                                NavigateUri="https://github.com/FluentHub/FluentHub#-contact" />
+                            <TextBlock x:Name="AppearancePageGetHelpButton">
+                                <Hyperlink NavigateUri="https://github.com/FluentHub/FluentHub">
+                                    <Run Text="{helpers:ResourceString Name=SettingsGetHelpButton/Content}" />
+                                </Hyperlink>
+                            </TextBlock>
                         </StackPanel>
                         <StackPanel Orientation="Horizontal" Spacing="8">
                             <FontIcon FontSize="14" Glyph="&#xED15;" />
-                            <HyperlinkButton
-                                x:Name="AppearancePageFeedbackButton"
-                                Content="{helpers:ResourceString Name=SettingsFeedbackButton/Content}"
-                                NavigateUri="https://github.com/FluentHub/FluentHub#-feedback" />
+                            <TextBlock x:Name="AppearancePageFeedbackButton">
+                                <Hyperlink NavigateUri="https://github.com/FluentHub/FluentHub#-feedback">
+                                    <Run Text="{helpers:ResourceString Name=SettingsFeedbackButton/Content}" />
+                                </Hyperlink>
+                            </TextBlock>
                         </StackPanel>
                     </StackPanel>
                 </Grid>

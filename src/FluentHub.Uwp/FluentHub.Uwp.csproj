@@ -407,6 +407,7 @@
     <Compile Include="ViewModels\UserControls\ButtonBlocks\UserButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Labels\LabelControlViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Labels\StatusLabelViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\Overview\AppSettingsOverviewViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Overview\OrganizationProfileOverviewViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Overview\PullRequestOverviewViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Overview\RepositoryOverviewViewModel.cs" />

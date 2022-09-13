@@ -300,6 +300,17 @@
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
                     <muxc:NavigationViewItem
+                        x:Name="UserNavViewItemStars"
+                        Content="{helpers:ResourceString Name=Stars}"
+                        Tag="Stars">
+                        <muxc:NavigationViewItem.Icon>
+                            <FontIcon
+                                FontFamily="{StaticResource Octicons}"
+                                FontSize="16"
+                                Glyph="&#xEA94;" />
+                        </muxc:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem>
+                    <muxc:NavigationViewItem
                         x:Name="UserNavViewItemProjects"
                         Content="{helpers:ResourceString Name=Projects}"
                         IsEnabled="False"
@@ -324,14 +335,25 @@
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
                     <muxc:NavigationViewItem
-                        x:Name="UserNavViewItemStarred"
-                        Content="{helpers:ResourceString Name=Stars}"
-                        Tag="Stars">
+                        x:Name="UserNavViewItemOrganizations"
+                        Content="{helpers:ResourceString Name=Organizations}"
+                        Tag="Organizations">
                         <muxc:NavigationViewItem.Icon>
                             <FontIcon
                                 FontFamily="{StaticResource Octicons}"
                                 FontSize="16"
-                                Glyph="&#xEA94;" />
+                                Glyph="&#xEA27;" />
+                        </muxc:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem>
+                    <muxc:NavigationViewItem
+                        x:Name="UserNavViewItemDiscussions"
+                        Content="{helpers:ResourceString Name=Discussions}"
+                        Tag="Discussions">
+                        <muxc:NavigationViewItem.Icon>
+                            <FontIcon
+                                FontFamily="{StaticResource Octicons}"
+                                FontSize="16"
+                                Glyph="&#xE95D;" />
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
                     <muxc:NavigationViewItem
