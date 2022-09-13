@@ -15,7 +15,7 @@ namespace FluentHub.Octokit.Queries.Users
             Wrappers.NotificationWrapper wrapper = new();
             var notifications = wrapper.WrapAsync(response);
 
-            var fragments = GetGetheredRepositoryFragment(notifications);
+            var fragments = GetGatheredRepositoryFragment(notifications);
 
             var request2 = new GraphQLRequest
             {
@@ -101,16 +101,21 @@ namespace FluentHub.Octokit.Queries.Users
                     });
                 }
             }
-
-            var mappedNotifications = Map(notifications, zippedData);
+            
+            
+            var slicedNotifications = new List<Notification>();
+            for (int i = 0; i < zippedData.Count; i++)
+            {
+                slicedNotifications.Add(notifications[i]);
+            }
+            var mappedNotifications = Map(slicedNotifications, zippedData);
 
             return mappedNotifications;
         }
 
-        private string GetGetheredRepositoryFragment(IReadOnlyList<Notification> notifications)
+        private string GetGatheredRepositoryFragment(IReadOnlyList<Notification> notifications)
         {
-            string getheredFragments = "";
-
+            string gatheredFragments = "";
             for (int index = 0; index < notifications.Count; index++)
             {
                 switch (notifications.ElementAt(index).Subject.Type)
@@ -131,7 +136,7 @@ repo{index}: repository(name: ""{notifications.ElementAt(index).Repository.Name}
     stateReason
   }}
 }}";
-                            getheredFragments += (issueFragment + "\n");
+                            gatheredFragments += (issueFragment + "\n");
                             break;
                         }
                     case NotificationSubjectType.PullRequest:
@@ -146,14 +151,13 @@ repo{index}: repository(name: ""{notifications.ElementAt(index).Repository.Name}
     state
   }}
 }}";
-                            getheredFragments += (prFragment + "\n");
+                            gatheredFragments += (prFragment + "\n");
                             break;
                         }
                 }
-
             }
 
-            return getheredFragments;
+            return gatheredFragments;
         }
 
         private List<Notification> Map(List<Notification> notifications, IReadOnlyList<Repository> details)
@@ -167,7 +171,7 @@ repo{index}: repository(name: ""{notifications.ElementAt(index).Repository.Name}
                     case NotificationSubjectType.Discussion:
                     case NotificationSubjectType.Commit:
                     case NotificationSubjectType.Release:
-                        index--;
+                        index++;
                         break;
                     case NotificationSubjectType.Issue:
                         {
@@ -199,7 +203,7 @@ repo{index}: repository(name: ""{notifications.ElementAt(index).Repository.Name}
                             }
                             else //Prevent index out of range
                             {
-                                index--;
+                                index++;
                             }
                             
                             break;
@@ -233,13 +237,13 @@ repo{index}: repository(name: ""{notifications.ElementAt(index).Repository.Name}
                             }
                             else // Prevent index out of range
                             {
-                                index--;
+                                index++;
                             }
 
                             break;
                         }
                     default:
-                        index--;
+                        index++;
                         break;
                 }
 

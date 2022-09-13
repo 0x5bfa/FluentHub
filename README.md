@@ -1,6 +1,5 @@
 <p align="center">
-  <img width="128" align="center" src="assets/fluenthub-dev.png" />
-  <img width="128" align="center" src="assets/fluenthub-beta.png" />
+  <img width="128" align="center" src="assets/fluenthub.png" />
 </p>
 <h1 align="center">
   FluentHub
@@ -32,22 +31,15 @@
 
 ### Via Microsoft Store
 
-Release mode is currently unstable and therefore packages shall not be uploaded for new versions.
-
-<!--
 This is our preferred method. This allows you to always be on the latest version when we release new builds with automatic updates.
 
 <a title="Microsoft Store" target="_blank" href="https://apps.microsoft.com/store/detail/fluenthub/9nkb9hx8rjz3">
   <img width="128" align="center" src="https://getbadgecdn.azureedge.net/images/English_L.png" />
 </a>
--->
 
 ### Via GitHub
 
-Release mode is currently unstable and therefore packages shall not be uploaded for new versions.
-
-<!--
-Released builds can be manually downloaded from this [repository's Releases page](https://github.com/FluentHub/FluentHub/releases).
+Released builds can be manually downloaded from this [repository's releases page](https://github.com/FluentHub/FluentHub/releases).
 
 Download the `FluentHub_<versionNumber>.msixbundle` file from the `Assets` section. In order too install the app, you can simply double-click on the .msixbundle file, and the app installer should automatically run. If that fails for any reason, you can try the following command at a PowerShell prompt:
 
@@ -58,19 +50,18 @@ Download the `FluentHub_<versionNumber>.msixbundle` file from the `Assets` secti
 
 Add-AppxPackage FluentHub_<versionNumber>.msixbundle
 ```
--->
 
-### Building from source ⭐Recommended⭐
+### Building from source
 
-This is our preferred method.
 See the [build section](#-building-the-code).
 
 ## 📸 Screenshots
 
 *May not always be up-to-date due to constant changes to the user interface*
 
-![image](https://user-images.githubusercontent.com/62196528/183133469-88c60c73-9058-4a23-a781-642cbd3cd318.png)
-![image](https://user-images.githubusercontent.com/62196528/183133521-42891ffa-7ada-485d-ac6d-a802e1b883b9.png)
+![image](https://user-images.githubusercontent.com/62196528/189512447-e00cb863-5d12-4169-8a56-3d1f8e064823.png)
+![image](https://user-images.githubusercontent.com/62196528/189512450-e50019b2-737c-4da1-8774-dc67a4e19180.png)
+
 
 ## 🧑‍💻 Contributing
 
