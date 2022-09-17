@@ -190,103 +190,103 @@
     <value>Fare clic su "Apri FluentHub DEV";</value>
   </data>
   <data name="Forward" xml:space="preserve">
-    <value>Forward</value>
+    <value>Avanti</value>
   </data>
   <data name="GoBackButton.TooltipService.Tooltip" xml:space="preserve">
     <value>Indietro</value>
   </data>
   <data name="GoForwardButton.TooltipService.Tooltip" xml:space="preserve">
-    <value>Forward</value>
+    <value>Avanti</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>Home</value>
+    <value>Pagina iniziale</value>
   </data>
   <data name="HomePageFavoritesHeader.Text" xml:space="preserve">
-    <value>Favorites</value>
+    <value>Preferiti</value>
   </data>
   <data name="HomePageFavoritesNotAvailableBody.Text" xml:space="preserve">
-    <value>No favorite items available.</value>
+    <value>Nessun elemento preferito disponibile.</value>
   </data>
   <data name="HomePageGeneralHeader.Text" xml:space="preserve">
-    <value>Work</value>
+    <value>Lavoro</value>
   </data>
   <data name="HomePageHeader.Text" xml:space="preserve">
-    <value>Home</value>
+    <value>Pagina iniziale</value>
   </data>
   <data name="HomePageRecentActivityHeader.Text" xml:space="preserve">
-    <value>Recent</value>
+    <value>Recenti</value>
   </data>
   <data name="IntroDocumentationLink.Content" xml:space="preserve">
-    <value>Documentation</value>
+    <value>Documentazione</value>
   </data>
   <data name="IntroHeader.Text" xml:space="preserve">
-    <value>Authorize FluentHub</value>
+    <value>Autorizza FluentHub</value>
   </data>
   <data name="Issues" xml:space="preserve">
-    <value>Issues</value>
+    <value>Problemi</value>
   </data>
   <data name="LoadErrorDisplayHeader.Text" xml:space="preserve">
-    <value>Something went wrong 😿</value>
+    <value>Qualcosa è andato storto 😿</value>
   </data>
   <data name="LoadErrorDisplayOpenLogFileLocationButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Opens the log folder where app error details are stored on the local disk.</value>
+    <value>Apre la cartella dei registri in cui vengono memorizzati i dettagli degli errori dell'app sul disco locale.</value>
   </data>
   <data name="LoadErrorDisplayOpenLogFileLocationButtonBody.Text" xml:space="preserve">
-    <value>Open log location</value>
+    <value>Apri posizione dei registri</value>
   </data>
   <data name="LoadErrorDisplayReportThisIssueButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Opens our GitHub page in order to create an issue. Note: In the future, FluentHub will automatically paste the error contents, details, logs, and send them to the FluentHub team via GitHub when you click this button.</value>
+    <value>Apre la nostra pagina GitHub per creare un problema. Nota: In futuro, FluentHub incollerà automaticamente il contenuto dell'errore, i dettagli, registra e inviali al team FluentHub tramite GitHub quando fai clic su questo pulsante.</value>
   </data>
   <data name="LoadErrorDisplayReportThisIssueButtonBody.Text" xml:space="preserve">
-    <value>Report this issue</value>
+    <value>Segnala questo problema</value>
   </data>
   <data name="LoadErrorDisplayShowExceptionDetailsContentDialogButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Displays the stack trace results in a dialog.</value>
+    <value>Visualizza i risultati della traccia dello stack in una finestra di dialogo.</value>
   </data>
   <data name="LoadErrorDisplayShowExceptionDetailsContentDialogButtonBody.Text" xml:space="preserve">
-    <value>See stack trace</value>
+    <value>Vedi traccia dello stack</value>
   </data>
   <data name="LoginWithGitHub.Content" xml:space="preserve">
-    <value>Login with GitHub</value>
+    <value>Accedi con GitHub</value>
   </data>
   <data name="New" xml:space="preserve">
-    <value>New</value>
+    <value>Nuovo</value>
   </data>
   <data name="NewMutation.Text" xml:space="preserve">
-    <value>New</value>
+    <value>Nuovo</value>
   </data>
   <data name="NewMutationOrganizationButton.Text" xml:space="preserve">
-    <value>New organization</value>
+    <value>Nuova organizzazione</value>
   </data>
   <data name="NewMutationRepoButton.Text" xml:space="preserve">
-    <value>New repository</value>
+    <value>Nuovo repository</value>
   </data>
   <data name="Notifications" xml:space="preserve">
-    <value>Notifications</value>
+    <value>Notifiche</value>
   </data>
   <data name="NotificationsPageFilterByReasonAssigned.Text" xml:space="preserve">
-    <value>📋 Assigned</value>
+    <value>📋 Assegnato</value>
   </data>
   <data name="NotificationsPageFilterByReasonDone.Text" xml:space="preserve">
-    <value>Done</value>
+    <value>Fatto</value>
   </data>
   <data name="NotificationsPageFilterByReasonFlyoutBody.Text" xml:space="preserve">
-    <value>Filter by:</value>
+    <value>Filtra per:</value>
   </data>
   <data name="NotificationsPageFilterByReasonInbox.Text" xml:space="preserve">
-    <value>Inbox</value>
+    <value>Posta in arrivo</value>
   </data>
   <data name="NotificationsPageFilterByReasonMentioned.Text" xml:space="preserve">
-    <value>✉️ Mentioned</value>
+    <value>✉️ Menzionato</value>
   </data>
   <data name="NotificationsPageFilterByReasonMentionedTeam.Text" xml:space="preserve">
-    <value>📧 Team Mentioned</value>
+    <value>📧 Team menzionato</value>
   </data>
   <data name="NotificationsPageFilterByReasonParticipating.Text" xml:space="preserve">
-    <value>🤝‍ Participating</value>
+    <value>🤝 Partecipante</value>
   </data>
   <data name="NotificationsPageFilterByReasonReview.Text" xml:space="preserve">
-    <value>👀 Review Requested</value>
+    <value>👀 Revisione richiesta</value>
   </data>
   <data name="NotificationsPageFilterByReasonSaved.Text" xml:space="preserve">
     <value>Saved</value>
