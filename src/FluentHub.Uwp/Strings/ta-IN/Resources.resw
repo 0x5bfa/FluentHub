@@ -442,7 +442,7 @@
     <value>Try Again</value>
   </data>
   <data name="Unfollow" xml:space="preserve">
-    <value>Unfollow</value>
+    <value>பின்தொடராதே</value>
   </data>
   <data name="UserDiscussionsButton.Text" xml:space="preserve">
     <value>Your discussions</value>
