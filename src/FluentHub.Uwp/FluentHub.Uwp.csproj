@@ -412,11 +412,14 @@
     <Compile Include="ViewModels\UserControls\Overview\PullRequestOverviewViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Overview\RepositoryOverviewViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Overview\UserProfileOverviewViewModel.cs" />
+    <Compile Include="ViewModels\Users\ContributionsViewModel.cs" />
     <Compile Include="ViewModels\Users\DiscussionsViewModel.cs" />
     <Compile Include="ViewModels\Users\FollowersViewModel.cs" />
     <Compile Include="ViewModels\Users\FollowingViewModel.cs" />
     <Compile Include="ViewModels\Users\IssuesViewModel.cs" />
     <Compile Include="ViewModels\Users\OrganizationsViewModel.cs" />
+    <Compile Include="ViewModels\Users\PackagesViewModel.cs" />
+    <Compile Include="ViewModels\Users\ProjectsViewModel.cs" />
     <Compile Include="ViewModels\Users\PullRequestsViewModel.cs" />
     <Compile Include="ViewModels\Users\RepositoriesViewModel.cs" />
     <Compile Include="ViewModels\Users\OverviewViewModel.cs" />
@@ -442,11 +445,26 @@
     <Compile Include="Views\AppSettings\AppearancePage.xaml.cs">
       <DependentUpon>AppearancePage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Organizations\DiscussionsPage.xaml.cs">
+      <DependentUpon>DiscussionsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Organizations\PackagesPage.xaml.cs">
+      <DependentUpon>PackagesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Organizations\ProjectsPage.xaml.cs">
+      <DependentUpon>ProjectsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Organizations\Settings\GeneralPage.xaml.cs">
+      <DependentUpon>GeneralPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Repositories\Code\Layouts\TreeLayoutView.xaml.cs">
       <DependentUpon>TreeLayoutView.xaml</DependentUpon>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Compile>
-    <Compile Include="Views\Repositories\Code\ReleasesPage.xaml.cs">
+    <Compile Include="Views\Repositories\Releases\ReleasePage.xaml.cs">
+      <DependentUpon>ReleasePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Repositories\Releases\ReleasesPage.xaml.cs">
       <DependentUpon>ReleasesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Repositories\Commits\CommitPage.xaml.cs">
@@ -506,11 +524,20 @@
     <Compile Include="Views\Repositories\Settings\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Users\ContributionsPage.xaml.cs">
+      <DependentUpon>ContributionsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Users\DiscussionsPage.xaml.cs">
       <DependentUpon>DiscussionsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Users\OrganizationsPage.xaml.cs">
       <DependentUpon>OrganizationsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Users\PackagesPage.xaml.cs">
+      <DependentUpon>PackagesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Users\ProjectsPage.xaml.cs">
+      <DependentUpon>ProjectsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Users\PullRequestsPage.xaml.cs">
       <DependentUpon>PullRequestsPage.xaml</DependentUpon>
@@ -1545,12 +1572,32 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Organizations\DiscussionsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Organizations\PackagesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Organizations\ProjectsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Organizations\Settings\GeneralPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Repositories\Code\Layouts\TreeLayoutView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
-    <Page Include="Views\Repositories\Code\ReleasesPage.xaml">
+    <Page Include="Views\Repositories\Releases\ReleasePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Repositories\Releases\ReleasesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1630,11 +1677,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Users\ContributionsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Users\DiscussionsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Users\OrganizationsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Users\PackagesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Users\ProjectsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1774,7 +1833,9 @@
   <ItemGroup>
     <PRIResource Include="Strings\**\Resources.resw" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Views\Shared\" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '17.0' ">
     <VisualStudioVersion>17.0</VisualStudioVersion>
   </PropertyGroup>

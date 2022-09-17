@@ -47,7 +47,7 @@
                         <Grid
                             x:Name="PinnedRepositoriesGrid"
                             x:Load="{x:Bind ViewModel.PinnedRepositories.Count, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-                            Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                            Background="{ThemeResource LayerFillColorDefaultBrush}"
                             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                             BorderThickness="1"
                             CornerRadius="8">
@@ -125,7 +125,7 @@
                             x:Name="PinnableRepositoriesGrid"
                             Grid.Row="1"
                             x:Load="{x:Bind ViewModel.PinnableRepositories.Count, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-                            Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                            Background="{ThemeResource LayerFillColorDefaultBrush}"
                             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                             BorderThickness="1"
                             CornerRadius="8">

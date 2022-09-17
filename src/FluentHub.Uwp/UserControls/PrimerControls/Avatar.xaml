@@ -24,11 +24,7 @@
             x:Load="{x:Bind IsClickable, Mode=OneWay}"
             Background="Transparent"
             Style="{ThemeResource LinkLikeButtonStyle}">
-            <Grid
-                x:Name="ButtonAvatarGrid"
-                Width="{x:Bind Size, Mode=OneWay}"
-                Height="{x:Bind Size, Mode=OneWay}"
-                x:Load="{x:Bind Source, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+            <Grid x:Name="ButtonAvatarGrid" x:Load="{x:Bind Source, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
@@ -37,7 +33,11 @@
                 <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind IsSquare, Mode=OneWay}">
 
                     <toolkit:Case Value="True">
-                        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" CornerRadius="{x:Bind Size, Converter={StaticResource SizeToCornerRadiusConverter}, ConverterParameter=True, Mode=OneWay}">
+                        <Grid
+                            Width="{x:Bind Size, Mode=OneWay}"
+                            Height="{x:Bind Size, Mode=OneWay}"
+                            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                            CornerRadius="{x:Bind Size, Converter={StaticResource SizeToCornerRadiusConverter}, ConverterParameter=True, Mode=OneWay}">
                             <Image x:Name="ButtonAvatarImage1" x:Load="{x:Bind Source, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
                                 <Image.Source>
                                     <BitmapImage
@@ -49,7 +49,11 @@
                         </Grid>
                     </toolkit:Case>
                     <toolkit:Case Value="False">
-                        <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" CornerRadius="{x:Bind Size, Converter={StaticResource SizeToCornerRadiusConverter}, ConverterParameter=False, Mode=OneWay}">
+                        <Grid
+                            Width="{x:Bind Size, Mode=OneWay}"
+                            Height="{x:Bind Size, Mode=OneWay}"
+                            Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                            CornerRadius="{x:Bind Size, Converter={StaticResource SizeToCornerRadiusConverter}, ConverterParameter=False, Mode=OneWay}">
                             <Image x:Name="ButtonAvatarImage2" x:Load="{x:Bind Source, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
                                 <Image.Source>
                                     <BitmapImage
@@ -66,19 +70,17 @@
                 <TextBlock
                     x:Name="ButtonAvatarLabelTextBlock"
                     Grid.Column="1"
-                    Margin="4,0,0,0"
+                    Margin="8,0,0,0"
                     x:Load="{x:Bind Label, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                    Style="{StaticResource BodyStrongTextBlockStyle}"
                     Text="{x:Bind Label, Mode=OneWay}" />
 
             </Grid>
 
         </Button>
+
         <!--  Grid  -->
-        <Grid
-            x:Name="StaticAvatarGrid"
-            Width="{x:Bind Size, Mode=OneWay}"
-            Height="{x:Bind Size, Mode=OneWay}"
-            x:Load="{x:Bind IsClickable, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
+        <Grid x:Name="StaticAvatarGrid" x:Load="{x:Bind IsClickable, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="Auto" />
@@ -87,7 +89,11 @@
             <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind IsSquare, Mode=OneWay}">
 
                 <toolkit:Case Value="True">
-                    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" CornerRadius="{x:Bind Size, Converter={StaticResource SizeToCornerRadiusConverter}, ConverterParameter=True, Mode=OneWay}">
+                    <Grid
+                        Width="{x:Bind Size, Mode=OneWay}"
+                        Height="{x:Bind Size, Mode=OneWay}"
+                        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                        CornerRadius="{x:Bind Size, Converter={StaticResource SizeToCornerRadiusConverter}, ConverterParameter=True, Mode=OneWay}">
                         <Image x:Name="StaticAvatarImage1" x:Load="{x:Bind Source, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
                             <Image.Source>
                                 <BitmapImage
@@ -99,7 +105,11 @@
                     </Grid>
                 </toolkit:Case>
                 <toolkit:Case Value="False">
-                    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" CornerRadius="{x:Bind Size, Converter={StaticResource SizeToCornerRadiusConverter}, ConverterParameter=False, Mode=OneWay}">
+                    <Grid
+                        Width="{x:Bind Size, Mode=OneWay}"
+                        Height="{x:Bind Size, Mode=OneWay}"
+                        Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                        CornerRadius="{x:Bind Size, Converter={StaticResource SizeToCornerRadiusConverter}, ConverterParameter=False, Mode=OneWay}">
                         <Image x:Name="StaticAvatarImage2" x:Load="{x:Bind Source, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
                             <Image.Source>
                                 <BitmapImage
@@ -116,8 +126,9 @@
             <TextBlock
                 x:Name="StaticAvatarLabelTextBlock"
                 Grid.Column="1"
-                Margin="4,0,0,0"
+                Margin="8,0,0,0"
                 x:Load="{x:Bind Label, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                Style="{StaticResource BodyStrongTextBlockStyle}"
                 Text="{x:Bind Label, Mode=OneWay}" />
 
         </Grid>
