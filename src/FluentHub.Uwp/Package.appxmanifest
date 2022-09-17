@@ -11,7 +11,7 @@
   <Identity
     Name="FluentHubDev"
     Publisher="CN=FluentHub"
-    Version="0.3.6.0" />
+    Version="0.3.7.0" />
 
   <mp:PhoneIdentity PhoneProductId="1a9b57c4-0e1f-4f62-9d7a-1bfb8e396b63" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
 
