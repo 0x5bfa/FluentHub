@@ -114,6 +114,7 @@ namespace FluentHub.Uwp
                 .AddTransient<ViewModels.Repositories.PullRequests.CommitsViewModel>()
                 .AddTransient<ViewModels.Repositories.PullRequests.FileChangesViewModel>()
                 .AddTransient<ViewModels.Repositories.PullRequests.PullRequestsViewModel>()
+                .AddTransient<ViewModels.Search.MainSearchViewModel>()
                 .AddTransient<ViewModels.SignIn.IntroViewModel>()
                 .AddTransient<ViewModels.UserControls.Blocks.FileContentBlockViewModel>()
                 .AddTransient<ViewModels.UserControls.Blocks.FileNavigationBlockViewModel>()

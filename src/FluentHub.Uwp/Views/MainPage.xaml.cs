@@ -1,3 +1,4 @@
+using System.Windows.Input;
 using FluentHub.Uwp.Dialogs;
 using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
@@ -11,6 +12,7 @@ using Windows.System;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 using muxc = Microsoft.UI.Xaml.Controls;
 
@@ -18,6 +20,8 @@ namespace FluentHub.Uwp.Views
 {
     public sealed partial class MainPage : Page
     {
+        public ICommand OpenSearchAcceleratorCommand { get; private set; }
+
         public MainPage()
         {
             InitializeComponent();
@@ -26,12 +30,15 @@ namespace FluentHub.Uwp.Views
             ViewModel = provider.GetRequiredService<MainPageViewModel>();
             navService = provider.GetRequiredService<INavigationService>();
             Logger = provider.GetService<ILogger>();
+            
+            OpenSearchAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(OpenSearchAccelerator);
         }
 
         #region Fields and Properties
         public MainPageViewModel ViewModel { get; }
         private INavigationService navService { get; }
         public ILogger Logger { get; }
+
         #endregion
 
         #region Methods
@@ -91,12 +98,57 @@ namespace FluentHub.Uwp.Views
             SearchBarButton.Visibility = Visibility.Collapsed;
         }
 
+        private void OpenSearchAccelerator(KeyboardAcceleratorInvokedEventArgs e)
+        {
+            SearchBar.Visibility = Visibility.Visible;
+            SearchBar.Focus(FocusState.Programmatic);
+            SearchBarButton.Visibility = Visibility.Collapsed;
+        }
+
         private void OnSearchBarLostFocus(object sender, RoutedEventArgs e)
         {
             SearchBar.Visibility = Visibility.Collapsed;
             SearchBarButton.Visibility = Visibility.Visible;
         }
+        private void SearchBar_TextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        {
+            // Only get results when it was a user typing, 
+            // otherwise assume the value got filled in by TextMemberPath 
+            // or the handler for SuggestionChosen.
+            if(args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
+            {
+                var suitableItems = new List<string>();
+                if (sender.Text != "")
+                {
+                    suitableItems.Add(sender.Text + " in all of Github");
+                }
+                sender.ItemsSource = suitableItems;
+            }
+        }
 
+
+        private void SearchBar_SuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+        {
+            // Set sender.Text. You can use args.SelectedItem to build your text string.
+        }
+
+
+        private void SearchBar_QuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            if (args.ChosenSuggestion != null)
+            {
+                // User selected an item from the suggestion list, take an action on it here.
+            }
+            else
+            {
+                // Use args.QueryText to determine what to do.
+            }
+            navService.Navigate<Search.MainSearchPage>(
+                new FrameNavigationArgs()
+                {
+                    Login = App.Settings.SignedInUserName,
+                });
+        }
         private void OnAppBackRequested(object sender, BackRequestedEventArgs e)
         {
             if (navService.CanGoBack())
