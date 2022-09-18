@@ -380,6 +380,7 @@
     <Compile Include="ViewModels\Repositories\Codes\Layouts\DetailsLayoutViewModel.cs" />
     <Compile Include="ViewModels\Repositories\PullRequests\PullRequestsViewModel.cs" />
     <Compile Include="ViewModels\Repositories\PullRequests\PullRequestViewModel.cs" />
+    <Compile Include="ViewModels\Search\MainSearchViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\SignIn\IntroViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\ActivityBlockViewModel.cs" />
@@ -505,6 +506,7 @@
     <Compile Include="Views\Repositories\Settings\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Search\MainSearchPage.xaml.cs" />
     <Compile Include="Views\Users\DiscussionsPage.xaml.cs">
       <DependentUpon>DiscussionsPage.xaml</DependentUpon>
     </Compile>
@@ -1629,6 +1631,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Search\MainSearchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Users\DiscussionsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1773,7 +1779,6 @@
   <ItemGroup>
     <PRIResource Include="Strings\**\Resources.resw" />
   </ItemGroup>
-  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '17.0' ">
     <VisualStudioVersion>17.0</VisualStudioVersion>
   </PropertyGroup>
