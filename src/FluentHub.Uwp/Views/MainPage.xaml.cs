@@ -13,6 +13,7 @@ using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using muxc = Microsoft.UI.Xaml.Controls;
 
@@ -144,12 +145,7 @@ namespace FluentHub.Uwp.Views
             SearchBar.Visibility = Visibility.Collapsed;
             SearchBarButton.Visibility = Visibility.Visible;
             var parameter = new List<object>(){args.QueryText};
-            navService.Navigate<Search.MainSearchPage>(
-                new FrameNavigationArgs()
-                {
-                    Login = App.Settings.SignedInUserName,
-                    Parameters = parameter
-                });
+            navService.Navigate<Search.MainSearchPage>(parameter, new DrillInNavigationTransitionInfo());
         }
         private void OnAppBackRequested(object sender, BackRequestedEventArgs e)
         {

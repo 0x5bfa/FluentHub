@@ -1,6 +1,6 @@
 namespace FluentHub.Octokit.Queries.Search;
 
-public class UserSearchQueries
+public class UserSearchQueries : ISearchQueries
 {
     
 }

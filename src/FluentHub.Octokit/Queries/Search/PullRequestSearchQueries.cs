@@ -1,6 +1,6 @@
 namespace FluentHub.Octokit.Queries.Search;
 
-public class PullRequestSearchQueries
+public class PullRequestSearchQueries : ISearchQueries
 {
     
 }

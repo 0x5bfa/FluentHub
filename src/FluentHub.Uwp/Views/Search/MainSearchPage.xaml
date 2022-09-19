@@ -33,7 +33,7 @@
             BorderThickness="1"
             CornerRadius="8">
             <muxc:NavigationView
-                x:Name="SettingsNavView"
+                x:Name="SearchNavView"
                 Margin="8"
                 IsBackButtonVisible="Collapsed"
                 IsPaneOpen="True"
@@ -41,35 +41,36 @@
                 IsSettingsVisible="False"
                 IsTitleBarAutoPaddingEnabled="False"
                 OpenPaneLength="245"
-                PaneDisplayMode="Left">
+                PaneDisplayMode="Left"
+                SelectionChanged="SearchNavView_OnSelectionChanged">
 
                 <muxc:NavigationView.MenuItems>
                     
-                    <muxc:NavigationViewItem Content="Repositories" Tag="repositories">
+                    <muxc:NavigationViewItem x:Name="RepositoriesItem" Content="Repositories" Tag="repositories">
                         <muxc:NavigationViewItem.Icon>
                             <muxc:ImageIcon Source="/Assets/Icons/Repositories.png" />
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
 
-                    <muxc:NavigationViewItem Content="Code" Tag="code">
+                    <muxc:NavigationViewItem x:Name="CodeItem" Content="Code" Tag="code">
                         <muxc:NavigationViewItem.Icon>
                             <muxc:ImageIcon Source="/Assets/Icons/Code.png" />
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
 
-                    <muxc:NavigationViewItem Content="Commits" Tag="commits">
+                    <muxc:NavigationViewItem x:Name="CommitsItem" Content="Commits" Tag="commits">
                         <muxc:NavigationViewItem.Icon>
                             <muxc:ImageIcon Source="/Assets/Icons/Commits.png" />
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
                     
-                    <muxc:NavigationViewItem Content="Issues" Tag="issues">
+                    <muxc:NavigationViewItem x:Name="IssuesItem" Content="Issues" Tag="issues">
                         <muxc:NavigationViewItem.Icon>
                             <muxc:ImageIcon Source="/Assets/Icons/Issues.png" />
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
                     
-                    <muxc:NavigationViewItem Content="Discussions" Tag="discussions">
+                    <muxc:NavigationViewItem x:Name="DiscussionsItem" Content="Discussions" Tag="discussions">
                         <muxc:NavigationViewItem.Icon>
                             <muxc:ImageIcon Source="/Assets/Icons/Discussions.png" />
                         </muxc:NavigationViewItem.Icon>
@@ -117,18 +118,11 @@
             CornerRadius="8"
             RowSpacing="16">
             <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
-
-            <TextBlock
-                x:Name="NavViewFrameTitleTextBlock"
-                Margin="32"
-                Style="{StaticResource TitleTextBlockStyle}"
-                Text="Repositories" />
             <Frame
                 x:Name="SearchContentFrame"
-                Grid.Row="1"
+                Grid.Row="0"
                 Background="Transparent" />
 
         </Grid>

@@ -380,7 +380,9 @@
     <Compile Include="ViewModels\Repositories\Codes\Layouts\DetailsLayoutViewModel.cs" />
     <Compile Include="ViewModels\Repositories\PullRequests\PullRequestsViewModel.cs" />
     <Compile Include="ViewModels\Repositories\PullRequests\PullRequestViewModel.cs" />
+    <Compile Include="ViewModels\Search\CodeViewModel.cs" />
     <Compile Include="ViewModels\Search\MainSearchViewModel.cs" />
+    <Compile Include="ViewModels\Search\RepoViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\SignIn\IntroViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Blocks\ActivityBlockViewModel.cs" />
@@ -505,6 +507,12 @@
     </Compile>
     <Compile Include="Views\Repositories\Settings\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Search\CodePage.xaml.cs">
+      <DependentUpon>CodePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Search\RepoPage.xaml.cs">
+      <DependentUpon>RepoPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Search\MainSearchPage.xaml.cs" />
     <Compile Include="Views\Users\DiscussionsPage.xaml.cs">
@@ -1632,6 +1640,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Repositories\Settings\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Search\CodePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Search\RepoPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
