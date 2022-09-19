@@ -78,6 +78,34 @@ namespace FluentHub.Uwp.UserControls
                         Login = ViewModel.User.Login,
                     });
                     break;
+                case "projects":
+                    navService.Navigate<Views.Users.ProjectsPage>(
+                    new Models.FrameNavigationArgs()
+                    {
+                        Login = ViewModel.User.Login,
+                    });
+                    break;
+                case "packages":
+                    navService.Navigate<Views.Users.PackagesPage>(
+                    new Models.FrameNavigationArgs()
+                    {
+                        Login = ViewModel.User.Login,
+                    });
+                    break;
+                case "organizations":
+                    navService.Navigate<Views.Users.OrganizationsPage>(
+                    new Models.FrameNavigationArgs()
+                    {
+                        Login = ViewModel.User.Login,
+                    });
+                    break;
+                case "discussions":
+                    navService.Navigate<Views.Users.DiscussionsPage>(
+                    new Models.FrameNavigationArgs()
+                    {
+                        Login = ViewModel.User.Login,
+                    });
+                    break;
                 case "followers":
                     navService.Navigate<Views.Users.FollowersPage>(
                     new Models.FrameNavigationArgs()

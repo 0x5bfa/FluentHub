@@ -35,7 +35,7 @@
 
                     <uc:UserProfileOverview
                         x:Name="UserProfileOverview"
-                        Margin="0,0,8,16"
+                        Margin="0,0,8,0"
                         x:Load="{x:Bind ViewModel.DisplayTitle, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
                         ViewModel="{x:Bind ViewModel.UserProfileOverviewViewModel, Mode=OneWay}" />
 
@@ -43,7 +43,7 @@
                         x:Name="ContentBackgroundFull"
                         Grid.Row="1"
                         x:Load="{x:Bind ViewModel.DisplayTitle, Mode=OneWay}"
-                        Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                        Background="{ThemeResource LayerFillColorDefaultBrush}"
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                         BorderThickness="1,1,0,0"
                         CornerRadius="8,0,0,0" />

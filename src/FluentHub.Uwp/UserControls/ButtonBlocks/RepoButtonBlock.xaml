@@ -74,7 +74,11 @@
                     Margin="0,4,0,0"
                     x:Load="{x:Bind ViewModel.Repository.Description, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
                     Text="{x:Bind ViewModel.Repository.Description, Mode=OneWay}"
-                    TextTrimming="CharacterEllipsis" />
+                    TextTrimming="CharacterEllipsis">
+                    <ToolTipService.ToolTip>
+                        <ToolTip Content="{x:Bind Description.Text, Mode=OneWay}" IsEnabled="{x:Bind Description.IsTextTrimmed, Mode=OneWay}" />
+                    </ToolTipService.ToolTip>
+                </TextBlock>
 
                 <StackPanel
                     Grid.Row="3"

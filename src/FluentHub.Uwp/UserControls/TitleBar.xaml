@@ -11,7 +11,6 @@
 
     <StackPanel
         Height="40"
-        Margin="18,8,0,0"
         VerticalAlignment="Top"
         Background="Transparent"
         Orientation="Horizontal">
@@ -22,7 +21,7 @@
             Height="22"
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
-            Source="/Assets/AppTiles/StoreLogo.scale-400.png" />
+            Source="ms-appx:///Assets/AppTiles/StoreLogo.scale-400.png" />
 
         <TextBlock
             Margin="12,0,0,0"

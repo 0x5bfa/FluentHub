@@ -43,7 +43,7 @@
                         x:Name="ContentBackgroundFull"
                         Grid.Row="1"
                         x:Load="{x:Bind ViewModel.DisplayTitle, Mode=OneWay}"
-                        Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                        Background="{ThemeResource LayerFillColorDefaultBrush}"
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                         BorderThickness="1,1,0,0"
                         CornerRadius="8,0,0,0" />
@@ -53,7 +53,7 @@
                         Grid.Row="1"
                         Margin="0,0,8,8"
                         x:Load="{x:Bind ViewModel.DisplayTitle, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
-                        Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                        Background="{ThemeResource LayerFillColorDefaultBrush}"
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                         BorderThickness="1"
                         CornerRadius="8" />

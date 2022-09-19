@@ -108,6 +108,7 @@ namespace FluentHub.Uwp.ViewModels.Users
             UserProfileOverviewViewModel = new()
             {
                 User = User,
+                SelectedTag = "organizations"
             };
 
             if (string.IsNullOrEmpty(User.WebsiteUrl) is false)

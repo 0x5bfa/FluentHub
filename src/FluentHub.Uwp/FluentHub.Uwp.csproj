@@ -146,12 +146,14 @@
     </Compile>
     <Compile Include="Converters\DecimalToMetricConverter.cs" />
     <Compile Include="Converters\DecimalToSubjectNumberConverter.cs" />
+    <Compile Include="Converters\EmojiShortCodeToUnicodeConverter.cs" />
     <Compile Include="Converters\HexColorCodeToSolidColorBrushConverter.cs" />
     <Compile Include="Converters\IssueCommentToIssueCommentBlockViewModelConverter.cs" />
     <Compile Include="Converters\NumberToNumberWithHashtagConverter.cs" />
     <Compile Include="Converters\ObjectToBoolConverter.cs" />
     <Compile Include="Converters\SettingsControlConverter.cs" />
     <Compile Include="Converters\SizeToCornerRadiusConverter.cs" />
+    <Compile Include="Converters\StringToQuantityConverter.cs" />
     <Compile Include="Converters\SubjectToButtonTitleConverter.cs" />
     <Compile Include="Dialogs\AccountSwitching.xaml.cs">
       <DependentUpon>AccountSwitching.xaml</DependentUpon>
@@ -206,6 +208,9 @@
     <Compile Include="Services\Navigation\TabViewSelectionChangedEventArgs.cs" />
     <Compile Include="Services\OctokitSecretsService.cs" />
     <Compile Include="Services\ToastService.cs" />
+    <Compile Include="UserControls\ButtonBlocks\PackageButtonBlock.xaml.cs">
+      <DependentUpon>PackageButtonBlock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\CustomWebView.xaml.cs">
       <DependentUpon>CustomWebView.xaml</DependentUpon>
     </Compile>
@@ -396,6 +401,7 @@
     <Compile Include="ViewModels\UserControls\ButtonBlocks\IssueButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\NotificationButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\OrgButtonBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\ButtonBlocks\PackageButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\ProjectButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\PullButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\RepoButtonBlockViewModel.cs" />
@@ -1360,6 +1366,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\ButtonBlocks\PackageButtonBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\CustomWebView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1820,6 +1830,10 @@
     <ProjectReference Include="..\..\lib\octokit.graphql.net\Octokit.GraphQL.Core\Octokit.GraphQL.Core.csproj">
       <Project>{AEAF7702-4AD2-4B09-BAA1-DCAF0E920279}</Project>
       <Name>Octokit.GraphQL.Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FluentHub.Core\FluentHub.Core.csproj">
+      <Project>{ccd6a838-6e6f-424f-bee3-60c46f4b5308}</Project>
+      <Name>FluentHub.Core</Name>
     </ProjectReference>
     <ProjectReference Include="..\FluentHub.Octokit\FluentHub.Octokit.csproj">
       <Project>{893edcc9-4345-4f49-a13f-1a426a7ba432}</Project>

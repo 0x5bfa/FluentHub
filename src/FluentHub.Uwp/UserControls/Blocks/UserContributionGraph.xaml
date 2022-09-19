@@ -40,7 +40,7 @@
 
     <Grid
         Grid.Row="1"
-        Background="{ThemeResource CardBackgroundFillColorSecondary}"
+        Background="{ThemeResource LayerFillColorDefaultBrush}"
         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
         BorderThickness="1"
         CornerRadius="8">
@@ -163,18 +163,18 @@
             </muxc:ItemsRepeater.Layout>
 
             <DataTemplate x:DataType="models:MergedCalendarDays">
-                <Grid
+                <Border
+                    x:Name="ContributionLevelBorder"
                     Width="14"
                     Height="14"
                     BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                     BorderThickness="1"
-                    CornerRadius="3"
-                    ToolTipService.ToolTip="{x:Bind ContributionCount, Mode=OneWay}"
+                    CornerRadius="4"
                     Visibility="{x:Bind IsVaild, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
-                    <Grid.Background>
+                    <Border.Background>
                         <SolidColorBrush Color="{x:Bind Color, Mode=OneWay}" />
-                    </Grid.Background>
-                </Grid>
+                    </Border.Background>
+                </Border>
             </DataTemplate>
 
         </muxc:ItemsRepeater>

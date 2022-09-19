@@ -1,9 +1,10 @@
 .markdown-body {
+  color-scheme: light;
   -ms-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%;
   margin: 0;
   color: #000000;
-  background-color: #ffffff;
+  background-color: transparent;
   font-family: "Segoe UI Variable Text","Segoe UI",Arial,sans-serif,"Segoe UI Emoji";
   font-size: 14px;
   line-height: 1.5;

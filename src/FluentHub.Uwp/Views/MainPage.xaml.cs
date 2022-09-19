@@ -224,27 +224,52 @@ namespace FluentHub.Uwp.Views
 
         private void OnMainNavViewItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
         {
-            switch (args.InvokedItemContainer.Tag.ToString().ToLower())
+            if (args.InvokedItemContainer == null)
+            {
+                return;
+            }
+
+            int selectedIndex = 0;
+
+            switch (args.InvokedItemContainer.Tag?.ToString().ToLower())
             {
                 case "home":
+                    selectedIndex = 0;
                     navService.Navigate<Home.UserHomePage>();
                     break;
                 case "notifications":
+                    selectedIndex = 1;
                     navService.Navigate<Home.NotificationsPage>();
                     break;
                 case "activity":
+                    selectedIndex = 2;
                     break;
                 case "marketplace":
+                    selectedIndex = 3;
                     break;
                 case "explore":
+                    selectedIndex = 4;
                     break;
                 case "profile":
+                    selectedIndex = 5;
                     navService.Navigate<Users.OverviewPage>(
                     new FrameNavigationArgs()
                     {
                         Login = App.Settings.SignedInUserName,
                     });
                     break;
+            }
+
+            for (int index = 0; index <= 5; index++)
+            {
+                if (index == selectedIndex)
+                    continue;
+
+                if (index <= 4)
+                    ViewModel.NavViewItems[index].IsSelected = false;
+
+                if (selectedIndex != 5)
+                    ViewModel.NavViewFooterItems[0].IsSelected = false;
             }
         }
         #endregion
