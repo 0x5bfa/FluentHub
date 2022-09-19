@@ -11,14 +11,6 @@
     mc:Ignorable="d">
     
     <Page.Resources>
-        <DataTemplate x:Key="ContactListViewTemplate">
-            <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1"/>
-            </Grid.ColumnDefinitions>
-                <TextBlock Text="{x:Bind Name}" x:Phase="1" Grid.Column="0" Margin="0,5,0,5"/>
-            </Grid>
-        </DataTemplate>
     </Page.Resources>
     
     <Grid>
