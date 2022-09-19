@@ -141,10 +141,14 @@ namespace FluentHub.Uwp.Views
             {
                 // Use args.QueryText to determine what to do.
             }
+            SearchBar.Visibility = Visibility.Collapsed;
+            SearchBarButton.Visibility = Visibility.Visible;
+            var parameter = new List<object>(){args.QueryText};
             navService.Navigate<Search.MainSearchPage>(
                 new FrameNavigationArgs()
                 {
                     Login = App.Settings.SignedInUserName,
+                    Parameters = parameter
                 });
         }
         private void OnAppBackRequested(object sender, BackRequestedEventArgs e)
