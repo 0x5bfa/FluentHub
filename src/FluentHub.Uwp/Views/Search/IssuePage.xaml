@@ -1,5 +1,5 @@
 ﻿<Page
-    x:Class="FluentHub.Uwp.Views.Search.RepoPage"
+    x:Class="FluentHub.Uwp.Views.Search.IssuePage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -9,6 +9,17 @@
     xmlns:uc="using:FluentHub.Uwp.UserControls"
     xmlns:contacts="using:Windows.ApplicationModel"
     mc:Ignorable="d">
+    
+    <Page.Resources>
+        <DataTemplate x:Key="ContactListViewTemplate">
+            <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1"/>
+            </Grid.ColumnDefinitions>
+                <TextBlock Text="{x:Bind Name}" x:Phase="1" Grid.Column="0" Margin="0,5,0,5"/>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
     
     <Grid>
         <Grid.ColumnDefinitions>
@@ -35,7 +46,7 @@
                         x:Name="RepoSearchHeader"
                         Margin="0,0,0,20"
                         Style="{StaticResource TitleTextBlockStyle}"
-                        Text="Repositories" />
+                        Text="Issues" />
                 </Grid>
             </ScrollViewer>
         </Grid>

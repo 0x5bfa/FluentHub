@@ -8,14 +8,14 @@ using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.Views.Search
 {
-    public sealed partial class RepoPage : Page
+    public sealed partial class IssuePage : Page
     {
-        public RepoPage()
+        public IssuePage()
         {
             InitializeComponent();
 
             var provider = App.Current.Services;
-            ViewModel = provider.GetRequiredService<RepoViewModel>();
+            ViewModel = provider.GetRequiredService<RepoViewModel>(); // TODO: Change View Model to Issue
             navigationService = provider.GetRequiredService<INavigationService>();
         }
 
@@ -34,13 +34,13 @@ namespace FluentHub.Uwp.Views.Search
                 throw new Exception("Searching without a query");
             }
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = "Repository Results";
-            currentItem.Description = "Repository Results for \"" + query + "\"";
-            currentItem.Url = "fluenthub://search/repos/" + query.Replace(" ", "&");
-            currentItem.DisplayUrl = $"Search / Repos";
+            currentItem.Header = "Issue Results";
+            currentItem.Description = "Issue Results for \"" + query + "\"";
+            currentItem.Url = "fluenthub://search/issues/" + query.Replace(" ", "&");
+            currentItem.DisplayUrl = $"Search / issues";
             currentItem.Icon = new muxc.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Issues.png"))
             };
         }
     }

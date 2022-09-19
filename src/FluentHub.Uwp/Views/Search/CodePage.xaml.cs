@@ -33,8 +33,8 @@ namespace FluentHub.Uwp.Views.Search
             }
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Code Results";
-            currentItem.Description = "Code Results for "; // TODO: Add query name
-            currentItem.Url = "fluenthub://search/code";
+            currentItem.Description = "Code Results for \"" + query + "\"";
+            currentItem.Url = "fluenthub://search/code/" + query.Replace(" ", "&");
             currentItem.DisplayUrl = $"Search / Code";
             currentItem.Icon = new muxc.ImageIconSource
             {

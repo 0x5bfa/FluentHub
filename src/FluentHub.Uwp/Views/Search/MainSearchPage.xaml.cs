@@ -34,12 +34,8 @@ namespace FluentHub.Uwp.Views.Search
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Search";
             currentItem.Description = "FluentHub search";
-            currentItem.Url = "fluenthub://search/";
+            currentItem.Url = "fluenthub://search/" + query.Replace(" ", "&");
             currentItem.DisplayUrl = "Search";
-            currentItem.Icon = new muxc.ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Settings.png"))
-            };
 
             var command = ViewModel.LoadSignedInLoginsCommand;
             if (command.CanExecute(null))
@@ -59,6 +55,10 @@ namespace FluentHub.Uwp.Views.Search
             else if (args.SelectedItem == CodeItem)
             {
                 pageType = typeof(CodePage);
+            }
+            else if (args.SelectedItem == IssuesItem)
+            {
+                pageType = typeof(IssuePage);
             }
             SearchContentFrame.Navigate(pageType, query);
 
