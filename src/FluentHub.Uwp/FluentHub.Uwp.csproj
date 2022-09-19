@@ -732,6 +732,7 @@
     <Content Include="Assets\Icons\Accounts.png" />
     <Content Include="Assets\Icons\Activities.png" />
     <Content Include="Assets\Icons\Appearance.png" />
+    <Content Include="Assets\Icons\Code.png" />
     <Content Include="Assets\Icons\Commits.png" />
     <Content Include="Assets\Icons\Discussions.png" />
     <Content Include="Assets\Icons\Document.png" />
@@ -739,6 +740,7 @@
     <Content Include="Assets\Icons\Home.png" />
     <Content Include="Assets\Icons\Insights.png" />
     <Content Include="Assets\Icons\Issues.png" />
+    <Content Include="Assets\Icons\Marketplace.png" />
     <Content Include="Assets\Icons\Notifications.png" />
     <Content Include="Assets\Icons\Organizations.png" />
     <Content Include="Assets\Icons\Private.png" />
@@ -748,6 +750,8 @@
     <Content Include="Assets\Icons\Repositories.png" />
     <Content Include="Assets\Icons\Settings.png" />
     <Content Include="Assets\Icons\Starred.png" />
+    <Content Include="Assets\Icons\Topic.png" />
+    <Content Include="Assets\Icons\Wiki.png" />
     <Content Include="Assets\Octicons\accessibility-16.svg" />
     <Content Include="Assets\Octicons\alert-16.svg" />
     <Content Include="Assets\Octicons\alert-24.svg" />

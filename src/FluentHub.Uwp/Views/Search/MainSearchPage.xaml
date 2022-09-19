@@ -53,7 +53,7 @@
 
                     <muxc:NavigationViewItem Content="Code" Tag="code">
                         <muxc:NavigationViewItem.Icon>
-                            <muxc:ImageIcon Source="/Assets/Icons/Notifications.png" />
+                            <muxc:ImageIcon Source="/Assets/Icons/Code.png" />
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
 
@@ -71,7 +71,7 @@
                     
                     <muxc:NavigationViewItem Content="Discussions" Tag="discussions">
                         <muxc:NavigationViewItem.Icon>
-                            <muxc:ImageIcon Source="/Assets/Icons/Notifications.png" />
+                            <muxc:ImageIcon Source="/Assets/Icons/Discussions.png" />
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
                     
@@ -83,25 +83,25 @@
                     
                     <muxc:NavigationViewItem Content="Marketplace" Tag="marketplace">
                         <muxc:NavigationViewItem.Icon>
-                            <muxc:ImageIcon Source="/Assets/Icons/Notifications.png" />
+                            <muxc:ImageIcon Source="/Assets/Icons/Marketplace.png" />
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
                     
                     <muxc:NavigationViewItem Content="Topics" Tag="topics">
                         <muxc:NavigationViewItem.Icon>
-                            <muxc:ImageIcon Source="/Assets/Icons/Notifications.png" />
+                            <muxc:ImageIcon Source="/Assets/Icons/Topic.png" />
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
                     
                     <muxc:NavigationViewItem Content="Wikis" Tag="wikis">
                         <muxc:NavigationViewItem.Icon>
-                            <muxc:ImageIcon Source="/Assets/Icons/Notifications.png" />
+                            <muxc:ImageIcon Source="/Assets/Icons/Wiki.png" />
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
                     
                     <muxc:NavigationViewItem Content="Users" Tag="users">
                         <muxc:NavigationViewItem.Icon>
-                            <muxc:ImageIcon Source="/Assets/Icons/Notifications.png" />
+                            <muxc:ImageIcon Source="/Assets/Icons/Profile.png" />
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
                 </muxc:NavigationView.MenuItems>
@@ -125,10 +125,9 @@
                 x:Name="NavViewFrameTitleTextBlock"
                 Margin="32"
                 Style="{StaticResource TitleTextBlockStyle}"
-                Text="General" />
-
+                Text="Repositories" />
             <Frame
-                x:Name="SettingsContentFrame"
+                x:Name="SearchContentFrame"
                 Grid.Row="1"
                 Background="Transparent" />
 
