@@ -25,8 +25,10 @@ namespace FluentHub.Uwp.Views.Search
         
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (e.Parameter != null)
+            if (e.Parameter != null) 
+            {
                 query = e.Parameter.ToString();
+            }
             else
             {
                 throw new Exception("Searching without a query");
@@ -39,13 +41,13 @@ namespace FluentHub.Uwp.Views.Search
             currentItem.Icon = new muxc.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Search.png"))
-            };;
+            };
 
             var command = ViewModel.LoadSignedInLoginsCommand;
             if (command.CanExecute(null))
                 command.Execute(null);
             SearchNavView.SelectedItem = SearchNavView.MenuItems.First();
-            SearchContentFrame.Navigate(typeof(RepoPage));
+            SearchContentFrame.Navigate(typeof(RepoPage), query);
         }
 
         private void SearchNavView_OnSelectionChanged(muxc.NavigationView sender, muxc.NavigationViewSelectionChangedEventArgs args)

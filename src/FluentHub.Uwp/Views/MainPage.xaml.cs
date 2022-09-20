@@ -144,7 +144,7 @@ namespace FluentHub.Uwp.Views
             }
             SearchBar.Visibility = Visibility.Collapsed;
             SearchBarButton.Visibility = Visibility.Visible;
-            var parameter = new List<object>(){args.QueryText};
+            var parameter = args.QueryText;
             navService.Navigate<Search.MainSearchPage>(parameter, new DrillInNavigationTransitionInfo());
         }
         private void OnAppBackRequested(object sender, BackRequestedEventArgs e)
