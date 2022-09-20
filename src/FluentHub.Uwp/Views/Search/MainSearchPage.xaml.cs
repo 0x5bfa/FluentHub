@@ -36,6 +36,10 @@ namespace FluentHub.Uwp.Views.Search
             currentItem.Description = "FluentHub search";
             currentItem.Url = "fluenthub://search/" + query.Replace(" ", "&");
             currentItem.DisplayUrl = "Search";
+            currentItem.Icon = new muxc.ImageIconSource
+            {
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Search.png"))
+            };;
 
             var command = ViewModel.LoadSignedInLoginsCommand;
             if (command.CanExecute(null))

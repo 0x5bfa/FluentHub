@@ -38,7 +38,7 @@ namespace FluentHub.Uwp.Views.Search
             currentItem.DisplayUrl = $"Search / Code";
             currentItem.Icon = new muxc.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Code.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Search.png"))
             };
         }
     }

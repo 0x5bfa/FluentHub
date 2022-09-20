@@ -40,7 +40,7 @@ namespace FluentHub.Uwp.Views.Search
             currentItem.DisplayUrl = $"Search / Repos";
             currentItem.Icon = new muxc.ImageIconSource
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.png"))
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Search.png"))
             };
         }
     }

@@ -117,6 +117,7 @@ namespace FluentHub.Uwp
                 .AddTransient<ViewModels.Search.CodeViewModel>()
                 .AddTransient<ViewModels.Search.MainSearchViewModel>()
                 .AddTransient<ViewModels.Search.RepoViewModel>()
+                .AddTransient<ViewModels.Search.UserViewModel>()
                 .AddTransient<ViewModels.SignIn.IntroViewModel>()
                 .AddTransient<ViewModels.UserControls.Blocks.FileContentBlockViewModel>()
                 .AddTransient<ViewModels.UserControls.Blocks.FileNavigationBlockViewModel>()

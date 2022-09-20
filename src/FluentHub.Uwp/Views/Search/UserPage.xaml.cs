@@ -8,22 +8,20 @@ using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.Views.Search
 {
-    public sealed partial class IssuePage : Page
+    public sealed partial class UserPage : Page
     {
-        public IssuePage()
+        public UserPage()
         {
             InitializeComponent();
 
             var provider = App.Current.Services;
-            ViewModel = provider.GetRequiredService<RepoViewModel>(); // TODO: Change View Model to Issue
+            ViewModel = provider.GetRequiredService<UserViewModel>();
             navigationService = provider.GetRequiredService<INavigationService>();
         }
 
         private readonly INavigationService navigationService;
-
         private string query;
-        
-        public RepoViewModel ViewModel { get; }
+        public UserViewModel ViewModel { get; }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -34,10 +32,10 @@ namespace FluentHub.Uwp.Views.Search
                 throw new Exception("Searching without a query");
             }
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = "Issue Results";
-            currentItem.Description = "Issue Results for \"" + query + "\"";
-            currentItem.Url = "fluenthub://search/issues/" + query.Replace(" ", "&");
-            currentItem.DisplayUrl = $"Search / issues";
+            currentItem.Header = "Code Results";
+            currentItem.Description = "Code Results for \"" + query + "\"";
+            currentItem.Url = "fluenthub://search/code/" + query.Replace(" ", "&");
+            currentItem.DisplayUrl = $"Search / Code";
             currentItem.Icon = new muxc.ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Search.png"))
