@@ -69,7 +69,6 @@ namespace FluentHub.Uwp.Views.Search
                 pageType = typeof(UserPage);
             }
             SearchContentFrame.Navigate(pageType, query);
-
         }
     }
 }
