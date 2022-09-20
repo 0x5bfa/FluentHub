@@ -1,3 +1,5 @@
+using Octokit;
+
 namespace FluentHub.Octokit.Models.v4
 {
     using System;
@@ -30,5 +32,6 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset CreatedAt { get; set; }
         
         public IReadOnlyList<OctokitV3.Label> Labels { get; set; }
+        public StringEnum<ItemState> State { get; set; }
     }
 }

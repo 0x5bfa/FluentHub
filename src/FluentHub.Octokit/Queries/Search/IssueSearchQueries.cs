@@ -18,6 +18,7 @@ public class IssueSearchQueries : ISearchQueries
         {
             issueList.Add(new IssueSearch
             {
+                State = x.State,
                 Body = x.Body,
                 Author = x.User,
                 Repo = x.Repository,
