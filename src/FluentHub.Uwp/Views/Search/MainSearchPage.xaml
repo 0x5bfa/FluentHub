@@ -100,7 +100,7 @@
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
                     
-                    <muxc:NavigationViewItem Content="Users" Tag="users">
+                    <muxc:NavigationViewItem x:Name="UsersItem" Content="Users" Tag="users">
                         <muxc:NavigationViewItem.Icon>
                             <muxc:ImageIcon Source="/Assets/Icons/Profile.png" />
                         </muxc:NavigationViewItem.Icon>

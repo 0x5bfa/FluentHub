@@ -64,6 +64,10 @@ namespace FluentHub.Uwp.Views.Search
             {
                 pageType = typeof(IssuePage);
             }
+            else if (args.SelectedItem == UsersItem)
+            {
+                pageType = typeof(UserPage);
+            }
             SearchContentFrame.Navigate(pageType, query);
 
         }
