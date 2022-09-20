@@ -3,7 +3,7 @@ namespace FluentHub.Octokit.Queries.Search;
 
 public class UserSearchQueries : ISearchQueries
 {
-    public async Task<List<UserSearch>> GetAll(String query)
+    public async Task<List<UserSearch>> GetAll(string query)
     {
         // you can also specify a search term here
         var request = new SearchUsersRequest(query);
