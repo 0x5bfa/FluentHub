@@ -34,7 +34,6 @@ namespace FluentHub.Octokit.Models.v4
         /// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
         /// <param name="filterByAssignable">Filter by categories that are assignable by the viewer.</param>
         public DiscussionCategoryConnection DiscussionCategories { get; set; }
-        
 
         /// <summary>
         /// Returns how many forks there are of this repository in the whole network.
@@ -46,7 +45,6 @@ namespace FluentHub.Octokit.Models.v4
         /// </summary>
         public bool IsArchived { get; set; }
         
-
         /// <summary>
         /// Identifies if the repository is a fork.
         /// </summary>
@@ -99,7 +97,6 @@ namespace FluentHub.Octokit.Models.v4
         /// </summary>
         public List<IssueTemplate> IssueTemplates { get; set; }
         
-
         /// <summary>
         /// Returns a single label by name
         /// </summary>
