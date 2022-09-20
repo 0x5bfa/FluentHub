@@ -21,6 +21,7 @@ namespace FluentHub.Uwp.Views.Search
         }
         private readonly INavigationService navigationService;
         private string query;
+        private Type currentPage;
         private MainSearchViewModel ViewModel { get; }
         
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -48,12 +49,13 @@ namespace FluentHub.Uwp.Views.Search
                 command.Execute(null);
             SearchNavView.SelectedItem = SearchNavView.MenuItems.First();
             SearchContentFrame.Navigate(typeof(RepoPage), query);
+            currentPage = typeof(RepoPage);
         }
 
         private void SearchNavView_OnSelectionChanged(muxc.NavigationView sender, muxc.NavigationViewSelectionChangedEventArgs args)
         {
             var navigateTo = sender.SelectedItem.ToString();
-            var pageType = typeof(RepoPage);
+            var pageType = currentPage;
             if (args.SelectedItem == RepositoriesItem)
             {
                 pageType = typeof(RepoPage);
@@ -71,6 +73,7 @@ namespace FluentHub.Uwp.Views.Search
                 pageType = typeof(UserPage);
             }
             SearchContentFrame.Navigate(pageType, query);
+            currentPage = pageType;
         }
     }
 }
