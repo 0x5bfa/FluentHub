@@ -10,10 +10,10 @@ namespace FluentHub.Uwp.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            var val = value.ToString();
-            var param = System.Convert.ToInt32(parameter);
+            var val = System.Convert.ToInt32(value);
+            var param = parameter.ToString();
 
-            return val.ToQuantity(param);
+            return param.ToQuantity(val);
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

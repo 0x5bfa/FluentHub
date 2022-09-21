@@ -5,7 +5,6 @@
     xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
     xmlns:bbuc="using:FluentHub.Uwp.UserControls.ButtonBlocks"
     xmlns:bbvm="using:FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks"
-    xmlns:blocks="using:FluentHub.Uwp.UserControls.Blocks"
     xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="using:FluentHub.Uwp.Helpers"
@@ -108,7 +107,7 @@
                                             ItemsStretch="Fill"
                                             MaximumRowsOrColumns="6"
                                             MinColumnSpacing="8"
-                                            MinItemHeight="92"
+                                            MinItemHeight="102"
                                             MinItemWidth="250"
                                             MinRowSpacing="8"
                                             Orientation="Horizontal" />
@@ -199,9 +198,9 @@
                             </Grid>
                         </Grid>
 
-                        <blocks:UserContributionGraph Login="{x:Bind ViewModel.Login, Mode=OneWay}" />
+                        <uc:UserContributionGraph Login="{x:Bind ViewModel.Login, Mode=OneWay}" />
 
-                        <blocks:ReadmeContentBlock x:Name="UserSpecialReadmeBlock" ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
+                        <uc:ReadmeContentBlock x:Name="UserSpecialReadmeBlock" ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
                     </StackPanel>
 
                 </Grid>

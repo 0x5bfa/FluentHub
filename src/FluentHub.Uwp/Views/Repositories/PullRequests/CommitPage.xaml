@@ -52,7 +52,7 @@
                                     <muxc:StackLayout Orientation="Vertical" Spacing="6" />
                                 </muxc:ItemsRepeater.Layout>
                                 <DataTemplate x:DataType="bvm:DiffBlockViewModel">
-                                    <blocks:DiffBlock ViewModel="{x:Bind}" />
+                                    <uc:DiffBlock ViewModel="{x:Bind}" />
                                 </DataTemplate>
                             </muxc:ItemsRepeater>
                         </ScrollViewer>

@@ -1,12 +1,12 @@
 ﻿<UserControl
-    x:Class="FluentHub.Uwp.UserControls.RepositoryOverview"
+    x:Class="FluentHub.Uwp.UserControls.Overview.RepositoryOverview"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="using:FluentHub.Uwp.Helpers"
     xmlns:labels="using:FluentHub.Uwp.UserControls.Labels"
-    xmlns:local="using:FluentHub.Uwp.UserControls"
+    xmlns:local="using:FluentHub.Uwp.UserControls.Overview"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:primer="using:FluentHub.Uwp.UserControls.PrimerControls"
@@ -30,7 +30,7 @@
     </UserControl.Resources>
 
     <Grid
-        Background="{ThemeResource CardBackgroundFillColorSecondary}"
+        Background="{ThemeResource LayerFillColorDefaultBrush}"
         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
         BorderThickness="1"
         CornerRadius="8">
@@ -75,14 +75,8 @@
                     Style="{StaticResource LinkLikeButtonStyle}">
                     <StackPanel Orientation="Horizontal" Spacing="8">
 
-                        <Grid
-                            Width="18"
-                            Height="18"
-                            CornerRadius="4">
-                            <Image
-                                Width="18"
-                                Height="18"
-                                Source="{x:Bind ViewModel.Repository.Owner.AvatarUrl, Mode=OneWay}" />
+                        <Grid>
+                            <primer:Avatar IsSquare="{x:Bind ViewModel.Repository.IsInOrganization, Mode=OneWay}" Source="{x:Bind ViewModel.Repository.Owner.AvatarUrl, Mode=OneWay}" />
                         </Grid>
 
                         <TextBlock

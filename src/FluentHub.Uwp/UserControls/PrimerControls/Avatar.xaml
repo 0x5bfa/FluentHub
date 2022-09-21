@@ -126,7 +126,8 @@
             <TextBlock
                 x:Name="StaticAvatarLabelTextBlock"
                 Grid.Column="1"
-                Margin="8,0,0,0"
+                Margin="8,2,0,0"
+                VerticalAlignment="Center"
                 x:Load="{x:Bind Label, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
                 Style="{StaticResource BodyStrongTextBlockStyle}"
                 Text="{x:Bind Label, Mode=OneWay}" />

@@ -24,7 +24,7 @@
 
         <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryIssuesPageCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <Grid Margin="0,0,8,8" RowSpacing="8">
+                <Grid Margin="0,0,8,8">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -34,8 +34,11 @@
                     <uc:RepositoryOverview Margin="0,0,0,8" ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
 
                     <Grid
+                        x:Name="PinnedIssuesBlock"
                         Grid.Row="1"
-                        Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                        Margin="0,0,0,8"
+                        x:Load="{x:Bind ViewModel.PinnedItems.Count, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                        Background="{ThemeResource LayerFillColorDefaultBrush}"
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                         BorderThickness="1"
                         CornerRadius="8">
@@ -91,21 +94,16 @@
                     <Grid
                         Grid.Row="2"
                         Padding="32"
-                        Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                        Background="{ThemeResource LayerFillColorDefaultBrush}"
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                         BorderThickness="1"
                         CornerRadius="8">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
 
-                        <Grid
-                            Grid.Row="2"
-                            Margin="0,8,0,16"
-                            RowSpacing="8">
+                        <Grid Margin="0,8,0,16" RowSpacing="8">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -178,14 +176,30 @@
                             </StackPanel>
                         </Grid>
 
-                        <muxc:ItemsRepeater Grid.Row="3" ItemsSource="{x:Bind ViewModel.IssueItems}">
-                            <muxc:ItemsRepeater.Layout>
-                                <muxc:StackLayout Orientation="Vertical" Spacing="6" />
-                            </muxc:ItemsRepeater.Layout>
-                            <DataTemplate x:DataType="bbvm:IssueButtonBlockViewModel">
-                                <bbuc:IssueButtonBlock VerticalAlignment="Stretch" ViewModel="{x:Bind}" />
-                            </DataTemplate>
-                        </muxc:ItemsRepeater>
+                        <Grid Grid.Row="1">
+                            <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.IssueItems, Mode=OneWay}">
+                                <muxc:ItemsRepeater.Layout>
+                                    <muxc:StackLayout Orientation="Vertical" Spacing="6" />
+                                </muxc:ItemsRepeater.Layout>
+                                <DataTemplate x:DataType="bbvm:IssueButtonBlockViewModel">
+                                    <bbuc:IssueButtonBlock VerticalAlignment="Stretch" ViewModel="{x:Bind}" />
+                                </DataTemplate>
+                            </muxc:ItemsRepeater>
+
+                            <toolkit:SwitchPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                TargetType="x:Int32"
+                                Value="{x:Bind ViewModel.IssueItems.Count, Mode=OneWay}">
+                                <toolkit:Case Value="0">
+                                    <TextBlock
+                                        FontSize="18"
+                                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                                        Text="No issues."
+                                        TextAlignment="Center" />
+                                </toolkit:Case>
+                            </toolkit:SwitchPresenter>
+                        </Grid>
                     </Grid>
 
                 </Grid>

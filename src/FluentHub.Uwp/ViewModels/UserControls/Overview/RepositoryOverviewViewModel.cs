@@ -7,7 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Uwp;
 using System.Windows.Input;
 
-namespace FluentHub.Uwp.ViewModels.UserControls
+namespace FluentHub.Uwp.ViewModels.UserControls.Overview
 {
     public class RepositoryOverviewViewModel : ObservableObject
     {
@@ -33,6 +33,8 @@ namespace FluentHub.Uwp.ViewModels.UserControls
 
         private Repository _repository;
         public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
+
+        public static Repository StoredRepository;
 
         private LabelControlViewModel _repositoryVisibilityLabel;
         public LabelControlViewModel RepositoryVisibilityLabel { get => _repositoryVisibilityLabel; set => SetProperty(ref _repositoryVisibilityLabel, value); }

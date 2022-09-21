@@ -154,7 +154,7 @@
                             Style="{StaticResource BodyStrongTextBlockStyle}"
                             Text="No item selected" />
 
-                        <blocks:FileContentBlock
+                        <uc:FileContentBlock
                             x:Name="BlobBlock"
                             VerticalAlignment="Top"
                             x:Load="{x:Bind ViewModel.BlobSelected, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"

@@ -2,7 +2,6 @@
     x:Class="FluentHub.Uwp.Views.Repositories.PullRequests.PullRequestPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:blocks="using:FluentHub.Uwp.UserControls.Blocks"
     xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:label="using:FluentHub.Uwp.UserControls.Labels"
@@ -109,14 +108,14 @@
                                 </toolkit:Case>
                             </toolkit:SwitchPresenter>
 
-                            <blocks:BranchName Branch="{x:Bind ViewModel.PullItem.HeadRefName, Mode=OneWay}" />
+                            <uc:BranchName Branch="{x:Bind ViewModel.PullItem.HeadRefName, Mode=OneWay}" />
 
                             <FontIcon
                                 FontSize="12"
                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                 Glyph="&#xE72A;" />
 
-                            <blocks:BranchName Branch="{x:Bind ViewModel.PullItem.BaseRefName, Mode=OneWay}" />
+                            <uc:BranchName Branch="{x:Bind ViewModel.PullItem.BaseRefName, Mode=OneWay}" />
 
                         </StackPanel>
 

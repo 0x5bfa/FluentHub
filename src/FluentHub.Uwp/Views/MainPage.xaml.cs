@@ -243,15 +243,16 @@ namespace FluentHub.Uwp.Views
                     break;
                 case "activity":
                     selectedIndex = 2;
+                    navService.Navigate<Users.ContributionsPage>();
                     break;
-                case "marketplace":
-                    selectedIndex = 3;
-                    break;
-                case "explore":
-                    selectedIndex = 4;
-                    break;
+                //case "marketplace":
+                //    selectedIndex = 3;
+                //    break;
+                //case "explore":
+                //    selectedIndex = 4;
+                //    break;
                 case "profile":
-                    selectedIndex = 5;
+                    selectedIndex = 3;
                     navService.Navigate<Users.OverviewPage>(
                     new FrameNavigationArgs()
                     {
@@ -260,15 +261,15 @@ namespace FluentHub.Uwp.Views
                     break;
             }
 
-            for (int index = 0; index <= 5; index++)
+            for (int index = 0; index <= 3; index++)
             {
                 if (index == selectedIndex)
                     continue;
 
-                if (index <= 4)
+                if (index <= 2)
                     ViewModel.NavViewItems[index].IsSelected = false;
 
-                if (selectedIndex != 5)
+                if (selectedIndex != 3)
                     ViewModel.NavViewFooterItems[0].IsSelected = false;
             }
         }

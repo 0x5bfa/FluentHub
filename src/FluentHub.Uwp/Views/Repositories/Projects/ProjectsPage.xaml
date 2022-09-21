@@ -28,12 +28,12 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <uc:RepositoryOverview Margin="0,0,0,8" ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
+                    <uc:RepositoryOverview ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
 
                     <Grid
                         Grid.Row="1"
                         Padding="32"
-                        Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                        Background="{ThemeResource LayerFillColorDefaultBrush}"
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                         BorderThickness="1"
                         CornerRadius="8">
@@ -42,11 +42,27 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Items}">
-                            <DataTemplate x:DataType="bbvm:ProjectButtonBlockViewModel">
-                                <block:ProjectButtonBlock ViewModel="{x:Bind}" />
-                            </DataTemplate>
-                        </muxc:ItemsRepeater>
+                        <Grid>
+                            <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}">
+                                <DataTemplate x:DataType="bbvm:ProjectButtonBlockViewModel">
+                                    <block:ProjectButtonBlock ViewModel="{x:Bind}" />
+                                </DataTemplate>
+                            </muxc:ItemsRepeater>
+
+                            <toolkit:SwitchPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                TargetType="x:Int32"
+                                Value="{x:Bind ViewModel.Items.Count, Mode=OneWay}">
+                                <toolkit:Case Value="0">
+                                    <TextBlock
+                                        FontSize="18"
+                                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                                        Text="No projects."
+                                        TextAlignment="Center" />
+                                </toolkit:Case>
+                            </toolkit:SwitchPresenter>
+                        </Grid>
 
                     </Grid>
                 </Grid>

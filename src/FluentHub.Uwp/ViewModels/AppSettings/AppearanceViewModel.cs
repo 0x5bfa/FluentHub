@@ -37,6 +37,8 @@ namespace FluentHub.Uwp.ViewModels.AppSettings
             DefaultLanguages = App.Settings.DefaultLanguages.ToList().AsReadOnly();
 
             LoadUserCommand = new AsyncRelayCommand(LoadUserAsync);
+
+            SetCurrentTabItem();
         }
         #endregion
 

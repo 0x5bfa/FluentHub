@@ -3,7 +3,7 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:bbvm="using:FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks"
-    xmlns:blocks="using:FluentHub.Uwp.UserControls.ButtonBlocks"
+    xmlns:bb="using:FluentHub.Uwp.UserControls.ButtonBlocks"
     xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="using:FluentHub.Uwp.Helpers"
@@ -158,7 +158,7 @@
                                     <muxc:StackLayout Orientation="Vertical" Spacing="6" />
                                 </muxc:ItemsRepeater.Layout>
                                 <DataTemplate x:DataType="bbvm:RepoButtonBlockViewModel">
-                                    <blocks:RepoButtonBlock VerticalAlignment="Stretch" ViewModel="{x:Bind}" />
+                                    <b:RepoButtonBlock VerticalAlignment="Stretch" ViewModel="{x:Bind}" />
                                 </DataTemplate>
                             </muxc:ItemsRepeater>
 

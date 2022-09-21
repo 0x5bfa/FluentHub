@@ -23,26 +23,19 @@ namespace FluentHub.Octokit.Queries.Repositories
 
         private string GetRawHtml(string markdown)
         {
-            try
-            {
-                WebClient wc = new WebClient();
+            WebClient wc = new WebClient();
 
-                wc.Headers["Content-Type"] = "text/plain";
-                wc.Headers["User-agent"] = "FluentHub";
-                wc.Headers["Authorization"] = "token " + App.AccessToken;
-                wc.Headers["Mode"] = "GFM";
+            wc.Headers["Content-Type"] = "text/plain";
+            wc.Headers["User-agent"] = "FluentHub";
+            wc.Headers["Authorization"] = "token " + App.AccessToken;
+            wc.Headers["Mode"] = "GFM";
 
-                var response = wc.UploadData("https://api.github.com/markdown/raw", "POST", Encoding.UTF8.GetBytes(markdown));
-                wc.Dispose();
+            var response = wc.UploadData("https://api.github.com/markdown/raw", "POST", Encoding.UTF8.GetBytes(markdown));
+            wc.Dispose();
 
-                string data = Encoding.UTF8.GetString(response);
+            string data = Encoding.UTF8.GetString(response);
 
-                return data;
-            }
-            catch (Exception e)
-            {
-                return null;
-            }
+            return data;
         }
 
         private string CorrectRelativePaths(string html, string missedPath)
