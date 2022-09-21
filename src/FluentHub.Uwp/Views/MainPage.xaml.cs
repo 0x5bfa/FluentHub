@@ -15,6 +15,10 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
+using FluentHub.Uwp.Views.Repositories.Code;
+using FluentHub.Uwp.Views.Repositories.Code.Layouts;
+using FluentHub.Uwp.Views.Repositories.Commits;
+using FluentHub.Uwp.Views.Repositories.Issues;
 using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.Views
@@ -119,9 +123,24 @@ namespace FluentHub.Uwp.Views
             if(args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
             {
                 var suitableItems = new List<string>();
+                var inRepo = new List<Type>()
+                {
+                    typeof(IssuePage),
+                    typeof(DetailsLayoutView),
+                    typeof(TreeLayoutView),
+                    typeof(ReleasesPage),
+                    typeof(CommitPage),
+                    typeof(CommitsPage)
+                };
+                Type currentPage = navService.CurrentPage;
                 if (sender.Text != "")
                 {
                     suitableItems.Add(sender.Text + " in all of Github");
+                }
+
+                if (inRepo.Contains(currentPage))
+                {
+                    suitableItems.Add(sender.Text+ " in the repo");
                 }
                 sender.ItemsSource = suitableItems;
             }
