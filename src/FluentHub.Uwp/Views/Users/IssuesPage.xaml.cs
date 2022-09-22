@@ -25,7 +25,10 @@ namespace FluentHub.Uwp.Views.Users
             var param = e.Parameter as Models.FrameNavigationArgs;
             ViewModel.Login = param.Login;
 
-            ViewModel.DisplayTitle = true;
+            if (param.Parameters.ElementAtOrDefault(0) as string is "AsViewer")
+            {
+                ViewModel.DisplayTitle = true;
+            }
 
             var command = ViewModel.LoadUserIssuesPageCommand;
             if (command.CanExecute(null))

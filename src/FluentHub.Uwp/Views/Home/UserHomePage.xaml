@@ -154,7 +154,7 @@
             <toolkit:GridSplitter Grid.Column="1" Style="{StaticResource DefaultGridSplitterStyle}" />
 
             <ScrollViewer Grid.Column="2">
-                <Grid Margin="6,24,16,32" RowSpacing="8">
+                <Grid Margin="6,24,16,24" RowSpacing="8">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -207,18 +207,14 @@
                                     <DataTemplate x:DataType="models:FolderCardItem">
                                         <Button
                                             Padding="8"
-                                            HorizontalAlignment="Stretch"
-                                            VerticalAlignment="Stretch"
-                                            HorizontalContentAlignment="Stretch"
-                                            VerticalContentAlignment="Stretch"
                                             Click="OnOneFolderCardClick"
-                                            CornerRadius="4"
+                                            Style="{StaticResource ContentBlockButtonStyle}"
                                             Tag="{x:Bind Tag}">
 
                                             <Grid
                                                 HorizontalAlignment="Stretch"
                                                 VerticalAlignment="Stretch"
-                                                RowSpacing="0">
+                                                RowSpacing="4">
                                                 <Grid.RowDefinitions>
                                                     <RowDefinition Height="*" />
                                                     <RowDefinition Height="Auto" />
@@ -238,6 +234,7 @@
                                                     VerticalAlignment="Center"
                                                     FontSize="14"
                                                     HorizontalTextAlignment="Center"
+                                                    Style="{StaticResource BodyTextBlockStyle}"
                                                     Text="{x:Bind Text}"
                                                     TextTrimming="WordEllipsis"
                                                     TextWrapping="NoWrap" />

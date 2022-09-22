@@ -15,26 +15,24 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto" />
             <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
         <!--
-        Pull Requests
+            Pull Requests
         -->
-        <StackPanel
-            Grid.Row="1" Grid.Column="1">
-            <muxc:ProgressBar Value="50"/>
-            <TextBlock/>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <muxc:ProgressBar Value="50" />
+            <TextBlock />
             <TextBlock Style="{ThemeResource SubheaderTextBlockStyle}">5</TextBlock>
             <TextBlock>Active Pull Requests</TextBlock>
         </StackPanel>
         <!--
-        Issues
+            Issues
         -->
-        <StackPanel
-            Grid.Row="1" Grid.Column="3">
-            <muxc:ProgressBar Value="50"/>
-            <TextBlock/>
+        <StackPanel Grid.Row="1" Grid.Column="3">
+            <muxc:ProgressBar Value="50" />
+            <TextBlock />
             <TextBlock Style="{ThemeResource SubheaderTextBlockStyle}">5</TextBlock>
             <TextBlock>Active Issues</TextBlock>
             <!--<CommandBar>

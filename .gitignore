@@ -3,7 +3,7 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
-# App credentials
+# FluentHub custom
 AppCredentials.config
 
 # User-specific files
@@ -35,6 +35,10 @@ bld/
 [Oo]ut/
 [Ll]og/
 [Ll]ogs/
+
+# Exclude View[Model]s/Repositories/Releases contents
+!src/FluentHub.Uwp/Views/**
+!src/FluentHub.Uwp/ViewModels/**
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/

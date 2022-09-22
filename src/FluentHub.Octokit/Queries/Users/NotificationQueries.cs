@@ -1,8 +1,5 @@
 ﻿using GraphQL;
 using Newtonsoft.Json.Linq;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Globalization;
 
 namespace FluentHub.Octokit.Queries.Users
 {
@@ -32,7 +29,6 @@ namespace FluentHub.Octokit.Queries.Users
             {
                 return notifications;
             }
-
             for (int idx = 0; idx < options.PageSize; idx++)
             {
                 var repo = json[$"repo{idx}"];
@@ -108,6 +104,7 @@ namespace FluentHub.Octokit.Queries.Users
             {
                 slicedNotifications.Add(notifications[i]);
             }
+            
             var mappedNotifications = Map(slicedNotifications, zippedData);
 
             return mappedNotifications;
@@ -163,7 +160,6 @@ repo{index}: repository(name: ""{notifications.ElementAt(index).Repository.Name}
         private List<Notification> Map(List<Notification> notifications, IReadOnlyList<Repository> details)
         {
             int index = 0;
-
             foreach (var item in notifications)
             {
                 switch (item.Subject.Type)
@@ -171,7 +167,6 @@ repo{index}: repository(name: ""{notifications.ElementAt(index).Repository.Name}
                     case NotificationSubjectType.Discussion:
                     case NotificationSubjectType.Commit:
                     case NotificationSubjectType.Release:
-                        index++;
                         break;
                     case NotificationSubjectType.Issue:
                         {
@@ -200,10 +195,6 @@ repo{index}: repository(name: ""{notifications.ElementAt(index).Repository.Name}
                                         break;
                                     }
                                 }
-                            }
-                            else //Prevent index out of range
-                            {
-                                index++;
                             }
                             
                             break;
@@ -235,16 +226,10 @@ repo{index}: repository(name: ""{notifications.ElementAt(index).Repository.Name}
                                     }
                                 }
                             }
-                            else // Prevent index out of range
-                            {
-                                index++;
-                            }
 
                             break;
-                        }
-                    default:
+                        } 
                         index++;
-                        break;
                 }
 
                 item.Subject.TypeHumanized = item.Subject.Type.ToString();

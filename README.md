@@ -31,7 +31,7 @@
 
 ### Via Microsoft Store
 
-This is our preferred method. This allows you to always be on the latest version when we release new builds with automatic updates.
+This is the preferred installation method. It allows you to always be on the latest version when we release new builds via automatic updates.
 
 <a title="Microsoft Store" target="_blank" href="https://apps.microsoft.com/store/detail/fluenthub/9nkb9hx8rjz3">
   <img width="128" align="center" src="https://getbadgecdn.azureedge.net/images/English_L.png" />
@@ -41,7 +41,7 @@ This is our preferred method. This allows you to always be on the latest version
 
 Released builds can be manually downloaded from this [repository's releases page](https://github.com/FluentHub/FluentHub/releases).
 
-Download the `FluentHub_<versionNumber>.msixbundle` file from the `Assets` section. In order too install the app, you can simply double-click on the .msixbundle file, and the app installer should automatically run. If that fails for any reason, you can try the following command at a PowerShell prompt:
+Download the `FluentHub_<versionNumber>.msixbundle` file from the `Assets` section. In order to install the app, you can simply double-click on the .msixbundle file, and the app installer should automatically run. If that fails for any reason, you can try the following command with a PowerShell prompt:
 
 ```powershell
 # NOTE: If you are using PowerShell 7+, please run
@@ -110,7 +110,7 @@ If you are interested in fixing issues and contributing directly to the code bas
 
 ### 1. Prerequisites
 
-Ensure you have following components:
+Ensure you have installed the following tools:
 
 - Windows 10 2004 (10.0.19041.0) or later with Developer Mode on in the Windows Settings
 - [Git](https://git-scm.com/)
@@ -147,7 +147,7 @@ See [the documentation](docs/credentials.md).
 
 ## 💳 Credit
 
-- Some application icons created by [Icons8](https://github.com/icons8).
+- Some application icons were created by [Icons8](https://github.com/icons8).
 - Many thanks to [Joseph Beattie](https://github.com/josephbeattie) for creating our current logo.
 
 ## 📱 Contact

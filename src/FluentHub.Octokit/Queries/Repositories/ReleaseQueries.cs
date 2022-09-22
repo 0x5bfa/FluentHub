@@ -29,6 +29,7 @@
                     IsPrerelease = x.IsPrerelease,
                     Name = x.Name,
                     PublishedAt = x.PublishedAt,
+                    PublishedAtHumanized = x.PublishedAt.Humanize(null, null),
                 })
                 .Compile();
 

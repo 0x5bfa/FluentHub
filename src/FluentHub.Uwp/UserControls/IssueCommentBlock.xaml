@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:labels="using:FluentHub.Uwp.UserControls.Labels"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     d:DesignHeight="300"
@@ -58,7 +57,7 @@
                     Style="{StaticResource BodyTextBlockStyle}"
                     Text="{x:Bind ViewModel.IssueComment.CreatedAtHumanized, Mode=OneWay}" />
 
-                <labels:LabelControl
+                <!--<labels:LabelControl
                     x:Name="EditedLabel"
                     x:Load="{x:Bind ViewModel.IssueComment.LastEditedAt, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
                     ViewModel="{x:Bind ViewModel.IsEditedLabel, Mode=OneWay}" />
@@ -66,7 +65,7 @@
                 <labels:LabelControl
                     x:Name="AssociationLabel"
                     x:Load="{x:Bind ViewModel.AuthorAssociationLabel.Name, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-                    ViewModel="{x:Bind ViewModel.AuthorAssociationLabel, Mode=OneWay}" />
+                    ViewModel="{x:Bind ViewModel.AuthorAssociationLabel, Mode=OneWay}" />-->
             </StackPanel>
 
             <StackPanel
