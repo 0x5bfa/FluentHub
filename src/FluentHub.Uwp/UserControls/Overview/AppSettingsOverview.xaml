@@ -2,40 +2,45 @@
     x:Class="FluentHub.Uwp.UserControls.Overview.AppSettingsOverview"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="using:FluentHub.Uwp.Helpers"
     xmlns:local="using:FluentHub.Uwp.UserControls.Overview"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:primer="using:FluentHub.Uwp.UserControls.PrimerControls"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
 
     <Grid
-        Background="{ThemeResource CardBackgroundFillColorSecondary}"
+        Background="{ThemeResource LayerFillColorDefaultBrush}"
         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
         BorderThickness="1"
         CornerRadius="8">
         <muxc:NavigationView
             x:Name="SettingsNavView"
-            Margin="16,8"
+            Margin="16"
             IsBackButtonVisible="Collapsed"
             IsPaneOpen="True"
             IsPaneToggleButtonVisible="False"
             IsSettingsVisible="False"
             IsTitleBarAutoPaddingEnabled="False"
+            ItemInvoked="OnSettingsNavViewItemInvoked"
             OpenPaneLength="232"
             PaneDisplayMode="Left">
 
             <muxc:NavigationView.PaneHeader>
                 <Button
                     Height="76"
-                    Margin="4,0,4,12"
+                    Margin="0,0,0,8"
                     Padding="8,6"
                     HorizontalAlignment="Stretch"
                     HorizontalContentAlignment="Left"
                     Background="Transparent"
                     BorderThickness="0">
-                    <!--<Grid ColumnSpacing="12">
+                    <Grid ColumnSpacing="12">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="Auto" />
                             <ColumnDefinition Width="*" />
@@ -51,28 +56,29 @@
                                 x:Name="AppSignedInUserAvatar"
                                 Width="60"
                                 Height="60"
-                                Source="{x:Bind ViewModel.SignedInUser.AvatarUrl, Mode=OneWay}" />
+                                Source="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}" />
                         </Grid>
 
                         <StackPanel Grid.Column="1" VerticalAlignment="Center">
                             <TextBlock
                                 x:Name="SignedInUserName"
+                                FontSize="16"
                                 Style="{StaticResource BodyStrongTextBlockStyle}"
-                                Text="{x:Bind ViewModel.SignedInUser.Name, Mode=OneWay}" />
+                                Text="{x:Bind ViewModel.User.Name, Mode=OneWay}" />
                             <TextBlock
                                 x:Name="SignedInLoginName"
                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                 Style="{StaticResource CaptionTextBlockStyle}"
-                                Text="{x:Bind ViewModel.SignedInUser.Login, Mode=OneWay}" />
+                                Text="{x:Bind ViewModel.User.Login, Mode=OneWay}" />
                         </StackPanel>
 
-                    </Grid>-->
+                    </Grid>
                 </Button>
             </muxc:NavigationView.PaneHeader>
 
             <muxc:NavigationView.AutoSuggestBox>
                 <AutoSuggestBox
-                    Margin="-12,0,-12,0"
+                    Margin="-12,0"
                     IsEnabled="False"
                     PlaceholderText="Search settings"
                     QueryIcon="Find" />
@@ -80,7 +86,11 @@
 
             <muxc:NavigationView.MenuItems>
 
-                <muxc:NavigationViewItem Content="Appearance" Tag="appearance">
+                <muxc:NavigationViewItem
+                    x:Name="SettingsNavViewAppearance"
+                    Content="Appearance"
+                    IsSelected="True"
+                    Tag="appearance">
                     <muxc:NavigationViewItem.Icon>
                         <muxc:ImageIcon Source="/Assets/Icons/Appearance.png" />
                     </muxc:NavigationViewItem.Icon>
@@ -95,13 +105,21 @@
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
-                <muxc:NavigationViewItem Content="Repositories" Tag="repositories">
+                <muxc:NavigationViewItem
+                    x:Name="SettingsNavViewItemRepository"
+                    Content="Repository"
+                    IsEnabled="False"
+                    Tag="repository">
                     <muxc:NavigationViewItem.Icon>
                         <muxc:ImageIcon Source="/Assets/Icons/Repositories.png" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
-                <muxc:NavigationViewItem Content="Notifications" Tag="notifications">
+                <muxc:NavigationViewItem
+                    x:Name="SettingsNavViewItemNotifications"
+                    Content="Notifications"
+                    IsEnabled="False"
+                    Tag="notifications">
                     <muxc:NavigationViewItem.Icon>
                         <muxc:ImageIcon Source="/Assets/Icons/Notifications.png" />
                     </muxc:NavigationViewItem.Icon>
@@ -110,7 +128,10 @@
             </muxc:NavigationView.MenuItems>
 
             <muxc:NavigationView.FooterMenuItems>
-                <muxc:NavigationViewItem Content="About" Tag="about">
+                <muxc:NavigationViewItem
+                    x:Name="SettingsNavViewItemAbout"
+                    Content="About"
+                    Tag="about">
                     <muxc:NavigationViewItem.Icon>
                         <muxc:ImageIcon Source="/Assets/Icons/About.png" />
                     </muxc:NavigationViewItem.Icon>

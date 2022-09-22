@@ -1,11 +1,11 @@
 ﻿using FluentHub.Uwp.Services;
-using FluentHub.Uwp.ViewModels.UserControls;
+using FluentHub.Uwp.ViewModels.UserControls.Overview;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using muxc = Microsoft.UI.Xaml.Controls;
 
-namespace FluentHub.Uwp.UserControls
+namespace FluentHub.Uwp.UserControls.Overview
 {
     public sealed partial class UserProfileOverview : UserControl
     {
@@ -73,6 +73,34 @@ namespace FluentHub.Uwp.UserControls
                     break;
                 case "stars":
                     navService.Navigate<Views.Users.StarredReposPage>(
+                    new Models.FrameNavigationArgs()
+                    {
+                        Login = ViewModel.User.Login,
+                    });
+                    break;
+                case "projects":
+                    navService.Navigate<Views.Users.ProjectsPage>(
+                    new Models.FrameNavigationArgs()
+                    {
+                        Login = ViewModel.User.Login,
+                    });
+                    break;
+                case "packages":
+                    navService.Navigate<Views.Users.PackagesPage>(
+                    new Models.FrameNavigationArgs()
+                    {
+                        Login = ViewModel.User.Login,
+                    });
+                    break;
+                case "organizations":
+                    navService.Navigate<Views.Users.OrganizationsPage>(
+                    new Models.FrameNavigationArgs()
+                    {
+                        Login = ViewModel.User.Login,
+                    });
+                    break;
+                case "discussions":
+                    navService.Navigate<Views.Users.DiscussionsPage>(
                     new Models.FrameNavigationArgs()
                     {
                         Login = ViewModel.User.Login,

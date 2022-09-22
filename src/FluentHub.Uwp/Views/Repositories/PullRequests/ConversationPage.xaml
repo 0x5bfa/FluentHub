@@ -6,12 +6,12 @@
     xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="using:FluentHub.Uwp.Helpers"
-    xmlns:labels="using:FluentHub.Uwp.UserControls.Labels"
     xmlns:local="using:FluentHub.Uwp.Views.Repositories.PullRequests"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:FluentHub.Uwp.Models"
     xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:ov="using:FluentHub.Uwp.UserControls.Overview"
     xmlns:primer="using:FluentHub.Uwp.UserControls.PrimerControls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:uc="using:FluentHub.Uwp.UserControls"
@@ -1532,9 +1532,9 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <uc:RepositoryOverview Margin="0,0,8,8" ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
+                    <ov:RepositoryOverview Margin="0,0,8,8" ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
 
-                    <uc:PullRequestOverview
+                    <ov:PullRequestOverview
                         Grid.Row="1"
                         Margin="0,8,8,0"
                         ViewModel="{x:Bind ViewModel.PullRequestOverviewViewModel, Mode=OneWay}" />

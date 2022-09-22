@@ -21,11 +21,11 @@ namespace FluentHub.Uwp.Views.Repositories.Code.Layouts
 
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<DetailsLayoutViewModel>();
-            navService = App.Current.Services.GetRequiredService<INavigationService>();
+            _navigation = App.Current.Services.GetRequiredService<INavigationService>();
         }
 
         public DetailsLayoutViewModel ViewModel { get; }
-        private readonly INavigationService navService;
+        private readonly INavigationService _navigation;
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -55,7 +55,7 @@ namespace FluentHub.Uwp.Views.Repositories.Code.Layouts
             List<object> param = new();
             param.Add(objType + "/" + ViewModel.ContextViewModel.BranchName + "/" + path);
 
-            navService.Navigate<DetailsLayoutView>(
+            _navigation.Navigate<DetailsLayoutView>(
                 new FrameNavigationArgs()
                 {
                     Login = ViewModel.Repository.Owner.Login,
@@ -66,7 +66,7 @@ namespace FluentHub.Uwp.Views.Repositories.Code.Layouts
 
         private void OnLatestReleaseClick(object sender, RoutedEventArgs e)
         {
-            navService.Navigate<ReleasesPage>(
+            _navigation.Navigate<Views.Repositories.Releases.ReleasesPage>(
                 new FrameNavigationArgs()
                 {
                     Login = ViewModel.Repository.Owner.Login,

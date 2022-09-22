@@ -16,23 +16,17 @@ namespace FluentHub.Uwp.Views.AppSettings
 
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<AppearanceViewModel>();
-            navigationService = provider.GetRequiredService<INavigationService>();
+            _navigation = provider.GetRequiredService<INavigationService>();
         }
 
-        private readonly INavigationService navigationService;
         public AppearanceViewModel ViewModel { get; }
+        private readonly INavigationService _navigation;
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = "Appearance";
-            currentItem.Description = "Appearance settings";
-            currentItem.Url = "fluenthub://settings/appearance";
-            currentItem.DisplayUrl = $"Settings / Appearance";
-            currentItem.Icon = new muxc.ImageIconSource
-            {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Appearance.png"))
-            };
+            var command = ViewModel.LoadUserCommand;
+            if (command.CanExecute(null))
+                command.Execute(null);
         }
     }
 }

@@ -8,6 +8,7 @@ global using global::System.Threading.Tasks;
 // Custom usings
 global using global::FluentHub.Octokit.Models.v3;
 global using global::FluentHub.Octokit.Models.v4;
+global using global::FluentHub.Octokit.Models.v4Custom;
 global using global::Humanizer;
 global using global::Octokit.GraphQL;
 global using OctokitV3 = global::Octokit;

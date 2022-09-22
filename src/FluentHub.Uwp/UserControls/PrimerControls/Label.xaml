@@ -33,7 +33,7 @@
                                 <Border
                                     BorderBrush="{StaticResource Black5}"
                                     BorderThickness="1"
-                                    CornerRadius="12" />
+                                    CornerRadius="10" />
                                 <Grid>
                                     <TextBlock
                                         Margin="7,0"
@@ -50,7 +50,7 @@
                                 <Border
                                     BorderBrush="{StaticResource Black5}"
                                     BorderThickness="1"
-                                    CornerRadius="12" />
+                                    CornerRadius="10" />
                                 <Grid>
                                     <TextBlock
                                         Margin="7,0"
@@ -67,7 +67,7 @@
                                 <Border
                                     BorderBrush="{StaticResource Green7}"
                                     BorderThickness="1"
-                                    CornerRadius="12" />
+                                    CornerRadius="10" />
                                 <Grid>
                                     <TextBlock
                                         Margin="7,0"
@@ -84,7 +84,7 @@
                                 <Border
                                     BorderBrush="{StaticResource Blue5}"
                                     BorderThickness="1"
-                                    CornerRadius="12" />
+                                    CornerRadius="10" />
                                 <Grid>
                                     <TextBlock
                                         Margin="7,0"
@@ -101,7 +101,7 @@
                                 <Border
                                     BorderBrush="{StaticResource Green5}"
                                     BorderThickness="1"
-                                    CornerRadius="12" />
+                                    CornerRadius="10" />
                                 <Grid>
                                     <TextBlock
                                         Margin="7,0"
@@ -118,7 +118,7 @@
                                 <Border
                                     BorderBrush="{StaticResource Yellow5}"
                                     BorderThickness="1"
-                                    CornerRadius="12" />
+                                    CornerRadius="10" />
                                 <Grid>
                                     <TextBlock
                                         Margin="7,0"
@@ -135,7 +135,7 @@
                                 <Border
                                     BorderBrush="{StaticResource Orange5}"
                                     BorderThickness="1"
-                                    CornerRadius="12" />
+                                    CornerRadius="10" />
                                 <Grid>
                                     <TextBlock
                                         Margin="7,0"
@@ -152,7 +152,7 @@
                                 <Border
                                     BorderBrush="{StaticResource Red5}"
                                     BorderThickness="1"
-                                    CornerRadius="12" />
+                                    CornerRadius="10" />
                                 <Grid>
                                     <TextBlock
                                         Margin="7,0"
@@ -169,7 +169,7 @@
                                 <Border
                                     BorderBrush="{StaticResource Purple5}"
                                     BorderThickness="1"
-                                    CornerRadius="12" />
+                                    CornerRadius="10" />
                                 <Grid>
                                     <TextBlock
                                         Margin="7,0"
@@ -186,7 +186,7 @@
                                 <Border
                                     BorderBrush="{StaticResource Pink5}"
                                     BorderThickness="1"
-                                    CornerRadius="12" />
+                                    CornerRadius="10" />
                                 <Grid>
                                     <TextBlock
                                         Margin="7,0"

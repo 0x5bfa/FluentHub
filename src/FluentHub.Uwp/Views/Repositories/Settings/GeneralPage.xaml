@@ -70,31 +70,31 @@
             <MenuFlyoutSeparator />
 
             <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
-                <ToggleSwitch  />
+                <ToggleSwitch />
             </uc:SettingsBlockControl>
 
             <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
-                <ToggleSwitch  />
+                <ToggleSwitch />
             </uc:SettingsBlockControl>
 
             <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
-                <ToggleSwitch  />
+                <ToggleSwitch />
             </uc:SettingsBlockControl>
 
             <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
-                <ToggleSwitch  />
+                <ToggleSwitch />
             </uc:SettingsBlockControl>
 
             <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
-                <ToggleSwitch  />
+                <ToggleSwitch />
             </uc:SettingsBlockControl>
 
             <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
-                <ToggleSwitch  />
+                <ToggleSwitch />
             </uc:SettingsBlockControl>
 
             <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
-                <ToggleSwitch  />
+                <ToggleSwitch />
             </uc:SettingsBlockControl>
 
             <TextBlock
@@ -110,15 +110,15 @@
                 Text="When merging pull requests, you can allow any combination of merge commits, squashing, or rebasing. At least one option must be enabled. If you have linear history requirement enabled on any protected branch, you must enable squashing or rebasing." />
 
             <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
-                <ToggleSwitch  />
+                <ToggleSwitch />
             </uc:SettingsBlockControl>
 
             <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
-                <ToggleSwitch  />
+                <ToggleSwitch />
             </uc:SettingsBlockControl>
 
             <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
-                <ToggleSwitch  />
+                <ToggleSwitch />
             </uc:SettingsBlockControl>
 
             <TextBlock
@@ -127,7 +127,7 @@
                 Text="Control how and when users are prompted to update their branches if there are new changes available in the base branch." />
 
             <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
-                <ToggleSwitch  />
+                <ToggleSwitch />
             </uc:SettingsBlockControl>
 
             <TextBlock
@@ -136,7 +136,7 @@
                 Text="You can allow setting pull requests to merge automatically once all required reviews and status checks have passed." />
 
             <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
-                <ToggleSwitch  />
+                <ToggleSwitch />
             </uc:SettingsBlockControl>
 
             <TextBlock
@@ -145,7 +145,7 @@
                 Text="After pull requests are merged, you can have head branches deleted automatically." />
 
             <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
-                <ToggleSwitch  />
+                <ToggleSwitch />
             </uc:SettingsBlockControl>
 
             <TextBlock
@@ -161,7 +161,7 @@
                 Text="When creating source code archives, you can choose to include files stored using Git LFS in the archive." />
 
             <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
-                <ToggleSwitch  />
+                <ToggleSwitch />
             </uc:SettingsBlockControl>
 
             <TextBlock
@@ -172,19 +172,19 @@
             <MenuFlyoutSeparator />
 
             <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
-                <ToggleSwitch  />
+                <ToggleSwitch />
             </uc:SettingsBlockControl>
 
             <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
-                <ToggleSwitch  />
+                <ToggleSwitch />
             </uc:SettingsBlockControl>
 
             <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
-                <ToggleSwitch  />
+                <ToggleSwitch />
             </uc:SettingsBlockControl>
 
             <uc:SettingsBlockControl Title="Discussions " Description="Wikis host documentation for your repository.">
-                <ToggleSwitch  />
+                <ToggleSwitch />
             </uc:SettingsBlockControl>
 
         </StackPanel>

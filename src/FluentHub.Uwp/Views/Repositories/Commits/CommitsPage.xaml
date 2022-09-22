@@ -4,14 +4,22 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:bb="using:FluentHub.Uwp.UserControls.ButtonBlocks"
     xmlns:bbvm="using:FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks"
+    xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="using:FluentHub.Uwp.Helpers"
     xmlns:local="using:FluentHub.Uwp.Views.Repositories.Commits"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:ov="using:FluentHub.Uwp.UserControls.Overview"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:uc="using:FluentHub.Uwp.UserControls"
     mc:Ignorable="d">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+        </ResourceDictionary>
+    </Page.Resources>
 
     <Grid>
 
@@ -23,12 +31,12 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <uc:RepositoryOverview Margin="0,0,0,8" ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
+                    <ov:RepositoryOverview ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
 
                     <Grid
                         Grid.Row="1"
                         Padding="32"
-                        Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                        Background="{ThemeResource LayerFillColorDefaultBrush}"
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                         BorderThickness="1"
                         CornerRadius="8">
@@ -36,17 +44,6 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
-
-                        <StackPanel
-                            VerticalAlignment="Center"
-                            Orientation="Horizontal"
-                            Spacing="8">
-
-                            <ComboBox IsEnabled="False">
-                                <ComboBoxItem Content="branch" IsSelected="True" />
-                            </ComboBox>
-
-                        </StackPanel>
 
                         <ScrollViewer Grid.Row="2">
                             <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}">

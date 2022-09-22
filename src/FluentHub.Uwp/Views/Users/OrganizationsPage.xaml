@@ -9,6 +9,7 @@
     xmlns:helpers="using:FluentHub.Uwp.Helpers"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:ov="using:FluentHub.Uwp.UserControls.Overview"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:uc="using:FluentHub.Uwp.UserControls"
     mc:Ignorable="d">
@@ -33,9 +34,9 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <uc:UserProfileOverview
+                    <ov:UserProfileOverview
                         x:Name="UserProfileOverview"
-                        Margin="0,0,0,8"
+                        Margin="0,0,8,8"
                         x:Load="{x:Bind ViewModel.DisplayTitle, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
                         ViewModel="{x:Bind ViewModel.UserProfileOverviewViewModel, Mode=OneWay}" />
 
@@ -43,7 +44,7 @@
                         x:Name="ContentBackgroundFull"
                         Grid.Row="1"
                         x:Load="{x:Bind ViewModel.DisplayTitle, Mode=OneWay}"
-                        Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                        Background="{ThemeResource LayerFillColorDefaultBrush}"
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                         BorderThickness="1,1,0,0"
                         CornerRadius="8,0,0,0" />
@@ -53,7 +54,7 @@
                         Grid.Row="1"
                         Margin="0,0,8,8"
                         x:Load="{x:Bind ViewModel.DisplayTitle, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
-                        Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                        Background="{ThemeResource LayerFillColorDefaultBrush}"
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                         BorderThickness="1"
                         CornerRadius="8" />
@@ -87,81 +88,6 @@
                                 IsEnabled="False"
                                 PlaceholderText="{helpers:ResourceString Name=SearchOrganizationsTextBox/PlaceholderText}" />
 
-                            <StackPanel
-                                Grid.Row="1"
-                                Orientation="Horizontal"
-                                Spacing="8">
-
-                                <muxc:DropDownButton IsEnabled="False">
-                                    <muxc:DropDownButton.Content>
-                                        <StackPanel Orientation="Horizontal" Spacing="4">
-                                            <TextBlock
-                                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                                Style="{StaticResource BodyTextBlockStyle}"
-                                                Text="Type by:" />
-                                            <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
-                                        </StackPanel>
-                                    </muxc:DropDownButton.Content>
-                                    <muxc:DropDownButton.Flyout>
-                                        <MenuFlyout Placement="BottomEdgeAlignedLeft">
-                                            <MenuFlyout.Items>
-                                                <ToggleMenuFlyoutItem Text="Repository1" />
-                                                <ToggleMenuFlyoutItem Text="Repository2" />
-                                                <ToggleMenuFlyoutItem Text="Repository3" />
-                                                <ToggleMenuFlyoutItem Text="Repository4" />
-                                                <ToggleMenuFlyoutItem Text="Repository5" />
-                                            </MenuFlyout.Items>
-                                        </MenuFlyout>
-                                    </muxc:DropDownButton.Flyout>
-                                </muxc:DropDownButton>
-
-                                <muxc:DropDownButton IsEnabled="False">
-                                    <muxc:DropDownButton.Content>
-                                        <StackPanel Orientation="Horizontal" Spacing="4">
-                                            <TextBlock
-                                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                                Style="{StaticResource BodyTextBlockStyle}"
-                                                Text="Language by:" />
-                                            <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
-                                        </StackPanel>
-                                    </muxc:DropDownButton.Content>
-                                    <muxc:DropDownButton.Flyout>
-                                        <MenuFlyout Placement="BottomEdgeAlignedLeft">
-                                            <MenuFlyout.Items>
-                                                <ToggleMenuFlyoutItem Text="Repository1" />
-                                                <ToggleMenuFlyoutItem Text="Repository2" />
-                                                <ToggleMenuFlyoutItem Text="Repository3" />
-                                                <ToggleMenuFlyoutItem Text="Repository4" />
-                                                <ToggleMenuFlyoutItem Text="Repository5" />
-                                            </MenuFlyout.Items>
-                                        </MenuFlyout>
-                                    </muxc:DropDownButton.Flyout>
-                                </muxc:DropDownButton>
-
-                                <muxc:DropDownButton IsEnabled="False">
-                                    <muxc:DropDownButton.Content>
-                                        <StackPanel Orientation="Horizontal" Spacing="4">
-                                            <TextBlock
-                                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                                Style="{StaticResource BodyTextBlockStyle}"
-                                                Text="Sort by:" />
-                                            <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
-                                        </StackPanel>
-                                    </muxc:DropDownButton.Content>
-                                    <muxc:DropDownButton.Flyout>
-                                        <MenuFlyout Placement="BottomEdgeAlignedLeft">
-                                            <MenuFlyout.Items>
-                                                <ToggleMenuFlyoutItem Text="Repository1" />
-                                                <ToggleMenuFlyoutItem Text="Repository2" />
-                                                <ToggleMenuFlyoutItem Text="Repository3" />
-                                                <ToggleMenuFlyoutItem Text="Repository4" />
-                                                <ToggleMenuFlyoutItem Text="Repository5" />
-                                            </MenuFlyout.Items>
-                                        </MenuFlyout>
-                                    </muxc:DropDownButton.Flyout>
-                                </muxc:DropDownButton>
-
-                            </StackPanel>
                         </Grid>
 
                         <Grid Grid.Row="2">

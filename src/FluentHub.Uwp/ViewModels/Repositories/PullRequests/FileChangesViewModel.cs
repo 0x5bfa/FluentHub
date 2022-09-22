@@ -4,7 +4,6 @@ using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls;
-using FluentHub.Uwp.ViewModels.UserControls.Blocks;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
 using FluentHub.Uwp.ViewModels.UserControls.Overview;
 using FluentHub.Uwp.Utils;
