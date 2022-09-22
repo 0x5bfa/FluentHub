@@ -24,7 +24,8 @@ public class RepoSearchQueries : ISearchQueries
                     UpdatedAt = x.UpdatedAt,
                     IsArchived = x.Archived,
                     LicenseInfo = x.License.Name,
-                    Owner = x.Owner.Login
+                    Owner = x.Owner.Login,
+                    StargazerCount = x.StargazersCount
                 });
             }
             else
@@ -36,7 +37,8 @@ public class RepoSearchQueries : ISearchQueries
                     UpdatedAt = x.UpdatedAt,
                     IsArchived = x.Archived,
                     LicenseInfo = "",
-                    Owner = x.Owner.Login
+                    Owner = x.Owner.Login,
+                    StargazerCount = x.StargazersCount
                 });
             }
         }

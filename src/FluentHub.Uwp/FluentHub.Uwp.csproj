@@ -206,6 +206,9 @@
     <Compile Include="Services\Navigation\TabViewSelectionChangedEventArgs.cs" />
     <Compile Include="Services\OctokitSecretsService.cs" />
     <Compile Include="Services\ToastService.cs" />
+    <Compile Include="UserControls\ButtonBlocks\Search\SearchIssueButtonBlock.xaml.cs">
+      <DependentUpon>SearchIssueButtonBlock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ButtonBlocks\Search\SearchRepoButtonBlock.xaml.cs">
       <DependentUpon>SearchRepoButtonBlock.xaml</DependentUpon>
     </Compile>
@@ -387,6 +390,7 @@
     <Compile Include="ViewModels\Repositories\PullRequests\PullRequestsViewModel.cs" />
     <Compile Include="ViewModels\Repositories\PullRequests\PullRequestViewModel.cs" />
     <Compile Include="ViewModels\Search\CodeViewModel.cs" />
+    <Compile Include="ViewModels\Search\IssueViewModel.cs" />
     <Compile Include="ViewModels\Search\MainSearchViewModel.cs" />
     <Compile Include="ViewModels\Search\RepoViewModel.cs" />
     <Compile Include="ViewModels\Search\UserViewModel.cs" />
@@ -414,6 +418,7 @@
     <Compile Include="ViewModels\UserControls\Blocks\LatestCommitBlockViewModel.cs" />
     <Compile Include="ViewModels\Home\FeedsViewModel.cs" />
     <Compile Include="ViewModels\Home\NotificationsViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\ButtonBlocks\Search\SearchIssueButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\Search\SearchRepoButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\Search\SearchUserButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\UserButtonBlockViewModel.cs" />
@@ -1359,6 +1364,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Content>
     <Page Include="Dialogs\ExceptionStackTraceDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ButtonBlocks\Search\SearchIssueButtonBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

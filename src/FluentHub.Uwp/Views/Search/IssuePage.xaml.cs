@@ -15,7 +15,7 @@ namespace FluentHub.Uwp.Views.Search
             InitializeComponent();
 
             var provider = App.Current.Services;
-            ViewModel = provider.GetRequiredService<RepoViewModel>(); // TODO: Change View Model to Issue
+            ViewModel = provider.GetRequiredService<IssueViewModel>(); // TODO: Change View Model to Issue
             navigationService = provider.GetRequiredService<INavigationService>();
         }
 
@@ -23,7 +23,7 @@ namespace FluentHub.Uwp.Views.Search
 
         private string query;
         
-        public RepoViewModel ViewModel { get; }
+        public IssueViewModel ViewModel { get; }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {

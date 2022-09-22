@@ -50,7 +50,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid Margin="0,0,8,0">
-                <Image Width="16" Source="{x:Bind ViewModel.Item.Avatar, Mode=OneWay}" />
+                <Image Width="32" Source="{x:Bind ViewModel.Item.Avatar, Mode=OneWay}" />
             </Grid>
 
             <Grid Grid.Column="1">
@@ -70,14 +70,13 @@
                         Text=" " />
 
                     <TextBlock
-                        Style="{StaticResource CaptionTextBlockStyle}"
                         Text="{x:Bind ViewModel.Item.Username, Mode=OneWay}" />
                 </StackPanel>
 
                 <TextBlock
                     x:Name="DescriptionTextBlock"
                     Grid.Row="2"
-                    Margin="0,4,0,-4"
+                    Margin="0,4,0,4"
                     Text="{x:Bind ViewModel.Item.Description, Mode=OneWay}" />
                 <StackPanel Grid.Row="3" Orientation="Horizontal">
                     <TextBlock x:Name="LocationTextBlock" Style="{StaticResource CaptionTextBlockStyle}"

@@ -1,3 +1,4 @@
+using FluentHub.Octokit.Queries.Users;
 using Octokit;
 namespace FluentHub.Octokit.Queries.Search;
 

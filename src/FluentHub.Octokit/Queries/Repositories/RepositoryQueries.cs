@@ -79,7 +79,6 @@
                     OctokitGraphQLModel.PullRequestState.Open
                 });
             
-
             var query = new Query().Repository(owner: owner, name: name).Select(x => new Repository
                 {
                     HomepageUrl = x.HomepageUrl,
