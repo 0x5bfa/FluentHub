@@ -5,6 +5,8 @@ using FluentHub.Uwp.ViewModels.UserControls.Blocks;
 using FluentHub.Uwp.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml.Media.Imaging;
+using FluentHub.Octokit.Queries.Search;
+using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks.Search;
 using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.ViewModels.Search
@@ -16,53 +18,105 @@ namespace FluentHub.Uwp.ViewModels.Search
             _logger = logger;
             _messenger = messenger;
 
-            _accountsItems = new();
-            AccountsItems = new(_accountsItems);
-
-            LoadSignedInLoginsCommand = new AsyncRelayCommand(LoadSignedInLoginsAsync);
+            _results = new();
+            ResultItems = new(_results);
+            
+            LoadSearchResultsPageCommand = new AsyncRelayCommand(LoadSearchResultsPageAsync);
+            LoadFurtherSearchResultsPageCommand = new AsyncRelayCommand(LoadFurtherSearchResultsAsync);
         }
 
         #region Fields and Properties
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
 
-        private User signedInUser;
-        public User SignedInUser { get => signedInUser; set => SetProperty(ref signedInUser, value); }
-
-        private readonly ObservableCollection<AccountModel> _accountsItems;
-        public ReadOnlyObservableCollection<AccountModel> AccountsItems { get; }
-
-        public IAsyncRelayCommand LoadSignedInLoginsCommand { get; }
+        private int _loadedItemCount = 0;
+        private int _loadedPageCount = 0;
+        private bool _loadedToTheEnd = false;
+        private const int _itemCountPerPage = 100;
+        public String query;
+        public IAsyncRelayCommand LoadSearchResultsPageCommand { get; }
+        public IAsyncRelayCommand LoadFurtherSearchResultsPageCommand { get; }
+        
+        private Exception _taskException;
+        public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
+        
+        private readonly ObservableCollection<SearchUserButtonBlockViewModel> _results;
+        public ReadOnlyObservableCollection<SearchUserButtonBlockViewModel> ResultItems { get; }
         #endregion
-
-        private async Task LoadSignedInLoginsAsync()
+        
+        private async Task LoadSearchResultsPageAsync()
         {
+            _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+            bool faulted = false;
+
+            string _currentTaskingMethodName = nameof(LoadSearchResultsPageAsync);
+
             try
             {
-                UserQueries queries = new();
-                var response = await queries.GetAsync(App.Settings.SignedInUserName);
-
-                SignedInUser = response;
-
-                // Get logged in users from App Container
-                var dividedLogins = App.Settings.SignedInUserLogins.Split(",");
-
-                foreach (var item in dividedLogins)
-                {
-                    AccountModel model = new() { Login = item };
-                    _accountsItems.Add(model);
-                }
+                _currentTaskingMethodName = nameof(LoadSearchResultsAsync);
+                await LoadSearchResultsAsync(query);
             }
             catch (Exception ex)
             {
-                _logger?.Error(nameof(LoadSignedInLoginsAsync), ex);
-                if (_messenger != null)
-                {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
+                TaskException = ex;
+                faulted = true;
+
+                _logger?.Error(_currentTaskingMethodName, ex);
                 throw;
             }
+            finally
+            {
+                SetCurrentTabItem();
+
+                _messenger?.Send(
+                    new TaskStateMessaging(faulted
+                        ? TaskStatusType.IsFaulted
+                        : TaskStatusType.IsCompletedSuccessfully));
+            }
+        }
+
+        private async Task LoadSearchResultsAsync(String query)
+        {
+            if (_loadedToTheEnd) return;
+
+            UserSearchQueries queries = new();
+            var response = await queries.GetAll(
+                query);
+
+            _loadedItemCount += response.Count();
+            _loadedPageCount++;
+            if (response.Count() < 100) // TODO: Fix this
+                _loadedToTheEnd = true;
+            _results.Clear();
+            foreach (var item in response)
+            {
+                SearchUserButtonBlockViewModel viewmodel = new()
+                {
+                    Item = item,
+                };
+                _results.Add(viewmodel);
+            }
+        }
+
+        public async Task LoadFurtherSearchResultsAsync()
+        {
+            // TODO: Fix UserSearchQuery.cs to allow for custom api options
+        }
+
+        private void SetCurrentTabItem()
+        {
+            var provider = App.Current.Services;
+            INavigationService navigationService = provider.GetRequiredService<INavigationService>();
+
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.Header = "User Results";
+            currentItem.Description = "User Results for \"" + query + "\"";
+            currentItem.Url = "fluenthub://search/users/" + query.Replace(" ", "&");
+            currentItem.DisplayUrl = $"Search / Users";
+            currentItem.Icon = new muxc.ImageIconSource
+            {
+                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Search.png"))
+            };
         }
     }
 }

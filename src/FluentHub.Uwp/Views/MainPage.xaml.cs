@@ -18,7 +18,9 @@ using Windows.UI.Xaml.Navigation;
 using FluentHub.Uwp.Views.Repositories.Code;
 using FluentHub.Uwp.Views.Repositories.Code.Layouts;
 using FluentHub.Uwp.Views.Repositories.Commits;
+using FluentHub.Uwp.Views.Repositories.Discussions;
 using FluentHub.Uwp.Views.Repositories.Issues;
+using FluentHub.Uwp.Views.Repositories.Projects;
 using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.Views
@@ -99,14 +101,14 @@ namespace FluentHub.Uwp.Views
         private void OnSearchBarButtonClick(object sender, RoutedEventArgs e)
         {
             SearchBar.Visibility = Visibility.Visible;
-            SearchBar.Focus(FocusState.Programmatic);
+            SearchBar.Focus(FocusState.Pointer);
             SearchBarButton.Visibility = Visibility.Collapsed;
         }
 
         private void OpenSearchAccelerator(KeyboardAcceleratorInvokedEventArgs e)
         {
             SearchBar.Visibility = Visibility.Visible;
-            SearchBar.Focus(FocusState.Programmatic);
+            SearchBar.Focus(FocusState.Keyboard);
             SearchBarButton.Visibility = Visibility.Collapsed;
         }
 
@@ -120,17 +122,24 @@ namespace FluentHub.Uwp.Views
             // Only get results when it was a user typing, 
             // otherwise assume the value got filled in by TextMemberPath 
             // or the handler for SuggestionChosen.
-            if(args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
+            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
             {
                 var suitableItems = new List<string>();
                 var inRepo = new List<Type>()
                 {
-                    typeof(IssuePage),
                     typeof(DetailsLayoutView),
                     typeof(TreeLayoutView),
                     typeof(ReleasesPage),
                     typeof(CommitPage),
-                    typeof(CommitsPage)
+                    typeof(CommitsPage),
+                    typeof(CommitPage),
+                    typeof(CommitsPage),
+                    typeof(DiscussionPage),
+                    typeof(DiscussionsPage),
+                    typeof(IssuePage),
+                    typeof(IssuesPage),
+                    typeof(ProjectPage),
+                    typeof(ProjectsPage)
                 };
                 Type currentPage = navService.CurrentPage;
                 if (sender.Text != "")
@@ -161,8 +170,6 @@ namespace FluentHub.Uwp.Views
             {
                 // Use args.QueryText to determine what to do.
             }
-            SearchBar.Visibility = Visibility.Collapsed;
-            SearchBarButton.Visibility = Visibility.Visible;
             var parameter = args.QueryText;
             navService.Navigate<Search.MainSearchPage>(parameter, new DrillInNavigationTransitionInfo());
         }

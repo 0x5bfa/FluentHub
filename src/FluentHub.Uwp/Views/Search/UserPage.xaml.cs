@@ -25,21 +25,28 @@ namespace FluentHub.Uwp.Views.Search
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            if (e.Parameter != null)
+            if (e.Parameter != null) {
                 query = e.Parameter.ToString();
+                ViewModel.query = query;
+            }
             else
             {
                 throw new Exception("Searching without a query");
             }
-            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = "Code Results";
-            currentItem.Description = "Code Results for \"" + query + "\"";
-            currentItem.Url = "fluenthub://search/code/" + query.Replace(" ", "&");
-            currentItem.DisplayUrl = $"Search / Code";
-            currentItem.Icon = new muxc.ImageIconSource
+            var command = ViewModel.LoadSearchResultsPageCommand;
+            if (command.CanExecute(null))
+                command.Execute(null);
+        }
+        
+        private void OnScrollViewerViewChanged(object sender, ScrollViewerViewChangedEventArgs e)
+        {
+            var scrollViewer = (ScrollViewer)sender;
+            if (scrollViewer.VerticalOffset == scrollViewer.ScrollableHeight)
             {
-                ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Search.png"))
-            };
+                var command = ViewModel.LoadFurtherSearchResultsPageCommand;
+                if (command.CanExecute(null))
+                    command.Execute(null);
+            }
         }
     }
 }

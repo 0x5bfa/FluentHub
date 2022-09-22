@@ -53,12 +53,11 @@
                     <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
-                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.User.Login, Mode=OneWay}" />
+                <TextBlock Text="{x:Bind ViewModel.User.Login, Mode=OneWay}" />
 
                 <TextBlock
                     Grid.Row="1"
                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                    Style="{StaticResource BodyTextBlockStyle}"
                     Text="{x:Bind ViewModel.User.Bio, Mode=OneWay}" />
 
             </Grid>

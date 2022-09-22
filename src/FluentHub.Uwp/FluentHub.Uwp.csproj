@@ -209,6 +209,9 @@
     <Compile Include="UserControls\ButtonBlocks\Search\SearchRepoButtonBlock.xaml.cs">
       <DependentUpon>SearchRepoButtonBlock.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ButtonBlocks\Search\SearchUserButtonBlock.xaml.cs">
+      <DependentUpon>SearchUserButtonBlock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\CustomWebView.xaml.cs">
       <DependentUpon>CustomWebView.xaml</DependentUpon>
     </Compile>
@@ -412,6 +415,7 @@
     <Compile Include="ViewModels\Home\FeedsViewModel.cs" />
     <Compile Include="ViewModels\Home\NotificationsViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\Search\SearchRepoButtonBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\ButtonBlocks\Search\SearchUserButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\UserButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Labels\LabelControlViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Labels\StatusLabelViewModel.cs" />
@@ -1359,6 +1363,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ButtonBlocks\Search\SearchRepoButtonBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\ButtonBlocks\Search\SearchUserButtonBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

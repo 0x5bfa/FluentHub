@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="FluentHub.Uwp.UserControls.ButtonBlocks.Search.SearchRepoButtonBlock"
+    x:Class="FluentHub.Uwp.UserControls.ButtonBlocks.Search.SearchUserButtonBlock"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="using:FluentHub.Uwp.Converters"
@@ -50,14 +50,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid Margin="0,0,8,0">
-                <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.Item.IsPrivate, Mode=OneWay}">
-                    <toolkit:Case Value="True">
-                        <Image Width="16" Source="/Assets/Icons/Private.png" />
-                    </toolkit:Case>
-                    <toolkit:Case Value="False">
-                        <Image Width="16" Source="/Assets/Icons/Repositories.png" />
-                    </toolkit:Case>
-                </toolkit:SwitchPresenter>
+                <Image Width="16" Source="{x:Bind ViewModel.Item.Avatar, Mode=OneWay}" />
             </Grid>
 
             <Grid Grid.Column="1">
@@ -71,16 +64,14 @@
                 <StackPanel Orientation="Horizontal" Spacing="4">
 
                     <TextBlock
-                        Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="{x:Bind ViewModel.Item.Owner, Mode=OneWay}" />
+                        Text="{x:Bind ViewModel.Item.RealName, Mode=OneWay}" />
+
+                    <TextBlock
+                        Text=" " />
 
                     <TextBlock
                         Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="/" />
-
-                    <TextBlock
-                        Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="{x:Bind ViewModel.Item.Name, Mode=OneWay}" />
+                        Text="{x:Bind ViewModel.Item.Username, Mode=OneWay}" />
                 </StackPanel>
 
                 <TextBlock
@@ -89,16 +80,8 @@
                     Margin="0,4,0,-4"
                     Text="{x:Bind ViewModel.Item.Description, Mode=OneWay}" />
                 <StackPanel Grid.Row="3" Orientation="Horizontal">
-                    
-                    <TextBlock x:Name="StarsTextBlock" Style="{StaticResource CaptionTextBlockStyle}"
-                               Text="{x:Bind ViewModel.Item.StargazerCount}"/>
-                    <TextBlock x:Name="LicenseTextBlock" Style="{StaticResource CaptionTextBlockStyle}"
-                               Text="{x:Bind ViewModel.Item.LicenseInfo}"/>
-                    <TextBlock
-                        Style="{StaticResource CaptionTextBlockStyle}"
-                        Text=" Updated At " />
-                    <TextBlock x:Name="LastUpdatedTextBlock" Style="{StaticResource CaptionTextBlockStyle}"
-                               Text="{x:Bind ViewModel.Item.UpdatedAtHumanized}"/>
+                    <TextBlock x:Name="LocationTextBlock" Style="{StaticResource CaptionTextBlockStyle}"
+                               Text="{x:Bind ViewModel.Item.Location}"/>
                 </StackPanel>
             </Grid>
 

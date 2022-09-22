@@ -2,20 +2,29 @@
     x:Class="FluentHub.Uwp.Views.Search.UserPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:bbuc="using:FluentHub.Uwp.UserControls.ButtonBlocks.Search"
+    xmlns:bbvm="using:FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks.Search"
+    xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="using:FluentHub.Uwp.Helpers"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:overview="using:FluentHub.Uwp.UserControls.Overview"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:uc="using:FluentHub.Uwp.UserControls"
     mc:Ignorable="d">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        
-        <Grid Grid.Column="1">
+        <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadSearchResultsPageCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
             <ScrollViewer>
                 <Grid
                     Margin="8,0,8,8"
@@ -26,15 +35,24 @@
                     CornerRadius="8">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
-
+                    
                     <TextBlock
-                        x:Name="CodeSearchHeader"
+                        x:Name="HeaderText"
                         Margin="0,0,0,20"
                         Style="{StaticResource TitleTextBlockStyle}"
                         Text="Users" />
+                    <Grid Grid.Row="1">
+                        <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.ResultItems, Mode=OneWay}">
+                            <muxc:ItemsRepeater.Layout>
+                                <muxc:StackLayout Orientation="Vertical" Spacing="6" />
+                            </muxc:ItemsRepeater.Layout>
+                            <DataTemplate x:DataType="bbvm:SearchUserButtonBlockViewModel">
+                                <bbuc:SearchUserButtonBlock ViewModel="{x:Bind}" />
+                            </DataTemplate>
+                        </muxc:ItemsRepeater>
+                    </Grid>
                 </Grid>
             </ScrollViewer>
         </Grid>
