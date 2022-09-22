@@ -1,5 +1,5 @@
 ﻿using FluentHub.Uwp.Services;
-using FluentHub.Uwp.ViewModels.UserControls.FeedBlocks;
+using FluentHub.Uwp.ViewModels.UserControls;
 using FluentHub.Uwp.ViewModels.Repositories;
 using FluentHub.Uwp.Views.Repositories.Commits;
 using FluentHub.Uwp.ViewModels;
@@ -9,7 +9,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 
-namespace FluentHub.Uwp.UserControls.FeedBlocks
+namespace FluentHub.Uwp.UserControls
 {
     public sealed partial class LatestCommitBlock : UserControl
     {

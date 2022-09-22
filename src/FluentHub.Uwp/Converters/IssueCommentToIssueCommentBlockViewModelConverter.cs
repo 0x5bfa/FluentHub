@@ -10,7 +10,7 @@ namespace FluentHub.Uwp.Converters
         {
             if (value is IssueComment ic)
             {
-                var issueCommentBlockViewModel = new ViewModels.UserControls.Blocks.IssueCommentBlockViewModel()
+                var issueCommentBlockViewModel = new ViewModels.UserControls.IssueCommentBlockViewModel()
                 {
                     IssueComment = ic,
                 };

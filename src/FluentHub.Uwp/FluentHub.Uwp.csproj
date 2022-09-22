@@ -320,7 +320,7 @@
     <Compile Include="UserControls\ReadmeContentBlock.xaml.cs">
       <DependentUpon>ReadmeContentBlock.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\FeedBlocks\LatestCommitBlock.xaml.cs">
+    <Compile Include="UserControls\LatestCommitBlock.xaml.cs">
       <DependentUpon>LatestCommitBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\SettingsBlockControl.xaml.cs">
@@ -344,7 +344,6 @@
     <Compile Include="ViewModels\AppSettings\Accounts\AccountsViewModel.cs" />
     <Compile Include="ViewModels\AppSettings\Accounts\OtherUsersViewModel.cs" />
     <Compile Include="ViewModels\AppSettings\AppearanceViewModel.cs" />
-    <Compile Include="ViewModels\AppSettings\MainSettingsViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\AccountSwitchingDialogViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\EditPinnedRepositoriesDialogViewModel.cs" />
     <Compile Include="ViewModels\Dialogs\EditUserProfileViewModel.cs" />
@@ -369,7 +368,6 @@
     <Compile Include="ViewModels\Repositories\Issues\IssueViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Codes\Layouts\DetailsLayoutViewModel.cs" />
     <Compile Include="ViewModels\Repositories\PullRequests\PullRequestsViewModel.cs" />
-    <Compile Include="ViewModels\Repositories\PullRequests\PullRequestViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\SignIn\IntroViewModel.cs" />
     <Compile Include="ViewModels\UserControls\FeedBlocks\ActivityBlockViewModel.cs" />
@@ -392,7 +390,7 @@
     <Compile Include="ViewModels\UserControls\ButtonBlocks\RepoButtonBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\IssueCommentBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\TimelineViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\FeedBlocks\LatestCommitBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\LatestCommitBlockViewModel.cs" />
     <Compile Include="ViewModels\Home\FeedsViewModel.cs" />
     <Compile Include="ViewModels\Home\NotificationsViewModel.cs" />
     <Compile Include="ViewModels\UserControls\ButtonBlocks\UserButtonBlockViewModel.cs" />
@@ -429,9 +427,6 @@
     </Compile>
     <Compile Include="Views\AppSettings\RepositoryPage.xaml.cs">
       <DependentUpon>RepositoryPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\AppSettings\MainSettingsPage.xaml.cs">
-      <DependentUpon>MainSettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AppSettings\AppearancePage.xaml.cs">
       <DependentUpon>AppearancePage.xaml</DependentUpon>
@@ -505,9 +500,6 @@
     </Compile>
     <Compile Include="Views\Repositories\PullRequests\FileChangesPage.xaml.cs">
       <DependentUpon>FileChangesPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Repositories\PullRequests\PullRequestPage.xaml.cs">
-      <DependentUpon>PullRequestPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Repositories\Settings\GeneralPage.xaml.cs">
       <DependentUpon>GeneralPage.xaml</DependentUpon>
@@ -1499,7 +1491,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\FeedBlocks\LatestCommitBlock.xaml">
+    <Page Include="UserControls\LatestCommitBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1536,10 +1528,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AppSettings\RepositoryPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\AppSettings\MainSettingsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1637,10 +1625,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Repositories\PullRequests\FileChangesPage.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Repositories\PullRequests\PullRequestPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

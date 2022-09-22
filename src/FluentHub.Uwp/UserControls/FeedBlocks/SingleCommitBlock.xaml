@@ -4,11 +4,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:graphqlmodels="using:FluentHub.Octokit.Models"
+    xmlns:helpers="using:FluentHub.Uwp.Helpers"
     xmlns:local="using:FluentHub.Uwp.UserControls.FeedBlocks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:modelsV3="using:Octokit"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:octokitmodels="using:Octokit"
+    xmlns:primer="using:FluentHub.Uwp.UserControls.PrimerControls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
@@ -33,7 +34,7 @@
                 <muxc:ItemsRepeater.Layout>
                     <muxc:StackLayout Orientation="Vertical" Spacing="8" />
                 </muxc:ItemsRepeater.Layout>
-                <DataTemplate x:DataType="octokitmodels:Commit">
+                <DataTemplate x:DataType="modelsV3:Commit">
                     <StackPanel Orientation="Horizontal" Spacing="4">
                         <Border
                             Width="20"

@@ -10,6 +10,7 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:primer="using:FluentHub.Uwp.UserControls.PrimerControls"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
+    xmlns:uc="using:FluentHub.Uwp.UserControls"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -83,7 +84,7 @@
 
                     <TextBlock
                         x:Name="UserBioTextBlock"
-                        Margin="0,8,0,0"
+                        Margin="0,4,0,0"
                         IsTextSelectionEnabled="True"
                         MaxLines="2"
                         Style="{ThemeResource BodyTextBlockStyle}"
@@ -99,7 +100,7 @@
                         x:Name="UserStatusBlock"
                         Height="32"
                         MinWidth="{x:Bind UserBioTextBlock.ActualWidth, Mode=OneWay}"
-                        Margin="0,12,0,0"
+                        Margin="0,4,0,0"
                         HorizontalAlignment="Left"
                         x:Load="{x:Bind ViewModel.User.Status.Emoji, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
                         <Border

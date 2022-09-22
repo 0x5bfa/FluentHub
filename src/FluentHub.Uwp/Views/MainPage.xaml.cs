@@ -209,9 +209,9 @@ namespace FluentHub.Uwp.Views
                         Parameters = new() { "AsViewer" },
                     });
                     break;
-                case "AccountSettings":
-                    navService.Navigate<AppSettings.MainSettingsPage>("fluenthub://settings/account");
-                    break;
+                //case "AccountSettings":
+                //    navService.Navigate<AppSettings.MainSettingsPage>("fluenthub://settings/account");
+                //    break;
                 case "Settings":
                     navService.Navigate<AppSettings.AppearancePage>();
                     break;

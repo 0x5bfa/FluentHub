@@ -1,6 +1,6 @@
 ﻿using FluentHub.Uwp.Extensions;
 using FluentHub.Uwp.Helpers;
-using FluentHub.Uwp.ViewModels.UserControls.Blocks;
+using FluentHub.Uwp.ViewModels.UserControls;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;

@@ -4,7 +4,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:labels="using:FluentHub.Uwp.UserControls.Labels"
     xmlns:local="using:FluentHub.Uwp.UserControls.ButtonBlocks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
@@ -130,7 +129,7 @@
                     Orientation="Horizontal"
                     Spacing="8">
 
-                    <toolkit:SwitchPresenter
+                    <!--<toolkit:SwitchPresenter
                         x:Name="ReviewStateSwitcher"
                         x:Load="{x:Bind ViewModel.PullItem.Reviews.Nodes, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
                         TargetType="modelsV4:PullRequestReviewState"
@@ -264,7 +263,7 @@
                             </labels:LabelControl>
                         </toolkit:Case>
 
-                    </toolkit:SwitchPresenter>
+                    </toolkit:SwitchPresenter>-->
 
                     <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.PullItem.Labels.Nodes, Mode=OneWay}">
                         <muxc:ItemsRepeater.Layout>
@@ -282,7 +281,7 @@
                     HorizontalAlignment="Right"
                     Orientation="Horizontal">
 
-                    <labels:LabelControl
+                    <!--<labels:LabelControl
                         x:Name="CommentCountLabel"
                         VerticalAlignment="Center"
                         x:Load="{x:Bind ViewModel.PullItem.Comments.TotalCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
@@ -293,7 +292,7 @@
                                 FontSize="12"
                                 Glyph="&#xE95D;" />
                         </labels:LabelControl.Icon>
-                    </labels:LabelControl>
+                    </labels:LabelControl>-->
 
                 </StackPanel>
 

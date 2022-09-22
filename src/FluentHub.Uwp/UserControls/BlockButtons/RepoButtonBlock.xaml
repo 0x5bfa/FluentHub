@@ -113,6 +113,7 @@
                             x:Name="LanguageColor"
                             Width="14"
                             Height="14"
+                            x:Load="{x:Bind ViewModel.Repository.PrimaryLanguage.Color, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
                             CornerRadius="7">
                             <Border.Background>
                                 <SolidColorBrush Color="{x:Bind ViewModel.Repository.PrimaryLanguage.Color, Mode=OneWay}" />

@@ -4,7 +4,7 @@ using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.ViewModels.Repositories;
 
-namespace FluentHub.Uwp.ViewModels.UserControls.FeedBlocks
+namespace FluentHub.Uwp.ViewModels.UserControls
 {
     public class LatestCommitBlockViewModel : ObservableObject
     {

@@ -66,7 +66,7 @@ namespace FluentHub.Uwp.Views.Repositories.Code.Layouts
 
         private void OnLatestReleaseClick(object sender, RoutedEventArgs e)
         {
-            _navigation.Navigate<Views.Releases.ReleasesPage>(
+            _navigation.Navigate<Views.Repositories.Releases.ReleasesPage>(
                 new FrameNavigationArgs()
                 {
                     Login = ViewModel.Repository.Owner.Login,

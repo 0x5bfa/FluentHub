@@ -45,9 +45,10 @@ namespace FluentHub.Uwp
 
             UnhandledException += async (s, e) =>
             {
-                Services.GetService<Serilog.ILogger>()?.Fatal(e.Exception, "Unhandled exception");
-#if DEBUG
+                Services.GetService<Utils.ILogger>()?.Fatal("Unhandled exception", e.Exception);
+
                 e.Handled = true;
+
                 try
                 {
                     await new ContentDialog
@@ -58,7 +59,6 @@ namespace FluentHub.Uwp
                     }.ShowAsync();
                 }
                 catch { }
-#endif
             };
 
             Serilog.Log.Logger = GetSerilogLogger();
@@ -119,7 +119,7 @@ namespace FluentHub.Uwp
                 .AddTransient<ViewModels.UserControls.FileNavigationBlockViewModel>()
                 .AddTransient<ViewModels.UserControls.IssueCommentBlockViewModel>()
                 .AddTransient<ViewModels.UserControls.ReadmeContentBlockViewModel>()
-                .AddTransient<ViewModels.UserControls.FeedBlocks.LatestCommitBlockViewModel>()
+                .AddTransient<ViewModels.UserControls.LatestCommitBlockViewModel>()
                 .AddTransient<ViewModels.Users.ContributionsViewModel>()
                 .AddTransient<ViewModels.Users.DiscussionsViewModel>()
                 .AddTransient<ViewModels.Users.FollowersViewModel>()
@@ -285,10 +285,10 @@ namespace FluentHub.Uwp
                     page = typeof(Views.Users.StarredReposPage);
                     param = uri.AbsoluteUri;
                     break;
-                case "settings":
-                    page = typeof(Views.AppSettings.MainSettingsPage);
-                    param = uri.AbsoluteUri;
-                    break;
+                //case "settings":
+                //    page = typeof(Views.AppSettings.MainSettingsPage);
+                //    param = uri.AbsoluteUri;
+                //    break;
                 case "reset":
                     page = typeof(Views.SignIn.IntroPage);
                     //  This code should work, but throws a 'Use of unassigned variable 'rootFrame'' error.
