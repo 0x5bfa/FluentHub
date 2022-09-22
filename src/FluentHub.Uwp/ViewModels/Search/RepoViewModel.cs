@@ -23,7 +23,6 @@ namespace FluentHub.Uwp.ViewModels.Search
             
             LoadSearchResultsPageCommand = new AsyncRelayCommand(LoadSearchResultsPageAsync);
             LoadFurtherSearchResultsPageCommand = new AsyncRelayCommand(LoadFurtherSearchResultsAsync);
-
         }
 
         #region Fields and Properties

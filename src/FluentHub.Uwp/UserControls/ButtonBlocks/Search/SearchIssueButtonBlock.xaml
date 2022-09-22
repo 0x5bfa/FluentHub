@@ -50,17 +50,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid Margin="0,0,8,0">
-                <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.Item.State, Mode=OneWay}">
-                    <toolkit:Case Value="Open">
-                        <FontIcon
-                            FontFamily="{StaticResource Octicons}"
-                            Foreground="{StaticResource Green5}"
-                            Glyph="&#xE9EA;" />
-                    </toolkit:Case>
-                    <toolkit:Case Value="Closed">
-                        <Image Width="16" Source="/Assets/Icons/Private.png" />
-                    </toolkit:Case>
-                </toolkit:SwitchPresenter>
+                <Image Width="16" Source="/Assets/Icons/Issues.png" />
             </Grid>
 
             <Grid Grid.Column="1">
