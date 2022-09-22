@@ -16,15 +16,29 @@ public class RepoSearchQueries : ISearchQueries
         List<RepositorySearch> repoList = new List<RepositorySearch>();
         foreach (var x in searchResult)
         {
-            repoList.Add(new RepositorySearch
+            if (x.License != null) {
+                repoList.Add(new RepositorySearch
+                {
+                    Name = x.Name,
+                    Description = x.Description,
+                    UpdatedAt = x.UpdatedAt,
+                    IsArchived = x.Archived,
+                    LicenseInfo = x.License.Name,
+                    Owner = x.Owner.Login
+                });
+            }
+            else
             {
-                Name = x.Name,
-                Description = x.Description,
-                UpdatedAt = x.UpdatedAt,
-                IsArchived = x.Archived,
-                LicenseInfo = x.License.Name,
-                Owner = x.Owner.Login
-            });
+                repoList.Add(new RepositorySearch
+                {
+                    Name = x.Name,
+                    Description = x.Description,
+                    UpdatedAt = x.UpdatedAt,
+                    IsArchived = x.Archived,
+                    LicenseInfo = "",
+                    Owner = x.Owner.Login
+                });
+            }
         }
         return repoList;
     }

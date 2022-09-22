@@ -2,21 +2,30 @@
     x:Class="FluentHub.Uwp.Views.Search.RepoPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:bbuc="using:FluentHub.Uwp.UserControls.ButtonBlocks"
+    xmlns:bbvm="using:FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks"
+    xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="using:FluentHub.Uwp.Helpers"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:overview="using:FluentHub.Uwp.UserControls.Overview"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:uc="using:FluentHub.Uwp.UserControls"
-    xmlns:contacts="using:Windows.ApplicationModel"
     mc:Ignorable="d">
     
+    
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        
-        <Grid Grid.Column="1">
+        <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadSearchResultsPageCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
             <ScrollViewer>
                 <Grid
                     Margin="8,0,8,8"
@@ -27,7 +36,6 @@
                     CornerRadius="8">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
@@ -36,8 +44,48 @@
                         Margin="0,0,0,20"
                         Style="{StaticResource TitleTextBlockStyle}"
                         Text="Repositories" />
+                    <Grid Grid.Row="1">
+                        <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.ResultItems, Mode=OneWay}">
+                            <muxc:ItemsRepeater.Layout>
+                                <muxc:StackLayout Orientation="Vertical" Spacing="6" />
+                            </muxc:ItemsRepeater.Layout>
+                            <DataTemplate x:DataType="bbvm:RepoButtonBlockViewModel">
+                                <bbuc:RepoButtonBlock ViewModel="{x:Bind}" />
+                            </DataTemplate>
+                        </muxc:ItemsRepeater>
+    
+                        <toolkit:SwitchPresenter
+                            x:Name="NoRepoSwitchPresenter"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            TargetType="x:Int32"
+                            Value="{x:Bind ViewModel.ResultItems.Count, Mode=OneWay}">
+                            <toolkit:Case Value="0">
+                                <TextBlock
+                                    x:Name="RepoPageNoResults"
+                                    Grid.Row="1"
+                                    FontSize="18"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="No Results :("
+                                    TextAlignment="Center" />
+                            </toolkit:Case>
+                        </toolkit:SwitchPresenter>
+                    </Grid>
                 </Grid>
             </ScrollViewer>
+        </Grid>
+        <Grid x:Name="ErrorDisplayingContentGrid" x:Load="{x:Bind ViewModel.LoadSearchResultsPageCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
+            <Grid>
+                <Button
+                    Margin="0,24,0,0"
+                    HorizontalAlignment="Center"
+                    Command="{x:Bind ViewModel.LoadSearchResultsPageCommand}">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <FontIcon FontSize="16" Glyph="&#xE149;" />
+                        <TextBlock Text="Try Again" />
+                    </StackPanel>
+                </Button>
+            </Grid>
         </Grid>
     </Grid>
 </Page>

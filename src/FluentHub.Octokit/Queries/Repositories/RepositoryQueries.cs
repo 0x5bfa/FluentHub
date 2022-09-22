@@ -78,10 +78,9 @@
                 new(new OctokitGraphQLModel.PullRequestState[] {
                     OctokitGraphQLModel.PullRequestState.Open
                 });
+            
 
-            var query = new Query()
-                .Repository(owner: owner, name: name)
-                .Select(x => new Repository
+            var query = new Query().Repository(owner: owner, name: name).Select(x => new Repository
                 {
                     HomepageUrl = x.HomepageUrl,
                     ForkingAllowed = x.ForkingAllowed,
@@ -90,7 +89,7 @@
                     IsArchived = x.IsArchived,
                     IsPrivate = x.IsPrivate,
                     IsTemplate = x.IsTemplate,
-                    ViewerSubscription = (SubscriptionState)x.ViewerSubscription,
+                    // ViewerSubscription = (SubscriptionState)x.ViewerSubscription, // Causes problems
                     Name = x.Name,
                     Description = x.Description,
                     StargazerCount = x.StargazerCount,
@@ -99,43 +98,43 @@
                     IsInOrganization = x.IsInOrganization,
                     ViewerHasStarred = x.ViewerHasStarred,
                     UpdatedAt = x.UpdatedAt,
-
+                
                     LicenseInfo = x.LicenseInfo.Select(licenseInfo => new License
                     {
                         Name = licenseInfo.Name,
                     })
                     .SingleOrDefault(),
-
+                
                     DefaultBranchRef = x.DefaultBranchRef.Select(defaultbranchref => new Ref
                     {
                         Name = defaultbranchref.Name,
                     })
                     .SingleOrDefault(),
-
+                
                     Watchers = x.Watchers(null, null, null, null).Select(watchers => new UserConnection
                     {
                         TotalCount = watchers.TotalCount,
                     })
                     .Single(),
-
+                
                     Releases = x.Releases(null, null, null, null, null).Select(releases => new ReleaseConnection
                     {
                         TotalCount = releases.TotalCount,
                     })
                     .Single(),
-
+                
                     Issues = x.Issues(null, null, null, null, null, null, null, issueState).Select(issues => new IssueConnection
                     {
                         TotalCount = issues.TotalCount
                     })
                     .Single(),
-
+                
                     PullRequests = x.PullRequests(null, null, null, null, null, null, null, null, pullRequestState).Select(issues => new PullRequestConnection
                     {
                         TotalCount = issues.TotalCount
                     })
                     .Single(),
-
+                
                     Owner = x.Owner.Select(owner => new RepositoryOwner
                     {
                         AvatarUrl = owner.AvatarUrl(100),
@@ -143,7 +142,7 @@
                         Login = owner.Login,
                     })
                     .Single(),
-
+                
                     LatestRelease = x.Releases(null, null, 1, null, null).Nodes.Select(release => new Release
                     {
                         DescriptionHTML = release.DescriptionHTML,
@@ -152,7 +151,7 @@
                         IsPrerelease = release.IsPrerelease,
                         Name = release.Name,
                         PublishedAt = release.PublishedAt,
-
+                
                         Author = release.Author.Select(author => new User
                         {
                             Login = author.Login,
@@ -161,8 +160,8 @@
                         .Single(),
                     })
                     .ToList().FirstOrDefault(),
-                })
-                .Compile();
+            })
+            .Compile();
 
             var response = await App.Connection.Run(query);
 

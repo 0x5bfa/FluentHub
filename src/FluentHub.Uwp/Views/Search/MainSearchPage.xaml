@@ -78,7 +78,7 @@
                     
                     <muxc:NavigationViewItem Content="Packages" Tag="packages">
                         <muxc:NavigationViewItem.Icon>
-                            <muxc:ImageIcon Source="/Assets/Icons/Notifications.png" />
+                            <muxc:ImageIcon Source="/Assets/Icons/Code.png" />
                         </muxc:NavigationViewItem.Icon>
                     </muxc:NavigationViewItem>
                     
