@@ -154,7 +154,7 @@
     <value>விவாதங்கள்</value>
   </data>
   <data name="EditUserProfile" xml:space="preserve">
-    <value>பயனர் சுயவிவரத்தைத் திருத்து</value>
+    <value>Edit User Profile</value>
   </data>
   <data name="FeatureNotAvailable.Text" xml:space="preserve">
     <value>Not available yet.</value>
