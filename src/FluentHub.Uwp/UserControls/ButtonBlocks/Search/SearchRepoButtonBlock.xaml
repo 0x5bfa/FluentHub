@@ -50,9 +50,14 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
             <Grid Margin="0,0,8,0">
-                <FontIcon
-                    FontFamily="{StaticResource Octicons}"
-                    Glyph="&#xE9A0;" />
+                <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.Item.IsPrivate, Mode=OneWay}">
+                    <toolkit:Case Value="True">
+                        <Image Width="16" Source="/Assets/Icons/Private.png" />
+                    </toolkit:Case>
+                    <toolkit:Case Value="False">
+                        <Image Width="16" Source="/Assets/Icons/Repositories.png" />
+                    </toolkit:Case>
+                </toolkit:SwitchPresenter>
             </Grid>
 
             <Grid Grid.Column="1">

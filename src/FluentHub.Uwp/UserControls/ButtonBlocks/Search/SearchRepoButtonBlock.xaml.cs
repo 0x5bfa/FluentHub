@@ -33,11 +33,16 @@ namespace FluentHub.Uwp.UserControls.ButtonBlocks.Search
         private void OnClick(object sender, RoutedEventArgs e)
         {
             var navService = App.Current.Services.GetRequiredService<INavigationService>();
-            navService.Navigate<Views.Repositories.Code.Layouts.TreeLayoutView>(new FrameNavigationArgs()
+            var param = new FrameNavigationArgs()
             {
                 Login = ViewModel.Item.Owner,
-                Name = ViewModel.Item.Name
-            });
+                Name = ViewModel.Item.Name,
+            };
+
+            if (App.Settings.UseDetailsView)
+                navService.Navigate<Views.Repositories.Code.Layouts.DetailsLayoutView>(param);
+            else
+                navService.Navigate<Views.Repositories.Code.Layouts.TreeLayoutView>(param);
         }
     }
 }
