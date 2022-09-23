@@ -62,7 +62,7 @@
 
                 <StackPanel
                     Grid.Column="1"
-                    Margin="20,0,0,0"
+                    Margin="24,0,0,0"
                     VerticalAlignment="Center">
 
                     <TextBlock
@@ -105,6 +105,8 @@
                             Height="34"
                             HorizontalAlignment="Stretch"
                             Background="{ThemeResource PrimerAttentionSubtle}"
+                            BorderBrush="{ThemeResource PrimerAttentionMuted}"
+                            BorderThickness="1"
                             CornerRadius="4"
                             Visibility="{x:Bind ViewModel.User.Status.IndicatesLimitedAvailability, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
 
@@ -116,9 +118,13 @@
                                 <StackPanel
                                     Margin="8,6,8,8"
                                     VerticalAlignment="Center"
-                                    Orientation="Horizontal"
-                                    Spacing="8">
-                                    <TextBlock IsTextSelectionEnabled="True" Text="{x:Bind ViewModel.User.Status.Emoji, Converter={StaticResource EmojiShortCodeToUnicodeConverter}, Mode=OneWay}" />
+                                    Orientation="Horizontal">
+                                    <TextBlock
+                                        x:Name="UserStatusEmoji"
+                                        Margin="0,0,8,0"
+                                        IsTextSelectionEnabled="True"
+                                        Text="{x:Bind ViewModel.User.Status.Emoji, Converter={StaticResource EmojiShortCodeToUnicodeConverter}, Mode=OneWay}"
+                                        Visibility="{x:Bind UserStatusEmoji.Text, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
                                     <TextBlock
                                         Margin="0,2,0,0"
                                         HorizontalAlignment="Center"

@@ -48,34 +48,36 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <Border Background="{ThemeResource ApplicationPageBackgroundThemeBrush}" CornerRadius="12">
-                    <Image
-                        x:Name="UserAvatarImage"
-                        Width="84"
-                        Height="84"
-                        Source="{x:Bind ViewModel.Organization.AvatarUrl, Mode=OneWay}" />
-                </Border>
+                <Grid
+                    Width="128"
+                    Height="128"
+                    CornerRadius="8">
+                    <Image Source="{x:Bind ViewModel.Organization.AvatarUrl, Mode=OneWay}" />
+                </Grid>
 
                 <StackPanel
                     Grid.Column="1"
-                    Margin="20,0,0,0"
+                    Margin="24,0,0,0"
                     VerticalAlignment="Center">
 
                     <TextBlock
                         VerticalAlignment="Center"
                         FontWeight="SemiBold"
+                        IsTextSelectionEnabled="True"
                         Style="{StaticResource SubtitleTextBlockStyle}"
                         Text="{x:Bind ViewModel.Organization.Name, Mode=OneWay}" />
 
                     <TextBlock
                         VerticalAlignment="Center"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        IsTextSelectionEnabled="True"
                         Style="{ThemeResource BodyTextBlockStyle}"
                         Text="{x:Bind ViewModel.Organization.Login, Mode=OneWay}" />
 
                     <TextBlock
                         Margin="0,12,0,0"
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        IsTextSelectionEnabled="True"
                         Style="{ThemeResource BodyTextBlockStyle}"
                         Text="{x:Bind ViewModel.Organization.Description, Mode=OneWay}" />
 

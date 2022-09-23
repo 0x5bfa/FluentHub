@@ -37,7 +37,7 @@
                     <Grid
                         Grid.Row="1"
                         Padding="32,24,32,32"
-                        Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                        Background="{ThemeResource LayerFillColorDefaultBrush}"
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                         BorderThickness="1"
                         CornerRadius="8">
