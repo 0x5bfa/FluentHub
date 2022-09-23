@@ -89,7 +89,7 @@
                     IsEmpty = x.IsEmpty,
                     IsPrivate = x.IsPrivate,
                     IsTemplate = x.IsTemplate,
-                    ViewerSubscription = (SubscriptionState)x.ViewerSubscription,
+                    // ViewerSubscription = (SubscriptionState)x.ViewerSubscription, // Causes problems
                     Name = x.Name,
                     Description = x.Description,
                     StargazerCount = x.StargazerCount,

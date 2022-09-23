@@ -1,0 +1,131 @@
+﻿<Page
+    x:Class="FluentHub.Uwp.Views.Search.MainSearchPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:FluentHub.Uwp.Views.Search"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <StaticResource x:Key="NavigationViewContentBackground" ResourceKey="SystemControlPageBackgroundTransparentBrush" />
+                    <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid
+            Margin="0,0,8,8"
+            Background="{ThemeResource CardBackgroundFillColorSecondary}"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="8">
+            <muxc:NavigationView
+                x:Name="SearchNavView"
+                Margin="8"
+                IsBackButtonVisible="Collapsed"
+                IsPaneOpen="True"
+                IsPaneToggleButtonVisible="False"
+                IsSettingsVisible="False"
+                IsTitleBarAutoPaddingEnabled="False"
+                OpenPaneLength="245"
+                PaneDisplayMode="Left"
+                SelectionChanged="SearchNavView_OnSelectionChanged">
+
+                <muxc:NavigationView.MenuItems>
+                    
+                    <muxc:NavigationViewItem x:Name="RepositoriesItem" Content="Repositories" Tag="repositories">
+                        <muxc:NavigationViewItem.Icon>
+                            <muxc:ImageIcon Source="/Assets/Icons/Repositories.png" />
+                        </muxc:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem>
+
+                    <muxc:NavigationViewItem x:Name="CodeItem" Content="Code" Tag="code">
+                        <muxc:NavigationViewItem.Icon>
+                            <muxc:ImageIcon Source="/Assets/Icons/Code.png" />
+                        </muxc:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem>
+
+                    <muxc:NavigationViewItem x:Name="CommitsItem" Content="Commits" Tag="commits">
+                        <muxc:NavigationViewItem.Icon>
+                            <muxc:ImageIcon Source="/Assets/Icons/Commits.png" />
+                        </muxc:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem>
+                    
+                    <muxc:NavigationViewItem x:Name="IssuesItem" Content="Issues" Tag="issues">
+                        <muxc:NavigationViewItem.Icon>
+                            <muxc:ImageIcon Source="/Assets/Icons/Issues.png" />
+                        </muxc:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem>
+                    
+                    <muxc:NavigationViewItem x:Name="DiscussionsItem" Content="Discussions" Tag="discussions">
+                        <muxc:NavigationViewItem.Icon>
+                            <muxc:ImageIcon Source="/Assets/Icons/Discussions.png" />
+                        </muxc:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem>
+                    
+                    <muxc:NavigationViewItem Content="Packages" Tag="packages">
+                        <muxc:NavigationViewItem.Icon>
+                            <muxc:ImageIcon Source="/Assets/Icons/Code.png" />
+                        </muxc:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem>
+                    
+                    <muxc:NavigationViewItem Content="Marketplace" Tag="marketplace">
+                        <muxc:NavigationViewItem.Icon>
+                            <muxc:ImageIcon Source="/Assets/Icons/Marketplace.png" />
+                        </muxc:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem>
+                    
+                    <muxc:NavigationViewItem Content="Topics" Tag="topics">
+                        <muxc:NavigationViewItem.Icon>
+                            <muxc:ImageIcon Source="/Assets/Icons/Topic.png" />
+                        </muxc:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem>
+                    
+                    <muxc:NavigationViewItem Content="Wikis" Tag="wikis">
+                        <muxc:NavigationViewItem.Icon>
+                            <muxc:ImageIcon Source="/Assets/Icons/Wiki.png" />
+                        </muxc:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem>
+                    
+                    <muxc:NavigationViewItem x:Name="UsersItem" Content="Users" Tag="users">
+                        <muxc:NavigationViewItem.Icon>
+                            <muxc:ImageIcon Source="/Assets/Icons/Profile.png" />
+                        </muxc:NavigationViewItem.Icon>
+                    </muxc:NavigationViewItem>
+                </muxc:NavigationView.MenuItems>
+            </muxc:NavigationView>
+        </Grid>
+
+        <Grid
+            Grid.Column="1"
+            Margin="0"
+            Background="{ThemeResource CardBackgroundFillColorSecondary}"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1"
+            CornerRadius="8"
+            RowSpacing="16">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Frame
+                x:Name="SearchContentFrame"
+                Grid.Row="0"
+                Background="Transparent" />
+
+        </Grid>
+
+    </Grid>
+</Page>
