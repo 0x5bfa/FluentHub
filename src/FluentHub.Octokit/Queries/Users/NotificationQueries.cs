@@ -194,6 +194,7 @@ repo{index}: repository(name: ""{notifications.ElementAt(index).Repository.Name}
                                             case IssueStateReason.Completed:
                                                 item.Subject.Type = NotificationSubjectType.IssueClosedAsCompleted;
                                                 break;
+                                            case IssueStateReason.Reopened:
                                             case IssueStateReason.NotPlanned:
                                                 item.Subject.Type = NotificationSubjectType.IssueClosedAsNotPlanned;
                                                 break;
