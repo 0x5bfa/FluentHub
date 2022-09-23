@@ -2,7 +2,7 @@
     x:Class="FluentHub.Uwp.UserControls.FeedBlocks.ActivityBlock"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:bb="using:FluentHub.Uwp.UserControls.ButtonBlocks"
+    xmlns:bb="using:FluentHub.Uwp.UserControls.BlockButtons"
     xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:fbuc="using:FluentHub.Uwp.UserControls.FeedBlocks"
@@ -352,12 +352,12 @@
                 x:Name="SingleReleaseBlock"
                 x:Load="{x:Bind ViewModel.SingleReleaseBlockViewModel, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
                 ViewModel="{x:Bind ViewModel.SingleReleaseBlockViewModel, Mode=OneWay}" />
-            <bb:RepoButtonBlock
-                x:Name="RepoButtonBlock"
+            <bb:RepoBlockButton
+                x:Name="RepoBlockButton"
                 x:Load="{x:Bind ViewModel.RepoBlockViewModel, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
                 ViewModel="{x:Bind ViewModel.RepoBlockViewModel, Mode=OneWay}" />
-            <bb:UserButtonBlock
-                x:Name="UserButtonBlock"
+            <bb:UserBlockButton
+                x:Name="UserBlockButton"
                 x:Load="{x:Bind ViewModel.UserBlockViewModel, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
                 ViewModel="{x:Bind ViewModel.UserBlockViewModel, Mode=OneWay}" />
         </Grid>

@@ -2,8 +2,8 @@
     x:Class="FluentHub.Uwp.Views.Users.OrganizationsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:bbuc="using:FluentHub.Uwp.UserControls.ButtonBlocks"
-    xmlns:bbvm="using:FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks"
+    xmlns:bbuc="using:FluentHub.Uwp.UserControls.BlockButtons"
+    xmlns:bbvm="using:FluentHub.Uwp.ViewModels.UserControls.BlockButtons"
     xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="using:FluentHub.Uwp.Helpers"
@@ -95,8 +95,8 @@
                                 <muxc:ItemsRepeater.Layout>
                                     <muxc:StackLayout Orientation="Vertical" Spacing="6" />
                                 </muxc:ItemsRepeater.Layout>
-                                <DataTemplate x:DataType="bbvm:OrgButtonBlockViewModel">
-                                    <bbuc:OrgButtonBlock ViewModel="{x:Bind}" />
+                                <DataTemplate x:DataType="bbvm:OrgBlockButtonViewModel">
+                                    <bbuc:OrgBlockButton ViewModel="{x:Bind}" />
                                 </DataTemplate>
                             </muxc:ItemsRepeater>
 

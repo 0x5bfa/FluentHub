@@ -4,7 +4,7 @@ using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls.Overview;
-using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
+using FluentHub.Uwp.ViewModels.UserControls.BlockButtons;
 using FluentHub.Uwp.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml.Media.Imaging;
@@ -42,11 +42,11 @@ namespace FluentHub.Uwp.ViewModels.Users
         private UserProfileOverviewViewModel _userProfileOverviewViewModel;
         public UserProfileOverviewViewModel UserProfileOverviewViewModel { get => _userProfileOverviewViewModel; set => SetProperty(ref _userProfileOverviewViewModel, value); }
 
-        private readonly ObservableCollection<RepoButtonBlockViewModel> _pinnedRepositories;
-        public ReadOnlyObservableCollection<RepoButtonBlockViewModel> PinnedRepositories { get; }
+        private readonly ObservableCollection<RepoBlockButtonViewModel> _pinnedRepositories;
+        public ReadOnlyObservableCollection<RepoBlockButtonViewModel> PinnedRepositories { get; }
 
-        private readonly ObservableCollection<RepoButtonBlockViewModel> _pinnableRepositories;
-        public ReadOnlyObservableCollection<RepoButtonBlockViewModel> PinnableRepositories { get; }
+        private readonly ObservableCollection<RepoBlockButtonViewModel> _pinnableRepositories;
+        public ReadOnlyObservableCollection<RepoBlockButtonViewModel> PinnableRepositories { get; }
 
         private RepoContextViewModel _contextViewModel;
         public RepoContextViewModel ContextViewModel { get => _contextViewModel; set => SetProperty(ref _contextViewModel, value); }
@@ -104,7 +104,7 @@ namespace FluentHub.Uwp.ViewModels.Users
 
                 foreach (var item in pinnableItemsRes)
                 {
-                    RepoButtonBlockViewModel viewModel = new()
+                    RepoBlockButtonViewModel viewModel = new()
                     {
                         Repository = item,
                         DisplayDetails = false,
@@ -118,7 +118,7 @@ namespace FluentHub.Uwp.ViewModels.Users
             {
                 foreach (var item in pinnedItemsRes)
                 {
-                    RepoButtonBlockViewModel viewModel = new()
+                    RepoBlockButtonViewModel viewModel = new()
                     {
                         Repository = item,
                         DisplayDetails = false,

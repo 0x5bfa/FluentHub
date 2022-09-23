@@ -1,33 +1,33 @@
 ﻿using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels;
-using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
+using FluentHub.Uwp.ViewModels.UserControls.BlockButtons;
 using FluentHub.Uwp.Views.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace FluentHub.Uwp.UserControls.ButtonBlocks
+namespace FluentHub.Uwp.UserControls.BlockButtons
 {
-    public sealed partial class NotificationButtonBlock : UserControl
+    public sealed partial class NotificationBlockButton : UserControl
     {
         #region propdp
         public static readonly DependencyProperty ViewModelProperty
             = DependencyProperty.Register(
-                  nameof(NotificationButtonBlockViewModel),
-                  typeof(NotificationButtonBlockViewModel),
-                  typeof(NotificationButtonBlock),
+                  nameof(NotificationBlockButtonViewModel),
+                  typeof(NotificationBlockButtonViewModel),
+                  typeof(NotificationBlockButton),
                   new PropertyMetadata(null)
                 );
 
-        public NotificationButtonBlockViewModel ViewModel
+        public NotificationBlockButtonViewModel ViewModel
         {
-            get => (NotificationButtonBlockViewModel)GetValue(ViewModelProperty);
+            get => (NotificationBlockButtonViewModel)GetValue(ViewModelProperty);
             set => SetValue(ViewModelProperty, value);
         }
         #endregion
 
-        public NotificationButtonBlock() => InitializeComponent();
+        public NotificationBlockButton() => InitializeComponent();
 
         private void OnClick(object sender, RoutedEventArgs e)
         {

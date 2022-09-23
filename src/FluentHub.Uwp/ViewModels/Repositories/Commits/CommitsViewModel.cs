@@ -5,7 +5,7 @@ using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls;
 using FluentHub.Uwp.ViewModels.UserControls.Overview;
-using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
+using FluentHub.Uwp.ViewModels.UserControls.BlockButtons;
 using FluentHub.Uwp.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml.Media.Imaging;
@@ -45,8 +45,8 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Commits
         private RepoContextViewModel contextViewModel;
         public RepoContextViewModel ContextViewModel { get => contextViewModel; set => SetProperty(ref contextViewModel, value); }
 
-        private readonly ObservableCollection<CommitButtonBlockViewModel> _items;
-        public ReadOnlyObservableCollection<CommitButtonBlockViewModel> Items { get; }
+        private readonly ObservableCollection<CommitBlockButtonViewModel> _items;
+        public ReadOnlyObservableCollection<CommitBlockButtonViewModel> Items { get; }
 
         private Exception _taskException;
         public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
@@ -96,7 +96,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Commits
             _items.Clear();
             foreach (var item in response)
             {
-                CommitButtonBlockViewModel viewModel = new()
+                CommitBlockButtonViewModel viewModel = new()
                 {
                     CommitItem = item,
                 };

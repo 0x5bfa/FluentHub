@@ -4,7 +4,7 @@ using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls.Overview;
-using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
+using FluentHub.Uwp.ViewModels.UserControls.BlockButtons;
 using FluentHub.Uwp.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Uwp;
@@ -43,8 +43,8 @@ namespace FluentHub.Uwp.ViewModels.Organizations
         private bool _oauthAppIsRestrictedByOrgSettings;
         public bool OAuthAppIsRestrictedByOrgSettings { get => _oauthAppIsRestrictedByOrgSettings; set => SetProperty(ref _oauthAppIsRestrictedByOrgSettings, value); }
 
-        private readonly ObservableCollection<RepoButtonBlockViewModel> _repositories;
-        public ReadOnlyObservableCollection<RepoButtonBlockViewModel> Repositories { get; }
+        private readonly ObservableCollection<RepoBlockButtonViewModel> _repositories;
+        public ReadOnlyObservableCollection<RepoBlockButtonViewModel> Repositories { get; }
 
         private Exception _taskException;
         public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
@@ -92,7 +92,7 @@ namespace FluentHub.Uwp.ViewModels.Organizations
                 _repositories.Clear();
                 foreach (var item in response)
                 {
-                    RepoButtonBlockViewModel viewModel = new()
+                    RepoBlockButtonViewModel viewModel = new()
                     {
                         Repository = item,
                         DisplayDetails = true,

@@ -2,28 +2,28 @@
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels;
-using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
+using FluentHub.Uwp.ViewModels.UserControls.BlockButtons;
 using FluentHub.Uwp.Views.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace FluentHub.Uwp.UserControls.ButtonBlocks
+namespace FluentHub.Uwp.UserControls.BlockButtons
 {
-    public sealed partial class IssueButtonBlock : UserControl
+    public sealed partial class IssueBlockButton : UserControl
     {
         #region propdp
         public static readonly DependencyProperty ViewModelProperty =
             DependencyProperty.Register(
-                  nameof(IssueButtonBlockViewModel),
-                  typeof(IssueButtonBlockViewModel),
-                  typeof(IssueButtonBlock),
+                  nameof(IssueBlockButtonViewModel),
+                  typeof(IssueBlockButtonViewModel),
+                  typeof(IssueBlockButton),
                   new PropertyMetadata(null)
                 );
 
-        public IssueButtonBlockViewModel ViewModel
+        public IssueBlockButtonViewModel ViewModel
         {
-            get => (IssueButtonBlockViewModel)GetValue(ViewModelProperty);
+            get => (IssueBlockButtonViewModel)GetValue(ViewModelProperty);
             set
             {
                 SetValue(ViewModelProperty, value);
@@ -32,7 +32,7 @@ namespace FluentHub.Uwp.UserControls.ButtonBlocks
         }
         #endregion
        
-        public IssueButtonBlock() => InitializeComponent();
+        public IssueBlockButton() => InitializeComponent();
 
         private void OnClick(object sender, RoutedEventArgs e)
         {

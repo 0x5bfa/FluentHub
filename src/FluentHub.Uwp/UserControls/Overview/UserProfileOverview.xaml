@@ -54,9 +54,9 @@
                 </Grid.ColumnDefinitions>
 
                 <Grid
-                    Width="120"
-                    Height="120"
-                    CornerRadius="60">
+                    Width="128"
+                    Height="128"
+                    CornerRadius="64">
                     <Image Source="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}" />
                 </Grid>
 
@@ -98,13 +98,11 @@
 
                     <Grid
                         x:Name="UserStatusBlock"
-                        Height="32"
-                        MinWidth="{x:Bind UserBioTextBlock.ActualWidth, Mode=OneWay}"
-                        Margin="0,4,0,0"
+                        Margin="0,8,0,0"
                         HorizontalAlignment="Left"
                         x:Load="{x:Bind ViewModel.User.Status.Emoji, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
                         <Border
-                            MinWidth="{x:Bind UserBioTextBlock.ActualWidth, Mode=OneWay}"
+                            Height="34"
                             HorizontalAlignment="Stretch"
                             Background="{ThemeResource PrimerAttentionSubtle}"
                             CornerRadius="4"
@@ -147,7 +145,7 @@
                             </Grid>
                         </Border>
                         <Border
-                            MinWidth="{x:Bind UserBioTextBlock.ActualWidth, Mode=OneWay}"
+                            Height="34"
                             HorizontalAlignment="Stretch"
                             Background="{ThemeResource LayerFillColorDefaultBrush}"
                             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"

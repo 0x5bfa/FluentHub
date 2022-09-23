@@ -2,8 +2,8 @@
     x:Class="FluentHub.Uwp.Views.Repositories.Projects.ProjectsPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:bbuc="using:FluentHub.Uwp.UserControls.ButtonBlocks"
-    xmlns:bbvm="using:FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks"
+    xmlns:bbuc="using:FluentHub.Uwp.UserControls.BlockButtons"
+    xmlns:bbvm="using:FluentHub.Uwp.ViewModels.UserControls.BlockButtons"
     xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="using:FluentHub.Uwp.Helpers"
@@ -45,8 +45,8 @@
 
                         <Grid Grid.Row="1">
                             <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}">
-                                <DataTemplate x:DataType="bbvm:ProjectButtonBlockViewModel">
-                                    <bbuc:ProjectButtonBlock ViewModel="{x:Bind}" />
+                                <DataTemplate x:DataType="bbvm:ProjectBlockButtonViewModel">
+                                    <bbuc:ProjectBlockButton ViewModel="{x:Bind}" />
                                 </DataTemplate>
                             </muxc:ItemsRepeater>
 

@@ -208,8 +208,8 @@
     <Compile Include="Services\Navigation\TabViewSelectionChangedEventArgs.cs" />
     <Compile Include="Services\OctokitSecretsService.cs" />
     <Compile Include="Services\ToastService.cs" />
-    <Compile Include="UserControls\BlockButtons\PackageButtonBlock.xaml.cs">
-      <DependentUpon>PackageButtonBlock.xaml</DependentUpon>
+    <Compile Include="UserControls\BlockButtons\PackageBlockButton.xaml.cs">
+      <DependentUpon>PackageBlockButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\CustomWebView.xaml.cs">
       <DependentUpon>CustomWebView.xaml</DependentUpon>
@@ -241,11 +241,11 @@
     <Compile Include="UserControls\UserContributionGraph.xaml.cs">
       <DependentUpon>UserContributionGraph.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\BlockButtons\CommitButtonBlock.xaml.cs">
-      <DependentUpon>CommitButtonBlock.xaml</DependentUpon>
+    <Compile Include="UserControls\BlockButtons\CommitBlockButton.xaml.cs">
+      <DependentUpon>CommitBlockButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\BlockButtons\ProjectButtonBlock.xaml.cs">
-      <DependentUpon>ProjectButtonBlock.xaml</DependentUpon>
+    <Compile Include="UserControls\BlockButtons\ProjectBlockButton.xaml.cs">
+      <DependentUpon>ProjectBlockButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Overview\OrganizationProfileOverview.xaml.cs">
       <DependentUpon>OrganizationProfileOverview.xaml</DependentUpon>
@@ -284,26 +284,26 @@
     <Compile Include="UserControls\FileNavigationBlock.xaml.cs">
       <DependentUpon>FileNavigationBlock.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\BlockButtons\DiscussionButtonBlock.xaml.cs">
-      <DependentUpon>DiscussionButtonBlock.xaml</DependentUpon>
+    <Compile Include="UserControls\BlockButtons\DiscussionBlockButton.xaml.cs">
+      <DependentUpon>DiscussionBlockButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\BlockButtons\IssueButtonBlock.xaml.cs">
-      <DependentUpon>IssueButtonBlock.xaml</DependentUpon>
+    <Compile Include="UserControls\BlockButtons\IssueBlockButton.xaml.cs">
+      <DependentUpon>IssueBlockButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\BlockButtons\NotificationButtonBlock.xaml.cs">
-      <DependentUpon>NotificationButtonBlock.xaml</DependentUpon>
+    <Compile Include="UserControls\BlockButtons\NotificationBlockButton.xaml.cs">
+      <DependentUpon>NotificationBlockButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\BlockButtons\OrgButtonBlock.xaml.cs">
-      <DependentUpon>OrgButtonBlock.xaml</DependentUpon>
+    <Compile Include="UserControls\BlockButtons\OrgBlockButton.xaml.cs">
+      <DependentUpon>OrgBlockButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\BlockButtons\PullButtonBlock.xaml.cs">
-      <DependentUpon>PullButtonBlock.xaml</DependentUpon>
+    <Compile Include="UserControls\BlockButtons\PullBlockButton.xaml.cs">
+      <DependentUpon>PullBlockButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\BlockButtons\RepoButtonBlock.xaml.cs">
-      <DependentUpon>RepoButtonBlock.xaml</DependentUpon>
+    <Compile Include="UserControls\BlockButtons\RepoBlockButton.xaml.cs">
+      <DependentUpon>RepoBlockButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\BlockButtons\UserButtonBlock.xaml.cs">
-      <DependentUpon>UserButtonBlock.xaml</DependentUpon>
+    <Compile Include="UserControls\BlockButtons\UserBlockButton.xaml.cs">
+      <DependentUpon>UserBlockButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\GitCloneFlyout.xaml.cs">
       <DependentUpon>GitCloneFlyout.xaml</DependentUpon>
@@ -379,21 +379,21 @@
     <Compile Include="ViewModels\UserControls\ReadmeContentBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\FeedBlocks\SingleReleaseBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\UserContributionGraphViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\ButtonBlocks\CommitButtonBlockViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\ButtonBlocks\DiscussionButtonBlockViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\ButtonBlocks\IssueButtonBlockViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\ButtonBlocks\NotificationButtonBlockViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\ButtonBlocks\OrgButtonBlockViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\ButtonBlocks\PackageButtonBlockViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\ButtonBlocks\ProjectButtonBlockViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\ButtonBlocks\PullButtonBlockViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\ButtonBlocks\RepoButtonBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\BlockButtons\CommitBlockButtonViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\BlockButtons\DiscussionBlockButtonViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\BlockButtons\IssueBlockButtonViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\BlockButtons\NotificationBlockButtonViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\BlockButtons\OrgBlockButtonViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\BlockButtons\PackageBlockButtonViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\BlockButtons\ProjectBlockButtonViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\BlockButtons\PullBlockButtonViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\BlockButtons\RepoBlockButtonViewModel.cs" />
     <Compile Include="ViewModels\UserControls\IssueCommentBlockViewModel.cs" />
     <Compile Include="ViewModels\UserControls\TimelineViewModel.cs" />
     <Compile Include="ViewModels\UserControls\LatestCommitBlockViewModel.cs" />
     <Compile Include="ViewModels\Home\FeedsViewModel.cs" />
     <Compile Include="ViewModels\Home\NotificationsViewModel.cs" />
-    <Compile Include="ViewModels\UserControls\ButtonBlocks\UserButtonBlockViewModel.cs" />
+    <Compile Include="ViewModels\UserControls\BlockButtons\UserBlockButtonViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Labels\LabelControlViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Labels\StatusLabelViewModel.cs" />
     <Compile Include="ViewModels\UserControls\Overview\AppSettingsOverviewViewModel.cs" />
@@ -1343,7 +1343,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\BlockButtons\PackageButtonBlock.xaml">
+    <Page Include="UserControls\BlockButtons\PackageBlockButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1395,39 +1395,39 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\BlockButtons\CommitButtonBlock.xaml">
+    <Page Include="UserControls\BlockButtons\CommitBlockButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\BlockButtons\DiscussionButtonBlock.xaml">
+    <Page Include="UserControls\BlockButtons\DiscussionBlockButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\BlockButtons\IssueButtonBlock.xaml">
+    <Page Include="UserControls\BlockButtons\IssueBlockButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\BlockButtons\NotificationButtonBlock.xaml">
+    <Page Include="UserControls\BlockButtons\NotificationBlockButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\BlockButtons\OrgButtonBlock.xaml">
+    <Page Include="UserControls\BlockButtons\OrgBlockButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\BlockButtons\ProjectButtonBlock.xaml">
+    <Page Include="UserControls\BlockButtons\ProjectBlockButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\BlockButtons\PullButtonBlock.xaml">
+    <Page Include="UserControls\BlockButtons\PullBlockButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\BlockButtons\RepoButtonBlock.xaml">
+    <Page Include="UserControls\BlockButtons\RepoBlockButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\BlockButtons\UserButtonBlock.xaml">
+    <Page Include="UserControls\BlockButtons\UserBlockButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

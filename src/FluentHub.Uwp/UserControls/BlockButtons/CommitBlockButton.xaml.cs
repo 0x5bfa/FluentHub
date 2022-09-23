@@ -1,30 +1,30 @@
 ﻿using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
-using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
+using FluentHub.Uwp.ViewModels.UserControls.BlockButtons;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace FluentHub.Uwp.UserControls.ButtonBlocks
+namespace FluentHub.Uwp.UserControls.BlockButtons
 {
-    public sealed partial class CommitButtonBlock : UserControl
+    public sealed partial class CommitBlockButton : UserControl
     {
         #region propdp
         public static readonly DependencyProperty ViewModelProperty =
             DependencyProperty.Register(
-                nameof(CommitButtonBlockViewModel),
-                typeof(CommitButtonBlockViewModel),
-                typeof(CommitButtonBlock),
+                nameof(CommitBlockButtonViewModel),
+                typeof(CommitBlockButtonViewModel),
+                typeof(CommitBlockButton),
                 new PropertyMetadata(null));
 
-        public CommitButtonBlockViewModel ViewModel
+        public CommitBlockButtonViewModel ViewModel
         {
-            get => (CommitButtonBlockViewModel)GetValue(ViewModelProperty);
+            get => (CommitBlockButtonViewModel)GetValue(ViewModelProperty);
             set => SetValue(ViewModelProperty, value);
         }
         #endregion
 
-        public CommitButtonBlock() => InitializeComponent();
+        public CommitBlockButton() => InitializeComponent();
 
         private void CommitItemButton_Click(object sender, RoutedEventArgs e)
         {

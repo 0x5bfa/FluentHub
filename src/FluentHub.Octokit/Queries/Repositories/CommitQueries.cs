@@ -71,8 +71,10 @@
                             AbbreviatedOid = y.AbbreviatedOid,
                             Oid = y.Oid,
                             CommittedDate = y.CommittedDate,
+                            CommittedDateHumanized = y.CommittedDate.Humanize(null, null),
                             Message = y.Message,
                             MessageHeadline = y.MessageHeadline,
+                            MessageBody = y.MessageBody,
 
                             Author = y.Author.Select(author => new GitActor
                             {

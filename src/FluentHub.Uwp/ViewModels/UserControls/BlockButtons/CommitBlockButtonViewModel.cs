@@ -3,11 +3,11 @@ using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
 using Windows.UI.Xaml.Controls;
 
-namespace FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks
+namespace FluentHub.Uwp.ViewModels.UserControls.BlockButtons
 {
-    public class CommitButtonBlockViewModel : ObservableObject
+    public class CommitBlockButtonViewModel : ObservableObject
     {
-        public CommitButtonBlockViewModel()
+        public CommitBlockButtonViewModel()
         {
         }
 

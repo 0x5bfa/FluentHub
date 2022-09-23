@@ -1,7 +1,7 @@
 ﻿using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels;
-using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
+using FluentHub.Uwp.ViewModels.UserControls.BlockButtons;
 using FluentHub.Uwp.Views.Repositories.Projects;
 using Microsoft.Extensions.DependencyInjection;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -15,22 +15,22 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace FluentHub.Uwp.UserControls.ButtonBlocks
+namespace FluentHub.Uwp.UserControls.BlockButtons
 {
-    public sealed partial class ProjectButtonBlock : UserControl
+    public sealed partial class ProjectBlockButton : UserControl
     {
         #region dprops
         public static readonly DependencyProperty ViewModelProperty
             = DependencyProperty.Register(
                   nameof(Project),
-                  typeof(ProjectButtonBlockViewModel),
-                  typeof(ProjectButtonBlock),
+                  typeof(ProjectBlockButtonViewModel),
+                  typeof(ProjectBlockButton),
                   new PropertyMetadata(null)
                 );
 
-        public ProjectButtonBlockViewModel ViewModel
+        public ProjectBlockButtonViewModel ViewModel
         {
-            get => (ProjectButtonBlockViewModel)GetValue(ViewModelProperty);
+            get => (ProjectBlockButtonViewModel)GetValue(ViewModelProperty);
             set
             {
                 SetValue(ViewModelProperty, value);
@@ -39,7 +39,7 @@ namespace FluentHub.Uwp.UserControls.ButtonBlocks
         }
         #endregion
 
-        public ProjectButtonBlock() => InitializeComponent();
+        public ProjectBlockButton() => InitializeComponent();
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {

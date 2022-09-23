@@ -1,5 +1,5 @@
 ﻿<UserControl
-    x:Class="FluentHub.Uwp.UserControls.ButtonBlocks.RepoButtonBlock"
+    x:Class="FluentHub.Uwp.UserControls.BlockButtons.RepoBlockButton"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:converters="using:FluentHub.Uwp.Converters"
@@ -212,7 +212,7 @@
             </Grid>
 
             <Grid
-                x:Name="StarButtonBlock"
+                x:Name="StarBlockButton"
                 Grid.Column="1"
                 Width="96"
                 x:Load="{x:Bind ViewModel.DisplayStarButton, Mode=OneWay}">

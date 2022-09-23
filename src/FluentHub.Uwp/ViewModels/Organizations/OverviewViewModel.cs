@@ -4,7 +4,7 @@ using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls.Overview;
-using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
+using FluentHub.Uwp.ViewModels.UserControls.BlockButtons;
 using FluentHub.Uwp.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Toolkit.Uwp;
@@ -46,11 +46,11 @@ namespace FluentHub.Uwp.ViewModels.Organizations
         private bool _oauthAppIsRestrictedByOrgSettings;
         public bool OAuthAppIsRestrictedByOrgSettings { get => _oauthAppIsRestrictedByOrgSettings; set => SetProperty(ref _oauthAppIsRestrictedByOrgSettings, value); }
 
-        private readonly ObservableCollection<RepoButtonBlockViewModel> _pinnedItems;
-        public ReadOnlyObservableCollection<RepoButtonBlockViewModel> PinnedItems { get; }
+        private readonly ObservableCollection<RepoBlockButtonViewModel> _pinnedItems;
+        public ReadOnlyObservableCollection<RepoBlockButtonViewModel> PinnedItems { get; }
 
-        private readonly ObservableCollection<RepoButtonBlockViewModel> _repositories;
-        public ReadOnlyObservableCollection<RepoButtonBlockViewModel> Repositories { get; }
+        private readonly ObservableCollection<RepoBlockButtonViewModel> _repositories;
+        public ReadOnlyObservableCollection<RepoBlockButtonViewModel> Repositories { get; }
 
         private Exception _taskException;
         public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
@@ -78,8 +78,17 @@ namespace FluentHub.Uwp.ViewModels.Organizations
                 TaskException = ex;
                 faulted = true;
 
-                _logger?.Error(_currentTaskingMethodName, ex);
-                throw;
+                // OAuth restriction exception
+                if (Regex.IsMatch(ex.Message, @"Although you appear to have the correct authorization credentials, the `.*` organization has enabled OAuth App access restrictions, meaning that data access to third-parties is limited. For more information on these restrictions, including how to enable this app, visit https://docs.github.com/articles/restricting-access-to-your-organization-s-data/"))
+                {
+                    OAuthAppIsRestrictedByOrgSettings = true;
+                    faulted = false;
+                }
+                else
+                {
+                    _logger?.Error(_currentTaskingMethodName, ex);
+                    throw;
+                }
             }
             finally
             {
@@ -90,86 +99,53 @@ namespace FluentHub.Uwp.ViewModels.Organizations
 
         private async Task LoadOrganizationOverviewAsync(string org)
         {
-            try
+            RepositoryQueries repoQueries = new();
+            var repoItems = await repoQueries.GetAllAsync(org);
+
+            _repositories.Clear();
+            foreach (var item in repoItems)
             {
-                RepositoryQueries repoQueries = new();
-                var repoItems = await repoQueries.GetAllAsync(org);
-
-                _repositories.Clear();
-                foreach (var item in repoItems)
+                RepoBlockButtonViewModel viewModel = new()
                 {
-                    RepoButtonBlockViewModel viewModel = new()
-                    {
-                        Repository = item,
-                        DisplayDetails = false,
-                        DisplayStarButton = false,
-                    };
+                    Repository = item,
+                    DisplayDetails = false,
+                    DisplayStarButton = false,
+                };
 
-                    _repositories.Add(viewModel);
-                }
-
-                PinnedItemQueries queries = new();
-                var pinnedItems = await queries.GetAllAsync(org);
-                if (pinnedItems == null) return;
-
-                _pinnedItems.Clear();
-                foreach (var item in pinnedItems)
-                {
-                    RepoButtonBlockViewModel viewModel = new()
-                    {
-                        Repository = item,
-                        DisplayDetails = false,
-                        DisplayStarButton = false,
-                    };
-
-                    _pinnedItems.Add(viewModel);
-                }
+                _repositories.Add(viewModel);
             }
-            catch (OperationCanceledException) { }
-            catch (Exception ex)
-            {
-                _logger?.Error(nameof(LoadOrganizationOverviewAsync), ex);
 
-                // OAuth restriction exception
-                if (Regex.IsMatch(ex.Message, @"Although you appear to have the correct authorization credentials, the `.*` organization has enabled OAuth App access restrictions, meaning that data access to third-parties is limited. For more information on these restrictions, including how to enable this app, visit https://docs.github.com/articles/restricting-access-to-your-organization-s-data/"))
+            PinnedItemQueries queries = new();
+            var pinnedItems = await queries.GetAllAsync(org);
+            if (pinnedItems == null) return;
+
+            _pinnedItems.Clear();
+            foreach (var item in pinnedItems)
+            {
+                RepoBlockButtonViewModel viewModel = new()
                 {
-                    OAuthAppIsRestrictedByOrgSettings = true;
-                }
-                else if (_messenger != null)
-                {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
-                throw;
+                    Repository = item,
+                    DisplayDetails = false,
+                    DisplayStarButton = false,
+                };
+
+                _pinnedItems.Add(viewModel);
             }
         }
 
         private async Task LoadOrganizationAsync(string org)
         {
-            try
-            {
-                OrganizationQueries queries = new();
-                var response = await queries.GetAsync(org);
+            OrganizationQueries queries = new();
+            var response = await queries.GetAsync(org);
 
-                Organization = response ?? new();
+            Organization = response ?? new();
 
-                // View model
-                OrganizationProfileOverviewViewModel = new()
-                {
-                    Organization = Organization,
-                    SelectedTag = "overview",
-                };
-            }
-            catch (Exception ex)
+            // View model
+            OrganizationProfileOverviewViewModel = new()
             {
-                _logger?.Error(nameof(LoadOrganizationAsync), ex);
-                if (_messenger != null)
-                {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
-                throw;
-            }
+                Organization = Organization,
+                SelectedTag = "overview",
+            };
         }
 
         private void SetCurrentTabItem()

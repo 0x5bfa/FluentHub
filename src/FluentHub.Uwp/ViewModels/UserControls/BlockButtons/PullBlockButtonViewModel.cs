@@ -3,11 +3,11 @@ using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.ViewModels.UserControls.Labels;
 
-namespace FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks
+namespace FluentHub.Uwp.ViewModels.UserControls.BlockButtons
 {
-    public class PullButtonBlockViewModel : ObservableObject
+    public class PullBlockButtonViewModel : ObservableObject
     {
-        public PullButtonBlockViewModel()
+        public PullBlockButtonViewModel()
         {
             _labelViewModels = new();
             LabelViewModels = new(_labelViewModels);

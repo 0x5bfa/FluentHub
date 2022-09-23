@@ -50,13 +50,13 @@ namespace FluentHub.Uwp.UserControls
                 command.Execute(null);
         }
 
-        private void MoreCommitMessageButton_Click(object sender, RoutedEventArgs e)
+        private void OnToggleDisplayCommitMessageButtonClick(object sender, RoutedEventArgs e)
         {
             SubCommitMessagesGrid.Visibility =
                 SubCommitMessagesGrid.Visibility == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void OnViewAllCommitsButtonClick(object sender, RoutedEventArgs e)
         {
             navigationService.Navigate<CommitsPage>(
                 new Models.FrameNavigationArgs()

@@ -1,24 +1,24 @@
 ﻿using FluentHub.Uwp.Services;
-using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
+using FluentHub.Uwp.ViewModels.UserControls.BlockButtons;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace FluentHub.Uwp.UserControls.ButtonBlocks
+namespace FluentHub.Uwp.UserControls.BlockButtons
 {
-    public sealed partial class UserButtonBlock : UserControl
+    public sealed partial class UserBlockButton : UserControl
     {
         #region propdp
         public static readonly DependencyProperty ViewModelProperty =
             DependencyProperty.Register(
                 nameof(User),
-                typeof(UserButtonBlockViewModel),
-                typeof(UserButtonBlock),
+                typeof(UserBlockButtonViewModel),
+                typeof(UserBlockButton),
                 new PropertyMetadata(null));
 
-        public UserButtonBlockViewModel ViewModel
+        public UserBlockButtonViewModel ViewModel
         {
-            get => (UserButtonBlockViewModel)GetValue(ViewModelProperty);
+            get => (UserBlockButtonViewModel)GetValue(ViewModelProperty);
             set
             {
                 SetValue(ViewModelProperty, value);
@@ -27,9 +27,9 @@ namespace FluentHub.Uwp.UserControls.ButtonBlocks
         }
         #endregion
 
-        public UserButtonBlock() => InitializeComponent();
+        public UserBlockButton() => InitializeComponent();
 
-        private void UserButtonBlockButton_Click(object sender, RoutedEventArgs e)
+        private void UserBlockButtonButton_Click(object sender, RoutedEventArgs e)
         {
             var service = App.Current.Services.GetRequiredService<INavigationService>();
 
