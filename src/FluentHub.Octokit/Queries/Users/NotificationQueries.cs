@@ -12,26 +12,38 @@ namespace FluentHub.Octokit.Queries.Users
             Wrappers.NotificationWrapper wrapper = new();
             var notifications = wrapper.WrapAsync(response);
 
-            var fragments = GetGatheredRepositoryFragment(notifications);
+            // NOTE:
+            // The first Octokit v3 response has insufficient content, so gather the necessary info
+            // from the response to get the necessary data and create a new Octokit v4 request
 
+            var fragments = GetGatheredRepositoryFragment(notifications);
+            if (string.IsNullOrEmpty(fragments))
+                return notifications;
+
+            // Create a new request with repository info and vaild Issue or PR info
             var request2 = new GraphQLRequest
             {
                 Query = @$"query {{ {fragments} }}",
             };
 
+            // Response contains a lot of repository response tokens
             var response2 = await App.GraphQLHttpClient.SendQueryAsync<object>(request2);
+
             List<Repository> zippedData = new();
 
             var json = response2.Data as JToken;
 
             var errors = json["errors"];
+
             if (errors is not null)
             {
                 return notifications;
             }
-            for (int idx = 0; idx < options.PageSize; idx++)
+
+            for (int idx = 0; idx < notifications.Count(); idx++)
             {
                 var repo = json[$"repo{idx}"];
+
                 if (repo is null || !repo.HasValues)
                 {
                     // Add empty data
@@ -42,7 +54,7 @@ namespace FluentHub.Octokit.Queries.Users
                 var issue = repo["Issue"];
                 var pr = repo["PullRequest"];
 
-                //HasValues because issue can be empty
+                // HasValues because issue can be empty
                 if (issue is not null && issue.HasValues)
                 {
                     Enum.TryParse(
@@ -97,15 +109,8 @@ namespace FluentHub.Octokit.Queries.Users
                     });
                 }
             }
-            
-            
-            var slicedNotifications = new List<Notification>();
-            for (int i = 0; i < zippedData.Count; i++)
-            {
-                slicedNotifications.Add(notifications[i]);
-            }
-            
-            var mappedNotifications = Map(slicedNotifications, zippedData);
+
+            var mappedNotifications = Map(notifications, zippedData);
 
             return mappedNotifications;
         }
@@ -113,7 +118,7 @@ namespace FluentHub.Octokit.Queries.Users
         private string GetGatheredRepositoryFragment(IReadOnlyList<Notification> notifications)
         {
             string gatheredFragments = "";
-            for (int index = 0; index < notifications.Count; index++)
+            for (int index = 0; index < notifications.Count(); index++)
             {
                 switch (notifications.ElementAt(index).Subject.Type)
                 {
@@ -160,6 +165,7 @@ repo{index}: repository(name: ""{notifications.ElementAt(index).Repository.Name}
         private List<Notification> Map(List<Notification> notifications, IReadOnlyList<Repository> details)
         {
             int index = 0;
+
             foreach (var item in notifications)
             {
                 switch (item.Subject.Type)
@@ -188,6 +194,7 @@ repo{index}: repository(name: ""{notifications.ElementAt(index).Repository.Name}
                                             case IssueStateReason.Completed:
                                                 item.Subject.Type = NotificationSubjectType.IssueClosedAsCompleted;
                                                 break;
+                                            case IssueStateReason.Reopened:
                                             case IssueStateReason.NotPlanned:
                                                 item.Subject.Type = NotificationSubjectType.IssueClosedAsNotPlanned;
                                                 break;
@@ -228,8 +235,7 @@ repo{index}: repository(name: ""{notifications.ElementAt(index).Repository.Name}
                             }
 
                             break;
-                        } 
-                        index++;
+                        }
                 }
 
                 item.Subject.TypeHumanized = item.Subject.Type.ToString();

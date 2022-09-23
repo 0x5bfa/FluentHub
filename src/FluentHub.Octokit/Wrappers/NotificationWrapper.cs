@@ -46,63 +46,37 @@ namespace FluentHub.Octokit.Wrappers
                     indivisual.UpdatedAtHumanized = indivisual.UpdatedAt.Humanize();
                 }
 
-                switch (item.Reason)
+                indivisual.Reason = item.Reason switch
                 {
-                    case "assign":
-                        indivisual.Reason = "You were assigned to the issue.";
-                        break;
-                    case "author":
-                        indivisual.Reason = "You created the thread.";
-                        break;
-                    case "comment":
-                        indivisual.Reason = "You commented on the thread.";
-                        break;
-                    case "ci_activity":
-                        indivisual.Reason = "A workflow that you triggered was successful.";
-                        break;
-                    case "invitation":
-                        indivisual.Reason = "You accepted an invitation to contribute to the repository.";
-                        break;
-                    case "manual":
-                        indivisual.Reason = "You subscribed to the thread.";
-                        break;
-                    case "mention":
-                        indivisual.Reason = "You were mentioned.";
-                        break;
-                    case "review_requested":
-                        indivisual.Reason = "You or a team you are a member of was requested to review a pull request.";
-                        break;
-                    case "security_alert":
-                        indivisual.Reason = "A vulnerability was detected in your repository.";
-                        break;
-                    case "state_change":
-                        indivisual.Reason = "You changed the state of the thread.";
-                        break;
-                    case "subscribed":
-                        indivisual.Reason = "You started watching the repository.";
-                        break;
-                    case "team_mention":
-                        indivisual.Reason = "You are on a team that was mentioned.";
-                        break;
-                    default:
-                        indivisual.Reason = "";
-                        break;
-                }
+                    "assign" => "You were assigned to the issue.",
+                    "author" => "You created the thread.",
+                    "comment" => "You commented on the thread.",
+                    "ci_activity" => "A workflow that you triggered was successful.",
+                    "invitation" => "You accepted an invitation to contribute to the repository.",
+                    "manual" => "You subscribed to the thread.",
+                    "mention" => "You were mentioned.",
+                    "review_requested" => "You or a team you are a member of was requested to review a pull request.",
+                    "security_alert" => "A vulnerability was detected in your repository.",
+                    "state_change" => "You changed the state of the thread.",
+                    "subscribed" => "You started watching the repository.",
+                    "team_mention" => "You are on a team that was mentioned.",
+                    "" => "",
+                };
 
-                var urlItems = item.Subject.Url?.Split('/');
+                var urlItems = item.Subject.Url?.Split('/').ToList();
 
                 switch (item.Subject?.Type)
                 {
                     case "Issue":
                         {
                             indivisual.Subject.Type = NotificationSubjectType.Issue;
-                            indivisual.Subject.Number = Convert.ToInt32(urlItems[urlItems.Count() - 1]);
+                            indivisual.Subject.Number = Convert.ToInt32(urlItems.LastOrDefault());
                             break;
                         }
                     case "PullRequest":
                         {
                             indivisual.Subject.Type = NotificationSubjectType.PullRequest;
-                            indivisual.Subject.Number = Convert.ToInt32(urlItems[urlItems.Count() - 1]);
+                            indivisual.Subject.Number = Convert.ToInt32(urlItems.LastOrDefault());
                             break;
                         }
                     case "Discussion":
