@@ -2,6 +2,7 @@
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.ViewModels.UserControls;
+using FluentHub.Uwp.ViewModels.UserControls.Overview;
 using Windows.UI.Xaml.Media.Imaging;
 using muxc = Microsoft.UI.Xaml.Controls;
 
@@ -41,6 +42,15 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Code.Layouts
 
         private string _currentPath;
         public string CurrentPath { get => _currentPath; set => SetProperty(ref _currentPath, value); }
+
+        private int _branchesTotalCount;
+        public int BranchesTotalCount { get => _branchesTotalCount; set => SetProperty(ref _branchesTotalCount, value); }
+
+        private int _tagsTotalCount;
+        public int TagsTotalCount { get => _tagsTotalCount; set => SetProperty(ref _tagsTotalCount, value); }
+
+        public static int StaticBranchesTotalCount;
+        public static int StaticTagsTotalCount;
 
         private readonly ObservableCollection<DetailsLayoutListViewModel> _items;
         public ReadOnlyObservableCollection<DetailsLayoutListViewModel> Items { get; }
@@ -86,10 +96,9 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Code.Layouts
 
         private async Task LoadRepositoryContentsAsync(string login, string name, string branch, string path)
         {
-            if (string.IsNullOrEmpty(ContextViewModel.Repository.DefaultBranchRef.Name))
+            if (Repository.IsEmpty || ContextViewModel.IsFile)
                 return;
 
-            if (ContextViewModel.IsFile) return;
             ContextViewModel.IsDir = true;
 
             TreeQueries queries = new();
@@ -97,7 +106,8 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Code.Layouts
 
             if (string.IsNullOrEmpty(path))
                 ContextViewModel.IsRootDir = true;
-            else ContextViewModel.IsSubDir = true;
+            else
+                ContextViewModel.IsSubDir = true;
 
             var zippedResponse = response.Files.Zip(response.Commits, (file, commit) => new { File = file, Commit = commit });
 
@@ -124,27 +134,41 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Code.Layouts
                 new ObservableCollection<DetailsLayoutListViewModel>(Items.OrderByDescending(x => x.IconGlyph));
 
             _items.Clear();
-            foreach (var orderedItem in orderedByItemType) _items.Add(orderedItem);
+            foreach (var orderedItem in orderedByItemType)
+                _items.Add(orderedItem);
         }
 
         private async Task LoadRepositoryAsync(string owner, string name)
         {
-            RepositoryQueries queries = new();
-            Repository = await queries.GetDetailsAsync(owner, name);
-
             RepositoryOverviewViewModel = new()
             {
-                Repository = Repository,
-                RepositoryName = Repository.Name,
-                RepositoryOwnerLogin = Repository.Owner.Login,
-                RepositoryVisibilityLabel = new()
-                {
-                    Name = Repository.IsPrivate ? "Private" : "Public",
-                    Color = "#64000000",
-                },
-                ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
-
                 SelectedTag = "code",
+            };
+
+            if (RepositoryOverviewViewModel.StoredRepository is null
+                || BranchesTotalCount == 0)
+            {
+                RepositoryQueries queries = new();
+                var response = await queries.GetCustomDetailsAsync(owner, name);
+
+                Repository = response.Repository;
+                RepositoryOverviewViewModel.Repository = Repository;
+
+                BranchesTotalCount = response.BranchesTotalCount;
+                TagsTotalCount = response.TagsTotalCount;
+            }
+            else
+            {
+                RepositoryOverviewViewModel.Repository = RepositoryOverviewViewModel.StoredRepository;
+            }
+
+            RepositoryOverviewViewModel.RepositoryName = RepositoryOverviewViewModel.Repository.Name;
+            RepositoryOverviewViewModel.RepositoryOwnerLogin = RepositoryOverviewViewModel.Repository.Owner.Login;
+            RepositoryOverviewViewModel.ViewerSubscriptionState = RepositoryOverviewViewModel.Repository.ViewerSubscription?.Humanize();
+            RepositoryOverviewViewModel.RepositoryVisibilityLabel = new()
+            {
+                Name = RepositoryOverviewViewModel.Repository.IsPrivate ? "Private" : "Public",
+                Color = "#64000000",
             };
         }
 

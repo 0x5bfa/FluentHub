@@ -21,7 +21,7 @@ namespace FluentHub.Uwp.UserControls.PrimerControls
                 nameof(Source),
                 typeof(string),
                 typeof(Avatar),
-                new PropertyMetadata(null)
+                new PropertyMetadata("https://github.com/identicons/FluentHub.png")
                 );
 
         public string Source

@@ -35,8 +35,8 @@ namespace FluentHub.Uwp.ViewModels
             _navViewItems.Add(new (name: "Home", glyphPrimary: "\uE80F", glyphSecondary: "\uEA8A", isSelected: true));
             _navViewItems.Add(new (name: "Notifications", glyphPrimary: "\uEA8F", glyphSecondary: "\uEA8F"));
             _navViewItems.Add(new (name: "Activity", glyphPrimary: "\uECAD", glyphSecondary: "\uECAD"));
-            _navViewItems.Add(new (name: "Marketplace", glyphPrimary: "\uE14D", glyphSecondary: "\uE14D"));
-            _navViewItems.Add(new (name: "Explore", glyphPrimary: "\uE805", glyphSecondary: "\uE805"));
+            //_navViewItems.Add(new (name: "Marketplace", glyphPrimary: "\uE14D", glyphSecondary: "\uE14D"));
+            //_navViewItems.Add(new (name: "Explore", glyphPrimary: "\uE805", glyphSecondary: "\uE805"));
             _navViewFooterItems.Add(new (name: "Profile", glyphPrimary: "\uE77B", glyphSecondary: "\uEA8C"));
 
             AddNewTabAcceleratorCommand = new RelayCommand<KeyboardAcceleratorInvokedEventArgs>(AddNewTabAccelerator);

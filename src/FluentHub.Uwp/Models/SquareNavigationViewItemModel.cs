@@ -21,6 +21,9 @@
         private string _glyphSecondary;
         public string GlyphSecondary { get => _glyphSecondary; set => SetProperty(ref _glyphSecondary, value); }
 
+        private bool _useOcticon;
+        public bool UseOcticon { get => _useOcticon; set => SetProperty(ref _useOcticon, value); }
+
         private bool _isSelected;
         public bool IsSelected { get => _isSelected; set => SetProperty(ref _isSelected, value); }
     }

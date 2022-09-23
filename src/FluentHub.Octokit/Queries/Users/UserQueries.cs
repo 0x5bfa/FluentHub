@@ -30,13 +30,21 @@
                     {
                         TotalCount = followers.TotalCount,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
                     Following = x.Following(null, null, null, null).Select(following => new FollowingConnection
                     {
                         TotalCount = following.TotalCount,
                     })
-                    .Single(),
+                    .SingleOrDefault(),
+
+                    Status = x.Status.Select(status => new UserStatus
+                    {
+                        Emoji = status.Emoji,
+                        Message = status.Message,
+                        IndicatesLimitedAvailability = status.IndicatesLimitedAvailability,
+                    })
+                    .SingleOrDefault(),
                 })
                 .Compile();
             #endregion

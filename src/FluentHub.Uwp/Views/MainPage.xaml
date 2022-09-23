@@ -11,9 +11,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:FluentHub.Uwp.Models"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:tabsuc="using:FluentHub.Uwp.UserControls.TabViewControl"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:triggers="using:WindowsStateTriggers"
-    xmlns:uc="using:FluentHub.Uwp.UserControls.TabViewControl"
+    xmlns:uc="using:FluentHub.Uwp.UserControls"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     KeyTipPlacementMode="Hidden"
     KeyboardAcceleratorPlacementMode="Hidden"
@@ -121,27 +122,12 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <StackPanel Margin="16,0,8,0" Orientation="Horizontal">
+                <StackPanel
+                    Margin="16,0,8,0"
+                    VerticalAlignment="Center"
+                    Orientation="Horizontal">
 
-                    <Image
-                        x:Name="AppFontIcon"
-                        Width="22"
-                        Height="22"
-                        HorizontalAlignment="Left"
-                        VerticalAlignment="Center"
-                        Source="/Assets/AppTiles/StoreLogo.scale-400.png" />
-
-                    <TextBlock
-                        Margin="12,0,0,0"
-                        VerticalAlignment="Center"
-                        Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="Fluent" />
-
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        FontWeight="SemiBold"
-                        Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="Hub" />
+                    <uc:TitleBar />
 
                 </StackPanel>
 
@@ -234,7 +220,7 @@
                     </Button>
                 </StackPanel>
 
-                <uc:CustomTabView
+                <tabsuc:CustomTabView
                     x:Name="TabView"
                     Title="{x:Bind TabView.SelectedItem.NavigationHistory.CurrentItem.Header, Mode=OneWay}"
                     Grid.Column="2"
@@ -407,13 +393,6 @@
                                             Foreground="{ThemeResource AccentFillColorDefaultBrush}"
                                             Glyph="{x:Bind GlyphSecondary, Mode=OneWay}" />
 
-                                        <TextBlock
-                                            Grid.Row="1"
-                                            HorizontalAlignment="Center"
-                                            FontSize="10"
-                                            Foreground="{ThemeResource AccentFillColorDefaultBrush}"
-                                            Style="{StaticResource CaptionTextBlockStyle}"
-                                            Text="{x:Bind Name, Mode=OneWay}" />
                                     </Grid>
                                     <Grid
                                         x:Name="UnselectedSquareNavViewItem"

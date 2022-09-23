@@ -5,13 +5,13 @@
     xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
     xmlns:bbuc="using:FluentHub.Uwp.UserControls.ButtonBlocks"
     xmlns:bbvm="using:FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks"
-    xmlns:blocks="using:FluentHub.Uwp.UserControls.Blocks"
     xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="using:FluentHub.Uwp.Helpers"
     xmlns:local="using:FluentHub.Uwp.Views.Users"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:ov="using:FluentHub.Uwp.UserControls.Overview"
     xmlns:toolkit="using:Microsoft.Toolkit.Uwp.UI.Controls"
     xmlns:uc="using:FluentHub.Uwp.UserControls"
     mc:Ignorable="d">
@@ -36,9 +36,9 @@
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <uc:UserProfileOverview
+                    <ov:UserProfileOverview
                         x:Name="UserProfileOverview"
-                        Margin="0,0,0,8"
+                        Margin="0,0,0,0"
                         x:Load="True"
                         ViewModel="{x:Bind ViewModel.UserProfileOverviewViewModel, Mode=OneWay}" />
 
@@ -47,7 +47,7 @@
                         <Grid
                             x:Name="PinnedRepositoriesGrid"
                             x:Load="{x:Bind ViewModel.PinnedRepositories.Count, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-                            Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                            Background="{ThemeResource LayerFillColorDefaultBrush}"
                             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                             BorderThickness="1"
                             CornerRadius="8">
@@ -108,7 +108,7 @@
                                             ItemsStretch="Fill"
                                             MaximumRowsOrColumns="6"
                                             MinColumnSpacing="8"
-                                            MinItemHeight="92"
+                                            MinItemHeight="102"
                                             MinItemWidth="250"
                                             MinRowSpacing="8"
                                             Orientation="Horizontal" />
@@ -125,7 +125,7 @@
                             x:Name="PinnableRepositoriesGrid"
                             Grid.Row="1"
                             x:Load="{x:Bind ViewModel.PinnableRepositories.Count, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-                            Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                            Background="{ThemeResource LayerFillColorDefaultBrush}"
                             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                             BorderThickness="1"
                             CornerRadius="8">
@@ -199,9 +199,9 @@
                             </Grid>
                         </Grid>
 
-                        <blocks:UserContributionGraph Login="{x:Bind ViewModel.Login, Mode=OneWay}" />
+                        <uc:UserContributionGraph Login="{x:Bind ViewModel.Login, Mode=OneWay}" />
 
-                        <blocks:ReadmeContentBlock x:Name="UserSpecialReadmeBlock" ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
+                        <uc:ReadmeContentBlock x:Name="UserSpecialReadmeBlock" ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
                     </StackPanel>
 
                 </Grid>

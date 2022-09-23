@@ -3,7 +3,7 @@ using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.Repositories;
-using FluentHub.Uwp.ViewModels.UserControls;
+using FluentHub.Uwp.ViewModels.UserControls.Overview;
 using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
 using FluentHub.Uwp.Utils;
 using Microsoft.Extensions.DependencyInjection;
@@ -108,6 +108,7 @@ namespace FluentHub.Uwp.ViewModels.Users
             UserProfileOverviewViewModel = new()
             {
                 User = User,
+                SelectedTag = "organizations"
             };
 
             if (string.IsNullOrEmpty(User.WebsiteUrl) is false)

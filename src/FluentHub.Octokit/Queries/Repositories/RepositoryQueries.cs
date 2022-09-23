@@ -13,7 +13,6 @@
                     OctokitGraphQLModel.PullRequestState.Open
                 });
 
-            #region query
             var query = new Query()
                 .Repository(name, owner)
                 .Select(x => new Repository
@@ -61,7 +60,6 @@
                     .SingleOrDefault(),
                 })
                 .Compile();
-            #endregion
 
             var response = await App.Connection.Run(query);
 
@@ -86,6 +84,7 @@
                     HasIssuesEnabled = x.HasIssuesEnabled,
                     HasProjectsEnabled = x.HasProjectsEnabled,
                     IsArchived = x.IsArchived,
+                    IsEmpty = x.IsEmpty,
                     IsPrivate = x.IsPrivate,
                     IsTemplate = x.IsTemplate,
                     // ViewerSubscription = (SubscriptionState)x.ViewerSubscription, // Causes problems
@@ -97,43 +96,43 @@
                     IsInOrganization = x.IsInOrganization,
                     ViewerHasStarred = x.ViewerHasStarred,
                     UpdatedAt = x.UpdatedAt,
-                
+
                     LicenseInfo = x.LicenseInfo.Select(licenseInfo => new License
                     {
                         Name = licenseInfo.Name,
                     })
                     .SingleOrDefault(),
-                
+
                     DefaultBranchRef = x.DefaultBranchRef.Select(defaultbranchref => new Ref
                     {
                         Name = defaultbranchref.Name,
                     })
                     .SingleOrDefault(),
-                
+
                     Watchers = x.Watchers(null, null, null, null).Select(watchers => new UserConnection
                     {
                         TotalCount = watchers.TotalCount,
                     })
                     .Single(),
-                
+
                     Releases = x.Releases(null, null, null, null, null).Select(releases => new ReleaseConnection
                     {
                         TotalCount = releases.TotalCount,
                     })
                     .Single(),
-                
+
                     Issues = x.Issues(null, null, null, null, null, null, null, issueState).Select(issues => new IssueConnection
                     {
                         TotalCount = issues.TotalCount
                     })
                     .Single(),
-                
+
                     PullRequests = x.PullRequests(null, null, null, null, null, null, null, null, pullRequestState).Select(issues => new PullRequestConnection
                     {
                         TotalCount = issues.TotalCount
                     })
                     .Single(),
-                
+
                     Owner = x.Owner.Select(owner => new RepositoryOwner
                     {
                         AvatarUrl = owner.AvatarUrl(100),
@@ -141,7 +140,7 @@
                         Login = owner.Login,
                     })
                     .Single(),
-                
+
                     LatestRelease = x.Releases(null, null, 1, null, null).Nodes.Select(release => new Release
                     {
                         DescriptionHTML = release.DescriptionHTML,
@@ -159,12 +158,161 @@
                         .Single(),
                     })
                     .ToList().FirstOrDefault(),
-            })
-            .Compile();
+
+                    Languages = x.Languages(10, null, null, null, null).Select(langConection => new LanguageConnection
+                    {
+                        Nodes = langConection.Nodes.Select(lang => new Language
+                        {
+                            Color = lang.Color,
+                            Name = lang.Name,
+                        })
+                        .ToList(),
+                    })
+                    .SingleOrDefault(),
+                })
+                .Compile();
 
             var response = await App.Connection.Run(query);
 
             return response;
+        }
+
+        public async Task<CustomRepositoryResponseForCodePage> GetCustomDetailsAsync(string owner, string name)
+        {
+            OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.IssueState>> issueState =
+                new(new OctokitGraphQLModel.IssueState[] {
+                    OctokitGraphQLModel.IssueState.Open
+                });
+            OctokitGraphQLCore.Arg<IEnumerable<OctokitGraphQLModel.PullRequestState>> pullRequestState =
+                new(new OctokitGraphQLModel.PullRequestState[] {
+                    OctokitGraphQLModel.PullRequestState.Open
+                });
+
+            var query = new Query()
+                .Select(root => new
+                {
+                    first = root.Repository(name, owner, null).Select(x => new Repository
+                    {
+                        HomepageUrl = x.HomepageUrl,
+                        ForkingAllowed = x.ForkingAllowed,
+                        HasIssuesEnabled = x.HasIssuesEnabled,
+                        HasProjectsEnabled = x.HasProjectsEnabled,
+                        IsArchived = x.IsArchived,
+                        IsEmpty = x.IsEmpty,
+                        IsPrivate = x.IsPrivate,
+                        IsTemplate = x.IsTemplate,
+                        ViewerSubscription = (SubscriptionState)x.ViewerSubscription,
+                        Name = x.Name,
+                        Description = x.Description,
+                        StargazerCount = x.StargazerCount,
+                        ForkCount = x.ForkCount,
+                        IsFork = x.IsFork,
+                        IsInOrganization = x.IsInOrganization,
+                        ViewerHasStarred = x.ViewerHasStarred,
+                        UpdatedAt = x.UpdatedAt,
+
+                        LicenseInfo = x.LicenseInfo.Select(licenseInfo => new License
+                        {
+                            Name = licenseInfo.Name,
+                        })
+                        .SingleOrDefault(),
+
+                        DefaultBranchRef = x.DefaultBranchRef.Select(defaultbranchref => new Ref
+                        {
+                            Name = defaultbranchref.Name,
+                        })
+                        .SingleOrDefault(),
+
+                        Watchers = x.Watchers(null, null, null, null).Select(watchers => new UserConnection
+                        {
+                            TotalCount = watchers.TotalCount,
+                        })
+                        .Single(),
+
+                        Releases = x.Releases(null, null, null, null, null).Select(releases => new ReleaseConnection
+                        {
+                            TotalCount = releases.TotalCount,
+                        })
+                        .Single(),
+
+                        Issues = x.Issues(null, null, null, null, null, null, null, issueState).Select(issues => new IssueConnection
+                        {
+                            TotalCount = issues.TotalCount
+                        })
+                        .Single(),
+
+                        PullRequests = x.PullRequests(null, null, null, null, null, null, null, null, pullRequestState).Select(issues => new PullRequestConnection
+                        {
+                            TotalCount = issues.TotalCount
+                        })
+                        .Single(),
+
+                        Owner = x.Owner.Select(owner => new RepositoryOwner
+                        {
+                            AvatarUrl = owner.AvatarUrl(100),
+                            Id = owner.Id,
+                            Login = owner.Login,
+                        })
+                        .Single(),
+
+                        LatestRelease = x.Releases(null, null, 1, null, null).Nodes.Select(release => new Release
+                        {
+                            DescriptionHTML = release.DescriptionHTML,
+                            IsDraft = release.IsDraft,
+                            IsLatest = release.IsLatest,
+                            IsPrerelease = release.IsPrerelease,
+                            Name = release.Name,
+                            PublishedAt = release.PublishedAt,
+                            PublishedAtHumanized = release.PublishedAt.Humanize(null, null),
+
+                            Author = release.Author.Select(author => new User
+                            {
+                                Login = author.Login,
+                                AvatarUrl = author.AvatarUrl(100),
+                            })
+                            .Single(),
+                        })
+                        .ToList().FirstOrDefault(),
+
+                        Languages = x.Languages(10, null, null, null, null).Select(langConection => new LanguageConnection
+                        {
+                            Nodes = langConection.Nodes.Select(lang => new Language
+                            {
+                                Color = lang.Color,
+                                Name = lang.Name,
+                            })
+                            .ToList(),
+                        })
+                    .SingleOrDefault(),
+                    })
+                    .SingleOrDefault(),
+
+                    second = root.Repository(name, owner, null).Select(y => new
+                    {
+                        Heads = y.Refs("refs/heads/", null, null, null, null, null, null, null).Select(ref1 => new RefConnection
+                        {
+                            TotalCount = ref1.TotalCount,
+                        })
+                        .SingleOrDefault(),
+
+                        Tags = y.Refs("refs/tags/", null, null, null, null, null, null, null).Select(ref2 => new RefConnection
+                        {
+                            TotalCount = ref2.TotalCount,
+                        })
+                        .SingleOrDefault(),
+                    })
+                    .SingleOrDefault(),
+                })
+                .Compile();
+
+            var response = await App.Connection.Run(query);
+
+            return new CustomRepositoryResponseForCodePage()
+            {
+                Repository = response.first,
+                BranchesTotalCount = response.second.Heads.TotalCount,
+                TagsTotalCount = response.second.Tags.TotalCount,
+            };
         }
 
         public async Task<(int, int)> GetBranchAndTagCountAsync(string owner, string name)

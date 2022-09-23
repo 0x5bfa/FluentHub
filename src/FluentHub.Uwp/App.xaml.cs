@@ -45,9 +45,10 @@ namespace FluentHub.Uwp
 
             UnhandledException += async (s, e) =>
             {
-                Services.GetService<Serilog.ILogger>()?.Fatal(e.Exception, "Unhandled exception");
-#if DEBUG
+                Services.GetService<Utils.ILogger>()?.Fatal("Unhandled exception", e.Exception);
+
                 e.Handled = true;
+
                 try
                 {
                     await new ContentDialog
@@ -58,7 +59,6 @@ namespace FluentHub.Uwp
                     }.ShowAsync();
                 }
                 catch { }
-#endif
             };
 
             Serilog.Log.Logger = GetSerilogLogger();
@@ -100,7 +100,6 @@ namespace FluentHub.Uwp
                 .AddTransient<ViewModels.Organizations.RepositoriesViewModel>()
                 .AddTransient<ViewModels.Repositories.Code.Layouts.DetailsLayoutViewModel>()
                 .AddTransient<ViewModels.Repositories.Code.Layouts.TreeLayoutViewModel>()
-                .AddTransient<ViewModels.Repositories.Code.ReleasesViewModel>()
                 .AddTransient<ViewModels.Repositories.Commits.CommitsViewModel>()
                 .AddTransient<ViewModels.Repositories.Commits.CommitViewModel>()
                 .AddTransient<ViewModels.Repositories.Discussions.DiscussionsViewModel>()
@@ -119,20 +118,24 @@ namespace FluentHub.Uwp
                 .AddTransient<ViewModels.Search.MainSearchViewModel>()
                 .AddTransient<ViewModels.Search.RepoViewModel>()
                 .AddTransient<ViewModels.Search.UserViewModel>()
+                .AddTransient<ViewModels.Repositories.Releases.ReleasesViewModel>()
                 .AddTransient<ViewModels.SignIn.IntroViewModel>()
-                .AddTransient<ViewModels.UserControls.Blocks.FileContentBlockViewModel>()
-                .AddTransient<ViewModels.UserControls.Blocks.FileNavigationBlockViewModel>()
-                .AddTransient<ViewModels.UserControls.Blocks.IssueCommentBlockViewModel>()
-                .AddTransient<ViewModels.UserControls.Blocks.ReadmeContentBlockViewModel>()
-                .AddTransient<ViewModels.UserControls.Blocks.LatestCommitBlockViewModel>()
+                .AddTransient<ViewModels.UserControls.FileContentBlockViewModel>()
+                .AddTransient<ViewModels.UserControls.FileNavigationBlockViewModel>()
+                .AddTransient<ViewModels.UserControls.IssueCommentBlockViewModel>()
+                .AddTransient<ViewModels.UserControls.ReadmeContentBlockViewModel>()
+                .AddTransient<ViewModels.UserControls.LatestCommitBlockViewModel>()
+                .AddTransient<ViewModels.Users.ContributionsViewModel>()
+                .AddTransient<ViewModels.Users.DiscussionsViewModel>()
                 .AddTransient<ViewModels.Users.FollowersViewModel>()
                 .AddTransient<ViewModels.Users.FollowingViewModel>()
                 .AddTransient<ViewModels.Users.IssuesViewModel>()
-                .AddTransient<ViewModels.Users.OverviewViewModel>()
-                .AddTransient<ViewModels.Users.PullRequestsViewModel>()
-                .AddTransient<ViewModels.Users.DiscussionsViewModel>()
-                .AddTransient<ViewModels.Users.RepositoriesViewModel>()
                 .AddTransient<ViewModels.Users.OrganizationsViewModel>()
+                .AddTransient<ViewModels.Users.OverviewViewModel>()
+                .AddTransient<ViewModels.Users.PackagesViewModel>()
+                .AddTransient<ViewModels.Users.ProjectsViewModel>()
+                .AddTransient<ViewModels.Users.PullRequestsViewModel>()
+                .AddTransient<ViewModels.Users.RepositoriesViewModel>()
                 .AddTransient<ViewModels.Users.StarredReposViewModel>()
                 .BuildServiceProvider();
         }
@@ -287,10 +290,10 @@ namespace FluentHub.Uwp
                     page = typeof(Views.Users.StarredReposPage);
                     param = uri.AbsoluteUri;
                     break;
-                case "settings":
-                    page = typeof(Views.AppSettings.MainSettingsPage);
-                    param = uri.AbsoluteUri;
-                    break;
+                //case "settings":
+                //    page = typeof(Views.AppSettings.MainSettingsPage);
+                //    param = uri.AbsoluteUri;
+                //    break;
                 case "reset":
                     page = typeof(Views.SignIn.IntroPage);
                     //  This code should work, but throws a 'Use of unassigned variable 'rootFrame'' error.

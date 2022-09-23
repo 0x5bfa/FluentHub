@@ -61,7 +61,7 @@ namespace FluentHub.Uwp.Views.AppSettings.Accounts
 
         private void OnOtherUsersClick(object sender, RoutedEventArgs e)
         {
-            navigationService.Navigate<AppSettings.MainSettingsPage>($"fluenthub://settings/account/otherusers", new SuppressNavigationTransitionInfo());
+            //navigationService.Navigate<AppSettings.MainSettingsPage>($"fluenthub://settings/account/otherusers", new SuppressNavigationTransitionInfo());
         }
     }
 }

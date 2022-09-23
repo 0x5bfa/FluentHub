@@ -1,6 +1,7 @@
 ﻿using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.ViewModels.UserControls;
+using FluentHub.Uwp.ViewModels.UserControls.Overview;
 using FluentHub.Uwp.Utils;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.Code.Layouts

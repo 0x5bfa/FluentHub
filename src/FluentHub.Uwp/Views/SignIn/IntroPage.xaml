@@ -23,7 +23,7 @@
             x:Name="AppTitleBar"
             Background="Transparent"
             Canvas.ZIndex="1">
-            <uc:TitleBar />
+            <uc:TitleBar Margin="16,4,0,0" />
         </Grid>
 
         <muxc:TwoPaneView
@@ -49,7 +49,7 @@
                             <muxc:ImageIcon
                                 Height="72"
                                 VerticalAlignment="Center"
-                                Source="/Assets/AppTiles/StoreLogo.scale-400.png" />
+                                Source="ms-appx:///Assets/AppTiles/StoreLogo.scale-400.png" />
 
                             <TextBlock
                                 x:Name="IntroHeader"

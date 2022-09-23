@@ -6,7 +6,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using muxc = Microsoft.UI.Xaml.Controls;
 
-namespace FluentHub.Uwp.UserControls
+namespace FluentHub.Uwp.UserControls.Overview
 {
     public sealed partial class PullRequestOverview : UserControl
     {
