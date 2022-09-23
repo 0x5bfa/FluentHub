@@ -11,7 +11,7 @@ namespace FluentHub.Uwp.UserControls.ButtonBlocks
 {
     public sealed partial class NotificationButtonBlock : UserControl
     {
-        #region properties
+        #region propdp
         public static readonly DependencyProperty ViewModelProperty
             = DependencyProperty.Register(
                   nameof(NotificationButtonBlockViewModel),

@@ -12,7 +12,6 @@ namespace FluentHub.Uwp.Services.Navigation
         #endregion
 
         #region Fields and Properties
-        public System.Type CurrentPage { get; set; }
         private readonly ILogger _logger;
         public ITabView TabView { get; private set; }
         public bool IsConfigured { get; private set; }
@@ -39,8 +38,6 @@ namespace FluentHub.Uwp.Services.Navigation
             {
                 tab.Frame.Navigate(page, parameter, transitionInfo);
             }
-
-            CurrentPage = page;
         }
         public void Navigate<T>(object parameter = null, NavigationTransitionInfo transitionInfo = null) where T : Page => Navigate(typeof(T), parameter, transitionInfo);
 

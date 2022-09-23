@@ -76,8 +76,10 @@
                 new(new OctokitGraphQLModel.PullRequestState[] {
                     OctokitGraphQLModel.PullRequestState.Open
                 });
-            
-            var query = new Query().Repository(owner: owner, name: name).Select(x => new Repository
+
+            var query = new Query()
+                .Repository(owner: owner, name: name)
+                .Select(x => new Repository
                 {
                     HomepageUrl = x.HomepageUrl,
                     ForkingAllowed = x.ForkingAllowed,
@@ -87,7 +89,7 @@
                     IsEmpty = x.IsEmpty,
                     IsPrivate = x.IsPrivate,
                     IsTemplate = x.IsTemplate,
-                    // ViewerSubscription = (SubscriptionState)x.ViewerSubscription, // Causes problems
+                    ViewerSubscription = (SubscriptionState)x.ViewerSubscription,
                     Name = x.Name,
                     Description = x.Description,
                     StargazerCount = x.StargazerCount,
@@ -149,7 +151,7 @@
                         IsPrerelease = release.IsPrerelease,
                         Name = release.Name,
                         PublishedAt = release.PublishedAt,
-                
+
                         Author = release.Author.Select(author => new User
                         {
                             Login = author.Login,

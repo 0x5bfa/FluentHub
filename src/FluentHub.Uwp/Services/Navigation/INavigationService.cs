@@ -6,7 +6,6 @@ namespace FluentHub.Uwp.Services
 {
     public interface INavigationService
     {
-        Type CurrentPage { get; set; }
         ITabView TabView { get; }
         bool IsConfigured { get; }        
         void Configure(ITabView tabView);

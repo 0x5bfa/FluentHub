@@ -42,13 +42,6 @@
                 </icore:EventTriggerBehavior>
             </i:Interaction.Behaviors>
         </KeyboardAccelerator>
-        <KeyboardAccelerator Key="Divide" Modifiers="Control">
-            <i:Interaction.Behaviors>
-                <icore:EventTriggerBehavior EventName="Invoked">
-                    <icore:InvokeCommandAction Command="{x:Bind OpenSearchAcceleratorCommand}" />
-                </icore:EventTriggerBehavior>
-            </i:Interaction.Behaviors>
-        </KeyboardAccelerator>
         <KeyboardAccelerator Key="Tab" Modifiers="Control,Shift">
             <i:Interaction.Behaviors>
                 <icore:EventTriggerBehavior EventName="Invoked">
@@ -157,17 +150,14 @@
 
                     </Button>
 
-                    <AutoSuggestBox
+                    <TextBox
                         x:Name="SearchBar"
                         Width="256"
                         Height="32"
-                        QueryIcon="Find"
                         LostFocus="OnSearchBarLostFocus"
                         PlaceholderText="{helpers:ResourceString Name=SearchBar/PlaceholderText}"
-                        Visibility="Collapsed" 
-                        TextChanged="SearchBar_TextChanged"
-                        QuerySubmitted="SearchBar_QuerySubmitted"
-                        SuggestionChosen="SearchBar_SuggestionChosen"/>
+                        Visibility="Collapsed" />
+
                     <Button
                         x:Name="GoBackButton"
                         Width="36"

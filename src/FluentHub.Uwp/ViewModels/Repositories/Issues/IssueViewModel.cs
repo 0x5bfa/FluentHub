@@ -70,9 +70,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
                 await LoadRepositoryAsync(Login, Name);
 
                 _currentTaskingMethodName = nameof(LoadRepositoryOneIssueAsync);
-                var task = LoadRepositoryOneIssueAsync(Login, Name);
-                task.Wait();
-                SetCurrentTabItem();
+                await LoadRepositoryOneIssueAsync(Login, Name);
             }
             catch (Exception ex)
             {
@@ -84,6 +82,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
             }
             finally
             {
+                SetCurrentTabItem();
                 _messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
             }
         }

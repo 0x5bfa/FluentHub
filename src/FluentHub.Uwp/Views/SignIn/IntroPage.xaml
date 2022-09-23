@@ -27,7 +27,7 @@
         </Grid>
 
         <muxc:TwoPaneView
-            x:Name="TwoPaneView"
+            x:Name="twoPaneView"
             Grid.RowSpan="2"
             MinTallModeHeight="560"
             MinWideModeWidth="820"
@@ -38,7 +38,7 @@
 
             <muxc:TwoPaneView.Pane1>
                 <Grid>
-                    <ScrollViewer x:Name="Pane1ScrollViewer" VerticalScrollBarVisibility="Auto">
+                    <ScrollViewer x:Name="pane1ScrollViewer" VerticalScrollBarVisibility="Auto">
                         <StackPanel
                             Width="300"
                             Margin="24,8"
@@ -233,7 +233,7 @@
                     </Grid.Background>
 
                     <Rectangle
-                        x:Name="RectImageLayer"
+                        x:Name="rectImageLayer"
                         Fill="{ThemeResource SystemAltHighColor}"
                         Opacity="0.3" />
 
@@ -249,9 +249,9 @@
                         <AdaptiveTrigger MinWindowWidth="821" />
                     </VisualState.StateTriggers>
                     <VisualState.Setters>
-                        <Setter Target="TwoPaneView.Pane1Length" Value="360" />
-                        <Setter Target="RectImageLayer.Opacity" Value="0.2" />
-                        <Setter Target="Pane1ScrollViewer.Margin" Value="0,32,0,0" />
+                        <Setter Target="twoPaneView.Pane1Length" Value="360" />
+                        <Setter Target="rectImageLayer.Opacity" Value="0.2" />
+                        <Setter Target="pane1ScrollViewer.Margin" Value="0,32,0,0" />
                     </VisualState.Setters>
                 </VisualState>
             </VisualStateGroup>
