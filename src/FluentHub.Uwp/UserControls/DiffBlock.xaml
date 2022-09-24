@@ -33,9 +33,9 @@
             VerticalAlignment="Stretch"
             HorizontalContentAlignment="Left"
             Background="Transparent"
-            Click="OnExpandCollapseTogglingButton"
-            IsEnabled="{x:Bind ViewModel.ChangedFile.Patch, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-            Style="{StaticResource LinkLikeButtonStyle}">
+            BorderThickness="0"
+            Click="OnToggleExpandCollapseButton"
+            IsEnabled="{x:Bind ViewModel.ChangedFile.Patch, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
             <Button.Content>
                 <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.BlockIsExpanded, Mode=OneWay}">
                     <toolkit:Case Value="True">

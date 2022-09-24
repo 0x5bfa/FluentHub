@@ -5,11 +5,11 @@ using FluentHub.Uwp.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows.Input;
 
-namespace FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks
+namespace FluentHub.Uwp.ViewModels.UserControls.BlockButtons
 {
-    public class RepoButtonBlockViewModel : ObservableObject
+    public class RepoBlockButtonViewModel : ObservableObject
     {
-        public RepoButtonBlockViewModel()
+        public RepoBlockButtonViewModel()
         {
             GoRepositoryCommand = new RelayCommand(GoRepository);
         }

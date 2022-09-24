@@ -4,7 +4,7 @@ using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls;
-using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
+using FluentHub.Uwp.ViewModels.UserControls.BlockButtons;
 using FluentHub.Uwp.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml.Media.Imaging;
@@ -42,8 +42,8 @@ namespace FluentHub.Uwp.ViewModels.Home
         private bool _loadedToTheEnd = false;
         private const int _itemCountPerPage = 30;
 
-        private readonly ObservableCollection<NotificationButtonBlockViewModel> _notifications;
-        public ReadOnlyObservableCollection<NotificationButtonBlockViewModel> NotificationItems { get; }
+        private readonly ObservableCollection<NotificationBlockButtonViewModel> _notifications;
+        public ReadOnlyObservableCollection<NotificationBlockButtonViewModel> NotificationItems { get; }
 
         private Exception _taskException;
         public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
@@ -109,7 +109,7 @@ namespace FluentHub.Uwp.ViewModels.Home
             _notifications.Clear();
             foreach (var item in response)
             {
-                NotificationButtonBlockViewModel viewmodel = new()
+                NotificationBlockButtonViewModel viewmodel = new()
                 {
                     Item = item,
                 };
@@ -145,7 +145,7 @@ namespace FluentHub.Uwp.ViewModels.Home
 
                 foreach (var item in response)
                 {
-                    NotificationButtonBlockViewModel viewmodel = new()
+                    NotificationBlockButtonViewModel viewmodel = new()
                     {
                         Item = item,
                     };

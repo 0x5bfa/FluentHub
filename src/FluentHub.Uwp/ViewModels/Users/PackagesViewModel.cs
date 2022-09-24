@@ -4,7 +4,7 @@ using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls.Overview;
-using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
+using FluentHub.Uwp.ViewModels.UserControls.BlockButtons;
 using FluentHub.Uwp.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml.Media.Imaging;
@@ -41,8 +41,8 @@ namespace FluentHub.Uwp.ViewModels.Users
         private bool _displayTitle;
         public bool DisplayTitle { get => _displayTitle; set => SetProperty(ref _displayTitle, value); }
 
-        private readonly ObservableCollection<PackageButtonBlockViewModel> _packages;
-        public ReadOnlyObservableCollection<PackageButtonBlockViewModel> Packages { get; }
+        private readonly ObservableCollection<PackageBlockButtonViewModel> _packages;
+        public ReadOnlyObservableCollection<PackageBlockButtonViewModel> Packages { get; }
 
         private Exception _taskException;
         public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
@@ -89,7 +89,7 @@ namespace FluentHub.Uwp.ViewModels.Users
             _packages.Clear();
             foreach (var item in items)
             {
-                PackageButtonBlockViewModel viewModel = new()
+                PackageBlockButtonViewModel viewModel = new()
                 {
                     Item = item,
                 };

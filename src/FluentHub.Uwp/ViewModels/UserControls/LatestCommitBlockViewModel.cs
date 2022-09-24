@@ -23,20 +23,11 @@ namespace FluentHub.Uwp.ViewModels.UserControls
         private RepoContextViewModel _contextViewModel;
         public RepoContextViewModel ContextViewModel { get => _contextViewModel; set => SetProperty(ref _contextViewModel, value); }
 
-        private Commit _commitOverviewItem;
-        public Commit CommitOverviewItem { get => _commitOverviewItem; set => SetProperty(ref _commitOverviewItem, value); }
+        private Commit _latestCommit;
+        public Commit LatestCommit { get => _latestCommit; set => SetProperty(ref _latestCommit, value); }
 
-        private string _commitUpdatedAtHumanized;
-        public string CommitUpdatedAtHumanized { get => _commitUpdatedAtHumanized; set => SetProperty(ref _commitUpdatedAtHumanized, value); }
-
-        private string _commitMessageHeadline;
-        public string CommitMessageHeadline { get => _commitMessageHeadline; set => SetProperty(ref _commitMessageHeadline, value); }
-
-        private bool _hasMoreCommitMessage;
-        public bool HasMoreCommitMessage { get => _hasMoreCommitMessage; set => SetProperty(ref _hasMoreCommitMessage, value); }
-
-        private string _subCommitMessages;
-        public string SubCommitMessages { get => _subCommitMessages; set => SetProperty(ref _subCommitMessages, value); }
+        private int _totalCommitCount;
+        public int TotalCommitCount { get => _totalCommitCount; set => SetProperty(ref _totalCommitCount, value); }
 
         public IAsyncRelayCommand LoadLatestCommitBlockCommand { get; }
         #endregion
@@ -52,19 +43,8 @@ namespace FluentHub.Uwp.ViewModels.UserControls
                     ContextViewModel.BranchName,
                     ContextViewModel.Path);
 
-                CommitOverviewItem = response;
-
-                CommitUpdatedAtHumanized = CommitOverviewItem.History.Nodes.FirstOrDefault().CommittedDate.Humanize();
-
-                CommitMessageHeadline = CommitOverviewItem.History.Nodes.FirstOrDefault().MessageHeadline;
-                var splittedMessages = CommitOverviewItem.History.Nodes.FirstOrDefault().Message.Split("\n", 2);
-
-                if (splittedMessages.Count() > 1)
-                {
-                    HasMoreCommitMessage = true;
-
-                    SubCommitMessages = splittedMessages[1];
-                }
+                TotalCommitCount = response.History.TotalCount;
+                LatestCommit = response.History.Nodes.FirstOrDefault();
             }
             catch (Exception ex)
             {

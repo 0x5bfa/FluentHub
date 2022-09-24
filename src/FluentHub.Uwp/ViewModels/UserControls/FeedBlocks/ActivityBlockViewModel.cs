@@ -1,6 +1,6 @@
 ﻿using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.Models;
-using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
+using FluentHub.Uwp.ViewModels.UserControls.BlockButtons;
 
 namespace FluentHub.Uwp.ViewModels.UserControls.FeedBlocks
 {
@@ -13,11 +13,11 @@ namespace FluentHub.Uwp.ViewModels.UserControls.FeedBlocks
         private Activity _payload;
         public Activity Payload { get => _payload; set => SetProperty(ref _payload, value); }
 
-        private RepoButtonBlockViewModel _repoBlockViewModel;
-        public RepoButtonBlockViewModel RepoBlockViewModel { get => _repoBlockViewModel; set => SetProperty(ref _repoBlockViewModel, value); }
+        private RepoBlockButtonViewModel _repoBlockViewModel;
+        public RepoBlockButtonViewModel RepoBlockViewModel { get => _repoBlockViewModel; set => SetProperty(ref _repoBlockViewModel, value); }
 
-        private UserButtonBlockViewModel _userBlockViewModel;
-        public UserButtonBlockViewModel UserBlockViewModel { get => _userBlockViewModel; set => SetProperty(ref _userBlockViewModel, value); }
+        private UserBlockButtonViewModel _userBlockViewModel;
+        public UserBlockButtonViewModel UserBlockViewModel { get => _userBlockViewModel; set => SetProperty(ref _userBlockViewModel, value); }
 
         private SingleCommentBlockViewModel _singleCommentBlockViewModel;
         public SingleCommentBlockViewModel SingleCommentBlockViewModel { get => _singleCommentBlockViewModel; set => SetProperty(ref _singleCommentBlockViewModel, value); }

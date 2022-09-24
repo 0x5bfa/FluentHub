@@ -5,7 +5,7 @@ using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls;
 using FluentHub.Uwp.ViewModels.UserControls.Overview;
-using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
+using FluentHub.Uwp.ViewModels.UserControls.BlockButtons;
 using FluentHub.Uwp.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml.Media.Imaging;
@@ -45,11 +45,11 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
         private RepositoryOverviewViewModel _repositoryOverviewViewModel;
         public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
 
-        private readonly ObservableCollection<IssueButtonBlockViewModel> _issueItems;
-        public ReadOnlyObservableCollection<IssueButtonBlockViewModel> IssueItems { get; }
+        private readonly ObservableCollection<IssueBlockButtonViewModel> _issueItems;
+        public ReadOnlyObservableCollection<IssueBlockButtonViewModel> IssueItems { get; }
 
-        private readonly ObservableCollection<IssueButtonBlockViewModel> _pinnedItems;
-        public ReadOnlyObservableCollection<IssueButtonBlockViewModel> PinnedItems { get; }
+        private readonly ObservableCollection<IssueBlockButtonViewModel> _pinnedItems;
+        public ReadOnlyObservableCollection<IssueBlockButtonViewModel> PinnedItems { get; }
 
         private Exception _taskException;
         public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
@@ -95,7 +95,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
             _issueItems.Clear();
             foreach (var item in items)
             {
-                IssueButtonBlockViewModel viewModel = new()
+                IssueBlockButtonViewModel viewModel = new()
                 {
                     IssueItem = item,
                 };
@@ -109,7 +109,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
             _pinnedItems.Clear();
             foreach (var item in pinnedIssues)
             {
-                IssueButtonBlockViewModel viewModel = new()
+                IssueBlockButtonViewModel viewModel = new()
                 {
                     IssueItem = item,
                 };

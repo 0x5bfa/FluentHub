@@ -5,7 +5,7 @@ using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls;
 using FluentHub.Uwp.ViewModels.UserControls.Overview;
-using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
+using FluentHub.Uwp.ViewModels.UserControls.BlockButtons;
 using FluentHub.Uwp.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml.Media.Imaging;
@@ -42,8 +42,8 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
         private RepositoryOverviewViewModel _repositoryOverviewViewModel;
         public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
 
-        private readonly ObservableCollection<PullButtonBlockViewModel> _pullRequests;
-        public ReadOnlyObservableCollection<PullButtonBlockViewModel> PullItems { get; }
+        private readonly ObservableCollection<PullBlockButtonViewModel> _pullRequests;
+        public ReadOnlyObservableCollection<PullBlockButtonViewModel> PullItems { get; }
 
         private Exception _taskException;
         public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
@@ -93,7 +93,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
             _pullRequests.Clear();
             foreach (var item in items)
             {
-                PullButtonBlockViewModel viewModel = new()
+                PullBlockButtonViewModel viewModel = new()
                 {
                     PullItem = item,
                 };

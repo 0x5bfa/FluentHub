@@ -1,24 +1,24 @@
 ﻿using FluentHub.Uwp.Services;
-using FluentHub.Uwp.ViewModels.UserControls.ButtonBlocks;
+using FluentHub.Uwp.ViewModels.UserControls.BlockButtons;
 using Microsoft.Extensions.DependencyInjection;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace FluentHub.Uwp.UserControls.ButtonBlocks
+namespace FluentHub.Uwp.UserControls.BlockButtons
 {
-    public sealed partial class RepoButtonBlock : UserControl
+    public sealed partial class RepoBlockButton : UserControl
     {
         #region propdp
         public static readonly DependencyProperty ViewModelProperty =
             DependencyProperty.Register(
                 nameof(ViewModel),
-                typeof(RepoButtonBlockViewModel),
-                typeof(RepoButtonBlock),
+                typeof(RepoBlockButtonViewModel),
+                typeof(RepoBlockButton),
                 new PropertyMetadata(null));
 
-        public RepoButtonBlockViewModel ViewModel
+        public RepoBlockButtonViewModel ViewModel
         {
-            get => (RepoButtonBlockViewModel)GetValue(ViewModelProperty);
+            get => (RepoBlockButtonViewModel)GetValue(ViewModelProperty);
             set
             {
                 SetValue(ViewModelProperty, value);
@@ -26,6 +26,6 @@ namespace FluentHub.Uwp.UserControls.ButtonBlocks
         }
         #endregion
 
-        public RepoButtonBlock() => InitializeComponent();
+        public RepoBlockButton() => InitializeComponent();
     }
 }
