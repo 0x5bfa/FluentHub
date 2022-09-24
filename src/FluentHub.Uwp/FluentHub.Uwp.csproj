@@ -368,6 +368,10 @@
     <Compile Include="ViewModels\Repositories\Issues\IssueViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Codes\Layouts\DetailsLayoutViewModel.cs" />
     <Compile Include="ViewModels\Repositories\PullRequests\PullRequestsViewModel.cs" />
+    <Compile Include="ViewModels\Searches\CodeViewModel.cs" />
+    <Compile Include="ViewModels\Searches\IssuesViewModel.cs" />
+    <Compile Include="ViewModels\Searches\RepositoriesViewModel.cs" />
+    <Compile Include="ViewModels\Searches\UsersViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\SignIn\IntroViewModel.cs" />
     <Compile Include="ViewModels\UserControls\FeedBlocks\ActivityBlockViewModel.cs" />
@@ -506,6 +510,18 @@
     </Compile>
     <Compile Include="Views\Repositories\Settings\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Searches\CodePage.xaml.cs">
+      <DependentUpon>CodePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Searches\IssuesPage.xaml.cs">
+      <DependentUpon>IssuesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Searches\RepositoriesPage.xaml.cs">
+      <DependentUpon>RepositoriesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Searches\UsersPage.xaml.cs">
+      <DependentUpon>UsersPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Users\ContributionsPage.xaml.cs">
       <DependentUpon>ContributionsPage.xaml</DependentUpon>
@@ -1633,6 +1649,22 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Repositories\Settings\SettingsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Searches\CodePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Searches\IssuesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Searches\RepositoriesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Searches\UsersPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
