@@ -118,133 +118,133 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccountSettingsButton.Text" xml:space="preserve">
-    <value>Account Settings</value>
+    <value>Configuración de la cuenta</value>
   </data>
   <data name="Activities" xml:space="preserve">
-    <value>Activities</value>
+    <value>Actividades</value>
   </data>
   <data name="AppearancePageColorBlock.Title" xml:space="preserve">
-    <value>Choose your color</value>
+    <value>Escoge tu color</value>
   </data>
   <data name="AppearancePageGeneralHeader.Text" xml:space="preserve">
     <value>General</value>
   </data>
   <data name="AppearancePageHeader.Text" xml:space="preserve">
-    <value>Appearance</value>
+    <value>Apariencia</value>
   </data>
   <data name="AppearancePageLocaleBlock.Title" xml:space="preserve">
-    <value>Language</value>
+    <value>Idioma</value>
   </data>
   <data name="AppearancePageLocaleHeader.Text" xml:space="preserve">
-    <value>Language</value>
+    <value>Idioma</value>
   </data>
   <data name="AppearancePageThemeBlock.Title" xml:space="preserve">
-    <value>Custom themes</value>
+    <value>Temas personalizados</value>
   </data>
   <data name="Back" xml:space="preserve">
-    <value>Back</value>
+    <value>Atrás</value>
   </data>
   <data name="CustomizeYourPins" xml:space="preserve">
     <value>Customize your pins</value>
   </data>
   <data name="DeveloperProgramMember" xml:space="preserve">
-    <value>Developer Program Member</value>
+    <value>Miembro del Programa de Desarrolladores</value>
   </data>
   <data name="Discussions" xml:space="preserve">
-    <value>Discussions</value>
+    <value>Discusiones</value>
   </data>
   <data name="EditUserProfile" xml:space="preserve">
-    <value>Edit User Profile</value>
+    <value>Editar perfil de usuario</value>
   </data>
   <data name="FeatureNotAvailable.Text" xml:space="preserve">
-    <value>Not available yet.</value>
+    <value>No disponible aún.</value>
   </data>
   <data name="FeedsPageHeader.Text" xml:space="preserve">
-    <value>Activity</value>
+    <value>Actividades</value>
   </data>
   <data name="FeedsPageNoRecentActivityBody.Text" xml:space="preserve">
-    <value>No recent activity.</value>
+    <value>No hay actividades recientes.</value>
   </data>
   <data name="FifthStepToAuthorize.Text" xml:space="preserve">
-    <value>Proceed to the FluentHub application.</value>
+    <value>Proceda a la aplicación FluentHub.</value>
   </data>
   <data name="FirstStepToAuthorize.Text" xml:space="preserve">
-    <value>Click "Login with GitHub";</value>
+    <value>Haz clic en «Entra con GitHub»;</value>
   </data>
   <data name="Follow" xml:space="preserve">
-    <value>Follow</value>
+    <value>Seguir</value>
   </data>
   <data name="Followers" xml:space="preserve">
-    <value>Followers</value>
+    <value>Seguidores</value>
   </data>
   <data name="FollowersWithoutCaps" xml:space="preserve">
-    <value>followers</value>
+    <value>seguidores</value>
   </data>
   <data name="Following" xml:space="preserve">
-    <value>Following</value>
+    <value>Siguiendo</value>
   </data>
   <data name="FollowingWithoutCaps" xml:space="preserve">
-    <value>following</value>
+    <value>siguiendo</value>
   </data>
   <data name="ForthStepToAuthorize.Text" xml:space="preserve">
-    <value>Click "Open FluentHub DEV";</value>
+    <value>Haz clic en «Abrir FluentHub DEV»;</value>
   </data>
   <data name="Forward" xml:space="preserve">
-    <value>Forward</value>
+    <value>Avanzar</value>
   </data>
   <data name="GoBackButton.TooltipService.Tooltip" xml:space="preserve">
-    <value>Back</value>
+    <value>Atrás</value>
   </data>
   <data name="GoForwardButton.TooltipService.Tooltip" xml:space="preserve">
-    <value>Forward</value>
+    <value>Avanzar</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>Home</value>
+    <value>Inicio</value>
   </data>
   <data name="HomePageFavoritesHeader.Text" xml:space="preserve">
-    <value>Favorites</value>
+    <value>Favoritos</value>
   </data>
   <data name="HomePageFavoritesNotAvailableBody.Text" xml:space="preserve">
-    <value>No favorite items available.</value>
+    <value>No hay artículos de favoritos disponibles.</value>
   </data>
   <data name="HomePageGeneralHeader.Text" xml:space="preserve">
-    <value>Work</value>
+    <value>Trabajos</value>
   </data>
   <data name="HomePageHeader.Text" xml:space="preserve">
-    <value>Home</value>
+    <value>Inicio</value>
   </data>
   <data name="HomePageRecentActivityHeader.Text" xml:space="preserve">
-    <value>Recent</value>
+    <value>Recientes</value>
   </data>
   <data name="IntroDocumentationLink.Content" xml:space="preserve">
-    <value>Documentation</value>
+    <value>Documentación</value>
   </data>
   <data name="IntroHeader.Text" xml:space="preserve">
-    <value>Authorize FluentHub</value>
+    <value>Autorizar FluentHub</value>
   </data>
   <data name="Issues" xml:space="preserve">
-    <value>Issues</value>
+    <value>Sugerencias</value>
   </data>
   <data name="LoadErrorDisplayHeader.Text" xml:space="preserve">
-    <value>Something went wrong 😿</value>
+    <value>Se produjo un error. 😿</value>
   </data>
   <data name="LoadErrorDisplayOpenLogFileLocationButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Opens the log folder where app error details are stored on the local disk.</value>
+    <value>Abre la carpeta de registro, donde los detalles de error de la aplicación se almacenan en el disco local.</value>
   </data>
   <data name="LoadErrorDisplayOpenLogFileLocationButtonBody.Text" xml:space="preserve">
-    <value>Open log location</value>
+    <value>Abrir ubicación de registro</value>
   </data>
   <data name="LoadErrorDisplayReportThisIssueButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Opens our GitHub page in order to create an issue. Note: In the future, FluentHub will automatically paste the error contents, details, logs, and send them to the FluentHub team via GitHub when you click this button.</value>
+    <value>Abre nuestra página de GitHub para crear una sugerencia. Nota: En el futuro, FluentHub automáticamente pegará el contenido del error y detalles, y envíalos al equipo de FluentHub a través de GitHub cuando hagas clic en este botón.</value>
   </data>
   <data name="LoadErrorDisplayReportThisIssueButtonBody.Text" xml:space="preserve">
-    <value>Report this issue</value>
+    <value>Reportar este problema</value>
   </data>
   <data name="LoadErrorDisplayShowExceptionDetailsContentDialogButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Displays the stack trace results in a dialog.</value>
+    <value>Muestra los resultados del stack trace en un diálogo.</value>
   </data>
   <data name="LoadErrorDisplayShowExceptionDetailsContentDialogButtonBody.Text" xml:space="preserve">
-    <value>See stack trace</value>
+    <value>Ver stack trace</value>
   </data>
   <data name="LoginWithGitHub.Content" xml:space="preserve">
     <value>Login with GitHub</value>
