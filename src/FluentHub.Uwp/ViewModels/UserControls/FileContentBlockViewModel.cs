@@ -16,15 +16,17 @@ namespace FluentHub.Uwp.ViewModels.UserControls
         {
             _messenger = messenger;
             _logger = logger;
-            _messenger = messenger;
         }
 
         #region Fields and Properties
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
 
-        private string _blobContent;
-        public string BlobContent { get => _blobContent; set => SetProperty(ref _blobContent, value); }
+        private RepoContextViewModel contextViewModel;
+        public RepoContextViewModel ContextViewModel { get => contextViewModel; set => SetProperty(ref contextViewModel, value); }
+
+        private Blob _blob;
+        public Blob Blob { get => _blob; set => SetProperty(ref _blob, value); }
 
         private string _formattedFileDetails;
         public string FormattedFileDetails { get => _formattedFileDetails; set => SetProperty(ref _formattedFileDetails, value); }
@@ -34,9 +36,6 @@ namespace FluentHub.Uwp.ViewModels.UserControls
 
         private string _lineText;
         public string LineText { get => _lineText; set => SetProperty(ref _lineText, value); }
-
-        private RepoContextViewModel contextViewModel;
-        public RepoContextViewModel ContextViewModel { get => contextViewModel; set => SetProperty(ref contextViewModel, value); }
         #endregion
 
         public async Task LoadRepositoryOneContentAsync(RichTextBlock textBlock)
@@ -50,18 +49,20 @@ namespace FluentHub.Uwp.ViewModels.UserControls
                     ContextViewModel.BranchName,
                     ContextViewModel.Path);
 
-                BlobContent = "";
-                FormattedFileDetails = "";
-                FormattedFileSize = "";
-                LineText = "";
+                Blob = content;
 
-                var text = BlobContent = content.Text;
+                FormattedFileSize = content.ByteSize.Bytes().ToString("#.##");
 
-                var lines = BlobDetailsHelpers.GetBlobActualLines(ref text);
-                var sloc = BlobDetailsHelpers.GetBlobSloc(ref text);
+                if (string.IsNullOrEmpty(content.Text))
+                    return;
+
+                var text = content.Text;
+                int lines = text.Length - text.Replace("\n", "").Length;
+                int notsloc = text.Length - text.Replace("\n\n", "").Length;
+                var sloc = lines - notsloc;
 
                 FormattedFileDetails = $"{lines} lines ({sloc} sloc)";
-                FormattedFileSize = BlobDetailsHelpers.FormatSize(content.ByteSize);
+                LineText = "";
 
                 for (int i = 1; i <= lines + 1; i++)
                     LineText += $"{i}\n";
@@ -82,28 +83,18 @@ namespace FluentHub.Uwp.ViewModels.UserControls
                 if (string.IsNullOrEmpty(fileType) is false && string.IsNullOrEmpty(extension) is false)
                 {
                     ILanguage lang = Languages.FindById(fileType);
-                    formatter.FormatRichTextBlock(BlobContent, lang, textBlock);
+                    formatter.FormatRichTextBlock(text, lang, textBlock);
                 }
                 else
                 {
                     Paragraph paragraph = new();
-                    Run run = new()
-                    {
-                        Text = BlobContent
-                    };
-
-                    paragraph.Inlines.Add(run);
+                    paragraph.Inlines.Add(new Run() { Text = text });
                     textBlock.Blocks.Add(paragraph);
                 }
             }
             catch (Exception ex)
             {
                 _logger?.Error(nameof(LoadRepositoryOneContentAsync), ex);
-                if (_messenger != null)
-                {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
                 throw;
             }
         }

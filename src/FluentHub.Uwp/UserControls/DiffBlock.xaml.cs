@@ -28,18 +28,16 @@ namespace FluentHub.Uwp.UserControls
             set
             {
                 SetValue(ViewModelProperty, value);
-                DataContext = ViewModel;
-                ViewModel?.Creanup();
+                ViewModel?.ParseDiffPatch();
             }
         }
         #endregion
 
         public DiffBlock() => InitializeComponent();
 
-        private void OnExpandCollapseTogglingButton(object sender, RoutedEventArgs e)
+        private void OnToggleExpandCollapseButton(object sender, RoutedEventArgs e)
         {
-            if (ViewModel.BlockIsExpanded) ViewModel.BlockIsExpanded = false;
-            else ViewModel.BlockIsExpanded = true;
+            ViewModel.BlockIsExpanded = ViewModel.BlockIsExpanded ? false : true;
         }
     }
 }
