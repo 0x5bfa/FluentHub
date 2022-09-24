@@ -145,7 +145,7 @@
     <value>Atrás</value>
   </data>
   <data name="CustomizeYourPins" xml:space="preserve">
-    <value>Customize your pins</value>
+    <value>Personaliza tus pines</value>
   </data>
   <data name="DeveloperProgramMember" xml:space="preserve">
     <value>Miembro del Programa de Desarrolladores</value>
@@ -169,7 +169,7 @@
     <value>Proceda a la aplicación FluentHub.</value>
   </data>
   <data name="FirstStepToAuthorize.Text" xml:space="preserve">
-    <value>Haz clic en «Entra con GitHub»;</value>
+    <value>Haz clic en «Inicia sesión con GitHub»;</value>
   </data>
   <data name="Follow" xml:space="preserve">
     <value>Seguir</value>
@@ -247,246 +247,246 @@
     <value>Ver stack trace</value>
   </data>
   <data name="LoginWithGitHub.Content" xml:space="preserve">
-    <value>Login with GitHub</value>
+    <value>Iniciar sesión con GitHub</value>
   </data>
   <data name="New" xml:space="preserve">
-    <value>New</value>
+    <value>Nuevo</value>
   </data>
   <data name="NewMutation.Text" xml:space="preserve">
-    <value>New</value>
+    <value>Nuevo</value>
   </data>
   <data name="NewMutationOrganizationButton.Text" xml:space="preserve">
-    <value>New organization</value>
+    <value>Nueva organización</value>
   </data>
   <data name="NewMutationRepoButton.Text" xml:space="preserve">
-    <value>New repository</value>
+    <value>Nuevo repositorio</value>
   </data>
   <data name="Notifications" xml:space="preserve">
-    <value>Notifications</value>
+    <value>Notificaciones</value>
   </data>
   <data name="NotificationsPageFilterByReasonAssigned.Text" xml:space="preserve">
-    <value>📋 Assigned</value>
+    <value>📋 Asignado</value>
   </data>
   <data name="NotificationsPageFilterByReasonDone.Text" xml:space="preserve">
-    <value>Done</value>
+    <value>Hecho</value>
   </data>
   <data name="NotificationsPageFilterByReasonFlyoutBody.Text" xml:space="preserve">
-    <value>Filter by:</value>
+    <value>Filtrar por:</value>
   </data>
   <data name="NotificationsPageFilterByReasonInbox.Text" xml:space="preserve">
-    <value>Inbox</value>
+    <value>Buzón</value>
   </data>
   <data name="NotificationsPageFilterByReasonMentioned.Text" xml:space="preserve">
-    <value>✉️ Mentioned</value>
+    <value>✉️ Menciones</value>
   </data>
   <data name="NotificationsPageFilterByReasonMentionedTeam.Text" xml:space="preserve">
-    <value>📧 Team Mentioned</value>
+    <value>📧 Equipo mencionado</value>
   </data>
   <data name="NotificationsPageFilterByReasonParticipating.Text" xml:space="preserve">
-    <value>🤝‍ Participating</value>
+    <value>🤝 Participaciónes</value>
   </data>
   <data name="NotificationsPageFilterByReasonReview.Text" xml:space="preserve">
-    <value>👀 Review Requested</value>
+    <value>👀 Revisión solicitada</value>
   </data>
   <data name="NotificationsPageFilterByReasonSaved.Text" xml:space="preserve">
-    <value>Saved</value>
+    <value>Guardado</value>
   </data>
   <data name="NotificationsPageGroupByViewFlyoutBody.Text" xml:space="preserve">
-    <value>Group by:</value>
+    <value>Agrupar por:</value>
   </data>
   <data name="NotificationsPageGroupByViewNone.Text" xml:space="preserve">
-    <value>None</value>
+    <value>Ninguno</value>
   </data>
   <data name="NotificationsPageGroupByViewPrimaryDate.Text" xml:space="preserve">
-    <value>Date</value>
+    <value>Fecha</value>
   </data>
   <data name="NotificationsPageGroupByViewRepository.Text" xml:space="preserve">
-    <value>Repository</value>
+    <value>Repositorio</value>
   </data>
   <data name="NotificationsPageHeader.Text" xml:space="preserve">
-    <value>Notifications</value>
+    <value>Notificaciones</value>
   </data>
   <data name="NotificationsPageNoRecentNotificationsBody.Text" xml:space="preserve">
-    <value>No recent notifications.</value>
+    <value>No hay notificaciones recientes.</value>
   </data>
   <data name="NotificationsPageSearchBar.PlaceholderText" xml:space="preserve">
-    <value>Search notifications</value>
+    <value>Buscar notificaciones</value>
   </data>
   <data name="NotificationsPageUnreadToggle.Content" xml:space="preserve">
-    <value>Unread</value>
+    <value>No leídos</value>
   </data>
   <data name="NoUserDiscussions" xml:space="preserve">
-    <value>No discussions</value>
+    <value>No hay discusiones</value>
   </data>
   <data name="NoUserFollowers" xml:space="preserve">
-    <value>No followers</value>
+    <value>No hay seguidores</value>
   </data>
   <data name="NoUserFollowing" xml:space="preserve">
-    <value>No following</value>
+    <value>No sigues</value>
   </data>
   <data name="NoUserIssues" xml:space="preserve">
-    <value>No issues</value>
+    <value>No hay temas</value>
   </data>
   <data name="NoUserOrganizations" xml:space="preserve">
-    <value>No organizations</value>
+    <value>No hay organizaciones</value>
   </data>
   <data name="NoUserPopularRepositories" xml:space="preserve">
-    <value>No popular repositories</value>
+    <value>No hay repositorios populares</value>
   </data>
   <data name="NoUserPullRequests" xml:space="preserve">
-    <value>No pull requests</value>
+    <value>No hay pull requests</value>
   </data>
   <data name="NoUserRepositories" xml:space="preserve">
-    <value>No repositories</value>
+    <value>Sin repositorios</value>
   </data>
   <data name="NoUserStars" xml:space="preserve">
-    <value>No stars</value>
+    <value>Sin estrellas</value>
   </data>
   <data name="Organizations" xml:space="preserve">
-    <value>Organizations</value>
+    <value>Organizaciones</value>
   </data>
   <data name="Overview" xml:space="preserve">
-    <value>Overview</value>
+    <value>Resumen</value>
   </data>
   <data name="Packages" xml:space="preserve">
-    <value>Packages</value>
+    <value>Paquetes</value>
   </data>
   <data name="PinnedRepositories" xml:space="preserve">
-    <value>Pinned repositories</value>
+    <value>Repositorios anclados</value>
   </data>
   <data name="PopularRepositories" xml:space="preserve">
-    <value>Popular repositories</value>
+    <value>Repositorios populares</value>
   </data>
   <data name="Projects" xml:space="preserve">
-    <value>Projects</value>
+    <value>Proyectos</value>
   </data>
   <data name="PullRequests" xml:space="preserve">
     <value>Pull Requests</value>
   </data>
   <data name="RefreshBody.Text" xml:space="preserve">
-    <value>Refresh</value>
+    <value>Recargar</value>
   </data>
   <data name="Repositories" xml:space="preserve">
-    <value>Repositories</value>
+    <value>Repositorios</value>
   </data>
   <data name="RepositoriesListHeader.Text" xml:space="preserve">
-    <value>Repositories</value>
+    <value>Repositorios</value>
   </data>
   <data name="SearchBar.PlaceholderText" xml:space="preserve">
-    <value>Search</value>
+    <value>Buscar</value>
   </data>
   <data name="SearchBarButton.TooltipService.Tooltip" xml:space="preserve">
-    <value>Search</value>
+    <value>Buscar</value>
   </data>
   <data name="SearchDiscussionsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Search discussions</value>
+    <value>Buscar discusiones</value>
   </data>
   <data name="SearchFollowersTextBox.PlaceholderText" xml:space="preserve">
-    <value>Search followers</value>
+    <value>Buscar seguidores</value>
   </data>
   <data name="SearchFollowingTextBox.PlaceholderText" xml:space="preserve">
-    <value>Search following</value>
+    <value>Buscar usuarios que sigues</value>
   </data>
   <data name="SearchIssuesTextBox.PlaceholderText" xml:space="preserve">
-    <value>Search issues</value>
+    <value>Buscar asuntos</value>
   </data>
   <data name="SearchOrganizationsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Search organizations</value>
+    <value>Buscar organizaciones</value>
   </data>
   <data name="SearchPullRequestsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Search pull requests</value>
+    <value>Buscar pull requests</value>
   </data>
   <data name="SearchRepositoriesTextBox.PlaceholderText" xml:space="preserve">
-    <value>Search repositories</value>
+    <value>Buscar repositorios</value>
   </data>
   <data name="SearchStarsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Search stars</value>
+    <value>Buscar estrellas</value>
   </data>
   <data name="SecondStepToAuthorize.Text" xml:space="preserve">
-    <value>If you are in administration of one or more organizations, please give FluentHub access to them;</value>
+    <value>Si estás administrando una o más organizaciones, por favor dale acceso a FluentHub a ellas;</value>
   </data>
   <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
+    <value>Ajustes</value>
   </data>
   <data name="SettingsButton.Text" xml:space="preserve">
-    <value>Settings</value>
+    <value>Ajustes</value>
   </data>
   <data name="SettingsFeedbackButton.Content" xml:space="preserve">
-    <value>Feedback</value>
+    <value>Opiniones</value>
   </data>
   <data name="SettingsGetHelpButton.Content" xml:space="preserve">
-    <value>Get help</value>
+    <value>Obtener ayuda</value>
   </data>
   <data name="SignOutButton.Text" xml:space="preserve">
-    <value>Sign Out</value>
+    <value>Cerrar sesión</value>
   </data>
   <data name="Stars" xml:space="preserve">
-    <value>Stars</value>
+    <value>Estrellas</value>
   </data>
   <data name="SwitchAccountFlyoutSub.Text" xml:space="preserve">
-    <value>Switch account</value>
+    <value>Cambiar de cuenta</value>
   </data>
   <data name="ThemeAuto" xml:space="preserve">
-    <value>Sync with system setting</value>
+    <value>Sincronizar con ajustes del sistema</value>
   </data>
   <data name="ThemeDark" xml:space="preserve">
-    <value>Dark</value>
+    <value>Oscuro</value>
   </data>
   <data name="ThemeLight" xml:space="preserve">
-    <value>Light</value>
+    <value>Claro</value>
   </data>
   <data name="ThirdStepToAuthorize.Text" xml:space="preserve">
-    <value>Click "Authorize FluentHub";</value>
+    <value>Haz clic en «Autorizar FluentHub»;</value>
   </data>
   <data name="TryAgainWithCap" xml:space="preserve">
-    <value>Try Again</value>
+    <value>Inténtalo de nuevo</value>
   </data>
   <data name="Unfollow" xml:space="preserve">
-    <value>Unfollow</value>
+    <value>Dejar de seguir</value>
   </data>
   <data name="UserDiscussionsButton.Text" xml:space="preserve">
-    <value>Your discussions</value>
+    <value>Tus discusiones</value>
   </data>
   <data name="UserIssuesButton.Text" xml:space="preserve">
-    <value>Your issues</value>
+    <value>Tus sugerencias</value>
   </data>
   <data name="UserOrganizationsButton.Text" xml:space="preserve">
-    <value>Your organizations</value>
+    <value>Tus organizaciones</value>
   </data>
   <data name="UserProfileButton.Text" xml:space="preserve">
-    <value>Your profile</value>
+    <value>Tu perfil</value>
   </data>
   <data name="UserPullRequestsButton.Text" xml:space="preserve">
-    <value>Your pull requests</value>
+    <value>Tus pull requests</value>
   </data>
   <data name="UserRepositoriesButton.Text" xml:space="preserve">
-    <value>Your repositories</value>
+    <value>Tus repositorios</value>
   </data>
   <data name="UserStarsButton.Text" xml:space="preserve">
-    <value>Your stars</value>
+    <value>Tus estrellas</value>
   </data>
   <data name="YourDiscussions" xml:space="preserve">
-    <value>Your discussions</value>
+    <value>Tus discusiones</value>
   </data>
   <data name="YourFollowers" xml:space="preserve">
-    <value>Your followers</value>
+    <value>Tus seguidores</value>
   </data>
   <data name="YourFollowing" xml:space="preserve">
-    <value>Your following</value>
+    <value>Gente que sigues</value>
   </data>
   <data name="YourIssues" xml:space="preserve">
-    <value>Your issues</value>
+    <value>Tus sugerencias</value>
   </data>
   <data name="YourOrganizations" xml:space="preserve">
-    <value>Your organizations</value>
+    <value>Tus organizaciones</value>
   </data>
   <data name="YourPullRequests" xml:space="preserve">
-    <value>Your pull requests</value>
+    <value>Tus pull requests</value>
   </data>
   <data name="YourRepositories" xml:space="preserve">
-    <value>Your repositories</value>
+    <value>Tus repositorios</value>
   </data>
   <data name="YourStars" xml:space="preserve">
-    <value>Your stars</value>
+    <value>Tus estrellas</value>
   </data>
 </root>
