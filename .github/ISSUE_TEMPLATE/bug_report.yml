@@ -29,7 +29,17 @@ body:
   - type: textarea
     attributes:
       label: 🔢 What version/architecture of FluentHub are you on?
-      description: Copy and paste the version from the about page of FluentHub's settings
+      description: Copy and paste the version from the about page of FluentHub's settings. If you're building from GitHub, simply provide the commit hash you built on.
+    validations:
+      required: true
+   - type: textarea
+    attributes:
+      label: 📟 Stack Trace
+      description: Copy and paste the stack trace from FluentHub's error page.
+      value:
+      '''```
+      ```
+      '''
     validations:
       required: true
   - type: textarea
