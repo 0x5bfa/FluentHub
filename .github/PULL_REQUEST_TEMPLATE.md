@@ -2,17 +2,19 @@
 🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨🚨
 I ACKNOWLEDGE THE FOLLOWING BEFORE PROCEEDING:
 My Pull Request follows the contributing guidlines, available at
-https://github.com/fluenthub-community/FluentHub/blob/main/.github/CONTRIBUTING.md
+https://github.com/fluenthub-community/FluentHub/blob/main/.github/CONTRIBUTING.md;
+My Pull Request follows the FluentHub Pull Request Guidelines (as marked in the commented fields);
+The above 'I ACKNOWLEDGE THE FOLLOWING BEFORE PROCEEDING' is instantaneously bound to the author of this Pull Request upon creation.
 -->
 
 ### ⏱️ Before you start
-<!-- Put an 'x' in the brackets to tick -->
+<!-- Put an 'x' in the brackets to tick or a space to leave clear -->
 
-- [ ] Have you checked if a similar PR has already been requested? 
-- [ ] Have you built and ran the app?
+- [] Have you checked if a similar PR has already been requested? 
+- [] Have you built and ran the app?
 
-### ↗️ Related/Fixed issues
-<!-- Address related/fixed issues with this format: #issueid -->
+### 💭 Motivation and context
+<!-- Items resolved/related issues by this PR. Address related/fixed issues with this format: #issueid. -->
 
 - Related: #
 - Fixed: #
@@ -22,12 +24,9 @@ https://github.com/fluenthub-community/FluentHub/blob/main/.github/CONTRIBUTING.
 
 
 
-### 💭 Motivation and Context
-<!-- Items resolved/related issues by this PR. -->
-
-
 
 ### 📸 Assets (if appropriate):
 <!-- A list of assets (screenshots, mockups) relevant to this pull request. -->
+
 
 
