@@ -22,4 +22,8 @@
     <ItemGroup>
         <ProjectReference Include="..\..\lib\octokit.graphql.net\Octokit.GraphQL\Octokit.GraphQL.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Models\v3Custom\" />
+    </ItemGroup>
 </Project>
