@@ -9,7 +9,6 @@ namespace FluentHub.Uwp.ViewModels.UserControls
         public DiffBlockViewModel()
         {
             _changedLineBackgroundType = new();
-
             ChangedLineBackgroundType = new(_changedLineBackgroundType);
         }
 
@@ -19,6 +18,9 @@ namespace FluentHub.Uwp.ViewModels.UserControls
 
         private OctokitOriginal.PullRequestFile _changedPullRequestFile;
         public OctokitOriginal.PullRequestFile ChangedPullRequestFile { get => _changedPullRequestFile; set => SetProperty(ref _changedPullRequestFile, value); }
+
+        private bool _isVaildDiff;
+        public bool IsValidDiff { get => _isVaildDiff; set => SetProperty(ref _isVaildDiff, value); }
 
         private string _oldLineText;
         public string OldLineText { get => _oldLineText; set => SetProperty(ref _oldLineText, value); }
@@ -40,9 +42,17 @@ namespace FluentHub.Uwp.ViewModels.UserControls
         public ReadOnlyObservableCollection<int> ChangedLineBackgroundType { get; }
         #endregion
 
-        public void Creanup()
+        public void ParseDiffPatch()
         {
-            if (string.IsNullOrEmpty(ChangedFile?.Patch) && string.IsNullOrEmpty(ChangedPullRequestFile?.Patch)) return;
+            IsValidDiff = false;
+
+            if (string.IsNullOrEmpty(ChangedFile?.Patch)
+                && string.IsNullOrEmpty(ChangedPullRequestFile?.Patch))
+            {
+                return;
+            }
+
+            IsValidDiff = true;
 
             OldLineText = "";
             NewLineText = "";
@@ -50,7 +60,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls
             PatchRemovedfFirstLetters = "";
             _changedLineBackgroundType.Clear();
 
-            ParseDiffPatchString();
+            ParseDiffPatchStringCore();
 
             OldLineText = OldLineText.TrimEnd('\n');
             NewLineText = NewLineText.TrimEnd('\n');
@@ -58,7 +68,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls
             PatchRemovedfFirstLetters = PatchRemovedfFirstLetters.TrimEnd('\n');
         }
 
-        public void ParseDiffPatchString()
+        private void ParseDiffPatchStringCore()
         {
             string[] lines;
 

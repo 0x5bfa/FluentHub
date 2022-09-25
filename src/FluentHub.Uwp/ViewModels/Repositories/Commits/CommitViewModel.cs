@@ -92,10 +92,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Commits
             try
             {
                 DiffQueries queries = new();
-                var response = await queries.GetAllAsync(
-                    owner,
-                    name,
-                    CommitItem.Oid);
+                var response = await queries.GetAllAsync(owner, name, CommitItem.Oid);
 
                 _diffViewModels.Clear();
                 foreach (var item in response.Files)

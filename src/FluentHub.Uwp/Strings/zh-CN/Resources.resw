@@ -154,7 +154,7 @@
     <value>讨论</value>
   </data>
   <data name="EditUserProfile" xml:space="preserve">
-    <value>编辑用户资料</value>
+    <value>Edit User Profile</value>
   </data>
   <data name="FeatureNotAvailable.Text" xml:space="preserve">
     <value>暂不可用。</value>
