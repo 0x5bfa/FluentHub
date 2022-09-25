@@ -118,13 +118,13 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccountSettingsButton.Text" xml:space="preserve">
-    <value>Account Settings</value>
+    <value>Налаштування облікового запису</value>
   </data>
   <data name="Activities" xml:space="preserve">
-    <value>Activities</value>
+    <value>Активність</value>
   </data>
   <data name="AppearancePageColorBlock.Title" xml:space="preserve">
-    <value>Choose your color</value>
+    <value>Виберіть колір</value>
   </data>
   <data name="AppearancePageGeneralHeader.Text" xml:space="preserve">
     <value>General</value>
