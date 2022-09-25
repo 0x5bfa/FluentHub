@@ -154,7 +154,7 @@
     <value>Discussions</value>
   </data>
   <data name="EditUserProfile" xml:space="preserve">
-    <value>Edit user profile</value>
+    <value>Edit User Profile</value>
   </data>
   <data name="FeatureNotAvailable.Text" xml:space="preserve">
     <value>Not available yet.</value>
