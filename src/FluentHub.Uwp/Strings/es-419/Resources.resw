@@ -334,7 +334,7 @@
     <value>No hay repositorios populares</value>
   </data>
   <data name="NoUserPullRequests" xml:space="preserve">
-    <value>No hay pull requests</value>
+    <value>No hay solicitudes de extracción</value>
   </data>
   <data name="NoUserRepositories" xml:space="preserve">
     <value>Sin repositorios</value>
@@ -361,7 +361,7 @@
     <value>Proyectos</value>
   </data>
   <data name="PullRequests" xml:space="preserve">
-    <value>Pull Requests</value>
+    <value>Solicitudes de extracción</value>
   </data>
   <data name="RefreshBody.Text" xml:space="preserve">
     <value>Recargar</value>
