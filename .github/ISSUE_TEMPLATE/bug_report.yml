@@ -1,6 +1,7 @@
 name: 🐛 Bug Report
 description: Create a bug report to help improve FluentHub
 labels: [bug]
+assignees: [onein528]
 body:
   - type: checkboxes
     attributes:
