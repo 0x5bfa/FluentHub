@@ -13,6 +13,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 using muxc = Microsoft.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 
 namespace FluentHub.Uwp.Views
 {
@@ -84,17 +85,75 @@ namespace FluentHub.Uwp.Views
             navService.Disconnect();
         }
 
-        private void OnSearchBarButtonClick(object sender, RoutedEventArgs e)
+        private void OnSearchGitHubButtonButtonClick(object sender, RoutedEventArgs e)
         {
-            SearchBar.Visibility = Visibility.Visible;
-            SearchBar.Focus(FocusState.Programmatic);
-            SearchBarButton.Visibility = Visibility.Collapsed;
+            SearchGitHubAutoSuggestBox.Visibility = Visibility.Visible;
+            SearchGitHubAutoSuggestBox.Focus(FocusState.Pointer);
+            SearchGitHubButton.Visibility = Visibility.Collapsed;
         }
 
-        private void OnSearchBarLostFocus(object sender, RoutedEventArgs e)
+        //private void OpenSearchAccelerator(KeyboardAcceleratorInvokedEventArgs e)
+        //{
+        //    SearchGitHubAutoSuggestBox.Visibility = Visibility.Visible;
+        //    SearchGitHubAutoSuggestBox.Focus(FocusState.Keyboard);
+        //    SearchGitHubButton.Visibility = Visibility.Collapsed;
+        //}
+
+        private void OnSearchGitHubAutoSuggestBoxLostFocus(object sender, RoutedEventArgs e)
         {
-            SearchBar.Visibility = Visibility.Collapsed;
-            SearchBarButton.Visibility = Visibility.Visible;
+            SearchGitHubAutoSuggestBox.Visibility = Visibility.Collapsed;
+            SearchGitHubButton.Visibility = Visibility.Visible;
+        }
+
+        private void OnSearchGitHubAutoSuggestBoxQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+        {
+            var parameter = args.QueryText;
+            navService.Navigate<Searches.RepositoriesPage>(new Models.FrameNavigationArgs() { Parameters = new() { parameter } });
+        }
+
+        private void OnSearchGitHubAutoSuggestBoxSuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+        {
+            sender.Text = sender.Text;
+        }
+
+        private void OnSearchGitHubAutoSuggestBoxTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+        {
+            // Only get results when it was a user typing, 
+            // otherwise assume the value got filled in by TextMemberPath 
+            // or the handler for SuggestionChosen.
+            if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
+            {
+                var suitableItems = new List<string>();
+
+                bool isInRepositories = false;
+                bool isInOrganizations = false;
+                bool isInUsers = false;
+
+                Type currentPage = navService.CurrentPage;
+                var currentPageNamespace = currentPage.ToString();
+
+                if (sender.Text != "")
+                {
+                    suitableItems.Add(sender.Text + " in all of Github");
+                }
+
+                if (currentPageNamespace.Contains("Views.Organizations"))
+                {
+                    suitableItems.Add(sender.Text + " in this organization");
+                }
+                else if (currentPageNamespace.Contains("Views.Repositories"))
+                {
+                    suitableItems.Add(sender.Text + " in this repository");
+
+                    // If that repository is in organization, it should be also added 'is this organization'
+                }
+                else if (currentPageNamespace.Contains("Views.Users"))
+                {
+                    suitableItems.Add(sender.Text + " in this user");
+                }
+
+                sender.ItemsSource = suitableItems;
+            }
         }
 
         private void OnAppBackRequested(object sender, BackRequestedEventArgs e)

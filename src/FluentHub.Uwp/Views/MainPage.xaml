@@ -130,14 +130,14 @@
                     Spacing="8">
 
                     <Button
-                        x:Name="SearchBarButton"
+                        x:Name="SearchGitHubButton"
                         Width="36"
                         Height="32"
                         Padding="0"
                         VerticalAlignment="Center"
                         Background="Transparent"
                         BorderThickness="0"
-                        Click="OnSearchBarButtonClick"
+                        Click="OnSearchGitHubButtonButtonClick"
                         ToolTipService.ToolTip="{helpers:ResourceString Name=SearchBarButton/ToolTipService/Tooltip}">
                         <muxc:AnimatedIcon Width="20" Height="20">
                             <muxc:AnimatedIcon.Source>
@@ -150,12 +150,16 @@
 
                     </Button>
 
-                    <TextBox
-                        x:Name="SearchBar"
+                    <AutoSuggestBox
+                        x:Name="SearchGitHubAutoSuggestBox"
                         Width="256"
                         Height="32"
-                        LostFocus="OnSearchBarLostFocus"
+                        LostFocus="OnSearchGitHubAutoSuggestBoxLostFocus"
                         PlaceholderText="{helpers:ResourceString Name=SearchBar/PlaceholderText}"
+                        QueryIcon="Find"
+                        QuerySubmitted="OnSearchGitHubAutoSuggestBoxQuerySubmitted"
+                        SuggestionChosen="OnSearchGitHubAutoSuggestBoxSuggestionChosen"
+                        TextChanged="OnSearchGitHubAutoSuggestBoxTextChanged"
                         Visibility="Collapsed" />
 
                     <Button

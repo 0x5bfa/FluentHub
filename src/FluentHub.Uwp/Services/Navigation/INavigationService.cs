@@ -6,8 +6,9 @@ namespace FluentHub.Uwp.Services
 {
     public interface INavigationService
     {
+        Type CurrentPage { get; set; }
         ITabView TabView { get; }
-        bool IsConfigured { get; }        
+        bool IsConfigured { get; }
         void Configure(ITabView tabView);
         void Disconnect();
         void Navigate(Type page, object parameter = null, Windows.UI.Xaml.Media.Animation.NavigationTransitionInfo transitionInfo = null);

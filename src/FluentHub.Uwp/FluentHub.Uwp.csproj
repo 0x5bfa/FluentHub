@@ -208,6 +208,9 @@
     <Compile Include="Services\Navigation\TabViewSelectionChangedEventArgs.cs" />
     <Compile Include="Services\OctokitSecretsService.cs" />
     <Compile Include="Services\ToastService.cs" />
+    <Compile Include="UserControls\BlockButtons\CodeBlockButton.xaml.cs">
+      <DependentUpon>CodeBlockButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\BlockButtons\PackageBlockButton.xaml.cs">
       <DependentUpon>PackageBlockButton.xaml</DependentUpon>
     </Compile>
@@ -237,6 +240,9 @@
     </Compile>
     <Compile Include="UserControls\FeedBlocks\SingleReleaseBlock.xaml.cs">
       <DependentUpon>SingleReleaseBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SearchResultSidebar.xaml.cs">
+      <DependentUpon>SearchResultSidebar.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UserContributionGraph.xaml.cs">
       <DependentUpon>UserContributionGraph.xaml</DependentUpon>
@@ -757,6 +763,7 @@
     <Content Include="Assets\Icons\Accounts.png" />
     <Content Include="Assets\Icons\Activities.png" />
     <Content Include="Assets\Icons\Appearance.png" />
+    <Content Include="Assets\Icons\Code.png" />
     <Content Include="Assets\Icons\Commits.png" />
     <Content Include="Assets\Icons\Discussions.png" />
     <Content Include="Assets\Icons\Document.png" />
@@ -764,15 +771,20 @@
     <Content Include="Assets\Icons\Home.png" />
     <Content Include="Assets\Icons\Insights.png" />
     <Content Include="Assets\Icons\Issues.png" />
+    <Content Include="Assets\Icons\Marketplace.png" />
     <Content Include="Assets\Icons\Notifications.png" />
     <Content Include="Assets\Icons\Organizations.png" />
+    <Content Include="Assets\Icons\Packages.png" />
     <Content Include="Assets\Icons\Private.png" />
     <Content Include="Assets\Icons\Profile.png" />
     <Content Include="Assets\Icons\Projects.png" />
     <Content Include="Assets\Icons\PullRequests.png" />
     <Content Include="Assets\Icons\Repositories.png" />
+    <Content Include="Assets\Icons\Search.png" />
     <Content Include="Assets\Icons\Settings.png" />
     <Content Include="Assets\Icons\Starred.png" />
+    <Content Include="Assets\Icons\Topic.png" />
+    <Content Include="Assets\Icons\Wiki.png" />
     <Content Include="Assets\Octicons\accessibility-16.svg" />
     <Content Include="Assets\Octicons\alert-16.svg" />
     <Content Include="Assets\Octicons\alert-24.svg" />
@@ -1359,6 +1371,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\BlockButtons\CodeBlockButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\BlockButtons\PackageBlockButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1404,6 +1420,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\FeedBlocks\SingleReleaseBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\SearchResultSidebar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
