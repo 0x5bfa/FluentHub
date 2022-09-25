@@ -35,19 +35,6 @@ body:
       required: true
   - type: textarea
     attributes:
-      label: 📟 Stack Trace
-      description: Copy and paste the stack trace from FluentHub's error page.
-      value: |
-        <details><summary>Stack trace details</summary><div>
-
-        \```
-        paste here
-        \```
-        </div></details>
-    validations:
-      required: true
-  - type: textarea
-    attributes:
       label: 📄 Description
       description: A clear and concise description of what the bug is.
     validations:
@@ -67,6 +54,18 @@ body:
     attributes:
       label: 🤔 Expected behavior
       description: A clear and concise description of what you expected to happen.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 📟 Stack Trace
+      description: Copy and paste the stack trace from FluentHub's error page.
+      value: |
+        <details><summary>Stack trace details</summary><div>
+        \```
+        paste here
+        \```
+        </div></details>
     validations:
       required: true
   - type: textarea
