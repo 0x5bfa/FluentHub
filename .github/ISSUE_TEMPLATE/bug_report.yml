@@ -32,7 +32,7 @@ body:
       description: Copy and paste the version from the about page of FluentHub's settings. If you're building from GitHub, simply provide the commit hash you built on.
     validations:
       required: true
-   - type: textarea
+  - type: textarea
     attributes:
       label: 📟 Stack Trace
       description: Copy and paste the stack trace from FluentHub's error page.
