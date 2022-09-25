@@ -36,10 +36,10 @@ body:
     attributes:
       label: 📟 Stack Trace
       description: Copy and paste the stack trace from FluentHub's error page.
-      value:
-      '''```
-      ```
-      '''
+      value: 
+"```
+
+```"
     validations:
       required: true
   - type: textarea
