@@ -394,7 +394,7 @@
     <value>Buscar organizaciones</value>
   </data>
   <data name="SearchPullRequestsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Buscar pull requests</value>
+    <value>Buscar solicitudes de extracción</value>
   </data>
   <data name="SearchRepositoriesTextBox.PlaceholderText" xml:space="preserve">
     <value>Buscar repositorios</value>
@@ -457,7 +457,7 @@
     <value>Tu perfil</value>
   </data>
   <data name="UserPullRequestsButton.Text" xml:space="preserve">
-    <value>Tus pull requests</value>
+    <value>Tus solicitudes de extracción</value>
   </data>
   <data name="UserRepositoriesButton.Text" xml:space="preserve">
     <value>Tus repositorios</value>
@@ -481,7 +481,7 @@
     <value>Tus organizaciones</value>
   </data>
   <data name="YourPullRequests" xml:space="preserve">
-    <value>Tus pull requests</value>
+    <value>Tus solicitudes de extracción</value>
   </data>
   <data name="YourRepositories" xml:space="preserve">
     <value>Tus repositorios</value>
