@@ -38,8 +38,8 @@ namespace FluentHub.Uwp.ViewModels.Searches
         private string _searchTerm;
         public string SearchTerm { get => _searchTerm; set => SetProperty(ref _searchTerm, value); }
 
-        private readonly ObservableCollection<RepoBlockButtonViewModel> _resultItems;
-        public ReadOnlyObservableCollection<RepoBlockButtonViewModel> ResultItems { get; }
+        private readonly ObservableCollection<FluentHub.Octokit.Models.v3.Searches.SearchCode> _resultItems;
+        public ReadOnlyObservableCollection<FluentHub.Octokit.Models.v3.Searches.SearchCode> ResultItems { get; }
 
         private Exception _taskException;
         public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
@@ -80,7 +80,7 @@ namespace FluentHub.Uwp.ViewModels.Searches
             if (_loadedToTheEnd)
                 return;
 
-            RepositorySearches searches = new();
+            CodeSearches searches = new();
             var response = await searches.GetAllAsync(term);
 
             _loadedItemCount += response.Count();
@@ -93,12 +93,7 @@ namespace FluentHub.Uwp.ViewModels.Searches
             _resultItems.Clear();
             foreach (var item in response)
             {
-                RepoBlockButtonViewModel viewModel = new()
-                {
-                    Repository = item,
-                };
-
-                _resultItems.Add(viewModel);
+                _resultItems.Add(item);
             }
         }
 

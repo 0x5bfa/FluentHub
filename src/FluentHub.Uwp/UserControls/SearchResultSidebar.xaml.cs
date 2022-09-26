@@ -28,6 +28,22 @@ namespace FluentHub.Uwp.UserControls
                 SelectItemByTag(value);
             }
         }
+
+        public static readonly DependencyProperty SearchTermProperty =
+            DependencyProperty.Register(
+                nameof(SearchTerm),
+                typeof(string),
+                typeof(SearchResultSidebar),
+                new PropertyMetadata(null));
+
+        public string SearchTerm
+        {
+            get => (string)GetValue(SearchTermProperty);
+            set
+            {
+                SetValue(SearchTermProperty, value);
+            }
+        }
         #endregion
 
         public SearchResultSidebar()
@@ -37,11 +53,11 @@ namespace FluentHub.Uwp.UserControls
 
         private void OnSearchNavViewItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
         {
-            var service = App.Current.Services.GetRequiredService<INavigationService>();
-            Type page = typeof(Views.Searches.RepositoriesPage);
+            var navigation = App.Current.Services.GetRequiredService<INavigationService>();
+            var page = typeof(Views.Searches.RepositoriesPage);
             Models.FrameNavigationArgs param = new()
             {
-                // TODO: Add seach term here
+                Parameters = new() { SearchTerm }
             };
 
             switch (args.InvokedItemContainer.Tag.ToString().ToLower())
@@ -60,6 +76,8 @@ namespace FluentHub.Uwp.UserControls
                     page = typeof(Views.Searches.UsersPage);
                     break;
             }
+
+            navigation.Navigate(page, param);
         }
 
         private void SelectItemByTag(string tag)

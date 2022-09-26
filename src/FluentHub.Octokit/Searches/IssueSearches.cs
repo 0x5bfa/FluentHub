@@ -34,16 +34,16 @@
                         Nodes = new(),
                     },
 
-                    Repository = new()
-                    {
-                        Name = item.Repository.Name,
+                    //Repository = new()
+                    //{
+                    //    Name = item.Repository.Name,
 
-                        Owner = new RepositoryOwner()
-                        {
-                            AvatarUrl = item.Repository.Owner.AvatarUrl,
-                            Login = item.Repository.Owner.Login,
-                        }
-                    },
+                    //    Owner = new RepositoryOwner()
+                    //    {
+                    //        AvatarUrl = item.Repository.Owner.AvatarUrl,
+                    //        Login = item.Repository.Owner.Login,
+                    //    }
+                    //},
                 };
 
                 foreach (var label in item.Labels)

@@ -11,10 +11,16 @@
     mc:Ignorable="d">
 
     <Grid
+        Width="266"
         Background="{ThemeResource LayerFillColorDefaultBrush}"
         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
         BorderThickness="1"
         CornerRadius="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
         <muxc:NavigationView
             x:Name="SearchNavView"
             Margin="16,20"
@@ -41,7 +47,10 @@
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
-                <muxc:NavigationViewItem Content="Commits" Tag="commits">
+                <muxc:NavigationViewItem
+                    Content="Commits"
+                    IsEnabled="False"
+                    Tag="commits">
                     <muxc:NavigationViewItem.Icon>
                         <muxc:ImageIcon Source="/Assets/Icons/Commits.png" />
                     </muxc:NavigationViewItem.Icon>
@@ -53,31 +62,46 @@
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
-                <muxc:NavigationViewItem Content="Discussions" Tag="discussions">
+                <muxc:NavigationViewItem
+                    Content="Discussions"
+                    IsEnabled="False"
+                    Tag="discussions">
                     <muxc:NavigationViewItem.Icon>
                         <muxc:ImageIcon Source="/Assets/Icons/Discussions.png" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
-                <muxc:NavigationViewItem Content="Packages" Tag="packages">
+                <muxc:NavigationViewItem
+                    Content="Packages"
+                    IsEnabled="False"
+                    Tag="packages">
                     <muxc:NavigationViewItem.Icon>
                         <muxc:ImageIcon Source="/Assets/Icons/Packages.png" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
-                <muxc:NavigationViewItem Content="Marketplace" Tag="marketplace">
+                <muxc:NavigationViewItem
+                    Content="Marketplace"
+                    IsEnabled="False"
+                    Tag="marketplace">
                     <muxc:NavigationViewItem.Icon>
                         <muxc:ImageIcon Source="/Assets/Icons/Marketplace.png" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
-                <muxc:NavigationViewItem Content="Topics" Tag="topics">
+                <muxc:NavigationViewItem
+                    Content="Topics"
+                    IsEnabled="False"
+                    Tag="topics">
                     <muxc:NavigationViewItem.Icon>
                         <muxc:ImageIcon Source="/Assets/Icons/Topic.png" />
                     </muxc:NavigationViewItem.Icon>
                 </muxc:NavigationViewItem>
 
-                <muxc:NavigationViewItem Content="Wikis" Tag="wikis">
+                <muxc:NavigationViewItem
+                    Content="Wikis"
+                    IsEnabled="False"
+                    Tag="wikis">
                     <muxc:NavigationViewItem.Icon>
                         <muxc:ImageIcon Source="/Assets/Icons/Wiki.png" />
                     </muxc:NavigationViewItem.Icon>
@@ -91,5 +115,14 @@
             </muxc:NavigationView.MenuItems>
 
         </muxc:NavigationView>
+
+        <TextBlock
+            Grid.Row="2"
+            Margin="32,20"
+            Foreground="{ThemeResource SystemFillColorCautionBrush}"
+            IsTextSelectionEnabled="True"
+            Style="{StaticResource BodyTextBlockStyle}"
+            Text="Currently, repos, code, issues, users searching is only available." />
+
     </Grid>
 </UserControl>

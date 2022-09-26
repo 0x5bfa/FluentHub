@@ -32,7 +32,10 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <uc:SearchResultSidebar Margin="0,0,8,8" SelectedTag="repositories" />
+            <uc:SearchResultSidebar
+                Margin="0,0,8,8"
+                SearchTerm="{x:Bind ViewModel.SearchTerm, Mode=OneWay}"
+                SelectedTag="repositories" />
 
             <Grid Grid.Column="1">
                 <ScrollViewer VerticalScrollBarVisibility="Auto">
