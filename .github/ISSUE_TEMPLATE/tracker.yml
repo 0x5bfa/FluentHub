@@ -1,4 +1,4 @@
-name: 💬 Feature Discussion
+name: 📝 Tracker
 description: Tracker for a feature
 labels: [tracker]
 body:
@@ -19,8 +19,9 @@ body:
       label: 🏃 Progress
       description: A clear and concise description of what your idea is. Include things like possible use cases, drawbacks, etc.
       placeholder: |
-        - [x] Accomplish Z
+        - [x] Accomplish X
         - [ ] Accomplish Y
+        - [ ] Accomplish Z
     validations:
       required: true
   - type: textarea
