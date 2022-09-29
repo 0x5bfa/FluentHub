@@ -63,7 +63,7 @@ body:
       value: |
         <details><summary>Stack trace details</summary><div>
         ```
-        <!-- paste here-->
+        <!--paste here-->
         ```
         </div></details>
     validations:
