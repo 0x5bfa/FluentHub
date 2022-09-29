@@ -1,6 +1,7 @@
 name: ➕ Feature Request
 description: Request a new feature for FluentHub
 labels: [feature request]
+assignees: [onein528]
 body:
   - type: checkboxes
     attributes:
