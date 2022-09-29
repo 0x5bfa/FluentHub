@@ -62,9 +62,9 @@ body:
       description: Copy and paste the stack trace from FluentHub's error page.
       value: |
         <details><summary>Stack trace details</summary><div>
-        \```
-        paste here
-        \```
+        ```
+        <!-- paste here-->
+        ```
         </div></details>
     validations:
       required: true
