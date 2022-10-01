@@ -9,69 +9,203 @@ namespace FluentHub.Octokit.Queries.Users
         {
             var response = await App.Client.Activity.Notifications.GetAllForCurrent(request, options);
 
-            Wrappers.NotificationWrapper wrapper = new();
-            var notifications = wrapper.WrapAsync(response);
+            List<Notification> notifications = new();
+            foreach (var item in response)
+            {
+                Notification indivisual = new()
+                {
+                    Id = Convert.ToInt64(item.Id),
+                    Unread = item.Unread,
+                    Url = item.Url,
+
+                    Subject = new()
+                    {
+                        Title = item.Subject.Title,
+                    },
+
+                    Repository = new()
+                    {
+                        Name = item.Repository.Name,
+                        Owner = new RepositoryOwner()
+                        {
+                            AvatarUrl = item.Repository.Owner.AvatarUrl,
+                            Login = item.Repository.Owner.Login,
+                        },
+                    },
+                };
+
+                if (item.LastReadAt != null)
+                {
+                    indivisual.LastReadAt = DateTimeOffset.Parse(item.LastReadAt);
+                    indivisual.LastReadAtHumanized = indivisual.LastReadAt.Humanize();
+                }
+
+                if (item.UpdatedAt != null)
+                {
+                    indivisual.UpdatedAt = DateTimeOffset.Parse(item.UpdatedAt);
+                    indivisual.UpdatedAtHumanized = indivisual.UpdatedAt.Humanize();
+                }
+
+                indivisual.Reason = item.Reason switch
+                {
+                    "assign" => "You were assigned to the issue.",
+                    "author" => "You created the thread.",
+                    "comment" => "You commented on the thread.",
+                    "ci_activity" => "A workflow that you triggered was successful.",
+                    "invitation" => "You accepted an invitation to contribute to the repository.",
+                    "manual" => "You subscribed to the thread.",
+                    "mention" => "You were mentioned.",
+                    "review_requested" => "You or a team you are a member of was requested to review a pull request.",
+                    "security_alert" => "A vulnerability was detected in your repository.",
+                    "state_change" => "You changed the state of the thread.",
+                    "subscribed" => "You started watching the repository.",
+                    "team_mention" => "You are on a team that was mentioned.",
+                    _ => "",
+                };
+
+                var urlItems = item.Subject.Url?.Split('/').ToList();
+
+                switch (item.Subject?.Type)
+                {
+                    case "Issue":
+                        {
+                            indivisual.Subject.Type = NotificationSubjectType.Issue;
+                            indivisual.Subject.Number = Convert.ToInt32(urlItems.LastOrDefault());
+                            break;
+                        }
+                    case "PullRequest":
+                        {
+                            indivisual.Subject.Type = NotificationSubjectType.PullRequest;
+                            indivisual.Subject.Number = Convert.ToInt32(urlItems.LastOrDefault());
+                            break;
+                        }
+                    case "Discussion":
+                        {
+                            indivisual.Subject.Type = NotificationSubjectType.Discussion;
+                            break;
+                        }
+                    case "Commit":
+                        {
+                            indivisual.Subject.Type = NotificationSubjectType.Commit;
+                            break;
+                        }
+                }
+
+                notifications.Add(indivisual);
+            }
 
             // NOTE:
             // The first Octokit v3 response has insufficient content, so gather the necessary info
             // from the response to get the necessary data and create a new Octokit v4 request
 
-            var fragments = GetGatheredRepositoryFragment(notifications);
-            if (string.IsNullOrEmpty(fragments))
+            var fragments = GetNotificationItemFragments(notifications);
+            if (notifications.Count() == 0 || string.IsNullOrEmpty(fragments))
                 return notifications;
 
             // Create a new request with repository info and vaild Issue or PR info
-            var request2 = new GraphQLRequest
-            {
-                Query = @$"query {{ {fragments} }}",
-            };
+            var request2 = new GraphQLRequest { Query = @$"query {{ {fragments} }}" };
 
             // Response contains a lot of repository response tokens
             var response2 = await App.GraphQLHttpClient.SendQueryAsync<object>(request2);
 
-            List<Repository> zippedData = new();
+            var repositories = ParseGraphQLJsonResponse(response2.Data as JToken, notifications.Count());
 
-            var json = response2.Data as JToken;
-
-            var errors = json["errors"];
-
-            if (errors is not null)
-            {
+            var mappedNotifications = MapRepositoriesToNotifications(notifications, repositories);
+            if (mappedNotifications == null)
                 return notifications;
+
+            return mappedNotifications;
+        }
+
+        private string GetNotificationItemFragments(IReadOnlyList<Notification> notifications)
+        {
+            string ItemFragments = "";
+            int index = 0;
+
+            foreach (var notification in notifications)
+            {
+                switch (notification.Subject.Type)
+                {
+                    //case NotificationSubjectType.Discussion:
+                    //case NotificationSubjectType.Commit:
+                    //case NotificationSubjectType.Release:
+                    //    break;
+                    case NotificationSubjectType.Issue:
+                        {
+                            var issueFragment = @$"
+repo{index}: repository(name: ""{notification.Repository.Name}"", owner: ""{notification.Repository.Owner.Login}"") {{
+  Issue: issue(number: {notification.Subject.Number}) {{
+    id
+    number
+    state
+    stateReason
+  }}
+}}
+";
+
+                            ItemFragments += issueFragment;
+                            break;
+                        }
+                    case NotificationSubjectType.PullRequest:
+                        {
+                            var pullRequestFragment = @$"
+repo{index}: repository(name: ""{notification.Repository.Name}"", owner: ""{notification.Repository.Owner.Login}"") {{
+  PullRequest: pullRequest(number: {notification.Subject.Number}) {{
+    id
+    number
+    isDraft
+    state
+  }}
+}}
+";
+
+                            ItemFragments += pullRequestFragment;
+                            break;
+                        }
+                }
+
+                index++;
             }
 
-            for (int idx = 0; idx < notifications.Count(); idx++)
-            {
-                var repo = json[$"repo{idx}"];
+            return ItemFragments;
+        }
 
-                if (repo is null || !repo.HasValues)
+        private List<Repository> ParseGraphQLJsonResponse(JToken token, int itemCount)
+        {
+            List<Repository> repositories = new();
+
+            if (token["errors"] != null)
+            {
+                var error = token["errors"];
+                throw new OctokitGraphQLCore.Deserializers.ResponseDeserializerException(
+                    (string)error["message"],
+                    (int)error["locations"][0]["line"],
+                    (int)error["locations"][0]["column"]);
+            }
+
+            for (int index = 0; index < itemCount; index++)
+            {
+                var repo = token[$"repo{index}"];
+
+                if (repo == null || !repo.HasValues)
                 {
-                    // Add empty data
-                    zippedData.Add(new());
+                    // Add empty
+                    repositories.Add(new());
                     continue;
                 }
 
                 var issue = repo["Issue"];
-                var pr = repo["PullRequest"];
+                var pullRequest = repo["PullRequest"];
 
                 // HasValues because issue can be empty
-                if (issue is not null && issue.HasValues)
+                if (issue != null && issue.HasValues)
                 {
-                    Enum.TryParse(
-                        issue["state"].ToString(),
-                        true,
-                        out IssueState state);
-                    Enum.TryParse(
-                        issue["stateReason"].ToString(),
-                        true,
-                        out IssueStateReason stateReason);
-                    var id = new ID(
-                        issue["id"].ToString());
-                    int.TryParse(
-                        issue["number"].ToString(),
-                        out int number);
+                    Enum.TryParse(issue["state"].ToString(), true, out IssueState state);
+                    Enum.TryParse(issue["stateReason"].ToString(), true, out IssueStateReason stateReason);
+                    var id = new ID(issue["id"].ToString());
+                    int.TryParse(issue["number"].ToString(), out int number);
 
-                    zippedData.Add(new()
+                    repositories.Add(new()
                     {
                         Issue = new()
                         {
@@ -82,22 +216,14 @@ namespace FluentHub.Octokit.Queries.Users
                         },
                     });
                 }
-                else if (pr is not null && pr.HasValues)
+                else if (pullRequest != null && pullRequest.HasValues)
                 {
-                    Enum.TryParse(
-                        pr["state"].ToString(),
-                        true,
-                        out PullRequestState state);
-                    var id = new ID(
-                        pr["id"].ToString());
-                    int.TryParse(
-                        pr["number"].ToString(),
-                        out int number);
-                    bool.TryParse(
-                        pr["isDraft"].ToString(),
-                        out bool isDraft);
+                    Enum.TryParse(pullRequest["state"].ToString(), true, out PullRequestState state);
+                    var id = new ID(pullRequest["id"].ToString());
+                    int.TryParse(pullRequest["number"].ToString(), out int number);
+                    bool.TryParse(pullRequest["isDraft"].ToString(), out bool isDraft);
 
-                    zippedData.Add(new()
+                    repositories.Add(new()
                     {
                         PullRequest = new()
                         {
@@ -108,95 +234,58 @@ namespace FluentHub.Octokit.Queries.Users
                         },
                     });
                 }
-            }
-
-            var mappedNotifications = Map(notifications, zippedData);
-
-            return mappedNotifications;
-        }
-
-        private string GetGatheredRepositoryFragment(IReadOnlyList<Notification> notifications)
-        {
-            string gatheredFragments = "";
-            for (int index = 0; index < notifications.Count(); index++)
-            {
-                switch (notifications.ElementAt(index).Subject.Type)
+                else
                 {
-                    case NotificationSubjectType.Discussion:
-                    case NotificationSubjectType.Commit:
-                    case NotificationSubjectType.Release:
-                        break;
-                    case NotificationSubjectType.Issue:
-                        {
-                            var issueFragment =
-                                @$"
-repo{index}: repository(name: ""{notifications.ElementAt(index).Repository.Name}"", owner: ""{notifications.ElementAt(index).Repository.Owner.Login}"") {{
-  Issue: issue(number: {notifications.ElementAt(index).Subject.Number}) {{
-    id
-    number
-    state
-    stateReason
-  }}
-}}";
-                            gatheredFragments += (issueFragment + "\n");
-                            break;
-                        }
-                    case NotificationSubjectType.PullRequest:
-                        {
-                            var prFragment =
-                                @$"
-repo{index}: repository(name: ""{notifications.ElementAt(index).Repository.Name}"", owner: ""{notifications.ElementAt(index).Repository.Owner.Login}"") {{
-  PullRequest: pullRequest(number: {notifications.ElementAt(index).Subject.Number}) {{
-    id
-    number
-    isDraft
-    state
-  }}
-}}";
-                            gatheredFragments += (prFragment + "\n");
-                            break;
-                        }
+                    // Add empty
+                    repositories.Add(new());
+                    continue;
                 }
             }
 
-            return gatheredFragments;
+            return repositories;
         }
 
-        private List<Notification> Map(List<Notification> notifications, IReadOnlyList<Repository> details)
+        private List<Notification> MapRepositoriesToNotifications(List<Notification> notifications, IReadOnlyList<Repository> repositories)
         {
             int index = 0;
 
-            foreach (var item in notifications)
+            if (notifications.Count != repositories.Count)
+                return null;
+
+            var zippedData = notifications.Zip(repositories, (notification, repository)
+                => new { Notification = notification, Repository = repository });
+
+            foreach (var item in zippedData)
             {
-                switch (item.Subject.Type)
+                switch (item.Notification.Subject.Type)
                 {
-                    case NotificationSubjectType.Discussion:
-                    case NotificationSubjectType.Commit:
-                    case NotificationSubjectType.Release:
-                        break;
+                    //case NotificationSubjectType.Discussion:
+                    //case NotificationSubjectType.Commit:
+                    //case NotificationSubjectType.Release:
+                    //    break;
                     case NotificationSubjectType.Issue:
                         {
-                            if (details.ElementAt(index).Issue is not null)
+                            if (item.Repository.Issue != null)
                             {
-                                item.Subject.Number = details.ElementAt(index).Issue.Number;
+                                item.Notification.Subject.Number = item.Repository.Issue.Number;
 
-                                switch (details.ElementAt(index).Issue.State)
+                                switch (item.Repository.Issue.State)
                                 {
                                     case IssueState.Open:
                                     {
-                                        item.Subject.Type = NotificationSubjectType.IssueOpen;
+                                        item.Notification.Subject.Type = NotificationSubjectType.IssueOpen;
                                         break;
                                     }
                                     case IssueState.Closed:
                                     {
-                                        switch (details.ElementAt(index).Issue.StateReason)
+                                        switch (item.Repository.Issue.StateReason)
                                         {
                                             case IssueStateReason.Completed:
-                                                item.Subject.Type = NotificationSubjectType.IssueClosedAsCompleted;
+                                                item.Notification.Subject.Type = NotificationSubjectType.IssueClosedAsCompleted;
                                                 break;
                                             case IssueStateReason.Reopened:
                                             case IssueStateReason.NotPlanned:
-                                                item.Subject.Type = NotificationSubjectType.IssueClosedAsNotPlanned;
+                                                item.Notification.Subject.Type = NotificationSubjectType.IssueClosedAsNotPlanned;
                                                 break;
                                         }
                                         break;
@@ -208,29 +297,23 @@ repo{index}: repository(name: ""{notifications.ElementAt(index).Repository.Name}
                         }
                     case NotificationSubjectType.PullRequest:
                         {
-                            if (details.ElementAt(index).PullRequest is not null)
+                            if (item.Repository.PullRequest != null)
                             {
-                                item.Subject.Number = details.ElementAt(index).PullRequest.Number;
+                                item.Notification.Subject.Number = item.Repository.PullRequest.Number;
 
-                                switch (details.ElementAt(index).PullRequest.State)
+                                switch (item.Repository.PullRequest.State)
                                 {
                                     case PullRequestState.Open:
-                                    {
-                                        item.Subject.Type = details.ElementAt(index).PullRequest.IsDraft ?
+                                        item.Notification.Subject.Type = item.Repository.PullRequest.IsDraft ?
                                             NotificationSubjectType.PullRequestDraft :
                                             NotificationSubjectType.PullRequestOpen;
                                         break;
-                                    }
                                     case PullRequestState.Closed:
-                                    {
-                                        item.Subject.Type = NotificationSubjectType.PullRequestClosed;
+                                        item.Notification.Subject.Type = NotificationSubjectType.PullRequestClosed;
                                         break;
-                                    }
                                     case PullRequestState.Merged:
-                                    {
-                                        item.Subject.Type = NotificationSubjectType.PullRequestMerged;
+                                        item.Notification.Subject.Type = NotificationSubjectType.PullRequestMerged;
                                         break;
-                                    }
                                 }
                             }
 
@@ -238,7 +321,7 @@ repo{index}: repository(name: ""{notifications.ElementAt(index).Repository.Name}
                         }
                 }
 
-                item.Subject.TypeHumanized = item.Subject.Type.ToString();
+                item.Notification.Subject.TypeHumanized = item.Notification.Subject.Type.ToString();
                 index++;
             }
 
