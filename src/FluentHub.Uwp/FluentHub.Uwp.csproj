@@ -187,6 +187,7 @@
     <Compile Include="Models\DetailsLayoutListViewModel.cs" />
     <Compile Include="Models\FolderCardItem.cs" />
     <Compile Include="Models\FrameNavigationArgs.cs" />
+    <Compile Include="Models\SearchQueryModel.cs" />
     <Compile Include="Models\TaskStateMessaging.cs" />
     <Compile Include="Models\MergedCalendarDays.cs" />
     <Compile Include="Models\PinnableRepository.cs" />

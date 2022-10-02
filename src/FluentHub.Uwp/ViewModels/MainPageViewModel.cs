@@ -14,7 +14,9 @@ namespace FluentHub.Uwp.ViewModels
     {
         public MainPageViewModel(INavigationService navigationService, IMessenger notificationMessenger = null, ToastService toastService = null, ILogger logger = null)
         {
-            _dispatcher = DispatcherQueue.GetForCurrentThread(); // To Access the UI thread later.
+            // To Access the UI thread later.
+            _dispatcher = DispatcherQueue.GetForCurrentThread();
+
             _navigationService = navigationService;
             _messenger = notificationMessenger;
             _toastService = toastService;
@@ -28,6 +30,9 @@ namespace FluentHub.Uwp.ViewModels
 
             _navViewItems = new();
             NavViewItems = new(_navViewItems);
+
+            _autoSuggestionItems = new();
+            AutoSuggestionItems = new(_autoSuggestionItems);
 
             _navViewFooterItems = new();
             NavViewFooterItems = new(_navViewFooterItems);
@@ -48,13 +53,6 @@ namespace FluentHub.Uwp.ViewModels
 
             GoBackCommand = new RelayCommand(GoBack);
             GoForwardCommand = new RelayCommand(GoForward);
-
-            GoHomeCommand = new RelayCommand(GoHome);
-            GoNotificationsCommand = new RelayCommand(GoNotifications);
-            GoActivitiesCommand = new RelayCommand(GoActivities);
-            GoExplorerCommand = new RelayCommand(GoExplorer);
-            GoMarketplaceCommand = new RelayCommand(GoMarketplace);
-            GoProfileCommand = new RelayCommand(GoProfile);
 
             LoadSignedInUserCommand = new AsyncRelayCommand(LoadSignedInUserAsync);
         }
@@ -81,34 +79,17 @@ namespace FluentHub.Uwp.ViewModels
         private int _unreadCount;
         public int UnreadCount { get => _unreadCount; private set => SetProperty(ref _unreadCount, value); }
 
-        public static Frame RepositoryContentFrame { get; set; } = new();
-        public static Frame PullRequestContentFrame { get; set; } = new();
+        private string _searchTerm;
+        public string SearchTerm { get => _searchTerm; set => SetProperty(ref _searchTerm, value); }
 
-        private bool _isHome;
-        public bool IsHome { get => _isHome; private set => SetProperty(ref _isHome, value); }
-
-        private bool _isNotifications;
-        public bool IsNotifications { get => _isNotifications; private set => SetProperty(ref _isNotifications, value); }
-
-        private bool _isActivities;
-        public bool IsActivities { get => _isActivities; private set => SetProperty(ref _isActivities, value); }
-
-        private bool _isExplorer;
-        public bool IsExplorer { get => _isExplorer; private set => SetProperty(ref _isExplorer, value); }
-
-        private bool _isMarketplace;
-        public bool IsMarketplace { get => _isMarketplace; private set => SetProperty(ref _isMarketplace, value); }
-
-        private bool _isProfile;
-        public bool IsProfile { get => _isProfile; private set => SetProperty(ref _isProfile, value); }
+        private readonly ObservableCollection<SearchQueryModel> _autoSuggestionItems;
+        public ReadOnlyObservableCollection<SearchQueryModel> AutoSuggestionItems;
 
         private readonly ObservableCollection<SquareNavigationViewItemModel> _navViewItems;
         public ReadOnlyObservableCollection<SquareNavigationViewItemModel> NavViewItems;
 
         private readonly ObservableCollection<SquareNavigationViewItemModel> _navViewFooterItems;
         public ReadOnlyObservableCollection<SquareNavigationViewItemModel> NavViewFooterItems;
-
-        public IAsyncRelayCommand LoadSignedInUserCommand { get; }
         #endregion
 
         #region Commands
@@ -128,6 +109,8 @@ namespace FluentHub.Uwp.ViewModels
         public ICommand GoExplorerCommand { get; private set; }
         public ICommand GoMarketplaceCommand { get; private set; }
         public ICommand GoProfileCommand { get; private set; }
+
+        public IAsyncRelayCommand LoadSignedInUserCommand { get; }
         #endregion
 
         #region Command methods
@@ -193,62 +176,49 @@ namespace FluentHub.Uwp.ViewModels
             _navigationService.GoForward();
         }
 
-        private void GoHome()
+        private async Task LoadSignedInUserAsync()
         {
-            InitializeToggles();
-            IsHome = true;
-            _navigationService.Navigate<Views.Home.UserHomePage>();
-        }
+            // This task should not be notified whether task fault,
+            // as it is not user-triggered task.
 
-        private void GoNotifications()
-        {
-            InitializeToggles();
-            IsNotifications = true;
-            _navigationService.Navigate<Views.Home.NotificationsPage>();
-        }
+            //_messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
+            //bool faulted = false;
 
-        private void GoActivities()
-        {
-            InitializeToggles();
-            IsActivities = true;
-            _navigationService.Navigate<Views.Home.ActivitiesPage>();
-        }
+            string _currentTaskingMethodName = nameof(LoadSignedInUserAsync);
 
-        private void GoExplorer()
-        {
-            InitializeToggles();
-            IsExplorer = true;
-            //_navigationService.Navigate<Views.Home.UserHomePage>();
-        }
+            try
+            {
+                Octokit.Queries.Users.UserQueries queries = new();
+                var user = await queries.GetAsync(App.Settings.SignedInUserName);
 
-        private void GoMarketplace()
-        {
-            InitializeToggles();
-            IsMarketplace = true;
-            //_navigationService.Navigate<Views.Home.UserHomePage>();
-        }
+                SignedInUser = user ?? new();
 
-        private void GoProfile()
-        {
-            InitializeToggles();
-            IsProfile = true;
-            _navigationService.Navigate<Views.Users.OverviewPage>(
-                new FrameNavigationArgs()
-                {
-                    Login = App.Settings.SignedInUserName,
-                });
-        }
+                Octokit.Queries.Users.NotificationQueries notificationQueries = new();
+                var count = await notificationQueries.GetUnreadCount();
 
-        private void InitializeToggles()
-        {
-            IsHome = false;
-            IsNotifications = false;
-            IsActivities = false;
-            IsExplorer = false;
-            IsMarketplace = false;
-            IsProfile = false;
+                UnreadCount = count;
+                _toastService?.UpdateBadgeGlyph(BadgeGlyphType.Number, UnreadCount);
+            }
+            catch (Exception ex)
+            {
+                //TaskException = ex;
+                //faulted = true;
+
+                _logger?.Error(_currentTaskingMethodName, ex);
+                throw;
+            }
+            finally
+            {
+                //_messenger?.Send(new TaskStateMessaging(faulted ? TaskStatusType.IsFaulted : TaskStatusType.IsCompletedSuccessfully));
+            }
         }
         #endregion
+
+        public void ClearSearchQueryModelItems()
+            => _autoSuggestionItems.Clear();
+
+        public void AddNewSearchQueryModel(string query, string label)
+            => _autoSuggestionItems.Add(new(query, label));
 
         private async void OnNewNotificationReceived(object recipient, UserNotificationMessage message)
         {
@@ -296,33 +266,6 @@ namespace FluentHub.Uwp.ViewModels
                     TaskIsCompletedSuccessfully = false;
                     TaskIsInProgress = false;
                     break;
-            }
-        }
-
-        private async Task LoadSignedInUserAsync()
-        {
-            try
-            {
-                Octokit.Queries.Users.UserQueries queries = new();
-                var user = await queries.GetAsync(App.Settings.SignedInUserName);
-
-                SignedInUser = user ?? new();
-
-                Octokit.Queries.Users.NotificationQueries notificationQueries = new();
-                var count = await notificationQueries.GetUnreadCount();
-
-                UnreadCount = count;
-                _toastService?.UpdateBadgeGlyph(BadgeGlyphType.Number, UnreadCount);
-            }
-            catch (Exception ex)
-            {
-                _logger?.Error("MainPageViewModel.GetSignedInUser(): ", ex);
-                if (_messenger != null)
-                {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
-                throw;
             }
         }
     }

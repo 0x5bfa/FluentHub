@@ -154,13 +154,57 @@
                         x:Name="SearchGitHubAutoSuggestBox"
                         Width="256"
                         Height="32"
+                        ItemsSource="{x:Bind ViewModel.AutoSuggestionItems, Mode=OneWay}"
                         LostFocus="OnSearchGitHubAutoSuggestBoxLostFocus"
                         PlaceholderText="{helpers:ResourceString Name=SearchBar/PlaceholderText}"
                         QueryIcon="Find"
                         QuerySubmitted="OnSearchGitHubAutoSuggestBoxQuerySubmitted"
                         SuggestionChosen="OnSearchGitHubAutoSuggestBoxSuggestionChosen"
                         TextChanged="OnSearchGitHubAutoSuggestBoxTextChanged"
-                        Visibility="Collapsed" />
+                        Visibility="Collapsed">
+                        <AutoSuggestBox.ItemContainerStyle>
+                            <Style TargetType="ListViewItem">
+                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                            </Style>
+                        </AutoSuggestBox.ItemContainerStyle>
+                        <AutoSuggestBox.ItemTemplate>
+                            <DataTemplate x:DataType="models:SearchQueryModel">
+                                <Grid
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    ColumnSpacing="8">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <FontIcon
+                                        FontSize="16"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                        Glyph="&#xE721;" />
+                                    <TextBlock
+                                        Grid.Column="1"
+                                        HorizontalAlignment="Left"
+                                        Text="{x:Bind QueryString}"
+                                        TextTrimming="CharacterEllipsis"
+                                        TextWrapping="NoWrap" />
+                                    <Border
+                                        Grid.Column="2"
+                                        Height="20"
+                                        Padding="4,2"
+                                        HorizontalAlignment="Right"
+                                        BorderBrush="{ThemeResource DividerStrokeColorDefault}"
+                                        BorderThickness="1"
+                                        CornerRadius="4">
+                                        <TextBlock
+                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="{x:Bind Label}" />
+                                    </Border>
+                                </Grid>
+                            </DataTemplate>
+                        </AutoSuggestBox.ItemTemplate>
+                    </AutoSuggestBox>
 
                     <Button
                         x:Name="GoBackButton"
