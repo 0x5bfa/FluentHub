@@ -75,7 +75,7 @@
 
                 <TextBlock
                     x:Name="RepositoryInfoTextBlock"
-                    x:Load="{x:Bind ViewModel.CompactMode, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
+                    x:Load="{x:Bind ViewModel.IssueItem.Repository, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                     Style="{StaticResource CaptionTextBlockStyle}"
                     Text="{x:Bind ViewModel.IssueItem, Converter={StaticResource SubjectToButtonTitleConverter}, Mode=OneWay}" />
@@ -84,7 +84,6 @@
                     x:Name="UpdatedAtHumanized"
                     Grid.ColumnSpan="2"
                     HorizontalAlignment="Right"
-                    x:Load="{x:Bind ViewModel.CompactMode, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
                     Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                     Style="{StaticResource CaptionTextBlockStyle}"
                     Text="{x:Bind ViewModel.IssueItem.UpdatedAtHumanized, Mode=OneWay}" />
@@ -125,18 +124,18 @@
                     x:Load="{x:Bind ViewModel.CompactMode, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
                     Orientation="Horizontal">
 
-                    <!--<labels:LabelControl
+                    <primer:Label
                         x:Name="CommentCountLabel"
                         VerticalAlignment="Center"
                         x:Load="{x:Bind ViewModel.IssueItem.Comments.TotalCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-                        ViewModel="{x:Bind ViewModel.CommentCountLabel, Mode=OneWay}">
-                        <labels:LabelControl.Icon>
+                        Text="{x:Bind ViewModel.IssueItem.Comments.TotalCount, Mode=OneWay}">
+                        <!--<primer:Label.Icon>
                             <FontIcon
                                 FontFamily="{StaticResource Octicons}"
                                 FontSize="12"
                                 Glyph="&#xE95D;" />
-                        </labels:LabelControl.Icon>
-                    </labels:LabelControl>-->
+                        </primer:Label.Icon>-->
+                    </primer:Label>
 
                 </StackPanel>
             </Grid>

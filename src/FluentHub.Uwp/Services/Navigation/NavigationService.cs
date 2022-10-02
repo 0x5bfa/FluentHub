@@ -13,6 +13,8 @@ namespace FluentHub.Uwp.Services.Navigation
 
         #region Fields and Properties
         private readonly ILogger _logger;
+
+        public System.Type CurrentPage { get; set; }
         public ITabView TabView { get; private set; }
         public bool IsConfigured { get; private set; }
         #endregion
@@ -38,7 +40,10 @@ namespace FluentHub.Uwp.Services.Navigation
             {
                 tab.Frame.Navigate(page, parameter, transitionInfo);
             }
+
+            CurrentPage = page;
         }
+
         public void Navigate<T>(object parameter = null, NavigationTransitionInfo transitionInfo = null) where T : Page => Navigate(typeof(T), parameter, transitionInfo);
 
         public Guid OpenTab(Type page, object parameter)
@@ -48,6 +53,7 @@ namespace FluentHub.Uwp.Services.Navigation
             var item = TabView.OpenTab(page, parameter, true);
             return item.Guid;
         }
+
         public Guid OpenTab<T>(object parameter = null) where T : Page => OpenTab(typeof(T), parameter);
 
         public void GoToTab(Guid tabId)
@@ -58,6 +64,7 @@ namespace FluentHub.Uwp.Services.Navigation
                 TabView.SelectedItem = tab;
             }
         }
+
         public void CloseTab(Guid tabId) => TabView.CloseTab(tabId);
 
         public void GoBack()
@@ -114,6 +121,6 @@ namespace FluentHub.Uwp.Services.Navigation
             IsConfigured = false;
             _logger?.Info("NavigationService disconnected");
         }
-        #endregion        
+        #endregion
     }
 }

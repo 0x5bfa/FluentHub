@@ -18,6 +18,9 @@ namespace FluentHub.Uwp.Converters
                     {
                         Issue issue = value as Issue;
 
+                        if (issue.Repository == null)
+                            return $"(unknown) / (unknown) #{issue.Number}";
+
                         result = $"{issue.Repository.Owner.Login} / {issue.Repository.Name} #{issue.Number}";
                     }
                     break;
@@ -25,12 +28,18 @@ namespace FluentHub.Uwp.Converters
                     {
                         PullRequest pullRequest = value as PullRequest;
 
+                        if (pullRequest.Repository == null)
+                            return $"(unknown) / (unknown) #{pullRequest.Number}";
+
                         result = $"{pullRequest.Repository.Owner.Login} / {pullRequest.Repository.Name} #{pullRequest.Number}";
                     }
                     break;
                 case "Discussion":
                     {
                         Discussion discussion = value as Discussion;
+
+                        if (discussion.Repository == null)
+                            return $"(unknown) / (unknown) #{discussion.Number}";
 
                         result = $"{discussion.Repository.Owner.Login} / {discussion.Repository.Name} #{discussion.Number}";
                     }
