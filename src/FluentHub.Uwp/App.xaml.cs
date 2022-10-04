@@ -30,47 +30,143 @@ using Windows.UI;
 using Windows.UI.ViewManagement;
 using Microsoft.UI;
 using Windows.ApplicationModel.Core;
-
-// To learn more about WinUI, the WinUI project structure,
-// and more about our project templates, see: http://aka.ms/winui-project-info.
+using Microsoft.UI.Windowing;
 
 namespace FluentHub
 {
-    /// <summary>
-    /// Provides application-specific behavior to supplement the default Application class.
-    /// </summary>
     public partial class App : Application
     {
-        public static MainWindow Window { get; private set; }
+        public static SettingsViewModel Settings { get; set; }
 
-        public static IntPtr WindowHandle { get; private set; }
+        public static string AppVersion =
+            $"{Windows.ApplicationModel.Package.Current.Id.Version.Major}." +
+            $"{Windows.ApplicationModel.Package.Current.Id.Version.Minor}." +
+            $"{Windows.ApplicationModel.Package.Current.Id.Version.Build}." +
+            $"{Windows.ApplicationModel.Package.Current.Id.Version.Revision}";
 
-        /// <summary>
-        /// Initializes the singleton application object.  This is the first line of authored code
-        /// executed, and as such is the logical equivalent of main() or WinMain().
-        /// </summary>
         public App()
         {
             InitializeComponent();
+
+            UnhandledException += OnUnhandledException;
+            TaskScheduler.UnobservedTaskException += OnUnobservedException;
+
+            Services = ConfigureServices();
         }
 
-        /// <summary>
-        /// Invoked when the application is launched normally by the end user.  Other entry points
-        /// will be used such as when the application is launched to open a specific file.
-        /// </summary>
-        /// <param name="args">Details about the launch request and process.</param>
-        protected override async void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs e)
+        public new static App Current
+            => (App)Application.Current;
+
+        public IServiceProvider Services { get; }
+
+        private IServiceProvider ConfigureServices()
         {
-            // TODO This code defaults the app to a single instance app. If you need multi instance app, remove this part.
-            // Read: https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/migrate-to-windows-app-sdk/guides/applifecycle#single-instancing-in-applicationonlaunched
-            // If this is the first instance launched, then register it as the "main" instance.
-            // If this isn't the first instance launched, then "main" will already be registered,
-            // so retrieve it.
+            return new ServiceCollection()
+                .AddSingleton<INavigationService, NavigationService>()
+                .AddSingleton<Uwp.Utils.ILogger>(new SerilogWrapperLogger(Serilog.Log.Logger))
+                .AddSingleton<ToastService>()
+                .AddSingleton<IMessenger>(StrongReferenceMessenger.Default)
+                // ViewModels
+                .AddSingleton<MainPageViewModel>()
+                .AddTransient<Uwp.ViewModels.AppSettings.AboutViewModel>()
+                .AddTransient<Uwp.ViewModels.AppSettings.Accounts.AccountViewModel>()
+                .AddTransient<Uwp.ViewModels.AppSettings.Accounts.OtherUsersViewModel>()
+                .AddTransient<Uwp.ViewModels.AppSettings.AppearanceViewModel>()
+                .AddTransient<Uwp.ViewModels.Dialogs.AccountSwitchingDialogViewModel>()
+                .AddTransient<Uwp.ViewModels.Dialogs.EditPinnedRepositoriesDialogViewModel>()
+                .AddTransient<Uwp.ViewModels.Home.FeedsViewModel>()
+                .AddTransient<Uwp.ViewModels.Home.NotificationsViewModel>()
+                .AddTransient<Uwp.ViewModels.Home.UserHomeViewModel>()
+                .AddTransient<Uwp.ViewModels.Organizations.OverviewViewModel>()
+                .AddTransient<Uwp.ViewModels.Organizations.RepositoriesViewModel>()
+                .AddTransient<Uwp.ViewModels.Repositories.Code.Layouts.DetailsLayoutViewModel>()
+                .AddTransient<Uwp.ViewModels.Repositories.Code.Layouts.TreeLayoutViewModel>()
+                .AddTransient<Uwp.ViewModels.Repositories.Commits.CommitsViewModel>()
+                .AddTransient<Uwp.ViewModels.Repositories.Commits.CommitViewModel>()
+                .AddTransient<Uwp.ViewModels.Repositories.Discussions.DiscussionsViewModel>()
+                .AddTransient<Uwp.ViewModels.Repositories.Discussions.DiscussionViewModel>()
+                .AddTransient<Uwp.ViewModels.Repositories.Issues.IssueViewModel>()
+                .AddTransient<Uwp.ViewModels.Repositories.Issues.IssuesViewModel>()
+                .AddTransient<Uwp.ViewModels.Repositories.Projects.ProjectsViewModel>()
+                .AddTransient<Uwp.ViewModels.Repositories.Projects.ProjectViewModel>()
+                .AddTransient<Uwp.ViewModels.Repositories.PullRequests.ConversationViewModel>()
+                .AddTransient<Uwp.ViewModels.Repositories.PullRequests.CommitViewModel>()
+                .AddTransient<Uwp.ViewModels.Repositories.PullRequests.CommitsViewModel>()
+                .AddTransient<Uwp.ViewModels.Repositories.PullRequests.FileChangesViewModel>()
+                .AddTransient<Uwp.ViewModels.Repositories.PullRequests.PullRequestsViewModel>()
+                .AddTransient<Uwp.ViewModels.Repositories.Releases.ReleasesViewModel>()
+                .AddTransient<Uwp.ViewModels.Searches.CodeViewModel>()
+                .AddTransient<Uwp.ViewModels.Searches.IssuesViewModel>()
+                .AddTransient<Uwp.ViewModels.Searches.RepositoriesViewModel>()
+                .AddTransient<Uwp.ViewModels.Searches.UsersViewModel>()
+                .AddTransient<Uwp.ViewModels.SignIn.IntroViewModel>()
+                .AddTransient<Uwp.ViewModels.UserControls.FileContentBlockViewModel>()
+                .AddTransient<Uwp.ViewModels.UserControls.FileNavigationBlockViewModel>()
+                .AddTransient<Uwp.ViewModels.UserControls.IssueCommentBlockViewModel>()
+                .AddTransient<Uwp.ViewModels.UserControls.ReadmeContentBlockViewModel>()
+                .AddTransient<Uwp.ViewModels.UserControls.LatestCommitBlockViewModel>()
+                .AddTransient<Uwp.ViewModels.Users.ContributionsViewModel>()
+                .AddTransient<Uwp.ViewModels.Users.DiscussionsViewModel>()
+                .AddTransient<Uwp.ViewModels.Users.FollowersViewModel>()
+                .AddTransient<Uwp.ViewModels.Users.FollowingViewModel>()
+                .AddTransient<Uwp.ViewModels.Users.IssuesViewModel>()
+                .AddTransient<Uwp.ViewModels.Users.OrganizationsViewModel>()
+                .AddTransient<Uwp.ViewModels.Users.OverviewViewModel>()
+                .AddTransient<Uwp.ViewModels.Users.PackagesViewModel>()
+                .AddTransient<Uwp.ViewModels.Users.ProjectsViewModel>()
+                .AddTransient<Uwp.ViewModels.Users.PullRequestsViewModel>()
+                .AddTransient<Uwp.ViewModels.Users.RepositoriesViewModel>()
+                .AddTransient<Uwp.ViewModels.Users.StarredReposViewModel>()
+                .BuildServiceProvider();
+        }
+
+        private static Serilog.ILogger GetSerilogLogger()
+        {
+            string logFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "FluentHub.Logs/Log.log");
+
+            var logger = new Serilog.LoggerConfiguration()
+                .MinimumLevel
+#if DEBUG
+                .Verbose()
+#else
+                .Error()
+#endif
+                .WriteTo
+                .File(logFilePath, rollingInterval: Serilog.RollingInterval.Day)
+                .CreateLogger();
+
+            return logger;
+        }
+
+        private static async Task EnsureSettingsAndConfigurationAreBootstrapped()
+        {
+            Settings ??= new SettingsViewModel();
+        }
+
+        private static async Task StartAppCenter()
+        {
+            //try
+            //{
+            //    if (!AppCenter.Configured)
+            //    {
+            //        var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri(@"ms-appx:///Resources/AppCenterKey.txt"));
+            //        var lines = await FileIO.ReadTextAsync(file);
+            //        using var document = System.Text.Json.JsonDocument.Parse(lines);
+            //        var obj = document.RootElement;
+            //        AppCenter.Start(obj.GetProperty("key").GetString(), typeof(Analytics), typeof(Crashes));
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    Logger.Warn(ex, "AppCenter could not be started.");
+            //}
+        }
+
+        protected override async void OnLaunched(LaunchActivatedEventArgs e)
+        {
             var mainInstance = Microsoft.Windows.AppLifecycle.AppInstance.FindOrRegisterForKey("main");
             var activatedEventArgs = Microsoft.Windows.AppLifecycle.AppInstance.GetCurrent().GetActivatedEventArgs();
 
-            // If the instance that's executing the OnLaunched handler right now
-            // isn't the "main" instance.
             if (!mainInstance.IsCurrent)
             {
                 // Redirect the activation (and args) to the "main" instance, and exit.
@@ -79,12 +175,7 @@ namespace FluentHub
                 return;
             }
 
-            // TODO This code handles app activation types. Add any other activation kinds you want to handle.
-            // Read: https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/migrate-to-windows-app-sdk/guides/applifecycle#file-type-association
-            if (activatedEventArgs.Kind == ExtendedActivationKind.File)
-            {
-                OnFileActivated(activatedEventArgs);
-            }
+            await EnsureSettingsAndConfigurationAreBootstrapped();
 
             // Initialize MainWindow here
             EnsureWindowIsInitialized();
@@ -98,12 +189,6 @@ namespace FluentHub
             WindowHandle = WinRT.Interop.WindowNative.GetWindowHandle(Window);
         }
 
-        // TODO This is an example method for the case when app is activated through a file.
-        // Feel free to remove this if you do not need this.
-        public void OnFileActivated(AppActivationArguments activatedEventArgs)
-        {
-        }
-
         void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
             => throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
 
@@ -114,12 +199,9 @@ namespace FluentHub
             deferral.Complete();
         }
 
-        // Occurs when an exception is not handled on the UI thread.
         private static void OnUnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
             => AppUnhandledException(e.Exception);
 
-        // Occurs when an exception is not handled on a background thread.
-        // i.e. A task is fired and forgotten Task.Run(() => {...})
         private static void OnUnobservedException(object sender, UnobservedTaskExceptionEventArgs e)
             => AppUnhandledException(e.Exception);
 
@@ -136,12 +218,21 @@ namespace FluentHub
             return (TEnum)Enum.Parse(typeof(TEnum), text);
         }
 
-        public static async void CloseApp()
+        public static void CloseApp()
+            => Window.Close();
+
+        public static AppWindow GetAppWindow(Window w)
         {
-            if (!await ApplicationView.GetForCurrentView().TryConsolidateAsync())
-            {
-                Current.Exit();
-            }
+            var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(w);
+
+            Microsoft.UI.WindowId windowId =
+                Microsoft.UI.Win32Interop.GetWindowIdFromWindow(hWnd);
+
+            return AppWindow.GetFromWindowId(windowId);
         }
+
+        public static MainWindow Window { get; private set; }
+
+        public static IntPtr WindowHandle { get; private set; }
     }
 }
