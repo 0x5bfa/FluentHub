@@ -1,4 +1,4 @@
-﻿using FluentHub.Octokit.Queries.Users;
+using FluentHub.Octokit.Queries.Users;
 using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.Models;
 

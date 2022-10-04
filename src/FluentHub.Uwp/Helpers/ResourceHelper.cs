@@ -1,6 +1,5 @@
-﻿using System;
 using Windows.ApplicationModel.Resources;
-using Windows.UI.Xaml.Markup;
+using Microsoft.UI.Xaml.Markup;
 
 namespace FluentHub.Uwp.Helpers
 {

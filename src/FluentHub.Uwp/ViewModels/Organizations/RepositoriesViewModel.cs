@@ -1,4 +1,4 @@
-﻿using FluentHub.Octokit.Queries.Organizations;
+using FluentHub.Octokit.Queries.Organizations;
 using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
@@ -7,9 +7,9 @@ using FluentHub.Uwp.ViewModels.UserControls.Overview;
 using FluentHub.Uwp.ViewModels.UserControls.BlockButtons;
 using FluentHub.Uwp.Utils;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Toolkit.Uwp;
+using CommunityToolkit.Uwp;
 using System.Text.RegularExpressions;
-using Windows.UI.Xaml.Media.Imaging;
+using Microsoft.UI.Xaml.Media.Imaging;
 using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.ViewModels.Organizations

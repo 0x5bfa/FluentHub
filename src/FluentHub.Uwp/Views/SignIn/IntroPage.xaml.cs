@@ -1,10 +1,10 @@
-﻿using FluentHub.Uwp.Services;
+using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.SignIn;
 using Microsoft.Extensions.DependencyInjection;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Imaging;
-using Windows.UI.Xaml.Navigation;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media.Imaging;
+using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.Uwp.Views.SignIn
 {
@@ -21,6 +21,6 @@ namespace FluentHub.Uwp.Views.SignIn
         public IntroViewModel ViewModel { get; }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
-            => Window.Current.SetTitleBar(AppTitleBar);
+            => App.Window.SetTitleBar(AppTitleBar);
     }
 }

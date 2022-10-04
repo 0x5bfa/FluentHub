@@ -1,7 +1,7 @@
-﻿using FluentHub.Uwp.Helpers;
+using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.UserControls.Labels;
-using Windows.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.ViewModels.UserControls
 {

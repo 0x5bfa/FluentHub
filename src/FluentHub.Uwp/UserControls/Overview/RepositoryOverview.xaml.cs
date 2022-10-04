@@ -1,11 +1,9 @@
-﻿using FluentHub.Uwp.Services;
+using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.UserControls.Overview;
 using Microsoft.Extensions.DependencyInjection;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Animation;
-using FluentHub.Uwp.Helpers;
-using muxc = Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.UserControls.Overview
 {

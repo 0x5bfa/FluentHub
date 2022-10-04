@@ -1,10 +1,4 @@
-﻿using Microsoft.Toolkit.Uwp;
-using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FluentHub.Uwp.Models
 {
@@ -25,7 +19,7 @@ namespace FluentHub.Uwp.Models
             else
             {
                 ID = string.Empty;
-                var systemDefaultLanguageOptionStr = "WndowsDefault".GetLocalized();
+                var systemDefaultLanguageOptionStr = "WndowsDefault".();
                 Name = string.IsNullOrEmpty(systemDefaultLanguageOptionStr) ? "Windows Default" : systemDefaultLanguageOptionStr;
             }
         }

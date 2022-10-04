@@ -1,4 +1,4 @@
-﻿namespace FluentHub.Uwp.Utils
+namespace FluentHub.Uwp.Utils
 {
     public enum UrlPageType
     {

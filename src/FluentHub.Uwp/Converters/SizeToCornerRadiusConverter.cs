@@ -1,12 +1,10 @@
-﻿using System;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Data;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Data;
 
 namespace FluentHub.Uwp.Converters
 {
     public class SizeToCornerRadiusConverter : IValueConverter
     {
-        
         public object Convert(object value, Type targetType, object parameter, string language)
         {
             bool isSquare = false;

@@ -1,5 +1,4 @@
-﻿using System;
-using Windows.UI.Xaml.Media.Animation;
+using Microsoft.UI.Xaml.Media.Animation;
 
 namespace FluentHub.Uwp.Services.Navigation
 {

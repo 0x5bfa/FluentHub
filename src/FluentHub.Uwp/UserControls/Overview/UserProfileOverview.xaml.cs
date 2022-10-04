@@ -1,9 +1,9 @@
-﻿using FluentHub.Uwp.Services;
+using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.UserControls.Overview;
 using Microsoft.Extensions.DependencyInjection;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using muxc = Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.UserControls.Overview
 {
@@ -42,18 +42,18 @@ namespace FluentHub.Uwp.UserControls.Overview
             var defaultItem
                 = UserProfileNavView
                 .MenuItems
-                .OfType<muxc.NavigationViewItem>()
+                .OfType<NavigationViewItem>()
                 .FirstOrDefault();
 
             UserProfileNavView.SelectedItem
                 = UserProfileNavView
                 .MenuItems
-                .OfType<muxc.NavigationViewItem>()
+                .OfType<NavigationViewItem>()
                 .FirstOrDefault(x => string.Compare(x.Tag.ToString(), tag?.ToString(), true) == 0)
                 ?? defaultItem;
         }
 
-        private void OnUserNavViewItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
+        private void OnUserNavViewItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
             switch (args.InvokedItemContainer.Tag.ToString().ToLower())
             {

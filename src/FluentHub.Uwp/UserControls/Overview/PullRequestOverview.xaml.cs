@@ -1,10 +1,9 @@
-﻿using FluentHub.Uwp.Services;
+using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.UserControls.Overview;
 using Microsoft.Extensions.DependencyInjection;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Animation;
-using muxc = Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.UserControls.Overview
 {
@@ -35,7 +34,7 @@ namespace FluentHub.Uwp.UserControls.Overview
             InitializeComponent();
         }
 
-        private void OnPullRequestNavViewItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
+        private void OnPullRequestNavViewItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
             var service = App.Current.Services.GetRequiredService<INavigationService>();
 
@@ -82,13 +81,13 @@ namespace FluentHub.Uwp.UserControls.Overview
             var defaultItem
                 = PullRequestNavView
                 .MenuItems
-                .OfType<muxc.NavigationViewItem>()
+                .OfType<NavigationViewItem>()
                 .FirstOrDefault();
 
             PullRequestNavView.SelectedItem
                 = PullRequestNavView
                 .MenuItems
-                .OfType<muxc.NavigationViewItem>()
+                .OfType<NavigationViewItem>()
                 .FirstOrDefault(x => string.Compare(x.Tag.ToString(), tag?.ToString(), true) == 0)
                 ?? defaultItem;
         }

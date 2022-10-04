@@ -1,7 +1,4 @@
-﻿using FluentHub.Uwp.Extensions;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
+using FluentHub.Uwp.Extensions;
 using Windows.UI.StartScreen;
 
 namespace FluentHub.Uwp.Helpers

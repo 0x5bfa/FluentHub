@@ -1,4 +1,4 @@
-﻿using FluentHub.Octokit.Authorization;
+using FluentHub.Octokit.Authorization;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
 using Windows.System;

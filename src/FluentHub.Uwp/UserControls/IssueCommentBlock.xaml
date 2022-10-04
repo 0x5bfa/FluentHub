@@ -99,7 +99,7 @@
 
         <MenuFlyoutSeparator Grid.Row="1" />
 
-        <WebView
+        <WebView2
             x:Name="CommentWebView"
             Grid.Row="2"
             Height="Auto"

@@ -9,11 +9,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Windows.ApplicationModel.Core;
 using Windows.System;
 using Windows.UI.Core;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Navigation;
 using muxc = Microsoft.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Input;
 
 namespace FluentHub.Uwp.Views
 {
@@ -39,15 +39,22 @@ namespace FluentHub.Uwp.Views
         private void SubscribeEvents()
         {
             var titleBar = CoreApplication.GetCurrentView().TitleBar;
-            SystemNavigationManager.GetForCurrentView().BackRequested += OnAppBackRequested;
-            Window.Current.CoreWindow.PointerPressed += OnWindowPointerPressed;
+
+            /*
+              
+            TODO UA307 Default back button in the title bar does not exist in WinUI3 apps.
+            The tool has generated a custom back button in the MainWindow.xaml.cs file.
+            Feel free to edit its position, behavior and use the custom back button instead.
+            Read: https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/migrate-to-windows-app-sdk/case-study-1#restoring-back-button-functionality
+            */SystemNavigationManager.GetForCurrentView().BackRequested += OnAppBackRequested;
+            App.Window.CoreWindow.PointerPressed += OnWindowPointerPressed;
         }
 
         private void UnsubscribeEvents()
         {
             var titleBar = CoreApplication.GetCurrentView().TitleBar;
             SystemNavigationManager.GetForCurrentView().BackRequested -= OnAppBackRequested;
-            Window.Current.CoreWindow.PointerPressed -= OnWindowPointerPressed;
+            App.Window.CoreWindow.PointerPressed -= OnWindowPointerPressed;
         }
 
         private muxc.InfoBarSeverity UserNotificationToInfoBarSeverity(UserNotificationType type)
@@ -221,7 +228,7 @@ namespace FluentHub.Uwp.Views
         }
 
         private void OnDragAreaLoaded(object sender, RoutedEventArgs e)
-            => Window.Current.SetTitleBar(DragArea);
+            => App.Window.SetTitleBar(DragArea);
 
         private void OnTabViewSelectionChanged(object sender, TabViewSelectionChangedEventArgs e)
             => RootFrameBorder.Child = e.NewSelectedItem?.Frame;
@@ -298,7 +305,7 @@ namespace FluentHub.Uwp.Views
                     navService.Navigate<AppSettings.AppearancePage>();
                     break;
                 case "SignOut":
-                    Frame rootFrame = (Frame)Window.Current.Content;
+                    Frame rootFrame = (Frame)App.Window.Content;
                     rootFrame.Navigate(typeof(SignIn.IntroPage));
                     break;
             }

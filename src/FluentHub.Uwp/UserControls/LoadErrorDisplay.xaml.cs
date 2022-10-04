@@ -1,4 +1,4 @@
-﻿using FluentHub.Uwp.Helpers;
+using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
 using FluentHub.Uwp.Utils;
@@ -7,10 +7,10 @@ using System.IO;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.System;
 using Windows.Storage;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.Uwp.UserControls
 {

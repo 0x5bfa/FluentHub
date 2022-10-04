@@ -1,6 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-
 namespace FluentHub.Uwp.Extensions
 {
     public static class IEnumerableExt

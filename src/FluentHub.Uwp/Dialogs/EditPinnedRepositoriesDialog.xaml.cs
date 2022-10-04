@@ -1,10 +1,8 @@
-﻿using FluentHub.Uwp.Services;
+using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.Dialogs;
 using Microsoft.Extensions.DependencyInjection;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Imaging;
-using Windows.UI.Xaml.Navigation;
-using muxc = Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.Dialogs
 {
@@ -27,7 +25,7 @@ namespace FluentHub.Uwp.Dialogs
         {
         }
 
-        private async void OnEditPinnedRepositoriesDialogLoaded(object sender, Windows.UI.Xaml.RoutedEventArgs e)
+        private async void OnEditPinnedRepositoriesDialogLoaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
             await ViewModel.LoadPinnableAndPinnedRepositories();
         }

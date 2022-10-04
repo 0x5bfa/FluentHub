@@ -1,12 +1,12 @@
-﻿using ColorCode;
+using ColorCode;
 using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.ViewModels.Repositories;
 using System.IO;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Documents;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Documents;
 
 namespace FluentHub.Uwp.ViewModels.UserControls
 {

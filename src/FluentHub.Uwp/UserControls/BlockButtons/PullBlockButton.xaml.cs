@@ -1,10 +1,9 @@
-﻿using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.UserControls.BlockButtons;
-using FluentHub.Uwp.Views.Repositories;
 using Microsoft.Extensions.DependencyInjection;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.UserControls.BlockButtons
 {
@@ -30,7 +29,8 @@ namespace FluentHub.Uwp.UserControls.BlockButtons
         }
         #endregion
 
-        public PullBlockButton() => InitializeComponent();
+        public PullBlockButton()
+            => InitializeComponent();
 
         private void OnClick(object sender, RoutedEventArgs e)
         {

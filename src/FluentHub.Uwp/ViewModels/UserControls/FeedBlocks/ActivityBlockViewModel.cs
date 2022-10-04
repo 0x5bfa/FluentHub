@@ -1,4 +1,4 @@
-﻿using FluentHub.Uwp.Utils;
+using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.ViewModels.UserControls.BlockButtons;
 

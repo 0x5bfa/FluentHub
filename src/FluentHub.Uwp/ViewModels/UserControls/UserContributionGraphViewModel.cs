@@ -1,9 +1,9 @@
-﻿using FluentHub.Octokit.Queries.Users;
+using FluentHub.Octokit.Queries.Users;
 using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Media;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Media;
 
 namespace FluentHub.Uwp.ViewModels.UserControls
 {

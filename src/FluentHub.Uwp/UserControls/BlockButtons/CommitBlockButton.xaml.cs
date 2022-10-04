@@ -1,9 +1,9 @@
-﻿using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.UserControls.BlockButtons;
 using Microsoft.Extensions.DependencyInjection;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.UserControls.BlockButtons
 {
@@ -24,7 +24,8 @@ namespace FluentHub.Uwp.UserControls.BlockButtons
         }
         #endregion
 
-        public CommitBlockButton() => InitializeComponent();
+        public CommitBlockButton()
+            => InitializeComponent();
 
         private void CommitItemButton_Click(object sender, RoutedEventArgs e)
         {

@@ -1,4 +1,4 @@
-﻿namespace FluentHub.Uwp.Models
+namespace FluentHub.Uwp.Models
 {
     public class TaskStateMessaging
     {

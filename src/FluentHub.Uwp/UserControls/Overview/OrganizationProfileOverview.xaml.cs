@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
+using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.UserControls.Overview;
 using Microsoft.Extensions.DependencyInjection;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using muxc = Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
 
 namespace FluentHub.Uwp.UserControls.Overview
 {
@@ -47,18 +43,18 @@ namespace FluentHub.Uwp.UserControls.Overview
             var defaultItem
                 = OrgNavView
                 .MenuItems
-                .OfType<muxc.NavigationViewItem>()
+                .OfType<NavigationViewItem>()
                 .FirstOrDefault();
 
             OrgNavView.SelectedItem
                 = OrgNavView
                 .MenuItems
-                .OfType<muxc.NavigationViewItem>()
+                .OfType<NavigationViewItem>()
                 .FirstOrDefault(x => string.Compare(x.Tag.ToString(), tag?.ToString(), true) == 0)
                 ?? defaultItem;
         }
 
-        private void OnOrgNavViewItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
+        private void OnOrgNavViewItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
             switch (args.InvokedItemContainer.Tag.ToString().ToLower())
             {
@@ -79,7 +75,7 @@ namespace FluentHub.Uwp.UserControls.Overview
             }
         }
 
-        private void OnVerifiedLabelTapped(object sender, Windows.UI.Xaml.Input.TappedRoutedEventArgs e)
-         => FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
+        private void OnVerifiedLabelTapped(object sender, Microsoft.UI.Xaml.Input.TappedRoutedEventArgs e)
+            => FlyoutBase.ShowAttachedFlyout((FrameworkElement)sender);
     }
 }

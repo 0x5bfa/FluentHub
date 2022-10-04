@@ -1,11 +1,11 @@
-﻿using FluentHub.Uwp.Utils;
+using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.Services.Navigation;
 using FluentHub.Uwp.Utils;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Toolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 using System;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.Uwp.UserControls.TabViewControl
 {

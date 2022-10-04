@@ -1,4 +1,4 @@
-﻿using FluentHub.Octokit.Queries.Users;
+using FluentHub.Octokit.Queries.Users;
 using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
@@ -9,12 +9,12 @@ using FluentHub.Uwp.ViewModels.UserControls.Overview;
 using FluentHub.Uwp.Utils;
 using System.IO;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Toolkit.Uwp;
+using CommunityToolkit.Uwp;
 using Windows.ApplicationModel.DataTransfer;
 using Windows.Storage;
 using Windows.System;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Media.Imaging;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Media.Imaging;
 using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.ViewModels.AppSettings

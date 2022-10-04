@@ -1,12 +1,12 @@
-﻿#pragma warning disable IDE0045
+#pragma warning disable IDE0045
 using FluentHub.Uwp.Services.Navigation;
 using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using Windows.UI.ViewManagement;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media.Animation;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media.Animation;
 using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.UserControls.TabViewControl
@@ -69,7 +69,12 @@ namespace FluentHub.Uwp.UserControls.TabViewControl
         }
         private static void OnTitleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var view = ApplicationView.GetForCurrentView();
+            var view = 
+                /*
+                   TODO UA315_A Use Microsoft.UI.Windowing.AppWindow for window Management instead of ApplicationView/CoreWindow or Microsoft.UI.Windowing.AppWindow APIs
+                   Read: https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/migrate-to-windows-app-sdk/guides/windowing
+                */
+                ApplicationView.GetForCurrentView();
             view.Title = e.NewValue?.ToString() ?? "";
         }
 

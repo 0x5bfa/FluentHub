@@ -1,9 +1,9 @@
-﻿using FluentHub.Uwp.Helpers;
+using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Services;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Toolkit.Uwp;
+using CommunityToolkit.Uwp;
 
 namespace FluentHub.Uwp.ViewModels.UserControls.Overview
 {

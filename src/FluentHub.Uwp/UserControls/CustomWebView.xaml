@@ -10,7 +10,7 @@
     mc:Ignorable="d">
 
     <Grid>
-        <WebView
+        <WebView2
             x:Name="WebViewControl"
             Height="Auto"
             DefaultBackgroundColor="Transparent"

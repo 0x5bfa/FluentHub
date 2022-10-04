@@ -1,14 +1,9 @@
-﻿using FluentHub.Uwp.ViewModels.UserControls.FeedBlocks;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Navigation;
+using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Services;
+using FluentHub.Uwp.ViewModels.UserControls.FeedBlocks;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.UserControls.FeedBlocks
 {

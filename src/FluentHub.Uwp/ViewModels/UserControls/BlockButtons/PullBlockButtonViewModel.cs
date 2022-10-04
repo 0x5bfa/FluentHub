@@ -1,4 +1,4 @@
-﻿using FluentHub.Uwp.Helpers;
+using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.ViewModels.UserControls.Labels;

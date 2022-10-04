@@ -1,6 +1,5 @@
-﻿using FluentHub.Uwp.Utils;
-using Microsoft.Toolkit;
-using Microsoft.Toolkit.Uwp.Notifications;
+using FluentHub.Uwp.Utils;
+using CommunityToolkit.WinUI.Notifications;
 using System;
 using System.Globalization;
 using Windows.Data.Xml.Dom;
@@ -26,8 +25,8 @@ namespace FluentHub.Uwp.Services
                 var builder = new ToastContentBuilder()
                                            .SetToastScenario(ToastScenario.Default)
                                            .AddToastActivationInfo(activationArgs, ToastActivationType.Foreground)
-                                           .AddText(title.Truncate(50, true))
-                                           .AddText(text.Truncate(100, true));
+                                           .AddText(title.Truncate(50))
+                                           .AddText(text.Truncate(100));
 
                 /*builder.Content.Audio = new ToastAudio()
                 {

@@ -1,4 +1,4 @@
-﻿using FluentHub.Uwp.Utils;
+using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.Models;
 
 namespace FluentHub.Uwp.ViewModels.Dialogs

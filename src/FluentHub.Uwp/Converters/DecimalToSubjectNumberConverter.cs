@@ -1,7 +1,4 @@
-﻿using System;
-using Windows.UI;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Data;
 
 namespace FluentHub.Uwp.Converters
 {

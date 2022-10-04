@@ -1,13 +1,8 @@
-﻿using FluentHub.Uwp.Models;
-using Microsoft.Toolkit.Uwp;
-using System;
-using System.Collections.Generic;
+using FluentHub.Uwp.Models;
 using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
 using Windows.Storage;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Markup;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Markup;
 
 namespace FluentHub.Uwp.Helpers
 {

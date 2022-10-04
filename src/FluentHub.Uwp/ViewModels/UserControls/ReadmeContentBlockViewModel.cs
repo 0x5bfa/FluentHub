@@ -1,9 +1,9 @@
-﻿using FluentHub.Uwp.Helpers;
+using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
 using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.ViewModels.Repositories;
-using Windows.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.ViewModels.UserControls
 {

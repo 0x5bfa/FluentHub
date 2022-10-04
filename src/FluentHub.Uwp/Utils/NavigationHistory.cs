@@ -1,4 +1,4 @@
-﻿using FluentHub.Uwp.Services;
+using FluentHub.Uwp.Services;
 using Microsoft.Extensions.DependencyInjection;
 using muxc = Microsoft.UI.Xaml.Controls;
 

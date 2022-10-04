@@ -1,6 +1,5 @@
-﻿using Windows.Data.Xml.Dom;
+using Windows.Data.Xml.Dom;
 using Windows.Storage;
-using Windows.System;
 
 namespace FluentHub.Uwp.Services
 {

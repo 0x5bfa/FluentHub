@@ -1,9 +1,6 @@
-﻿using FluentHub.Uwp.ViewModels;
-using System;
 using Windows.Storage;
-using Windows.UI;
 using Windows.UI.ViewManagement;
-using Windows.UI.Xaml;
+using Microsoft.UI.Xaml;
 
 namespace FluentHub.Uwp.Helpers
 {
@@ -21,7 +18,7 @@ namespace FluentHub.Uwp.Helpers
         {
             get
             {
-                if (Window.Current.Content is FrameworkElement rootElement)
+                if (App.Window.Content is FrameworkElement rootElement)
                 {
                     if (rootElement.RequestedTheme != ElementTheme.Default)
                     {
@@ -40,7 +37,7 @@ namespace FluentHub.Uwp.Helpers
         {
             get
             {
-                if (Window.Current.Content is FrameworkElement rootElement)
+                if (App.Window.Content is FrameworkElement rootElement)
                 {
                     return rootElement.RequestedTheme;
                 }
@@ -49,7 +46,7 @@ namespace FluentHub.Uwp.Helpers
             }
             set
             {
-                if (Window.Current.Content is FrameworkElement rootElement)
+                if (App.Window.Content is FrameworkElement rootElement)
                 {
                     rootElement.RequestedTheme = value;
                 }
@@ -62,7 +59,7 @@ namespace FluentHub.Uwp.Helpers
         public static void Initialize()
         {
             // Save reference as this might be null when the user is in another app
-            CurrentApplicationWindow = Window.Current;
+            CurrentApplicationWindow = App.Window;
             string savedTheme = ApplicationData.Current.LocalSettings.Values[SelectedAppThemeKey]?.ToString();
 
             if (savedTheme != null)
@@ -80,8 +77,9 @@ namespace FluentHub.Uwp.Helpers
             // Make sure we have a reference to our window so we dispatch a UI change
             if (CurrentApplicationWindow != null)
             {
-                // Dispatch on UI thread so that we have a current appbar to access and change
-                CurrentApplicationWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, () =>
+/*
+                TODO UA306_A3: UWP CoreDispatcher : Windows.UI.Core.CoreDispatcher is no longer supported. Use DispatcherQueue instead. Read: https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/migrate-to-windows-app-sdk/guides/threading
+            */CurrentApplicationWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, () =>
                 {
                     UpdateSystemCaptionButtonColors();
                 });
@@ -98,7 +96,12 @@ namespace FluentHub.Uwp.Helpers
 
         public static void UpdateSystemCaptionButtonColors()
         {
-            ApplicationViewTitleBar titleBar = ApplicationView.GetForCurrentView().TitleBar;
+            ApplicationViewTitleBar titleBar = 
+                /*
+                   TODO UA315_A Use Microsoft.UI.Windowing.AppWindow for window Management instead of ApplicationView/CoreWindow or Microsoft.UI.Windowing.AppWindow APIs
+                   Read: https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/migrate-to-windows-app-sdk/guides/windowing
+                */
+                ApplicationView.GetForCurrentView().TitleBar;
 
             if (IsDarkTheme())
             {

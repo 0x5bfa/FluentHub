@@ -1,6 +1,5 @@
-﻿using System;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Data;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Data;
 
 namespace FluentHub.Uwp.Converters
 {
@@ -20,8 +19,8 @@ namespace FluentHub.Uwp.Converters
                     return v == Visibility.Visible ? Visibility.Collapsed : Visibility.Visible;
             }
 
-            // Check the property type, sometimes is IsEnabled/x:Load (return a bool), sometimes is Visibility (return Windows.UI.Xaml.Visibility)
-            // Using a converter, UIElement.Visibility disables the cast from bool to Windows.UI.Xaml.Visibility
+            // Check the property type, sometimes is IsEnabled/x:Load (return a bool), sometimes is Visibility (return Microsoft.UI.Xaml.Visibility)
+            // Using a converter, UIElement.Visibility disables the cast from bool to Microsoft.UI.Xaml.Visibility
             object trueValue;
             object falseValue;
 

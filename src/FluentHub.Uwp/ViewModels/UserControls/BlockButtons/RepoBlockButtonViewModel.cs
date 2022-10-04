@@ -1,4 +1,4 @@
-﻿using FluentHub.Uwp.Helpers;
+using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Services;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;

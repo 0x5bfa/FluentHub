@@ -1,9 +1,9 @@
-﻿using FluentHub.Uwp.Services;
+using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.UserControls.Overview;
 using Microsoft.Extensions.DependencyInjection;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using muxc = Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.UserControls.Overview
 {
@@ -43,18 +43,18 @@ namespace FluentHub.Uwp.UserControls.Overview
             var defaultItem
                 = SettingsNavView
                 .MenuItems
-                .OfType<muxc.NavigationViewItem>()
+                .OfType<NavigationViewItem>()
                 .FirstOrDefault();
 
             SettingsNavView.SelectedItem
                 = SettingsNavView
                 .MenuItems
-                .OfType<muxc.NavigationViewItem>()
+                .OfType<NavigationViewItem>()
                 .FirstOrDefault(x => string.Compare(x.Tag.ToString(), tag?.ToString(), true) == 0)
                 ?? defaultItem;
         }
 
-        private void OnSettingsNavViewItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
+        private void OnSettingsNavViewItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
             // Parameter (should not use)
             Models.FrameNavigationArgs parameter = new()

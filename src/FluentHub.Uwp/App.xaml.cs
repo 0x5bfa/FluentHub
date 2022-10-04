@@ -1,389 +1,89 @@
-﻿using FluentHub.Uwp.Helpers;
-using FluentHub.Uwp.Utils;
-using FluentHub.Octokit.Authorization;
-using FluentHub.Uwp.Services;
-using FluentHub.Uwp.Services.Navigation;
-using FluentHub.Uwp.ViewModels;
-using FluentHub.Uwp.Views;
-using FluentHub.Uwp.Views.SignIn;
-using Microsoft.Extensions.DependencyInjection;
-using Serilog;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
+using Microsoft.UI.Xaml.Data;
+using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Media;
+using Microsoft.UI.Xaml.Navigation;
+using Microsoft.UI.Xaml.Shapes;
+using Microsoft.Windows.AppLifecycle;
+using System;
+using System.Collections.Generic;
 using System.IO;
-using System.Reflection;
+using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.ApplicationModel.Core;
 using Windows.Foundation;
-using Windows.Storage;
-using Windows.UI;
-using Windows.UI.ViewManagement;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Navigation;
+using Windows.Foundation.Collections;
+using FluentHub.Uwp;
 
-namespace FluentHub.Uwp
+// To learn more about WinUI, the WinUI project structure,
+// and more about our project templates, see: http://aka.ms/winui-project-info.
+
+namespace FluentHub
 {
-    sealed partial class App : Application
+    /// <summary>
+    /// Provides application-specific behavior to supplement the default Application class.
+    /// </summary>
+    public partial class App : Application
     {
-        Frame rootFrame = Window.Current.Content as Frame;
-
-        public static SettingsViewModel Settings { get; set; } = new SettingsViewModel();
-
-        public static string AppVersion =
-            $"{Windows.ApplicationModel.Package.Current.Id.Version.Major}." +
-            $"{Windows.ApplicationModel.Package.Current.Id.Version.Minor}." +
-            $"{Windows.ApplicationModel.Package.Current.Id.Version.Build}." +
-            $"{Windows.ApplicationModel.Package.Current.Id.Version.Revision}";
-
-        public readonly static string DefaultGitHubDomain = "https://github.com";
-
+        /// <summary>
+        /// Initializes the singleton application object.  This is the first line of authored code
+        /// executed, and as such is the logical equivalent of main() or WinMain().
+        /// </summary>
         public App()
         {
-            InitializeComponent();
-
-            Suspending += OnSuspending;
-
-            UnhandledException += async (s, e) =>
-            {
-                Services.GetService<Utils.ILogger>()?.Fatal("Unhandled exception", e.Exception);
-
-                e.Handled = true;
-
-                try
-                {
-                    await new ContentDialog
-                    {
-                        Title = "Unhandled exception",
-                        Content = e.Message,
-                        CloseButtonText = "Close"
-                    }.ShowAsync();
-                }
-                catch { }
-            };
-
-            Serilog.Log.Logger = GetSerilogLogger();
-            Services = ConfigureServices();
+            this.InitializeComponent();
         }
 
         /// <summary>
-        /// Gets the current <see cref="App"/> instance in use
+        /// Invoked when the application is launched normally by the end user.  Other entry points
+        /// will be used such as when the application is launched to open a specific file.
         /// </summary>
-        public new static App Current => (App)Application.Current;
-
-        /// <summary>
-        /// Gets the <see cref="IServiceProvider"/> instance to resolve application services.
-        /// </summary>
-        public IServiceProvider Services { get; }
-
-        /// <summary>
-        /// Configures the services for the application.
-        /// </summary>
-        private static IServiceProvider ConfigureServices()
+        /// <param name="args">Details about the launch request and process.</param>
+        protected override async void OnLaunched(Microsoft.UI.Xaml.LaunchActivatedEventArgs e)
         {
-            return new ServiceCollection()
-                .AddSingleton<INavigationService, NavigationService>()
-                .AddSingleton<Utils.ILogger>(new SerilogWrapperLogger(Log.Logger))
-                .AddSingleton<ToastService>()
-                .AddSingleton<IMessenger>(StrongReferenceMessenger.Default)
-                // ViewModels
-                .AddSingleton<MainPageViewModel>()
-                .AddTransient<ViewModels.AppSettings.AboutViewModel>()
-                .AddTransient<ViewModels.AppSettings.Accounts.AccountViewModel>()
-                .AddTransient<ViewModels.AppSettings.Accounts.OtherUsersViewModel>()
-                .AddTransient<ViewModels.AppSettings.AppearanceViewModel>()
-                .AddTransient<ViewModels.Dialogs.AccountSwitchingDialogViewModel>()
-                .AddTransient<ViewModels.Dialogs.EditPinnedRepositoriesDialogViewModel>()
-                .AddTransient<ViewModels.Home.FeedsViewModel>()
-                .AddTransient<ViewModels.Home.NotificationsViewModel>()
-                .AddTransient<ViewModels.Home.UserHomeViewModel>()
-                .AddTransient<ViewModels.Organizations.OverviewViewModel>()
-                .AddTransient<ViewModels.Organizations.RepositoriesViewModel>()
-                .AddTransient<ViewModels.Repositories.Code.Layouts.DetailsLayoutViewModel>()
-                .AddTransient<ViewModels.Repositories.Code.Layouts.TreeLayoutViewModel>()
-                .AddTransient<ViewModels.Repositories.Commits.CommitsViewModel>()
-                .AddTransient<ViewModels.Repositories.Commits.CommitViewModel>()
-                .AddTransient<ViewModels.Repositories.Discussions.DiscussionsViewModel>()
-                .AddTransient<ViewModels.Repositories.Discussions.DiscussionViewModel>()
-                .AddTransient<ViewModels.Repositories.Issues.IssueViewModel>()
-                .AddTransient<ViewModels.Repositories.Issues.IssuesViewModel>()
-                .AddTransient<ViewModels.Repositories.Projects.ProjectsViewModel>()
-                .AddTransient<ViewModels.Repositories.Projects.ProjectViewModel>()
-                .AddTransient<ViewModels.Repositories.PullRequests.ConversationViewModel>()
-                .AddTransient<ViewModels.Repositories.PullRequests.CommitViewModel>()
-                .AddTransient<ViewModels.Repositories.PullRequests.CommitsViewModel>()
-                .AddTransient<ViewModels.Repositories.PullRequests.FileChangesViewModel>()
-                .AddTransient<ViewModels.Repositories.PullRequests.PullRequestsViewModel>()
-                .AddTransient<ViewModels.Repositories.Releases.ReleasesViewModel>()
-                .AddTransient<ViewModels.Searches.CodeViewModel>()
-                .AddTransient<ViewModels.Searches.IssuesViewModel>()
-                .AddTransient<ViewModels.Searches.RepositoriesViewModel>()
-                .AddTransient<ViewModels.Searches.UsersViewModel>()
-                .AddTransient<ViewModels.SignIn.IntroViewModel>()
-                .AddTransient<ViewModels.UserControls.FileContentBlockViewModel>()
-                .AddTransient<ViewModels.UserControls.FileNavigationBlockViewModel>()
-                .AddTransient<ViewModels.UserControls.IssueCommentBlockViewModel>()
-                .AddTransient<ViewModels.UserControls.ReadmeContentBlockViewModel>()
-                .AddTransient<ViewModels.UserControls.LatestCommitBlockViewModel>()
-                .AddTransient<ViewModels.Users.ContributionsViewModel>()
-                .AddTransient<ViewModels.Users.DiscussionsViewModel>()
-                .AddTransient<ViewModels.Users.FollowersViewModel>()
-                .AddTransient<ViewModels.Users.FollowingViewModel>()
-                .AddTransient<ViewModels.Users.IssuesViewModel>()
-                .AddTransient<ViewModels.Users.OrganizationsViewModel>()
-                .AddTransient<ViewModels.Users.OverviewViewModel>()
-                .AddTransient<ViewModels.Users.PackagesViewModel>()
-                .AddTransient<ViewModels.Users.ProjectsViewModel>()
-                .AddTransient<ViewModels.Users.PullRequestsViewModel>()
-                .AddTransient<ViewModels.Users.RepositoriesViewModel>()
-                .AddTransient<ViewModels.Users.StarredReposViewModel>()
-                .BuildServiceProvider();
-        }
+            // TODO This code defaults the app to a single instance app. If you need multi instance app, remove this part.
+            // Read: https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/migrate-to-windows-app-sdk/guides/applifecycle#single-instancing-in-applicationonlaunched
+            // If this is the first instance launched, then register it as the "main" instance.
+            // If this isn't the first instance launched, then "main" will already be registered,
+            // so retrieve it.
+            var mainInstance = Microsoft.Windows.AppLifecycle.AppInstance.FindOrRegisterForKey("main");
+            var activatedEventArgs = Microsoft.Windows.AppLifecycle.AppInstance.GetCurrent().GetActivatedEventArgs();
 
-        private static Serilog.ILogger GetSerilogLogger()
-        {
-            string logFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "FluentHub.Logs/Log.log");
-
-            var logger = new Serilog.LoggerConfiguration()
-                .MinimumLevel
-#if DEBUG
-                .Verbose()
-#else
-                .Error()
-#endif
-                .WriteTo
-                .File(logFilePath, rollingInterval: Serilog.RollingInterval.Day)
-                .CreateLogger();
-
-            return logger;
-        }
-
-        private void Initialize(LaunchActivatedEventArgs args = null)
-        {
-            CoreApplication.GetCurrentView().TitleBar.ExtendViewIntoTitleBar = true;
-            ApplicationView.GetForCurrentView().TitleBar.ButtonBackgroundColor = Colors.Transparent;
-            ApplicationView.GetForCurrentView().TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-
-            if (rootFrame == null)
+            // If the instance that's executing the OnLaunched handler right now
+            // isn't the "main" instance.
+            if (!mainInstance.IsCurrent)
             {
-                rootFrame = new Frame();
-
-                rootFrame.NavigationFailed += OnNavigationFailed;
-
-                Window.Current.Content = rootFrame;
+                // Redirect the activation (and args) to the "main" instance, and exit.
+                await mainInstance.RedirectActivationToAsync(activatedEventArgs);
+                System.Diagnostics.Process.GetCurrentProcess().Kill();
+                return;
             }
 
-            if (args != null)
+            // TODO This code handles app activation types. Add any other activation kinds you want to handle.
+            // Read: https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/migrate-to-windows-app-sdk/guides/applifecycle#file-type-association
+            if (activatedEventArgs.Kind == ExtendedActivationKind.File)
             {
-                if (!args.PrelaunchActivated)
-                {
-                    CoreApplication.EnablePrelaunch(true);
-
-                    if (rootFrame.Content == null)
-                    {
-                        if (Settings.SetupCompleted == true)
-                        {
-                            InitializeOctokit.InitializeApiConnections(Settings.AccessToken);
-
-                            rootFrame.Navigate(typeof(MainPage));
-                        }
-                        else
-                        {
-                            Settings.SetupProgress = false;
-                            Settings.SetupCompleted = false;
-
-                            rootFrame.Navigate(typeof(IntroPage));
-                        }
-                    }
-                }
-            }
-            else if (rootFrame.Content == null)
-            {
-                if (Settings.SetupCompleted == true)
-                {
-                    InitializeOctokit.InitializeApiConnections(Settings.AccessToken);
-
-                    rootFrame.Navigate(typeof(MainPage));
-                }
-                else
-                {
-                    Settings.SetupProgress = false;
-                    Settings.SetupCompleted = false;
-
-                    rootFrame.Navigate(typeof(IntroPage));
-                }
+                OnFileActivated(activatedEventArgs);
             }
 
-            ThemeHelper.Initialize();
-            Window.Current.Activate();
-
-            var logger = Services.GetService<Utils.ILogger>();
-            logger?.Debug("App.Initialize() done");
+            // Initialize MainWindow here
+            Window = new MainWindow();
+            Window.Activate();
+            WindowHandle = WinRT.Interop.WindowNative.GetWindowHandle(Window);
         }
 
-        protected override async void OnLaunched(LaunchActivatedEventArgs args)
+        // TODO This is an example method for the case when app is activated through a file.
+        // Feel free to remove this if you do not need this.
+        public void OnFileActivated(AppActivationArguments activatedEventArgs)
         {
-            bool openInNewTab = false;
 
-            if (rootFrame is null)
-            {
-                openInNewTab = true;
-            }
-
-            Initialize(args);
-
-            if (!string.IsNullOrWhiteSpace(args.Arguments) && Uri.TryCreate(args.Arguments, UriKind.RelativeOrAbsolute, out var uri))
-            {
-                await HandleUriActivationAsync(uri, openInNewTab);
-            }
         }
 
-        protected async override void OnActivated(IActivatedEventArgs args)
-        {
-            Initialize();
+        public static MainWindow Window { get; private set; }
 
-            switch (args.Kind)
-            {
-                case ActivationKind.Protocol:
-                    var protocolArgs = (ProtocolActivatedEventArgs)args;
-                    await HandleUriActivationAsync(protocolArgs.Uri, true);
-                    break;
-            }
-        }
-
-        private async Task HandleUriActivationAsync(Uri uri, bool openInNewTab)
-        {
-            var logger = Services.GetService<Utils.ILogger>();
-            logger?.Debug("App.HandleUriActivationAsync(): {uri}", uri);
-
-            Type page = null;
-            object param = null;
-            switch (uri.Authority.ToLower())
-            {
-                case "profile":
-                    page = typeof(Views.Users.OverviewPage);
-                    break;
-                case "notifications":
-                    page = typeof(Views.Home.NotificationsPage);
-                    break;
-                case "activities":
-                    page = typeof(Views.Home.ActivitiesPage);
-                    break;
-                case "issues":
-                    page = typeof(Views.Repositories.Issues.IssuesPage);
-                    break;
-                case "pullrequests":
-                    page = typeof(Views.Repositories.PullRequests.PullRequestsPage);
-                    break;
-                case "discussions":
-                    page = typeof(Views.Repositories.Discussions.DiscussionsPage);
-                    break;
-                case "repositories":
-                    page = App.Settings.UseDetailsView ?
-                        typeof(Views.Repositories.Code.Layouts.DetailsLayoutView) :
-                        typeof(Views.Repositories.Code.Layouts.TreeLayoutView);
-                    break;
-                case "organizations":
-                    page = typeof(Views.Organizations.OverviewPage);
-                    break;
-                case "stars":
-                    page = typeof(Views.Users.StarredReposPage);
-                    param = uri.AbsoluteUri;
-                    break;
-                //case "settings":
-                //    page = typeof(Views.AppSettings.MainSettingsPage);
-                //    param = uri.AbsoluteUri;
-                //    break;
-                case "reset":
-                    page = typeof(Views.SignIn.IntroPage);
-                    //  This code should work, but throws a 'Use of unassigned variable 'rootFrame'' error.
-                    //  Frame rootFrame = (Frame)Window.Current.Content;
-                    //  rootFrame.Navigate(typeof(SignIn.IntroPage));
-                    param = uri.AbsoluteUri;
-                    break;
-                    // The UI of this feature is slightly broken, therefore
-                    // TODO: Fix logout protocol
-                case "auth" when uri.Query.Contains("code"): // fluenthub://auth?code=[code]
-                    var code = new WwwFormUrlDecoder(uri.Query).GetFirstValueByName("code");
-                    bool status;
-
-                    try
-                    {
-                        AuthorizationService authService = new();
-                        var accessToken = await authService.RequestOAuthTokenAsync(code);
-                        logger?.Info("FluentHub is authorized successfully.");
-
-                        // Set token and login to App Settings Container
-                        await SetAccountInfo(accessToken);
-
-                        status = true;
-                    }
-                    catch (Exception ex)
-                    {
-                        status = false;
-                        logger?.Info("FluentHub failed to authorize.", ex);
-                    }
-
-                    if (status)
-                    {
-                        Settings.SetupProgress = true;
-                        Settings.SetupCompleted = true;
-                        rootFrame.Navigate(typeof(MainPage));
-                    }
-
-                    return;
-            }
-
-            var ns = Services.GetRequiredService<INavigationService>();
-            if (ns.IsConfigured)
-            {
-                if (page != null)
-                {
-                    if (openInNewTab)
-                        ns.OpenTab(page, param);
-                    else
-                        ns.Navigate(page, param);
-                }
-            }
-        }
-
-        private async Task SetAccountInfo(string accessToken)
-        {
-            Settings.AccessToken = accessToken;
-
-            Octokit.Queries.Users.UserQueries queries = new();
-            string login = await queries.GetViewerLogin();
-            Settings.SignedInUserName = login;
-
-            AccountService.AddAccount(login);
-        }
-
-        void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
-        {
-            throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
-        }
-
-        private void OnSuspending(object sender, SuspendingEventArgs e)
-        {
-            var deferral = e.SuspendingOperation.GetDeferral();
-            //TODO: Save application state and stop any background activity
-            deferral.Complete();
-        }
-
-        public static TEnum GetEnum<TEnum>(string text) where TEnum : struct
-        {
-            if (!typeof(TEnum).GetTypeInfo().IsEnum)
-            {
-                throw new InvalidOperationException("Generic parameter 'TEnum' must be an enum.");
-            }
-            return (TEnum)Enum.Parse(typeof(TEnum), text);
-        }
-
-        public static async void CloseApp()
-        {
-            if (!await ApplicationView.GetForCurrentView().TryConsolidateAsync())
-            {
-                Current.Exit();
-            }
-        }
+        public static IntPtr WindowHandle { get; private set; }
     }
 }

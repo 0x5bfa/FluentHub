@@ -1,4 +1,4 @@
-﻿using Windows.UI.Xaml.Media.Imaging;
+using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace FluentHub.Uwp.Models
 {

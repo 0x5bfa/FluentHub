@@ -1,9 +1,8 @@
-﻿using FluentHub.Uwp.Services;
-using FluentHub.Uwp.Services.Navigation;
+using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.Dialogs;
 using Microsoft.Extensions.DependencyInjection;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.Dialogs
 {

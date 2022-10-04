@@ -1,45 +1,21 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-
-<Package
-  xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
-  xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
-  xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
-  xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
-  xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5"
-  IgnorableNamespaces="uap mp uap3 uap5">
-
-  <Identity
-    Name="FluentHubDev"
-    Publisher="CN=FluentHub"
-    Version="0.3.8.0" />
-
-  <mp:PhoneIdentity PhoneProductId="1a9b57c4-0e1f-4f62-9d7a-1bfb8e396b63" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
-
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5" IgnorableNamespaces="uap mp uap3 uap5">
+  <Identity Name="FluentHubDev" Publisher="CN=FluentHub" Version="0.3.8.0" />
   <Properties>
     <DisplayName>FluentHub - Dev</DisplayName>
     <PublisherDisplayName>Tomoyuki Terashita</PublisherDisplayName>
     <Logo>Assets\AppTilesDev\StoreLogo.png</Logo>
   </Properties>
-
   <Dependencies>
-    <TargetDeviceFamily Name="Windows.Universal" MinVersion="10.0.0.0" MaxVersionTested="10.0.0.0" />
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.0.0" MaxVersionTested="10.0.22000.0" />
   </Dependencies>
-
   <Resources>
-    <Resource Language="x-generate"/>
+    <Resource Language="x-generate" />
   </Resources>
-
   <Applications>
-    <Application Id="App"
-      Executable="$targetnametoken$.exe"
-      EntryPoint="FluentHub.Uwp.App">
-      <uap:VisualElements
-        DisplayName="FluentHub - Dev"
-        Square150x150Logo="Assets\AppTilesDev\Square150x150Logo.png"
-        Square44x44Logo="Assets\AppTilesDev\Square44x44Logo.png"
-        Description="A stylish yet powerful GitHub client"
-        BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\AppTilesDev\Wide310x150Logo.png" Square71x71Logo="Assets\AppTilesDev\SmallTile.png" Square310x310Logo="Assets\AppTilesDev\LargeTile.png"/>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="$targetentrypoint$">
+      <uap:VisualElements DisplayName="FluentHub - Dev" Square150x150Logo="Assets\AppTilesDev\Square150x150Logo.png" Square44x44Logo="Assets\AppTilesDev\Square44x44Logo.png" Description="A stylish yet powerful GitHub client" BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Assets\AppTilesDev\Wide310x150Logo.png" Square71x71Logo="Assets\AppTilesDev\SmallTile.png" Square310x310Logo="Assets\AppTilesDev\LargeTile.png" />
         <uap:SplashScreen uap5:Optional="true" Image="Assets\AppTilesDev\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
@@ -58,7 +34,6 @@
       </Extensions>
     </Application>
   </Applications>
-
   <Capabilities>
     <Capability Name="internetClient" />
   </Capabilities>
