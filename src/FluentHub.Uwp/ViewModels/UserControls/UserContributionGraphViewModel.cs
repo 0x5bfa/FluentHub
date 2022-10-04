@@ -74,7 +74,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls
 
         public string GetProperColor(ContributionLevel level)
         {
-            if (ThemeHelper.ActualTheme.ToString().ToLower() == "light")
+            if (ThemeHelpers.ActualTheme.ToString().ToLower() == "light")
             {
                 return level switch
                 {

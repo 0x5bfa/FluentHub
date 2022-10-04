@@ -19,7 +19,7 @@ namespace FluentHub.Uwp.Utils
         ~NavigationHistory() => System.Diagnostics.Debug.WriteLine("~NavigationHistory");
 #endif
 
-        #region fields
+        #region Fields and Properties
         private bool _canGoBack;
         public bool CanGoBack { get => _canGoBack; private set => SetProperty(ref _canGoBack, value); }
 
@@ -86,7 +86,8 @@ namespace FluentHub.Uwp.Utils
 
         public void NavigateTo(T item, int index)
         {
-            if (index >= 0 && index <= _items.Count) // valid
+            // Valid
+            if (index >= 0 && index <= _items.Count)
             {
                 if (index == 0)
                     ClearHistory();
@@ -95,7 +96,9 @@ namespace FluentHub.Uwp.Utils
                 NavigateTo(item);
             }
             else
+            {
                 throw new ArgumentOutOfRangeException(nameof(index));
+            }
         }
 
         public void ClearHistory()

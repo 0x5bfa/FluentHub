@@ -40,7 +40,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls
                     ContextViewModel.Repository.Owner.Login,
                     ContextViewModel.Repository.Name,
                     ContextViewModel.BranchName,
-                    ThemeHelper.ActualTheme.ToString().ToLower()
+                    ThemeHelpers.ActualTheme.ToString().ToLower()
                     );
 
                 if (HtmlText == null) return;

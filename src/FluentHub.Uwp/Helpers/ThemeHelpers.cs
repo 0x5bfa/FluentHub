@@ -4,7 +4,7 @@ using Microsoft.UI.Xaml;
 
 namespace FluentHub.Uwp.Helpers
 {
-    public static class ThemeHelper
+    public static class ThemeHelpers
     {
         private const string SelectedAppThemeKey = "SelectedAppTheme";
         private static Window CurrentApplicationWindow;

@@ -84,7 +84,7 @@ namespace FluentHub.Uwp.UserControls
         private async void OnWebViewControlLoaded(object sender, RoutedEventArgs e)
         {
             Services.MarkdownApiHandler markdown = new();
-            string html = await markdown.GetHtmlAsync(Comment?.BodyHTML, Comment?.Url, Helpers.ThemeHelper.ActualTheme.ToString().ToLower());
+            string html = await markdown.GetHtmlAsync(Comment?.BodyHTML, Comment?.Url, Helpers.ThemeHelpers.ActualTheme.ToString().ToLower());
             WebViewControl.NavigateToString(html);
         }
     }

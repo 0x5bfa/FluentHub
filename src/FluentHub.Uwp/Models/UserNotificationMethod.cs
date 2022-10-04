@@ -1,5 +1,3 @@
-using System;
-
 namespace FluentHub.Uwp.Models
 {
     [Serializable]

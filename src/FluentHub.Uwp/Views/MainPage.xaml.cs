@@ -83,7 +83,7 @@ namespace FluentHub.Uwp.Views
                 command.Execute(null);
 
             // Configure Jumplist
-            await JumpListHelper.ConfigureDefaultJumpListAsync();
+            await JumpListHelpers.ConfigureDefaultJumpListAsync();
         }
 
         protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)

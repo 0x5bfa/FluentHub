@@ -1,3 +1,13 @@
+using FluentHub.Octokit.Authorization;
+using FluentHub.Uwp;
+using FluentHub.Uwp.Helpers;
+using FluentHub.Uwp.Utils;
+using FluentHub.Uwp.Services;
+using FluentHub.Uwp.Services.Navigation;
+using FluentHub.Uwp.ViewModels;
+using FluentHub.Uwp.Views;
+using FluentHub.Uwp.Views.SignIn;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Controls.Primitives;
@@ -5,18 +15,21 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
-using Microsoft.UI.Xaml.Shapes;
 using Microsoft.Windows.AppLifecycle;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
-using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
-using FluentHub.Uwp;
+using Windows.Storage;
+using Windows.UI;
+using Windows.UI.ViewManagement;
+using Microsoft.UI;
+using Windows.ApplicationModel.Core;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -28,13 +41,17 @@ namespace FluentHub
     /// </summary>
     public partial class App : Application
     {
+        public static MainWindow Window { get; private set; }
+
+        public static IntPtr WindowHandle { get; private set; }
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
         public App()
         {
-            this.InitializeComponent();
+            InitializeComponent();
         }
 
         /// <summary>
@@ -70,8 +87,14 @@ namespace FluentHub
             }
 
             // Initialize MainWindow here
+            EnsureWindowIsInitialized();
+        }
+
+        private void EnsureWindowIsInitialized()
+        {
             Window = new MainWindow();
-            Window.Activate();
+            //Window.Activated += Window_Activated;
+            //Window.Closed += Window_Closed;
             WindowHandle = WinRT.Interop.WindowNative.GetWindowHandle(Window);
         }
 
@@ -79,11 +102,46 @@ namespace FluentHub
         // Feel free to remove this if you do not need this.
         public void OnFileActivated(AppActivationArguments activatedEventArgs)
         {
-
         }
 
-        public static MainWindow Window { get; private set; }
+        void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
+            => throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
 
-        public static IntPtr WindowHandle { get; private set; }
+        private void OnSuspending(object sender, SuspendingEventArgs e)
+        {
+            var deferral = e.SuspendingOperation.GetDeferral();
+            //TODO: Save application state and stop any background activity
+            deferral.Complete();
+        }
+
+        // Occurs when an exception is not handled on the UI thread.
+        private static void OnUnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
+            => AppUnhandledException(e.Exception);
+
+        // Occurs when an exception is not handled on a background thread.
+        // i.e. A task is fired and forgotten Task.Run(() => {...})
+        private static void OnUnobservedException(object sender, UnobservedTaskExceptionEventArgs e)
+            => AppUnhandledException(e.Exception);
+
+        private static void AppUnhandledException(Exception ex)
+        {
+        }
+
+        public static TEnum GetEnum<TEnum>(string text) where TEnum : struct
+        {
+            if (!typeof(TEnum).GetType().IsEnum)
+            {
+                throw new InvalidOperationException("Generic parameter 'TEnum' must be an enum.");
+            }
+            return (TEnum)Enum.Parse(typeof(TEnum), text);
+        }
+
+        public static async void CloseApp()
+        {
+            if (!await ApplicationView.GetForCurrentView().TryConsolidateAsync())
+            {
+                Current.Exit();
+            }
+        }
     }
 }

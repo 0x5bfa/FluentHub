@@ -1,6 +1,6 @@
 using FluentHub.Uwp.Utils;
-using System.ComponentModel;
 using Microsoft.UI.Xaml.Controls;
+using System.ComponentModel;
 
 namespace FluentHub.Uwp.Services.Navigation
 {

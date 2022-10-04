@@ -112,17 +112,12 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="6.0.0" />
+    <PackageReference Include="WinUIEx" Version="1.8.0" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\lib\octokit.graphql.net\Octokit.GraphQL.Core\Octokit.GraphQL.Core.csproj" />
     <ProjectReference Include="..\FluentHub.Core\FluentHub.Core.csproj" />
     <ProjectReference Include="..\FluentHub.Octokit\FluentHub.Octokit.csproj" />
     <ProjectReference Include="..\..\lib\octokit.graphql.net\Octokit.GraphQL\Octokit.GraphQL.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Remove="App.xaml.old.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="App.xaml.old.cs" />
   </ItemGroup>
 </Project>

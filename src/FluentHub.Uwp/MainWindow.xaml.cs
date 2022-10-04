@@ -7,15 +7,18 @@ using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using Microsoft.Windows.AppLifecycle;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using WinRT.Interop;
+using WinUIEx;
 
 // To learn more about WinUI, the WinUI project structure,
 // and more about our project templates, see: http://aka.ms/winui-project-info.
@@ -25,129 +28,171 @@ namespace FluentHub.Uwp
     /// <summary>
     /// An empty window that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainWindow : Window
+    public sealed partial class MainWindow : WindowEx
     {
-        AppWindow m_AppWindow;
-
         public MainWindow()
         {
-            this.InitializeComponent();
+            InitializeComponent();
 
-            m_AppWindow = GetAppWindowForCurrentWindow();
+            PersistenceId = "FluentHubMainWindow";
 
-            // Check to see if customization is supported.
-            // Currently only supported on Windows 11.
-            if (AppWindowTitleBar.IsCustomizationSupported())
-            {
-                var titleBar = m_AppWindow.TitleBar;
-                titleBar.ExtendsContentIntoTitleBar = true;
-                AppTitleBar.Loaded += AppTitleBar_Loaded;
-                AppTitleBar.SizeChanged += AppTitleBar_SizeChanged;
-
-                BackButton.Click += OnBackClicked;
-                BackButton.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                // Title bar customization using these APIs is currently
-                // supported only on Windows 11. In other cases, hide
-                // the custom title bar element.
-                // AppTitleBar.Visibility = Visibility.Collapsed;
-                // TODO Show alternative UI for any functionality in
-                // the title bar, such as the back button, if used
-            }
+            EnsureEarlyWindow();
         }
 
-        public Button BackButton => AppTitleBarBackButton;
-
-        private void AppTitleBar_Loaded(object sender, RoutedEventArgs e)
+        private void EnsureEarlyWindow()
         {
-            SetTitleBar(AppTitleBar);
-            // TODO Raname MainPage in case your app Main Page has a different name
-            PageFrame.Navigate(typeof(MainPage));
-            if (AppWindowTitleBar.IsCustomizationSupported())
+            // Set title
+            AppWindow.Title = "Files";
+
+            // Set icon
+            AppWindow.SetIcon(Path.Combine(Windows.ApplicationModel.Package.Current.InstalledLocation.Path, "Assets/AppTiles/Dev/Logo.ico"));
+
+            // Extend title bar
+            AppWindow.TitleBar.ExtendsContentIntoTitleBar = true;
+
+            // Set window buttons background to transparent
+            AppWindow.TitleBar.ButtonBackgroundColor = Colors.Transparent;
+            AppWindow.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+
+            // Set min size
+            base.MinHeight = 328;
+            base.MinWidth = 516;
+        }
+
+        public async Task InitializeApplication(AppActivationArguments activatedEventArgs)
+        {
+            var rootFrame = EnsureWindowIsInitialized();
+
+            // WINUI3: port activation args from App.xaml.cs.old: OnActivated, OnFileActivated
+            switch (activatedEventArgs.Data)
             {
-                SetDragRegionForCustomTitleBar(m_AppWindow);
-            }
-        }
+                case ILaunchActivatedEventArgs launchArgs:
+                    if (rootFrame.Content == null)
+                    {
+                        // When the navigation stack isn't restored navigate to the first page,
+                        // configuring the new page by passing required information as a navigation
+                        // parameter
+                        rootFrame.Navigate(typeof(MainPage), launchArgs.Arguments, new SuppressNavigationTransitionInfo());
+                    }
+                    else
+                    {
+                        if (!(string.IsNullOrEmpty(launchArgs.Arguments) && MainPageViewModel.AppInstances.Count > 0))
+                        {
+                            await MainPageViewModel.AddNewTabByPathAsync(typeof(PaneHolderPage), launchArgs.Arguments);
+                        }
+                    }
+                    break;
 
-        private void OnBackClicked(object sender, RoutedEventArgs e)
-        {
-            if (PageFrame.CanGoBack)
+                case IProtocolActivatedEventArgs eventArgs:
+                    if (eventArgs.Uri.AbsoluteUri == "files-uwp:")
+                    {
+                        rootFrame.Navigate(typeof(MainPage), null, new SuppressNavigationTransitionInfo());
+                    }
+                    else
+                    {
+                        var parsedArgs = eventArgs.Uri.Query.TrimStart('?').Split('=');
+                        var unescapedValue = Uri.UnescapeDataString(parsedArgs[1]);
+                        var folder = (StorageFolder)await FilesystemTasks.Wrap(() => StorageFolder.GetFolderFromPathAsync(unescapedValue).AsTask());
+                        if (folder != null && !string.IsNullOrEmpty(folder.Path))
+                        {
+                            unescapedValue = folder.Path; // Convert short name to long name (#6190)
+                        }
+                        switch (parsedArgs[0])
+                        {
+                            case "tab":
+                                rootFrame.Navigate(typeof(MainPage), TabItemArguments.Deserialize(unescapedValue), new SuppressNavigationTransitionInfo());
+                                break;
+
+                            case "folder":
+                                rootFrame.Navigate(typeof(MainPage), unescapedValue, new SuppressNavigationTransitionInfo());
+                                break;
+
+                            case "cmd":
+                                var ppm = CommandLineParser.ParseUntrustedCommands(unescapedValue);
+                                if (ppm.IsEmpty())
+                                {
+                                    ppm = new ParsedCommands() { new ParsedCommand() { Type = ParsedCommandType.Unknown, Args = new() { "." } } };
+                                }
+                                await InitializeFromCmdLineArgs(rootFrame, ppm);
+                                break;
+                        }
+                    }
+                    break;
+
+                case ICommandLineActivatedEventArgs cmdLineArgs:
+                    var operation = cmdLineArgs.Operation;
+                    var cmdLineString = operation.Arguments;
+                    var activationPath = operation.CurrentDirectoryPath;
+
+                    var parsedCommands = CommandLineParser.ParseUntrustedCommands(cmdLineString);
+                    if (parsedCommands != null && parsedCommands.Count > 0)
+                    {
+                        await InitializeFromCmdLineArgs(rootFrame, parsedCommands, activationPath);
+                    }
+                    break;
+
+                case IToastNotificationActivatedEventArgs eventArgsForNotification:
+                    if (eventArgsForNotification.Argument == "report")
+                    {
+                        await Windows.System.Launcher.LaunchUriAsync(new Uri(Constants.GitHub.FeedbackUrl));
+                    }
+                    break;
+
+                case IStartupTaskActivatedEventArgs:
+                    break;
+
+                case IFileActivatedEventArgs fileArgs:
+                    var index = 0;
+                    if (rootFrame.Content == null)
+                    {
+                        // When the navigation stack isn't restored navigate to the first page,
+                        // configuring the new page by passing required information as a navigation
+                        // parameter
+                        rootFrame.Navigate(typeof(MainPage), fileArgs.Files.First().Path, new SuppressNavigationTransitionInfo());
+                        index = 1;
+                    }
+                    for (; index < fileArgs.Files.Count; index++)
+                    {
+                        await MainPageViewModel.AddNewTabByPathAsync(typeof(PaneHolderPage), fileArgs.Files[index].Path);
+                    }
+                    break;
+            }
+
+            if (rootFrame.Content == null)
             {
-                PageFrame.GoBack();
+                rootFrame.Navigate(typeof(MainPage), null, new SuppressNavigationTransitionInfo());
             }
+
+            ((Views.MainPage)rootFrame.Content).Loaded +=
+                (s, e) => DispatcherQueue.TryEnqueue(() => Activate());
         }
 
-        private void AppTitleBar_SizeChanged(object sender, SizeChangedEventArgs e)
+        private Frame EnsureWindowIsInitialized()
         {
-            if (AppWindowTitleBar.IsCustomizationSupported()
-                && m_AppWindow.TitleBar.ExtendsContentIntoTitleBar)
+            // Do not repeat app initialization when the Window already has content,
+            // just ensure that the window is active
+            if (!(App.Window.Content is Frame rootFrame))
             {
-                // Update drag region if the size of the title bar changes.
-                SetDragRegionForCustomTitleBar(m_AppWindow);
-            }
-        }
+                // Create a Frame to act as the navigation context and navigate to the first page
+                rootFrame = new Frame();
+                rootFrame.CacheSize = 1;
+                rootFrame.NavigationFailed += OnNavigationFailed;
 
-        private AppWindow GetAppWindowForCurrentWindow()
-        {
-            IntPtr hWnd = WindowNative.GetWindowHandle(this);
-            WindowId wndId = Microsoft.UI.Win32Interop.GetWindowIdFromWindow(hWnd);
-            return AppWindow.GetFromWindowId(wndId);
-        }
-
-        private void SetDragRegionForCustomTitleBar(AppWindow appWindow)
-        {
-            if (AppWindowTitleBar.IsCustomizationSupported()
-                && appWindow.TitleBar.ExtendsContentIntoTitleBar)
-            {
-                double scaleAdjustment = GetScaleAdjustment();
-
-                RightPaddingColumn.Width = new GridLength(appWindow.TitleBar.RightInset / scaleAdjustment);
-                LeftPaddingColumn.Width = new GridLength(appWindow.TitleBar.LeftInset / scaleAdjustment);
-
-                List<Windows.Graphics.RectInt32> dragRectsList = new();
-
-                Windows.Graphics.RectInt32 dragRectL;
-                dragRectL.X = (int)((LeftPaddingColumn.ActualWidth + IconColumn.ActualWidth) * scaleAdjustment);
-                dragRectL.Y = 0;
-                dragRectL.Height = (int)((AppTitleBar.ActualHeight) * scaleAdjustment);
-                dragRectL.Width = (int)((TitleColumn.ActualWidth
-                                        + DragColumn.ActualWidth) * scaleAdjustment);
-                dragRectsList.Add(dragRectL);
-
-                Windows.Graphics.RectInt32[] dragRects = dragRectsList.ToArray();
-                appWindow.TitleBar.SetDragRectangles(dragRects);
-            }
-        }
-
-        [DllImport("Shcore.dll", SetLastError = true)]
-        internal static extern int GetDpiForMonitor(IntPtr hmonitor, Monitor_DPI_Type dpiType, out uint dpiX, out uint dpiY);
-
-        internal enum Monitor_DPI_Type : int
-        {
-            MDT_Effective_DPI = 0,
-            MDT_Angular_DPI = 1,
-            MDT_Raw_DPI = 2,
-            MDT_Default = MDT_Effective_DPI
-        }
-
-        private double GetScaleAdjustment()
-        {
-            IntPtr hWnd = WindowNative.GetWindowHandle(this);
-            WindowId wndId = Win32Interop.GetWindowIdFromWindow(hWnd);
-            DisplayArea displayArea = DisplayArea.GetFromWindowId(wndId, DisplayAreaFallback.Primary);
-            IntPtr hMonitor = Win32Interop.GetMonitorFromDisplayId(displayArea.DisplayId);
-
-            // Get DPI.
-            int result = GetDpiForMonitor(hMonitor, Monitor_DPI_Type.MDT_Default, out uint dpiX, out uint _);
-            if (result != 0)
-            {
-                throw new Exception("Could not get DPI for monitor.");
+                // Place the frame in the current Window
+                App.Window.Content = rootFrame;
             }
 
-            uint scaleFactorPercent = (uint)(((long)dpiX * 100 + (96 >> 1)) / 96);
-            return scaleFactorPercent / 100.0;
+            return rootFrame;
+        }
+
+        /// <summary>
+        /// Invoked when Navigation to a certain page fails
+        /// </summary>
+        /// <param name="sender">The Frame which failed navigation</param>
+        /// <param name="e">Details about the navigation failure</param>
+        private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
+        {
+            throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
         }
     }
 }

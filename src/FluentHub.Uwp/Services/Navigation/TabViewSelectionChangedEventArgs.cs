@@ -8,19 +8,20 @@ namespace FluentHub.Uwp.Services.Navigation
         {
             NewSelectedItem = newSelectedItem;
         }
+
         public TabViewSelectionChangedEventArgs(ITabViewItem newSelectedItem, ITabViewItem oldSelectedItem)
         {
             NewSelectedItem = newSelectedItem;
             OldSelectedItem = oldSelectedItem;
         }
-        public TabViewSelectionChangedEventArgs(ITabViewItem newSelectedItem,
-                                                ITabViewItem oldSelectedItem,
-                                                NavigationTransitionInfo recommendedNavigationTransitionInfo)
+
+        public TabViewSelectionChangedEventArgs(ITabViewItem newSelectedItem, ITabViewItem oldSelectedItem, NavigationTransitionInfo recommendedNavigationTransitionInfo)
         {
             NewSelectedItem = newSelectedItem;
             OldSelectedItem = oldSelectedItem;
             RecommendedNavigationTransitionInfo = recommendedNavigationTransitionInfo;
         }
+
         public ITabViewItem NewSelectedItem { get; }
         public ITabViewItem OldSelectedItem { get; }
         public NavigationTransitionInfo RecommendedNavigationTransitionInfo { get; }

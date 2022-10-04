@@ -1,6 +1,5 @@
-using FluentHub.Uwp.Utils;
 using CommunityToolkit.WinUI.Notifications;
-using System;
+using FluentHub.Uwp.Utils;
 using System.Globalization;
 using Windows.Data.Xml.Dom;
 using Windows.UI.Notifications;
@@ -13,20 +12,15 @@ namespace FluentHub.Uwp.Services
 
         private readonly ILogger _logger;
 
-        public void ShowToastNotification(string title,
-                                          string text,
-                                          string activationArgs = "",
-                                          string appLogoOverrideImage = null,
-                                          string heroImage = null,
-                                          string inlineImage = null)
+        public void ShowToastNotification(string title, string text, string activationArgs = "", string appLogoOverrideImage = null, string heroImage = null, string inlineImage = null)
         {
             try
             {
                 var builder = new ToastContentBuilder()
-                                           .SetToastScenario(ToastScenario.Default)
-                                           .AddToastActivationInfo(activationArgs, ToastActivationType.Foreground)
-                                           .AddText(title.Truncate(50))
-                                           .AddText(text.Truncate(100));
+                    .SetToastScenario(ToastScenario.Default)
+                    .AddToastActivationInfo(activationArgs, ToastActivationType.Foreground)
+                    .AddText(title.Truncate(50))
+                    .AddText(text.Truncate(100));
 
                 /*builder.Content.Audio = new ToastAudio()
                 {
@@ -53,6 +47,7 @@ namespace FluentHub.Uwp.Services
         {
             XmlDocument badgeXml;
             string badgeGlyphValue;
+
             if (glyphType == BadgeGlyphType.Number)
             {
                 if (number is null)
@@ -87,13 +82,7 @@ namespace FluentHub.Uwp.Services
             return content.GetContent();
         }
 
-        public void ShowToastNotificationWithProgress(string tag,
-                                                       string group,
-                                                       string title,
-                                                       string progressTitle,
-                                                       string leftText,
-                                                       string rightText,
-                                                       double progress)
+        public void ShowToastNotificationWithProgress(string tag, string group, string title, string progressTitle, string leftText, string rightText, double progress)
         {
             // Define a tag (and optionally a group) to uniquely identify the notification, in order update the notification data later;
             //string tag = "weekly-playlist";
@@ -140,6 +129,7 @@ namespace FluentHub.Uwp.Services
                 // Values must be of type string
                 Data = new NotificationData()
             };
+
             toast.Data.Values["progress"] = progress.ToString(new CultureInfo("en-US"));
             toast.Data.Values["leftText"] = leftText;
             toast.Data.Values["rightText"] = rightText;
@@ -151,12 +141,7 @@ namespace FluentHub.Uwp.Services
             ToastNotificationManager.CreateToastNotifier().Show(toast);
         }
 
-        public void UpdateToastWithProgress(string tag,
-                                                   string group,
-                                                   string leftText,
-                                                   string rightText,
-                                                   double progress,
-                                                   uint sequenceNumber)
+        public void UpdateToastWithProgress(string tag, string group, string leftText, string rightText, double progress, uint sequenceNumber)
         {
             // Construct a NotificationData object;
             //string tag = "weekly-playlist";

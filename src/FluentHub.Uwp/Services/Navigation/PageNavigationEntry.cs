@@ -4,7 +4,9 @@ namespace FluentHub.Uwp.Services.Navigation
 {
     public class PageNavigationEntry : ObservableObject
     {
-        public PageNavigationEntry() { }
+        public PageNavigationEntry()
+        {
+        }
 
 #if DEBUG
         ~PageNavigationEntry() => System.Diagnostics.Debug.WriteLine("~PageNavigationEntry");

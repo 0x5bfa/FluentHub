@@ -1,6 +1,6 @@
 namespace FluentHub.Uwp.Helpers
 {
-    public static class FileTypeHelper
+    public static class FileTypeHelpers
     {
         public static string GetFileTypeStringId(string extension)
         {

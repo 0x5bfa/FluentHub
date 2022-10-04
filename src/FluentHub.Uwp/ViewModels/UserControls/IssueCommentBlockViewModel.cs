@@ -53,7 +53,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls
             if (authorAssociation != "None") AuthorAssociationLabel.Name = authorAssociation;
 
             MarkdownApiHandler markdown = new();
-            var html = await markdown.GetHtmlAsync(IssueComment?.BodyHTML, IssueComment?.Url, ThemeHelper.ActualTheme.ToString().ToLower());
+            var html = await markdown.GetHtmlAsync(IssueComment?.BodyHTML, IssueComment?.Url, ThemeHelpers.ActualTheme.ToString().ToLower());
             CommentWebView.NavigateToString(html);
             IsContentLoaded = true;
         }

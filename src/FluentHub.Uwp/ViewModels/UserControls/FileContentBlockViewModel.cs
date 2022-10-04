@@ -70,7 +70,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls
                 LineText = LineText.TrimEnd('\n');
 
                 textBlock.Blocks.Clear();
-                var formatter = new RichTextBlockFormatter(ThemeHelper.ActualTheme);
+                var formatter = new RichTextBlockFormatter(ThemeHelpers.ActualTheme);
 
                 string extension = Path.GetExtension(ContextViewModel.Path.Remove(0, 1));
                 if (string.IsNullOrEmpty(extension) is false)
@@ -78,7 +78,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls
                     extension = extension.TrimStart('.');
                 }
 
-                var fileType = FileTypeHelper.GetFileTypeStringId(extension);
+                var fileType = FileTypeHelpers.GetFileTypeStringId(extension);
 
                 if (string.IsNullOrEmpty(fileType) is false && string.IsNullOrEmpty(extension) is false)
                 {

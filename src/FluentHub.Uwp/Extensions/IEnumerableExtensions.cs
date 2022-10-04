@@ -1,6 +1,6 @@
 namespace FluentHub.Uwp.Extensions
 {
-    public static class IEnumerableExt
+    public static class IEnumerableExtensions
     {
         public static int IndexOf<T>(this IEnumerable<T> source, Func<T, bool> predicate)
         {

@@ -45,7 +45,7 @@ namespace FluentHub.Uwp.Views.Repositories.Releases
             string missedPath = "https://raw.githubusercontent.com/" + ViewModel.Repository.Owner.Login + "/" + ViewModel.Repository.Name + "/" + ViewModel.Repository.DefaultBranchRef.Name + "/";
 
             MarkdownApiHandler mdHandler = new();
-            var html = await mdHandler.GetHtmlAsync(ViewModel.LatestRelease.DescriptionHTML ?? "<span>No description</span>", missedPath, ThemeHelper.ActualTheme.ToString().ToLower());
+            var html = await mdHandler.GetHtmlAsync(ViewModel.LatestRelease.DescriptionHTML ?? "<span>No description</span>", missedPath, ThemeHelpers.ActualTheme.ToString().ToLower());
 
             LatestReleaseContentWebView.NavigateToString(html);
             await LatestReleaseContentWebView.HandleResize();

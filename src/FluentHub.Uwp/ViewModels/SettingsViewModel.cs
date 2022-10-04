@@ -1,16 +1,7 @@
 using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
-using CommunityToolkit.Uwp;
-using System;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Reflection;
 using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
-using System.Windows.Input;
-using Windows.ApplicationModel.AppService;
-using Windows.Foundation.Collections;
 using Windows.Globalization;
 using Windows.Storage;
 
@@ -112,7 +103,7 @@ namespace FluentHub.Uwp.ViewModels
 
         #endregion
 
-        #region ReadAndSave
+        #region Read and Save
 
         public TValue Get<TValue>(TValue defaultValue, [CallerMemberName] string propertyName = null)
         {

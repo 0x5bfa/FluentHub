@@ -1,11 +1,9 @@
-using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Services;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
-using CommunityToolkit.Uwp;
+using CommunityToolkit.WinUI.UI;
 using System.Windows.Input;
 using Windows.System;
-using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 
 namespace FluentHub.Uwp.ViewModels

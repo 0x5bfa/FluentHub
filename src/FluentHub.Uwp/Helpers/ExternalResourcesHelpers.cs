@@ -6,7 +6,7 @@ using Microsoft.UI.Xaml.Markup;
 
 namespace FluentHub.Uwp.Helpers
 {
-    public class ExternalResourcesHelper
+    public class ExternalResourcesHelpers
     {
         public List<CustomThemeItem> Themes = new List<CustomThemeItem>()
         {

@@ -3,7 +3,7 @@ using Windows.UI.StartScreen;
 
 namespace FluentHub.Uwp.Helpers
 {
-    public static class JumpListHelper
+    public static class JumpListHelpers
     {
         public static JumpListItem CreateJumpListItem(string args, string displayName, string logo, string description = "", string groupName = "")
         {

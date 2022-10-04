@@ -1,5 +1,4 @@
 using FluentHub.Uwp.Models;
-using System.Linq;
 
 namespace FluentHub.Uwp.Utils
 {

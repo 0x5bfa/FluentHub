@@ -22,7 +22,7 @@ namespace FluentHub.Uwp.ViewModels.AppSettings
         {
             _logger = logger;
 
-            _selectedThemeIndex = (int)Enum.Parse<ElementTheme>(ThemeHelper.RootTheme.ToString());
+            _selectedThemeIndex = (int)Enum.Parse<ElementTheme>(ThemeHelpers.RootTheme.ToString());
             _selectedLanguageIndex = App.Settings.DefaultLanguages.IndexOf(App.Settings.DefaultLanguage);
             _showRestartMessage = false;
 
@@ -59,8 +59,8 @@ namespace FluentHub.Uwp.ViewModels.AppSettings
             {
                 if (SetProperty(ref _selectedThemeIndex, value))
                 {
-                    ThemeHelper.RootTheme = (ElementTheme)value;
-                    _logger?.Info("Theme changed to {0}", ThemeHelper.RootTheme);
+                    ThemeHelpers.RootTheme = (ElementTheme)value;
+                    _logger?.Info("Theme changed to {0}", ThemeHelpers.RootTheme);
                 }
             }
         }

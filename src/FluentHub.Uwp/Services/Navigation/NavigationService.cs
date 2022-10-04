@@ -13,7 +13,7 @@ namespace FluentHub.Uwp.Services.Navigation
         #region Fields and Properties
         private readonly ILogger _logger;
 
-        public System.Type CurrentPage { get; set; }
+        public Type CurrentPage { get; set; }
         public ITabView TabView { get; private set; }
         public bool IsConfigured { get; private set; }
         #endregion
@@ -75,6 +75,7 @@ namespace FluentHub.Uwp.Services.Navigation
             {
                 throw new InvalidOperationException("No tab selected");
             }
+
             tab.Frame.GoBack();
         }
 
@@ -87,6 +88,7 @@ namespace FluentHub.Uwp.Services.Navigation
             {
                 throw new InvalidOperationException("No tab selected");
             }
+
             tab.Frame.GoForward();
         }
 
