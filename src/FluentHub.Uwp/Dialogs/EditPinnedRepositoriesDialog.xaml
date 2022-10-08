@@ -6,6 +6,7 @@
     xmlns:local="using:FluentHub.Uwp.Dialogs"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:FluentHub.Uwp.Models"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     Loaded="OnEditPinnedRepositoriesDialogLoaded"
     PrimaryButtonClick="OnPrimaryButtonClick"
     PrimaryButtonText="Save pins"
@@ -20,23 +21,28 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
+
         <TextBlock Style="{StaticResource SubtitleTextBlockStyle}" Text="Edit pinned items" />
+
         <TextBlock
             Grid.Row="1"
             Style="{StaticResource BodyTextBlockStyle}"
             Text="Select up to 6 public repositories you'd like to show to anyone." />
+
         <TextBlock
             Grid.Row="2"
             Margin="0,12,0,0"
             Foreground="{ThemeResource SystemFillColorCautionBrush}"
             Style="{StaticResource BodyTextBlockStyle}"
             Text="Currently, editing pinned items is not available." />
+
         <Grid
             Grid.Row="3"
             Height="300"
             Margin="-24,12,-24,0">
             <ScrollViewer Padding="12,0" VerticalScrollBarVisibility="Hidden">
                 <Grid>
+
                     <ListView
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Stretch"
@@ -69,6 +75,7 @@
                         </ListView.ItemTemplate>
 
                     </ListView>
+
                 </Grid>
             </ScrollViewer>
         </Grid>

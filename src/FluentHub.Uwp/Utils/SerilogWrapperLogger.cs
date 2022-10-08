@@ -1,6 +1,3 @@
-using FluentHub.Uwp.Utils;
-using System;
-
 namespace FluentHub.Uwp.Utils
 {
     public class SerilogWrapperLogger : ILogger

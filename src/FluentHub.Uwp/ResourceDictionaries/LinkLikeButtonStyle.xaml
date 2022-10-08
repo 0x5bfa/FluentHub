@@ -1,4 +1,5 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
     <Style
         x:Key="LinkLikeButtonStyle"
         BasedOn="{StaticResource DefaultButtonStyle}"
@@ -100,6 +101,7 @@
             </Setter.Value>
         </Setter>
     </Style>
+
     <Style
         x:Key="LinkLikeToggleButtonStyle"
         BasedOn="{StaticResource DefaultToggleButtonStyle}"
@@ -171,4 +173,5 @@
             </Setter.Value>
         </Setter>
     </Style>
+
 </ResourceDictionary>

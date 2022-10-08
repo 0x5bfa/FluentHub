@@ -1,9 +1,4 @@
-#pragma warning disable IDE0045
 using FluentHub.Uwp.Services.Navigation;
-using System;
-using System.Collections.ObjectModel;
-using System.Linq;
-using Windows.UI.ViewManagement;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
@@ -13,53 +8,57 @@ namespace FluentHub.Uwp.UserControls.TabViewControl
 {
     public sealed partial class CustomTabView : UserControl, ITabView
     {
-        #region constructor
-        public CustomTabView()
-        {
-            InitializeComponent();
-            InternalItemsList = new ObservableCollection<ITabViewItem>();
-            Items = new ReadOnlyObservableCollection<ITabViewItem>(InternalItemsList);
-        }
-        #endregion
-
-        #region fields
-        private ObservableCollection<ITabViewItem> InternalItemsList { get; }
-        private Type _page;
-        #endregion
-
-        #region properties
+        #region propdp
         public ITabViewItem SelectedItem
         {
             get => (ITabViewItem)GetValue(SelectedItemProperty);
             set => SetValue(SelectedItemProperty, value);
         }
+
         public static readonly DependencyProperty SelectedItemProperty =
-            DependencyProperty.Register("SelectedItem",
-                                        typeof(ITabViewItem),
-                                        typeof(CustomTabView),
-                                        new PropertyMetadata(null, OnSelectedItemChanged));
+            DependencyProperty.Register(
+                "SelectedItem",
+                typeof(ITabViewItem),
+                typeof(CustomTabView),
+                new PropertyMetadata(null, OnSelectedItemChanged));
 
         public int SelectedIndex
         {
             get => (int)GetValue(SelectedIndexProperty);
             set => SetValue(SelectedIndexProperty, value);
         }
+
         public static readonly DependencyProperty SelectedIndexProperty =
-            DependencyProperty.Register("SelectedIndex",
-                                        typeof(int),
-                                        typeof(CustomTabView),
-                                        new PropertyMetadata(-1));
+            DependencyProperty.Register(
+                "SelectedIndex",
+                typeof(int),
+                typeof(CustomTabView),
+                new PropertyMetadata(-1));
 
         public string Title
         {
             get => (string)GetValue(TitleProperty);
             set => SetValue(TitleProperty, value);
         }
+
         public static readonly DependencyProperty TitleProperty =
-            DependencyProperty.Register("Title",
-                                        typeof(string),
-                                        typeof(CustomTabView),
-                                        new PropertyMetadata(null, OnTitleChanged));
+            DependencyProperty.Register(
+                "Title",
+                typeof(string),
+                typeof(CustomTabView),
+                new PropertyMetadata(null, OnTitleChanged));
+        #endregion
+
+        public CustomTabView()
+        {
+            InitializeComponent();
+
+            InternalItemsList = new ObservableCollection<ITabViewItem>();
+            Items = new ReadOnlyObservableCollection<ITabViewItem>(InternalItemsList);
+        }
+
+        #region Fields and Properties
+        private Type _page;
 
         private static void OnSelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
@@ -67,17 +66,14 @@ namespace FluentHub.Uwp.UserControls.TabViewControl
             var oldItem = e.OldValue as ITabViewItem;
             ((CustomTabView)d).OnSelectionChanged(newItem, oldItem);
         }
+
         private static void OnTitleChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var view = 
-                /*
-                   TODO UA315_A Use Microsoft.UI.Windowing.AppWindow for window Management instead of ApplicationView/CoreWindow or Microsoft.UI.Windowing.AppWindow APIs
-                   Read: https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/migrate-to-windows-app-sdk/guides/windowing
-                */
-                ApplicationView.GetForCurrentView();
+            Microsoft.UI.Windowing.AppWindow view = App.GetAppWindow(App.Window);
             view.Title = e.NewValue?.ToString() ?? "";
         }
 
+        private ObservableCollection<ITabViewItem> InternalItemsList { get; }
         public ReadOnlyObservableCollection<ITabViewItem> Items { get; }
 
         public Type NewTabPage
@@ -90,28 +86,35 @@ namespace FluentHub.Uwp.UserControls.TabViewControl
                     : throw new ArgumentException("NewTabPage must be a subclass of Page");
             }
         }
+
+        public event EventHandler<TabViewSelectionChangedEventArgs> SelectionChanged;
         #endregion
 
-        #region public methods
+        #region Methods
         public ITabViewItem OpenTab(Type page = null, object parameter = null, bool setAsSelected = true)
         {
             ITabViewItem tab = new TabItem();
             InternalItemsList.Add(tab);
+
             if (setAsSelected)
             {
                 SelectedItem = tab;
             }
+
             page ??= NewTabPage;
             if (page != null)
             {
                 tab.Frame.Navigate(page, parameter, new SuppressNavigationTransitionInfo());
             }
+
             return tab;
         }
 
-        public bool CloseTab(ITabViewItem tabItem) => tabItem is not null && CloseTab(InternalItemsList.IndexOf(tabItem));
+        public bool CloseTab(ITabViewItem tabItem)
+            => tabItem is not null && CloseTab(InternalItemsList.IndexOf(tabItem));
 
-        public bool CloseTab(Guid guid) => CloseTab(InternalItemsList.FirstOrDefault(x => x.Guid == guid));
+        public bool CloseTab(Guid guid)
+            => CloseTab(InternalItemsList.FirstOrDefault(x => x.Guid == guid));
 
         public bool CloseTab(int index)
         {
@@ -146,9 +149,7 @@ namespace FluentHub.Uwp.UserControls.TabViewControl
             }
             return false;
         }
-        #endregion
 
-        #region private methods
         private void OnSelectionChanged(ITabViewItem newItem, ITabViewItem oldItem)
         {
             SuppressNavigationTransitionInfo transitionInfo = new();
@@ -157,16 +158,12 @@ namespace FluentHub.Uwp.UserControls.TabViewControl
         }
         #endregion
 
-        #region event handlers
-        private void OnMainTabViewTabCloseRequested(muxc.TabView sender,
-                                                    muxc.TabViewTabCloseRequestedEventArgs args)
+        #region Event Handlers
+        private void OnMainTabViewTabCloseRequested(TabView sender, TabViewTabCloseRequestedEventArgs args)
             => CloseTab((ITabViewItem)args.Item);
 
-        private void OnAddNewTabButtonClick(object sender, RoutedEventArgs e) => OpenTab();
-        #endregion
-
-        #region events
-        public event EventHandler<TabViewSelectionChangedEventArgs> SelectionChanged;
+        private void OnAddNewTabButtonClick(object sender, RoutedEventArgs e)
+            => OpenTab();
         #endregion
     }
 }

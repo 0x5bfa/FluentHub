@@ -31,7 +31,7 @@ namespace FluentHub.Uwp.UserControls.Overview
 
         public RepositoryOverview() => InitializeComponent();
         
-        private void OnRepoPageNavViewItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
+        private void OnRepoPageNavViewItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
             var service = App.Current.Services.GetRequiredService<INavigationService>();
 
@@ -100,13 +100,13 @@ namespace FluentHub.Uwp.UserControls.Overview
             var defaultItem
                 = RepoPageNavView
                 .MenuItems
-                .OfType<muxc.NavigationViewItem>()
+                .OfType<NavigationViewItem>()
                 .FirstOrDefault();
 
             RepoPageNavView.SelectedItem
                 = RepoPageNavView
                 .MenuItems
-                .OfType<muxc.NavigationViewItem>()
+                .OfType<NavigationViewItem>()
                 .FirstOrDefault(x => string.Compare(x.Tag.ToString(), tag?.ToString(), true) == 0)
                 ?? defaultItem;
         }

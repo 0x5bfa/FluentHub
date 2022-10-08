@@ -3,8 +3,6 @@ using FluentHub.Uwp.ViewModels.AppSettings;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
-using Microsoft.UI.Xaml.Media.Imaging;
-using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.Views.AppSettings
 {

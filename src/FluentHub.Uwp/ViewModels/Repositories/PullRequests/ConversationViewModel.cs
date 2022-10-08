@@ -100,11 +100,11 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
             _timelineItems.Clear();
 
             // Get pull request body comment
-            var bodyComment = await pullRequestQueries.GetBodyAsync(Repository.Owner.Login, Repository.Name, Number);
+            var bodyComment = await pullRequestQueries.GetBodyAsync(owner, name, Number);
             _timelineItems.Add(bodyComment);
 
             // Get all pull request event timeline items
-            var pullEvents = await queries.GetAllAsync(Repository.Owner.Login, Repository.Name, Number);
+            var pullEvents = await queries.GetAllAsync(owner, name, Number);
             foreach (var item in pullEvents)
                 _timelineItems.Add(item);
         }
@@ -112,7 +112,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
         private async Task LoadPullRequestAsync(string owner, string name)
         {
             PullRequestQueries queries = new();
-            PullItem = await queries.GetAsync(Repository.Owner.Login, Repository.Name, Number);
+            PullItem = await queries.GetAsync(owner, name, Number);
 
             PullRequestOverviewViewModel = new()
             {

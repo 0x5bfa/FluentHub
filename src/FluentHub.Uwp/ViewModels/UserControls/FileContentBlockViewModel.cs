@@ -70,7 +70,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls
                 LineText = LineText.TrimEnd('\n');
 
                 textBlock.Blocks.Clear();
-                var formatter = new RichTextBlockFormatter(ThemeHelpers.ActualTheme);
+                var formatter = new RichTextBlockFormatter(ThemeHelpers.RootTheme);
 
                 string extension = Path.GetExtension(ContextViewModel.Path.Remove(0, 1));
                 if (string.IsNullOrEmpty(extension) is false)

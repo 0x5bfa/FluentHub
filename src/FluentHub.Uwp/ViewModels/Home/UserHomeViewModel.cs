@@ -1,13 +1,11 @@
+using CommunityToolkit.WinUI.UI;
 using FluentHub.Octokit.Queries.Users;
+using FluentHub.Uwp.Extensions;
 using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
-using FluentHub.Uwp.ViewModels.Repositories;
-using FluentHub.Uwp.ViewModels.UserControls;
-using FluentHub.Uwp.ViewModels.UserControls.BlockButtons;
 using FluentHub.Uwp.Utils;
 using Microsoft.Extensions.DependencyInjection;
-using CommunityToolkit.Uwp;
 using Microsoft.UI.Xaml.Media.Imaging;
 using muxc = Microsoft.UI.Xaml.Controls;
 
@@ -64,37 +62,37 @@ namespace FluentHub.Uwp.ViewModels.Home
             _folderCardItems.Add(new()
             {
                 Thumbnail = new(new Uri("ms-appx:///Assets/Icons/Issues.png")),
-                Text = "Issues".GetLocalized(),
+                Text = "Issues".GetLocalizedResource(),
                 Tag = "issues",
             });
             _folderCardItems.Add(new()
             {
                 Thumbnail = new(new Uri("ms-appx:///Assets/Icons/PullRequests.png")),
-                Text = "PullRequests".GetLocalized(),
+                Text = "PullRequests".GetLocalizedResource(),
                 Tag = "pullrequests",
             });
             _folderCardItems.Add(new()
             {
                 Thumbnail = new(new Uri("ms-appx:///Assets/Icons/Discussions.png")),
-                Text = "Discussions".GetLocalized(),
+                Text = "Discussions".GetLocalizedResource(),
                 Tag = "discussions",
             });
             _folderCardItems.Add(new()
             {
                 Thumbnail = new(new Uri("ms-appx:///Assets/Icons/Repositories.png")),
-                Text = "Repositories".GetLocalized(),
+                Text = "Repositories".GetLocalizedResource(),
                 Tag = "repositories",
             });
             _folderCardItems.Add(new()
             {
                 Thumbnail = new(new Uri("ms-appx:///Assets/Icons/Organizations.png")),
-                Text = "Organizations".GetLocalized(),
+                Text = "Organizations".GetLocalizedResource(),
                 Tag = "organizations",
             });
             _folderCardItems.Add(new()
             {
                 Thumbnail = new(new Uri("ms-appx:///Assets/Icons/Starred.png")),
-                Text = "Stars".GetLocalized(),
+                Text = "Stars".GetLocalizedResource(),
                 Tag = "stars",
             });
         }

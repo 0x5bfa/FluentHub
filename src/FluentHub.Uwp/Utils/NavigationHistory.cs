@@ -10,13 +10,15 @@ namespace FluentHub.Uwp.Utils
         {
             _items = new ObservableCollection<T>();
             Items = new ReadOnlyObservableCollection<T>(_items);
+
             _canGoBack = _canGoForward = false;
             _currentItem = default;
             _currentItemIndex = -1;
         }
 
 #if DEBUG
-        ~NavigationHistory() => System.Diagnostics.Debug.WriteLine("~NavigationHistory");
+        ~NavigationHistory()
+            => System.Diagnostics.Debug.WriteLine("~NavigationHistory");
 #endif
 
         #region Fields and Properties
@@ -63,6 +65,7 @@ namespace FluentHub.Uwp.Utils
                 Update();
                 return true;
             }
+
             return false;
         }
 
@@ -74,6 +77,7 @@ namespace FluentHub.Uwp.Utils
                 Update();
                 return true;
             }
+
             return false;
         }
 
@@ -81,6 +85,7 @@ namespace FluentHub.Uwp.Utils
         {
             _items.Add(item);
             CurrentItemIndex = _items.Count - 1;
+
             Update();
         }
 
@@ -90,9 +95,14 @@ namespace FluentHub.Uwp.Utils
             if (index >= 0 && index <= _items.Count)
             {
                 if (index == 0)
+                {
                     ClearHistory();
+                }
                 while (index < _items.Count)
+                {
                     _items.RemoveAt(_items.Count - 1);
+                }
+
                 NavigateTo(item);
             }
             else
@@ -105,6 +115,7 @@ namespace FluentHub.Uwp.Utils
         {
             _items.Clear();
             CurrentItemIndex = -1;
+
             Update();
         }
 

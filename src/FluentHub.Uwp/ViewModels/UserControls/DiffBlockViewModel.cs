@@ -1,5 +1,5 @@
-using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Utils;
 using System.Text.RegularExpressions;
 
 namespace FluentHub.Uwp.ViewModels.UserControls
@@ -84,7 +84,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls
             bool isPatchLine = false;
 
             // Display two line number column for added and deleted line
-            for (int index = 0, olds = 0, news = 0, oldBaseLine = 0, newBaseLine = 0; index < lines.Count(); index++)
+            for (int index = 0, olds = 0, news = 0, oldBaseLine = 0, newBaseLine = 0; index < lines.Length; index++)
             {
                 if (Regex.IsMatch(lines[index], "^@@ -.* .+.* @@"))
                 {
@@ -152,7 +152,11 @@ namespace FluentHub.Uwp.ViewModels.UserControls
                     _changedLineBackgroundType.Add(3);
                 }
 
-                if (isPatchLine != true) lines[index] = lines[index].Substring(1, lines[index].Length - 1);
+                if (isPatchLine != true)
+                {
+                    lines[index] = lines[index][1..];
+                }
+
                 isPatchLine = false;
             }
 

@@ -1,10 +1,10 @@
+using CommunityToolkit.WinUI.UI;
 using FluentHub.Uwp.Services;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
-using CommunityToolkit.WinUI.UI;
+using Microsoft.UI.Xaml.Input;
 using System.Windows.Input;
 using Windows.System;
-using Microsoft.UI.Xaml.Input;
 
 namespace FluentHub.Uwp.ViewModels
 {
@@ -218,7 +218,7 @@ namespace FluentHub.Uwp.ViewModels
         public void AddNewSearchQueryModel(string query, string label)
             => _autoSuggestionItems.Add(new(query, label));
 
-        private async void OnNewNotificationReceived(object recipient, UserNotificationMessage message)
+        private void OnNewNotificationReceived(object recipient, UserNotificationMessage message)
         {
             // Check if the message method contains the InApp value (multivalue enum)
             if (message.Method.HasFlag(UserNotificationMethod.InApp))
@@ -232,7 +232,8 @@ namespace FluentHub.Uwp.ViewModels
 
                 // Show the message in the UI
                 // using the dispatcher to access the UI thread
-                await _dispatcher.EnqueueAsync(() => LastNotification = message);
+                _dispatcher.TryEnqueue(() => LastNotification = message);
+
                 // Show the message in the app
                 _logger?.Info("InApp notification received: {0}", message);
             }
@@ -253,13 +254,16 @@ namespace FluentHub.Uwp.ViewModels
                 case TaskStatusType.IsStarted:
                     TaskIsInProgress = true;
                     break;
+
                 case TaskStatusType.IsCompleted:
                     TaskIsInProgress = false;
                     break;
+
                 case TaskStatusType.IsCompletedSuccessfully:
                     TaskIsCompletedSuccessfully = true;
                     TaskIsInProgress = false;
                     break;
+
                 case TaskStatusType.IsFaulted:
                     TaskIsCompletedSuccessfully = false;
                     TaskIsInProgress = false;

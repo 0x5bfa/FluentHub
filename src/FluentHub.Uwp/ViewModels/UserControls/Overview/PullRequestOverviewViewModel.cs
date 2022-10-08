@@ -1,10 +1,9 @@
 using FluentHub.Uwp.Helpers;
-using FluentHub.Uwp.Services;
 using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Services;
 using FluentHub.Uwp.Utils;
-using FluentHub.Uwp.ViewModels.UserControls.Labels;
 using Microsoft.Extensions.DependencyInjection;
-using CommunityToolkit.Uwp;
+using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.ViewModels.UserControls.Overview
 {

@@ -1,8 +1,8 @@
 using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.ViewModels.UserControls;
 using FluentHub.Uwp.ViewModels.UserControls.Overview;
-using FluentHub.Uwp.Utils;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.Code.Layouts
 {
@@ -12,7 +12,6 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Code.Layouts
         {
             _messenger = messenger;
             _logger = logger;
-            _messenger = messenger;
 
             _items = new();
             Items = new(_items);

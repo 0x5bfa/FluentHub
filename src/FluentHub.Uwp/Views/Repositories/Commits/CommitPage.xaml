@@ -9,7 +9,7 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:ov="using:FluentHub.Uwp.UserControls.Overview"
-    xmlns:toolkit="using:CommunityToolkit.Uwp.UI.Controls"
+    xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
     xmlns:uc="using:FluentHub.Uwp.UserControls"
     xmlns:ucvm="using:FluentHub.Uwp.ViewModels.UserControls"
     mc:Ignorable="d">

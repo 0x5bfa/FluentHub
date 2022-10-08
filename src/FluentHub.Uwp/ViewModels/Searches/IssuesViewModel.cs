@@ -2,11 +2,9 @@ using FluentHub.Octokit.Searches;
 using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
-using FluentHub.Uwp.ViewModels.Repositories;
-using FluentHub.Uwp.ViewModels.UserControls;
-using FluentHub.Uwp.ViewModels.UserControls.Overview;
-using FluentHub.Uwp.ViewModels.UserControls.BlockButtons;
 using FluentHub.Uwp.Utils;
+using FluentHub.Uwp.ViewModels.UserControls.BlockButtons;
+using FluentHub.Uwp.ViewModels.UserControls.Overview;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Media.Imaging;
 using muxc = Microsoft.UI.Xaml.Controls;
@@ -83,11 +81,11 @@ namespace FluentHub.Uwp.ViewModels.Searches
             IssueSearches searches = new();
             var response = await searches.GetAllAsync(term);
 
-            _loadedItemCount += response.Count();
+            _loadedItemCount += response.Count;
             _loadedPageCount++;
 
             // TODO: Fix this
-            if (response.Count() < 100)
+            if (response.Count < 100)
                 _loadedToTheEnd = true;
 
             _resultItems.Clear();

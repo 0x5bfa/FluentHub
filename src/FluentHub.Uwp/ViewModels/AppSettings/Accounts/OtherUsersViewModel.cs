@@ -60,7 +60,7 @@ namespace FluentHub.Uwp.ViewModels.AppSettings.Accounts
 
         public void RemoveAccount(string login)
         {
-            for (int i = 0; _accountsItems.Count() > i; i++)
+            for (int i = 0; _accountsItems.Count > i; i++)
             {
                 if (_accountsItems[i].Login == login)
                 {

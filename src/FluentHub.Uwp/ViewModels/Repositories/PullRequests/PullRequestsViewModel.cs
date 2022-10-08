@@ -2,11 +2,9 @@ using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
-using FluentHub.Uwp.ViewModels.Repositories;
-using FluentHub.Uwp.ViewModels.UserControls;
+using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.ViewModels.UserControls.Overview;
 using FluentHub.Uwp.ViewModels.UserControls.BlockButtons;
-using FluentHub.Uwp.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Media.Imaging;
 using muxc = Microsoft.UI.Xaml.Controls;
@@ -84,10 +82,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
         private async Task LoadRepositoryPullRequestsAsync(string owner, string name)
         {
             PullRequestQueries queries = new();
-            var items = await queries.GetAllAsync(
-                Repository.Name,
-                Repository.Owner.Login
-                );
+            var items = await queries.GetAllAsync(owner, name);
             if (items == null) return;
 
             _pullRequests.Clear();

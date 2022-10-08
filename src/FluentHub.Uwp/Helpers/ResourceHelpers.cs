@@ -11,6 +11,6 @@ namespace FluentHub.Uwp.Helpers
         public string Name { get; set; }
 
         protected override object ProvideValue()
-            => resourceLoader.GetString(this.Name);
+            => resourceLoader.GetString(Name);
     }
 }

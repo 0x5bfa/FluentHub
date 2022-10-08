@@ -1,3 +1,4 @@
+using FluentHub.Uwp.Extensions;
 using System.Globalization;
 
 namespace FluentHub.Uwp.Models
@@ -13,13 +14,14 @@ namespace FluentHub.Uwp.Models
             if (!string.IsNullOrEmpty(id))
             {
                 var info = new CultureInfo(id);
+
                 ID = info.Name;
                 Name = info.NativeName;
             }
             else
             {
                 ID = string.Empty;
-                var systemDefaultLanguageOptionStr = "WndowsDefault".();
+                var systemDefaultLanguageOptionStr = "WndowsDefault".GetLocalizedResource();
                 Name = string.IsNullOrEmpty(systemDefaultLanguageOptionStr) ? "Windows Default" : systemDefaultLanguageOptionStr;
             }
         }

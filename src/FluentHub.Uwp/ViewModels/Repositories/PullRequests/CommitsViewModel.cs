@@ -2,11 +2,9 @@ using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
-using FluentHub.Uwp.ViewModels.Repositories;
-using FluentHub.Uwp.ViewModels.UserControls;
+using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.ViewModels.UserControls.Overview;
 using FluentHub.Uwp.ViewModels.UserControls.BlockButtons;
-using FluentHub.Uwp.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Media.Imaging;
 using muxc = Microsoft.UI.Xaml.Controls;
@@ -96,10 +94,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
         private async Task LoadRepositoryPullRequestCommitsAsync(string owner, string name)
         {
             PullRequestCommitQueries queries = new();
-            var items = await queries.GetAllAsync(
-                PullItem.Repository.Owner.Login,
-                PullItem.Repository.Name,
-                PullItem.Number);
+            var items = await queries.GetAllAsync(owner, name, PullItem.Number);
 
             _items.Clear();
             foreach (var item in items)
@@ -117,7 +112,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
         private async Task LoadPullRequestAsync(string owner, string name)
         {
             PullRequestQueries queries = new();
-            PullItem = await queries.GetAsync(Repository.Owner.Login, Repository.Name, Number);
+            PullItem = await queries.GetAsync(owner, name, Number);
 
             PullRequestOverviewViewModel = new()
             {

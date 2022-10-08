@@ -11,6 +11,7 @@ namespace FluentHub.Uwp.Helpers
             item.Description = description;
             item.GroupName = groupName;
             item.Logo = new Uri(logo);
+
             return item;
         }
 
@@ -19,6 +20,7 @@ namespace FluentHub.Uwp.Helpers
             if (JumpList.IsSupported())
             {
                 var jumpList = await JumpList.LoadCurrentAsync();
+
                 var jumpListItem = jumpList.Items.FirstOrDefault(x => x.Arguments == args);
                 if (jumpListItem != null)
                 {
@@ -27,6 +29,7 @@ namespace FluentHub.Uwp.Helpers
                     return true;
                 }
             }
+
             return false;
         }
 
@@ -36,6 +39,7 @@ namespace FluentHub.Uwp.Helpers
             {
                 var jumpList = await JumpList.LoadCurrentAsync();
                 jumpList.Items.Clear();
+
                 await jumpList.SaveAsync();
             }
         }
@@ -48,77 +52,98 @@ namespace FluentHub.Uwp.Helpers
                 var argsPrefix = "fluenthub:/";
                 var iconPrefix = "ms-appx:///Assets/Icons";
                 var preferredIndex = 0;
-                AddOrInsert(jumpList, CreateJumpListItem($"{argsPrefix}/profile",
-                                                         $"Profile",
-                                                         $"{iconPrefix}/Profile.png",
-                                                         "",
-                                                         "Profile"),
-                                                         preferredIndex++);
 
-                AddOrInsert(jumpList, CreateJumpListItem($"{argsPrefix}/notifications",
-                                                         $"Notifications",
-                                                         $"{iconPrefix}/Notifications.png",
-                                                         "",
-                                                         "Profile"),
-                                                         preferredIndex++);
+                AddOrInsert(
+                    jumpList,
+                    CreateJumpListItem(
+                        $"{argsPrefix}/profile",
+                        $"Profile",
+                        $"{iconPrefix}/Profile.png",
+                        "",
+                        "Profile"),
+                    preferredIndex++);
 
-                AddOrInsert(jumpList, CreateJumpListItem($"{argsPrefix}/activities",
-                                                         $"Activities",
-                                                         $"{iconPrefix}/Activities.png",
-                                                         "",
-                                                         "Profile"),
-                                                         preferredIndex++);
+                AddOrInsert(
+                    jumpList,
+                    CreateJumpListItem(
+                        $"{argsPrefix}/notifications",
+                        $"Notifications",
+                        $"{iconPrefix}/Notifications.png",
+                        "",
+                        "Profile"),
+                    preferredIndex++);
 
-                AddOrInsert(jumpList, CreateJumpListItem($"{argsPrefix}/issues",
-                                                         $"Issues",
-                                                         $"{iconPrefix}/Issues.png",
-                                                         "",
-                                                         "My Work"),
-                                                         preferredIndex++);
+                AddOrInsert(
+                    jumpList,
+                    CreateJumpListItem($"{argsPrefix}/activities",
+                        $"Activities",
+                        $"{iconPrefix}/Activities.png",
+                        "",
+                        "Profile"),
+                    preferredIndex++);
 
-                AddOrInsert(jumpList, CreateJumpListItem($"{argsPrefix}/pullrequests",
-                                                         $"Pull Requests",
-                                                         $"{iconPrefix}/PullRequests.png",
-                                                         "",
-                                                         "My Work"),
-                                                         preferredIndex++);
+                AddOrInsert(
+                    jumpList,
+                    CreateJumpListItem($"{argsPrefix}/issues",
+                        $"Issues",
+                        $"{iconPrefix}/Issues.png",
+                        "",
+                        "My Work"),
+                    preferredIndex++);
 
-                AddOrInsert(jumpList, CreateJumpListItem($"{argsPrefix}/discussions",
-                                                         $"Discussions",
-                                                         $"{iconPrefix}/Discussions.png",
-                                                         "",
-                                                         "My Work"),
-                                                         preferredIndex++);
+                AddOrInsert(
+                    jumpList,
+                    CreateJumpListItem($"{argsPrefix}/pullrequests",
+                        $"Pull Requests",
+                        $"{iconPrefix}/PullRequests.png",
+                        "",
+                        "My Work"),
+                    preferredIndex++);
 
-                AddOrInsert(jumpList, CreateJumpListItem($"{argsPrefix}/repositories",
-                                                         $"Repositories",
-                                                         $"{iconPrefix}/Repositories.png",
-                                                         "",
-                                                         "My Work"),
-                                                         preferredIndex++);
+                AddOrInsert(
+                    jumpList,
+                    CreateJumpListItem($"{argsPrefix}/discussions",
+                        $"Discussions",
+                        $"{iconPrefix}/Discussions.png",
+                        "",
+                        "My Work"),
+                    preferredIndex++);
 
-                AddOrInsert(jumpList, CreateJumpListItem($"{argsPrefix}/organizations",
-                                                         $"Organizations",
-                                                         $"{iconPrefix}/Organizations.png",
-                                                         "",
-                                                         "My Work"),
-                                                         preferredIndex++);
+                AddOrInsert(
+                    jumpList,
+                    CreateJumpListItem($"{argsPrefix}/repositories",
+                        $"Repositories",
+                        $"{iconPrefix}/Repositories.png",
+                        "",
+                        "My Work"),
+                    preferredIndex++);
 
-                AddOrInsert(jumpList, CreateJumpListItem($"{argsPrefix}/stars",
-                                                         $"Starred repositories",
-                                                         $"{iconPrefix}/Starred.png",
-                                                         "",
-                                                         "My Work"),
-                                                         preferredIndex++);
+                AddOrInsert(
+                    jumpList,
+                    CreateJumpListItem($"{argsPrefix}/organizations",
+                        $"Organizations",
+                        $"{iconPrefix}/Organizations.png",
+                        "",
+                        "My Work"),
+                    preferredIndex++);
+
+                AddOrInsert(
+                    jumpList,
+                    CreateJumpListItem($"{argsPrefix}/stars",
+                        $"Starred repositories",
+                        $"{iconPrefix}/Starred.png",
+                        "",
+                        "My Work"),
+                    preferredIndex++);
+
                 await jumpList.SaveAsync();
             }
         }
 
         private static void AddOrInsert(JumpList jumpList, JumpListItem item, int preferredIndex = -1)
         {
-            var currentIndex = jumpList
-                                    .Items
-                                    .IndexOf(x => x.Arguments == item.Arguments);
+            var currentIndex = jumpList.Items.IndexOf(x => x.Arguments == item.Arguments);
+
             if (currentIndex >= 0)
             {
                 jumpList.Items[currentIndex] = item;

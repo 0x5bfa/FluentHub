@@ -5,7 +5,6 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
 using Microsoft.UI.Xaml.Navigation;
-using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.Views.AppSettings.Accounts
 {
@@ -35,7 +34,7 @@ namespace FluentHub.Uwp.Views.AppSettings.Accounts
             currentItem.Description = "Other users";
             currentItem.Url = "fluenthub://settings/account/otherusers";
             currentItem.DisplayUrl = "Settings / Account / Other users";
-            currentItem.Icon = new muxc.ImageIconSource
+            currentItem.Icon = new ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Accounts.png"))
             };

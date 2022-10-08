@@ -2,10 +2,8 @@ using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
-using FluentHub.Uwp.ViewModels.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls;
 using FluentHub.Uwp.ViewModels.UserControls.Overview;
-using FluentHub.Uwp.ViewModels.UserControls.BlockButtons;
 using FluentHub.Uwp.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Media.Imaging;
@@ -45,7 +43,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Commits
         private Commit _commitItem;
         public Commit CommitItem { get => _commitItem; set => SetProperty(ref _commitItem, value); }
 
-        private ObservableCollection<DiffBlockViewModel> _diffViewModels;
+        private readonly ObservableCollection<DiffBlockViewModel> _diffViewModels;
         public ReadOnlyObservableCollection<DiffBlockViewModel> DiffViewModels { get; }
 
         private Exception _taskException;

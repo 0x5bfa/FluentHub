@@ -4,7 +4,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Media.Imaging;
-using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.Views.AppSettings
 {
@@ -27,7 +26,7 @@ namespace FluentHub.Uwp.Views.AppSettings
             currentItem.Description = "Repositories settings";
             currentItem.Url = "fluenthub://settings/repositories";
             currentItem.DisplayUrl = $"Settings / Repositories";
-            currentItem.Icon = new muxc.ImageIconSource
+            currentItem.Icon = new ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.png"))
             };

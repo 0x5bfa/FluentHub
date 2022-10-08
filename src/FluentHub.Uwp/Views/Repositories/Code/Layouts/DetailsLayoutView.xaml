@@ -10,10 +10,10 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:FluentHub.Uwp.Models"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:primer="using:FluentHub.Uwp.UserControls.PrimerControls"
-    xmlns:toolkit="using:CommunityToolkit.Uwp.UI.Controls"
-    xmlns:uc="using:FluentHub.Uwp.UserControls"
     xmlns:ov="using:FluentHub.Uwp.UserControls.Overview"
+    xmlns:primer="using:FluentHub.Uwp.UserControls.PrimerControls"
+    xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:uc="using:FluentHub.Uwp.UserControls"
     mc:Ignorable="d">
 
     <Page.Resources>

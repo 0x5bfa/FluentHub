@@ -2,8 +2,10 @@ using FluentHub.Uwp.Models;
 
 namespace FluentHub.Uwp.Utils
 {
+    // TODO: Not supported class
     public static class UrlHandler
     {
+        /*
         public static FrameNavigationArgs GetFrameNavigationArgs(string url)
         {
             // The first validation
@@ -88,5 +90,6 @@ namespace FluentHub.Uwp.Utils
 
             return args;
         }
+        */
     }
 }

@@ -1,16 +1,10 @@
+using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.Repositories;
-using Serilog;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
-using muxc = Microsoft.UI.Xaml.Controls;
+using Serilog;
 
 namespace FluentHub.Uwp.UserControls
 {
@@ -63,7 +57,7 @@ namespace FluentHub.Uwp.UserControls
             _repoUrl = input;
         }
 
-        private void GitCloneFlyoutNavView_ItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
+        private void GitCloneFlyoutNavView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
             switch (args.InvokedItemContainer.Tag.ToString())
             {

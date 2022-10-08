@@ -35,7 +35,7 @@ namespace FluentHub.Uwp.UserControls.BlockButtons
         {
             var service = App.Current.Services.GetRequiredService<INavigationService>();
 
-            if (ViewModel.User.Id.ToString().StartsWith("O_"))
+            if (ViewModel.User.Id != null && ViewModel.User.Id.ToString().StartsWith("O_"))
             {
                 service.Navigate<Views.Organizations.OverviewPage>(ViewModel.User.Login);
             }

@@ -9,6 +9,7 @@ namespace FluentHub.Uwp.UserControls.FeedBlocks
 {
     public sealed partial class ActivityBlock : UserControl
     {
+        #region propdp
         public static readonly DependencyProperty ViewModelProperty =
             DependencyProperty.Register(
                nameof(ViewModel),
@@ -25,7 +26,9 @@ namespace FluentHub.Uwp.UserControls.FeedBlocks
                 ViewModel?.LoadContentsAsync();
             }
         }
+        #endregion
 
-        public ActivityBlock() => InitializeComponent();
+        public ActivityBlock()
+            => InitializeComponent();
     }
 }

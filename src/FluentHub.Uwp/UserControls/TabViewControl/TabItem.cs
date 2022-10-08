@@ -1,9 +1,8 @@
-using FluentHub.Uwp.Utils;
+using CommunityToolkit.Mvvm.ComponentModel;
 using FluentHub.Uwp.Services.Navigation;
 using FluentHub.Uwp.Utils;
-using Microsoft.Extensions.DependencyInjection;
-using CommunityToolkit.Mvvm.ComponentModel;
 using System;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 
@@ -20,8 +19,10 @@ namespace FluentHub.Uwp.UserControls.TabViewControl
 
             Frame.Navigating += OnFrameNavigating;
         }
+
 #if DEBUG
-        ~TabItem() => System.Diagnostics.Debug.WriteLine("~TabItem");
+        ~TabItem()
+            => System.Diagnostics.Debug.WriteLine("~TabItem");
 #endif
 
         private readonly ILogger _logger;
@@ -46,10 +47,11 @@ namespace FluentHub.Uwp.UserControls.TabViewControl
                     break;
             }
 
-            _logger?.Info("ITabViewItem.OnFrameNavigating [Page: {0}, Parameter: {1}, NavigationMode: {2}]",
-                          e.SourcePageType,
-                          e.Parameter,
-                          e.NavigationMode);
+            _logger?.Info(
+                "ITabViewItem.OnFrameNavigating [Page: {0}, Parameter: {1}, NavigationMode: {2}]",
+                e.SourcePageType,
+                e.Parameter,
+                e.NavigationMode);
         }
     }
 }

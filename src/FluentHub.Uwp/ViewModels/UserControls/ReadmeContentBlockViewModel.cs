@@ -13,7 +13,6 @@ namespace FluentHub.Uwp.ViewModels.UserControls
         {
             _messenger = messenger;
             _logger = logger;
-            _messenger = messenger;
 
             LoadReadmeContentBlockCommand = new AsyncRelayCommand<WebView>(LoadRepositoryReadmeAsync);
         }
@@ -40,7 +39,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls
                     ContextViewModel.Repository.Owner.Login,
                     ContextViewModel.Repository.Name,
                     ContextViewModel.BranchName,
-                    ThemeHelpers.ActualTheme.ToString().ToLower()
+                    ThemeHelpers.RootTheme.ToString().ToLower()
                     );
 
                 if (HtmlText == null) return;

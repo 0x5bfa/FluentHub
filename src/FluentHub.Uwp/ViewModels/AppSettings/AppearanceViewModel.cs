@@ -1,14 +1,12 @@
+using CommunityToolkit.WinUI.UI;
 using FluentHub.Octokit.Queries.Users;
+using FluentHub.Uwp.Extensions;
 using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
-using FluentHub.Uwp.ViewModels.Repositories;
-using FluentHub.Uwp.ViewModels.UserControls;
-using FluentHub.Uwp.ViewModels.UserControls.BlockButtons;
-using FluentHub.Uwp.ViewModels.UserControls.Overview;
 using FluentHub.Uwp.Utils;
+using FluentHub.Uwp.ViewModels.UserControls.Overview;
 using Microsoft.Extensions.DependencyInjection;
-using CommunityToolkit.Uwp;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Media.Imaging;
 using muxc = Microsoft.UI.Xaml.Controls;
@@ -28,9 +26,9 @@ namespace FluentHub.Uwp.ViewModels.AppSettings
 
             Themes = new List<string>()
             {
-                "ThemeAuto".GetLocalized(),
-                "ThemeLight".GetLocalized(),
-                "ThemeDark".GetLocalized(),
+                "ThemeAuto".GetLocalizedResource(),
+                "ThemeLight".GetLocalizedResource(),
+                "ThemeDark".GetLocalizedResource(),
             }
             .AsReadOnly();
 

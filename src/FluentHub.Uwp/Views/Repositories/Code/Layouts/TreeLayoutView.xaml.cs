@@ -11,7 +11,6 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Media.Imaging;
-using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.Views.Repositories.Code.Layouts
 {
@@ -131,7 +130,7 @@ namespace FluentHub.Uwp.Views.Repositories.Code.Layouts
                 command2.Execute(url);
         }
 
-        private async void OnDirTreeViewExpanding(muxc.TreeView sender, muxc.TreeViewExpandingEventArgs args)
+        private async void OnDirTreeViewExpanding(TreeView sender, TreeViewExpandingEventArgs args)
         {
             if (args.Node.HasUnrealizedChildren && !(args.Item as TreeLayoutPageModel).IsBolb)
             {
@@ -147,7 +146,7 @@ namespace FluentHub.Uwp.Views.Repositories.Code.Layouts
             }
         }
 
-        private void OnDirTreeViewItemInvoked(muxc.TreeView sender, muxc.TreeViewItemInvokedEventArgs args)
+        private void OnDirTreeViewItemInvoked(TreeView sender, TreeViewItemInvokedEventArgs args)
         {
             var item = args.InvokedItem as TreeLayoutPageModel;
 

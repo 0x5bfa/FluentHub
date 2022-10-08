@@ -27,7 +27,6 @@ namespace FluentHub.Uwp.ViewModels.UserControls.BlockButtons
         public ICommand GoRepositoryCommand { get; private set; }
         #endregion
 
-        #region Command methods
         private void GoRepository()
         {
             var _navigation = App.Current.Services.GetRequiredService<INavigationService>();
@@ -43,6 +42,5 @@ namespace FluentHub.Uwp.ViewModels.UserControls.BlockButtons
             else
                 _navigation.Navigate<Views.Repositories.Code.Layouts.TreeLayoutView>(parameter);
         }
-        #endregion
     }
 }

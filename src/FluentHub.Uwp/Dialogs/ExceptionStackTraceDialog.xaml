@@ -5,6 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:FluentHub.Uwp.Dialogs"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     PrimaryButtonClick="OnContentDialogPrimaryButtonClick"
     PrimaryButtonText="OK"
     Style="{StaticResource DefaultContentDialogStyle}"
@@ -59,6 +60,7 @@
                 Padding="8"
                 HorizontalScrollBarVisibility="Auto"
                 VerticalScrollBarVisibility="Auto">
+
                 <Grid CornerRadius="4">
                     <TextBlock
                         IsTextSelectionEnabled="True"
@@ -66,6 +68,7 @@
                         Text="{x:Bind Context.TaskException.StackTrace, Mode=OneWay}"
                         TextWrapping="Wrap" />
                 </Grid>
+
             </ScrollViewer>
         </Grid>
 

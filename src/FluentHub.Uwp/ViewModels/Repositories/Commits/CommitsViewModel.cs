@@ -2,11 +2,9 @@ using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
-using FluentHub.Uwp.ViewModels.Repositories;
-using FluentHub.Uwp.ViewModels.UserControls;
+using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.ViewModels.UserControls.Overview;
 using FluentHub.Uwp.ViewModels.UserControls.BlockButtons;
-using FluentHub.Uwp.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Media.Imaging;
 using muxc = Microsoft.UI.Xaml.Controls;
@@ -87,11 +85,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Commits
         private async Task LoadRepositoryCommitsAsync(string owner, string name)
         {
             CommitQueries queries = new();
-            var response = await queries.GetAllAsync(
-                Name,
-                Login,
-                ContextViewModel.BranchName,
-                ContextViewModel.Path);
+            var response = await queries.GetAllAsync(name, owner, ContextViewModel.BranchName, ContextViewModel.Path);
 
             _items.Clear();
             foreach (var item in response)

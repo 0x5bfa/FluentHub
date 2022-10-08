@@ -138,7 +138,7 @@ namespace FluentHub
             return logger;
         }
 
-        private static async Task EnsureSettingsAndConfigurationAreBootstrapped()
+        private static void EnsureSettingsAndConfigurationAreBootstrapped()
         {
             Settings ??= new SettingsViewModel();
         }
@@ -175,7 +175,7 @@ namespace FluentHub
                 return;
             }
 
-            await EnsureSettingsAndConfigurationAreBootstrapped();
+            EnsureSettingsAndConfigurationAreBootstrapped();
 
             // Initialize MainWindow here
             EnsureWindowIsInitialized();
@@ -225,13 +225,12 @@ namespace FluentHub
         {
             var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(w);
 
-            Microsoft.UI.WindowId windowId =
-                Microsoft.UI.Win32Interop.GetWindowIdFromWindow(hWnd);
+            Microsoft.UI.WindowId windowId = Win32Interop.GetWindowIdFromWindow(hWnd);
 
             return AppWindow.GetFromWindowId(windowId);
         }
 
-        public static MainWindow Window { get; private set; }
+        public static MainWindow Window { get; private set; } = null!;
 
         public static IntPtr WindowHandle { get; private set; }
     }

@@ -1,7 +1,10 @@
+using FluentHub.Uwp.Models;
+using FluentHub.Uwp.Services;
+using FluentHub.Uwp.ViewModels.UserControls;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Markup;
-using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.UserControls
 {
@@ -103,10 +106,10 @@ namespace FluentHub.Uwp.UserControls
         private void ActionableButton_Click(object sender, RoutedEventArgs e)
             => Click?.Invoke(this, e);
 
-        private void Expander_Expanding(muxc.Expander sender, muxc.ExpanderExpandingEventArgs args)
+        private void Expander_Expanding(Expander sender, ExpanderExpandingEventArgs args)
             => Click?.Invoke(this, new RoutedEventArgs());
 
-        private void Expander_Collapsed(muxc.Expander sender, muxc.ExpanderCollapsedEventArgs args)
+        private void Expander_Collapsed(Expander sender, ExpanderCollapsedEventArgs args)
             => Click?.Invoke(this, new RoutedEventArgs());
     }
 }

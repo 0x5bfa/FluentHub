@@ -12,7 +12,6 @@ namespace FluentHub.Uwp.ViewModels.UserControls
         {
             _messenger = messenger;
             _logger = logger;
-            _messenger = messenger;
 
             BranchNames = new();
 

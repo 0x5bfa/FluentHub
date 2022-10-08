@@ -1,34 +1,24 @@
+using CommunityToolkit.WinUI;
+using FluentHub.Uwp.Extensions;
+using System;
+using Windows.UI;
+using Microsoft.UI.Dispatching;
+using Microsoft.UI.Windowing;
+using Microsoft.UI.Xaml;
 using Windows.Storage;
 using Windows.UI.ViewManagement;
-using Microsoft.UI.Xaml;
+using Microsoft.UI;
 
 namespace FluentHub.Uwp.Helpers
 {
     public static class ThemeHelpers
     {
-        private const string SelectedAppThemeKey = "SelectedAppTheme";
-        private static Window CurrentApplicationWindow;
-        // Keep reference so it does not get optimized/garbage collected
-        private static UISettings uiSettings;
-        /// <summary>
-        /// Gets the current actual theme of the app based on the requested theme of the
-        /// root element, or if that value is Default, the requested theme of the Application.
-        /// </summary>
-        public static ElementTheme ActualTheme
-        {
-            get
-            {
-                if (App.Window.Content is FrameworkElement rootElement)
-                {
-                    if (rootElement.RequestedTheme != ElementTheme.Default)
-                    {
-                        return rootElement.RequestedTheme;
-                    }
-                }
+        private const string selectedAppThemeKey = "SelectedAppTheme";
+        private static Window currentApplicationWindow;
+        private static AppWindowTitleBar titleBar;
 
-                return App.GetEnum<ElementTheme>(App.Current.RequestedTheme.ToString());
-            }
-        }
+        // Keep reference so it does not get optimized/garbage collected
+        public static UISettings UiSettings;
 
         /// <summary>
         /// Gets or sets (with LocalSettings persistence) the RequestedTheme of the root element.
@@ -37,80 +27,87 @@ namespace FluentHub.Uwp.Helpers
         {
             get
             {
-                if (App.Window.Content is FrameworkElement rootElement)
-                {
-                    return rootElement.RequestedTheme;
-                }
+                var savedTheme = ApplicationData.Current.LocalSettings.Values[selectedAppThemeKey]?.ToString();
 
-                return ElementTheme.Default;
+                if (!string.IsNullOrEmpty(savedTheme))
+                {
+                    return EnumExtensions.GetEnum<ElementTheme>(savedTheme);
+                }
+                else
+                {
+                    return ElementTheme.Default;
+                }
             }
             set
             {
-                if (App.Window.Content is FrameworkElement rootElement)
-                {
-                    rootElement.RequestedTheme = value;
-                }
-
-                ApplicationData.Current.LocalSettings.Values[SelectedAppThemeKey] = value.ToString();
-                UpdateSystemCaptionButtonColors();
+                ApplicationData.Current.LocalSettings.Values[selectedAppThemeKey] = value.ToString();
+                ApplyTheme();
             }
         }
 
         public static void Initialize()
         {
             // Save reference as this might be null when the user is in another app
-            CurrentApplicationWindow = App.Window;
-            string savedTheme = ApplicationData.Current.LocalSettings.Values[SelectedAppThemeKey]?.ToString();
+            currentApplicationWindow = App.Window;
 
-            if (savedTheme != null)
-            {
-                RootTheme = FluentHub.Uwp.App.GetEnum<ElementTheme>(savedTheme);
-            }
+            // Set TitleBar background color
+            titleBar = App.GetAppWindow(currentApplicationWindow).TitleBar;
+
+            // Apply the desired theme based on what is set in the application settings
+            ApplyTheme();
 
             // Registering to color changes, thus we notice when user changes theme system wide
-            uiSettings = new UISettings();
-            uiSettings.ColorValuesChanged += UiSettings_ColorValuesChanged;
+            UiSettings = new UISettings();
+            UiSettings.ColorValuesChanged += UiSettings_ColorValuesChanged;
         }
 
-        private static void UiSettings_ColorValuesChanged(UISettings sender, object args)
+        private static async void UiSettings_ColorValuesChanged(UISettings sender, object args)
         {
             // Make sure we have a reference to our window so we dispatch a UI change
-            if (CurrentApplicationWindow != null)
+            if (currentApplicationWindow != null)
             {
-/*
-                TODO UA306_A3: UWP CoreDispatcher : Windows.UI.Core.CoreDispatcher is no longer supported. Use DispatcherQueue instead. Read: https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/migrate-to-windows-app-sdk/guides/threading
-            */CurrentApplicationWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High, () =>
+                // Dispatch on UI thread so that we have a current appbar to access and change
+                await currentApplicationWindow.DispatcherQueue.EnqueueAsync(() =>
                 {
-                    UpdateSystemCaptionButtonColors();
+                    ApplyTheme();
                 });
             }
         }
 
-        public static bool IsDarkTheme()
+        private static void ApplyTheme()
         {
-            if (RootTheme == ElementTheme.Default)
-                return Application.Current.RequestedTheme == ApplicationTheme.Dark;
+            var rootTheme = RootTheme;
 
-            return RootTheme == ElementTheme.Dark;
-        }
-
-        public static void UpdateSystemCaptionButtonColors()
-        {
-            ApplicationViewTitleBar titleBar = 
-                /*
-                   TODO UA315_A Use Microsoft.UI.Windowing.AppWindow for window Management instead of ApplicationView/CoreWindow or Microsoft.UI.Windowing.AppWindow APIs
-                   Read: https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/migrate-to-windows-app-sdk/guides/windowing
-                */
-                ApplicationView.GetForCurrentView().TitleBar;
-
-            if (IsDarkTheme())
+            if (App.Window.Content is FrameworkElement rootElement)
             {
-                titleBar.ButtonForegroundColor = Colors.White;
+                rootElement.RequestedTheme = rootTheme;
             }
-            else
+
+            if (titleBar != null)
             {
-                titleBar.ButtonForegroundColor = Colors.Black;
+                titleBar.ButtonBackgroundColor = Colors.Transparent;
+                titleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
+
+                switch (rootTheme)
+                {
+                    case ElementTheme.Default:
+                        titleBar.ButtonHoverBackgroundColor = (Color)Application.Current.Resources["SystemBaseLowColor"];
+                        titleBar.ButtonForegroundColor = (Color)Application.Current.Resources["SystemBaseHighColor"];
+                        break;
+
+                    case ElementTheme.Light:
+                        titleBar.ButtonHoverBackgroundColor = Color.FromArgb(51, 0, 0, 0);
+                        titleBar.ButtonForegroundColor = Colors.Black;
+                        break;
+
+                    case ElementTheme.Dark:
+                        titleBar.ButtonHoverBackgroundColor = Color.FromArgb(51, 255, 255, 255);
+                        titleBar.ButtonForegroundColor = Colors.White;
+                        break;
+                }
             }
+
+            App.AppSettings.UpdateThemeElements.Execute(null);
         }
     }
 }

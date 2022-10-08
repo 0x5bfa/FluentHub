@@ -1,7 +1,6 @@
 using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Utils;
-using FluentHub.Uwp.ViewModels.UserControls;
 using FluentHub.Uwp.ViewModels.UserControls.Overview;
 using Microsoft.UI.Xaml.Media.Imaging;
 using muxc = Microsoft.UI.Xaml.Controls;
@@ -183,13 +182,13 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Code.Layouts
             string branchName = "";
 
             // owner/name
-            if (pathItems == null || pathItems.Count() == 0)
+            if (pathItems == null || pathItems.Count == 0)
             {
                 isDir = isRootDir = true;
                 branchName = Repository.DefaultBranchRef?.Name;
             }
             // owner/name/tree/main
-            else if (pathItems.Count() == 2)
+            else if (pathItems.Count == 2)
             {
                 isDir = isRootDir = true;
                 branchName = pathItems.ElementAt(1);
@@ -198,13 +197,13 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Code.Layouts
                 actualPath = string.Join("/", pathItems);
             }
             // owner/name/(tree|blob)/main/path
-            else if (pathItems.Count() > 2)
+            else if (pathItems.Count > 2)
             {
                 isRootDir = false;
                 branchName = pathItems.ElementAt(1);
 
                 isFile = pathItems.ElementAt(0).ToLower() == "blob" ? true : false;
-                isSubDir = isDir = pathItems.ElementAt(0).ToLower() == "tree" ? true : false;
+                isSubDir = isDir = pathItems.ElementAt(0).ToLower() == "tree";
 
                 pathItems.RemoveRange(0, 2);
                 actualPath = string.Join("/", pathItems);

@@ -1,19 +1,11 @@
+using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.Repositories;
 using FluentHub.Uwp.ViewModels.UserControls;
-using FluentHub.Uwp.Views.Repositories;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
-using Microsoft.UI.Xaml.Navigation;
-using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.UserControls
 {
@@ -92,15 +84,17 @@ namespace FluentHub.Uwp.UserControls
             button.AddHandler(PointerReleasedEvent, new PointerEventHandler(OnCloneButtonPointerReleased), true);
         }
 
-        private void OnCloneButtonPointerPressed(object sender, PointerRoutedEventArgs e) => SetState(sender as UIElement, "Pressed");
+        private void OnCloneButtonPointerPressed(object sender, PointerRoutedEventArgs e)
+            => SetState(sender as UIElement, "Pressed");
 
-        private void OnCloneButtonPointerReleased(object sender, PointerRoutedEventArgs e) => SetState(sender as UIElement, "Normal");
+        private void OnCloneButtonPointerReleased(object sender, PointerRoutedEventArgs e)
+            => SetState(sender as UIElement, "Normal");
 
         public void SetState(UIElement target, string state)
         {
             if (target != null)
-            {                
-                muxc.AnimatedIcon.SetState(target, state);
+            {
+                AnimatedIcon.SetState(target, state);
             }
         }
         #endregion

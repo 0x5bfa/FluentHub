@@ -2,11 +2,9 @@ using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
-using FluentHub.Uwp.ViewModels.Repositories;
-using FluentHub.Uwp.ViewModels.UserControls;
+using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.ViewModels.UserControls.Overview;
 using FluentHub.Uwp.ViewModels.UserControls.BlockButtons;
-using FluentHub.Uwp.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Media.Imaging;
 using muxc = Microsoft.UI.Xaml.Controls;
@@ -84,10 +82,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Projects
         private async Task LoadProjectsPageAsync(string owner, string name)
         {
             ProjectQueries queries = new();
-            var items = await queries.GetAllAsync(
-                Repository.Owner.Login,
-                Repository.Name
-                );
+            var items = await queries.GetAllAsync(owner, name);
 
             _items.Clear();
             foreach (var item in items)

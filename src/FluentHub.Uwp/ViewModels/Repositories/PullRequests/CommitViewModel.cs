@@ -2,11 +2,9 @@ using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
-using FluentHub.Uwp.ViewModels.Repositories;
+using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.ViewModels.UserControls;
 using FluentHub.Uwp.ViewModels.UserControls.Overview;
-using FluentHub.Uwp.ViewModels.UserControls.BlockButtons;
-using FluentHub.Uwp.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Media.Imaging;
 using muxc = Microsoft.UI.Xaml.Controls;
@@ -54,7 +52,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
         private Commit _commitItem;
         public Commit CommitItem { get => _commitItem; set => SetProperty(ref _commitItem, value); }
 
-        private ObservableCollection<DiffBlockViewModel> _diffViewModels;
+        private readonly ObservableCollection<DiffBlockViewModel> _diffViewModels;
         public ReadOnlyObservableCollection<DiffBlockViewModel> DiffViewModels { get; }
 
         private Exception _taskException;
@@ -99,10 +97,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
         private async Task LoadRepositoryPullRequestOneCommitAsync(string owner, string name)
         {
             DiffQueries queries = new();
-            var response = await queries.GetAllAsync(
-                CommitItem.Repository.Owner.Login,
-                CommitItem.Repository.Name,
-                PullRequest.Number);
+            var response = await queries.GetAllAsync(owner, name, PullRequest.Number);
 
             _diffViewModels.Clear();
             foreach (var item in response)
@@ -119,7 +114,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.PullRequests
         public async Task LoadPullRequestAsync(string owner, string name)
         {
             PullRequestQueries queries = new();
-            PullRequest = await queries.GetAsync(Repository.Owner.Login, Repository.Name, Number);
+            PullRequest = await queries.GetAsync(owner, name, Number);
 
             PullRequestOverviewViewModel = new()
             {

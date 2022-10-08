@@ -9,7 +9,8 @@ namespace FluentHub.Uwp.Services.Navigation
         }
 
 #if DEBUG
-        ~PageNavigationEntry() => System.Diagnostics.Debug.WriteLine("~PageNavigationEntry");
+        ~PageNavigationEntry()
+            => System.Diagnostics.Debug.WriteLine("~PageNavigationEntry");
 #endif
 
         #region Fields and Properties

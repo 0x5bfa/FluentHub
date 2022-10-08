@@ -1,10 +1,9 @@
+using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
-using FluentHub.Uwp.ViewModels.UserControls.Overview;
+using FluentHub.Uwp.ViewModels.UserControls;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media.Animation;
-using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.UserControls
 {
@@ -47,11 +46,9 @@ namespace FluentHub.Uwp.UserControls
         #endregion
 
         public SearchResultSidebar()
-        {
-            InitializeComponent();
-        }
+            => InitializeComponent();
 
-        private void OnSearchNavViewItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
+        private void OnSearchNavViewItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
             var navigation = App.Current.Services.GetRequiredService<INavigationService>();
             var page = typeof(Views.Searches.RepositoriesPage);
@@ -85,13 +82,13 @@ namespace FluentHub.Uwp.UserControls
             var defaultItem
                 = SearchNavView
                 .MenuItems
-                .OfType<muxc.NavigationViewItem>()
+                .OfType<NavigationViewItem>()
                 .FirstOrDefault();
 
             SearchNavView.SelectedItem
                 = SearchNavView
                 .MenuItems
-                .OfType<muxc.NavigationViewItem>()
+                .OfType<NavigationViewItem>()
                 .FirstOrDefault(x => string.Compare(x.Tag.ToString(), tag?.ToString(), true) == 0)
                 ?? defaultItem;
         }

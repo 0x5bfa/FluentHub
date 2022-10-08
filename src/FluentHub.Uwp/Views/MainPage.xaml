@@ -12,7 +12,7 @@
     xmlns:models="using:FluentHub.Uwp.Models"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:tabsuc="using:FluentHub.Uwp.UserControls.TabViewControl"
-    xmlns:toolkit="using:CommunityToolkit.Uwp.UI.Controls"
+    xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
     xmlns:triggers="using:WindowsStateTriggers"
     xmlns:uc="using:FluentHub.Uwp.UserControls"
     muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"

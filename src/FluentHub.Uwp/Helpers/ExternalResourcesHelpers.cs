@@ -6,8 +6,10 @@ using Microsoft.UI.Xaml.Markup;
 
 namespace FluentHub.Uwp.Helpers
 {
+    // TODO: Not supported helpers
     public class ExternalResourcesHelpers
     {
+        /*
         public List<CustomThemeItem> Themes = new List<CustomThemeItem>()
         {
             new CustomThemeItem
@@ -130,5 +132,6 @@ namespace FluentHub.Uwp.Helpers
                 return false;
             }
         }
+    */
     }
 }

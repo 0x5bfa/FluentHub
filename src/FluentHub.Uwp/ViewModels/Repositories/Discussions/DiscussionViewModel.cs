@@ -2,11 +2,8 @@ using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
-using FluentHub.Uwp.ViewModels.Repositories;
-using FluentHub.Uwp.ViewModels.UserControls;
-using FluentHub.Uwp.ViewModels.UserControls.Overview;
-using FluentHub.Uwp.ViewModels.UserControls.BlockButtons;
 using FluentHub.Uwp.Utils;
+using FluentHub.Uwp.ViewModels.UserControls.Overview;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Media.Imaging;
 using muxc = Microsoft.UI.Xaml.Controls;
@@ -84,11 +81,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Discussions
         private async Task LoadRepositoryOneDiscussionAsync(string owner, string name)
         {
             DiscussionQueries queries = new();
-            var response = await queries.GetAsync(
-                Repository.Owner.Login,
-                Repository.Name,
-                Number
-                );
+            var response = await queries.GetAsync(owner, name, Number);
 
             if (response == null) return;
 

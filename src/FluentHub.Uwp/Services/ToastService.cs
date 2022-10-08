@@ -67,7 +67,7 @@ namespace FluentHub.Uwp.Services
             badgeElement.SetAttribute("value", badgeGlyphValue);
 
             // Create the badge notification
-            BadgeNotification badge = new BadgeNotification(badgeXml);
+            BadgeNotification badge = new(badgeXml);
 
             // Create the badge updater for the application
             BadgeUpdater badgeUpdater = BadgeUpdateManager.CreateBadgeUpdaterForApplication();

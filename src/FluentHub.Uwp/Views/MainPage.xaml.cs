@@ -73,6 +73,10 @@ namespace FluentHub.Uwp.Views
         #region Event handlers
         protected override async void OnNavigatedTo(NavigationEventArgs e)
         {
+            // Initialize the static theme helper to capture a reference to this window
+            // to handle theme changes without restarting the app
+            ThemeHelpers.Initialize();
+
             SubscribeEvents();
             TabView.NewTabPage = typeof(Home.UserHomePage);
             navService.Configure(TabView);

@@ -1,13 +1,9 @@
 using FluentHub.Octokit.Queries.Repositories;
-using FluentHub.Uwp.Extensions;
 using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
-using FluentHub.Uwp.ViewModels.Repositories;
-using FluentHub.Uwp.ViewModels.UserControls;
-using FluentHub.Uwp.ViewModels.UserControls.Overview;
-using FluentHub.Uwp.ViewModels.UserControls.BlockButtons;
 using FluentHub.Uwp.Utils;
+using FluentHub.Uwp.ViewModels.UserControls.Overview;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Media.Imaging;
 using muxc = Microsoft.UI.Xaml.Controls;
@@ -55,7 +51,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Releases
         private Exception _taskException;
         public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
 
-        public Microsoft.UI.Xaml.Controls.WebView LatestReleaseDescriptionWebView;
+        public muxc.WebView LatestReleaseDescriptionWebView;
 
         public IAsyncRelayCommand LoadRepositoryReleasesPageCommand { get; }
         #endregion
@@ -93,7 +89,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Releases
         private async Task LoadRepositoryReleasesAsync(string login, string name)
         {
             ReleaseQueries queries = new();
-            var items = await queries.GetAllAsync(Repository.Owner.Login, Repository.Name);
+            var items = await queries.GetAllAsync(login, name);
 
             if (items.Any())
             {
@@ -134,7 +130,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Releases
             string missedPath = "https://raw.githubusercontent.com/" + Repository.Owner.Login + "/" + Repository.Name + "/" + Repository.DefaultBranchRef.Name + "/";
 
             MarkdownApiHandler mdHandler = new();
-            var html = await mdHandler.GetHtmlAsync(LatestRelease.DescriptionHTML ?? "<span>No description</span>", missedPath, ThemeHelpers.ActualTheme.ToString().ToLower());
+            var html = await mdHandler.GetHtmlAsync(LatestRelease.DescriptionHTML ?? "<span>No description</span>", missedPath, ThemeHelpers.RootTheme.ToString().ToLower());
 
             LatestReleaseDescriptionWebView.NavigateToString(html);
             await LatestReleaseDescriptionWebView.HandleResize();

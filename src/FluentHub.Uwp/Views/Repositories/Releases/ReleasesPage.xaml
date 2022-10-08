@@ -5,13 +5,13 @@
     xmlns:converters="using:FluentHub.Uwp.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="using:FluentHub.Uwp.Helpers"
-    xmlns:local="using:FluentHub.Uwp.Views.Repositories.Code"
+    xmlns:local="using:FluentHub.Uwp.Views.Repositories.Releases"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:ov="using:FluentHub.Uwp.UserControls.Overview"
     xmlns:primer="using:FluentHub.Uwp.UserControls.PrimerControls"
-    xmlns:toolkit="using:CommunityToolkit.Uwp.UI.Controls"
+    xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
     xmlns:uc="using:FluentHub.Uwp.UserControls"
     mc:Ignorable="d">
 

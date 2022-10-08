@@ -2,11 +2,8 @@ using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
-using FluentHub.Uwp.ViewModels.Repositories;
-using FluentHub.Uwp.ViewModels.UserControls;
-using FluentHub.Uwp.ViewModels.UserControls.Overview;
-using FluentHub.Uwp.ViewModels.UserControls.BlockButtons;
 using FluentHub.Uwp.Utils;
+using FluentHub.Uwp.ViewModels.UserControls.Overview;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Media.Imaging;
 using muxc = Microsoft.UI.Xaml.Controls;
@@ -93,12 +90,12 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Issues
             IssueEventQueries queries = new();
             _timelineItems.Clear();
 
-            IssueItem = await issueQueries.GetAsync(Repository.Owner.Login, Repository.Name, Number);
+            IssueItem = await issueQueries.GetAsync(owner, name, Number);
 
-            var bodyComment = await issueQueries.GetBodyAsync(Repository.Owner.Login, Repository.Name, Number);
+            var bodyComment = await issueQueries.GetBodyAsync(owner, name, Number);
             _timelineItems.Add(bodyComment);
 
-            var issueEvents = await queries.GetAllAsync(Repository.Owner.Login, Repository.Name, Number);
+            var issueEvents = await queries.GetAllAsync(owner, name, Number);
             foreach (var item in issueEvents)
                 _timelineItems.Add(item);
         }

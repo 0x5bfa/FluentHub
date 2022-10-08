@@ -2,10 +2,8 @@ using FluentHub.Octokit.Queries.Users;
 using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
-using FluentHub.Uwp.ViewModels.Repositories;
-using FluentHub.Uwp.ViewModels.UserControls;
-using FluentHub.Uwp.ViewModels.UserControls.BlockButtons;
 using FluentHub.Uwp.Utils;
+using FluentHub.Uwp.ViewModels.UserControls.BlockButtons;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Media.Imaging;
 using muxc = Microsoft.UI.Xaml.Controls;
@@ -101,9 +99,9 @@ namespace FluentHub.Uwp.ViewModels.Home
                     StartPage = _loadedPageCount + 1,
                 });
 
-            _loadedItemCount += response.Count();
+            _loadedItemCount += response.Count;
             _loadedPageCount++;
-            if (response.Count() < _itemCountPerPage)
+            if (response.Count < _itemCountPerPage)
                 _loadedToTheEnd = true;
 
             _notifications.Clear();
@@ -138,9 +136,9 @@ namespace FluentHub.Uwp.ViewModels.Home
                         StartPage = _loadedPageCount + 1,
                     });
 
-                _loadedItemCount += response.Count();
+                _loadedItemCount += response.Count;
                 _loadedPageCount++;
-                if (response.Count() < _itemCountPerPage)
+                if (response.Count < _itemCountPerPage)
                     _loadedToTheEnd = true;
 
                 foreach (var item in response)

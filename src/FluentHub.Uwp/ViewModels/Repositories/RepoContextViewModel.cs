@@ -1,7 +1,3 @@
-using FluentHub.Uwp.Helpers;
-using FluentHub.Uwp.Models;
-using FluentHub.Uwp.Utils;
-
 namespace FluentHub.Uwp.ViewModels.Repositories
 {
     public class RepoContextViewModel : ObservableObject
