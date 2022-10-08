@@ -4,7 +4,6 @@ using FluentHub.Uwp.Services;
 using FluentHub.Uwp.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows.Input;
-using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.ViewModels.UserControls.Overview
 {
@@ -12,11 +11,6 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Overview
     {
         public RepositoryOverviewViewModel()
         {
-            RepositoryVisibilityLabel = new()
-            {
-                Color = "#64000000"
-            };
-
             GoOwnerProfileCommand = new RelayCommand(GoOwnerProfile);
         }
 
@@ -34,9 +28,6 @@ namespace FluentHub.Uwp.ViewModels.UserControls.Overview
         public Repository Repository { get => _repository; set => SetProperty(ref _repository, value); }
 
         public static Repository StoredRepository;
-
-        private LabelControlViewModel _repositoryVisibilityLabel;
-        public LabelControlViewModel RepositoryVisibilityLabel { get => _repositoryVisibilityLabel; set => SetProperty(ref _repositoryVisibilityLabel, value); }
 
         private string _viewerSubscriptionState;
         public string ViewerSubscriptionState { get => _viewerSubscriptionState; set => SetProperty(ref _viewerSubscriptionState, value); }
