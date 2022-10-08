@@ -30,7 +30,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls
         public IAsyncRelayCommand LoadReadmeContentBlockCommand { get; }
         #endregion
 
-        public async Task LoadRepositoryReadmeAsync(WebView webView)
+        public async Task LoadRepositoryReadmeAsync(WebView2 webView)
         {
             try
             {

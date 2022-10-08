@@ -1,3 +1,4 @@
+using FluentHub.Uwp.Extensions;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.UserControls;
@@ -29,15 +30,14 @@ namespace FluentHub.Uwp.UserControls
         }
         #endregion
 
-        public IssueCommentBlock() => InitializeComponent();
+        public IssueCommentBlock()
+            => InitializeComponent();
 
-        private bool WebViewIsNavigatedSuccessfully { get; set; }
-
-        private async void OnCommentWebViewNavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
-            => await((WebView)sender).HandleResize();
+        private async void OnCommentWebViewNavigationCompleted(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs args)
+            => await((WebView2)sender).HandleResize();
 
         private async void OnWebViewSizeChanged(object sender, SizeChangedEventArgs e)
-            => await ((WebView)sender).HandleResize();
+            => await ((WebView2)sender).HandleResize();
 
         private async void OnCommentWebViewLoaded(object sender, RoutedEventArgs e)
         {

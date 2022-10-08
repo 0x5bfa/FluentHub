@@ -1,12 +1,13 @@
 using FluentHub.Octokit.Queries.Repositories;
+using FluentHub.Uwp.Extensions;
 using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
 using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.ViewModels.UserControls.Overview;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
-using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.Uwp.ViewModels.Repositories.Releases
 {
@@ -51,7 +52,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Releases
         private Exception _taskException;
         public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
 
-        public muxc.WebView LatestReleaseDescriptionWebView;
+        public WebView2 LatestReleaseDescriptionWebView;
 
         public IAsyncRelayCommand LoadRepositoryReleasesPageCommand { get; }
         #endregion
@@ -130,7 +131,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Releases
             string missedPath = "https://raw.githubusercontent.com/" + Repository.Owner.Login + "/" + Repository.Name + "/" + Repository.DefaultBranchRef.Name + "/";
 
             MarkdownApiHandler mdHandler = new();
-            var html = await mdHandler.GetHtmlAsync(LatestRelease.DescriptionHTML ?? "<span>No description</span>", missedPath, ThemeHelpers.RootTheme.ToString().ToLower());
+            var html = await mdHandler.GetHtmlAsync(LatestRelease.DescriptionHTML ?? "<span>No description provided</span>", missedPath, ThemeHelpers.RootTheme.ToString().ToLower());
 
             LatestReleaseDescriptionWebView.NavigateToString(html);
             await LatestReleaseDescriptionWebView.HandleResize();
@@ -145,7 +146,7 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Releases
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = $"Releases · {Login}/{Name}";
             currentItem.Description = $"Releases · {Login}/{Name}";
-            currentItem.Icon = new muxc.ImageIconSource
+            currentItem.Icon = new ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.png"))
             };

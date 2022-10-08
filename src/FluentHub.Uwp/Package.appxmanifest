@@ -5,7 +5,7 @@
   <Properties>
     <DisplayName>FluentHub - Dev</DisplayName>
     <PublisherDisplayName>Tomoyuki Terashita</PublisherDisplayName>
-    <Logo>Assets\AppTilesDev\StoreLogo.png</Logo>
+    <Logo>Assets\AppTiles\Dev\StoreLogo.png</Logo>
   </Properties>
   <Dependencies>
     <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.0.0" MaxVersionTested="10.0.22000.0" />
@@ -15,9 +15,15 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="$targetentrypoint$">
-      <uap:VisualElements DisplayName="FluentHub - Dev" Square150x150Logo="Assets\AppTilesDev\Square150x150Logo.png" Square44x44Logo="Assets\AppTilesDev\Square44x44Logo.png" Description="A stylish yet powerful GitHub client" BackgroundColor="transparent">
-        <uap:DefaultTile Wide310x150Logo="Assets\AppTilesDev\Wide310x150Logo.png" Square71x71Logo="Assets\AppTilesDev\SmallTile.png" Square310x310Logo="Assets\AppTilesDev\LargeTile.png" />
-        <uap:SplashScreen uap5:Optional="true" Image="Assets\AppTilesDev\SplashScreen.png" />
+      <uap:VisualElements DisplayName="FluentHub - Dev" Square150x150Logo="Assets\AppTiles\Dev\Square150x150Logo.png" Square44x44Logo="Assets\AppTiles\Dev\Square44x44Logo.png" Description="A stylish yet powerful GitHub client" BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Assets\AppTiles\Dev\Wide310x150Logo.png" Square71x71Logo="Assets\AppTiles\Dev\SmallTile.png" Square310x310Logo="Assets\AppTiles\Dev\LargeTile.png" >
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="wide310x150Logo"/>
+            <uap:ShowOn Tile="square150x150Logo"/>
+            <uap:ShowOn Tile="square310x310Logo"/>
+          </uap:ShowNameOnTiles>
+        </uap:DefaultTile >
+        <uap:SplashScreen uap5:Optional="true" Image="Assets\AppTiles\Dev\SplashScreen.png" />
       </uap:VisualElements>
       <Extensions>
         <uap:Extension Category="windows.protocol">

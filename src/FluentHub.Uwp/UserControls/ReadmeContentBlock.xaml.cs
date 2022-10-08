@@ -1,4 +1,4 @@
-using FluentHub.Uwp.Helpers;
+using FluentHub.Uwp.Extensions;
 using FluentHub.Uwp.Models;
 using FluentHub.Uwp.Services;
 using FluentHub.Uwp.ViewModels.Repositories;
@@ -36,10 +36,10 @@ namespace FluentHub.Uwp.UserControls
 
         public ReadmeContentBlockViewModel ViewModel { get; }
 
-        private async void ReadmeWebView_NavigationCompleted(WebView sender, WebViewNavigationCompletedEventArgs args)
-            => await WebViewHelpers.DisableWebViewVerticalScrollingAsync(ReadmeWebView);
+        private async void ReadmeWebView_NavigationCompleted(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs args)
+            => await ReadmeWebView.HandleResize();
 
-        private void ReadmeWebView_NavigationStarting(WebView sender, WebViewNavigationStartingEventArgs args)
+        private void ReadmeWebView_NavigationStarting(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs args)
         {
             if (args.Uri != null)
                 args.Cancel = true;
