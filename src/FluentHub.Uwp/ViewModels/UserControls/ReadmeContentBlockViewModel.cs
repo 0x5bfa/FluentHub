@@ -14,7 +14,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls
             _messenger = messenger;
             _logger = logger;
 
-            LoadReadmeContentBlockCommand = new AsyncRelayCommand<WebView>(LoadRepositoryReadmeAsync);
+            LoadReadmeContentBlockCommand = new AsyncRelayCommand<WebView2>(LoadRepositoryReadmeAsync);
         }
 
         #region Fields and Properties

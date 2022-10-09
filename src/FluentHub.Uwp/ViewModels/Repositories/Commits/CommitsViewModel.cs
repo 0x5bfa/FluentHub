@@ -109,11 +109,6 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Commits
                 Repository = Repository,
                 RepositoryName = Repository.Name,
                 RepositoryOwnerLogin = Repository.Owner.Login,
-                RepositoryVisibilityLabel = new()
-                {
-                    Name = Repository.IsPrivate ? "Private" : "Public",
-                    Color = "#64000000",
-                },
                 ViewerSubscriptionState = Repository.ViewerSubscription?.Humanize(),
 
                 SelectedTag = "code",

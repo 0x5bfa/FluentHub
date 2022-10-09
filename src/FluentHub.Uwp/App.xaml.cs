@@ -1,41 +1,34 @@
-using FluentHub.Octokit.Authorization;
+using CommunityToolkit.Mvvm.DependencyInjection;
+using CommunityToolkit.WinUI;
+using CommunityToolkit.WinUI.Helpers;
+using CommunityToolkit.WinUI.Notifications;
 using FluentHub.Uwp;
-using FluentHub.Uwp.Helpers;
 using FluentHub.Uwp.Utils;
 using FluentHub.Uwp.Services;
 using FluentHub.Uwp.Services.Navigation;
 using FluentHub.Uwp.ViewModels;
-using FluentHub.Uwp.Views;
-using FluentHub.Uwp.Views.SignIn;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.UI;
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
+using Microsoft.UI.Windowing;
 using Microsoft.Windows.AppLifecycle;
 using Serilog;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.Storage;
-using Windows.UI;
-using Windows.UI.ViewManagement;
-using Microsoft.UI;
-using Windows.ApplicationModel.Core;
-using Microsoft.UI.Windowing;
 
 namespace FluentHub
 {
     public partial class App : Application
     {
+        public new static App Current
+            => (App)Application.Current;
+
+        public IServiceProvider Services { get; }
+
         public static SettingsViewModel Settings { get; set; }
 
         public static string AppVersion =
@@ -53,11 +46,6 @@ namespace FluentHub
 
             Services = ConfigureServices();
         }
-
-        public new static App Current
-            => (App)Application.Current;
-
-        public IServiceProvider Services { get; }
 
         private IServiceProvider ConfigureServices()
         {

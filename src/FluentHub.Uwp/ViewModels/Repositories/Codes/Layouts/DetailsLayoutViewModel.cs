@@ -164,11 +164,6 @@ namespace FluentHub.Uwp.ViewModels.Repositories.Code.Layouts
             RepositoryOverviewViewModel.RepositoryName = RepositoryOverviewViewModel.Repository.Name;
             RepositoryOverviewViewModel.RepositoryOwnerLogin = RepositoryOverviewViewModel.Repository.Owner.Login;
             RepositoryOverviewViewModel.ViewerSubscriptionState = RepositoryOverviewViewModel.Repository.ViewerSubscription?.Humanize();
-            RepositoryOverviewViewModel.RepositoryVisibilityLabel = new()
-            {
-                Name = RepositoryOverviewViewModel.Repository.IsPrivate ? "Private" : "Public",
-                Color = "#64000000",
-            };
         }
 
         private void InitializeRepositoryContext(string owner, string name, string path)

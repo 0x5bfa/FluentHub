@@ -8,25 +8,6 @@ namespace FluentHub.Uwp.ViewModels.UserControls.BlockButtons
     {
         public PullBlockButtonViewModel()
         {
-            _labelViewModels = new();
-            LabelViewModels = new(_labelViewModels);
-
-            CommentCountLabel = new()
-            {
-                Color = "#36000000",
-            };
-
-            ReviewStateLabel = new()
-            {
-                Name = "Reviews",
-                Color = "#36000000",
-            };
-
-            StatusStateLabel = new()
-            {
-                Name = "Status",
-                Color = "#36000000",
-            };
         }
 
         #region Fields and Properties

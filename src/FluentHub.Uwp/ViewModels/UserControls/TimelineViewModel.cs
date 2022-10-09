@@ -194,9 +194,6 @@ namespace FluentHub.Uwp.ViewModels.UserControls
         #region Viewmodels
         private IssueCommentBlockViewModel _commentBlockViewModel;
         public IssueCommentBlockViewModel CommentBlockViewModel { get => _commentBlockViewModel; set => SetProperty(ref _commentBlockViewModel, value); }
-
-        private LabelControlViewModel _labelControlViewModel;
-        public LabelControlViewModel LabelControlViewModel { get => _labelControlViewModel; set => SetProperty(ref _labelControlViewModel, value); }
         #endregion
     }
 }

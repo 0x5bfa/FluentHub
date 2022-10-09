@@ -8,13 +8,6 @@ namespace FluentHub.Uwp.ViewModels.UserControls.BlockButtons
     {
         public IssueBlockButtonViewModel()
         {
-            _labelViewModels = new();
-            LabelViewModels = new(_labelViewModels);
-
-            CommentCountLabel = new()
-            {
-                Color = "#36000000",
-            };
         }
 
         #region Fields and Properties
