@@ -21,7 +21,7 @@ namespace FluentHub.Uwp.ViewModels.AppSettings
             _logger = logger;
 
             _selectedThemeIndex = (int)Enum.Parse<ElementTheme>(ThemeHelpers.RootTheme.ToString());
-            _selectedLanguageIndex = App.Settings.DefaultLanguages.IndexOf(App.Settings.DefaultLanguage);
+            _selectedLanguageIndex = App.AppSettings.DefaultLanguages.IndexOf(App.AppSettings.DefaultLanguage);
             _showRestartMessage = false;
 
             Themes = new List<string>()
@@ -32,7 +32,7 @@ namespace FluentHub.Uwp.ViewModels.AppSettings
             }
             .AsReadOnly();
 
-            DefaultLanguages = App.Settings.DefaultLanguages.ToList().AsReadOnly();
+            DefaultLanguages = App.AppSettings.DefaultLanguages.ToList().AsReadOnly();
 
             LoadUserCommand = new AsyncRelayCommand(LoadUserAsync);
 
@@ -71,10 +71,10 @@ namespace FluentHub.Uwp.ViewModels.AppSettings
             {
                 if (SetProperty(ref _selectedLanguageIndex, value))
                 {
-                    App.Settings.DefaultLanguage = DefaultLanguages[value];
-                    _logger?.Info("Language changed to {0}", App.Settings.DefaultLanguage);
+                    App.AppSettings.DefaultLanguage = DefaultLanguages[value];
+                    _logger?.Info("Language changed to {0}", App.AppSettings.DefaultLanguage);
 
-                    ShowRestartMessage = App.Settings.CurrentLanguage.ID != DefaultLanguages[value].ID;
+                    ShowRestartMessage = App.AppSettings.CurrentLanguage.ID != DefaultLanguages[value].ID;
                 }
             }
         }
@@ -98,7 +98,7 @@ namespace FluentHub.Uwp.ViewModels.AppSettings
             if (AppSettingsOverviewViewModel.StoredUser is null)
             {
                 UserQueries queries = new();
-                var response = await queries.GetAsync(App.Settings.SignedInUserName);
+                var response = await queries.GetAsync(App.AppSettings.SignedInUserName);
 
                 User = response;
 

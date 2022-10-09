@@ -251,14 +251,14 @@ namespace FluentHub.Uwp.Views
                     navService.Navigate<Users.OverviewPage>(
                         new FrameNavigationArgs()
                         {
-                            Login = App.Settings.SignedInUserName,
+                            Login = App.AppSettings.SignedInUserName,
                         });
                     break;
                 case "Repositories":
                     navService.Navigate<Users.RepositoriesPage>(
                         new FrameNavigationArgs()
                         {
-                            Login = App.Settings.SignedInUserName,
+                            Login = App.AppSettings.SignedInUserName,
                             Parameters = new() { "AsViewer" },
                         });
                     break;
@@ -266,7 +266,7 @@ namespace FluentHub.Uwp.Views
                     navService.Navigate<Users.DiscussionsPage>(
                     new Models.FrameNavigationArgs()
                     {
-                        Login = App.Settings.SignedInUserName,
+                        Login = App.AppSettings.SignedInUserName,
                         Parameters = new() { "AsViewer" },
                     });
                     break;
@@ -274,7 +274,7 @@ namespace FluentHub.Uwp.Views
                     navService.Navigate<Users.IssuesPage>(
                     new Models.FrameNavigationArgs()
                     {
-                        Login = App.Settings.SignedInUserName,
+                        Login = App.AppSettings.SignedInUserName,
                         Parameters = new() { "AsViewer" },
                     });
                     break;
@@ -282,7 +282,7 @@ namespace FluentHub.Uwp.Views
                     navService.Navigate<Users.PullRequestsPage>(
                     new Models.FrameNavigationArgs()
                     {
-                        Login = App.Settings.SignedInUserName,
+                        Login = App.AppSettings.SignedInUserName,
                         Parameters = new() { "AsViewer" },
                     });
                     break;
@@ -290,7 +290,7 @@ namespace FluentHub.Uwp.Views
                     navService.Navigate<Users.OrganizationsPage>(
                     new Models.FrameNavigationArgs()
                     {
-                        Login = App.Settings.SignedInUserName,
+                        Login = App.AppSettings.SignedInUserName,
                         Parameters = new() { "AsViewer" },
                     });
                     break;
@@ -298,7 +298,7 @@ namespace FluentHub.Uwp.Views
                     navService.Navigate<Users.StarredReposPage>(
                     new Models.FrameNavigationArgs()
                     {
-                        Login = App.Settings.SignedInUserName,
+                        Login = App.AppSettings.SignedInUserName,
                         Parameters = new() { "AsViewer" },
                     });
                     break;
@@ -349,7 +349,7 @@ namespace FluentHub.Uwp.Views
                     navService.Navigate<Users.OverviewPage>(
                     new FrameNavigationArgs()
                     {
-                        Login = App.Settings.SignedInUserName,
+                        Login = App.AppSettings.SignedInUserName,
                     });
                     break;
             }

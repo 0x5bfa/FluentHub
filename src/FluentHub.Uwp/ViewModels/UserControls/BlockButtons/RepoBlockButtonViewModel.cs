@@ -37,7 +37,7 @@ namespace FluentHub.Uwp.ViewModels.UserControls.BlockButtons
                 Name = Repository.Name,
             };
 
-            if (App.Settings.UseDetailsView)
+            if (App.AppSettings.UseDetailsView)
                 _navigation.Navigate<Views.Repositories.Code.Layouts.DetailsLayoutView>(parameter);
             else
                 _navigation.Navigate<Views.Repositories.Code.Layouts.TreeLayoutView>(parameter);

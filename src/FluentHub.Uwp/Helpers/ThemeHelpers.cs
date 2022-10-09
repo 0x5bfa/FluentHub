@@ -107,7 +107,7 @@ namespace FluentHub.Uwp.Helpers
                 }
             }
 
-            App.AppSettings.UpdateThemeElements.Execute(null);
+            //App.AppSettings.UpdateThemeElements.Execute(null);
         }
     }
 }

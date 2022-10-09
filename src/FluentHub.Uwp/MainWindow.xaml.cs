@@ -63,16 +63,16 @@ namespace FluentHub.Uwp
                 case ILaunchActivatedEventArgs launchArgs:
                     if (rootFrame.Content == null)
                     {
-                        if (App.Settings.SetupCompleted == true)
+                        if (App.AppSettings.SetupCompleted == true)
                         {
-                            Octokit.Authorization.InitializeOctokit.InitializeApiConnections(App.Settings.AccessToken);
+                            Octokit.Authorization.InitializeOctokit.InitializeApiConnections(App.AppSettings.AccessToken);
 
                             rootFrame.Navigate(typeof(Uwp.Views.MainPage));
                         }
                         else
                         {
-                            App.Settings.SetupProgress = false;
-                            App.Settings.SetupCompleted = false;
+                            App.AppSettings.SetupProgress = false;
+                            App.AppSettings.SetupCompleted = false;
 
                             rootFrame.Navigate(typeof(Uwp.Views.SignIn.IntroPage));
                         }

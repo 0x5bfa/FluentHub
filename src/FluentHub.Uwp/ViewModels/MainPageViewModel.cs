@@ -187,7 +187,7 @@ namespace FluentHub.Uwp.ViewModels
             try
             {
                 Octokit.Queries.Users.UserQueries queries = new();
-                var user = await queries.GetAsync(App.Settings.SignedInUserName);
+                var user = await queries.GetAsync(App.AppSettings.SignedInUserName);
 
                 SignedInUser = user ?? new();
 

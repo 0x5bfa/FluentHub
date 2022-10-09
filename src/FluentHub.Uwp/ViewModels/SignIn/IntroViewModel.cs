@@ -36,14 +36,14 @@ namespace FluentHub.Uwp.ViewModels.SignIn
                 var url = request.RequestGitHubIdentityAsync(secrets);
                 await Launcher.LaunchUriAsync(new Uri(url));
 
-                App.Settings.SetupProgress = true;
+                App.AppSettings.SetupProgress = true;
                 IsLoading = true;
             }
             catch (OperationCanceledException) { }
             catch (Exception ex)
             {
                 AuthErrorMessage = ex.Message;
-                App.Settings.SetupProgress = false;
+                App.AppSettings.SetupProgress = false;
 
                 _logger?.Error(nameof(AuthorizeWithBrowserAsync), ex);
                 throw;

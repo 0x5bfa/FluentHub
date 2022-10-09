@@ -54,19 +54,19 @@ namespace FluentHub.Uwp.Views.Repositories.Code.Layouts
             string branchName = "";
 
             // URL has root path and default branch
-            if (pathSegments.Count() == 2) isRootDir = true;
+            if (pathSegments.Count == 2) isRootDir = true;
             // URL has different branch name and/or repository content path
-            if (pathSegments.Count() > 2)
+            if (pathSegments.Count > 2)
             {
                 isFile = pathSegments[2] == "blob" ? true : false;
                 isDir = pathSegments[2] == "tree" ? true : false;
 
                 branchName = pathSegments[3];
 
-                if (pathSegments.Count() == 4) isRootDir = true;
+                if (pathSegments.Count == 4) isRootDir = true;
 
                 // URL has path
-                if (pathSegments.Count() > 4)
+                if (pathSegments.Count > 4)
                 {
                     pathSegments.RemoveRange(0, 4);
                     path = string.Join("/", pathSegments);
@@ -119,7 +119,7 @@ namespace FluentHub.Uwp.Views.Repositories.Code.Layouts
 
             currentItem.DisplayUrl = displayurl;
 
-            currentItem.Icon = new muxc.ImageIconSource
+            currentItem.Icon = new ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.png"))
             };

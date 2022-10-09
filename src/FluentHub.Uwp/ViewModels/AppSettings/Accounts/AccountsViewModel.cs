@@ -29,7 +29,7 @@ namespace FluentHub.Uwp.ViewModels.AppSettings.Accounts
             try
             {
                 UserQueries queries = new();
-                var response = await queries.GetAsync(App.Settings.SignedInUserName);
+                var response = await queries.GetAsync(App.AppSettings.SignedInUserName);
 
                 SignedInUser = response;
             }

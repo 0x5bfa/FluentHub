@@ -29,9 +29,9 @@ namespace FluentHub.Uwp.Helpers
             ThemeFolder = await appInstalledFolder.GetFolderAsync("Themes");
             ImportedThemesFolder = await ApplicationData.Current.LocalFolder.CreateFolderAsync("Themes", CreationCollisionOption.OpenIfExists);
 
-            if (App.Settings.SelectedThemeItem.Path != null)
+            if (App.AppSettings.SelectedThemeItem.Path != null)
             {
-                await TryLoadThemeAsync(App.Settings.SelectedThemeItem);
+                await TryLoadThemeAsync(App.AppSettings.SelectedThemeItem);
             }
         }
 

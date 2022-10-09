@@ -73,13 +73,13 @@ namespace FluentHub.Uwp.ViewModels.Home
         private async Task LoadActivitiesAsync()
         {
             RepositoryQueries repositoryQueries = new();
-            var repositoryResponse = await repositoryQueries.GetAllAsync(App.Settings.SignedInUserName);
+            var repositoryResponse = await repositoryQueries.GetAllAsync(App.AppSettings.SignedInUserName);
             if (repositoryResponse == null) return;
 
             foreach (var item in repositoryResponse) _userRepositories.Add(item);
 
             ActivityQueries activityQueries = new();
-            var activityResponse = await activityQueries.GetAllAsync(App.Settings.SignedInUserName);
+            var activityResponse = await activityQueries.GetAllAsync(App.AppSettings.SignedInUserName);
             if (activityResponse == null) return;
 
             foreach (var item in activityResponse)

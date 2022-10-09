@@ -13,9 +13,7 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:tabsuc="using:FluentHub.Uwp.UserControls.TabViewControl"
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
-    xmlns:triggers="using:WindowsStateTriggers"
     xmlns:uc="using:FluentHub.Uwp.UserControls"
-    muxc:BackdropMaterial.ApplyToRootOrPageBackground="True"
     KeyTipPlacementMode="Hidden"
     KeyboardAcceleratorPlacementMode="Hidden"
     mc:Ignorable="d">

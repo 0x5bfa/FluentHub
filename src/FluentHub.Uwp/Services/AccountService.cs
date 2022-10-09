@@ -10,32 +10,32 @@ namespace FluentHub.Uwp.Services
             // Avoid duplication
             RemoveAccount(login);
 
-            var logins = App.Settings.SignedInUserLogins;
+            var logins = App.AppSettings.SignedInUserLogins;
 
             if (string.IsNullOrEmpty(logins)) logins += $"{login}"; // comma-divided
             else logins += $",{login}"; // comma-divided
 
-            App.Settings.SignedInUserLogins = logins;
+            App.AppSettings.SignedInUserLogins = logins;
         }
 
         public static void RemoveAccount(string login)
         {
-            var loginsDividedWithComma = App.Settings.SignedInUserLogins.Split(",").ToList();
+            var loginsDividedWithComma = App.AppSettings.SignedInUserLogins.Split(",").ToList();
             loginsDividedWithComma.Remove(login);
             var joinedNewValues = string.Join(",", loginsDividedWithComma);
 
-            App.Settings.SignedInUserLogins = joinedNewValues;
+            App.AppSettings.SignedInUserLogins = joinedNewValues;
         }
 
         public static void RemoveAllAccount()
         {
             // Anticipate using only when deleting all accounts and re-signing in.
-            App.Settings.SignedInUserLogins = "";
+            App.AppSettings.SignedInUserLogins = "";
         }
 
         public static bool IsAlreadySignedIn(string login)
         {
-            var loginsDividedWithComma = App.Settings.SignedInUserLogins.Split(",").ToList();
+            var loginsDividedWithComma = App.AppSettings.SignedInUserLogins.Split(",").ToList();
             var isContain = loginsDividedWithComma.Contains(login);
 
             return isContain;

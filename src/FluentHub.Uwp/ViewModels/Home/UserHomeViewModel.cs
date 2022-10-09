@@ -127,7 +127,7 @@ namespace FluentHub.Uwp.ViewModels.Home
         private async Task LoadHomeContentsAsync()
         {
             RepositoryQueries repositoryQueries = new();
-            var repositoryResponse = await repositoryQueries.GetAllAsync(App.Settings.SignedInUserName);
+            var repositoryResponse = await repositoryQueries.GetAllAsync(App.AppSettings.SignedInUserName);
 
             foreach (var item in repositoryResponse)
                 _userRepositories.Add(item);

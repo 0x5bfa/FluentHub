@@ -1,14 +1,17 @@
 ﻿<Application
     x:Class="FluentHub.Uwp.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:FluentHub.Uwp">
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
 
     <Application.Resources>
         <ResourceDictionary>
+
             <FontFamily x:Key="Octicons">/Assets/Glyphs/Octicons.ttf#Octions</FontFamily>
+
             <ResourceDictionary.MergedDictionaries>
+
                 <XamlControlsResources xmlns="using:Microsoft.UI.Xaml.Controls" />
+
                 <ResourceDictionary>
                     <ResourceDictionary.ThemeDictionaries>
                         <ResourceDictionary x:Key="Light">
@@ -63,6 +66,7 @@
                             <SolidColorBrush x:Key="NavigationViewContentBackground" Color="#0F000000" />
                         </ResourceDictionary>
                     </ResourceDictionary.ThemeDictionaries>
+
                     <LinearGradientBrush x:Key="ControlElevationBorderBrush" MappingMode="Absolute" StartPoint="0,0" EndPoint="0,3">
                         <LinearGradientBrush.RelativeTransform>
                             <ScaleTransform CenterY="0.5" ScaleY="-1" />
@@ -72,94 +76,15 @@
                             <GradientStop Offset="1.0" Color="{ThemeResource ControlStrokeColorDefault}" />
                         </LinearGradientBrush.GradientStops>
                     </LinearGradientBrush>
+
                 </ResourceDictionary>
+
                 <ResourceDictionary Source="ms-appx:///ResourceDictionaries/TextBlockStyles.xaml" />
                 <ResourceDictionary Source="ms-appx:///Themes/GitHub Default.xaml" />
                 <ResourceDictionary Source="ms-appx:///ResourceDictionaries/CommonStyles.xaml" />
                 <ResourceDictionary Source="ms-appx:///ResourceDictionaries/ClearButtonStyle.xaml" />
                 <ResourceDictionary Source="ms-appx:///ResourceDictionaries/LinkLikeButtonStyle.xaml" />
-                <ResourceDictionary>
-                    <Color x:Key="Black1">#0d1017</Color>
-                    <Color x:Key="Black2">#151b22</Color>
-                    <Color x:Key="Black3">#21262e</Color>
-                    <Color x:Key="Black4">#30373d</Color>
-                    <Color x:Key="Black5">#484f58</Color>
-                    <Color x:Key="Black6">#6e7681</Color>
-                    <Color x:Key="Black7">#8b939e</Color>
-                    <Color x:Key="Black8">#afbac5</Color>
-                    <Color x:Key="Black9">#c9d1d9</Color>
-                    <Color x:Key="Black10">#f0f6fc</Color>
-                    <Color x:Key="Blue1">#051d4d</Color>
-                    <Color x:Key="Blue2">#0d2d6b</Color>
-                    <Color x:Key="Blue3">#0d419d</Color>
-                    <Color x:Key="Blue4">#1158c7</Color>
-                    <Color x:Key="Blue5">#206feb</Color>
-                    <Color x:Key="Blue6">#388bfd</Color>
-                    <Color x:Key="Blue7">#58a6ff</Color>
-                    <Color x:Key="Blue8">#79c0ff</Color>
-                    <Color x:Key="Blue9">#a5d6ff</Color>
-                    <Color x:Key="Blue10">#cae8ff</Color>
-                    <Color x:Key="Purple1">#271051</Color>
-                    <Color x:Key="Purple2">#3c1e70</Color>
-                    <Color x:Key="Purple3">#553098</Color>
-                    <Color x:Key="Purple4">#6e40c9</Color>
-                    <Color x:Key="Purple5">#8957e5</Color>
-                    <Color x:Key="Purple6">#a371f7</Color>
-                    <Color x:Key="Purple7">#bc8cff</Color>
-                    <Color x:Key="Purple8">#d2a8ff</Color>
-                    <Color x:Key="Purple9">#e2c5ff</Color>
-                    <Color x:Key="Purple10">#edddff</Color>
-                    <Color x:Key="Pink1">#42062b</Color>
-                    <Color x:Key="Pink2">#5d103e</Color>
-                    <Color x:Key="Pink3">#7d2457</Color>
-                    <Color x:Key="Pink4">#9e3670</Color>
-                    <Color x:Key="Pink5">#bf4b8a</Color>
-                    <Color x:Key="Pink6">#db61a2</Color>
-                    <Color x:Key="Pink7">#f778ba</Color>
-                    <Color x:Key="Pink8">#ff9bce</Color>
-                    <Color x:Key="Pink9">#ffbedd</Color>
-                    <Color x:Key="Pink10">#ffdaec</Color>
-                    <Color x:Key="Red1">#490402</Color>
-                    <Color x:Key="Red2">#67090d</Color>
-                    <Color x:Key="Red3">#8e1619</Color>
-                    <Color x:Key="Red4">#b62324</Color>
-                    <Color x:Key="Red5">#da3633</Color>
-                    <Color x:Key="Red6">#f85149</Color>
-                    <Color x:Key="Red7">#ff7b72</Color>
-                    <Color x:Key="Red8">#ffa198</Color>
-                    <Color x:Key="Red9">#ffc1ba</Color>
-                    <Color x:Key="Red10">#ffdad5</Color>
-                    <Color x:Key="Orange1">#3d1300</Color>
-                    <Color x:Key="Orange2">#5a1e02</Color>
-                    <Color x:Key="Orange3">#752d09</Color>
-                    <Color x:Key="Orange4">#9b4216</Color>
-                    <Color x:Key="Orange5">#bd561d</Color>
-                    <Color x:Key="Orange6">#db6d28</Color>
-                    <Color x:Key="Orange7">#f0883e</Color>
-                    <Color x:Key="Orange8">#ffa657</Color>
-                    <Color x:Key="Orange9">#ffc680</Color>
-                    <Color x:Key="Orange10">#ffdeb3</Color>
-                    <Color x:Key="Yellow1">#341a00</Color>
-                    <Color x:Key="Yellow2">#4b2a00</Color>
-                    <Color x:Key="Yellow3">#693e00</Color>
-                    <Color x:Key="Yellow4">#825303</Color>
-                    <Color x:Key="Yellow5">#9e6a03</Color>
-                    <Color x:Key="Yellow6">#bb800a</Color>
-                    <Color x:Key="Yellow7">#d29922</Color>
-                    <Color x:Key="Yellow8">#e3b341</Color>
-                    <Color x:Key="Yellow9">#f2cc60</Color>
-                    <Color x:Key="Yellow10">#f8e3a1</Color>
-                    <Color x:Key="Green1">#04260f</Color>
-                    <Color x:Key="Green2">#053a15</Color>
-                    <Color x:Key="Green3">#0f5322</Color>
-                    <Color x:Key="Green4">#186c2e</Color>
-                    <Color x:Key="Green5">#228636</Color>
-                    <Color x:Key="Green6">#2ea043</Color>
-                    <Color x:Key="Green7">#3fb950</Color>
-                    <Color x:Key="Green8">#56d364</Color>
-                    <Color x:Key="Green9">#7ee787</Color>
-                    <Color x:Key="Green10">#aff5b4</Color>
-                </ResourceDictionary>
+
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

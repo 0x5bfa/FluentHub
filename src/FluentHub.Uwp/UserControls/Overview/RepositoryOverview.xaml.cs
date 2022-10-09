@@ -45,7 +45,7 @@ namespace FluentHub.Uwp.UserControls.Overview
                         Name = ViewModel.Repository?.Name,
                     };
 
-                    if (App.Settings.UseDetailsView)
+                    if (App.AppSettings.UseDetailsView)
                         service.Navigate<Views.Repositories.Code.Layouts.DetailsLayoutView>(param);
                     else
                         service.Navigate<Views.Repositories.Code.Layouts.TreeLayoutView>(param);

@@ -31,11 +31,11 @@ namespace FluentHub.Uwp.ViewModels.AppSettings.Accounts
         {
             try
             {
-                var dividedLogins = App.Settings.SignedInUserLogins.Split(",");
+                var dividedLogins = App.AppSettings.SignedInUserLogins.Split(",");
 
                 foreach (var item in dividedLogins)
                 {
-                    var isViewer = item == App.Settings.SignedInUserName ? true : false;
+                    var isViewer = item == App.AppSettings.SignedInUserName ? true : false;
 
                     AccountModel model = new()
                     {

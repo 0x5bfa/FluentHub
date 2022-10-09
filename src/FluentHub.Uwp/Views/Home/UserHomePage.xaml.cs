@@ -39,7 +39,7 @@ namespace FluentHub.Uwp.Views.Home
                 Name = clickedItem.Name,
             };
 
-            if (App.Settings.UseDetailsView)
+            if (App.AppSettings.UseDetailsView)
                 _navigation.Navigate<Views.Repositories.Code.Layouts.DetailsLayoutView>(param);
             else
                 _navigation.Navigate<Views.Repositories.Code.Layouts.TreeLayoutView>(param);
@@ -55,7 +55,7 @@ namespace FluentHub.Uwp.Views.Home
                     _navigation.Navigate<Users.IssuesPage>(
                     new FrameNavigationArgs()
                     {
-                        Login = App.Settings.SignedInUserName,
+                        Login = App.AppSettings.SignedInUserName,
                         Parameters = new() { "AsViewer" },
                     });
                     break;
@@ -63,7 +63,7 @@ namespace FluentHub.Uwp.Views.Home
                     _navigation.Navigate<Users.PullRequestsPage>(
                     new FrameNavigationArgs()
                     {
-                        Login = App.Settings.SignedInUserName,
+                        Login = App.AppSettings.SignedInUserName,
                         Parameters = new() { "AsViewer" },
                     });
                     break;
@@ -71,7 +71,7 @@ namespace FluentHub.Uwp.Views.Home
                     _navigation.Navigate<Users.DiscussionsPage>(
                     new FrameNavigationArgs()
                     {
-                        Login = App.Settings.SignedInUserName,
+                        Login = App.AppSettings.SignedInUserName,
                         Parameters = new() { "AsViewer" },
                     });
                     break;
@@ -79,7 +79,7 @@ namespace FluentHub.Uwp.Views.Home
                     _navigation.Navigate<Users.RepositoriesPage>(
                     new FrameNavigationArgs()
                     {
-                        Login = App.Settings.SignedInUserName,
+                        Login = App.AppSettings.SignedInUserName,
                         Parameters = new() { "AsViewer" },
                     });
                     break;
@@ -87,7 +87,7 @@ namespace FluentHub.Uwp.Views.Home
                     _navigation.Navigate<Users.OrganizationsPage>(
                     new FrameNavigationArgs()
                     {
-                        Login = App.Settings.SignedInUserName,
+                        Login = App.AppSettings.SignedInUserName,
                         Parameters = new() { "AsViewer" },
                     });
                     break;
@@ -95,7 +95,7 @@ namespace FluentHub.Uwp.Views.Home
                     _navigation.Navigate<Users.StarredReposPage>(
                     new FrameNavigationArgs()
                     {
-                        Login = App.Settings.SignedInUserName,
+                        Login = App.AppSettings.SignedInUserName,
                         Parameters = new() { "AsViewer" },
                     });
                     break;

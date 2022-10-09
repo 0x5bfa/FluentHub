@@ -20,7 +20,7 @@ using System.Linq;
 using Windows.ApplicationModel;
 using Windows.Storage;
 
-namespace FluentHub
+namespace FluentHub.Uwp
 {
     public partial class App : Application
     {
@@ -29,7 +29,7 @@ namespace FluentHub
 
         public IServiceProvider Services { get; }
 
-        public static SettingsViewModel Settings { get; set; }
+        public static SettingsViewModel AppSettings { get; set; }
 
         public static string AppVersion =
             $"{Windows.ApplicationModel.Package.Current.Id.Version.Major}." +
@@ -128,7 +128,7 @@ namespace FluentHub
 
         private static void EnsureSettingsAndConfigurationAreBootstrapped()
         {
-            Settings ??= new SettingsViewModel();
+            AppSettings ??= new SettingsViewModel();
         }
 
         private static async Task StartAppCenter()
@@ -187,14 +187,30 @@ namespace FluentHub
             deferral.Complete();
         }
 
-        private static void OnUnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
-            => AppUnhandledException(e.Exception);
+        private async void OnUnhandledException(object sender, Microsoft.UI.Xaml.UnhandledExceptionEventArgs e)
+            => await AppUnhandledException(e.Exception);
 
-        private static void OnUnobservedException(object sender, UnobservedTaskExceptionEventArgs e)
-            => AppUnhandledException(e.Exception);
+        private async void OnUnobservedException(object sender, UnobservedTaskExceptionEventArgs e)
+            => await AppUnhandledException(e.Exception);
 
-        private static void AppUnhandledException(Exception ex)
+        private async Task AppUnhandledException(Exception ex)
         {
+            Services.GetService<Utils.ILogger>()?.Fatal("Unhandled exception", ex);
+
+            try
+            {
+                await new Microsoft.UI.Xaml.Controls.ContentDialog
+                {
+                    Title = "Unhandled exception",
+                    Content = ex.Message,
+                    CloseButtonText = "Close"
+                }
+                .ShowAsync();
+            }
+            catch (Exception ex2)
+            {
+                Services.GetService<Utils.ILogger>()?.Error("Failed to display unhandled exception", ex2);
+            }
         }
 
         public static TEnum GetEnum<TEnum>(string text) where TEnum : struct

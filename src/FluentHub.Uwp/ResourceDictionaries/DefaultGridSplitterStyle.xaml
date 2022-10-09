@@ -3,7 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls">
 
-    <Style x:Key="DefaultGridSplitterStyle" TargetType="controls:GridSplitter">
+    <Style x:Key="DefaultGridSplitterStyle" TargetType="toolkit:GridSplitter">
         <Setter Property="IsTabStop" Value="True" />
         <Setter Property="UseSystemFocusVisuals" Value="True" />
         <Setter Property="HorizontalAlignment" Value="Stretch" />

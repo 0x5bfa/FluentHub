@@ -39,7 +39,7 @@ namespace FluentHub.Uwp.Views.Home
                 Name = item.Name,
             };
 
-            if (App.Settings.UseDetailsView)
+            if (App.AppSettings.UseDetailsView)
                 _navigation.Navigate<Views.Repositories.Code.Layouts.DetailsLayoutView>(parameter);
             else
                 _navigation.Navigate<Views.Repositories.Code.Layouts.TreeLayoutView>(parameter);
