@@ -4,7 +4,6 @@
     {
         public async Task<User> GetAsync(string login)
         {
-            #region queries
             var query = new Query()
                 .User(login)
                 .Select(x => new User
@@ -47,7 +46,6 @@
                     .SingleOrDefault(),
                 })
                 .Compile();
-            #endregion
 
             var response = await App.Connection.Run(query);
 
@@ -56,7 +54,6 @@
 
         public async Task<string> GetViewerLogin()
         {
-            #region query
             var query = new Query()
                 .Viewer
                 .Select(x => new
@@ -64,7 +61,6 @@
                     x.Login,
                 })
                 .Compile();
-            #endregion
 
             var response = await App.Connection.Run(query);
 

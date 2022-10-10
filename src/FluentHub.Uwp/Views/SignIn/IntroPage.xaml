@@ -48,7 +48,7 @@
                             <muxc:ImageIcon
                                 Height="72"
                                 VerticalAlignment="Center"
-                                Source="ms-appx:///Assets/AppTiles/StoreLogo.scale-400.png" />
+                                Source="ms-appx:///Assets/AppTiles/Release/StoreLogo.scale-400.png" />
 
                             <TextBlock
                                 x:Name="IntroHeader"

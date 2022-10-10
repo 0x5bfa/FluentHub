@@ -6,14 +6,13 @@ using FluentHub.Uwp.Services.Navigation;
 using FluentHub.Uwp.ViewModels;
 using FluentHub.Uwp.Utils;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.UI.Xaml;
+using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Input;
+using Microsoft.UI.Xaml.Navigation;
 using Windows.ApplicationModel.Core;
 using Windows.System;
 using Windows.UI.Core;
-using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Navigation;
-using muxc = Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Input;
 
 namespace FluentHub.Uwp.Views
 {
@@ -38,33 +37,20 @@ namespace FluentHub.Uwp.Views
         #region Methods
         private void SubscribeEvents()
         {
-            var titleBar = CoreApplication.GetCurrentView().TitleBar;
-
-            /*
-              
-            TODO UA307 Default back button in the title bar does not exist in WinUI3 apps.
-            The tool has generated a custom back button in the MainWindow.xaml.cs file.
-            Feel free to edit its position, behavior and use the custom back button instead.
-            Read: https://docs.microsoft.com/en-us/windows/apps/windows-app-sdk/migrate-to-windows-app-sdk/case-study-1#restoring-back-button-functionality
-            */SystemNavigationManager.GetForCurrentView().BackRequested += OnAppBackRequested;
-            App.Window.CoreWindow.PointerPressed += OnWindowPointerPressed;
         }
 
         private void UnsubscribeEvents()
         {
-            var titleBar = CoreApplication.GetCurrentView().TitleBar;
-            SystemNavigationManager.GetForCurrentView().BackRequested -= OnAppBackRequested;
-            App.Window.CoreWindow.PointerPressed -= OnWindowPointerPressed;
         }
 
-        private muxc.InfoBarSeverity UserNotificationToInfoBarSeverity(UserNotificationType type)
+        private InfoBarSeverity UserNotificationToInfoBarSeverity(UserNotificationType type)
         {
             return type switch
             {
-                UserNotificationType.Info => muxc.InfoBarSeverity.Informational,
-                UserNotificationType.Success => muxc.InfoBarSeverity.Success,
-                UserNotificationType.Warning => muxc.InfoBarSeverity.Warning,
-                UserNotificationType.Error => muxc.InfoBarSeverity.Error,
+                UserNotificationType.Info => InfoBarSeverity.Informational,
+                UserNotificationType.Success => InfoBarSeverity.Success,
+                UserNotificationType.Warning => InfoBarSeverity.Warning,
+                UserNotificationType.Error => InfoBarSeverity.Error,
                 _ => throw new ArgumentOutOfRangeException(nameof(type), type, null),
             };
         }
@@ -190,47 +176,6 @@ namespace FluentHub.Uwp.Views
             }
         }
 
-        private void OnAppBackRequested(object sender, BackRequestedEventArgs e)
-        {
-            if (navService.CanGoBack())
-            {
-                navService.GoBack();
-                e.Handled = true;
-            }
-
-            Logger?.Debug("SystemNavigationManager.GetForCurrentView().BackRequested fired, [handled: {0}]", e.Handled);
-        }
-
-        private void OnWindowPointerPressed(CoreWindow sender, PointerEventArgs e)
-        {
-            // Mouse back button pressed
-            if (e.CurrentPoint.Properties.IsXButton1Pressed)
-            {
-                bool canGoBack = navService.CanGoBack();
-                if (canGoBack)
-                {
-                    navService.GoBack();
-                    e.Handled = true;
-                }
-                Logger?.Debug("CoreWindow.PointerPressed [button: {0}, canGoBack: {1}]",
-                    e.CurrentPoint.Properties.PointerUpdateKind,
-                    canGoBack);
-            }
-            // Mouse forward button pressed
-            else if (e.CurrentPoint.Properties.IsXButton2Pressed)
-            {
-                bool canGoForward = navService.CanGoForward();
-                if (canGoForward)
-                {
-                    navService.GoForward();
-                    e.Handled = true;
-                }
-                Logger?.Debug("CoreWindow.PointerPressed [button: {0}, CanGoForward: {1}]",
-                    e.CurrentPoint.Properties.PointerUpdateKind,
-                    canGoForward);
-            }
-        }
-
         private void OnDragAreaLoaded(object sender, RoutedEventArgs e)
             => App.Window.SetTitleBar(DragArea);
 
@@ -315,7 +260,7 @@ namespace FluentHub.Uwp.Views
             }
         }
 
-        private void OnMainNavViewItemInvoked(muxc.NavigationView sender, muxc.NavigationViewItemInvokedEventArgs args)
+        private void OnMainNavViewItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
             if (args.InvokedItemContainer == null)
             {

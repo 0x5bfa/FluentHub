@@ -155,18 +155,25 @@ namespace FluentHub.Uwp
             var mainInstance = Microsoft.Windows.AppLifecycle.AppInstance.FindOrRegisterForKey("main");
             var activatedEventArgs = Microsoft.Windows.AppLifecycle.AppInstance.GetCurrent().GetActivatedEventArgs();
 
-            if (!mainInstance.IsCurrent)
-            {
-                // Redirect the activation (and args) to the "main" instance, and exit.
-                await mainInstance.RedirectActivationToAsync(activatedEventArgs);
-                System.Diagnostics.Process.GetCurrentProcess().Kill();
-                return;
-            }
+            //if (!mainInstance.IsCurrent)
+            //{
+            //    // Redirect the activation (and args) to the "main" instance, and exit.
+            //    await mainInstance.RedirectActivationToAsync(activatedEventArgs);
+            //    System.Diagnostics.Process.GetCurrentProcess().Kill();
+            //    return;
+            //}
 
             EnsureSettingsAndConfigurationAreBootstrapped();
 
             // Initialize MainWindow here
             EnsureWindowIsInitialized();
+
+            await Window.InitializeApplication(activatedEventArgs);
+        }
+
+        public async Task OnActivated(AppActivationArguments activatedEventArgs)
+        {
+            await Window.InitializeApplication(activatedEventArgs);
         }
 
         private void EnsureWindowIsInitialized()

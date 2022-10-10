@@ -99,6 +99,9 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\**">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Themes\*.xaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Generator>MSBuild:Compile</Generator>
@@ -108,6 +111,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Content>
+    <Content Include="AppCredentials.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
   <ItemGroup>
