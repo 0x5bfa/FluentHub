@@ -85,7 +85,7 @@
                                 <FontIcon
                                     FontFamily="{StaticResource Octicons}"
                                     FontSize="16"
-                                    Foreground="{StaticResource Yellow8}"
+                                    Foreground="{StaticResource PrimerScaleYellow2}"
                                     Glyph="&#xEA96;" />
 
                             </toolkit:Case>

@@ -13,7 +13,7 @@ namespace FluentHub.Uwp.ViewModels
         public MainPageViewModel(INavigationService navigationService, IMessenger notificationMessenger = null, ToastService toastService = null, ILogger logger = null)
         {
             // To Access the UI thread later.
-            _dispatcher = DispatcherQueue.GetForCurrentThread();
+            _dispatcher = Microsoft.UI.Dispatching.DispatcherQueue.GetForCurrentThread();
 
             _navigationService = navigationService;
             _messenger = notificationMessenger;
@@ -56,7 +56,7 @@ namespace FluentHub.Uwp.ViewModels
         }
 
         #region Fields and Properties
-        private readonly DispatcherQueue _dispatcher;
+        private readonly Microsoft.UI.Dispatching.DispatcherQueue _dispatcher;
         private readonly INavigationService _navigationService;
         private readonly IMessenger _messenger;
         private readonly ToastService _toastService;

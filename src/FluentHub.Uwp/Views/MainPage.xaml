@@ -97,7 +97,7 @@
 
             <Grid
                 x:Name="DragArea"
-                Grid.ColumnSpan="2"
+                Grid.ColumnSpan="2" Canvas.ZIndex="-3"
                 Height="40"
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Top"
@@ -105,7 +105,7 @@
                 BorderThickness="0"
                 Loaded="OnDragAreaLoaded" />
 
-            <Grid ColumnSpacing="8">
+            <Grid Canvas.ZIndex="1" ColumnSpacing="8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
@@ -380,7 +380,7 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Grid Margin="0,-4,1,2">
+            <Grid Margin="0,-4,3,2">
                 <muxc:NavigationView
                     x:Name="MainNavView"
                     Width="76"
@@ -410,7 +410,7 @@
                                 IsSelected="{x:Bind IsSelected, Mode=TwoWay}"
                                 Tag="{x:Bind Name, Mode=OneWay}">
                                 <Grid
-                                    Margin="-5,4,-9,0"
+                                    Margin="-20,4,-10,0"
                                     HorizontalAlignment="Stretch"
                                     VerticalAlignment="Stretch"
                                     RowSpacing="4">
@@ -467,21 +467,7 @@
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <!--<muxc:InfoBar
-                    Title="{x:Bind ViewModel.LastNotification.Title}"
-                    Margin="0,0,8,0"
-                    VerticalAlignment="Top"
-                    x:DefaultBindMode="OneWay"
-                    IsClosable="True"
-                    IsOpen="{x:Bind ViewModel.LastNotification, Converter={StaticResource ObjectToBoolConverter}}"
-                    Message="{x:Bind ViewModel.LastNotification.Message}"
-                    Severity="{x:Bind UserNotificationToInfoBarSeverity(ViewModel.LastNotification.Type)}">
-                    <muxc:InfoBar.Resources>
-                        <Thickness x:Key="InfoBarBorderThickness">1</Thickness>
-                    </muxc:InfoBar.Resources>
-                </muxc:InfoBar>-->
-
-                <Border
+                <ContentPresenter
                     x:Name="RootFrameBorder"
                     Grid.Row="1"
                     CornerRadius="8,0,0,0" />

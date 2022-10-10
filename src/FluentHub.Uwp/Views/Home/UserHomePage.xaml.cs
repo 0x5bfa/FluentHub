@@ -33,71 +33,46 @@ namespace FluentHub.Uwp.Views.Home
         {
             var clickedItem = e.ClickedItem as Repository;
 
-            var param = new Models.FrameNavigationArgs()
+            var param = new FrameNavigationArgs()
             {
                 Login = clickedItem.Owner.Login,
                 Name = clickedItem.Name,
             };
 
             if (App.AppSettings.UseDetailsView)
-                _navigation.Navigate<Views.Repositories.Code.Layouts.DetailsLayoutView>(param);
+                _navigation.Navigate<Repositories.Code.Layouts.DetailsLayoutView>(param);
             else
-                _navigation.Navigate<Views.Repositories.Code.Layouts.TreeLayoutView>(param);
+                _navigation.Navigate<Repositories.Code.Layouts.TreeLayoutView>(param);
         }
 
         private void OnOneFolderCardClick(object sender, RoutedEventArgs e)
         {
             var clickedButton = sender as Button;
+            var param = new FrameNavigationArgs()
+            {
+                Login = App.AppSettings.SignedInUserName,
+                Parameters = new() { "AsViewer" },
+            };
 
             switch (clickedButton.Tag)
             {
                 case "issues":
-                    _navigation.Navigate<Users.IssuesPage>(
-                    new FrameNavigationArgs()
-                    {
-                        Login = App.AppSettings.SignedInUserName,
-                        Parameters = new() { "AsViewer" },
-                    });
+                    _navigation.Navigate<Users.IssuesPage>(param);
                     break;
                 case "pullrequests":
-                    _navigation.Navigate<Users.PullRequestsPage>(
-                    new FrameNavigationArgs()
-                    {
-                        Login = App.AppSettings.SignedInUserName,
-                        Parameters = new() { "AsViewer" },
-                    });
+                    _navigation.Navigate<Users.PullRequestsPage>(param);
                     break;
                 case "discussions":
-                    _navigation.Navigate<Users.DiscussionsPage>(
-                    new FrameNavigationArgs()
-                    {
-                        Login = App.AppSettings.SignedInUserName,
-                        Parameters = new() { "AsViewer" },
-                    });
+                    _navigation.Navigate<Users.DiscussionsPage>(param);
                     break;
                 case "repositories":
-                    _navigation.Navigate<Users.RepositoriesPage>(
-                    new FrameNavigationArgs()
-                    {
-                        Login = App.AppSettings.SignedInUserName,
-                        Parameters = new() { "AsViewer" },
-                    });
+                    _navigation.Navigate<Users.RepositoriesPage>(param);
                     break;
                 case "organizations":
-                    _navigation.Navigate<Users.OrganizationsPage>(
-                    new FrameNavigationArgs()
-                    {
-                        Login = App.AppSettings.SignedInUserName,
-                        Parameters = new() { "AsViewer" },
-                    });
+                    _navigation.Navigate<Users.OrganizationsPage>(param);
                     break;
                 case "stars":
-                    _navigation.Navigate<Users.StarredReposPage>(
-                    new FrameNavigationArgs()
-                    {
-                        Login = App.AppSettings.SignedInUserName,
-                        Parameters = new() { "AsViewer" },
-                    });
+                    _navigation.Navigate<Users.StarredReposPage>(param);
                     break;
             }
         }

@@ -180,7 +180,9 @@ namespace FluentHub.Uwp.Views
             => App.Window.SetTitleBar(DragArea);
 
         private void OnTabViewSelectionChanged(object sender, TabViewSelectionChangedEventArgs e)
-            => RootFrameBorder.Child = e.NewSelectedItem?.Frame;
+        {
+            RootFrameBorder.Content = e.NewSelectedItem?.Frame;
+        }
 
         private void OnMenuFlyoutItemClick(object sender, RoutedEventArgs e)
         {

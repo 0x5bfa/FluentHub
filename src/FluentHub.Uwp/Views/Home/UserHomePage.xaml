@@ -207,8 +207,8 @@
                                     <DataTemplate x:DataType="models:FolderCardItem">
                                         <Button
                                             Padding="8"
+                                            HorizontalAlignment="Stretch"
                                             Click="OnOneFolderCardClick"
-                                            Style="{StaticResource ContentBlockButtonStyle}"
                                             Tag="{x:Bind Tag}">
 
                                             <Grid
@@ -339,7 +339,7 @@
                                                         <FontIcon
                                                             FontFamily="{StaticResource Octicons}"
                                                             FontSize="22"
-                                                            Foreground="{StaticResource Purple5}"
+                                                            Foreground="{StaticResource PrimerClosedForeground}"
                                                             Glyph="&#xE9E6;" />
                                                     </toolkit:Case>
 
@@ -347,7 +347,7 @@
                                                         <FontIcon
                                                             FontFamily="{StaticResource Octicons}"
                                                             FontSize="22"
-                                                            Foreground="{StaticResource Black6}"
+                                                            Foreground="{StaticResource PrimerScaleGray5}"
                                                             Glyph="&#xEA84;" />
                                                     </toolkit:Case>
 
@@ -355,7 +355,7 @@
                                                         <FontIcon
                                                             FontFamily="{StaticResource Octicons}"
                                                             FontSize="22"
-                                                            Foreground="{StaticResource Green5}"
+                                                            Foreground="{StaticResource PrimerOpenForeground}"
                                                             Glyph="&#xE9EA;" />
                                                     </toolkit:Case>
 
@@ -363,7 +363,7 @@
                                                         <FontIcon
                                                             FontFamily="{StaticResource Octicons}"
                                                             FontSize="22"
-                                                            Foreground="{StaticResource Red5}"
+                                                            Foreground="{StaticResource PrimerClosedForeground}"
                                                             Glyph="&#xE9C1;" />
                                                     </toolkit:Case>
 
@@ -371,7 +371,7 @@
                                                         <FontIcon
                                                             FontFamily="{StaticResource Octicons}"
                                                             FontSize="22"
-                                                            Foreground="{StaticResource Purple5}"
+                                                            Foreground="{StaticResource PrimerDoneForeground}"
                                                             Glyph="&#xE9BD;" />
                                                     </toolkit:Case>
 
@@ -379,7 +379,7 @@
                                                         <FontIcon
                                                             FontFamily="{StaticResource Octicons}"
                                                             FontSize="22"
-                                                            Foreground="{StaticResource Black5}"
+                                                            Foreground="{StaticResource PrimerScaleGray5}"
                                                             Glyph="&#xE9C3;" />
                                                     </toolkit:Case>
 
@@ -387,7 +387,7 @@
                                                         <FontIcon
                                                             FontFamily="{StaticResource Octicons}"
                                                             FontSize="22"
-                                                            Foreground="{StaticResource Green5}"
+                                                            Foreground="{StaticResource PrimerOpenForeground}"
                                                             Glyph="&#xE9BF;" />
                                                     </toolkit:Case>
 
@@ -395,7 +395,7 @@
                                                         <FontIcon
                                                             FontFamily="{StaticResource Octicons}"
                                                             FontSize="22"
-                                                            Foreground="{StaticResource Blue5}"
+                                                            Foreground="{StaticResource PrimerScaleGray5}"
                                                             Glyph="&#xE95D;" />
                                                     </toolkit:Case>
 
@@ -403,7 +403,7 @@
                                                         <FontIcon
                                                             FontFamily="{StaticResource Octicons}"
                                                             FontSize="22"
-                                                            Foreground="{StaticResource Blue5}"
+                                                            Foreground="{StaticResource PrimerScaleGray5}"
                                                             Glyph="&#xE9B9;" />
                                                     </toolkit:Case>
 
