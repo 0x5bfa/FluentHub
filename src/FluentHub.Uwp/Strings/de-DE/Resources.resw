@@ -166,10 +166,10 @@
     <value>Keine kürzlichen Aktivitäten.</value>
   </data>
   <data name="FifthStepToAuthorize.Text" xml:space="preserve">
-    <value>Fahren Sie mit der FluentHub Anwendung fort.</value>
+    <value>Fahre mit der FluentHub Anwendung fort.</value>
   </data>
   <data name="FirstStepToAuthorize.Text" xml:space="preserve">
-    <value>Klicken Sie auf "Login mit GitHub";</value>
+    <value>Klicke auf "Login mit GitHub";</value>
   </data>
   <data name="Follow" xml:space="preserve">
     <value>Folgen</value>
@@ -187,7 +187,7 @@
     <value>folge ich</value>
   </data>
   <data name="ForthStepToAuthorize.Text" xml:space="preserve">
-    <value>Klicken Sie auf "Öffne FluentHub DEV";</value>
+    <value>Klicke auf "Öffne FluentHub DEV";</value>
   </data>
   <data name="Forward" xml:space="preserve">
     <value>Vorwärts</value>
@@ -403,90 +403,90 @@
     <value>Stars durchsuchen</value>
   </data>
   <data name="SecondStepToAuthorize.Text" xml:space="preserve">
-    <value>If you are in administration of one or more organizations, please give FluentHub access to them;</value>
+    <value>Wenn du in der Verwaltung einer oder mehrerer Organisationen sind, gewähren Sie bitte FluentHub Zugriff darauf;</value>
   </data>
   <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
+    <value>Einstellungen</value>
   </data>
   <data name="SettingsButton.Text" xml:space="preserve">
-    <value>Settings</value>
+    <value>Einstellungen</value>
   </data>
   <data name="SettingsFeedbackButton.Content" xml:space="preserve">
     <value>Feedback</value>
   </data>
   <data name="SettingsGetHelpButton.Content" xml:space="preserve">
-    <value>Get help</value>
+    <value>Hilfe erhalten</value>
   </data>
   <data name="SignOutButton.Text" xml:space="preserve">
-    <value>Sign Out</value>
+    <value>Abmelden</value>
   </data>
   <data name="Stars" xml:space="preserve">
     <value>Stars</value>
   </data>
   <data name="SwitchAccountFlyoutSub.Text" xml:space="preserve">
-    <value>Switch account</value>
+    <value>Konto wechseln</value>
   </data>
   <data name="ThemeAuto" xml:space="preserve">
-    <value>Sync with system setting</value>
+    <value>Mit Systemeinstellung synchronisieren</value>
   </data>
   <data name="ThemeDark" xml:space="preserve">
-    <value>Dark</value>
+    <value>Dunkel</value>
   </data>
   <data name="ThemeLight" xml:space="preserve">
-    <value>Light</value>
+    <value>Hell</value>
   </data>
   <data name="ThirdStepToAuthorize.Text" xml:space="preserve">
-    <value>Click "Authorize FluentHub";</value>
+    <value>Klicke auf "FluentHub autorisieren";</value>
   </data>
   <data name="TryAgainWithCap" xml:space="preserve">
-    <value>Try Again</value>
+    <value>Erneut versuchen</value>
   </data>
   <data name="Unfollow" xml:space="preserve">
-    <value>Unfollow</value>
+    <value>Nicht mehr folgen</value>
   </data>
   <data name="UserDiscussionsButton.Text" xml:space="preserve">
-    <value>Your discussions</value>
+    <value>Deine Diskussionen</value>
   </data>
   <data name="UserIssuesButton.Text" xml:space="preserve">
-    <value>Your issues</value>
+    <value>Deine Probleme</value>
   </data>
   <data name="UserOrganizationsButton.Text" xml:space="preserve">
-    <value>Your organizations</value>
+    <value>Deine Organisationen</value>
   </data>
   <data name="UserProfileButton.Text" xml:space="preserve">
-    <value>Your profile</value>
+    <value>Dein Profil</value>
   </data>
   <data name="UserPullRequestsButton.Text" xml:space="preserve">
-    <value>Your pull requests</value>
+    <value>Deine Pull Requests</value>
   </data>
   <data name="UserRepositoriesButton.Text" xml:space="preserve">
-    <value>Your repositories</value>
+    <value>Deine Repositorys</value>
   </data>
   <data name="UserStarsButton.Text" xml:space="preserve">
-    <value>Your stars</value>
+    <value>Deine Stars</value>
   </data>
   <data name="YourDiscussions" xml:space="preserve">
-    <value>Your discussions</value>
+    <value>Deine Diskussionen</value>
   </data>
   <data name="YourFollowers" xml:space="preserve">
-    <value>Your followers</value>
+    <value>Deine Follower</value>
   </data>
   <data name="YourFollowing" xml:space="preserve">
-    <value>Your following</value>
+    <value>Personen, denen du folgst</value>
   </data>
   <data name="YourIssues" xml:space="preserve">
-    <value>Your issues</value>
+    <value>Deine Probleme</value>
   </data>
   <data name="YourOrganizations" xml:space="preserve">
-    <value>Your organizations</value>
+    <value>Deine Organisationen</value>
   </data>
   <data name="YourPullRequests" xml:space="preserve">
-    <value>Your pull requests</value>
+    <value>Deine Pull Requests</value>
   </data>
   <data name="YourRepositories" xml:space="preserve">
-    <value>Your repositories</value>
+    <value>Deine Repositorys</value>
   </data>
   <data name="YourStars" xml:space="preserve">
-    <value>Your stars</value>
+    <value>Deine Stars</value>
   </data>
 </root>
