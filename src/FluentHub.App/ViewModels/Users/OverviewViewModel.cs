@@ -166,7 +166,7 @@ namespace FluentHub.App.ViewModels.Users
 
         private async Task ShowPinnedRepositoriesEditorDialogAsync()
         {
-            var dialogs = new Uwp.Dialogs.EditPinnedRepositoriesDialog(Login);
+            var dialogs = new global::FluentHub.App.Dialogs.EditPinnedRepositoriesDialog(Login);
             _ = await dialogs.ShowAsync();
         }
     }

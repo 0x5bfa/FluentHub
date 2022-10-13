@@ -1,18 +1,18 @@
 ﻿<Page
-    x:Class="FluentHub.Uwp.Views.Repositories.Releases.ReleasesPage"
+    x:Class="FluentHub.App.Views.Repositories.Releases.ReleasesPage"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:converters="using:FluentHub.Uwp.Converters"
+    xmlns:converters="using:FluentHub.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:helpers="using:FluentHub.Uwp.Helpers"
-    xmlns:local="using:FluentHub.Uwp.Views.Repositories.Releases"
+    xmlns:helpers="using:FluentHub.App.Helpers"
+    xmlns:local="using:FluentHub.App.Views.Repositories.Releases"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
-    xmlns:ov="using:FluentHub.Uwp.UserControls.Overview"
-    xmlns:primer="using:FluentHub.Uwp.UserControls.PrimerControls"
+    xmlns:ov="using:FluentHub.App.UserControls.Overview"
+    xmlns:primer="using:FluentHub.App.UserControls.PrimerControls"
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
-    xmlns:uc="using:FluentHub.Uwp.UserControls"
+    xmlns:uc="using:FluentHub.App.UserControls"
     mc:Ignorable="d">
 
     <UserControl.Resources>

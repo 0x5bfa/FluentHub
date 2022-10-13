@@ -1,9 +1,9 @@
 using FluentHub.Octokit.Queries.Repositories;
-using FluentHub.Uwp.Extensions;
-using FluentHub.Uwp.Helpers;
-using FluentHub.Uwp.Services;
-using FluentHub.Uwp.Models;
-using FluentHub.Uwp.ViewModels.Repositories.Releases;
+using FluentHub.App.Extensions;
+using FluentHub.App.Helpers;
+using FluentHub.App.Services;
+using FluentHub.App.Models;
+using FluentHub.App.ViewModels.Repositories.Releases;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
@@ -11,7 +11,7 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Media.Imaging;
 
-namespace FluentHub.Uwp.Views.Repositories.Releases
+namespace FluentHub.App.Views.Repositories.Releases
 {
     public sealed partial class ReleasesPage : Page
     {

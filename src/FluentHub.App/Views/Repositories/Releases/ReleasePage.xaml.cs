@@ -13,7 +13,7 @@ using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 
-namespace FluentHub.Uwp.Views.Repositories.Releases
+namespace FluentHub.App.Views.Repositories.Releases
 {
     public sealed partial class ReleasePage : Page
     {

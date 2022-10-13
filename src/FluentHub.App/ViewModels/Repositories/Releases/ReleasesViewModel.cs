@@ -1,15 +1,15 @@
 using FluentHub.Octokit.Queries.Repositories;
-using FluentHub.Uwp.Extensions;
-using FluentHub.Uwp.Helpers;
-using FluentHub.Uwp.Models;
-using FluentHub.Uwp.Services;
-using FluentHub.Uwp.Utils;
-using FluentHub.Uwp.ViewModels.UserControls.Overview;
+using FluentHub.App.Extensions;
+using FluentHub.App.Helpers;
+using FluentHub.App.Models;
+using FluentHub.App.Services;
+using FluentHub.App.Utils;
+using FluentHub.App.ViewModels.UserControls.Overview;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
 
-namespace FluentHub.Uwp.ViewModels.Repositories.Releases
+namespace FluentHub.App.ViewModels.Repositories.Releases
 {
     public class ReleasesViewModel : ObservableObject
     {
