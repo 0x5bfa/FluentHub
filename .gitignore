@@ -5,6 +5,7 @@
 
 # FluentHub custom
 AppCredentials.config
+lib/octokit.graphql.net/
 
 # User-specific files
 *.rsuser
