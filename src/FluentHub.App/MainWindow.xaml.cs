@@ -125,8 +125,8 @@ namespace FluentHub.App
                                         pageType = typeof(Views.MainPage);
                                     }
 
-                                    return;
                                 }
+                                break;
                         }
                     }
                     break;

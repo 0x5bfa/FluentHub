@@ -8,14 +8,26 @@ namespace FluentHub.App.Dialogs
 {
     public sealed partial class UserProfileEditor : ContentDialog
     {
-        public UserProfileEditor() => InitializeComponent();
-
-        private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        public UserProfileEditor(string login = null)
         {
+            InitializeComponent();
+
+            var provider = App.Current.Services;
+            ViewModel = provider.GetRequiredService<EditUserProfileViewModel>();
+
+            ViewModel.Login = login;
         }
 
-        private void ContentDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        public EditUserProfileViewModel ViewModel { get; }
+
+        private async void OnContentDialogLoaded(object sender, Microsoft.UI.Xaml.RoutedEventArgs e)
         {
+            await ViewModel.LoadUserAsync(ViewModel.Login);
+        }
+
+        private async void OnContentDialogPrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            await ViewModel.UpdateUserAsync(ViewModel.Login);
         }
     }
 }

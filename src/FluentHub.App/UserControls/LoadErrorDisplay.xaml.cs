@@ -56,6 +56,10 @@ namespace FluentHub.App.UserControls
         private async void OnShowExceptionDetailsContentDialogButtonClick(object sender, RoutedEventArgs e)
         {
             var dialog = new Dialogs.ExceptionStackTraceDialog(TaskException);
+
+            // https://github.com/microsoft/microsoft-ui-xaml/issues/2504
+            dialog.XamlRoot = this.Content.XamlRoot;
+
             _ = await dialog.ShowAsync();
         }
 

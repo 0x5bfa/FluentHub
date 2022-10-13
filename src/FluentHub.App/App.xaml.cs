@@ -62,6 +62,7 @@ namespace FluentHub.App
                 .AddTransient<ViewModels.AppSettings.AppearanceViewModel>()
                 .AddTransient<ViewModels.Dialogs.AccountSwitchingDialogViewModel>()
                 .AddTransient<ViewModels.Dialogs.EditPinnedRepositoriesDialogViewModel>()
+                .AddTransient<ViewModels.Dialogs.EditUserProfileViewModel>()
                 .AddTransient<ViewModels.Home.FeedsViewModel>()
                 .AddTransient<ViewModels.Home.NotificationsViewModel>()
                 .AddTransient<ViewModels.Home.UserHomeViewModel>()

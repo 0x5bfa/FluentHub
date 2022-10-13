@@ -37,15 +37,18 @@ namespace FluentHub.App.ViewModels.UserControls
         {
             try
             {
+                var theme = App.Current.RequestedTheme;
+
                 MarkdownApiHandler queries = new();
                 HtmlText = await queries.GetHtmlAsync(
                     ContextViewModel.Repository.Owner.Login,
                     ContextViewModel.Repository.Name,
                     ContextViewModel.BranchName,
-                    ThemeHelpers.RootTheme.ToString().ToLower()
+                    theme.ToString().ToLower()
                     );
 
-                if (HtmlText == null) return;
+                if (HtmlText == null)
+                    return;
 
                 // https://github.com/microsoft/microsoft-ui-xaml/issues/3714
                 await webView2.EnsureCoreWebView2Async();
@@ -53,10 +56,10 @@ namespace FluentHub.App.ViewModels.UserControls
                 // https://github.com/microsoft/microsoft-ui-xaml/issues/1967
                 // It is no longer the plan for WebView2 to support ms-appx-web:/// and ms-appx-data:///.
                 // Instead of using these proprietary protocols the SetVirtualHostNameToFolderMapping API is recommended.
-                var core_wv2 = webView2.CoreWebView2;
-                if (core_wv2 != null)
+                var CoreWebView2 = webView2.CoreWebView2;
+                if (CoreWebView2 != null)
                 {
-                    core_wv2.SetVirtualHostNameToFolderMapping(
+                    CoreWebView2.SetVirtualHostNameToFolderMapping(
                         "fluenthub.app", "Assets/",
                         Microsoft.Web.WebView2.Core.CoreWebView2HostResourceAccessKind.Allow);
                 }

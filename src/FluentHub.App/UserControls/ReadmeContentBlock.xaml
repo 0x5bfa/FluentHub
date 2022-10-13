@@ -60,7 +60,6 @@
 
             <WebView2
                 x:Name="ReadmeContentWebView2"
-                Height="120"
                 Margin="32"
                 DefaultBackgroundColor="Transparent"
                 NavigationCompleted="OnReadmeContentWebView2NavigationCompleted"
@@ -69,10 +68,10 @@
             <TextBlock
                 x:Name="FailedToLoadContentsTextBlock"
                 Margin="32"
-                x:Load="{x:Bind ViewModel.IsLoaded}"
                 Foreground="{ThemeResource SystemFillColorCritical}"
+                IsTextSelectionEnabled="True"
                 Style="{StaticResource BodyTextBlockStyle}"
-                Text="Failed to load README contents." />
+                Text="Failed to load README contents due to WebView2 is unstable." />
 
         </Grid>
 

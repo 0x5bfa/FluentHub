@@ -1,0 +1,10 @@
+﻿{
+  "profiles": {
+    "FluentHub.Uwp (Package)": {
+      "commandName": "MsixPackage"
+    },
+    "FluentHub.Uwp (Unpackaged)": {
+      "commandName": "Project"
+    }
+  }
+}
