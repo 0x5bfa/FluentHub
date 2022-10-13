@@ -117,9 +117,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Humanizer" Version="2.8.25" />
+    <PackageReference Include="Humanizer" Version="2.14.1" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
     <PackageReference Include="Microsoft.Xaml.Behaviors.WinUI.Managed" Version="2.0.9" />
+    <PackageReference Include="Octokit.GraphQL" Version="0.2.0-beta" />
     <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
     <PackageReference Include="Microsoft.WindowsAppSDK" Version="1.1.0" />
     <PackageReference Include="CommunityToolkit.Mvvm" Version="7.1.2" />
@@ -134,9 +135,7 @@
     <PackageReference Include="WinUIEx" Version="1.8.0" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\lib\octokit.graphql.net\Octokit.GraphQL.Core\Octokit.GraphQL.Core.csproj" />
     <ProjectReference Include="..\FluentHub.Core\FluentHub.Core.csproj" />
     <ProjectReference Include="..\FluentHub.Octokit\FluentHub.Octokit.csproj" />
-    <ProjectReference Include="..\..\lib\octokit.graphql.net\Octokit.GraphQL\Octokit.GraphQL.csproj" />
   </ItemGroup>
 </Project>

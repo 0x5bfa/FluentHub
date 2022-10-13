@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Text;
-using FluentHub.Octokit.Generation.Models;
-using FluentHub.Octokit.Generation.Utilities;
+using FluentHub.Octokit.ModelGenerator.Models;
+using FluentHub.Octokit.ModelGenerator.Utilities;
 using Octokit.GraphQL.Core.Introspection;
 
-namespace FluentHub.Octokit.Generation
+namespace FluentHub.Octokit.ModelGenerator
 {
     internal static class InputObjectGenerator
     {

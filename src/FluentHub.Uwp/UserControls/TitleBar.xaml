@@ -39,7 +39,7 @@
             Margin="4,0,0,0"
             VerticalAlignment="Center"
             FontSize="11"
-            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
             Style="{StaticResource CaptionTextBlockStyle}"
             Text="DEV" />
 

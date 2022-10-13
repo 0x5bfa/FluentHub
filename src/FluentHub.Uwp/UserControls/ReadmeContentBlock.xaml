@@ -10,7 +10,7 @@
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
-    Loaded="OnReadmeContentBlockLoaded"
+    Loaded="OnReadmeContentBlockUserControlLoaded"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -18,6 +18,7 @@
     </UserControl.Resources>
 
     <Grid
+        x:Name="RootReadmeContentBlock"
         Background="{ThemeResource LayerFillColorDefaultBrush}"
         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
         BorderThickness="1"
@@ -30,7 +31,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid Padding="32,16,32,16">
+        <Grid Padding="32,16">
 
             <TextBlock
                 VerticalAlignment="Center"
@@ -55,13 +56,25 @@
 
         <MenuFlyoutSeparator Grid.Row="1" />
 
-        <WebView2
-            x:Name="ReadmeWebView"
-            Grid.Row="2"
-            Margin="32"
-            DefaultBackgroundColor="Transparent"
-            NavigationCompleted="ReadmeWebView_NavigationCompleted"
-            NavigationStarting="ReadmeWebView_NavigationStarting" />
+        <Grid Grid.Row="2">
+
+            <WebView2
+                x:Name="ReadmeContentWebView2"
+                Height="120"
+                Margin="32"
+                DefaultBackgroundColor="Transparent"
+                NavigationCompleted="OnReadmeContentWebView2NavigationCompleted"
+                NavigationStarting="OnReadmeContentWebView2NavigationStarting" />
+
+            <TextBlock
+                x:Name="FailedToLoadContentsTextBlock"
+                Margin="32"
+                x:Load="{x:Bind ViewModel.IsLoaded}"
+                Foreground="{ThemeResource SystemFillColorCritical}"
+                Style="{StaticResource BodyTextBlockStyle}"
+                Text="Failed to load README contents." />
+
+        </Grid>
 
     </Grid>
 </UserControl>

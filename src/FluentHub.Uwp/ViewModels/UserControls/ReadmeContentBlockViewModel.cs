@@ -24,13 +24,16 @@ namespace FluentHub.Uwp.ViewModels.UserControls
         private string _htmlText;
         public string HtmlText { get => _htmlText; set => SetProperty(ref _htmlText, value); }
 
+        private bool _isLoaded;
+        public bool IsLoaded { get => _isLoaded; set => SetProperty(ref _isLoaded, value); }
+
         private RepoContextViewModel contextViewModel;
         public RepoContextViewModel ContextViewModel { get => contextViewModel; set => SetProperty(ref contextViewModel, value); }
 
         public IAsyncRelayCommand LoadReadmeContentBlockCommand { get; }
         #endregion
 
-        public async Task LoadRepositoryReadmeAsync(WebView2 webView)
+        public async Task LoadRepositoryReadmeAsync(WebView2 webView2)
         {
             try
             {
@@ -44,17 +47,29 @@ namespace FluentHub.Uwp.ViewModels.UserControls
 
                 if (HtmlText == null) return;
 
-                webView.NavigateToString(HtmlText);
+                // https://github.com/microsoft/microsoft-ui-xaml/issues/3714
+                await webView2.EnsureCoreWebView2Async();
+
+                // https://github.com/microsoft/microsoft-ui-xaml/issues/1967
+                // It is no longer the plan for WebView2 to support ms-appx-web:/// and ms-appx-data:///.
+                // Instead of using these proprietary protocols the SetVirtualHostNameToFolderMapping API is recommended.
+                var core_wv2 = webView2.CoreWebView2;
+                if (core_wv2 != null)
+                {
+                    core_wv2.SetVirtualHostNameToFolderMapping(
+                        "fluenthub.app", "Assets/",
+                        Microsoft.Web.WebView2.Core.CoreWebView2HostResourceAccessKind.Allow);
+                }
+
+                webView2.NavigateToString(HtmlText);
+
+                IsLoaded = true;
             }
             catch (Exception ex)
             {
                 _logger?.Error(nameof(LoadRepositoryReadmeAsync), ex);
-                if (_messenger != null)
-                {
-                    UserNotificationMessage notification = new("Something went wrong", ex.Message, UserNotificationType.Error);
-                    _messenger.Send(notification);
-                }
-                throw;
+
+                IsLoaded = false;
             }
         }
     }

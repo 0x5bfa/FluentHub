@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using FluentHub.Octokit.Generation.Models;
+using FluentHub.Octokit.ModelGenerator.Models;
 using Octokit.GraphQL.Core.Introspection;
 
-namespace FluentHub.Octokit.Generation
+namespace FluentHub.Octokit.ModelGenerator
 {
     public static class CodeGenerator
     {

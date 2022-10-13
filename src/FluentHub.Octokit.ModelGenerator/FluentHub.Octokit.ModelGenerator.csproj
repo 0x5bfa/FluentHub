@@ -8,8 +8,4 @@
     <Platforms>AnyCPU;x64</Platforms>
   </PropertyGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\lib\octokit.graphql.net\Octokit.GraphQL.Core\Octokit.GraphQL.Core.csproj" />
-  </ItemGroup>
-
 </Project>

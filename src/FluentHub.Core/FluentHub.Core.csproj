@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
@@ -9,5 +9,13 @@
     <LangVersion>latest</LangVersion>
     <Configurations>Debug;Release;Sideload</Configurations>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Diagnostics\" />
+    <Folder Include="Services\" />
+    <Folder Include="Tasks\" />
+    <Folder Include="Helpers\" />
+    <Folder Include="Utilities\" />
+  </ItemGroup>
 
 </Project>

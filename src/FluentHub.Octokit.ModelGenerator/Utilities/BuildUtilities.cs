@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using FluentHub.Octokit.Generation.Models;
+using FluentHub.Octokit.ModelGenerator.Models;
 using Octokit.GraphQL.Core.Introspection;
 
-namespace FluentHub.Octokit.Generation.Utilities
+namespace FluentHub.Octokit.ModelGenerator.Utilities
 {
     internal static class BuildUtilities
     {

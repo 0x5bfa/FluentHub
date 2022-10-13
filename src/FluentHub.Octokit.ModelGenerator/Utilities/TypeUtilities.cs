@@ -1,9 +1,9 @@
 ﻿using System;
-using FluentHub.Octokit.Generation.Models;
+using FluentHub.Octokit.ModelGenerator.Models;
 using Octokit.GraphQL.Core.Introspection;
 using Octokit.GraphQL.Core.Utilities;
 
-namespace FluentHub.Octokit.Generation.Utilities
+namespace FluentHub.Octokit.ModelGenerator.Utilities
 {
     internal static class TypeUtilities
     {

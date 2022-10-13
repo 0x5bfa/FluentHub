@@ -1,9 +1,9 @@
 ﻿using System.Threading.Tasks;
-using FluentHub.Octokit.Generation.Models;
+using FluentHub.Octokit.ModelGenerator.Models;
 using Octokit.GraphQL;
 using Octokit.GraphQL.Core.Introspection;
 
-namespace FluentHub.Octokit.Generation
+namespace FluentHub.Octokit.ModelGenerator
 {
     public static class SchemaReader
     {

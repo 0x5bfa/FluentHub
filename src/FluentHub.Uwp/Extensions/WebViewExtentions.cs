@@ -8,7 +8,10 @@ namespace FluentHub.Uwp.Extensions
         {
             try
             {
+                // heightString will be like '"800"'
                 var heightString = await webView2.ExecuteScriptAsync("document.getElementById('container').scrollHeight.toString()");
+
+                heightString = heightString.Trim('"');
 
                 if (int.TryParse(heightString, out int height))
                 {

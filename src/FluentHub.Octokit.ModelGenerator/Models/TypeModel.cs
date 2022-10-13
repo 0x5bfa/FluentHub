@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Octokit.GraphQL.Core.Introspection;
 
-namespace FluentHub.Octokit.Generation.Models
+namespace FluentHub.Octokit.ModelGenerator.Models
 {
     public class TypeModel
     {

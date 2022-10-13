@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace FluentHub.Octokit.Generation.Models
+namespace FluentHub.Octokit.ModelGenerator.Models
 {
     public class FieldModel
     {

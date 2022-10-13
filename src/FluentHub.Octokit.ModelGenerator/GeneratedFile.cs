@@ -1,7 +1,7 @@
 ﻿using System;
 using IoPath = System.IO.Path;
 
-namespace FluentHub.Octokit.Generation
+namespace FluentHub.Octokit.ModelGenerator
 {
     public class GeneratedFile
     {

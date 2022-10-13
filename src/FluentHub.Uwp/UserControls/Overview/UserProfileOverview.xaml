@@ -10,6 +10,7 @@
     xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:primer="using:FluentHub.Uwp.UserControls.PrimerControls"
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:toolkittriggers="using:CommunityToolkit.WinUI.UI.Triggers"
     xmlns:uc="using:FluentHub.Uwp.UserControls"
     d:DesignHeight="300"
     d:DesignWidth="400"
@@ -102,76 +103,71 @@
                         HorizontalAlignment="Left"
                         x:Load="{x:Bind ViewModel.User.Status.Emoji, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
                         <Border
-                            Height="34"
-                            HorizontalAlignment="Stretch"
-                            Background="{ThemeResource PrimerAttentionSubtle}"
-                            BorderBrush="{ThemeResource PrimerAttentionMuted}"
-                            BorderThickness="1"
-                            CornerRadius="4"
-                            Visibility="{x:Bind ViewModel.User.Status.IndicatesLimitedAvailability, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
-
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
-                                <StackPanel
-                                    Margin="8,6,8,8"
-                                    VerticalAlignment="Center"
-                                    Orientation="Horizontal">
-                                    <TextBlock
-                                        x:Name="UserStatusEmoji"
-                                        Margin="0,0,8,0"
-                                        IsTextSelectionEnabled="True"
-                                        Text="{x:Bind ViewModel.User.Status.Emoji, Converter={StaticResource EmojiShortCodeToUnicodeConverter}, Mode=OneWay}"
-                                        Visibility="{x:Bind UserStatusEmoji.Text, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
-                                    <TextBlock
-                                        Margin="0,2,0,0"
-                                        HorizontalAlignment="Center"
-                                        Foreground="{ThemeResource PrimerAttentionForeground}"
-                                        IsTextSelectionEnabled="True"
-                                        LineHeight="18"
-                                        Style="{StaticResource BodyTextBlockStyle}"
-                                        Text="{x:Bind ViewModel.User.Status.Message, Mode=OneWay}" />
-                                </StackPanel>
-                                <Border
-                                    Grid.Column="1"
-                                    Width="24"
-                                    Height="24"
-                                    Margin="0,0,8,0"
-                                    HorizontalAlignment="Right"
-                                    VerticalAlignment="Center"
-                                    CornerRadius="4"
-                                    ToolTipService.ToolTip="This user has limited availability.">
-                                    <FontIcon
-                                        FontSize="14"
-                                        Foreground="{ThemeResource PrimerAttentionForeground}"
-                                        Glyph="&#xe946;" />
-                                </Border>
-                            </Grid>
-                        </Border>
-                        <Border
-                            Height="34"
+                            x:Name="UserStatusBlockBorder"
+                            Height="36"
                             HorizontalAlignment="Stretch"
                             Background="{ThemeResource LayerFillColorDefaultBrush}"
                             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                             BorderThickness="1"
-                            CornerRadius="4"
-                            Visibility="{x:Bind ViewModel.User.Status.IndicatesLimitedAvailability, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
-                            <StackPanel
-                                Margin="8,6,8,8"
-                                VerticalAlignment="Center"
-                                Orientation="Horizontal"
-                                Spacing="8">
-                                <TextBlock IsTextSelectionEnabled="True" Text="{x:Bind ViewModel.User.Status.Emoji, Converter={StaticResource EmojiShortCodeToUnicodeConverter}, Mode=OneWay}" />
+                            CornerRadius="4">
+                            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
                                 <TextBlock
-                                    Margin="0,2,0,0"
+                                    x:Name="UserStatusEmoji"
+                                    Margin="12,0,0,0"
+                                    x:Load="{x:Bind ViewModel.User.Status.Emoji, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                                    IsTextSelectionEnabled="True"
+                                    LineHeight="18"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="{x:Bind ViewModel.User.Status.Emoji, Converter={StaticResource EmojiShortCodeToUnicodeConverter}, Mode=OneWay}" />
+                                <TextBlock
+                                    x:Name="UserStatusBlockMessageTextBlock"
+                                    Margin="8,0,0,0"
                                     HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                     IsTextSelectionEnabled="True"
                                     LineHeight="18"
                                     Style="{StaticResource BodyTextBlockStyle}"
                                     Text="{x:Bind ViewModel.User.Status.Message, Mode=OneWay}" />
+                                <TextBlock
+                                    x:Name="UserStatusIndicatesLimitedAvailabilityTextBlock"
+                                    Grid.Column="1"
+                                    Margin="8,0,12,0"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    x:Load="{x:Bind ViewModel.User.Status.IndicatesLimitedAvailability, Mode=OneWay}"
+                                    FontFamily="Segoe Fluent Icons"
+                                    Foreground="{ThemeResource PrimerAttentionForeground}"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="&#xe946;">
+                                    <ToolTipService.ToolTip>
+                                        <TextBlock
+                                            Foreground="{ThemeResource PrimerAttentionForeground}"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="This user has limited availability." />
+                                    </ToolTipService.ToolTip>
+                                </TextBlock>
                             </StackPanel>
+
+                            <!--<VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup>
+                                    <VisualState>
+                                        <VisualState.StateTriggers>
+                                            <toolkittriggers:CompareStateTrigger Comparison="Equal" Value="{x:Bind ViewModel.User.Status.IndicatesLimitedAvailability, Mode=OneWay}">
+                                                <toolkittriggers:CompareStateTrigger.To>
+                                                    <x:Boolean>True</x:Boolean>
+                                                </toolkittriggers:CompareStateTrigger.To>
+                                            </toolkittriggers:CompareStateTrigger>
+                                        </VisualState.StateTriggers>
+                                        <VisualState.Setters>
+                                            <Setter Target="UserStatusBlockBorder.Background" Value="{ThemeResource PrimerAttentionSubtle}" />
+                                            <Setter Target="UserStatusBlockBorder.BorderBrush" Value="{ThemeResource PrimerAttentionMuted}" />
+                                            <Setter Target="UserStatusBlockMessageTextBlock.Foreground" Value="{ThemeResource PrimerAttentionForeground}" />
+                                            <Setter Target="UserStatusIndicatesLimitedAvailabilityTextBlock.Foreground" Value="{ThemeResource PrimerAttentionForeground}" />
+                                        </VisualState.Setters>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>-->
                         </Border>
                     </Grid>
 
@@ -228,7 +224,7 @@
                         VerticalAlignment="Center"
                         FontFamily="{StaticResource Octicons}"
                         FontSize="14"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                         Glyph="&#xEA27;" />
                     <TextBlock VerticalAlignment="Center" Text="{x:Bind ViewModel.User.Company, Mode=OneWay}" />
                 </StackPanel>
@@ -237,36 +233,34 @@
                     Margin="0,0,12,0"
                     HorizontalAlignment="Left"
                     Orientation="Horizontal"
-                    Spacing="6"
                     Visibility="{x:Bind ViewModel.User.Location, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
                     <FontIcon
                         VerticalAlignment="Center"
                         FontFamily="{StaticResource Octicons}"
                         FontSize="14"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                         Glyph="&#xEA03;" />
                     <HyperlinkButton
                         Padding="4"
                         Content="{x:Bind ViewModel.User.Location, Mode=OneWay}"
-                        Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                         NavigateUri="https://bing.com/maps" />
                 </StackPanel>
 
                 <StackPanel
                     Margin="0,0,12,0"
                     Orientation="Horizontal"
-                    Spacing="2"
                     Visibility="{x:Bind ViewModel.BuiltWebsiteUrl, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
                     <FontIcon
                         VerticalAlignment="Center"
                         FontFamily="{StaticResource Octicons}"
                         FontSize="14"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                         Glyph="&#xE9FB;" />
                     <HyperlinkButton
                         Padding="4"
                         Content="{x:Bind ViewModel.User.WebsiteUrl, Mode=OneWay}"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                         NavigateUri="{x:Bind ViewModel.BuiltWebsiteUrl, Mode=OneWay}" />
                 </StackPanel>
 
@@ -275,34 +269,34 @@
                     Margin="0,0,12,0"
                     x:Load="{x:Bind ViewModel.User.IsDeveloperProgramMember, Mode=OneWay}"
                     Orientation="Horizontal"
-                    Spacing="6">
+                    Spacing="4">
                     <FontIcon
                         VerticalAlignment="Center"
                         FontFamily="{StaticResource Octicons}"
                         FontSize="14"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                         Glyph="&#xE964;" />
                     <TextBlock
                         VerticalAlignment="Center"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                         Style="{ThemeResource BodyTextBlockStyle}"
                         Text="{helpers:ResourceString Name=DeveloperProgramMember}" />
                 </StackPanel>
 
                 <StackPanel Orientation="Horizontal" Visibility="{x:Bind ViewModel.User.Followers.TotalCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
                     <FontIcon
-                        Margin="0,0,4,0"
+                        Margin="0,0,2,0"
                         VerticalAlignment="Center"
                         FontFamily="{StaticResource Octicons}"
                         FontSize="14"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                         Glyph="&#xEA36;" />
 
                     <Button
                         Padding="4"
                         Background="Transparent"
-                        Click="OnUserFollowersButtonClick"
-                        Style="{ThemeResource LinkLikeButtonStyle}">
+                        BorderThickness="0"
+                        Click="OnUserFollowersButtonClick">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal" Spacing="6">
                                 <TextBlock
@@ -320,17 +314,17 @@
                     </Button>
 
                     <TextBlock
-                        Margin="2,0"
+                        Margin="1,0"
                         VerticalAlignment="Center"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                         Style="{ThemeResource BodyTextBlockStyle}"
                         Text="•" />
 
                     <Button
                         Padding="4"
                         Background="Transparent"
-                        Click="OnUserFollowingButtonClick"
-                        Style="{ThemeResource LinkLikeButtonStyle}">
+                        BorderThickness="0"
+                        Click="OnUserFollowingButtonClick">
                         <Button.Content>
                             <StackPanel Orientation="Horizontal" Spacing="6">
                                 <TextBlock
@@ -340,7 +334,7 @@
                                     Text="{x:Bind ViewModel.User.Following.TotalCount, Mode=OneWay}" />
                                 <TextBlock
                                     VerticalAlignment="Center"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                     Style="{ThemeResource BodyTextBlockStyle}"
                                     Text="{helpers:ResourceString Name=FollowingWithoutCaps}" />
                             </StackPanel>

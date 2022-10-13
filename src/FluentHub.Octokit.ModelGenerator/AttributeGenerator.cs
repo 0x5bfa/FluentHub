@@ -1,4 +1,4 @@
-﻿namespace FluentHub.Octokit.Generation
+﻿namespace FluentHub.Octokit.ModelGenerator
 {
     internal static class AttributeGenerator
     {

@@ -2,7 +2,7 @@
 using System.Text;
 using System.Xml;
 
-namespace FluentHub.Octokit.Generation
+namespace FluentHub.Octokit.ModelGenerator
 {
     internal static class DocCommentGenerator
     {

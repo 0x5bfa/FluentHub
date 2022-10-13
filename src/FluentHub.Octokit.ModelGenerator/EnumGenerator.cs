@@ -2,10 +2,10 @@
 using System.Globalization;
 using System.Text;
 using Octokit.GraphQL.Core.Utilities;
-using FluentHub.Octokit.Generation.Models;
-using FluentHub.Octokit.Generation.Utilities;
+using FluentHub.Octokit.ModelGenerator.Models;
+using FluentHub.Octokit.ModelGenerator.Utilities;
 
-namespace FluentHub.Octokit.Generation
+namespace FluentHub.Octokit.ModelGenerator
 {
     public static class EnumGenerator
     {

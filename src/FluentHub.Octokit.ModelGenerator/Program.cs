@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Linq;
 
-namespace FluentHub.Octokit.Generation
+namespace FluentHub.Octokit.ModelGenerator
 {
     public class Program
     {

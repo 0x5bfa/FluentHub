@@ -6,6 +6,7 @@ using FluentHub.Uwp.ViewModels.UserControls;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.Web.WebView2.Core;
 
 namespace FluentHub.Uwp.UserControls
 {
@@ -36,22 +37,24 @@ namespace FluentHub.Uwp.UserControls
 
         public ReadmeContentBlockViewModel ViewModel { get; }
 
-        private async void ReadmeWebView_NavigationCompleted(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs args)
-            => await ReadmeWebView.HandleResize();
+        private async void OnReadmeContentWebView2NavigationCompleted(WebView2 sender, CoreWebView2NavigationCompletedEventArgs args)
+            => await ReadmeContentWebView2.HandleResize();
 
-        private void ReadmeWebView_NavigationStarting(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationStartingEventArgs args)
+        private void OnReadmeContentWebView2NavigationStarting(WebView2 sender, CoreWebView2NavigationStartingEventArgs args)
         {
             if (args.Uri != null)
+            {
                 args.Cancel = true;
+            }
         }
 
-        private void OnReadmeContentBlockLoaded(object sender, RoutedEventArgs e)
+        private void OnReadmeContentBlockUserControlLoaded(object sender, RoutedEventArgs e)
         {
             ViewModel.ContextViewModel = ContextViewModel;
 
             var command = ViewModel.LoadReadmeContentBlockCommand;
-            if (command.CanExecute(ReadmeWebView))
-                command.Execute(ReadmeWebView);
+            if (command.CanExecute(ReadmeContentWebView2))
+                command.Execute(ReadmeContentWebView2);
         }
     }
 }
