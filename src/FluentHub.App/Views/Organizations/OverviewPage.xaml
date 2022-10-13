@@ -1,0 +1,228 @@
+﻿<Page
+    x:Class="FluentHub.App.Views.Organizations.OverviewPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:bb="using:FluentHub.App.UserControls.BlockButtons"
+    xmlns:bbvm="using:FluentHub.App.ViewModels.UserControls.BlockButtons"
+    xmlns:converters="using:FluentHub.App.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="using:FluentHub.App.Helpers"
+    xmlns:local="using:FluentHub.App.Views.Organizations"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:ov="using:FluentHub.App.UserControls.Overview"
+    xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:uc="using:FluentHub.App.UserControls"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+    </Page.Resources>
+
+    <Grid>
+
+        <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadOrganizationOverviewPageCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <Grid Margin="0,0,8,8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <ov:OrganizationProfileOverview
+                        x:Name="OrganizationProfileOverview"
+                        Margin="0,0,0,8"
+                        ViewModel="{x:Bind ViewModel.OrganizationProfileOverviewViewModel, Mode=OneWay}" />
+
+                    <Grid Grid.Row="1" RowSpacing="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <Grid
+                            Background="{ThemeResource LayerFillColorDefaultBrush}"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                            BorderThickness="1"
+                            CornerRadius="8"
+                            RowSpacing="6">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <StackPanel
+                                Padding="32,16,32,8"
+                                Orientation="Horizontal"
+                                Spacing="4">
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    FontSize="14"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="Pinned repositories" />
+                            </StackPanel>
+
+                            <MenuFlyoutSeparator Grid.Row="1" />
+
+                            <Grid Grid.Row="2" Margin="24,12,24,24">
+
+                                <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.PinnedItems, Mode=OneWay}">
+                                    <muxc:ItemsRepeater.Layout>
+                                        <muxc:UniformGridLayout
+                                            ItemsStretch="Fill"
+                                            MaximumRowsOrColumns="6"
+                                            MinColumnSpacing="8"
+                                            MinItemHeight="102"
+                                            MinItemWidth="250"
+                                            MinRowSpacing="8"
+                                            Orientation="Horizontal" />
+                                    </muxc:ItemsRepeater.Layout>
+                                    <DataTemplate x:DataType="bbvm:RepoBlockButtonViewModel">
+                                        <bb:RepoBlockButton
+                                            x:Name="RepositoryBlock"
+                                            VerticalAlignment="Stretch"
+                                            ViewModel="{x:Bind}" />
+                                    </DataTemplate>
+                                </muxc:ItemsRepeater>
+
+                                <toolkit:SwitchPresenter
+                                    Margin="0,24"
+                                    TargetType="x:Boolean"
+                                    Value="{x:Bind ViewModel.OAuthAppIsRestrictedByOrgSettings, Mode=OneWay}">
+                                    <toolkit:Case Value="True">
+                                        <StackPanel>
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Text="Organization OAuth restriction is enabled in this organization." />
+                                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <Run>For more info, visit</Run>
+                                                <Hyperlink NavigateUri="https://docs.github.com/articles/restricting-access-to-your-organization-s-data/">the GitHub documentation</Hyperlink>
+                                                <Run>.</Run>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </toolkit:Case>
+
+                                    <toolkit:Case Value="False">
+                                        <toolkit:SwitchPresenter TargetType="x:Int32" Value="{x:Bind ViewModel.PinnedItems.Count, Mode=OneWay}">
+                                            <toolkit:Case Value="0">
+                                                <TextBlock
+                                                    x:Name="NoPinnedItemsTextBlock"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Text="No items pinned" />
+                                            </toolkit:Case>
+                                        </toolkit:SwitchPresenter>
+                                    </toolkit:Case>
+                                </toolkit:SwitchPresenter>
+
+                            </Grid>
+                        </Grid>
+
+                        <Grid
+                            Grid.Row="1"
+                            Background="{ThemeResource LayerFillColorDefaultBrush}"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                            BorderThickness="1"
+                            CornerRadius="8"
+                            RowSpacing="6">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+
+                            <StackPanel
+                                Padding="32,16,32,8"
+                                Orientation="Horizontal"
+                                Spacing="4">
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    FontSize="14"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="Repositories" />
+                            </StackPanel>
+
+                            <MenuFlyoutSeparator Grid.Row="1" />
+
+                            <Grid
+                                Grid.Row="2"
+                                Margin="24,12,24,24"
+                                VerticalAlignment="Stretch">
+
+                                <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Repositories, Mode=OneWay}">
+                                    <muxc:ItemsRepeater.Layout>
+                                        <muxc:StackLayout Orientation="Vertical" Spacing="6" />
+                                    </muxc:ItemsRepeater.Layout>
+                                    <DataTemplate x:DataType="bbvm:RepoBlockButtonViewModel">
+                                        <bb:RepoBlockButton
+                                            x:Name="RepositoryBlock"
+                                            VerticalAlignment="Stretch"
+                                            ViewModel="{x:Bind}" />
+                                    </DataTemplate>
+                                </muxc:ItemsRepeater>
+
+                                <toolkit:SwitchPresenter
+                                    Margin="0,24"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Stretch"
+                                    TargetType="x:Boolean"
+                                    Value="{x:Bind ViewModel.OAuthAppIsRestrictedByOrgSettings, Mode=OneWay}">
+                                    <toolkit:Case Value="True">
+                                        <StackPanel>
+                                            <TextBlock
+                                                HorizontalAlignment="Center"
+                                                VerticalAlignment="Center"
+                                                Text="Organization OAuth restriction is enabled in this organization." />
+                                            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center">
+                                                <Run>For more info, visit</Run>
+                                                <Hyperlink NavigateUri="https://docs.github.com/articles/restricting-access-to-your-organization-s-data/">the GitHub documentation</Hyperlink>
+                                                <Run>.</Run>
+                                            </TextBlock>
+                                        </StackPanel>
+                                    </toolkit:Case>
+
+                                    <toolkit:Case Value="False">
+                                        <toolkit:SwitchPresenter TargetType="x:Int32" Value="{x:Bind ViewModel.Repositories.Count, Mode=OneWay}">
+                                            <toolkit:Case Value="0">
+                                                <TextBlock
+                                                    x:Name="NoPinnedItemsInRepoBlockTextBlock"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Text="No repositories" />
+                                            </toolkit:Case>
+                                        </toolkit:SwitchPresenter>
+                                    </toolkit:Case>
+                                </toolkit:SwitchPresenter>
+                            </Grid>
+                        </Grid>
+
+                    </Grid>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+
+        <Grid x:Name="ErrorDisplayingContentGrid" x:Load="{x:Bind ViewModel.LoadOrganizationOverviewPageCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
+            <uc:LoadErrorDisplay
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                TaskException="{x:Bind ViewModel.TaskException, Mode=OneWay}">
+                <uc:LoadErrorDisplay.Action>
+                    <Grid>
+                        <Button
+                            Margin="0,24,0,0"
+                            HorizontalAlignment="Center"
+                            Command="{x:Bind ViewModel.LoadOrganizationOverviewPageCommand}">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon FontSize="16" Glyph="&#xE149;" />
+                                <TextBlock Text="{helpers:ResourceString Name=TryAgainWithCap}" />
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </uc:LoadErrorDisplay.Action>
+            </uc:LoadErrorDisplay>
+        </Grid>
+
+    </Grid>
+</Page>

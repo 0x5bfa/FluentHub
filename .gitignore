@@ -37,8 +37,8 @@ bld/
 [Ll]ogs/
 
 # Exclude View[Model]s/Repositories/Releases contents
-!src/FluentHub.Uwp/Views/**
-!src/FluentHub.Uwp/ViewModels/**
+!src/FluentHub.App/Views/**
+!src/FluentHub.App/ViewModels/**
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/

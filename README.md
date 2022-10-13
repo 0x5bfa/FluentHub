@@ -87,7 +87,7 @@ If you are interested in fixing issues and contributing directly to the code bas
 ├──lib                               // Library for submodules.
 |  └──octokit.graphql.net            // Official library for GitHub GraphQL API.
 └──src                               // The source code.
-   ├──FluentHub.Uwp                  // Code for most front-end elements of the app.
+   ├──FluentHub.App                  // Code for most front-end elements of the app.
    ├──FluentHub.Core                 // Core elements of the app.
    ├──FluentHub.Octokit              // Code for most back-end and API-related elements of the app such as mutations and queries.
    └──FluentHub.Octokit.Generation   // GitHub GraphQL API model generator.
@@ -142,8 +142,8 @@ See [the documentation](docs/credentials.md).
 ### 4. Build the project
 
 - Open `FluentHub.sln`.
-- Hit 'Set as Startup item' on `FluentHub.Uwp` in the Solution Explorer.
-- Build with `DEBUG|x64|FluentHub.Uwp (Universal Windows)`.
+- Hit 'Set as Startup item' on `FluentHub.App` in the Solution Explorer.
+- Build with `DEBUG|x64|FluentHub.App (Universal Windows)`.
 
 ## 💳 Credit
 

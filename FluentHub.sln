@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentHub.Octokit", "src\Fl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentHub.Octokit.ModelGenerator", "src\FluentHub.Octokit.ModelGenerator\FluentHub.Octokit.ModelGenerator.csproj", "{2219FA42-F8D3-4951-9578-76E000BB86D7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentHub.Uwp", "src\FluentHub.Uwp\FluentHub.Uwp.csproj", "{3B8F7422-E2C0-4BDF-9A95-EA59FFE277E8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentHub.App", "src\FluentHub.App\FluentHub.App.csproj", "{3B8F7422-E2C0-4BDF-9A95-EA59FFE277E8}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluentHub.Core", "src\FluentHub.Core\FluentHub.Core.csproj", "{CCD6A838-6E6F-424F-BEE3-60C46F4B5308}"
 EndProject

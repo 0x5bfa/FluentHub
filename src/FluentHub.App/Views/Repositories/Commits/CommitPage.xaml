@@ -1,0 +1,227 @@
+﻿<Page
+    x:Class="FluentHub.App.Views.Repositories.Commits.CommitPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:FluentHub.App.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="using:FluentHub.App.Helpers"
+    xmlns:local="using:FluentHub.App.Views.Repositories.Commits"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
+    xmlns:ov="using:FluentHub.App.UserControls.Overview"
+    xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:uc="using:FluentHub.App.UserControls"
+    xmlns:ucvm="using:FluentHub.App.ViewModels.UserControls"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid>
+
+        <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryCommitPageCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <Grid Margin="0,0,8,8" RowSpacing="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <ov:RepositoryOverview ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
+
+                    <Grid
+                        Grid.Row="1"
+                        Padding="32"
+                        Background="{ThemeResource LayerFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1"
+                        CornerRadius="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Grid
+                            Padding="12"
+                            Background="{ThemeResource LayerFillColorDefaultBrush}"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                            BorderThickness="1"
+                            CornerRadius="4">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                FontSize="16"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="{x:Bind ViewModel.CommitItem.MessageHeadline, Mode=OneWay}"
+                                TextTrimming="CharacterEllipsis" />
+
+                            <Button
+                                HorizontalAlignment="Right"
+                                VerticalAlignment="Center"
+                                Content="Browse files"
+                                IsEnabled="False" />
+
+                            <MenuFlyoutSeparator Grid.Row="2" Margin="-12,12,-12,0" />
+
+                            <Grid Grid.Row="3" Margin="0,12,0,0">
+                                <StackPanel Orientation="Horizontal" Spacing="4">
+
+                                    <Grid
+                                        Width="20"
+                                        Height="20"
+                                        CornerRadius="10">
+                                        <Image Source="{x:Bind ViewModel.CommitItem.Author.AvatarUrl, Mode=OneWay}" />
+                                    </Grid>
+
+                                    <TextBlock
+                                        Margin="4,0,0,0"
+                                        VerticalAlignment="Center"
+                                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                                        Text="{x:Bind ViewModel.CommitItem.Author.User.Login, Mode=OneWay}" />
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        Style="{ThemeResource BodyTextBlockStyle}"
+                                        Text="authored to" />
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        Style="{ThemeResource BodyTextBlockStyle}"
+                                        Text="{x:Bind ViewModel.CommitItem.OnBehalfOf, Mode=OneWay}" />
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        Style="{StaticResource BodyTextBlockStyle}"
+                                        Text="{x:Bind ViewModel.CommitItem.CommittedDateHumanized, Mode=OneWay}" />
+                                </StackPanel>
+
+                                <StackPanel
+                                    HorizontalAlignment="Right"
+                                    Orientation="Horizontal"
+                                    Spacing="8">
+                                    <StackPanel Orientation="Horizontal" Spacing="4">
+                                        <TextBlock
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="parent" />
+                                        <TextBlock
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="{x:Bind ViewModel.CommitItem.Parents, Mode=OneWay}"
+                                            ToolTipService.Placement="Bottom"
+                                            ToolTipService.ToolTip="{x:Bind ViewModel.CommitItem.Parents, Mode=OneWay}" />
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Spacing="4">
+                                        <TextBlock
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="commit" />
+                                        <TextBlock
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="{x:Bind ViewModel.CommitItem.AbbreviatedOid, Mode=OneWay}"
+                                            ToolTipService.Placement="Bottom"
+                                            ToolTipService.ToolTip="{x:Bind ViewModel.CommitItem.Oid, Mode=OneWay}" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+                        </Grid>
+
+                        <StackPanel
+                            Grid.Row="1"
+                            Margin="12,12,12,0"
+                            Orientation="Horizontal"
+                            Spacing="4">
+
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{ThemeResource BodyStrongTextBlockStyle}"
+                                Text="{x:Bind ViewModel.CommitItem.ChangedFiles, Mode=OneWay}" />
+
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{ThemeResource BodyStrongTextBlockStyle}"
+                                Text="files changed" />
+
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{ThemeResource BodyTextBlockStyle}"
+                                Text="with" />
+
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource PrimerSuccessForeground}"
+                                Style="{ThemeResource BodyTextBlockStyle}"
+                                Text="{x:Bind ViewModel.CommitItem.Additions, Mode=OneWay}" />
+
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource PrimerSuccessForeground}"
+                                Style="{ThemeResource BodyTextBlockStyle}"
+                                Text="additions" />
+
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Style="{ThemeResource BodyTextBlockStyle}"
+                                Text="and" />
+
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource PrimerDangerForeground}"
+                                Style="{ThemeResource BodyTextBlockStyle}"
+                                Text="{x:Bind ViewModel.CommitItem.Deletions, Mode=OneWay}" />
+
+                            <TextBlock
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource PrimerDangerForeground}"
+                                Style="{ThemeResource BodyTextBlockStyle}"
+                                Text="deletions" />
+
+                        </StackPanel>
+
+                        <Grid Grid.Row="2" Margin="0,12,0,0">
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.DiffViewModels, Mode=OneWay}">
+                                    <muxc:ItemsRepeater.Layout>
+                                        <muxc:StackLayout Orientation="Vertical" Spacing="6" />
+                                    </muxc:ItemsRepeater.Layout>
+                                    <DataTemplate x:DataType="ucvm:DiffBlockViewModel">
+                                        <uc:DiffBlock ViewModel="{x:Bind}" />
+                                    </DataTemplate>
+                                </muxc:ItemsRepeater>
+                            </ScrollViewer>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+
+        <Grid x:Name="ErrorDisplayingContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryCommitPageCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
+            <uc:LoadErrorDisplay
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                TaskException="{x:Bind ViewModel.TaskException, Mode=OneWay}">
+                <uc:LoadErrorDisplay.Action>
+                    <Grid>
+                        <Button
+                            Margin="0,24,0,0"
+                            HorizontalAlignment="Center"
+                            Command="{x:Bind ViewModel.LoadRepositoryCommitPageCommand}">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon FontSize="16" Glyph="&#xE149;" />
+                                <TextBlock Text="{helpers:ResourceString Name=TryAgainWithCap}" />
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </uc:LoadErrorDisplay.Action>
+            </uc:LoadErrorDisplay>
+        </Grid>
+
+    </Grid>
+</Page>
