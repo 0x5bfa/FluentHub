@@ -35,18 +35,20 @@ namespace FluentHub.App.Views.Repositories.Issues
                 command.Execute(null);
         }
 
-        private void OnDisplayDetailsTogglingButtonClick(object sender, RoutedEventArgs e)
-        {
-            if (DetailsGridColumnDefinition.Width.IsStar)
-            {
-                DetailsGridColumnDefinition.Width = new GridLength(0, GridUnitType.Pixel);
-                DetailsGridColumnDefinition.MinWidth = 0;
-            }
-            else
-            {
-                DetailsGridColumnDefinition.Width = new GridLength(1, GridUnitType.Star);
-                DetailsGridColumnDefinition.MinWidth = 214;
-            }
-        }
+        //private void OnDisplayDetailsTogglingButtonClick(object sender, RoutedEventArgs e)
+        //{
+        //    if (DetailsGridColumnDefinition.Width.IsStar)
+        //    {
+        //        DetailsGridColumnDefinition.Width = new GridLength(0, GridUnitType.Pixel);
+        //        DetailsGridColumnDefinition.MinWidth = 0;
+        //        IssueDetailsSidebar.Height = 0;
+        //    }
+        //    else
+        //    {
+        //        DetailsGridColumnDefinition.Width = new GridLength(1, GridUnitType.Star);
+        //        DetailsGridColumnDefinition.MinWidth = 214;
+        //        IssueDetailsSidebar.Height = IssueDetailsSidebar.ActualHeight;
+        //    }
+        //}
     }
 }

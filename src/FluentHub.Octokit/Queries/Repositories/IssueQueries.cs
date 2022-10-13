@@ -73,6 +73,17 @@
                     Title = x.Title,
                     UpdatedAt = x.UpdatedAt,
 
+                    Assignees = x.Assignees(6, null, null, null).Select(assignees => new UserConnection
+                    {
+                        Nodes = assignees.Nodes.Select(y => new User
+                        {
+                            AvatarUrl = y.AvatarUrl(100),
+                            Login = y.Login,
+                        })
+                        .ToList(),
+                    })
+                    .SingleOrDefault(),
+
                     Repository = x.Repository.Select(repo => new Repository
                     {
                         Name = repo.Name,
@@ -100,6 +111,34 @@
                             Color = y.Color,
                             Description = y.Description,
                             Name = y.Name,
+                        })
+                        .ToList(),
+                    })
+                    .SingleOrDefault(),
+
+                    Milestone = x.Milestone.Select(y => new Milestone
+                    {
+                        Title = y.Title,
+                        ProgressPercentage = y.ProgressPercentage,
+                    })
+                    .SingleOrDefault(),
+
+                    ProjectCards = x.ProjectCards(6, null, null, null, null).Select(projects => new ProjectCardConnection
+                    {
+                        Nodes = projects.Nodes.Select(y => new ProjectCard
+                        {
+                            Note = y.Note,
+                        })
+                        .ToList(),
+                    })
+                    .SingleOrDefault(),
+
+                    Participants = x.Participants(6, null, null, null).Select(participants => new UserConnection
+                    {
+                        Nodes = participants.Nodes.Select(y => new User
+                        {
+                            AvatarUrl = y.AvatarUrl(100),
+                            Login = y.Login,
                         })
                         .ToList(),
                     })

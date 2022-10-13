@@ -22,6 +22,7 @@
             <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
             <converters:IssueCommentToIssueCommentBlockViewModelConverter x:Key="IssueCommentToIssueCommentBlockViewModelConverter" />
             <converters:HexColorCodeToSolidColorBrushConverter x:Key="HexColorCodeToSolidColorBrushConverter" />
+            <converters:DecimalToSubjectNumberConverter x:Key="DecimalToSubjectNumberConverter" />
 
             <DataTemplate x:Key="AddedToProjectEventDataTemplate" x:DataType="modelsV4:AddedToProjectEvent">
                 <primer:Timeline>
@@ -1532,7 +1533,7 @@
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <ov:RepositoryOverview Margin="0,0,8,8" ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
+                    <ov:RepositoryOverview Margin="0,0,8,0" ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
 
                     <ov:PullRequestOverview
                         Grid.Row="1"
@@ -1543,7 +1544,7 @@
                         Grid.Row="2"
                         Margin="0,8,8,0"
                         Padding="32"
-                        Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                        Background="{ThemeResource LayerFillColorDefaultBrush}"
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                         BorderThickness="1"
                         ColumnSpacing="24"
@@ -1756,13 +1757,6 @@
 
                         </StackPanel>
 
-                        <Border
-                            Grid.ColumnSpan="2"
-                            Height="3"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Bottom"
-                            Background="{ThemeResource PrimerBorderMuted}" />
-
                     </Grid>
 
                     <StackPanel
@@ -1770,7 +1764,7 @@
                         Margin="0,8,8,0"
                         VerticalAlignment="Top">
                         <Grid
-                            Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                            Background="{ThemeResource LayerFillColorDefaultBrush}"
                             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                             BorderThickness="1"
                             CornerRadius="8">

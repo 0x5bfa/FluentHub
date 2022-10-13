@@ -75,7 +75,7 @@
                                         ItemsStretch="Fill"
                                         MaximumRowsOrColumns="3"
                                         MinColumnSpacing="8"
-                                        MinItemHeight="90"
+                                        MinItemHeight="98"
                                         MinItemWidth="100"
                                         MinRowSpacing="8"
                                         Orientation="Horizontal" />

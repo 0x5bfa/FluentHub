@@ -22,6 +22,7 @@
             <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
             <converters:IssueCommentToIssueCommentBlockViewModelConverter x:Key="IssueCommentToIssueCommentBlockViewModelConverter" />
             <converters:HexColorCodeToSolidColorBrushConverter x:Key="HexColorCodeToSolidColorBrushConverter" />
+            <converters:DecimalToSubjectNumberConverter x:Key="DecimalToSubjectNumberConverter" />
 
             <DataTemplate x:Key="AddedToProjectEventDataTemplate" x:DataType="modelsV4:AddedToProjectEvent">
                 <primer:Timeline>
@@ -1537,8 +1538,8 @@
                     <Grid
                         Grid.Row="1"
                         Margin="0,8,8,0"
-                        Padding="32,24,32,16"
-                        Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                        Padding="32,24,32,32"
+                        Background="{ThemeResource LayerFillColorDefaultBrush}"
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                         BorderThickness="1"
                         CornerRadius="8">
@@ -1553,31 +1554,19 @@
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
 
-                            <StackPanel
-                                Margin="8,0"
-                                Orientation="Horizontal"
-                                Spacing="8"
-                                ToolTipService.ToolTip="{x:Bind ViewModel.IssueItem.Title, Mode=OneWay}">
-                                <TextBlock
-                                    x:Name="IssueTitleTextBlock"
+                            <TextBlock
+                                x:Name="IssueTitleTextBlock"
+                                FontWeight="SemiBold"
+                                Style="{StaticResource TitleTextBlockStyle}"
+                                ToolTipService.ToolTip="{x:Bind IssueTitleTextBlock.Text, Mode=OneWay}">
+                                <Run Text="{x:Bind ViewModel.IssueItem.Title, Mode=OneWay}" />
+                                <Run
                                     FontWeight="Normal"
-                                    Style="{StaticResource TitleTextBlockStyle}"
-                                    Text="{x:Bind ViewModel.IssueItem.Title, Mode=OneWay}" />
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock
-                                        FontWeight="ExtraLight"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        Style="{StaticResource TitleTextBlockStyle}"
-                                        Text="#" />
-                                    <TextBlock
-                                        FontWeight="ExtraLight"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        Style="{StaticResource TitleTextBlockStyle}"
-                                        Text="{x:Bind ViewModel.IssueItem.Number, Mode=OneWay}" />
-                                </StackPanel>
-                            </StackPanel>
+                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                    Text="{x:Bind ViewModel.IssueItem.Number, Converter={StaticResource DecimalToSubjectNumberConverter}, Mode=OneWay}" />
+                            </TextBlock>
 
-                            <Button
+                            <!--<Button
                                 Grid.Column="1"
                                 Width="36"
                                 Height="32"
@@ -1585,10 +1574,7 @@
                                 VerticalAlignment="Top"
                                 HorizontalContentAlignment="Center"
                                 Click="OnDisplayDetailsTogglingButtonClick">
-                                <muxc:AnimatedIcon
-                                    x:Name="BackAnimatedIcon"
-                                    Width="16"
-                                    Height="16">
+                                <muxc:AnimatedIcon Width="16" Height="16">
                                     <muxc:AnimatedIcon.Source>
                                         <animatedvisuals:AnimatedGlobalNavigationButtonVisualSource />
                                     </muxc:AnimatedIcon.Source>
@@ -1596,12 +1582,12 @@
                                         <muxc:FontIconSource FontSize="14" Glyph="&#xE700;" />
                                     </muxc:AnimatedIcon.FallbackIconSource>
                                 </muxc:AnimatedIcon>
-                            </Button>
+                            </Button>-->
                         </Grid>
 
                         <StackPanel
                             Grid.Row="1"
-                            Margin="8"
+                            Margin="0,12,0,0"
                             Orientation="Horizontal"
                             Spacing="8">
                             <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.IssueItem.Closed, Mode=OneWay}">
@@ -1620,7 +1606,7 @@
                         Grid.Row="2"
                         Margin="0,8,8,0"
                         Padding="32,0,32,32"
-                        Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                        Background="{ThemeResource LayerFillColorDefaultBrush}"
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                         BorderThickness="1"
                         CornerRadius="8">
@@ -1628,7 +1614,7 @@
                             <ColumnDefinition Width="3*" />
                             <ColumnDefinition
                                 x:Name="DetailsGridColumnDefinition"
-                                Width="0"
+                                Width="*"
                                 MaxWidth="400" />
                         </Grid.ColumnDefinitions>
 
@@ -1652,29 +1638,10 @@
                         </StackPanel>
 
                         <StackPanel
+                            x:Name="IssueDetailsSidebar"
                             Grid.Column="1"
                             Margin="24,32,0,0"
                             Spacing="12">
-                            <StackPanel Spacing="12">
-
-                                <StackPanel Orientation="Horizontal" Spacing="8">
-                                    <TextBlock
-                                        VerticalAlignment="Center"
-                                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                                        Text="Reviews" />
-                                </StackPanel>
-
-                                <StackPanel>
-
-                                    <TextBlock
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        Style="{StaticResource CaptionTextBlockStyle}"
-                                        Text="No reviews — at least 1 approving review is required." />
-
-                                </StackPanel>
-
-                                <MenuFlyoutSeparator />
-                            </StackPanel>
 
                             <StackPanel Spacing="12">
 
@@ -1685,15 +1652,27 @@
                                         Text="Assignees" />
                                 </StackPanel>
 
+                                <Grid>
 
-                                <StackPanel>
+                                    <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.IssueItem.Assignees.Nodes, Mode=OneWay}">
+                                        <muxc:ItemsRepeater.Layout>
+                                            <muxc:StackLayout Orientation="Vertical" Spacing="6" />
+                                        </muxc:ItemsRepeater.Layout>
+                                        <DataTemplate x:DataType="modelsV4:User">
+                                            <primer:Avatar
+                                                HorizontalAlignment="Left"
+                                                Label="{x:Bind Login, Mode=OneWay}"
+                                                Source="{x:Bind AvatarUrl, Mode=OneWay}" />
+                                        </DataTemplate>
+                                    </muxc:ItemsRepeater>
 
                                     <TextBlock
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        x:Name="IssueDetailsSidebarNoAssigneesTextBlock"
+                                        x:Load="{x:Bind ViewModel.IssueItem.Assignees.Nodes.Count, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                         Style="{StaticResource CaptionTextBlockStyle}"
-                                        Text="No one — assign yourself" />
-
-                                </StackPanel>
+                                        Text="No assignees" />
+                                </Grid>
 
                                 <MenuFlyoutSeparator />
                             </StackPanel>
@@ -1707,15 +1686,27 @@
                                         Text="Labels" />
                                 </StackPanel>
 
+                                <Grid>
 
-                                <StackPanel>
+                                    <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.IssueItem.Labels.Nodes, Mode=OneWay}">
+                                        <muxc:ItemsRepeater.Layout>
+                                            <muxc:StackLayout Orientation="Vertical" Spacing="6" />
+                                        </muxc:ItemsRepeater.Layout>
+                                        <DataTemplate x:DataType="modelsV4:Label">
+                                            <primer:IssueLabelToken
+                                                HorizontalAlignment="Left"
+                                                FillColor="{x:Bind Color, Converter={StaticResource HexColorCodeToSolidColorBrushConverter}}"
+                                                Text="{x:Bind Name}" />
+                                        </DataTemplate>
+                                    </muxc:ItemsRepeater>
 
                                     <TextBlock
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        x:Name="IssueDetailsSidebarNoLabelsTextBlock"
+                                        x:Load="{x:Bind ViewModel.IssueItem.Labels.Nodes.Count, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         Text="No labels" />
-
-                                </StackPanel>
+                                </Grid>
 
                                 <MenuFlyoutSeparator />
                             </StackPanel>
@@ -1751,15 +1742,34 @@
                                         Text="Milestones" />
                                 </StackPanel>
 
+                                <Grid>
+                                    <Grid
+                                        Padding="16,16,16,12"
+                                        Background="{ThemeResource LayerFillColorDefaultBrush}"
+                                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                        BorderThickness="1"
+                                        CornerRadius="8"
+                                        RowSpacing="8">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <ProgressBar Maximum="100" Value="{x:Bind ViewModel.IssueItem.Milestone.ProgressPercentage, Mode=OneWay}" />
+                                        <TextBlock
+                                            Grid.Row="1"
+                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                                            Text="{x:Bind ViewModel.IssueItem.Milestone.Title, Mode=OneWay}" />
+                                    </Grid>
 
-                                <StackPanel>
 
                                     <TextBlock
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        x:Name="IssueDetailsSidebarNoMilestoneTextBlock"
+                                        x:Load="{x:Bind ViewModel.IssueItem.Milestone, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                         Style="{StaticResource CaptionTextBlockStyle}"
-                                        Text="None" />
-
-                                </StackPanel>
+                                        Text="No milestone" />
+                                </Grid>
 
                                 <MenuFlyoutSeparator />
                             </StackPanel>
@@ -1798,7 +1808,10 @@
 
                                 <StackPanel>
 
-                                    <Button HorizontalAlignment="Stretch" Content="Notifications" />
+                                    <Button
+                                        HorizontalAlignment="Stretch"
+                                        Content="Subscribe"
+                                        IsEnabled="False" />
 
                                 </StackPanel>
 
@@ -1815,27 +1828,32 @@
                                 </StackPanel>
 
 
-                                <StackPanel>
+                                <Grid>
+
+                                    <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.IssueItem.Participants.Nodes, Mode=OneWay}">
+                                        <muxc:ItemsRepeater.Layout>
+                                            <muxc:StackLayout Orientation="Horizontal" Spacing="8" />
+                                        </muxc:ItemsRepeater.Layout>
+                                        <DataTemplate x:DataType="modelsV4:User">
+                                            <primer:Avatar
+                                                HorizontalAlignment="Left"
+                                                Size="28"
+                                                Source="{x:Bind AvatarUrl, Mode=OneWay}" />
+                                        </DataTemplate>
+                                    </muxc:ItemsRepeater>
 
                                     <TextBlock
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        x:Name="IssueDetailsSidebarNoParticipantsTextBlock"
+                                        x:Load="{x:Bind ViewModel.IssueItem.Participants.Nodes.Count, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                         Style="{StaticResource CaptionTextBlockStyle}"
-                                        Text="None" />
-
-                                </StackPanel>
+                                        Text="No assignees" />
+                                </Grid>
 
                                 <MenuFlyoutSeparator />
                             </StackPanel>
 
                         </StackPanel>
-
-                        <Border
-                            Grid.ColumnSpan="2"
-                            Height="3"
-                            HorizontalAlignment="Stretch"
-                            VerticalAlignment="Bottom"
-                            Background="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                            Opacity="0.3" />
 
                     </Grid>
 

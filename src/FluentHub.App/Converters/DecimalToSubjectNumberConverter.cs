@@ -6,9 +6,7 @@ namespace FluentHub.App.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            var val = System.Convert.ToInt32(value.ToString());
-
-            return null;
+            return $"#{value}";
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)
