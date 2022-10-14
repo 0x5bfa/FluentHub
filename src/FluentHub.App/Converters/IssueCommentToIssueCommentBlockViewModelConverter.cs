@@ -6,19 +6,30 @@ namespace FluentHub.App.Converters
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
-            if (value is IssueComment ic)
-            {
-                var issueCommentBlockViewModel = new ViewModels.UserControls.IssueCommentBlockViewModel()
-                {
-                    IssueComment = ic,
-                };
+            var ic = value as IssueComment;
 
-                return issueCommentBlockViewModel;
-            }
-            else
+            var issueCommentBlockViewModel = new ViewModels.UserControls.IssueCommentBlockViewModel()
             {
-                return null;
+                IssueComment = ic,
+            };
+
+            // Parse reactions nodes
+            foreach (var reaction in ic.Reactions.Nodes)
+            {
+                _ = reaction.Content switch
+                {
+                    ReactionContent.ThumbsUp => issueCommentBlockViewModel.ThumbsUpCount++,
+                    ReactionContent.ThumbsDown => issueCommentBlockViewModel.ThumbsDownCount++,
+                    ReactionContent.Laugh => issueCommentBlockViewModel.LaughCount++,
+                    ReactionContent.Hooray => issueCommentBlockViewModel.HoorayCount++,
+                    ReactionContent.Confused => issueCommentBlockViewModel.ConfusedCount++,
+                    ReactionContent.Heart => issueCommentBlockViewModel.HeartCount++,
+                    ReactionContent.Rocket => issueCommentBlockViewModel.RocketCount++,
+                    ReactionContent.Eyes => issueCommentBlockViewModel.EyesCount++,
+                };
             }
+
+            return issueCommentBlockViewModel;
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language)

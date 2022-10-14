@@ -464,20 +464,21 @@
                     })
                     .SingleOrDefault(),
 
-                    //Reactions = y.Reactions(6, null, null, null, null, null).Select(reactions => new ReactionConnection
-                    //{
-                    //    Nodes = reactions.Nodes.Select(reaction => new Reaction
-                    //    {
-                    //        Content = (ReactionContent)reaction.Content,
-                    //        User = reaction.User.Select(user => new User
-                    //        {
-                    //            Login = user.Login,
-                    //        })
-                    //        .SingleOrDefault(),
-                    //    })
-                    //    .ToList(),
-                    //})
-                    //.SingleOrDefault(),
+                    Reactions = y.Reactions(100, null, null, null, null, null).Select(reactions => new ReactionConnection
+                    {
+                        Nodes = reactions.Nodes.Select(reaction => new Reaction
+                        {
+                            Content = (ReactionContent)reaction.Content,
+
+                            User = reaction.User.Select(user => new User
+                            {
+                                Login = user.Login,
+                            })
+                            .SingleOrDefault(),
+                        })
+                        .ToList(),
+                    })
+                    .SingleOrDefault(),
                 })
                 .LabeledEvent(y => new LabeledEvent
                 {

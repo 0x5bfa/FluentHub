@@ -25,7 +25,9 @@ namespace FluentHub.App.UserControls
             set
             {
                 SetValue(ViewModelProperty, value);
-                ViewModel?.SetMarkdownCommentToWebViewAsync(CommentWebView);
+
+                //if  (value != null)
+                //    ViewModel.SetMarkdownCommentToWebViewAsync(CommentWebView);
             }
         }
         #endregion
@@ -38,9 +40,5 @@ namespace FluentHub.App.UserControls
 
         private async void OnWebViewSizeChanged(object sender, SizeChangedEventArgs e)
             => await ((WebView2)sender).HandleResize();
-
-        private async void OnCommentWebViewLoaded(object sender, RoutedEventArgs e)
-        {
-        }
     }
 }

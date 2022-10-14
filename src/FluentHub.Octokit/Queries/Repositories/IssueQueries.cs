@@ -84,20 +84,6 @@
                     })
                     .SingleOrDefault(),
 
-                    Repository = x.Repository.Select(repo => new Repository
-                    {
-                        Name = repo.Name,
-
-                        Owner = repo.Owner.Select(owner => new RepositoryOwner
-                        {
-                            AvatarUrl = owner.AvatarUrl(100),
-                            Id = owner.Id,
-                            Login = owner.Login,
-                        })
-                        .SingleOrDefault(),
-                    })
-                    .SingleOrDefault(),
-
                     Comments = x.Comments(null, null, null, null, null).Select(comments => new IssueCommentConnection
                     {
                         TotalCount = comments.TotalCount,
@@ -123,16 +109,6 @@
                     })
                     .SingleOrDefault(),
 
-                    ProjectCards = x.ProjectCards(6, null, null, null, null).Select(projects => new ProjectCardConnection
-                    {
-                        Nodes = projects.Nodes.Select(y => new ProjectCard
-                        {
-                            Note = y.Note,
-                        })
-                        .ToList(),
-                    })
-                    .SingleOrDefault(),
-
                     Participants = x.Participants(6, null, null, null).Select(participants => new UserConnection
                     {
                         Nodes = participants.Nodes.Select(y => new User
@@ -143,6 +119,30 @@
                         .ToList(),
                     })
                     .SingleOrDefault(),
+
+                    ProjectCards = x.ProjectCards(6, null, null, null, null).Select(projects => new ProjectCardConnection
+                    {
+                        Nodes = projects.Nodes.Select(y => new ProjectCard
+                        {
+                            Note = y.Note,
+                        })
+                        .ToList(),
+                    })
+                    .SingleOrDefault(),
+
+                    Repository = x.Repository.Select(repo => new Repository
+                    {
+                        Name = repo.Name,
+
+                        Owner = repo.Owner.Select(owner => new RepositoryOwner
+                        {
+                            AvatarUrl = owner.AvatarUrl(100),
+                            Id = owner.Id,
+                            Login = owner.Login,
+                        })
+                        .SingleOrDefault(),
+                    })
+                    .SingleOrDefault(),
                 })
                 .Compile();
 
@@ -151,86 +151,51 @@
             return response;
         }
 
-        public async Task<Issue> GetDetailsAsync(string owner, string name, int number)
-        {
-            #region query
-            var query = new Query()
-                .Repository(name, owner)
-                .Issue(number)
-                .Select(x => new
-                {
-                    Assignees = x.Assignees(6, null, null, null).Nodes.Select(assignees => new {
-                        assignees.Login,
-                        AvatarUrl = assignees.AvatarUrl(100),
-                    }),
-
-                    Labels = x.Labels(10, null, null, null, null).Nodes.Select(labels => new
-                    {
-                        labels.Name,
-                        labels.Description,
-                        labels.Color,
-                    }),
-
-                    Projects = x.ProjectCards(6, null, null, null, null).Nodes.Select(projects => new
-                    {
-                        projects.Note,
-                    }),
-
-                    x.Milestone,
-                })
-                .Compile();
-            #endregion
-
-            var response = await App.Connection.Run(query);
-
-            return null;
-        }
-
         public async Task<IssueComment> GetBodyAsync(string owner, string name, int number)
         {
-            #region queries
             var query = new Query()
                 .Repository(name, owner)
                 .Issue(number)
                 .Select(x => new IssueComment
                 {
+                    AuthorAssociation = (CommentAuthorAssociation)x.AuthorAssociation,
+                    Body = x.Body,
+                    BodyHTML = x.BodyHTML,
+                    CreatedAt = x.CreatedAt,
+                    CreatedAtHumanized = x.CreatedAt.Humanize(null, null),
+                    Id = x.Id,
+                    LastEditedAt = x.LastEditedAt,
+                    UpdatedAt = x.UpdatedAt,
+                    UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
+                    Url = x.Url,
+                    ViewerCanReact = x.ViewerCanReact,
+                    ViewerCanUpdate = x.ViewerCanUpdate,
+                    ViewerDidAuthor = x.ViewerDidAuthor,
+
                     Author = x.Author.Select(author => new Actor
                     {
                         Login = author.Login,
                         AvatarUrl = author.AvatarUrl(100),
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
-                    Reactions = new()
+                    Reactions = x.Reactions(100, null, null, null, null, null).Select(reactions => new ReactionConnection
                     {
-                        Nodes = x.Reactions(6, null, null, null, null, null).Nodes.Select(reaction => new Reaction
+                        Nodes = reactions.Nodes.Select(reaction => new Reaction
                         {
                             Content = (ReactionContent)reaction.Content,
+
                             User = reaction.User.Select(user => new User
                             {
                                 Login = user.Login,
                             })
-                            .Single(),
+                            .SingleOrDefault(),
                         })
                         .ToList(),
-                    },
-
-                    AuthorAssociation = (CommentAuthorAssociation)x.AuthorAssociation,
-                    Body = x.Body,
-                    BodyHTML = x.BodyHTML,
-                    LastEditedAt = x.LastEditedAt,
-                    UpdatedAt = x.UpdatedAt,
-                    UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
-                    ViewerCanReact = x.ViewerCanReact,
-                    ViewerCanUpdate = x.ViewerCanUpdate,
-                    ViewerDidAuthor = x.ViewerDidAuthor,
-                    Url = x.Url,
-                    Id = x.Id,
-                    CreatedAt = x.CreatedAt,
-                    CreatedAtHumanized = x.CreatedAt.Humanize(null, null),
+                    })
+                    .SingleOrDefault(),
                 })
                 .Compile();
-            #endregion
 
             var response = await App.Connection.Run(query);
 

@@ -47,7 +47,7 @@
         <Grid
             x:Name="RootContentGrid"
             x:Load="{x:Bind ViewModel.LoadUserHomePageCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-            Background="{ThemeResource CardBackgroundFillColorSecondary}"
+            Background="{ThemeResource LayerFillColorDefaultBrush}"
             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
             BorderThickness="1,1,0,0"
             CornerRadius="8,0,0,0">

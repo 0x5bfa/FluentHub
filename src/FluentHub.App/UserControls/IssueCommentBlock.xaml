@@ -18,7 +18,7 @@
     <Grid
         x:Name="IssueCommentGrid"
         Height="Auto"
-        Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+        Background="{ThemeResource LayerFillColorDefaultBrush}"
         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
         BorderThickness="1"
         CornerRadius="{StaticResource ControlCornerRadius}">
@@ -63,7 +63,6 @@
                 <Button
                     Width="36"
                     Height="32"
-                    HorizontalAlignment="Right"
                     VerticalAlignment="Center"
                     Background="Transparent"
                     BorderThickness="0">
@@ -87,16 +86,13 @@
 
         <MenuFlyoutSeparator Grid.Row="1" />
 
-        <Grid Grid.Row="2">
+        <Grid Grid.Row="2" Padding="12">
 
-            <WebView2
+            <!--<WebView2
                 x:Name="CommentWebView"
-                Height="Auto"
-                Margin="12"
                 DefaultBackgroundColor="Transparent"
-                Loaded="OnCommentWebViewLoaded"
                 NavigationCompleted="OnCommentWebViewNavigationCompleted"
-                SizeChanged="OnWebViewSizeChanged" />
+                SizeChanged="OnWebViewSizeChanged" />-->
 
             <TextBlock
                 x:Name="FailedToLoadContentsTextBlock"
@@ -104,12 +100,130 @@
                 Foreground="{ThemeResource SystemFillColorCritical}"
                 IsTextSelectionEnabled="True"
                 Style="{StaticResource BodyTextBlockStyle}"
-                Text="Failed to load README contents due to WebView2 is unstable." />
+                Text="This issue comment is not supported to load because WebView2 is unstable." />
 
         </Grid>
 
-        <Grid Grid.Row="3" Margin="12,0,0,12">
-            <StackPanel Orientation="Horizontal" Spacing="6" />
+        <Grid
+            x:Name="IssueCommentReactionGroupGrid"
+            Grid.Row="3"
+            Padding="12,0,0,12">
+            <StackPanel Orientation="Horizontal" Spacing="6">
+
+                <Button
+                    x:Name="ReactingButton"
+                    Width="32"
+                    Height="32"
+                    Padding="0"
+                    x:Load="{x:Bind ViewModel.IssueComment.Reactions.Nodes.Count, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                    CornerRadius="16">
+                    <Button.Content>
+                        <FontIcon FontSize="14" Glyph="&#xE170;" />
+                    </Button.Content>
+                    <Button.Flyout>
+                        <Flyout Placement="TopEdgeAlignedLeft">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <ToggleButton Content="👍" IsEnabled="False" />
+                                <ToggleButton Content="👎" IsEnabled="False" />
+                                <ToggleButton Content="😄" IsEnabled="False" />
+                                <ToggleButton Content="🎉" IsEnabled="False" />
+                                <ToggleButton Content="😕" IsEnabled="False" />
+                                <ToggleButton Content="❤️" IsEnabled="False" />
+                                <ToggleButton Content="🚀" IsEnabled="False" />
+                                <ToggleButton Content="👀" IsEnabled="False" />
+                            </StackPanel>
+                        </Flyout>
+                    </Button.Flyout>
+                </Button>
+
+                <ToggleButton
+                    x:Name="ThumbsUpToggleButton"
+                    x:Load="{x:Bind ViewModel.ThumbsUpCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                    CornerRadius="16"
+                    IsEnabled="False">
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <TextBlock Text="👍" />
+                        <TextBlock Text="{x:Bind ViewModel.ThumbsUpCount, Mode=OneWay}" />
+                    </StackPanel>
+                </ToggleButton>
+
+                <ToggleButton
+                    x:Name="ThumbsDownToggleButton"
+                    x:Load="{x:Bind ViewModel.ThumbsDownCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                    CornerRadius="16"
+                    IsEnabled="False">
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <TextBlock Text="👎" />
+                        <TextBlock Text="{x:Bind ViewModel.ThumbsDownCount, Mode=OneWay}" />
+                    </StackPanel>
+                </ToggleButton>
+
+                <ToggleButton
+                    x:Name="LaughToggleButton"
+                    x:Load="{x:Bind ViewModel.LaughCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                    CornerRadius="16"
+                    IsEnabled="False">
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <TextBlock Text="😄" />
+                        <TextBlock Text="{x:Bind ViewModel.LaughCount, Mode=OneWay}" />
+                    </StackPanel>
+                </ToggleButton>
+
+                <ToggleButton
+                    x:Name="HoorayToggleButton"
+                    x:Load="{x:Bind ViewModel.EyesCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                    CornerRadius="16"
+                    IsEnabled="False">
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <TextBlock Text="🎉" />
+                        <TextBlock Text="{x:Bind ViewModel.HoorayCount, Mode=OneWay}" />
+                    </StackPanel>
+                </ToggleButton>
+
+                <ToggleButton
+                    x:Name="ConfusedToggleButton"
+                    x:Load="{x:Bind ViewModel.ConfusedCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                    CornerRadius="16"
+                    IsEnabled="False">
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <TextBlock Text="😕" />
+                        <TextBlock Text="{x:Bind ViewModel.ConfusedCount, Mode=OneWay}" />
+                    </StackPanel>
+                </ToggleButton>
+
+                <ToggleButton
+                    x:Name="HeartToggleButton"
+                    x:Load="{x:Bind ViewModel.HeartCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                    CornerRadius="16"
+                    IsEnabled="False">
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <TextBlock Text="❤️" />
+                        <TextBlock Text="{x:Bind ViewModel.HeartCount, Mode=OneWay}" />
+                    </StackPanel>
+                </ToggleButton>
+
+                <ToggleButton
+                    x:Name="RocketToggleButton"
+                    x:Load="{x:Bind ViewModel.RocketCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                    CornerRadius="16"
+                    IsEnabled="False">
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <TextBlock Text="🚀" />
+                        <TextBlock Text="{x:Bind ViewModel.RocketCount, Mode=OneWay}" />
+                    </StackPanel>
+                </ToggleButton>
+
+                <ToggleButton
+                    x:Name="EyesToggleButton"
+                    x:Load="{x:Bind ViewModel.EyesCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                    CornerRadius="16"
+                    IsEnabled="False">
+                    <StackPanel Orientation="Horizontal" Spacing="4">
+                        <TextBlock Text="👀" />
+                        <TextBlock Text="{x:Bind ViewModel.EyesCount, Mode=OneWay}" />
+                    </StackPanel>
+                </ToggleButton>
+            </StackPanel>
         </Grid>
 
     </Grid>
