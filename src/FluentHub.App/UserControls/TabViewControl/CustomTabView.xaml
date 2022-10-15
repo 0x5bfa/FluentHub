@@ -45,14 +45,12 @@
             <muxc:TabView.TabStripFooter>
                 <Button
                     Grid.Column="1"
-                    Width="34"
-                    Height="34"
-                    Margin="-4,0,0,1"
-                    Padding="2"
+                    Width="36"
+                    Height="36"
                     HorizontalAlignment="Left"
                     VerticalAlignment="Bottom"
                     Background="Transparent"
-                    BorderThickness="0"
+                    BorderBrush="Transparent"
                     Click="OnAddNewTabButtonClick"
                     IsEnabled="True"
                     ToolTipService.ToolTip="New tab">

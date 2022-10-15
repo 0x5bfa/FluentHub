@@ -21,7 +21,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
@@ -36,13 +36,11 @@
         <Grid
             Grid.Row="1"
             Margin="4,0"
-            HorizontalAlignment="Stretch"
-            Background="Transparent"
-            BorderBrush="Transparent">
+            HorizontalAlignment="Stretch">
 
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
-                <RowDefinition Height="*" />
+                <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -59,7 +57,7 @@
                 Background="{x:Bind BadgeBackground, Mode=OneWay}"
                 BorderBrush="Transparent"
                 BorderThickness="2"
-                CornerRadius="16" />
+                CornerRadius="14" />
 
             <Grid
                 Width="28"
@@ -69,7 +67,7 @@
                 VerticalAlignment="Top"
                 BorderBrush="Transparent"
                 BorderThickness="2"
-                CornerRadius="16">
+                CornerRadius="14">
 
                 <ContentPresenter
                     x:Name="TimelineBadgeContentPresenter"

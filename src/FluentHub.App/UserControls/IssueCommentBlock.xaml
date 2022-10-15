@@ -123,14 +123,38 @@
                     <Button.Flyout>
                         <Flyout Placement="TopEdgeAlignedLeft">
                             <StackPanel Orientation="Horizontal" Spacing="6">
-                                <ToggleButton Content="👍" IsEnabled="False" />
-                                <ToggleButton Content="👎" IsEnabled="False" />
-                                <ToggleButton Content="😄" IsEnabled="False" />
-                                <ToggleButton Content="🎉" IsEnabled="False" />
-                                <ToggleButton Content="😕" IsEnabled="False" />
-                                <ToggleButton Content="❤️" IsEnabled="False" />
-                                <ToggleButton Content="🚀" IsEnabled="False" />
-                                <ToggleButton Content="👀" IsEnabled="False" />
+                                <ToggleButton
+                                    Content="👍"
+                                    CornerRadius="8"
+                                    IsEnabled="False" />
+                                <ToggleButton
+                                    Content="👎"
+                                    CornerRadius="8"
+                                    IsEnabled="False" />
+                                <ToggleButton
+                                    Content="😄"
+                                    CornerRadius="8"
+                                    IsEnabled="False" />
+                                <ToggleButton
+                                    Content="🎉"
+                                    CornerRadius="8"
+                                    IsEnabled="False" />
+                                <ToggleButton
+                                    Content="😕"
+                                    CornerRadius="8"
+                                    IsEnabled="False" />
+                                <ToggleButton
+                                    Content="❤️"
+                                    CornerRadius="8"
+                                    IsEnabled="False" />
+                                <ToggleButton
+                                    Content="🚀"
+                                    CornerRadius="8"
+                                    IsEnabled="False" />
+                                <ToggleButton
+                                    Content="👀"
+                                    CornerRadius="8"
+                                    IsEnabled="False" />
                             </StackPanel>
                         </Flyout>
                     </Button.Flyout>

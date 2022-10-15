@@ -19,7 +19,7 @@ namespace FluentHub.App.Models
         public DataTemplate LabeledEventDataTemplate { get; set; }
         public DataTemplate LockedEventDataTemplate { get; set; }
         public DataTemplate MarkedAsDuplicateEventDataTemplate { get; set; }
-        public DataTemplate MentionedEventDataTemplate { get; set; }
+        //public DataTemplate MentionedEventDataTemplate { get; set; }
         public DataTemplate MilestonedEventDataTemplate { get; set; }
         public DataTemplate MovedColumnsInProjectEventDataTemplate { get; set; }
         public DataTemplate PinnedEventDataTemplate { get; set; }
@@ -27,14 +27,14 @@ namespace FluentHub.App.Models
         public DataTemplate RemovedFromProjectEventDataTemplate { get; set; }
         public DataTemplate RenamedTitleEventDataTemplate { get; set; }
         public DataTemplate ReopenedEventDataTemplate { get; set; }
-        public DataTemplate SubscribedEventDataTemplate { get; set; }
+        //public DataTemplate SubscribedEventDataTemplate { get; set; }
         public DataTemplate TransferredEventDataTemplate { get; set; }
         public DataTemplate UnassignedEventDataTemplate { get; set; }
         public DataTemplate UnlabeledEventDataTemplate { get; set; }
         public DataTemplate UnlockedEventDataTemplate { get; set; }
         public DataTemplate UnmarkedAsDuplicateEventDataTemplate { get; set; }
         public DataTemplate UnpinnedEventDataTemplate { get; set; }
-        public DataTemplate UnsubscribedEventDataTemplate { get; set; }
+        //public DataTemplate UnsubscribedEventDataTemplate { get; set; }
         public DataTemplate UserBlockedEventDataTemplate { get; set; }
         public DataTemplate DefaultDataTemplate { get; set; }
 
@@ -43,9 +43,9 @@ namespace FluentHub.App.Models
             if (item is null)
                 return DefaultDataTemplate;
 
-            var itemType = item.GetType().ToString().Split(".").ToList().Last();
+            var typeName = item.GetType().Name;
 
-            return itemType switch
+            return typeName switch
             {
                 nameof(AddedToProjectEvent) => AddedToProjectEventDataTemplate,
                 nameof(AssignedEvent) => AssignedEventDataTemplate,

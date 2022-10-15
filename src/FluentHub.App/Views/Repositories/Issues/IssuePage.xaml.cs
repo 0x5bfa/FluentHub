@@ -26,6 +26,12 @@ namespace FluentHub.App.Views.Repositories.Issues
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var param = e.Parameter as FrameNavigationArgs;
+
+            if (param == null)
+            {
+                throw new ArgumentNullException(nameof(param), "OnNavigateTo() failed to load.");
+            }
+
             ViewModel.Login = param.Login;
             ViewModel.Name = param.Name;
             ViewModel.Number = param.Number;
@@ -34,21 +40,5 @@ namespace FluentHub.App.Views.Repositories.Issues
             if (command.CanExecute(null))
                 command.Execute(null);
         }
-
-        //private void OnDisplayDetailsTogglingButtonClick(object sender, RoutedEventArgs e)
-        //{
-        //    if (DetailsGridColumnDefinition.Width.IsStar)
-        //    {
-        //        DetailsGridColumnDefinition.Width = new GridLength(0, GridUnitType.Pixel);
-        //        DetailsGridColumnDefinition.MinWidth = 0;
-        //        IssueDetailsSidebar.Height = 0;
-        //    }
-        //    else
-        //    {
-        //        DetailsGridColumnDefinition.Width = new GridLength(1, GridUnitType.Star);
-        //        DetailsGridColumnDefinition.MinWidth = 214;
-        //        IssueDetailsSidebar.Height = IssueDetailsSidebar.ActualHeight;
-        //    }
-        //}
     }
 }
