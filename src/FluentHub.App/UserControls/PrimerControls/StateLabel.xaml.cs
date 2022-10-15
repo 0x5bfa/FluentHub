@@ -37,7 +37,7 @@ namespace FluentHub.App.UserControls.PrimerControls
                     case "IssueClosedNotPlanned":
                         Context.StatusColor = Application.Current.Resources["PrimerNeutralEmphasis"] as SolidColorBrush;
                         Context.StatusText = "Closed";
-                        Context.StatusGlyph = "\uE9E6";
+                        Context.StatusGlyph = "\uE984";
                         break;
                     case "IssueDraft":
                         Context.StatusColor = Application.Current.Resources["PrimerNeutralEmphasis"] as SolidColorBrush;
@@ -47,7 +47,7 @@ namespace FluentHub.App.UserControls.PrimerControls
                     case "IssueOpen":
                         Context.StatusColor = Application.Current.Resources["PrimerSuccessEmphasis"] as SolidColorBrush;
                         Context.StatusText = "Open";
-                        Context.StatusGlyph = "\uE9BF";
+                        Context.StatusGlyph = "\uE9EA";
                         break;
                     case "PullClosed":
                         Context.StatusColor = Application.Current.Resources["PrimerDangerEmphasis"] as SolidColorBrush;

@@ -30,7 +30,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid Padding="12,8">
+        <Grid Padding="16,8">
             <StackPanel Orientation="Horizontal" Spacing="8">
 
                 <primer:Avatar
@@ -86,28 +86,32 @@
 
         <MenuFlyoutSeparator Grid.Row="1" />
 
-        <Grid Grid.Row="2" Padding="12">
+        <Grid
+            Grid.Row="2"
+            Padding="16"
+            Background="{ThemeResource SolidBackgroundFillColorBase}">
 
-            <!--<WebView2
+            <WebView2
                 x:Name="CommentWebView"
                 DefaultBackgroundColor="Transparent"
                 NavigationCompleted="OnCommentWebViewNavigationCompleted"
-                SizeChanged="OnWebViewSizeChanged" />-->
+                SizeChanged="OnWebViewSizeChanged" />
 
-            <TextBlock
+            <!--<TextBlock
                 x:Name="FailedToLoadContentsTextBlock"
-                Margin="12"
+                Margin="0"
                 Foreground="{ThemeResource SystemFillColorCritical}"
                 IsTextSelectionEnabled="True"
                 Style="{StaticResource BodyTextBlockStyle}"
-                Text="This issue comment is not supported to load because WebView2 is unstable." />
+                Text="This issue comment is not supported to load because WebView2 is unstable." />-->
 
         </Grid>
 
         <Grid
             x:Name="IssueCommentReactionGroupGrid"
             Grid.Row="3"
-            Padding="12,0,0,12">
+            Padding="12,0,0,12"
+            Background="{ThemeResource SolidBackgroundFillColorBase}">
             <StackPanel Orientation="Horizontal" Spacing="6">
 
                 <Button
@@ -195,7 +199,7 @@
 
                 <ToggleButton
                     x:Name="HoorayToggleButton"
-                    x:Load="{x:Bind ViewModel.EyesCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                    x:Load="{x:Bind ViewModel.HoorayCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
                     CornerRadius="16"
                     IsEnabled="False">
                     <StackPanel Orientation="Horizontal" Spacing="4">

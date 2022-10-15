@@ -644,7 +644,7 @@
                         Margin="36,0,0,0"
                         HorizontalAlignment="Left"
                         Background="{ThemeResource PrimerBorderMuted}" />
-                    <!--<uc:IssueCommentBlock ViewModel="{x:Bind Converter={StaticResource IssueCommentToIssueCommentBlockViewModelConverter}}" />-->
+                    <uc:IssueCommentBlock ViewModel="{x:Bind Converter={StaticResource IssueCommentToIssueCommentBlockViewModelConverter}}" />
                     <Border
                         Grid.Row="0"
                         Width="1.5"
@@ -1661,9 +1661,11 @@
                                 HorizontalAlignment="Left"
                                 Background="{ThemeResource PrimerBorderMuted}" />
 
-                            <StackPanel>
-                                <ItemsControl ItemTemplateSelector="{StaticResource TimelineItemSelector}" ItemsSource="{x:Bind ViewModel.TimelineItems, Mode=OneWay}" />
-                            </StackPanel>
+                            <!--  (VerticalCacheLength:) https://github.com/microsoft/microsoft-ui-xaml/issues/3861  -->
+                            <ItemsRepeater
+                                ItemTemplate="{StaticResource TimelineItemSelector}"
+                                ItemsSource="{x:Bind ViewModel.TimelineItems, Mode=OneWay}"
+                                VerticalCacheLength="256" />
 
                             <Border
                                 Width="1.5"
@@ -1895,126 +1897,126 @@
 
                     </Grid>
 
-                    <StackPanel
+                    <Grid
                         Grid.Row="3"
-                        Margin="0,8,8,0"
-                        VerticalAlignment="Top">
-                        <Grid
-                            Background="{ThemeResource CardBackgroundFillColorSecondary}"
-                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                            BorderThickness="1"
-                            CornerRadius="8">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
+                        Margin="0,8,0,0"
+                        Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1"
+                        CornerRadius="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
 
-                            <Grid>
-                                <muxc:NavigationView
-                                    Margin="12,4,24,4"
-                                    IsBackButtonVisible="Collapsed"
-                                    IsSettingsVisible="False"
-                                    PaneDisplayMode="Top">
-                                    <muxc:NavigationView.MenuItems>
-                                        <muxc:NavigationViewItem Content="Write" IsSelected="True" />
-                                        <muxc:NavigationViewItem Content="Preview" />
-                                    </muxc:NavigationView.MenuItems>
-                                    <muxc:NavigationView.PaneFooter>
-                                        <StackPanel Orientation="Horizontal" Spacing="4">
-                                            <Button
-                                                Width="32"
-                                                Height="32"
-                                                Padding="0"
-                                                Background="Transparent"
-                                                BorderThickness="0">
-                                                <FontIcon
-                                                    FontFamily="{StaticResource Octicons}"
-                                                    FontSize="14"
-                                                    Glyph="&#xE9CD;" />
-                                            </Button>
-                                            <Button
-                                                Width="32"
-                                                Height="32"
-                                                Padding="0"
-                                                Background="Transparent"
-                                                BorderThickness="0">
-                                                <FontIcon
-                                                    FontFamily="{StaticResource Octicons}"
-                                                    FontSize="14"
-                                                    Glyph="&#xEAA7;" />
-                                            </Button>
-                                            <Button
-                                                Width="32"
-                                                Height="32"
-                                                Padding="0"
-                                                Background="Transparent"
-                                                BorderThickness="0">
-                                                <FontIcon
-                                                    FontFamily="{StaticResource Octicons}"
-                                                    FontSize="14"
-                                                    Glyph="&#xEA0F;" />
-                                            </Button>
-                                            <Button
-                                                Width="32"
-                                                Height="32"
-                                                Padding="0"
-                                                Background="Transparent"
-                                                BorderThickness="0">
-                                                <FontIcon
-                                                    FontFamily="{StaticResource Octicons}"
-                                                    FontSize="14"
-                                                    Glyph="&#xE968;" />
-                                            </Button>
-                                            <Button
-                                                Width="32"
-                                                Height="32"
-                                                Padding="0"
-                                                Background="Transparent"
-                                                BorderThickness="0">
-                                                <FontIcon
-                                                    FontFamily="{StaticResource Octicons}"
-                                                    FontSize="14"
-                                                    Glyph="&#xEA50;" />
-                                            </Button>
-                                        </StackPanel>
-                                    </muxc:NavigationView.PaneFooter>
-                                </muxc:NavigationView>
-                            </Grid>
-
-                            <MenuFlyoutSeparator Grid.Row="1" />
-
-                            <Grid
-                                Grid.Row="2"
-                                Height="256"
-                                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
-                                <TextBox
-                                    Margin="12"
-                                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                                    IsEnabled="False"
-                                    PlaceholderText="Leave a comment" />
-                            </Grid>
-
-                            <Grid
-                                Grid.Row="3"
-                                Padding="12,0,12,12"
-                                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
-
-                                <StackPanel
-                                    HorizontalAlignment="Right"
-                                    Orientation="Horizontal"
-                                    Spacing="8">
-                                    <Button Content="Close issue" IsEnabled="False" />
-                                    <Button
-                                        Content="Comment"
+                        <Grid>
+                            <muxc:NavigationView
+                                Margin="12,4,24,4"
+                                IsBackButtonVisible="Collapsed"
+                                IsSettingsVisible="False"
+                                PaneDisplayMode="Top">
+                                <muxc:NavigationView.MenuItems>
+                                    <muxc:NavigationViewItem
+                                        Content="Write"
                                         IsEnabled="False"
-                                        Style="{StaticResource AccentButtonStyle}" />
-                                </StackPanel>
-                            </Grid>
-
+                                        IsSelected="True" />
+                                    <muxc:NavigationViewItem Content="Preview" IsEnabled="False" />
+                                </muxc:NavigationView.MenuItems>
+                                <!--<muxc:NavigationView.PaneFooter>
+                                    <StackPanel Orientation="Horizontal" Spacing="4">
+                                        <Button
+                                            Width="32"
+                                            Height="32"
+                                            Padding="0"
+                                            Background="Transparent"
+                                            BorderThickness="0">
+                                            <FontIcon
+                                                FontFamily="{StaticResource Octicons}"
+                                                FontSize="14"
+                                                Glyph="&#xE9CD;" />
+                                        </Button>
+                                        <Button
+                                            Width="32"
+                                            Height="32"
+                                            Padding="0"
+                                            Background="Transparent"
+                                            BorderThickness="0">
+                                            <FontIcon
+                                                FontFamily="{StaticResource Octicons}"
+                                                FontSize="14"
+                                                Glyph="&#xEAA7;" />
+                                        </Button>
+                                        <Button
+                                            Width="32"
+                                            Height="32"
+                                            Padding="0"
+                                            Background="Transparent"
+                                            BorderThickness="0">
+                                            <FontIcon
+                                                FontFamily="{StaticResource Octicons}"
+                                                FontSize="14"
+                                                Glyph="&#xEA0F;" />
+                                        </Button>
+                                        <Button
+                                            Width="32"
+                                            Height="32"
+                                            Padding="0"
+                                            Background="Transparent"
+                                            BorderThickness="0">
+                                            <FontIcon
+                                                FontFamily="{StaticResource Octicons}"
+                                                FontSize="14"
+                                                Glyph="&#xE968;" />
+                                        </Button>
+                                        <Button
+                                            Width="32"
+                                            Height="32"
+                                            Padding="0"
+                                            Background="Transparent"
+                                            BorderThickness="0">
+                                            <FontIcon
+                                                FontFamily="{StaticResource Octicons}"
+                                                FontSize="14"
+                                                Glyph="&#xEA50;" />
+                                        </Button>
+                                    </StackPanel>
+                                </muxc:NavigationView.PaneFooter>-->
+                            </muxc:NavigationView>
                         </Grid>
-                    </StackPanel>
+
+                        <MenuFlyoutSeparator Grid.Row="1" />
+
+                        <Grid
+                            Grid.Row="2"
+                            Height="256"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
+                            <TextBox
+                                Margin="12"
+                                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                IsEnabled="False"
+                                PlaceholderText="Leave a comment" />
+                        </Grid>
+
+                        <Grid
+                            Grid.Row="3"
+                            Padding="12,0,12,12"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
+
+                            <StackPanel
+                                HorizontalAlignment="Right"
+                                Orientation="Horizontal"
+                                Spacing="8">
+                                <Button Content="Close issue" IsEnabled="False" />
+                                <Button
+                                    Content="Comment"
+                                    IsEnabled="False"
+                                    Style="{StaticResource AccentButtonStyle}" />
+                            </StackPanel>
+                        </Grid>
+
+                    </Grid>
                 </Grid>
             </ScrollViewer>
         </Grid>
