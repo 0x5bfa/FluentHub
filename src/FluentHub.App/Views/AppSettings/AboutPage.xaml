@@ -6,7 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="using:FluentHub.App.Helpers"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:overview="using:FluentHub.App.UserControls.Overview"
     xmlns:uc="using:FluentHub.App.UserControls"
     mc:Ignorable="d">
@@ -69,7 +68,7 @@
                                 IsClickable="False">
 
                                 <uc:SettingsBlockControl.Icon>
-                                    <muxc:ImageIcon
+                                    <ImageIcon
                                         Height="36"
                                         Margin="-8,0"
                                         Source="/Assets/AppTilesDev/StoreLogo.scale-200.png" />

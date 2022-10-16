@@ -7,7 +7,6 @@
     xmlns:helpers="using:FluentHub.App.Helpers"
     xmlns:local="using:FluentHub.App.UserControls.Overview"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:primer="using:FluentHub.App.UserControls.PrimerControls"
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
     xmlns:uc="using:FluentHub.App.UserControls"
@@ -112,8 +111,8 @@
                 VerticalAlignment="Top"
                 Orientation="Horizontal"
                 Spacing="6">
-                <muxc:DropDownButton x:Name="RepoWatchCombbox" IsEnabled="False">
-                    <muxc:DropDownButton.Content>
+                <DropDownButton x:Name="RepoWatchCombbox" IsEnabled="False">
+                    <DropDownButton.Content>
 
                         <StackPanel Orientation="Horizontal" Spacing="8">
 
@@ -160,8 +159,8 @@
 
                             <primer:CounterLabel x:Name="WatchersCounter" Text="{x:Bind ViewModel.Repository.Watchers.TotalCount, Converter={StaticResource DecimalToMetricConverter}, Mode=OneWay}" />
                         </StackPanel>
-                    </muxc:DropDownButton.Content>
-                </muxc:DropDownButton>
+                    </DropDownButton.Content>
+                </DropDownButton>
 
                 <Button IsEnabled="False">
                     <Button.Content>
@@ -179,8 +178,8 @@
                     </Button.Content>
                 </Button>
 
-                <muxc:SplitButton IsEnabled="False">
-                    <muxc:SplitButton.Content>
+                <SplitButton IsEnabled="False">
+                    <SplitButton.Content>
                         <StackPanel Orientation="Horizontal" Spacing="8">
 
                             <toolkit:SwitchPresenter
@@ -215,14 +214,14 @@
 
                             <primer:CounterLabel x:Name="StargazersCounter" Text="{x:Bind ViewModel.Repository.StargazerCount, Converter={StaticResource DecimalToMetricConverter}, Mode=OneWay}" />
                         </StackPanel>
-                    </muxc:SplitButton.Content>
-                </muxc:SplitButton>
+                    </SplitButton.Content>
+                </SplitButton>
             </StackPanel>
 
         </Grid>
 
         <Grid Grid.Row="2">
-            <muxc:NavigationView
+            <NavigationView
                 x:Name="RepoPageNavView"
                 Margin="32,0"
                 IsBackButtonVisible="Collapsed"
@@ -230,19 +229,19 @@
                 ItemInvoked="OnRepoPageNavViewItemInvoked"
                 PaneDisplayMode="Top">
 
-                <muxc:NavigationView.MenuItems>
+                <NavigationView.MenuItems>
 
-                    <muxc:NavigationViewItem Content="Code" Tag="code">
-                        <muxc:NavigationViewItem.Icon>
+                    <NavigationViewItem Content="Code" Tag="code">
+                        <NavigationViewItem.Icon>
                             <FontIcon
                                 FontFamily="{StaticResource Octicons}"
                                 FontSize="16"
                                 Glyph="&#xE94b;" />
-                        </muxc:NavigationViewItem.Icon>
-                    </muxc:NavigationViewItem>
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
 
-                    <muxc:NavigationViewItem Tag="issues" Visibility="{x:Bind ViewModel.Repository.HasIssuesEnabled, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
-                        <muxc:NavigationViewItem.Content>
+                    <NavigationViewItem Tag="issues" Visibility="{x:Bind ViewModel.Repository.HasIssuesEnabled, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+                        <NavigationViewItem.Content>
                             <StackPanel Orientation="Horizontal" Spacing="8">
 
                                 <FontIcon
@@ -258,11 +257,11 @@
                                     Text="{x:Bind ViewModel.Repository.Issues.TotalCount, Converter={StaticResource DecimalToMetricConverter}, Mode=OneWay}" />
 
                             </StackPanel>
-                        </muxc:NavigationViewItem.Content>
-                    </muxc:NavigationViewItem>
+                        </NavigationViewItem.Content>
+                    </NavigationViewItem>
 
-                    <muxc:NavigationViewItem Tag="pullrequests">
-                        <muxc:NavigationViewItem.Content>
+                    <NavigationViewItem Tag="pullrequests">
+                        <NavigationViewItem.Content>
                             <StackPanel Orientation="Horizontal" Spacing="8">
 
                                 <FontIcon
@@ -278,54 +277,54 @@
                                     Text="{x:Bind ViewModel.Repository.PullRequests.TotalCount, Converter={StaticResource DecimalToMetricConverter}, Mode=OneWay}" />
 
                             </StackPanel>
-                        </muxc:NavigationViewItem.Content>
-                    </muxc:NavigationViewItem>
+                        </NavigationViewItem.Content>
+                    </NavigationViewItem>
 
-                    <muxc:NavigationViewItem Content="Discussions" Tag="discussions">
-                        <muxc:NavigationViewItem.Icon>
+                    <NavigationViewItem Content="Discussions" Tag="discussions">
+                        <NavigationViewItem.Icon>
                             <FontIcon
                                 FontFamily="{StaticResource Octicons}"
                                 FontSize="16"
                                 Glyph="&#xE95D;" />
-                        </muxc:NavigationViewItem.Icon>
-                    </muxc:NavigationViewItem>
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
 
-                    <muxc:NavigationViewItem Content="Projects" Tag="projects">
-                        <muxc:NavigationViewItem.Icon>
+                    <NavigationViewItem Content="Projects" Tag="projects">
+                        <NavigationViewItem.Icon>
                             <FontIcon
                                 FontFamily="{StaticResource Octicons}"
                                 FontSize="16"
                                 Glyph="&#xEA48;" />
-                        </muxc:NavigationViewItem.Icon>
-                    </muxc:NavigationViewItem>
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
 
-                    <muxc:NavigationViewItem
+                    <NavigationViewItem
                         Content="Insights"
                         IsEnabled="False"
                         Tag="insights">
-                        <muxc:NavigationViewItem.Icon>
+                        <NavigationViewItem.Icon>
                             <FontIcon
                                 FontFamily="{StaticResource Octicons}"
                                 FontSize="16"
                                 Glyph="&#xE9C9;" />
-                        </muxc:NavigationViewItem.Icon>
-                    </muxc:NavigationViewItem>
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
 
-                    <muxc:NavigationViewItem
+                    <NavigationViewItem
                         Content="Settings"
                         IsEnabled="False"
                         Tag="settings">
-                        <muxc:NavigationViewItem.Icon>
+                        <NavigationViewItem.Icon>
                             <FontIcon
                                 FontFamily="{StaticResource Octicons}"
                                 FontSize="16"
                                 Glyph="&#xE9B3;" />
-                        </muxc:NavigationViewItem.Icon>
-                    </muxc:NavigationViewItem>
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
 
-                </muxc:NavigationView.MenuItems>
+                </NavigationView.MenuItems>
 
-            </muxc:NavigationView>
+            </NavigationView>
         </Grid>
 
     </Grid>

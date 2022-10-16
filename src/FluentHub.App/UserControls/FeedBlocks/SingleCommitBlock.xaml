@@ -8,7 +8,6 @@
     xmlns:local="using:FluentHub.App.UserControls.FeedBlocks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:modelsV3="using:Octokit"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:primer="using:FluentHub.App.UserControls.PrimerControls"
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
     d:DesignHeight="300"
@@ -30,10 +29,10 @@
         <MenuFlyoutSeparator Grid.Row="1" Margin="-16,8" />
 
         <StackPanel Grid.Row="2">
-            <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.PushEventPayload.Commits, Mode=OneWay}">
-                <muxc:ItemsRepeater.Layout>
-                    <muxc:StackLayout Orientation="Vertical" Spacing="8" />
-                </muxc:ItemsRepeater.Layout>
+            <ItemsRepeater ItemsSource="{x:Bind ViewModel.PushEventPayload.Commits, Mode=OneWay}">
+                <ItemsRepeater.Layout>
+                    <StackLayout Orientation="Vertical" Spacing="8" />
+                </ItemsRepeater.Layout>
                 <DataTemplate x:DataType="modelsV3:Commit">
                     <StackPanel Orientation="Horizontal" Spacing="4">
                         <Border
@@ -59,7 +58,7 @@
 
                     </StackPanel>
                 </DataTemplate>
-            </muxc:ItemsRepeater>
+            </ItemsRepeater>
         </StackPanel>
 
     </Grid>

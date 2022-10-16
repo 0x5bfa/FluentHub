@@ -7,7 +7,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:FluentHub.App.UserControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:uc="using:FluentHub.App.UserControls"
     Loaded="OnFileNavigationBlockLoaded"
     mc:Ignorable="d">
@@ -101,25 +100,25 @@
                 Content="Go to file"
                 IsEnabled="False" />
 
-            <muxc:DropDownButton
+            <DropDownButton
                 Margin="8,0,0,0"
                 Content="Add files"
                 Visibility="{x:Bind ViewModel.ContextViewModel.IsDir, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
-                <muxc:DropDownButton.Flyout>
+                <DropDownButton.Flyout>
                     <MenuFlyout Placement="Bottom">
                         <MenuFlyoutItem IsEnabled="False" Text="Create new file" />
                         <MenuFlyoutItem IsEnabled="False" Text="Upload files" />
                     </MenuFlyout>
-                </muxc:DropDownButton.Flyout>
-            </muxc:DropDownButton>
+                </DropDownButton.Flyout>
+            </DropDownButton>
 
-            <muxc:DropDownButton
+            <DropDownButton
                 Margin="8,0,0,0"
-                muxc:AnimatedIcon.State="Normal"
+                AnimatedIcon.State="Normal"
                 Loaded="OnCloneButtonLoaded"
                 Style="{StaticResource AccentButtonStyle}"
                 Visibility="{x:Bind ViewModel.ContextViewModel.IsRootDir, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
-                <muxc:DropDownButton.Content>
+                <DropDownButton.Content>
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*" />
@@ -128,27 +127,27 @@
 
                         <TextBlock Text="Clone" />
 
-                        <muxc:AnimatedIcon
+                        <AnimatedIcon
                             x:Name="ChevronIcon"
                             Grid.Column="1"
                             Width="12"
                             Height="12"
                             Margin="8,0,0,0"
-                            muxc:AnimatedIcon.State="Normal"
+                            AnimatedIcon.State="Normal"
                             AutomationProperties.AccessibilityView="Raw">
                             <animatedvisuals:AnimatedChevronDownSmallVisualSource />
-                            <muxc:AnimatedIcon.FallbackIconSource>
-                                <muxc:FontIconSource
+                            <AnimatedIcon.FallbackIconSource>
+                                <FontIconSource
                                     FontFamily="{ThemeResource SymbolThemeFontFamily}"
                                     FontSize="8"
                                     Glyph="&#xE96E;"
                                     IsTextScaleFactorEnabled="False" />
-                            </muxc:AnimatedIcon.FallbackIconSource>
-                        </muxc:AnimatedIcon>
+                            </AnimatedIcon.FallbackIconSource>
+                        </AnimatedIcon>
                     </Grid>
-                </muxc:DropDownButton.Content>
+                </DropDownButton.Content>
 
-                <muxc:DropDownButton.Flyout>
+                <DropDownButton.Flyout>
                     <Flyout Placement="BottomEdgeAlignedRight">
                         <Flyout.FlyoutPresenterStyle>
                             <Style TargetType="FlyoutPresenter">
@@ -160,8 +159,8 @@
                         <uc:GitCloneFlyout ViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
 
                     </Flyout>
-                </muxc:DropDownButton.Flyout>
-            </muxc:DropDownButton>
+                </DropDownButton.Flyout>
+            </DropDownButton>
 
             <Button Margin="8,0,0,0" Visibility="{x:Bind ViewModel.ContextViewModel.IsSubDir, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
 

@@ -8,7 +8,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="using:FluentHub.App.Helpers"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:ov="using:FluentHub.App.UserControls.Overview"
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
     xmlns:uc="using:FluentHub.App.UserControls"
@@ -93,8 +92,8 @@
                                 Orientation="Horizontal"
                                 Spacing="8">
 
-                                <muxc:DropDownButton IsEnabled="False">
-                                    <muxc:DropDownButton.Content>
+                                <DropDownButton IsEnabled="False">
+                                    <DropDownButton.Content>
                                         <StackPanel Orientation="Horizontal" Spacing="4">
                                             <TextBlock
                                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
@@ -102,18 +101,18 @@
                                                 Text="Type by:" />
                                             <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
                                         </StackPanel>
-                                    </muxc:DropDownButton.Content>
-                                    <muxc:DropDownButton.Flyout>
+                                    </DropDownButton.Content>
+                                    <DropDownButton.Flyout>
                                         <MenuFlyout Placement="BottomEdgeAlignedLeft">
                                             <MenuFlyout.Items>
                                                 <ToggleMenuFlyoutItem IsEnabled="False" Text="Not available yet" />
                                             </MenuFlyout.Items>
                                         </MenuFlyout>
-                                    </muxc:DropDownButton.Flyout>
-                                </muxc:DropDownButton>
+                                    </DropDownButton.Flyout>
+                                </DropDownButton>
 
-                                <muxc:DropDownButton IsEnabled="False">
-                                    <muxc:DropDownButton.Content>
+                                <DropDownButton IsEnabled="False">
+                                    <DropDownButton.Content>
                                         <StackPanel Orientation="Horizontal" Spacing="4">
                                             <TextBlock
                                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
@@ -121,18 +120,18 @@
                                                 Text="Language by:" />
                                             <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
                                         </StackPanel>
-                                    </muxc:DropDownButton.Content>
-                                    <muxc:DropDownButton.Flyout>
+                                    </DropDownButton.Content>
+                                    <DropDownButton.Flyout>
                                         <MenuFlyout Placement="BottomEdgeAlignedLeft">
                                             <MenuFlyout.Items>
                                                 <ToggleMenuFlyoutItem IsEnabled="False" Text="Not available yet" />
                                             </MenuFlyout.Items>
                                         </MenuFlyout>
-                                    </muxc:DropDownButton.Flyout>
-                                </muxc:DropDownButton>
+                                    </DropDownButton.Flyout>
+                                </DropDownButton>
 
-                                <muxc:DropDownButton IsEnabled="False">
-                                    <muxc:DropDownButton.Content>
+                                <DropDownButton IsEnabled="False">
+                                    <DropDownButton.Content>
                                         <StackPanel Orientation="Horizontal" Spacing="4">
                                             <TextBlock
                                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
@@ -140,28 +139,28 @@
                                                 Text="Sort by:" />
                                             <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
                                         </StackPanel>
-                                    </muxc:DropDownButton.Content>
-                                    <muxc:DropDownButton.Flyout>
+                                    </DropDownButton.Content>
+                                    <DropDownButton.Flyout>
                                         <MenuFlyout Placement="BottomEdgeAlignedLeft">
                                             <MenuFlyout.Items>
                                                 <ToggleMenuFlyoutItem IsEnabled="False" Text="Not available yet" />
                                             </MenuFlyout.Items>
                                         </MenuFlyout>
-                                    </muxc:DropDownButton.Flyout>
-                                </muxc:DropDownButton>
+                                    </DropDownButton.Flyout>
+                                </DropDownButton>
 
                             </StackPanel>
                         </Grid>
 
                         <Grid Grid.Row="2">
-                            <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Repositories}">
-                                <muxc:ItemsRepeater.Layout>
-                                    <muxc:StackLayout Orientation="Vertical" Spacing="6" />
-                                </muxc:ItemsRepeater.Layout>
+                            <ItemsRepeater ItemsSource="{x:Bind ViewModel.Repositories}">
+                                <ItemsRepeater.Layout>
+                                    <StackLayout Orientation="Vertical" Spacing="6" />
+                                </ItemsRepeater.Layout>
                                 <DataTemplate x:DataType="bbvm:RepoBlockButtonViewModel">
                                     <bb:RepoBlockButton VerticalAlignment="Stretch" ViewModel="{x:Bind}" />
                                 </DataTemplate>
-                            </muxc:ItemsRepeater>
+                            </ItemsRepeater>
 
                             <toolkit:SwitchPresenter
                                 x:Name="NoRepositoriesSwitchPresenter"

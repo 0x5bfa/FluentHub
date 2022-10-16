@@ -10,7 +10,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:FluentHub.App.Models"
     xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:ov="using:FluentHub.App.UserControls.Overview"
     xmlns:primer="using:FluentHub.App.UserControls.PrimerControls"
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
@@ -1623,28 +1622,28 @@
                                 <Grid>
 
                                     <StackPanel Spacing="6">
-                                        <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.PullItem.LatestReviews.Nodes, Mode=OneWay}">
-                                            <muxc:ItemsRepeater.Layout>
-                                                <muxc:StackLayout Orientation="Vertical" Spacing="6" />
-                                            </muxc:ItemsRepeater.Layout>
+                                        <ItemsRepeater ItemsSource="{x:Bind ViewModel.PullItem.LatestReviews.Nodes, Mode=OneWay}">
+                                            <ItemsRepeater.Layout>
+                                                <StackLayout Orientation="Vertical" Spacing="6" />
+                                            </ItemsRepeater.Layout>
                                             <DataTemplate x:DataType="modelsV4:PullRequestReview">
                                                 <primer:Avatar
                                                     HorizontalAlignment="Left"
                                                     Label="{x:Bind Author.Login, Mode=OneWay}"
                                                     Source="{x:Bind Author.AvatarUrl, Mode=OneWay}" />
                                             </DataTemplate>
-                                        </muxc:ItemsRepeater>
-                                        <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.PullItem.ReviewRequests.Nodes, Mode=OneWay}">
-                                            <muxc:ItemsRepeater.Layout>
-                                                <muxc:StackLayout Orientation="Vertical" Spacing="6" />
-                                            </muxc:ItemsRepeater.Layout>
+                                        </ItemsRepeater>
+                                        <ItemsRepeater ItemsSource="{x:Bind ViewModel.PullItem.ReviewRequests.Nodes, Mode=OneWay}">
+                                            <ItemsRepeater.Layout>
+                                                <StackLayout Orientation="Vertical" Spacing="6" />
+                                            </ItemsRepeater.Layout>
                                             <DataTemplate x:DataType="modelsV4:ReviewRequest">
                                                 <primer:Avatar
                                                     HorizontalAlignment="Left"
                                                     Label="{x:Bind RequestedReviewer.User.Login, Mode=OneWay}"
                                                     Source="{x:Bind RequestedReviewer.User.AvatarUrl, Mode=OneWay}" />
                                             </DataTemplate>
-                                        </muxc:ItemsRepeater>
+                                        </ItemsRepeater>
                                     </StackPanel>
 
                                     <Grid x:Name="PullRequestDetailsSidebarNoReviewersGrid" x:Load="{x:Bind ViewModel.PullItem.ReviewRequests.Nodes.Count, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
@@ -1671,17 +1670,17 @@
 
                                 <Grid>
 
-                                    <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.PullItem.Assignees.Nodes, Mode=OneWay}">
-                                        <muxc:ItemsRepeater.Layout>
-                                            <muxc:StackLayout Orientation="Vertical" Spacing="6" />
-                                        </muxc:ItemsRepeater.Layout>
+                                    <ItemsRepeater ItemsSource="{x:Bind ViewModel.PullItem.Assignees.Nodes, Mode=OneWay}">
+                                        <ItemsRepeater.Layout>
+                                            <StackLayout Orientation="Vertical" Spacing="6" />
+                                        </ItemsRepeater.Layout>
                                         <DataTemplate x:DataType="modelsV4:User">
                                             <primer:Avatar
                                                 HorizontalAlignment="Left"
                                                 Label="{x:Bind Login, Mode=OneWay}"
                                                 Source="{x:Bind AvatarUrl, Mode=OneWay}" />
                                         </DataTemplate>
-                                    </muxc:ItemsRepeater>
+                                    </ItemsRepeater>
 
                                     <TextBlock
                                         x:Name="PullRequestDetailsSidebarNoAssigneesTextBlock"
@@ -1705,17 +1704,17 @@
 
                                 <Grid>
 
-                                    <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.PullItem.Labels.Nodes, Mode=OneWay}">
-                                        <muxc:ItemsRepeater.Layout>
-                                            <muxc:StackLayout Orientation="Vertical" Spacing="6" />
-                                        </muxc:ItemsRepeater.Layout>
+                                    <ItemsRepeater ItemsSource="{x:Bind ViewModel.PullItem.Labels.Nodes, Mode=OneWay}">
+                                        <ItemsRepeater.Layout>
+                                            <StackLayout Orientation="Vertical" Spacing="6" />
+                                        </ItemsRepeater.Layout>
                                         <DataTemplate x:DataType="modelsV4:Label">
                                             <primer:IssueLabelToken
                                                 HorizontalAlignment="Left"
                                                 FillColor="{x:Bind Color, Converter={StaticResource HexColorCodeToSolidColorBrushConverter}}"
                                                 Text="{x:Bind Name}" />
                                         </DataTemplate>
-                                    </muxc:ItemsRepeater>
+                                    </ItemsRepeater>
 
                                     <TextBlock
                                         x:Name="PullRequestDetailsSidebarNoLabelsTextBlock"
@@ -1846,17 +1845,17 @@
 
                                 <Grid>
 
-                                    <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.PullItem.Participants.Nodes, Mode=OneWay}">
-                                        <muxc:ItemsRepeater.Layout>
-                                            <muxc:StackLayout Orientation="Horizontal" Spacing="8" />
-                                        </muxc:ItemsRepeater.Layout>
+                                    <ItemsRepeater ItemsSource="{x:Bind ViewModel.PullItem.Participants.Nodes, Mode=OneWay}">
+                                        <ItemsRepeater.Layout>
+                                            <StackLayout Orientation="Horizontal" Spacing="8" />
+                                        </ItemsRepeater.Layout>
                                         <DataTemplate x:DataType="modelsV4:User">
                                             <primer:Avatar
                                                 HorizontalAlignment="Left"
                                                 Size="28"
                                                 Source="{x:Bind AvatarUrl, Mode=OneWay}" />
                                         </DataTemplate>
-                                    </muxc:ItemsRepeater>
+                                    </ItemsRepeater>
 
                                     <TextBlock
                                         x:Name="PullRequestDetailsSidebarNoParticipantsTextBlock"
@@ -1888,20 +1887,20 @@
                         </Grid.RowDefinitions>
 
                         <Grid>
-                            <muxc:NavigationView
+                            <NavigationView
                                 Margin="12,4,24,4"
                                 IsBackButtonVisible="Collapsed"
                                 IsSettingsVisible="False"
                                 PaneDisplayMode="Top">
-                                <muxc:NavigationView.MenuItems>
-                                    <muxc:NavigationViewItem
+                                <NavigationView.MenuItems>
+                                    <NavigationViewItem
                                         Content="Write"
                                         IsEnabled="False"
                                         IsSelected="True" />
-                                    <muxc:NavigationViewItem Content="Preview" IsEnabled="False" />
-                                </muxc:NavigationView.MenuItems>
+                                    <NavigationViewItem Content="Preview" IsEnabled="False" />
+                                </NavigationView.MenuItems>
 
-                                <muxc:NavigationView.PaneFooter>
+                                <NavigationView.PaneFooter>
                                     <StackPanel Orientation="Horizontal" Spacing="4">
                                         <Button
                                             Width="32"
@@ -1959,9 +1958,9 @@
                                                 Glyph="&#xEA50;" />
                                         </Button>
                                     </StackPanel>
-                                </muxc:NavigationView.PaneFooter>
+                                </NavigationView.PaneFooter>
 
-                            </muxc:NavigationView>
+                            </NavigationView>
                         </Grid>
 
                         <MenuFlyoutSeparator Grid.Row="1" />

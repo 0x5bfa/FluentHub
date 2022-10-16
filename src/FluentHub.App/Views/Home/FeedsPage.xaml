@@ -11,7 +11,6 @@
     xmlns:models="using:FluentHub.App.Models"
     xmlns:modelsV3="using:FluentHub.Octokit.Models.v3"
     xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
     xmlns:uc="using:FluentHub.App.UserControls"
     mc:Ignorable="d">
@@ -32,7 +31,7 @@
             <x:Double x:Key="ExpanderMinHeight">0</x:Double>
             <Thickness x:Key="ExpanderContentPadding">0</Thickness>
 
-            <Style TargetType="muxc:Expander">
+            <Style TargetType="Expander">
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             </Style>
@@ -165,11 +164,11 @@
                         Style="{StaticResource SubtitleTextBlockStyle}"
                         Text="{helpers:ResourceString Name=FeedsPageHeader/Text}" />
 
-                    <muxc:ItemsRepeater Grid.Row="1" ItemsSource="{x:Bind ViewModel.Activities}">
+                    <ItemsRepeater Grid.Row="1" ItemsSource="{x:Bind ViewModel.Activities}">
                         <DataTemplate x:DataType="fbvm:ActivityBlockViewModel">
                             <fbuc:ActivityBlock ViewModel="{x:Bind}" />
                         </DataTemplate>
-                    </muxc:ItemsRepeater>
+                    </ItemsRepeater>
 
                 </Grid>
             </ScrollViewer>

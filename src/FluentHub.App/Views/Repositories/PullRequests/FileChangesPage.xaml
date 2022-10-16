@@ -7,7 +7,6 @@
     xmlns:helpers="using:FluentHub.App.Helpers"
     xmlns:local="using:FluentHub.App.Views.Repositories.PullRequests"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:ov="using:FluentHub.App.UserControls.Overview"
     xmlns:uc="using:FluentHub.App.UserControls"
     xmlns:ucvm="using:FluentHub.App.ViewModels.UserControls"
@@ -45,14 +44,14 @@
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                         BorderThickness="1"
                         CornerRadius="8">
-                        <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.DiffViewModels, Mode=OneWay}">
-                            <muxc:ItemsRepeater.Layout>
-                                <muxc:StackLayout Orientation="Vertical" Spacing="6" />
-                            </muxc:ItemsRepeater.Layout>
+                        <ItemsRepeater ItemsSource="{x:Bind ViewModel.DiffViewModels, Mode=OneWay}">
+                            <ItemsRepeater.Layout>
+                                <StackLayout Orientation="Vertical" Spacing="6" />
+                            </ItemsRepeater.Layout>
                             <DataTemplate x:DataType="ucvm:DiffBlockViewModel">
                                 <uc:DiffBlock ViewModel="{x:Bind}" />
                             </DataTemplate>
-                        </muxc:ItemsRepeater>
+                        </ItemsRepeater>
                     </Grid>
                 </Grid>
             </ScrollViewer>

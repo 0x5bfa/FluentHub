@@ -6,7 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:FluentHub.App.Views.Repositories.Insights"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     mc:Ignorable="d">
 
     <Page.Resources>
@@ -25,7 +24,7 @@
             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
             BorderThickness="1"
             CornerRadius="4">
-            <muxc:NavigationView
+            <NavigationView
                 IsBackButtonVisible="Collapsed"
                 IsPaneOpen="True"
                 IsPaneToggleButtonVisible="False"
@@ -34,14 +33,14 @@
                 ItemInvoked="OnInsightsNavViewItemInvoked"
                 OpenPaneLength="290"
                 PaneDisplayMode="Left">
-                <muxc:NavigationView.MenuItems>
-                    <muxc:NavigationViewItem Content="Overview" Tag="overview" />
-                    <muxc:NavigationViewItem Content="Contributors" Tag="contributors" />
-                    <muxc:NavigationViewItem Content="Traffic" Tag="traffic" />
-                    <muxc:NavigationViewItem Content="Commits" Tag="commits" />
-                    <muxc:NavigationViewItem Content="Code frequency" Tag="codefrequency" />
-                </muxc:NavigationView.MenuItems>
-            </muxc:NavigationView>
+                <NavigationView.MenuItems>
+                    <NavigationViewItem Content="Overview" Tag="overview" />
+                    <NavigationViewItem Content="Contributors" Tag="contributors" />
+                    <NavigationViewItem Content="Traffic" Tag="traffic" />
+                    <NavigationViewItem Content="Commits" Tag="commits" />
+                    <NavigationViewItem Content="Code frequency" Tag="codefrequency" />
+                </NavigationView.MenuItems>
+            </NavigationView>
         </Grid>
 
         <Grid Grid.Column="1" RowSpacing="12">

@@ -5,7 +5,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:FluentHub.App.UserControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -21,7 +20,7 @@
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
-        <muxc:NavigationView
+        <NavigationView
             x:Name="SearchNavView"
             Margin="16,20"
             IsBackButtonVisible="Collapsed"
@@ -33,88 +32,88 @@
             OpenPaneLength="232"
             PaneDisplayMode="Left">
 
-            <muxc:NavigationView.MenuItems>
+            <NavigationView.MenuItems>
 
-                <muxc:NavigationViewItem Content="Repositories" Tag="repositories">
-                    <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="/Assets/Icons/Repositories.png" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
+                <NavigationViewItem Content="Repositories" Tag="repositories">
+                    <NavigationViewItem.Icon>
+                        <ImageIcon Source="/Assets/Icons/Repositories.png" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
 
-                <muxc:NavigationViewItem Content="Code" Tag="code">
-                    <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="/Assets/Icons/Code.png" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
+                <NavigationViewItem Content="Code" Tag="code">
+                    <NavigationViewItem.Icon>
+                        <ImageIcon Source="/Assets/Icons/Code.png" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
 
-                <muxc:NavigationViewItem
+                <NavigationViewItem
                     Content="Commits"
                     IsEnabled="False"
                     Tag="commits">
-                    <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="/Assets/Icons/Commits.png" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
+                    <NavigationViewItem.Icon>
+                        <ImageIcon Source="/Assets/Icons/Commits.png" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
 
-                <muxc:NavigationViewItem Content="Issues" Tag="issues">
-                    <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="/Assets/Icons/Issues.png" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
+                <NavigationViewItem Content="Issues" Tag="issues">
+                    <NavigationViewItem.Icon>
+                        <ImageIcon Source="/Assets/Icons/Issues.png" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
 
-                <muxc:NavigationViewItem
+                <NavigationViewItem
                     Content="Discussions"
                     IsEnabled="False"
                     Tag="discussions">
-                    <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="/Assets/Icons/Discussions.png" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
+                    <NavigationViewItem.Icon>
+                        <ImageIcon Source="/Assets/Icons/Discussions.png" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
 
-                <muxc:NavigationViewItem
+                <NavigationViewItem
                     Content="Packages"
                     IsEnabled="False"
                     Tag="packages">
-                    <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="/Assets/Icons/Packages.png" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
+                    <NavigationViewItem.Icon>
+                        <ImageIcon Source="/Assets/Icons/Packages.png" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
 
-                <muxc:NavigationViewItem
+                <NavigationViewItem
                     Content="Marketplace"
                     IsEnabled="False"
                     Tag="marketplace">
-                    <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="/Assets/Icons/Marketplace.png" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
+                    <NavigationViewItem.Icon>
+                        <ImageIcon Source="/Assets/Icons/Marketplace.png" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
 
-                <muxc:NavigationViewItem
+                <NavigationViewItem
                     Content="Topics"
                     IsEnabled="False"
                     Tag="topics">
-                    <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="/Assets/Icons/Topic.png" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
+                    <NavigationViewItem.Icon>
+                        <ImageIcon Source="/Assets/Icons/Topic.png" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
 
-                <muxc:NavigationViewItem
+                <NavigationViewItem
                     Content="Wikis"
                     IsEnabled="False"
                     Tag="wikis">
-                    <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="/Assets/Icons/Wiki.png" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
+                    <NavigationViewItem.Icon>
+                        <ImageIcon Source="/Assets/Icons/Wiki.png" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
 
-                <muxc:NavigationViewItem Content="Users" Tag="users">
-                    <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="/Assets/Icons/Profile.png" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
-            </muxc:NavigationView.MenuItems>
+                <NavigationViewItem Content="Users" Tag="users">
+                    <NavigationViewItem.Icon>
+                        <ImageIcon Source="/Assets/Icons/Profile.png" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.MenuItems>
 
-        </muxc:NavigationView>
+        </NavigationView>
 
         <TextBlock
             Grid.Row="2"

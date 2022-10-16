@@ -9,7 +9,6 @@
     xmlns:helpers="using:FluentHub.App.Helpers"
     xmlns:local="using:FluentHub.App.Views.Repositories.Projects"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:ov="using:FluentHub.App.UserControls.Overview"
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
     xmlns:uc="using:FluentHub.App.UserControls"
@@ -44,11 +43,11 @@
                         </Grid.RowDefinitions>
 
                         <Grid Grid.Row="1">
-                            <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}">
+                            <ItemsRepeater ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}">
                                 <DataTemplate x:DataType="bbvm:ProjectBlockButtonViewModel">
                                     <bbuc:ProjectBlockButton ViewModel="{x:Bind}" />
                                 </DataTemplate>
-                            </muxc:ItemsRepeater>
+                            </ItemsRepeater>
 
                             <toolkit:SwitchPresenter
                                 HorizontalAlignment="Center"

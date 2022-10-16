@@ -10,7 +10,6 @@
     xmlns:helpers="using:FluentHub.App.Helpers"
     xmlns:local="using:FluentHub.App.Views.Users"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:ov="using:FluentHub.App.UserControls.Overview"
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
     xmlns:uc="using:FluentHub.App.UserControls"
@@ -82,14 +81,14 @@
                                     Command="{x:Bind ViewModel.ShowPinnedRepositoriesEditorDialogCommand}"
                                     Visibility="{x:Bind ViewModel.User.IsViewer, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
                                     <StackPanel Orientation="Horizontal" Spacing="8">
-                                        <muxc:AnimatedIcon Height="16">
-                                            <muxc:AnimatedIcon.Source>
+                                        <AnimatedIcon Height="16">
+                                            <AnimatedIcon.Source>
                                                 <animatedvisuals:AnimatedSettingsVisualSource />
-                                            </muxc:AnimatedIcon.Source>
-                                            <muxc:AnimatedIcon.FallbackIconSource>
-                                                <muxc:SymbolIconSource Symbol="Setting" />
-                                            </muxc:AnimatedIcon.FallbackIconSource>
-                                        </muxc:AnimatedIcon>
+                                            </AnimatedIcon.Source>
+                                            <AnimatedIcon.FallbackIconSource>
+                                                <SymbolIconSource Symbol="Setting" />
+                                            </AnimatedIcon.FallbackIconSource>
+                                        </AnimatedIcon>
                                         <TextBlock
                                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                             Style="{StaticResource BodyTextBlockStyle}"
@@ -102,9 +101,9 @@
 
                             <Grid Grid.Row="2">
 
-                                <muxc:ItemsRepeater Margin="24,12,24,24" ItemsSource="{x:Bind ViewModel.PinnedRepositories, Mode=OneWay}">
-                                    <muxc:ItemsRepeater.Layout>
-                                        <muxc:UniformGridLayout
+                                <ItemsRepeater Margin="24,12,24,24" ItemsSource="{x:Bind ViewModel.PinnedRepositories, Mode=OneWay}">
+                                    <ItemsRepeater.Layout>
+                                        <UniformGridLayout
                                             ItemsStretch="Fill"
                                             MaximumRowsOrColumns="6"
                                             MinColumnSpacing="8"
@@ -112,11 +111,11 @@
                                             MinItemWidth="250"
                                             MinRowSpacing="8"
                                             Orientation="Horizontal" />
-                                    </muxc:ItemsRepeater.Layout>
+                                    </ItemsRepeater.Layout>
                                     <DataTemplate x:DataType="bbvm:RepoBlockButtonViewModel">
                                         <bbuc:RepoBlockButton VerticalAlignment="Stretch" ViewModel="{x:Bind}" />
                                     </DataTemplate>
-                                </muxc:ItemsRepeater>
+                                </ItemsRepeater>
 
                             </Grid>
                         </Grid>
@@ -160,14 +159,14 @@
                                     Command="{x:Bind ViewModel.ShowPinnedRepositoriesEditorDialogCommand}"
                                     Visibility="{x:Bind ViewModel.User.IsViewer, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
                                     <StackPanel Orientation="Horizontal" Spacing="8">
-                                        <muxc:AnimatedIcon Height="16">
-                                            <muxc:AnimatedIcon.Source>
+                                        <AnimatedIcon Height="16">
+                                            <AnimatedIcon.Source>
                                                 <animatedvisuals:AnimatedSettingsVisualSource />
-                                            </muxc:AnimatedIcon.Source>
-                                            <muxc:AnimatedIcon.FallbackIconSource>
-                                                <muxc:SymbolIconSource Symbol="Setting" />
-                                            </muxc:AnimatedIcon.FallbackIconSource>
-                                        </muxc:AnimatedIcon>
+                                            </AnimatedIcon.Source>
+                                            <AnimatedIcon.FallbackIconSource>
+                                                <SymbolIconSource Symbol="Setting" />
+                                            </AnimatedIcon.FallbackIconSource>
+                                        </AnimatedIcon>
                                         <TextBlock
                                             Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                             Style="{StaticResource BodyTextBlockStyle}"
@@ -180,9 +179,9 @@
 
                             <Grid Grid.Row="2">
 
-                                <muxc:ItemsRepeater Margin="24,12,24,24" ItemsSource="{x:Bind ViewModel.PinnableRepositories, Mode=OneWay}">
-                                    <muxc:ItemsRepeater.Layout>
-                                        <muxc:UniformGridLayout
+                                <ItemsRepeater Margin="24,12,24,24" ItemsSource="{x:Bind ViewModel.PinnableRepositories, Mode=OneWay}">
+                                    <ItemsRepeater.Layout>
+                                        <UniformGridLayout
                                             ItemsStretch="Fill"
                                             MaximumRowsOrColumns="6"
                                             MinColumnSpacing="8"
@@ -190,11 +189,11 @@
                                             MinItemWidth="250"
                                             MinRowSpacing="8"
                                             Orientation="Horizontal" />
-                                    </muxc:ItemsRepeater.Layout>
+                                    </ItemsRepeater.Layout>
                                     <DataTemplate x:DataType="bbvm:RepoBlockButtonViewModel">
                                         <bbuc:RepoBlockButton VerticalAlignment="Stretch" ViewModel="{x:Bind}" />
                                     </DataTemplate>
-                                </muxc:ItemsRepeater>
+                                </ItemsRepeater>
 
                             </Grid>
                         </Grid>

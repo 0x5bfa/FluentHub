@@ -5,7 +5,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:FluentHub.App.Dialogs"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     Style="{StaticResource DefaultContentDialogStyle}"
     mc:Ignorable="d">
 
@@ -47,7 +46,7 @@
 
         <StackPanel Grid.Row="2" Spacing="12">
 
-            <muxc:InfoBar
+            <InfoBar
                 Title="Subject to change"
                 IsOpen="True"
                 Message="Currently, FluentHub's other users method requires you to log in manually and may provide difficulty to those unfamiliar, and may be updated in a later version."

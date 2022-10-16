@@ -8,7 +8,6 @@
     xmlns:local="using:FluentHub.App.Views.Repositories.Code.Layouts"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:FluentHub.App.Models"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:ov="using:FluentHub.App.UserControls.Overview"
     xmlns:uc="using:FluentHub.App.UserControls"
     mc:Ignorable="d">
@@ -17,7 +16,7 @@
         <ResourceDictionary>
 
             <DataTemplate x:Key="FolderTemplate" x:DataType="models:TreeLayoutPageModel">
-                <muxc:TreeViewItem
+                <TreeViewItem
                     Height="28"
                     HasUnrealizedChildren="True"
                     IsExpanded="False"
@@ -43,11 +42,11 @@
                             Text="{x:Bind Name, Mode=OneWay}" />
                     </StackPanel>
 
-                </muxc:TreeViewItem>
+                </TreeViewItem>
             </DataTemplate>
 
             <DataTemplate x:Key="FileTemplate" x:DataType="models:TreeLayoutPageModel">
-                <muxc:TreeViewItem Height="28">
+                <TreeViewItem Height="28">
 
                     <StackPanel
                         Orientation="Horizontal"
@@ -69,7 +68,7 @@
                             Text="{x:Bind Name, Mode=OneWay}" />
                     </StackPanel>
 
-                </muxc:TreeViewItem>
+                </TreeViewItem>
             </DataTemplate>
 
             <local:ExplorerItemTemplateSelector
@@ -116,7 +115,7 @@
                             <ComboBox Margin="12,4" HorizontalAlignment="Stretch" />
                         </Grid>
 
-                        <muxc:TreeView
+                        <TreeView
                             x:Name="DirTreeView"
                             Grid.Row="1"
                             Margin="0,4"

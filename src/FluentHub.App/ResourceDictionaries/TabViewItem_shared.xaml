@@ -60,7 +60,7 @@
         </Setter>
     </Style>
 
-    <Style x:Key="TabViewItemStyle" TargetType="muxc:TabViewItem">
+    <Style x:Key="TabViewItemStyle" TargetType="TabViewItem">
         <Setter Property="HorizontalContentAlignment" Value="Left" />
         <Setter Property="UseSystemFocusVisuals" Value="{StaticResource UseSystemFocusVisuals}" />
         <Setter Property="MinHeight" Value="{ThemeResource TabViewItemMinHeight}" />
@@ -70,7 +70,7 @@
         <Setter Property="BorderBrush" Value="{ThemeResource TabViewItemBorderBrush}" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="muxc:TabViewItem">
+                <ControlTemplate TargetType="TabViewItem">
                     <Grid x:Name="LayoutRoot" Padding="{TemplateBinding Padding}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition x:Name="LeftColumn" Width="Auto" />
@@ -163,7 +163,7 @@
                                     IsTabStop="False" />
                             </Viewbox>
 
-                            <muxc:ProgressRing
+                            <ProgressRing
                                 x:Name="LoadingIndicator"
                                 MaxWidth="{ThemeResource TabViewItemHeaderIconSize}"
                                 MaxHeight="{ThemeResource TabViewItemHeaderIconSize}"

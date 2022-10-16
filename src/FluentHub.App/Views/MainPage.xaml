@@ -10,7 +10,6 @@
     xmlns:icore="using:Microsoft.Xaml.Interactions.Core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:FluentHub.App.Models"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:tabsuc="using:FluentHub.App.UserControls.TabViewControl"
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
     xmlns:uc="using:FluentHub.App.UserControls"
@@ -89,7 +88,7 @@
 
         <Grid x:Name="ExpandedTitleBarRegion">
 
-            <muxc:ProgressBar
+            <ProgressBar
                 x:Name="LoadingProgreeRing"
                 VerticalAlignment="Top"
                 x:Load="{x:Bind ViewModel.TaskIsInProgress, Mode=OneWay}"
@@ -124,14 +123,14 @@
                         BorderThickness="0"
                         Click="OnSearchGitHubButtonButtonClick"
                         ToolTipService.ToolTip="{helpers:ResourceString Name=SearchBarButton/ToolTipService/Tooltip}">
-                        <muxc:AnimatedIcon Width="20" Height="20">
-                            <muxc:AnimatedIcon.Source>
+                        <AnimatedIcon Width="20" Height="20">
+                            <AnimatedIcon.Source>
                                 <animatedvisuals:AnimatedFindVisualSource />
-                            </muxc:AnimatedIcon.Source>
-                            <muxc:AnimatedIcon.FallbackIconSource>
-                                <muxc:SymbolIconSource Symbol="Find" />
-                            </muxc:AnimatedIcon.FallbackIconSource>
-                        </muxc:AnimatedIcon>
+                            </AnimatedIcon.Source>
+                            <AnimatedIcon.FallbackIconSource>
+                                <SymbolIconSource Symbol="Find" />
+                            </AnimatedIcon.FallbackIconSource>
+                        </AnimatedIcon>
 
                     </Button>
 
@@ -205,14 +204,14 @@
                         <Button.Resources>
                             <SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="Transparent" />
                         </Button.Resources>
-                        <muxc:AnimatedIcon Width="20" Height="20">
-                            <muxc:AnimatedIcon.Source>
+                        <AnimatedIcon Width="20" Height="20">
+                            <AnimatedIcon.Source>
                                 <animatedvisuals:AnimatedBackVisualSource />
-                            </muxc:AnimatedIcon.Source>
-                            <muxc:AnimatedIcon.FallbackIconSource>
-                                <muxc:SymbolIconSource Symbol="Back" />
-                            </muxc:AnimatedIcon.FallbackIconSource>
-                        </muxc:AnimatedIcon>
+                            </AnimatedIcon.Source>
+                            <AnimatedIcon.FallbackIconSource>
+                                <SymbolIconSource Symbol="Back" />
+                            </AnimatedIcon.FallbackIconSource>
+                        </AnimatedIcon>
                     </Button>
 
                     <Button
@@ -232,14 +231,14 @@
                         <Button.RenderTransform>
                             <RotateTransform Angle="180" CenterX="18" CenterY="16" />
                         </Button.RenderTransform>
-                        <muxc:AnimatedIcon Width="20" Height="20">
-                            <muxc:AnimatedIcon.Source>
+                        <AnimatedIcon Width="20" Height="20">
+                            <AnimatedIcon.Source>
                                 <animatedvisuals:AnimatedBackVisualSource />
-                            </muxc:AnimatedIcon.Source>
-                            <muxc:AnimatedIcon.FallbackIconSource>
-                                <muxc:SymbolIconSource Symbol="Back" />
-                            </muxc:AnimatedIcon.FallbackIconSource>
-                        </muxc:AnimatedIcon>
+                            </AnimatedIcon.Source>
+                            <AnimatedIcon.FallbackIconSource>
+                                <SymbolIconSource Symbol="Back" />
+                            </AnimatedIcon.FallbackIconSource>
+                        </AnimatedIcon>
                     </Button>
                 </StackPanel>
 
@@ -257,7 +256,7 @@
                     Margin="0,0,152,0"
                     Orientation="Horizontal">
 
-                    <muxc:DropDownButton
+                    <DropDownButton
                         x:Name="ToolbarAppSettingsButton"
                         Width="64"
                         Height="36"
@@ -274,7 +273,7 @@
                                 Source="{x:Bind ViewModel.SignedInUser.AvatarUrl, Mode=OneWay}" />
                         </Border>
 
-                        <muxc:DropDownButton.Flyout>
+                        <DropDownButton.Flyout>
                             <MenuFlyout Placement="BottomEdgeAlignedRight">
                                 <MenuFlyoutSubItem
                                     x:Name="NewMutation"
@@ -351,8 +350,8 @@
                                     Tag="SignOut"
                                     Text="{helpers:ResourceString Name=SignOutButton/Text}" />
                             </MenuFlyout>
-                        </muxc:DropDownButton.Flyout>
-                    </muxc:DropDownButton>
+                        </DropDownButton.Flyout>
+                    </DropDownButton>
                 </StackPanel>
             </Grid>
 
@@ -365,7 +364,7 @@
             </Grid.ColumnDefinitions>
 
             <Grid Margin="0,-4,3,2">
-                <muxc:NavigationView
+                <NavigationView
                     x:Name="MainNavView"
                     Width="76"
                     x:Load="{x:Bind ViewModel.TaskIsCompletedSuccessfully, Mode=OneWay}"
@@ -380,16 +379,16 @@
                     OpenPaneLength="80"
                     PaneDisplayMode="Left">
 
-                    <muxc:NavigationView.Resources>
+                    <NavigationView.Resources>
                         <x:Double x:Key="NavigationViewSelectionIndicatorWidth">4</x:Double>
                         <x:Double x:Key="NavigationViewSelectionIndicatorHeight">24</x:Double>
                         <x:Double x:Key="NavigationViewSelectionIndicatorRadius">2</x:Double>
                         <Thickness x:Key="NavigationViewItemContentPresenterMargin">0</Thickness>
-                    </muxc:NavigationView.Resources>
+                    </NavigationView.Resources>
 
-                    <muxc:NavigationView.MenuItemTemplate>
+                    <NavigationView.MenuItemTemplate>
                         <DataTemplate x:DataType="models:SquareNavigationViewItemModel">
-                            <muxc:NavigationViewItem
+                            <NavigationViewItem
                                 Height="64"
                                 IsSelected="{x:Bind IsSelected, Mode=TwoWay}"
                                 Tag="{x:Bind Name, Mode=OneWay}">
@@ -438,11 +437,11 @@
                                             Text="{x:Bind Name, Mode=OneWay}" />
                                     </Grid>
                                 </Grid>
-                            </muxc:NavigationViewItem>
+                            </NavigationViewItem>
                         </DataTemplate>
-                    </muxc:NavigationView.MenuItemTemplate>
+                    </NavigationView.MenuItemTemplate>
 
-                </muxc:NavigationView>
+                </NavigationView>
             </Grid>
 
             <Grid Grid.Column="1">

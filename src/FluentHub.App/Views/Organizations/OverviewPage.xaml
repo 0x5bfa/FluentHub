@@ -9,7 +9,6 @@
     xmlns:helpers="using:FluentHub.App.Helpers"
     xmlns:local="using:FluentHub.App.Views.Organizations"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:ov="using:FluentHub.App.UserControls.Overview"
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
     xmlns:uc="using:FluentHub.App.UserControls"
@@ -67,9 +66,9 @@
 
                             <Grid Grid.Row="2" Margin="24,12,24,24">
 
-                                <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.PinnedItems, Mode=OneWay}">
-                                    <muxc:ItemsRepeater.Layout>
-                                        <muxc:UniformGridLayout
+                                <ItemsRepeater ItemsSource="{x:Bind ViewModel.PinnedItems, Mode=OneWay}">
+                                    <ItemsRepeater.Layout>
+                                        <UniformGridLayout
                                             ItemsStretch="Fill"
                                             MaximumRowsOrColumns="6"
                                             MinColumnSpacing="8"
@@ -77,14 +76,14 @@
                                             MinItemWidth="250"
                                             MinRowSpacing="8"
                                             Orientation="Horizontal" />
-                                    </muxc:ItemsRepeater.Layout>
+                                    </ItemsRepeater.Layout>
                                     <DataTemplate x:DataType="bbvm:RepoBlockButtonViewModel">
                                         <bb:RepoBlockButton
                                             x:Name="RepositoryBlock"
                                             VerticalAlignment="Stretch"
                                             ViewModel="{x:Bind}" />
                                     </DataTemplate>
-                                </muxc:ItemsRepeater>
+                                </ItemsRepeater>
 
                                 <toolkit:SwitchPresenter
                                     Margin="0,24"
@@ -151,17 +150,17 @@
                                 Margin="24,12,24,24"
                                 VerticalAlignment="Stretch">
 
-                                <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.Repositories, Mode=OneWay}">
-                                    <muxc:ItemsRepeater.Layout>
-                                        <muxc:StackLayout Orientation="Vertical" Spacing="6" />
-                                    </muxc:ItemsRepeater.Layout>
+                                <ItemsRepeater ItemsSource="{x:Bind ViewModel.Repositories, Mode=OneWay}">
+                                    <ItemsRepeater.Layout>
+                                        <StackLayout Orientation="Vertical" Spacing="6" />
+                                    </ItemsRepeater.Layout>
                                     <DataTemplate x:DataType="bbvm:RepoBlockButtonViewModel">
                                         <bb:RepoBlockButton
                                             x:Name="RepositoryBlock"
                                             VerticalAlignment="Stretch"
                                             ViewModel="{x:Bind}" />
                                     </DataTemplate>
-                                </muxc:ItemsRepeater>
+                                </ItemsRepeater>
 
                                 <toolkit:SwitchPresenter
                                     Margin="0,24"

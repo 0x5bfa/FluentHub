@@ -9,7 +9,6 @@
     xmlns:local="using:FluentHub.App.Views.Repositories.Code.Layouts"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:FluentHub.App.Models"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:ov="using:FluentHub.App.UserControls.Overview"
     xmlns:primer="using:FluentHub.App.UserControls.PrimerControls"
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
@@ -204,14 +203,14 @@
                                         Background="Transparent"
                                         BorderThickness="0"
                                         IsEnabled="False">
-                                        <muxc:AnimatedIcon x:Name="SettingAnimatedIcon" Height="16">
-                                            <muxc:AnimatedIcon.Source>
+                                        <AnimatedIcon x:Name="SettingAnimatedIcon" Height="16">
+                                            <AnimatedIcon.Source>
                                                 <animatedvisuals:AnimatedSettingsVisualSource />
-                                            </muxc:AnimatedIcon.Source>
-                                            <muxc:AnimatedIcon.FallbackIconSource>
-                                                <muxc:SymbolIconSource Symbol="Setting" />
-                                            </muxc:AnimatedIcon.FallbackIconSource>
-                                        </muxc:AnimatedIcon>
+                                            </AnimatedIcon.Source>
+                                            <AnimatedIcon.FallbackIconSource>
+                                                <SymbolIconSource Symbol="Setting" />
+                                            </AnimatedIcon.FallbackIconSource>
+                                        </AnimatedIcon>
                                     </Button>
                                 </Grid>
 

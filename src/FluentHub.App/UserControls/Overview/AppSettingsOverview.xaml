@@ -7,7 +7,6 @@
     xmlns:helpers="using:FluentHub.App.Helpers"
     xmlns:local="using:FluentHub.App.UserControls.Overview"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:primer="using:FluentHub.App.UserControls.PrimerControls"
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
     d:DesignHeight="300"
@@ -19,7 +18,7 @@
         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
         BorderThickness="1"
         CornerRadius="8">
-        <muxc:NavigationView
+        <NavigationView
             x:Name="SettingsNavView"
             Margin="16"
             IsBackButtonVisible="Collapsed"
@@ -31,7 +30,7 @@
             OpenPaneLength="232"
             PaneDisplayMode="Left">
 
-            <muxc:NavigationView.PaneHeader>
+            <NavigationView.PaneHeader>
                 <Button
                     Height="76"
                     Margin="0,0,0,8"
@@ -74,70 +73,70 @@
 
                     </Grid>
                 </Button>
-            </muxc:NavigationView.PaneHeader>
+            </NavigationView.PaneHeader>
 
-            <muxc:NavigationView.AutoSuggestBox>
+            <NavigationView.AutoSuggestBox>
                 <AutoSuggestBox
                     Margin="-12,0"
                     IsEnabled="False"
                     PlaceholderText="Search settings"
                     QueryIcon="Find" />
-            </muxc:NavigationView.AutoSuggestBox>
+            </NavigationView.AutoSuggestBox>
 
-            <muxc:NavigationView.MenuItems>
+            <NavigationView.MenuItems>
 
-                <muxc:NavigationViewItem
+                <NavigationViewItem
                     x:Name="SettingsNavViewAppearance"
                     Content="Appearance"
                     IsSelected="True"
                     Tag="appearance">
-                    <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="/Assets/Icons/Appearance.png" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
+                    <NavigationViewItem.Icon>
+                        <ImageIcon Source="/Assets/Icons/Appearance.png" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
 
-                <muxc:NavigationViewItem
+                <NavigationViewItem
                     x:Name="SettingsNavViewItemAccount"
                     Content="Account"
                     Tag="account">
-                    <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="/Assets/Icons/Accounts.png" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
+                    <NavigationViewItem.Icon>
+                        <ImageIcon Source="/Assets/Icons/Accounts.png" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
 
-                <muxc:NavigationViewItem
+                <NavigationViewItem
                     x:Name="SettingsNavViewItemRepository"
                     Content="Repository"
                     IsEnabled="False"
                     Tag="repository">
-                    <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="/Assets/Icons/Repositories.png" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
+                    <NavigationViewItem.Icon>
+                        <ImageIcon Source="/Assets/Icons/Repositories.png" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
 
-                <muxc:NavigationViewItem
+                <NavigationViewItem
                     x:Name="SettingsNavViewItemNotifications"
                     Content="Notifications"
                     IsEnabled="False"
                     Tag="notifications">
-                    <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="/Assets/Icons/Notifications.png" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
+                    <NavigationViewItem.Icon>
+                        <ImageIcon Source="/Assets/Icons/Notifications.png" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
 
-            </muxc:NavigationView.MenuItems>
+            </NavigationView.MenuItems>
 
-            <muxc:NavigationView.FooterMenuItems>
-                <muxc:NavigationViewItem
+            <NavigationView.FooterMenuItems>
+                <NavigationViewItem
                     x:Name="SettingsNavViewItemAbout"
                     Content="About"
                     Tag="about">
-                    <muxc:NavigationViewItem.Icon>
-                        <muxc:ImageIcon Source="/Assets/Icons/About.png" />
-                    </muxc:NavigationViewItem.Icon>
-                </muxc:NavigationViewItem>
-            </muxc:NavigationView.FooterMenuItems>
+                    <NavigationViewItem.Icon>
+                        <ImageIcon Source="/Assets/Icons/About.png" />
+                    </NavigationViewItem.Icon>
+                </NavigationViewItem>
+            </NavigationView.FooterMenuItems>
 
-        </muxc:NavigationView>
+        </NavigationView>
     </Grid>
 </UserControl>

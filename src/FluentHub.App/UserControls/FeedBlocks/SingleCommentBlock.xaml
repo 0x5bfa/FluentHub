@@ -7,7 +7,6 @@
     xmlns:graphqlmodels="using:FluentHub.Octokit.Models"
     xmlns:local="using:FluentHub.App.UserControls.FeedBlocks"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"

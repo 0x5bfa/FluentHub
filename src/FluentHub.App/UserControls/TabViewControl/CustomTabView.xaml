@@ -5,7 +5,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:FluentHub.App.UserControls.TabViewControl"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
     mc:Ignorable="d">
@@ -24,7 +23,7 @@
         HorizontalAlignment="Stretch"
         x:FieldModifier="public"
         Background="Transparent">
-        <muxc:TabView
+        <TabView
             x:Name="MainTabView"
             Margin="0,-3,0,0"
             HorizontalAlignment="Stretch"
@@ -37,17 +36,17 @@
             SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
             TabCloseRequested="OnMainTabViewTabCloseRequested"
             TabItemsSource="{x:Bind InternalItemsList}">
-            <muxc:TabView.TabItemTemplate>
+            <TabView.TabItemTemplate>
                 <DataTemplate x:DataType="local:TabItem">
-                    <muxc:TabViewItem
+                    <TabViewItem
                         Header="{x:Bind NavigationHistory.CurrentItem.Header, Mode=OneWay}"
                         IconSource="{x:Bind NavigationHistory.CurrentItem.Icon, Mode=OneWay}"
                         Style="{StaticResource TabViewItemStyle}"
                         ToolTipService.Placement="Bottom"
                         ToolTipService.ToolTip="{x:Bind NavigationHistory.CurrentItem.Description, Mode=OneWay}" />
                 </DataTemplate>
-            </muxc:TabView.TabItemTemplate>
-            <muxc:TabView.TabStripFooter>
+            </TabView.TabItemTemplate>
+            <TabView.TabStripFooter>
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -77,7 +76,7 @@
                         VerticalAlignment="Stretch"
                         Background="Transparent" />
                 </Grid>
-            </muxc:TabView.TabStripFooter>
-        </muxc:TabView>
+            </TabView.TabStripFooter>
+        </TabView>
     </Border>
 </UserControl>

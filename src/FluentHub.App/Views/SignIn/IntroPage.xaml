@@ -6,7 +6,6 @@
     xmlns:helpers="using:FluentHub.App.Helpers"
     xmlns:local="using:FluentHub.App.Views.SignIn"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
     xmlns:uc="using:FluentHub.App.UserControls"
     mc:Ignorable="d">
@@ -25,7 +24,7 @@
             <uc:TitleBar Margin="16,4,0,0" />
         </Grid>
 
-        <muxc:TwoPaneView
+        <TwoPaneView
             x:Name="twoPaneView"
             Grid.RowSpan="2"
             MinTallModeHeight="560"
@@ -35,7 +34,7 @@
             TallModeConfiguration="BottomTop"
             WideModeConfiguration="RightLeft">
 
-            <muxc:TwoPaneView.Pane1>
+            <TwoPaneView.Pane1>
                 <Grid>
                     <ScrollViewer x:Name="pane1ScrollViewer" VerticalScrollBarVisibility="Auto">
                         <StackPanel
@@ -45,7 +44,7 @@
                             x:DefaultBindMode="TwoWay"
                             Spacing="4">
 
-                            <muxc:ImageIcon
+                            <ImageIcon
                                 Height="72"
                                 VerticalAlignment="Center"
                                 Source="ms-appx:///Assets/AppTiles/Release/StoreLogo.scale-400.png" />
@@ -57,7 +56,7 @@
                                 Style="{StaticResource SubtitleTextBlockStyle}"
                                 Text="{helpers:ResourceString Name=IntroHeader/Text}" />
 
-                            <!--<muxc:InfoBar
+                            <!--<InfoBar
                                 x:Name="infoBar"
                                 Title="Login error"
                                 IsClosable="False"
@@ -215,9 +214,9 @@
                     </ScrollViewer>
 
                 </Grid>
-            </muxc:TwoPaneView.Pane1>
+            </TwoPaneView.Pane1>
 
-            <muxc:TwoPaneView.Pane2>
+            <TwoPaneView.Pane2>
                 <Grid>
 
                     <Grid.Background>
@@ -237,8 +236,8 @@
                         Opacity="0.3" />
 
                 </Grid>
-            </muxc:TwoPaneView.Pane2>
-        </muxc:TwoPaneView>
+            </TwoPaneView.Pane2>
+        </TwoPaneView>
 
         <VisualStateManager.VisualStateGroups>
             <VisualStateGroup>

@@ -8,7 +8,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="using:FluentHub.App.Helpers"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
     xmlns:uc="using:FluentHub.App.UserControls"
     mc:Ignorable="d">
@@ -96,7 +95,7 @@
                                 FontSize="14"
                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                                 Glyph="&#xe71c;" />
-                            <muxc:InfoBadge Value="2" />
+                            <InfoBadge Value="2" />
                         </StackPanel>
                         <Button.Flyout>
                             <MenuFlyout Placement="BottomEdgeAlignedLeft">
@@ -105,8 +104,8 @@
                         </Button.Flyout>
                     </Button>-->
 
-                            <muxc:DropDownButton IsEnabled="False">
-                                <muxc:DropDownButton.Content>
+                            <DropDownButton IsEnabled="False">
+                                <DropDownButton.Content>
                                     <StackPanel Orientation="Horizontal" Spacing="4">
                                         <TextBlock
                                             x:Name="NotificationsPageFilterByReasonFlyoutBody"
@@ -118,8 +117,8 @@
                                             Style="{StaticResource BodyTextBlockStyle}"
                                             Text="{helpers:ResourceString Name=NotificationsPageFilterByReasonInbox/Text}" />
                                     </StackPanel>
-                                </muxc:DropDownButton.Content>
-                                <muxc:DropDownButton.Flyout>
+                                </DropDownButton.Content>
+                                <DropDownButton.Flyout>
                                     <MenuFlyout Placement="BottomEdgeAlignedLeft">
                                         <MenuFlyout.Items>
                                             <ToggleMenuFlyoutItem x:Name="NotificationsPageFilterByReasonInbox" Text="{helpers:ResourceString Name=NotificationsPageFilterByReasonInbox/Text}" />
@@ -133,16 +132,16 @@
                                             <ToggleMenuFlyoutItem x:Name="NotificationsPageFilterByReasonReview" Text="{helpers:ResourceString Name=NotificationsPageFilterByReasonReview/Text}" />
                                         </MenuFlyout.Items>
                                     </MenuFlyout>
-                                </muxc:DropDownButton.Flyout>
-                            </muxc:DropDownButton>
+                                </DropDownButton.Flyout>
+                            </DropDownButton>
 
                             <ToggleButton
                                 x:Name="NotificationsPageUnreadToggle"
                                 Content="{helpers:ResourceString Name=NotificationsPageUnreadToggle/Content}"
                                 IsEnabled="False" />
 
-                            <muxc:DropDownButton IsEnabled="False">
-                                <muxc:DropDownButton.Content>
+                            <DropDownButton IsEnabled="False">
+                                <DropDownButton.Content>
                                     <StackPanel Orientation="Horizontal" Spacing="4">
                                         <TextBlock
                                             x:Name="NotificationsPageGroupByViewFlyoutBody"
@@ -154,8 +153,8 @@
                                             Style="{StaticResource BodyTextBlockStyle}"
                                             Text="{helpers:ResourceString Name=NotificationsPageGroupByViewNone/Text}" />
                                     </StackPanel>
-                                </muxc:DropDownButton.Content>
-                                <muxc:DropDownButton.Flyout>
+                                </DropDownButton.Content>
+                                <DropDownButton.Flyout>
                                     <MenuFlyout x:Name="GroupByMenuFlyout" Placement="BottomEdgeAlignedLeft">
                                         <MenuFlyout.Items>
                                             <ToggleMenuFlyoutItem x:Name="NotificationsPageGroupByViewNone" Text="{helpers:ResourceString Name=NotificationsPageGroupByViewNone/Text}" />
@@ -163,21 +162,21 @@
                                             <ToggleMenuFlyoutItem x:Name="NotificationsPageGroupByViewPrimaryDate" Text="{helpers:ResourceString Name=NotificationsPageGroupByViewDate/Text}" />
                                         </MenuFlyout.Items>
                                     </MenuFlyout>
-                                </muxc:DropDownButton.Flyout>
-                            </muxc:DropDownButton>
+                                </DropDownButton.Flyout>
+                            </DropDownButton>
 
                         </StackPanel>
                     </Grid>
 
                     <Grid Grid.Row="2">
-                        <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.NotificationItems, Mode=OneWay}">
-                            <muxc:ItemsRepeater.Layout>
-                                <muxc:StackLayout Orientation="Vertical" Spacing="6" />
-                            </muxc:ItemsRepeater.Layout>
+                        <ItemsRepeater ItemsSource="{x:Bind ViewModel.NotificationItems, Mode=OneWay}">
+                            <ItemsRepeater.Layout>
+                                <StackLayout Orientation="Vertical" Spacing="6" />
+                            </ItemsRepeater.Layout>
                             <DataTemplate x:DataType="bbvm:NotificationBlockButtonViewModel">
                                 <bbuc:NotificationBlockButton ViewModel="{x:Bind}" />
                             </DataTemplate>
-                        </muxc:ItemsRepeater>
+                        </ItemsRepeater>
 
                         <toolkit:SwitchPresenter
                             x:Name="NoNotificationsSwitchPresenter"

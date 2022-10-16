@@ -7,7 +7,6 @@
     xmlns:local="using:FluentHub.App.Views.AppSettings.Accounts"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:FluentHub.App.Models"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
     xmlns:uc="using:FluentHub.App.UserControls"
     mc:Ignorable="d">
@@ -44,10 +43,10 @@
                 </uc:SettingsBlockControl.SettingsActionableElement>
             </uc:SettingsBlockControl>
 
-            <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.AccountsItems, Mode=OneWay}">
-                <muxc:ItemsRepeater.Layout>
-                    <muxc:StackLayout Orientation="Vertical" Spacing="4" />
-                </muxc:ItemsRepeater.Layout>
+            <ItemsRepeater ItemsSource="{x:Bind ViewModel.AccountsItems, Mode=OneWay}">
+                <ItemsRepeater.Layout>
+                    <StackLayout Orientation="Vertical" Spacing="4" />
+                </ItemsRepeater.Layout>
                 <DataTemplate x:DataType="models:AccountModel">
                     <Grid
                         MinHeight="{StaticResource ExpanderMinHeight}"
@@ -84,7 +83,7 @@
 
                     </Grid>
                 </DataTemplate>
-            </muxc:ItemsRepeater>
+            </ItemsRepeater>
 
         </StackPanel>
     </ScrollViewer>

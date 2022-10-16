@@ -6,7 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:FluentHub.App.UserControls.Overview"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:primer="using:FluentHub.App.UserControls.PrimerControls"
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
     d:DesignHeight="300"
@@ -220,7 +219,7 @@
         </Grid>
 
         <Grid Grid.Row="1">
-            <muxc:NavigationView
+            <NavigationView
                 x:Name="OrgNavView"
                 Margin="32,0"
                 IsBackButtonVisible="Collapsed"
@@ -228,81 +227,81 @@
                 ItemInvoked="OnOrgNavViewItemInvoked"
                 PaneDisplayMode="Top">
 
-                <muxc:NavigationView.MenuItems>
-                    <muxc:NavigationViewItem Content="Overview" Tag="Overview">
-                        <muxc:NavigationViewItem.Icon>
+                <NavigationView.MenuItems>
+                    <NavigationViewItem Content="Overview" Tag="Overview">
+                        <NavigationViewItem.Icon>
                             <FontIcon
                                 FontFamily="{StaticResource Octicons}"
                                 FontSize="16"
                                 Glyph="&#xE922;" />
-                        </muxc:NavigationViewItem.Icon>
-                    </muxc:NavigationViewItem>
-                    <muxc:NavigationViewItem Content="Repositories" Tag="Repositories">
-                        <muxc:NavigationViewItem.Icon>
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
+                    <NavigationViewItem Content="Repositories" Tag="Repositories">
+                        <NavigationViewItem.Icon>
                             <FontIcon
                                 FontFamily="{StaticResource Octicons}"
                                 FontSize="16"
                                 Glyph="&#xEA52;" />
-                        </muxc:NavigationViewItem.Icon>
-                    </muxc:NavigationViewItem>
-                    <muxc:NavigationViewItem
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
+                    <NavigationViewItem
                         Content="Discussions"
                         IsEnabled="False"
                         Tag="Discussions">
-                        <muxc:NavigationViewItem.Icon>
+                        <NavigationViewItem.Icon>
                             <FontIcon
                                 FontFamily="{StaticResource Octicons}"
                                 FontSize="16"
                                 Glyph="&#xE95D;" />
-                        </muxc:NavigationViewItem.Icon>
-                    </muxc:NavigationViewItem>
-                    <muxc:NavigationViewItem
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
+                    <NavigationViewItem
                         Content="Projects"
                         IsEnabled="False"
                         Tag="Projects">
-                        <muxc:NavigationViewItem.Icon>
+                        <NavigationViewItem.Icon>
                             <FontIcon
                                 FontFamily="{StaticResource Octicons}"
                                 FontSize="16"
                                 Glyph="&#xEA48;" />
-                        </muxc:NavigationViewItem.Icon>
-                    </muxc:NavigationViewItem>
-                    <muxc:NavigationViewItem
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
+                    <NavigationViewItem
                         Content="Packages"
                         IsEnabled="False"
                         Tag="Packages">
-                        <muxc:NavigationViewItem.Icon>
+                        <NavigationViewItem.Icon>
                             <FontIcon
                                 FontFamily="{StaticResource Octicons}"
                                 FontSize="16"
                                 Glyph="&#xEA29;" />
-                        </muxc:NavigationViewItem.Icon>
-                    </muxc:NavigationViewItem>
-                    <muxc:NavigationViewItem
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
+                    <NavigationViewItem
                         Content="People"
                         IsEnabled="False"
                         Tag="People">
-                        <muxc:NavigationViewItem.Icon>
+                        <NavigationViewItem.Icon>
                             <FontIcon
                                 FontFamily="{StaticResource Octicons}"
                                 FontSize="16"
                                 Glyph="&#xEA38;" />
-                        </muxc:NavigationViewItem.Icon>
-                    </muxc:NavigationViewItem>
-                    <muxc:NavigationViewItem
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
+                    <NavigationViewItem
                         Content="Settings"
                         IsEnabled="False"
                         Tag="Settings">
-                        <muxc:NavigationViewItem.Icon>
+                        <NavigationViewItem.Icon>
                             <FontIcon
                                 FontFamily="{StaticResource Octicons}"
                                 FontSize="16"
                                 Glyph="&#xE9B3;" />
-                        </muxc:NavigationViewItem.Icon>
-                    </muxc:NavigationViewItem>
-                </muxc:NavigationView.MenuItems>
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
+                </NavigationView.MenuItems>
 
-            </muxc:NavigationView>
+            </NavigationView>
         </Grid>
     </Grid>
 </UserControl>

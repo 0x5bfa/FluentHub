@@ -10,7 +10,6 @@
     xmlns:models="using:FluentHub.App.Models"
     xmlns:modelsV3="using:FluentHub.Octokit.Models.v3"
     xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
     xmlns:uc="using:FluentHub.App.UserControls"
     mc:Ignorable="d">
@@ -32,7 +31,7 @@
             <Thickness x:Key="ExpanderContentPadding">0,0,0,0</Thickness>
             <x:Double x:Key="ExpanderMinHeight">0</x:Double>
 
-            <Style TargetType="muxc:Expander">
+            <Style TargetType="Expander">
                 <Setter Property="HorizontalAlignment" Value="Stretch" />
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             </Style>
@@ -171,30 +170,30 @@
 
                     </Grid>
 
-                    <muxc:Expander
+                    <Expander
                         Grid.Row="1"
                         Padding="0"
                         HorizontalAlignment="Stretch"
                         HorizontalContentAlignment="Stretch"
                         IsExpanded="True">
 
-                        <muxc:Expander.Header>
+                        <Expander.Header>
                             <TextBlock
                                 x:Name="HomePageGeneralHeader"
                                 Margin="6,0"
                                 Style="{StaticResource BodyStrongTextBlockStyle}"
                                 Text="{helpers:ResourceString Name=HomePageGeneralHeader/Text}" />
-                        </muxc:Expander.Header>
+                        </Expander.Header>
 
-                        <muxc:Expander.Content>
-                            <muxc:ItemsRepeater
+                        <Expander.Content>
+                            <ItemsRepeater
                                 x:Name="CardsList"
                                 Margin="20,0"
                                 HorizontalAlignment="Stretch"
                                 ItemsSource="{x:Bind ViewModel.FolderCardItems, Mode=OneWay}">
 
-                                <muxc:ItemsRepeater.Layout>
-                                    <muxc:UniformGridLayout
+                                <ItemsRepeater.Layout>
+                                    <UniformGridLayout
                                         ItemsStretch="Fill"
                                         MaximumRowsOrColumns="6"
                                         MinColumnSpacing="8"
@@ -202,8 +201,8 @@
                                         MinItemWidth="100"
                                         MinRowSpacing="8"
                                         Orientation="Horizontal" />
-                                </muxc:ItemsRepeater.Layout>
-                                <muxc:ItemsRepeater.ItemTemplate>
+                                </ItemsRepeater.Layout>
+                                <ItemsRepeater.ItemTemplate>
                                     <DataTemplate x:DataType="models:FolderCardItem">
                                         <Button
                                             Padding="8"
@@ -241,12 +240,12 @@
                                             </Grid>
                                         </Button>
                                     </DataTemplate>
-                                </muxc:ItemsRepeater.ItemTemplate>
-                            </muxc:ItemsRepeater>
-                        </muxc:Expander.Content>
-                    </muxc:Expander>
+                                </ItemsRepeater.ItemTemplate>
+                            </ItemsRepeater>
+                        </Expander.Content>
+                    </Expander>
 
-                    <muxc:Expander
+                    <Expander
                         x:Name="FavoritesExpander"
                         Grid.Row="2"
                         Padding="0"
@@ -254,15 +253,15 @@
                         HorizontalContentAlignment="Stretch"
                         IsExpanded="False">
 
-                        <muxc:Expander.Header>
+                        <Expander.Header>
                             <TextBlock
                                 x:Name="HomePageFavoritesHeader"
                                 Margin="6,0"
                                 Style="{StaticResource BodyStrongTextBlockStyle}"
                                 Text="{helpers:ResourceString Name=HomePageFavoritesHeader/Text}" />
-                        </muxc:Expander.Header>
+                        </Expander.Header>
 
-                        <muxc:Expander.Content>
+                        <Expander.Content>
                             <Grid>
                                 <ListView
                                     Margin="-4,0"
@@ -286,25 +285,25 @@
                                     Style="{StaticResource BodyStrongTextBlockStyle}"
                                     Text="{helpers:ResourceString Name=HomePageFavoritesNotAvailableBody/Text}" />
                             </Grid>
-                        </muxc:Expander.Content>
-                    </muxc:Expander>
+                        </Expander.Content>
+                    </Expander>
 
-                    <muxc:Expander
+                    <Expander
                         Grid.Row="3"
                         Padding="0"
                         HorizontalAlignment="Stretch"
                         HorizontalContentAlignment="Stretch"
                         IsExpanded="True">
 
-                        <muxc:Expander.Header>
+                        <Expander.Header>
                             <TextBlock
                                 x:Name="HomePageRecentActivityHeader"
                                 Margin="6,0"
                                 Style="{StaticResource BodyStrongTextBlockStyle}"
                                 Text="{helpers:ResourceString Name=HomePageRecentActivityHeader/Text}" />
-                        </muxc:Expander.Header>
+                        </Expander.Header>
 
-                        <muxc:Expander.Content>
+                        <Expander.Content>
                             <Grid>
 
                                 <ListView
@@ -495,8 +494,8 @@
                                     </toolkit:Case>
                                 </toolkit:SwitchPresenter>
                             </Grid>
-                        </muxc:Expander.Content>
-                    </muxc:Expander>
+                        </Expander.Content>
+                    </Expander>
 
                 </Grid>
             </ScrollViewer>

@@ -5,7 +5,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:FluentHub.App.UserControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
     Loaded="OnGitCloneFlyoutLoaded"
@@ -25,7 +24,7 @@
 
     <StackPanel Width="340">
 
-        <muxc:NavigationView
+        <NavigationView
             x:Name="GitCloneFlyoutNavView"
             Margin="0"
             CornerRadius="4"
@@ -34,16 +33,16 @@
             ItemInvoked="GitCloneFlyoutNavView_ItemInvoked"
             PaneDisplayMode="Top">
 
-            <muxc:NavigationView.MenuItems>
-                <muxc:NavigationViewItem
+            <NavigationView.MenuItems>
+                <NavigationViewItem
                     Content="HTTPS"
                     IsSelected="True"
                     Tag="Https" />
-                <muxc:NavigationViewItem Content="SSH" Tag="Ssh" />
-                <muxc:NavigationViewItem Content="GitHub CLI" Tag="GitHubCli" />
-            </muxc:NavigationView.MenuItems>
+                <NavigationViewItem Content="SSH" Tag="Ssh" />
+                <NavigationViewItem Content="GitHub CLI" Tag="GitHubCli" />
+            </NavigationView.MenuItems>
 
-            <muxc:NavigationView.PaneFooter>
+            <NavigationView.PaneFooter>
                 <Button
                     Margin="0,0,8,0"
                     HorizontalAlignment="Stretch"
@@ -55,9 +54,9 @@
                         <TextBlock Text="Git" />
                     </StackPanel>
                 </Button>
-            </muxc:NavigationView.PaneFooter>
+            </NavigationView.PaneFooter>
 
-        </muxc:NavigationView>
+        </NavigationView>
 
         <MenuFlyoutSeparator Margin="-4,0,-4,8" />
 

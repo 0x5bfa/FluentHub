@@ -8,7 +8,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:modelsV3="using:FluentHub.Octokit.Models.v3"
     xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"

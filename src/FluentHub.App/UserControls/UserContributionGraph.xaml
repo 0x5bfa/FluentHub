@@ -9,7 +9,6 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:FluentHub.App.Models"
     xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
@@ -128,17 +127,17 @@
                     Text="Fri" />
             </Grid>
 
-            <muxc:ItemsRepeater
+            <ItemsRepeater
                 Grid.Column="1"
                 Height="122"
                 ItemsSource="{x:Bind ViewModel.MergedCalendar, Mode=OneWay}">
 
-                <muxc:ItemsRepeater.Layout>
+                <ItemsRepeater.Layout>
                     <toolkit:WrapLayout
                         HorizontalSpacing="4"
                         Orientation="Vertical"
                         VerticalSpacing="4" />
-                </muxc:ItemsRepeater.Layout>
+                </ItemsRepeater.Layout>
 
                 <DataTemplate x:DataType="models:MergedCalendarDays">
                     <Border
@@ -155,7 +154,7 @@
                     </Border>
                 </DataTemplate>
 
-            </muxc:ItemsRepeater>
+            </ItemsRepeater>
         </Grid>
 
         <MenuFlyoutSeparator Grid.Row="3" />

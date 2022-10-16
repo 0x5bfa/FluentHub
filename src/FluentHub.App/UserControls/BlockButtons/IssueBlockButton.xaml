@@ -7,7 +7,6 @@
     xmlns:local="using:FluentHub.App.UserControls.BlockButtons"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:primer="using:FluentHub.App.UserControls.PrimerControls"
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
     d:DesignHeight="300"
@@ -102,19 +101,19 @@
                     </ToolTipService.ToolTip>
                 </TextBlock>
 
-                <muxc:ItemsRepeater
+                <ItemsRepeater
                     x:Name="Labels"
                     Grid.Row="2"
                     Margin="0,4,0,0"
                     x:Load="{x:Bind ViewModel.CompactMode, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
                     ItemsSource="{x:Bind ViewModel.IssueItem.Labels.Nodes, Mode=OneWay}">
-                    <muxc:ItemsRepeater.Layout>
-                        <muxc:StackLayout Orientation="Horizontal" Spacing="6" />
-                    </muxc:ItemsRepeater.Layout>
+                    <ItemsRepeater.Layout>
+                        <StackLayout Orientation="Horizontal" Spacing="6" />
+                    </ItemsRepeater.Layout>
                     <DataTemplate x:DataType="modelsV4:Label">
                         <primer:IssueLabelToken FillColor="{x:Bind Color, Converter={StaticResource HexColorCodeToSolidColorBrushConverter}}" Text="{x:Bind Name}" />
                     </DataTemplate>
-                </muxc:ItemsRepeater>
+                </ItemsRepeater>
 
                 <StackPanel
                     x:Name="ConversationCountLabel"

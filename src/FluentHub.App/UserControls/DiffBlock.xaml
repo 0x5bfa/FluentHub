@@ -6,7 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:local="using:FluentHub.App.UserControls"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
@@ -156,13 +155,13 @@
                 Margin="0,-2,0,0"
                 VerticalAlignment="Top" />
 
-            <muxc:ItemsRepeater
+            <ItemsRepeater
                 Grid.ColumnSpan="4"
                 HorizontalAlignment="Stretch"
                 ItemsSource="{x:Bind ViewModel.ChangedLineBackgroundType, Mode=OneWay}">
-                <muxc:ItemsRepeater.Layout>
-                    <muxc:StackLayout Orientation="Vertical" Spacing="0" />
-                </muxc:ItemsRepeater.Layout>
+                <ItemsRepeater.Layout>
+                    <StackLayout Orientation="Vertical" Spacing="0" />
+                </ItemsRepeater.Layout>
                 <DataTemplate x:DataType="x:Int32">
                     <toolkit:SwitchPresenter TargetType="x:Int32" Value="{x:Bind}">
                         <toolkit:Case Value="0">
@@ -188,7 +187,7 @@
                         </toolkit:Case>
                     </toolkit:SwitchPresenter>
                 </DataTemplate>
-            </muxc:ItemsRepeater>
+            </ItemsRepeater>
 
             <TextBlock
                 Margin="12,0"

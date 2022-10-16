@@ -7,7 +7,6 @@
     xmlns:helpers="using:FluentHub.App.Helpers"
     xmlns:local="using:FluentHub.App.UserControls.Overview"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:primer="using:FluentHub.App.UserControls.PrimerControls"
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
     d:DesignHeight="300"
@@ -259,50 +258,50 @@
         </Grid>
 
         <Grid Grid.Row="1" Margin="24,0">
-            <muxc:NavigationView
+            <NavigationView
                 x:Name="PullRequestNavView"
                 IsBackButtonVisible="Collapsed"
                 IsSettingsVisible="False"
                 ItemInvoked="OnPullRequestNavViewItemInvoked"
                 PaneDisplayMode="Top">
-                <muxc:NavigationView.MenuItems>
-                    <muxc:NavigationViewItem Content="Conversation" Tag="conversation">
-                        <muxc:NavigationViewItem.Icon>
+                <NavigationView.MenuItems>
+                    <NavigationViewItem Content="Conversation" Tag="conversation">
+                        <NavigationViewItem.Icon>
                             <FontIcon
                                 FontFamily="{StaticResource Octicons}"
                                 FontSize="16"
                                 Glyph="&#xE95D;" />
-                        </muxc:NavigationViewItem.Icon>
-                    </muxc:NavigationViewItem>
-                    <muxc:NavigationViewItem Content="Commits" Tag="commits">
-                        <muxc:NavigationViewItem.Icon>
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
+                    <NavigationViewItem Content="Commits" Tag="commits">
+                        <NavigationViewItem.Icon>
                             <FontIcon
                                 FontFamily="{StaticResource Octicons}"
                                 FontSize="16"
                                 Glyph="&#xE9B9;" />
-                        </muxc:NavigationViewItem.Icon>
-                    </muxc:NavigationViewItem>
-                    <muxc:NavigationViewItem
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
+                    <NavigationViewItem
                         Content="Checks"
                         IsEnabled="False"
                         Tag="checks">
-                        <muxc:NavigationViewItem.Icon>
+                        <NavigationViewItem.Icon>
                             <FontIcon
                                 FontFamily="{StaticResource Octicons}"
                                 FontSize="16"
                                 Glyph="&#xE9B9;" />
-                        </muxc:NavigationViewItem.Icon>
-                    </muxc:NavigationViewItem>
-                    <muxc:NavigationViewItem Content="File changes" Tag="filechanges">
-                        <muxc:NavigationViewItem.Icon>
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
+                    <NavigationViewItem Content="File changes" Tag="filechanges">
+                        <NavigationViewItem.Icon>
                             <FontIcon
                                 FontFamily="{StaticResource Octicons}"
                                 FontSize="16"
                                 Glyph="&#xE99D;" />
-                        </muxc:NavigationViewItem.Icon>
-                    </muxc:NavigationViewItem>
-                </muxc:NavigationView.MenuItems>
-            </muxc:NavigationView>
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
+                </NavigationView.MenuItems>
+            </NavigationView>
         </Grid>
 
     </Grid>

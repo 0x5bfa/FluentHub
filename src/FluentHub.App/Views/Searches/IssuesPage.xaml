@@ -9,7 +9,6 @@
     xmlns:helpers="using:FluentHub.App.Helpers"
     xmlns:local="using:FluentHub.App.Views.Searches"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
     xmlns:uc="using:FluentHub.App.UserControls"
     mc:Ignorable="d">
@@ -59,14 +58,14 @@
                         </TextBlock>
 
                         <Grid Grid.Row="2" Margin="0,12,0,0">
-                            <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.ResultItems, Mode=OneWay}">
-                                <muxc:ItemsRepeater.Layout>
-                                    <muxc:StackLayout Orientation="Vertical" Spacing="6" />
-                                </muxc:ItemsRepeater.Layout>
+                            <ItemsRepeater ItemsSource="{x:Bind ViewModel.ResultItems, Mode=OneWay}">
+                                <ItemsRepeater.Layout>
+                                    <StackLayout Orientation="Vertical" Spacing="6" />
+                                </ItemsRepeater.Layout>
                                 <DataTemplate x:DataType="bbvm:IssueBlockButtonViewModel">
                                     <bb:IssueBlockButton VerticalAlignment="Stretch" ViewModel="{x:Bind}" />
                                 </DataTemplate>
-                            </muxc:ItemsRepeater>
+                            </ItemsRepeater>
 
                             <toolkit:SwitchPresenter
                                 x:Name="NoRepositoriesSwitchPresenter"

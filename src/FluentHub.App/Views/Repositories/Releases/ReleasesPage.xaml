@@ -8,7 +8,6 @@
     xmlns:local="using:FluentHub.App.Views.Repositories.Releases"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
-    xmlns:muxc="using:Microsoft.UI.Xaml.Controls"
     xmlns:ov="using:FluentHub.App.UserControls.Overview"
     xmlns:primer="using:FluentHub.App.UserControls.PrimerControls"
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
@@ -151,13 +150,13 @@
 
                         <MenuFlyoutSeparator Grid.Row="1" />
 
-                        <muxc:ItemsRepeater
+                        <ItemsRepeater
                             Grid.Row="2"
                             Margin="24,12,24,24"
                             ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}">
-                            <muxc:ItemsRepeater.Layout>
-                                <muxc:StackLayout Orientation="Vertical" Spacing="6" />
-                            </muxc:ItemsRepeater.Layout>
+                            <ItemsRepeater.Layout>
+                                <StackLayout Orientation="Vertical" Spacing="6" />
+                            </ItemsRepeater.Layout>
                             <DataTemplate x:DataType="modelsV4:Release">
                                 <Button
                                     x:Name="IssueBlockButton"
@@ -210,7 +209,7 @@
                                     </StackPanel>
                                 </Button>
                             </DataTemplate>
-                        </muxc:ItemsRepeater>
+                        </ItemsRepeater>
 
                     </Grid>
                 </Grid>
