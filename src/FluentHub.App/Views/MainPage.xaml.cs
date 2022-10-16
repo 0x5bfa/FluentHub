@@ -128,7 +128,7 @@ namespace FluentHub.App.Views
             var height = (int)(CustomTabViewControl.TitlebarArea.ActualHeight * scaleAdjustment);
 
             var dragRect = new RectInt32(x, y, width, height);
-            App.Window.AppWindow.TitleBar.SetDragRectangles(new[] { dragRect });
+            App.Window.AppWindow.TitleBar.SetDragRectangles(new[] { new(0, 0, (int)MainPageTitleBar.ActualWidth, 44), dragRect });
         }
 
         private void OnSearchGitHubButtonButtonClick(object sender, RoutedEventArgs e)
