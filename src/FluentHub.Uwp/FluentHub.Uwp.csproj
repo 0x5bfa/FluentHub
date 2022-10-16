@@ -187,6 +187,7 @@
     <Compile Include="Models\DetailsLayoutListViewModel.cs" />
     <Compile Include="Models\FolderCardItem.cs" />
     <Compile Include="Models\FrameNavigationArgs.cs" />
+    <Compile Include="Models\SearchQueryModel.cs" />
     <Compile Include="Models\TaskStateMessaging.cs" />
     <Compile Include="Models\MergedCalendarDays.cs" />
     <Compile Include="Models\PinnableRepository.cs" />
@@ -208,6 +209,9 @@
     <Compile Include="Services\Navigation\TabViewSelectionChangedEventArgs.cs" />
     <Compile Include="Services\OctokitSecretsService.cs" />
     <Compile Include="Services\ToastService.cs" />
+    <Compile Include="UserControls\BlockButtons\CodeBlockButton.xaml.cs">
+      <DependentUpon>CodeBlockButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\BlockButtons\PackageBlockButton.xaml.cs">
       <DependentUpon>PackageBlockButton.xaml</DependentUpon>
     </Compile>
@@ -237,6 +241,9 @@
     </Compile>
     <Compile Include="UserControls\FeedBlocks\SingleReleaseBlock.xaml.cs">
       <DependentUpon>SingleReleaseBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\SearchResultSidebar.xaml.cs">
+      <DependentUpon>SearchResultSidebar.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\UserContributionGraph.xaml.cs">
       <DependentUpon>UserContributionGraph.xaml</DependentUpon>
@@ -368,6 +375,10 @@
     <Compile Include="ViewModels\Repositories\Issues\IssueViewModel.cs" />
     <Compile Include="ViewModels\Repositories\Codes\Layouts\DetailsLayoutViewModel.cs" />
     <Compile Include="ViewModels\Repositories\PullRequests\PullRequestsViewModel.cs" />
+    <Compile Include="ViewModels\Searches\CodeViewModel.cs" />
+    <Compile Include="ViewModels\Searches\IssuesViewModel.cs" />
+    <Compile Include="ViewModels\Searches\RepositoriesViewModel.cs" />
+    <Compile Include="ViewModels\Searches\UsersViewModel.cs" />
     <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\SignIn\IntroViewModel.cs" />
     <Compile Include="ViewModels\UserControls\FeedBlocks\ActivityBlockViewModel.cs" />
@@ -506,6 +517,18 @@
     </Compile>
     <Compile Include="Views\Repositories\Settings\SettingsPage.xaml.cs">
       <DependentUpon>SettingsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Searches\CodePage.xaml.cs">
+      <DependentUpon>CodePage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Searches\IssuesPage.xaml.cs">
+      <DependentUpon>IssuesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Searches\RepositoriesPage.xaml.cs">
+      <DependentUpon>RepositoriesPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Searches\UsersPage.xaml.cs">
+      <DependentUpon>UsersPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Users\ContributionsPage.xaml.cs">
       <DependentUpon>ContributionsPage.xaml</DependentUpon>
@@ -741,6 +764,7 @@
     <Content Include="Assets\Icons\Accounts.png" />
     <Content Include="Assets\Icons\Activities.png" />
     <Content Include="Assets\Icons\Appearance.png" />
+    <Content Include="Assets\Icons\Code.png" />
     <Content Include="Assets\Icons\Commits.png" />
     <Content Include="Assets\Icons\Discussions.png" />
     <Content Include="Assets\Icons\Document.png" />
@@ -748,15 +772,20 @@
     <Content Include="Assets\Icons\Home.png" />
     <Content Include="Assets\Icons\Insights.png" />
     <Content Include="Assets\Icons\Issues.png" />
+    <Content Include="Assets\Icons\Marketplace.png" />
     <Content Include="Assets\Icons\Notifications.png" />
     <Content Include="Assets\Icons\Organizations.png" />
+    <Content Include="Assets\Icons\Packages.png" />
     <Content Include="Assets\Icons\Private.png" />
     <Content Include="Assets\Icons\Profile.png" />
     <Content Include="Assets\Icons\Projects.png" />
     <Content Include="Assets\Icons\PullRequests.png" />
     <Content Include="Assets\Icons\Repositories.png" />
+    <Content Include="Assets\Icons\Search.png" />
     <Content Include="Assets\Icons\Settings.png" />
     <Content Include="Assets\Icons\Starred.png" />
+    <Content Include="Assets\Icons\Topic.png" />
+    <Content Include="Assets\Icons\Wiki.png" />
     <Content Include="Assets\Octicons\accessibility-16.svg" />
     <Content Include="Assets\Octicons\alert-16.svg" />
     <Content Include="Assets\Octicons\alert-24.svg" />
@@ -1343,6 +1372,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\BlockButtons\CodeBlockButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\BlockButtons\PackageBlockButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1388,6 +1421,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\FeedBlocks\SingleReleaseBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\SearchResultSidebar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1636,6 +1673,22 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Searches\CodePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Searches\IssuesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Searches\RepositoriesPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Searches\UsersPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Users\ContributionsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1738,7 +1791,7 @@
       <Version>2.8.25</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection">
-      <Version>6.0.0</Version>
+      <Version>6.0.1</Version>
     </PackageReference>
     <PackageReference Include="Microsoft.NETCore.UniversalWindowsPlatform">
       <Version>6.2.14</Version>
