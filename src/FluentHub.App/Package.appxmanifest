@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5" IgnorableNamespaces="uap mp uap3 uap5">
-  <Identity Name="FluentHubDev" Publisher="CN=FluentHub" Version="0.3.9.0" />
+  <Identity Name="FluentHubDev" Publisher="CN=FluentHub" Version="0.5.0.0" />
 
   <Properties>
     <DisplayName>FluentHub - Dev</DisplayName>
