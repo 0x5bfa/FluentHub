@@ -1,0 +1,526 @@
+﻿<Page
+    x:Class="FluentHub.App.Views.Home.UserHomePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:FluentHub.App.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="using:FluentHub.App.Helpers"
+    xmlns:local="using:FluentHub.App.Views.Home"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:FluentHub.App.Models"
+    xmlns:modelsV3="using:FluentHub.Octokit.Models.v3"
+    xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
+    xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:uc="using:FluentHub.App.UserControls"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <ResourceDictionary>
+
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///ResourceDictionaries/DefaultGridSplitterStyle.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <SolidColorBrush x:Key="ExpanderHeaderBackground" Color="Transparent" />
+            <SolidColorBrush x:Key="ExpanderHeaderBorderBrush" Color="Transparent" />
+            <SolidColorBrush x:Key="ExpanderHeaderBorderPointerOverBrush" Color="Transparent" />
+            <SolidColorBrush x:Key="ExpanderHeaderBorderPressedBrush" Color="Transparent" />
+            <SolidColorBrush x:Key="ExpanderContentBackground" Color="Transparent" />
+            <SolidColorBrush x:Key="ExpanderContentBorderBrush" Color="Transparent" />
+            <Thickness x:Key="ExpanderHeaderPadding">0,0,0,0</Thickness>
+            <Thickness x:Key="ExpanderContentPadding">0,0,0,0</Thickness>
+            <x:Double x:Key="ExpanderMinHeight">0</x:Double>
+
+            <Style TargetType="Expander">
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            </Style>
+
+            <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid>
+
+        <Grid
+            x:Name="RootContentGrid"
+            x:Load="{x:Bind ViewModel.LoadUserHomePageCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+            Background="{ThemeResource LayerFillColorDefaultBrush}"
+            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+            BorderThickness="1,1,0,0"
+            CornerRadius="8,0,0,0">
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" MinWidth="256" />
+                <ColumnDefinition Width="1" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+
+            <ScrollViewer>
+                <Grid Margin="32,24,32,24" RowSpacing="12">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid>
+                        <TextBlock
+                            x:Name="RepositoriesListHeader"
+                            VerticalAlignment="Center"
+                            Style="{StaticResource SubtitleTextBlockStyle}"
+                            Text="{helpers:ResourceString Name=Repositories}" />
+
+                        <Button HorizontalAlignment="Right" IsEnabled="False">
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <FontIcon
+                                    FontFamily="{StaticResource Octicons}"
+                                    FontSize="14"
+                                    Glyph="&#xEA52;" />
+                                <TextBlock x:Name="NewRepositoryButton" Text="{helpers:ResourceString Name=New}" />
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+
+                    <Grid Grid.Row="1">
+
+                        <ListView
+                            x:Name="HomeRepositoriesListItem"
+                            Margin="-12,0"
+                            HorizontalAlignment="Stretch"
+                            VerticalAlignment="Stretch"
+                            IsItemClickEnabled="True"
+                            IsRightTapEnabled="True"
+                            ItemClick="OnHomeRepositoriesListItemClick"
+                            ItemContainerTransitions="{x:Null}"
+                            ItemsSource="{x:Bind ViewModel.UserRepositories, Mode=OneWay}"
+                            SelectionMode="None">
+
+                            <ListView.ItemContainerStyle>
+                                <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
+                                    <Setter Property="Height" Value="24" />
+                                    <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                </Style>
+                            </ListView.ItemContainerStyle>
+
+                            <ListView.ItemTemplate>
+                                <DataTemplate x:DataType="modelsV4:Repository">
+
+                                    <StackPanel Orientation="Horizontal" Spacing="12">
+
+                                        <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind IsPrivate, Mode=OneWay}">
+                                            <toolkit:Case Value="True">
+                                                <Image Width="16" Source="/Assets/Icons/Private.png" />
+                                            </toolkit:Case>
+                                            <toolkit:Case Value="False">
+                                                <Image Width="16" Source="/Assets/Icons/Repositories.png" />
+                                            </toolkit:Case>
+                                        </toolkit:SwitchPresenter>
+
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            Foreground="{ThemeResource SystemControlPageTextBaseHighBrush}"
+                                            Style="{ThemeResource BodyTextBlockStyle}"
+                                            Text="{x:Bind Name, Mode=OneWay}" />
+
+                                    </StackPanel>
+
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+
+                        </ListView>
+
+                        <toolkit:SwitchPresenter
+                            x:Name="NoRepositoriesSwitchPresenter"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            TargetType="x:Int32"
+                            Value="{x:Bind ViewModel.UserRepositories.Count, Mode=OneWay}">
+                            <toolkit:Case Value="0">
+                                <TextBlock
+                                    x:Name="NoRepositoriesTextBlock"
+                                    FontSize="18"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="{helpers:ResourceString Name=NoUserRepositories}"
+                                    TextAlignment="Center" />
+                            </toolkit:Case>
+                        </toolkit:SwitchPresenter>
+
+                    </Grid>
+                </Grid>
+            </ScrollViewer>
+
+            <toolkit:GridSplitter Grid.Column="1" Style="{StaticResource DefaultGridSplitterStyle}" />
+
+            <ScrollViewer Grid.Column="2">
+                <Grid Margin="6,24,16,24" RowSpacing="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid>
+                        <TextBlock
+                            x:Name="HomePageHeader"
+                            Margin="24,4,0,8"
+                            Style="{StaticResource SubtitleTextBlockStyle}"
+                            Text="{helpers:ResourceString Name=Home}" />
+
+                    </Grid>
+
+                    <Expander
+                        Grid.Row="1"
+                        Padding="0"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch"
+                        IsExpanded="True">
+
+                        <Expander.Header>
+                            <TextBlock
+                                x:Name="HomePageGeneralHeader"
+                                Margin="6,0"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="{helpers:ResourceString Name=HomePageGeneralHeader/Text}" />
+                        </Expander.Header>
+
+                        <Expander.Content>
+                            <ItemsRepeater
+                                x:Name="CardsList"
+                                Margin="20,0"
+                                HorizontalAlignment="Stretch"
+                                ItemsSource="{x:Bind ViewModel.FolderCardItems, Mode=OneWay}">
+
+                                <ItemsRepeater.Layout>
+                                    <UniformGridLayout
+                                        ItemsStretch="Fill"
+                                        MaximumRowsOrColumns="6"
+                                        MinColumnSpacing="8"
+                                        MinItemHeight="72"
+                                        MinItemWidth="100"
+                                        MinRowSpacing="8"
+                                        Orientation="Horizontal" />
+                                </ItemsRepeater.Layout>
+                                <ItemsRepeater.ItemTemplate>
+                                    <DataTemplate x:DataType="models:FolderCardItem">
+                                        <Button
+                                            Padding="8"
+                                            HorizontalAlignment="Stretch"
+                                            Click="OnOneFolderCardClick"
+                                            Tag="{x:Bind Tag}">
+
+                                            <Grid
+                                                HorizontalAlignment="Stretch"
+                                                VerticalAlignment="Stretch"
+                                                RowSpacing="4">
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="*" />
+                                                    <RowDefinition Height="Auto" />
+                                                </Grid.RowDefinitions>
+                                                <Image
+                                                    Grid.Row="0"
+                                                    Width="32"
+                                                    Height="32"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    Source="{x:Bind Thumbnail}"
+                                                    Stretch="Uniform" />
+                                                <TextBlock
+                                                    x:Name="ItemLocationName"
+                                                    Grid.Row="1"
+                                                    HorizontalAlignment="Center"
+                                                    VerticalAlignment="Center"
+                                                    FontSize="14"
+                                                    HorizontalTextAlignment="Center"
+                                                    Style="{StaticResource BodyTextBlockStyle}"
+                                                    Text="{x:Bind Text}"
+                                                    TextTrimming="WordEllipsis"
+                                                    TextWrapping="NoWrap" />
+                                            </Grid>
+                                        </Button>
+                                    </DataTemplate>
+                                </ItemsRepeater.ItemTemplate>
+                            </ItemsRepeater>
+                        </Expander.Content>
+                    </Expander>
+
+                    <Expander
+                        x:Name="FavoritesExpander"
+                        Grid.Row="2"
+                        Padding="0"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch"
+                        IsExpanded="False">
+
+                        <Expander.Header>
+                            <TextBlock
+                                x:Name="HomePageFavoritesHeader"
+                                Margin="6,0"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="{helpers:ResourceString Name=HomePageFavoritesHeader/Text}" />
+                        </Expander.Header>
+
+                        <Expander.Content>
+                            <Grid>
+                                <ListView
+                                    Margin="-4,0"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    IsItemClickEnabled="True"
+                                    IsRightTapEnabled="True"
+                                    ItemContainerTransitions="{x:Null}"
+                                    SelectionMode="None">
+                                    <ListView.ItemContainerStyle>
+                                        <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
+                                            <Setter Property="Height" Value="24" />
+                                            <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+                                </ListView>
+                                <TextBlock
+                                    x:Name="HomePageFavoritesNotAvailableBody"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="{helpers:ResourceString Name=HomePageFavoritesNotAvailableBody/Text}" />
+                            </Grid>
+                        </Expander.Content>
+                    </Expander>
+
+                    <Expander
+                        Grid.Row="3"
+                        Padding="0"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Stretch"
+                        IsExpanded="True">
+
+                        <Expander.Header>
+                            <TextBlock
+                                x:Name="HomePageRecentActivityHeader"
+                                Margin="6,0"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="{helpers:ResourceString Name=HomePageRecentActivityHeader/Text}" />
+                        </Expander.Header>
+
+                        <Expander.Content>
+                            <Grid>
+
+                                <ListView
+                                    Margin="6,0"
+                                    HorizontalAlignment="Stretch"
+                                    VerticalAlignment="Stretch"
+                                    IsItemClickEnabled="True"
+                                    IsRightTapEnabled="True"
+                                    ItemClick="OnRecentUserNotificationListViewItemClick"
+                                    ItemContainerTransitions="{x:Null}"
+                                    ItemsSource="{x:Bind ViewModel.UserNotifications, Mode=OneWay}"
+                                    SelectionMode="None">
+
+                                    <ListView.ItemContainerStyle>
+                                        <Style BasedOn="{StaticResource DefaultListViewItemStyle}" TargetType="ListViewItem">
+                                            <Setter Property="Height" Value="Auto" />
+                                        </Style>
+                                    </ListView.ItemContainerStyle>
+
+                                    <ListView.ItemTemplate>
+                                        <DataTemplate x:DataType="modelsV3:Notification">
+
+                                            <Grid Padding="0,12" ColumnSpacing="16">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto" />
+                                                    <ColumnDefinition Width="*" />
+                                                </Grid.ColumnDefinitions>
+
+                                                <toolkit:SwitchPresenter TargetType="x:String" Value="{x:Bind Subject.TypeHumanized, Mode=OneWay}">
+
+                                                    <toolkit:Case Value="IssueClosedAsCompleted">
+                                                        <FontIcon
+                                                            FontFamily="{StaticResource Octicons}"
+                                                            FontSize="22"
+                                                            Foreground="{StaticResource PrimerClosedForeground}"
+                                                            Glyph="&#xE9E6;" />
+                                                    </toolkit:Case>
+
+                                                    <toolkit:Case Value="IssueClosedAsNotPlanned">
+                                                        <FontIcon
+                                                            FontFamily="{StaticResource Octicons}"
+                                                            FontSize="22"
+                                                            Foreground="{StaticResource PrimerScaleGray5}"
+                                                            Glyph="&#xEA84;" />
+                                                    </toolkit:Case>
+
+                                                    <toolkit:Case Value="IssueOpen">
+                                                        <FontIcon
+                                                            FontFamily="{StaticResource Octicons}"
+                                                            FontSize="22"
+                                                            Foreground="{StaticResource PrimerOpenForeground}"
+                                                            Glyph="&#xE9EA;" />
+                                                    </toolkit:Case>
+
+                                                    <toolkit:Case Value="PullRequestClosed">
+                                                        <FontIcon
+                                                            FontFamily="{StaticResource Octicons}"
+                                                            FontSize="22"
+                                                            Foreground="{StaticResource PrimerClosedForeground}"
+                                                            Glyph="&#xE9C1;" />
+                                                    </toolkit:Case>
+
+                                                    <toolkit:Case Value="PullRequestMerged">
+                                                        <FontIcon
+                                                            FontFamily="{StaticResource Octicons}"
+                                                            FontSize="22"
+                                                            Foreground="{StaticResource PrimerDoneForeground}"
+                                                            Glyph="&#xE9BD;" />
+                                                    </toolkit:Case>
+
+                                                    <toolkit:Case Value="PullRequestDraft">
+                                                        <FontIcon
+                                                            FontFamily="{StaticResource Octicons}"
+                                                            FontSize="22"
+                                                            Foreground="{StaticResource PrimerScaleGray5}"
+                                                            Glyph="&#xE9C3;" />
+                                                    </toolkit:Case>
+
+                                                    <toolkit:Case Value="PullRequestOpen">
+                                                        <FontIcon
+                                                            FontFamily="{StaticResource Octicons}"
+                                                            FontSize="22"
+                                                            Foreground="{StaticResource PrimerOpenForeground}"
+                                                            Glyph="&#xE9BF;" />
+                                                    </toolkit:Case>
+
+                                                    <toolkit:Case Value="Discussion">
+                                                        <FontIcon
+                                                            FontFamily="{StaticResource Octicons}"
+                                                            FontSize="22"
+                                                            Foreground="{StaticResource PrimerScaleGray5}"
+                                                            Glyph="&#xE95D;" />
+                                                    </toolkit:Case>
+
+                                                    <toolkit:Case Value="Commit">
+                                                        <FontIcon
+                                                            FontFamily="{StaticResource Octicons}"
+                                                            FontSize="22"
+                                                            Foreground="{StaticResource PrimerScaleGray5}"
+                                                            Glyph="&#xE9B9;" />
+                                                    </toolkit:Case>
+
+                                                </toolkit:SwitchPresenter>
+
+                                                <Grid Grid.Column="1">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                        <RowDefinition Height="Auto" />
+                                                    </Grid.RowDefinitions>
+
+                                                    <StackPanel Orientation="Horizontal" Spacing="4">
+                                                        <TextBlock
+                                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                                            Text="{x:Bind Repository.Owner.Login, Mode=OneWay}" />
+
+                                                        <TextBlock
+                                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                                            Text="/" />
+
+                                                        <TextBlock
+                                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                                            Text="{x:Bind Repository.Name, Mode=OneWay}" />
+
+                                                        <TextBlock
+                                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                                            Text="#"
+                                                            Visibility="{x:Bind Subject.Number, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
+
+                                                        <TextBlock
+                                                            Margin="-4,0,0,0"
+                                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                                            Text="{x:Bind Subject.Number, Mode=OneWay}"
+                                                            Visibility="{x:Bind Subject.Number, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
+
+
+                                                    </StackPanel>
+
+                                                    <TextBlock
+                                                        x:Name="UpdatedAtHumanizedTextBlock"
+                                                        HorizontalAlignment="Right"
+                                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                                        Text="{x:Bind UpdatedAtHumanized, Mode=OneWay}" />
+
+                                                    <TextBlock
+                                                        x:Name="TitleTextBlock"
+                                                        Grid.Row="2"
+                                                        Margin="0,4"
+                                                        Style="{StaticResource BodyTextBlockStyle}"
+                                                        Text="{x:Bind Subject.Title, Mode=OneWay}" />
+
+                                                    <TextBlock
+                                                        x:Name="ReasonTextBlock"
+                                                        Grid.Row="3"
+                                                        Margin="0,4,0,-4"
+                                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                                        Text="{x:Bind Reason, Mode=OneWay}" />
+                                                </Grid>
+                                            </Grid>
+
+                                        </DataTemplate>
+                                    </ListView.ItemTemplate>
+
+                                </ListView>
+
+                                <toolkit:SwitchPresenter
+                                    x:Name="NoNotificationsSwitchPresenter"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    TargetType="x:Int32"
+                                    Value="{x:Bind ViewModel.UserNotifications.Count, Mode=OneWay}">
+                                    <toolkit:Case Value="0">
+                                        <TextBlock
+                                            x:Name="NoNotificationsTextBlock"
+                                            Grid.Row="1"
+                                            FontSize="18"
+                                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                                            Text="{helpers:ResourceString Name=NotificationsPageNoRecentNotificationsBody/Text}"
+                                            TextAlignment="Center" />
+                                    </toolkit:Case>
+                                </toolkit:SwitchPresenter>
+                            </Grid>
+                        </Expander.Content>
+                    </Expander>
+
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+
+        <Grid x:Name="ErrorDisplayingContentGrid" x:Load="{x:Bind ViewModel.LoadUserHomePageCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
+            <uc:LoadErrorDisplay
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                TaskException="{x:Bind ViewModel.TaskException, Mode=OneWay}">
+                <uc:LoadErrorDisplay.Action>
+                    <Grid>
+                        <Button
+                            Margin="0,24,0,0"
+                            HorizontalAlignment="Center"
+                            Command="{x:Bind ViewModel.LoadUserHomePageCommand}">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon FontSize="16" Glyph="&#xE149;" />
+                                <TextBlock Text="{helpers:ResourceString Name=TryAgainWithCap}" />
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </uc:LoadErrorDisplay.Action>
+            </uc:LoadErrorDisplay>
+        </Grid>
+
+    </Grid>
+</Page>

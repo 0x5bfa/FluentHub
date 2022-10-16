@@ -1,0 +1,2039 @@
+﻿<Page
+    x:Class="FluentHub.App.Views.Repositories.Issues.IssuePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
+    xmlns:converters="using:FluentHub.App.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="using:FluentHub.App.Helpers"
+    xmlns:local="using:FluentHub.App.Views.Repositories.Issues"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:FluentHub.App.Models"
+    xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
+    xmlns:ov="using:FluentHub.App.UserControls.Overview"
+    xmlns:primer="using:FluentHub.App.UserControls.PrimerControls"
+    xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:uc="using:FluentHub.App.UserControls"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+            <converters:IssueCommentToIssueCommentBlockViewModelConverter x:Key="IssueCommentToIssueCommentBlockViewModelConverter" />
+            <converters:HexColorCodeToSolidColorBrushConverter x:Key="HexColorCodeToSolidColorBrushConverter" />
+            <converters:DecimalToSubjectNumberConverter x:Key="DecimalToSubjectNumberConverter" />
+
+            <DataTemplate x:Key="AddedToProjectEventDataTemplate" x:DataType="modelsV4:AddedToProjectEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octicons}"
+                            FontSize="14"
+                            Glyph="&#xEA48;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <Grid ColumnSpacing="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <primer:Avatar
+                                VerticalAlignment="Top"
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                IsTextSelectionEnabled="True"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="added this to a project" />
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
+                        </Grid>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="AssignedEventDataTemplate" x:DataType="modelsV4:AssignedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octicons}"
+                            FontSize="14"
+                            Glyph="&#xEA38;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <Grid ColumnSpacing="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <primer:Avatar
+                                VerticalAlignment="Top"
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                IsTextSelectionEnabled="True"
+                                Style="{StaticResource BodyTextBlockStyle}">
+                                <Run Foreground="{ThemeResource TextFillColorSecondary}" Text="assigned" />
+                                <Run FontWeight="SemiBold" Text="{x:Bind Assignee.User.Login}" />
+                            </TextBlock>
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
+                        </Grid>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="ClosedEventDataTemplate" x:DataType="modelsV4:ClosedEvent">
+                <Grid>
+                    <toolkit:SwitchPresenter TargetType="x:String" Value="{x:Bind StateReason.ToString(), Mode=OneWay}">
+                        <toolkit:Case Value="NotPlanned">
+                            <primer:Timeline BadgeBackground="{ThemeResource PrimerForegroundMuted}">
+                                <primer:Timeline.Badge>
+                                    <FontIcon
+                                        FontFamily="{StaticResource Octicons}"
+                                        FontSize="14"
+                                        Glyph="&#xEA84;" />
+                                </primer:Timeline.Badge>
+                                <primer:Timeline.Body>
+                                    <Grid ColumnSpacing="4">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <primer:Avatar
+                                            VerticalAlignment="Top"
+                                            Label="{x:Bind Actor.Login}"
+                                            Size="20"
+                                            Source="{x:Bind Actor.AvatarUrl}" />
+                                        <TextBlock
+                                            Grid.Column="1"
+                                            VerticalAlignment="Center"
+                                            Foreground="{ThemeResource TextFillColorSecondary}"
+                                            IsTextSelectionEnabled="True"
+                                            Style="{StaticResource BodyTextBlockStyle}"
+                                            Text="closed this as not planned" />
+                                        <TextBlock
+                                            Grid.Column="2"
+                                            Foreground="{ThemeResource TextFillColorSecondary}"
+                                            Style="{StaticResource BodyTextBlockStyle}"
+                                            Text="{x:Bind CreatedAtHumanized}" />
+                                    </Grid>
+                                </primer:Timeline.Body>
+                            </primer:Timeline>
+                        </toolkit:Case>
+                        <toolkit:Case Value="Completed">
+                            <primer:Timeline BadgeBackground="{ThemeResource PrimerDoneForeground}">
+                                <primer:Timeline.Badge>
+                                    <FontIcon
+                                        FontFamily="{StaticResource Octicons}"
+                                        FontSize="14"
+                                        Glyph="&#xE9E6;" />
+                                </primer:Timeline.Badge>
+                                <primer:Timeline.Body>
+                                    <Grid ColumnSpacing="4">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <primer:Avatar
+                                            VerticalAlignment="Top"
+                                            Label="{x:Bind Actor.Login}"
+                                            Size="20"
+                                            Source="{x:Bind Actor.AvatarUrl}" />
+                                        <StackPanel
+                                            Grid.Column="1"
+                                            Orientation="Horizontal"
+                                            Spacing="4">
+                                            <TextBlock
+                                                VerticalAlignment="Center"
+                                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                                IsTextSelectionEnabled="True"
+                                                Style="{StaticResource BodyTextBlockStyle}"
+                                                Text="closed this as completed" />
+                                        </StackPanel>
+                                        <TextBlock
+                                            Grid.Column="2"
+                                            Foreground="{ThemeResource TextFillColorSecondary}"
+                                            Style="{StaticResource BodyTextBlockStyle}"
+                                            Text="{x:Bind CreatedAtHumanized}" />
+                                    </Grid>
+                                </primer:Timeline.Body>
+                            </primer:Timeline>
+                        </toolkit:Case>
+                    </toolkit:SwitchPresenter>
+                </Grid>
+            </DataTemplate>
+
+            <DataTemplate x:Key="CommentDeletedEventDataTemplate" x:DataType="modelsV4:CommentDeletedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octicons}"
+                            FontSize="14"
+                            Glyph="&#xEAD4;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <Grid ColumnSpacing="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <primer:Avatar
+                                VerticalAlignment="Top"
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                IsTextSelectionEnabled="True"
+                                Style="{StaticResource BodyTextBlockStyle}">
+                                <Run Foreground="{ThemeResource TextFillColorSecondary}" Text="deleted a comment from" />
+                                <Run
+                                    FontWeight="SemiBold"
+                                    Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                                    Text="{x:Bind DeletedCommentAuthor.Login}" />
+                            </TextBlock>
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
+                        </Grid>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="ConnectedEventDataTemplate" x:DataType="modelsV4:ConnectedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octicons}"
+                            FontSize="14"
+                            Glyph="&#xE924;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <Grid ColumnSpacing="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <primer:Avatar
+                                VerticalAlignment="Top"
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
+                                    IsTextSelectionEnabled="True"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="made a connection" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" HorizontalAlignment="Right">
+                                <TextBlock
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="{x:Bind CreatedAtHumanized}" />
+                            </StackPanel>
+                        </Grid>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="ConvertedToDiscussionEventDataTemplate" x:DataType="modelsV4:ConvertedToDiscussionEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octicons}"
+                            FontSize="14"
+                            Glyph="&#xE95D;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <Grid ColumnSpacing="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <primer:Avatar
+                                VerticalAlignment="Top"
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                IsTextSelectionEnabled="True"
+                                Style="{StaticResource BodyTextBlockStyle}">
+                                <Run Foreground="{ThemeResource TextFillColorSecondary}" Text="converted this to a discussion titled" />
+                                <Run Text="{x:Bind Discussion.Title}" />
+                                <Run Foreground="{ThemeResource TextFillColorSecondary}" Text="{x:Bind Discussion.Number}" />
+                            </TextBlock>
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
+                        </Grid>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="ConvertedNoteToIssueEventDataTemplate" x:DataType="modelsV4:ConvertedNoteToIssueEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octicons}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <Grid ColumnSpacing="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <primer:Avatar
+                                VerticalAlignment="Top"
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                IsTextSelectionEnabled="True"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="converted note to an issue" />
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
+                        </Grid>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="CrossReferencedEventDataTemplate" x:DataType="modelsV4:CrossReferencedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octicons}"
+                            FontSize="14"
+                            Glyph="&#xE968;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <Grid ColumnSpacing="4">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <primer:Avatar
+                                VerticalAlignment="Top"
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
+                                    IsTextSelectionEnabled="True"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="referenced this" />
+                                <StackPanel
+                                    x:Name="CrossReferencedEventSourceRepoTextBlock"
+                                    VerticalAlignment="Center"
+                                    x:Load="{x:Bind IsCrossRepository}"
+                                    Orientation="Horizontal"
+                                    Spacing="4">
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        Style="{StaticResource BodyTextBlockStyle}"
+                                        Text="from" />
+                                    <StackPanel
+                                        x:Name="CrossReferencedEventSourceIssueRepository"
+                                        x:Load="{x:Bind Source.Issue, Converter={StaticResource ObjectToBoolConverter}}"
+                                        Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind Source.Issue.Repository.Owner.Login}" />
+                                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
+                                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind Source.Issue.Repository.Name}" />
+                                    </StackPanel>
+                                    <StackPanel
+                                        x:Name="CrossReferencedEventSourcePullRequestRepository"
+                                        x:Load="{x:Bind Source.PullRequest, Converter={StaticResource ObjectToBoolConverter}}"
+                                        Orientation="Horizontal">
+                                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind Source.PullRequest.Repository.Owner.Login}" />
+                                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
+                                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind Source.PullRequest.Repository.Name}" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" HorizontalAlignment="Right">
+                                <TextBlock
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="{x:Bind CreatedAtHumanized}" />
+                            </StackPanel>
+                            <Button
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Grid.ColumnSpan="2"
+                                Margin="0,4,0,0"
+                                Padding="8"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Left">
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <Grid>
+                                        <toolkit:SwitchPresenter
+                                            x:Name="CrossReferencedEventSourceIssueStateSwitchPresenter"
+                                            x:Load="{x:Bind Source.Issue, Converter={StaticResource ObjectToBoolConverter}}"
+                                            TargetType="x:String"
+                                            Value="{x:Bind Source.Issue.State}">
+                                            <toolkit:Case Value="Open">
+                                                <Border
+                                                    Width="24"
+                                                    Height="24"
+                                                    Background="{ThemeResource PrimerOpenEmphasis}"
+                                                    CornerRadius="4">
+                                                    <FontIcon
+                                                        FontFamily="{StaticResource Octicons}"
+                                                        FontSize="16"
+                                                        Glyph="&#xE9BF;" />
+                                                </Border>
+                                            </toolkit:Case>
+                                            <toolkit:Case Value="Closed">
+                                                <Grid>
+                                                    <toolkit:SwitchPresenter
+                                                        x:Name="CrossReferencedEventSourceIssueStateReasonSwitchPresenter"
+                                                        x:Load="{x:Bind Source.Issue, Converter={StaticResource ObjectToBoolConverter}}"
+                                                        TargetType="x:String"
+                                                        Value="{x:Bind Source.Issue.StateReason.ToString()}">
+                                                        <toolkit:Case Value="NotPlanned">
+                                                            <Border
+                                                                Width="24"
+                                                                Height="24"
+                                                                Background="{ThemeResource PrimerNeutralEmphasis}"
+                                                                CornerRadius="4">
+                                                                <FontIcon
+                                                                    FontFamily="{StaticResource Octicons}"
+                                                                    FontSize="16"
+                                                                    Glyph="&#xE9E6;" />
+                                                            </Border>
+                                                        </toolkit:Case>
+                                                        <toolkit:Case Value="Completed">
+                                                            <Border
+                                                                Width="24"
+                                                                Height="24"
+                                                                Background="{ThemeResource PrimerDoneEmphasis}"
+                                                                CornerRadius="4">
+                                                                <FontIcon
+                                                                    FontFamily="{StaticResource Octicons}"
+                                                                    FontSize="16"
+                                                                    Glyph="&#xE9E6;" />
+                                                            </Border>
+                                                        </toolkit:Case>
+                                                    </toolkit:SwitchPresenter>
+                                                </Grid>
+                                            </toolkit:Case>
+                                        </toolkit:SwitchPresenter>
+                                        <toolkit:SwitchPresenter
+                                            x:Name="CrossReferencedEventSourcePullRequestIsDraftSwitchPresenter"
+                                            x:Load="{x:Bind Source.PullRequest, Converter={StaticResource ObjectToBoolConverter}}"
+                                            TargetType="x:String"
+                                            Value="{x:Bind Source.PullRequest.IsDraft}">
+                                            <toolkit:Case Value="True">
+                                                <Border
+                                                    Width="24"
+                                                    Height="24"
+                                                    Background="{ThemeResource PrimerNeutralEmphasis}"
+                                                    CornerRadius="4">
+                                                    <FontIcon
+                                                        FontFamily="{StaticResource Octicons}"
+                                                        FontSize="16"
+                                                        Glyph="&#xE9C3;" />
+                                                </Border>
+                                            </toolkit:Case>
+                                            <toolkit:Case Value="False">
+                                                <Grid>
+                                                    <toolkit:SwitchPresenter
+                                                        x:Name="CrossReferencedEventSourcePullRequestStateSwitchPresenter"
+                                                        x:Load="{x:Bind Source.PullRequest, Converter={StaticResource ObjectToBoolConverter}}"
+                                                        TargetType="x:String"
+                                                        Value="{x:Bind Source.PullRequest.State}">
+                                                        <toolkit:Case Value="Open">
+                                                            <Border
+                                                                Width="24"
+                                                                Height="24"
+                                                                Background="{ThemeResource PrimerOpenEmphasis}"
+                                                                CornerRadius="4">
+                                                                <FontIcon
+                                                                    FontFamily="{StaticResource Octicons}"
+                                                                    FontSize="16"
+                                                                    Glyph="&#xE9BF;" />
+                                                            </Border>
+                                                        </toolkit:Case>
+                                                        <toolkit:Case Value="Closed">
+                                                            <Border
+                                                                Width="24"
+                                                                Height="24"
+                                                                Background="{ThemeResource PrimerDangerEmphasis}"
+                                                                CornerRadius="4">
+                                                                <FontIcon
+                                                                    FontFamily="{StaticResource Octicons}"
+                                                                    FontSize="16"
+                                                                    Glyph="&#xE9C1;" />
+                                                            </Border>
+                                                        </toolkit:Case>
+                                                        <toolkit:Case Value="Merged">
+                                                            <Border
+                                                                Width="24"
+                                                                Height="24"
+                                                                Background="{ThemeResource PrimerDoneEmphasis}"
+                                                                CornerRadius="4">
+                                                                <FontIcon
+                                                                    FontFamily="{StaticResource Octicons}"
+                                                                    FontSize="16"
+                                                                    Glyph="&#xE9BD;" />
+                                                            </Border>
+                                                        </toolkit:Case>
+                                                    </toolkit:SwitchPresenter>
+                                                </Grid>
+                                            </toolkit:Case>
+                                        </toolkit:SwitchPresenter>
+                                    </Grid>
+                                    <TextBlock
+                                        x:Name="CrossReferencedEventSourceIssueTitleTextBlock"
+                                        VerticalAlignment="Center"
+                                        x:Load="{x:Bind Source.Issue, Converter={StaticResource ObjectToBoolConverter}}"
+                                        Style="{StaticResource BodyTextBlockStyle}"
+                                        Text="{x:Bind Source.Issue.Title}" />
+                                    <TextBlock
+                                        x:Name="CrossReferencedEventSourcePullRequestTitleTextBlock"
+                                        VerticalAlignment="Center"
+                                        x:Load="{x:Bind Source.PullRequest, Converter={StaticResource ObjectToBoolConverter}}"
+                                        Style="{StaticResource BodyTextBlockStyle}"
+                                        Text="{x:Bind Source.PullRequest.Title}" />
+                                </StackPanel>
+                            </Button>
+                        </Grid>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="DemilestonedEventDataTemplate" x:DataType="modelsV4:DemilestonedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octicons}"
+                            FontSize="14"
+                            Glyph="&#xEA12;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <Grid ColumnSpacing="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <primer:Avatar
+                                VerticalAlignment="Top"
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                IsTextSelectionEnabled="True"
+                                Style="{StaticResource BodyTextBlockStyle}">
+                                <Run Foreground="{ThemeResource TextFillColorSecondary}" Text="removed this from a milestone titled" />
+                                <Run FontWeight="SemiBold" Text="{x:Bind MilestoneTitle}" />
+                            </TextBlock>
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
+                        </Grid>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="DisconnectedEventDataTemplate" x:DataType="modelsV4:DisconnectedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octicons}"
+                            FontSize="14"
+                            Glyph="&#xE924;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <Grid ColumnSpacing="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <primer:Avatar
+                                VerticalAlignment="Top"
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
+                                    IsTextSelectionEnabled="True"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="removed a connection" />
+                            </StackPanel>
+                            <StackPanel Grid.Column="2" HorizontalAlignment="Right">
+                                <TextBlock
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="{x:Bind CreatedAtHumanized}" />
+                            </StackPanel>
+                        </Grid>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="IssueCommentDataTemplate" x:DataType="modelsV4:IssueComment">
+                <StackPanel>
+                    <Border
+                        Grid.Row="0"
+                        Width="1.5"
+                        Height="16"
+                        Margin="36,0,0,0"
+                        HorizontalAlignment="Left"
+                        Background="{ThemeResource PrimerBorderMuted}" />
+                    <uc:IssueCommentBlock ViewModel="{x:Bind Converter={StaticResource IssueCommentToIssueCommentBlockViewModelConverter}}" />
+                    <Border
+                        Grid.Row="0"
+                        Width="1.5"
+                        Height="16"
+                        Margin="36,0,0,0"
+                        HorizontalAlignment="Left"
+                        Background="{ThemeResource PrimerBorderMuted}" />
+                </StackPanel>
+            </DataTemplate>
+
+            <DataTemplate x:Key="LabeledEventDataTemplate" x:DataType="modelsV4:LabeledEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octicons}"
+                            FontSize="14"
+                            Glyph="&#xEAA5;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <Grid ColumnSpacing="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <primer:Avatar
+                                VerticalAlignment="Top"
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
+                                    IsTextSelectionEnabled="True"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="added the" />
+                                <primer:IssueLabelToken FillColor="{x:Bind Label.Color, Converter={StaticResource HexColorCodeToSolidColorBrushConverter}}" Text="{x:Bind Label.Name}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
+                                    IsTextSelectionEnabled="True"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="label" />
+                            </StackPanel>
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
+                        </Grid>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="LockedEventDataTemplate" x:DataType="modelsV4:LockedEvent">
+                <primer:Timeline BadgeBackground="{ThemeResource PrimerNeutralEmphasisPlus}">
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octicons}"
+                            FontSize="14"
+                            Foreground="{ThemeResource PrimerNeutralEmphasis}"
+                            Glyph="&#xEA05;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <Grid ColumnSpacing="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <primer:Avatar
+                                VerticalAlignment="Top"
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
+                                <TextBlock
+                                    x:Name="LockedEventLockReasonTextBlock"
+                                    VerticalAlignment="Center"
+                                    x:Load="{x:Bind LockReason, Converter={StaticResource ObjectToBoolConverter}}"
+                                    IsTextSelectionEnabled="True"
+                                    Style="{StaticResource BodyTextBlockStyle}">
+                                    <Run Foreground="{ThemeResource TextFillColorSecondary}" Text="locked" />
+                                    <Run Foreground="{ThemeResource TextFillColorSecondary}" Text="as" />
+                                    <Run FontWeight="SemiBold" Text="{x:Bind LockReason}" />
+                                    <Run Foreground="{ThemeResource TextFillColorSecondary}" Text="and limited conversation to collaborators" />
+                                </TextBlock>
+                            </StackPanel>
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
+                        </Grid>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="MarkedAsDuplicateEventDataTemplate" x:DataType="modelsV4:MarkedAsDuplicateEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octicons}"
+                            FontSize="14"
+                            Glyph="&#xE924;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <Grid ColumnSpacing="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <primer:Avatar
+                                VerticalAlignment="Top"
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
+                                    IsTextSelectionEnabled="True"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="marked this as a duplicate of" />
+                                <TextBlock
+                                    Margin="0,0,-4,0"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="#" />
+                                <TextBlock
+                                    x:Name="DuplicatedOriginalIssueSource"
+                                    x:Load="{x:Bind Duplicate.Issue, Converter={StaticResource ObjectToBoolConverter}}"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="{x:Bind Duplicate.Issue.Number}" />
+                                <TextBlock
+                                    x:Name="DuplicatedOriginalPullRequestSource"
+                                    x:Load="{x:Bind Duplicate.PullRequest, Converter={StaticResource ObjectToBoolConverter}}"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="{x:Bind Duplicate.PullRequest.Number}" />
+                            </StackPanel>
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
+                        </Grid>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <!--<DataTemplate x:Key="MentionedEventDataTemplate" x:DataType="modelsV4:MentionedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octicons}"
+                            FontSize="14"
+                            Glyph="&#xE95B;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <Grid ColumnSpacing="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <primer:Avatar
+                                VerticalAlignment="Top"
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="mentioned" />
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
+                        </Grid>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>-->
+
+            <DataTemplate x:Key="MilestonedEventDataTemplate" x:DataType="modelsV4:MilestonedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octicons}"
+                            FontSize="14"
+                            Glyph="&#xEA12;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <Grid ColumnSpacing="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <primer:Avatar
+                                VerticalAlignment="Top"
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                IsTextSelectionEnabled="True"
+                                Style="{StaticResource BodyTextBlockStyle}">
+                                <Run Foreground="{ThemeResource TextFillColorSecondary}" Text="add this to a milestone titled" />
+                                <Run FontWeight="SemiBold" Text="{x:Bind MilestoneTitle}" />
+                            </TextBlock>
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
+                        </Grid>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="MovedColumnsInProjectEventDataTemplate" x:DataType="modelsV4:MovedColumnsInProjectEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octicons}"
+                            FontSize="14"
+                            Glyph="&#xEA48;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <Grid ColumnSpacing="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <primer:Avatar
+                                VerticalAlignment="Top"
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                IsTextSelectionEnabled="True"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="moved this to other column in project" />
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
+                        </Grid>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="PinnedEventDataTemplate" x:DataType="modelsV4:PinnedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octicons}"
+                            FontSize="14"
+                            Glyph="&#xEA3E;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <Grid ColumnSpacing="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <primer:Avatar
+                                VerticalAlignment="Top"
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                IsTextSelectionEnabled="True"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="pinned this" />
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
+                        </Grid>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="ReferencedEventDataTemplate" x:DataType="modelsV4:ReferencedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octicons}"
+                            FontSize="14"
+                            Glyph="&#xE968;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <Grid ColumnSpacing="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <primer:Avatar
+                                VerticalAlignment="Top"
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="referenced" />
+                            </StackPanel>
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
+                        </Grid>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="RemovedFromProjectEventDataTemplate" x:DataType="modelsV4:RemovedFromProjectEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octicons}"
+                            FontSize="14"
+                            Glyph="&#xEA48;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <Grid ColumnSpacing="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <primer:Avatar
+                                VerticalAlignment="Top"
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                IsTextSelectionEnabled="True"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="removed this from a project" />
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
+                        </Grid>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="RenamedTitleEventDataTemplate" x:DataType="modelsV4:RenamedTitleEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octicons}"
+                            FontSize="14"
+                            Glyph="&#xEA34;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <Grid ColumnSpacing="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <primer:Avatar
+                                VerticalAlignment="Top"
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                IsTextSelectionEnabled="True"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                TextWrapping="Wrap">
+                                <Run Foreground="{ThemeResource TextFillColorSecondary}" Text="renamed title from" />
+                                <Run Text="{x:Bind PreviousTitle}" TextDecorations="Strikethrough" />
+                                <Run Foreground="{ThemeResource TextFillColorSecondary}" Text="to" />
+                                <Run FontWeight="SemiBold" Text="{x:Bind CurrentTitle}" />
+                            </TextBlock>
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
+                        </Grid>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="ReopenedEventDataTemplate" x:DataType="modelsV4:ReopenedEvent">
+                <primer:Timeline BadgeBackground="{ThemeResource PrimerOpenEmphasis}">
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octicons}"
+                            FontSize="14"
+                            Glyph="&#xE9EC;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <Grid ColumnSpacing="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <primer:Avatar
+                                VerticalAlignment="Top"
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
+                                    IsTextSelectionEnabled="True"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="reopened this" />
+                            </StackPanel>
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
+                        </Grid>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <!--<DataTemplate x:Key="SubscribedEventDataTemplate" x:DataType="modelsV4:SubscribedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octicons}"
+                            FontSize="14"
+                            Glyph="&#xE924;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <Grid ColumnSpacing="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <primer:Avatar
+                                VerticalAlignment="Top"
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="subscribed" />
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
+                        </Grid>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>-->
+
+            <DataTemplate x:Key="TransferredEventDataTemplate" x:DataType="modelsV4:TransferredEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octicons}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <Grid ColumnSpacing="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <primer:Avatar
+                                VerticalAlignment="Top"
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
+                                    IsTextSelectionEnabled="True"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="transferred this from" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="{x:Bind FromRepository.Owner.Login}" />
+                                <TextBlock
+                                    Margin="-4,0"
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="/" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="{x:Bind FromRepository.Name}" />
+                            </StackPanel>
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
+                        </Grid>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="UnassignedEventDataTemplate" x:DataType="modelsV4:UnassignedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octicons}"
+                            FontSize="14"
+                            Glyph="&#xEA38;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <Grid ColumnSpacing="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <primer:Avatar
+                                VerticalAlignment="Top"
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    IsTextSelectionEnabled="True"
+                                    Style="{StaticResource BodyTextBlockStyle}">
+                                    <Run Foreground="{ThemeResource TextFillColorSecondary}" Text="unassigned" />
+                                    <Run Text="{x:Bind Assignee.User.Login}" />
+                                </TextBlock>
+                            </StackPanel>
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
+                        </Grid>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="UnlabeledEventDataTemplate" x:DataType="modelsV4:UnlabeledEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octicons}"
+                            FontSize="14"
+                            Glyph="&#xEAA5;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <Grid ColumnSpacing="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <primer:Avatar
+                                VerticalAlignment="Top"
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
+                                    IsTextSelectionEnabled="True"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="removed the" />
+                                <primer:IssueLabelToken FillColor="{x:Bind Label.Color, Converter={StaticResource HexColorCodeToSolidColorBrushConverter}}" Text="{x:Bind Label.Name}" />
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
+                                    IsTextSelectionEnabled="True"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="label" />
+                            </StackPanel>
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
+                        </Grid>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="UnlockedEventDataTemplate" x:DataType="modelsV4:UnlockedEvent">
+                <primer:Timeline BadgeBackground="{ThemeResource PrimerNeutralEmphasisPlus}">
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octicons}"
+                            FontSize="14"
+                            Foreground="{ThemeResource PrimerNeutralEmphasis}"
+                            Glyph="&#xEAC4;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <Grid ColumnSpacing="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <primer:Avatar
+                                VerticalAlignment="Top"
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                IsTextSelectionEnabled="True"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="unlocked this" />
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
+                        </Grid>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="UnmarkedAsDuplicateEventDataTemplate" x:DataType="modelsV4:UnmarkedAsDuplicateEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octicons}"
+                            FontSize="14"
+                            Glyph="&#xE927;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <Grid ColumnSpacing="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <primer:Avatar
+                                VerticalAlignment="Top"
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
+                                    IsTextSelectionEnabled="True"
+                                    Style="{StaticResource BodyTextBlockStyle}"
+                                    Text="unmarked as a duplicate of" />
+                                <TextBlock
+                                    Margin="0,0,-4,0"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="#" />
+                                <TextBlock
+                                    x:Name="DuplicatedOriginalIssueSource"
+                                    x:Load="{x:Bind Duplicate.Issue, Converter={StaticResource ObjectToBoolConverter}}"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="{x:Bind Duplicate.Issue.Number}" />
+                                <TextBlock
+                                    x:Name="DuplicatedOriginalPullRequestSource"
+                                    x:Load="{x:Bind Duplicate.PullRequest, Converter={StaticResource ObjectToBoolConverter}}"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="{x:Bind Duplicate.PullRequest.Number}" />
+                            </StackPanel>
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
+                        </Grid>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="UnpinnedEventDataTemplate" x:DataType="modelsV4:UnpinnedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octicons}"
+                            FontSize="14"
+                            Glyph="&#xEA3E;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <Grid ColumnSpacing="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <primer:Avatar
+                                VerticalAlignment="Top"
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                IsTextSelectionEnabled="True"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="unpinned this" />
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
+                        </Grid>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="UnsubscribedEventDataTemplate" x:DataType="modelsV4:UnsubscribedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octicons}"
+                            FontSize="14"
+                            Glyph="&#xEADB;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <Grid ColumnSpacing="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <primer:Avatar
+                                VerticalAlignment="Top"
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                IsTextSelectionEnabled="True"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="unsubscribed" />
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
+                        </Grid>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="UserBlockedEventDataTemplate" x:DataType="modelsV4:UserBlockedEvent">
+                <primer:Timeline>
+                    <primer:Timeline.Badge>
+                        <FontIcon
+                            FontFamily="{StaticResource Octicons}"
+                            FontSize="14"
+                            Glyph="&#xEAD6;" />
+                    </primer:Timeline.Badge>
+                    <primer:Timeline.Body>
+                        <Grid ColumnSpacing="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <primer:Avatar
+                                VerticalAlignment="Top"
+                                Label="{x:Bind Actor.Login}"
+                                Size="20"
+                                Source="{x:Bind Actor.AvatarUrl}" />
+                            <StackPanel
+                                Grid.Column="1"
+                                Orientation="Horizontal"
+                                Spacing="4">
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    IsTextSelectionEnabled="True"
+                                    Style="{StaticResource BodyTextBlockStyle}">
+                                    <Run Foreground="{ThemeResource TextFillColorSecondary}" Text="blocked" />
+                                    <Run FontWeight="SemiBold" Text="{x:Bind Subject.Login}" />
+                                    <Run Foreground="{ThemeResource TextFillColorSecondary}" Text="in" />
+                                    <Run FontWeight="SemiBold" Text="{x:Bind BlockDuration}" />
+                                </TextBlock>
+                            </StackPanel>
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
+                        </Grid>
+                    </primer:Timeline.Body>
+                </primer:Timeline>
+            </DataTemplate>
+
+            <DataTemplate x:Key="DefaultDataTemplate">
+                <Grid />
+            </DataTemplate>
+
+            <!--
+                MentionedEventDataTemplate="{StaticResource MentionedEventDataTemplate}"
+                SubscribedEventDataTemplate="{StaticResource SubscribedEventDataTemplate}"
+                UnsubscribedEventDataTemplate="{StaticResource UnsubscribedEventDataTemplate}"
+            -->
+
+            <models:TimelineItemSelector
+                x:Key="TimelineItemSelector"
+                AddedToProjectEventDataTemplate="{StaticResource AddedToProjectEventDataTemplate}"
+                AssignedEventDataTemplate="{StaticResource AssignedEventDataTemplate}"
+                ClosedEventDataTemplate="{StaticResource ClosedEventDataTemplate}"
+                CommentDeletedEventDataTemplate="{StaticResource CommentDeletedEventDataTemplate}"
+                ConnectedEventDataTemplate="{StaticResource ConnectedEventDataTemplate}"
+                ConvertedNoteToIssueEventDataTemplate="{StaticResource ConvertedNoteToIssueEventDataTemplate}"
+                ConvertedToDiscussionEventDataTemplate="{StaticResource ConvertedToDiscussionEventDataTemplate}"
+                CrossReferencedEventDataTemplate="{StaticResource CrossReferencedEventDataTemplate}"
+                DefaultDataTemplate="{StaticResource DefaultDataTemplate}"
+                DemilestonedEventDataTemplate="{StaticResource DemilestonedEventDataTemplate}"
+                DisconnectedEventDataTemplate="{StaticResource DisconnectedEventDataTemplate}"
+                IssueCommentDataTemplate="{StaticResource IssueCommentDataTemplate}"
+                LabeledEventDataTemplate="{StaticResource LabeledEventDataTemplate}"
+                LockedEventDataTemplate="{StaticResource LockedEventDataTemplate}"
+                MarkedAsDuplicateEventDataTemplate="{StaticResource MarkedAsDuplicateEventDataTemplate}"
+                MilestonedEventDataTemplate="{StaticResource MilestonedEventDataTemplate}"
+                MovedColumnsInProjectEventDataTemplate="{StaticResource MovedColumnsInProjectEventDataTemplate}"
+                PinnedEventDataTemplate="{StaticResource PinnedEventDataTemplate}"
+                ReferencedEventDataTemplate="{StaticResource ReferencedEventDataTemplate}"
+                RemovedFromProjectEventDataTemplate="{StaticResource RemovedFromProjectEventDataTemplate}"
+                RenamedTitleEventDataTemplate="{StaticResource RenamedTitleEventDataTemplate}"
+                ReopenedEventDataTemplate="{StaticResource ReopenedEventDataTemplate}"
+                TransferredEventDataTemplate="{StaticResource TransferredEventDataTemplate}"
+                UnassignedEventDataTemplate="{StaticResource UnassignedEventDataTemplate}"
+                UnlabeledEventDataTemplate="{StaticResource UnlabeledEventDataTemplate}"
+                UnlockedEventDataTemplate="{StaticResource UnlockedEventDataTemplate}"
+                UnmarkedAsDuplicateEventDataTemplate="{StaticResource UnmarkedAsDuplicateEventDataTemplate}"
+                UnpinnedEventDataTemplate="{StaticResource UnpinnedEventDataTemplate}"
+                UserBlockedEventDataTemplate="{StaticResource UserBlockedEventDataTemplate}" />
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid>
+
+        <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryIssuePageCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <Grid Margin="0,0,8,8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <ov:RepositoryOverview ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
+
+                    <Grid
+                        Grid.Row="1"
+                        Margin="0,8,0,0"
+                        Padding="32,24"
+                        Background="{ThemeResource LayerFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1"
+                        CornerRadius="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock
+                            x:Name="IssueTitleTextBlock"
+                            IsTextSelectionEnabled="True"
+                            Style="{StaticResource TitleTextBlockStyle}"
+                            ToolTipService.ToolTip="{x:Bind IssueTitleTextBlock.Text, Mode=OneWay}">
+                            <Run FontWeight="SemiBold" Text="{x:Bind ViewModel.IssueItem.Title, Mode=OneWay}" />
+                            <Run
+                                FontWeight="Normal"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Text="{x:Bind ViewModel.IssueItem.Number, Converter={StaticResource DecimalToSubjectNumberConverter}, Mode=OneWay}" />
+                        </TextBlock>
+
+                        <StackPanel
+                            Grid.Row="1"
+                            Margin="0,12,0,0"
+                            Orientation="Horizontal"
+                            Spacing="8">
+                            <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.IssueItem.Closed, Mode=OneWay}">
+                                <toolkit:Case Value="True">
+                                    <primer:StateLabel Status="IssueClosed" ToolTipService.ToolTip="This issue has been closed." />
+                                </toolkit:Case>
+                                <toolkit:Case Value="False">
+                                    <primer:StateLabel Status="IssueOpen" ToolTipService.ToolTip="This issue is still open." />
+                                </toolkit:Case>
+                            </toolkit:SwitchPresenter>
+                        </StackPanel>
+
+                        <Grid
+                            Grid.RowSpan="2"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top">
+                            <Button
+                                Width="36"
+                                Height="32"
+                                Padding="0"
+                                VerticalAlignment="Center"
+                                ToolTipService.ToolTip="More option">
+                                <FontIcon FontSize="16" Glyph="&#xE10C;" />
+                                <Button.Flyout>
+                                    <MenuFlyout Placement="BottomEdgeAlignedRight">
+                                        <MenuFlyoutItem IsEnabled="False" Text="Edit title" />
+                                        <MenuFlyoutItem IsEnabled="False" Text="Subscribe" />
+                                        <MenuFlyoutItem IsEnabled="False" Text="Lock" />
+                                        <MenuFlyoutItem IsEnabled="False" Text="Report" />
+                                        <MenuFlyoutSubItem IsEnabled="False" Text="Close Issue">
+                                            <MenuFlyoutSubItem.Items>
+                                                <MenuFlyoutItem IsEnabled="False" Text="Completed" />
+                                                <MenuFlyoutItem IsEnabled="False" Text="Not planned" />
+                                            </MenuFlyoutSubItem.Items>
+                                        </MenuFlyoutSubItem>
+                                    </MenuFlyout>
+                                </Button.Flyout>
+                            </Button>
+                        </Grid>
+
+                    </Grid>
+
+                    <Grid
+                        Grid.Row="2"
+                        Margin="0,8,0,0"
+                        Padding="32,0,32,32"
+                        Background="{ThemeResource LayerFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1"
+                        CornerRadius="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="3*" />
+                            <ColumnDefinition
+                                Width="*"
+                                MinWidth="214"
+                                MaxWidth="400" />
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel x:Name="IssueContentPanel">
+
+                            <Border
+                                Width="1.5"
+                                Height="16"
+                                Margin="36,0,0,0"
+                                HorizontalAlignment="Left"
+                                Background="{ThemeResource PrimerBorderMuted}" />
+
+                            <!--  (VerticalCacheLength:) https://github.com/microsoft/microsoft-ui-xaml/issues/3861  -->
+                            <ItemsRepeater
+                                ItemTemplate="{StaticResource TimelineItemSelector}"
+                                ItemsSource="{x:Bind ViewModel.TimelineItems, Mode=OneWay}"
+                                VerticalCacheLength="256" />
+
+                            <Border
+                                Width="1.5"
+                                Height="16"
+                                Margin="36,0,0,0"
+                                HorizontalAlignment="Left"
+                                Background="{ThemeResource PrimerBorderMuted}" />
+                        </StackPanel>
+
+                        <StackPanel
+                            x:Name="IssueDetailsSidebar"
+                            Grid.Column="1"
+                            Margin="24,32,0,0"
+                            Spacing="12">
+
+                            <StackPanel Spacing="12">
+
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                                        Text="Assignees" />
+                                </StackPanel>
+
+                                <Grid>
+
+                                    <ItemsRepeater ItemsSource="{x:Bind ViewModel.IssueItem.Assignees.Nodes, Mode=OneWay}">
+                                        <ItemsRepeater.Layout>
+                                            <StackLayout Orientation="Vertical" Spacing="6" />
+                                        </ItemsRepeater.Layout>
+                                        <DataTemplate x:DataType="modelsV4:User">
+                                            <primer:Avatar
+                                                HorizontalAlignment="Left"
+                                                Label="{x:Bind Login, Mode=OneWay}"
+                                                Source="{x:Bind AvatarUrl, Mode=OneWay}" />
+                                        </DataTemplate>
+                                    </ItemsRepeater>
+
+                                    <TextBlock
+                                        x:Name="IssueDetailsSidebarNoAssigneesTextBlock"
+                                        x:Load="{x:Bind ViewModel.IssueItem.Assignees.Nodes.Count, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="No assignees" />
+                                </Grid>
+
+                                <MenuFlyoutSeparator />
+                            </StackPanel>
+
+                            <StackPanel Spacing="12">
+
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                                        Text="Labels" />
+                                </StackPanel>
+
+                                <Grid>
+
+                                    <ItemsRepeater ItemsSource="{x:Bind ViewModel.IssueItem.Labels.Nodes, Mode=OneWay}">
+                                        <ItemsRepeater.Layout>
+                                            <StackLayout Orientation="Vertical" Spacing="6" />
+                                        </ItemsRepeater.Layout>
+                                        <DataTemplate x:DataType="modelsV4:Label">
+                                            <primer:IssueLabelToken
+                                                HorizontalAlignment="Left"
+                                                FillColor="{x:Bind Color, Converter={StaticResource HexColorCodeToSolidColorBrushConverter}}"
+                                                Text="{x:Bind Name}" />
+                                        </DataTemplate>
+                                    </ItemsRepeater>
+
+                                    <TextBlock
+                                        x:Name="IssueDetailsSidebarNoLabelsTextBlock"
+                                        x:Load="{x:Bind ViewModel.IssueItem.Labels.Nodes.Count, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="No labels" />
+                                </Grid>
+
+                                <MenuFlyoutSeparator />
+                            </StackPanel>
+
+                            <StackPanel Spacing="12">
+
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                                        Text="Projects" />
+                                </StackPanel>
+
+
+                                <StackPanel>
+
+                                    <TextBlock
+                                        Foreground="{ThemeResource TextFillColorSecondary}"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="No projects" />
+
+                                </StackPanel>
+
+                                <MenuFlyoutSeparator />
+                            </StackPanel>
+
+                            <StackPanel Spacing="12">
+
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                                        Text="Milestone" />
+                                </StackPanel>
+
+                                <Grid>
+                                    <Grid
+                                        Padding="16,8,16,16"
+                                        Background="{ThemeResource LayerFillColorDefaultBrush}"
+                                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                        BorderThickness="1"
+                                        CornerRadius="8"
+                                        RowSpacing="8">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock
+                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                                            Text="{x:Bind ViewModel.IssueItem.Milestone.Title, Mode=OneWay}" />
+                                        <ProgressBar
+                                            Grid.Row="1"
+                                            Maximum="100"
+                                            Value="{x:Bind ViewModel.IssueItem.Milestone.ProgressPercentage, Mode=OneWay}" />
+                                    </Grid>
+
+
+                                    <TextBlock
+                                        x:Name="IssueDetailsSidebarNoMilestoneTextBlock"
+                                        x:Load="{x:Bind ViewModel.IssueItem.Milestone, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="No milestone" />
+                                </Grid>
+
+                                <MenuFlyoutSeparator />
+                            </StackPanel>
+
+                            <StackPanel Spacing="12">
+
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                                        Text="Development" />
+                                </StackPanel>
+
+
+                                <StackPanel>
+
+                                    <TextBlock
+                                        Foreground="{ThemeResource TextFillColorSecondary}"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="None" />
+
+                                </StackPanel>
+
+                                <MenuFlyoutSeparator />
+                            </StackPanel>
+
+                            <StackPanel Spacing="12">
+
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                                        Text="Notifications" />
+                                </StackPanel>
+
+
+                                <StackPanel>
+
+                                    <Button
+                                        HorizontalAlignment="Stretch"
+                                        Content="Subscribe"
+                                        IsEnabled="False" />
+
+                                </StackPanel>
+
+                                <MenuFlyoutSeparator />
+                            </StackPanel>
+
+                            <StackPanel Spacing="12">
+
+                                <StackPanel Orientation="Horizontal" Spacing="8">
+                                    <TextBlock
+                                        VerticalAlignment="Center"
+                                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                                        Text="Participants" />
+                                </StackPanel>
+
+
+                                <Grid>
+
+                                    <ItemsRepeater ItemsSource="{x:Bind ViewModel.IssueItem.Participants.Nodes, Mode=OneWay}">
+                                        <ItemsRepeater.Layout>
+                                            <StackLayout Orientation="Horizontal" Spacing="8" />
+                                        </ItemsRepeater.Layout>
+                                        <DataTemplate x:DataType="modelsV4:User">
+                                            <primer:Avatar
+                                                HorizontalAlignment="Left"
+                                                Size="28"
+                                                Source="{x:Bind AvatarUrl, Mode=OneWay}" />
+                                        </DataTemplate>
+                                    </ItemsRepeater>
+
+                                    <TextBlock
+                                        x:Name="IssueDetailsSidebarNoParticipantsTextBlock"
+                                        x:Load="{x:Bind ViewModel.IssueItem.Participants.Nodes.Count, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="No participants" />
+                                </Grid>
+
+                                <MenuFlyoutSeparator />
+                            </StackPanel>
+
+                        </StackPanel>
+
+                    </Grid>
+
+                    <Grid
+                        Grid.Row="3"
+                        Margin="0,8,0,0"
+                        Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1"
+                        CornerRadius="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Grid>
+                            <NavigationView
+                                Margin="12,4,24,4"
+                                IsBackButtonVisible="Collapsed"
+                                IsSettingsVisible="False"
+                                PaneDisplayMode="Top">
+                                <NavigationView.MenuItems>
+                                    <NavigationViewItem
+                                        Content="Write"
+                                        IsEnabled="False"
+                                        IsSelected="True" />
+                                    <NavigationViewItem Content="Preview" IsEnabled="False" />
+                                </NavigationView.MenuItems>
+                                <!--<NavigationView.PaneFooter>
+                                    <StackPanel Orientation="Horizontal" Spacing="4">
+                                        <Button
+                                            Width="32"
+                                            Height="32"
+                                            Padding="0"
+                                            Background="Transparent"
+                                            BorderThickness="0">
+                                            <FontIcon
+                                                FontFamily="{StaticResource Octicons}"
+                                                FontSize="14"
+                                                Glyph="&#xE9CD;" />
+                                        </Button>
+                                        <Button
+                                            Width="32"
+                                            Height="32"
+                                            Padding="0"
+                                            Background="Transparent"
+                                            BorderThickness="0">
+                                            <FontIcon
+                                                FontFamily="{StaticResource Octicons}"
+                                                FontSize="14"
+                                                Glyph="&#xEAA7;" />
+                                        </Button>
+                                        <Button
+                                            Width="32"
+                                            Height="32"
+                                            Padding="0"
+                                            Background="Transparent"
+                                            BorderThickness="0">
+                                            <FontIcon
+                                                FontFamily="{StaticResource Octicons}"
+                                                FontSize="14"
+                                                Glyph="&#xEA0F;" />
+                                        </Button>
+                                        <Button
+                                            Width="32"
+                                            Height="32"
+                                            Padding="0"
+                                            Background="Transparent"
+                                            BorderThickness="0">
+                                            <FontIcon
+                                                FontFamily="{StaticResource Octicons}"
+                                                FontSize="14"
+                                                Glyph="&#xE968;" />
+                                        </Button>
+                                        <Button
+                                            Width="32"
+                                            Height="32"
+                                            Padding="0"
+                                            Background="Transparent"
+                                            BorderThickness="0">
+                                            <FontIcon
+                                                FontFamily="{StaticResource Octicons}"
+                                                FontSize="14"
+                                                Glyph="&#xEA50;" />
+                                        </Button>
+                                    </StackPanel>
+                                </NavigationView.PaneFooter>-->
+                            </NavigationView>
+                        </Grid>
+
+                        <MenuFlyoutSeparator Grid.Row="1" />
+
+                        <Grid
+                            Grid.Row="2"
+                            Height="256"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
+                            <TextBox
+                                Margin="12"
+                                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+                                IsEnabled="False"
+                                PlaceholderText="Leave a comment" />
+                        </Grid>
+
+                        <Grid
+                            Grid.Row="3"
+                            Padding="12,0,12,12"
+                            Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
+
+                            <StackPanel
+                                HorizontalAlignment="Right"
+                                Orientation="Horizontal"
+                                Spacing="8">
+                                <Button Content="Close issue" IsEnabled="False" />
+                                <Button
+                                    Content="Comment"
+                                    IsEnabled="False"
+                                    Style="{StaticResource AccentButtonStyle}" />
+                            </StackPanel>
+                        </Grid>
+
+                    </Grid>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+
+        <Grid x:Name="ErrorDisplayingContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryIssuePageCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
+            <uc:LoadErrorDisplay
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                TaskException="{x:Bind ViewModel.TaskException, Mode=OneWay}">
+                <uc:LoadErrorDisplay.Action>
+                    <Grid>
+                        <Button
+                            Margin="0,24,0,0"
+                            HorizontalAlignment="Center"
+                            Command="{x:Bind ViewModel.LoadRepositoryIssuePageCommand}">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon FontSize="16" Glyph="&#xE149;" />
+                                <TextBlock Text="{helpers:ResourceString Name=TryAgainWithCap}" />
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </uc:LoadErrorDisplay.Action>
+            </uc:LoadErrorDisplay>
+        </Grid>
+
+    </Grid>
+</Page>

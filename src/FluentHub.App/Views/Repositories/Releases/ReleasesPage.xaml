@@ -1,0 +1,241 @@
+﻿<Page
+    x:Class="FluentHub.App.Views.Repositories.Releases.ReleasesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:converters="using:FluentHub.App.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="using:FluentHub.App.Helpers"
+    xmlns:local="using:FluentHub.App.Views.Repositories.Releases"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
+    xmlns:ov="using:FluentHub.App.UserControls.Overview"
+    xmlns:primer="using:FluentHub.App.UserControls.PrimerControls"
+    xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:uc="using:FluentHub.App.UserControls"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+                    <converters:HexColorCodeToSolidColorBrushConverter x:Key="HexColorCodeToSolidColorBrushConverter" />
+                    <converters:SubjectToButtonTitleConverter x:Key="SubjectToButtonTitleConverter" />
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryReleasesPageCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <Grid Margin="0,0,8,8" RowSpacing="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <ov:RepositoryOverview ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
+
+                    <Grid
+                        Grid.Row="1"
+                        Background="{ThemeResource LayerFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1"
+                        CornerRadius="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <StackPanel Margin="32,32,32,12">
+                            <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{x:Bind ViewModel.LatestRelease.Name, Mode=OneWay}" />
+
+                            <primer:Label
+                                Margin="0,12,0,0"
+                                HorizontalAlignment="Left"
+                                Text="Latest release"
+                                Variant="success" />
+
+                            <StackPanel
+                                Margin="0,12,0,0"
+                                Orientation="Horizontal"
+                                Spacing="4">
+                                <primer:Avatar
+                                    x:Name="LatestReleaseAuthorAvator"
+                                    x:Load="{x:Bind ViewModel.LatestRelease, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                                    Label="{x:Bind ViewModel.LatestRelease.Author.Login, Mode=OneWay}"
+                                    Source="{x:Bind ViewModel.LatestRelease.Author.AvatarUrl, Mode=OneWay}" />
+                                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="published at" />
+                                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.LatestRelease.PublishedAtHumanized, Mode=OneWay}" />
+                            </StackPanel>
+                        </StackPanel>
+
+                        <Grid Grid.Row="1">
+
+                            <Grid
+                                Height="450"
+                                Margin="20,0"
+                                Background="{ThemeResource SolidBackgroundFillColorBase}"
+                                CornerRadius="8,8,0,0">
+                                <WebView2
+                                    x:Name="LatestReleaseWebView2"
+                                    Height="450"
+                                    Margin="12,8"
+                                    DefaultBackgroundColor="Transparent"
+                                    Loaded="OnLatestReleaseWebView2Loaded" />
+                            </Grid>
+
+                            <Border
+                                Height="96"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Bottom">
+                                <Border.Background>
+                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                        <GradientStop x:Name="GradientStop1" Offset="0.0" Color="#00000000" />
+                                        <GradientStop x:Name="GradientStop2" Offset="0.16" Color="#06000000" />
+                                        <GradientStop x:Name="GradientStop3" Offset="0.25" Color="#12000000" />
+                                        <GradientStop x:Name="GradientStop4" Offset="0.5" Color="#24000000" />
+                                        <GradientStop x:Name="GradientStop5" Offset="0.75" Color="#36000000" />
+                                        <GradientStop x:Name="GradientStop6" Offset="1" Color="#48000000" />
+                                    </LinearGradientBrush>
+                                </Border.Background>
+                            </Border>
+
+                        </Grid>
+
+                        <MenuFlyoutSeparator Grid.Row="2" />
+
+                        <Grid
+                            Grid.Row="3"
+                            Height="44"
+                            Padding="0">
+                            <Button
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                Background="Transparent"
+                                BorderThickness="0"
+                                CornerRadius="0,0,8,8">
+                                <StackPanel>
+                                    <TextBlock Text="View release details" />
+                                </StackPanel>
+                            </Button>
+                        </Grid>
+                    </Grid>
+
+                    <Grid
+                        Grid.Row="2"
+                        Background="{ThemeResource LayerFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1"
+                        CornerRadius="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <Grid Height="44" Padding="32,8,32,4">
+                            <StackPanel Orientation="Horizontal" Spacing="4">
+                                <TextBlock
+                                    VerticalAlignment="Center"
+                                    FontSize="14"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="All Releases" />
+                            </StackPanel>
+                        </Grid>
+
+                        <MenuFlyoutSeparator Grid.Row="1" />
+
+                        <ItemsRepeater
+                            Grid.Row="2"
+                            Margin="24,12,24,24"
+                            ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}">
+                            <ItemsRepeater.Layout>
+                                <StackLayout Orientation="Vertical" Spacing="6" />
+                            </ItemsRepeater.Layout>
+                            <DataTemplate x:DataType="modelsV4:Release">
+                                <Button
+                                    x:Name="IssueBlockButton"
+                                    Padding="16,12"
+                                    Style="{StaticResource ContentBlockButtonStyle}">
+
+                                    <StackPanel Spacing="4">
+
+                                        <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{x:Bind Name, Mode=OneWay}" />
+
+                                        <StackPanel Orientation="Horizontal" Spacing="4">
+
+                                            <TextBlock
+                                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                Style="{StaticResource BodyTextBlockStyle}"
+                                                Text="{x:Bind PublishedAtHumanized, Mode=OneWay}" />
+
+                                            <StackPanel
+                                                x:Name="LatestReleaseIsLatestRelease"
+                                                x:Load="{x:Bind IsLatest, Mode=OneWay}"
+                                                Orientation="Horizontal"
+                                                Spacing="4">
+                                                <TextBlock
+                                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                    Style="{StaticResource BodyTextBlockStyle}"
+                                                    Text="·" />
+                                                <TextBlock
+                                                    Foreground="#57ab5a"
+                                                    Style="{StaticResource BodyTextBlockStyle}"
+                                                    Text="Latest" />
+                                            </StackPanel>
+
+                                            <StackPanel
+                                                x:Name="LatestReleaseIsPrerelease"
+                                                x:Load="{x:Bind IsPrerelease, Mode=OneWay}"
+                                                Orientation="Horizontal"
+                                                Spacing="4">
+                                                <TextBlock
+                                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                    Style="{StaticResource BodyTextBlockStyle}"
+                                                    Text="·" />
+                                                <TextBlock
+                                                    Foreground="#c69026"
+                                                    Style="{StaticResource BodyTextBlockStyle}"
+                                                    Text="Pre-release" />
+                                            </StackPanel>
+
+                                        </StackPanel>
+
+                                    </StackPanel>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsRepeater>
+
+                    </Grid>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+
+        <Grid x:Name="ErrorDisplayingContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryReleasesPageCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
+            <uc:LoadErrorDisplay
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                TaskException="{x:Bind ViewModel.TaskException, Mode=OneWay}">
+                <uc:LoadErrorDisplay.Action>
+                    <Grid>
+                        <Button
+                            Margin="0,24,0,0"
+                            HorizontalAlignment="Center"
+                            Command="{x:Bind ViewModel.LoadRepositoryReleasesPageCommand}">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon FontSize="16" Glyph="&#xE149;" />
+                                <TextBlock Text="{helpers:ResourceString Name=TryAgainWithCap}" />
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </uc:LoadErrorDisplay.Action>
+            </uc:LoadErrorDisplay>
+        </Grid>
+
+    </Grid>
+</Page>

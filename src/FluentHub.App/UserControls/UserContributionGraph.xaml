@@ -1,0 +1,235 @@
+﻿<UserControl
+    x:Class="FluentHub.App.UserControls.UserContributionGraph"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
+    xmlns:converters="using:FluentHub.App.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:FluentHub.App.UserControls"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:FluentHub.App.Models"
+    xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
+    xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
+    d:DesignHeight="300"
+    d:DesignWidth="400"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="PrimerColorCalendarGraphDayBackground" Color="#ebedf0" />
+                    <SolidColorBrush x:Key="PrimerColorCalendarGraphDayLevel1Background" Color="#9be9a8" />
+                    <SolidColorBrush x:Key="PrimerColorCalendarGraphDayLevel2Background" Color="#40c463" />
+                    <SolidColorBrush x:Key="PrimerColorCalendarGraphDayLevel3Background" Color="#30a14e" />
+                    <SolidColorBrush x:Key="PrimerColorCalendarGraphDayLevel4Background" Color="#216e39" />
+                </ResourceDictionary>
+                <ResourceDictionary x:Key="Dark">
+                    <StaticResource x:Key="PrimerColorCalendarGraphDayBackground" ResourceKey="PrimerScaleGray8" />
+                    <SolidColorBrush x:Key="PrimerColorCalendarGraphDayLevel1Background" Color="#0e4429" />
+                    <SolidColorBrush x:Key="PrimerColorCalendarGraphDayLevel2Background" Color="#006d32" />
+                    <SolidColorBrush x:Key="PrimerColorCalendarGraphDayLevel3Background" Color="#26a641" />
+                    <SolidColorBrush x:Key="PrimerColorCalendarGraphDayLevel4Background" Color="#39d353" />
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid
+        Grid.Row="1"
+        Background="{ThemeResource LayerFillColorDefaultBrush}"
+        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+        BorderThickness="1"
+        CornerRadius="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Padding="32,8,32,4" ColumnSpacing="12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Horizontal" Spacing="4">
+
+                <TextBlock VerticalAlignment="Center" Style="{StaticResource BodyStrongTextBlockStyle}">
+                    <Run Text="{x:Bind ViewModel.Calendar.TotalContributions, Mode=OneWay}" />
+                    <Run Text="contributions in the last year" />
+                </TextBlock>
+
+
+            </StackPanel>
+
+            <StackPanel Grid.Column="3">
+                <Button
+                    Height="32"
+                    Margin="24,0,0,0"
+                    Padding="8,0"
+                    HorizontalAlignment="Right"
+                    Background="Transparent"
+                    BorderThickness="0">
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <TextBlock
+                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="View more details" />
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+
+        </Grid>
+
+        <MenuFlyoutSeparator Grid.Row="1" />
+
+        <Grid
+            x:Name="ContributionGraphGrid"
+            Grid.Row="2"
+            Margin="32,12,24,12"
+            ColumnSpacing="8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+
+            <Grid RowSpacing="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="14" />
+                    <RowDefinition Height="14" />
+                    <RowDefinition Height="14" />
+                    <RowDefinition Height="14" />
+                    <RowDefinition Height="14" />
+                    <RowDefinition Height="14" />
+                    <RowDefinition Height="14" />
+                </Grid.RowDefinitions>
+                <TextBlock
+                    Grid.Row="1"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="Mon" />
+                <TextBlock
+                    Grid.Row="3"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="Wed" />
+                <TextBlock
+                    Grid.Row="5"
+                    VerticalAlignment="Center"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="Fri" />
+            </Grid>
+
+            <ItemsRepeater
+                Grid.Column="1"
+                Height="122"
+                ItemsSource="{x:Bind ViewModel.MergedCalendar, Mode=OneWay}">
+
+                <ItemsRepeater.Layout>
+                    <toolkit:WrapLayout
+                        HorizontalSpacing="4"
+                        Orientation="Vertical"
+                        VerticalSpacing="4" />
+                </ItemsRepeater.Layout>
+
+                <DataTemplate x:DataType="models:MergedCalendarDays">
+                    <Border
+                        x:Name="ContributionLevelBorder"
+                        Width="14"
+                        Height="14"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1"
+                        CornerRadius="4"
+                        Visibility="{x:Bind IsVaild, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+                        <Border.Background>
+                            <SolidColorBrush Color="{x:Bind Color, Mode=OneWay}" />
+                        </Border.Background>
+                    </Border>
+                </DataTemplate>
+
+            </ItemsRepeater>
+        </Grid>
+
+        <MenuFlyoutSeparator Grid.Row="3" />
+
+        <Grid Grid.Row="4" Margin="32,12,24,16">
+
+            <StackPanel>
+                <TextBlock>
+                    <Hyperlink NavigateUri="https://docs.github.com/en/account-and-profile/setting-up-and-managing-your-github-profile/managing-contribution-settings-on-your-profile/why-are-my-contributions-not-showing-up-on-my-profile">
+                        <Run Text="Learn how GitHub count contributions." />
+                    </Hyperlink>
+                </TextBlock>
+            </StackPanel>
+            <StackPanel
+                Grid.Column="1"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Center"
+                Orientation="Horizontal"
+                Spacing="4">
+
+                <TextBlock
+                    Margin="0,2,0,0"
+                    VerticalAlignment="Center"
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="Less" />
+
+                <Border
+                    Width="14"
+                    Height="14"
+                    Background="{ThemeResource PrimerColorCalendarGraphDayBackground}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="4" />
+
+                <Border
+                    Width="14"
+                    Height="14"
+                    Background="{ThemeResource PrimerColorCalendarGraphDayLevel1Background}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="4" />
+
+                <Border
+                    Width="14"
+                    Height="14"
+                    Background="{ThemeResource PrimerColorCalendarGraphDayLevel2Background}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="4" />
+
+                <Border
+                    Width="14"
+                    Height="14"
+                    Background="{ThemeResource PrimerColorCalendarGraphDayLevel3Background}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="4" />
+
+                <Border
+                    Width="14"
+                    Height="14"
+                    Background="{ThemeResource PrimerColorCalendarGraphDayLevel4Background}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="4" />
+
+                <TextBlock
+                    Margin="0,2,0,0"
+                    VerticalAlignment="Center"
+                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Style="{StaticResource CaptionTextBlockStyle}"
+                    Text="More" />
+
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

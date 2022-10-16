@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10" xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3" xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5" IgnorableNamespaces="uap mp uap3 uap5">
+  <Identity Name="FluentHubDev" Publisher="CN=FluentHub" Version="0.3.9.0" />
+
+  <Properties>
+    <DisplayName>FluentHub - Dev</DisplayName>
+    <PublisherDisplayName>Tomoyuki Terashita</PublisherDisplayName>
+    <Logo>Assets\AppTiles\Dev\StoreLogo.png</Logo>
+  </Properties>
+  <Dependencies>
+    <TargetDeviceFamily Name="Windows.Desktop" MinVersion="10.0.0.0" MaxVersionTested="10.0.22000.0" />
+  </Dependencies>
+  <Resources>
+    <Resource Language="x-generate" />
+  </Resources>
+  <Applications>
+    <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="$targetentrypoint$">
+      <uap:VisualElements DisplayName="FluentHub - Dev" Square150x150Logo="Assets\AppTiles\Dev\Square150x150Logo.png" Square44x44Logo="Assets\AppTiles\Dev\Square44x44Logo.png" Description="A stylish yet powerful GitHub client" BackgroundColor="transparent">
+        <uap:DefaultTile Wide310x150Logo="Assets\AppTiles\Dev\Wide310x150Logo.png" Square71x71Logo="Assets\AppTiles\Dev\SmallTile.png" Square310x310Logo="Assets\AppTiles\Dev\LargeTile.png" >
+          <uap:ShowNameOnTiles>
+            <uap:ShowOn Tile="wide310x150Logo"/>
+            <uap:ShowOn Tile="square150x150Logo"/>
+            <uap:ShowOn Tile="square310x310Logo"/>
+          </uap:ShowNameOnTiles>
+        </uap:DefaultTile >
+        <uap:SplashScreen uap5:Optional="true" Image="Assets\AppTiles\Dev\SplashScreen.png" />
+      </uap:VisualElements>
+      <Extensions>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="fluenthub">
+            <uap:Logo>Assets\AppTiles\StoreLogo.png</uap:Logo>
+            <uap:DisplayName>FluentHub</uap:DisplayName>
+          </uap:Protocol>
+        </uap:Extension>
+        <uap:Extension Category="windows.protocol">
+          <uap:Protocol Name="fh">
+            <uap:Logo>Assets\AppTiles\StoreLogo.png</uap:Logo>
+            <uap:DisplayName>FluentHub</uap:DisplayName>
+          </uap:Protocol>
+        </uap:Extension>
+      </Extensions>
+    </Application>
+  </Applications>
+  <Capabilities>
+    <Capability Name="internetClient" />
+  </Capabilities>
+</Package>

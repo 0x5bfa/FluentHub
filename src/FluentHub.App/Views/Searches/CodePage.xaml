@@ -1,0 +1,129 @@
+﻿<Page
+    x:Class="FluentHub.App.Views.Searches.CodePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:bb="using:FluentHub.App.UserControls.BlockButtons"
+    xmlns:bbvm="using:FluentHub.App.ViewModels.UserControls.BlockButtons"
+    xmlns:converters="using:FluentHub.App.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="using:FluentHub.App.Helpers"
+    xmlns:local="using:FluentHub.App.Views.Searches"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:modelsV3Search="using:FluentHub.Octokit.Models.v3.Searches"
+    xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:uc="using:FluentHub.App.UserControls"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid>
+
+        <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadSearchCodePageCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <uc:SearchResultSidebar
+                Margin="0,0,8,8"
+                SearchTerm="{x:Bind ViewModel.SearchTerm, Mode=OneWay}"
+                SelectedTag="code" />
+
+            <Grid Grid.Column="1">
+                <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <Grid
+                        Margin="0,0,8,8"
+                        Padding="32"
+                        Background="{ThemeResource LayerFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1"
+                        CornerRadius="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock IsTextSelectionEnabled="True" Style="{StaticResource SubtitleTextBlockStyle}">
+                            <Run Text="Showing" />
+                            <Run Text="{x:Bind ViewModel.ResultItems.Count, Mode=OneWay}" />
+                            <Run Text="code results" />
+                        </TextBlock>
+
+                        <Grid Grid.Row="2" Margin="0,12,0,0">
+                            <ItemsRepeater ItemsSource="{x:Bind ViewModel.ResultItems, Mode=OneWay}">
+                                <ItemsRepeater.Layout>
+                                    <StackLayout Orientation="Vertical" Spacing="6" />
+                                </ItemsRepeater.Layout>
+                                <DataTemplate x:DataType="modelsV3Search:SearchCode">
+                                    <Grid
+                                        Padding="20,16"
+                                        Background="{ThemeResource LayerFillColorDefaultBrush}"
+                                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                        BorderThickness="1"
+                                        CornerRadius="4">
+                                        <StackPanel Spacing="4">
+                                            <StackPanel>
+                                                <TextBlock Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" Style="{StaticResource CaptionTextBlockStyle}">
+                                                    <Run Text="{x:Bind Repository.Owner.Login}" />
+                                                    <Run Text="/" />
+                                                    <Run Text="{x:Bind Repository.Name}" />
+                                                </TextBlock>
+                                            </StackPanel>
+                                            <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind Path}" />
+                                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{x:Bind Name}" />
+                                        </StackPanel>
+                                    </Grid>
+                                </DataTemplate>
+                            </ItemsRepeater>
+
+                            <toolkit:SwitchPresenter
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                TargetType="x:Int32"
+                                Value="{x:Bind ViewModel.ResultItems.Count, Mode=OneWay}">
+                                <toolkit:Case Value="0">
+                                    <TextBlock
+                                        FontSize="18"
+                                        Style="{StaticResource BodyStrongTextBlockStyle}"
+                                        Text="No code found"
+                                        TextAlignment="Center" />
+                                </toolkit:Case>
+                            </toolkit:SwitchPresenter>
+                        </Grid>
+                    </Grid>
+                </ScrollViewer>
+            </Grid>
+        </Grid>
+
+        <Grid x:Name="ErrorDisplayingContentGrid" x:Load="{x:Bind ViewModel.LoadSearchCodePageCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
+            <uc:LoadErrorDisplay
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                TaskException="{x:Bind ViewModel.TaskException, Mode=OneWay}">
+                <uc:LoadErrorDisplay.Action>
+                    <Grid>
+                        <Button
+                            Margin="0,24,0,0"
+                            HorizontalAlignment="Center"
+                            Command="{x:Bind ViewModel.LoadSearchCodePageCommand}">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon FontSize="16" Glyph="&#xE149;" />
+                                <TextBlock Text="{helpers:ResourceString Name=TryAgainWithCap}" />
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </uc:LoadErrorDisplay.Action>
+            </uc:LoadErrorDisplay>
+        </Grid>
+
+    </Grid>
+</Page>

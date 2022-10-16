@@ -34,12 +34,12 @@ jobs:
     inputs:
       targetType: 'inline'
       script: |
-        [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\FluentHub.Uwp\Package.appxmanifest
+        [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\FluentHub.App\Package.appxmanifest
         $xmlDoc.Package.Identity.Name="49462fluenthub-uwp.FluentHub"
         $xmlDoc.Package.Identity.Publisher="CN=4E3C0825-4D00-4ECC-89F8-528E9200B125"
         $xmlDoc.Package.Properties.DisplayName="FluentHub DEV"
         $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub DEV"
-        $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub.Uwp\Package.appxmanifest')
+        $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub.App\Package.appxmanifest')
       failOnStderr: true
 
   - task: DownloadSecureFile@1
@@ -52,7 +52,7 @@ jobs:
     inputs:
       SourceFolder: '$(Agent.TempDirectory)'
       Contents: '$(CredentialSecureFile.secureFilePath)'
-      TargetFolder: '$(Build.SourcesDirectory)\src\FluentHub.Uwp'
+      TargetFolder: '$(Build.SourcesDirectory)\src\FluentHub.App'
 
   - task: DownloadSecureFile@1
     name: caCertificate
@@ -114,12 +114,12 @@ jobs:
     inputs:
       targetType: 'inline'
       script: |
-        [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\FluentHub.Uwp\Package.appxmanifest
+        [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\FluentHub.App\Package.appxmanifest
         $xmlDoc.Package.Identity.Name="FluentHubSideload"
         $xmlDoc.Package.Identity.Publisher="FluentHub Team"
         $xmlDoc.Package.Properties.DisplayName="FluentHub"
         $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub Dev"
-        $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub.Uwp\Package.appxmanifest')
+        $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub.App\Package.appxmanifest')
       failOnStderr: true
 
   - task: DownloadSecureFile@1
@@ -133,7 +133,7 @@ jobs:
     inputs:
       SourceFolder: '$(Agent.TempDirectory)'
       Contents: '$(CredentialSecureFile.secureFilePath)'
-      TargetFolder: '$(Build.SourcesDirectory)\src\FluentHub.Uwp'
+      TargetFolder: '$(Build.SourcesDirectory)\src\FluentHub.App'
 
   - task: DownloadSecureFile@1
     name: caCertificate
@@ -190,12 +190,12 @@ jobs:
     inputs:
       targetType: 'inline'
       script: |
-        [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\FluentHub.Uwp\Package.appxmanifest
+        [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\FluentHub.App\Package.appxmanifest
         $xmlDoc.Package.Identity.Name="49462fluenthub-uwp.FluentHub"
         $xmlDoc.Package.Identity.Publisher="CN=4E3C0825-4D00-4ECC-89F8-528E9200B125"
         $xmlDoc.Package.Properties.DisplayName="FluentHub Dev"
         $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub Dev"
-        $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub.Uwp\Package.appxmanifest')
+        $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub.App\Package.appxmanifest')
       failOnStderr: true
 
   - task: DownloadSecureFile@1
@@ -209,7 +209,7 @@ jobs:
     inputs:
       SourceFolder: '$(Agent.TempDirectory)'
       Contents: '$(CredentialSecureFile.secureFilePath)'
-      TargetFolder: '$(Build.SourcesDirectory)\src\FluentHub.Uwp'
+      TargetFolder: '$(Build.SourcesDirectory)\src\FluentHub.App'
 
   - task: DownloadSecureFile@1
     name: caCertificate

@@ -35,9 +35,9 @@
             return oauthLoginUrl.ToString();
         }
 
-        public async Task<string> RequestOAuthTokenAsync(string code)
+        public async Task<string> RequestOAuthTokenAsync(string code, OctokitSecrets secrets)
         {
-            if (Secrets == null) return null; 
+            Secrets = secrets;
 
             var request = new OctokitV3.OauthTokenRequest(Secrets.ClientId, Secrets.ClientSecret, code);
             var token = await App.Client.Oauth.CreateAccessToken(request);

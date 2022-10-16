@@ -1,0 +1,225 @@
+﻿<Page
+    x:Class="FluentHub.App.Views.Home.NotificationsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:bbuc="using:FluentHub.App.UserControls.BlockButtons"
+    xmlns:bbvm="using:FluentHub.App.ViewModels.UserControls.BlockButtons"
+    xmlns:converters="using:FluentHub.App.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="using:FluentHub.App.Helpers"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:uc="using:FluentHub.App.UserControls"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary>
+                    <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+                </ResourceDictionary>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid>
+
+        <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadUserNotificationsPageCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+            <ScrollViewer ViewChanged="OnScrollViewerViewChanged">
+                <Grid
+                    Padding="32,32,32,32"
+                    Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1,1,0,0"
+                    CornerRadius="8,0,0,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid>
+                        <TextBlock
+                            x:Name="NotificationsPageHeader"
+                            Margin="12,16,12,8"
+                            Style="{StaticResource TitleTextBlockStyle}"
+                            Text="{helpers:ResourceString Name=NotificationsPageHeader/Text}" />
+
+                        <StackPanel
+                            Margin="16,4,16,4"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Center"
+                            Orientation="Horizontal"
+                            Spacing="4"
+                            Visibility="{x:Bind ViewModel.UnreadCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+
+                            <Ellipse Width="10" Height="10">
+                                <Ellipse.Fill>
+                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
+                                        <GradientStop x:Name="GradientStop1" Offset="0.0" Color="#54a3ff" />
+                                        <GradientStop x:Name="GradientStop4" Offset="1.0" Color="#006eed" />
+                                    </LinearGradientBrush>
+                                </Ellipse.Fill>
+                            </Ellipse>
+
+                            <TextBlock VerticalAlignment="Center" Foreground="#539bf5">
+                                <Run Text="{x:Bind ViewModel.UnreadCount, Mode=OneWay}" />
+                                <Run Text="Notification(s)" />
+                            </TextBlock>
+
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid
+                        Grid.Row="1"
+                        Margin="0,8,0,16"
+                        RowSpacing="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+
+                        <TextBox
+                            x:Name="NotificationsPageSearchBar"
+                            IsEnabled="False"
+                            PlaceholderText="{helpers:ResourceString Name=NotificationsPageSearchBar/PlaceholderText}" />
+
+                        <StackPanel
+                            Grid.Row="1"
+                            Orientation="Horizontal"
+                            Spacing="8">
+
+                            <!--<Button Visibility="Collapsed">
+                        <StackPanel Orientation="Horizontal" Spacing="4">
+                            <FontIcon
+                                FontSize="14"
+                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Glyph="&#xe71c;" />
+                            <InfoBadge Value="2" />
+                        </StackPanel>
+                        <Button.Flyout>
+                            <MenuFlyout Placement="BottomEdgeAlignedLeft">
+                                <MenuFlyoutItem Foreground="{StaticResource DangerButtonBackground}" Text="Clear all filters" />
+                            </MenuFlyout>
+                        </Button.Flyout>
+                    </Button>-->
+
+                            <DropDownButton IsEnabled="False">
+                                <DropDownButton.Content>
+                                    <StackPanel Orientation="Horizontal" Spacing="4">
+                                        <TextBlock
+                                            x:Name="NotificationsPageFilterByReasonFlyoutBody"
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Style="{StaticResource BodyTextBlockStyle}"
+                                            Text="{helpers:ResourceString Name=NotificationsPageFilterByReasonFlyoutBody/Text}" />
+                                        <TextBlock
+                                            x:Name="NotificationsPageFilterByReasonFlyoutPrimarySelection"
+                                            Style="{StaticResource BodyTextBlockStyle}"
+                                            Text="{helpers:ResourceString Name=NotificationsPageFilterByReasonInbox/Text}" />
+                                    </StackPanel>
+                                </DropDownButton.Content>
+                                <DropDownButton.Flyout>
+                                    <MenuFlyout Placement="BottomEdgeAlignedLeft">
+                                        <MenuFlyout.Items>
+                                            <ToggleMenuFlyoutItem x:Name="NotificationsPageFilterByReasonInbox" Text="{helpers:ResourceString Name=NotificationsPageFilterByReasonInbox/Text}" />
+                                            <ToggleMenuFlyoutItem x:Name="NotificationsPageFilterByReasonSaved" Text="{helpers:ResourceString Name=NotificationsPageFilterByReasonSaved/Text}" />
+                                            <ToggleMenuFlyoutItem x:Name="NotificationsPageFilterByReasonDone" Text="{helpers:ResourceString Name=NotificationsPageFilterByReasonDone/Text}" />
+                                            <MenuFlyoutSeparator />
+                                            <ToggleMenuFlyoutItem x:Name="NotificationsPageFilterByReasonAssigned" Text="{helpers:ResourceString Name=NotificationsPageFilterByReasonAssigned/Text}" />
+                                            <ToggleMenuFlyoutItem x:Name="NotificationsPageFilterByReasonParticipating" Text="{helpers:ResourceString Name=NotificationsPageFilterByReasonParticipating/Text}" />
+                                            <ToggleMenuFlyoutItem x:Name="NotificationsPageFilterByReasonMentioned" Text="{helpers:ResourceString Name=NotificationsPageFilterByReasonMentioned/Text}" />
+                                            <ToggleMenuFlyoutItem x:Name="NotificationsPageFilterByReasonMentionedTeam" Text="{helpers:ResourceString Name=NotificationsPageFilterByReasonMentionedTeam/Text}" />
+                                            <ToggleMenuFlyoutItem x:Name="NotificationsPageFilterByReasonReview" Text="{helpers:ResourceString Name=NotificationsPageFilterByReasonReview/Text}" />
+                                        </MenuFlyout.Items>
+                                    </MenuFlyout>
+                                </DropDownButton.Flyout>
+                            </DropDownButton>
+
+                            <ToggleButton
+                                x:Name="NotificationsPageUnreadToggle"
+                                Content="{helpers:ResourceString Name=NotificationsPageUnreadToggle/Content}"
+                                IsEnabled="False" />
+
+                            <DropDownButton IsEnabled="False">
+                                <DropDownButton.Content>
+                                    <StackPanel Orientation="Horizontal" Spacing="4">
+                                        <TextBlock
+                                            x:Name="NotificationsPageGroupByViewFlyoutBody"
+                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Style="{StaticResource BodyTextBlockStyle}"
+                                            Text="{helpers:ResourceString Name=NotificationsPageGroupByViewFlyoutBody/Text}" />
+                                        <TextBlock
+                                            x:Name="NotificationsPageGroupByViewPrimarySelection"
+                                            Style="{StaticResource BodyTextBlockStyle}"
+                                            Text="{helpers:ResourceString Name=NotificationsPageGroupByViewNone/Text}" />
+                                    </StackPanel>
+                                </DropDownButton.Content>
+                                <DropDownButton.Flyout>
+                                    <MenuFlyout x:Name="GroupByMenuFlyout" Placement="BottomEdgeAlignedLeft">
+                                        <MenuFlyout.Items>
+                                            <ToggleMenuFlyoutItem x:Name="NotificationsPageGroupByViewNone" Text="{helpers:ResourceString Name=NotificationsPageGroupByViewNone/Text}" />
+                                            <ToggleMenuFlyoutItem x:Name="NotificationsPageGroupByViewRepository" Text="{helpers:ResourceString Name=NotificationsPageGroupByViewRepository/Text}" />
+                                            <ToggleMenuFlyoutItem x:Name="NotificationsPageGroupByViewPrimaryDate" Text="{helpers:ResourceString Name=NotificationsPageGroupByViewDate/Text}" />
+                                        </MenuFlyout.Items>
+                                    </MenuFlyout>
+                                </DropDownButton.Flyout>
+                            </DropDownButton>
+
+                        </StackPanel>
+                    </Grid>
+
+                    <Grid Grid.Row="2">
+                        <ItemsRepeater ItemsSource="{x:Bind ViewModel.NotificationItems, Mode=OneWay}">
+                            <ItemsRepeater.Layout>
+                                <StackLayout Orientation="Vertical" Spacing="6" />
+                            </ItemsRepeater.Layout>
+                            <DataTemplate x:DataType="bbvm:NotificationBlockButtonViewModel">
+                                <bbuc:NotificationBlockButton ViewModel="{x:Bind}" />
+                            </DataTemplate>
+                        </ItemsRepeater>
+
+                        <toolkit:SwitchPresenter
+                            x:Name="NoNotificationsSwitchPresenter"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            TargetType="x:Int32"
+                            Value="{x:Bind ViewModel.NotificationItems.Count, Mode=OneWay}">
+                            <toolkit:Case Value="0">
+                                <TextBlock
+                                    x:Name="NotificationsPageNoRecentNotificationsBody"
+                                    Grid.Row="1"
+                                    FontSize="18"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="{helpers:ResourceString Name=NotificationsPageNoRecentNotificationsBody/Text}"
+                                    TextAlignment="Center" />
+                            </toolkit:Case>
+                        </toolkit:SwitchPresenter>
+                    </Grid>
+
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+
+        <Grid x:Name="ErrorDisplayingContentGrid" x:Load="{x:Bind ViewModel.LoadUserNotificationsPageCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
+            <uc:LoadErrorDisplay
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                TaskException="{x:Bind ViewModel.TaskException, Mode=OneWay}">
+                <uc:LoadErrorDisplay.Action>
+                    <Grid>
+                        <Button
+                            Margin="0,24,0,0"
+                            HorizontalAlignment="Center"
+                            Command="{x:Bind ViewModel.LoadUserNotificationsPageCommand}">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon FontSize="16" Glyph="&#xE149;" />
+                                <TextBlock Text="Try Again" />
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </uc:LoadErrorDisplay.Action>
+            </uc:LoadErrorDisplay>
+        </Grid>
+
+    </Grid>
+</Page>
