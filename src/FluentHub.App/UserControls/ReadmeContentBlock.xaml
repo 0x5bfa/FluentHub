@@ -10,11 +10,13 @@
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
     d:DesignHeight="300"
     d:DesignWidth="400"
-    Loaded="OnReadmeContentBlockUserControlLoaded"
+    Unloaded="OnUserControlUnloaded"
     mc:Ignorable="d">
 
     <UserControl.Resources>
-        <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+        <ResourceDictionary>
+            <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+        </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid
@@ -23,7 +25,7 @@
         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
         BorderThickness="1"
         CornerRadius="8"
-        Visibility="{x:Bind ViewModel.HtmlText, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+        Visibility="{x:Bind ViewModel.ManagedToLoadReadmeContents, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
@@ -58,20 +60,17 @@
 
         <Grid Grid.Row="2">
 
-            <WebView2
-                x:Name="ReadmeContentWebView2"
-                Margin="32"
-                DefaultBackgroundColor="Transparent"
-                NavigationCompleted="OnReadmeContentWebView2NavigationCompleted"
-                NavigationStarting="OnReadmeContentWebView2NavigationStarting" />
-
-            <TextBlock
-                x:Name="FailedToLoadContentsTextBlock"
-                Margin="32"
-                Foreground="{ThemeResource SystemFillColorCritical}"
-                IsTextSelectionEnabled="True"
-                Style="{StaticResource BodyTextBlockStyle}"
-                Text="Failed to load README contents due to WebView2 is unstable." />
+            <Grid
+                Margin="12"
+                Padding="20"
+                Background="{ThemeResource SolidBackgroundFillColorBase}"
+                CornerRadius="8">
+                <WebView2
+                    x:Name="ReadmeContentWebView2"
+                    DefaultBackgroundColor="Transparent"
+                    NavigationCompleted="OnReadmeContentWebView2NavigationCompleted"
+                    SizeChanged="OnReadmeContentWebView2SizeChanged" />
+            </Grid>
 
         </Grid>
 

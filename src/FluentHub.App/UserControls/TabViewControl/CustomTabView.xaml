@@ -19,9 +19,14 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid HorizontalAlignment="Stretch" Background="{x:Null}">
+    <Border
+        x:Name="TitlebarArea"
+        HorizontalAlignment="Stretch"
+        x:FieldModifier="public"
+        Background="Transparent">
         <muxc:TabView
             x:Name="MainTabView"
+            Margin="0,-3,0,0"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             AllowDropTabs="True"
@@ -43,22 +48,36 @@
                 </DataTemplate>
             </muxc:TabView.TabItemTemplate>
             <muxc:TabView.TabStripFooter>
-                <Button
-                    Grid.Column="1"
-                    Width="36"
-                    Height="36"
-                    HorizontalAlignment="Left"
-                    VerticalAlignment="Bottom"
-                    Background="Transparent"
-                    BorderBrush="Transparent"
-                    Click="OnAddNewTabButtonClick"
-                    IsEnabled="True"
-                    ToolTipService.ToolTip="New tab">
-                    <Button.Content>
-                        <FontIcon FontSize="12" Glyph="&#xE710;" />
-                    </Button.Content>
-                </Button>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition x:Name="RightPaddingColumn" Width="0" />
+                    </Grid.ColumnDefinitions>
+                    <Button
+                        Grid.Column="0"
+                        Width="36"
+                        Height="36"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Bottom"
+                        Background="Transparent"
+                        BorderBrush="Transparent"
+                        Click="OnAddNewTabButtonClick"
+                        IsEnabled="True"
+                        ToolTipService.ToolTip="New tab">
+                        <Button.Content>
+                            <FontIcon FontSize="12" Glyph="&#xE710;" />
+                        </Button.Content>
+                    </Button>
+                    <Grid
+                        x:Name="DragAreaGrid"
+                        Grid.Column="1"
+                        Grid.ColumnSpan="2"
+                        HorizontalAlignment="Stretch"
+                        VerticalAlignment="Stretch"
+                        Background="Transparent" />
+                </Grid>
             </muxc:TabView.TabStripFooter>
         </muxc:TabView>
-    </Grid>
+    </Border>
 </UserControl>

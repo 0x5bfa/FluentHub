@@ -6,11 +6,14 @@ using FluentHub.App.Services.Navigation;
 using FluentHub.App.ViewModels;
 using FluentHub.App.Utils;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.UI;
+using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Navigation;
 using Windows.ApplicationModel.Core;
+using Windows.Graphics;
 using Windows.System;
 using Windows.UI.Core;
 
@@ -64,8 +67,9 @@ namespace FluentHub.App.Views
             ThemeHelpers.Initialize();
 
             SubscribeEvents();
-            TabView.NewTabPage = typeof(Home.UserHomePage);
-            navService.Configure(TabView);
+
+            CustomTabViewControl.NewTabPage = typeof(Home.UserHomePage);
+            navService.Configure(CustomTabViewControl);
             navService.Navigate<Home.UserHomePage>();
 
             var command = ViewModel.LoadSignedInUserCommand;
@@ -80,6 +84,51 @@ namespace FluentHub.App.Views
         {
             UnsubscribeEvents();
             navService.Disconnect();
+        }
+
+        private void OnCustomTabViewControlLoaded(object sender, RoutedEventArgs e)
+        {
+            // https://learn.microsoft.com/en-us/windows/apps/develop/title-bar?tabs=winui3#interactive-content
+            // It is no longer recognized by the title bar element and its child elements. The rectangular area occupied by the title bar element acts
+            // as the title bar for pointer purposes, even if the element is blocked by another element, or the element is transparent.
+            // However, keyboard input is recognized and child elements can receive keyboard focus.
+
+            // WINUI3: bad workaround to be removed asap
+            // SetDragRectangles() does not work on windows 10 with winappsdk "1.2.220902.1-preview1"
+            if (System.Environment.OSVersion.Version.Build >= 22000)
+            {
+                CustomTabViewControl.DragArea.SizeChanged += (_, _) => SetRectDragRegion();
+            }
+            else
+            {
+                App.Window.AppWindow.TitleBar.ExtendsContentIntoTitleBar = false;
+                App.Window.ExtendsContentIntoTitleBar = true;
+                App.Window.SetTitleBar(CustomTabViewControl.DragArea);
+            }
+        }
+
+        private void SetRectDragRegion()
+        {
+            const uint MDT_Effective_DPI = 0;
+
+            var displayArea = DisplayArea.GetFromWindowId(App.Window.AppWindow.Id, DisplayAreaFallback.Primary);
+            var hMonitor = Win32Interop.GetMonitorFromDisplayId(displayArea.DisplayId);
+            var hr = NativeWinApiHelper.GetDpiForMonitor(hMonitor, MDT_Effective_DPI, out var dpiX, out _);
+            if (hr != 0)
+                return;
+
+            var scaleAdjustment = XamlRoot.RasterizationScale;
+            var dragArea = CustomTabViewControl.DragArea;
+
+            var offset = CustomTabViewControl.ActualOffset;
+
+            var x = (int)(((double)offset.X + CustomTabViewControl.ActualWidth - dragArea.ActualWidth) * scaleAdjustment);
+            var y = 0;
+            var width = (int)(dragArea.ActualWidth * scaleAdjustment);
+            var height = (int)(CustomTabViewControl.TitlebarArea.ActualHeight * scaleAdjustment);
+
+            var dragRect = new RectInt32(x, y, width, height);
+            App.Window.AppWindow.TitleBar.SetDragRectangles(new[] { dragRect });
         }
 
         private void OnSearchGitHubButtonButtonClick(object sender, RoutedEventArgs e)
@@ -175,9 +224,6 @@ namespace FluentHub.App.Views
                 }
             }
         }
-
-        private void OnDragAreaLoaded(object sender, RoutedEventArgs e)
-            => App.Window.SetTitleBar(DragArea);
 
         private void OnTabViewSelectionChanged(object sender, TabViewSelectionChangedEventArgs e)
         {

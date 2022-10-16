@@ -2,8 +2,8 @@ using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.App.Models;
 using FluentHub.App.Utils;
 using FluentHub.App.ViewModels.UserControls.Overview;
+using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
-using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.App.ViewModels.Repositories.Code.Layouts
 {
@@ -222,7 +222,7 @@ namespace FluentHub.App.ViewModels.Repositories.Code.Layouts
             string header;
             string description;
             string url;
-            muxc.ImageIconSource icon;
+            ImageIconSource icon;
             
             if (ContextViewModel.IsRootDir)
             {
@@ -243,7 +243,7 @@ namespace FluentHub.App.ViewModels.Repositories.Code.Layouts
             description = header;
             url = Repository.Url;
 
-            icon = new muxc.ImageIconSource
+            icon = new ImageIconSource
             {
                 ImageSource = new BitmapImage(new("ms-appx:///Assets/Icons/Repositories.png"))
             };

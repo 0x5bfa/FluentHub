@@ -9,6 +9,7 @@
     xmlns:primer="using:FluentHub.App.UserControls.PrimerControls"
     d:DesignHeight="300"
     d:DesignWidth="400"
+    Unloaded="OnUserControlUnloaded"
     mc:Ignorable="d">
 
     <UserControl.Resources>
@@ -111,6 +112,7 @@
             x:Name="IssueCommentReactionGroupGrid"
             Grid.Row="3"
             Padding="12,0,0,12"
+            x:Load="{x:Bind ViewModel.IssueComment.Reactions.Nodes.Count, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
             Background="{ThemeResource SolidBackgroundFillColorBase}">
             <StackPanel Orientation="Horizontal" Spacing="6">
 

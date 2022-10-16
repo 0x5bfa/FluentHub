@@ -40,5 +40,11 @@ namespace FluentHub.App.UserControls
 
         private async void OnWebViewSizeChanged(object sender, SizeChangedEventArgs e)
             => await ((WebView2)sender).HandleResize();
+
+        private void OnUserControlUnloaded(object sender, RoutedEventArgs e)
+        {
+            // https://github.com/microsoft/microsoft-ui-xaml/issues/4752
+            CommentWebView.Close();
+        }
     }
 }

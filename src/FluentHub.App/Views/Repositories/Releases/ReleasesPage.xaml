@@ -76,28 +76,36 @@
                         </StackPanel>
 
                         <Grid Grid.Row="1">
-                            <WebView2
-                                x:Name="LatestReleaseContentWebView"
+
+                            <Grid
                                 Height="450"
-                                Margin="32,0,32,0"
-                                CanBeScrollAnchor="False"
-                                DefaultBackgroundColor="Transparent"
-                                Loaded="OnLatestReleaseContentWebViewLoaded"
-                                ScrollViewer.VerticalScrollMode="Disabled" />
+                                Margin="20,0"
+                                Background="{ThemeResource SolidBackgroundFillColorBase}"
+                                CornerRadius="8,8,0,0">
+                                <WebView2
+                                    x:Name="LatestReleaseWebView2"
+                                    Height="450"
+                                    Margin="12,8"
+                                    DefaultBackgroundColor="Transparent"
+                                    Loaded="OnLatestReleaseWebView2Loaded" />
+                            </Grid>
+
                             <Border
                                 Height="96"
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Bottom">
                                 <Border.Background>
                                     <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1">
-                                        <GradientStop x:Name="GradientStop1" Offset="0.0" Color="#06000000" />
-                                        <GradientStop x:Name="GradientStop2" Offset="0.25" Color="#12000000" />
-                                        <GradientStop x:Name="GradientStop3" Offset="0.5" Color="#24000000" />
-                                        <GradientStop x:Name="GradientStop4" Offset="0.75" Color="#36000000" />
-                                        <GradientStop x:Name="GradientStop5" Offset="1" Color="#48000000" />
+                                        <GradientStop x:Name="GradientStop1" Offset="0.0" Color="#00000000" />
+                                        <GradientStop x:Name="GradientStop2" Offset="0.16" Color="#06000000" />
+                                        <GradientStop x:Name="GradientStop3" Offset="0.25" Color="#12000000" />
+                                        <GradientStop x:Name="GradientStop4" Offset="0.5" Color="#24000000" />
+                                        <GradientStop x:Name="GradientStop5" Offset="0.75" Color="#36000000" />
+                                        <GradientStop x:Name="GradientStop6" Offset="1" Color="#48000000" />
                                     </LinearGradientBrush>
                                 </Border.Background>
                             </Border>
+
                         </Grid>
 
                         <MenuFlyoutSeparator Grid.Row="2" />

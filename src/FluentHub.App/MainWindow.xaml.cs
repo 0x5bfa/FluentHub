@@ -41,7 +41,7 @@ namespace FluentHub.App
             AppWindow.Title = "FluentHub";
 
             // Set icon
-            AppWindow.SetIcon(Path.Combine(Windows.ApplicationModel.Package.Current.InstalledLocation.Path, "Assets/AppTiles/Dev/Logo.ico"));
+            AppWindow.SetIcon(Path.Combine(Windows.ApplicationModel.Package.Current.InstalledLocation.Path, "Assets/AppTiles/Release/StoreLogo.scale-400.png"));
 
             // Extend title bar
             AppWindow.TitleBar.ExtendsContentIntoTitleBar = true;

@@ -7,9 +7,9 @@ using FluentHub.App.ViewModels.UserControls.Overview;
 using FluentHub.App.ViewModels.UserControls.BlockButtons;
 using FluentHub.App.Utils;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
 using System.Text.RegularExpressions;
-using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.App.ViewModels.Organizations
 {
@@ -155,7 +155,7 @@ namespace FluentHub.App.ViewModels.Organizations
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = $"{Login}";
             currentItem.Description = $"{Login}";
-            currentItem.Icon = new muxc.ImageIconSource
+            currentItem.Icon = new ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Organizations.png"))
             };

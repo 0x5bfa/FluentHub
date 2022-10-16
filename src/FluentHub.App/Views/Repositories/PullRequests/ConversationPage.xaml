@@ -33,7 +33,7 @@
                             Glyph="&#xEA48;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <Grid ColumnSpacing="8">
+                        <Grid ColumnSpacing="4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -47,12 +47,13 @@
                             <TextBlock
                                 Grid.Column="1"
                                 VerticalAlignment="Center"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
                                 IsTextSelectionEnabled="True"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="added this to a project" />
                             <TextBlock
                                 Grid.Column="2"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="{x:Bind CreatedAtHumanized}" />
                         </Grid>
@@ -69,7 +70,7 @@
                             Glyph="&#xEA38;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <Grid ColumnSpacing="8">
+                        <Grid ColumnSpacing="4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -85,12 +86,12 @@
                                 VerticalAlignment="Center"
                                 IsTextSelectionEnabled="True"
                                 Style="{StaticResource BodyTextBlockStyle}">
-                                <Run Text="assigned" />
+                                <Run Foreground="{ThemeResource TextFillColorSecondary}" Text="assigned" />
                                 <Run FontWeight="SemiBold" Text="{x:Bind Assignee.User.Login}" />
                             </TextBlock>
                             <TextBlock
                                 Grid.Column="2"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="{x:Bind CreatedAtHumanized}" />
                         </Grid>
@@ -110,7 +111,7 @@
                                         Glyph="&#xEA84;" />
                                 </primer:Timeline.Badge>
                                 <primer:Timeline.Body>
-                                    <Grid ColumnSpacing="8">
+                                    <Grid ColumnSpacing="4">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="*" />
@@ -124,11 +125,13 @@
                                         <TextBlock
                                             Grid.Column="1"
                                             VerticalAlignment="Center"
+                                            Foreground="{ThemeResource TextFillColorSecondary}"
+                                            IsTextSelectionEnabled="True"
                                             Style="{StaticResource BodyTextBlockStyle}"
                                             Text="closed this as not planned" />
                                         <TextBlock
                                             Grid.Column="2"
-                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Foreground="{ThemeResource TextFillColorSecondary}"
                                             Style="{StaticResource BodyTextBlockStyle}"
                                             Text="{x:Bind CreatedAtHumanized}" />
                                     </Grid>
@@ -144,7 +147,7 @@
                                         Glyph="&#xE9E6;" />
                                 </primer:Timeline.Badge>
                                 <primer:Timeline.Body>
-                                    <Grid ColumnSpacing="8">
+                                    <Grid ColumnSpacing="4">
                                         <Grid.ColumnDefinitions>
                                             <ColumnDefinition Width="Auto" />
                                             <ColumnDefinition Width="*" />
@@ -161,12 +164,14 @@
                                             Spacing="4">
                                             <TextBlock
                                                 VerticalAlignment="Center"
+                                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                                IsTextSelectionEnabled="True"
                                                 Style="{StaticResource BodyTextBlockStyle}"
                                                 Text="closed this as completed" />
                                         </StackPanel>
                                         <TextBlock
                                             Grid.Column="2"
-                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Foreground="{ThemeResource TextFillColorSecondary}"
                                             Style="{StaticResource BodyTextBlockStyle}"
                                             Text="{x:Bind CreatedAtHumanized}" />
                                     </Grid>
@@ -186,7 +191,7 @@
                             Glyph="&#xEAD4;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <Grid ColumnSpacing="8">
+                        <Grid ColumnSpacing="4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -200,13 +205,17 @@
                             <TextBlock
                                 Grid.Column="1"
                                 VerticalAlignment="Center"
+                                IsTextSelectionEnabled="True"
                                 Style="{StaticResource BodyTextBlockStyle}">
-                                <Run Text="deleted a comment from" />
-                                <Run FontWeight="SemiBold" Text="{x:Bind DeletedCommentAuthor.Login}" />
+                                <Run Foreground="{ThemeResource TextFillColorSecondary}" Text="deleted a comment from" />
+                                <Run
+                                    FontWeight="SemiBold"
+                                    Foreground="{ThemeResource ApplicationForegroundThemeBrush}"
+                                    Text="{x:Bind DeletedCommentAuthor.Login}" />
                             </TextBlock>
                             <TextBlock
                                 Grid.Column="2"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="{x:Bind CreatedAtHumanized}" />
                         </Grid>
@@ -223,7 +232,7 @@
                             Glyph="&#xE924;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <Grid ColumnSpacing="8">
+                        <Grid ColumnSpacing="4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -240,12 +249,14 @@
                                 Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
+                                    IsTextSelectionEnabled="True"
                                     Style="{StaticResource BodyTextBlockStyle}"
                                     Text="made a connection" />
                             </StackPanel>
                             <StackPanel Grid.Column="2" HorizontalAlignment="Right">
                                 <TextBlock
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
                                     Style="{StaticResource BodyTextBlockStyle}"
                                     Text="{x:Bind CreatedAtHumanized}" />
                             </StackPanel>
@@ -263,7 +274,7 @@
                             Glyph="&#xE95D;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <Grid ColumnSpacing="8">
+                        <Grid ColumnSpacing="4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -277,14 +288,15 @@
                             <TextBlock
                                 Grid.Column="1"
                                 VerticalAlignment="Center"
+                                IsTextSelectionEnabled="True"
                                 Style="{StaticResource BodyTextBlockStyle}">
-                                <Run Text="converted this to a discussion titled" />
+                                <Run Foreground="{ThemeResource TextFillColorSecondary}" Text="converted this to a discussion titled" />
                                 <Run Text="{x:Bind Discussion.Title}" />
-                                <Run Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" Text="{x:Bind Discussion.Number}" />
+                                <Run Foreground="{ThemeResource TextFillColorSecondary}" Text="{x:Bind Discussion.Number}" />
                             </TextBlock>
                             <TextBlock
                                 Grid.Column="2"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="{x:Bind CreatedAtHumanized}" />
                         </Grid>
@@ -301,7 +313,7 @@
                             Glyph="&#xEADB;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <Grid ColumnSpacing="8">
+                        <Grid ColumnSpacing="4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -315,11 +327,13 @@
                             <TextBlock
                                 Grid.Column="1"
                                 VerticalAlignment="Center"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                IsTextSelectionEnabled="True"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="converted note to an issue" />
                             <TextBlock
                                 Grid.Column="2"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="{x:Bind CreatedAtHumanized}" />
                         </Grid>
@@ -336,7 +350,7 @@
                             Glyph="&#xE968;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <Grid ColumnSpacing="8">
+                        <Grid ColumnSpacing="4">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -357,6 +371,8 @@
                                 Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
+                                    IsTextSelectionEnabled="True"
                                     Style="{StaticResource BodyTextBlockStyle}"
                                     Text="referenced this" />
                                 <StackPanel
@@ -389,7 +405,7 @@
                             </StackPanel>
                             <StackPanel Grid.Column="2" HorizontalAlignment="Right">
                                 <TextBlock
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
                                     Style="{StaticResource BodyTextBlockStyle}"
                                     Text="{x:Bind CreatedAtHumanized}" />
                             </StackPanel>
@@ -548,7 +564,7 @@
                             Glyph="&#xEA12;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <Grid ColumnSpacing="8">
+                        <Grid ColumnSpacing="4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -564,12 +580,12 @@
                                 VerticalAlignment="Center"
                                 IsTextSelectionEnabled="True"
                                 Style="{StaticResource BodyTextBlockStyle}">
-                                <Run Text="removed this from a milestone titled" />
+                                <Run Foreground="{ThemeResource TextFillColorSecondary}" Text="removed this from a milestone titled" />
                                 <Run FontWeight="SemiBold" Text="{x:Bind MilestoneTitle}" />
                             </TextBlock>
                             <TextBlock
                                 Grid.Column="2"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="{x:Bind CreatedAtHumanized}" />
                         </Grid>
@@ -586,7 +602,7 @@
                             Glyph="&#xE924;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <Grid ColumnSpacing="8">
+                        <Grid ColumnSpacing="4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -603,12 +619,14 @@
                                 Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
+                                    IsTextSelectionEnabled="True"
                                     Style="{StaticResource BodyTextBlockStyle}"
                                     Text="removed a connection" />
                             </StackPanel>
                             <StackPanel Grid.Column="2" HorizontalAlignment="Right">
                                 <TextBlock
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
                                     Style="{StaticResource BodyTextBlockStyle}"
                                     Text="{x:Bind CreatedAtHumanized}" />
                             </StackPanel>
@@ -646,7 +664,7 @@
                             Glyph="&#xEAA5;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <Grid ColumnSpacing="8">
+                        <Grid ColumnSpacing="4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -663,17 +681,21 @@
                                 Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
+                                    IsTextSelectionEnabled="True"
                                     Style="{StaticResource BodyTextBlockStyle}"
                                     Text="added the" />
                                 <primer:IssueLabelToken FillColor="{x:Bind Label.Color, Converter={StaticResource HexColorCodeToSolidColorBrushConverter}}" Text="{x:Bind Label.Name}" />
                                 <TextBlock
                                     VerticalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
+                                    IsTextSelectionEnabled="True"
                                     Style="{StaticResource BodyTextBlockStyle}"
                                     Text="label" />
                             </StackPanel>
                             <TextBlock
                                 Grid.Column="2"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="{x:Bind CreatedAtHumanized}" />
                         </Grid>
@@ -691,7 +713,7 @@
                             Glyph="&#xEA05;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <Grid ColumnSpacing="8">
+                        <Grid ColumnSpacing="4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -707,25 +729,20 @@
                                 Orientation="Horizontal"
                                 Spacing="4">
                                 <TextBlock
-                                    VerticalAlignment="Center"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="locked" />
-                                <TextBlock
                                     x:Name="LockedEventLockReasonTextBlock"
                                     VerticalAlignment="Center"
                                     x:Load="{x:Bind LockReason, Converter={StaticResource ObjectToBoolConverter}}"
+                                    IsTextSelectionEnabled="True"
                                     Style="{StaticResource BodyTextBlockStyle}">
-                                    <Run Text="as" />
+                                    <Run Foreground="{ThemeResource TextFillColorSecondary}" Text="locked" />
+                                    <Run Foreground="{ThemeResource TextFillColorSecondary}" Text="as" />
                                     <Run FontWeight="SemiBold" Text="{x:Bind LockReason}" />
+                                    <Run Foreground="{ThemeResource TextFillColorSecondary}" Text="and limited conversation to collaborators" />
                                 </TextBlock>
-                                <TextBlock
-                                    VerticalAlignment="Center"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="and limited conversation to collaborators " />
                             </StackPanel>
                             <TextBlock
                                 Grid.Column="2"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="{x:Bind CreatedAtHumanized}" />
                         </Grid>
@@ -742,7 +759,7 @@
                             Glyph="&#xE924;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <Grid ColumnSpacing="8">
+                        <Grid ColumnSpacing="4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -759,6 +776,8 @@
                                 Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
+                                    IsTextSelectionEnabled="True"
                                     Style="{StaticResource BodyTextBlockStyle}"
                                     Text="marked this as a duplicate of" />
                                 <TextBlock
@@ -778,7 +797,7 @@
                             </StackPanel>
                             <TextBlock
                                 Grid.Column="2"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="{x:Bind CreatedAtHumanized}" />
                         </Grid>
@@ -795,7 +814,7 @@
                             Glyph="&#xE95B;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <Grid ColumnSpacing="8">
+                        <Grid ColumnSpacing="4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -813,7 +832,7 @@
                                 Text="mentioned" />
                             <TextBlock
                                 Grid.Column="2"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="{x:Bind CreatedAtHumanized}" />
                         </Grid>
@@ -830,7 +849,7 @@
                             Glyph="&#xEA12;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <Grid ColumnSpacing="8">
+                        <Grid ColumnSpacing="4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -846,12 +865,12 @@
                                 VerticalAlignment="Center"
                                 IsTextSelectionEnabled="True"
                                 Style="{StaticResource BodyTextBlockStyle}">
-                                <Run Text="add this to a milestone titled" />
+                                <Run Foreground="{ThemeResource TextFillColorSecondary}" Text="add this to a milestone titled" />
                                 <Run FontWeight="SemiBold" Text="{x:Bind MilestoneTitle}" />
                             </TextBlock>
                             <TextBlock
                                 Grid.Column="2"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="{x:Bind CreatedAtHumanized}" />
                         </Grid>
@@ -868,7 +887,7 @@
                             Glyph="&#xEA48;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <Grid ColumnSpacing="8">
+                        <Grid ColumnSpacing="4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -882,11 +901,13 @@
                             <TextBlock
                                 Grid.Column="1"
                                 VerticalAlignment="Center"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                IsTextSelectionEnabled="True"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="moved this to other column in project" />
                             <TextBlock
                                 Grid.Column="2"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="{x:Bind CreatedAtHumanized}" />
                         </Grid>
@@ -903,7 +924,7 @@
                             Glyph="&#xEA3E;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <Grid ColumnSpacing="8">
+                        <Grid ColumnSpacing="4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -917,11 +938,13 @@
                             <TextBlock
                                 Grid.Column="1"
                                 VerticalAlignment="Center"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                IsTextSelectionEnabled="True"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="pinned this" />
                             <TextBlock
                                 Grid.Column="2"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="{x:Bind CreatedAtHumanized}" />
                         </Grid>
@@ -938,7 +961,7 @@
                             Glyph="&#xE968;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <Grid ColumnSpacing="8">
+                        <Grid ColumnSpacing="4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -955,15 +978,15 @@
                                 Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
                                     Style="{StaticResource BodyTextBlockStyle}"
                                     Text="referenced" />
                             </StackPanel>
-                            <StackPanel Grid.Column="2" HorizontalAlignment="Right">
-                                <TextBlock
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="{x:Bind CreatedAtHumanized}" />
-                            </StackPanel>
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
                         </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
@@ -978,7 +1001,7 @@
                             Glyph="&#xEA48;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <Grid ColumnSpacing="8">
+                        <Grid ColumnSpacing="4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -992,14 +1015,15 @@
                             <TextBlock
                                 Grid.Column="1"
                                 VerticalAlignment="Center"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                IsTextSelectionEnabled="True"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="removed this from a project" />
-                            <StackPanel Grid.Column="2" HorizontalAlignment="Right">
-                                <TextBlock
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="{x:Bind CreatedAtHumanized}" />
-                            </StackPanel>
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
                         </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
@@ -1014,7 +1038,7 @@
                             Glyph="&#xEA34;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <Grid ColumnSpacing="8">
+                        <Grid ColumnSpacing="4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -1031,17 +1055,16 @@
                                 IsTextSelectionEnabled="True"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 TextWrapping="Wrap">
-                                <Run Text="renamed title from" />
+                                <Run Foreground="{ThemeResource TextFillColorSecondary}" Text="renamed title from" />
                                 <Run Text="{x:Bind PreviousTitle}" TextDecorations="Strikethrough" />
-                                <Run Text="to" />
+                                <Run Foreground="{ThemeResource TextFillColorSecondary}" Text="to" />
                                 <Run FontWeight="SemiBold" Text="{x:Bind CurrentTitle}" />
                             </TextBlock>
-                            <StackPanel Grid.Column="2" HorizontalAlignment="Right">
-                                <TextBlock
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="{x:Bind CreatedAtHumanized}" />
-                            </StackPanel>
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
                         </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
@@ -1056,7 +1079,7 @@
                             Glyph="&#xE9EC;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <Grid ColumnSpacing="8">
+                        <Grid ColumnSpacing="4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -1073,15 +1096,16 @@
                                 Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
+                                    IsTextSelectionEnabled="True"
                                     Style="{StaticResource BodyTextBlockStyle}"
                                     Text="reopened this" />
                             </StackPanel>
-                            <StackPanel Grid.Column="2" HorizontalAlignment="Right">
-                                <TextBlock
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="{x:Bind CreatedAtHumanized}" />
-                            </StackPanel>
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
                         </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
@@ -1096,7 +1120,7 @@
                             Glyph="&#xE924;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <Grid ColumnSpacing="8">
+                        <Grid ColumnSpacing="4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -1114,7 +1138,7 @@
                                 Text="subscribed" />
                             <TextBlock
                                 Grid.Column="2"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="{x:Bind CreatedAtHumanized}" />
                         </Grid>
@@ -1131,7 +1155,7 @@
                             Glyph="&#xEADB;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <Grid ColumnSpacing="8">
+                        <Grid ColumnSpacing="4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -1148,6 +1172,8 @@
                                 Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
+                                    IsTextSelectionEnabled="True"
                                     Style="{StaticResource BodyTextBlockStyle}"
                                     Text="transferred this from" />
                                 <TextBlock
@@ -1157,6 +1183,7 @@
                                 <TextBlock
                                     Margin="-4,0"
                                     VerticalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
                                     Style="{StaticResource BodyTextBlockStyle}"
                                     Text="/" />
                                 <TextBlock
@@ -1164,12 +1191,11 @@
                                     Style="{StaticResource BodyStrongTextBlockStyle}"
                                     Text="{x:Bind FromRepository.Name}" />
                             </StackPanel>
-                            <StackPanel Grid.Column="2" HorizontalAlignment="Right">
-                                <TextBlock
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="{x:Bind CreatedAtHumanized}" />
-                            </StackPanel>
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
                         </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
@@ -1184,7 +1210,7 @@
                             Glyph="&#xEA38;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <Grid ColumnSpacing="8">
+                        <Grid ColumnSpacing="4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -1201,19 +1227,17 @@
                                 Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="unassigned" />
-                                <TextBlock
-                                    VerticalAlignment="Center"
-                                    Style="{StaticResource BodyStrongTextBlockStyle}"
-                                    Text="{x:Bind Assignee.User.Login}" />
+                                    IsTextSelectionEnabled="True"
+                                    Style="{StaticResource BodyTextBlockStyle}">
+                                    <Run Foreground="{ThemeResource TextFillColorSecondary}" Text="unassigned" />
+                                    <Run Text="{x:Bind Assignee.User.Login}" />
+                                </TextBlock>
                             </StackPanel>
-                            <StackPanel Grid.Column="2" HorizontalAlignment="Right">
-                                <TextBlock
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="{x:Bind CreatedAtHumanized}" />
-                            </StackPanel>
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
                         </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
@@ -1228,7 +1252,7 @@
                             Glyph="&#xEAA5;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <Grid ColumnSpacing="8">
+                        <Grid ColumnSpacing="4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -1245,20 +1269,23 @@
                                 Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
+                                    IsTextSelectionEnabled="True"
                                     Style="{StaticResource BodyTextBlockStyle}"
                                     Text="removed the" />
                                 <primer:IssueLabelToken FillColor="{x:Bind Label.Color, Converter={StaticResource HexColorCodeToSolidColorBrushConverter}}" Text="{x:Bind Label.Name}" />
                                 <TextBlock
                                     VerticalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
+                                    IsTextSelectionEnabled="True"
                                     Style="{StaticResource BodyTextBlockStyle}"
                                     Text="label" />
                             </StackPanel>
-                            <StackPanel Grid.Column="2" HorizontalAlignment="Right">
-                                <TextBlock
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="{x:Bind CreatedAtHumanized}" />
-                            </StackPanel>
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
                         </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
@@ -1274,7 +1301,7 @@
                             Glyph="&#xEAC4;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <Grid ColumnSpacing="8">
+                        <Grid ColumnSpacing="4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -1288,14 +1315,15 @@
                             <TextBlock
                                 Grid.Column="1"
                                 VerticalAlignment="Center"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                IsTextSelectionEnabled="True"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="unlocked this" />
-                            <StackPanel Grid.Column="2" HorizontalAlignment="Right">
-                                <TextBlock
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="{x:Bind CreatedAtHumanized}" />
-                            </StackPanel>
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
                         </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
@@ -1310,7 +1338,7 @@
                             Glyph="&#xE927;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <Grid ColumnSpacing="8">
+                        <Grid ColumnSpacing="4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -1327,6 +1355,8 @@
                                 Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
+                                    IsTextSelectionEnabled="True"
                                     Style="{StaticResource BodyTextBlockStyle}"
                                     Text="unmarked as a duplicate of" />
                                 <TextBlock
@@ -1344,12 +1374,11 @@
                                     Style="{StaticResource BodyStrongTextBlockStyle}"
                                     Text="{x:Bind Duplicate.PullRequest.Number}" />
                             </StackPanel>
-                            <StackPanel Grid.Column="2" HorizontalAlignment="Right">
-                                <TextBlock
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="{x:Bind CreatedAtHumanized}" />
-                            </StackPanel>
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
                         </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
@@ -1364,7 +1393,7 @@
                             Glyph="&#xEA3E;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <Grid ColumnSpacing="8">
+                        <Grid ColumnSpacing="4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -1378,14 +1407,15 @@
                             <TextBlock
                                 Grid.Column="1"
                                 VerticalAlignment="Center"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                IsTextSelectionEnabled="True"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="unpinned this" />
-                            <StackPanel Grid.Column="2" HorizontalAlignment="Right">
-                                <TextBlock
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="{x:Bind CreatedAtHumanized}" />
-                            </StackPanel>
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
                         </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
@@ -1400,7 +1430,7 @@
                             Glyph="&#xEADB;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <Grid ColumnSpacing="8">
+                        <Grid ColumnSpacing="4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -1414,11 +1444,13 @@
                             <TextBlock
                                 Grid.Column="1"
                                 VerticalAlignment="Center"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                IsTextSelectionEnabled="True"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="unsubscribed" />
                             <TextBlock
                                 Grid.Column="2"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="{x:Bind CreatedAtHumanized}" />
                         </Grid>
@@ -1435,7 +1467,7 @@
                             Glyph="&#xEAD6;" />
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
-                        <Grid ColumnSpacing="8">
+                        <Grid ColumnSpacing="4">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
@@ -1452,27 +1484,19 @@
                                 Spacing="4">
                                 <TextBlock
                                     VerticalAlignment="Center"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="blocked" />
-                                <TextBlock
-                                    VerticalAlignment="Center"
-                                    Style="{StaticResource BodyStrongTextBlockStyle}"
-                                    Text="{x:Bind Subject.Login}" />
-                                <TextBlock
-                                    VerticalAlignment="Center"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="in" />
-                                <TextBlock
-                                    VerticalAlignment="Center"
-                                    Style="{StaticResource BodyStrongTextBlockStyle}"
-                                    Text="{x:Bind BlockDuration}" />
+                                    IsTextSelectionEnabled="True"
+                                    Style="{StaticResource BodyTextBlockStyle}">
+                                    <Run Foreground="{ThemeResource TextFillColorSecondary}" Text="blocked" />
+                                    <Run FontWeight="SemiBold" Text="{x:Bind Subject.Login}" />
+                                    <Run Foreground="{ThemeResource TextFillColorSecondary}" Text="in" />
+                                    <Run FontWeight="SemiBold" Text="{x:Bind BlockDuration}" />
+                                </TextBlock>
                             </StackPanel>
-                            <StackPanel Grid.Column="2" HorizontalAlignment="Right">
-                                <TextBlock
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="{x:Bind CreatedAtHumanized}" />
-                            </StackPanel>
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
                         </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
@@ -1487,6 +1511,7 @@
                 SubscribedEventDataTemplate="{StaticResource SubscribedEventDataTemplate}"
                 UnsubscribedEventDataTemplate="{StaticResource UnsubscribedEventDataTemplate}"
             -->
+
             <models:TimelineItemSelector
                 x:Key="TimelineItemSelector"
                 AddedToProjectEventDataTemplate="{StaticResource AddedToProjectEventDataTemplate}"
@@ -1525,29 +1550,28 @@
 
         <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryPullRequestConversationPageCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <Grid Margin="0,0,0,8">
+                <Grid Margin="0,0,8,8">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
 
-                    <ov:RepositoryOverview Margin="0,0,8,0" ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
+                    <ov:RepositoryOverview ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
 
                     <ov:PullRequestOverview
                         Grid.Row="1"
-                        Margin="0,8,8,0"
+                        Margin="0,8,0,0"
                         ViewModel="{x:Bind ViewModel.PullRequestOverviewViewModel, Mode=OneWay}" />
 
                     <Grid
                         Grid.Row="2"
-                        Margin="0,8,8,0"
-                        Padding="32"
+                        Margin="0,8,0,0"
+                        Padding="32,0,32,32"
                         Background="{ThemeResource LayerFillColorDefaultBrush}"
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                         BorderThickness="1"
-                        ColumnSpacing="24"
                         CornerRadius="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="3*" />
@@ -1557,7 +1581,7 @@
                                 MaxWidth="400" />
                         </Grid.ColumnDefinitions>
 
-                        <StackPanel x:Name="PullRequestContentPanel" Margin="0,-32,0,0">
+                        <StackPanel x:Name="PullRequestContentPanel">
 
                             <Border
                                 Width="1.5"
@@ -1566,7 +1590,11 @@
                                 HorizontalAlignment="Left"
                                 Background="{ThemeResource PrimerBorderMuted}" />
 
-                            <muxc:ItemsRepeater ItemTemplate="{StaticResource TimelineItemSelector}" ItemsSource="{x:Bind ViewModel.TimelineItems, Mode=OneWay}" />
+                            <!--  (VerticalCacheLength:) https://github.com/microsoft/microsoft-ui-xaml/issues/3861  -->
+                            <ItemsRepeater
+                                ItemTemplate="{StaticResource TimelineItemSelector}"
+                                ItemsSource="{x:Bind ViewModel.TimelineItems, Mode=OneWay}"
+                                VerticalCacheLength="256" />
 
                             <Border
                                 Width="1.5"
@@ -1578,9 +1606,11 @@
                         </StackPanel>
 
                         <StackPanel
+                            x:Name="PullRequestDetailsSidebar"
                             Grid.Column="1"
-                            Margin="0,4,0,0"
+                            Margin="24,32,0,0"
                             Spacing="12">
+
                             <StackPanel Spacing="12">
 
                                 <StackPanel Orientation="Horizontal" Spacing="8">
@@ -1590,15 +1620,42 @@
                                         Text="Reviews" />
                                 </StackPanel>
 
+                                <Grid>
 
-                                <StackPanel>
+                                    <StackPanel Spacing="6">
+                                        <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.PullItem.LatestReviews.Nodes, Mode=OneWay}">
+                                            <muxc:ItemsRepeater.Layout>
+                                                <muxc:StackLayout Orientation="Vertical" Spacing="6" />
+                                            </muxc:ItemsRepeater.Layout>
+                                            <DataTemplate x:DataType="modelsV4:PullRequestReview">
+                                                <primer:Avatar
+                                                    HorizontalAlignment="Left"
+                                                    Label="{x:Bind Author.Login, Mode=OneWay}"
+                                                    Source="{x:Bind Author.AvatarUrl, Mode=OneWay}" />
+                                            </DataTemplate>
+                                        </muxc:ItemsRepeater>
+                                        <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.PullItem.ReviewRequests.Nodes, Mode=OneWay}">
+                                            <muxc:ItemsRepeater.Layout>
+                                                <muxc:StackLayout Orientation="Vertical" Spacing="6" />
+                                            </muxc:ItemsRepeater.Layout>
+                                            <DataTemplate x:DataType="modelsV4:ReviewRequest">
+                                                <primer:Avatar
+                                                    HorizontalAlignment="Left"
+                                                    Label="{x:Bind RequestedReviewer.User.Login, Mode=OneWay}"
+                                                    Source="{x:Bind RequestedReviewer.User.AvatarUrl, Mode=OneWay}" />
+                                            </DataTemplate>
+                                        </muxc:ItemsRepeater>
+                                    </StackPanel>
 
-                                    <TextBlock
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        Style="{StaticResource CaptionTextBlockStyle}"
-                                        Text="No reviews — at least 1 approving review is required." />
-
-                                </StackPanel>
+                                    <Grid x:Name="PullRequestDetailsSidebarNoReviewersGrid" x:Load="{x:Bind ViewModel.PullItem.ReviewRequests.Nodes.Count, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
+                                        <TextBlock
+                                            x:Name="PullRequestDetailsSidebarNoReviewersTextBlock"
+                                            x:Load="{x:Bind ViewModel.PullItem.LatestReviews.Nodes.Count, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
+                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="No reviewers" />
+                                    </Grid>
+                                </Grid>
 
                                 <MenuFlyoutSeparator />
                             </StackPanel>
@@ -1612,15 +1669,27 @@
                                         Text="Assignees" />
                                 </StackPanel>
 
+                                <Grid>
 
-                                <StackPanel>
+                                    <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.PullItem.Assignees.Nodes, Mode=OneWay}">
+                                        <muxc:ItemsRepeater.Layout>
+                                            <muxc:StackLayout Orientation="Vertical" Spacing="6" />
+                                        </muxc:ItemsRepeater.Layout>
+                                        <DataTemplate x:DataType="modelsV4:User">
+                                            <primer:Avatar
+                                                HorizontalAlignment="Left"
+                                                Label="{x:Bind Login, Mode=OneWay}"
+                                                Source="{x:Bind AvatarUrl, Mode=OneWay}" />
+                                        </DataTemplate>
+                                    </muxc:ItemsRepeater>
 
                                     <TextBlock
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        x:Name="PullRequestDetailsSidebarNoAssigneesTextBlock"
+                                        x:Load="{x:Bind ViewModel.PullItem.Assignees.Nodes.Count, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                         Style="{StaticResource CaptionTextBlockStyle}"
-                                        Text="No one — assign yourself" />
-
-                                </StackPanel>
+                                        Text="No assignees" />
+                                </Grid>
 
                                 <MenuFlyoutSeparator />
                             </StackPanel>
@@ -1634,15 +1703,27 @@
                                         Text="Labels" />
                                 </StackPanel>
 
+                                <Grid>
 
-                                <StackPanel>
+                                    <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.PullItem.Labels.Nodes, Mode=OneWay}">
+                                        <muxc:ItemsRepeater.Layout>
+                                            <muxc:StackLayout Orientation="Vertical" Spacing="6" />
+                                        </muxc:ItemsRepeater.Layout>
+                                        <DataTemplate x:DataType="modelsV4:Label">
+                                            <primer:IssueLabelToken
+                                                HorizontalAlignment="Left"
+                                                FillColor="{x:Bind Color, Converter={StaticResource HexColorCodeToSolidColorBrushConverter}}"
+                                                Text="{x:Bind Name}" />
+                                        </DataTemplate>
+                                    </muxc:ItemsRepeater>
 
                                     <TextBlock
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        x:Name="PullRequestDetailsSidebarNoLabelsTextBlock"
+                                        x:Load="{x:Bind ViewModel.PullItem.Labels.Nodes.Count, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         Text="No labels" />
-
-                                </StackPanel>
+                                </Grid>
 
                                 <MenuFlyoutSeparator />
                             </StackPanel>
@@ -1656,13 +1737,12 @@
                                         Text="Projects" />
                                 </StackPanel>
 
-
                                 <StackPanel>
 
                                     <TextBlock
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        Foreground="{ThemeResource TextFillColorSecondary}"
                                         Style="{StaticResource CaptionTextBlockStyle}"
-                                        Text="None" />
+                                        Text="No projects" />
 
                                 </StackPanel>
 
@@ -1675,18 +1755,39 @@
                                     <TextBlock
                                         VerticalAlignment="Center"
                                         Style="{StaticResource BodyStrongTextBlockStyle}"
-                                        Text="Milestones" />
+                                        Text="Milestone" />
                                 </StackPanel>
 
+                                <Grid>
+                                    <Grid
+                                        Padding="16,8,16,16"
+                                        Background="{ThemeResource LayerFillColorDefaultBrush}"
+                                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                        BorderThickness="1"
+                                        CornerRadius="8"
+                                        RowSpacing="8">
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto" />
+                                            <RowDefinition Height="Auto" />
+                                        </Grid.RowDefinitions>
+                                        <TextBlock
+                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                            Style="{StaticResource BodyStrongTextBlockStyle}"
+                                            Text="{x:Bind ViewModel.PullItem.Milestone.Title, Mode=OneWay}" />
+                                        <ProgressBar
+                                            Grid.Row="1"
+                                            Maximum="100"
+                                            Value="{x:Bind ViewModel.PullItem.Milestone.ProgressPercentage, Mode=OneWay}" />
+                                    </Grid>
 
-                                <StackPanel>
 
                                     <TextBlock
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        x:Name="PullRequestDetailsSidebarNoMilestoneTextBlock"
+                                        x:Load="{x:Bind ViewModel.PullItem.Milestone, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                         Style="{StaticResource CaptionTextBlockStyle}"
-                                        Text="None" />
-
-                                </StackPanel>
+                                        Text="No milestone" />
+                                </Grid>
 
                                 <MenuFlyoutSeparator />
                             </StackPanel>
@@ -1700,13 +1801,12 @@
                                         Text="Development" />
                                 </StackPanel>
 
-
                                 <StackPanel>
 
                                     <TextBlock
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        Foreground="{ThemeResource TextFillColorSecondary}"
                                         Style="{StaticResource CaptionTextBlockStyle}"
-                                        Text="None" />
+                                        Text="No development" />
 
                                 </StackPanel>
 
@@ -1725,7 +1825,10 @@
 
                                 <StackPanel>
 
-                                    <Button HorizontalAlignment="Stretch" Content="Notifications" />
+                                    <Button
+                                        HorizontalAlignment="Stretch"
+                                        Content="Subscribe"
+                                        IsEnabled="False" />
 
                                 </StackPanel>
 
@@ -1741,145 +1844,157 @@
                                         Text="Participants" />
                                 </StackPanel>
 
+                                <Grid>
 
-                                <StackPanel>
+                                    <muxc:ItemsRepeater ItemsSource="{x:Bind ViewModel.PullItem.Participants.Nodes, Mode=OneWay}">
+                                        <muxc:ItemsRepeater.Layout>
+                                            <muxc:StackLayout Orientation="Horizontal" Spacing="8" />
+                                        </muxc:ItemsRepeater.Layout>
+                                        <DataTemplate x:DataType="modelsV4:User">
+                                            <primer:Avatar
+                                                HorizontalAlignment="Left"
+                                                Size="28"
+                                                Source="{x:Bind AvatarUrl, Mode=OneWay}" />
+                                        </DataTemplate>
+                                    </muxc:ItemsRepeater>
 
                                     <TextBlock
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        x:Name="PullRequestDetailsSidebarNoParticipantsTextBlock"
+                                        x:Load="{x:Bind ViewModel.PullItem.Participants.Nodes.Count, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
+                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                         Style="{StaticResource CaptionTextBlockStyle}"
-                                        Text="None" />
-
-                                </StackPanel>
+                                        Text="No participants" />
+                                </Grid>
 
                                 <MenuFlyoutSeparator />
                             </StackPanel>
-
 
                         </StackPanel>
 
                     </Grid>
 
-                    <StackPanel
+                    <Grid
                         Grid.Row="3"
-                        Margin="0,8,8,0"
-                        VerticalAlignment="Top">
-                        <Grid
-                            Background="{ThemeResource LayerFillColorDefaultBrush}"
-                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                            BorderThickness="1"
-                            CornerRadius="8">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
+                        Margin="0,8,0,0"
+                        Background="{ThemeResource LayerFillColorDefaultBrush}"
+                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                        BorderThickness="1"
+                        CornerRadius="8">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
 
-                            <Grid>
-                                <muxc:NavigationView
-                                    Margin="12,4,24,4"
-                                    IsBackButtonVisible="Collapsed"
-                                    IsSettingsVisible="False"
-                                    PaneDisplayMode="Top">
-                                    <muxc:NavigationView.MenuItems>
-                                        <muxc:NavigationViewItem Content="Write" IsSelected="True" />
-                                        <muxc:NavigationViewItem Content="Preview" />
-                                    </muxc:NavigationView.MenuItems>
-                                    <muxc:NavigationView.PaneFooter>
-                                        <StackPanel Orientation="Horizontal" Spacing="4">
-                                            <Button
-                                                Width="32"
-                                                Height="32"
-                                                Padding="0"
-                                                Background="Transparent"
-                                                BorderThickness="0">
-                                                <FontIcon
-                                                    FontFamily="{StaticResource Octicons}"
-                                                    FontSize="14"
-                                                    Glyph="&#xE9CD;" />
-                                            </Button>
-                                            <Button
-                                                Width="32"
-                                                Height="32"
-                                                Padding="0"
-                                                Background="Transparent"
-                                                BorderThickness="0">
-                                                <FontIcon
-                                                    FontFamily="{StaticResource Octicons}"
-                                                    FontSize="14"
-                                                    Glyph="&#xEAA7;" />
-                                            </Button>
-                                            <Button
-                                                Width="32"
-                                                Height="32"
-                                                Padding="0"
-                                                Background="Transparent"
-                                                BorderThickness="0">
-                                                <FontIcon
-                                                    FontFamily="{StaticResource Octicons}"
-                                                    FontSize="14"
-                                                    Glyph="&#xEA0F;" />
-                                            </Button>
-                                            <Button
-                                                Width="32"
-                                                Height="32"
-                                                Padding="0"
-                                                Background="Transparent"
-                                                BorderThickness="0">
-                                                <FontIcon
-                                                    FontFamily="{StaticResource Octicons}"
-                                                    FontSize="14"
-                                                    Glyph="&#xE968;" />
-                                            </Button>
-                                            <Button
-                                                Width="32"
-                                                Height="32"
-                                                Padding="0"
-                                                Background="Transparent"
-                                                BorderThickness="0">
-                                                <FontIcon
-                                                    FontFamily="{StaticResource Octicons}"
-                                                    FontSize="14"
-                                                    Glyph="&#xEA50;" />
-                                            </Button>
-                                        </StackPanel>
-                                    </muxc:NavigationView.PaneFooter>
-                                </muxc:NavigationView>
-                            </Grid>
-
-                            <MenuFlyoutSeparator Grid.Row="1" />
-
-                            <Grid
-                                Grid.Row="2"
-                                Height="256"
-                                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
-                                <TextBox
-                                    Margin="12"
-                                    Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
-                                    IsEnabled="False"
-                                    PlaceholderText="Leave a comment" />
-                            </Grid>
-
-                            <Grid
-                                Grid.Row="3"
-                                Padding="12,0,12,12"
-                                Background="{ThemeResource CardBackgroundFillColorDefaultBrush}">
-
-                                <StackPanel
-                                    HorizontalAlignment="Right"
-                                    Orientation="Horizontal"
-                                    Spacing="8">
-                                    <Button Content="Close issue" IsEnabled="False" />
-                                    <Button
-                                        Content="Comment"
+                        <Grid>
+                            <muxc:NavigationView
+                                Margin="12,4,24,4"
+                                IsBackButtonVisible="Collapsed"
+                                IsSettingsVisible="False"
+                                PaneDisplayMode="Top">
+                                <muxc:NavigationView.MenuItems>
+                                    <muxc:NavigationViewItem
+                                        Content="Write"
                                         IsEnabled="False"
-                                        Style="{StaticResource AccentButtonStyle}" />
-                                </StackPanel>
-                            </Grid>
+                                        IsSelected="True" />
+                                    <muxc:NavigationViewItem Content="Preview" IsEnabled="False" />
+                                </muxc:NavigationView.MenuItems>
 
+                                <muxc:NavigationView.PaneFooter>
+                                    <StackPanel Orientation="Horizontal" Spacing="4">
+                                        <Button
+                                            Width="32"
+                                            Height="32"
+                                            Padding="0"
+                                            Background="Transparent"
+                                            BorderThickness="0">
+                                            <FontIcon
+                                                FontFamily="{StaticResource Octicons}"
+                                                FontSize="14"
+                                                Glyph="&#xE9CD;" />
+                                        </Button>
+                                        <Button
+                                            Width="32"
+                                            Height="32"
+                                            Padding="0"
+                                            Background="Transparent"
+                                            BorderThickness="0">
+                                            <FontIcon
+                                                FontFamily="{StaticResource Octicons}"
+                                                FontSize="14"
+                                                Glyph="&#xEAA7;" />
+                                        </Button>
+                                        <Button
+                                            Width="32"
+                                            Height="32"
+                                            Padding="0"
+                                            Background="Transparent"
+                                            BorderThickness="0">
+                                            <FontIcon
+                                                FontFamily="{StaticResource Octicons}"
+                                                FontSize="14"
+                                                Glyph="&#xEA0F;" />
+                                        </Button>
+                                        <Button
+                                            Width="32"
+                                            Height="32"
+                                            Padding="0"
+                                            Background="Transparent"
+                                            BorderThickness="0">
+                                            <FontIcon
+                                                FontFamily="{StaticResource Octicons}"
+                                                FontSize="14"
+                                                Glyph="&#xE968;" />
+                                        </Button>
+                                        <Button
+                                            Width="32"
+                                            Height="32"
+                                            Padding="0"
+                                            Background="Transparent"
+                                            BorderThickness="0">
+                                            <FontIcon
+                                                FontFamily="{StaticResource Octicons}"
+                                                FontSize="14"
+                                                Glyph="&#xEA50;" />
+                                        </Button>
+                                    </StackPanel>
+                                </muxc:NavigationView.PaneFooter>
+
+                            </muxc:NavigationView>
                         </Grid>
-                    </StackPanel>
 
+                        <MenuFlyoutSeparator Grid.Row="1" />
+
+                        <Grid
+                            Grid.Row="2"
+                            Height="256"
+                            Background="{ThemeResource LayerFillColorDefaultBrush}">
+                            <TextBox
+                                Margin="12"
+                                Background="{ThemeResource LayerFillColorDefaultBrush}"
+                                IsEnabled="False"
+                                PlaceholderText="Leave a comment" />
+                        </Grid>
+
+                        <Grid
+                            Grid.Row="3"
+                            Padding="12,0,12,12"
+                            Background="{ThemeResource LayerFillColorDefaultBrush}">
+
+                            <StackPanel
+                                HorizontalAlignment="Right"
+                                Orientation="Horizontal"
+                                Spacing="8">
+                                <Button Content="Close issue" IsEnabled="False" />
+                                <Button
+                                    Content="Comment"
+                                    IsEnabled="False"
+                                    Style="{StaticResource AccentButtonStyle}" />
+                            </StackPanel>
+                        </Grid>
+
+                    </Grid>
                 </Grid>
             </ScrollViewer>
         </Grid>

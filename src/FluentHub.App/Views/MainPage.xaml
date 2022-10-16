@@ -95,17 +95,7 @@
                 x:Load="{x:Bind ViewModel.TaskIsInProgress, Mode=OneWay}"
                 IsIndeterminate="True" />
 
-            <Grid
-                x:Name="DragArea"
-                Grid.ColumnSpan="2" Canvas.ZIndex="-3"
-                Height="40"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Top"
-                Background="Transparent"
-                BorderThickness="0"
-                Loaded="OnDragAreaLoaded" />
-
-            <Grid Canvas.ZIndex="1" ColumnSpacing="8">
+            <Grid ColumnSpacing="8">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
@@ -113,16 +103,13 @@
                     <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <StackPanel
+                <uc:TitleBar
+                    x:Name="MainPageTitleBar"
                     Margin="16,0,8,0"
-                    VerticalAlignment="Center"
-                    Orientation="Horizontal">
-
-                    <uc:TitleBar />
-
-                </StackPanel>
+                    VerticalAlignment="Center" />
 
                 <StackPanel
+                    x:Name="TitleBarButtonGroup"
                     Grid.Column="1"
                     Orientation="Horizontal"
                     Spacing="8">
@@ -257,17 +244,17 @@
                 </StackPanel>
 
                 <tabsuc:CustomTabView
-                    x:Name="TabView"
-                    Title="{x:Bind TabView.SelectedItem.NavigationHistory.CurrentItem.Header, Mode=OneWay}"
+                    x:Name="CustomTabViewControl"
+                    Title="{x:Bind CustomTabViewControl.SelectedItem.NavigationHistory.CurrentItem.Header, Mode=OneWay}"
                     Grid.Column="2"
                     Height="44"
-                    Margin="0,-8,0,0"
                     Background="Transparent"
+                    Loaded="OnCustomTabViewControlLoaded"
                     SelectionChanged="OnTabViewSelectionChanged" />
 
                 <StackPanel
                     Grid.Column="3"
-                    Margin="0,0,184,0"
+                    Margin="0,0,152,0"
                     Orientation="Horizontal">
 
                     <muxc:DropDownButton
@@ -278,12 +265,9 @@
                         Background="Transparent"
                         BorderBrush="{StaticResource ControlStrokeColorDefault}"
                         BorderThickness="0"
-                        CornerRadius="17"
+                        CornerRadius="8"
                         ToolTipService.ToolTip="More">
-                        <Border
-                            Width="28"
-                            Height="28"
-                            CornerRadius="14">
+                        <Border CornerRadius="14">
                             <Image
                                 Width="28"
                                 Height="28"

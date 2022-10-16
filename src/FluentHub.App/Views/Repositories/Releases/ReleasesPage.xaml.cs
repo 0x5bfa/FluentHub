@@ -38,16 +38,34 @@ namespace FluentHub.App.Views.Repositories.Releases
                 command.Execute(null);
         }
 
-        private async void OnLatestReleaseContentWebViewLoaded(object sender, RoutedEventArgs e)
+        //private async void OnLatestReleaseWebView2NavigationCompleted(WebView2 sender, Microsoft.Web.WebView2.Core.CoreWebView2NavigationCompletedEventArgs args)
+        //    => await sender.HandleResize();
+
+        //private async void OnLatestReleaseWebView2SizeChanged(object sender, SizeChangedEventArgs e)
+        //    => await ((WebView2)sender).HandleResize();
+
+        private async void OnLatestReleaseWebView2Loaded(object sender, RoutedEventArgs e)
         {
-            ViewModel.LatestReleaseDescriptionWebView = LatestReleaseContentWebView;
             string missedPath = "https://raw.githubusercontent.com/" + ViewModel.Repository.Owner.Login + "/" + ViewModel.Repository.Name + "/" + ViewModel.Repository.DefaultBranchRef.Name + "/";
 
             MarkdownApiHandler mdHandler = new();
             var html = await mdHandler.GetHtmlAsync(ViewModel.LatestRelease.DescriptionHTML ?? "<span>No description provided</span>", missedPath, ThemeHelpers.RootTheme.ToString().ToLower());
 
-            LatestReleaseContentWebView.NavigateToString(html);
-            await LatestReleaseContentWebView.HandleResize();
+            // https://github.com/microsoft/microsoft-ui-xaml/issues/3714
+            await LatestReleaseWebView2.EnsureCoreWebView2Async();
+
+            // https://github.com/microsoft/microsoft-ui-xaml/issues/1967
+            // It is no longer the plan for WebView2 to support ms-appx-web:/// and ms-appx-data:///.
+            // Instead of using these proprietary protocols the SetVirtualHostNameToFolderMapping API is recommended.
+            var CoreWebView2 = LatestReleaseWebView2.CoreWebView2;
+            if (CoreWebView2 != null)
+            {
+                CoreWebView2.SetVirtualHostNameToFolderMapping(
+                    "fluenthub.app", "Assets/",
+                    Microsoft.Web.WebView2.Core.CoreWebView2HostResourceAccessKind.Allow);
+            }
+
+            LatestReleaseWebView2.NavigateToString(html);
         }
     }
 }

@@ -6,8 +6,8 @@ using FluentHub.App.Utils;
 using FluentHub.App.ViewModels.UserControls.Overview;
 using FluentHub.App.ViewModels.UserControls.BlockButtons;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
-using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.App.ViewModels.Repositories.Discussions
 {
@@ -120,7 +120,7 @@ namespace FluentHub.App.ViewModels.Repositories.Discussions
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Discussions";
             currentItem.Description = "Discussions";
-            currentItem.Icon = new muxc.ImageIconSource
+            currentItem.Icon = new ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Discussions.png"))
             };

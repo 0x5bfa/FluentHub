@@ -122,58 +122,20 @@
                     Title = x.Title,
                     UpdatedAt = x.UpdatedAt,
 
-                    Repository = x.Repository.Select(repo => new Repository
+                    Assignees = x.Assignees(6, null, null, null).Select(assignees => new UserConnection
                     {
-                        Name = repo.Name,
-
-                        Owner = repo.Owner.Select(owner => new RepositoryOwner
+                        Nodes = assignees.Nodes.Select(y => new User
                         {
-                            AvatarUrl = owner.AvatarUrl(100),
-                            Id = owner.Id,
-                            Login = owner.Login,
+                            AvatarUrl = y.AvatarUrl(100),
+                            Login = y.Login,
                         })
-                        .SingleOrDefault(),
-                    })
-                    .SingleOrDefault(),
-
-                    HeadRepository = x.HeadRepository.Select(repo => new Repository
-                    {
-                        Name = repo.Name,
-
-                        Owner = repo.Owner.Select(owner => new RepositoryOwner
-                        {
-                            AvatarUrl = owner.AvatarUrl(100),
-                            Login = owner.Login,
-                        })
-                        .SingleOrDefault(),
+                        .ToList(),
                     })
                     .SingleOrDefault(),
 
                     Comments = x.Comments(null, null, null, null, null).Select(comments => new IssueCommentConnection
                     {
                         TotalCount = comments.TotalCount,
-                    })
-                    .SingleOrDefault(),
-
-                    Labels = x.Labels(10, null, null, null, null).Select(labels => new LabelConnection
-                    {
-                        Nodes = labels.Nodes.Select(y => new Label
-                        {
-                            Color = y.Color,
-                            Description = y.Description,
-                            Name = y.Name,
-                        })
-                        .ToList(),
-                    })
-                    .SingleOrDefault(),
-
-                    Reviews = x.Reviews(null, null, 1, null, null, null).Select(reviews => new PullRequestReviewConnection
-                    {
-                        Nodes = reviews.Nodes.Select(y => new PullRequestReview
-                        {
-                            State = (PullRequestReviewState)y.State,
-                        })
-                        .ToList().DefaultIfEmpty().ToList(),
                     })
                     .SingleOrDefault(),
 
@@ -194,6 +156,117 @@
                         .ToList().DefaultIfEmpty().ToList(),
                     })
                     .SingleOrDefault(),
+
+                    HeadRepository = x.HeadRepository.Select(repo => new Repository
+                    {
+                        Name = repo.Name,
+
+                        Owner = repo.Owner.Select(owner => new RepositoryOwner
+                        {
+                            AvatarUrl = owner.AvatarUrl(100),
+                            Login = owner.Login,
+                        })
+                        .SingleOrDefault(),
+                    })
+                    .SingleOrDefault(),
+
+                    Labels = x.Labels(10, null, null, null, null).Select(labels => new LabelConnection
+                    {
+                        Nodes = labels.Nodes.Select(y => new Label
+                        {
+                            Color = y.Color,
+                            Description = y.Description,
+                            Name = y.Name,
+                        })
+                        .ToList(),
+                    })
+                    .SingleOrDefault(),
+
+                    LatestReviews = x.LatestReviews(15, null, null, null).Select(latestReviews => new PullRequestReviewConnection
+                    {
+                        Nodes = latestReviews.Nodes.Select(latestReview => new PullRequestReview
+                        {
+                            Author = latestReview.Author.Select(author => new Actor
+                            {
+                                AvatarUrl = author.AvatarUrl(100),
+                                Login = author.Login,
+                            })
+                            .SingleOrDefault(),
+                        })
+                        .ToList(),
+                    })
+                    .SingleOrDefault(),
+
+                    Milestone = x.Milestone.Select(y => new Milestone
+                    {
+                        Title = y.Title,
+                        ProgressPercentage = y.ProgressPercentage,
+                    })
+                    .SingleOrDefault(),
+
+                    Participants = x.Participants(6, null, null, null).Select(participants => new UserConnection
+                    {
+                        Nodes = participants.Nodes.Select(y => new User
+                        {
+                            AvatarUrl = y.AvatarUrl(100),
+                            Login = y.Login,
+                        })
+                        .ToList(),
+                    })
+                    .SingleOrDefault(),
+
+                    ProjectCards = x.ProjectCards(6, null, null, null, null).Select(projects => new ProjectCardConnection
+                    {
+                        Nodes = projects.Nodes.Select(y => new ProjectCard
+                        {
+                            Note = y.Note,
+                        })
+                        .ToList(),
+                    })
+                    .SingleOrDefault(),
+
+                    Repository = x.Repository.Select(repo => new Repository
+                    {
+                        Name = repo.Name,
+
+                        Owner = repo.Owner.Select(owner => new RepositoryOwner
+                        {
+                            AvatarUrl = owner.AvatarUrl(100),
+                            Id = owner.Id,
+                            Login = owner.Login,
+                        })
+                        .SingleOrDefault(),
+                    })
+                    .SingleOrDefault(),
+
+                    ReviewRequests = x.ReviewRequests(15, null, null, null).Select(reviewRequests => new ReviewRequestConnection
+                    {
+                        Nodes = reviewRequests.Nodes.Select(reviewRequest => new ReviewRequest
+                        {
+                            RequestedReviewer = reviewRequest.RequestedReviewer.Select(requestedReviewer => new RequestedReviewer
+                            {
+                                User = requestedReviewer.Switch<User>(whenUser => whenUser
+                                .User(user => new User
+                                {
+                                    AvatarUrl = user.AvatarUrl(100),
+                                    Login = user.Login,
+                                })),
+                            })
+                            .SingleOrDefault(),
+                        })
+                        .ToList(),
+                    })
+                    .SingleOrDefault(),
+
+                    Reviews = x.Reviews(null, null, 1, null, null, null).Select(reviews => new PullRequestReviewConnection
+                    {
+                        Nodes = reviews.Nodes.Select(y => new PullRequestReview
+                        {
+                            State = (PullRequestReviewState)y.State,
+                        })
+                        .ToList().DefaultIfEmpty().ToList(),
+                    })
+                    .SingleOrDefault(),
                 })
                 .Compile();
 
@@ -209,37 +282,42 @@
                 .PullRequest(number)
                 .Select(x => new IssueComment
                 {
+                    AuthorAssociation = (CommentAuthorAssociation)x.AuthorAssociation,
+                    Body = x.Body,
+                    BodyHTML = x.BodyHTML,
+                    CreatedAt = x.CreatedAt,
+                    CreatedAtHumanized = x.CreatedAt.Humanize(null, null),
+                    Id = x.Id,
+                    LastEditedAt = x.LastEditedAt,
+                    UpdatedAt = x.UpdatedAt,
+                    UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
+                    Url = x.Url,
+                    ViewerCanReact = x.ViewerCanReact,
+                    ViewerCanUpdate = x.ViewerCanUpdate,
+                    ViewerDidAuthor = x.ViewerDidAuthor,
+
                     Author = x.Author.Select(author => new Actor
                     {
                         Login = author.Login,
                         AvatarUrl = author.AvatarUrl(100),
                     })
-                    .Single(),
+                    .SingleOrDefault(),
 
-                    Reactions = new()
+                    Reactions = x.Reactions(100, null, null, null, null, null).Select(reactions => new ReactionConnection
                     {
-                        Nodes = x.Reactions(6, null, null, null, null, null).Nodes.Select(reaction => new Reaction
+                        Nodes = reactions.Nodes.Select(reaction => new Reaction
                         {
                             Content = (ReactionContent)reaction.Content,
+
                             User = reaction.User.Select(user => new User
                             {
                                 Login = user.Login,
                             })
-                            .Single(),
+                            .SingleOrDefault(),
                         })
                         .ToList(),
-                    },
-
-                    AuthorAssociation = (CommentAuthorAssociation)x.AuthorAssociation,
-                    Body = x.Body,
-                    BodyHTML = x.BodyHTML,
-                    LastEditedAt = x.LastEditedAt,
-                    UpdatedAt = x.UpdatedAt,
-                    ViewerCanReact = x.ViewerCanReact,
-                    ViewerCanUpdate = x.ViewerCanUpdate,
-                    ViewerDidAuthor = x.ViewerDidAuthor,
-                    Url = x.Url,
-                    CreatedAt = x.CreatedAt,
+                    })
+                    .SingleOrDefault(),
                 })
                 .Compile();
 

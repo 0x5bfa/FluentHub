@@ -3,7 +3,6 @@ using FluentHub.App.Models;
 using FluentHub.App.Services;
 using FluentHub.App.Utils;
 using Microsoft.Extensions.DependencyInjection;
-using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.App.ViewModels.UserControls.Overview
 {

@@ -490,6 +490,24 @@
                 })
                 .IssueComment(y => new IssueComment
                 {
+                    AuthorAssociation = (CommentAuthorAssociation)y.AuthorAssociation,
+                    Body = y.Body,
+                    BodyHTML = y.BodyHTML,
+                    CreatedAt = y.CreatedAt,
+                    CreatedAtHumanized = y.CreatedAt.Humanize(null, null),
+                    Id = y.Id,
+                    IsMinimized = y.IsMinimized,
+                    LastEditedAt = y.LastEditedAt,
+                    MinimizedReason = y.MinimizedReason,
+                    UpdatedAt = y.UpdatedAt,
+                    UpdatedAtHumanized = y.UpdatedAt.Humanize(null, null),
+                    Url = y.Url,
+                    ViewerCanDelete = y.ViewerCanDelete,
+                    ViewerCanMinimize = y.ViewerCanMinimize,
+                    ViewerCanReact = y.ViewerCanReact,
+                    ViewerCanUpdate = y.ViewerCanUpdate,
+                    ViewerDidAuthor = y.ViewerDidAuthor,
+
                     Author = y.Author.Select(author => new Actor
                     {
                         AvatarUrl = author.AvatarUrl(100),
@@ -497,37 +515,21 @@
                     })
                     .SingleOrDefault(),
 
-                    AuthorAssociation = (CommentAuthorAssociation)y.AuthorAssociation,
-                    Body = y.Body,
-                    BodyHTML = y.BodyHTML,
-                    CreatedAt = y.CreatedAt,
-                    LastEditedAt = y.LastEditedAt,
-                    MinimizedReason = y.MinimizedReason,
-                    IsMinimized = y.IsMinimized,
-
-                    Reactions = y.Reactions(6, null, null, null, null, null).Select(reaction => new ReactionConnection
+                    Reactions = y.Reactions(100, null, null, null, null, null).Select(reactions => new ReactionConnection
                     {
-                        Nodes = reaction.Nodes.Select(z => new Reaction
+                        Nodes = reactions.Nodes.Select(reaction => new Reaction
                         {
-                            Content = (ReactionContent)z.Content,
+                            Content = (ReactionContent)reaction.Content,
 
-                            User = z.User.Select(user => new User
+                            User = reaction.User.Select(user => new User
                             {
                                 Login = user.Login,
                             })
                             .SingleOrDefault(),
                         })
-                        .ToList().DefaultIfEmpty().ToList(),
+                        .ToList(),
                     })
                     .SingleOrDefault(),
-
-                    UpdatedAt = y.UpdatedAt,
-                    Url = y.Url,
-                    ViewerCanDelete = y.ViewerCanDelete,
-                    ViewerCanMinimize = y.ViewerCanMinimize,
-                    ViewerCanReact = y.ViewerCanReact,
-                    ViewerCanUpdate = y.ViewerCanUpdate,
-                    ViewerDidAuthor = y.ViewerDidAuthor,
                 })
                 .LabeledEvent(y => new LabeledEvent
                 {

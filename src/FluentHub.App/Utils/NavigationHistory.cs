@@ -1,6 +1,6 @@
 using FluentHub.App.Services;
 using Microsoft.Extensions.DependencyInjection;
-using muxc = Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.App.Utils
 {
@@ -125,7 +125,7 @@ namespace FluentHub.App.Utils
             CanGoForward = CurrentItemIndex < _items.Count - 1;
         }
 
-        public static void SetCurrentItem(string header, string description, string url, muxc.IconSource icon)
+        public static void SetCurrentItem(string header, string description, string url, IconSource icon)
         {
             INavigationService navigationService;
             navigationService = App.Current.Services.GetRequiredService<INavigationService>();

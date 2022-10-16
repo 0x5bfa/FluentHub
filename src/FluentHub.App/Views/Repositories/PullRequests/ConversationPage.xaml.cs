@@ -26,6 +26,12 @@ namespace FluentHub.App.Views.Repositories.PullRequests
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var param = e.Parameter as FrameNavigationArgs;
+
+            if (param == null)
+            {
+                throw new ArgumentNullException(nameof(param), "OnNavigateTo() failed to load.");
+            }
+
             ViewModel.Login = param.Login;
             ViewModel.Name = param.Name;
             ViewModel.Number = param.Number;

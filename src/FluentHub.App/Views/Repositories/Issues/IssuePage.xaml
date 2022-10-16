@@ -1573,26 +1573,17 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <Grid ColumnSpacing="8">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*" />
-                                <ColumnDefinition Width="Auto" />
-                            </Grid.ColumnDefinitions>
-
-                            <TextBlock
-                                x:Name="IssueTitleTextBlock"
-                                FontWeight="SemiBold"
-                                IsTextSelectionEnabled="True"
-                                Style="{StaticResource TitleTextBlockStyle}"
-                                ToolTipService.ToolTip="{x:Bind IssueTitleTextBlock.Text, Mode=OneWay}">
-                                <Run Text="{x:Bind ViewModel.IssueItem.Title, Mode=OneWay}" />
-                                <Run
-                                    FontWeight="Normal"
-                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                    Text="{x:Bind ViewModel.IssueItem.Number, Converter={StaticResource DecimalToSubjectNumberConverter}, Mode=OneWay}" />
-                            </TextBlock>
-
-                        </Grid>
+                        <TextBlock
+                            x:Name="IssueTitleTextBlock"
+                            IsTextSelectionEnabled="True"
+                            Style="{StaticResource TitleTextBlockStyle}"
+                            ToolTipService.ToolTip="{x:Bind IssueTitleTextBlock.Text, Mode=OneWay}">
+                            <Run FontWeight="SemiBold" Text="{x:Bind ViewModel.IssueItem.Title, Mode=OneWay}" />
+                            <Run
+                                FontWeight="Normal"
+                                Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+                                Text="{x:Bind ViewModel.IssueItem.Number, Converter={StaticResource DecimalToSubjectNumberConverter}, Mode=OneWay}" />
+                        </TextBlock>
 
                         <StackPanel
                             Grid.Row="1"
@@ -1649,7 +1640,10 @@
                         CornerRadius="8">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="3*" />
-                            <ColumnDefinition Width="*" MaxWidth="400" />
+                            <ColumnDefinition
+                                Width="*"
+                                MinWidth="214"
+                                MaxWidth="400" />
                         </Grid.ColumnDefinitions>
 
                         <StackPanel x:Name="IssueContentPanel">

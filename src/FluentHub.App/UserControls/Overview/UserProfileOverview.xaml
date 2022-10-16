@@ -110,10 +110,14 @@
                             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                             BorderThickness="1"
                             CornerRadius="4">
-                            <StackPanel VerticalAlignment="Center" Orientation="Horizontal">
+                            <StackPanel
+                                Margin="0,0,0,2"
+                                VerticalAlignment="Center"
+                                Orientation="Horizontal">
                                 <TextBlock
                                     x:Name="UserStatusEmoji"
-                                    Margin="12,0,0,0"
+                                    Margin="8,0,0,0"
+                                    VerticalAlignment="Center"
                                     x:Load="{x:Bind ViewModel.User.Status.Emoji, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
                                     IsTextSelectionEnabled="True"
                                     LineHeight="18"
@@ -121,8 +125,7 @@
                                     Text="{x:Bind ViewModel.User.Status.Emoji, Converter={StaticResource EmojiShortCodeToUnicodeConverter}, Mode=OneWay}" />
                                 <TextBlock
                                     x:Name="UserStatusBlockMessageTextBlock"
-                                    Margin="8,0,0,0"
-                                    HorizontalAlignment="Center"
+                                    Margin="4,0,0,0"
                                     VerticalAlignment="Center"
                                     Foreground="{ThemeResource TextFillColorSecondaryBrush}"
                                     IsTextSelectionEnabled="True"
@@ -133,7 +136,6 @@
                                     x:Name="UserStatusIndicatesLimitedAvailabilityTextBlock"
                                     Grid.Column="1"
                                     Margin="8,0,12,0"
-                                    HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     x:Load="{x:Bind ViewModel.User.Status.IndicatesLimitedAvailability, Mode=OneWay}"
                                     FontFamily="Segoe Fluent Icons"

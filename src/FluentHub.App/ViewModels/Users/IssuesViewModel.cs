@@ -6,8 +6,8 @@ using FluentHub.App.ViewModels.UserControls.Overview;
 using FluentHub.App.ViewModels.UserControls.BlockButtons;
 using FluentHub.App.Utils;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
-using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.App.ViewModels.Users
 {
@@ -123,7 +123,7 @@ namespace FluentHub.App.ViewModels.Users
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Issues";
             currentItem.Description = $"{User?.Login}'s issues";
-            currentItem.Icon = new muxc.ImageIconSource
+            currentItem.Icon = new ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Issues.png"))
             };

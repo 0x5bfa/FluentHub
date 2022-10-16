@@ -13,24 +13,17 @@ namespace FluentHub.App.ViewModels.UserControls
         {
             _messenger = messenger;
             _logger = logger;
-
-            LoadReadmeContentBlockCommand = new AsyncRelayCommand<WebView2>(LoadRepositoryReadmeAsync);
         }
 
         #region Fields and Properties
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
 
-        private string _htmlText;
-        public string HtmlText { get => _htmlText; set => SetProperty(ref _htmlText, value); }
-
-        private bool _isLoaded;
-        public bool IsLoaded { get => _isLoaded; set => SetProperty(ref _isLoaded, value); }
-
         private RepoContextViewModel contextViewModel;
         public RepoContextViewModel ContextViewModel { get => contextViewModel; set => SetProperty(ref contextViewModel, value); }
 
-        public IAsyncRelayCommand LoadReadmeContentBlockCommand { get; }
+        private bool _managedToLoadReadmeContents;
+        public bool ManagedToLoadReadmeContents { get => _managedToLoadReadmeContents; set => SetProperty(ref _managedToLoadReadmeContents, value); }
         #endregion
 
         public async Task LoadRepositoryReadmeAsync(WebView2 webView2)
@@ -40,14 +33,14 @@ namespace FluentHub.App.ViewModels.UserControls
                 var theme = App.Current.RequestedTheme;
 
                 MarkdownApiHandler queries = new();
-                HtmlText = await queries.GetHtmlAsync(
+                var html = await queries.GetHtmlAsync(
                     ContextViewModel.Repository.Owner.Login,
                     ContextViewModel.Repository.Name,
                     ContextViewModel.BranchName,
                     theme.ToString().ToLower()
                     );
 
-                if (HtmlText == null)
+                if (html == null)
                     return;
 
                 // https://github.com/microsoft/microsoft-ui-xaml/issues/3714
@@ -64,15 +57,15 @@ namespace FluentHub.App.ViewModels.UserControls
                         Microsoft.Web.WebView2.Core.CoreWebView2HostResourceAccessKind.Allow);
                 }
 
-                webView2.NavigateToString(HtmlText);
+                webView2.NavigateToString(html);
 
-                IsLoaded = true;
+                ManagedToLoadReadmeContents = true;
             }
             catch (Exception ex)
             {
                 _logger?.Error(nameof(LoadRepositoryReadmeAsync), ex);
 
-                IsLoaded = false;
+                ManagedToLoadReadmeContents = false;
             }
         }
     }

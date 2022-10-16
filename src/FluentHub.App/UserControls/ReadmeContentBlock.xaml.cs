@@ -23,7 +23,16 @@ namespace FluentHub.App.UserControls
         public RepoContextViewModel ContextViewModel
         {
             get => (RepoContextViewModel)GetValue(ContextViewModelProperty);
-            set => SetValue(ContextViewModelProperty, value);
+            set
+            {
+                SetValue(ContextViewModelProperty, value);
+
+                if (value != null)
+                {
+                    ViewModel.ContextViewModel = value;
+                    ViewModel.LoadRepositoryReadmeAsync(ReadmeContentWebView2);
+                }
+            }
         }
         #endregion
 
@@ -38,23 +47,15 @@ namespace FluentHub.App.UserControls
         public ReadmeContentBlockViewModel ViewModel { get; }
 
         private async void OnReadmeContentWebView2NavigationCompleted(WebView2 sender, CoreWebView2NavigationCompletedEventArgs args)
-            => await ReadmeContentWebView2.HandleResize();
+            => await sender.HandleResize();
 
-        private void OnReadmeContentWebView2NavigationStarting(WebView2 sender, CoreWebView2NavigationStartingEventArgs args)
+        private async void OnReadmeContentWebView2SizeChanged(object sender, SizeChangedEventArgs e)
+            => await ((WebView2)sender).HandleResize();
+
+        private void OnUserControlUnloaded(object sender, RoutedEventArgs e)
         {
-            if (args.Uri != null)
-            {
-                args.Cancel = true;
-            }
-        }
-
-        private void OnReadmeContentBlockUserControlLoaded(object sender, RoutedEventArgs e)
-        {
-            ViewModel.ContextViewModel = ContextViewModel;
-
-            var command = ViewModel.LoadReadmeContentBlockCommand;
-            if (command.CanExecute(ReadmeContentWebView2))
-                command.Execute(ReadmeContentWebView2);
+            // https://github.com/microsoft/microsoft-ui-xaml/issues/4752
+            ReadmeContentWebView2.Close();
         }
     }
 }

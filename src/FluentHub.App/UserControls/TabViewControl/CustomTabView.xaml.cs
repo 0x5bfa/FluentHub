@@ -2,7 +2,6 @@ using FluentHub.App.Services.Navigation;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
-using muxc = Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.App.UserControls.TabViewControl
 {
@@ -48,6 +47,8 @@ namespace FluentHub.App.UserControls.TabViewControl
                 typeof(CustomTabView),
                 new PropertyMetadata(null, OnTitleChanged));
         #endregion
+
+        public Grid DragArea => DragAreaGrid;
 
         public CustomTabView()
         {
