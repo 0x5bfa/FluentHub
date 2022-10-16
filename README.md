@@ -59,7 +59,7 @@ See the [build section](#-building-the-code).
 
 *May not always be up-to-date due to constant changes to the user interface*
 
-![image](https://user-images.githubusercontent.com/71598437/196044003-0f06c366-0762-4e8a-9442-682255a9a0ad.png)
+![image](https://user-images.githubusercontent.com/71598437/196044059-5b216467-2f5e-446a-bc82-71cd1a9854eb.png)
 ![image](https://user-images.githubusercontent.com/71598437/196043985-2c89549b-2288-4141-9c4d-f2fac38a4b7c.png)
 
 
