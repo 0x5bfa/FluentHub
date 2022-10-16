@@ -59,9 +59,8 @@ See the [build section](#-building-the-code).
 
 *May not always be up-to-date due to constant changes to the user interface*
 
-![image](https://user-images.githubusercontent.com/62196528/193452956-fded776f-778e-4b39-bec2-6ed075fa80da.png)
-![image](https://user-images.githubusercontent.com/62196528/193456360-838ac287-b14a-4c5e-a4ac-ed9fcb22de6a.png)
-
+![image](https://user-images.githubusercontent.com/71598437/196044933-fea4c40a-6bd6-4d13-94ce-664da891588e.png)
+![image](https://user-images.githubusercontent.com/71598437/196045421-a37bf241-6a0a-4d9f-9fb2-be4681506c49.png)
 
 ## 🧑‍💻 Contributing
 
