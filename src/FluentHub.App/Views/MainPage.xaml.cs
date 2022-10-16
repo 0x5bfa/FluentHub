@@ -128,6 +128,10 @@ namespace FluentHub.App.Views
             var height = (int)(CustomTabViewControl.TitlebarArea.ActualHeight * scaleAdjustment);
 
             var dragRect = new RectInt32(x, y, width, height);
+
+            // WinUI3: Need to track this issue https://github.com/microsoft/WindowsAppSDK/issues/2574
+            // They is not fixed in latest stable version v1.5 However, it has been fixed in latest preview version v1.2.220930.4-preview2
+            // So we have no choice but to use unstable version of WASDK. Should use latest stable version.
             App.Window.AppWindow.TitleBar.SetDragRectangles(new[] { new(0, 0, (int)MainPageTitleBar.ActualWidth, 44), dragRect });
         }
 

@@ -247,6 +247,7 @@
                     Title="{x:Bind CustomTabViewControl.SelectedItem.NavigationHistory.CurrentItem.Header, Mode=OneWay}"
                     Grid.Column="2"
                     Height="44"
+                    Margin="0,-6,0,0"
                     Background="Transparent"
                     Loaded="OnCustomTabViewControlLoaded"
                     SelectionChanged="OnTabViewSelectionChanged" />
@@ -363,10 +364,10 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Grid Margin="0,-4,3,2">
+            <Grid Margin="0,-4,1,2">
                 <NavigationView
                     x:Name="MainNavView"
-                    Width="76"
+                    Width="78"
                     x:Load="{x:Bind ViewModel.TaskIsCompletedSuccessfully, Mode=OneWay}"
                     Canvas.ZIndex="0"
                     FooterMenuItemsSource="{x:Bind ViewModel.NavViewFooterItems, Mode=OneWay}"
@@ -391,51 +392,45 @@
                             <NavigationViewItem
                                 Height="64"
                                 IsSelected="{x:Bind IsSelected, Mode=TwoWay}"
-                                Tag="{x:Bind Name, Mode=OneWay}">
+                                Tag="{x:Bind Name}">
                                 <Grid
-                                    Margin="-20,4,-10,0"
+                                    Margin="-5,4,-9,0"
                                     HorizontalAlignment="Stretch"
                                     VerticalAlignment="Stretch"
-                                    RowSpacing="4">
-                                    <Grid
-                                        x:Name="SelectedSquareNavViewItem"
+                                    RowSpacing="2">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <!--<FontIcon
+                                        x:Name="NavigationViewItemGlyphPrimeryFontIcon"
+                                        HorizontalAlignment="Center"
                                         x:Load="{x:Bind IsSelected, Mode=OneWay}"
-                                        RowSpacing="2">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                        </Grid.RowDefinitions>
-
-                                        <FontIcon
-                                            HorizontalAlignment="Center"
-                                            FontSize="22"
-                                            Foreground="{ThemeResource AccentFillColorDefaultBrush}"
-                                            Glyph="{x:Bind GlyphSecondary, Mode=OneWay}" />
-
-                                    </Grid>
-                                    <Grid
-                                        x:Name="UnselectedSquareNavViewItem"
+                                        FontSize="22"
+                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        Glyph="{x:Bind GlyphPrimary, Mode=OneWay}" />
+                                    <FontIcon
+                                        x:Name="NavigationViewItemGlyphSecondaryFontIcon"
+                                        HorizontalAlignment="Center"
                                         x:Load="{x:Bind IsSelected, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
-                                        RowSpacing="2">
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="Auto" />
-                                            <RowDefinition Height="Auto" />
-                                        </Grid.RowDefinitions>
+                                        FontSize="22"
+                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        Glyph="{x:Bind GlyphSecondary, Mode=OneWay}" />-->
+                                    <toolkit:ImageEx
+                                        Width="28"
+                                        Height="28"
+                                        Source="{x:Bind Thumbnail}" />
 
-                                        <FontIcon
-                                            HorizontalAlignment="Center"
-                                            FontSize="22"
-                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                            Glyph="{x:Bind GlyphPrimary, Mode=OneWay}" />
-
-                                        <TextBlock
-                                            Grid.Row="1"
-                                            HorizontalAlignment="Center"
-                                            FontSize="10"
-                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                            Style="{StaticResource CaptionTextBlockStyle}"
-                                            Text="{x:Bind Name, Mode=OneWay}" />
-                                    </Grid>
+                                    <TextBlock
+                                        x:Name="NavigationViewItemNameTextBlock"
+                                        Grid.Row="1"
+                                        HorizontalAlignment="Center"
+                                        x:Load="{x:Bind IsSelected, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
+                                        FontSize="10"
+                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                        Text="{x:Bind Name}" />
                                 </Grid>
                             </NavigationViewItem>
                         </DataTemplate>

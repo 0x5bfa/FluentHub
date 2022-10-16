@@ -30,14 +30,18 @@ namespace FluentHub.App.ViewModels.UserControls
         {
             try
             {
-                var theme = App.Current.RequestedTheme;
+                var settingTheme = Helpers.ThemeHelpers.RootTheme.ToString();
+                var appTheme = App.Current.RequestedTheme.ToString().ToLower();
+
+                if (settingTheme == "default")
+                    settingTheme = appTheme;
 
                 MarkdownApiHandler queries = new();
                 var html = await queries.GetHtmlAsync(
                     ContextViewModel.Repository.Owner.Login,
                     ContextViewModel.Repository.Name,
                     ContextViewModel.BranchName,
-                    theme.ToString().ToLower()
+                    settingTheme
                     );
 
                 if (html == null)

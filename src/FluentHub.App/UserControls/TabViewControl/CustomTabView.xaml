@@ -25,7 +25,6 @@
         Background="Transparent">
         <TabView
             x:Name="MainTabView"
-            Margin="0,-3,0,0"
             HorizontalAlignment="Stretch"
             VerticalAlignment="Stretch"
             AllowDropTabs="True"

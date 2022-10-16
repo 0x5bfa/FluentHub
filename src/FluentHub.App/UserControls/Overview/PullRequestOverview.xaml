@@ -85,22 +85,21 @@
 
                 <StackPanel Orientation="Horizontal" Spacing="8">
 
-                    <Grid Height="26" HorizontalAlignment="Left">
+                    <Grid Height="24" HorizontalAlignment="Left">
 
                         <Grid
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Background="#539bf5"
-                            CornerRadius="4"
-                            Opacity="0.1" />
+                            Background="{ThemeResource PrimerAccentEmphasis}"
+                            CornerRadius="8"
+                            Opacity="0.2" />
 
                         <Grid
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            BorderBrush="#539bf5"
+                            BorderBrush="{ThemeResource PrimerAccentEmphasis}"
                             BorderThickness="1"
-                            CornerRadius="4"
-                            Opacity="0.8" />
+                            CornerRadius="8" />
 
                         <StackPanel
                             Padding="8,0"
@@ -111,7 +110,7 @@
                                 VerticalAlignment="Center"
                                 FontFamily="Cascadia Code"
                                 FontWeight="Light"
-                                Foreground="#539bf5"
+                                Foreground="{ThemeResource PrimerAccentForeground}"
                                 Style="{StaticResource CaptionTextBlockStyle}"
                                 Text="{x:Bind ViewModel.PullRequest.HeadRefName, Mode=OneWay}" />
 
@@ -124,22 +123,21 @@
                         Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
                         Glyph="&#xE72A;" />
 
-                    <Grid Height="26" HorizontalAlignment="Left">
+                    <Grid Height="24" HorizontalAlignment="Left">
 
                         <Grid
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            Background="#539bf5"
-                            CornerRadius="4"
-                            Opacity="0.1" />
+                            Background="{ThemeResource PrimerAccentEmphasis}"
+                            CornerRadius="8"
+                            Opacity="0.2" />
 
                         <Grid
                             HorizontalAlignment="Stretch"
                             VerticalAlignment="Stretch"
-                            BorderBrush="#539bf5"
+                            BorderBrush="{ThemeResource PrimerAccentEmphasis}"
                             BorderThickness="1"
-                            CornerRadius="4"
-                            Opacity="0.8" />
+                            CornerRadius="8" />
 
                         <StackPanel
                             Padding="8,0"
@@ -150,7 +148,7 @@
                                 VerticalAlignment="Center"
                                 FontFamily="Cascadia Code"
                                 FontWeight="Light"
-                                Foreground="#539bf5"
+                                Foreground="{ThemeResource PrimerAccentForeground}"
                                 Style="{StaticResource CaptionTextBlockStyle}"
                                 Text="{x:Bind ViewModel.PullRequest.BaseRefName, Mode=OneWay}" />
 
@@ -158,71 +156,6 @@
 
                     </Grid>
 
-                    <!--<Grid
-                        Height="26"
-                        Margin="8,0,0,0"
-                        HorizontalAlignment="Left"
-                        Background="{ThemeResource LayerFillColorDefaultBrush}"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                        BorderThickness="1"
-                        CornerRadius="4">
-
-                        <StackPanel
-                            Padding="8,0"
-                            Orientation="Horizontal"
-                            Spacing="4">
-
-                            <FontIcon
-                                FontFamily="{StaticResource Octicons}"
-                                FontSize="12"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Glyph="&#xEA38;" />
-
-                            <FontIcon
-                                FontFamily="{StaticResource Octicons}"
-                                FontSize="12"
-                                Foreground="{ThemeResource PrimerSuccessForeground}"
-                                Glyph="&#xE939;" />
-
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Style="{StaticResource CaptionTextBlockStyle}"
-                                Text="Reviews" />
-
-                        </StackPanel>
-
-                    </Grid>
-
-                    <Grid
-                        Height="26"
-                        HorizontalAlignment="Left"
-                        Background="{ThemeResource LayerFillColorDefaultBrush}"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                        BorderThickness="1"
-                        CornerRadius="4">
-
-
-                        <StackPanel
-                            Padding="8,0"
-                            Orientation="Horizontal"
-                            Spacing="4">
-
-                            <FontIcon
-                                FontFamily="{StaticResource Octicons}"
-                                FontSize="12"
-                                Foreground="{ThemeResource PrimerSuccessForeground}"
-                                Glyph="&#xE939;" />
-
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                Style="{StaticResource CaptionTextBlockStyle}"
-                                Text="Checks" />
-
-                        </StackPanel>
-
-                    </Grid>-->
                 </StackPanel>
 
             </StackPanel>
