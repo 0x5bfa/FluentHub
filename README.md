@@ -60,6 +60,7 @@ See the [build section](#-building-the-code).
 *May not always be up-to-date due to constant changes to the user interface*
 
 ![image](https://user-images.githubusercontent.com/71598437/196044191-68b41d48-fb0a-45b8-aaf8-624c5a4f9633.png)
+![image](https://user-images.githubusercontent.com/71598437/196044321-0e21612a-6d10-415d-b192-2a6e04319898.png)
 ![image](https://user-images.githubusercontent.com/71598437/196044233-eae37ee9-a80d-44ed-9e4b-16110ca51aae.png)
 
 ## 🧑‍💻 Contributing
