@@ -86,7 +86,7 @@ jobs:
       /p:AppxPackageSigningEnabled=true;
       /p:PackageCertificateThumbprint="";
       /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)";
-      /p:PackageCertificatePassword="$(signingCert.password)"';
+      /p:PackageCertificatePassword="$(signingCert.password)"'
 
   - task: CopyFiles@2
     displayName: 'Copy generated artifacts'
