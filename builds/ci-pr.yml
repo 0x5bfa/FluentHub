@@ -35,8 +35,8 @@ jobs:
         [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\FluentHub.App\Package.appxmanifest
         $xmlDoc.Package.Identity.Name="49462fluenthub-uwp.FluentHub"
         $xmlDoc.Package.Identity.Publisher="CN=4E3C0825-4D00-4ECC-89F8-528E9200B125"
-        $xmlDoc.Package.Properties.DisplayName="FluentHub DEV"
-        $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub DEV"
+        $xmlDoc.Package.Properties.DisplayName="FluentHub "
+        $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub"
         $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub.App\Package.appxmanifest')
       failOnStderr: true
 
