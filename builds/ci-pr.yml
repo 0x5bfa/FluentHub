@@ -97,6 +97,7 @@ jobs:
       /p:AppxPackageSigningEnabled=true
       /p:PackageCertificateThumbprint=""
       /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"
+      /p:GenerateAppxPackageOnBuild=true
       /p:PackageCertificatePassword="$(signingCert.password)"'
 
   - task: CopyFiles@2
