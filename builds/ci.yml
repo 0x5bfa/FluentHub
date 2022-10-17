@@ -90,17 +90,17 @@ jobs:
       /p:PackageCertificatePassword="$(signingCert.password)"';
 
   - task: CopyFiles@2
-    displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+    displayName: 'Copy generated artifacts'
     inputs:
       SourceFolder: '$(system.defaultworkingdirectory)'
       Contents: '**\bin\$(buildConfigurationSideload)\**'
       TargetFolder: '$(build.artifactstagingdirectory)'
 
   - task: PublishBuildArtifacts@1
-    displayName: 'Publish Artifact'
+    displayName: 'Publish artifacts'
     inputs:
       PathtoPublish: '$(build.artifactstagingdirectory)'
-      artifactName: 'Assets'
+      artifactName: 'Debug'
 
 # Sideload
 - job: BuildSideloadx64
@@ -142,6 +142,11 @@ jobs:
     displayName: 'Download CA certificate'
     inputs:
       secureFile: '$(signingCert.secureFilePath)'
+
+  - task: UseDotNet@2
+    inputs:
+      packageType: sdk
+      version: 6.0.400
 
   - task: NuGetToolInstaller@1
 
@@ -218,6 +223,11 @@ jobs:
     displayName: 'Download CA certificate'
     inputs:
       secureFile: '$(signingCert.secureFilePath)'
+
+  - task: UseDotNet@2
+    inputs:
+      packageType: sdk
+      version: 6.0.400
 
   - task: NuGetToolInstaller@1
 
