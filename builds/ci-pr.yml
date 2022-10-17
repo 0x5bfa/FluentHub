@@ -88,13 +88,13 @@ jobs:
       configuration: '$(buildConfigurationSideload)'
       msbuildArgs: '
       /p:GenerateAppInstallerFile=True
-      /p:GenerateAppxPackageOnBuild=true
+      /p:GenerateAppxPackageOnBuild=True
       /p:AppxLogTelemetryFromSideloadingScript=False
       /p:AppInstallerUri=$(build.artifactstagingdirectory)
       /p:AppxBundlePlatforms="$(buildPlatform)"
       /p:AppxPackageDir="$(appxPackageDir)"
       /p:AppxBundle=Always
-      /p:UapAppxPackageBuildMode=SideloadOnly
+      /p:UapAppxPackageBuildMode=Release
       /p:AppxPackageSigningEnabled=true
       /p:PackageCertificateThumbprint=""
       /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"
@@ -187,7 +187,8 @@ jobs:
       /p:AppxBundlePlatforms="$(buildPlatform)"
       /p:AppxPackageDir="$(appxPackageDir)"
       /p:UapAppxPackageBuildMode=Sideload
-      /p:AppxPackageSigningEnabled=true
+      /p:AppxBundle=Always
+      /p:AppxPackageSigningEnabled=True
       /p:PackageCertificateThumbprint=""
       /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"
       /p:PackageCertificatePassword="$(signingCert.password)"'
@@ -274,7 +275,7 @@ jobs:
       solution: '$(solution)'
       configuration: '$(buildConfigurationRelease)'
       msbuildArguments: '
-      /p:GenerateAppxPackageOnBuild=true
+      /p:GenerateAppxPackageOnBuild=True
       /p:AppInstallerUri="$(build.artifactstagingdirectory)"
       /p:AppxBundlePlatforms="$(buildPlatform)"
       /p:AppxPackageDir="$(appxPackageDir)"
