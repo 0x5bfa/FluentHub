@@ -24,20 +24,20 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
     <OutputPath>bin\x86\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;NETFX_CORE;DISABLE_XAML_GENERATED_MAIN</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
     <OutputPath>bin\x86\Release\</OutputPath>
-    <DefineConstants>TRACE;NETFX_CORE;DISABLE_XAML_GENERATED_MAIN</DefineConstants>
+    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
     <NoWarn>;2008</NoWarn>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Sideload|x86'">
     <OutputPath>bin\x86\Sideload\</OutputPath>
-    <DefineConstants>TRACE;NETFX_CORE;DISABLE_XAML_GENERATED_MAIN;SIDELOAD</DefineConstants>
+    <DefineConstants>TRACE;NETFX_CORE;SIDELOAD</DefineConstants>
     <Optimize>true</Optimize>
     <NoWarn>;2008</NoWarn>
     <UseVSHostingProcess>false</UseVSHostingProcess>
@@ -73,20 +73,20 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <OutputPath>bin\x64\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE;NETFX_CORE;DISABLE_XAML_GENERATED_MAIN</DefineConstants>
+    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
     <NoWarn>;2008;CS8618;CS8625</NoWarn>
     <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
     <OutputPath>bin\x64\Release\</OutputPath>
-    <DefineConstants>TRACE;NETFX_CORE;DISABLE_XAML_GENERATED_MAIN</DefineConstants>
+    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
     <NoWarn>;2008;CS8618;CS8625</NoWarn>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <UseDotNetNativeToolchain>true</UseDotNetNativeToolchain>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Sideload|x64'">
     <OutputPath>bin\x64\Sideload\</OutputPath>
-    <DefineConstants>TRACE;NETFX_CORE;DISABLE_XAML_GENERATED_MAIN;SIDELOAD</DefineConstants>
+    <DefineConstants>TRACE;NETFX_CORE;SIDELOAD</DefineConstants>
     <Optimize>true</Optimize>
     <NoWarn>;2008</NoWarn>
     <UseVSHostingProcess>false</UseVSHostingProcess>
