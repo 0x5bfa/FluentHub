@@ -378,7 +378,7 @@
                                                         <FontIcon
                                                             FontFamily="{StaticResource Octicons}"
                                                             FontSize="22"
-                                                            Foreground="{StaticResource PrimerScaleGray5}"
+                                                            Foreground="{StaticResource PrimerScaleGray2}"
                                                             Glyph="&#xE9C3;" />
                                                     </toolkit:Case>
 
