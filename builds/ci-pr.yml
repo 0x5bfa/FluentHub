@@ -86,7 +86,18 @@ jobs:
       platform: 'x64'
       solution: '$(solution)'
       configuration: '$(buildConfigurationDebug)'
-      msbuildArguments: '/t:build;_GenerateAppxPackage /p:Configuration=Debug;Platform="$(buildPlatform)";AppxBundle=Always;AppxBundlePlatforms="$(buildPlatform)";AppxPackageDir="$(appxPackageDir)";AppxPackageSigningEnabled=true;UapAppxPackageBuildMode=SideloadOnly;PackageCertificateKeyFile="$(caCertificate.secureFilePath)";PackageCertificatePassword="$(signingCert.password)";PackageCertificateThumbprint=""'
+      msbuildArguments: '
+      /p:GenerateAppInstallerFile=True
+      /p:AppxLogTelemetryFromSideloadingScript=False
+      /p:AppInstallerUri=$(build.artifactstagingdirectory)
+      /p:AppxBundlePlatforms="$(buildPlatform)"
+      /p:AppxPackageDir="$(appxPackageDir)"
+      /p:AppxBundle=Always
+      /p:UapAppxPackageBuildMode=Release
+      /p:AppxPackageSigningEnabled=true
+      /p:PackageCertificateThumbprint=""
+      /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"
+      /p:PackageCertificatePassword="$(signingCert.password)"'
       maximumCpuCount: true
 
   - task: CopyFiles@2
