@@ -85,7 +85,7 @@ jobs:
     inputs:
       platform: 'x64'
       solution: '$(solution)'
-      configuration: '$(buildConfigurationSideload)'
+      configuration: '$(buildConfigurationDebug)'
       msbuildArguments: '/t:build;_GenerateAppxPackage /p:Configuration=Debug;Platform="$(buildPlatform)";AppxBundle=Always;AppxBundlePlatforms="$(buildPlatform)";AppxPackageDir="$(appxPackageDir)";AppxPackageSigningEnabled=true;UapAppxPackageBuildMode=SideloadOnly;PackageCertificateKeyFile="$(caCertificate.secureFilePath)";PackageCertificatePassword="$(signingCert.password)";PackageCertificateThumbprint=""'
       maximumCpuCount: true
 
