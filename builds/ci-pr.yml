@@ -85,26 +85,25 @@ jobs:
     inputs:
       platform: 'x64'
       solution: '$(solution)'
-      configuration: '$(buildConfigurationDebug)'
-      msbuildArguments: '
+      configuration: '$(buildConfigurationSideload)'
+      msbuildArgs: '
       /p:GenerateAppInstallerFile=True
       /p:AppxLogTelemetryFromSideloadingScript=False
       /p:AppInstallerUri=$(build.artifactstagingdirectory)
       /p:AppxBundlePlatforms="$(buildPlatform)"
       /p:AppxPackageDir="$(appxPackageDir)"
       /p:AppxBundle=Always
-      /p:UapAppxPackageBuildMode=Release
+      /p:UapAppxPackageBuildMode=SideloadOnly
       /p:AppxPackageSigningEnabled=true
       /p:PackageCertificateThumbprint=""
       /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"
       /p:PackageCertificatePassword="$(signingCert.password)"'
-      maximumCpuCount: true
 
   - task: CopyFiles@2
     displayName: 'Copy generated artifacts'
     inputs:
       SourceFolder: '$(system.defaultworkingdirectory)'
-      Contents: '**\bin\x64\$(buildConfigurationDebug)\**'
+      Contents: '**\bin\$(buildConfigurationSideload)\**'
       TargetFolder: '$(build.artifactstagingdirectory)'
 
   - task: PublishBuildArtifacts@1
