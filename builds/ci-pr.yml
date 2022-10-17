@@ -141,7 +141,7 @@ jobs:
       targetType: 'inline'
       script: |
         gci $(Build.SourcesDirectory)\src -Include *.csproj, *.appxmanifest, *.wapproj -recurse | ForEach -Process {
-        (Get-Content $_ -Raw | ForEach -Process {$_ -replace "Assets\\AppTiles\\Dev", "Assets\AppTiles\\Release"}) | Set-Content $_ -NoNewline
+        (Get-Content $_ -Raw | ForEach -Process {$_ -replace "Assets\\AppTiles\\Dev", "Assets\AppTiles\Release"}) | Set-Content $_ -NoNewline
         }
       failOnStderr: true
 
@@ -181,13 +181,21 @@ jobs:
       platform: 'x64'
       solution: '$(solution)'
       configuration: '$(buildConfigurationSideload)'
-      msbuildArguments: '/t:build;_GenerateAppxPackage /p:AppxLogTelemetryFromSideloadingScript=False /p:GenerateAppInstallerFile=True /p:AppInstallerUri="$(build.artifactstagingdirectory)" /p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=Sideload /p:AppxPackageSigningEnabled=true /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)" /p:PackageCertificatePassword="$(signingCert.password)" /p:PackageCertificateThumbprint=""'
+      msbuildArguments: '
+      /p:AppInstallerUri="$(build.artifactstagingdirectory)"
+      /p:AppxBundlePlatforms="$(buildPlatform)"
+      /p:AppxPackageDir="$(appxPackageDir)"
+      /p:UapAppxPackageBuildMode=Sideload
+      /p:AppxPackageSigningEnabled=true
+      /p:PackageCertificateThumbprint=""
+      /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"
+      /p:PackageCertificatePassword="$(signingCert.password)"'
 
   - task: CopyFiles@2
     displayName: 'Copy generated artifacts'
     inputs:
       SourceFolder: '$(system.defaultworkingdirectory)'
-      Contents: '**\bin\x64\$(buildConfigurationSideload)\**'
+      Contents: '**\bin\$(buildConfigurationSideload)\**'
       TargetFolder: '$(build.artifactstagingdirectory)'
 
   - task: PublishBuildArtifacts@1
@@ -224,7 +232,7 @@ jobs:
       targetType: 'inline'
       script: |
         gci $(Build.SourcesDirectory)\src -Include *.csproj, *.appxmanifest, *.wapproj -recurse | ForEach -Process {
-        (Get-Content $_ -Raw | ForEach -Process {$_ -replace "Assets\\AppTiles\\Dev", "Assets\AppTiles\\Release"}) | Set-Content $_ -NoNewline
+        (Get-Content $_ -Raw | ForEach -Process {$_ -replace "Assets\\AppTiles\\Dev", "Assets\AppTiles\Release"}) | Set-Content $_ -NoNewline
         }
       failOnStderr: true
 
@@ -264,13 +272,17 @@ jobs:
       platform: 'x64'
       solution: '$(solution)'
       configuration: '$(buildConfigurationRelease)'
-      msbuildArguments: '/t:build;_GenerateAppxPackage /p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxPackageDir="$(appxPackageDir)" /p:AppxBundle=Always /p:UapAppxPackageBuildMode=StoreUpload'
+      msbuildArguments: '
+      /p:AppInstallerUri="$(build.artifactstagingdirectory)"
+      /p:AppxBundlePlatforms="$(buildPlatform)"
+      /p:AppxPackageDir="$(appxPackageDir)"
+      /p:UapAppxPackageBuildMode=StoreUpload'
 
   - task: CopyFiles@2
     displayName: 'Copy generated artifacts'
     inputs:
       SourceFolder: '$(system.defaultworkingdirectory)'
-      Contents: '**\bin\x64\$(buildConfigurationRelease)\**'
+      Contents: '**\bin\$(buildConfigurationRelease)\**'
       TargetFolder: '$(build.artifactstagingdirectory)'
 
   - task: PublishBuildArtifacts@1
