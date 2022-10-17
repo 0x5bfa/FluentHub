@@ -93,7 +93,7 @@ jobs:
     displayName: 'Copy generated artifacts'
     inputs:
       SourceFolder: '$(system.defaultworkingdirectory)'
-      Contents: '**\bin\$(buildConfigurationDebug)\**'
+      Contents: '**\bin\x64\$(buildConfigurationDebug)\**'
       TargetFolder: '$(build.artifactstagingdirectory)'
 
   - task: PublishBuildArtifacts@1
@@ -176,7 +176,7 @@ jobs:
     displayName: 'Copy generated artifacts'
     inputs:
       SourceFolder: '$(system.defaultworkingdirectory)'
-      Contents: '**\bin\$(buildConfigurationSideload)\**'
+      Contents: '**\bin\x64\$(buildConfigurationSideload)\**'
       TargetFolder: '$(build.artifactstagingdirectory)'
 
   - task: PublishBuildArtifacts@1
@@ -259,7 +259,7 @@ jobs:
     displayName: 'Copy generated artifacts'
     inputs:
       SourceFolder: '$(system.defaultworkingdirectory)'
-      Contents: '**\bin\$(buildConfigurationRelease)\**'
+      Contents: '**\bin\x64\$(buildConfigurationRelease)\**'
       TargetFolder: '$(build.artifactstagingdirectory)'
 
   - task: PublishBuildArtifacts@1
