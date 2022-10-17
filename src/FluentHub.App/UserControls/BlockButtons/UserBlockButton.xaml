@@ -25,6 +25,13 @@
         Padding="16,12"
         Click="UserBlockButtonButton_Click"
         Style="{StaticResource ContentBlockButtonStyle}">
+
+        <Button.ContextFlyout>
+            <MenuFlyout>
+                <MenuFlyoutItem Text="Open in new tab" />
+            </MenuFlyout>
+        </Button.ContextFlyout>
+
         <Grid ColumnSpacing="12">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -73,5 +80,6 @@
                 Visibility="Collapsed" />
 
         </Grid>
+
     </Button>
 </UserControl>
