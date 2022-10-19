@@ -1,22 +1,27 @@
-# https://learn.microsoft.com/en-us/windows/apps/package-and-deploy/ci-for-winui3?pivots=winui3-packaged-csharp
+# This workflow will build, sign, and package a WinUI 3 MSIX desktop application
+# built on .NET.
 
-name: FluentHub-CI-PR
+name: FluentHub CI for PR
 
 on:
-  pull_request: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  build:
-  strategy:
-    matrix:
-      configuration: [Release]
-      platform: [x64]
 
-      runs-on: windows-latest
-      
-      env:
-        Solution_Name: FluentHub.sln
-        
+  build:
+
+    strategy:
+      matrix:
+        configuration: [Release]
+        platform: [x64, x86]
+
+    runs-on: windows-latest  # For a list of available runner types, refer to
+                             # https://help.github.com/en/actions/reference/workflow-syntax-for-github-actions#jobsjob_idruns-on
+
+    env:
+      Solution_Name: your-solution-name                         # Replace with your solution name, i.e. App1.sln.
+
     steps:
     - name: Checkout
       uses: actions/checkout@v2
