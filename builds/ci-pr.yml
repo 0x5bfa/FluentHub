@@ -87,18 +87,12 @@ jobs:
       solution: '$(solution)'
       configuration: '$(buildConfigurationSideload)'
       msbuildArgs: '
-      /p:GenerateAppInstallerFile=True
       /p:GenerateAppxPackageOnBuild=True
-      /p:AppxLogTelemetryFromSideloadingScript=False
-      /p:AppInstallerUri=$(build.artifactstagingdirectory)
       /p:AppxBundlePlatforms="$(buildPlatform)"
       /p:AppxPackageDir="$(appxPackageDir)"
-      /p:AppxBundle=Always
+      /p:AppxBundle=Never
       /p:UapAppxPackageBuildMode=SideloadOnly
-      /p:AppxPackageSigningEnabled=true
-      /p:PackageCertificateThumbprint=""
-      /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"
-      /p:PackageCertificatePassword="$(signingCert.password)"'
+      /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"'
 
   - task: CopyFiles@2
     displayName: 'Copy generated artifacts'
