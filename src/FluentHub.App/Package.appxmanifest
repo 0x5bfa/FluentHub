@@ -1,11 +1,10 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Package
-    xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
-    xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
-    xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
-    xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
-    xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5"
-    IgnorableNamespaces="uap mp uap3 uap5">
+<?xml version="1.0" encoding="utf-8"?>
+<Package xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10"
+         xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest"
+         xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10"
+         xmlns:uap3="http://schemas.microsoft.com/appx/manifest/uap/windows10/3"
+         xmlns:uap5="http://schemas.microsoft.com/appx/manifest/uap/windows10/5"
+         IgnorableNamespaces="uap mp uap3 uap5">
 
   <Identity Name="FluentHubDev" Publisher="CN=FluentHub" Version="0.5.0.0" />
 
@@ -20,8 +19,8 @@
   </Dependencies>
 
   <Resources>
-    <Resource Language="en-US"/>
-    <Resource Language="ja-JP"/>
+    <Resource Language="en-US" />
+    <Resource Language="ja-JP" />
   </Resources>
 
   <Applications>
@@ -39,19 +38,20 @@
       <Extensions>
         <uap:Extension Category="windows.protocol">
           <uap:Protocol Name="fluenthub">
-            <uap:Logo>Assets\AppTiles\StoreLogo.png</uap:Logo>
+            <uap:Logo>Assets\AppTiles\Release\StoreLogo.png</uap:Logo>
             <uap:DisplayName>FluentHub</uap:DisplayName>
           </uap:Protocol>
         </uap:Extension>
         <uap:Extension Category="windows.protocol">
           <uap:Protocol Name="fh">
-            <uap:Logo>Assets\AppTiles\StoreLogo.png</uap:Logo>
+            <uap:Logo>Assets\AppTiles\Release\StoreLogo.png</uap:Logo>
             <uap:DisplayName>FluentHub</uap:DisplayName>
           </uap:Protocol>
         </uap:Extension>
       </Extensions>
     </Application>
   </Applications>
+
   <Capabilities>
     <Capability Name="internetClient" />
   </Capabilities>
