@@ -265,12 +265,12 @@ jobs:
       solution: '$(solution)'
       configuration: '$(buildConfigurationRelease)'
       msbuildArgs: '
+      /p:AppInstallerUri="$(build.artifactstagingdirectory)"
       /p:AppxBundlePlatforms="$(buildPlatform)"
       /p:AppxBundle=Never
       /p:AppxPackageDir="$(appxPackageDir)"
       /p:GenerateAppxPackageOnBuild=True
-      /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"
-      /p:UapAppxPackageBuildMode=CI'
+      /p:UapAppxPackageBuildMode=StoreUpload'
 
   - task: CopyFiles@2
     displayName: 'Copy generated artifacts'
