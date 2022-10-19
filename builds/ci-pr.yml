@@ -175,7 +175,7 @@ jobs:
       platform: 'x64'
       solution: '$(solution)'
       configuration: '$(buildConfigurationSideload)'
-      msbuildArguments: '
+      msbuildArgs: '
       /p:GenerateAppxPackageOnBuild=True
       /p:AppxBundlePlatforms="$(buildPlatform)"
       /p:AppxPackageDir="$(appxPackageDir)"
@@ -264,7 +264,7 @@ jobs:
       platform: 'x64'
       solution: '$(solution)'
       configuration: '$(buildConfigurationRelease)'
-      msbuildArguments: '
+      msbuildArgs: '
       /p:GenerateAppxPackageOnBuild=True
       /p:AppxBundlePlatforms="$(buildPlatform)"
       /p:AppxPackageDir="$(appxPackageDir)"
