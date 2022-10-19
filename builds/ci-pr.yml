@@ -176,16 +176,12 @@ jobs:
       solution: '$(solution)'
       configuration: '$(buildConfigurationSideload)'
       msbuildArguments: '
-      /p:GenerateAppxPackageOnBuild=true
-      /p:AppInstallerUri="$(build.artifactstagingdirectory)"
+      /p:GenerateAppxPackageOnBuild=True
       /p:AppxBundlePlatforms="$(buildPlatform)"
       /p:AppxPackageDir="$(appxPackageDir)"
-      /p:UapAppxPackageBuildMode=Sideload
-      /p:AppxBundle=Always
-      /p:AppxPackageSigningEnabled=True
-      /p:PackageCertificateThumbprint=""
-      /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"
-      /p:PackageCertificatePassword="$(signingCert.password)"'
+      /p:AppxBundle=Never
+      /p:UapAppxPackageBuildMode=SideloadOnly
+      /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"'
 
   - task: CopyFiles@2
     displayName: 'Copy generated artifacts'
@@ -270,10 +266,12 @@ jobs:
       configuration: '$(buildConfigurationRelease)'
       msbuildArguments: '
       /p:GenerateAppxPackageOnBuild=True
-      /p:AppInstallerUri="$(build.artifactstagingdirectory)"
       /p:AppxBundlePlatforms="$(buildPlatform)"
       /p:AppxPackageDir="$(appxPackageDir)"
-      /p:UapAppxPackageBuildMode=StoreUpload'
+      /p:AppInstallerUri="$(build.artifactstagingdirectory)"
+      /p:AppxBundle=Never
+      /p:UapAppxPackageBuildMode=StoreUpload
+      /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"'
 
   - task: CopyFiles@2
     displayName: 'Copy generated artifacts'
