@@ -87,12 +87,12 @@ jobs:
       solution: '$(solution)'
       configuration: '$(buildConfigurationSideload)'
       msbuildArgs: '
-      /p:GenerateAppxPackageOnBuild=True
       /p:AppxBundlePlatforms="$(buildPlatform)"
-      /p:AppxPackageDir="$(appxPackageDir)"
       /p:AppxBundle=Never
-      /p:UapAppxPackageBuildMode=SideloadOnly
-      /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"'
+      /p:AppxPackageDir="$(appxPackageDir)"
+      /p:GenerateAppxPackageOnBuild=True
+      /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"
+      /p:UapAppxPackageBuildMode=Sideloadonly'
 
   - task: CopyFiles@2
     displayName: 'Copy generated artifacts'
@@ -176,12 +176,12 @@ jobs:
       solution: '$(solution)'
       configuration: '$(buildConfigurationSideload)'
       msbuildArgs: '
-      /p:GenerateAppxPackageOnBuild=True
       /p:AppxBundlePlatforms="$(buildPlatform)"
-      /p:AppxPackageDir="$(appxPackageDir)"
       /p:AppxBundle=Never
-      /p:UapAppxPackageBuildMode=SideloadOnly
-      /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"'
+      /p:AppxPackageDir="$(appxPackageDir)"
+      /p:GenerateAppxPackageOnBuild=True
+      /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"
+      /p:UapAppxPackageBuildMode=SideloadOnly'
 
   - task: CopyFiles@2
     displayName: 'Copy generated artifacts'
@@ -265,13 +265,12 @@ jobs:
       solution: '$(solution)'
       configuration: '$(buildConfigurationRelease)'
       msbuildArgs: '
-      /p:GenerateAppxPackageOnBuild=True
       /p:AppxBundlePlatforms="$(buildPlatform)"
-      /p:AppxPackageDir="$(appxPackageDir)"
-      /p:AppInstallerUri="$(build.artifactstagingdirectory)"
       /p:AppxBundle=Never
-      /p:UapAppxPackageBuildMode=StoreUpload
-      /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"'
+      /p:AppxPackageDir="$(appxPackageDir)"
+      /p:GenerateAppxPackageOnBuild=True
+      /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"
+      /p:UapAppxPackageBuildMode=CI'
 
   - task: CopyFiles@2
     displayName: 'Copy generated artifacts'
