@@ -4,8 +4,8 @@
     <Platform Condition=" '$(Platform)' == '' ">x64</Platform>
     <OutputType>WinExe</OutputType>
     <DefaultLanguage>en-US</DefaultLanguage>
-	  <AppxBundleAutoResourcePackageQualifiers>Scale|DXFeatureLevel</AppxBundleAutoResourcePackageQualifiers>
-	  <AppxDefaultResourceQualifiers>Language=en-US;ja-JP</AppxDefaultResourceQualifiers>
+    <AppxBundleAutoResourcePackageQualifiers>Scale|DXFeatureLevel</AppxBundleAutoResourcePackageQualifiers>
+    <AppxDefaultResourceQualifiers>Language=en-US;ja-JP</AppxDefaultResourceQualifiers>
     <TargetPlatformMinVersion>10.0.18362.0</TargetPlatformMinVersion>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
