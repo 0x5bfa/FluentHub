@@ -10,6 +10,19 @@
                 .Nodes
                 .Select(x => new Discussion
                 {
+                    AnswerChosenAt = x.AnswerChosenAt,
+                    Id = x.Id,
+                    Locked = x.Locked,
+                    Number = x.Number,
+                    Title = x.Title,
+                    UpdatedAt = x.UpdatedAt,
+                    UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
+                    UpvoteCount = x.UpvoteCount,
+                    Url = x.Url,
+                    ViewerCanDelete = x.ViewerCanDelete,
+                    ViewerDidAuthor = x.ViewerDidAuthor,
+                    ViewerHasUpvoted = x.ViewerHasUpvoted,
+
                     Category = x.Category.Select(category => new DiscussionCategory
                     {
                         Emoji = category.Emoji,
@@ -30,18 +43,6 @@
                         .Single(),
                     })
                     .Single(),
-
-                    Id = x.Id,
-                    Locked = x.Locked,
-                    Number = x.Number,
-                    Title = x.Title,
-                    UpvoteCount = x.UpvoteCount,
-                    Url = x.Url,
-                    ViewerCanDelete = x.ViewerCanDelete,
-                    ViewerDidAuthor = x.ViewerDidAuthor,
-                    ViewerHasUpvoted = x.ViewerHasUpvoted,
-                    AnswerChosenAt = x.AnswerChosenAt,
-                    UpdatedAt = x.UpdatedAt,
                 })
                 .Compile();
 
@@ -57,6 +58,31 @@
                 .Discussion(number)
                 .Select(x => new Discussion
                 {
+                    ActiveLockReason = (LockReason)x.ActiveLockReason,
+                    AnswerChosenAt = x.AnswerChosenAt,
+                    AuthorAssociation = (CommentAuthorAssociation)x.AuthorAssociation,
+                    BodyHTML = x.BodyHTML,
+                    CreatedAt = x.CreatedAt,
+                    Id = x.Id,
+                    IncludesCreatedEdit = x.IncludesCreatedEdit,
+                    LastEditedAt = x.LastEditedAt,
+                    Locked = x.Locked,
+                    Number = x.Number,
+                    PublishedAt = x.PublishedAt,
+                    Title = x.Title,
+                    UpdatedAt = x.UpdatedAt,
+                    UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
+                    UpvoteCount = x.UpvoteCount,
+                    Url = x.Url,
+                    ViewerCanDelete = x.ViewerCanDelete,
+                    ViewerCanReact = x.ViewerCanReact,
+                    ViewerCanSubscribe = x.ViewerCanSubscribe,
+                    ViewerCanUpdate = x.ViewerCanUpdate,
+                    ViewerCanUpvote = x.ViewerCanUpvote,
+                    ViewerDidAuthor = x.ViewerDidAuthor,
+                    ViewerHasUpvoted = x.ViewerHasUpvoted,
+                    ViewerSubscription = (SubscriptionState)x.ViewerSubscription,
+
                     Category = x.Category.Select(category => new DiscussionCategory
                     {
                         CreatedAt = category.CreatedAt,
@@ -81,31 +107,6 @@
                         .Single(),
                     })
                     .Single(),
-
-                    ActiveLockReason = (LockReason)x.ActiveLockReason,
-                    AuthorAssociation = (CommentAuthorAssociation)x.AuthorAssociation,
-                    BodyHTML = x.BodyHTML,
-                    Id = x.Id,
-                    IncludesCreatedEdit = x.IncludesCreatedEdit,
-                    Locked = x.Locked,
-                    Number = x.Number,
-                    Title = x.Title,
-                    UpvoteCount = x.UpvoteCount,
-                    Url = x.Url,
-                    ViewerCanDelete = x.ViewerCanDelete,
-                    ViewerCanReact = x.ViewerCanReact,
-                    ViewerCanSubscribe = x.ViewerCanSubscribe,
-                    ViewerCanUpdate = x.ViewerCanUpdate,
-                    ViewerCanUpvote = x.ViewerCanUpvote,
-                    ViewerDidAuthor = x.ViewerDidAuthor,
-                    ViewerHasUpvoted = x.ViewerHasUpvoted,
-                    ViewerSubscription = (SubscriptionState)x.ViewerSubscription,
-
-                    AnswerChosenAt = x.AnswerChosenAt,
-                    CreatedAt = x.CreatedAt,
-                    LastEditedAt = x.LastEditedAt,
-                    PublishedAt = x.PublishedAt,
-                    UpdatedAt = x.UpdatedAt,
                 })
                 .Compile();
 

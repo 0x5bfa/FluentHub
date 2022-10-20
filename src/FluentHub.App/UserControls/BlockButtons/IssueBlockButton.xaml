@@ -31,6 +31,12 @@
         Click="OnClick"
         Style="{StaticResource ContentBlockButtonStyle}">
 
+        <Button.ContextFlyout>
+            <MenuFlyout>
+                <MenuFlyoutItem Text="Open in new tab" />
+            </MenuFlyout>
+        </Button.ContextFlyout>
+
         <Grid ColumnSpacing="18">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -140,5 +146,6 @@
             </Grid>
 
         </Grid>
+
     </Button>
 </UserControl>

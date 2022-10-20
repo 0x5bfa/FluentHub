@@ -69,7 +69,7 @@
                         <Grid x:Name="TitleGrid" x:Load="{x:Bind ViewModel.DisplayTitle, Mode=OneWay}">
                             <TextBlock
                                 x:Name="UserPackagesHeader"
-                                Margin="12,24,12,8"
+                                Margin="12,12,12,8"
                                 Style="{StaticResource TitleTextBlockStyle}"
                                 Text="{helpers:ResourceString Name=YourPackages}" />
                         </Grid>

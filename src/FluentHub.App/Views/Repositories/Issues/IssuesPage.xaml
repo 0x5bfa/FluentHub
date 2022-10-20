@@ -93,7 +93,7 @@
 
                     <Grid
                         Grid.Row="2"
-                        Padding="32"
+                        Padding="32,24"
                         Background="{ThemeResource LayerFillColorDefaultBrush}"
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                         BorderThickness="1"

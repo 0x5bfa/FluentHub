@@ -27,6 +27,12 @@
         Click="Button_Click"
         Style="{StaticResource ContentBlockButtonStyle}">
 
+        <Button.ContextFlyout>
+            <MenuFlyout>
+                <MenuFlyoutItem Text="Open in new tab" />
+            </MenuFlyout>
+        </Button.ContextFlyout>
+
         <Grid ColumnSpacing="14">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -91,5 +97,6 @@
                     Text="{x:Bind ViewModel.Item.Name, Mode=OneWay}" />
             </Grid>
         </Grid>
+
     </Button>
 </UserControl>

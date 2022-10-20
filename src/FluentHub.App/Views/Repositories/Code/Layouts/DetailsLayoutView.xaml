@@ -35,7 +35,7 @@
                     <Grid
                         x:Name="RepositoryCodeGrid"
                         Grid.Row="1"
-                        Padding="32,24,32,32"
+                        Padding="32,24"
                         x:Load="{x:Bind ViewModel.ContextViewModel.Repository.IsEmpty, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
                         Background="{ThemeResource LayerFillColorDefaultBrush}"
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
@@ -194,7 +194,7 @@
                                         Style="{StaticResource BodyStrongTextBlockStyle}"
                                         Text="About" />
 
-                                    <Button
+                                    <!--<Button
                                         x:Name="SettingsButton"
                                         Width="36"
                                         Height="32"
@@ -211,7 +211,7 @@
                                                 <SymbolIconSource Symbol="Setting" />
                                             </AnimatedIcon.FallbackIconSource>
                                         </AnimatedIcon>
-                                    </Button>
+                                    </Button>-->
                                 </Grid>
 
                                 <TextBlock
@@ -249,7 +249,7 @@
 
                                             <TextBlock
                                                 Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                                Style="{StaticResource BodyTextBlockStyle}"
+                                                Style="{StaticResource CaptionTextBlockStyle}"
                                                 Text="{x:Bind ViewModel.ContextViewModel.Repository.LatestRelease.PublishedAtHumanized, Mode=OneWay}" />
 
                                             <StackPanel

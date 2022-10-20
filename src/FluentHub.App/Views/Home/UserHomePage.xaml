@@ -128,6 +128,12 @@
                                 </DataTemplate>
                             </ListView.ItemTemplate>
 
+                            <ListView.ContextFlyout>
+                                <MenuFlyout>
+                                    <MenuFlyoutItem Text="Open in new tab" />
+                                </MenuFlyout>
+                            </ListView.ContextFlyout>
+
                         </ListView>
 
                         <toolkit:SwitchPresenter
@@ -162,12 +168,33 @@
                     </Grid.RowDefinitions>
 
                     <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+
                         <TextBlock
                             x:Name="HomePageHeader"
-                            Margin="24,4,0,8"
+                            Margin="24,4,0,0"
                             Style="{StaticResource SubtitleTextBlockStyle}"
                             Text="{helpers:ResourceString Name=Home}" />
 
+                        <Button
+                            Grid.Column="1"
+                            Height="32"
+                            Margin="0,0,0,24"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Click="OnSeeFeedsButtonClick">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon
+                                    VerticalAlignment="Center"
+                                    FontFamily="{StaticResource Octicons}"
+                                    FontSize="14"
+                                    Glyph="&#xEA36;" />
+                                <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="See your following's feeds" />
+                            </StackPanel>
+                        </Button>
                     </Grid>
 
                     <Expander
@@ -209,6 +236,12 @@
                                             HorizontalAlignment="Stretch"
                                             Click="OnOneFolderCardClick"
                                             Tag="{x:Bind Tag}">
+
+                                            <Button.ContextFlyout>
+                                                <MenuFlyout>
+                                                    <MenuFlyoutItem Text="Open in new tab" />
+                                                </MenuFlyout>
+                                            </Button.ContextFlyout>
 
                                             <Grid
                                                 HorizontalAlignment="Stretch"
@@ -338,7 +371,7 @@
                                                         <FontIcon
                                                             FontFamily="{StaticResource Octicons}"
                                                             FontSize="22"
-                                                            Foreground="{StaticResource PrimerClosedForeground}"
+                                                            Foreground="{StaticResource PrimerDoneForeground}"
                                                             Glyph="&#xE9E6;" />
                                                     </toolkit:Case>
 
@@ -474,6 +507,12 @@
 
                                         </DataTemplate>
                                     </ListView.ItemTemplate>
+
+                                    <ListView.ContextFlyout>
+                                        <MenuFlyout>
+                                            <MenuFlyoutItem Text="Open in new tab" />
+                                        </MenuFlyout>
+                                    </ListView.ContextFlyout>
 
                                 </ListView>
 
