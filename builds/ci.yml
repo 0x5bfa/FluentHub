@@ -11,13 +11,15 @@ variables:
   value: '**/*.sln'
 - name: buildPlatform
   value: 'x64'
+- name: buildConfigurationDebug
+  value: 'Debug'
 - name: buildConfigurationRelease
   value: 'Release'
 - name: buildConfigurationSideload
   value: 'Sideload'
 - name: appxPackageDir
   value: '$(build.artifactStagingDirectory)\AppxPackages\\'
-    
+
 jobs:
 
 # Debug
@@ -26,9 +28,6 @@ jobs:
   timeoutInMinutes: 120
 
   steps:
-  - checkout: self
-    submodules: true
-
   - task: PowerShell@2
     displayName: 'Canonicalize package manifest'
     inputs:
@@ -37,9 +36,19 @@ jobs:
         [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\FluentHub.App\Package.appxmanifest
         $xmlDoc.Package.Identity.Name="49462fluenthub-uwp.FluentHub"
         $xmlDoc.Package.Identity.Publisher="CN=4E3C0825-4D00-4ECC-89F8-528E9200B125"
-        $xmlDoc.Package.Properties.DisplayName="FluentHub DEV"
-        $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub DEV"
+        $xmlDoc.Package.Properties.DisplayName="FluentHub"
+        $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub"
         $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub.App\Package.appxmanifest')
+      failOnStderr: true
+
+  - task: PowerShell@2
+    displayName: 'Use Release Logo'
+    inputs:
+      targetType: 'inline'
+      script: |
+        gci $(Build.SourcesDirectory)\src -Include *.csproj, *.appxmanifest, *.wapproj -recurse | ForEach -Process {
+        (Get-Content $_ -Raw | ForEach -Process {$_ -replace "Assets\\AppTiles\\Dev", "Assets\AppTiles\Release"}) | Set-Content $_ -NoNewline
+        }
       failOnStderr: true
 
   - task: DownloadSecureFile@1
@@ -49,6 +58,7 @@ jobs:
       secureFile: AppCredentials.config
 
   - task: CopyFiles@2
+    displayName: 'Copy OAuth credentials'
     inputs:
       SourceFolder: '$(Agent.TempDirectory)'
       Contents: '$(CredentialSecureFile.secureFilePath)'
@@ -60,9 +70,12 @@ jobs:
     inputs:
       secureFile: '$(signingCert.secureFilePath)'
 
-  - task: NuGetToolInstaller@1
+  - task: UseDotNet@2
     inputs:
-      versionSpec: '6.2.1'
+      packageType: sdk
+      version: 6.0.400
+
+  - task: NuGetToolInstaller@1
 
   - task: NuGetCommand@2
     inputs:
@@ -75,30 +88,25 @@ jobs:
       solution: '$(solution)'
       configuration: '$(buildConfigurationSideload)'
       msbuildArgs: '
-      /p:GenerateAppInstallerFile=True
-      /p:AppxLogTelemetryFromSideloadingScript=False
-      /p:AppInstallerUri=$(build.artifactstagingdirectory)
       /p:AppxBundlePlatforms="$(buildPlatform)"
+      /p:AppxBundle=Never
       /p:AppxPackageDir="$(appxPackageDir)"
-      /p:AppxBundle=Always
-      /p:UapAppxPackageBuildMode=Release
-      /p:AppxPackageSigningEnabled=true
-      /p:PackageCertificateThumbprint=""
+      /p:GenerateAppxPackageOnBuild=True
       /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"
-      /p:PackageCertificatePassword="$(signingCert.password)"'
+      /p:UapAppxPackageBuildMode=Sideloadonly'
 
   - task: CopyFiles@2
-    displayName: 'Copy Files to: $(build.artifactstagingdirectory)'
+    displayName: 'Copy generated artifacts'
     inputs:
       SourceFolder: '$(system.defaultworkingdirectory)'
       Contents: '**\bin\$(buildConfigurationSideload)\**'
       TargetFolder: '$(build.artifactstagingdirectory)'
 
   - task: PublishBuildArtifacts@1
-    displayName: 'Publish Artifact'
+    displayName: 'Publish artifacts'
     inputs:
       PathtoPublish: '$(build.artifactstagingdirectory)'
-      artifactName: 'Assets'
+      artifactName: 'Debug'
 
 # Sideload
 - job: BuildSideloadx64
@@ -116,10 +124,20 @@ jobs:
       script: |
         [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\FluentHub.App\Package.appxmanifest
         $xmlDoc.Package.Identity.Name="FluentHubSideload"
-        $xmlDoc.Package.Identity.Publisher="FluentHub Team"
+        $xmlDoc.Package.Identity.Publisher="FluentHub"
         $xmlDoc.Package.Properties.DisplayName="FluentHub"
-        $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub Dev"
+        $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub"
         $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub.App\Package.appxmanifest')
+      failOnStderr: true
+
+  - task: PowerShell@2
+    displayName: 'Use Release Logo'
+    inputs:
+      targetType: 'inline'
+      script: |
+        gci $(Build.SourcesDirectory)\src -Include *.csproj, *.appxmanifest, *.wapproj -recurse | ForEach -Process {
+        (Get-Content $_ -Raw | ForEach -Process {$_ -replace "Assets\\AppTiles\\Dev", "Assets\AppTiles\Release"}) | Set-Content $_ -NoNewline
+        }
       failOnStderr: true
 
   - task: DownloadSecureFile@1
@@ -141,6 +159,11 @@ jobs:
     inputs:
       secureFile: '$(signingCert.secureFilePath)'
 
+  - task: UseDotNet@2
+    inputs:
+      packageType: sdk
+      version: 6.0.400
+
   - task: NuGetToolInstaller@1
 
   - task: NuGetCommand@2
@@ -154,14 +177,12 @@ jobs:
       solution: '$(solution)'
       configuration: '$(buildConfigurationSideload)'
       msbuildArgs: '
-      /p:AppInstallerUri="$(build.artifactstagingdirectory)"
       /p:AppxBundlePlatforms="$(buildPlatform)"
+      /p:AppxBundle=Never
       /p:AppxPackageDir="$(appxPackageDir)"
-      /p:UapAppxPackageBuildMode=Sideload
-      /p:AppxPackageSigningEnabled=true
-      /p:PackageCertificateThumbprint=""
+      /p:GenerateAppxPackageOnBuild=True
       /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"
-      /p:PackageCertificatePassword="$(signingCert.password)"'
+      /p:UapAppxPackageBuildMode=SideloadOnly'
 
   - task: CopyFiles@2
     displayName: 'Copy generated artifacts'
@@ -176,7 +197,7 @@ jobs:
       PathtoPublish: '$(build.artifactstagingdirectory)'
       artifactName: 'Sideload'
 
-# Store
+# StoreUpload
 - job: BuildStoreUploadx64
   displayName: Build StoreUpload x64
   timeoutInMinutes: 120
@@ -193,9 +214,19 @@ jobs:
         [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\FluentHub.App\Package.appxmanifest
         $xmlDoc.Package.Identity.Name="49462fluenthub-uwp.FluentHub"
         $xmlDoc.Package.Identity.Publisher="CN=4E3C0825-4D00-4ECC-89F8-528E9200B125"
-        $xmlDoc.Package.Properties.DisplayName="FluentHub Dev"
-        $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub Dev"
+        $xmlDoc.Package.Properties.DisplayName="FluentHub"
+        $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub"
         $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub.App\Package.appxmanifest')
+      failOnStderr: true
+
+  - task: PowerShell@2
+    displayName: 'Use Release Logo'
+    inputs:
+      targetType: 'inline'
+      script: |
+        gci $(Build.SourcesDirectory)\src -Include *.csproj, *.appxmanifest, *.wapproj -recurse | ForEach -Process {
+        (Get-Content $_ -Raw | ForEach -Process {$_ -replace "Assets\\AppTiles\\Dev", "Assets\AppTiles\Release"}) | Set-Content $_ -NoNewline
+        }
       failOnStderr: true
 
   - task: DownloadSecureFile@1
@@ -217,6 +248,11 @@ jobs:
     inputs:
       secureFile: '$(signingCert.secureFilePath)'
 
+  - task: UseDotNet@2
+    inputs:
+      packageType: sdk
+      version: 6.0.400
+
   - task: NuGetToolInstaller@1
 
   - task: NuGetCommand@2
@@ -232,7 +268,9 @@ jobs:
       msbuildArgs: '
       /p:AppInstallerUri="$(build.artifactstagingdirectory)"
       /p:AppxBundlePlatforms="$(buildPlatform)"
+      /p:AppxBundle=Never
       /p:AppxPackageDir="$(appxPackageDir)"
+      /p:GenerateAppxPackageOnBuild=True
       /p:UapAppxPackageBuildMode=StoreUpload'
 
   - task: CopyFiles@2
