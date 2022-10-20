@@ -1,5 +1,6 @@
 using FluentHub.App.Services.Navigation;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Media.Animation;
 
 namespace FluentHub.App.Services
 {
@@ -15,9 +16,9 @@ namespace FluentHub.App.Services
 
         void Disconnect();
 
-        void Navigate(Type page, object parameter = null, Microsoft.UI.Xaml.Media.Animation.NavigationTransitionInfo transitionInfo = null);
+        void Navigate(Type page, object parameter = null, NavigationTransitionInfo transitionInfo = null);
 
-        void Navigate<T>(object parameter = null, Microsoft.UI.Xaml.Media.Animation.NavigationTransitionInfo transitionInfo = null) where T : Page;
+        void Navigate<T>(object parameter = null, NavigationTransitionInfo transitionInfo = null) where T : Page;
 
         Guid OpenTab(Type page, object parameter = null);
 

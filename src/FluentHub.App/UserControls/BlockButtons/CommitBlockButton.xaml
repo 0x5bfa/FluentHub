@@ -78,7 +78,7 @@
                     </StackPanel>
                 </Grid>
 
-                <Grid>
+                <Grid Grid.Column="1">
                     <primer:Label
                         HorizontalAlignment="Right"
                         Size="large"
@@ -87,7 +87,7 @@
                         Visibility="{x:Bind ViewModel.CommitItem.Signature.IsValid, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
                 </Grid>
 
-                <Grid Grid.Column="2" HorizontalAlignment="Right">
+                <!--<Grid Grid.Column="2" HorizontalAlignment="Right">
                     <StackPanel Orientation="Horizontal">
                         <Button
                             Height="32"
@@ -110,7 +110,7 @@
                                 Text="{x:Bind ViewModel.CommitItem.AbbreviatedOid, Mode=OneWay}" />
                         </Button>
                     </StackPanel>
-                </Grid>
+                </Grid>-->
             </Grid>
         </Button>
     </Grid>

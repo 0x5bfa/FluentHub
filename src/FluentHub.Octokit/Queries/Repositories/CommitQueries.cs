@@ -23,9 +23,22 @@
                     Message = x.Message,
                     MessageHeadline = x.MessageHeadline,
 
+                    Author = x.Author.Select(author => new GitActor
+                    {
+                        AvatarUrl = author.AvatarUrl(100),
+
+                        User = author.User.Select(user => new User
+                        {
+                            Login = user.Login,
+                        })
+                        .SingleOrDefault(),
+                    })
+                    .SingleOrDefault(),
+
                     Repository = x.Repository.Select(repo => new Repository
                     {
                         Name = repo.Name,
+
                         Owner = repo.Owner.Select(owner => new RepositoryOwner
                         {
                             Login = owner.Login,
@@ -34,12 +47,18 @@
                     })
                     .SingleOrDefault(),
 
-                    Author = x.Author.Select(author => new GitActor
+                    Signature = x.Signature.Select(signature => new GitSignature
                     {
-                        AvatarUrl = author.AvatarUrl(100),
-                        User = author.User.Select(user => new User
+                        IsValid = signature.IsValid,
+                        Payload = signature.Payload,
+                        Signature = signature.Payload,
+                        State = (GitSignatureState)signature.State,
+                        WasSignedByGitHub = signature.WasSignedByGitHub,
+
+                        Signer = signature.Signer.Select(user => new User
                         {
-                            Login = user.Login,
+                            AvatarUrl = user.AvatarUrl(100),
+                            Login = user.Login
                         })
                         .SingleOrDefault(),
                     })

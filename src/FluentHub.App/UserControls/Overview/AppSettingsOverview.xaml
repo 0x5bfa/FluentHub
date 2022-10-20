@@ -98,6 +98,7 @@
                 <NavigationViewItem
                     x:Name="SettingsNavViewItemAccount"
                     Content="Account"
+                    IsEnabled="False"
                     Tag="account">
                     <NavigationViewItem.Icon>
                         <ImageIcon Source="/Assets/Icons/Accounts.png" />
