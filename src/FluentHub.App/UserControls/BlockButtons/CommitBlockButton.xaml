@@ -79,12 +79,68 @@
                 </Grid>
 
                 <Grid Grid.Column="1">
-                    <primer:Label
-                        HorizontalAlignment="Right"
-                        Size="large"
-                        Text="Verified"
-                        Variant="success"
-                        Visibility="{x:Bind ViewModel.CommitItem.Signature.IsValid, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
+                    <Button
+                        Padding="0" CornerRadius="12"
+                        Background="Transparent"
+                        BorderThickness="0">
+                        <primer:Label
+                            HorizontalAlignment="Right"
+                            Size="large"
+                            Text="Verified"
+                            Variant="success"
+                            Visibility="{x:Bind ViewModel.CommitItem.Signature.IsValid, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
+                        <Button.Flyout>
+                            <Flyout Placement="BottomEdgeAlignedRight">
+                                <Grid Width="184">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <Grid ColumnSpacing="8">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="*" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <FontIcon
+                                            FontFamily="{StaticResource Octicons}"
+                                            FontSize="18"
+                                            Foreground="#57ab5a"
+                                            Glyph="&#xEACC;" />
+
+                                        <TextBlock
+                                            Grid.Column="1"
+                                            Style="{StaticResource CaptionTextBlockStyle}"
+                                            Text="This commit was created on GitHub.com and signed with GitHub's verified signature."
+                                            TextTrimming="CharacterEllipsis"
+                                            TextWrapping="Wrap" />
+
+                                    </Grid>
+
+                                    <Border
+                                        Grid.Row="1"
+                                        Height="1"
+                                        Margin="-16,12"
+                                        BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
+                                        BorderThickness="1" />
+
+                                    <StackPanel Grid.Row="2">
+                                        <TextBlock Style="{StaticResource CaptionTextBlockStyle}">
+                                            <Run Text="GPG key ID:" />
+                                            <Run Text="(UNKNOWN)" />
+                                        </TextBlock>
+                                        <TextBlock Style="{StaticResource CaptionTextBlockStyle}">
+                                            <Hyperlink NavigateUri="https://docs.github.com/github/authenticating-to-github/displaying-verification-statuses-for-all-of-your-commits">
+                                                <Run Text="Learn about vigilant mode." />
+                                            </Hyperlink>
+                                        </TextBlock>
+                                    </StackPanel>
+                                </Grid>
+                            </Flyout>
+                        </Button.Flyout>
+                    </Button>
                 </Grid>
 
                 <!--<Grid Grid.Column="2" HorizontalAlignment="Right">

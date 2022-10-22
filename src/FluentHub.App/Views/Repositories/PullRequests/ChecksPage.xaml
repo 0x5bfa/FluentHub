@@ -1,0 +1,183 @@
+﻿<Page
+    x:Class="FluentHub.App.Views.Repositories.PullRequests.ChecksPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:bb="using:FluentHub.App.UserControls.BlockButtons"
+    xmlns:bbvm="using:FluentHub.App.ViewModels.UserControls.BlockButtons"
+    xmlns:converters="using:FluentHub.App.Converters"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:helpers="using:FluentHub.App.Helpers"
+    xmlns:local="using:FluentHub.App.Views.Repositories.PullRequests"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:models="using:FluentHub.App.Models"
+    xmlns:ov="using:FluentHub.App.UserControls.Overview"
+    xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
+    xmlns:uc="using:FluentHub.App.UserControls"
+    mc:Ignorable="d">
+
+    <Page.Resources>
+        <ResourceDictionary>
+
+            <DataTemplate x:Key="CheckRunItemGroupDataTemplate" x:DataType="models:CheckRunGroupModel">
+                <Grid
+                    Background="{ThemeResource LayerFillColorDefaultBrush}"
+                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid Padding="20,12,12,0">
+                        <StackPanel Orientation="Horizontal" Spacing="8">
+                            <FontIcon
+                                FontFamily="{StaticResource Octicons}"
+                                FontSize="14"
+                                Foreground="{ThemeResource PrimerSuccessForeground}"
+                                Glyph="&#xE939;" />
+                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{x:Bind AppName}" />
+                        </StackPanel>
+                    </Grid>
+
+                    <NavigationViewItemSeparator Grid.Row="1" Margin="0,8" />
+
+                    <Grid Grid.Row="2" Padding="8,0,8,12">
+                        <ItemsRepeater ItemsSource="{x:Bind CheckItems}">
+                            <ItemsRepeater.Layout>
+                                <StackLayout Orientation="Vertical" Spacing="6" />
+                            </ItemsRepeater.Layout>
+                            <DataTemplate x:DataType="models:CheckRunItemModel">
+                                <Button
+                                    HorizontalAlignment="Stretch"
+                                    HorizontalContentAlignment="Left"
+                                    Background="Transparent"
+                                    BorderThickness="0">
+                                    <StackPanel Orientation="Horizontal" Spacing="8">
+                                        <FontIcon
+                                            FontFamily="{StaticResource Octicons}"
+                                            FontSize="14"
+                                            Foreground="{ThemeResource PrimerDangerForeground}"
+                                            Glyph="&#xEAD4;" />
+                                        <TextBlock Text="{x:Bind Name}" />
+                                    </StackPanel>
+                                </Button>
+                            </DataTemplate>
+                        </ItemsRepeater>
+                    </Grid>
+                </Grid>
+            </DataTemplate>
+
+            <!--<SolidColorBrush x:Key="ExpanderHeaderBackground" Color="Transparent" />
+            <SolidColorBrush x:Key="ExpanderHeaderBorderBrush" Color="Transparent" />
+            <SolidColorBrush x:Key="ExpanderHeaderBorderPointerOverBrush" Color="Transparent" />
+            <SolidColorBrush x:Key="ExpanderHeaderBorderPressedBrush" Color="Transparent" />
+            <SolidColorBrush x:Key="ExpanderContentBackground" Color="Transparent" />
+            <SolidColorBrush x:Key="ExpanderContentBorderBrush" Color="Transparent" />-->
+            <Thickness x:Key="ExpanderHeaderPadding">0,0,0,0</Thickness>
+            <Thickness x:Key="ExpanderContentPadding">0,0,0,0</Thickness>
+            <x:Double x:Key="ExpanderMinHeight">0</x:Double>
+
+            <Style TargetType="Expander">
+                <Setter Property="HorizontalAlignment" Value="Stretch" />
+                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+            </Style>
+
+            <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+        </ResourceDictionary>
+    </Page.Resources>
+
+    <Grid>
+
+        <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryPullRequestChecksPageCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                <Grid Margin="0,0,8,8" RowSpacing="8">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <ov:RepositoryOverview ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
+
+                    <ov:PullRequestOverview Grid.Row="1" ViewModel="{x:Bind ViewModel.PullRequestOverviewViewModel, Mode=OneWay}" />
+
+                    <Grid Grid.Row="2" ColumnSpacing="8">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition
+                                Width="Auto"
+                                MinWidth="320"
+                                MaxWidth="360" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Grid
+                            MinWidth="300"
+                            Padding="16,24"
+                            Background="{ThemeResource LayerFillColorDefaultBrush}"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                            BorderThickness="1"
+                            CornerRadius="8">
+
+                            <ItemsRepeater
+                                ItemTemplate="{StaticResource CheckRunItemGroupDataTemplate}"
+                                ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
+                                VerticalCacheLength="12">
+                                <ItemsRepeater.Layout>
+                                    <StackLayout Orientation="Vertical" Spacing="6" />
+                                </ItemsRepeater.Layout>
+                            </ItemsRepeater>
+                        </Grid>
+
+                        <Grid
+                            Grid.Column="1"
+                            Padding="16,24"
+                            Background="{ThemeResource LayerFillColorDefaultBrush}"
+                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                            BorderThickness="1"
+                            CornerRadius="8">
+
+                            <StackPanel
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Spacing="8">
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    Style="{StaticResource SubtitleTextBlockStyle}"
+                                    Text="FluentHub PR" />
+                                <TextBlock
+                                    HorizontalAlignment="Center"
+                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                    Text="To view details of this job open it in your browser to view it on the web." />
+                                <HyperlinkButton HorizontalAlignment="Center" Content="Open in Browser" />
+                            </StackPanel>
+                        </Grid>
+                    </Grid>
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+
+        <Grid x:Name="ErrorDisplayingContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryPullRequestChecksPageCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
+            <uc:LoadErrorDisplay
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Stretch"
+                TaskException="{x:Bind ViewModel.TaskException, Mode=OneWay}">
+                <uc:LoadErrorDisplay.Action>
+                    <Grid>
+                        <Button
+                            Margin="0,24,0,0"
+                            HorizontalAlignment="Center"
+                            Command="{x:Bind ViewModel.LoadRepositoryPullRequestChecksPageCommand}">
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                <FontIcon FontSize="16" Glyph="&#xE149;" />
+                                <TextBlock Text="{helpers:ResourceString Name=TryAgainWithCap}" />
+                            </StackPanel>
+                        </Button>
+                    </Grid>
+                </uc:LoadErrorDisplay.Action>
+            </uc:LoadErrorDisplay>
+        </Grid>
+
+    </Grid>
+</Page>

@@ -132,7 +132,7 @@ namespace FluentHub.App.Views
             // WinUI3: Need to track this issue https://github.com/microsoft/WindowsAppSDK/issues/2574
             // They is not fixed in latest stable version v1.5 However, it has been fixed in latest preview version v1.2.220930.4-preview2
             // So we have no choice but to use unstable version of WASDK. Should use latest stable version.
-            App.Window.AppWindow.TitleBar.SetDragRectangles(new[] { new(0, 0, (int)MainPageTitleBar.ActualWidth, 44), dragRect });
+            App.Window.AppWindow.TitleBar.SetDragRectangles(new[] { new(0, 0, (int)(MainPageTitleBar.ActualWidth + MainPageTitleBar.Margin.Left + MainPageTitleBar.Margin.Right), 44), dragRect });
         }
 
         private void OnSearchGitHubButtonButtonClick(object sender, RoutedEventArgs e)

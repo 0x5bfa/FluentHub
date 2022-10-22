@@ -113,6 +113,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Content>
+    <None Remove="Views\Repositories\PullRequests\ChecksPage.xaml" />
     <Content Include="AppCredentials.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -141,5 +142,10 @@
   <ItemGroup>
     <ProjectReference Include="..\FluentHub.Core\FluentHub.Core.csproj" />
     <ProjectReference Include="..\FluentHub.Octokit\FluentHub.Octokit.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Update="Views\Repositories\PullRequests\ChecksPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
 </Project>

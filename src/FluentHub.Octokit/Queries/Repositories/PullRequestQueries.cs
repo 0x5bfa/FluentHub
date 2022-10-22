@@ -113,14 +113,18 @@
                 .PullRequest(number)
                 .Select(x => new PullRequest
                 {
+                    Additions = x.Additions,
                     BaseRefName = x.BaseRefName,
+                    ChangedFiles = x.ChangedFiles,
                     Closed = x.Closed,
+                    Deletions = x.Deletions,
                     HeadRefName = x.HeadRefName,
                     IsDraft = x.IsDraft,
                     Merged = x.Merged,
                     Number = x.Number,
                     Title = x.Title,
                     UpdatedAt = x.UpdatedAt,
+                    UpdatedAtHumanized = x.UpdatedAt.Humanize(null, null),
 
                     Assignees = x.Assignees(6, null, null, null).Select(assignees => new UserConnection
                     {
@@ -141,6 +145,8 @@
 
                     Commits = x.Commits(null, null, 1, null).Select(commits => new PullRequestCommitConnection
                     {
+                        TotalCount = commits.TotalCount,
+
                         Nodes = commits.Nodes.Select(y => new PullRequestCommit
                         {
                             Commit = y.Commit.Select(commit => new Commit

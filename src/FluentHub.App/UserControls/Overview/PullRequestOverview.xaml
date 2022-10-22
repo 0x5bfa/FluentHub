@@ -22,7 +22,9 @@
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
 
+            <converters:DecimalToMetricConverter x:Key="DecimalToMetricConverter" />
             <converters:DecimalToSubjectNumberConverter x:Key="DecimalToSubjectNumberConverter" />
+            <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -36,7 +38,7 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid Padding="32,24,32,16">
+        <Grid Padding="32,16,32,12">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="Auto" />
@@ -167,6 +169,7 @@
                 <Button
                     Width="36"
                     Height="32"
+                    Margin="0,12,0,0"
                     Padding="0"
                     VerticalAlignment="Center"
                     ToolTipService.ToolTip="More option">
@@ -198,40 +201,81 @@
                 ItemInvoked="OnPullRequestNavViewItemInvoked"
                 PaneDisplayMode="Top">
                 <NavigationView.MenuItems>
-                    <NavigationViewItem Content="Conversation" Tag="conversation">
-                        <NavigationViewItem.Icon>
-                            <FontIcon
-                                FontFamily="{StaticResource Octicons}"
-                                FontSize="16"
-                                Glyph="&#xE95D;" />
-                        </NavigationViewItem.Icon>
+                    <NavigationViewItem Tag="conversation">
+                        <NavigationViewItem.Content>
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+
+                                <FontIcon
+                                    FontFamily="{StaticResource Octicons}"
+                                    FontSize="16"
+                                    Glyph="&#xE95D;" />
+
+                                <TextBlock Text="Conversation" />
+
+                                <primer:CounterLabel
+                                    x:Name="CommentsCounter"
+                                    x:Load="{x:Bind ViewModel.PullRequest.Comments.TotalCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                                    Text="{x:Bind ViewModel.PullRequest.Comments.TotalCount, Converter={StaticResource DecimalToMetricConverter}, Mode=OneWay}" />
+
+                            </StackPanel>
+                        </NavigationViewItem.Content>
                     </NavigationViewItem>
-                    <NavigationViewItem Content="Commits" Tag="commits">
-                        <NavigationViewItem.Icon>
-                            <FontIcon
-                                FontFamily="{StaticResource Octicons}"
-                                FontSize="16"
-                                Glyph="&#xE9B9;" />
-                        </NavigationViewItem.Icon>
+                    <NavigationViewItem Tag="commits">
+                        <NavigationViewItem.Content>
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+
+                                <FontIcon
+                                    FontFamily="{StaticResource Octicons}"
+                                    FontSize="16"
+                                    Glyph="&#xE9B9;" />
+
+                                <TextBlock Text="Commits" />
+
+                                <primer:CounterLabel
+                                    x:Name="CommitsCounter"
+                                    x:Load="{x:Bind ViewModel.PullRequest.Commits.TotalCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                                    Text="{x:Bind ViewModel.PullRequest.Commits.TotalCount, Converter={StaticResource DecimalToMetricConverter}, Mode=OneWay}" />
+
+                            </StackPanel>
+                        </NavigationViewItem.Content>
                     </NavigationViewItem>
-                    <NavigationViewItem
-                        Content="Checks"
-                        IsEnabled="False"
-                        Tag="checks">
-                        <NavigationViewItem.Icon>
-                            <FontIcon
-                                FontFamily="{StaticResource Octicons}"
-                                FontSize="16"
-                                Glyph="&#xE9B9;" />
-                        </NavigationViewItem.Icon>
+                    <NavigationViewItem Tag="checks">
+                        <NavigationViewItem.Content>
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+
+                                <FontIcon
+                                    FontFamily="{StaticResource Octicons}"
+                                    FontSize="16"
+                                    Glyph="&#xE9B9;" />
+
+                                <TextBlock Text="Checks" />
+
+                                <primer:CounterLabel
+                                    x:Name="ChecksCounter"
+                                    x:Load="{x:Bind ViewModel.PullRequest.Comments.TotalCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                                    Text="{x:Bind ViewModel.PullRequest.Comments.TotalCount, Converter={StaticResource DecimalToMetricConverter}, Mode=OneWay}" />
+
+                            </StackPanel>
+                        </NavigationViewItem.Content>
                     </NavigationViewItem>
-                    <NavigationViewItem Content="File changes" Tag="filechanges">
-                        <NavigationViewItem.Icon>
-                            <FontIcon
-                                FontFamily="{StaticResource Octicons}"
-                                FontSize="16"
-                                Glyph="&#xE99D;" />
-                        </NavigationViewItem.Icon>
+                    <NavigationViewItem Tag="filechanges">
+                        <NavigationViewItem.Content>
+                            <StackPanel Orientation="Horizontal" Spacing="8">
+
+                                <FontIcon
+                                    FontFamily="{StaticResource Octicons}"
+                                    FontSize="16"
+                                    Glyph="&#xE99D;" />
+
+                                <TextBlock Text="Files changed" />
+
+                                <primer:CounterLabel
+                                    x:Name="FileChangesCounter"
+                                    x:Load="{x:Bind ViewModel.PullRequest.ChangedFiles, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                                    Text="{x:Bind ViewModel.PullRequest.ChangedFiles, Converter={StaticResource DecimalToMetricConverter}, Mode=OneWay}" />
+
+                            </StackPanel>
+                        </NavigationViewItem.Content>
                     </NavigationViewItem>
                 </NavigationView.MenuItems>
             </NavigationView>

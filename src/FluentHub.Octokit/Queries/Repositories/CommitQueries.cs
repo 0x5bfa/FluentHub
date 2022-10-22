@@ -17,11 +17,14 @@
                 .Select(x => new Commit
                 {
                     AbbreviatedOid = x.AbbreviatedOid,
-                    Oid = x.Oid,
+                    Additions = x.Additions,
+                    ChangedFiles = x.ChangedFiles,
                     CommittedDate = x.CommittedDate,
                     CommittedDateHumanized = x.CommittedDate.Humanize(null, null),
+                    Deletions = x.Deletions,
                     Message = x.Message,
                     MessageHeadline = x.MessageHeadline,
+                    Oid = x.Oid,
 
                     Author = x.Author.Select(author => new GitActor
                     {
@@ -88,12 +91,14 @@
                         Nodes = history.Nodes.Select(y => new Commit
                         {
                             AbbreviatedOid = y.AbbreviatedOid,
-                            Oid = y.Oid,
+                            Additions = y.Additions,
+                            ChangedFiles = y.ChangedFiles,
                             CommittedDate = y.CommittedDate,
                             CommittedDateHumanized = y.CommittedDate.Humanize(null, null),
+                            Deletions = y.Deletions,
                             Message = y.Message,
                             MessageHeadline = y.MessageHeadline,
-                            MessageBody = y.MessageBody,
+                            Oid = y.Oid,
 
                             Author = y.Author.Select(author => new GitActor
                             {
