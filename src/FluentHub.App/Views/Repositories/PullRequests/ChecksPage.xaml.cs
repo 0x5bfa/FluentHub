@@ -36,5 +36,13 @@ namespace FluentHub.App.Views.Repositories.PullRequests
             if (command.CanExecute(null))
                 command.Execute(null);
         }
+
+        private void OnCheckRunItemButtonClick(object sender, RoutedEventArgs e)
+        {
+            var target = sender as Button;
+            var checkRunItem = target.Tag as CheckRun;
+
+            ViewModel.SelectedCheckRun = checkRunItem;
+        }
     }
 }

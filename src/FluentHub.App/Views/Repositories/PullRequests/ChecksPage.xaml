@@ -10,6 +10,7 @@
     xmlns:local="using:FluentHub.App.Views.Repositories.PullRequests"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:FluentHub.App.Models"
+    xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
     xmlns:ov="using:FluentHub.App.UserControls.Overview"
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
     xmlns:uc="using:FluentHub.App.UserControls"
@@ -17,58 +18,6 @@
 
     <Page.Resources>
         <ResourceDictionary>
-
-            <DataTemplate x:Key="CheckRunItemGroupDataTemplate" x:DataType="models:CheckRunGroupModel">
-                <Grid
-                    Background="{ThemeResource LayerFillColorDefaultBrush}"
-                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                    BorderThickness="1"
-                    CornerRadius="8">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <Grid Padding="20,12,12,0">
-                        <StackPanel Orientation="Horizontal" Spacing="8">
-                            <FontIcon
-                                FontFamily="{StaticResource Octicons}"
-                                FontSize="14"
-                                Foreground="{ThemeResource PrimerSuccessForeground}"
-                                Glyph="&#xE939;" />
-                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{x:Bind AppName}" />
-                        </StackPanel>
-                    </Grid>
-
-                    <NavigationViewItemSeparator Grid.Row="1" Margin="0,8" />
-
-                    <Grid Grid.Row="2" Padding="8,0,8,12">
-                        <ItemsRepeater ItemsSource="{x:Bind CheckItems}">
-                            <ItemsRepeater.Layout>
-                                <StackLayout Orientation="Vertical" Spacing="6" />
-                            </ItemsRepeater.Layout>
-                            <DataTemplate x:DataType="models:CheckRunItemModel">
-                                <Button
-                                    HorizontalAlignment="Stretch"
-                                    HorizontalContentAlignment="Left"
-                                    Background="Transparent"
-                                    BorderThickness="0">
-                                    <StackPanel Orientation="Horizontal" Spacing="8">
-                                        <FontIcon
-                                            FontFamily="{StaticResource Octicons}"
-                                            FontSize="14"
-                                            Foreground="{ThemeResource PrimerDangerForeground}"
-                                            Glyph="&#xEAD4;" />
-                                        <TextBlock Text="{x:Bind Name}" />
-                                    </StackPanel>
-                                </Button>
-                            </DataTemplate>
-                        </ItemsRepeater>
-                    </Grid>
-                </Grid>
-            </DataTemplate>
-
             <!--<SolidColorBrush x:Key="ExpanderHeaderBackground" Color="Transparent" />
             <SolidColorBrush x:Key="ExpanderHeaderBorderBrush" Color="Transparent" />
             <SolidColorBrush x:Key="ExpanderHeaderBorderPointerOverBrush" Color="Transparent" />
@@ -84,7 +33,9 @@
                 <Setter Property="HorizontalContentAlignment" Value="Stretch" />
             </Style>
 
+            <converters:HexColorCodeToSolidColorBrushConverter x:Key="HexColorCodeToSolidColorBrushConverter" />
             <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+            <converters:ObjectToStringConverter x:Key="ObjectToStringConverter" />
         </ResourceDictionary>
     </Page.Resources>
 
@@ -105,53 +56,359 @@
 
                     <Grid Grid.Row="2" ColumnSpacing="8">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition
-                                Width="Auto"
-                                MinWidth="320"
-                                MaxWidth="360" />
+                            <ColumnDefinition Width="Auto" MaxWidth="360" />
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
 
                         <Grid
-                            MinWidth="300"
-                            Padding="16,24"
+                            MaxHeight="640"
                             Background="{ThemeResource LayerFillColorDefaultBrush}"
                             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                             BorderThickness="1"
                             CornerRadius="8">
+                            <ScrollViewer Padding="16">
 
-                            <ItemsRepeater
-                                ItemTemplate="{StaticResource CheckRunItemGroupDataTemplate}"
-                                ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}"
-                                VerticalCacheLength="12">
-                                <ItemsRepeater.Layout>
-                                    <StackLayout Orientation="Vertical" Spacing="6" />
-                                </ItemsRepeater.Layout>
-                            </ItemsRepeater>
+                                <ItemsRepeater ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}" VerticalCacheLength="12">
+                                    <ItemsRepeater.Layout>
+                                        <StackLayout Orientation="Vertical" Spacing="6" />
+                                    </ItemsRepeater.Layout>
+                                    <DataTemplate x:DataType="modelsV4:CheckSuite">
+                                        <Grid
+                                            Background="{ThemeResource LayerFillColorDefaultBrush}"
+                                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                            BorderThickness="1"
+                                            CornerRadius="8">
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                                <RowDefinition Height="Auto" />
+                                            </Grid.RowDefinitions>
+
+                                            <Grid Padding="12,12,12,0">
+                                                <StackPanel Orientation="Horizontal" Spacing="4">
+                                                    <Border
+                                                        Width="18"
+                                                        Height="18"
+                                                        Margin="0,0,4,0"
+                                                        Background="{x:Bind App.LogoBackgroundColor, Converter={StaticResource HexColorCodeToSolidColorBrushConverter}}"
+                                                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                                        BorderThickness="1"
+                                                        CornerRadius="4">
+                                                        <Image Source="{x:Bind App.LogoUrl}" />
+                                                    </Border>
+                                                    <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{x:Bind App.Name}" />
+                                                    <TextBlock
+                                                        VerticalAlignment="Center"
+                                                        Foreground="{ThemeResource TextFillColorSecondary}"
+                                                        Style="{StaticResource CaptionTextBlockStyle}"
+                                                        Text="on: pull_request" />
+                                                </StackPanel>
+                                            </Grid>
+
+                                            <NavigationViewItemSeparator Grid.Row="1" Margin="0,8" />
+
+                                            <Grid Grid.Row="2" Padding="8,0,8,12">
+                                                <ItemsRepeater ItemsSource="{x:Bind CheckRuns.Nodes}">
+                                                    <ItemsRepeater.Layout>
+                                                        <StackLayout Orientation="Vertical" Spacing="6" />
+                                                    </ItemsRepeater.Layout>
+                                                    <DataTemplate x:DataType="modelsV4:CheckRun">
+                                                        <Button
+                                                            Padding="6"
+                                                            HorizontalAlignment="Stretch"
+                                                            HorizontalContentAlignment="Left"
+                                                            Background="Transparent"
+                                                            BorderThickness="0"
+                                                            Click="OnCheckRunItemButtonClick"
+                                                            Tag="{x:Bind}">
+                                                            <StackPanel Orientation="Horizontal" Spacing="8">
+                                                                <toolkit:SwitchPresenter TargetType="x:String" Value="{x:Bind Status, Converter={StaticResource ObjectToStringConverter}}">
+                                                                    <toolkit:Case Value="Queued">
+                                                                        <FontIcon
+                                                                            FontFamily="{StaticResource Octicons}"
+                                                                            FontSize="14"
+                                                                            Foreground="{ThemeResource PrimerAttentionEmphasis}"
+                                                                            Glyph="&#xE984;" />
+                                                                    </toolkit:Case>
+                                                                    <toolkit:Case Value="InProgress">
+                                                                        <FontIcon
+                                                                            FontFamily="{StaticResource Octicons}"
+                                                                            FontSize="14"
+                                                                            Foreground="{ThemeResource PrimerAttentionEmphasis}"
+                                                                            Glyph="&#xE984;" />
+                                                                    </toolkit:Case>
+                                                                    <toolkit:Case Value="Completed">
+                                                                        <toolkit:SwitchPresenter TargetType="x:String" Value="{x:Bind Conclusion, Converter={StaticResource ObjectToStringConverter}}">
+                                                                            <toolkit:Case Value="ActionRequired">
+                                                                                <FontIcon
+                                                                                    FontFamily="{StaticResource Octicons}"
+                                                                                    FontSize="14"
+                                                                                    Foreground="{ThemeResource PrimerDangerForeground}"
+                                                                                    Glyph="&#xEAD4;" />
+                                                                            </toolkit:Case>
+                                                                            <toolkit:Case Value="TimedOut">
+                                                                                <FontIcon
+                                                                                    FontFamily="{StaticResource Octicons}"
+                                                                                    FontSize="14"
+                                                                                    Foreground="{ThemeResource PrimerDangerForeground}"
+                                                                                    Glyph="&#xEAD4;" />
+                                                                            </toolkit:Case>
+                                                                            <toolkit:Case Value="Cancelled">
+                                                                                <FontIcon
+                                                                                    FontFamily="{StaticResource Octicons}"
+                                                                                    FontSize="14"
+                                                                                    Foreground="{ThemeResource PrimerForegroundMuted}"
+                                                                                    Glyph="&#xEA98;" />
+                                                                            </toolkit:Case>
+                                                                            <toolkit:Case Value="Failure">
+                                                                                <FontIcon
+                                                                                    FontFamily="{StaticResource Octicons}"
+                                                                                    FontSize="16"
+                                                                                    Foreground="{ThemeResource PrimerDangerForeground}"
+                                                                                    Glyph="&#xEAD4;" />
+                                                                            </toolkit:Case>
+                                                                            <toolkit:Case Value="Success">
+                                                                                <FontIcon
+                                                                                    FontFamily="{StaticResource Octicons}"
+                                                                                    FontSize="14"
+                                                                                    Foreground="{ThemeResource PrimerSuccessForeground}"
+                                                                                    Glyph="&#xE934;" />
+                                                                            </toolkit:Case>
+                                                                            <toolkit:Case Value="Neutral">
+                                                                                <FontIcon
+                                                                                    FontFamily="{StaticResource Octicons}"
+                                                                                    FontSize="14"
+                                                                                    Foreground="{ThemeResource PrimerForegroundMuted}"
+                                                                                    Glyph="&#xEA8E;" />
+                                                                            </toolkit:Case>
+                                                                            <toolkit:Case Value="Skipped">
+                                                                                <FontIcon
+                                                                                    FontFamily="{StaticResource Octicons}"
+                                                                                    FontSize="14"
+                                                                                    Foreground="{ThemeResource PrimerForegroundMuted}"
+                                                                                    Glyph="&#xEA84;" />
+                                                                            </toolkit:Case>
+                                                                            <toolkit:Case Value="StartupFailure">
+                                                                                <FontIcon
+                                                                                    FontFamily="{StaticResource Octicons}"
+                                                                                    FontSize="14"
+                                                                                    Foreground="{ThemeResource PrimerDangerForeground}"
+                                                                                    Glyph="&#xEAD4;" />
+                                                                            </toolkit:Case>
+                                                                            <toolkit:Case Value="Stale">
+                                                                                <FontIcon
+                                                                                    FontFamily="{StaticResource Octicons}"
+                                                                                    FontSize="14"
+                                                                                    Foreground="{ThemeResource PrimerForegroundMuted}"
+                                                                                    Glyph="&#xE9EC;" />
+                                                                            </toolkit:Case>
+                                                                        </toolkit:SwitchPresenter>
+                                                                    </toolkit:Case>
+                                                                </toolkit:SwitchPresenter>
+                                                                <TextBlock Text="{x:Bind Name}" />
+                                                            </StackPanel>
+                                                        </Button>
+                                                    </DataTemplate>
+                                                </ItemsRepeater>
+                                            </Grid>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ItemsRepeater>
+
+                            </ScrollViewer>
                         </Grid>
 
                         <Grid
                             Grid.Column="1"
-                            Padding="16,24"
+                            Padding="16"
                             Background="{ThemeResource LayerFillColorDefaultBrush}"
                             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                             BorderThickness="1"
                             CornerRadius="8">
 
+                            <Grid x:Name="SelectedCheckRunDetails" x:Load="{x:Bind ViewModel.SelectedCheckRun, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+
+                                <StackPanel Margin="8,0">
+                                    <TextBlock Style="{StaticResource SubtitleTextBlockStyle}">
+                                        <Run Text="{x:Bind ViewModel.SelectedCheckRun.CheckSuite.App.Name, Mode=OneWay}" />
+                                        <Run Text="/" />
+                                        <Run Text="{x:Bind ViewModel.SelectedCheckRun.Name, Mode=OneWay}" />
+                                    </TextBlock>
+                                    <TextBlock
+                                        Foreground="{ThemeResource TextFillColorSecondary}"
+                                        Style="{StaticResource BodyTextBlockStyle}"
+                                        Text="{x:Bind ViewModel.SelectedCheckRun.Title, Mode=OneWay}" />
+                                </StackPanel>
+
+                                <Grid
+                                    Grid.Row="1"
+                                    Margin="0,12,0,0"
+                                    VerticalAlignment="Top"
+                                    Background="{ThemeResource LayerFillColorDefaultBrush}"
+                                    BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+                                    BorderThickness="1"
+                                    CornerRadius="8">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <StackPanel Padding="12,12,12,8" Spacing="6">
+                                        <TextBlock Style="{StaticResource BodyTextBlockStyle}">
+                                            <Run Foreground="{ThemeResource TextFillColorSecondary}" Text="Triggered via pull request by" />
+                                            <Run FontWeight="SemiBold" Text="{x:Bind ViewModel.SelectedCheckRun.CheckSuite.Creator.Login, Mode=OneWay}" />
+                                            <Run Foreground="{ThemeResource TextFillColorSecondary}" Text="{x:Bind ViewModel.SelectedCheckRun.StartedAtHumanized, Mode=OneWay}" />
+                                        </TextBlock>
+                                        <StackPanel Orientation="Horizontal" Spacing="6">
+                                            <FontIcon
+                                                FontFamily="{StaticResource Octicons}"
+                                                FontSize="14"
+                                                Glyph="&#xE95E;" />
+                                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{x:Bind ViewModel.SelectedCheckRun.CheckSuite.Commit.AbbreviatedOid, Mode=OneWay}" />
+                                        </StackPanel>
+                                    </StackPanel>
+
+                                    <Border
+                                        Grid.Row="1"
+                                        Height="1"
+                                        BorderBrush="{ThemeResource DividerStrokeColorDefault}"
+                                        BorderThickness="1" />
+
+                                    <Grid Grid.Row="2">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+
+                                        <StackPanel Padding="12,8,12,12" Spacing="6">
+                                            <TextBlock
+                                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                                Style="{StaticResource BodyTextBlockStyle}"
+                                                Text="Status" />
+                                            <TextBlock
+                                                x:Name="CheckRunStatusStateTextBlock"
+                                                x:Load="{x:Bind ViewModel.SelectedCheckRun.Conclusion, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
+                                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                                Text="{x:Bind ViewModel.SelectedCheckRun.Status, Converter={StaticResource ObjectToStringConverter}, Mode=OneWay}" />
+                                            <TextBlock
+                                                x:Name="CheckRunConclusionStateTextBlock"
+                                                x:Load="{x:Bind ViewModel.SelectedCheckRun.Conclusion, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                                Text="{x:Bind ViewModel.SelectedCheckRun.Conclusion, Converter={StaticResource ObjectToStringConverter}, Mode=OneWay}" />
+                                        </StackPanel>
+
+                                        <Border
+                                            Grid.Column="1"
+                                            Width="1"
+                                            BorderBrush="{ThemeResource DividerStrokeColorDefault}"
+                                            BorderThickness="1" />
+
+                                        <StackPanel
+                                            Grid.Column="2"
+                                            Padding="12,8,12,12"
+                                            Spacing="6">
+                                            <TextBlock
+                                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                                Style="{StaticResource BodyTextBlockStyle}"
+                                                Text="Duration" />
+                                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="{x:Bind helpers:DateTimeDurationHelpers.GetDateTimesDuration(ViewModel.SelectedCheckRun.StartedAt, ViewModel.SelectedCheckRun.CompletedAt), Mode=OneWay}" />
+                                        </StackPanel>
+
+                                        <Border
+                                            Grid.Column="3"
+                                            Width="1"
+                                            BorderBrush="{ThemeResource DividerStrokeColorDefault}"
+                                            BorderThickness="1" />
+
+                                        <StackPanel
+                                            Grid.Column="4"
+                                            Padding="12,8,12,12"
+                                            Spacing="6">
+                                            <TextBlock
+                                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                                Style="{StaticResource BodyTextBlockStyle}"
+                                                Text="Billable Time" />
+                                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="-" />
+                                        </StackPanel>
+
+                                        <Border
+                                            Grid.Column="5"
+                                            Width="1"
+                                            BorderBrush="{ThemeResource DividerStrokeColorDefault}"
+                                            BorderThickness="1" />
+
+                                        <StackPanel
+                                            Grid.Column="6"
+                                            Padding="12,8,12,12"
+                                            Spacing="6">
+                                            <TextBlock
+                                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                                Style="{StaticResource BodyTextBlockStyle}"
+                                                Text="Artifacts" />
+                                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="-" />
+                                        </StackPanel>
+
+                                    </Grid>
+                                </Grid>
+
+                                <StackPanel Margin="0,64"
+                                    Grid.Row="2"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    Spacing="8">
+
+                                    <StackPanel
+                                        x:Name="ViewInActionsCommandBlock"
+                                        HorizontalAlignment="Center"
+                                        x:Load="{x:Bind ViewModel.SelectedCheckRun.CheckSuite.WorkflowRun, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                                        Spacing="8">
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            Style="{StaticResource BodyTextBlockStyle}"
+                                            Text="To view more details of this job open it in Actions page." />
+                                        <Button
+                                            HorizontalAlignment="Center"
+                                            Content="View in Actions page"
+                                            IsEnabled="False" />
+                                    </StackPanel>
+
+                                    <StackPanel
+                                        x:Name="ViewInBrowserCommandBlock"
+                                        HorizontalAlignment="Center"
+                                        x:Load="{x:Bind ViewModel.SelectedCheckRun.CheckSuite.WorkflowRun, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
+                                        Spacing="8">
+                                        <TextBlock
+                                            HorizontalAlignment="Center"
+                                            Style="{StaticResource BodyTextBlockStyle}"
+                                            Text="To view more details of this job open it in your browser." />
+                                        <HyperlinkButton
+                                            HorizontalAlignment="Center"
+                                            Content="Open in Browser"
+                                            NavigateUri="{x:Bind ViewModel.SelectedCheckRun.DetailsUrl, Mode=OneWay}" />
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+
                             <StackPanel
+                                x:Name="NoSelectionBlock"
+                                Grid.RowSpan="3"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                Spacing="8">
-                                <TextBlock
-                                    HorizontalAlignment="Center"
-                                    Style="{StaticResource SubtitleTextBlockStyle}"
-                                    Text="FluentHub PR" />
-                                <TextBlock
-                                    HorizontalAlignment="Center"
-                                    Style="{StaticResource CaptionTextBlockStyle}"
-                                    Text="To view details of this job open it in your browser to view it on the web." />
-                                <HyperlinkButton HorizontalAlignment="Center" Content="Open in Browser" />
+                                x:Load="{x:Bind ViewModel.SelectedCheckRun, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
+                                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="Select a check run to view details from the sidebar" />
                             </StackPanel>
+
                         </Grid>
                     </Grid>
                 </Grid>

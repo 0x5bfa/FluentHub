@@ -49,11 +49,14 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
         private PullRequest pullItem;
         public PullRequest PullItem { get => pullItem; private set => SetProperty(ref pullItem, value); }
 
-        private readonly ObservableCollection<CheckRunGroupModel> _items;
-        public ReadOnlyObservableCollection<CheckRunGroupModel> Items { get; }
+        private readonly ObservableCollection<CheckSuite> _items;
+        public ReadOnlyObservableCollection<CheckSuite> Items { get; }
 
         private Exception _taskException;
         public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
+
+        private CheckRun _selectedCheckRun;
+        public CheckRun SelectedCheckRun { get => _selectedCheckRun; set => SetProperty(ref _selectedCheckRun, value); }
 
         public IAsyncRelayCommand LoadRepositoryPullRequestChecksPageCommand { get; }
         #endregion
@@ -93,25 +96,16 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
 
         private async Task LoadRepositoryPullRequestChecksAsync(string owner, string name)
         {
-            _items.Add(new()
+            PullRequestCheckQueries queries = new();
+            var response = await queries.GetAllAsync(owner, name, Number);
+
+            // Remove elements that doen't have any CheckRuns
+            response.RemoveAll(p => p.CheckRuns.Nodes.Count == 0);
+
+            foreach (var item in response)
             {
-                AppName = "Azure Pipeline",
-                CheckItems = new()
-                {
-                    new (){ Name = "FluentHub PR"},
-                    new (){ Name = "FluentHub PR (Build Debug x64)"},
-                    new (){ Name = "FluentHub PR (Build Sideload x64)"},
-                    new (){ Name = "FluentHub PR (Build StoreUpload x64)"},
-                },
-            });
-            _items.Add(new()
-            {
-                AppName = "codefactor.io",
-                CheckItems = new()
-                {
-                    new (){ Name = "CodeFactor"}
-                },
-            });
+                _items.Add(item);
+            }
         }
 
         private async Task LoadPullRequestAsync(string owner, string name)
