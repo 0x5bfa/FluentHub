@@ -265,7 +265,6 @@ jobs:
       solution: '$(solution)'
       configuration: '$(buildConfigurationRelease)'
       msbuildArguments: '
-      /t:build;_GenerateAppxPackage
       /p:AppxBundlePlatforms="$(buildPlatform)"
       /p:AppxBundle=Always
       /p:AppxPackageDir="$(appxPackageDir)"
