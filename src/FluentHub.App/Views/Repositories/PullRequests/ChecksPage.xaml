@@ -67,7 +67,6 @@
                             BorderThickness="1"
                             CornerRadius="8">
                             <ScrollViewer Padding="16">
-
                                 <ItemsRepeater ItemsSource="{x:Bind ViewModel.Items, Mode=OneWay}" VerticalCacheLength="12">
                                     <ItemsRepeater.Layout>
                                         <StackLayout Orientation="Vertical" Spacing="6" />
@@ -122,7 +121,11 @@
                                                             Click="OnCheckRunItemButtonClick"
                                                             Tag="{x:Bind}">
                                                             <StackPanel Orientation="Horizontal" Spacing="8">
-                                                                <toolkit:SwitchPresenter TargetType="x:String" Value="{x:Bind Status, Converter={StaticResource ObjectToStringConverter}}">
+                                                                <toolkit:SwitchPresenter
+                                                                    x:Name="CheckStatusStateSwitchPresenter"
+                                                                    x:Load="{x:Bind Status, Converter={StaticResource ObjectToBoolConverter}}"
+                                                                    TargetType="x:String"
+                                                                    Value="{x:Bind Status, Converter={StaticResource ObjectToStringConverter}}">
                                                                     <toolkit:Case Value="Queued">
                                                                         <FontIcon
                                                                             FontFamily="{StaticResource Octicons}"
@@ -138,73 +141,80 @@
                                                                             Glyph="&#xE984;" />
                                                                     </toolkit:Case>
                                                                     <toolkit:Case Value="Completed">
-                                                                        <toolkit:SwitchPresenter TargetType="x:String" Value="{x:Bind Conclusion, Converter={StaticResource ObjectToStringConverter}}">
-                                                                            <toolkit:Case Value="ActionRequired">
-                                                                                <FontIcon
-                                                                                    FontFamily="{StaticResource Octicons}"
-                                                                                    FontSize="14"
-                                                                                    Foreground="{ThemeResource PrimerDangerForeground}"
-                                                                                    Glyph="&#xEAD4;" />
-                                                                            </toolkit:Case>
-                                                                            <toolkit:Case Value="TimedOut">
-                                                                                <FontIcon
-                                                                                    FontFamily="{StaticResource Octicons}"
-                                                                                    FontSize="14"
-                                                                                    Foreground="{ThemeResource PrimerDangerForeground}"
-                                                                                    Glyph="&#xEAD4;" />
-                                                                            </toolkit:Case>
-                                                                            <toolkit:Case Value="Cancelled">
-                                                                                <FontIcon
-                                                                                    FontFamily="{StaticResource Octicons}"
-                                                                                    FontSize="14"
-                                                                                    Foreground="{ThemeResource PrimerForegroundMuted}"
-                                                                                    Glyph="&#xEA98;" />
-                                                                            </toolkit:Case>
-                                                                            <toolkit:Case Value="Failure">
-                                                                                <FontIcon
-                                                                                    FontFamily="{StaticResource Octicons}"
-                                                                                    FontSize="16"
-                                                                                    Foreground="{ThemeResource PrimerDangerForeground}"
-                                                                                    Glyph="&#xEAD4;" />
-                                                                            </toolkit:Case>
-                                                                            <toolkit:Case Value="Success">
-                                                                                <FontIcon
-                                                                                    FontFamily="{StaticResource Octicons}"
-                                                                                    FontSize="14"
-                                                                                    Foreground="{ThemeResource PrimerSuccessForeground}"
-                                                                                    Glyph="&#xE934;" />
-                                                                            </toolkit:Case>
-                                                                            <toolkit:Case Value="Neutral">
-                                                                                <FontIcon
-                                                                                    FontFamily="{StaticResource Octicons}"
-                                                                                    FontSize="14"
-                                                                                    Foreground="{ThemeResource PrimerForegroundMuted}"
-                                                                                    Glyph="&#xEA8E;" />
-                                                                            </toolkit:Case>
-                                                                            <toolkit:Case Value="Skipped">
-                                                                                <FontIcon
-                                                                                    FontFamily="{StaticResource Octicons}"
-                                                                                    FontSize="14"
-                                                                                    Foreground="{ThemeResource PrimerForegroundMuted}"
-                                                                                    Glyph="&#xEA84;" />
-                                                                            </toolkit:Case>
-                                                                            <toolkit:Case Value="StartupFailure">
-                                                                                <FontIcon
-                                                                                    FontFamily="{StaticResource Octicons}"
-                                                                                    FontSize="14"
-                                                                                    Foreground="{ThemeResource PrimerDangerForeground}"
-                                                                                    Glyph="&#xEAD4;" />
-                                                                            </toolkit:Case>
-                                                                            <toolkit:Case Value="Stale">
-                                                                                <FontIcon
-                                                                                    FontFamily="{StaticResource Octicons}"
-                                                                                    FontSize="14"
-                                                                                    Foreground="{ThemeResource PrimerForegroundMuted}"
-                                                                                    Glyph="&#xE9EC;" />
-                                                                            </toolkit:Case>
-                                                                        </toolkit:SwitchPresenter>
+                                                                        <Grid>
+                                                                            <toolkit:SwitchPresenter
+                                                                                x:Name="CheckConclusionStateSwitchPresenter"
+                                                                                x:Load="{x:Bind Conclusion, Converter={StaticResource ObjectToBoolConverter}}"
+                                                                                TargetType="x:String"
+                                                                                Value="{x:Bind Conclusion, Converter={StaticResource ObjectToStringConverter}}">
+                                                                                <toolkit:Case Value="ActionRequired">
+                                                                                    <FontIcon
+                                                                                        FontFamily="{StaticResource Octicons}"
+                                                                                        FontSize="14"
+                                                                                        Foreground="{ThemeResource PrimerDangerForeground}"
+                                                                                        Glyph="&#xEAD4;" />
+                                                                                </toolkit:Case>
+                                                                                <toolkit:Case Value="TimedOut">
+                                                                                    <FontIcon
+                                                                                        FontFamily="{StaticResource Octicons}"
+                                                                                        FontSize="14"
+                                                                                        Foreground="{ThemeResource PrimerDangerForeground}"
+                                                                                        Glyph="&#xEAD4;" />
+                                                                                </toolkit:Case>
+                                                                                <toolkit:Case Value="Cancelled">
+                                                                                    <FontIcon
+                                                                                        FontFamily="{StaticResource Octicons}"
+                                                                                        FontSize="14"
+                                                                                        Foreground="{ThemeResource PrimerForegroundMuted}"
+                                                                                        Glyph="&#xEA98;" />
+                                                                                </toolkit:Case>
+                                                                                <toolkit:Case Value="Failure">
+                                                                                    <FontIcon
+                                                                                        FontFamily="{StaticResource Octicons}"
+                                                                                        FontSize="16"
+                                                                                        Foreground="{ThemeResource PrimerDangerForeground}"
+                                                                                        Glyph="&#xEAD4;" />
+                                                                                </toolkit:Case>
+                                                                                <toolkit:Case Value="Success">
+                                                                                    <FontIcon
+                                                                                        FontFamily="{StaticResource Octicons}"
+                                                                                        FontSize="14"
+                                                                                        Foreground="{ThemeResource PrimerSuccessForeground}"
+                                                                                        Glyph="&#xE934;" />
+                                                                                </toolkit:Case>
+                                                                                <toolkit:Case Value="Neutral">
+                                                                                    <FontIcon
+                                                                                        FontFamily="{StaticResource Octicons}"
+                                                                                        FontSize="14"
+                                                                                        Foreground="{ThemeResource PrimerForegroundMuted}"
+                                                                                        Glyph="&#xEA8E;" />
+                                                                                </toolkit:Case>
+                                                                                <toolkit:Case Value="Skipped">
+                                                                                    <FontIcon
+                                                                                        FontFamily="{StaticResource Octicons}"
+                                                                                        FontSize="14"
+                                                                                        Foreground="{ThemeResource PrimerForegroundMuted}"
+                                                                                        Glyph="&#xEA84;" />
+                                                                                </toolkit:Case>
+                                                                                <toolkit:Case Value="StartupFailure">
+                                                                                    <FontIcon
+                                                                                        FontFamily="{StaticResource Octicons}"
+                                                                                        FontSize="14"
+                                                                                        Foreground="{ThemeResource PrimerDangerForeground}"
+                                                                                        Glyph="&#xEAD4;" />
+                                                                                </toolkit:Case>
+                                                                                <toolkit:Case Value="Stale">
+                                                                                    <FontIcon
+                                                                                        FontFamily="{StaticResource Octicons}"
+                                                                                        FontSize="14"
+                                                                                        Foreground="{ThemeResource PrimerForegroundMuted}"
+                                                                                        Glyph="&#xE9EC;" />
+                                                                                </toolkit:Case>
+                                                                            </toolkit:SwitchPresenter>
+                                                                        </Grid>
                                                                     </toolkit:Case>
                                                                 </toolkit:SwitchPresenter>
+
                                                                 <TextBlock Text="{x:Bind Name}" />
                                                             </StackPanel>
                                                         </Button>
@@ -214,7 +224,6 @@
                                         </Grid>
                                     </DataTemplate>
                                 </ItemsRepeater>
-
                             </ScrollViewer>
                         </Grid>
 
@@ -362,8 +371,9 @@
                                     </Grid>
                                 </Grid>
 
-                                <StackPanel Margin="0,64"
+                                <StackPanel
                                     Grid.Row="2"
+                                    Margin="0,64"
                                     HorizontalAlignment="Center"
                                     VerticalAlignment="Center"
                                     Spacing="8">
