@@ -13,6 +13,7 @@ namespace FluentHub.App.Services.Navigation
 
         #region Fields and Properties
         private readonly ILogger _logger;
+        private static readonly SuppressNavigationTransitionInfo _navigationMode = new();
 
         public Type CurrentPage { get; set; }
         public ITabView TabView { get; private set; }
@@ -45,7 +46,7 @@ namespace FluentHub.App.Services.Navigation
         }
 
         public void Navigate<T>(object parameter = null, NavigationTransitionInfo transitionInfo = null) where T : Page
-            => Navigate(typeof(T), parameter, transitionInfo);
+            => Navigate(typeof(T), parameter, transitionInfo ?? _navigationMode);
 
         public Guid OpenTab(Type page, object parameter)
         {

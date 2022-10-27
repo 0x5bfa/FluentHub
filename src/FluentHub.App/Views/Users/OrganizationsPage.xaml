@@ -25,7 +25,7 @@
 
     <Grid>
 
-        <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadUserOrganizationsPageCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+        <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadUserOrganizationsPageCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <Grid>
                     <Grid.RowDefinitions>
