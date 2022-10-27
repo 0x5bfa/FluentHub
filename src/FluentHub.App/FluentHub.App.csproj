@@ -6,7 +6,7 @@
     <DefaultLanguage>en-US</DefaultLanguage>
     <AppxBundleAutoResourcePackageQualifiers>Scale|DXFeatureLevel</AppxBundleAutoResourcePackageQualifiers>
     <AppxDefaultResourceQualifiers>Language=en-US;ja-JP</AppxDefaultResourceQualifiers>
-    <TargetPlatformMinVersion>10.0.18362.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
@@ -18,9 +18,10 @@
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <UseWinUI>true</UseWinUI>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <NoWin32Manifest>True</NoWin32Manifest>
     <EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
     <Platforms>x86;x64;arm64</Platforms>
+    <PublishReadyToRun>true</PublishReadyToRun>
     <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
@@ -113,7 +114,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Content>
-    <None Remove="Views\Repositories\PullRequests\ChecksPage.xaml" />
     <Content Include="AppCredentials.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -142,10 +142,5 @@
   <ItemGroup>
     <ProjectReference Include="..\FluentHub.Core\FluentHub.Core.csproj" />
     <ProjectReference Include="..\FluentHub.Octokit\FluentHub.Octokit.csproj" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Update="Views\Repositories\PullRequests\ChecksPage.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
 </Project>
