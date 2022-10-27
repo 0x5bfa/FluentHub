@@ -21,7 +21,6 @@
     <NoWin32Manifest>True</NoWin32Manifest>
     <EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
     <Platforms>x86;x64;arm64</Platforms>
-    <PublishReadyToRun>true</PublishReadyToRun>
     <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
