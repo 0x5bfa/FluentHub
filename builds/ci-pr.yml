@@ -258,17 +258,16 @@ jobs:
     inputs:
       restoreSolution: '$(solution)'
 
-  - task: VSBuild@1
+  - task: MSBuild@1
     displayName: 'Build FluentHub'
     inputs:
       platform: 'x64'
       solution: '$(solution)'
       configuration: '$(buildConfigurationRelease)'
-      msbuildArgs: '
+      msbuildArguments: '
       /t:build;_GenerateAppxPackage
-      /p:AppInstallerUri="$(build.artifactstagingdirectory)"
       /p:AppxBundlePlatforms="$(buildPlatform)"
-      /p:AppxBundle=Never
+      /p:AppxBundle=Always
       /p:AppxPackageDir="$(appxPackageDir)"
       /p:GenerateAppxPackageOnBuild=True
       /p:UapAppxPackageBuildMode=StoreUpload'
