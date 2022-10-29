@@ -16,11 +16,7 @@
 
     <Page.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary>
-                    <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
-                </ResourceDictionary>
-            </ResourceDictionary.MergedDictionaries>
+            <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
         </ResourceDictionary>
     </Page.Resources>
 

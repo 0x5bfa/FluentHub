@@ -262,7 +262,9 @@
                         Issue = source.Switch<Issue>(whenIssue => whenIssue
                         .Issue(issue => new Issue
                         {
+                            Number = issue.Number,
                             Title = issue.Title,
+
                             Repository = issue.Repository.Select(repo => new Repository
                             {
                                 Owner = repo.Owner.Select(owner => new RepositoryOwner
@@ -279,7 +281,9 @@
                         PullRequest = source.Switch<PullRequest>(whenPr => whenPr
                         .PullRequest(pr => new PullRequest
                         {
+                            Number = pr.Number,
                             Title = pr.Title,
+
                             Repository = pr.Repository.Select(repo => new Repository
                             {
                                 Owner = repo.Owner.Select(owner => new RepositoryOwner
@@ -300,7 +304,9 @@
                         Issue = target.Switch<Issue>(whenIssue => whenIssue
                         .Issue(issue => new Issue
                         {
+                            Number = issue.Number,
                             Title = issue.Title,
+
                             Repository = issue.Repository.Select(repo => new Repository
                             {
                                 Owner = repo.Owner.Select(owner => new RepositoryOwner
@@ -317,7 +323,9 @@
                         PullRequest = target.Switch<PullRequest>(whenPr => whenPr
                         .PullRequest(pr => new PullRequest
                         {
+                            Number = pr.Number,
                             Title = pr.Title,
+
                             Repository = pr.Repository.Select(repo => new Repository
                             {
                                 Owner = repo.Owner.Select(owner => new RepositoryOwner

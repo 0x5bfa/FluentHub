@@ -26,7 +26,7 @@
 
     <Grid>
 
-        <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadSearchCodePageCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+        <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadSearchCodePageCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />

@@ -17,11 +17,7 @@
 
     <Page.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary>
-                    <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
-                </ResourceDictionary>
-            </ResourceDictionary.MergedDictionaries>
+            <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
         </ResourceDictionary>
     </Page.Resources>
 
@@ -200,7 +196,7 @@
 
                         <uc:UserContributionGraph Login="{x:Bind ViewModel.Login, Mode=OneWay}" />
 
-                        <uc:ReadmeContentBlock x:Name="UserSpecialReadmeBlock" ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
+                        <uc:ReadmeContentBlock ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
 
                     </StackPanel>
 

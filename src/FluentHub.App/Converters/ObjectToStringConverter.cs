@@ -9,7 +9,7 @@ namespace FluentHub.App.Converters
         {
             // TODO: Support format strings with 'parameter'
 
-            return value.ToString();
+            return value?.ToString();
         }
 
         public object ConvertBack(object value, Type targetType, object parameter, string language) => throw new NotImplementedException();

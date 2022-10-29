@@ -13,7 +13,7 @@
 
     <Grid>
 
-        <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryProjectPageCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+        <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryProjectPageCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <Grid Margin="0,0,8,8" RowSpacing="8">
                     <Grid.RowDefinitions>

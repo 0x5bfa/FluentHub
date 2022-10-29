@@ -55,7 +55,7 @@
                         <FontIcon
                             FontFamily="{StaticResource Octicons}"
                             FontSize="22"
-                            Foreground="{StaticResource PrimerClosedForeground}"
+                            Foreground="{StaticResource PrimerDoneForeground}"
                             Glyph="&#xE9E6;" />
                     </toolkit:Case>
 
@@ -63,7 +63,7 @@
                         <FontIcon
                             FontFamily="{StaticResource Octicons}"
                             FontSize="22"
-                            Foreground="{StaticResource PrimerScaleGray5}"
+                            Foreground="{StaticResource PrimerNeutralEmphasis}"
                             Glyph="&#xEA84;" />
                     </toolkit:Case>
 
@@ -95,7 +95,7 @@
                         <FontIcon
                             FontFamily="{StaticResource Octicons}"
                             FontSize="22"
-                            Foreground="{StaticResource PrimerScaleGray5}"
+                            Foreground="{StaticResource PrimerNeutralEmphasis}"
                             Glyph="&#xE9C3;" />
                     </toolkit:Case>
 
@@ -111,7 +111,7 @@
                         <FontIcon
                             FontFamily="{StaticResource Octicons}"
                             FontSize="22"
-                            Foreground="{StaticResource PrimerScaleGray5}"
+                            Foreground="{StaticResource PrimerNeutralEmphasis}"
                             Glyph="&#xE95D;" />
                     </toolkit:Case>
 
@@ -119,7 +119,7 @@
                         <FontIcon
                             FontFamily="{StaticResource Octicons}"
                             FontSize="22"
-                            Foreground="{StaticResource PrimerScaleGray5}"
+                            Foreground="{StaticResource PrimerNeutralEmphasis}"
                             Glyph="&#xE9B9;" />
                     </toolkit:Case>
 
