@@ -181,7 +181,7 @@
                                 <TextBlock
                                     Grid.Column="2"
                                     VerticalAlignment="Center"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
                                     Style="{StaticResource CaptionTextBlockStyle}"
                                     Text="onein528" />
                             </Grid>
@@ -218,7 +218,7 @@
                                 <TextBlock
                                     Grid.Column="2"
                                     VerticalAlignment="Center"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
                                     Style="{StaticResource CaptionTextBlockStyle}"
                                     Text="DeveloperWOW64" />
                             </Grid>

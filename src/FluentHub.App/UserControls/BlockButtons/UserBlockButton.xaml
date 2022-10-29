@@ -62,7 +62,7 @@
                     x:Name="UserBioTextBlock"
                     Grid.Row="1"
                     x:Load="{x:Bind ViewModel.User.Bio, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Foreground="{ThemeResource TextFillColorSecondary}"
                     Style="{StaticResource CaptionTextBlockStyle}"
                     Text="{x:Bind ViewModel.User.Bio, Mode=OneWay}" />
 

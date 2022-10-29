@@ -72,7 +72,7 @@
                                         CornerRadius="4">
                                         <StackPanel Spacing="4">
                                             <StackPanel>
-                                                <TextBlock Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" Style="{StaticResource CaptionTextBlockStyle}">
+                                                <TextBlock Foreground="{ThemeResource TextFillColorSecondary}" Style="{StaticResource CaptionTextBlockStyle}">
                                                     <Run Text="{x:Bind Repository.Owner.Login}" />
                                                     <Run Text="/" />
                                                     <Run Text="{x:Bind Repository.Name}" />

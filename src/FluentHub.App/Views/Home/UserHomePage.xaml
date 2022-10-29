@@ -451,29 +451,29 @@
 
                                                     <StackPanel Orientation="Horizontal" Spacing="4">
                                                         <TextBlock
-                                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                            Foreground="{ThemeResource TextFillColorSecondary}"
                                                             Style="{StaticResource CaptionTextBlockStyle}"
                                                             Text="{x:Bind Repository.Owner.Login, Mode=OneWay}" />
 
                                                         <TextBlock
-                                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                            Foreground="{ThemeResource TextFillColorSecondary}"
                                                             Style="{StaticResource CaptionTextBlockStyle}"
                                                             Text="/" />
 
                                                         <TextBlock
-                                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                            Foreground="{ThemeResource TextFillColorSecondary}"
                                                             Style="{StaticResource CaptionTextBlockStyle}"
                                                             Text="{x:Bind Repository.Name, Mode=OneWay}" />
 
                                                         <TextBlock
-                                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                            Foreground="{ThemeResource TextFillColorSecondary}"
                                                             Style="{StaticResource CaptionTextBlockStyle}"
                                                             Text="#"
                                                             Visibility="{x:Bind Subject.Number, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
 
                                                         <TextBlock
                                                             Margin="-4,0,0,0"
-                                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                            Foreground="{ThemeResource TextFillColorSecondary}"
                                                             Style="{StaticResource CaptionTextBlockStyle}"
                                                             Text="{x:Bind Subject.Number, Mode=OneWay}"
                                                             Visibility="{x:Bind Subject.Number, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
@@ -484,7 +484,7 @@
                                                     <TextBlock
                                                         x:Name="UpdatedAtHumanizedTextBlock"
                                                         HorizontalAlignment="Right"
-                                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                        Foreground="{ThemeResource TextFillColorSecondary}"
                                                         Style="{StaticResource CaptionTextBlockStyle}"
                                                         Text="{x:Bind UpdatedAtHumanized, Mode=OneWay}" />
 
@@ -499,7 +499,7 @@
                                                         x:Name="ReasonTextBlock"
                                                         Grid.Row="3"
                                                         Margin="0,4,0,-4"
-                                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                        Foreground="{ThemeResource TextFillColorSecondary}"
                                                         Style="{StaticResource CaptionTextBlockStyle}"
                                                         Text="{x:Bind Reason, Mode=OneWay}" />
                                                 </Grid>

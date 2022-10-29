@@ -193,7 +193,7 @@
                         Background="Transparent"
                         BorderThickness="0"
                         Command="{x:Bind ViewModel.GoBackCommand, Mode=OneWay}"
-                        IsEnabled="{x:Bind CustomTabViewControl.SelectedItem.NavigationHistory.CanGoBack, FallbackValue=false}"
+                        IsEnabled="{x:Bind CustomTabViewControl.SelectedItem.NavigationHistory.CanGoBack, Mode=OneWay}"
                         ToolTipService.ToolTip="{helpers:ResourceString Name=GoBackButton/ToolTipService/Tooltip}">
                         <Button.Resources>
                             <SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="Transparent" />
@@ -217,7 +217,7 @@
                         Background="Transparent"
                         BorderThickness="0"
                         Command="{x:Bind ViewModel.GoForwardCommand, Mode=OneWay}"
-                        IsEnabled="{x:Bind CustomTabViewControl.SelectedItem.NavigationHistory.CanGoForward, FallbackValue=false}"
+                        IsEnabled="{x:Bind CustomTabViewControl.SelectedItem.NavigationHistory.CanGoForward, Mode=OneWay}"
                         ToolTipService.ToolTip="{helpers:ResourceString Name=GoForwardButton/TooltipService/Tooltip}">
                         <Button.Resources>
                             <SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="Transparent" />

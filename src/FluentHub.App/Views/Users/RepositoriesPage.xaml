@@ -55,7 +55,7 @@
                         BorderThickness="1"
                         CornerRadius="8" />
 
-                    <Grid Grid.Row="1" Padding="32,24,32,32">
+                    <Grid Grid.Row="1" Padding="32,24">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
@@ -64,7 +64,7 @@
 
                         <Grid x:Name="TitleGrid" x:Load="{x:Bind ViewModel.DisplayTitle, Mode=OneWay}">
                             <TextBlock
-                                x:Name="UserRepositoriesHeader"
+                                x:Name="UserRepositoriesHeaderTextBlock"
                                 Margin="12,12,12,8"
                                 Style="{StaticResource TitleTextBlockStyle}"
                                 Text="{helpers:ResourceString Name=YourRepositories}" />
@@ -93,64 +93,43 @@
                                     <DropDownButton.Content>
                                         <StackPanel Orientation="Horizontal" Spacing="4">
                                             <TextBlock
-                                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                Foreground="{ThemeResource TextFillColorSecondary}"
                                                 Style="{StaticResource BodyTextBlockStyle}"
                                                 Text="Type by:" />
                                             <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
                                         </StackPanel>
                                     </DropDownButton.Content>
-                                    <DropDownButton.Flyout>
-                                        <MenuFlyout Placement="BottomEdgeAlignedLeft">
-                                            <MenuFlyout.Items>
-                                                <ToggleMenuFlyoutItem IsEnabled="False" Text="Not available yet" />
-                                            </MenuFlyout.Items>
-                                        </MenuFlyout>
-                                    </DropDownButton.Flyout>
                                 </DropDownButton>
 
                                 <DropDownButton IsEnabled="False">
                                     <DropDownButton.Content>
                                         <StackPanel Orientation="Horizontal" Spacing="4">
                                             <TextBlock
-                                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                Foreground="{ThemeResource TextFillColorSecondary}"
                                                 Style="{StaticResource BodyTextBlockStyle}"
                                                 Text="Language by:" />
                                             <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
                                         </StackPanel>
                                     </DropDownButton.Content>
-                                    <DropDownButton.Flyout>
-                                        <MenuFlyout Placement="BottomEdgeAlignedLeft">
-                                            <MenuFlyout.Items>
-                                                <ToggleMenuFlyoutItem IsEnabled="False" Text="Not available yet" />
-                                            </MenuFlyout.Items>
-                                        </MenuFlyout>
-                                    </DropDownButton.Flyout>
                                 </DropDownButton>
 
                                 <DropDownButton IsEnabled="False">
                                     <DropDownButton.Content>
                                         <StackPanel Orientation="Horizontal" Spacing="4">
                                             <TextBlock
-                                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                Foreground="{ThemeResource TextFillColorSecondary}"
                                                 Style="{StaticResource BodyTextBlockStyle}"
                                                 Text="Sort by:" />
                                             <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
                                         </StackPanel>
                                     </DropDownButton.Content>
-                                    <DropDownButton.Flyout>
-                                        <MenuFlyout Placement="BottomEdgeAlignedLeft">
-                                            <MenuFlyout.Items>
-                                                <ToggleMenuFlyoutItem IsEnabled="False" Text="Not available yet" />
-                                            </MenuFlyout.Items>
-                                        </MenuFlyout>
-                                    </DropDownButton.Flyout>
                                 </DropDownButton>
 
                             </StackPanel>
                         </Grid>
 
                         <Grid Grid.Row="2">
-                            <ItemsRepeater ItemsSource="{x:Bind ViewModel.Repositories}">
+                            <ItemsRepeater ItemsSource="{x:Bind ViewModel.Repositories, Mode=OneWay}">
                                 <ItemsRepeater.Layout>
                                     <StackLayout Orientation="Vertical" Spacing="6" />
                                 </ItemsRepeater.Layout>
@@ -159,21 +138,15 @@
                                 </DataTemplate>
                             </ItemsRepeater>
 
-                            <toolkit:SwitchPresenter
-                                x:Name="NoRepositoriesSwitchPresenter"
+                            <TextBlock
+                                x:Name="NoRepositoriesFoundTextBlock"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                TargetType="x:Int32"
-                                Value="{x:Bind ViewModel.Repositories.Count, Mode=OneWay}">
-                                <toolkit:Case Value="0">
-                                    <TextBlock
-                                        x:Name="NoRepositoriesTextBlock"
-                                        FontSize="18"
-                                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                                        Text="{helpers:ResourceString Name=NoUserRepositories}"
-                                        TextAlignment="Center" />
-                                </toolkit:Case>
-                            </toolkit:SwitchPresenter>
+                                x:Load="{x:Bind ViewModel.Repositories.Count, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                                FontSize="18"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="{helpers:ResourceString Name=NoUserRepositories}"
+                                TextAlignment="Center" />
                         </Grid>
                     </Grid>
                 </Grid>

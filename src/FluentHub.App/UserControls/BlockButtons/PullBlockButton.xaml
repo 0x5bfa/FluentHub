@@ -103,7 +103,7 @@
 
                 <TextBlock
                     x:Name="RepositoryInfoTextBlock"
-                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Foreground="{ThemeResource TextFillColorSecondary}"
                     Style="{StaticResource CaptionTextBlockStyle}"
                     Text="{x:Bind ViewModel.PullItem, Converter={StaticResource SubjectToButtonTitleConverter}, Mode=OneWay}" />
 
@@ -111,7 +111,7 @@
                     x:Name="UpdatedAtHumanized"
                     Grid.ColumnSpan="2"
                     HorizontalAlignment="Right"
-                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Foreground="{ThemeResource TextFillColorSecondary}"
                     Style="{StaticResource CaptionTextBlockStyle}"
                     Text="{x:Bind ViewModel.PullItem.UpdatedAtHumanized, Mode=OneWay}" />
 
@@ -158,7 +158,7 @@
                                     <FontIcon
                                         FontFamily="{StaticResource Octicons}"
                                         FontSize="12"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        Foreground="{ThemeResource TextFillColorSecondary}"
                                         Glyph="&#xE933;" />
                                 </labels:LabelControl.Icon>
                             </labels:LabelControl>
@@ -194,7 +194,7 @@
                                     <FontIcon
                                         FontFamily="{StaticResource Octicons}"
                                         FontSize="12"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        Foreground="{ThemeResource TextFillColorSecondary}"
                                         Glyph="&#xE983;" />
                                 </labels:LabelControl.Icon>
                             </labels:LabelControl>
@@ -214,7 +214,7 @@
                                     <FontIcon
                                         FontFamily="{StaticResource Octicons}"
                                         FontSize="14"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        Foreground="{ThemeResource TextFillColorSecondary}"
                                         Glyph="&#xE983;" />
                                 </labels:LabelControl.Icon>
                             </labels:LabelControl>

@@ -76,7 +76,7 @@
                     <TextBlock
                         VerticalAlignment="Center"
                         FontSize="13"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Foreground="{ThemeResource TextFillColorSecondary}"
                         IsTextSelectionEnabled="True"
                         Style="{ThemeResource CaptionTextBlockStyle}"
                         Text="{x:Bind ViewModel.User.Login, Mode=OneWay}"
@@ -307,7 +307,7 @@
                                     Text="{x:Bind ViewModel.User.Followers.TotalCount, Mode=OneWay}" />
                                 <TextBlock
                                     VerticalAlignment="Center"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
                                     Style="{ThemeResource BodyTextBlockStyle}"
                                     Text="{helpers:ResourceString Name=FollowersWithoutCaps}" />
                             </StackPanel>

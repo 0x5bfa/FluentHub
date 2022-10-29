@@ -55,7 +55,7 @@
                         BorderThickness="1"
                         CornerRadius="8" />
 
-                    <Grid Grid.Row="1" Padding="32,24,32,32">
+                    <Grid Grid.Row="1" Padding="32,24">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
@@ -93,7 +93,7 @@
                                     <DropDownButton.Content>
                                         <StackPanel Orientation="Horizontal" Spacing="4">
                                             <TextBlock
-                                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                Foreground="{ThemeResource TextFillColorSecondary}"
                                                 Style="{StaticResource BodyTextBlockStyle}"
                                                 Text="Type by:" />
                                             <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
@@ -112,7 +112,7 @@
                                     <DropDownButton.Content>
                                         <StackPanel Orientation="Horizontal" Spacing="4">
                                             <TextBlock
-                                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                Foreground="{ThemeResource TextFillColorSecondary}"
                                                 Style="{StaticResource BodyTextBlockStyle}"
                                                 Text="Language by:" />
                                             <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
@@ -131,7 +131,7 @@
                                     <DropDownButton.Content>
                                         <StackPanel Orientation="Horizontal" Spacing="4">
                                             <TextBlock
-                                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                Foreground="{ThemeResource TextFillColorSecondary}"
                                                 Style="{StaticResource BodyTextBlockStyle}"
                                                 Text="Sort by:" />
                                             <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
@@ -159,21 +159,15 @@
                                 </DataTemplate>
                             </ItemsRepeater>
 
-                            <toolkit:SwitchPresenter
-                                x:Name="NoStarsSwitchPresenter"
+                            <TextBlock
+                                x:Name="NoStarsFoundTextBlock"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                TargetType="x:Int32"
-                                Value="{x:Bind ViewModel.Repositories.Count, Mode=OneWay}">
-                                <toolkit:Case Value="0">
-                                    <TextBlock
-                                        x:Name="NoStarsTextBlock"
-                                        FontSize="18"
-                                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                                        Text="{helpers:ResourceString Name=NoUserStars}"
-                                        TextAlignment="Center" />
-                                </toolkit:Case>
-                            </toolkit:SwitchPresenter>
+                                x:Load="{x:Bind ViewModel.Repositories.Count, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                                FontSize="18"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="{helpers:ResourceString Name=NoUserStars}"
+                                TextAlignment="Center" />
                         </Grid>
                     </Grid>
                 </Grid>

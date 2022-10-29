@@ -45,6 +45,8 @@ namespace FluentHub.App
             TaskScheduler.UnobservedTaskException += OnUnobservedException;
 
             Services = ConfigureServices();
+
+            System.Environment.SetEnvironmentVariable("WEBVIEW2_DEFAULT_BACKGROUND_COLOR", "0");
         }
 
         private IServiceProvider ConfigureServices()
@@ -85,6 +87,7 @@ namespace FluentHub.App
                 .AddSingleton<ViewModels.Repositories.PullRequests.FileChangesViewModel>()
                 .AddSingleton<ViewModels.Repositories.PullRequests.PullRequestsViewModel>()
                 .AddSingleton<ViewModels.Repositories.Releases.ReleasesViewModel>()
+                .AddSingleton<ViewModels.Repositories.Releases.ReleaseViewModel>()
                 .AddSingleton<ViewModels.Searches.CodeViewModel>()
                 .AddSingleton<ViewModels.Searches.IssuesViewModel>()
                 .AddSingleton<ViewModels.Searches.RepositoriesViewModel>()

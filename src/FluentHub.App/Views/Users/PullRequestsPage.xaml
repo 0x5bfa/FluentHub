@@ -93,7 +93,7 @@
                                     <DropDownButton.Content>
                                         <StackPanel Orientation="Horizontal" Spacing="4">
                                             <TextBlock
-                                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                Foreground="{ThemeResource TextFillColorSecondary}"
                                                 Style="{StaticResource BodyTextBlockStyle}"
                                                 Text="Status:" />
                                             <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
@@ -112,7 +112,7 @@
                                     <DropDownButton.Content>
                                         <StackPanel Orientation="Horizontal" Spacing="4">
                                             <TextBlock
-                                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                Foreground="{ThemeResource TextFillColorSecondary}"
                                                 Style="{StaticResource BodyTextBlockStyle}"
                                                 Text="Labels:" />
                                             <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
@@ -131,7 +131,7 @@
                                     <DropDownButton.Content>
                                         <StackPanel Orientation="Horizontal" Spacing="4">
                                             <TextBlock
-                                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                Foreground="{ThemeResource TextFillColorSecondary}"
                                                 Style="{StaticResource BodyTextBlockStyle}"
                                                 Text="Sort:" />
                                             <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />

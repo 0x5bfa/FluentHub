@@ -82,7 +82,7 @@
                             x:Name="RepoOwnerName"
                             VerticalAlignment="Center"
                             FontWeight="Normal"
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Foreground="{ThemeResource TextFillColorSecondary}"
                             Style="{StaticResource BodyTextBlockStyle}"
                             Text="{x:Bind ViewModel.Repository.Owner.Login, Mode=OneWay}" />
 

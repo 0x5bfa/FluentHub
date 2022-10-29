@@ -122,7 +122,7 @@
 
                     <FontIcon
                         FontSize="12"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Foreground="{ThemeResource TextFillColorSecondary}"
                         Glyph="&#xE72A;" />
 
                     <Grid Height="24" HorizontalAlignment="Left">

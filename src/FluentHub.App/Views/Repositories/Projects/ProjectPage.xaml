@@ -51,12 +51,12 @@
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock
                                         FontWeight="ExtraLight"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        Foreground="{ThemeResource TextFillColorSecondary}"
                                         Style="{StaticResource TitleTextBlockStyle}"
                                         Text="#" />
                                     <TextBlock
                                         FontWeight="ExtraLight"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        Foreground="{ThemeResource TextFillColorSecondary}"
                                         Style="{StaticResource TitleTextBlockStyle}"
                                         Text="{x:Bind ViewModel.Project.Number, Mode=OneWay}" />
                                 </StackPanel>
@@ -64,7 +64,7 @@
 
                             <TextBlock
                                 Grid.Row="1"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
                                 Style="{StaticResource CaptionTextBlockStyle}"
                                 Text="{x:Bind ViewModel.Project.Body, Mode=OneWay}" />
 

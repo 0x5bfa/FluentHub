@@ -81,7 +81,7 @@
                 <TextBlock
                     x:Name="RepositoryInfoTextBlock"
                     x:Load="{x:Bind ViewModel.IssueItem.Repository, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Foreground="{ThemeResource TextFillColorSecondary}"
                     Style="{StaticResource CaptionTextBlockStyle}"
                     Text="{x:Bind ViewModel.IssueItem, Converter={StaticResource SubjectToButtonTitleConverter}, Mode=OneWay}" />
 
@@ -89,7 +89,7 @@
                     x:Name="UpdatedAtHumanized"
                     Grid.ColumnSpan="2"
                     HorizontalAlignment="Right"
-                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Foreground="{ThemeResource TextFillColorSecondary}"
                     Style="{StaticResource CaptionTextBlockStyle}"
                     Text="{x:Bind ViewModel.IssueItem.UpdatedAtHumanized, Mode=OneWay}" />
 

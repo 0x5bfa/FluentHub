@@ -51,12 +51,12 @@
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock
                                         FontWeight="ExtraLight"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        Foreground="{ThemeResource TextFillColorSecondary}"
                                         Style="{StaticResource TitleTextBlockStyle}"
                                         Text="#" />
                                     <TextBlock
                                         FontWeight="ExtraLight"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        Foreground="{ThemeResource TextFillColorSecondary}"
                                         Style="{StaticResource TitleTextBlockStyle}"
                                         Text="{x:Bind ViewModel.Discussion.Number, Mode=OneWay}" />
                                 </StackPanel>
@@ -67,11 +67,11 @@
                                 Orientation="Horizontal"
                                 Spacing="4">
                                 <TextBlock
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
                                     Style="{StaticResource CaptionTextBlockStyle}"
                                     Text="this conversation is in" />
                                 <TextBlock
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
                                     Style="{StaticResource CaptionTextBlockStyle}"
                                     Text="{x:Bind ViewModel.Discussion.Category.Name, Mode=OneWay}" />
                             </StackPanel>

@@ -94,7 +94,7 @@
                                     <StackPanel Orientation="Horizontal" Spacing="4">
                                         <TextBlock
                                             x:Name="NotificationsPageFilterByReasonFlyoutBody"
-                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Foreground="{ThemeResource TextFillColorSecondary}"
                                             Style="{StaticResource BodyTextBlockStyle}"
                                             Text="{helpers:ResourceString Name=NotificationsPageFilterByReasonFlyoutBody/Text}" />
                                         <TextBlock
@@ -130,7 +130,7 @@
                                     <StackPanel Orientation="Horizontal" Spacing="4">
                                         <TextBlock
                                             x:Name="NotificationsPageGroupByViewFlyoutBody"
-                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Foreground="{ThemeResource TextFillColorSecondary}"
                                             Style="{StaticResource BodyTextBlockStyle}"
                                             Text="{helpers:ResourceString Name=NotificationsPageGroupByViewFlyoutBody/Text}" />
                                         <TextBlock

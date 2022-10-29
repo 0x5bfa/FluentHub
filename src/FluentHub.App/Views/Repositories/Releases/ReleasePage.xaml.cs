@@ -1,16 +1,11 @@
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using FluentHub.App.Helpers;
+using FluentHub.App.Services;
+using FluentHub.App.Models;
+using FluentHub.App.ViewModels.Repositories.Releases;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
 using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.App.Views.Repositories.Releases
@@ -19,7 +14,30 @@ namespace FluentHub.App.Views.Repositories.Releases
     {
         public ReleasePage()
         {
-            this.InitializeComponent();
+            InitializeComponent();
+
+            var provider = App.Current.Services;
+            ViewModel = provider.GetRequiredService<ReleaseViewModel>();
+            _navigation = App.Current.Services.GetRequiredService<INavigationService>();
+
+            ViewModel.ReleaseDescriptionWebView2 = SingleReleaseWebView2;
+        }
+
+        public ReleaseViewModel ViewModel { get; }
+        private readonly INavigationService _navigation;
+
+        protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+            var param = e.Parameter as FrameNavigationArgs;
+            _ = param ?? throw new ArgumentNullException("param");
+
+            ViewModel.Login = param.Login;
+            ViewModel.Name = param.Name;
+            ViewModel.TagName = param.Parameters.ElementAtOrDefault(0) as string;
+
+            var command = ViewModel.LoadRepositoryReleasePageCommand;
+            if (command.CanExecute(null))
+                command.Execute(null);
         }
     }
 }

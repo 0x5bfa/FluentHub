@@ -55,29 +55,29 @@
 
                 <StackPanel Orientation="Horizontal">
                     <!--<TextBlock
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Foreground="{ThemeResource TextFillColorSecondary}"
                             Style="{StaticResource CaptionTextBlockStyle}"
                             Text="{x:Bind ViewModel.Item.Repository.Owner.Login, Mode=OneWay}" />
 
                         <TextBlock
                             Margin="4,0"
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Foreground="{ThemeResource TextFillColorSecondary}"
                             Style="{StaticResource CaptionTextBlockStyle}"
                             Text="/" />
 
                         <TextBlock
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Foreground="{ThemeResource TextFillColorSecondary}"
                             Style="{StaticResource CaptionTextBlockStyle}"
                             Text="{x:Bind ViewModel.Item.Repository.Name, Mode=OneWay}" />
 
                         <TextBlock
                             Margin="4,0,0,0"
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Foreground="{ThemeResource TextFillColorSecondary}"
                             Style="{StaticResource CaptionTextBlockStyle}"
                             Text="#" />
 
                         <TextBlock
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Foreground="{ThemeResource TextFillColorSecondary}"
                             Style="{StaticResource CaptionTextBlockStyle}"
                             Text="{x:Bind ViewModel.Item.Number, Mode=OneWay}" />-->
                 </StackPanel>
@@ -85,7 +85,7 @@
                 <TextBlock
                     x:Name="UpdatedAtHumanized"
                     HorizontalAlignment="Right"
-                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Foreground="{ThemeResource TextFillColorSecondary}"
                     Style="{StaticResource CaptionTextBlockStyle}"
                     Text="{x:Bind ViewModel.Item.UpdatedAt, Mode=OneWay}" />
 
