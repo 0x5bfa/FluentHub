@@ -40,6 +40,7 @@
 
                     <Grid
                         Grid.Row="1"
+                        Padding="32,24"
                         Background="{ThemeResource LayerFillColorDefaultBrush}"
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                         BorderThickness="1"
@@ -49,9 +50,11 @@
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <StackPanel Margin="32,24,32,0">
+                        <StackPanel>
                             <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{x:Bind ViewModel.SingleRelease.Name, Mode=OneWay}" />
 
                             <StackPanel
@@ -72,6 +75,44 @@
                                     Size="large"
                                     Text="pre-release"
                                     Variant="attention" />
+
+                                <Button
+                                    Margin="12,0,0,0"
+                                    Padding="12,2"
+                                    CornerRadius="12">
+                                    <StackPanel Orientation="Horizontal" Spacing="4">
+                                        <FontIcon
+                                            VerticalAlignment="Center"
+                                            FontFamily="{StaticResource Octicons}"
+                                            FontSize="14"
+                                            Foreground="{ThemeResource TextFillColorSecondary}"
+                                            Glyph="&#xEAA5;" />
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            Foreground="{ThemeResource TextFillColorSecondary}"
+                                            Style="{StaticResource BodyTextBlockStyle}"
+                                            Text="0.3.5" />
+                                    </StackPanel>
+                                </Button>
+
+                                <Button
+                                    Margin="0,0,0,0"
+                                    Padding="12,2"
+                                    CornerRadius="12">
+                                    <StackPanel Orientation="Horizontal" Spacing="4">
+                                        <FontIcon
+                                            VerticalAlignment="Center"
+                                            FontFamily="{StaticResource Octicons}"
+                                            FontSize="14"
+                                            Foreground="{ThemeResource TextFillColorSecondary}"
+                                            Glyph="&#xE95E;" />
+                                        <TextBlock
+                                            VerticalAlignment="Center"
+                                            Foreground="{ThemeResource TextFillColorSecondary}"
+                                            Style="{StaticResource BodyTextBlockStyle}"
+                                            Text="96fcfa5 " />
+                                    </StackPanel>
+                                </Button>
                             </StackPanel>
 
                             <StackPanel
@@ -96,15 +137,16 @@
 
                         <Grid
                             Grid.Row="1"
-                            Height="450"
-                            Margin="20"
+                            Margin="-12,12"
                             Background="{ThemeResource SolidBackgroundFillColorBase}"
                             CornerRadius="8">
                             <WebView2
                                 x:Name="SingleReleaseWebView2"
-                                Height="450"
                                 Margin="12,8"
-                                DefaultBackgroundColor="Transparent" />
+                                DefaultBackgroundColor="Transparent"
+                                Loaded="OnSingleReleaseWebView2Loaded"
+                                NavigationCompleted="OnSingleReleaseWebView2NavigationCompleted"
+                                SizeChanged="OnSingleReleaseWebView2SizeChanged" />
 
                             <TextBlock
                                 x:Name="FailedToLoadWebView2ContentCautionTextBlock"
@@ -116,7 +158,42 @@
                                 Text="Failed to load latest release content" />
                         </Grid>
 
-                        <MenuFlyoutSeparator Grid.Row="2" />
+                        <MenuFlyoutSeparator Grid.Row="2" Margin="-32,0" />
+
+                        <Grid Grid.Row="3" Margin="0,12">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Contributors" />
+
+                            <StackPanel
+                                Grid.Row="1"
+                                Margin="0,12,0,0"
+                                Orientation="Horizontal">
+                                <primer:Avatar Size="32" Source="https://avatars.githubusercontent.com/u/62196528?v=4" />
+                            </StackPanel>
+                        </Grid>
+
+                        <MenuFlyoutSeparator Grid.Row="4" Margin="-32,0" />
+
+                        <Grid Grid.Row="5" Margin="0,12">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Assets" />
+
+                            <ListView Grid.Row="1" Margin="-18,8,-8,0">
+                                <ListView.Items>
+                                    <ListViewItem Content="FluentHub_0.5.0.0.zip" />
+                                    <ListViewItem Content="Source code (zip)" />
+                                    <ListViewItem Content="Source code (tar.gz)" />
+                                </ListView.Items>
+                            </ListView>
+                        </Grid>
                     </Grid>
 
                 </Grid>

@@ -1,4 +1,4 @@
-using FluentHub.App.Helpers;
+using FluentHub.App.Extensions;
 using FluentHub.App.Services;
 using FluentHub.App.Models;
 using FluentHub.App.ViewModels.Repositories.Releases;
@@ -7,6 +7,7 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Navigation;
+using Microsoft.Web.WebView2.Core;
 
 namespace FluentHub.App.Views.Repositories.Releases
 {
@@ -19,8 +20,6 @@ namespace FluentHub.App.Views.Repositories.Releases
             var provider = App.Current.Services;
             ViewModel = provider.GetRequiredService<ReleaseViewModel>();
             _navigation = App.Current.Services.GetRequiredService<INavigationService>();
-
-            ViewModel.ReleaseDescriptionWebView2 = SingleReleaseWebView2;
         }
 
         public ReleaseViewModel ViewModel { get; }
@@ -39,5 +38,16 @@ namespace FluentHub.App.Views.Repositories.Releases
             if (command.CanExecute(null))
                 command.Execute(null);
         }
+
+        private void OnSingleReleaseWebView2Loaded(object sender, RoutedEventArgs e)
+        {
+            ViewModel.ReleaseDescriptionWebView2 = SingleReleaseWebView2;
+        }
+
+        private async void OnSingleReleaseWebView2NavigationCompleted(WebView2 sender, CoreWebView2NavigationCompletedEventArgs args)
+            => await sender.HandleResize();
+
+        private async void OnSingleReleaseWebView2SizeChanged(object sender, SizeChangedEventArgs e)
+            => await ((WebView2)sender).HandleResize();
     }
 }

@@ -19,6 +19,7 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
             _logger = logger;
 
             LoadRepositoryReleasePageCommand = new AsyncRelayCommand(LoadRepositoryReleasePageAsync);
+            LoadReleaseDescriptionHtmlCommand = new AsyncRelayCommand(LoadRepositoryReleaseContent);
         }
 
         #region Fields and Properties
@@ -55,6 +56,7 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
         public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
 
         public IAsyncRelayCommand LoadRepositoryReleasePageCommand { get; }
+        public IAsyncRelayCommand LoadReleaseDescriptionHtmlCommand { get; }
         #endregion
 
         private async Task LoadRepositoryReleasePageAsync()
@@ -98,7 +100,7 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
              SingleRelease = response;
         }
 
-        public async Task LoadRepositoryAsync(string owner, string name)
+        private async Task LoadRepositoryAsync(string owner, string name)
         {
             RepositoryQueries queries = new();
             Repository = await queries.GetDetailsAsync(owner, name);
@@ -114,7 +116,7 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
             };
         }
 
-        private async Task LoadRepositoryReleaseContent()
+        public async Task LoadRepositoryReleaseContent()
         {
             if (ReleaseDescriptionWebView2 == null)
                 return;
