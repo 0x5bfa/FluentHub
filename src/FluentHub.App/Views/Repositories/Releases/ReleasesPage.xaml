@@ -105,7 +105,8 @@
                                     x:Name="LatestReleaseWebView2"
                                     Height="450"
                                     Margin="12,8"
-                                    DefaultBackgroundColor="Transparent" />
+                                    DefaultBackgroundColor="Transparent"
+                                    Loaded="OnLatestReleaseWebView2Loaded" />
 
                                 <TextBlock
                                     x:Name="FailedToLoadWebView2ContentCautionTextBlock"

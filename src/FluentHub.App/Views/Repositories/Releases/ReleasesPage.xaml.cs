@@ -39,6 +39,11 @@ namespace FluentHub.App.Views.Repositories.Releases
                 command.Execute(null);
         }
 
+        private void OnLatestReleaseWebView2Loaded(object sender, RoutedEventArgs e)
+        {
+            ViewModel.LatestReleaseDescriptionWebView2 = LatestReleaseWebView2;
+        }
+
         private void OnReleaseBlockButtonClick(object sender, RoutedEventArgs e)
         {
             _navigation.Navigate<ReleasePage>(

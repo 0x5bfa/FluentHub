@@ -18,6 +18,7 @@
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
+                    <converters:DecimalToMetricConverter x:Key="DecimalToMetricConverter" />
                     <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
                     <converters:HexColorCodeToSolidColorBrushConverter x:Key="HexColorCodeToSolidColorBrushConverter" />
                     <converters:SubjectToButtonTitleConverter x:Key="SubjectToButtonTitleConverter" />
@@ -91,7 +92,7 @@
                                             VerticalAlignment="Center"
                                             Foreground="{ThemeResource TextFillColorSecondary}"
                                             Style="{StaticResource BodyTextBlockStyle}"
-                                            Text="0.3.5" />
+                                            Text="{x:Bind ViewModel.SingleRelease.TagName, Mode=OneWay}" />
                                     </StackPanel>
                                 </Button>
 
@@ -110,7 +111,7 @@
                                             VerticalAlignment="Center"
                                             Foreground="{ThemeResource TextFillColorSecondary}"
                                             Style="{StaticResource BodyTextBlockStyle}"
-                                            Text="96fcfa5 " />
+                                            Text="{x:Bind ViewModel.SingleRelease.TagCommit.AbbreviatedOid, Mode=OneWay}" />
                                     </StackPanel>
                                 </Button>
                             </StackPanel>
@@ -160,7 +161,7 @@
 
                         <MenuFlyoutSeparator Grid.Row="2" Margin="-32,0" />
 
-                        <Grid Grid.Row="3" Margin="0,12">
+                        <!--<Grid Grid.Row="3" Margin="0,12">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -172,13 +173,20 @@
                                 Grid.Row="1"
                                 Margin="0,12,0,0"
                                 Orientation="Horizontal">
-                                <primer:Avatar Size="32" Source="https://avatars.githubusercontent.com/u/62196528?v=4" />
+                                <ItemsRepeater ItemsSource="{x:Bind ViewModel.SingleRelease.ReleaseAssets.Nodes, Mode=OneWay}">
+                                    <ItemsRepeater.Layout>
+                                        <StackLayout Orientation="Vertical" Spacing="6" />
+                                    </ItemsRepeater.Layout>
+                                    <DataTemplate x:DataType="modelsV4:ReleaseAsset">
+                                        <primer:Avatar Size="32" Source="https://avatars.githubusercontent.com/u/62196528?v=4" />
+                                    </DataTemplate>
+                                </ItemsRepeater>
                             </StackPanel>
                         </Grid>
 
-                        <MenuFlyoutSeparator Grid.Row="4" Margin="-32,0" />
+                        <MenuFlyoutSeparator Grid.Row="4" Margin="-32,0" />-->
 
-                        <Grid Grid.Row="5" Margin="0,12">
+                        <Grid Grid.Row="5" Margin="0,12,0,0">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -186,13 +194,38 @@
 
                             <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Assets" />
 
-                            <ListView Grid.Row="1" Margin="-18,8,-8,0">
-                                <ListView.Items>
-                                    <ListViewItem Content="FluentHub_0.5.0.0.zip" />
-                                    <ListViewItem Content="Source code (zip)" />
-                                    <ListViewItem Content="Source code (tar.gz)" />
-                                </ListView.Items>
-                            </ListView>
+                            <ItemsRepeater
+                                Grid.Row="1"
+                                Margin="-12,12,-12,0"
+                                HorizontalAlignment="Stretch"
+                                ItemsSource="{x:Bind ViewModel.SingleRelease.ReleaseAssets.Nodes, Mode=OneWay}">
+                                <ItemsRepeater.Layout>
+                                    <StackLayout Orientation="Vertical" Spacing="6" />
+                                </ItemsRepeater.Layout>
+                                <DataTemplate x:DataType="modelsV4:ReleaseAsset">
+                                    <HyperlinkButton
+                                        HorizontalAlignment="Stretch"
+                                        HorizontalContentAlignment="Stretch"
+                                        NavigateUri="{x:Bind DownloadUrl}">
+                                        <Grid ColumnSpacing="12">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="*" />
+                                                <ColumnDefinition Width="Auto" />
+                                                <ColumnDefinition Width="Auto" />
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="{x:Bind Name}" />
+                                            <StackPanel
+                                                Grid.Column="2"
+                                                Orientation="Horizontal">
+                                                <FontIcon FontSize="14" Glyph="&#xe896;" />
+                                                <TextBlock Text="{x:Bind DownloadCount}" />
+                                            </StackPanel>
+                                            <TextBlock Grid.Column="3" Text="{x:Bind Size, Converter={StaticResource DecimalToMetricConverter}}" />
+                                        </Grid>
+                                    </HyperlinkButton>
+                                </DataTemplate>
+                            </ItemsRepeater>
                         </Grid>
                     </Grid>
 
