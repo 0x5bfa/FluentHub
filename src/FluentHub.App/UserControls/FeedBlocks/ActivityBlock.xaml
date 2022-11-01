@@ -327,7 +327,7 @@
                 Grid.ColumnSpan="3"
                 HorizontalAlignment="Right"
                 VerticalAlignment="Center"
-                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                Foreground="{ThemeResource TextFillColorSecondary}"
                 Style="{StaticResource CaptionTextBlockStyle}"
                 Text="{x:Bind ViewModel.Payload.CreatedAt, Mode=OneWay}" />
         </Grid>

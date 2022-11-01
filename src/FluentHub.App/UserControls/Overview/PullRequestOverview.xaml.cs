@@ -38,40 +38,27 @@ namespace FluentHub.App.UserControls.Overview
         {
             var service = App.Current.Services.GetRequiredService<INavigationService>();
 
+            var param = new Models.FrameNavigationArgs()
+            {
+                Login = ViewModel.PullRequest?.Repository?.Owner?.Login,
+                Name = ViewModel.PullRequest?.Repository?.Name,
+                Number = ViewModel.PullRequest.Number,
+            };
+
             switch (args.InvokedItemContainer.Tag.ToString().ToLower())
             {
                 default:
                 case "conversation":
-                    service.Navigate(
-                        typeof(Views.Repositories.PullRequests.ConversationPage),
-                        new Models.FrameNavigationArgs()
-                        {
-                            Login = ViewModel.PullRequest?.Repository?.Owner?.Login,
-                            Name = ViewModel.PullRequest?.Repository?.Name,
-                            Number = ViewModel.PullRequest.Number,
-                        });
+                    service.Navigate<Views.Repositories.PullRequests.ConversationPage>(param);
                     break;
                 case "commits":
-                    service.Navigate(
-                        typeof(Views.Repositories.PullRequests.CommitsPage),
-                        new Models.FrameNavigationArgs()
-                        {
-                            Login = ViewModel.PullRequest?.Repository?.Owner?.Login,
-                            Name = ViewModel.PullRequest?.Repository?.Name,
-                            Number = ViewModel.PullRequest.Number,
-                        });
+                    service.Navigate<Views.Repositories.PullRequests.CommitsPage>(param);
                     break;
                 case "checks":
+                    service.Navigate<Views.Repositories.PullRequests.ChecksPage>(param);
                     break;
                 case "filechanges":
-                    service.Navigate(
-                        typeof(Views.Repositories.PullRequests.FileChangesPage),
-                        new Models.FrameNavigationArgs()
-                        {
-                            Login = ViewModel.PullRequest?.Repository?.Owner?.Login,
-                            Name = ViewModel.PullRequest?.Repository?.Name,
-                            Number = ViewModel.PullRequest.Number,
-                        });
+                    service.Navigate<Views.Repositories.PullRequests.FileChangesPage>(param);
                     break;
             }
         }

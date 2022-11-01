@@ -49,7 +49,7 @@
                 Visibility="Collapsed">
                 <FontIcon
                     FontSize="14"
-                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Foreground="{ThemeResource TextFillColorSecondary}"
                     Glyph="&#xe70f;" />
             </Button>
 

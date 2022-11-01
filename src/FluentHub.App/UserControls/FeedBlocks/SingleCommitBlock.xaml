@@ -54,7 +54,7 @@
                             FontWeight="SemiBold"
                             Style="{StaticResource LinkLikeButtonStyle}" />
 
-                        <TextBlock Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" Text="{x:Bind Message, Mode=OneWay}" />
+                        <TextBlock Foreground="{ThemeResource TextFillColorSecondary}" Text="{x:Bind Message, Mode=OneWay}" />
 
                     </StackPanel>
                 </DataTemplate>

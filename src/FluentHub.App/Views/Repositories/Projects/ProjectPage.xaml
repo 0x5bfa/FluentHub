@@ -13,7 +13,7 @@
 
     <Grid>
 
-        <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryProjectPageCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+        <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryProjectPageCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <Grid Margin="0,0,8,8" RowSpacing="8">
                     <Grid.RowDefinitions>
@@ -26,7 +26,7 @@
                     <Grid
                         Grid.Row="1"
                         Padding="32"
-                        Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                        Background="{ThemeResource LayerFillColorDefaultBrush}"
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                         BorderThickness="1"
                         CornerRadius="8">
@@ -51,12 +51,12 @@
                                 <StackPanel Orientation="Horizontal">
                                     <TextBlock
                                         FontWeight="ExtraLight"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        Foreground="{ThemeResource TextFillColorSecondary}"
                                         Style="{StaticResource TitleTextBlockStyle}"
                                         Text="#" />
                                     <TextBlock
                                         FontWeight="ExtraLight"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        Foreground="{ThemeResource TextFillColorSecondary}"
                                         Style="{StaticResource TitleTextBlockStyle}"
                                         Text="{x:Bind ViewModel.Project.Number, Mode=OneWay}" />
                                 </StackPanel>
@@ -64,7 +64,7 @@
 
                             <TextBlock
                                 Grid.Row="1"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
                                 Style="{StaticResource CaptionTextBlockStyle}"
                                 Text="{x:Bind ViewModel.Project.Body, Mode=OneWay}" />
 

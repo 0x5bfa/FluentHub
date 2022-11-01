@@ -28,6 +28,13 @@
         Padding="16,12"
         Click="OnClick"
         Style="{StaticResource ContentBlockButtonStyle}">
+
+        <Button.ContextFlyout>
+            <MenuFlyout>
+                <MenuFlyoutItem Text="Open in new tab" />
+            </MenuFlyout>
+        </Button.ContextFlyout>
+
         <Grid ColumnSpacing="6">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -48,7 +55,7 @@
                         <FontIcon
                             FontFamily="{StaticResource Octicons}"
                             FontSize="22"
-                            Foreground="{StaticResource PrimerClosedForeground}"
+                            Foreground="{StaticResource PrimerDoneForeground}"
                             Glyph="&#xE9E6;" />
                     </toolkit:Case>
 
@@ -56,7 +63,7 @@
                         <FontIcon
                             FontFamily="{StaticResource Octicons}"
                             FontSize="22"
-                            Foreground="{StaticResource PrimerScaleGray5}"
+                            Foreground="{StaticResource PrimerNeutralEmphasis}"
                             Glyph="&#xEA84;" />
                     </toolkit:Case>
 
@@ -88,7 +95,7 @@
                         <FontIcon
                             FontFamily="{StaticResource Octicons}"
                             FontSize="22"
-                            Foreground="{StaticResource PrimerScaleGray5}"
+                            Foreground="{StaticResource PrimerNeutralEmphasis}"
                             Glyph="&#xE9C3;" />
                     </toolkit:Case>
 
@@ -104,7 +111,7 @@
                         <FontIcon
                             FontFamily="{StaticResource Octicons}"
                             FontSize="22"
-                            Foreground="{StaticResource PrimerScaleGray5}"
+                            Foreground="{StaticResource PrimerNeutralEmphasis}"
                             Glyph="&#xE95D;" />
                     </toolkit:Case>
 
@@ -112,7 +119,7 @@
                         <FontIcon
                             FontFamily="{StaticResource Octicons}"
                             FontSize="22"
-                            Foreground="{StaticResource PrimerScaleGray5}"
+                            Foreground="{StaticResource PrimerNeutralEmphasis}"
                             Glyph="&#xE9B9;" />
                     </toolkit:Case>
 
@@ -130,29 +137,29 @@
                 <StackPanel Orientation="Horizontal" Spacing="4">
 
                     <TextBlock
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Foreground="{ThemeResource TextFillColorSecondary}"
                         Style="{StaticResource CaptionTextBlockStyle}"
                         Text="{x:Bind ViewModel.Item.Repository.Owner.Login, Mode=OneWay}" />
 
                     <TextBlock
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Foreground="{ThemeResource TextFillColorSecondary}"
                         Style="{StaticResource CaptionTextBlockStyle}"
                         Text="/" />
 
                     <TextBlock
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Foreground="{ThemeResource TextFillColorSecondary}"
                         Style="{StaticResource CaptionTextBlockStyle}"
                         Text="{x:Bind ViewModel.Item.Repository.Name, Mode=OneWay}" />
 
                     <TextBlock
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Foreground="{ThemeResource TextFillColorSecondary}"
                         Style="{StaticResource CaptionTextBlockStyle}"
                         Text="#"
                         Visibility="{x:Bind ViewModel.Item.Subject.Number, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
 
                     <TextBlock
                         Margin="-4,0,0,0"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Foreground="{ThemeResource TextFillColorSecondary}"
                         Style="{StaticResource CaptionTextBlockStyle}"
                         Text="{x:Bind ViewModel.Item.Subject.Number, Mode=OneWay}"
                         Visibility="{x:Bind ViewModel.Item.Subject.Number, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
@@ -162,7 +169,7 @@
                 <TextBlock
                     x:Name="UpdatedAtHumanizedTextBlock"
                     HorizontalAlignment="Right"
-                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Foreground="{ThemeResource TextFillColorSecondary}"
                     Style="{StaticResource CaptionTextBlockStyle}"
                     Text="{x:Bind ViewModel.Item.UpdatedAtHumanized, Mode=OneWay}" />
 
@@ -177,12 +184,13 @@
                     x:Name="ReasonTextBlock"
                     Grid.Row="3"
                     Margin="0,4,0,-4"
-                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Foreground="{ThemeResource TextFillColorSecondary}"
                     Style="{StaticResource CaptionTextBlockStyle}"
                     Text="{x:Bind ViewModel.Item.Reason, Mode=OneWay}" />
 
             </Grid>
 
         </Grid>
+
     </Button>
 </UserControl>

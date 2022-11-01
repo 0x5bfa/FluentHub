@@ -68,14 +68,14 @@
 
                     <TextBlock
                         VerticalAlignment="Center"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Foreground="{ThemeResource TextFillColorSecondary}"
                         IsTextSelectionEnabled="True"
                         Style="{ThemeResource BodyTextBlockStyle}"
                         Text="{x:Bind ViewModel.Organization.Login, Mode=OneWay}" />
 
                     <TextBlock
                         Margin="0,12,0,0"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Foreground="{ThemeResource TextFillColorSecondary}"
                         IsTextSelectionEnabled="True"
                         Style="{ThemeResource BodyTextBlockStyle}"
                         Text="{x:Bind ViewModel.Organization.Description, Mode=OneWay}" />
@@ -120,13 +120,13 @@
                         VerticalAlignment="Center"
                         FontFamily="{StaticResource Octicons}"
                         FontSize="14"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Foreground="{ThemeResource TextFillColorSecondary}"
                         Glyph="&#xEA03;" />
 
                     <TextBlock
                         x:Name="LocationTextBlock"
                         VerticalAlignment="Center"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Foreground="{ThemeResource TextFillColorSecondary}"
                         Style="{ThemeResource BodyTextBlockStyle}"
                         Text="{x:Bind ViewModel.Organization.Location, Mode=OneWay}" />
 
@@ -143,14 +143,14 @@
                         VerticalAlignment="Center"
                         FontFamily="{StaticResource Octicons}"
                         FontSize="14"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Foreground="{ThemeResource TextFillColorSecondary}"
                         Glyph="&#xE9FB;" />
 
                     <HyperlinkButton
                         x:Name="LinkHyperlinkButton"
                         Padding="4"
                         Content="{x:Bind ViewModel.Organization.WebsiteUrl, Mode=OneWay}"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" />
+                        Foreground="{ThemeResource TextFillColorSecondary}" />
                 </StackPanel>
 
                 <StackPanel
@@ -164,14 +164,14 @@
                         VerticalAlignment="Center"
                         FontFamily="{StaticResource Octicons}"
                         FontSize="14"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Foreground="{ThemeResource TextFillColorSecondary}"
                         Glyph="&#xEA09;" />
 
                     <HyperlinkButton
                         x:Name="MailHyperlinkButton"
                         Padding="4"
                         Content="{x:Bind ViewModel.Organization.Email, Mode=OneWay}"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}" />
+                        Foreground="{ThemeResource TextFillColorSecondary}" />
                 </StackPanel>
 
                 <StackPanel

@@ -7,6 +7,7 @@
     xmlns:converters="using:FluentHub.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="using:FluentHub.App.Helpers"
+    xmlns:local="using:FluentHub.App.Views.Users"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ov="using:FluentHub.App.UserControls.Overview"
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
@@ -15,17 +16,13 @@
 
     <Page.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary>
-                    <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
-                </ResourceDictionary>
-            </ResourceDictionary.MergedDictionaries>
+            <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
         </ResourceDictionary>
     </Page.Resources>
 
     <Grid>
 
-        <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadUserStarredRepositoriesPageCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+        <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadUserStarredRepositoriesPageCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -58,7 +55,7 @@
                         BorderThickness="1"
                         CornerRadius="8" />
 
-                    <Grid Grid.Row="1" Padding="32,24,32,32">
+                    <Grid Grid.Row="1" Padding="32,24">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="Auto" />
                             <RowDefinition Height="Auto" />
@@ -68,7 +65,7 @@
                         <Grid x:Name="TitleGrid" x:Load="{x:Bind ViewModel.DisplayTitle, Mode=OneWay}">
                             <TextBlock
                                 x:Name="UserStarsHeader"
-                                Margin="12,24,12,8"
+                                Margin="12,12,12,8"
                                 Style="{StaticResource TitleTextBlockStyle}"
                                 Text="{helpers:ResourceString Name=YourStars}" />
                         </Grid>
@@ -96,7 +93,7 @@
                                     <DropDownButton.Content>
                                         <StackPanel Orientation="Horizontal" Spacing="4">
                                             <TextBlock
-                                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                Foreground="{ThemeResource TextFillColorSecondary}"
                                                 Style="{StaticResource BodyTextBlockStyle}"
                                                 Text="Type by:" />
                                             <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
@@ -115,7 +112,7 @@
                                     <DropDownButton.Content>
                                         <StackPanel Orientation="Horizontal" Spacing="4">
                                             <TextBlock
-                                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                Foreground="{ThemeResource TextFillColorSecondary}"
                                                 Style="{StaticResource BodyTextBlockStyle}"
                                                 Text="Language by:" />
                                             <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
@@ -134,7 +131,7 @@
                                     <DropDownButton.Content>
                                         <StackPanel Orientation="Horizontal" Spacing="4">
                                             <TextBlock
-                                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                Foreground="{ThemeResource TextFillColorSecondary}"
                                                 Style="{StaticResource BodyTextBlockStyle}"
                                                 Text="Sort by:" />
                                             <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
@@ -162,21 +159,15 @@
                                 </DataTemplate>
                             </ItemsRepeater>
 
-                            <toolkit:SwitchPresenter
-                                x:Name="NoStarsSwitchPresenter"
+                            <TextBlock
+                                x:Name="NoStarsFoundTextBlock"
                                 HorizontalAlignment="Center"
                                 VerticalAlignment="Center"
-                                TargetType="x:Int32"
-                                Value="{x:Bind ViewModel.Repositories.Count, Mode=OneWay}">
-                                <toolkit:Case Value="0">
-                                    <TextBlock
-                                        x:Name="NoStarsTextBlock"
-                                        FontSize="18"
-                                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                                        Text="{helpers:ResourceString Name=NoUserStars}"
-                                        TextAlignment="Center" />
-                                </toolkit:Case>
-                            </toolkit:SwitchPresenter>
+                                x:Load="{x:Bind ViewModel.Repositories.Count, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                                FontSize="18"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="{helpers:ResourceString Name=NoUserStars}"
+                                TextAlignment="Center" />
                         </Grid>
                     </Grid>
                 </Grid>

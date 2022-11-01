@@ -350,15 +350,15 @@
                     </primer:Timeline.Badge>
                     <primer:Timeline.Body>
                         <Grid ColumnSpacing="4">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
                                 <ColumnDefinition Width="*" />
                                 <ColumnDefinition Width="Auto" />
                             </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
                             <primer:Avatar
                                 VerticalAlignment="Top"
                                 Label="{x:Bind Actor.Login}"
@@ -375,180 +375,40 @@
                                     Style="{StaticResource BodyTextBlockStyle}"
                                     Text="referenced this" />
                                 <StackPanel
-                                    x:Name="CrossReferencedEventSourceRepoTextBlock"
+                                    x:Name="CrossReferencedEventSourceRepositoryBlock"
                                     VerticalAlignment="Center"
                                     x:Load="{x:Bind IsCrossRepository}"
-                                    Orientation="Horizontal"
-                                    Spacing="4">
+                                    Orientation="Horizontal">
                                     <TextBlock
-                                        VerticalAlignment="Center"
-                                        Style="{StaticResource BodyTextBlockStyle}"
-                                        Text="from" />
-                                    <StackPanel
-                                        x:Name="CrossReferencedEventSourceIssueRepository"
+                                        x:Name="CrossReferencedEventSourceIssueRepositoryTextBlock"
                                         x:Load="{x:Bind Source.Issue, Converter={StaticResource ObjectToBoolConverter}}"
-                                        Orientation="Horizontal">
-                                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind Source.Issue.Repository.Owner.Login}" />
-                                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
-                                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind Source.Issue.Repository.Name}" />
-                                    </StackPanel>
-                                    <StackPanel
-                                        x:Name="CrossReferencedEventSourcePullRequestRepository"
+                                        Style="{StaticResource BodyTextBlockStyle}">
+                                        <Run Text="from" />
+                                        <Run Text="{x:Bind Source.Issue.Repository.Owner.Login}" />
+                                        <Run Text="/" />
+                                        <Run Text="{x:Bind Source.Issue.Repository.Name}" />
+                                    </TextBlock>
+                                    <TextBlock
+                                        x:Name="CrossReferencedEventSourcePullRequestRepositoryTextBlock"
                                         x:Load="{x:Bind Source.PullRequest, Converter={StaticResource ObjectToBoolConverter}}"
-                                        Orientation="Horizontal">
-                                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind Source.PullRequest.Repository.Owner.Login}" />
-                                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="/" />
-                                        <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind Source.PullRequest.Repository.Name}" />
-                                    </StackPanel>
+                                        Style="{StaticResource BodyTextBlockStyle}">
+                                        <Run Text="from" />
+                                        <Run Text="{x:Bind Source.PullRequest.Repository.Owner.Login}" />
+                                        <Run Text="/" />
+                                        <Run Text="{x:Bind Source.PullRequest.Repository.Name}" />
+                                    </TextBlock>
                                 </StackPanel>
                             </StackPanel>
-                            <StackPanel Grid.Column="2" HorizontalAlignment="Right">
-                                <TextBlock
-                                    Foreground="{ThemeResource TextFillColorSecondary}"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="{x:Bind CreatedAtHumanized}" />
-                            </StackPanel>
-                            <Button
+                            <TextBlock
+                                Grid.Column="2"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{x:Bind CreatedAtHumanized}" />
+                            <uc:ReferencedSubjectButton
                                 Grid.Row="1"
-                                Grid.Column="1"
-                                Grid.ColumnSpan="2"
-                                Margin="0,4,0,0"
-                                Padding="8"
-                                HorizontalAlignment="Stretch"
-                                HorizontalContentAlignment="Left">
-                                <StackPanel Orientation="Horizontal" Spacing="8">
-                                    <Grid>
-                                        <toolkit:SwitchPresenter
-                                            x:Name="CrossReferencedEventSourceIssueStateSwitchPresenter"
-                                            x:Load="{x:Bind Source.Issue, Converter={StaticResource ObjectToBoolConverter}}"
-                                            TargetType="x:String"
-                                            Value="{x:Bind Source.Issue.State}">
-                                            <toolkit:Case Value="Open">
-                                                <Border
-                                                    Width="24"
-                                                    Height="24"
-                                                    Background="{ThemeResource PrimerOpenEmphasis}"
-                                                    CornerRadius="4">
-                                                    <FontIcon
-                                                        FontFamily="{StaticResource Octicons}"
-                                                        FontSize="16"
-                                                        Glyph="&#xE9BF;" />
-                                                </Border>
-                                            </toolkit:Case>
-                                            <toolkit:Case Value="Closed">
-                                                <Grid>
-                                                    <toolkit:SwitchPresenter
-                                                        x:Name="CrossReferencedEventSourceIssueStateReasonSwitchPresenter"
-                                                        x:Load="{x:Bind Source.Issue, Converter={StaticResource ObjectToBoolConverter}}"
-                                                        TargetType="x:String"
-                                                        Value="{x:Bind Source.Issue.StateReason.ToString()}">
-                                                        <toolkit:Case Value="NotPlanned">
-                                                            <Border
-                                                                Width="24"
-                                                                Height="24"
-                                                                Background="{ThemeResource PrimerNeutralEmphasis}"
-                                                                CornerRadius="4">
-                                                                <FontIcon
-                                                                    FontFamily="{StaticResource Octicons}"
-                                                                    FontSize="16"
-                                                                    Glyph="&#xE9E6;" />
-                                                            </Border>
-                                                        </toolkit:Case>
-                                                        <toolkit:Case Value="Completed">
-                                                            <Border
-                                                                Width="24"
-                                                                Height="24"
-                                                                Background="{ThemeResource PrimerDoneEmphasis}"
-                                                                CornerRadius="4">
-                                                                <FontIcon
-                                                                    FontFamily="{StaticResource Octicons}"
-                                                                    FontSize="16"
-                                                                    Glyph="&#xE9E6;" />
-                                                            </Border>
-                                                        </toolkit:Case>
-                                                    </toolkit:SwitchPresenter>
-                                                </Grid>
-                                            </toolkit:Case>
-                                        </toolkit:SwitchPresenter>
-                                        <toolkit:SwitchPresenter
-                                            x:Name="CrossReferencedEventSourcePullRequestIsDraftSwitchPresenter"
-                                            x:Load="{x:Bind Source.PullRequest, Converter={StaticResource ObjectToBoolConverter}}"
-                                            TargetType="x:String"
-                                            Value="{x:Bind Source.PullRequest.IsDraft}">
-                                            <toolkit:Case Value="True">
-                                                <Border
-                                                    Width="24"
-                                                    Height="24"
-                                                    Background="{ThemeResource PrimerNeutralEmphasis}"
-                                                    CornerRadius="4">
-                                                    <FontIcon
-                                                        FontFamily="{StaticResource Octicons}"
-                                                        FontSize="16"
-                                                        Glyph="&#xE9C3;" />
-                                                </Border>
-                                            </toolkit:Case>
-                                            <toolkit:Case Value="False">
-                                                <Grid>
-                                                    <toolkit:SwitchPresenter
-                                                        x:Name="CrossReferencedEventSourcePullRequestStateSwitchPresenter"
-                                                        x:Load="{x:Bind Source.PullRequest, Converter={StaticResource ObjectToBoolConverter}}"
-                                                        TargetType="x:String"
-                                                        Value="{x:Bind Source.PullRequest.State}">
-                                                        <toolkit:Case Value="Open">
-                                                            <Border
-                                                                Width="24"
-                                                                Height="24"
-                                                                Background="{ThemeResource PrimerOpenEmphasis}"
-                                                                CornerRadius="4">
-                                                                <FontIcon
-                                                                    FontFamily="{StaticResource Octicons}"
-                                                                    FontSize="16"
-                                                                    Glyph="&#xE9BF;" />
-                                                            </Border>
-                                                        </toolkit:Case>
-                                                        <toolkit:Case Value="Closed">
-                                                            <Border
-                                                                Width="24"
-                                                                Height="24"
-                                                                Background="{ThemeResource PrimerDangerEmphasis}"
-                                                                CornerRadius="4">
-                                                                <FontIcon
-                                                                    FontFamily="{StaticResource Octicons}"
-                                                                    FontSize="16"
-                                                                    Glyph="&#xE9C1;" />
-                                                            </Border>
-                                                        </toolkit:Case>
-                                                        <toolkit:Case Value="Merged">
-                                                            <Border
-                                                                Width="24"
-                                                                Height="24"
-                                                                Background="{ThemeResource PrimerDoneEmphasis}"
-                                                                CornerRadius="4">
-                                                                <FontIcon
-                                                                    FontFamily="{StaticResource Octicons}"
-                                                                    FontSize="16"
-                                                                    Glyph="&#xE9BD;" />
-                                                            </Border>
-                                                        </toolkit:Case>
-                                                    </toolkit:SwitchPresenter>
-                                                </Grid>
-                                            </toolkit:Case>
-                                        </toolkit:SwitchPresenter>
-                                    </Grid>
-                                    <TextBlock
-                                        x:Name="CrossReferencedEventSourceIssueTitleTextBlock"
-                                        VerticalAlignment="Center"
-                                        x:Load="{x:Bind Source.Issue, Converter={StaticResource ObjectToBoolConverter}}"
-                                        Style="{StaticResource BodyTextBlockStyle}"
-                                        Text="{x:Bind Source.Issue.Title}" />
-                                    <TextBlock
-                                        x:Name="CrossReferencedEventSourcePullRequestTitleTextBlock"
-                                        VerticalAlignment="Center"
-                                        x:Load="{x:Bind Source.PullRequest, Converter={StaticResource ObjectToBoolConverter}}"
-                                        Style="{StaticResource BodyTextBlockStyle}"
-                                        Text="{x:Bind Source.PullRequest.Title}" />
-                                </StackPanel>
-                            </Button>
+                                Grid.ColumnSpan="3"
+                                Margin="24,8,0,0"
+                                Subject="{x:Bind Source}" />
                         </Grid>
                     </primer:Timeline.Body>
                 </primer:Timeline>
@@ -1547,7 +1407,7 @@
 
     <Grid>
 
-        <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryIssuePageCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+        <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryIssuePageCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <Grid Margin="0,0,8,8">
                     <Grid.RowDefinitions>
@@ -1893,7 +1753,7 @@
                     <Grid
                         Grid.Row="3"
                         Margin="0,8,0,0"
-                        Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                        Background="{ThemeResource LayerFillColorDefaultBrush}"
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                         BorderThickness="1"
                         CornerRadius="8">

@@ -76,7 +76,7 @@
                     Style="{StaticResource ClearButtonStyle}">
                     <FontIcon
                         FontSize="14"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Foreground="{ThemeResource TextFillColorSecondary}"
                         Glyph="&#xe8c8;" />
                 </Button>
 
@@ -89,7 +89,7 @@
                     Style="{StaticResource ClearButtonStyle}">
                     <FontIcon
                         FontSize="14"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Foreground="{ThemeResource TextFillColorSecondary}"
                         Glyph="&#xe70f;" />
                 </Button>
 
@@ -102,7 +102,7 @@
                     Style="{StaticResource ClearButtonStyle}">
                     <FontIcon
                         FontSize="14"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Foreground="{ThemeResource TextFillColorSecondary}"
                         Glyph="&#xe74d;" />
                 </Button>
 
@@ -121,7 +121,7 @@
                 Margin="12,8"
                 FontFamily="Cascadia Code"
                 FontWeight="ExtraLight"
-                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                Foreground="{ThemeResource TextFillColorSecondary}"
                 HorizontalTextAlignment="Right"
                 Text="{x:Bind ViewModel.LineText, Mode=OneWay}" />
 

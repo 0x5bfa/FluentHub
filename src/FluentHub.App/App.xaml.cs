@@ -45,6 +45,8 @@ namespace FluentHub.App
             TaskScheduler.UnobservedTaskException += OnUnobservedException;
 
             Services = ConfigureServices();
+
+            System.Environment.SetEnvironmentVariable("WEBVIEW2_DEFAULT_BACKGROUND_COLOR", "0");
         }
 
         private IServiceProvider ConfigureServices()
@@ -55,7 +57,7 @@ namespace FluentHub.App
                 .AddSingleton<ToastService>()
                 .AddSingleton<IMessenger>(StrongReferenceMessenger.Default)
                 // ViewModels
-                .AddSingleton<MainPageViewModel>()
+                .AddTransient<MainPageViewModel>()
                 .AddTransient<ViewModels.AppSettings.AboutViewModel>()
                 .AddTransient<ViewModels.AppSettings.Accounts.AccountViewModel>()
                 .AddTransient<ViewModels.AppSettings.Accounts.OtherUsersViewModel>()
@@ -78,12 +80,14 @@ namespace FluentHub.App
                 .AddTransient<ViewModels.Repositories.Issues.IssuesViewModel>()
                 .AddTransient<ViewModels.Repositories.Projects.ProjectsViewModel>()
                 .AddTransient<ViewModels.Repositories.Projects.ProjectViewModel>()
+                .AddTransient<ViewModels.Repositories.PullRequests.ChecksViewModel>()
                 .AddTransient<ViewModels.Repositories.PullRequests.ConversationViewModel>()
                 .AddTransient<ViewModels.Repositories.PullRequests.CommitViewModel>()
                 .AddTransient<ViewModels.Repositories.PullRequests.CommitsViewModel>()
                 .AddTransient<ViewModels.Repositories.PullRequests.FileChangesViewModel>()
                 .AddTransient<ViewModels.Repositories.PullRequests.PullRequestsViewModel>()
                 .AddTransient<ViewModels.Repositories.Releases.ReleasesViewModel>()
+                .AddTransient<ViewModels.Repositories.Releases.ReleaseViewModel>()
                 .AddTransient<ViewModels.Searches.CodeViewModel>()
                 .AddTransient<ViewModels.Searches.IssuesViewModel>()
                 .AddTransient<ViewModels.Searches.RepositoriesViewModel>()

@@ -51,7 +51,7 @@
             Grid.Row="3"
             Height="300"
             Margin="-6,0"
-            Background="{ThemeResource CardBackgroundFillColorSecondary}"
+            Background="{ThemeResource LayerFillColorDefaultBrush}"
             BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
             BorderThickness="1"
             CornerRadius="8">

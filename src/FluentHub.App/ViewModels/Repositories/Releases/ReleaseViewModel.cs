@@ -1,4 +1,4 @@
-using FluentHub.Octokit.Queries.Repositories;
+﻿using FluentHub.Octokit.Queries.Repositories;
 using FluentHub.App.Extensions;
 using FluentHub.App.Helpers;
 using FluentHub.App.Models;
@@ -11,17 +11,15 @@ using Microsoft.UI.Xaml.Media.Imaging;
 
 namespace FluentHub.App.ViewModels.Repositories.Releases
 {
-    public class ReleasesViewModel : ObservableObject
+    public class ReleaseViewModel : ObservableObject
     {
-        public ReleasesViewModel(IMessenger messenger = null, ILogger logger = null)
+        public ReleaseViewModel(IMessenger messenger = null, ILogger logger = null)
         {
             _messenger = messenger;
             _logger = logger;
 
-            _items = new();
-            Items = new(_items);
-
-            LoadRepositoryReleasesPageCommand = new AsyncRelayCommand(LoadRepositoryReleasesPageAsync);
+            LoadRepositoryReleasePageCommand = new AsyncRelayCommand(LoadRepositoryReleasePageAsync);
+            LoadReleaseDescriptionHtmlCommand = new AsyncRelayCommand(LoadRepositoryReleaseContent);
         }
 
         #region Fields and Properties
@@ -43,13 +41,13 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
         private RepositoryOverviewViewModel _repositoryOverviewViewModel;
         public RepositoryOverviewViewModel RepositoryOverviewViewModel { get => _repositoryOverviewViewModel; set => SetProperty(ref _repositoryOverviewViewModel, value); }
 
-        private readonly ObservableCollection<Release> _items;
-        public ReadOnlyObservableCollection<Release> Items { get; }
+        private string _tagName;
+        public string TagName{ get => _tagName; set => SetProperty(ref _tagName, value); }
 
-        private Release _latestRelease;
-        public Release LatestRelease { get => _latestRelease; set => SetProperty(ref _latestRelease, value); }
+        private Release _singleRelease;
+        public Release SingleRelease { get => _singleRelease; set => SetProperty(ref _singleRelease, value); }
 
-        public WebView2 LatestReleaseDescriptionWebView2;
+        public WebView2 ReleaseDescriptionWebView2;
 
         private bool _failedToLoadWebView2Content;
         public bool FailedToLoadWebView2Content { get => _failedToLoadWebView2Content; set => SetProperty(ref _failedToLoadWebView2Content, value); }
@@ -57,26 +55,27 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
         private Exception _taskException;
         public Exception TaskException { get => _taskException; set => SetProperty(ref _taskException, value); }
 
-        public IAsyncRelayCommand LoadRepositoryReleasesPageCommand { get; }
+        public IAsyncRelayCommand LoadRepositoryReleasePageCommand { get; }
+        public IAsyncRelayCommand LoadReleaseDescriptionHtmlCommand { get; }
         #endregion
 
-        private async Task LoadRepositoryReleasesPageAsync()
+        private async Task LoadRepositoryReleasePageAsync()
         {
             _messenger?.Send(new TaskStateMessaging(TaskStatusType.IsStarted));
             bool faulted = false;
 
-            string _currentTaskingMethodName = nameof(LoadRepositoryReleasesPageAsync);
+            string _currentTaskingMethodName = nameof(LoadRepositoryReleasePageAsync);
 
             try
             {
                 _currentTaskingMethodName = nameof(LoadRepositoryAsync);
                 await LoadRepositoryAsync(Login, Name);
 
-                _currentTaskingMethodName = nameof(LoadRepositoryReleasesAsync);
-                await LoadRepositoryReleasesAsync(Login, Name);
+                _currentTaskingMethodName = nameof(LoadRepositorySingleReleaseAsync);
+                await LoadRepositorySingleReleaseAsync(Login, Name, TagName);
 
-                _currentTaskingMethodName = nameof(LoadRepositoryLatestReleaseContent);
-                await LoadRepositoryLatestReleaseContent();
+                _currentTaskingMethodName = nameof(LoadRepositoryReleaseContent);
+                await LoadRepositoryReleaseContent();
             }
             catch (Exception ex)
             {
@@ -93,22 +92,15 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
             }
         }
 
-        private async Task LoadRepositoryReleasesAsync(string login, string name)
+        private async Task LoadRepositorySingleReleaseAsync(string login, string name, string tagName)
         {
-            ReleaseQueries queries = new();
-            var items = await queries.GetAllAsync(login, name);
+             var queries = new ReleaseQueries();
+             var response = await queries.GetAsync(login, name, tagName);
 
-            if (items.Any())
-            {
-                LatestRelease = items.FirstOrDefault();
-                //await LoadRepositoryLatestReleaseContent();
-            }
-
-            _items.Clear();
-            foreach (var item in items) _items.Add(item);
+             SingleRelease = response;
         }
 
-        public async Task LoadRepositoryAsync(string owner, string name)
+        private async Task LoadRepositoryAsync(string owner, string name)
         {
             RepositoryQueries queries = new();
             Repository = await queries.GetDetailsAsync(owner, name);
@@ -124,30 +116,30 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
             };
         }
 
-        private async Task LoadRepositoryLatestReleaseContent()
+        public async Task LoadRepositoryReleaseContent()
         {
-            if (LatestReleaseDescriptionWebView2 == null)
+            if (ReleaseDescriptionWebView2 == null)
                 return;
 
             string missingPath = $"https://raw.githubusercontent.com/{Repository.Owner.Login}/{Repository.Name}/{Repository.DefaultBranchRef.Name}/";
 
             MarkdownApiHandler mdHandler = new();
-            var html = await mdHandler.GetHtmlAsync(LatestRelease.DescriptionHTML ?? "<span>No description provided</span>", missingPath, ThemeHelpers.RootTheme.ToString().ToLower());
+            var html = await mdHandler.GetHtmlAsync(SingleRelease.DescriptionHTML ?? "<span>No description provided</span>", missingPath, ThemeHelpers.RootTheme.ToString().ToLower());
 
             // https://github.com/microsoft/microsoft-ui-xaml/issues/3714
-            await LatestReleaseDescriptionWebView2.EnsureCoreWebView2Async();
+            await ReleaseDescriptionWebView2.EnsureCoreWebView2Async();
 
             // https://github.com/microsoft/microsoft-ui-xaml/issues/1967
             // It is no longer the plan for WebView2 to support ms-appx-web:/// and ms-appx-data:///.
             // Instead of using these proprietary protocols the SetVirtualHostNameToFolderMapping API is recommended.
-            var CoreWebView2 = LatestReleaseDescriptionWebView2.CoreWebView2;
+            var CoreWebView2 = ReleaseDescriptionWebView2.CoreWebView2;
             if (CoreWebView2 != null)
             {
                 CoreWebView2.SetVirtualHostNameToFolderMapping(
                     "fluenthub.app", "Assets/",
                     Microsoft.Web.WebView2.Core.CoreWebView2HostResourceAccessKind.Allow);
 
-                LatestReleaseDescriptionWebView2.NavigateToString(html);
+                ReleaseDescriptionWebView2.NavigateToString(html);
             }
             else
             {
@@ -162,8 +154,8 @@ namespace FluentHub.App.ViewModels.Repositories.Releases
             INavigationService navigationService = provider.GetRequiredService<INavigationService>();
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            currentItem.Header = $"Releases · {Login}/{Name}";
-            currentItem.Description = $"Releases · {Login}/{Name}";
+            currentItem.Header = $"Release · {Login}/{Name}";
+            currentItem.Description = $"Release · {Login}/{Name}";
             currentItem.Icon = new ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.png"))

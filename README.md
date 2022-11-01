@@ -141,7 +141,7 @@ git submodule update --init --recursive
 
 See [the documentation](docs/credentials.md).
 
-**Warning:** If you skip this step, Visual Studio will give a fatal error that the `AppCrededntials.config` file does not exist.
+**Warning:** If you skip this step, Visual Studio will give a fatal error that the `AppCredentials.config` file does not exist.
 
 ### 4. Build the project
 

@@ -7,11 +7,13 @@ namespace FluentHub.App.Services.Navigation
     public class NavigationService : INavigationService
     {
         #region Constructor
-        public NavigationService(ILogger logger = null) => _logger = logger;
+        public NavigationService(ILogger logger = null)
+            => _logger = logger;
         #endregion
 
         #region Fields and Properties
         private readonly ILogger _logger;
+        private static readonly SuppressNavigationTransitionInfo _navigationMode = new();
 
         public Type CurrentPage { get; set; }
         public ITabView TabView { get; private set; }
@@ -43,7 +45,8 @@ namespace FluentHub.App.Services.Navigation
             CurrentPage = page;
         }
 
-        public void Navigate<T>(object parameter = null, NavigationTransitionInfo transitionInfo = null) where T : Page => Navigate(typeof(T), parameter, transitionInfo);
+        public void Navigate<T>(object parameter = null, NavigationTransitionInfo transitionInfo = null) where T : Page
+            => Navigate(typeof(T), parameter, transitionInfo ?? _navigationMode);
 
         public Guid OpenTab(Type page, object parameter)
         {
@@ -53,7 +56,8 @@ namespace FluentHub.App.Services.Navigation
             return item.Guid;
         }
 
-        public Guid OpenTab<T>(object parameter = null) where T : Page => OpenTab(typeof(T), parameter);
+        public Guid OpenTab<T>(object parameter = null) where T : Page
+            => OpenTab(typeof(T), parameter);
 
         public void GoToTab(Guid tabId)
         {
@@ -64,7 +68,8 @@ namespace FluentHub.App.Services.Navigation
             }
         }
 
-        public void CloseTab(Guid tabId) => TabView.CloseTab(tabId);
+        public void CloseTab(Guid tabId)
+            => TabView.CloseTab(tabId);
 
         public void GoBack()
         {

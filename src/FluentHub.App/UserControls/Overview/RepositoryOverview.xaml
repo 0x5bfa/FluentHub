@@ -55,7 +55,7 @@
 
         <Grid
             Grid.Row="1"
-            Margin="32,32,32,16"
+            Margin="32,24,32,8"
             ColumnSpacing="6">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -82,7 +82,7 @@
                             x:Name="RepoOwnerName"
                             VerticalAlignment="Center"
                             FontWeight="Normal"
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Foreground="{ThemeResource TextFillColorSecondary}"
                             Style="{StaticResource BodyTextBlockStyle}"
                             Text="{x:Bind ViewModel.Repository.Owner.Login, Mode=OneWay}" />
 

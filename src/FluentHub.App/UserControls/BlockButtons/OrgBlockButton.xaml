@@ -26,6 +26,13 @@
         Padding="16,12"
         Click="OrganizationOverviewButton_Click"
         Style="{StaticResource ContentBlockButtonStyle}">
+
+        <Button.ContextFlyout>
+            <MenuFlyout>
+                <MenuFlyoutItem Text="Open in new tab" />
+            </MenuFlyout>
+        </Button.ContextFlyout>
+
         <Grid ColumnSpacing="12">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -47,10 +54,11 @@
                 <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.OrgItem.Name, Mode=OneWay}" />
                 <TextBlock
                     Grid.Row="1"
-                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Foreground="{ThemeResource TextFillColorSecondary}"
                     Style="{StaticResource BodyTextBlockStyle}"
                     Text="{x:Bind ViewModel.OrgItem.Description, Mode=OneWay}" />
             </Grid>
         </Grid>
+
     </Button>
 </UserControl>

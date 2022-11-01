@@ -22,7 +22,7 @@
     </Page.Resources>
 
     <Grid>
-        <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadDetailsViewPageCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+        <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadDetailsViewPageCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
             <ScrollViewer>
                 <Grid Margin="0,0,8,8" RowSpacing="8">
                     <Grid.RowDefinitions>
@@ -35,7 +35,7 @@
                     <Grid
                         x:Name="RepositoryCodeGrid"
                         Grid.Row="1"
-                        Padding="32,24,32,32"
+                        Padding="32,24"
                         x:Load="{x:Bind ViewModel.ContextViewModel.Repository.IsEmpty, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
                         Background="{ThemeResource LayerFillColorDefaultBrush}"
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
@@ -128,7 +128,7 @@
                                                     x:Name="ItemLatestCommitTitleTextBox"
                                                     Grid.Column="2"
                                                     VerticalAlignment="Center"
-                                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                    Foreground="{ThemeResource TextFillColorSecondary}"
                                                     Text="{x:Bind LatestCommitMessage, Mode=OneWay}"
                                                     TextTrimming="CharacterEllipsis" />
 
@@ -137,7 +137,7 @@
                                                     Grid.Column="3"
                                                     HorizontalAlignment="Right"
                                                     VerticalAlignment="Center"
-                                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                    Foreground="{ThemeResource TextFillColorSecondary}"
                                                     Text="{x:Bind UpdatedAtHumanized, Mode=OneWay}" />
 
                                             </Grid>
@@ -194,7 +194,7 @@
                                         Style="{StaticResource BodyStrongTextBlockStyle}"
                                         Text="About" />
 
-                                    <Button
+                                    <!--<Button
                                         x:Name="SettingsButton"
                                         Width="36"
                                         Height="32"
@@ -211,7 +211,7 @@
                                                 <SymbolIconSource Symbol="Setting" />
                                             </AnimatedIcon.FallbackIconSource>
                                         </AnimatedIcon>
-                                    </Button>
+                                    </Button>-->
                                 </Grid>
 
                                 <TextBlock
@@ -248,8 +248,8 @@
                                         <StackPanel Orientation="Horizontal" Spacing="4">
 
                                             <TextBlock
-                                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                                Style="{StaticResource BodyTextBlockStyle}"
+                                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                                Style="{StaticResource CaptionTextBlockStyle}"
                                                 Text="{x:Bind ViewModel.ContextViewModel.Repository.LatestRelease.PublishedAtHumanized, Mode=OneWay}" />
 
                                             <StackPanel
@@ -258,7 +258,7 @@
                                                 Orientation="Horizontal"
                                                 Spacing="4">
                                                 <TextBlock
-                                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                    Foreground="{ThemeResource TextFillColorSecondary}"
                                                     Style="{StaticResource BodyTextBlockStyle}"
                                                     Text="·" />
                                                 <TextBlock
@@ -273,7 +273,7 @@
                                                 Orientation="Horizontal"
                                                 Spacing="4">
                                                 <TextBlock
-                                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                    Foreground="{ThemeResource TextFillColorSecondary}"
                                                     Style="{StaticResource BodyTextBlockStyle}"
                                                     Text="·" />
                                                 <TextBlock
@@ -288,7 +288,7 @@
                                 <StackPanel x:Name="NoReleaseExist" x:Load="{x:Bind ViewModel.ContextViewModel.Repository.Releases.TotalCount, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
 
                                     <TextBlock
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        Foreground="{ThemeResource TextFillColorSecondary}"
                                         Style="{StaticResource CaptionTextBlockStyle}"
                                         Text="No releases published" />
 
