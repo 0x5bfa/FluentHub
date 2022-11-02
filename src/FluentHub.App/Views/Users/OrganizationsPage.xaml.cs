@@ -23,6 +23,8 @@ namespace FluentHub.App.Views.Users
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var param = e.Parameter as Models.FrameNavigationArgs;
+            _ = param ?? throw new ArgumentNullException("param");
+
             ViewModel.Login = param.Login;
 
             if (param.Parameters.ElementAtOrDefault(0) as string is "AsViewer")

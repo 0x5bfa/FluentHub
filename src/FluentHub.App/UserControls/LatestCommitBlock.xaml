@@ -82,14 +82,14 @@
                             <TextBlock
                                 VerticalAlignment="Center"
                                 FontFamily="Cascadia Code"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
                                 Style="{StaticResource CaptionTextBlockStyle}"
                                 Text="{x:Bind ViewModel.LatestCommit.AbbreviatedOid, Mode=OneWay}" />
 
                             <TextBlock
                                 Margin="6,0,0,0"
                                 VerticalAlignment="Center"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
                                 Style="{StaticResource BodyTextBlockStyle}"
                                 Text="{x:Bind ViewModel.LatestCommit.CommittedDateHumanized, Mode=OneWay}" />
                         </StackPanel>
@@ -131,7 +131,7 @@
 
                                 <TextBlock
                                     VerticalAlignment="Center"
-                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
                                     Style="{StaticResource CaptionTextBlockStyle}"
                                     Text="commits" />
 
@@ -173,7 +173,7 @@
                 Margin="0,6,0,0"
                 FontFamily="Cascadia Code"
                 FontWeight="ExtraLight"
-                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                Foreground="{ThemeResource TextFillColorSecondary}"
                 IsTextSelectionEnabled="True"
                 Style="{StaticResource CaptionTextBlockStyle}"
                 Text="{x:Bind ViewModel.LatestCommit.MessageBody, Mode=OneWay}" />

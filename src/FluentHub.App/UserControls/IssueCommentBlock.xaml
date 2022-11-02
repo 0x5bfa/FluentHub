@@ -40,7 +40,7 @@
 
                 <TextBlock
                     VerticalAlignment="Center"
-                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Foreground="{ThemeResource TextFillColorSecondary}"
                     Style="{StaticResource BodyTextBlockStyle}"
                     Text="{x:Bind ViewModel.IssueComment.CreatedAtHumanized, Mode=OneWay}" />
 

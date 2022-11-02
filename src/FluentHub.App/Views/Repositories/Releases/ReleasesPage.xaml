@@ -27,7 +27,7 @@
     </UserControl.Resources>
 
     <Grid>
-        <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryReleasesPageCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+        <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryReleasesPageCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <Grid Margin="0,0,8,8" RowSpacing="8">
                     <Grid.RowDefinitions>
@@ -51,14 +51,28 @@
                             <RowDefinition Height="Auto" />
                         </Grid.RowDefinitions>
 
-                        <StackPanel Margin="32,32,32,12">
+                        <StackPanel Margin="32,24,32,12">
                             <TextBlock Style="{StaticResource TitleTextBlockStyle}" Text="{x:Bind ViewModel.LatestRelease.Name, Mode=OneWay}" />
 
-                            <primer:Label
+                            <StackPanel
                                 Margin="0,12,0,0"
-                                HorizontalAlignment="Left"
-                                Text="Latest release"
-                                Variant="success" />
+                                Orientation="Horizontal"
+                                Spacing="8">
+                                <primer:Label
+                                    x:Name="LatestReleaseLabel"
+                                    HorizontalAlignment="Left"
+                                    Size="large"
+                                    Text="Latest release"
+                                    Variant="success" />
+
+                                <primer:Label
+                                    x:Name="LatestPreReleaseLabel"
+                                    HorizontalAlignment="Left"
+                                    x:Load="{x:Bind ViewModel.LatestRelease.IsPrerelease, Mode=OneWay}"
+                                    Size="large"
+                                    Text="pre-release"
+                                    Variant="attention" />
+                            </StackPanel>
 
                             <StackPanel
                                 Margin="0,12,0,0"
@@ -69,8 +83,14 @@
                                     x:Load="{x:Bind ViewModel.LatestRelease, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
                                     Label="{x:Bind ViewModel.LatestRelease.Author.Login, Mode=OneWay}"
                                     Source="{x:Bind ViewModel.LatestRelease.Author.AvatarUrl, Mode=OneWay}" />
-                                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="published at" />
-                                <TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="{x:Bind ViewModel.LatestRelease.PublishedAtHumanized, Mode=OneWay}" />
+                                <TextBlock
+                                    x:Name="LatestReleasePublishedAtTextBlock"
+                                    x:Load="{x:Bind ViewModel.LatestRelease, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
+                                    Style="{StaticResource BodyTextBlockStyle}">
+                                    <Run Text="published at" />
+                                    <Run Text="{x:Bind ViewModel.LatestRelease.PublishedAtHumanized, Mode=OneWay}" />
+                                </TextBlock>
                             </StackPanel>
                         </StackPanel>
 
@@ -87,6 +107,15 @@
                                     Margin="12,8"
                                     DefaultBackgroundColor="Transparent"
                                     Loaded="OnLatestReleaseWebView2Loaded" />
+
+                                <TextBlock
+                                    x:Name="FailedToLoadWebView2ContentCautionTextBlock"
+                                    Margin="32"
+                                    HorizontalAlignment="Center"
+                                    VerticalAlignment="Center"
+                                    x:Load="{x:Bind ViewModel.FailedToLoadWebView2Content, Mode=OneWay}"
+                                    Foreground="{ThemeResource SystemFillColorCaution}"
+                                    Text="Failed to load latest release content" />
                             </Grid>
 
                             <Border
@@ -148,7 +177,11 @@
                             </StackPanel>
                         </Grid>
 
-                        <MenuFlyoutSeparator Grid.Row="1" />
+                        <Border
+                            Grid.Row="1"
+                            Height="1"
+                            BorderBrush="{ThemeResource DividerStrokeColorDefault}"
+                            BorderThickness="1" />
 
                         <ItemsRepeater
                             Grid.Row="2"
@@ -159,9 +192,11 @@
                             </ItemsRepeater.Layout>
                             <DataTemplate x:DataType="modelsV4:Release">
                                 <Button
-                                    x:Name="IssueBlockButton"
+                                    x:Name="ReleaseBlockButton"
                                     Padding="16,12"
-                                    Style="{StaticResource ContentBlockButtonStyle}">
+                                    Click="OnReleaseBlockButtonClick"
+                                    Style="{StaticResource ContentBlockButtonStyle}"
+                                    Tag="{x:Bind TagName}">
 
                                     <StackPanel Spacing="4">
 
@@ -170,7 +205,7 @@
                                         <StackPanel Orientation="Horizontal" Spacing="4">
 
                                             <TextBlock
-                                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                Foreground="{ThemeResource TextFillColorSecondary}"
                                                 Style="{StaticResource BodyTextBlockStyle}"
                                                 Text="{x:Bind PublishedAtHumanized, Mode=OneWay}" />
 
@@ -180,11 +215,11 @@
                                                 Orientation="Horizontal"
                                                 Spacing="4">
                                                 <TextBlock
-                                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                    Foreground="{ThemeResource TextFillColorSecondary}"
                                                     Style="{StaticResource BodyTextBlockStyle}"
                                                     Text="·" />
                                                 <TextBlock
-                                                    Foreground="#57ab5a"
+                                                    Foreground="{ThemeResource PrimerSuccessForeground}"
                                                     Style="{StaticResource BodyTextBlockStyle}"
                                                     Text="Latest" />
                                             </StackPanel>
@@ -195,11 +230,11 @@
                                                 Orientation="Horizontal"
                                                 Spacing="4">
                                                 <TextBlock
-                                                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                                    Foreground="{ThemeResource TextFillColorSecondary}"
                                                     Style="{StaticResource BodyTextBlockStyle}"
                                                     Text="·" />
                                                 <TextBlock
-                                                    Foreground="#c69026"
+                                                    Foreground="{ThemeResource PrimerAttentionForeground}"
                                                     Style="{StaticResource BodyTextBlockStyle}"
                                                     Text="Pre-release" />
                                             </StackPanel>

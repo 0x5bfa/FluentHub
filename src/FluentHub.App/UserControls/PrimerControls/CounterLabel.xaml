@@ -26,7 +26,7 @@
                 <Border
                     MinWidth="16"
                     Padding="4,0,4,2"
-                    Background="{ThemeResource PrimerNeutralEmphasis}"
+                    Background="{ThemeResource PrimerScaleGray2}"
                     CornerRadius="8">
                     <TextBlock
                         HorizontalAlignment="Center"
@@ -40,7 +40,7 @@
                 <Border
                     MinWidth="16"
                     Padding="4,0,4,2"
-                    Background="{ThemeResource PrimerNeutralMuted}"
+                    Background="{ThemeResource PrimerScaleGray3}"
                     CornerRadius="8">
                     <TextBlock
                         HorizontalAlignment="Center"

@@ -32,7 +32,7 @@
                 <CheckBox Content="Template repository" />
                 <TextBlock
                     Margin="28,0,0,0"
-                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Foreground="{ThemeResource TextFillColorSecondary}"
                     Style="{StaticResource CaptionTextBlockStyle}"
                     Text="Template repositories let users generate new repositories with the same directory structure and files. Learn more." />
             </StackPanel>
@@ -43,12 +43,12 @@
                 Text="Social preview" />
 
             <TextBlock
-                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                Foreground="{ThemeResource TextFillColorSecondary}"
                 Style="{StaticResource CaptionTextBlockStyle}"
                 Text="Upload an image to customize your repository's social media preview." />
 
             <TextBlock
-                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                Foreground="{ThemeResource TextFillColorSecondary}"
                 Style="{StaticResource CaptionTextBlockStyle}"
                 Text="Images should be at least 640×320px (1280×640px for best display)." />
 
@@ -105,7 +105,7 @@
             <MenuFlyoutSeparator />
 
             <TextBlock
-                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                Foreground="{ThemeResource TextFillColorSecondary}"
                 Style="{StaticResource CaptionTextBlockStyle}"
                 Text="When merging pull requests, you can allow any combination of merge commits, squashing, or rebasing. At least one option must be enabled. If you have linear history requirement enabled on any protected branch, you must enable squashing or rebasing." />
 
@@ -122,7 +122,7 @@
             </uc:SettingsBlockControl>
 
             <TextBlock
-                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                Foreground="{ThemeResource TextFillColorSecondary}"
                 Style="{StaticResource CaptionTextBlockStyle}"
                 Text="Control how and when users are prompted to update their branches if there are new changes available in the base branch." />
 
@@ -131,7 +131,7 @@
             </uc:SettingsBlockControl>
 
             <TextBlock
-                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                Foreground="{ThemeResource TextFillColorSecondary}"
                 Style="{StaticResource CaptionTextBlockStyle}"
                 Text="You can allow setting pull requests to merge automatically once all required reviews and status checks have passed." />
 
@@ -140,7 +140,7 @@
             </uc:SettingsBlockControl>
 
             <TextBlock
-                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                Foreground="{ThemeResource TextFillColorSecondary}"
                 Style="{StaticResource CaptionTextBlockStyle}"
                 Text="After pull requests are merged, you can have head branches deleted automatically." />
 
@@ -156,7 +156,7 @@
             <MenuFlyoutSeparator />
 
             <TextBlock
-                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                Foreground="{ThemeResource TextFillColorSecondary}"
                 Style="{StaticResource CaptionTextBlockStyle}"
                 Text="When creating source code archives, you can choose to include files stored using Git LFS in the archive." />
 

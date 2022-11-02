@@ -20,27 +20,23 @@
 
     <Grid>
 
-        <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryPullRequestFileChangesPageCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+        <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryPullRequestFileChangesPageCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <Grid RowSpacing="8">
+                <Grid Margin="0,0,8,8" RowSpacing="8">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
 
-                    <ov:RepositoryOverview Margin="0,0,8,8" ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
+                    <ov:RepositoryOverview ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
 
-                    <ov:PullRequestOverview
-                        Grid.Row="1"
-                        Margin="0,0,8,0"
-                        ViewModel="{x:Bind ViewModel.PullRequestOverviewViewModel, Mode=OneWay}" />
+                    <ov:PullRequestOverview Grid.Row="1" ViewModel="{x:Bind ViewModel.PullRequestOverviewViewModel, Mode=OneWay}" />
 
                     <Grid
                         Grid.Row="2"
-                        Margin="0,0,8,8"
-                        Padding="32"
-                        Background="{ThemeResource CardBackgroundFillColorSecondary}"
+                        Padding="32,24"
+                        Background="{ThemeResource LayerFillColorDefaultBrush}"
                         BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
                         BorderThickness="1"
                         CornerRadius="8">

@@ -17,17 +17,13 @@
 
     <Page.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary>
-                    <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
-                </ResourceDictionary>
-            </ResourceDictionary.MergedDictionaries>
+            <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
         </ResourceDictionary>
     </Page.Resources>
 
     <Grid>
 
-        <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadUserOverviewCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+        <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadUserOverviewCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <Grid Margin="0,0,8,8" RowSpacing="8">
                     <Grid.RowDefinitions>
@@ -90,7 +86,7 @@
                                             </AnimatedIcon.FallbackIconSource>
                                         </AnimatedIcon>
                                         <TextBlock
-                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Foreground="{ThemeResource TextFillColorSecondary}"
                                             Style="{StaticResource BodyTextBlockStyle}"
                                             Text="{helpers:ResourceString Name=CustomizeYourPins}" />
                                     </StackPanel>
@@ -168,7 +164,7 @@
                                             </AnimatedIcon.FallbackIconSource>
                                         </AnimatedIcon>
                                         <TextBlock
-                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Foreground="{ThemeResource TextFillColorSecondary}"
                                             Style="{StaticResource BodyTextBlockStyle}"
                                             Text="{helpers:ResourceString Name=CustomizeYourPins}" />
                                     </StackPanel>
@@ -200,7 +196,7 @@
 
                         <uc:UserContributionGraph Login="{x:Bind ViewModel.Login, Mode=OneWay}" />
 
-                        <uc:ReadmeContentBlock x:Name="UserSpecialReadmeBlock" ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
+                        <uc:ReadmeContentBlock ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
 
                     </StackPanel>
 

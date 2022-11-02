@@ -75,21 +75,15 @@
     </Page.Resources>
 
     <Grid>
-        <Grid.ChildrenTransitions>
-            <TransitionCollection>
-                <RepositionThemeTransition />
-            </TransitionCollection>
-        </Grid.ChildrenTransitions>
-
         <Grid.RowDefinitions>
             <RowDefinition Height="48" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid x:Name="ExpandedTitleBarRegion">
+        <Grid>
 
             <ProgressBar
-                x:Name="LoadingProgreeRing"
+                x:Name="PageLoadingProgreeBar"
                 VerticalAlignment="Top"
                 x:Load="{x:Bind ViewModel.TaskIsInProgress, Mode=OneWay}"
                 IsIndeterminate="True" />
@@ -199,7 +193,7 @@
                         Background="Transparent"
                         BorderThickness="0"
                         Command="{x:Bind ViewModel.GoBackCommand, Mode=OneWay}"
-                        IsEnabled="{Binding SelectedItem.NavigationHistory.CanGoBack, ElementName=TabView, FallbackValue=false}"
+                        IsEnabled="{x:Bind CustomTabViewControl.SelectedItem.NavigationHistory.CanGoBack, Mode=OneWay}"
                         ToolTipService.ToolTip="{helpers:ResourceString Name=GoBackButton/ToolTipService/Tooltip}">
                         <Button.Resources>
                             <SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="Transparent" />
@@ -223,7 +217,7 @@
                         Background="Transparent"
                         BorderThickness="0"
                         Command="{x:Bind ViewModel.GoForwardCommand, Mode=OneWay}"
-                        IsEnabled="{Binding SelectedItem.NavigationHistory.CanGoForward, ElementName=TabView, FallbackValue=false}"
+                        IsEnabled="{x:Bind CustomTabViewControl.SelectedItem.NavigationHistory.CanGoForward, Mode=OneWay}"
                         ToolTipService.ToolTip="{helpers:ResourceString Name=GoForwardButton/TooltipService/Tooltip}">
                         <Button.Resources>
                             <SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="Transparent" />
@@ -364,92 +358,72 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Grid Margin="0,-4,1,2">
-                <NavigationView
-                    x:Name="MainNavView"
-                    Width="78"
-                    x:Load="{x:Bind ViewModel.TaskIsCompletedSuccessfully, Mode=OneWay}"
-                    Canvas.ZIndex="0"
-                    FooterMenuItemsSource="{x:Bind ViewModel.NavViewFooterItems, Mode=OneWay}"
-                    IsBackButtonVisible="Collapsed"
-                    IsPaneToggleButtonVisible="False"
-                    IsSettingsVisible="False"
-                    IsTitleBarAutoPaddingEnabled="False"
-                    ItemInvoked="OnMainNavViewItemInvoked"
-                    MenuItemsSource="{x:Bind ViewModel.NavViewItems, Mode=TwoWay}"
-                    OpenPaneLength="80"
-                    PaneDisplayMode="Left">
+            <NavigationView
+                x:Name="MainNavView"
+                Width="78"
+                Margin="0,-4,1,2"
+                Canvas.ZIndex="0"
+                FooterMenuItemsSource="{x:Bind ViewModel.NavViewFooterItems, Mode=OneWay}"
+                IsBackButtonVisible="Collapsed"
+                IsPaneToggleButtonVisible="False"
+                IsSettingsVisible="False"
+                IsTitleBarAutoPaddingEnabled="False"
+                ItemInvoked="OnMainNavViewItemInvoked"
+                MenuItemsSource="{x:Bind ViewModel.NavViewItems, Mode=TwoWay}"
+                OpenPaneLength="80"
+                PaneDisplayMode="Left">
 
-                    <NavigationView.Resources>
+                <NavigationView.Resources>
+                    <ResourceDictionary>
                         <x:Double x:Key="NavigationViewSelectionIndicatorWidth">4</x:Double>
                         <x:Double x:Key="NavigationViewSelectionIndicatorHeight">24</x:Double>
                         <x:Double x:Key="NavigationViewSelectionIndicatorRadius">2</x:Double>
-                        <Thickness x:Key="NavigationViewItemContentPresenterMargin">0</Thickness>
-                    </NavigationView.Resources>
+                        <Thickness x:Key="NavigationViewItemInnerHeaderMargin">0,0,0,0</Thickness>
+                        <Thickness x:Key="NavigationViewItemContentPresenterMargin">0,0,0,0</Thickness>
+                    </ResourceDictionary>
+                </NavigationView.Resources>
 
-                    <NavigationView.MenuItemTemplate>
-                        <DataTemplate x:DataType="models:SquareNavigationViewItemModel">
-                            <NavigationViewItem
-                                Height="64"
-                                IsSelected="{x:Bind IsSelected, Mode=TwoWay}"
-                                Tag="{x:Bind Name}">
-                                <Grid
-                                    Margin="-5,4,-9,0"
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch"
-                                    RowSpacing="2">
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition Height="Auto" />
-                                        <RowDefinition Height="Auto" />
-                                    </Grid.RowDefinitions>
+                <NavigationView.MenuItemTemplate>
+                    <DataTemplate x:DataType="models:SquareNavigationViewItemModel">
+                        <NavigationViewItem
+                            Height="64"
+                            IsSelected="{x:Bind IsSelected, Mode=TwoWay}"
+                            Tag="{x:Bind Name}">
+                            <Grid
+                                Margin="-3,4,-10,0"
+                                HorizontalAlignment="Stretch"
+                                VerticalAlignment="Stretch"
+                                RowSpacing="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
 
-                                    <!--<FontIcon
-                                        x:Name="NavigationViewItemGlyphPrimeryFontIcon"
-                                        HorizontalAlignment="Center"
-                                        x:Load="{x:Bind IsSelected, Mode=OneWay}"
-                                        FontSize="22"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        Glyph="{x:Bind GlyphPrimary, Mode=OneWay}" />
-                                    <FontIcon
-                                        x:Name="NavigationViewItemGlyphSecondaryFontIcon"
-                                        HorizontalAlignment="Center"
-                                        x:Load="{x:Bind IsSelected, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
-                                        FontSize="22"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        Glyph="{x:Bind GlyphSecondary, Mode=OneWay}" />-->
-                                    <toolkit:ImageEx
-                                        Width="28"
-                                        Height="28"
-                                        Source="{x:Bind Thumbnail}" />
+                                <toolkit:ImageEx
+                                    Width="28"
+                                    Height="28"
+                                    Source="{x:Bind Thumbnail}" />
 
-                                    <TextBlock
-                                        x:Name="NavigationViewItemNameTextBlock"
-                                        Grid.Row="1"
-                                        HorizontalAlignment="Center"
-                                        x:Load="{x:Bind IsSelected, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
-                                        FontSize="10"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
-                                        Style="{StaticResource CaptionTextBlockStyle}"
-                                        Text="{x:Bind Name}" />
-                                </Grid>
-                            </NavigationViewItem>
-                        </DataTemplate>
-                    </NavigationView.MenuItemTemplate>
+                                <TextBlock
+                                    x:Name="NavigationViewItemNameTextBlock"
+                                    Grid.Row="1"
+                                    HorizontalAlignment="Center"
+                                    x:Load="{x:Bind IsSelected, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
+                                    FontSize="10"
+                                    Foreground="{ThemeResource TextFillColorSecondary}"
+                                    Style="{StaticResource CaptionTextBlockStyle}"
+                                    Text="{x:Bind Name}" />
+                            </Grid>
+                        </NavigationViewItem>
+                    </DataTemplate>
+                </NavigationView.MenuItemTemplate>
 
-                </NavigationView>
-            </Grid>
+            </NavigationView>
 
-            <Grid Grid.Column="1">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-
-                <ContentPresenter
-                    x:Name="RootFrameBorder"
-                    Grid.Row="1"
-                    CornerRadius="8,0,0,0" />
-            </Grid>
+            <ContentPresenter
+                x:Name="RootFrameBorder"
+                Grid.Column="1"
+                CornerRadius="8,0,0,0" />
         </Grid>
     </Grid>
 </Page>

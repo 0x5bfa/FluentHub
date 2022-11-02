@@ -66,7 +66,7 @@
                                 Text="{x:Bind ViewModel.User.Name, Mode=OneWay}" />
                             <TextBlock
                                 x:Name="SignedInLoginName"
-                                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
                                 Style="{StaticResource CaptionTextBlockStyle}"
                                 Text="{x:Bind ViewModel.User.Login, Mode=OneWay}" />
                         </StackPanel>
@@ -98,6 +98,7 @@
                 <NavigationViewItem
                     x:Name="SettingsNavViewItemAccount"
                     Content="Account"
+                    IsEnabled="False"
                     Tag="account">
                     <NavigationViewItem.Icon>
                         <ImageIcon Source="/Assets/Icons/Accounts.png" />

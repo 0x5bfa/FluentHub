@@ -4,6 +4,7 @@ using FluentHub.App.ViewModels.UserControls.BlockButtons;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
+using Microsoft.UI.Xaml.Controls.Primitives;
 
 namespace FluentHub.App.UserControls.BlockButtons
 {

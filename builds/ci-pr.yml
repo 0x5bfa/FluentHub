@@ -258,16 +258,15 @@ jobs:
     inputs:
       restoreSolution: '$(solution)'
 
-  - task: VSBuild@1
+  - task: MSBuild@1
     displayName: 'Build FluentHub'
     inputs:
       platform: 'x64'
       solution: '$(solution)'
       configuration: '$(buildConfigurationRelease)'
-      msbuildArgs: '
-      /p:AppInstallerUri="$(build.artifactstagingdirectory)"
+      msbuildArguments: '
       /p:AppxBundlePlatforms="$(buildPlatform)"
-      /p:AppxBundle=Never
+      /p:AppxBundle=Always
       /p:AppxPackageDir="$(appxPackageDir)"
       /p:GenerateAppxPackageOnBuild=True
       /p:UapAppxPackageBuildMode=StoreUpload'
@@ -284,3 +283,4 @@ jobs:
     inputs:
       PathtoPublish: '$(build.artifactstagingdirectory)'
       artifactName: 'StoreUpload'
+      publishLocation: 'Container'

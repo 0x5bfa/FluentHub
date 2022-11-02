@@ -17,15 +17,31 @@
                 .Select(x => new Commit
                 {
                     AbbreviatedOid = x.AbbreviatedOid,
-                    Oid = x.Oid,
+                    Additions = x.Additions,
+                    ChangedFiles = x.ChangedFiles,
                     CommittedDate = x.CommittedDate,
                     CommittedDateHumanized = x.CommittedDate.Humanize(null, null),
+                    Deletions = x.Deletions,
                     Message = x.Message,
                     MessageHeadline = x.MessageHeadline,
+                    Oid = x.Oid,
+
+                    Author = x.Author.Select(author => new GitActor
+                    {
+                        AvatarUrl = author.AvatarUrl(100),
+
+                        User = author.User.Select(user => new User
+                        {
+                            Login = user.Login,
+                        })
+                        .SingleOrDefault(),
+                    })
+                    .SingleOrDefault(),
 
                     Repository = x.Repository.Select(repo => new Repository
                     {
                         Name = repo.Name,
+
                         Owner = repo.Owner.Select(owner => new RepositoryOwner
                         {
                             Login = owner.Login,
@@ -34,12 +50,18 @@
                     })
                     .SingleOrDefault(),
 
-                    Author = x.Author.Select(author => new GitActor
+                    Signature = x.Signature.Select(signature => new GitSignature
                     {
-                        AvatarUrl = author.AvatarUrl(100),
-                        User = author.User.Select(user => new User
+                        IsValid = signature.IsValid,
+                        Payload = signature.Payload,
+                        Signature = signature.Payload,
+                        State = (GitSignatureState)signature.State,
+                        WasSignedByGitHub = signature.WasSignedByGitHub,
+
+                        Signer = signature.Signer.Select(user => new User
                         {
-                            Login = user.Login,
+                            AvatarUrl = user.AvatarUrl(100),
+                            Login = user.Login
                         })
                         .SingleOrDefault(),
                     })
@@ -69,12 +91,14 @@
                         Nodes = history.Nodes.Select(y => new Commit
                         {
                             AbbreviatedOid = y.AbbreviatedOid,
-                            Oid = y.Oid,
+                            Additions = y.Additions,
+                            ChangedFiles = y.ChangedFiles,
                             CommittedDate = y.CommittedDate,
                             CommittedDateHumanized = y.CommittedDate.Humanize(null, null),
+                            Deletions = y.Deletions,
                             Message = y.Message,
                             MessageHeadline = y.MessageHeadline,
-                            MessageBody = y.MessageBody,
+                            Oid = y.Oid,
 
                             Author = y.Author.Select(author => new GitActor
                             {

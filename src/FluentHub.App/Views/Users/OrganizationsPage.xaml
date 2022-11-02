@@ -7,6 +7,7 @@
     xmlns:converters="using:FluentHub.App.Converters"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:helpers="using:FluentHub.App.Helpers"
+    xmlns:local="using:FluentHub.App.Views.Users"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ov="using:FluentHub.App.UserControls.Overview"
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
@@ -15,17 +16,13 @@
 
     <Page.Resources>
         <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary>
-                    <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
-                </ResourceDictionary>
-            </ResourceDictionary.MergedDictionaries>
+            <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
         </ResourceDictionary>
     </Page.Resources>
 
     <Grid>
 
-        <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadUserOrganizationsPageCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+        <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadUserOrganizationsPageCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <Grid>
                     <Grid.RowDefinitions>
@@ -68,7 +65,7 @@
                         <Grid x:Name="TitleGrid" x:Load="{x:Bind ViewModel.DisplayTitle, Mode=OneWay}">
                             <TextBlock
                                 x:Name="UserOrganizationsHeader"
-                                Margin="12,24,12,8"
+                                Margin="12,12,12,8"
                                 Style="{StaticResource TitleTextBlockStyle}"
                                 Text="{helpers:ResourceString Name=YourOrganizations}" />
                         </Grid>

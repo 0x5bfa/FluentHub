@@ -83,7 +83,7 @@
                     <TextBlock
                         VerticalAlignment="Center"
                         FontSize="13"
-                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                        Foreground="{ThemeResource TextFillColorSecondary}"
                         Style="{ThemeResource CaptionTextBlockStyle}"
                         Text="{x:Bind ViewModel.SignedInUser.Login, Mode=OneWay}"
                         Visibility="{x:Bind ViewModel.SignedInUser.Login, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />

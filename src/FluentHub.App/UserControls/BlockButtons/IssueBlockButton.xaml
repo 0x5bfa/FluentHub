@@ -31,6 +31,12 @@
         Click="OnClick"
         Style="{StaticResource ContentBlockButtonStyle}">
 
+        <Button.ContextFlyout>
+            <MenuFlyout>
+                <MenuFlyoutItem Text="Open in new tab" />
+            </MenuFlyout>
+        </Button.ContextFlyout>
+
         <Grid ColumnSpacing="18">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
@@ -75,7 +81,7 @@
                 <TextBlock
                     x:Name="RepositoryInfoTextBlock"
                     x:Load="{x:Bind ViewModel.IssueItem.Repository, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Foreground="{ThemeResource TextFillColorSecondary}"
                     Style="{StaticResource CaptionTextBlockStyle}"
                     Text="{x:Bind ViewModel.IssueItem, Converter={StaticResource SubjectToButtonTitleConverter}, Mode=OneWay}" />
 
@@ -83,7 +89,7 @@
                     x:Name="UpdatedAtHumanized"
                     Grid.ColumnSpan="2"
                     HorizontalAlignment="Right"
-                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Foreground="{ThemeResource TextFillColorSecondary}"
                     Style="{StaticResource CaptionTextBlockStyle}"
                     Text="{x:Bind ViewModel.IssueItem.UpdatedAtHumanized, Mode=OneWay}" />
 
@@ -140,5 +146,6 @@
             </Grid>
 
         </Grid>
+
     </Button>
 </UserControl>

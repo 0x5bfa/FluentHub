@@ -8,6 +8,7 @@
     xmlns:local="using:FluentHub.App.Views.Repositories.Commits"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ov="using:FluentHub.App.UserControls.Overview"
+    xmlns:primer="using:FluentHub.App.UserControls.PrimerControls"
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
     xmlns:uc="using:FluentHub.App.UserControls"
     xmlns:ucvm="using:FluentHub.App.ViewModels.UserControls"
@@ -21,7 +22,7 @@
 
     <Grid>
 
-        <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryCommitPageCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+        <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryCommitPageCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
             <ScrollViewer VerticalScrollBarVisibility="Auto">
                 <Grid Margin="0,0,8,8" RowSpacing="8">
                     <Grid.RowDefinitions>
@@ -75,18 +76,8 @@
                             <Grid Grid.Row="3" Margin="0,12,0,0">
                                 <StackPanel Orientation="Horizontal" Spacing="4">
 
-                                    <Grid
-                                        Width="20"
-                                        Height="20"
-                                        CornerRadius="10">
-                                        <Image Source="{x:Bind ViewModel.CommitItem.Author.AvatarUrl, Mode=OneWay}" />
-                                    </Grid>
+                                    <primer:Avatar Label="{x:Bind ViewModel.CommitItem.Author.User.Login, Mode=OneWay}" Source="{x:Bind ViewModel.CommitItem.Author.AvatarUrl, Mode=OneWay}" />
 
-                                    <TextBlock
-                                        Margin="4,0,0,0"
-                                        VerticalAlignment="Center"
-                                        Style="{StaticResource BodyStrongTextBlockStyle}"
-                                        Text="{x:Bind ViewModel.CommitItem.Author.User.Login, Mode=OneWay}" />
                                     <TextBlock
                                         VerticalAlignment="Center"
                                         Style="{ThemeResource BodyTextBlockStyle}"
@@ -94,10 +85,11 @@
                                     <TextBlock
                                         VerticalAlignment="Center"
                                         Style="{ThemeResource BodyTextBlockStyle}"
-                                        Text="{x:Bind ViewModel.CommitItem.OnBehalfOf, Mode=OneWay}" />
+                                        Text="main" />
                                     <TextBlock
+                                        Margin="4,0,0,0"
                                         VerticalAlignment="Center"
-                                        Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                        Foreground="{ThemeResource TextFillColorSecondary}"
                                         Style="{StaticResource BodyTextBlockStyle}"
                                         Text="{x:Bind ViewModel.CommitItem.CommittedDateHumanized, Mode=OneWay}" />
                                 </StackPanel>
@@ -106,9 +98,9 @@
                                     HorizontalAlignment="Right"
                                     Orientation="Horizontal"
                                     Spacing="8">
-                                    <StackPanel Orientation="Horizontal" Spacing="4">
+                                    <!--<StackPanel Orientation="Horizontal" Spacing="4">
                                         <TextBlock
-                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Foreground="{ThemeResource TextFillColorSecondary}"
                                             Style="{StaticResource CaptionTextBlockStyle}"
                                             Text="parent" />
                                         <TextBlock
@@ -119,7 +111,7 @@
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal" Spacing="4">
                                         <TextBlock
-                                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                                            Foreground="{ThemeResource TextFillColorSecondary}"
                                             Style="{StaticResource CaptionTextBlockStyle}"
                                             Text="commit" />
                                         <TextBlock
@@ -127,7 +119,7 @@
                                             Text="{x:Bind ViewModel.CommitItem.AbbreviatedOid, Mode=OneWay}"
                                             ToolTipService.Placement="Bottom"
                                             ToolTipService.ToolTip="{x:Bind ViewModel.CommitItem.Oid, Mode=OneWay}" />
-                                    </StackPanel>
+                                    </StackPanel>-->
                                 </StackPanel>
                             </Grid>
                         </Grid>
@@ -138,49 +130,28 @@
                             Orientation="Horizontal"
                             Spacing="4">
 
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{ThemeResource BodyStrongTextBlockStyle}"
-                                Text="{x:Bind ViewModel.CommitItem.ChangedFiles, Mode=OneWay}" />
-
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{ThemeResource BodyStrongTextBlockStyle}"
-                                Text="files changed" />
-
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{ThemeResource BodyTextBlockStyle}"
-                                Text="with" />
-
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Foreground="{ThemeResource PrimerSuccessForeground}"
-                                Style="{ThemeResource BodyTextBlockStyle}"
-                                Text="{x:Bind ViewModel.CommitItem.Additions, Mode=OneWay}" />
-
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Foreground="{ThemeResource PrimerSuccessForeground}"
-                                Style="{ThemeResource BodyTextBlockStyle}"
-                                Text="additions" />
-
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Style="{ThemeResource BodyTextBlockStyle}"
-                                Text="and" />
-
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Foreground="{ThemeResource PrimerDangerForeground}"
-                                Style="{ThemeResource BodyTextBlockStyle}"
-                                Text="{x:Bind ViewModel.CommitItem.Deletions, Mode=OneWay}" />
-
-                            <TextBlock
-                                VerticalAlignment="Center"
-                                Foreground="{ThemeResource PrimerDangerForeground}"
-                                Style="{ThemeResource BodyTextBlockStyle}"
-                                Text="deletions" />
+                            <TextBlock IsTextSelectionEnabled="True" Style="{ThemeResource BodyTextBlockStyle}">
+                                <Run FontWeight="SemiBold" Text="{x:Bind ViewModel.CommitItem.ChangedFiles, Mode=OneWay}" />
+                                <Run FontWeight="SemiBold" Text="files changed" />
+                                <Run Text="with" />
+                                <Run
+                                    FontWeight="SemiBold"
+                                    Foreground="{ThemeResource PrimerSuccessForeground}"
+                                    Text="{x:Bind ViewModel.CommitItem.Additions, Mode=OneWay}" />
+                                <Run
+                                    FontWeight="SemiBold"
+                                    Foreground="{ThemeResource PrimerSuccessForeground}"
+                                    Text="additions" />
+                                <Run Text="and" />
+                                <Run
+                                    FontWeight="SemiBold"
+                                    Foreground="{ThemeResource PrimerDangerForeground}"
+                                    Text="{x:Bind ViewModel.CommitItem.Deletions, Mode=OneWay}" />
+                                <Run
+                                    FontWeight="SemiBold"
+                                    Foreground="{ThemeResource PrimerDangerForeground}"
+                                    Text="deletions" />
+                            </TextBlock>
 
                         </StackPanel>
 

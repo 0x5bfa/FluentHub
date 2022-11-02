@@ -79,7 +79,7 @@
                     BorderThickness="0">
                     <StackPanel Orientation="Horizontal" Spacing="8">
                         <TextBlock
-                            Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                            Foreground="{ThemeResource TextFillColorSecondary}"
                             Style="{StaticResource BodyTextBlockStyle}"
                             Text="View more details" />
                     </StackPanel>
@@ -178,7 +178,7 @@
                 <TextBlock
                     Margin="0,2,0,0"
                     VerticalAlignment="Center"
-                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Foreground="{ThemeResource TextFillColorSecondary}"
                     Style="{StaticResource CaptionTextBlockStyle}"
                     Text="Less" />
 
@@ -225,7 +225,7 @@
                 <TextBlock
                     Margin="0,2,0,0"
                     VerticalAlignment="Center"
-                    Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                    Foreground="{ThemeResource TextFillColorSecondary}"
                     Style="{StaticResource CaptionTextBlockStyle}"
                     Text="More" />
 

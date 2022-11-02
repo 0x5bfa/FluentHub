@@ -142,8 +142,6 @@ namespace FluentHub.App.ViewModels.Users
                 User = User,
             };
 
-             var code = response.Status.IndicatesLimitedAvailability.ToString();
-
             if (string.IsNullOrEmpty(User.WebsiteUrl) is false)
             {
                 UserProfileOverviewViewModel.BuiltWebsiteUrl = new UriBuilder(User.WebsiteUrl).Uri;

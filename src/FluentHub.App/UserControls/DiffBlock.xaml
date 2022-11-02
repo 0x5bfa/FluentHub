@@ -165,56 +165,48 @@
                 <DataTemplate x:DataType="x:Int32">
                     <toolkit:SwitchPresenter TargetType="x:Int32" Value="{x:Bind}">
                         <toolkit:Case Value="0">
-                            <Rectangle
-                                Height="17"
-                                Fill="{ThemeResource PrimerAccentEmphasis}"
-                                Opacity="0.3" />
+                            <Rectangle Height="18" Fill="{ThemeResource PrimerAccentMuted}" />
                         </toolkit:Case>
                         <toolkit:Case Value="1">
-                            <Rectangle
-                                Height="17"
-                                Fill="{ThemeResource PrimerSuccessEmphasis}"
-                                Opacity="0.3" />
+                            <Rectangle Height="18" Fill="{ThemeResource PrimerSuccessMuted}" />
                         </toolkit:Case>
                         <toolkit:Case Value="2">
-                            <Rectangle
-                                Height="17"
-                                Fill="{ThemeResource PrimerDangerEmphasis}"
-                                Opacity="0.3" />
+                            <Rectangle Height="18" Fill="{ThemeResource PrimerDangerMuted}" />
                         </toolkit:Case>
                         <toolkit:Case Value="3">
-                            <Rectangle Height="17" Fill="Transparent" />
+                            <Rectangle Height="18" Fill="Transparent" />
                         </toolkit:Case>
                     </toolkit:SwitchPresenter>
                 </DataTemplate>
             </ItemsRepeater>
 
             <TextBlock
-                Margin="12,0"
+                Width="48"
                 FontFamily="Cascadia Code"
-                FontWeight="ExtraLight"
-                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                Foreground="{ThemeResource TextFillColorSecondary}"
                 HorizontalTextAlignment="Right"
-                LineHeight="17"
+                LineHeight="18"
+                Style="{StaticResource CaptionTextBlockStyle}"
                 Text="{x:Bind ViewModel.OldLineText, Mode=OneWay}" />
 
             <TextBlock
                 Grid.Column="1"
-                Margin="12,0"
+                Width="48"
                 FontFamily="Cascadia Code"
-                FontWeight="ExtraLight"
-                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                Foreground="{ThemeResource TextFillColorSecondary}"
                 HorizontalTextAlignment="Right"
-                LineHeight="17"
+                LineHeight="18"
+                Style="{StaticResource CaptionTextBlockStyle}"
                 Text="{x:Bind ViewModel.NewLineText, Mode=OneWay}" />
 
             <TextBlock
                 Grid.Column="2"
+                Margin="8,0,0,0"
                 FontFamily="Cascadia Code"
-                FontWeight="ExtraLight"
-                Foreground="{ThemeResource ApplicationSecondaryForegroundThemeBrush}"
+                Foreground="{ThemeResource TextFillColorSecondary}"
                 HorizontalTextAlignment="Right"
-                LineHeight="17"
+                LineHeight="18"
+                Style="{StaticResource CaptionTextBlockStyle}"
                 Text="{x:Bind ViewModel.FirstLetters, Mode=OneWay}" />
 
             <ScrollViewer
@@ -227,9 +219,10 @@
                 <TextBlock
                     x:Name="ColorCodeDiffBlock"
                     FontFamily="Cascadia Code"
-                    FontWeight="SemiLight"
+                    FontWeight="Light"
                     IsTextSelectionEnabled="True"
-                    LineHeight="17"
+                    LineHeight="18"
+                    Style="{StaticResource CaptionTextBlockStyle}"
                     Text="{x:Bind ViewModel.PatchRemovedfFirstLetters, Mode=OneWay}" />
 
             </ScrollViewer>

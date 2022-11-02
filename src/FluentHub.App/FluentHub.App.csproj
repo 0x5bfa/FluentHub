@@ -6,7 +6,7 @@
     <DefaultLanguage>en-US</DefaultLanguage>
     <AppxBundleAutoResourcePackageQualifiers>Scale|DXFeatureLevel</AppxBundleAutoResourcePackageQualifiers>
     <AppxDefaultResourceQualifiers>Language=en-US;ja-JP</AppxDefaultResourceQualifiers>
-    <TargetPlatformMinVersion>10.0.18362.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.19041.0</TargetPlatformMinVersion>
     <GenerateAppInstallerFile>False</GenerateAppInstallerFile>
     <AppxPackageSigningTimestampDigestAlgorithm>SHA256</AppxPackageSigningTimestampDigestAlgorithm>
     <AppxAutoIncrementPackageRevision>False</AppxAutoIncrementPackageRevision>
@@ -18,7 +18,7 @@
     <LangVersion>latest</LangVersion>
     <Nullable>enable</Nullable>
     <UseWinUI>true</UseWinUI>
-    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <NoWin32Manifest>True</NoWin32Manifest>
     <EnablePreviewMsixTooling>true</EnablePreviewMsixTooling>
     <Platforms>x86;x64;arm64</Platforms>
     <RuntimeIdentifiers>win10-x86;win10-x64;win10-arm64</RuntimeIdentifiers>
