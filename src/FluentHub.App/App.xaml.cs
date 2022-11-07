@@ -57,7 +57,7 @@ namespace FluentHub.App
                 .AddSingleton<ToastService>()
                 .AddSingleton<IMessenger>(StrongReferenceMessenger.Default)
                 // ViewModels
-                .AddTransient<MainPageViewModel>()
+                .AddSingleton<MainPageViewModel>()
                 .AddTransient<ViewModels.AppSettings.AboutViewModel>()
                 .AddTransient<ViewModels.AppSettings.Accounts.AccountViewModel>()
                 .AddTransient<ViewModels.AppSettings.Accounts.OtherUsersViewModel>()
