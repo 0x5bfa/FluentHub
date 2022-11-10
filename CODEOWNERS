@@ -1,0 +1,10 @@
+# Code owners file.
+# This file controls who is automatically requested for review when someone opens a pull request that modifies code that they own.
+
+# For syntax help,
+# visit https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners#codeowners-syntax
+
+# Currently, onely onein528 is a maintainer who can fully understand the code, so only they will be added,
+# however, onein528 is not a native English speaker, so added one native English speaker, DeveloperWOW64.
+*     @onein528
+*.md  @onein528 @DeveloperWOW64
