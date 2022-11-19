@@ -5,8 +5,7 @@
 
   <MainBundle Name="{Name}"
               Version="{Version}"
-              Publisher="{Publisher}"
-              Uri="{MainPackageUri}"/>
+              Publisher="{Publisher}"/>
 
   <UpdateSettings>
     <AutomaticBackgroundTask/>
