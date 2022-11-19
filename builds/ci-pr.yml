@@ -165,10 +165,10 @@ jobs:
     inputs:
       platform: 'x64'
       solution: '$(solution)'
-      configuration: '$(sideloadBuildConfiguration)'
+      configuration: '$(buildConfigurationSideload)'
       msbuildArguments: '
       /t:restore
-      /p:Configuration="$(sideloadBuildConfiguration)";
+      /p:Configuration="$(buildConfigurationSideload)";
       Platform="$(buildPlatform)";
       PublishReadyToRun=true'
       maximumCpuCount: true
@@ -264,10 +264,10 @@ jobs:
     inputs:
       platform: 'x64'
       solution: '$(solution)'
-      configuration: '$(buildConfiguration)'
+      configuration: '$(buildConfigurationRelease)'
       msbuildArguments: '
       /t:restore
-      /p:Configuration="$(buildConfiguration)";
+      /p:Configuration="$(buildConfigurationRelease)";
       Platform="$(buildPlatform)";
       PublishReadyToRun=true'
       maximumCpuCount: true
