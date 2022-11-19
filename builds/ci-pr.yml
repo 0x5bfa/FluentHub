@@ -120,7 +120,7 @@ jobs:
       script: |
         [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\FluentHub.Package\Package.appxmanifest
         $xmlDoc.Package.Identity.Name="FluentHubSideload"
-        $xmlDoc.Package.Identity.Publisher="FluentHub"
+        $xmlDoc.Package.Identity.Publisher="CN=FluentHub"
         $xmlDoc.Package.Properties.DisplayName="FluentHub"
         $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub"
         $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub.Package\Package.appxmanifest')
