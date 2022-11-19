@@ -32,12 +32,12 @@ jobs:
     inputs:
       targetType: 'inline'
       script: |
-        [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\FluentHub.App\Package.appxmanifest
+        [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\FluentHub.Package\Package.appxmanifest
         $xmlDoc.Package.Identity.Name="49462fluenthub-uwp.FluentHub"
         $xmlDoc.Package.Identity.Publisher="CN=4E3C0825-4D00-4ECC-89F8-528E9200B125"
         $xmlDoc.Package.Properties.DisplayName="FluentHub"
         $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub"
-        $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub.App\Package.appxmanifest')
+        $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub.Package\Package.appxmanifest')
       failOnStderr: true
 
   - task: PowerShell@2
@@ -113,20 +113,17 @@ jobs:
   timeoutInMinutes: 120
 
   steps:
-  - checkout: self
-    submodules: true
-
   - task: PowerShell@2
     displayName: 'Canonicalize package manifest'
     inputs:
       targetType: 'inline'
       script: |
-        [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\FluentHub.App\Package.appxmanifest
+        [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\FluentHub.Package\Package.appxmanifest
         $xmlDoc.Package.Identity.Name="FluentHubSideload"
         $xmlDoc.Package.Identity.Publisher="FluentHub"
         $xmlDoc.Package.Properties.DisplayName="FluentHub"
         $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub"
-        $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub.App\Package.appxmanifest')
+        $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub.Package\Package.appxmanifest')
       failOnStderr: true
 
   - task: PowerShell@2
@@ -161,27 +158,40 @@ jobs:
   - task: UseDotNet@2
     inputs:
       packageType: sdk
-      version: 6.0.400
+      version: 6.0.x
+      includePreviewVersions: true
 
-  - task: NuGetToolInstaller@1
-
-  - task: NuGetCommand@2
-    inputs:
-      restoreSolution: '$(solution)'
-
-  - task: VSBuild@1
-    displayName: 'Build FluentHub'
+  - task: MSBuild@1
     inputs:
       platform: 'x64'
       solution: '$(solution)'
+      configuration: '$(sideloadBuildConfiguration)'
+      msbuildArguments: '
+      /t:restore
+      /p:Configuration="$(sideloadBuildConfiguration)";
+      Platform="$(buildPlatform)";
+      PublishReadyToRun=true'
+      maximumCpuCount: true
+
+  - task: MSBuild@1
+    displayName: 'Build FluentHub'
+    inputs:
       configuration: '$(buildConfigurationSideload)'
+      platform: 'x64'
+      solution: '**/*.wapproj'
       msbuildArgs: '
+      /t:build;_GenerateAppxPackage
+      /p:AppxLogTelemetryFromSideloadingScript=False
+      /p:GenerateAppInstallerFile=True
       /p:AppxBundlePlatforms="$(buildPlatform)"
-      /p:AppxBundle=Never
       /p:AppxPackageDir="$(appxPackageDir)"
-      /p:GenerateAppxPackageOnBuild=True
+      /p:AppxBundle=Always
+      /p:UapAppxPackageBuildMode=Sideload
+      /p:AppxPackageSigningEnabled=true
       /p:PackageCertificateKeyFile="$(caCertificate.secureFilePath)"
-      /p:UapAppxPackageBuildMode=SideloadOnly'
+      /p:PackageCertificatePassword="$(signingCert.password)"
+      /p:PackageCertificateThumbprint=""'
+      maximumCpuCount: true
 
   - task: CopyFiles@2
     displayName: 'Copy generated artifacts'
@@ -202,20 +212,17 @@ jobs:
   timeoutInMinutes: 120
 
   steps:
-  - checkout: self
-    submodules: true
-
   - task: PowerShell@2
     displayName: 'Canonicalize package manifest'
     inputs:
       targetType: 'inline'
       script: |
-        [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\FluentHub.App\Package.appxmanifest
+        [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\FluentHub.Package\Package.appxmanifest
         $xmlDoc.Package.Identity.Name="49462fluenthub-uwp.FluentHub"
         $xmlDoc.Package.Identity.Publisher="CN=4E3C0825-4D00-4ECC-89F8-528E9200B125"
         $xmlDoc.Package.Properties.DisplayName="FluentHub"
         $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub"
-        $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub.App\Package.appxmanifest')
+        $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub.Package\Package.appxmanifest')
       failOnStderr: true
 
   - task: PowerShell@2
@@ -250,25 +257,31 @@ jobs:
   - task: UseDotNet@2
     inputs:
       packageType: sdk
-      version: 6.0.400
+      version: 6.0.x
+      includePreviewVersions: true
 
-  - task: NuGetToolInstaller@1
-
-  - task: NuGetCommand@2
+  - task: MSBuild@1
     inputs:
-      restoreSolution: '$(solution)'
+      platform: 'x64'
+      solution: '$(solution)'
+      configuration: '$(buildConfiguration)'
+      msbuildArguments: '
+      /t:restore
+      /p:Configuration="$(buildConfiguration)";
+      Platform="$(buildPlatform)";
+      PublishReadyToRun=true'
+      maximumCpuCount: true
 
   - task: MSBuild@1
     displayName: 'Build FluentHub'
     inputs:
-      platform: 'x64'
-      solution: '$(solution)'
       configuration: '$(buildConfigurationRelease)'
+      platform: 'x64'
+      solution: '**/*.wapproj'
       msbuildArguments: '
       /p:AppxBundlePlatforms="$(buildPlatform)"
       /p:AppxBundle=Always
       /p:AppxPackageDir="$(appxPackageDir)"
-      /p:GenerateAppxPackageOnBuild=True
       /p:UapAppxPackageBuildMode=StoreUpload'
 
   - task: CopyFiles@2
