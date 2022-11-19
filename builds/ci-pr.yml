@@ -166,11 +166,7 @@ jobs:
       platform: 'x64'
       solution: '$(solution)'
       configuration: '$(buildConfigurationSideload)'
-      msbuildArguments: '
-      /t:restore
-      /p:Configuration="$(buildConfigurationSideload)";
-      Platform="$(buildPlatform)";
-      PublishReadyToRun=true'
+      msbuildArguments: '/t:restore /p:Configuration="$(buildConfigurationSideload)";Platform="$(buildPlatform)";PublishReadyToRun=true'
       maximumCpuCount: true
 
   - task: MSBuild@1
@@ -265,11 +261,7 @@ jobs:
       platform: 'x64'
       solution: '$(solution)'
       configuration: '$(buildConfigurationRelease)'
-      msbuildArguments: '
-      /t:restore
-      /p:Configuration="$(buildConfigurationRelease)";
-      Platform="$(buildPlatform)";
-      PublishReadyToRun=true'
+      msbuildArguments: '/t:restore /p:Configuration="$(buildConfigurationRelease)";Platform="$(buildPlatform)";PublishReadyToRun=true'
       maximumCpuCount: true
 
   - task: MSBuild@1
@@ -278,11 +270,7 @@ jobs:
       configuration: '$(buildConfigurationRelease)'
       platform: 'x64'
       solution: '**/*.wapproj'
-      msbuildArguments: '
-      /p:AppxBundlePlatforms="$(buildPlatform)"
-      /p:AppxBundle=Always
-      /p:AppxPackageDir="$(appxPackageDir)"
-      /p:UapAppxPackageBuildMode=StoreUpload'
+      msbuildArguments: '/p:AppxBundlePlatforms="$(buildPlatform)" /p:AppxBundle=Always /p:AppxPackageDir="$(appxPackageDir)" /p:UapAppxPackageBuildMode=StoreUpload'
 
   - task: CopyFiles@2
     displayName: 'Copy generated artifacts'
