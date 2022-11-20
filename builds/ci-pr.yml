@@ -33,8 +33,8 @@ jobs:
       targetType: 'inline'
       script: |
         [xml]$xmlDoc = Get-Content $(Build.SourcesDirectory)\src\FluentHub.Package\Package.appxmanifest
-        $xmlDoc.Package.Identity.Name="49462fluenthub-uwp.FluentHub"
-        $xmlDoc.Package.Identity.Publisher="CN=4E3C0825-4D00-4ECC-89F8-528E9200B125"
+        $xmlDoc.Package.Identity.Name="FluentHubDebug"
+        $xmlDoc.Package.Identity.Publisher="CN=FluentHub"
         $xmlDoc.Package.Properties.DisplayName="FluentHub"
         $xmlDoc.Package.Applications.Application.VisualElements.DisplayName="FluentHub"
         $xmlDoc.Save('$(Build.SourcesDirectory)\src\FluentHub.Package\Package.appxmanifest')
@@ -111,7 +111,7 @@ jobs:
     displayName: 'Copy generated artifacts'
     inputs:
       SourceFolder: '$(system.defaultworkingdirectory)'
-      Contents: '**\bin\$(buildConfigurationSideload)\**'
+      Contents: '**\bin\$(buildConfigurationDebug)\**'
       TargetFolder: '$(build.artifactstagingdirectory)'
 
   - task: PublishBuildArtifacts@1
@@ -297,6 +297,7 @@ jobs:
       /p:AppxBundle=Always
       /p:AppxPackageDir="$(appxPackageDir)"
       /p:UapAppxPackageBuildMode=StoreUpload'
+      maximumCpuCount: true
 
   - task: CopyFiles@2
     displayName: 'Copy generated artifacts'
