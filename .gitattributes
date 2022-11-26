@@ -63,9 +63,7 @@
 #*.RTF   diff=astextplain
 
 ###############################################################################
-#
 # Remove from linguist lib detectable languages
-#
 ###############################################################################
 *.html linguist-detectable=false
 *.css linguist-detectable=false
