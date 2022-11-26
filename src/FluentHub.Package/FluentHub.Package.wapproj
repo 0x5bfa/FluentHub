@@ -73,7 +73,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\AppTiles\Dev\**" />
+    <Content Include="Assets\AppTiles\**" />
     <Content Include="Package.appinstaller" />
   </ItemGroup>
   <ItemGroup>

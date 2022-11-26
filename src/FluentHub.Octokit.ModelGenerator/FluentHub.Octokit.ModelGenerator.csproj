@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <OutputType>Exe</OutputType>
     <RootNamespace>FluentHub.Octokit.ModelGenerator</RootNamespace>
     <AssemblyName>FluentHub.Octokit.ModelGenerator</AssemblyName>
     <Platforms>x86;x64;arm64</Platforms>
