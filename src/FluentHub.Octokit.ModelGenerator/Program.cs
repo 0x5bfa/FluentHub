@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 using System.IO;
 using System.Linq;
+using FluentHub.Octokit.ModelGenerator.Generators;
 
 namespace FluentHub.Octokit.ModelGenerator
 {

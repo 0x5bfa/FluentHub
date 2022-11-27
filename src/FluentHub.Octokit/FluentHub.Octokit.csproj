@@ -5,7 +5,7 @@
     <RootNamespace>FluentHub.Octokit</RootNamespace>
     <AssemblyName>FluentHub.Octokit</AssemblyName>
     <Platforms>x86;x64;arm64</Platforms>
-    <RuntimeIdentifiers>win-arm64;win-x86;win-x64</RuntimeIdentifiers>
+    <RuntimeIdentifiers>win10-arm64;win10-x86;win10-x64</RuntimeIdentifiers>
     <LangVersion>latest</LangVersion>
     <Configurations>Debug;Release;Sideload</Configurations>
   </PropertyGroup>
