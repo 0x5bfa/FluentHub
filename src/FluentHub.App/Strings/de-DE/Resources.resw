@@ -118,375 +118,375 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccountSettingsButton.Text" xml:space="preserve">
-    <value>Kontoeinstellungen</value>
+    <value>Account Settings</value>
   </data>
   <data name="Activities" xml:space="preserve">
-    <value>Aktivitäten</value>
+    <value>Activities</value>
   </data>
   <data name="AppearancePageColorBlock.Title" xml:space="preserve">
-    <value>Wähle deine Farbe</value>
+    <value>Choose your color</value>
   </data>
   <data name="AppearancePageGeneralHeader.Text" xml:space="preserve">
-    <value>Allgemein</value>
+    <value>General</value>
   </data>
   <data name="AppearancePageHeader.Text" xml:space="preserve">
-    <value>Darstellung</value>
+    <value>Appearance</value>
   </data>
   <data name="AppearancePageLocaleBlock.Title" xml:space="preserve">
-    <value>Sprache</value>
+    <value>Language</value>
   </data>
   <data name="AppearancePageLocaleHeader.Text" xml:space="preserve">
-    <value>Sprache</value>
+    <value>Language</value>
   </data>
   <data name="AppearancePageThemeBlock.Title" xml:space="preserve">
-    <value>Benutzerdefinierte Designs</value>
+    <value>Custom themes</value>
   </data>
   <data name="Back" xml:space="preserve">
-    <value>Zurück</value>
+    <value>Back</value>
   </data>
   <data name="CustomizeYourPins" xml:space="preserve">
-    <value>Passe deine Pins an</value>
+    <value>Customize your pins</value>
   </data>
   <data name="DeveloperProgramMember" xml:space="preserve">
-    <value>Entwicklungsprogrammmitglied</value>
+    <value>Developer Program Member</value>
   </data>
   <data name="Discussions" xml:space="preserve">
-    <value>Diskussionen</value>
+    <value>Discussions</value>
   </data>
   <data name="EditUserProfile" xml:space="preserve">
-    <value>Benutzerprofil bearbeiten</value>
+    <value>Edit User Profile</value>
   </data>
   <data name="FeatureNotAvailable.Text" xml:space="preserve">
-    <value>Noch nicht verfügbar.</value>
+    <value>Not available yet.</value>
   </data>
   <data name="FeedsPageHeader.Text" xml:space="preserve">
-    <value>Aktivität</value>
+    <value>Activity</value>
   </data>
   <data name="FeedsPageNoRecentActivityBody.Text" xml:space="preserve">
-    <value>Keine kürzlichen Aktivitäten.</value>
+    <value>No recent activity.</value>
   </data>
   <data name="FifthStepToAuthorize.Text" xml:space="preserve">
-    <value>Fahre mit der FluentHub Anwendung fort.</value>
+    <value>Proceed to the FluentHub application.</value>
   </data>
   <data name="FirstStepToAuthorize.Text" xml:space="preserve">
-    <value>Klicke auf "Login mit GitHub";</value>
+    <value>Click "Login with GitHub";</value>
   </data>
   <data name="Follow" xml:space="preserve">
-    <value>Folgen</value>
+    <value>Follow</value>
   </data>
   <data name="Followers" xml:space="preserve">
-    <value>Follower</value>
+    <value>Followers</value>
   </data>
   <data name="FollowersWithoutCaps" xml:space="preserve">
-    <value>Follower</value>
+    <value>followers</value>
   </data>
   <data name="Following" xml:space="preserve">
-    <value>Folge ich</value>
+    <value>Following</value>
   </data>
   <data name="FollowingWithoutCaps" xml:space="preserve">
-    <value>folge ich</value>
+    <value>following</value>
   </data>
   <data name="ForthStepToAuthorize.Text" xml:space="preserve">
-    <value>Klicke auf "Öffne FluentHub DEV";</value>
+    <value>Click "Open FluentHub DEV";</value>
   </data>
   <data name="Forward" xml:space="preserve">
-    <value>Vorwärts</value>
+    <value>Forward</value>
   </data>
   <data name="GoBackButton.TooltipService.Tooltip" xml:space="preserve">
-    <value>Zurück</value>
+    <value>Back</value>
   </data>
   <data name="GoForwardButton.TooltipService.Tooltip" xml:space="preserve">
-    <value>Vorwärts</value>
+    <value>Forward</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>Startseite</value>
+    <value>Home</value>
   </data>
   <data name="HomePageFavoritesHeader.Text" xml:space="preserve">
-    <value>Favoriten</value>
+    <value>Favorites</value>
   </data>
   <data name="HomePageFavoritesNotAvailableBody.Text" xml:space="preserve">
-    <value>Keine Favoriten verfügbar.</value>
+    <value>No favorite items available.</value>
   </data>
   <data name="HomePageGeneralHeader.Text" xml:space="preserve">
-    <value>Arbeit</value>
+    <value>Work</value>
   </data>
   <data name="HomePageHeader.Text" xml:space="preserve">
-    <value>Startseite</value>
+    <value>Home</value>
   </data>
   <data name="HomePageRecentActivityHeader.Text" xml:space="preserve">
-    <value>Zuletzt</value>
+    <value>Recent</value>
   </data>
   <data name="IntroDocumentationLink.Content" xml:space="preserve">
-    <value>Dokumentation</value>
+    <value>Documentation</value>
   </data>
   <data name="IntroHeader.Text" xml:space="preserve">
-    <value>FluentHub autorisieren</value>
+    <value>Authorize FluentHub</value>
   </data>
   <data name="Issues" xml:space="preserve">
-    <value>Probleme</value>
+    <value>Issues</value>
   </data>
   <data name="LoadErrorDisplayHeader.Text" xml:space="preserve">
-    <value>Ein Fehler ist aufgetreten 😿</value>
+    <value>Something went wrong 😿</value>
   </data>
   <data name="LoadErrorDisplayOpenLogFileLocationButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Öffnet den Log-Ordner, in dem die App-Fehlerdetails auf der lokalen Festplatte gespeichert werden.</value>
+    <value>Opens the log folder where app error details are stored on the local disk.</value>
   </data>
   <data name="LoadErrorDisplayOpenLogFileLocationButtonBody.Text" xml:space="preserve">
-    <value>Öffne Log-Ort</value>
+    <value>Open log location</value>
   </data>
   <data name="LoadErrorDisplayReportThisIssueButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Öffnet unsere GitHub Seite, um ein Problem zu erstellen. Hinweis: In Zukunft wird FluentHub automatisch den Fehlerinhalt, Details und Logs einfügen, und diese per GitHub an das FluentHub Team senden, wenn Sie auf diesen Button klicken.</value>
+    <value>Opens our GitHub page in order to create an issue. Note: In the future, FluentHub will automatically paste the error contents, details, logs, and send them to the FluentHub team via GitHub when you click this button.</value>
   </data>
   <data name="LoadErrorDisplayReportThisIssueButtonBody.Text" xml:space="preserve">
-    <value>Dieses Problem melden</value>
+    <value>Report this issue</value>
   </data>
   <data name="LoadErrorDisplayShowExceptionDetailsContentDialogButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Zeigt die Stack-Trace-Ergebnisse in einem Dialog an.</value>
+    <value>Displays the stack trace results in a dialog.</value>
   </data>
   <data name="LoadErrorDisplayShowExceptionDetailsContentDialogButtonBody.Text" xml:space="preserve">
-    <value>Zeige Stack-Trace</value>
+    <value>See stack trace</value>
   </data>
   <data name="LoginWithGitHub.Content" xml:space="preserve">
-    <value>Mit GitHub einloggen</value>
+    <value>Login with GitHub</value>
   </data>
   <data name="New" xml:space="preserve">
-    <value>Neu</value>
+    <value>New</value>
   </data>
   <data name="NewMutation.Text" xml:space="preserve">
-    <value>Neu</value>
+    <value>New</value>
   </data>
   <data name="NewMutationOrganizationButton.Text" xml:space="preserve">
-    <value>Neue Organisation</value>
+    <value>New organization</value>
   </data>
   <data name="NewMutationRepoButton.Text" xml:space="preserve">
-    <value>Neues Repository</value>
+    <value>New repository</value>
   </data>
   <data name="Notifications" xml:space="preserve">
-    <value>Benachrichtigungen</value>
+    <value>Notifications</value>
   </data>
   <data name="NotificationsPageFilterByReasonAssigned.Text" xml:space="preserve">
-    <value>Zugewiesen</value>
+    <value>📋 Assigned</value>
   </data>
   <data name="NotificationsPageFilterByReasonDone.Text" xml:space="preserve">
-    <value>Erledigt</value>
+    <value>Done</value>
   </data>
   <data name="NotificationsPageFilterByReasonFlyoutBody.Text" xml:space="preserve">
-    <value>Filtern nach:</value>
+    <value>Filter by:</value>
   </data>
   <data name="NotificationsPageFilterByReasonInbox.Text" xml:space="preserve">
-    <value>Posteingang</value>
+    <value>Inbox</value>
   </data>
   <data name="NotificationsPageFilterByReasonMentioned.Text" xml:space="preserve">
-    <value>✉️ Erwähnt</value>
+    <value>✉️ Mentioned</value>
   </data>
   <data name="NotificationsPageFilterByReasonMentionedTeam.Text" xml:space="preserve">
-    <value>📧 Team erwähnt</value>
+    <value>📧 Team Mentioned</value>
   </data>
   <data name="NotificationsPageFilterByReasonParticipating.Text" xml:space="preserve">
-    <value>🤝 Teilnehmend</value>
+    <value>🤝‍ Participating</value>
   </data>
   <data name="NotificationsPageFilterByReasonReview.Text" xml:space="preserve">
-    <value>👀 Überprüfung angefordert</value>
+    <value>👀 Review Requested</value>
   </data>
   <data name="NotificationsPageFilterByReasonSaved.Text" xml:space="preserve">
-    <value>Gespeichert</value>
+    <value>Saved</value>
   </data>
   <data name="NotificationsPageGroupByViewFlyoutBody.Text" xml:space="preserve">
-    <value>Gruppieren nach:</value>
+    <value>Group by:</value>
   </data>
   <data name="NotificationsPageGroupByViewNone.Text" xml:space="preserve">
-    <value>Keine</value>
+    <value>None</value>
   </data>
   <data name="NotificationsPageGroupByViewPrimaryDate.Text" xml:space="preserve">
-    <value>Datum</value>
+    <value>Date</value>
   </data>
   <data name="NotificationsPageGroupByViewRepository.Text" xml:space="preserve">
     <value>Repository</value>
   </data>
   <data name="NotificationsPageHeader.Text" xml:space="preserve">
-    <value>Benachrichtigungen</value>
+    <value>Notifications</value>
   </data>
   <data name="NotificationsPageNoRecentNotificationsBody.Text" xml:space="preserve">
-    <value>Keine kürzlichen Benachrichtigungen.</value>
+    <value>No recent notifications.</value>
   </data>
   <data name="NotificationsPageSearchBar.PlaceholderText" xml:space="preserve">
-    <value>Suche Benachrichtigungen</value>
+    <value>Search notifications</value>
   </data>
   <data name="NotificationsPageUnreadToggle.Content" xml:space="preserve">
-    <value>Ungelesen</value>
+    <value>Unread</value>
   </data>
   <data name="NoUserDiscussions" xml:space="preserve">
-    <value>Keine Diskussionen</value>
+    <value>No discussions</value>
   </data>
   <data name="NoUserFollowers" xml:space="preserve">
-    <value>Keine Follower</value>
+    <value>No followers</value>
   </data>
   <data name="NoUserFollowing" xml:space="preserve">
-    <value>Keine Folgenden</value>
+    <value>No following</value>
   </data>
   <data name="NoUserIssues" xml:space="preserve">
-    <value>Keine Probleme</value>
+    <value>No issues</value>
   </data>
   <data name="NoUserOrganizations" xml:space="preserve">
-    <value>Keine Organisationen</value>
+    <value>No organizations</value>
   </data>
   <data name="NoUserPopularRepositories" xml:space="preserve">
-    <value>Keine beliebten Repositorys</value>
+    <value>No popular repositories</value>
   </data>
   <data name="NoUserPullRequests" xml:space="preserve">
-    <value>Keine Pull Requests</value>
+    <value>No pull requests</value>
   </data>
   <data name="NoUserRepositories" xml:space="preserve">
-    <value>Keine Repositorys</value>
+    <value>No repositories</value>
   </data>
   <data name="NoUserStars" xml:space="preserve">
-    <value>Keine Stars</value>
+    <value>No stars</value>
   </data>
   <data name="Organizations" xml:space="preserve">
-    <value>Organisationen</value>
+    <value>Organizations</value>
   </data>
   <data name="Overview" xml:space="preserve">
-    <value>Übersicht</value>
+    <value>Overview</value>
   </data>
   <data name="Packages" xml:space="preserve">
-    <value>Pakete</value>
+    <value>Packages</value>
   </data>
   <data name="PinnedRepositories" xml:space="preserve">
-    <value>Angepinnte Repositorys</value>
+    <value>Pinned repositories</value>
   </data>
   <data name="PopularRepositories" xml:space="preserve">
-    <value>Beliebte Repositorys</value>
+    <value>Popular repositories</value>
   </data>
   <data name="Projects" xml:space="preserve">
-    <value>Projekte</value>
+    <value>Projects</value>
   </data>
   <data name="PullRequests" xml:space="preserve">
     <value>Pull Requests</value>
   </data>
   <data name="RefreshBody.Text" xml:space="preserve">
-    <value>Aktualisieren</value>
+    <value>Refresh</value>
   </data>
   <data name="Repositories" xml:space="preserve">
-    <value>Repositorys</value>
+    <value>Repositories</value>
   </data>
   <data name="RepositoriesListHeader.Text" xml:space="preserve">
-    <value>Repositorys</value>
+    <value>Repositories</value>
   </data>
   <data name="SearchBar.PlaceholderText" xml:space="preserve">
-    <value>Suche</value>
+    <value>Search</value>
   </data>
   <data name="SearchBarButton.TooltipService.Tooltip" xml:space="preserve">
-    <value>Suche</value>
+    <value>Search</value>
   </data>
   <data name="SearchDiscussionsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Diskussionen durchsuchen</value>
+    <value>Search discussions</value>
   </data>
   <data name="SearchFollowersTextBox.PlaceholderText" xml:space="preserve">
-    <value>Follower durchsuchen</value>
+    <value>Search followers</value>
   </data>
   <data name="SearchFollowingTextBox.PlaceholderText" xml:space="preserve">
-    <value>Folgende durchsuchen</value>
+    <value>Search following</value>
   </data>
   <data name="SearchIssuesTextBox.PlaceholderText" xml:space="preserve">
-    <value>Probleme durchsuchen</value>
+    <value>Search issues</value>
   </data>
   <data name="SearchOrganizationsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Organisationen durchsuchen</value>
+    <value>Search organizations</value>
   </data>
   <data name="SearchPullRequestsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Pull Requests durchsuchen</value>
+    <value>Search pull requests</value>
   </data>
   <data name="SearchRepositoriesTextBox.PlaceholderText" xml:space="preserve">
-    <value>Repositorys durchsuchen</value>
+    <value>Search repositories</value>
   </data>
   <data name="SearchStarsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Stars durchsuchen</value>
+    <value>Search stars</value>
   </data>
   <data name="SecondStepToAuthorize.Text" xml:space="preserve">
-    <value>Wenn du in der Verwaltung einer oder mehrerer Organisationen sind, gewähren Sie bitte FluentHub Zugriff darauf;</value>
+    <value>If you are in administration of one or more organizations, please give FluentHub access to them;</value>
   </data>
   <data name="Settings" xml:space="preserve">
-    <value>Einstellungen</value>
+    <value>Settings</value>
   </data>
   <data name="SettingsButton.Text" xml:space="preserve">
-    <value>Einstellungen</value>
+    <value>Settings</value>
   </data>
   <data name="SettingsFeedbackButton.Content" xml:space="preserve">
     <value>Feedback</value>
   </data>
   <data name="SettingsGetHelpButton.Content" xml:space="preserve">
-    <value>Hilfe erhalten</value>
+    <value>Get help</value>
   </data>
   <data name="SignOutButton.Text" xml:space="preserve">
-    <value>Abmelden</value>
+    <value>Sign out</value>
   </data>
   <data name="Stars" xml:space="preserve">
     <value>Stars</value>
   </data>
   <data name="SwitchAccountFlyoutSub.Text" xml:space="preserve">
-    <value>Konto wechseln</value>
+    <value>Switch account</value>
   </data>
   <data name="ThemeAuto" xml:space="preserve">
-    <value>Mit Systemeinstellung synchronisieren</value>
+    <value>Sync with system setting</value>
   </data>
   <data name="ThemeDark" xml:space="preserve">
-    <value>Dunkel</value>
+    <value>Dark</value>
   </data>
   <data name="ThemeLight" xml:space="preserve">
-    <value>Hell</value>
+    <value>Light</value>
   </data>
   <data name="ThirdStepToAuthorize.Text" xml:space="preserve">
-    <value>Klicke auf "FluentHub autorisieren";</value>
+    <value>Click "Authorize FluentHub";</value>
   </data>
   <data name="TryAgainWithCap" xml:space="preserve">
-    <value>Erneut versuchen</value>
+    <value>Try Again</value>
   </data>
   <data name="Unfollow" xml:space="preserve">
-    <value>Nicht mehr folgen</value>
+    <value>Unfollow</value>
   </data>
   <data name="UserDiscussionsButton.Text" xml:space="preserve">
-    <value>Deine Diskussionen</value>
+    <value>Your discussions</value>
   </data>
   <data name="UserIssuesButton.Text" xml:space="preserve">
-    <value>Deine Probleme</value>
+    <value>Your issues</value>
   </data>
   <data name="UserOrganizationsButton.Text" xml:space="preserve">
-    <value>Deine Organisationen</value>
+    <value>Your organizations</value>
   </data>
   <data name="UserProfileButton.Text" xml:space="preserve">
-    <value>Dein Profil</value>
+    <value>Your profile</value>
   </data>
   <data name="UserPullRequestsButton.Text" xml:space="preserve">
-    <value>Deine Pull Requests</value>
+    <value>Your pull requests</value>
   </data>
   <data name="UserRepositoriesButton.Text" xml:space="preserve">
-    <value>Deine Repositorys</value>
+    <value>Your repositories</value>
   </data>
   <data name="UserStarsButton.Text" xml:space="preserve">
-    <value>Deine Stars</value>
+    <value>Your stars</value>
   </data>
   <data name="YourDiscussions" xml:space="preserve">
-    <value>Deine Diskussionen</value>
+    <value>Your discussions</value>
   </data>
   <data name="YourFollowers" xml:space="preserve">
-    <value>Deine Follower</value>
+    <value>Your followers</value>
   </data>
   <data name="YourFollowing" xml:space="preserve">
-    <value>Personen, denen du folgst</value>
+    <value>Your following</value>
   </data>
   <data name="YourIssues" xml:space="preserve">
-    <value>Deine Probleme</value>
+    <value>Your issues</value>
   </data>
   <data name="YourOrganizations" xml:space="preserve">
-    <value>Deine Organisationen</value>
+    <value>Your organizations</value>
   </data>
   <data name="YourPullRequests" xml:space="preserve">
-    <value>Deine Pull Requests</value>
+    <value>Your pull requests</value>
   </data>
   <data name="YourRepositories" xml:space="preserve">
-    <value>Deine Repositorys</value>
+    <value>Your repositories</value>
   </data>
   <data name="YourStars" xml:space="preserve">
-    <value>Deine Stars</value>
+    <value>Your stars</value>
   </data>
 </root>
