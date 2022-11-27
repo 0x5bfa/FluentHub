@@ -124,7 +124,6 @@ namespace FluentHub.App
                                         rootFrame.Navigate(typeof(Views.MainPage));
                                         pageType = typeof(Views.MainPage);
                                     }
-
                                 }
                                 break;
                         }
