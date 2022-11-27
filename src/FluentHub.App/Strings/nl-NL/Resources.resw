@@ -166,10 +166,10 @@
     <value>No recent activity.</value>
   </data>
   <data name="FifthStepToAuthorize.Text" xml:space="preserve">
-    <value>Graag vandaan FluentHub openen.</value>
+    <value>Proceed to the FluentHub application.</value>
   </data>
   <data name="FirstStepToAuthorize.Text" xml:space="preserve">
-    <value>Klik op "Login met GitHub";</value>
+    <value>Click "Login with GitHub";</value>
   </data>
   <data name="Follow" xml:space="preserve">
     <value>Follow</value>
@@ -187,7 +187,7 @@
     <value>following</value>
   </data>
   <data name="ForthStepToAuthorize.Text" xml:space="preserve">
-    <value>Klik op "FluentHub DEV openen";</value>
+    <value>Click "Open FluentHub DEV";</value>
   </data>
   <data name="Forward" xml:space="preserve">
     <value>Forward</value>
@@ -217,10 +217,10 @@
     <value>Recent</value>
   </data>
   <data name="IntroDocumentationLink.Content" xml:space="preserve">
-    <value>Documentatie</value>
+    <value>Documentation</value>
   </data>
   <data name="IntroHeader.Text" xml:space="preserve">
-    <value>FluentHub Autoriseren</value>
+    <value>Authorize FluentHub</value>
   </data>
   <data name="Issues" xml:space="preserve">
     <value>Issues</value>
@@ -247,7 +247,7 @@
     <value>See stack trace</value>
   </data>
   <data name="LoginWithGitHub.Content" xml:space="preserve">
-    <value>Inloggen met GitHub</value>
+    <value>Login with GitHub</value>
   </data>
   <data name="New" xml:space="preserve">
     <value>New</value>
@@ -403,7 +403,7 @@
     <value>Search stars</value>
   </data>
   <data name="SecondStepToAuthorize.Text" xml:space="preserve">
-    <value>Als u een of meer organisaties beheert, geef ze dan toegang tot FluentHub;</value>
+    <value>If you are in administration of one or more organizations, please give FluentHub access to them;</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
@@ -418,7 +418,7 @@
     <value>Get help</value>
   </data>
   <data name="SignOutButton.Text" xml:space="preserve">
-    <value>Sign Out</value>
+    <value>Sign out</value>
   </data>
   <data name="Stars" xml:space="preserve">
     <value>Stars</value>
@@ -436,7 +436,7 @@
     <value>Light</value>
   </data>
   <data name="ThirdStepToAuthorize.Text" xml:space="preserve">
-    <value>Klik op "FluentHub Autoriseren";</value>
+    <value>Click "Authorize FluentHub";</value>
   </data>
   <data name="TryAgainWithCap" xml:space="preserve">
     <value>Try Again</value>
