@@ -118,375 +118,375 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccountSettingsButton.Text" xml:space="preserve">
-    <value>账号设置</value>
+    <value>Account Settings</value>
   </data>
   <data name="Activities" xml:space="preserve">
-    <value>动态</value>
+    <value>Activities</value>
   </data>
   <data name="AppearancePageColorBlock.Title" xml:space="preserve">
-    <value>选择您的颜色</value>
+    <value>Choose your color</value>
   </data>
   <data name="AppearancePageGeneralHeader.Text" xml:space="preserve">
-    <value>常规</value>
+    <value>General</value>
   </data>
   <data name="AppearancePageHeader.Text" xml:space="preserve">
-    <value>外观</value>
+    <value>Appearance</value>
   </data>
   <data name="AppearancePageLocaleBlock.Title" xml:space="preserve">
-    <value>语言</value>
+    <value>Language</value>
   </data>
   <data name="AppearancePageLocaleHeader.Text" xml:space="preserve">
-    <value>语言</value>
+    <value>Language</value>
   </data>
   <data name="AppearancePageThemeBlock.Title" xml:space="preserve">
-    <value>自定义主题</value>
+    <value>Custom themes</value>
   </data>
   <data name="Back" xml:space="preserve">
-    <value>返回</value>
+    <value>Back</value>
   </data>
   <data name="CustomizeYourPins" xml:space="preserve">
-    <value>自定义您的磁贴</value>
+    <value>Customize your pins</value>
   </data>
   <data name="DeveloperProgramMember" xml:space="preserve">
-    <value>开发人员计划成员</value>
+    <value>Developer Program Member</value>
   </data>
   <data name="Discussions" xml:space="preserve">
-    <value>讨论</value>
+    <value>Discussions</value>
   </data>
   <data name="EditUserProfile" xml:space="preserve">
-    <value>编辑用户资料</value>
+    <value>Edit User Profile</value>
   </data>
   <data name="FeatureNotAvailable.Text" xml:space="preserve">
-    <value>暂不可用。</value>
+    <value>Not available yet.</value>
   </data>
   <data name="FeedsPageHeader.Text" xml:space="preserve">
-    <value>动态</value>
+    <value>Activity</value>
   </data>
   <data name="FeedsPageNoRecentActivityBody.Text" xml:space="preserve">
-    <value>没有最近的动态。</value>
+    <value>No recent activity.</value>
   </data>
   <data name="FifthStepToAuthorize.Text" xml:space="preserve">
-    <value>在 FluentHub 应用继续。</value>
+    <value>Proceed to the FluentHub application.</value>
   </data>
   <data name="FirstStepToAuthorize.Text" xml:space="preserve">
-    <value>点击 “登录到 GitHub”</value>
+    <value>Click "Login with GitHub";</value>
   </data>
   <data name="Follow" xml:space="preserve">
-    <value>关注</value>
+    <value>Follow</value>
   </data>
   <data name="Followers" xml:space="preserve">
-    <value>粉丝</value>
+    <value>Followers</value>
   </data>
   <data name="FollowersWithoutCaps" xml:space="preserve">
-    <value>粉丝</value>
+    <value>followers</value>
   </data>
   <data name="Following" xml:space="preserve">
-    <value>已关注</value>
+    <value>Following</value>
   </data>
   <data name="FollowingWithoutCaps" xml:space="preserve">
-    <value>已关注</value>
+    <value>following</value>
   </data>
   <data name="ForthStepToAuthorize.Text" xml:space="preserve">
-    <value>点击 “打开 FluentHub DEV”；</value>
+    <value>Click "Open FluentHub DEV";</value>
   </data>
   <data name="Forward" xml:space="preserve">
-    <value>前进</value>
+    <value>Forward</value>
   </data>
   <data name="GoBackButton.TooltipService.Tooltip" xml:space="preserve">
-    <value>后退</value>
+    <value>Back</value>
   </data>
   <data name="GoForwardButton.TooltipService.Tooltip" xml:space="preserve">
-    <value>前进</value>
+    <value>Forward</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>主页</value>
+    <value>Home</value>
   </data>
   <data name="HomePageFavoritesHeader.Text" xml:space="preserve">
-    <value>收藏</value>
+    <value>Favorites</value>
   </data>
   <data name="HomePageFavoritesNotAvailableBody.Text" xml:space="preserve">
-    <value>暂无收藏。</value>
+    <value>No favorite items available.</value>
   </data>
   <data name="HomePageGeneralHeader.Text" xml:space="preserve">
-    <value>工作</value>
+    <value>Work</value>
   </data>
   <data name="HomePageHeader.Text" xml:space="preserve">
-    <value>主页</value>
+    <value>Home</value>
   </data>
   <data name="HomePageRecentActivityHeader.Text" xml:space="preserve">
-    <value>最近</value>
+    <value>Recent</value>
   </data>
   <data name="IntroDocumentationLink.Content" xml:space="preserve">
-    <value>文档</value>
+    <value>Documentation</value>
   </data>
   <data name="IntroHeader.Text" xml:space="preserve">
-    <value>授权 FluentHub</value>
+    <value>Authorize FluentHub</value>
   </data>
   <data name="Issues" xml:space="preserve">
-    <value>议题</value>
+    <value>Issues</value>
   </data>
   <data name="LoadErrorDisplayHeader.Text" xml:space="preserve">
-    <value>出现了一些错误 😿</value>
+    <value>Something went wrong 😿</value>
   </data>
   <data name="LoadErrorDisplayOpenLogFileLocationButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>打开储存了应用错误的日志文件夹。</value>
+    <value>Opens the log folder where app error details are stored on the local disk.</value>
   </data>
   <data name="LoadErrorDisplayOpenLogFileLocationButtonBody.Text" xml:space="preserve">
-    <value>打开日志文件夹</value>
+    <value>Open log location</value>
   </data>
   <data name="LoadErrorDisplayReportThisIssueButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>打开我们的 GitHub 页面以创建一个议题。 注意：在未来 FluentHub 将会自动粘贴错误内容、详细信息、 日志，并当您点击此按钮时通过 GitHub 发送到 FluentHub 团队。</value>
+    <value>Opens our GitHub page in order to create an issue. Note: In the future, FluentHub will automatically paste the error contents, details, logs, and send them to the FluentHub team via GitHub when you click this button.</value>
   </data>
   <data name="LoadErrorDisplayReportThisIssueButtonBody.Text" xml:space="preserve">
-    <value>报告此问题</value>
+    <value>Report this issue</value>
   </data>
   <data name="LoadErrorDisplayShowExceptionDetailsContentDialogButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>在对话框中显示堆栈跟踪结果。</value>
+    <value>Displays the stack trace results in a dialog.</value>
   </data>
   <data name="LoadErrorDisplayShowExceptionDetailsContentDialogButtonBody.Text" xml:space="preserve">
-    <value>查看堆栈跟踪</value>
+    <value>See stack trace</value>
   </data>
   <data name="LoginWithGitHub.Content" xml:space="preserve">
-    <value>登录 GitHub</value>
+    <value>Login with GitHub</value>
   </data>
   <data name="New" xml:space="preserve">
-    <value>新建</value>
+    <value>New</value>
   </data>
   <data name="NewMutation.Text" xml:space="preserve">
-    <value>新建</value>
+    <value>New</value>
   </data>
   <data name="NewMutationOrganizationButton.Text" xml:space="preserve">
-    <value>新建组织</value>
+    <value>New organization</value>
   </data>
   <data name="NewMutationRepoButton.Text" xml:space="preserve">
-    <value>新建仓库</value>
+    <value>New repository</value>
   </data>
   <data name="Notifications" xml:space="preserve">
-    <value>通知</value>
+    <value>Notifications</value>
   </data>
   <data name="NotificationsPageFilterByReasonAssigned.Text" xml:space="preserve">
-    <value>📋 分配</value>
+    <value>📋 Assigned</value>
   </data>
   <data name="NotificationsPageFilterByReasonDone.Text" xml:space="preserve">
-    <value>完成</value>
+    <value>Done</value>
   </data>
   <data name="NotificationsPageFilterByReasonFlyoutBody.Text" xml:space="preserve">
-    <value>筛选条件：</value>
+    <value>Filter by:</value>
   </data>
   <data name="NotificationsPageFilterByReasonInbox.Text" xml:space="preserve">
-    <value>收件箱</value>
+    <value>Inbox</value>
   </data>
   <data name="NotificationsPageFilterByReasonMentioned.Text" xml:space="preserve">
-    <value>✉️ 提及</value>
+    <value>✉️ Mentioned</value>
   </data>
   <data name="NotificationsPageFilterByReasonMentionedTeam.Text" xml:space="preserve">
-    <value>📧 提及团队</value>
+    <value>📧 Team Mentioned</value>
   </data>
   <data name="NotificationsPageFilterByReasonParticipating.Text" xml:space="preserve">
-    <value>🤝‍ 参与</value>
+    <value>🤝‍ Participating</value>
   </data>
   <data name="NotificationsPageFilterByReasonReview.Text" xml:space="preserve">
-    <value>👀 请求审核</value>
+    <value>👀 Review Requested</value>
   </data>
   <data name="NotificationsPageFilterByReasonSaved.Text" xml:space="preserve">
-    <value>已保存</value>
+    <value>Saved</value>
   </data>
   <data name="NotificationsPageGroupByViewFlyoutBody.Text" xml:space="preserve">
-    <value>分组依据：</value>
+    <value>Group by:</value>
   </data>
   <data name="NotificationsPageGroupByViewNone.Text" xml:space="preserve">
-    <value>无</value>
+    <value>None</value>
   </data>
   <data name="NotificationsPageGroupByViewPrimaryDate.Text" xml:space="preserve">
-    <value>日期</value>
+    <value>Date</value>
   </data>
   <data name="NotificationsPageGroupByViewRepository.Text" xml:space="preserve">
-    <value>仓库</value>
+    <value>Repository</value>
   </data>
   <data name="NotificationsPageHeader.Text" xml:space="preserve">
-    <value>通知</value>
+    <value>Notifications</value>
   </data>
   <data name="NotificationsPageNoRecentNotificationsBody.Text" xml:space="preserve">
-    <value>没有最近的通知。</value>
+    <value>No recent notifications.</value>
   </data>
   <data name="NotificationsPageSearchBar.PlaceholderText" xml:space="preserve">
-    <value>搜索通知</value>
+    <value>Search notifications</value>
   </data>
   <data name="NotificationsPageUnreadToggle.Content" xml:space="preserve">
-    <value>未读</value>
+    <value>Unread</value>
   </data>
   <data name="NoUserDiscussions" xml:space="preserve">
-    <value>没有讨论</value>
+    <value>No discussions</value>
   </data>
   <data name="NoUserFollowers" xml:space="preserve">
-    <value>没有粉丝</value>
+    <value>No followers</value>
   </data>
   <data name="NoUserFollowing" xml:space="preserve">
-    <value>没有关注</value>
+    <value>No following</value>
   </data>
   <data name="NoUserIssues" xml:space="preserve">
-    <value>没有议题</value>
+    <value>No issues</value>
   </data>
   <data name="NoUserOrganizations" xml:space="preserve">
-    <value>没有组织</value>
+    <value>No organizations</value>
   </data>
   <data name="NoUserPopularRepositories" xml:space="preserve">
-    <value>没有热门仓库</value>
+    <value>No popular repositories</value>
   </data>
   <data name="NoUserPullRequests" xml:space="preserve">
-    <value>没有拉取请求</value>
+    <value>No pull requests</value>
   </data>
   <data name="NoUserRepositories" xml:space="preserve">
-    <value>没有仓库</value>
+    <value>No repositories</value>
   </data>
   <data name="NoUserStars" xml:space="preserve">
-    <value>没有收藏</value>
+    <value>No stars</value>
   </data>
   <data name="Organizations" xml:space="preserve">
-    <value>组织</value>
+    <value>Organizations</value>
   </data>
   <data name="Overview" xml:space="preserve">
-    <value>概览</value>
+    <value>Overview</value>
   </data>
   <data name="Packages" xml:space="preserve">
-    <value>包</value>
+    <value>Packages</value>
   </data>
   <data name="PinnedRepositories" xml:space="preserve">
-    <value>仓库磁贴</value>
+    <value>Pinned repositories</value>
   </data>
   <data name="PopularRepositories" xml:space="preserve">
-    <value>热门仓库</value>
+    <value>Popular repositories</value>
   </data>
   <data name="Projects" xml:space="preserve">
-    <value>项目</value>
+    <value>Projects</value>
   </data>
   <data name="PullRequests" xml:space="preserve">
-    <value>拉取请求</value>
+    <value>Pull Requests</value>
   </data>
   <data name="RefreshBody.Text" xml:space="preserve">
-    <value>刷新</value>
+    <value>Refresh</value>
   </data>
   <data name="Repositories" xml:space="preserve">
-    <value>仓库</value>
+    <value>Repositories</value>
   </data>
   <data name="RepositoriesListHeader.Text" xml:space="preserve">
-    <value>仓库</value>
+    <value>Repositories</value>
   </data>
   <data name="SearchBar.PlaceholderText" xml:space="preserve">
-    <value>搜索</value>
+    <value>Search</value>
   </data>
   <data name="SearchBarButton.TooltipService.Tooltip" xml:space="preserve">
-    <value>搜索</value>
+    <value>Search</value>
   </data>
   <data name="SearchDiscussionsTextBox.PlaceholderText" xml:space="preserve">
-    <value>搜索讨论</value>
+    <value>Search discussions</value>
   </data>
   <data name="SearchFollowersTextBox.PlaceholderText" xml:space="preserve">
-    <value>搜索粉丝</value>
+    <value>Search followers</value>
   </data>
   <data name="SearchFollowingTextBox.PlaceholderText" xml:space="preserve">
-    <value>搜索关注</value>
+    <value>Search following</value>
   </data>
   <data name="SearchIssuesTextBox.PlaceholderText" xml:space="preserve">
-    <value>搜索议题</value>
+    <value>Search issues</value>
   </data>
   <data name="SearchOrganizationsTextBox.PlaceholderText" xml:space="preserve">
-    <value>搜索组织</value>
+    <value>Search organizations</value>
   </data>
   <data name="SearchPullRequestsTextBox.PlaceholderText" xml:space="preserve">
-    <value>搜索拉取请求</value>
+    <value>Search pull requests</value>
   </data>
   <data name="SearchRepositoriesTextBox.PlaceholderText" xml:space="preserve">
-    <value>搜索仓库</value>
+    <value>Search repositories</value>
   </data>
   <data name="SearchStarsTextBox.PlaceholderText" xml:space="preserve">
-    <value>搜索收藏</value>
+    <value>Search stars</value>
   </data>
   <data name="SecondStepToAuthorize.Text" xml:space="preserve">
-    <value>如果您正在管理一个或多个组织，请授予FluentHub 访问它们的权限；</value>
+    <value>If you are in administration of one or more organizations, please give FluentHub access to them;</value>
   </data>
   <data name="Settings" xml:space="preserve">
-    <value>设置</value>
+    <value>Settings</value>
   </data>
   <data name="SettingsButton.Text" xml:space="preserve">
-    <value>设置</value>
+    <value>Settings</value>
   </data>
   <data name="SettingsFeedbackButton.Content" xml:space="preserve">
-    <value>反馈</value>
+    <value>Feedback</value>
   </data>
   <data name="SettingsGetHelpButton.Content" xml:space="preserve">
-    <value>获取帮助</value>
+    <value>Get help</value>
   </data>
   <data name="SignOutButton.Text" xml:space="preserve">
-    <value>注销</value>
+    <value>Sign out</value>
   </data>
   <data name="Stars" xml:space="preserve">
-    <value>收藏</value>
+    <value>Stars</value>
   </data>
   <data name="SwitchAccountFlyoutSub.Text" xml:space="preserve">
-    <value>切换账号</value>
+    <value>Switch account</value>
   </data>
   <data name="ThemeAuto" xml:space="preserve">
-    <value>与系统设置同步</value>
+    <value>Sync with system setting</value>
   </data>
   <data name="ThemeDark" xml:space="preserve">
-    <value>深色</value>
+    <value>Dark</value>
   </data>
   <data name="ThemeLight" xml:space="preserve">
-    <value>浅色</value>
+    <value>Light</value>
   </data>
   <data name="ThirdStepToAuthorize.Text" xml:space="preserve">
-    <value>点击 “授权 FluentHub”；</value>
+    <value>Click "Authorize FluentHub";</value>
   </data>
   <data name="TryAgainWithCap" xml:space="preserve">
-    <value>再试一次</value>
+    <value>Try Again</value>
   </data>
   <data name="Unfollow" xml:space="preserve">
-    <value>取消关注</value>
+    <value>Unfollow</value>
   </data>
   <data name="UserDiscussionsButton.Text" xml:space="preserve">
-    <value>您的讨论</value>
+    <value>Your discussions</value>
   </data>
   <data name="UserIssuesButton.Text" xml:space="preserve">
-    <value>您的议题</value>
+    <value>Your issues</value>
   </data>
   <data name="UserOrganizationsButton.Text" xml:space="preserve">
-    <value>您的组织</value>
+    <value>Your organizations</value>
   </data>
   <data name="UserProfileButton.Text" xml:space="preserve">
-    <value>您的资料</value>
+    <value>Your profile</value>
   </data>
   <data name="UserPullRequestsButton.Text" xml:space="preserve">
-    <value>您的拉取请求</value>
+    <value>Your pull requests</value>
   </data>
   <data name="UserRepositoriesButton.Text" xml:space="preserve">
-    <value>您的仓库</value>
+    <value>Your repositories</value>
   </data>
   <data name="UserStarsButton.Text" xml:space="preserve">
-    <value>您的收藏</value>
+    <value>Your stars</value>
   </data>
   <data name="YourDiscussions" xml:space="preserve">
-    <value>您的讨论</value>
+    <value>Your discussions</value>
   </data>
   <data name="YourFollowers" xml:space="preserve">
-    <value>您的粉丝</value>
+    <value>Your followers</value>
   </data>
   <data name="YourFollowing" xml:space="preserve">
-    <value>您的关注</value>
+    <value>Your following</value>
   </data>
   <data name="YourIssues" xml:space="preserve">
-    <value>您的议题</value>
+    <value>Your issues</value>
   </data>
   <data name="YourOrganizations" xml:space="preserve">
-    <value>您的组织</value>
+    <value>Your organizations</value>
   </data>
   <data name="YourPullRequests" xml:space="preserve">
-    <value>您的拉取请求</value>
+    <value>Your pull requests</value>
   </data>
   <data name="YourRepositories" xml:space="preserve">
-    <value>您的仓库</value>
+    <value>Your repositories</value>
   </data>
   <data name="YourStars" xml:space="preserve">
-    <value>您的收藏</value>
+    <value>Your stars</value>
   </data>
 </root>
