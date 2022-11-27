@@ -12,247 +12,233 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="48" />
+            <RowDefinition Height="40" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Grid
-            x:Name="AppTitleBar"
-            Background="Transparent"
-            Canvas.ZIndex="1">
+        <Grid x:Name="AppTitleBar" Background="Transparent">
             <uc:TitleBar Margin="16,4,0,0" />
         </Grid>
 
-        <TwoPaneView
-            x:Name="twoPaneView"
-            Grid.RowSpan="2"
-            MinTallModeHeight="560"
-            MinWideModeWidth="820"
-            Pane1Length="4*"
-            Pane2Length="*"
-            TallModeConfiguration="BottomTop"
-            WideModeConfiguration="RightLeft">
+        <Grid Grid.Row="1">
+            <ScrollViewer x:Name="pane1ScrollViewer" VerticalScrollBarVisibility="Auto">
+                <Grid Margin="32">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="2*" MaxWidth="448" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
-            <TwoPaneView.Pane1>
-                <Grid>
-                    <ScrollViewer x:Name="pane1ScrollViewer" VerticalScrollBarVisibility="Auto">
-                        <StackPanel
-                            Width="300"
-                            Margin="24,8"
-                            VerticalAlignment="Center"
-                            x:DefaultBindMode="TwoWay"
-                            Spacing="4">
+                    <StackPanel
+                        Grid.Column="1"
+                        Margin="24,8"
+                        VerticalAlignment="Center"
+                        x:DefaultBindMode="TwoWay"
+                        Spacing="4">
 
-                            <ImageIcon
-                                Height="72"
-                                VerticalAlignment="Center"
-                                Source="ms-appx:///Assets/AppTiles/Release/StoreLogo.scale-400.png" />
+                        <TextBlock
+                            x:Name="IntroHeader"
+                            Margin="0,0,0,12"
+                            HorizontalAlignment="Center"
+                            Style="{StaticResource TitleTextBlockStyle}"
+                            Text="{helpers:ResourceString Name=IntroHeader/Text}" />
 
+                        <TextBlock
+                            x:Name="IntroHeaderDescription"
+                            Margin="0,0,0,18"
+                            HorizontalAlignment="Center"
+                            Foreground="{ThemeResource TextFillColorSecondary}"
+                            Style="{StaticResource BodyTextBlockStyle}"
+                            Text="FluentHub is a wonderful yet stylish GitHub client for Windows.&#x0A;To use this app, just authorize the app in GitHub in your browser.">
+                        </TextBlock>
+
+                        <Grid x:Load="False" Visibility="Collapsed"
+                            x:Name="ErrorOrExceptionNotifierGrid"
+                            Padding="12"
+                            Background="{ThemeResource InfoBarErrorSeverityBackgroundBrush}"
+                            BorderBrush="{ThemeResource SystemControlTransientBorderBrush}"
+                            CornerRadius="4">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Style="{StaticResource BodyStrongTextBlockStyle}" Text="Error" />
                             <TextBlock
-                                x:Name="IntroHeader"
-                                Margin="0,12"
-                                HorizontalAlignment="Center"
-                                Style="{StaticResource SubtitleTextBlockStyle}"
-                                Text="{helpers:ResourceString Name=IntroHeader/Text}" />
-
-                            <!--<InfoBar
-                                x:Name="infoBar"
-                                Title="Login error"
-                                IsClosable="False"
-                                IsOpen="True"
-                                Message="Message"
-                                Severity="Error" />-->
-
-                            <Grid ColumnSpacing="8" RowSpacing="12">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
+                                Grid.Row="1"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="The system could not found the file specified." />
+                            <Grid
+                                Grid.Row="2"
+                                Margin="0,12,0,0"
+                                ColumnSpacing="8">
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="*" />
                                     <ColumnDefinition Width="*" />
                                 </Grid.ColumnDefinitions>
-
-                                <Border
-                                    Width="20"
-                                    Height="20"
-                                    MinWidth="20"
-                                    Background="{ThemeResource SystemAccentColor}"
-                                    CornerRadius="10">
-                                    <TextBlock
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Style="{StaticResource CaptionTextBlockStyle}"
-                                        Text="1"
-                                        TextAlignment="Center" />
-                                </Border>
-
-                                <Border
-                                    Grid.Row="1"
-                                    Width="20"
-                                    Height="20"
-                                    MinWidth="20"
-                                    Background="{ThemeResource SystemAccentColor}"
-                                    CornerRadius="10">
-                                    <TextBlock
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Style="{StaticResource CaptionTextBlockStyle}"
-                                        Text="2"
-                                        TextAlignment="Center" />
-                                </Border>
-
-                                <Border
-                                    Grid.Row="2"
-                                    Width="20"
-                                    Height="20"
-                                    MinWidth="20"
-                                    Background="{ThemeResource SystemAccentColor}"
-                                    CornerRadius="10">
-                                    <TextBlock
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Style="{StaticResource CaptionTextBlockStyle}"
-                                        Text="3"
-                                        TextAlignment="Center" />
-                                </Border>
-
-                                <Border
-                                    Grid.Row="3"
-                                    Width="20"
-                                    Height="20"
-                                    MinWidth="20"
-                                    Background="{ThemeResource SystemAccentColor}"
-                                    CornerRadius="10">
-                                    <TextBlock
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Style="{StaticResource CaptionTextBlockStyle}"
-                                        Text="4"
-                                        TextAlignment="Center" />
-                                </Border>
-
-                                <Border
-                                    Grid.Row="4"
-                                    Width="20"
-                                    Height="20"
-                                    MinWidth="20"
-                                    Background="{ThemeResource SystemAccentColor}"
-                                    CornerRadius="10">
-                                    <TextBlock
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Style="{StaticResource CaptionTextBlockStyle}"
-                                        Text="5"
-                                        TextAlignment="Center" />
-                                </Border>
-
-                                <TextBlock
+                                <Button HorizontalAlignment="Stretch" Content="Report" />
+                                <Button
                                     Grid.Column="1"
-                                    VerticalAlignment="Center"
-                                    Foreground="{ThemeResource TextFillColorSecondary}"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="{helpers:ResourceString Name=FirstStepToAuthorize/Text}" />
-
-                                <TextBlock
-                                    Grid.Row="1"
-                                    Grid.Column="1"
-                                    VerticalAlignment="Center"
-                                    Foreground="{ThemeResource TextFillColorSecondary}"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="{helpers:ResourceString Name=SecondStepToAuthorize/Text}" />
-
-                                <TextBlock
-                                    Grid.Row="2"
-                                    Grid.Column="1"
-                                    VerticalAlignment="Center"
-                                    Foreground="{ThemeResource TextFillColorSecondary}"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="{helpers:ResourceString Name=ThirdStepToAuthorize/Text}" />
-
-                                <TextBlock
-                                    Grid.Row="3"
-                                    Grid.Column="1"
-                                    VerticalAlignment="Center"
-                                    Foreground="{ThemeResource TextFillColorSecondary}"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="{helpers:ResourceString Name=ForthStepToAuthorize/Text}" />
-
-                                <TextBlock
-                                    Grid.Row="4"
-                                    Grid.Column="1"
-                                    VerticalAlignment="Center"
-                                    Foreground="{ThemeResource TextFillColorSecondary}"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="{helpers:ResourceString Name=FifthStepToAuthorize/Text}" />
-
+                                    HorizontalAlignment="Stretch"
+                                    Content="See log details" />
                             </Grid>
+                        </Grid>
 
+                        <Grid
+                            Margin="0,18"
+                            ColumnSpacing="12"
+                            RowSpacing="12">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="1."
+                                TextAlignment="Center" />
+
+                            <TextBlock
+                                Grid.Row="1"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="2."
+                                TextAlignment="Center" />
+
+                            <TextBlock
+                                Grid.Row="2"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="3."
+                                TextAlignment="Center" />
+
+                            <TextBlock
+                                Grid.Row="3"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="4."
+                                TextAlignment="Center" />
+
+                            <TextBlock
+                                Grid.Row="4"
+                                HorizontalAlignment="Center"
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource AccentTextFillColorPrimaryBrush}"
+                                Style="{StaticResource BodyStrongTextBlockStyle}"
+                                Text="5."
+                                TextAlignment="Center" />
+
+                            <TextBlock
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{helpers:ResourceString Name=FirstStepToAuthorize/Text}" />
+
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{helpers:ResourceString Name=SecondStepToAuthorize/Text}" />
+
+                            <TextBlock
+                                Grid.Row="2"
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{helpers:ResourceString Name=ThirdStepToAuthorize/Text}" />
+
+                            <TextBlock
+                                Grid.Row="3"
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{helpers:ResourceString Name=ForthStepToAuthorize/Text}" />
+
+                            <TextBlock
+                                Grid.Row="4"
+                                Grid.Column="1"
+                                VerticalAlignment="Center"
+                                Foreground="{ThemeResource TextFillColorSecondary}"
+                                Style="{StaticResource BodyTextBlockStyle}"
+                                Text="{helpers:ResourceString Name=FifthStepToAuthorize/Text}" />
+
+                            <TextBlock
+                                Grid.Row="5"
+                                Grid.Column="1"
+                                HorizontalAlignment="Right">
+                                <Hyperlink NavigateUri="https://github.com/FluentHub/FluentHub/blob/HEAD/docs/authorize-app.md" UnderlineStyle="None">
+                                    <Run Text="For more detailed steps, visit our docs." />
+                                </Hyperlink>
+                            </TextBlock>
+
+                        </Grid>
+
+                        <Grid Margin="0,0,0,0" HorizontalAlignment="Stretch">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
                             <Button
-                                Margin="0,32,0,0"
+                                Grid.ColumnSpan="2"
                                 HorizontalAlignment="Stretch"
                                 Command="{x:Bind ViewModel.AuthorizeWithBrowserCommand}"
-                                Content="{helpers:ResourceString Name=LoginWithGitHub/Content}"
-                                Style="{ThemeResource AccentButtonStyle}">
+                                Content="{helpers:ResourceString Name=LoginWithGitHub/Content}">
                                 <Button.KeyboardAccelerators>
                                     <KeyboardAccelerator Key="Enter" />
                                 </Button.KeyboardAccelerators>
                             </Button>
+                            <Button
+                                x:Name="IfAuthorizedThenGoToMainPageButton"
+                                Grid.Column="1"
+                                Margin="8,0,0,0"
+                                HorizontalAlignment="Stretch"
+                                x:Load="False"
+                                Content="Go to Main page"
+                                Visibility="Collapsed" />
+                        </Grid>
 
-                            <HyperlinkButton
-                                Margin="0,8,0,0"
-                                HorizontalAlignment="Right"
-                                Content="{helpers:ResourceString Name=IntroDocumentationLink/Content}"
-                                NavigateUri="https://hub.codrex.dev/docs" />
+                        <HyperlinkButton
+                            x:Name="FluentHubGitHubLinkHyperlinkButton"
+                            Margin="0,8,0,0"
+                            HorizontalAlignment="Right"
+                            NavigateUri="https://github.com/FluentHub/FluentHub"
+                            ToolTipService.ToolTip="https://github.com/FluentHub/FluentHub">
+                            <StackPanel Orientation="Horizontal" Spacing="6">
+                                <FontIcon
+                                    FontFamily="{StaticResource Octicons}"
+                                    FontSize="16"
+                                    Glyph="&#xEA0B;" />
+                                <TextBlock Text="FluentHub" />
+                            </StackPanel>
+                        </HyperlinkButton>
 
-                        </StackPanel>
-
-                    </ScrollViewer>
-
+                    </StackPanel>
                 </Grid>
-            </TwoPaneView.Pane1>
 
-            <TwoPaneView.Pane2>
-                <Grid>
+            </ScrollViewer>
 
-                    <Grid.Background>
-                        <ImageBrush
-                            AlignmentX="Center"
-                            AlignmentY="Center"
-                            Stretch="UniformToFill">
-                            <ImageBrush.ImageSource>
-                                <BitmapImage UriSource="ms-appx:///Assets/OOBE/Hero.jpg" />
-                            </ImageBrush.ImageSource>
-                        </ImageBrush>
-                    </Grid.Background>
-
-                    <Rectangle
-                        x:Name="rectImageLayer"
-                        Fill="{ThemeResource SystemAltHighColor}"
-                        Opacity="0.3" />
-
-                </Grid>
-            </TwoPaneView.Pane2>
-        </TwoPaneView>
-
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <VisualState x:Name="small" />
-                <VisualState x:Name="wide">
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="821" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <Setter Target="twoPaneView.Pane1Length" Value="360" />
-                        <Setter Target="rectImageLayer.Opacity" Value="0.2" />
-                        <Setter Target="pane1ScrollViewer.Margin" Value="0,32,0,0" />
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
+        </Grid>
     </Grid>
 </Page>
