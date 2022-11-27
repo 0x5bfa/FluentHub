@@ -16,7 +16,7 @@
     <PackageReference Include="Humanizer" Version="2.8.25" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.2" />
-    <PackageReference Include="Octokit" Version="4.0.1" />
+    <PackageReference Include="Octokit" Version="4.0.2" />
     <PackageReference Include="Octokit.GraphQL" Version="0.2.0-beta" />
   </ItemGroup>
 
