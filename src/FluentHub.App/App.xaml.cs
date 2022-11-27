@@ -157,36 +157,36 @@ namespace FluentHub.App
 
         protected override async void OnLaunched(LaunchActivatedEventArgs e)
         {
-            var mainInstance = Microsoft.Windows.AppLifecycle.AppInstance.FindOrRegisterForKey("main");
             var activatedEventArgs = Microsoft.Windows.AppLifecycle.AppInstance.GetCurrent().GetActivatedEventArgs();
-
-            //if (!mainInstance.IsCurrent)
-            //{
-            //    // Redirect the activation (and args) to the "main" instance, and exit.
-            //    await mainInstance.RedirectActivationToAsync(activatedEventArgs);
-            //    System.Diagnostics.Process.GetCurrentProcess().Kill();
-            //    return;
-            //}
-
-            EnsureSettingsAndConfigurationAreBootstrapped();
 
             // Initialize MainWindow here
             EnsureWindowIsInitialized();
 
-            await Window.InitializeApplication(activatedEventArgs);
+            EnsureSettingsAndConfigurationAreBootstrapped();
+
+            _ = Window.InitializeApplication(activatedEventArgs.Data);
         }
 
-        public async Task OnActivated(AppActivationArguments activatedEventArgs)
+        public void OnActivated(AppActivationArguments activatedEventArgs)
         {
-            await Window.InitializeApplication(activatedEventArgs);
+            _ = Window.DispatcherQueue.EnqueueAsync(() => Window.InitializeApplication(activatedEventArgs.Data));
         }
 
         private void EnsureWindowIsInitialized()
         {
             Window = new MainWindow();
-            //Window.Activated += Window_Activated;
+            Window.Activated += Window_Activated;
             //Window.Closed += Window_Closed;
             WindowHandle = WinRT.Interop.WindowNative.GetWindowHandle(Window);
+        }
+
+        private void Window_Activated(object sender, WindowActivatedEventArgs args)
+        {
+            if (args.WindowActivationState == WindowActivationState.CodeActivated ||
+                args.WindowActivationState == WindowActivationState.PointerActivated)
+            {
+                ApplicationData.Current.LocalSettings.Values["INSTANCE_ACTIVE"] = -System.Diagnostics.Process.GetCurrentProcess().Id;
+            }
         }
 
         void OnNavigationFailed(object sender, NavigationFailedEventArgs e)

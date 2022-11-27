@@ -1,12 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <OutputType>Exe</OutputType>
     <RootNamespace>FluentHub.Octokit.ModelGenerator</RootNamespace>
     <AssemblyName>FluentHub.Octokit.ModelGenerator</AssemblyName>
     <Platforms>x86;x64;arm64</Platforms>
-    <RuntimeIdentifiers>win-arm64;win-x86;win-x64</RuntimeIdentifiers>
+    <RuntimeIdentifiers>win10-arm64;win10-x86;win10-x64</RuntimeIdentifiers>
     <LangVersion>latest</LangVersion>
     <Configurations>Debug;Release;Sideload</Configurations>
   </PropertyGroup>
