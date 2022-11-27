@@ -29,13 +29,13 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
-    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NETFX_CORE;DISABLE_XAML_GENERATED_MAIN</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
-    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
+    <DefineConstants>TRACE;NETFX_CORE;DISABLE_XAML_GENERATED_MAIN</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Sideload|x86'">
-    <DefineConstants>TRACE;NETFX_CORE;SIDELOAD</DefineConstants>
+    <DefineConstants>TRACE;NETFX_CORE;DISABLE_XAML_GENERATED_MAIN;SIDELOAD</DefineConstants>
     <Optimize>true</Optimize>
   </PropertyGroup>
 
@@ -51,13 +51,13 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
-    <DefineConstants>DEBUG;TRACE;NETFX_CORE</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NETFX_CORE;DISABLE_XAML_GENERATED_MAIN</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
-    <DefineConstants>TRACE;NETFX_CORE</DefineConstants>
+    <DefineConstants>TRACE;NETFX_CORE;DISABLE_XAML_GENERATED_MAIN</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Sideload|x64'">
-    <DefineConstants>TRACE;NETFX_CORE;SIDELOAD</DefineConstants>
+    <DefineConstants>TRACE;NETFX_CORE;DISABLE_XAML_GENERATED_MAIN;SIDELOAD</DefineConstants>
     <Optimize>true</Optimize>
   </PropertyGroup>
 

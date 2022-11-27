@@ -27,6 +27,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "git", "git", "{226C9D72-1B6
 		README.md = README.md
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "builds", "builds", "{CE518E62-41E0-4F26-9251-518D4EC02A34}"
+	ProjectSection(SolutionItems) = preProject
+		builds\ci-pr.yml = builds\ci-pr.yml
+		builds\ci.yml = builds\ci.yml
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|arm64 = Debug|arm64

@@ -55,14 +55,14 @@ namespace FluentHub.App
             base.MinWidth = 516;
         }
 
-        public async Task InitializeApplication(AppActivationArguments activatedEventArgs)
+        public async Task InitializeApplication(object activatedEventArgs)
         {
             var logger = App.Current.Services.GetService<Utils.ILogger>();
 
             var rootFrame = EnsureWindowIsInitialized();
             Type pageType = typeof(Views.MainPage);
 
-            switch (activatedEventArgs.Data)
+            switch (activatedEventArgs)
             {
                 case ILaunchActivatedEventArgs launchArgs:
                     {
