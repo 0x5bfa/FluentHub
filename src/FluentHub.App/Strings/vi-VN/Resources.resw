@@ -118,31 +118,31 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccountSettingsButton.Text" xml:space="preserve">
-    <value>Account Settings</value>
+    <value>Cài đặt tài khoản</value>
   </data>
   <data name="Activities" xml:space="preserve">
-    <value>Activities</value>
+    <value>Các hoạt động</value>
   </data>
   <data name="AppearancePageColorBlock.Title" xml:space="preserve">
-    <value>Choose your color</value>
+    <value>Chọn một màu</value>
   </data>
   <data name="AppearancePageGeneralHeader.Text" xml:space="preserve">
-    <value>General</value>
+    <value>Chung</value>
   </data>
   <data name="AppearancePageHeader.Text" xml:space="preserve">
-    <value>Appearance</value>
+    <value>Giao diện</value>
   </data>
   <data name="AppearancePageLocaleBlock.Title" xml:space="preserve">
-    <value>Language</value>
+    <value>Ngôn ngữ</value>
   </data>
   <data name="AppearancePageLocaleHeader.Text" xml:space="preserve">
-    <value>Language</value>
+    <value>Ngôn ngữ</value>
   </data>
   <data name="AppearancePageThemeBlock.Title" xml:space="preserve">
-    <value>Custom themes</value>
+    <value>Chủ đề tùy chỉnh</value>
   </data>
   <data name="Back" xml:space="preserve">
-    <value>Back</value>
+    <value>Quay lại</value>
   </data>
   <data name="CustomizeYourPins" xml:space="preserve">
     <value>Customize your pins</value>
@@ -151,28 +151,28 @@
     <value>Developer Program Member</value>
   </data>
   <data name="Discussions" xml:space="preserve">
-    <value>Discussions</value>
+    <value>Thảo luận</value>
   </data>
   <data name="EditUserProfile" xml:space="preserve">
     <value>Edit User Profile</value>
   </data>
   <data name="FeatureNotAvailable.Text" xml:space="preserve">
-    <value>Not available yet.</value>
+    <value>Không sẵn có.</value>
   </data>
   <data name="FeedsPageHeader.Text" xml:space="preserve">
-    <value>Activity</value>
+    <value>Hoạt động</value>
   </data>
   <data name="FeedsPageNoRecentActivityBody.Text" xml:space="preserve">
-    <value>No recent activity.</value>
+    <value>Không có hoạt động nào gần đây.</value>
   </data>
   <data name="FifthStepToAuthorize.Text" xml:space="preserve">
     <value>Proceed to the FluentHub application.</value>
   </data>
   <data name="FirstStepToAuthorize.Text" xml:space="preserve">
-    <value>Click "Login with GitHub";</value>
+    <value>Click "Đăng nhập với GitHub";</value>
   </data>
   <data name="Follow" xml:space="preserve">
-    <value>Follow</value>
+    <value>Theo dõi</value>
   </data>
   <data name="Followers" xml:space="preserve">
     <value>Followers</value>
@@ -187,7 +187,7 @@
     <value>following</value>
   </data>
   <data name="ForthStepToAuthorize.Text" xml:space="preserve">
-    <value>Click "Open FluentHub DEV";</value>
+    <value>Click "Mở FluentHub DEV";</value>
   </data>
   <data name="Forward" xml:space="preserve">
     <value>Forward</value>
@@ -199,7 +199,7 @@
     <value>Forward</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>Home</value>
+    <value>Trang chủ</value>
   </data>
   <data name="HomePageFavoritesHeader.Text" xml:space="preserve">
     <value>Favorites</value>
@@ -217,7 +217,7 @@
     <value>Recent</value>
   </data>
   <data name="IntroDocumentationLink.Content" xml:space="preserve">
-    <value>Documentation</value>
+    <value>Tài liệu</value>
   </data>
   <data name="IntroHeader.Text" xml:space="preserve">
     <value>Authorize FluentHub</value>
@@ -226,7 +226,7 @@
     <value>Issues</value>
   </data>
   <data name="LoadErrorDisplayHeader.Text" xml:space="preserve">
-    <value>Something went wrong 😿</value>
+    <value>Đã xảy ra lỗi...😿</value>
   </data>
   <data name="LoadErrorDisplayOpenLogFileLocationButton.ToolTipService.ToolTip" xml:space="preserve">
     <value>Opens the log folder where app error details are stored on the local disk.</value>
@@ -238,7 +238,7 @@
     <value>Opens our GitHub page in order to create an issue. Note: In the future, FluentHub will automatically paste the error contents, details, logs, and send them to the FluentHub team via GitHub when you click this button.</value>
   </data>
   <data name="LoadErrorDisplayReportThisIssueButtonBody.Text" xml:space="preserve">
-    <value>Report this issue</value>
+    <value>Báo cáo sự cố này</value>
   </data>
   <data name="LoadErrorDisplayShowExceptionDetailsContentDialogButton.ToolTipService.ToolTip" xml:space="preserve">
     <value>Displays the stack trace results in a dialog.</value>
@@ -247,7 +247,7 @@
     <value>See stack trace</value>
   </data>
   <data name="LoginWithGitHub.Content" xml:space="preserve">
-    <value>Login with GitHub</value>
+    <value>Đăng nhập với GitHub</value>
   </data>
   <data name="New" xml:space="preserve">
     <value>New</value>
@@ -418,7 +418,7 @@
     <value>Get help</value>
   </data>
   <data name="SignOutButton.Text" xml:space="preserve">
-    <value>Sign out</value>
+    <value>Sign Out</value>
   </data>
   <data name="Stars" xml:space="preserve">
     <value>Stars</value>
