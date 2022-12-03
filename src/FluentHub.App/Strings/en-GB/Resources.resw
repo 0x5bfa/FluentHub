@@ -220,7 +220,7 @@
     <value>Documentation</value>
   </data>
   <data name="IntroHeader.Text" xml:space="preserve">
-    <value>Authorize FluentHub</value>
+    <value>Authorise FluentHub</value>
   </data>
   <data name="Issues" xml:space="preserve">
     <value>Issues</value>
@@ -403,7 +403,7 @@
     <value>Search stars</value>
   </data>
   <data name="SecondStepToAuthorize.Text" xml:space="preserve">
-    <value>If you are in administration of one or more organizations, please give FluentHub access to them;</value>
+    <value>If you are in administration of one or more organisations, please give FluentHub access to them;</value>
   </data>
   <data name="Settings" xml:space="preserve">
     <value>Settings</value>
@@ -436,7 +436,7 @@
     <value>Light</value>
   </data>
   <data name="ThirdStepToAuthorize.Text" xml:space="preserve">
-    <value>Click "Authorize FluentHub";</value>
+    <value>Click "Authorise FluentHub";</value>
   </data>
   <data name="TryAgainWithCap" xml:space="preserve">
     <value>Try Again</value>
