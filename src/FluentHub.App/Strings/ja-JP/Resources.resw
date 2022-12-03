@@ -121,7 +121,7 @@
     <value>アカウント設定</value>
   </data>
   <data name="Activities" xml:space="preserve">
-    <value>Activities</value>
+    <value>アクティビティ</value>
   </data>
   <data name="AppearancePageColorBlock.Title" xml:space="preserve">
     <value>色の選択</value>
@@ -142,19 +142,19 @@
     <value>カスタムテーマ</value>
   </data>
   <data name="Back" xml:space="preserve">
-    <value>Back</value>
+    <value>戻る</value>
   </data>
   <data name="CustomizeYourPins" xml:space="preserve">
-    <value>Customize your pins</value>
+    <value>ピンをカスタマイズ</value>
   </data>
   <data name="DeveloperProgramMember" xml:space="preserve">
-    <value>Developer Program Member</value>
+    <value>開発者プログラムメンバー</value>
   </data>
   <data name="Discussions" xml:space="preserve">
     <value>Discussions</value>
   </data>
   <data name="EditUserProfile" xml:space="preserve">
-    <value>Edit User Profile</value>
+    <value>プロファイルを編集</value>
   </data>
   <data name="FeatureNotAvailable.Text" xml:space="preserve">
     <value>まだ利用できません</value>
@@ -172,25 +172,25 @@
     <value>「GitHub でログイン」をクリックする。</value>
   </data>
   <data name="Follow" xml:space="preserve">
-    <value>Follow</value>
+    <value>フォロー</value>
   </data>
   <data name="Followers" xml:space="preserve">
-    <value>Followers</value>
+    <value>フォロワー</value>
   </data>
   <data name="FollowersWithoutCaps" xml:space="preserve">
-    <value>followers</value>
+    <value>フォロワー</value>
   </data>
   <data name="Following" xml:space="preserve">
-    <value>Following</value>
+    <value>フォロー中</value>
   </data>
   <data name="FollowingWithoutCaps" xml:space="preserve">
-    <value>following</value>
+    <value>フォロー中</value>
   </data>
   <data name="ForthStepToAuthorize.Text" xml:space="preserve">
     <value>「FluentHub DEV を開く」をクリックします。</value>
   </data>
   <data name="Forward" xml:space="preserve">
-    <value>Forward</value>
+    <value>進む</value>
   </data>
   <data name="GoBackButton.TooltipService.Tooltip" xml:space="preserve">
     <value>戻る</value>
@@ -199,7 +199,7 @@
     <value>進む</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>Home</value>
+    <value>ホーム</value>
   </data>
   <data name="HomePageFavoritesHeader.Text" xml:space="preserve">
     <value>お気に入り</value>
@@ -223,34 +223,34 @@
     <value>FluentHub を認証する</value>
   </data>
   <data name="Issues" xml:space="preserve">
-    <value>Issues</value>
+    <value>Issue</value>
   </data>
   <data name="LoadErrorDisplayHeader.Text" xml:space="preserve">
-    <value>Something went wrong 😿</value>
+    <value>問題が発生しました😿</value>
   </data>
   <data name="LoadErrorDisplayOpenLogFileLocationButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Opens the log folder where app error details are stored on the local disk.</value>
+    <value>ローカルディスクにアプリのエラーの詳細が保存されているログフォルダを開く。</value>
   </data>
   <data name="LoadErrorDisplayOpenLogFileLocationButtonBody.Text" xml:space="preserve">
-    <value>Open log location</value>
+    <value>ログの保存場所を開く</value>
   </data>
   <data name="LoadErrorDisplayReportThisIssueButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Opens our GitHub page in order to create an issue. Note: In the future, FluentHub will automatically paste the error contents, details, logs, and send them to the FluentHub team via GitHub when you click this button.</value>
+    <value>問題を作成するためにGitHubページを開きます。 注: 将来的に FluentHub はエラー内容、詳細を自動的に貼り付けます。 このボタンをクリックすると、ログを記録し、GitHub 経由で FluentHub チームに送信します。</value>
   </data>
   <data name="LoadErrorDisplayReportThisIssueButtonBody.Text" xml:space="preserve">
-    <value>Report this issue</value>
+    <value>この問題を報告する</value>
   </data>
   <data name="LoadErrorDisplayShowExceptionDetailsContentDialogButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Displays the stack trace results in a dialog.</value>
+    <value>スタックトレースの結果をダイアログに表示します。</value>
   </data>
   <data name="LoadErrorDisplayShowExceptionDetailsContentDialogButtonBody.Text" xml:space="preserve">
-    <value>See stack trace</value>
+    <value>スタックトレースを表示</value>
   </data>
   <data name="LoginWithGitHub.Content" xml:space="preserve">
     <value>GitHub でログイン</value>
   </data>
   <data name="New" xml:space="preserve">
-    <value>New</value>
+    <value>新規</value>
   </data>
   <data name="NewMutation.Text" xml:space="preserve">
     <value>新規</value>
@@ -262,7 +262,7 @@
     <value>新しいリポジトリ</value>
   </data>
   <data name="Notifications" xml:space="preserve">
-    <value>Notifications</value>
+    <value>通知</value>
   </data>
   <data name="NotificationsPageFilterByReasonAssigned.Text" xml:space="preserve">
     <value>📋 割り当て済み</value>
