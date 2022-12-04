@@ -1,3 +1,5 @@
+using FluentHub.App.Models;
+using FluentHub.App.ViewModels.SignIn;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI;
 using Microsoft.UI.Windowing;
@@ -58,6 +60,7 @@ namespace FluentHub.App
         public async Task InitializeApplication(object activatedEventArgs)
         {
             var logger = App.Current.Services.GetService<Utils.ILogger>();
+            var messenger = App.Current.Services.GetService<IMessenger>();
 
             var rootFrame = EnsureWindowIsInitialized();
             Type pageType = typeof(Views.MainPage);
@@ -95,35 +98,11 @@ namespace FluentHub.App
                             case "auth" when eventArgs.Uri.Query.Contains("code"):
                                 {
                                     var code = new WwwFormUrlDecoder(eventArgs.Uri.Query).GetFirstValueByName("code");
-                                    bool status;
 
-                                    try
-                                    {
-                                        var secrets = await Services.OctokitSecretsService.LoadOctokitSecretsAsync();
-
-                                        Octokit.Authorization.AuthorizationService authService = new();
-                                        var accessToken = await authService.RequestOAuthTokenAsync(code, secrets);
-
-                                        logger?.Info("FluentHub is authorized successfully.");
-
-                                        // Set token and login to App Settings Container
-                                        await SetAccountInfo(accessToken);
-                                        status = true;
-                                    }
-                                    catch (Exception ex)
-                                    {
-                                        status = false;
-                                        logger?.Error("FluentHub failed to authorize.", ex);
-                                    }
-
-                                    if (status)
-                                    {
-                                        App.AppSettings.SetupProgress = true;
-                                        App.AppSettings.SetupCompleted = true;
-
-                                        rootFrame.Navigate(typeof(Views.MainPage));
-                                        pageType = typeof(Views.MainPage);
-                                    }
+                                    // Do not add authorize phase to here because this method will be called by non-async method.
+                                    // Even if an authorizing exception occurred, it will not be caught by Try-Catch.
+                                    UserNotificationMessage notification = new("Recieved GitHub user identity", code);
+                                    messenger?.Send(notification);
                                 }
                                 break;
                         }
@@ -158,24 +137,6 @@ namespace FluentHub.App
             {
                 ((Views.MainPage)rootFrame.Content).Loaded += (s, e)
                     => DispatcherQueue.TryEnqueue(() => Activate());
-            }
-        }
-
-        private async Task SetAccountInfo(string accessToken)
-        {
-            App.AppSettings.AccessToken = accessToken;
-
-            try
-            {
-                Octokit.Queries.Users.UserQueries queries = new();
-                string login = await queries.GetViewerLogin();
-                App.AppSettings.SignedInUserName = login;
-
-                Services.AccountService.AddAccount(login);
-            }
-            catch
-            {
-                // TODO: Handle exception
             }
         }
 

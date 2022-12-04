@@ -22,5 +22,20 @@ namespace FluentHub.App.Views.SignIn
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
             => App.Window.SetTitleBar(AppTitleBar);
+
+        private void OnGoToMainPageButtonWhenAuthorizedClick(object sender, RoutedEventArgs e)
+        {
+            this.Frame.Navigate(typeof(Views.MainPage));
+        }
+
+        private void OnReportExceptionButtonClick(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void OnSeeExceptionLogDetailsButtonClick(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

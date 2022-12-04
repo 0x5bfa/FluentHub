@@ -21,7 +21,7 @@
             Height="22"
             HorizontalAlignment="Left"
             VerticalAlignment="Center"
-            Source="ms-appx:///Assets/AppTiles/Release/StoreLogo.scale-400.png" />
+            Source="ms-appx:///Assets/AppTiles/Release/StoreLogo.png" />
 
         <TextBlock
             Margin="12,0,0,0"
