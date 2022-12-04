@@ -30,12 +30,10 @@ namespace FluentHub.App.Views.SignIn
 
         private void OnReportExceptionButtonClick(object sender, RoutedEventArgs e)
         {
-
         }
 
         private void OnSeeExceptionLogDetailsButtonClick(object sender, RoutedEventArgs e)
         {
-
         }
     }
 }

@@ -185,7 +185,7 @@
 
                         </Grid>
 
-                        <Grid RowSpacing="8">
+                        <Grid RowSpacing="12">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
