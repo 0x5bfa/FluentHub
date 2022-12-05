@@ -230,12 +230,13 @@ namespace FluentHub.App.ViewModels
                     return;
                 }
 
-                // Show the message in the UI
-                // using the dispatcher to access the UI thread
-                _dispatcher.TryEnqueue(() => LastNotification = message);
+                // [Obsolete]
+                //// Show the message in the UI
+                //// using the dispatcher to access the UI thread
+                //_dispatcher.TryEnqueue(() => LastNotification = message);
 
-                // Show the message in the app
-                _logger?.Info("InApp notification received: {0}", message);
+                //// Show the message in the app
+                //_logger?.Info("InApp notification received: {0}", message);
             }
 
             // Check if the message method contains the Toast value (multivalue enum)

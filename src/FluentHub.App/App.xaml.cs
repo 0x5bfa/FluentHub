@@ -58,6 +58,7 @@ namespace FluentHub.App
                 .AddSingleton<IMessenger>(StrongReferenceMessenger.Default)
                 // ViewModels
                 .AddSingleton<MainPageViewModel>()
+                .AddSingleton<ViewModels.SignIn.IntroViewModel>()
                 .AddTransient<ViewModels.AppSettings.AboutViewModel>()
                 .AddTransient<ViewModels.AppSettings.Accounts.AccountViewModel>()
                 .AddTransient<ViewModels.AppSettings.Accounts.OtherUsersViewModel>()
@@ -92,7 +93,6 @@ namespace FluentHub.App
                 .AddTransient<ViewModels.Searches.IssuesViewModel>()
                 .AddTransient<ViewModels.Searches.RepositoriesViewModel>()
                 .AddTransient<ViewModels.Searches.UsersViewModel>()
-                .AddTransient<ViewModels.SignIn.IntroViewModel>()
                 .AddTransient<ViewModels.UserControls.FileContentBlockViewModel>()
                 .AddTransient<ViewModels.UserControls.FileNavigationBlockViewModel>()
                 .AddTransient<ViewModels.UserControls.IssueCommentBlockViewModel>()
@@ -111,24 +111,6 @@ namespace FluentHub.App
                 .AddTransient<ViewModels.Users.RepositoriesViewModel>()
                 .AddTransient<ViewModels.Users.StarredReposViewModel>()
                 .BuildServiceProvider();
-        }
-
-        private static Serilog.ILogger GetSerilogLogger()
-        {
-            string logFilePath = Path.Combine(ApplicationData.Current.LocalFolder.Path, "FluentHub.Logs/Log.log");
-
-            var logger = new Serilog.LoggerConfiguration()
-                .MinimumLevel
-#if DEBUG
-                .Verbose()
-#else
-                .Error()
-#endif
-                .WriteTo
-                .File(logFilePath, rollingInterval: Serilog.RollingInterval.Day)
-                .CreateLogger();
-
-            return logger;
         }
 
         private static void EnsureSettingsAndConfigurationAreBootstrapped()
@@ -155,7 +137,7 @@ namespace FluentHub.App
             //}
         }
 
-        protected override async void OnLaunched(LaunchActivatedEventArgs e)
+        protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             var activatedEventArgs = Microsoft.Windows.AppLifecycle.AppInstance.GetCurrent().GetActivatedEventArgs();
 
@@ -169,7 +151,7 @@ namespace FluentHub.App
 
         public void OnActivated(AppActivationArguments activatedEventArgs)
         {
-            _ = Window.DispatcherQueue.EnqueueAsync(() => Window.InitializeApplication(activatedEventArgs.Data));
+            Window.DispatcherQueue.EnqueueAsync(async() => await Window.InitializeApplication(activatedEventArgs.Data));
         }
 
         private void EnsureWindowIsInitialized()
