@@ -99,7 +99,7 @@
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
     <PackageReference Include="Microsoft.Windows.Compatibility" Version="7.0.0" />
-    <PackageReference Include="WinUIEx" Version="1.8.0" />
+    <PackageReference Include="WinUIEx" Version="2.1.0" />
     <FrameworkReference Include="Microsoft.WindowsDesktop.App" />
   </ItemGroup>
 
