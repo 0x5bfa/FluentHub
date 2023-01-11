@@ -247,7 +247,7 @@
     <value>查看堆栈跟踪</value>
   </data>
   <data name="LoginWithGitHub.Content" xml:space="preserve">
-    <value>登录 GitHub</value>
+    <value>用 GitHub 登录</value>
   </data>
   <data name="New" xml:space="preserve">
     <value>新建</value>
