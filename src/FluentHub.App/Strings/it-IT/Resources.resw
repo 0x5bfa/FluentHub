@@ -289,67 +289,67 @@
     <value>👀 Revisione richiesta</value>
   </data>
   <data name="NotificationsPageFilterByReasonSaved.Text" xml:space="preserve">
-    <value>Saved</value>
+    <value>Salvato</value>
   </data>
   <data name="NotificationsPageGroupByViewFlyoutBody.Text" xml:space="preserve">
-    <value>Group by:</value>
+    <value>Raggruppa per:</value>
   </data>
   <data name="NotificationsPageGroupByViewNone.Text" xml:space="preserve">
     <value>None</value>
   </data>
   <data name="NotificationsPageGroupByViewPrimaryDate.Text" xml:space="preserve">
-    <value>Date</value>
+    <value>Data</value>
   </data>
   <data name="NotificationsPageGroupByViewRepository.Text" xml:space="preserve">
     <value>Repository</value>
   </data>
   <data name="NotificationsPageHeader.Text" xml:space="preserve">
-    <value>Notifications</value>
+    <value>Notifiche</value>
   </data>
   <data name="NotificationsPageNoRecentNotificationsBody.Text" xml:space="preserve">
-    <value>No recent notifications.</value>
+    <value>Nessuna notifica recente.</value>
   </data>
   <data name="NotificationsPageSearchBar.PlaceholderText" xml:space="preserve">
-    <value>Search notifications</value>
+    <value>Cerca notifiche</value>
   </data>
   <data name="NotificationsPageUnreadToggle.Content" xml:space="preserve">
-    <value>Unread</value>
+    <value>Non lette</value>
   </data>
   <data name="NoUserDiscussions" xml:space="preserve">
-    <value>No discussions</value>
+    <value>Nessuna discussione</value>
   </data>
   <data name="NoUserFollowers" xml:space="preserve">
-    <value>No followers</value>
+    <value>Nessun follower</value>
   </data>
   <data name="NoUserFollowing" xml:space="preserve">
-    <value>No following</value>
+    <value>Nessuno seguito</value>
   </data>
   <data name="NoUserIssues" xml:space="preserve">
-    <value>No issues</value>
+    <value>Nessun problema</value>
   </data>
   <data name="NoUserOrganizations" xml:space="preserve">
-    <value>No organizations</value>
+    <value>Nessuna organizzazione</value>
   </data>
   <data name="NoUserPopularRepositories" xml:space="preserve">
-    <value>No popular repositories</value>
+    <value>Nessun repository popolare</value>
   </data>
   <data name="NoUserPullRequests" xml:space="preserve">
-    <value>No pull requests</value>
+    <value>Nessuna pull request</value>
   </data>
   <data name="NoUserRepositories" xml:space="preserve">
-    <value>No repositories</value>
+    <value>Nessun repository</value>
   </data>
   <data name="NoUserStars" xml:space="preserve">
-    <value>No stars</value>
+    <value>Nessuna stella</value>
   </data>
   <data name="Organizations" xml:space="preserve">
-    <value>Organizations</value>
+    <value>Organizzazioni</value>
   </data>
   <data name="Overview" xml:space="preserve">
-    <value>Overview</value>
+    <value>Panoramica</value>
   </data>
   <data name="Packages" xml:space="preserve">
-    <value>Packages</value>
+    <value>Pacchetti</value>
   </data>
   <data name="PinnedRepositories" xml:space="preserve">
     <value>Pinned repositories</value>
@@ -439,7 +439,7 @@
     <value>Click "Authorize FluentHub";</value>
   </data>
   <data name="TryAgainWithCap" xml:space="preserve">
-    <value>Try Again</value>
+    <value>Riprova</value>
   </data>
   <data name="Unfollow" xml:space="preserve">
     <value>Unfollow</value>
