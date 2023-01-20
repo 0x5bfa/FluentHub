@@ -355,49 +355,49 @@
     <value>Pinned repositories</value>
   </data>
   <data name="PopularRepositories" xml:space="preserve">
-    <value>Popular repositories</value>
+    <value>Repository popolari</value>
   </data>
   <data name="Projects" xml:space="preserve">
-    <value>Projects</value>
+    <value>Progetti</value>
   </data>
   <data name="PullRequests" xml:space="preserve">
-    <value>Pull Requests</value>
+    <value>Pull Request</value>
   </data>
   <data name="RefreshBody.Text" xml:space="preserve">
-    <value>Refresh</value>
+    <value>Aggiorna</value>
   </data>
   <data name="Repositories" xml:space="preserve">
-    <value>Repositories</value>
+    <value>Repository</value>
   </data>
   <data name="RepositoriesListHeader.Text" xml:space="preserve">
-    <value>Repositories</value>
+    <value>Repository</value>
   </data>
   <data name="SearchBar.PlaceholderText" xml:space="preserve">
-    <value>Search</value>
+    <value>Cerca</value>
   </data>
   <data name="SearchBarButton.TooltipService.Tooltip" xml:space="preserve">
-    <value>Search</value>
+    <value>Cerca</value>
   </data>
   <data name="SearchDiscussionsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Search discussions</value>
+    <value>Cerca discussioni</value>
   </data>
   <data name="SearchFollowersTextBox.PlaceholderText" xml:space="preserve">
-    <value>Search followers</value>
+    <value>Cerca tra i tuoi followers</value>
   </data>
   <data name="SearchFollowingTextBox.PlaceholderText" xml:space="preserve">
-    <value>Search following</value>
+    <value>Cerca tra chi segui</value>
   </data>
   <data name="SearchIssuesTextBox.PlaceholderText" xml:space="preserve">
-    <value>Search issues</value>
+    <value>Cerca tra le issue</value>
   </data>
   <data name="SearchOrganizationsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Search organizations</value>
+    <value>Cerca organizzazioni</value>
   </data>
   <data name="SearchPullRequestsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Search pull requests</value>
+    <value>Cerca pull request</value>
   </data>
   <data name="SearchRepositoriesTextBox.PlaceholderText" xml:space="preserve">
-    <value>Search repositories</value>
+    <value>Cerca repository</value>
   </data>
   <data name="SearchStarsTextBox.PlaceholderText" xml:space="preserve">
     <value>Search stars</value>
@@ -406,10 +406,10 @@
     <value>If you are in administration of one or more organizations, please give FluentHub access to them;</value>
   </data>
   <data name="Settings" xml:space="preserve">
-    <value>Settings</value>
+    <value>Impostazioni</value>
   </data>
   <data name="SettingsButton.Text" xml:space="preserve">
-    <value>Settings</value>
+    <value>Impostazioni</value>
   </data>
   <data name="SettingsFeedbackButton.Content" xml:space="preserve">
     <value>Feedback</value>
@@ -442,25 +442,25 @@
     <value>Riprova</value>
   </data>
   <data name="Unfollow" xml:space="preserve">
-    <value>Unfollow</value>
+    <value>Smetti di seguire</value>
   </data>
   <data name="UserDiscussionsButton.Text" xml:space="preserve">
-    <value>Your discussions</value>
+    <value>Le tue discussioni</value>
   </data>
   <data name="UserIssuesButton.Text" xml:space="preserve">
-    <value>Your issues</value>
+    <value>Le tue Issue</value>
   </data>
   <data name="UserOrganizationsButton.Text" xml:space="preserve">
-    <value>Your organizations</value>
+    <value>Le tue organizzazioni</value>
   </data>
   <data name="UserProfileButton.Text" xml:space="preserve">
-    <value>Your profile</value>
+    <value>Il tuo profilo</value>
   </data>
   <data name="UserPullRequestsButton.Text" xml:space="preserve">
-    <value>Your pull requests</value>
+    <value>Le tue pull request</value>
   </data>
   <data name="UserRepositoriesButton.Text" xml:space="preserve">
-    <value>Your repositories</value>
+    <value>Le tue repository</value>
   </data>
   <data name="UserStarsButton.Text" xml:space="preserve">
     <value>Your stars</value>
