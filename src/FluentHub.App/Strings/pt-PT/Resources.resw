@@ -184,55 +184,55 @@
     <value>A seguir</value>
   </data>
   <data name="FollowingWithoutCaps" xml:space="preserve">
-    <value>following</value>
+    <value>a seguir</value>
   </data>
   <data name="ForthStepToAuthorize.Text" xml:space="preserve">
-    <value>Click "Open FluentHub DEV";</value>
+    <value>Clique "Abrir FluentHub DEV";</value>
   </data>
   <data name="Forward" xml:space="preserve">
-    <value>Forward</value>
+    <value>Avançar</value>
   </data>
   <data name="GoBackButton.TooltipService.Tooltip" xml:space="preserve">
-    <value>Back</value>
+    <value>Voltar</value>
   </data>
   <data name="GoForwardButton.TooltipService.Tooltip" xml:space="preserve">
-    <value>Forward</value>
+    <value>Avançar</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>Home</value>
+    <value>Página Inicial</value>
   </data>
   <data name="HomePageFavoritesHeader.Text" xml:space="preserve">
-    <value>Favorites</value>
+    <value>Favoritos</value>
   </data>
   <data name="HomePageFavoritesNotAvailableBody.Text" xml:space="preserve">
-    <value>No favorite items available.</value>
+    <value>Não há itens favoritos disponíveis.</value>
   </data>
   <data name="HomePageGeneralHeader.Text" xml:space="preserve">
-    <value>Work</value>
+    <value>Trabalho</value>
   </data>
   <data name="HomePageHeader.Text" xml:space="preserve">
-    <value>Home</value>
+    <value>Página Inicial</value>
   </data>
   <data name="HomePageRecentActivityHeader.Text" xml:space="preserve">
-    <value>Recent</value>
+    <value>Recente</value>
   </data>
   <data name="IntroDocumentationLink.Content" xml:space="preserve">
-    <value>Documentation</value>
+    <value>Documentação</value>
   </data>
   <data name="IntroHeader.Text" xml:space="preserve">
-    <value>Authorize FluentHub</value>
+    <value>Autorizar FluentHub</value>
   </data>
   <data name="Issues" xml:space="preserve">
-    <value>Issues</value>
+    <value>Problemas</value>
   </data>
   <data name="LoadErrorDisplayHeader.Text" xml:space="preserve">
-    <value>Something went wrong 😿</value>
+    <value>Algo correu mal 😿</value>
   </data>
   <data name="LoadErrorDisplayOpenLogFileLocationButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Opens the log folder where app error details are stored on the local disk.</value>
+    <value>Abre a pasta de registro onde os detalhes de erro do aplicativo são armazenados no disco local.</value>
   </data>
   <data name="LoadErrorDisplayOpenLogFileLocationButtonBody.Text" xml:space="preserve">
-    <value>Open log location</value>
+    <value>Abrir localização de registro</value>
   </data>
   <data name="LoadErrorDisplayReportThisIssueButton.ToolTipService.ToolTip" xml:space="preserve">
     <value>Opens our GitHub page in order to create an issue. Note: In the future, FluentHub will automatically paste the error contents, details, logs, and send them to the FluentHub team via GitHub when you click this button.</value>
