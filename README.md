@@ -155,6 +155,6 @@ If you would like to ask a question, please reach out to us via Twitter:
 
 ## ⚖️ License
 
-Copyright (c) 2022 FluentHub Team
+Copyright (c) 2022-2023 FluentHub Team
 
 Licensed under the MIT license as stated in the [LICENSE](LICENSE).

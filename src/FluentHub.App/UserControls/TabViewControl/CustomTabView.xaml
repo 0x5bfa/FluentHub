@@ -60,7 +60,7 @@
                         HorizontalAlignment="Left"
                         VerticalAlignment="Bottom"
                         Background="Transparent"
-                        BorderBrush="Transparent"
+                        BorderThickness="0"
                         Click="OnAddNewTabButtonClick"
                         IsEnabled="True"
                         ToolTipService.ToolTip="New tab">
