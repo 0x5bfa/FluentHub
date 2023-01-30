@@ -80,7 +80,7 @@
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 
-		<Grid>
+		<Grid x:Name="TitleBarContentGrid">
 
 			<ProgressBar
 				x:Name="PageLoadingProgreeBar"
