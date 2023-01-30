@@ -256,7 +256,7 @@ namespace FluentHub.App.Views
 						Login = App.AppSettings.SignedInUserName,
 					});
 					break;
-				case "profile":
+				case "settings":
 					navService.Navigate<AppSettings.AppearancePage>();
 					break;
 			}
