@@ -57,16 +57,14 @@
 
 	<Grid>
 
-		<Grid
-			x:Name="RootContentGrid"
-			x:Load="{x:Bind ViewModel.LoadUserHomePageCommand.ExecutionTask.IsCompletedSuccessfully, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-			Background="{ThemeResource LayerFillColorDefaultBrush}"
-			BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-			BorderThickness="1,1,0,0"
-			CornerRadius="8,0,0,0">
-
+		<Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadUserHomePageCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
 			<ScrollViewer Grid.Column="2">
-				<Grid Margin="6,24,16,24" RowSpacing="8">
+				<Grid
+					Padding="24"
+					Background="{ThemeResource LayerFillColorDefaultBrush}"
+					BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+					BorderThickness="1,1,0,0"
+					CornerRadius="8,0,0,0">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="Auto" />
@@ -82,7 +80,7 @@
 
 						<TextBlock
 							x:Name="HomePageHeader"
-							Margin="24,4,0,0"
+							Margin="12,0,12,8"
 							Style="{StaticResource TitleTextBlockStyle}"
 							Text="{helpers:ResourceString Name=Home}" />
 					</Grid>
@@ -97,7 +95,7 @@
 						<Expander.Header>
 							<TextBlock
 								x:Name="HomePageGeneralHeader"
-								Margin="6,0"
+								Margin="-6,0"
 								Style="{StaticResource BodyStrongTextBlockStyle}"
 								Text="{helpers:ResourceString Name=HomePageGeneralHeader/Text}" />
 						</Expander.Header>
@@ -105,7 +103,7 @@
 						<Expander.Content>
 							<ItemsRepeater
 								x:Name="CardsList"
-								Margin="20,0"
+								Margin="6,0"
 								HorizontalAlignment="Stretch"
 								ItemsSource="{x:Bind ViewModel.FolderCardItems, Mode=OneWay}">
 
@@ -183,7 +181,7 @@
 						<Expander.Header>
 							<TextBlock
 								x:Name="HomePageFavoritesHeader"
-								Margin="6,0"
+								Margin="-6,0"
 								Style="{StaticResource BodyStrongTextBlockStyle}"
 								Text="{helpers:ResourceString Name=HomePageFavoritesHeader/Text}" />
 						</Expander.Header>
@@ -225,7 +223,7 @@
 						<Expander.Header>
 							<TextBlock
 								x:Name="HomePageRecentActivityHeader"
-								Margin="6,0"
+								Margin="-6,0"
 								Style="{StaticResource BodyStrongTextBlockStyle}"
 								Text="{helpers:ResourceString Name=HomePageRecentActivityHeader/Text}" />
 						</Expander.Header>
@@ -233,7 +231,7 @@
 						<Expander.Content>
 							<Grid>
 
-								<ItemsRepeater Margin="8,0" ItemsSource="{x:Bind ViewModel.UserNotifications, Mode=OneWay}">
+								<ItemsRepeater Margin="0,0" ItemsSource="{x:Bind ViewModel.UserNotifications, Mode=OneWay}">
 									<ItemsRepeater.Layout>
 										<StackLayout Orientation="Vertical" Spacing="4" />
 									</ItemsRepeater.Layout>

@@ -136,15 +136,15 @@ namespace FluentHub.App.Views
 			App.Window.AppWindow.TitleBar.SetDragRectangles(new[] { titlebarRect, dragRect });
 		}
 
-		private void OnSearchGitHubButtonButtonClick(object sender, RoutedEventArgs e)
-		{
-			SearchGitHubAutoSuggestBox.Visibility = Visibility.Visible;
-			SearchGitHubAutoSuggestBox.Focus(FocusState.Pointer);
-			SearchGitHubButton.Visibility = Visibility.Collapsed;
+		//private void OnSearchGitHubButtonButtonClick(object sender, RoutedEventArgs e)
+		//{
+		//	SearchGitHubAutoSuggestBox.Visibility = Visibility.Visible;
+		//	SearchGitHubAutoSuggestBox.Focus(FocusState.Pointer);
+		//	SearchGitHubButton.Visibility = Visibility.Collapsed;
 
-			if (ViewModel.SearchTerm != null)
-				SearchGitHubAutoSuggestBox.Text = ViewModel.SearchTerm;
-		}
+		//	if (ViewModel.SearchTerm != null)
+		//		SearchGitHubAutoSuggestBox.Text = ViewModel.SearchTerm;
+		//}
 
 		//private void OpenSearchAccelerator(KeyboardAcceleratorInvokedEventArgs e)
 		//{
@@ -153,82 +153,82 @@ namespace FluentHub.App.Views
 		//    SearchGitHubButton.Visibility = Visibility.Collapsed;
 		//}
 
-		private void OnSearchGitHubAutoSuggestBoxLostFocus(object sender, RoutedEventArgs e)
-		{
-			//Type currentPage = navService.CurrentPage;
-			//var currentPageNamespace = currentPage.ToString();
-			//if (!currentPageNamespace.Contains("Views.Searches"))
-			//{
-				SearchGitHubAutoSuggestBox.Visibility = Visibility.Collapsed;
-				SearchGitHubButton.Visibility = Visibility.Visible;
-			//}
-		}
+		//private void OnSearchGitHubAutoSuggestBoxLostFocus(object sender, RoutedEventArgs e)
+		//{
+		//	//Type currentPage = navService.CurrentPage;
+		//	//var currentPageNamespace = currentPage.ToString();
+		//	//if (!currentPageNamespace.Contains("Views.Searches"))
+		//	//{
+		//		SearchGitHubAutoSuggestBox.Visibility = Visibility.Collapsed;
+		//		SearchGitHubButton.Visibility = Visibility.Visible;
+		//	//}
+		//}
 
-		private void OnSearchGitHubAutoSuggestBoxQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
-		{
-			string queryTerm;
+		//private void OnSearchGitHubAutoSuggestBoxQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
+		//{
+		//	string queryTerm;
 
-			// Suggestion chosen
-			if (args.ChosenSuggestion != null)
-			{
-				queryTerm = (args.ChosenSuggestion as SearchQueryModel).QueryString;
-			}
-			else
-			{
-				queryTerm = args.QueryText;
-			}
+		//	// Suggestion chosen
+		//	if (args.ChosenSuggestion != null)
+		//	{
+		//		queryTerm = (args.ChosenSuggestion as SearchQueryModel).QueryString;
+		//	}
+		//	else
+		//	{
+		//		queryTerm = args.QueryText;
+		//	}
 
-			ViewModel.SearchTerm = queryTerm;
+		//	ViewModel.SearchTerm = queryTerm;
 
-			sender.Text = queryTerm;
-			navService.Navigate<Searches.RepositoriesPage>(new Models.FrameNavigationArgs() { Parameters = new() { queryTerm } });
-		}
+		//	sender.Text = queryTerm;
+		//	navService.Navigate<Searches.RepositoriesPage>(new Models.FrameNavigationArgs() { Parameters = new() { queryTerm } });
+		//}
 
-		private void OnSearchGitHubAutoSuggestBoxSuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
-		{
-			var selectedItem = args.SelectedItem as SearchQueryModel;
-			sender.Text = selectedItem.QueryString;
-		}
+		//private void OnSearchGitHubAutoSuggestBoxSuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
+		//{
+		//	var selectedItem = args.SelectedItem as SearchQueryModel;
+		//	sender.Text = selectedItem.QueryString;
+		//}
 
-		private void OnSearchGitHubAutoSuggestBoxTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
-		{
-			// Only get results when it was a user typing, 
-			// otherwise assume the value got filled in by TextMemberPath 
-			// or the handler for SuggestionChosen.
-			if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
-			{
-				var suitableItems = new List<string>();
+		//private void OnSearchGitHubAutoSuggestBoxTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
+		//{
+		//	// Only get results when it was a user typing, 
+		//	// otherwise assume the value got filled in by TextMemberPath 
+		//	// or the handler for SuggestionChosen.
+		//	if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
+		//	{
+		//		var suitableItems = new List<string>();
 
-				ViewModel.SearchTerm = sender.Text;
+		//		ViewModel.SearchTerm = sender.Text;
 
-				ViewModel.ClearSearchQueryModelItems();
+		//		ViewModel.ClearSearchQueryModelItems();
 
-				bool isInRepositories = false;
-				bool isInOrganizations = false;
-				bool isInUsers = false;
+		//		bool isInRepositories = false;
+		//		bool isInOrganizations = false;
+		//		bool isInUsers = false;
 
-				Type currentPage = navService.CurrentPage;
-				var currentPageNamespace = currentPage.ToString();
+		//		Type currentPage = navService.CurrentPage;
+		//		var currentPageNamespace = currentPage.ToString();
 
-				if (sender.Text != "")
-				{
-					ViewModel.AddNewSearchQueryModel(sender.Text, "All GitHub");
-				}
+		//		if (sender.Text != "")
+		//		{
+		//			ViewModel.AddNewSearchQueryModel(sender.Text, "All GitHub");
+		//		}
 
-				if (currentPageNamespace.Contains("Views.Organizations"))
-				{
-					ViewModel.AddNewSearchQueryModel(sender.Text, "in this organization");
-				}
-				else if (currentPageNamespace.Contains("Views.Repositories"))
-				{
-					ViewModel.AddNewSearchQueryModel(sender.Text, "in this repository");
-				}
-				else if (currentPageNamespace.Contains("Views.Users"))
-				{
-					ViewModel.AddNewSearchQueryModel(sender.Text, "in this user");
-				}
-			}
-		}
+		//		if (currentPageNamespace.Contains("Views.Organizations"))
+		//		{
+		//			ViewModel.AddNewSearchQueryModel(sender.Text, "in this organization");
+		//		}
+		//		else if (currentPageNamespace.Contains("Views.Repositories"))
+		//		{
+		//			ViewModel.AddNewSearchQueryModel(sender.Text, "in this repository");
+		//		}
+		//		else if (currentPageNamespace.Contains("Views.Users"))
+		//		{
+		//			ViewModel.AddNewSearchQueryModel(sender.Text, "in this user");
+		//		}
+		//	}
+		//}
 
 		private void OnTabViewSelectionChanged(object sender, TabViewSelectionChangedEventArgs e)
 		{
@@ -237,6 +237,9 @@ namespace FluentHub.App.Views
 
 		private void OnMainNavViewItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
 		{
+			if (args.InvokedItemContainer == null || args.InvokedItemContainer.Tag == null)
+				return;
+
 			switch (args.InvokedItemContainer.Tag.ToString().ToLower())
 			{
 				default:

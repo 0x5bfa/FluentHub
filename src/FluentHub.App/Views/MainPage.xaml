@@ -10,6 +10,7 @@
 	xmlns:icore="using:Microsoft.Xaml.Interactions.Core"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:models="using:FluentHub.App.Models"
+	xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
 	xmlns:tabsuc="using:FluentHub.App.UserControls.TabViewControl"
 	xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
 	xmlns:uc="using:FluentHub.App.UserControls"
@@ -61,16 +62,21 @@
 			</i:Interaction.Behaviors>
 		</KeyboardAccelerator>
 	</Page.KeyboardAccelerators>
+
 	<Page.Resources>
 		<ResourceDictionary>
+
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary>
+					<SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
 					<SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
 					<Thickness x:Key="NavigationViewContentGridBorderThickness">0</Thickness>
 					<CornerRadius x:Key="NavigationViewContentGridCornerRadius">0</CornerRadius>
 				</ResourceDictionary>
 			</ResourceDictionary.MergedDictionaries>
+
 			<converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+
 		</ResourceDictionary>
 	</Page.Resources>
 
@@ -92,44 +98,20 @@
 				<Grid.ColumnDefinitions>
 					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="Auto" />
-					<ColumnDefinition Width="Auto" />
 					<ColumnDefinition Width="*" />
-					<ColumnDefinition Width="Auto" />
 				</Grid.ColumnDefinitions>
 
 				<StackPanel
 					x:Name="TitleBarButtonGroupFirst"
 					Grid.Column="0"
-					Margin="8,0,0,0"
+					Margin="4,0,0,0"
 					Orientation="Horizontal"
 					Spacing="4">
 
 					<Button
-						x:Name="NavigationViewToggleButton"
-						Width="36"
-						Height="32"
-						Padding="0"
-						VerticalAlignment="Center"
-						Background="Transparent"
-						BorderThickness="0"
-						ToolTipService.ToolTip="{helpers:ResourceString Name=GoBackButton/ToolTipService/Tooltip}">
-						<Button.Resources>
-							<SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="Transparent" />
-						</Button.Resources>
-						<AnimatedIcon Width="16" Height="16">
-							<AnimatedIcon.Source>
-								<animatedvisuals:AnimatedGlobalNavigationButtonVisualSource />
-							</AnimatedIcon.Source>
-							<AnimatedIcon.FallbackIconSource>
-								<FontIconSource Glyph="&#xE700;" />
-							</AnimatedIcon.FallbackIconSource>
-						</AnimatedIcon>
-					</Button>
-
-					<Button
 						x:Name="GoBackButton"
-						Width="36"
-						Height="32"
+						Width="40"
+						Height="36"
 						Padding="0"
 						VerticalAlignment="Center"
 						Background="Transparent"
@@ -149,7 +131,6 @@
 							</AnimatedIcon.FallbackIconSource>
 						</AnimatedIcon>
 					</Button>
-
 				</StackPanel>
 
 				<uc:TitleBar
@@ -158,120 +139,10 @@
 					Margin="8,0"
 					VerticalAlignment="Center" />
 
-				<StackPanel
-					x:Name="TitleBarButtonGroupLast"
-					Grid.Column="2"
-					Orientation="Horizontal">
-
-					<Button
-						x:Name="SearchGitHubButton"
-						Width="36"
-						Height="32"
-						Padding="0"
-						VerticalAlignment="Center"
-						Background="Transparent"
-						BorderThickness="0"
-						Click="OnSearchGitHubButtonButtonClick"
-						ToolTipService.ToolTip="{helpers:ResourceString Name=SearchBarButton/ToolTipService/Tooltip}">
-						<AnimatedIcon Width="20" Height="20">
-							<AnimatedIcon.Source>
-								<animatedvisuals:AnimatedFindVisualSource />
-							</AnimatedIcon.Source>
-							<AnimatedIcon.FallbackIconSource>
-								<SymbolIconSource Symbol="Find" />
-							</AnimatedIcon.FallbackIconSource>
-						</AnimatedIcon>
-
-					</Button>
-
-					<AutoSuggestBox
-						x:Name="SearchGitHubAutoSuggestBox"
-						Width="256"
-						Height="32"
-						ItemsSource="{x:Bind ViewModel.AutoSuggestionItems, Mode=OneWay}"
-						LostFocus="OnSearchGitHubAutoSuggestBoxLostFocus"
-						PlaceholderText="{helpers:ResourceString Name=SearchBar/PlaceholderText}"
-						QueryIcon="Find"
-						QuerySubmitted="OnSearchGitHubAutoSuggestBoxQuerySubmitted"
-						SuggestionChosen="OnSearchGitHubAutoSuggestBoxSuggestionChosen"
-						TextChanged="OnSearchGitHubAutoSuggestBoxTextChanged"
-						Visibility="Collapsed">
-						<AutoSuggestBox.ItemContainerStyle>
-							<Style TargetType="ListViewItem">
-								<Setter Property="HorizontalContentAlignment" Value="Stretch" />
-							</Style>
-						</AutoSuggestBox.ItemContainerStyle>
-						<AutoSuggestBox.ItemTemplate>
-							<DataTemplate x:DataType="models:SearchQueryModel">
-								<Grid
-									HorizontalAlignment="Stretch"
-									VerticalAlignment="Stretch"
-									ColumnSpacing="8">
-									<Grid.ColumnDefinitions>
-										<ColumnDefinition Width="Auto" />
-										<ColumnDefinition Width="*" />
-										<ColumnDefinition Width="Auto" />
-									</Grid.ColumnDefinitions>
-									<FontIcon
-										FontSize="16"
-										Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-										Glyph="&#xE721;" />
-									<TextBlock
-										Grid.Column="1"
-										HorizontalAlignment="Left"
-										Text="{x:Bind QueryString}"
-										TextTrimming="CharacterEllipsis"
-										TextWrapping="NoWrap" />
-									<Border
-										Grid.Column="2"
-										Height="20"
-										Padding="4,2"
-										HorizontalAlignment="Right"
-										BorderBrush="{ThemeResource DividerStrokeColorDefault}"
-										BorderThickness="1"
-										CornerRadius="4">
-										<TextBlock
-											Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-											Style="{StaticResource CaptionTextBlockStyle}"
-											Text="{x:Bind Label}" />
-									</Border>
-								</Grid>
-							</DataTemplate>
-						</AutoSuggestBox.ItemTemplate>
-					</AutoSuggestBox>
-
-					<!--<Button
-						x:Name="GoForwardButton"
-						Width="36"
-						Height="32"
-						Padding="0"
-						VerticalAlignment="Center"
-						Background="Transparent"
-						BorderThickness="0"
-						Command="{x:Bind ViewModel.GoForwardCommand, Mode=OneWay}"
-						IsEnabled="{x:Bind CustomTabViewControl.SelectedItem.NavigationHistory.CanGoForward, Mode=OneWay}"
-						ToolTipService.ToolTip="{helpers:ResourceString Name=GoForwardButton/TooltipService/Tooltip}">
-						<Button.Resources>
-							<SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="Transparent" />
-						</Button.Resources>
-						<Button.RenderTransform>
-							<RotateTransform Angle="180" CenterX="18" CenterY="16" />
-						</Button.RenderTransform>
-						<AnimatedIcon Width="20" Height="20">
-							<AnimatedIcon.Source>
-								<animatedvisuals:AnimatedBackVisualSource />
-							</AnimatedIcon.Source>
-							<AnimatedIcon.FallbackIconSource>
-								<SymbolIconSource Symbol="Back" />
-							</AnimatedIcon.FallbackIconSource>
-						</AnimatedIcon>
-					</Button>-->
-				</StackPanel>
-
 				<tabsuc:CustomTabView
 					x:Name="CustomTabViewControl"
 					Title="{x:Bind CustomTabViewControl.SelectedItem.NavigationHistory.CurrentItem.Header, Mode=OneWay}"
-					Grid.Column="3"
+					Grid.Column="2"
 					Height="44"
 					Margin="-2,-6,0,0"
 					Background="Transparent"
@@ -282,23 +153,20 @@
 		</Grid>
 
 		<Grid Grid.Row="1">
-			<Grid.ColumnDefinitions>
-				<ColumnDefinition Width="Auto" />
-				<ColumnDefinition Width="*" />
-			</Grid.ColumnDefinitions>
-
 			<NavigationView
 				x:Name="MainNavView"
-				Width="256"
-				Margin="0,-4,1,2"
 				Canvas.ZIndex="0"
+				CompactModeThresholdWidth="500"
+				ExpandedModeThresholdWidth="1007"
 				IsBackButtonVisible="Collapsed"
-				IsPaneToggleButtonVisible="False"
-				IsSettingsVisible="False"
 				IsTitleBarAutoPaddingEnabled="False"
 				ItemInvoked="OnMainNavViewItemInvoked"
-				OpenPaneLength="256"
+				OpenPaneLength="292"
 				PaneDisplayMode="Left">
+
+				<NavigationView.AutoSuggestBox>
+					<AutoSuggestBox PlaceholderText="Search on GitHub" QueryIcon="Find" />
+				</NavigationView.AutoSuggestBox>
 
 				<NavigationView.MenuItems>
 					<NavigationViewItem
@@ -314,31 +182,104 @@
 							<FontIcon Glyph="&#xEA8F;" />
 						</NavigationViewItem.Icon>
 					</NavigationViewItem>
-					<NavigationViewItem Content="Activities" Tag="activities">
+
+					<NavigationViewItem Content="Workspace">
 						<NavigationViewItem.Icon>
-							<FontIcon Glyph="&#xECAD;" />
+							<FontIcon Glyph="&#xE71D;" />
 						</NavigationViewItem.Icon>
+						<NavigationViewItem.MenuItems>
+							<NavigationViewItem Content="Issues" Tag="issues">
+								<NavigationViewItem.Icon>
+									<FontIcon FontFamily="{StaticResource Octicons}" Glyph="&#xE9EA;" />
+								</NavigationViewItem.Icon>
+							</NavigationViewItem>
+							<NavigationViewItem Content="Pull Requests" Tag="pullrequests">
+								<NavigationViewItem.Icon>
+									<FontIcon FontFamily="{StaticResource Octicons}" Glyph="&#xE9BF;" />
+								</NavigationViewItem.Icon>
+							</NavigationViewItem>
+							<NavigationViewItem Content="Discussions" Tag="discussions">
+								<NavigationViewItem.Icon>
+									<FontIcon FontFamily="{StaticResource Octicons}" Glyph="&#xE95D;" />
+								</NavigationViewItem.Icon>
+							</NavigationViewItem>
+							<NavigationViewItem Content="Repositories" Tag="repositories">
+								<NavigationViewItem.Icon>
+									<FontIcon FontFamily="{StaticResource Octicons}" Glyph="&#xEA52;" />
+								</NavigationViewItem.Icon>
+							</NavigationViewItem>
+							<NavigationViewItem Content="Organizations" Tag="organizations">
+								<NavigationViewItem.Icon>
+									<FontIcon FontFamily="{StaticResource Octicons}" Glyph="&#xEA27;" />
+								</NavigationViewItem.Icon>
+							</NavigationViewItem>
+							<NavigationViewItem Content="Stars" Tag="stars">
+								<NavigationViewItem.Icon>
+									<FontIcon FontFamily="{StaticResource Octicons}" Glyph="&#xEA94;" />
+								</NavigationViewItem.Icon>
+							</NavigationViewItem>
+						</NavigationViewItem.MenuItems>
 					</NavigationViewItem>
+
 				</NavigationView.MenuItems>
 
-				<NavigationView.FooterMenuItems>
-					<NavigationViewItem Content="Profile" Tag="profile">
-						<NavigationViewItem.Icon>
-							<FontIcon Glyph="&#xE77B;" />
-						</NavigationViewItem.Icon>
-					</NavigationViewItem>
-					<NavigationViewItem Content="Settings" Tag="settings">
-						<NavigationViewItem.Icon>
-							<FontIcon Glyph="&#xE713;" />
-						</NavigationViewItem.Icon>
-					</NavigationViewItem>
-				</NavigationView.FooterMenuItems>
-			</NavigationView>
+				<NavigationView.PaneFooter>
+					<Button
+						Height="36"
+						Margin="4,0"
+						Padding="8,0"
+						HorizontalAlignment="Stretch"
+						HorizontalContentAlignment="Stretch"
+						Background="Transparent"
+						BorderThickness="0">
+						<Grid ColumnSpacing="12">
+							<Grid.ColumnDefinitions>
+								<ColumnDefinition Width="Auto" />
+								<ColumnDefinition Width="*" />
+							</Grid.ColumnDefinitions>
 
-			<ContentPresenter
-				x:Name="RootFrameBorder"
-				Grid.Column="1"
-				CornerRadius="8,0,0,0" />
+							<toolkit:ImageEx
+								Width="24"
+								Height="24"
+								CornerRadius="12"
+								Source="https://avatars.githubusercontent.com/u/62196528" />
+
+							<TextBlock
+								Grid.Column="1"
+								VerticalAlignment="Center"
+								Text="Tomoyuki Terashita" />
+						</Grid>
+					</Button>
+				</NavigationView.PaneFooter>
+
+				<NavigationView.Content>
+					<ContentPresenter x:Name="RootFrameBorder" />
+				</NavigationView.Content>
+
+			</NavigationView>
 		</Grid>
+
+		<VisualStateManager.VisualStateGroups>
+			<VisualStateGroup>
+				<VisualState x:Name="SmallAdaptiveTriggerVisualState">
+					<VisualState.StateTriggers>
+						<AdaptiveTrigger MinWindowWidth="0" />
+					</VisualState.StateTriggers>
+					<VisualState.Setters>
+						<Setter Target="MainNavView.PaneDisplayMode" Value="LeftCompact" />
+						<Setter Target="MainNavView.IsPaneToggleButtonVisible" Value="True" />
+					</VisualState.Setters>
+				</VisualState>
+				<VisualState x:Name="LargeAdaptiveTriggerVisualState">
+					<VisualState.StateTriggers>
+						<AdaptiveTrigger MinWindowWidth="1024" />
+					</VisualState.StateTriggers>
+					<VisualState.Setters>
+						<Setter Target="MainNavView.PaneDisplayMode" Value="Left" />
+						<Setter Target="MainNavView.IsPaneToggleButtonVisible" Value="False" />
+					</VisualState.Setters>
+				</VisualState>
+			</VisualStateGroup>
+		</VisualStateManager.VisualStateGroups>
 	</Grid>
 </Page>
