@@ -57,21 +57,21 @@ namespace FluentHub.App.ViewModels.UserControls
             MarkdownApiHandler markdown = new();
             var html = await markdown.GetHtmlAsync(IssueComment.BodyHTML, IssueComment.Url, settingTheme);
 
-            // https://github.com/microsoft/microsoft-ui-xaml/issues/3714
-            await webView2.EnsureCoreWebView2Async();
+            //// https://github.com/microsoft/microsoft-ui-xaml/issues/3714
+            //await webView2.EnsureCoreWebView2Async();
 
-            // https://github.com/microsoft/microsoft-ui-xaml/issues/1967
-            // It is no longer the plan for WebView2 to support ms-appx-web:/// and ms-appx-data:///.
-            // Instead of using these proprietary protocols the SetVirtualHostNameToFolderMapping API is recommended.
-            var CoreWebView2 = webView2.CoreWebView2;
-            if (CoreWebView2 != null)
-            {
-                CoreWebView2.SetVirtualHostNameToFolderMapping(
-                    "fluenthub.app", "Assets/",
-                    Microsoft.Web.WebView2.Core.CoreWebView2HostResourceAccessKind.Allow);
-            }
+            //// https://github.com/microsoft/microsoft-ui-xaml/issues/1967
+            //// It is no longer the plan for WebView2 to support ms-appx-web:/// and ms-appx-data:///.
+            //// Instead of using these proprietary protocols the SetVirtualHostNameToFolderMapping API is recommended.
+            //var CoreWebView2 = webView2.CoreWebView2;
+            //if (CoreWebView2 != null)
+            //{
+            //    CoreWebView2.SetVirtualHostNameToFolderMapping(
+            //        "fluenthub.app", "Assets/",
+            //        Microsoft.Web.WebView2.Core.CoreWebView2HostResourceAccessKind.Allow);
+            //}
 
-            webView2.NavigateToString(html);
+            //webView2.NavigateToString(html);
         }
     }
 }

@@ -249,21 +249,68 @@ namespace FluentHub.App.Views
 				case "notifications":
 					navService.Navigate<Home.NotificationsPage>();
 					break;
-				case "activities":
-					navService.Navigate<Users.ContributionsPage>();
-					break;
-				case "profile":
-					navService.Navigate<Users.OverviewPage>(
-					new FrameNavigationArgs()
-					{
-						Login = App.AppSettings.SignedInUserName,
-					});
-					break;
-				case "settings":
-					navService.Navigate<AppSettings.AppearancePage>();
-					break;
-			}
-		}
-		#endregion
-	}
+				case "issues":
+                    navService.Navigate<Users.IssuesPage>(
+                        new FrameNavigationArgs()
+                        {
+                            Parameters = new() { "AsViewer" },
+							Login = ViewModel.SignedInUser.Login,
+                        });
+                    break;
+                case "pullrequests":
+                    navService.Navigate<Users.PullRequestsPage>(
+                        new FrameNavigationArgs()
+                        {
+                            Parameters = new() { "AsViewer" },
+                            Login = ViewModel.SignedInUser.Login,
+                        });
+                    break;
+                case "discussions":
+                    navService.Navigate<Users.DiscussionsPage>(
+                        new FrameNavigationArgs()
+                        {
+                            Parameters = new() { "AsViewer" },
+							Login = ViewModel.SignedInUser.Login,
+                        });
+                    break;
+                case "repositories":
+                    navService.Navigate<Users.RepositoriesPage>(
+                        new FrameNavigationArgs()
+                        {
+                            Parameters = new() { "AsViewer" },
+							Login = ViewModel.SignedInUser.Login,
+                        });
+                    break;
+                case "organizations":
+                    navService.Navigate<Users.OrganizationsPage>(
+                        new FrameNavigationArgs()
+                        {
+                            Parameters = new() { "AsViewer" },
+							Login = ViewModel.SignedInUser.Login,
+                        });
+                    break;
+                case "stars":
+                    navService.Navigate<Users.StarredReposPage>(
+                        new FrameNavigationArgs()
+                        {
+                            Parameters = new() { "AsViewer" },
+							Login = ViewModel.SignedInUser.Login,
+                        });
+                    break;
+                case "settings":
+                    navService.Navigate<AppSettings.AppearancePage>();
+                    break;
+            }
+        }
+
+        private void SignedInUserButton_Click(object sender, RoutedEventArgs e)
+        {
+            navService.Navigate<Users.OverviewPage>(
+            new FrameNavigationArgs()
+            {
+                Login = App.AppSettings.SignedInUserName,
+            });
+        }
+        #endregion
+    }
 }
