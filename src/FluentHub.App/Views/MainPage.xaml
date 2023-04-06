@@ -10,6 +10,7 @@
     xmlns:icore="using:Microsoft.Xaml.Interactions.Core"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:models="using:FluentHub.App.Models"
+    xmlns:modelsV4="using:FluentHub.Octokit.Models.v4"
     xmlns:tabsuc="using:FluentHub.App.UserControls.TabViewControl"
     xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
     xmlns:uc="using:FluentHub.App.UserControls"
@@ -61,16 +62,21 @@
             </i:Interaction.Behaviors>
         </KeyboardAccelerator>
     </Page.KeyboardAccelerators>
+
     <Page.Resources>
         <ResourceDictionary>
+
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary>
+                    <SolidColorBrush x:Key="NavigationViewContentBackground" Color="Transparent" />
                     <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
                     <Thickness x:Key="NavigationViewContentGridBorderThickness">0</Thickness>
                     <CornerRadius x:Key="NavigationViewContentGridCornerRadius">0</CornerRadius>
                 </ResourceDictionary>
             </ResourceDictionary.MergedDictionaries>
+
             <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+
         </ResourceDictionary>
     </Page.Resources>
 
@@ -80,7 +86,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Grid>
+        <Grid x:Name="TitleBarContentGrid">
 
             <ProgressBar
                 x:Name="PageLoadingProgreeBar"
@@ -88,106 +94,25 @@
                 x:Load="{x:Bind ViewModel.TaskIsInProgress, Mode=OneWay}"
                 IsIndeterminate="True" />
 
-            <Grid ColumnSpacing="8">
+            <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="74" />
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
 
-                <uc:TitleBar
-                    x:Name="MainPageTitleBar"
-                    Margin="16,0,8,0"
-                    VerticalAlignment="Center" />
-
                 <StackPanel
-                    x:Name="TitleBarButtonGroup"
-                    Grid.Column="1"
+                    x:Name="TitleBarButtonGroupFirst"
+                    Grid.Column="0"
+                    Margin="4,0,0,0"
                     Orientation="Horizontal"
-                    Spacing="8">
-
-                    <Button
-                        x:Name="SearchGitHubButton"
-                        Width="36"
-                        Height="32"
-                        Padding="0"
-                        VerticalAlignment="Center"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Click="OnSearchGitHubButtonButtonClick"
-                        ToolTipService.ToolTip="{helpers:ResourceString Name=SearchBarButton/ToolTipService/Tooltip}">
-                        <AnimatedIcon Width="20" Height="20">
-                            <AnimatedIcon.Source>
-                                <animatedvisuals:AnimatedFindVisualSource />
-                            </AnimatedIcon.Source>
-                            <AnimatedIcon.FallbackIconSource>
-                                <SymbolIconSource Symbol="Find" />
-                            </AnimatedIcon.FallbackIconSource>
-                        </AnimatedIcon>
-
-                    </Button>
-
-                    <AutoSuggestBox
-                        x:Name="SearchGitHubAutoSuggestBox"
-                        Width="256"
-                        Height="32"
-                        ItemsSource="{x:Bind ViewModel.AutoSuggestionItems, Mode=OneWay}"
-                        LostFocus="OnSearchGitHubAutoSuggestBoxLostFocus"
-                        PlaceholderText="{helpers:ResourceString Name=SearchBar/PlaceholderText}"
-                        QueryIcon="Find"
-                        QuerySubmitted="OnSearchGitHubAutoSuggestBoxQuerySubmitted"
-                        SuggestionChosen="OnSearchGitHubAutoSuggestBoxSuggestionChosen"
-                        TextChanged="OnSearchGitHubAutoSuggestBoxTextChanged"
-                        Visibility="Collapsed">
-                        <AutoSuggestBox.ItemContainerStyle>
-                            <Style TargetType="ListViewItem">
-                                <Setter Property="HorizontalContentAlignment" Value="Stretch" />
-                            </Style>
-                        </AutoSuggestBox.ItemContainerStyle>
-                        <AutoSuggestBox.ItemTemplate>
-                            <DataTemplate x:DataType="models:SearchQueryModel">
-                                <Grid
-                                    HorizontalAlignment="Stretch"
-                                    VerticalAlignment="Stretch"
-                                    ColumnSpacing="8">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                        <ColumnDefinition Width="Auto" />
-                                    </Grid.ColumnDefinitions>
-                                    <FontIcon
-                                        FontSize="16"
-                                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                        Glyph="&#xE721;" />
-                                    <TextBlock
-                                        Grid.Column="1"
-                                        HorizontalAlignment="Left"
-                                        Text="{x:Bind QueryString}"
-                                        TextTrimming="CharacterEllipsis"
-                                        TextWrapping="NoWrap" />
-                                    <Border
-                                        Grid.Column="2"
-                                        Height="20"
-                                        Padding="4,2"
-                                        HorizontalAlignment="Right"
-                                        BorderBrush="{ThemeResource DividerStrokeColorDefault}"
-                                        BorderThickness="1"
-                                        CornerRadius="4">
-                                        <TextBlock
-                                            Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                            Style="{StaticResource CaptionTextBlockStyle}"
-                                            Text="{x:Bind Label}" />
-                                    </Border>
-                                </Grid>
-                            </DataTemplate>
-                        </AutoSuggestBox.ItemTemplate>
-                    </AutoSuggestBox>
+                    Spacing="4">
 
                     <Button
                         x:Name="GoBackButton"
-                        Width="36"
-                        Height="32"
+                        Width="40"
+                        Height="36"
                         Padding="0"
                         VerticalAlignment="Center"
                         Background="Transparent"
@@ -198,232 +123,181 @@
                         <Button.Resources>
                             <SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="Transparent" />
                         </Button.Resources>
-                        <AnimatedIcon Width="20" Height="20">
+                        <AnimatedIcon Width="16" Height="16">
                             <AnimatedIcon.Source>
                                 <animatedvisuals:AnimatedBackVisualSource />
                             </AnimatedIcon.Source>
                             <AnimatedIcon.FallbackIconSource>
-                                <SymbolIconSource Symbol="Back" />
-                            </AnimatedIcon.FallbackIconSource>
-                        </AnimatedIcon>
-                    </Button>
-
-                    <Button
-                        x:Name="GoForwardButton"
-                        Width="36"
-                        Height="32"
-                        Padding="0"
-                        VerticalAlignment="Center"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Command="{x:Bind ViewModel.GoForwardCommand, Mode=OneWay}"
-                        IsEnabled="{x:Bind CustomTabViewControl.SelectedItem.NavigationHistory.CanGoForward, Mode=OneWay}"
-                        ToolTipService.ToolTip="{helpers:ResourceString Name=GoForwardButton/TooltipService/Tooltip}">
-                        <Button.Resources>
-                            <SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="Transparent" />
-                        </Button.Resources>
-                        <Button.RenderTransform>
-                            <RotateTransform Angle="180" CenterX="18" CenterY="16" />
-                        </Button.RenderTransform>
-                        <AnimatedIcon Width="20" Height="20">
-                            <AnimatedIcon.Source>
-                                <animatedvisuals:AnimatedBackVisualSource />
-                            </AnimatedIcon.Source>
-                            <AnimatedIcon.FallbackIconSource>
-                                <SymbolIconSource Symbol="Back" />
+                                <FontIconSource Glyph="&#xE72B;" />
                             </AnimatedIcon.FallbackIconSource>
                         </AnimatedIcon>
                     </Button>
                 </StackPanel>
+
+                <uc:TitleBar
+                    x:Name="MainPageTitleBar"
+                    Grid.Column="1"
+                    Margin="8,0"
+                    VerticalAlignment="Center" />
 
                 <tabsuc:CustomTabView
                     x:Name="CustomTabViewControl"
                     Title="{x:Bind CustomTabViewControl.SelectedItem.NavigationHistory.CurrentItem.Header, Mode=OneWay}"
-                    Grid.Column="2"
+                    Grid.Column="3"
                     Height="44"
-                    Margin="0,-6,0,0"
+                    Margin="-2,-6,0,0"
                     Background="Transparent"
                     Loaded="OnCustomTabViewControlLoaded"
                     SelectionChanged="OnTabViewSelectionChanged" />
-
-                <StackPanel
-                    Grid.Column="3"
-                    Margin="0,0,152,0"
-                    Orientation="Horizontal">
-
-                    <DropDownButton
-                        x:Name="ToolbarAppSettingsButton"
-                        Width="64"
-                        Height="36"
-                        Padding="4,4,8,4"
-                        Background="Transparent"
-                        BorderBrush="{StaticResource ControlStrokeColorDefault}"
-                        BorderThickness="0"
-                        CornerRadius="8"
-                        ToolTipService.ToolTip="More">
-                        <Border CornerRadius="14">
-                            <Image
-                                Width="28"
-                                Height="28"
-                                Source="{x:Bind ViewModel.SignedInUser.AvatarUrl, Mode=OneWay}" />
-                        </Border>
-
-                        <DropDownButton.Flyout>
-                            <MenuFlyout Placement="BottomEdgeAlignedRight">
-                                <MenuFlyoutSubItem
-                                    x:Name="NewMutation"
-                                    IsEnabled="False"
-                                    Text="{helpers:ResourceString Name=New}">
-                                    <MenuFlyoutItem
-                                        x:Name="NewMutationRepoButton"
-                                        Click="OnMenuFlyoutItemClick"
-                                        Tag="NewRepo"
-                                        Text="{helpers:ResourceString Name=NewMutationRepoButton/Text}" />
-                                    <MenuFlyoutItem
-                                        x:Name="NewMutationOrganizationButton"
-                                        Click="OnMenuFlyoutItemClick"
-                                        Tag="NewOrganization"
-                                        Text="{helpers:ResourceString Name=NewMutationOrganizationButton/Text}" />
-                                </MenuFlyoutSubItem>
-                                <MenuFlyoutSeparator />
-                                <MenuFlyoutItem
-                                    x:Name="UserProfileButton"
-                                    Click="OnMenuFlyoutItemClick"
-                                    Tag="Profile"
-                                    Text="{helpers:ResourceString Name=UserProfileButton/Text}" />
-                                <MenuFlyoutItem
-                                    x:Name="UserRepositoriesButton"
-                                    Click="OnMenuFlyoutItemClick"
-                                    Tag="Repositories"
-                                    Text="{helpers:ResourceString Name=YourRepositories}" />
-                                <MenuFlyoutItem
-                                    x:Name="UserDiscussionsButton"
-                                    Click="OnMenuFlyoutItemClick"
-                                    Tag="Discussions"
-                                    Text="{helpers:ResourceString Name=YourDiscussions}" />
-                                <MenuFlyoutItem
-                                    x:Name="UserIssuesButton"
-                                    Click="OnMenuFlyoutItemClick"
-                                    Tag="Issues"
-                                    Text="{helpers:ResourceString Name=YourIssues}" />
-                                <MenuFlyoutItem
-                                    x:Name="UserPullRequestsButton"
-                                    Click="OnMenuFlyoutItemClick"
-                                    Tag="PullRequests"
-                                    Text="{helpers:ResourceString Name=YourPullRequests}" />
-                                <MenuFlyoutItem
-                                    x:Name="UserOrganizationsButton"
-                                    Click="OnMenuFlyoutItemClick"
-                                    Tag="Organizations"
-                                    Text="{helpers:ResourceString Name=YourOrganizations}" />
-                                <MenuFlyoutItem
-                                    x:Name="UserStarsButton"
-                                    Click="OnMenuFlyoutItemClick"
-                                    Tag="Stars"
-                                    Text="{helpers:ResourceString Name=YourStars}" />
-                                <MenuFlyoutSeparator />
-                                <MenuFlyoutSubItem x:Name="SwitchAccountFlyoutSub" Text="{helpers:ResourceString Name=SwitchAccountFlyoutSub/Text}">
-                                    <MenuFlyoutItem
-                                        x:Name="SwitchAccountNotAvailableYetButton"
-                                        IsEnabled="False"
-                                        Text="{helpers:ResourceString Name=FeatureNotAvailable/Text}" />
-                                    <MenuFlyoutSeparator />
-                                    <MenuFlyoutItem
-                                        x:Name="AccountSettingsButton"
-                                        Click="OnMenuFlyoutItemClick"
-                                        Tag="AccountSettings"
-                                        Text="{helpers:ResourceString Name=AccountSettingsButton/Text}" />
-                                </MenuFlyoutSubItem>
-                                <MenuFlyoutItem
-                                    x:Name="SettingsButton"
-                                    Click="OnMenuFlyoutItemClick"
-                                    Tag="Settings"
-                                    Text="{helpers:ResourceString Name=SettingsButton/Text}" />
-                                <MenuFlyoutItem
-                                    x:Name="SignOutButton"
-                                    Click="OnMenuFlyoutItemClick"
-                                    Tag="SignOut"
-                                    Text="{helpers:ResourceString Name=SignOutButton/Text}" />
-                            </MenuFlyout>
-                        </DropDownButton.Flyout>
-                    </DropDownButton>
-                </StackPanel>
             </Grid>
 
         </Grid>
 
         <Grid Grid.Row="1">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
-
             <NavigationView
                 x:Name="MainNavView"
-                Width="78"
-                Margin="0,-4,1,2"
-                Canvas.ZIndex="0"
-                FooterMenuItemsSource="{x:Bind ViewModel.NavViewFooterItems, Mode=OneWay}"
+                CompactModeThresholdWidth="500"
+                ExpandedModeThresholdWidth="1007"
                 IsBackButtonVisible="Collapsed"
-                IsPaneToggleButtonVisible="False"
-                IsSettingsVisible="False"
                 IsTitleBarAutoPaddingEnabled="False"
                 ItemInvoked="OnMainNavViewItemInvoked"
-                MenuItemsSource="{x:Bind ViewModel.NavViewItems, Mode=TwoWay}"
-                OpenPaneLength="80"
+                OpenPaneLength="256"
                 PaneDisplayMode="Left">
 
-                <NavigationView.Resources>
-                    <ResourceDictionary>
-                        <x:Double x:Key="NavigationViewSelectionIndicatorWidth">4</x:Double>
-                        <x:Double x:Key="NavigationViewSelectionIndicatorHeight">24</x:Double>
-                        <x:Double x:Key="NavigationViewSelectionIndicatorRadius">2</x:Double>
-                        <Thickness x:Key="NavigationViewItemInnerHeaderMargin">0,0,0,0</Thickness>
-                        <Thickness x:Key="NavigationViewItemContentPresenterMargin">0,0,0,0</Thickness>
-                    </ResourceDictionary>
-                </NavigationView.Resources>
+                <NavigationView.PaneHeader>
+                    <Button
+                        x:Name="SignedInUserButton"
+                        Height="76"
+                        Margin="12,0"
+                        Padding="8,6"
+                        HorizontalAlignment="Stretch"
+                        HorizontalContentAlignment="Left"
+                        Background="Transparent"
+                        BorderThickness="0"
+                        Click="SignedInUserButton_Click">
+                        <Grid ColumnSpacing="12">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
 
-                <NavigationView.MenuItemTemplate>
-                    <DataTemplate x:DataType="models:SquareNavigationViewItemModel">
-                        <NavigationViewItem
-                            Height="64"
-                            IsSelected="{x:Bind IsSelected, Mode=TwoWay}"
-                            Tag="{x:Bind Name}">
                             <Grid
-                                Margin="-3,4,-10,0"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                RowSpacing="2">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="Auto" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
+                                Width="48"
+                                Height="48"
+                                HorizontalAlignment="Left"
+                                Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+                                CornerRadius="30">
+                                <Image
+                                    x:Name="AppSignedInUserAvatar"
+                                    Width="60"
+                                    Height="60"
+                                    Source="{x:Bind ViewModel.SignedInUser.AvatarUrl, Mode=OneWay}" />
+                            </Grid>
 
-                                <toolkit:ImageEx
-                                    Width="28"
-                                    Height="28"
-                                    Source="{x:Bind Thumbnail}" />
-
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
                                 <TextBlock
-                                    x:Name="NavigationViewItemNameTextBlock"
-                                    Grid.Row="1"
-                                    HorizontalAlignment="Center"
-                                    x:Load="{x:Bind IsSelected, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
-                                    FontSize="10"
+                                    x:Name="SignedInUserName"
+                                    FontSize="16"
+                                    Style="{StaticResource BodyStrongTextBlockStyle}"
+                                    Text="{x:Bind ViewModel.SignedInUser.Name, Mode=OneWay}" />
+                                <TextBlock
+                                    x:Name="SignedInLoginName"
                                     Foreground="{ThemeResource TextFillColorSecondary}"
                                     Style="{StaticResource CaptionTextBlockStyle}"
-                                    Text="{x:Bind Name}" />
-                            </Grid>
-                        </NavigationViewItem>
-                    </DataTemplate>
-                </NavigationView.MenuItemTemplate>
+                                    Text="{x:Bind ViewModel.SignedInUser.Login, Mode=OneWay}" />
+                            </StackPanel>
+
+                        </Grid>
+                    </Button>
+                </NavigationView.PaneHeader>
+
+                <NavigationView.AutoSuggestBox>
+                    <AutoSuggestBox PlaceholderText="Search on GitHub" QueryIcon="Find" />
+                </NavigationView.AutoSuggestBox>
+
+                <NavigationView.MenuItems>
+                    <NavigationViewItem
+                        Content="Home"
+                        IsSelected="True"
+                        Tag="home">
+                        <NavigationViewItem.Icon>
+                            <FontIcon Glyph="&#xE80F;" />
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
+                    <NavigationViewItem Content="Notifications" Tag="notifications">
+                        <NavigationViewItem.Icon>
+                            <FontIcon Glyph="&#xEA8F;" />
+                        </NavigationViewItem.Icon>
+                    </NavigationViewItem>
+
+                    <NavigationViewItem Content="Workspace" IsExpanded="True">
+                        <NavigationViewItem.Icon>
+                            <FontIcon Glyph="&#xE71D;" />
+                        </NavigationViewItem.Icon>
+                        <NavigationViewItem.MenuItems>
+                            <NavigationViewItem Content="Issues" Tag="issues">
+                                <NavigationViewItem.Icon>
+                                    <FontIcon FontFamily="{StaticResource Octicons}" Glyph="&#xE9EA;" />
+                                </NavigationViewItem.Icon>
+                            </NavigationViewItem>
+                            <NavigationViewItem Content="Pull Requests" Tag="pullrequests">
+                                <NavigationViewItem.Icon>
+                                    <FontIcon FontFamily="{StaticResource Octicons}" Glyph="&#xE9BF;" />
+                                </NavigationViewItem.Icon>
+                            </NavigationViewItem>
+                            <NavigationViewItem Content="Discussions" Tag="discussions">
+                                <NavigationViewItem.Icon>
+                                    <FontIcon FontFamily="{StaticResource Octicons}" Glyph="&#xE95D;" />
+                                </NavigationViewItem.Icon>
+                            </NavigationViewItem>
+                            <NavigationViewItem Content="Repositories" Tag="repositories">
+                                <NavigationViewItem.Icon>
+                                    <FontIcon FontFamily="{StaticResource Octicons}" Glyph="&#xEA52;" />
+                                </NavigationViewItem.Icon>
+                            </NavigationViewItem>
+                            <NavigationViewItem Content="Organizations" Tag="organizations">
+                                <NavigationViewItem.Icon>
+                                    <FontIcon FontFamily="{StaticResource Octicons}" Glyph="&#xEA27;" />
+                                </NavigationViewItem.Icon>
+                            </NavigationViewItem>
+                            <NavigationViewItem Content="Stars" Tag="stars">
+                                <NavigationViewItem.Icon>
+                                    <FontIcon FontFamily="{StaticResource Octicons}" Glyph="&#xEA94;" />
+                                </NavigationViewItem.Icon>
+                            </NavigationViewItem>
+                        </NavigationViewItem.MenuItems>
+                    </NavigationViewItem>
+
+                </NavigationView.MenuItems>
+
+                <NavigationView.Content>
+                    <ContentPresenter x:Name="RootFrameBorder" />
+                </NavigationView.Content>
 
             </NavigationView>
-
-            <ContentPresenter
-                x:Name="RootFrameBorder"
-                Grid.Column="1"
-                CornerRadius="8,0,0,0" />
         </Grid>
+
+        <VisualStateManager.VisualStateGroups>
+            <VisualStateGroup>
+                <VisualState x:Name="SmallAdaptiveTriggerVisualState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="0" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="MainNavView.PaneDisplayMode" Value="LeftCompact" />
+                        <Setter Target="MainNavView.IsPaneToggleButtonVisible" Value="True" />
+                    </VisualState.Setters>
+                </VisualState>
+                <VisualState x:Name="LargeAdaptiveTriggerVisualState">
+                    <VisualState.StateTriggers>
+                        <AdaptiveTrigger MinWindowWidth="1024" />
+                    </VisualState.StateTriggers>
+                    <VisualState.Setters>
+                        <Setter Target="MainNavView.PaneDisplayMode" Value="Left" />
+                        <Setter Target="MainNavView.IsPaneToggleButtonVisible" Value="False" />
+                    </VisualState.Setters>
+                </VisualState>
+            </VisualStateGroup>
+        </VisualStateManager.VisualStateGroups>
     </Grid>
 </Page>

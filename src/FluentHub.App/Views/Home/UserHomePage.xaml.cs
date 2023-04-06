@@ -80,36 +80,36 @@ namespace FluentHub.App.Views.Home
         private void OnSeeFeedsButtonClick(object sender, RoutedEventArgs e)
             => _navigation.Navigate<ActivitiesPage>();
 
-        private void OnRecentUserNotificationListViewItemClick(object sender, ItemClickEventArgs e)
-        {
-            var notification = e.ClickedItem as Notification;
+		private void FeaturedNotificationsListItemButton_Click(object sender, RoutedEventArgs e)
+		{
+			var notification = (Notification)((Button)sender).Tag;
 
-            switch (notification.Subject.Type)
-            {
-                case NotificationSubjectType.IssueClosedAsCompleted:
-                case NotificationSubjectType.IssueClosedAsNotPlanned:
-                case NotificationSubjectType.IssueOpen:
-                    _navigation.Navigate<Repositories.Issues.IssuePage>(
-                    new FrameNavigationArgs()
-                    {
-                        Login = notification.Repository.Owner.Login,
-                        Name = notification.Repository.Name,
-                        Number = notification.Subject.Number,
-                    });
-                    break;
-                case NotificationSubjectType.PullRequestClosed:
-                case NotificationSubjectType.PullRequestDraft:
-                case NotificationSubjectType.PullRequestMerged:
-                case NotificationSubjectType.PullRequestOpen:
-                    _navigation.Navigate<Repositories.PullRequests.ConversationPage>(
-                    new FrameNavigationArgs()
-                    {
-                        Login = notification.Repository.Owner.Login,
-                        Name = notification.Repository.Name,
-                        Number = notification.Subject.Number,
-                    });
-                    break;
-            }
-        }
-    }
+			switch (notification.Subject.Type)
+			{
+				case NotificationSubjectType.IssueClosedAsCompleted:
+				case NotificationSubjectType.IssueClosedAsNotPlanned:
+				case NotificationSubjectType.IssueOpen:
+					_navigation.Navigate<Repositories.Issues.IssuePage>(
+					new FrameNavigationArgs()
+					{
+						Login = notification.Repository.Owner.Login,
+						Name = notification.Repository.Name,
+						Number = notification.Subject.Number,
+					});
+					break;
+				case NotificationSubjectType.PullRequestClosed:
+				case NotificationSubjectType.PullRequestDraft:
+				case NotificationSubjectType.PullRequestMerged:
+				case NotificationSubjectType.PullRequestOpen:
+					_navigation.Navigate<Repositories.PullRequests.ConversationPage>(
+					new FrameNavigationArgs()
+					{
+						Login = notification.Repository.Owner.Login,
+						Name = notification.Repository.Name,
+						Number = notification.Subject.Number,
+					});
+					break;
+			}
+		}
+	}
 }
