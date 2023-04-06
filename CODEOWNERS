@@ -4,7 +4,8 @@
 # For syntax help,
 # visit https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners#codeowners-syntax
 
-# Currently, onely onein528 is a maintainer who can fully understand the code, so only they will be added,
-# however, onein528 is not a native English speaker, so added one native English speaker, DeveloperWOW64.
-*     @onein528
-*.md  @onein528 @OpenAndrex
+*        @Lamparter
+
+# I wish to personally thank the previous lead developer, @0x5BFA, for all his hard work on FluentHub. I wouldn't be here today without FluentHub. Thank you.
+
+thanks   @0x5BFA
