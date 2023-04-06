@@ -144,17 +144,14 @@ See [the documentation](docs/credentials.md).
 - Many thanks to [Joseph Beattie](https://github.com/josephbeattie) for creating our current logo.
 
 ## 📱 Contact
-The easiest way to contact us is to join [our Discord](https://discord.gg/8KtRkjq2Q4).
+The easiest way to contact us is to join [our Discord](https://discord.gg/8KtRkjq2Q4) or [Riverside Valley's Discord](https://discord.gg/Z74UAQ5vPR).
 
 If you would like to ask a question, please reach out to us via Twitter:
 
-- Tomoyuki Terashita, Lead Developer: [@onein528](https://twitter.com/onein528)
-- Jupiter, Developer: [@DeveloperWOW64](https://twitter.com/DeveloperWOW64)
-- Gabriel Fontán, Developer: [@BobbyESPGabiles](https://twitter.com/BobbyESPGabiles)
-- Luandersonn Airton, Developer: [@luandersonn](https://twitter.com/luandersonn)
+- **@**[**Lamparter**](https://github.com/Lamparter), Lead Developer: [@notlamparter](https://twitter.com/notlamparter)
 
 ## ⚖️ License
 
-Copyright (c) 2022-2023 FluentHub Team
+Copyright (c) 2022-2023 [Riverside Valley Corporation](https://github.com/RiversideValley)
 
-Licensed under the MIT license as stated in the [LICENSE](LICENSE).
+Licensed under the MIT license as stated in the [LICENSE](LICENSE.md).
