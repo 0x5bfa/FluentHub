@@ -77,7 +77,7 @@ If you are interested in fixing issues and contributing directly to the code bas
 - Coding guidelines
 - [Submitting pull requests](https://github.com/FluentHub/FluentHub/pulls)
 - [Finding an issue to work on](https://github.com/FluentHub/FluentHub/issues/)
-- [Contributing to translations on Crowdin](https://crowdin.com/project/fluenthub)
+- [Contributing to translations on Crowdin](https://translate.dev.fluenthub.theriversi.de)
 
 ### 🏗️ Codebase Structure
 
