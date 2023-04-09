@@ -118,121 +118,121 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccountSettingsButton.Text" xml:space="preserve">
-    <value>Account Settings</value>
+    <value>Definições de Conta</value>
   </data>
   <data name="Activities" xml:space="preserve">
-    <value>Activities</value>
+    <value>Atividades</value>
   </data>
   <data name="AppearancePageColorBlock.Title" xml:space="preserve">
-    <value>Choose your color</value>
+    <value>Escolha uma cor</value>
   </data>
   <data name="AppearancePageGeneralHeader.Text" xml:space="preserve">
-    <value>General</value>
+    <value>Geral</value>
   </data>
   <data name="AppearancePageHeader.Text" xml:space="preserve">
-    <value>Appearance</value>
+    <value>Aparência</value>
   </data>
   <data name="AppearancePageLocaleBlock.Title" xml:space="preserve">
-    <value>Language</value>
+    <value>Idioma</value>
   </data>
   <data name="AppearancePageLocaleHeader.Text" xml:space="preserve">
-    <value>Language</value>
+    <value>Idioma</value>
   </data>
   <data name="AppearancePageThemeBlock.Title" xml:space="preserve">
-    <value>Custom themes</value>
+    <value>Temas Personalizados</value>
   </data>
   <data name="Back" xml:space="preserve">
-    <value>Back</value>
+    <value>Voltar</value>
   </data>
   <data name="CustomizeYourPins" xml:space="preserve">
     <value>Customize your pins</value>
   </data>
   <data name="DeveloperProgramMember" xml:space="preserve">
-    <value>Developer Program Member</value>
+    <value>Membro do Programa de Desenvolvimento</value>
   </data>
   <data name="Discussions" xml:space="preserve">
-    <value>Discussions</value>
+    <value>Discussões</value>
   </data>
   <data name="EditUserProfile" xml:space="preserve">
-    <value>Edit User Profile</value>
+    <value>Editar Perfil do Utilizador</value>
   </data>
   <data name="FeatureNotAvailable.Text" xml:space="preserve">
-    <value>Not available yet.</value>
+    <value>Não disponível.</value>
   </data>
   <data name="FeedsPageHeader.Text" xml:space="preserve">
-    <value>Activity</value>
+    <value>Atividade</value>
   </data>
   <data name="FeedsPageNoRecentActivityBody.Text" xml:space="preserve">
-    <value>No recent activity.</value>
+    <value>Nenhuma atividade recente.</value>
   </data>
   <data name="FifthStepToAuthorize.Text" xml:space="preserve">
-    <value>Proceed to the FluentHub application.</value>
+    <value>Continuar para a aplicação FluentHub.</value>
   </data>
   <data name="FirstStepToAuthorize.Text" xml:space="preserve">
-    <value>Click "Login with GitHub";</value>
+    <value>Clique "Login with GitHub";</value>
   </data>
   <data name="Follow" xml:space="preserve">
-    <value>Follow</value>
+    <value>Seguir</value>
   </data>
   <data name="Followers" xml:space="preserve">
-    <value>Followers</value>
+    <value>Seguidores</value>
   </data>
   <data name="FollowersWithoutCaps" xml:space="preserve">
-    <value>followers</value>
+    <value>seguidores</value>
   </data>
   <data name="Following" xml:space="preserve">
-    <value>Following</value>
+    <value>A seguir</value>
   </data>
   <data name="FollowingWithoutCaps" xml:space="preserve">
-    <value>following</value>
+    <value>a seguir</value>
   </data>
   <data name="ForthStepToAuthorize.Text" xml:space="preserve">
-    <value>Click "Open FluentHub DEV";</value>
+    <value>Clique "Abrir FluentHub DEV";</value>
   </data>
   <data name="Forward" xml:space="preserve">
-    <value>Forward</value>
+    <value>Avançar</value>
   </data>
   <data name="GoBackButton.TooltipService.Tooltip" xml:space="preserve">
-    <value>Back</value>
+    <value>Voltar</value>
   </data>
   <data name="GoForwardButton.TooltipService.Tooltip" xml:space="preserve">
-    <value>Forward</value>
+    <value>Avançar</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>Home</value>
+    <value>Página Inicial</value>
   </data>
   <data name="HomePageFavoritesHeader.Text" xml:space="preserve">
-    <value>Favorites</value>
+    <value>Favoritos</value>
   </data>
   <data name="HomePageFavoritesNotAvailableBody.Text" xml:space="preserve">
-    <value>No favorite items available.</value>
+    <value>Não há itens favoritos disponíveis.</value>
   </data>
   <data name="HomePageGeneralHeader.Text" xml:space="preserve">
-    <value>Work</value>
+    <value>Trabalho</value>
   </data>
   <data name="HomePageHeader.Text" xml:space="preserve">
-    <value>Home</value>
+    <value>Página Inicial</value>
   </data>
   <data name="HomePageRecentActivityHeader.Text" xml:space="preserve">
-    <value>Recent</value>
+    <value>Recente</value>
   </data>
   <data name="IntroDocumentationLink.Content" xml:space="preserve">
-    <value>Documentation</value>
+    <value>Documentação</value>
   </data>
   <data name="IntroHeader.Text" xml:space="preserve">
-    <value>Authorize FluentHub</value>
+    <value>Autorizar FluentHub</value>
   </data>
   <data name="Issues" xml:space="preserve">
-    <value>Issues</value>
+    <value>Problemas</value>
   </data>
   <data name="LoadErrorDisplayHeader.Text" xml:space="preserve">
-    <value>Something went wrong 😿</value>
+    <value>Algo correu mal 😿</value>
   </data>
   <data name="LoadErrorDisplayOpenLogFileLocationButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Opens the log folder where app error details are stored on the local disk.</value>
+    <value>Abre a pasta de registro onde os detalhes de erro do aplicativo são armazenados no disco local.</value>
   </data>
   <data name="LoadErrorDisplayOpenLogFileLocationButtonBody.Text" xml:space="preserve">
-    <value>Open log location</value>
+    <value>Abrir localização de registro</value>
   </data>
   <data name="LoadErrorDisplayReportThisIssueButton.ToolTipService.ToolTip" xml:space="preserve">
     <value>Opens our GitHub page in order to create an issue. Note: In the future, FluentHub will automatically paste the error contents, details, logs, and send them to the FluentHub team via GitHub when you click this button.</value>

@@ -118,375 +118,375 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="AccountSettingsButton.Text" xml:space="preserve">
-    <value>Hesap Ayarları</value>
+    <value>Account Settings</value>
   </data>
   <data name="Activities" xml:space="preserve">
-    <value>Aktiviteler</value>
+    <value>Activities</value>
   </data>
   <data name="AppearancePageColorBlock.Title" xml:space="preserve">
-    <value>Renginizi seçin</value>
+    <value>Choose your color</value>
   </data>
   <data name="AppearancePageGeneralHeader.Text" xml:space="preserve">
-    <value>Genel</value>
+    <value>General</value>
   </data>
   <data name="AppearancePageHeader.Text" xml:space="preserve">
-    <value>Görünüş</value>
+    <value>Appearance</value>
   </data>
   <data name="AppearancePageLocaleBlock.Title" xml:space="preserve">
-    <value>Dil</value>
+    <value>Language</value>
   </data>
   <data name="AppearancePageLocaleHeader.Text" xml:space="preserve">
-    <value>Dil</value>
+    <value>Language</value>
   </data>
   <data name="AppearancePageThemeBlock.Title" xml:space="preserve">
-    <value>Özel temalar</value>
+    <value>Custom themes</value>
   </data>
   <data name="Back" xml:space="preserve">
-    <value>Geri</value>
+    <value>Back</value>
   </data>
   <data name="CustomizeYourPins" xml:space="preserve">
-    <value>Pinlerinizi özelleştirin</value>
+    <value>Customize your pins</value>
   </data>
   <data name="DeveloperProgramMember" xml:space="preserve">
-    <value>Geliştirici Programı Üyesi</value>
+    <value>Developer Program Member</value>
   </data>
   <data name="Discussions" xml:space="preserve">
-    <value>Tartışmalar</value>
+    <value>Discussions</value>
   </data>
   <data name="EditUserProfile" xml:space="preserve">
-    <value>Kullanıcı Profilini Düzenle</value>
+    <value>Edit User Profile</value>
   </data>
   <data name="FeatureNotAvailable.Text" xml:space="preserve">
-    <value>Henüz mevcut değil.</value>
+    <value>Not available yet.</value>
   </data>
   <data name="FeedsPageHeader.Text" xml:space="preserve">
-    <value>Aktivite</value>
+    <value>Activity</value>
   </data>
   <data name="FeedsPageNoRecentActivityBody.Text" xml:space="preserve">
-    <value>Yakın zamanda aktivite yok.</value>
+    <value>No recent activity.</value>
   </data>
   <data name="FifthStepToAuthorize.Text" xml:space="preserve">
-    <value>FluentHub uygulamasına geç.</value>
+    <value>Proceed to the FluentHub application.</value>
   </data>
   <data name="FirstStepToAuthorize.Text" xml:space="preserve">
-    <value>"GitHub ile Giriş Yap"ı tıklayın;</value>
+    <value>Click "Login with GitHub";</value>
   </data>
   <data name="Follow" xml:space="preserve">
-    <value>Takip</value>
+    <value>Follow</value>
   </data>
   <data name="Followers" xml:space="preserve">
-    <value>Takipçiler</value>
+    <value>Followers</value>
   </data>
   <data name="FollowersWithoutCaps" xml:space="preserve">
-    <value>takipçi</value>
+    <value>followers</value>
   </data>
   <data name="Following" xml:space="preserve">
-    <value>Takipler</value>
+    <value>Following</value>
   </data>
   <data name="FollowingWithoutCaps" xml:space="preserve">
-    <value>takip edilen</value>
+    <value>following</value>
   </data>
   <data name="ForthStepToAuthorize.Text" xml:space="preserve">
-    <value>"FluentHub DEV'i Aç"a tıkla;</value>
+    <value>Click "Open FluentHub DEV";</value>
   </data>
   <data name="Forward" xml:space="preserve">
-    <value>İleri</value>
+    <value>Forward</value>
   </data>
   <data name="GoBackButton.TooltipService.Tooltip" xml:space="preserve">
-    <value>Geri</value>
+    <value>Back</value>
   </data>
   <data name="GoForwardButton.TooltipService.Tooltip" xml:space="preserve">
-    <value>İleri</value>
+    <value>Forward</value>
   </data>
   <data name="Home" xml:space="preserve">
-    <value>Ev</value>
+    <value>Home</value>
   </data>
   <data name="HomePageFavoritesHeader.Text" xml:space="preserve">
-    <value>Favoriler</value>
+    <value>Favorites</value>
   </data>
   <data name="HomePageFavoritesNotAvailableBody.Text" xml:space="preserve">
-    <value>Kullanılabilir favori öğe yok.</value>
+    <value>No favorite items available.</value>
   </data>
   <data name="HomePageGeneralHeader.Text" xml:space="preserve">
-    <value>İş</value>
+    <value>Work</value>
   </data>
   <data name="HomePageHeader.Text" xml:space="preserve">
-    <value>Ev</value>
+    <value>Home</value>
   </data>
   <data name="HomePageRecentActivityHeader.Text" xml:space="preserve">
-    <value>Enson</value>
+    <value>Recent</value>
   </data>
   <data name="IntroDocumentationLink.Content" xml:space="preserve">
-    <value>Dökümantasyon</value>
+    <value>Documentation</value>
   </data>
   <data name="IntroHeader.Text" xml:space="preserve">
-    <value>FluentHub'ı yetkilendir</value>
+    <value>Authorize FluentHub</value>
   </data>
   <data name="Issues" xml:space="preserve">
-    <value>Sorunlar</value>
+    <value>Issues</value>
   </data>
   <data name="LoadErrorDisplayHeader.Text" xml:space="preserve">
-    <value>Bir şeyler yanlış gitti 😿</value>
+    <value>Something went wrong 😿</value>
   </data>
   <data name="LoadErrorDisplayOpenLogFileLocationButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Uygulama hatası ayrıntılarının yerel diskte depolandığı günlük klasörünü açar.</value>
+    <value>Opens the log folder where app error details are stored on the local disk.</value>
   </data>
   <data name="LoadErrorDisplayOpenLogFileLocationButtonBody.Text" xml:space="preserve">
-    <value>Günlük konumunu aç</value>
+    <value>Open log location</value>
   </data>
   <data name="LoadErrorDisplayReportThisIssueButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Sorun oluşturmak için GitHub sayfamızı açar. Not: Gelecekte, FluentHub hata içeriklerini, ayrıntılarını, günlüklerini otomatik olarak yapıştıracak ve bu düğmeye tıkladığında GitHub üzerinden FluentHub ekibine gönderecektir.</value>
+    <value>Opens our GitHub page in order to create an issue. Note: In the future, FluentHub will automatically paste the error contents, details, logs, and send them to the FluentHub team via GitHub when you click this button.</value>
   </data>
   <data name="LoadErrorDisplayReportThisIssueButtonBody.Text" xml:space="preserve">
-    <value>Bu sorunu bildir</value>
+    <value>Report this issue</value>
   </data>
   <data name="LoadErrorDisplayShowExceptionDetailsContentDialogButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Yığın izleme sonuçlarını bir iletişim kutusunda görüntüler.</value>
+    <value>Displays the stack trace results in a dialog.</value>
   </data>
   <data name="LoadErrorDisplayShowExceptionDetailsContentDialogButtonBody.Text" xml:space="preserve">
-    <value>Yığın izlemeyi görün</value>
+    <value>See stack trace</value>
   </data>
   <data name="LoginWithGitHub.Content" xml:space="preserve">
-    <value>GitHub ile oturum açın</value>
+    <value>Login with GitHub</value>
   </data>
   <data name="New" xml:space="preserve">
-    <value>Yeni</value>
+    <value>New</value>
   </data>
   <data name="NewMutation.Text" xml:space="preserve">
-    <value>Yeni</value>
+    <value>New</value>
   </data>
   <data name="NewMutationOrganizationButton.Text" xml:space="preserve">
-    <value>Yeni organizasyon</value>
+    <value>New organization</value>
   </data>
   <data name="NewMutationRepoButton.Text" xml:space="preserve">
-    <value>Yeni depo</value>
+    <value>New repository</value>
   </data>
   <data name="Notifications" xml:space="preserve">
-    <value>Bildirimler</value>
+    <value>Notifications</value>
   </data>
   <data name="NotificationsPageFilterByReasonAssigned.Text" xml:space="preserve">
-    <value>📋 Atanan</value>
+    <value>📋 Assigned</value>
   </data>
   <data name="NotificationsPageFilterByReasonDone.Text" xml:space="preserve">
-    <value>Bitti</value>
+    <value>Done</value>
   </data>
   <data name="NotificationsPageFilterByReasonFlyoutBody.Text" xml:space="preserve">
-    <value>Filtreleme ölçütü:</value>
+    <value>Filter by:</value>
   </data>
   <data name="NotificationsPageFilterByReasonInbox.Text" xml:space="preserve">
-    <value>Gelen Kutusu</value>
+    <value>Inbox</value>
   </data>
   <data name="NotificationsPageFilterByReasonMentioned.Text" xml:space="preserve">
-    <value>✉️ Adı Geçen</value>
+    <value>✉️ Mentioned</value>
   </data>
   <data name="NotificationsPageFilterByReasonMentionedTeam.Text" xml:space="preserve">
-    <value>📧 Takım Adı Geçen</value>
+    <value>📧 Team Mentioned</value>
   </data>
   <data name="NotificationsPageFilterByReasonParticipating.Text" xml:space="preserve">
-    <value>🤝‍ Katılan</value>
+    <value>🤝‍ Participating</value>
   </data>
   <data name="NotificationsPageFilterByReasonReview.Text" xml:space="preserve">
-    <value>👀 İnceleme İstendi</value>
+    <value>👀 Review Requested</value>
   </data>
   <data name="NotificationsPageFilterByReasonSaved.Text" xml:space="preserve">
-    <value>Kaydedilen</value>
+    <value>Saved</value>
   </data>
   <data name="NotificationsPageGroupByViewFlyoutBody.Text" xml:space="preserve">
-    <value>Gruplama ölçütü:</value>
+    <value>Group by:</value>
   </data>
   <data name="NotificationsPageGroupByViewNone.Text" xml:space="preserve">
-    <value>Yok</value>
+    <value>None</value>
   </data>
   <data name="NotificationsPageGroupByViewPrimaryDate.Text" xml:space="preserve">
-    <value>Tarih</value>
+    <value>Date</value>
   </data>
   <data name="NotificationsPageGroupByViewRepository.Text" xml:space="preserve">
-    <value>Depo</value>
+    <value>Repository</value>
   </data>
   <data name="NotificationsPageHeader.Text" xml:space="preserve">
-    <value>Bildirimler</value>
+    <value>Notifications</value>
   </data>
   <data name="NotificationsPageNoRecentNotificationsBody.Text" xml:space="preserve">
-    <value>Yakın zamanda bildirim yok.</value>
+    <value>No recent notifications.</value>
   </data>
   <data name="NotificationsPageSearchBar.PlaceholderText" xml:space="preserve">
-    <value>Bildirim ara</value>
+    <value>Search notifications</value>
   </data>
   <data name="NotificationsPageUnreadToggle.Content" xml:space="preserve">
-    <value>Okunmamış</value>
+    <value>Unread</value>
   </data>
   <data name="NoUserDiscussions" xml:space="preserve">
     <value>No discussions</value>
   </data>
   <data name="NoUserFollowers" xml:space="preserve">
-    <value>Takip eden yok</value>
+    <value>No followers</value>
   </data>
   <data name="NoUserFollowing" xml:space="preserve">
-    <value>Takip edilen yok</value>
+    <value>No following</value>
   </data>
   <data name="NoUserIssues" xml:space="preserve">
-    <value>Sorun yok</value>
+    <value>No issues</value>
   </data>
   <data name="NoUserOrganizations" xml:space="preserve">
-    <value>Organizasyon yok</value>
+    <value>No organizations</value>
   </data>
   <data name="NoUserPopularRepositories" xml:space="preserve">
-    <value>Popüler depo yok</value>
+    <value>No popular repositories</value>
   </data>
   <data name="NoUserPullRequests" xml:space="preserve">
-    <value>Çekme isteği yok</value>
+    <value>No pull requests</value>
   </data>
   <data name="NoUserRepositories" xml:space="preserve">
-    <value>Depo yok</value>
+    <value>No repositories</value>
   </data>
   <data name="NoUserStars" xml:space="preserve">
-    <value>Yıldız yok</value>
+    <value>No stars</value>
   </data>
   <data name="Organizations" xml:space="preserve">
-    <value>Organizasyonlar</value>
+    <value>Organizations</value>
   </data>
   <data name="Overview" xml:space="preserve">
-    <value>Genel bakış</value>
+    <value>Overview</value>
   </data>
   <data name="Packages" xml:space="preserve">
-    <value>Paketler</value>
+    <value>Packages</value>
   </data>
   <data name="PinnedRepositories" xml:space="preserve">
-    <value>İğnelenmiş depolar</value>
+    <value>Pinned repositories</value>
   </data>
   <data name="PopularRepositories" xml:space="preserve">
-    <value>Popüler Depolar</value>
+    <value>Popular repositories</value>
   </data>
   <data name="Projects" xml:space="preserve">
-    <value>Projeler</value>
+    <value>Projects</value>
   </data>
   <data name="PullRequests" xml:space="preserve">
-    <value>Çekme İstekleri</value>
+    <value>Pull Requests</value>
   </data>
   <data name="RefreshBody.Text" xml:space="preserve">
-    <value>Yenile</value>
+    <value>Refresh</value>
   </data>
   <data name="Repositories" xml:space="preserve">
-    <value>Depolar</value>
+    <value>Repositories</value>
   </data>
   <data name="RepositoriesListHeader.Text" xml:space="preserve">
-    <value>Depolar</value>
+    <value>Repositories</value>
   </data>
   <data name="SearchBar.PlaceholderText" xml:space="preserve">
-    <value>Arama</value>
+    <value>Search</value>
   </data>
   <data name="SearchBarButton.TooltipService.Tooltip" xml:space="preserve">
-    <value>Arama</value>
+    <value>Search</value>
   </data>
   <data name="SearchDiscussionsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Tartışma ara</value>
+    <value>Search discussions</value>
   </data>
   <data name="SearchFollowersTextBox.PlaceholderText" xml:space="preserve">
-    <value>Takip eden ara</value>
+    <value>Search followers</value>
   </data>
   <data name="SearchFollowingTextBox.PlaceholderText" xml:space="preserve">
-    <value>Takip edilen ara</value>
+    <value>Search following</value>
   </data>
   <data name="SearchIssuesTextBox.PlaceholderText" xml:space="preserve">
-    <value>Sorun ara</value>
+    <value>Search issues</value>
   </data>
   <data name="SearchOrganizationsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Organizasyon ara</value>
+    <value>Search organizations</value>
   </data>
   <data name="SearchPullRequestsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Çekme isteği ara</value>
+    <value>Search pull requests</value>
   </data>
   <data name="SearchRepositoriesTextBox.PlaceholderText" xml:space="preserve">
-    <value>Depo ara</value>
+    <value>Search repositories</value>
   </data>
   <data name="SearchStarsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Yıldız ara</value>
+    <value>Search stars</value>
   </data>
   <data name="SecondStepToAuthorize.Text" xml:space="preserve">
-    <value>Bir veya daha fazla kuruluşun yönetimindeyseniz, lütfen FluentHub'a bunlara erişim izni verin;</value>
+    <value>If you are in administration of one or more organizations, please give FluentHub access to them;</value>
   </data>
   <data name="Settings" xml:space="preserve">
-    <value>Ayarlar</value>
+    <value>Settings</value>
   </data>
   <data name="SettingsButton.Text" xml:space="preserve">
-    <value>Ayarlar</value>
+    <value>Settings</value>
   </data>
   <data name="SettingsFeedbackButton.Content" xml:space="preserve">
-    <value>Geri bildirim</value>
+    <value>Feedback</value>
   </data>
   <data name="SettingsGetHelpButton.Content" xml:space="preserve">
-    <value>Yardım al</value>
+    <value>Get help</value>
   </data>
   <data name="SignOutButton.Text" xml:space="preserve">
-    <value>Çıkış yap</value>
+    <value>Sign Out</value>
   </data>
   <data name="Stars" xml:space="preserve">
-    <value>Yıldızlar</value>
+    <value>Stars</value>
   </data>
   <data name="SwitchAccountFlyoutSub.Text" xml:space="preserve">
-    <value>Hesap değiştir</value>
+    <value>Switch account</value>
   </data>
   <data name="ThemeAuto" xml:space="preserve">
-    <value>Sistem ayarıyla senkronize et</value>
+    <value>Sync with system setting</value>
   </data>
   <data name="ThemeDark" xml:space="preserve">
-    <value>Karanlık</value>
+    <value>Dark</value>
   </data>
   <data name="ThemeLight" xml:space="preserve">
-    <value>Aydınlık</value>
+    <value>Light</value>
   </data>
   <data name="ThirdStepToAuthorize.Text" xml:space="preserve">
-    <value>"FluentHub'ı Yetkilendir"e tıkla;</value>
+    <value>Click "Authorize FluentHub";</value>
   </data>
   <data name="TryAgainWithCap" xml:space="preserve">
-    <value>Yeniden Dene</value>
+    <value>Try Again</value>
   </data>
   <data name="Unfollow" xml:space="preserve">
-    <value>Takibi bırak</value>
+    <value>Unfollow</value>
   </data>
   <data name="UserDiscussionsButton.Text" xml:space="preserve">
-    <value>Tartışmaların</value>
+    <value>Your discussions</value>
   </data>
   <data name="UserIssuesButton.Text" xml:space="preserve">
-    <value>Sorunların</value>
+    <value>Your issues</value>
   </data>
   <data name="UserOrganizationsButton.Text" xml:space="preserve">
-    <value>Organizasyonların</value>
+    <value>Your organizations</value>
   </data>
   <data name="UserProfileButton.Text" xml:space="preserve">
-    <value>Profilin</value>
+    <value>Your profile</value>
   </data>
   <data name="UserPullRequestsButton.Text" xml:space="preserve">
-    <value>Çekme isteklerin</value>
+    <value>Your pull requests</value>
   </data>
   <data name="UserRepositoriesButton.Text" xml:space="preserve">
-    <value>Depoların</value>
+    <value>Your repositories</value>
   </data>
   <data name="UserStarsButton.Text" xml:space="preserve">
-    <value>Yıldızların</value>
+    <value>Your stars</value>
   </data>
   <data name="YourDiscussions" xml:space="preserve">
-    <value>Tartışmaların</value>
+    <value>Your discussions</value>
   </data>
   <data name="YourFollowers" xml:space="preserve">
-    <value>Takip edenlerin</value>
+    <value>Your followers</value>
   </data>
   <data name="YourFollowing" xml:space="preserve">
-    <value>Takip ettiklerin</value>
+    <value>Your following</value>
   </data>
   <data name="YourIssues" xml:space="preserve">
-    <value>Sorunların</value>
+    <value>Your issues</value>
   </data>
   <data name="YourOrganizations" xml:space="preserve">
-    <value>Organizasyonların</value>
+    <value>Your organizations</value>
   </data>
   <data name="YourPullRequests" xml:space="preserve">
-    <value>Çekme isteklerin</value>
+    <value>Your pull requests</value>
   </data>
   <data name="YourRepositories" xml:space="preserve">
-    <value>Depoların</value>
+    <value>Your repositories</value>
   </data>
   <data name="YourStars" xml:space="preserve">
-    <value>Yıldızların</value>
+    <value>Your stars</value>
   </data>
 </root>

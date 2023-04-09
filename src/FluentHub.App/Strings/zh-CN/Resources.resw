@@ -226,7 +226,7 @@
     <value>议题</value>
   </data>
   <data name="LoadErrorDisplayHeader.Text" xml:space="preserve">
-    <value>出现了一些错误 😿</value>
+    <value>错误出现了 😿</value>
   </data>
   <data name="LoadErrorDisplayOpenLogFileLocationButton.ToolTipService.ToolTip" xml:space="preserve">
     <value>打开储存了应用错误的日志文件夹。</value>
@@ -247,7 +247,7 @@
     <value>查看堆栈跟踪</value>
   </data>
   <data name="LoginWithGitHub.Content" xml:space="preserve">
-    <value>登录 GitHub</value>
+    <value>用 GitHub 登录</value>
   </data>
   <data name="New" xml:space="preserve">
     <value>新建</value>
@@ -265,7 +265,7 @@
     <value>通知</value>
   </data>
   <data name="NotificationsPageFilterByReasonAssigned.Text" xml:space="preserve">
-    <value>📋 分配</value>
+    <value>📋 已分配</value>
   </data>
   <data name="NotificationsPageFilterByReasonDone.Text" xml:space="preserve">
     <value>完成</value>
@@ -280,7 +280,7 @@
     <value>✉️ 提及</value>
   </data>
   <data name="NotificationsPageFilterByReasonMentionedTeam.Text" xml:space="preserve">
-    <value>📧 提及团队</value>
+    <value>📧 团队提及</value>
   </data>
   <data name="NotificationsPageFilterByReasonParticipating.Text" xml:space="preserve">
     <value>🤝‍ 参与</value>
@@ -307,7 +307,7 @@
     <value>通知</value>
   </data>
   <data name="NotificationsPageNoRecentNotificationsBody.Text" xml:space="preserve">
-    <value>没有最近的通知。</value>
+    <value>没有最近的通知</value>
   </data>
   <data name="NotificationsPageSearchBar.PlaceholderText" xml:space="preserve">
     <value>搜索通知</value>
@@ -352,7 +352,7 @@
     <value>包</value>
   </data>
   <data name="PinnedRepositories" xml:space="preserve">
-    <value>仓库磁贴</value>
+    <value>已固定的仓库</value>
   </data>
   <data name="PopularRepositories" xml:space="preserve">
     <value>热门仓库</value>

@@ -59,46 +59,46 @@
             : using a System.ComponentModel.TypeConverter
             : and then encoded with base64 encoding.
     -->
-  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
-    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+  <xsd:schema xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata" id="root">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace"/>
     <xsd:element name="root" msdata:IsDataSet="true">
       <xsd:complexType>
         <xsd:choice maxOccurs="unbounded">
           <xsd:element name="metadata">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0"/>
               </xsd:sequence>
-              <xsd:attribute name="name" use="required" type="xsd:string" />
-              <xsd:attribute name="type" type="xsd:string" />
-              <xsd:attribute name="mimetype" type="xsd:string" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" use="required" type="xsd:string"/>
+              <xsd:attribute name="type" type="xsd:string"/>
+              <xsd:attribute name="mimetype" type="xsd:string"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="assembly">
             <xsd:complexType>
-              <xsd:attribute name="alias" type="xsd:string" />
-              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="alias" type="xsd:string"/>
+              <xsd:attribute name="name" type="xsd:string"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="data">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
-                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
-              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
-              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
-              <xsd:attribute ref="xml:space" />
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1"/>
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3"/>
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4"/>
+              <xsd:attribute ref="xml:space"/>
             </xsd:complexType>
           </xsd:element>
           <xsd:element name="resheader">
             <xsd:complexType>
               <xsd:sequence>
-                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1"/>
               </xsd:sequence>
-              <xsd:attribute name="name" type="xsd:string" use="required" />
+              <xsd:attribute name="name" type="xsd:string" use="required"/>
             </xsd:complexType>
           </xsd:element>
         </xsd:choice>
@@ -235,7 +235,7 @@
     <value>Ouvrir les logs</value>
   </data>
   <data name="LoadErrorDisplayReportThisIssueButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Ouvrez notre page GitHub pour créer une Issue. Note: Dans le futur, FluentHub va automatiquement collecter le contenu de l'erreur, les détails, les logs, et va les envoyers vers l'équipe FluentHub via GitHub quand vous cliquerez sur le bouton.</value>
+    <value>Ouvrez notre page GitHub pour créer une Issue. Note : Dans le futur, FluentHub va automatiquement collecter le contenu de l'erreur, les détails, les logs, et va les envoyer vers l'équipe FluentHub via GitHub quand vous cliquerez sur le bouton.</value>
   </data>
   <data name="LoadErrorDisplayReportThisIssueButtonBody.Text" xml:space="preserve">
     <value>Reporter ce problème</value>
@@ -307,7 +307,7 @@
     <value>Notifications</value>
   </data>
   <data name="NotificationsPageNoRecentNotificationsBody.Text" xml:space="preserve">
-    <value>Pas de récente notifications.</value>
+    <value>Pas de récentes notifications.</value>
   </data>
   <data name="NotificationsPageSearchBar.PlaceholderText" xml:space="preserve">
     <value>Chercher des notifications</value>
@@ -316,10 +316,10 @@
     <value>Non-lus</value>
   </data>
   <data name="NoUserDiscussions" xml:space="preserve">
-    <value>Aucune discussions</value>
+    <value>Aucunes discussions</value>
   </data>
   <data name="NoUserFollowers" xml:space="preserve">
-    <value>Aucun abonnés</value>
+    <value>Aucuns abonnés</value>
   </data>
   <data name="NoUserFollowing" xml:space="preserve">
     <value>Aucun abonnement</value>
@@ -328,19 +328,19 @@
     <value>Aucun issues</value>
   </data>
   <data name="NoUserOrganizations" xml:space="preserve">
-    <value>Aucune organisations</value>
+    <value>Aucunes organisations</value>
   </data>
   <data name="NoUserPopularRepositories" xml:space="preserve">
-    <value>Aucun repositories populaire</value>
+    <value>Aucuns dépôts populaires</value>
   </data>
   <data name="NoUserPullRequests" xml:space="preserve">
     <value>Aucun pull requests</value>
   </data>
   <data name="NoUserRepositories" xml:space="preserve">
-    <value>Aucun repositories</value>
+    <value>Aucuns dépôts</value>
   </data>
   <data name="NoUserStars" xml:space="preserve">
-    <value>Aucun étoiles</value>
+    <value>Aucunes étoiles</value>
   </data>
   <data name="Organizations" xml:space="preserve">
     <value>Organisations</value>
@@ -352,10 +352,10 @@
     <value>Paquets</value>
   </data>
   <data name="PinnedRepositories" xml:space="preserve">
-    <value>Repositories épinglés</value>
+    <value>Dépôts épinglés</value>
   </data>
   <data name="PopularRepositories" xml:space="preserve">
-    <value>Repositories populaire</value>
+    <value>Dépôts populaires</value>
   </data>
   <data name="Projects" xml:space="preserve">
     <value>Projets</value>
@@ -367,10 +367,10 @@
     <value>Actualiser</value>
   </data>
   <data name="Repositories" xml:space="preserve">
-    <value>Repositories</value>
+    <value>Dépôts</value>
   </data>
   <data name="RepositoriesListHeader.Text" xml:space="preserve">
-    <value>Repositories</value>
+    <value>Dépôts</value>
   </data>
   <data name="SearchBar.PlaceholderText" xml:space="preserve">
     <value>Chercher</value>
@@ -397,7 +397,7 @@
     <value>Chercher des pull requests</value>
   </data>
   <data name="SearchRepositoriesTextBox.PlaceholderText" xml:space="preserve">
-    <value>Chercher des repositories</value>
+    <value>Chercher des dépôts</value>
   </data>
   <data name="SearchStarsTextBox.PlaceholderText" xml:space="preserve">
     <value>Chercher des étoiles</value>
@@ -412,13 +412,13 @@
     <value>Paramètres</value>
   </data>
   <data name="SettingsFeedbackButton.Content" xml:space="preserve">
-    <value>Retour</value>
+    <value>Commentaires</value>
   </data>
   <data name="SettingsGetHelpButton.Content" xml:space="preserve">
     <value>Aide</value>
   </data>
   <data name="SignOutButton.Text" xml:space="preserve">
-    <value>Se déconnecter</value>
+    <value>Sign Out</value>
   </data>
   <data name="Stars" xml:space="preserve">
     <value>Étoile</value>
@@ -430,10 +430,10 @@
     <value>Synchroniser avec les paramètres système</value>
   </data>
   <data name="ThemeDark" xml:space="preserve">
-    <value>Noir</value>
+    <value>Sombre</value>
   </data>
   <data name="ThemeLight" xml:space="preserve">
-    <value>Blanc</value>
+    <value>Clair</value>
   </data>
   <data name="ThirdStepToAuthorize.Text" xml:space="preserve">
     <value>Cliquer sur "Autoriser FluentHub" ;</value>
@@ -460,7 +460,7 @@
     <value>Vos pull requests</value>
   </data>
   <data name="UserRepositoriesButton.Text" xml:space="preserve">
-    <value>Vos repositories</value>
+    <value>Vos dépôts</value>
   </data>
   <data name="UserStarsButton.Text" xml:space="preserve">
     <value>Vos étoiles</value>
@@ -484,7 +484,7 @@
     <value>Vos pull requests</value>
   </data>
   <data name="YourRepositories" xml:space="preserve">
-    <value>Vos repositories</value>
+    <value>Vos dépôts</value>
   </data>
   <data name="YourStars" xml:space="preserve">
     <value>Vos étoiles</value>
