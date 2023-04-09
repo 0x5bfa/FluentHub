@@ -81,8 +81,6 @@ If you are interested in fixing issues and contributing directly to the code bas
 
 ```
 .
-├──lib                               // Library for submodules.
-|  └──octokit.graphql.net            // Official library for GitHub GraphQL API.
 └──src                               // The source code.
    ├──FluentHub.App                  // Code for most front-end elements of the app.
    ├──FluentHub.Core                 // Core elements of the app.
