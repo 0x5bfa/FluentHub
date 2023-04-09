@@ -27,7 +27,7 @@
 </p>
 
 ---
-## 🎁 Installation
+## Installation
 
 ### Via Microsoft Store
 
@@ -55,14 +55,12 @@ Add-AppxPackage FluentHub_<versionNumber>.msixbundle
 
 See the [build section](#-building-the-code).
 
-## 📸 Screenshots
-
-*May not always be up-to-date due to constant changes to the user interface*
+## Screenshots
 
 ![image](https://user-images.githubusercontent.com/71598437/196044933-fea4c40a-6bd6-4d13-94ce-664da891588e.png)
 ![image](https://user-images.githubusercontent.com/71598437/196045421-a37bf241-6a0a-4d9f-9fb2-be4681506c49.png)
 
-## 🧑‍💻 Contributing
+## Contributing
 
 There are multiple ways to participate in the community:
 
@@ -77,7 +75,7 @@ If you are interested in fixing issues and contributing directly to the code bas
 - Coding guidelines
 - [Submitting pull requests](https://github.com/FluentHub/FluentHub/pulls)
 - [Finding an issue to work on](https://github.com/FluentHub/FluentHub/issues/)
-- [Contributing to translations on Crowdin](https://translate.dev.fluenthub.theriversi.de)
+- [Contributing to translations on Crowdin](https://crowdin.com/project/fluenthub)
 
 ### 🏗️ Codebase Structure
 
@@ -92,20 +90,20 @@ If you are interested in fixing issues and contributing directly to the code bas
    └──FluentHub.Octokit.Generation   // GitHub GraphQL API model generator.
 ```
 
-### 🗃️ Contributors
+### Contributors
 
 <a href="https://github.com/FluentHub/FluentHub/graphs/contributors">
   <img src="https://contrib.rocks/image?repo=FluentHub/FluentHub" />
 </a>
 
-## 🦜 Feedback
+## Feedback
 
 - [Request a new feature](https://github.com/FluentHub/FluentHub/pulls)
 - Upvote popular feature requests
 - [File an issue](https://github.com/FluentHub/FluentHub/issues/new/choose)
 - Join [our Discord](https://discord.gg/8KtRkjq2Q4) and let us know what you think
 
-## 🔨 Building the Code
+## Building the Code
 
 ### 1. Prerequisites
 
@@ -144,14 +142,14 @@ See [the documentation](docs/credentials.md).
 - Many thanks to [Joseph Beattie](https://github.com/josephbeattie) for creating our current logo.
 
 ## 📱 Contact
-The easiest way to contact us is to join [our Discord](https://discord.gg/8KtRkjq2Q4) or [Riverside Valley's Discord](https://discord.gg/Z74UAQ5vPR).
+The easiest way to contact us is to join [our Discord](https://discord.gg/8KtRkjq2Q4)
 
 If you would like to ask a question, please reach out to us via Twitter:
 
-- **@**[**Lamparter**](https://github.com/Lamparter), Lead Developer: [@notlamparter](https://twitter.com/notlamparter)
+- Tomoyuki Terashita, Lead Developer: [@0x5BFA](https://twitter.com/0x5BFA)
 
 ## ⚖️ License
 
-Copyright (c) 2022-2023 [Riverside Valley Corporation](https://github.com/RiversideValley)
+Copyright (c) 2022-2023 0x5BFA
 
 Licensed under the MIT license as stated in the [LICENSE](LICENSE.md).
