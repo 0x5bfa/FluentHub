@@ -11,7 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="GraphQL.Client" Version="5.1.1" />
+    <PackageReference Include="GraphQL.Client" Version="6.0.0" />
     <PackageReference Include="GraphQL.Client.Serializer.Newtonsoft" Version="5.1.1" />
     <PackageReference Include="Humanizer" Version="2.8.25" />
     <PackageReference Include="Microsoft.CSharp" Version="4.7.0" />
