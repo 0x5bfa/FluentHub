@@ -145,16 +145,16 @@
     <value>Quay lại</value>
   </data>
   <data name="CustomizeYourPins" xml:space="preserve">
-    <value>Customize your pins</value>
+    <value>Tuỳ biến phần ghim của bạn</value>
   </data>
   <data name="DeveloperProgramMember" xml:space="preserve">
-    <value>Developer Program Member</value>
+    <value>Thành viên phát triển chương trình</value>
   </data>
   <data name="Discussions" xml:space="preserve">
     <value>Thảo luận</value>
   </data>
   <data name="EditUserProfile" xml:space="preserve">
-    <value>Edit User Profile</value>
+    <value>Chỉnh sửa thông tin người dùng</value>
   </data>
   <data name="FeatureNotAvailable.Text" xml:space="preserve">
     <value>Không sẵn có.</value>
