@@ -157,7 +157,7 @@
     <value>Éditer le profil utilisateur</value>
   </data>
   <data name="FeatureNotAvailable.Text" xml:space="preserve">
-    <value>Pas disponible.</value>
+    <value>Pas disponible pour le moment.</value>
   </data>
   <data name="FeedsPageHeader.Text" xml:space="preserve">
     <value>Activité</value>
@@ -223,13 +223,13 @@
     <value>Autoriser FluentHub</value>
   </data>
   <data name="Issues" xml:space="preserve">
-    <value>Issues</value>
+    <value>Problèmes</value>
   </data>
   <data name="LoadErrorDisplayHeader.Text" xml:space="preserve">
     <value>Quelque chose s'est mal passée 😿</value>
   </data>
   <data name="LoadErrorDisplayOpenLogFileLocationButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Ouvrez le dossier des logs où les erreurs détaillées de l'application sont stockés sur le disque local.</value>
+    <value>Ouvrez le dossier des logs où les détails des erreurs de l'application sont stockés sur le disque local.</value>
   </data>
   <data name="LoadErrorDisplayOpenLogFileLocationButtonBody.Text" xml:space="preserve">
     <value>Ouvrir les logs</value>
@@ -259,7 +259,7 @@
     <value>Nouvelle organisation</value>
   </data>
   <data name="NewMutationRepoButton.Text" xml:space="preserve">
-    <value>Nouveau repository</value>
+    <value>Nouveau répertoire</value>
   </data>
   <data name="Notifications" xml:space="preserve">
     <value>Notifications</value>
@@ -286,7 +286,7 @@
     <value>🤝‍ Participants</value>
   </data>
   <data name="NotificationsPageFilterByReasonReview.Text" xml:space="preserve">
-    <value>👀 Demande de Review</value>
+    <value>👀 Demande de révision</value>
   </data>
   <data name="NotificationsPageFilterByReasonSaved.Text" xml:space="preserve">
     <value>Sauvegardé</value>
@@ -301,13 +301,13 @@
     <value>Date</value>
   </data>
   <data name="NotificationsPageGroupByViewRepository.Text" xml:space="preserve">
-    <value>Repository</value>
+    <value>Répertoire</value>
   </data>
   <data name="NotificationsPageHeader.Text" xml:space="preserve">
     <value>Notifications</value>
   </data>
   <data name="NotificationsPageNoRecentNotificationsBody.Text" xml:space="preserve">
-    <value>Pas de récentes notifications.</value>
+    <value>Pas de notifications récentes.</value>
   </data>
   <data name="NotificationsPageSearchBar.PlaceholderText" xml:space="preserve">
     <value>Chercher des notifications</value>
@@ -316,25 +316,25 @@
     <value>Non-lus</value>
   </data>
   <data name="NoUserDiscussions" xml:space="preserve">
-    <value>Aucunes discussions</value>
+    <value>Aucune discussion</value>
   </data>
   <data name="NoUserFollowers" xml:space="preserve">
-    <value>Aucuns abonnés</value>
+    <value>Aucun abonné</value>
   </data>
   <data name="NoUserFollowing" xml:space="preserve">
     <value>Aucun abonnement</value>
   </data>
   <data name="NoUserIssues" xml:space="preserve">
-    <value>Aucun issues</value>
+    <value>Aucun problème</value>
   </data>
   <data name="NoUserOrganizations" xml:space="preserve">
     <value>Aucunes organisations</value>
   </data>
   <data name="NoUserPopularRepositories" xml:space="preserve">
-    <value>Aucuns dépôts populaires</value>
+    <value>Aucun répertoire populaire</value>
   </data>
   <data name="NoUserPullRequests" xml:space="preserve">
-    <value>Aucun pull requests</value>
+    <value>Aucune demande d'extraction</value>
   </data>
   <data name="NoUserRepositories" xml:space="preserve">
     <value>Aucuns dépôts</value>
