@@ -139,7 +139,7 @@
     <value>Ngôn ngữ</value>
   </data>
   <data name="AppearancePageThemeBlock.Title" xml:space="preserve">
-    <value>Chủ đề tùy chỉnh</value>
+    <value>Tùy chỉnh chủ đề</value>
   </data>
   <data name="Back" xml:space="preserve">
     <value>Quay lại</value>
@@ -206,6 +206,7 @@
   </data>
   <data name="HomePageFavoritesNotAvailableBody.Text" xml:space="preserve">
     <value>Không có mục yêu thích khả dụng.</value>
+    <value>Không có mục yêu thích nào.</value>
   </data>
   <data name="HomePageGeneralHeader.Text" xml:space="preserve">
     <value>Công việc</value>
@@ -238,7 +239,7 @@
     <value>Mở trang Github của chúng tôi để tạo vấn đề. Lưu ý: Trong tương lai, FluentHub sẽ tự động gửi nội dung lỗi, chi tiết, log tới nhóm FluentHub qua Github khi bạn nhấn vào nút này.</value>
   </data>
   <data name="LoadErrorDisplayReportThisIssueButtonBody.Text" xml:space="preserve">
-    <value>Báo cáo sự cố này</value>
+    <value>Báo cáo sự cố</value>
   </data>
   <data name="LoadErrorDisplayShowExceptionDetailsContentDialogButton.ToolTipService.ToolTip" xml:space="preserve">
     <value>Hiển thị kết quả theo dõi trong hộp thoại.</value>

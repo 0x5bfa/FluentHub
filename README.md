@@ -77,24 +77,16 @@ If you are interested in fixing issues and contributing directly to the code bas
 - [Finding an issue to work on](https://github.com/FluentHub/FluentHub/issues/)
 - [Contributing to translations on Crowdin](https://crowdin.com/project/fluenthub)
 
-### 🏗️ Codebase Structure
+### Codebase Structure
 
 ```
 .
-├──lib                               // Library for submodules.
-|  └──octokit.graphql.net            // Official library for GitHub GraphQL API.
 └──src                               // The source code.
    ├──FluentHub.App                  // Code for most front-end elements of the app.
    ├──FluentHub.Core                 // Core elements of the app.
    ├──FluentHub.Octokit              // Code for most back-end and API-related elements of the app such as mutations and queries.
    └──FluentHub.Octokit.Generation   // GitHub GraphQL API model generator.
 ```
-
-### Contributors
-
-<a href="https://github.com/FluentHub/FluentHub/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=FluentHub/FluentHub" />
-</a>
 
 ## Feedback
 
@@ -136,20 +128,7 @@ See [the documentation](docs/credentials.md).
 - Hit 'Set as Startup item' on `FluentHub.Package` in the Solution Explorer.
 - Build with `DEBUG`, `x64`, `FluentHub.Package`.
 
-## 💳 Credit
+## Credit
 
 - Some application icons were created by [Icons8](https://github.com/icons8).
 - Many thanks to [Joseph Beattie](https://github.com/josephbeattie) for creating our current logo.
-
-## 📱 Contact
-The easiest way to contact us is to join [our Discord](https://discord.gg/8KtRkjq2Q4)
-
-If you would like to ask a question, please reach out to us via Twitter:
-
-- Tomoyuki Terashita, Lead Developer: [@0x5BFA](https://twitter.com/0x5BFA)
-
-## ⚖️ License
-
-Copyright (c) 2022-2023 0x5BFA
-
-Licensed under the MIT license as stated in the [LICENSE](LICENSE.md).
