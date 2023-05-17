@@ -1,28 +1,27 @@
-name: ➕ Feature Request
+name: Feature Request
 description: Request a new feature for FluentHub
 labels: [feature request]
-assignees: [onein528]
 body:
   - type: checkboxes
     attributes:
-      label: ⏱️ Before you start...
+      label: Before you start...
       options:
         - label: Have you checked if a similar feature request has already been reported?
           required: true
   - type: textarea
     attributes:
-      label: 📄 Description
+      label: Description
       description: A clear and concise description of what your idea is. Include things like possible use cases, drawbacks, etc.
     validations:
       required: true
   - type: textarea
     attributes:
-      label: 🗃️ Alternative solutions
+      label: Alternative solutions
       description: Describe more ways this idea could be implemented.
     validations:
       required: false
   - type: textarea
     attributes:
-      label: 📸 Assets
+      label: Assets
       description: |
         A list of assets (screenshots, mockups) relevant to this feature request.
