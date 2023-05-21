@@ -1,27 +1,16 @@
+// Copyright (c) FluentHub
+// Licensed under the MIT License. See the LICENSE.
+
 using FluentHub.App.Models;
-using FluentHub.App.ViewModels.SignIn;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI;
 using Microsoft.UI.Windowing;
-using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Controls.Primitives;
-using Microsoft.UI.Xaml.Data;
-using Microsoft.UI.Xaml.Input;
-using Microsoft.UI.Xaml.Media;
 using Microsoft.UI.Xaml.Media.Animation;
 using Microsoft.UI.Xaml.Navigation;
-using Microsoft.Windows.AppLifecycle;
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices;
-using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
-using Windows.Foundation.Collections;
-using WinRT.Interop;
 using WinUIEx;
 
 namespace FluentHub.App
@@ -32,47 +21,44 @@ namespace FluentHub.App
         {
             InitializeComponent();
 
-            PersistenceId = "FluentHubMainWindow";
-
             EnsureEarlyWindow();
         }
 
         private void EnsureEarlyWindow()
         {
-            // Set title
+            // Initialize the Window information
             AppWindow.Title = "FluentHub";
-
-            // Set icon
             AppWindow.SetIcon(Path.Combine(Windows.ApplicationModel.Package.Current.InstalledLocation.Path, "Assets/AppTiles/Release/StoreLogo.scale-400.png"));
-
-            // Extend title bar
             AppWindow.TitleBar.ExtendsContentIntoTitleBar = true;
-
-            // Set window buttons background to transparent
             AppWindow.TitleBar.ButtonBackgroundColor = Colors.Transparent;
             AppWindow.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
-
-            // Set min size
-            base.MinHeight = 328;
-            base.MinWidth = 516;
+            PersistenceId = "FluentHubMainWindow";
+            MinHeight = 328;
+            MinWidth = 516;
         }
 
-        public async Task InitializeApplication(object activatedEventArgs)
+        public void InitializeApplication(object activatedEventArgs)
         {
             var logger = App.Current.Services.GetService<Utils.ILogger>();
             var messenger = App.Current.Services.GetService<IMessenger>();
 
-            var rootFrame = EnsureWindowIsInitialized();
+            Frame rootFrame = EnsureWindowIsInitialized();
+            if (rootFrame is null)
+                return;
+
             Type pageType = typeof(Views.MainPage);
 
             switch (activatedEventArgs)
             {
+                // Launched the app with system activation
+                // Usually the users launch from start menu or taskbar
                 case ILaunchActivatedEventArgs launchArgs:
                     {
                         if (rootFrame.Content == null)
                         {
                             if (App.AppSettings.SetupCompleted == true)
                             {
+                                // Initialize API connection
                                 Octokit.Authorization.InitializeOctokit.InitializeApiConnections(App.AppSettings.AccessToken);
 
                                 rootFrame.Navigate(typeof(Views.MainPage));
@@ -80,6 +66,7 @@ namespace FluentHub.App
                             }
                             else
                             {
+                                // Reset authorization setup status
                                 App.AppSettings.SetupProgress = false;
                                 App.AppSettings.SetupCompleted = false;
 
@@ -87,39 +74,31 @@ namespace FluentHub.App
                                 pageType = typeof(Views.SignIn.IntroPage);
                             }
                         }
-                    }
-                    break;
 
+                        break;
+                    }
+                // Launched the app with protocol - 'fluenthub://'
                 case IProtocolActivatedEventArgs eventArgs:
                     {
                         switch (eventArgs.Uri.Authority.ToLower())
                         {
-                            // fluenthub://auth?code=[code]
+                            // 'fluenthub://auth?code=[code]'
                             case "auth" when eventArgs.Uri.Query.Contains("code"):
                                 {
+                                    // Get GitHub User ID
                                     var code = new WwwFormUrlDecoder(eventArgs.Uri.Query).GetFirstValueByName("code");
 
                                     // Do not add authorize phase to here because this method will be called by non-async method.
                                     // Even if an authorizing exception occurred, it will not be caught by Try-Catch.
-                                    UserNotificationMessage notification = new("Recieved GitHub user identity", code);
+                                    UserNotificationMessage notification = new("Received GitHub User ID", code);
                                     messenger?.Send(notification);
+
+                                    break;
                                 }
-                                break;
                         }
+
+                        break;
                     }
-                    break;
-
-                case ICommandLineActivatedEventArgs cmdLineArgs:
-                    break;
-
-                case IToastNotificationActivatedEventArgs eventArgsForNotification:
-                    break;
-
-                case IStartupTaskActivatedEventArgs:
-                    break;
-
-                case IFileActivatedEventArgs fileArgs:
-                    break;
             }
 
             if (rootFrame.Content == null)
@@ -128,15 +107,13 @@ namespace FluentHub.App
                 pageType = typeof(Views.MainPage);
             }
 
-            if (pageType == typeof(Views.SignIn.IntroPage))
+            if (rootFrame.Content is Views.SignIn.IntroPage introPage && pageType == typeof(Views.SignIn.IntroPage))
             {
-                ((Views.SignIn.IntroPage)rootFrame.Content).Loaded += (s, e)
-                    => DispatcherQueue.TryEnqueue(() => Activate());
+                introPage.Loaded += (s, e) => DispatcherQueue.TryEnqueue(() => Activate());
             }
-            else if (pageType == typeof(Views.MainPage))
+            else if (rootFrame.Content is Views.MainPage mainPage && pageType == typeof(Views.MainPage))
             {
-                ((Views.MainPage)rootFrame.Content).Loaded += (s, e)
-                    => DispatcherQueue.TryEnqueue(() => Activate());
+                mainPage.Loaded += (s, e) => DispatcherQueue.TryEnqueue(() => Activate());
             }
         }
 
@@ -144,11 +121,10 @@ namespace FluentHub.App
         {
             // Do not repeat app initialization when the Window already has content,
             // just ensure that the window is active
-            if (!(App.Window.Content is Frame rootFrame))
+            if (App.Window.Content is not Frame rootFrame)
             {
                 // Create a Frame to act as the navigation context and navigate to the first page
-                rootFrame = new Frame();
-                rootFrame.CacheSize = 1;
+                rootFrame = new() { CacheSize = 1 };
                 rootFrame.NavigationFailed += OnNavigationFailed;
 
                 // Place the frame in the current Window
@@ -159,8 +135,6 @@ namespace FluentHub.App
         }
 
         private void OnNavigationFailed(object sender, NavigationFailedEventArgs e)
-        {
-            throw new Exception("Failed to load Page " + e.SourcePageType.FullName);
-        }
+            => new Exception("Failed to load Page " + e.SourcePageType.FullName);
     }
 }

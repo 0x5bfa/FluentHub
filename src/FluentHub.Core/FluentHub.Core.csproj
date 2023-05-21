@@ -10,12 +10,4 @@
     <Configurations>Debug;Release;Sideload</Configurations>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Folder Include="Diagnostics\" />
-    <Folder Include="Services\" />
-    <Folder Include="Tasks\" />
-    <Folder Include="Helpers\" />
-    <Folder Include="Utilities\" />
-  </ItemGroup>
-
 </Project>

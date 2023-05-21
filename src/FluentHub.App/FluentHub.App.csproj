@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0-windows10.0.22000.0</TargetFramework>
@@ -76,7 +76,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Content>
-    <None Remove="UserControls\StepsPanelControl.xaml" />
     <Content Include="AppCredentials.config">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -96,23 +95,12 @@
     <PackageReference Include="CommunityToolkit.WinUI.Notifications" Version="7.1.2" />
     <PackageReference Include="CommunityToolkit.WinUI.UI.Controls" Version="7.1.2" />
     <PackageReference Include="Microsoft.Graphics.Win2D" Version="1.0.4" />
-    <PackageReference Include="Microsoft.DotNet.UpgradeAssistant.Extensions.Default.Analyzers" Version="0.4.421302">
-      <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.Windows.Compatibility" Version="7.0.1" />
-    <PackageReference Include="WinUIEx" Version="2.2.0" />
-    <FrameworkReference Include="Microsoft.WindowsDesktop.App" />
+    <PackageReference Include="WinUIEx" Version="2.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\FluentHub.Core\FluentHub.Core.csproj" />
     <ProjectReference Include="..\FluentHub.Octokit\FluentHub.Octokit.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Page Update="UserControls\StepsPanelControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
 
 </Project>
