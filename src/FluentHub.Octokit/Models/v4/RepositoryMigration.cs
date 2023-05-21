@@ -5,12 +5,12 @@ namespace FluentHub.Octokit.Models.v4
     using System.Linq.Expressions;
 
     /// <summary>
-    /// An Octoshift repository migration.
+    /// A GitHub Enterprise Importer (GEI) repository migration.
     /// </summary>
     public class RepositoryMigration
     {
         /// <summary>
-        /// The Octoshift migration flag to continue on error.
+        /// The migration flag to continue on error.
         /// </summary>
         public bool ContinueOnError { get; set; }
 
@@ -25,6 +25,11 @@ namespace FluentHub.Octokit.Models.v4
         public string CreatedAtHumanized { get; set; }
 
         /// <summary>
+        /// Identifies the primary key from the database.
+        /// </summary>
+        public string DatabaseId { get; set; }
+
+        /// <summary>
         /// The reason the migration failed.
         /// </summary>
         public string FailureReason { get; set; }
@@ -37,7 +42,7 @@ namespace FluentHub.Octokit.Models.v4
         public string MigrationLogUrl { get; set; }
 
         /// <summary>
-        /// The Octoshift migration source.
+        /// The migration source.
         /// </summary>
         public MigrationSource MigrationSource { get; set; }
 
@@ -47,12 +52,12 @@ namespace FluentHub.Octokit.Models.v4
         public string RepositoryName { get; set; }
 
         /// <summary>
-        /// The Octoshift migration source URL.
+        /// The migration source URL, for example `https://github.com` or `https://monalisa.ghe.com`.
         /// </summary>
         public string SourceUrl { get; set; }
 
         /// <summary>
-        /// The Octoshift migration state.
+        /// The migration state.
         /// </summary>
         public MigrationState State { get; set; }
     }

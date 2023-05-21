@@ -54,6 +54,12 @@ namespace FluentHub.Octokit.Models.v4
         Pending,
 
         /// <summary>
+        /// The deployment was successful.
+        /// </summary>
+        [EnumMember(Value = "SUCCESS")]
+        Success,
+
+        /// <summary>
         /// The deployment has queued
         /// </summary>
         [EnumMember(Value = "QUEUED")]

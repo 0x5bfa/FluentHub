@@ -59,6 +59,11 @@ namespace FluentHub.Octokit.Models.v4
         /// </summary>
         public IActor Editor { get; set; }
 
+        /// <summary>
+        /// Identifies the primary key from the database as a BigInt.
+        /// </summary>
+        public string FullDatabaseId { get; set; }
+
         public ID Id { get; set; }
 
         /// <summary>
@@ -87,7 +92,7 @@ namespace FluentHub.Octokit.Models.v4
         public string LastEditedAtHumanized { get; set; }
 
         /// <summary>
-        /// Returns why the comment was minimized.
+        /// Returns why the comment was minimized. One of `abuse`, `off-topic`, `outdated`, `resolved`, `duplicate` and `spam`. Note that the case and formatting of these values differs from the inputs to the `MinimizeComment` mutation.
         /// </summary>
         public string MinimizedReason { get; set; }
 

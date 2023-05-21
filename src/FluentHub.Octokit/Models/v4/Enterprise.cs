@@ -10,6 +10,26 @@ namespace FluentHub.Octokit.Models.v4
     public class Enterprise
     {
         /// <summary>
+        /// The text of the announcement
+        /// </summary>
+        public string Announcement { get; set; }
+
+        /// <summary>
+        /// The expiration date of the announcement, if any
+        /// </summary>
+        public DateTimeOffset? AnnouncementExpiresAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "The expiration date of the announcement, if any"
+        /// <summary>
+        public string AnnouncementExpiresAtHumanized { get; set; }
+
+        /// <summary>
+        /// Whether the announcement can be dismissed by the user
+        /// </summary>
+        public bool? AnnouncementUserDismissible { get; set; }
+
+        /// <summary>
         /// A URL pointing to the enterprise's public avatar.
         /// </summary>
         /// <param name="size">The size of the resulting square image.</param>
@@ -60,6 +80,7 @@ namespace FluentHub.Octokit.Models.v4
         /// <param name="last">Returns the last _n_ elements from the list.</param>
         /// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
         /// <param name="deployment">Only return members within the selected GitHub Enterprise deployment</param>
+        /// <param name="hasTwoFactorEnabled">Only return members with this two-factor authentication status. Does not include members who only have an account on a GitHub Enterprise Server instance.</param>
         /// <param name="orderBy">Ordering options for members returned from the connection.</param>
         /// <param name="organizationLogins">Only return members within the organizations with these logins</param>
         /// <param name="query">The search string to look for.</param>
@@ -84,7 +105,7 @@ namespace FluentHub.Octokit.Models.v4
         public OrganizationConnection Organizations { get; set; }
 
         /// <summary>
-        /// Enterprise information only visible to enterprise owners.
+        /// Enterprise information visible to enterprise owners or enterprise owners' personal access tokens (classic) with read:enterprise or admin:enterprise scope.
         /// </summary>
         public EnterpriseOwnerInfo OwnerInfo { get; set; }
 

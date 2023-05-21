@@ -119,9 +119,34 @@ namespace FluentHub.Octokit.Models.v4
         public List<RequiredStatusCheckInput> RequiredStatusChecks { get; set; }
 
         /// <summary>
+        /// Are successful deployments required before merging.
+        /// </summary>
+        public bool? RequiresDeployments { get; set; }
+
+        /// <summary>
+        /// The list of required deployment environments
+        /// </summary>
+        public List<string> RequiredDeploymentEnvironments { get; set; }
+
+        /// <summary>
         /// Are conversations required to be resolved before merging.
         /// </summary>
         public bool? RequiresConversationResolution { get; set; }
+
+        /// <summary>
+        /// Whether the most recent push must be approved by someone other than the person who pushed it
+        /// </summary>
+        public bool? RequireLastPushApproval { get; set; }
+
+        /// <summary>
+        /// Whether to set the branch as read-only. If this is true, users will not be able to push to the branch.
+        /// </summary>
+        public bool? LockBranch { get; set; }
+
+        /// <summary>
+        /// Whether users can pull changes from upstream when the branch is locked. Set to `true` to allow fork syncing. Set to `false` to prevent fork syncing.
+        /// </summary>
+        public bool? LockAllowsFetchAndMerge { get; set; }
 
         /// <summary>
         /// A unique identifier for the client performing the mutation.

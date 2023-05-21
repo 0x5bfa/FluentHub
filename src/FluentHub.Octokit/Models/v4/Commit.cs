@@ -66,9 +66,15 @@ namespace FluentHub.Octokit.Models.v4
         public Blame Blame { get; set; }
 
         /// <summary>
-        /// The number of changed files in this commit.
+        /// We recommend using the `changedFielsIfAvailable` field instead of `changedFiles`, as `changedFiles` will cause your request to return an error if GitHub is unable to calculate the number of changed files.
         /// </summary>
+        [Obsolete(@"`changedFiles` will be removed. Use `changedFilesIfAvailable` instead. Removal on 2023-01-01 UTC.")]
         public int ChangedFiles { get; set; }
+
+        /// <summary>
+        /// The number of changed files in this commit. If GitHub is unable to calculate the number of changed files (for example due to a timeout), this will return `null`. We recommend using this field instead of `changedFiles`.
+        /// </summary>
+        public int? ChangedFilesIfAvailable { get; set; }
 
         /// <summary>
         /// The check suites associated with a commit.
@@ -203,6 +209,7 @@ namespace FluentHub.Octokit.Models.v4
         /// <summary>
         /// The datetime when this commit was pushed.
         /// </summary>
+        [Obsolete(@"`pushedDate` is no longer supported. Removal on 2023-07-01 UTC.")]
         public DateTimeOffset? PushedDate { get; set; }
 
         /// <summary>

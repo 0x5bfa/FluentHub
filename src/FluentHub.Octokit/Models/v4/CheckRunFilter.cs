@@ -24,8 +24,18 @@ namespace FluentHub.Octokit.Models.v4
         public string CheckName { get; set; }
 
         /// <summary>
-        /// Filters the check runs by this status.
+        /// Filters the check runs by this status. Superceded by statuses.
         /// </summary>
         public CheckStatusState? Status { get; set; }
+
+        /// <summary>
+        /// Filters the check runs by this status. Overrides status.
+        /// </summary>
+        public List<CheckStatusState> Statuses { get; set; }
+
+        /// <summary>
+        /// Filters the check runs by these conclusions.
+        /// </summary>
+        public List<CheckConclusionState> Conclusions { get; set; }
     }
 }

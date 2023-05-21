@@ -11,6 +11,16 @@ namespace FluentHub.Octokit.Models.v4
     public interface IRepositoryInfo
     {
         /// <summary>
+        /// Identifies the date and time when the repository was archived.
+        /// </summary>
+        DateTimeOffset? ArchivedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies the date and time when the repository was archived."
+        /// <summary>
+        string ArchivedAtHumanized { get; set; }
+
+        /// <summary>
         /// Identifies the date and time when the object was created.
         /// </summary>
         DateTimeOffset CreatedAt { get; set; }
@@ -34,6 +44,11 @@ namespace FluentHub.Octokit.Models.v4
         /// Returns how many forks there are of this repository in the whole network.
         /// </summary>
         int ForkCount { get; set; }
+
+        /// <summary>
+        /// Indicates if the repository has the Discussions feature enabled.
+        /// </summary>
+        bool HasDiscussionsEnabled { get; set; }
 
         /// <summary>
         /// Indicates if the repository has issues feature enabled.
@@ -126,12 +141,12 @@ namespace FluentHub.Octokit.Models.v4
         IRepositoryOwner Owner { get; set; }
 
         /// <summary>
-        /// Identifies when the repository was last pushed to.
+        /// Identifies the date and time when the repository was last pushed to.
         /// </summary>
         DateTimeOffset? PushedAt { get; set; }
 
         /// <summary>
-        /// Humanized string of "Identifies when the repository was last pushed to."
+        /// Humanized string of "Identifies the date and time when the repository was last pushed to."
         /// <summary>
         string PushedAtHumanized { get; set; }
 
@@ -181,6 +196,10 @@ namespace FluentHub.Octokit.Models.v4
 
     public class RepositoryInfo : IRepositoryInfo
     {
+        public DateTimeOffset? ArchivedAt { get; set; }
+
+        public string ArchivedAtHumanized { get; set; }
+
         public DateTimeOffset CreatedAt { get; set; }
 
         public string CreatedAtHumanized { get; set; }
@@ -190,6 +209,8 @@ namespace FluentHub.Octokit.Models.v4
         public string DescriptionHTML { get; set; }
 
         public int ForkCount { get; set; }
+
+        public bool HasDiscussionsEnabled { get; set; }
 
         public bool HasIssuesEnabled { get; set; }
 

@@ -14,7 +14,7 @@ namespace FluentHub.Octokit.Models.v4
         public ID ProjectId { get; set; }
 
         /// <summary>
-        /// The title of the draft issue.
+        /// The title of the draft issue. A project item can also be created by providing the URL of an Issue or Pull Request if you have access.
         /// </summary>
         public string Title { get; set; }
 

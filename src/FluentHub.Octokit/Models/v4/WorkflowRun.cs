@@ -38,6 +38,11 @@ namespace FluentHub.Octokit.Models.v4
         /// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
         public DeploymentReviewConnection DeploymentReviews { get; set; }
 
+        /// <summary>
+        /// The event that triggered the workflow run
+        /// </summary>
+        public string Event { get; set; }
+
         public ID Id { get; set; }
 
         /// <summary>

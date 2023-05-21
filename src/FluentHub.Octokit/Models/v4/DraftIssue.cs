@@ -51,16 +51,6 @@ namespace FluentHub.Octokit.Models.v4
         public ID Id { get; set; }
 
         /// <summary>
-        /// The project (beta) that contains this draft issue.
-        /// </summary>
-        public ProjectNext Project { get; set; }
-
-        /// <summary>
-        /// The project (beta) item that wraps this draft issue.
-        /// </summary>
-        public ProjectNextItem ProjectItem { get; set; }
-
-        /// <summary>
         /// List of items linked with the draft issue (currently draft issue can be linked to only one item).
         /// </summary>
         /// <param name="first">Returns the first _n_ elements from the list.</param>

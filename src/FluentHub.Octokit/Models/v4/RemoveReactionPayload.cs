@@ -20,6 +20,11 @@ namespace FluentHub.Octokit.Models.v4
         public Reaction Reaction { get; set; }
 
         /// <summary>
+        /// The reaction groups for the subject.
+        /// </summary>
+        public List<ReactionGroup> ReactionGroups { get; set; }
+
+        /// <summary>
         /// The reactable subject.
         /// </summary>
         public IReactable Subject { get; set; }

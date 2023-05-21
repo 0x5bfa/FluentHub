@@ -45,5 +45,10 @@ namespace FluentHub.Octokit.Models.v4
         /// Humanized string of "The timestamp of this event."
         /// <summary>
         public string TimestampHumanized { get; set; }
+
+        /// <summary>
+        /// Was this sponsorship made alongside other sponsorships at the same time from the same sponsor?
+        /// </summary>
+        public bool ViaBulkSponsorship { get; set; }
     }
 }

@@ -24,6 +24,12 @@ namespace FluentHub.Octokit.Models.v4
         Erlang,
 
         /// <summary>
+        /// GitHub Actions
+        /// </summary>
+        [EnumMember(Value = "ACTIONS")]
+        Actions,
+
+        /// <summary>
         /// Go modules
         /// </summary>
         [EnumMember(Value = "GO")]
@@ -52,6 +58,12 @@ namespace FluentHub.Octokit.Models.v4
         /// </summary>
         [EnumMember(Value = "PIP")]
         Pip,
+
+        /// <summary>
+        /// Dart packages hosted at pub.dev
+        /// </summary>
+        [EnumMember(Value = "PUB")]
+        Pub,
 
         /// <summary>
         /// Ruby gems hosted at RubyGems.org

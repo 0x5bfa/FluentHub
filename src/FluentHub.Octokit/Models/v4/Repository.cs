@@ -15,6 +15,16 @@ namespace FluentHub.Octokit.Models.v4
         public bool AllowUpdateBranch { get; set; }
 
         /// <summary>
+        /// Identifies the date and time when the repository was archived.
+        /// </summary>
+        public DateTimeOffset? ArchivedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies the date and time when the repository was archived."
+        /// <summary>
+        public string ArchivedAtHumanized { get; set; }
+
+        /// <summary>
         /// A list of users that can be assigned to issues in this repository.
         /// </summary>
         /// <param name="first">Returns the first _n_ elements from the list.</param>
@@ -57,6 +67,7 @@ namespace FluentHub.Octokit.Models.v4
         /// <param name="last">Returns the last _n_ elements from the list.</param>
         /// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
         /// <param name="affiliation">Collaborators affiliation level with a repository.</param>
+        /// <param name="login">The login of one specific collaborator.</param>
         /// <param name="query">Filters users with query on user name and login</param>
         public RepositoryCollaboratorConnection Collaborators { get; set; }
 
@@ -146,6 +157,12 @@ namespace FluentHub.Octokit.Models.v4
         public DiscussionCategoryConnection DiscussionCategories { get; set; }
 
         /// <summary>
+        /// A discussion category by slug.
+        /// </summary>
+        /// <param name="slug">The slug of the discussion category to be returned.</param>
+        public DiscussionCategory DiscussionCategory { get; set; }
+
+        /// <summary>
         /// A list of discussions that have been opened in the repository.
         /// </summary>
         /// <param name="first">Returns the first _n_ elements from the list.</param>
@@ -154,6 +171,7 @@ namespace FluentHub.Octokit.Models.v4
         /// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
         /// <param name="categoryId">Only include discussions that belong to the category with this ID.</param>
         /// <param name="orderBy">Ordering options for discussions returned from the connection.</param>
+        /// <param name="states">A list of states to filter the discussions by.</param>
         public DiscussionConnection Discussions { get; set; }
 
         /// <summary>
@@ -206,6 +224,11 @@ namespace FluentHub.Octokit.Models.v4
         public List<FundingLink> FundingLinks { get; set; }
 
         /// <summary>
+        /// Indicates if the repository has the Discussions feature enabled.
+        /// </summary>
+        public bool HasDiscussionsEnabled { get; set; }
+
+        /// <summary>
         /// Indicates if the repository has issues feature enabled.
         /// </summary>
         public bool HasIssuesEnabled { get; set; }
@@ -214,6 +237,11 @@ namespace FluentHub.Octokit.Models.v4
         /// Indicates if the repository has the Projects feature enabled.
         /// </summary>
         public bool HasProjectsEnabled { get; set; }
+
+        /// <summary>
+        /// Whether vulnerability alerts are enabled for the repository.
+        /// </summary>
+        public bool HasVulnerabilityAlertsEnabled { get; set; }
 
         /// <summary>
         /// Indicates if the repository has wiki feature enabled.
@@ -380,6 +408,22 @@ namespace FluentHub.Octokit.Models.v4
         public bool MergeCommitAllowed { get; set; }
 
         /// <summary>
+        /// How the default commit message will be generated when merging a pull request.
+        /// </summary>
+        public MergeCommitMessage MergeCommitMessage { get; set; }
+
+        /// <summary>
+        /// How the default commit title will be generated when merging a pull request.
+        /// </summary>
+        public MergeCommitTitle MergeCommitTitle { get; set; }
+
+        /// <summary>
+        /// The merge queue for a specified branch, otherwise the default branch if not provided.
+        /// </summary>
+        /// <param name="branch">The name of the branch to get the merge queue for. Case sensitive.</param>
+        public MergeQueue MergeQueue { get; set; }
+
+        /// <summary>
         /// Returns a single milestone from the current repository by number.
         /// </summary>
         /// <param name="number">The number for the milestone to be returned.</param>
@@ -477,12 +521,6 @@ namespace FluentHub.Octokit.Models.v4
         public Project Project { get; set; }
 
         /// <summary>
-        /// Finds and returns the Project (beta) according to the provided Project (beta) number.
-        /// </summary>
-        /// <param name="number">The ProjectNext number.</param>
-        public ProjectNext ProjectNext { get; set; }
-
-        /// <summary>
         /// Finds and returns the Project according to the provided Project number.
         /// </summary>
         /// <param name="number">The Project number.</param>
@@ -499,17 +537,6 @@ namespace FluentHub.Octokit.Models.v4
         /// <param name="search">Query to search projects by, currently only searching by name.</param>
         /// <param name="states">A list of states to filter the projects by.</param>
         public ProjectConnection Projects { get; set; }
-
-        /// <summary>
-        /// List of projects (beta) linked to this repository.
-        /// </summary>
-        /// <param name="first">Returns the first _n_ elements from the list.</param>
-        /// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
-        /// <param name="last">Returns the last _n_ elements from the list.</param>
-        /// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
-        /// <param name="query">A project (beta) to search for linked to the repo.</param>
-        /// <param name="sortBy">How to order the returned project (beta) objects.</param>
-        public ProjectNextConnection ProjectsNext { get; set; }
 
         /// <summary>
         /// The HTTP path listing the repository's projects
@@ -558,12 +585,12 @@ namespace FluentHub.Octokit.Models.v4
         public PullRequestConnection PullRequests { get; set; }
 
         /// <summary>
-        /// Identifies when the repository was last pushed to.
+        /// Identifies the date and time when the repository was last pushed to.
         /// </summary>
         public DateTimeOffset? PushedAt { get; set; }
 
         /// <summary>
-        /// Humanized string of "Identifies when the repository was last pushed to."
+        /// Humanized string of "Identifies the date and time when the repository was last pushed to."
         /// <summary>
         public string PushedAtHumanized { get; set; }
 
@@ -631,6 +658,16 @@ namespace FluentHub.Octokit.Models.v4
         public string ResourcePath { get; set; }
 
         /// <summary>
+        /// A list of rulesets for this repository.
+        /// </summary>
+        /// <param name="first">Returns the first _n_ elements from the list.</param>
+        /// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
+        /// <param name="last">Returns the last _n_ elements from the list.</param>
+        /// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
+        /// <param name="includeParents">Return rulesets configured at higher levels that apply to this repository</param>
+        public RepositoryRulesetConnection Rulesets { get; set; }
+
+        /// <summary>
         /// The security policy URL.
         /// </summary>
         public string SecurityPolicyUrl { get; set; }
@@ -647,8 +684,19 @@ namespace FluentHub.Octokit.Models.v4
         public bool SquashMergeAllowed { get; set; }
 
         /// <summary>
+        /// How the default commit message will be generated when squash merging a pull request.
+        /// </summary>
+        public SquashMergeCommitMessage SquashMergeCommitMessage { get; set; }
+
+        /// <summary>
+        /// How the default commit title will be generated when squash merging a pull request.
+        /// </summary>
+        public SquashMergeCommitTitle SquashMergeCommitTitle { get; set; }
+
+        /// <summary>
         /// Whether a squash merge commit can use the pull request title as default.
         /// </summary>
+        [Obsolete(@"`squashPrTitleUsedAsDefault` will be removed. Use `Repository.squashMergeCommitTitle` instead. Removal on 2023-04-01 UTC.")]
         public bool SquashPrTitleUsedAsDefault { get; set; }
 
         /// <summary>
@@ -766,6 +814,12 @@ namespace FluentHub.Octokit.Models.v4
         public RepositoryVisibility Visibility { get; set; }
 
         /// <summary>
+        /// Returns a single vulnerability alert from the current repository by number.
+        /// </summary>
+        /// <param name="number">The number for the vulnerability alert to be returned.</param>
+        public RepositoryVulnerabilityAlert VulnerabilityAlert { get; set; }
+
+        /// <summary>
         /// A list of vulnerability alerts that are on this repository.
         /// </summary>
         /// <param name="first">Returns the first _n_ elements from the list.</param>
@@ -784,5 +838,10 @@ namespace FluentHub.Octokit.Models.v4
         /// <param name="last">Returns the last _n_ elements from the list.</param>
         /// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
         public UserConnection Watchers { get; set; }
+
+        /// <summary>
+        /// Whether contributors are required to sign off on web-based commits in this repository.
+        /// </summary>
+        public bool WebCommitSignoffRequired { get; set; }
     }
 }

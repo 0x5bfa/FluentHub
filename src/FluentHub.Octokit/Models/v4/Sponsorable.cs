@@ -6,7 +6,7 @@ namespace FluentHub.Octokit.Models.v4
     using System.Linq.Expressions;
 
     /// <summary>
-    /// Entities that can be sponsored through GitHub Sponsors
+    /// Entities that can sponsor or be sponsored through GitHub Sponsors.
     /// </summary>
     public interface ISponsorable
     {
@@ -21,7 +21,7 @@ namespace FluentHub.Octokit.Models.v4
         bool HasSponsorsListing { get; set; }
 
         /// <summary>
-        /// Check if the given account is sponsoring this user/organization.
+        /// Whether the given account is sponsoring this user/organization.
         /// </summary>
         /// <param name="accountLogin">The target account's login.</param>
         bool IsSponsoredBy { get; set; }
@@ -65,8 +65,11 @@ namespace FluentHub.Octokit.Models.v4
         /// <param name="last">Returns the last _n_ elements from the list.</param>
         /// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
         /// <param name="actions">Filter activities to only the specified actions.</param>
+        /// <param name="includeAsSponsor">Whether to include those events where this sponsorable acted as the sponsor. Defaults to only including events where this sponsorable was the recipient of a sponsorship.</param>
         /// <param name="orderBy">Ordering options for activity returned from the connection.</param>
-        /// <param name="period">Filter activities returned to only those that occurred in the most recent specified time period. Set to ALL to avoid filtering by when the activity occurred.</param>
+        /// <param name="period">Filter activities returned to only those that occurred in the most recent specified time period. Set to ALL to avoid filtering by when the activity occurred. Will be ignored if `since` or `until` is given.</param>
+        /// <param name="since">Filter activities to those that occurred on or after this time.</param>
+        /// <param name="until">Filter activities to those that occurred before this time.</param>
         SponsorsActivityConnection SponsorsActivities { get; set; }
 
         /// <summary>
@@ -75,13 +78,15 @@ namespace FluentHub.Octokit.Models.v4
         SponsorsListing SponsorsListing { get; set; }
 
         /// <summary>
-        /// The sponsorship from the viewer to this user/organization; that is, the sponsorship where you're the sponsor. Only returns a sponsorship if it is active.
+        /// The sponsorship from the viewer to this user/organization; that is, the sponsorship where you're the sponsor.
         /// </summary>
+        /// <param name="activeOnly">Whether to return the sponsorship only if it's still active. Pass false to get the viewer's sponsorship back even if it has been cancelled.</param>
         Sponsorship SponsorshipForViewerAsSponsor { get; set; }
 
         /// <summary>
-        /// The sponsorship from this user/organization to the viewer; that is, the sponsorship you're receiving. Only returns a sponsorship if it is active.
+        /// The sponsorship from this user/organization to the viewer; that is, the sponsorship you're receiving.
         /// </summary>
+        /// <param name="activeOnly">Whether to return the sponsorship only if it's still active. Pass false to get the sponsorship back even if it has been cancelled.</param>
         Sponsorship SponsorshipForViewerAsSponsorable { get; set; }
 
         /// <summary>
@@ -95,25 +100,36 @@ namespace FluentHub.Octokit.Models.v4
         SponsorshipNewsletterConnection SponsorshipNewsletters { get; set; }
 
         /// <summary>
-        /// This object's sponsorships as the maintainer.
+        /// The sponsorships where this user or organization is the maintainer receiving the funds.
         /// </summary>
         /// <param name="first">Returns the first _n_ elements from the list.</param>
         /// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
         /// <param name="last">Returns the last _n_ elements from the list.</param>
         /// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
+        /// <param name="activeOnly">Whether to include only sponsorships that are active right now, versus all sponsorships this maintainer has ever received.</param>
         /// <param name="includePrivate">Whether or not to include private sponsorships in the result set</param>
         /// <param name="orderBy">Ordering options for sponsorships returned from this connection. If left blank, the sponsorships will be ordered based on relevancy to the viewer.</param>
         SponsorshipConnection SponsorshipsAsMaintainer { get; set; }
 
         /// <summary>
-        /// This object's sponsorships as the sponsor.
+        /// The sponsorships where this user or organization is the funder.
         /// </summary>
         /// <param name="first">Returns the first _n_ elements from the list.</param>
         /// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
         /// <param name="last">Returns the last _n_ elements from the list.</param>
         /// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
+        /// <param name="activeOnly">Whether to include only sponsorships that are active right now, versus all sponsorships this sponsor has ever made.</param>
+        /// <param name="maintainerLogins">Filter sponsorships returned to those for the specified maintainers. That is, the recipient of the sponsorship is a user or organization with one of the given logins.</param>
         /// <param name="orderBy">Ordering options for sponsorships returned from this connection. If left blank, the sponsorships will be ordered based on relevancy to the viewer.</param>
         SponsorshipConnection SponsorshipsAsSponsor { get; set; }
+
+        /// <summary>
+        /// The amount in United States cents (e.g., 500 = $5.00 USD) that this entity has spent on GitHub to fund sponsorships. Only returns a value when viewed by the user themselves or by a user who can manage sponsorships for the requested organization.
+        /// </summary>
+        /// <param name="since">Filter payments to those that occurred on or after this time.</param>
+        /// <param name="sponsorableLogins">Filter payments to those made to the users or organizations with the specified usernames.</param>
+        /// <param name="until">Filter payments to those that occurred before this time.</param>
+        int? TotalSponsorshipAmountAsSponsorInCents { get; set; }
 
         /// <summary>
         /// Whether or not the viewer is able to sponsor this user/organization.
@@ -162,6 +178,8 @@ namespace FluentHub.Octokit.Models.v4
         public SponsorshipConnection SponsorshipsAsMaintainer { get; set; }
 
         public SponsorshipConnection SponsorshipsAsSponsor { get; set; }
+
+        public int? TotalSponsorshipAmountAsSponsorInCents { get; set; }
 
         public bool ViewerCanSponsor { get; set; }
 

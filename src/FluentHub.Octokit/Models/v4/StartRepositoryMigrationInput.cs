@@ -9,7 +9,7 @@ namespace FluentHub.Octokit.Models.v4
     public class StartRepositoryMigrationInput
     {
         /// <summary>
-        /// The ID of the Octoshift migration source.
+        /// The ID of the migration source.
         /// </summary>
         public ID SourceId { get; set; }
 
@@ -19,7 +19,7 @@ namespace FluentHub.Octokit.Models.v4
         public ID OwnerId { get; set; }
 
         /// <summary>
-        /// The Octoshift migration source repository URL.
+        /// The URL of the source repository.
         /// </summary>
         public string SourceRepositoryUrl { get; set; }
 
@@ -29,22 +29,22 @@ namespace FluentHub.Octokit.Models.v4
         public string RepositoryName { get; set; }
 
         /// <summary>
-        /// Whether to continue the migration on error
+        /// Whether to continue the migration on error. Defaults to `false`.
         /// </summary>
         public bool? ContinueOnError { get; set; }
 
         /// <summary>
-        /// The signed URL to access the user-uploaded git archive
+        /// The signed URL to access the user-uploaded git archive.
         /// </summary>
         public string GitArchiveUrl { get; set; }
 
         /// <summary>
-        /// The signed URL to access the user-uploaded metadata archive
+        /// The signed URL to access the user-uploaded metadata archive.
         /// </summary>
         public string MetadataArchiveUrl { get; set; }
 
         /// <summary>
-        /// The Octoshift migration source access token.
+        /// The migration source access token.
         /// </summary>
         public string AccessToken { get; set; }
 
@@ -57,6 +57,16 @@ namespace FluentHub.Octokit.Models.v4
         /// Whether to skip migrating releases for the repository.
         /// </summary>
         public bool? SkipReleases { get; set; }
+
+        /// <summary>
+        /// The visibility of the imported repository.
+        /// </summary>
+        public string TargetRepoVisibility { get; set; }
+
+        /// <summary>
+        /// Whether to lock the source repository.
+        /// </summary>
+        public bool? LockSource { get; set; }
 
         /// <summary>
         /// A unique identifier for the client performing the mutation.

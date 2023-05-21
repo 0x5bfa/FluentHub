@@ -34,5 +34,11 @@ namespace FluentHub.Octokit.Models.v4
         /// </summary>
         [EnumMember(Value = "MIGRATING")]
         Migrating,
+
+        /// <summary>
+        /// The repository is locked due to a trade controls related reason.
+        /// </summary>
+        [EnumMember(Value = "TRADE_RESTRICTION")]
+        TradeRestriction,
     }
 }

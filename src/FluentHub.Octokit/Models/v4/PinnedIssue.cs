@@ -14,6 +14,11 @@ namespace FluentHub.Octokit.Models.v4
         /// </summary>
         public int? DatabaseId { get; set; }
 
+        /// <summary>
+        /// Identifies the primary key from the database as a BigInt.
+        /// </summary>
+        public string FullDatabaseId { get; set; }
+
         public ID Id { get; set; }
 
         /// <summary>

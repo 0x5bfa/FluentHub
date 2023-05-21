@@ -102,7 +102,7 @@ namespace FluentHub.Octokit.Models.v4
         public string LastEditedAtHumanized { get; set; }
 
         /// <summary>
-        /// Returns why the comment was minimized.
+        /// Returns why the comment was minimized. One of `abuse`, `off-topic`, `outdated`, `resolved`, `duplicate` and `spam`. Note that the case and formatting of these values differs from the inputs to the `MinimizeComment` mutation.
         /// </summary>
         public string MinimizedReason { get; set; }
 

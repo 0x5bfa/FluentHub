@@ -35,13 +35,13 @@ namespace FluentHub.Octokit.Models.v4
         public int? DatabaseId { get; set; }
 
         /// <summary>
-        /// A specific field value given a field name
+        /// The field value of the first project field which matches the 'name' argument that is set on the item.
         /// </summary>
         /// <param name="name">The name of the field to return the field value of</param>
         public ProjectV2ItemFieldValue FieldValueByName { get; set; }
 
         /// <summary>
-        /// List of field values
+        /// The field values that are set on the item.
         /// </summary>
         /// <param name="first">Returns the first _n_ elements from the list.</param>
         /// <param name="after">Returns the elements in the list that come after the specified cursor.</param>

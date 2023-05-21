@@ -20,6 +20,11 @@ namespace FluentHub.Octokit.Models.v4
         public bool IsGenerated { get; set; }
 
         /// <summary>
+        /// The programming language this file is written in.
+        /// </summary>
+        public Language Language { get; set; }
+
+        /// <summary>
         /// Number of lines in the file.
         /// </summary>
         public int? LineCount { get; set; }
@@ -35,6 +40,11 @@ namespace FluentHub.Octokit.Models.v4
         public string Name { get; set; }
 
         /// <summary>
+        /// Entry file name. (Base64-encoded)
+        /// </summary>
+        public string NameRaw { get; set; }
+
+        /// <summary>
         /// Entry file object.
         /// </summary>
         public IGitObject Object { get; set; }
@@ -48,6 +58,11 @@ namespace FluentHub.Octokit.Models.v4
         /// The full path of the file.
         /// </summary>
         public string Path { get; set; }
+
+        /// <summary>
+        /// The full path of the file. (Base64-encoded)
+        /// </summary>
+        public string PathRaw { get; set; }
 
         /// <summary>
         /// The Repository the tree entry belongs to

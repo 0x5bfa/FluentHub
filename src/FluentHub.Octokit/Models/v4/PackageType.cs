@@ -14,18 +14,21 @@ namespace FluentHub.Octokit.Models.v4
         /// <summary>
         /// An npm package.
         /// </summary>
+        [Obsolete(@"NPM will be removed from this enum as this type will be migrated to only be used by the Packages REST API. Removal on 2022-11-21 UTC.")]
         [EnumMember(Value = "NPM")]
         Npm,
 
         /// <summary>
         /// A rubygems package.
         /// </summary>
+        [Obsolete(@"RUBYGEMS will be removed from this enum as this type will be migrated to only be used by the Packages REST API. Removal on 2022-12-28 UTC.")]
         [EnumMember(Value = "RUBYGEMS")]
         Rubygems,
 
         /// <summary>
         /// A maven package.
         /// </summary>
+        [Obsolete(@"MAVEN will be removed from this enum as this type will be migrated to only be used by the Packages REST API. Removal on 2023-02-10 UTC.")]
         [EnumMember(Value = "MAVEN")]
         Maven,
 
@@ -45,6 +48,7 @@ namespace FluentHub.Octokit.Models.v4
         /// <summary>
         /// A nuget package.
         /// </summary>
+        [Obsolete(@"NUGET will be removed from this enum as this type will be migrated to only be used by the Packages REST API. Removal on 2022-11-21 UTC.")]
         [EnumMember(Value = "NUGET")]
         Nuget,
 

@@ -11,7 +11,7 @@ namespace FluentHub.Octokit.Models.v4
     public interface IClosable
     {
         /// <summary>
-        /// `true` if the object is closed (definition of closed may depend on type)
+        /// Indicates if the object is closed (definition of closed may depend on type)
         /// </summary>
         bool Closed { get; set; }
 
@@ -24,6 +24,16 @@ namespace FluentHub.Octokit.Models.v4
         /// Humanized string of "Identifies the date and time when the object was closed."
         /// <summary>
         string ClosedAtHumanized { get; set; }
+
+        /// <summary>
+        /// Indicates if the object can be closed by the viewer.
+        /// </summary>
+        bool ViewerCanClose { get; set; }
+
+        /// <summary>
+        /// Indicates if the object can be reopened by the viewer.
+        /// </summary>
+        bool ViewerCanReopen { get; set; }
     }
 }
 
@@ -40,5 +50,9 @@ namespace FluentHub.Octokit.Models.v4
         public DateTimeOffset? ClosedAt { get; set; }
 
         public string ClosedAtHumanized { get; set; }
+
+        public bool ViewerCanClose { get; set; }
+
+        public bool ViewerCanReopen { get; set; }
     }
 }

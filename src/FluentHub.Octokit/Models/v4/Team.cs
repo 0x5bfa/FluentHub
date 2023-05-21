@@ -158,6 +158,11 @@ namespace FluentHub.Octokit.Models.v4
         public string NewTeamUrl { get; set; }
 
         /// <summary>
+        /// The notification setting that the team has set.
+        /// </summary>
+        public TeamNotificationSetting NotificationSetting { get; set; }
+
+        /// <summary>
         /// The organization that owns this team.
         /// </summary>
         public Organization Organization { get; set; }
@@ -173,6 +178,24 @@ namespace FluentHub.Octokit.Models.v4
         public TeamPrivacy Privacy { get; set; }
 
         /// <summary>
+        /// Finds and returns the project according to the provided project number.
+        /// </summary>
+        /// <param name="number">The Project number.</param>
+        public ProjectV2 ProjectV2 { get; set; }
+
+        /// <summary>
+        /// List of projects this team has collaborator access to.
+        /// </summary>
+        /// <param name="first">Returns the first _n_ elements from the list.</param>
+        /// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
+        /// <param name="last">Returns the last _n_ elements from the list.</param>
+        /// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
+        /// <param name="filterBy">Filtering options for projects returned from this connection</param>
+        /// <param name="orderBy">How to order the returned projects.</param>
+        /// <param name="query">The query to search projects by.</param>
+        public ProjectV2Connection ProjectsV2 { get; set; }
+
+        /// <summary>
         /// A list of repositories this team has access to.
         /// </summary>
         /// <param name="first">Returns the first _n_ elements from the list.</param>
@@ -180,7 +203,7 @@ namespace FluentHub.Octokit.Models.v4
         /// <param name="last">Returns the last _n_ elements from the list.</param>
         /// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
         /// <param name="orderBy">Order for the connection.</param>
-        /// <param name="query">The search string to look for.</param>
+        /// <param name="query">The search string to look for. Repositories will be returned where the name contains your search string.</param>
         public TeamRepositoryConnection Repositories { get; set; }
 
         /// <summary>

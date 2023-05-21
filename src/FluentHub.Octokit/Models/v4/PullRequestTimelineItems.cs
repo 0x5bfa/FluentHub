@@ -10,6 +10,11 @@ namespace FluentHub.Octokit.Models.v4
     public class PullRequestTimelineItems
     {
         /// <summary>
+        /// Represents an 'added_to_merge_queue' event on a given pull request.
+        /// </summary>
+        public AddedToMergeQueueEvent AddedToMergeQueueEvent { get; set; }
+
+        /// <summary>
         /// Represents a 'added_to_project' event on a given issue or pull request.
         /// </summary>
         public AddedToProjectEvent AddedToProjectEvent { get; set; }
@@ -213,6 +218,11 @@ namespace FluentHub.Octokit.Models.v4
         /// Represents a 'referenced' event on a given `ReferencedSubject`.
         /// </summary>
         public ReferencedEvent ReferencedEvent { get; set; }
+
+        /// <summary>
+        /// Represents a 'removed_from_merge_queue' event on a given pull request.
+        /// </summary>
+        public RemovedFromMergeQueueEvent RemovedFromMergeQueueEvent { get; set; }
 
         /// <summary>
         /// Represents a 'removed_from_project' event on a given issue or pull request.

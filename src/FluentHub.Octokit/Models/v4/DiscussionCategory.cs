@@ -52,6 +52,11 @@ namespace FluentHub.Octokit.Models.v4
         public Repository Repository { get; set; }
 
         /// <summary>
+        /// The slug of this category.
+        /// </summary>
+        public string Slug { get; set; }
+
+        /// <summary>
         /// Identifies the date and time when the object was last updated.
         /// </summary>
         public DateTimeOffset UpdatedAt { get; set; }
