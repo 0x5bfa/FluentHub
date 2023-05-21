@@ -1,243 +1,243 @@
 ﻿<Page
-    x:Class="FluentHub.App.Views.SignIn.IntroPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:converters="using:FluentHub.App.Converters"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:helpers="using:FluentHub.App.Helpers"
-    xmlns:local="using:FluentHub.App.Views.SignIn"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
-    xmlns:uc="using:FluentHub.App.UserControls"
-    mc:Ignorable="d">
+	x:Class="FluentHub.App.Views.SignIn.IntroPage"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:converters="using:FluentHub.App.Converters"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:helpers="using:FluentHub.App.Helpers"
+	xmlns:local="using:FluentHub.App.Views.SignIn"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
+	xmlns:uc="using:FluentHub.App.UserControls"
+	mc:Ignorable="d">
 
-    <Page.Resources>
-        <ResourceDictionary>
-            <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
-        </ResourceDictionary>
-    </Page.Resources>
+	<Page.Resources>
+		<ResourceDictionary>
+			<converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+		</ResourceDictionary>
+	</Page.Resources>
 
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="40" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="40" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
 
-        <Grid x:Name="AppTitleBar" Background="Transparent">
-            <uc:TitleBar Margin="16,4,0,0" />
-        </Grid>
+		<Grid x:Name="AppTitleBar" Background="Transparent">
+			<uc:TitleBar Margin="16,4,0,0" />
+		</Grid>
 
-        <ProgressBar
-            x:Name="AuthorizingProgressBar"
-            VerticalAlignment="Top"
-            x:Load="{x:Bind ViewModel.Authorizing, Mode=OneWay}"
-            IsIndeterminate="True" />
+		<ProgressBar
+			x:Name="AuthorizingProgressBar"
+			VerticalAlignment="Top"
+			x:Load="{x:Bind ViewModel.Authorizing, Mode=OneWay}"
+			IsIndeterminate="True" />
 
-        <Grid Grid.Row="1">
-            <ScrollViewer x:Name="pane1ScrollViewer" VerticalScrollBarVisibility="Auto">
-                <Grid Margin="32">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="2*" MaxWidth="448" />
-                        <ColumnDefinition Width="*" />
-                    </Grid.ColumnDefinitions>
+		<Grid Grid.Row="1">
+			<ScrollViewer x:Name="pane1ScrollViewer" VerticalScrollBarVisibility="Auto">
+				<Grid Margin="32">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="*" />
+						<ColumnDefinition Width="2*" MaxWidth="448" />
+						<ColumnDefinition Width="*" />
+					</Grid.ColumnDefinitions>
 
-                    <StackPanel
-                        Grid.Column="1"
-                        Margin="24,8"
-                        VerticalAlignment="Center"
-                        x:DefaultBindMode="TwoWay"
-                        Spacing="4">
+					<StackPanel
+						Grid.Column="1"
+						Margin="24,8"
+						VerticalAlignment="Center"
+						x:DefaultBindMode="TwoWay"
+						Spacing="4">
 
-                        <TextBlock
-                            x:Name="IntroHeader"
-                            Margin="0,0,0,24"
-                            HorizontalAlignment="Center"
-                            Style="{StaticResource TitleTextBlockStyle}"
-                            Text="{helpers:ResourceString Name=IntroHeader/Text}" />
+						<TextBlock
+							x:Name="IntroHeader"
+							Margin="0,0,0,24"
+							HorizontalAlignment="Center"
+							Style="{StaticResource TitleTextBlockStyle}"
+							Text="{helpers:ResourceString Name=IntroHeader/Text}" />
 
-                        <TextBlock
-                            x:Name="IntroHeaderDescription"
-                            Margin="0,0,0,18"
-                            HorizontalAlignment="Center"
-                            Foreground="{ThemeResource TextFillColorSecondary}"
-                            Style="{StaticResource BodyTextBlockStyle}"
-                            Text="FluentHub is a wonderful yet stylish GitHub client for Windows.&#x0A;To use this app, just authorize the app in GitHub in your browser." />
+						<TextBlock
+							x:Name="IntroHeaderDescription"
+							Margin="0,0,0,18"
+							HorizontalAlignment="Center"
+							Foreground="{ThemeResource TextFillColorSecondary}"
+							Style="{StaticResource BodyTextBlockStyle}"
+							Text="FluentHub is a wonderful yet stylish GitHub client for Windows.&#x0A;To use this app, just authorize the app in GitHub in your browser." />
 
-                        <Grid
-                            x:Name="ExceptionNotifierGrid"
-                            Padding="12"
-                            x:Load="{x:Bind ViewModel.Exception, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-                            Background="{ThemeResource InfoBarErrorSeverityBackgroundBrush}"
-                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                            BorderThickness="1"
-                            CornerRadius="4">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
+						<Grid
+							x:Name="ExceptionNotifierGrid"
+							Padding="12"
+							x:Load="{x:Bind ViewModel.Exception, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+							Background="{ThemeResource InfoBarErrorSeverityBackgroundBrush}"
+							BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+							BorderThickness="1"
+							CornerRadius="4">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
 
-                            <Grid ColumnSpacing="8">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="Auto" />
-                                </Grid.ColumnDefinitions>
+							<Grid ColumnSpacing="8">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="Auto" />
+									<ColumnDefinition Width="Auto" />
+								</Grid.ColumnDefinitions>
 
-                                <Grid Margin="4">
+								<Grid Margin="4">
 
-                                    <TextBlock
-                                        x:Name="IconBackground"
-                                        VerticalAlignment="Center"
-                                        FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                                        FontSize="16"
-                                        Foreground="{ThemeResource InfoBarErrorSeverityIconBackground}"
-                                        Text="{StaticResource InfoBarIconBackgroundGlyph}" />
+									<TextBlock
+										x:Name="IconBackground"
+										VerticalAlignment="Center"
+										FontFamily="{ThemeResource SymbolThemeFontFamily}"
+										FontSize="16"
+										Foreground="{ThemeResource InfoBarErrorSeverityIconBackground}"
+										Text="{StaticResource InfoBarIconBackgroundGlyph}" />
 
-                                    <TextBlock
-                                        x:Name="StandardIcon"
-                                        VerticalAlignment="Center"
-                                        FontFamily="{ThemeResource SymbolThemeFontFamily}"
-                                        FontSize="16"
-                                        Foreground="{ThemeResource InfoBarErrorSeverityIconForeground}"
-                                        Text="{StaticResource InfoBarErrorIconGlyph}" />
+									<TextBlock
+										x:Name="StandardIcon"
+										VerticalAlignment="Center"
+										FontFamily="{ThemeResource SymbolThemeFontFamily}"
+										FontSize="16"
+										Foreground="{ThemeResource InfoBarErrorSeverityIconForeground}"
+										Text="{StaticResource InfoBarErrorIconGlyph}" />
 
-                                </Grid>
+								</Grid>
 
-                                <TextBlock
-                                    Grid.Column="1"
-                                    VerticalAlignment="Center"
-                                    Style="{StaticResource BodyStrongTextBlockStyle}"
-                                    Text="Something went wrong" />
+								<TextBlock
+									Grid.Column="1"
+									VerticalAlignment="Center"
+									Style="{StaticResource BodyStrongTextBlockStyle}"
+									Text="Something went wrong" />
 
-                            </Grid>
+							</Grid>
 
-                            <TextBlock
-                                Grid.Row="1"
-                                Margin="0,8,0,12"
-                                MaxLines="2"
-                                Style="{StaticResource BodyTextBlockStyle}"
-                                Text="{x:Bind ViewModel.Exception.Message, Mode=OneWay}"
-                                TextTrimming="CharacterEllipsis"
-                                TextWrapping="Wrap" />
+							<TextBlock
+								Grid.Row="1"
+								Margin="0,8,0,12"
+								MaxLines="2"
+								Style="{StaticResource BodyTextBlockStyle}"
+								Text="{x:Bind ViewModel.Exception.Message, Mode=OneWay}"
+								TextTrimming="CharacterEllipsis"
+								TextWrapping="Wrap" />
 
-                            <Grid Grid.Row="2" ColumnSpacing="8">
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*" />
-                                    <ColumnDefinition Width="*" />
-                                </Grid.ColumnDefinitions>
+							<Grid Grid.Row="2" ColumnSpacing="8">
+								<Grid.ColumnDefinitions>
+									<ColumnDefinition Width="*" />
+									<ColumnDefinition Width="*" />
+								</Grid.ColumnDefinitions>
 
-                                <Button
-                                    x:Name="ReportExceptionButton"
-                                    HorizontalAlignment="Stretch"
-                                    Click="OnReportExceptionButtonClick"
-                                    Content="Report" />
+								<Button
+									x:Name="ReportExceptionButton"
+									HorizontalAlignment="Stretch"
+									Click="OnReportExceptionButtonClick"
+									Content="Report" />
 
-                                <Button
-                                    x:Name="SeeExceptionLogDetailsButton"
-                                    Grid.Column="1"
-                                    HorizontalAlignment="Stretch"
-                                    Click="OnSeeExceptionLogDetailsButtonClick"
-                                    Content="See log details" />
+								<Button
+									x:Name="SeeExceptionLogDetailsButton"
+									Grid.Column="1"
+									HorizontalAlignment="Stretch"
+									Click="OnSeeExceptionLogDetailsButtonClick"
+									Content="See log details" />
 
-                            </Grid>
+							</Grid>
 
-                        </Grid>
+						</Grid>
 
-                        <Grid x:Name="AuthorizedSuccessfullNotifierGrid" x:Load="{x:Bind ViewModel.AuthorizedSuccessfully, Mode=OneWay}">
-                            <InfoBar
-                                Title="FluentHub is successfully authorized"
-                                IsClosable="False"
-                                IsOpen="True"
-                                Severity="Success" />
-                        </Grid>
+						<Grid x:Name="AuthorizedSuccessfullNotifierGrid" x:Load="{x:Bind ViewModel.AuthorizedSuccessfully, Mode=OneWay}">
+							<InfoBar
+								Title="FluentHub is successfully authorized"
+								IsClosable="False"
+								IsOpen="True"
+								Severity="Success" />
+						</Grid>
 
-                        <Grid Margin="0,18" RowSpacing="12">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
+						<Grid Margin="0,18" RowSpacing="12">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
 
-                            <uc:StepsPanelControl
-                                Grid.Row="0"
-                                Number="1"
-                                Text="{helpers:ResourceString Name=FirstStepToAuthorize/Text}" />
-                            <uc:StepsPanelControl
-                                Grid.Row="1"
-                                Number="2"
-                                Text="{helpers:ResourceString Name=SecondStepToAuthorize/Text}" />
-                            <uc:StepsPanelControl
-                                Grid.Row="2"
-                                Number="3"
-                                Text="{helpers:ResourceString Name=ThirdStepToAuthorize/Text}" />
-                            <uc:StepsPanelControl
-                                Grid.Row="3"
-                                Number="4"
-                                Text="{helpers:ResourceString Name=ForthStepToAuthorize/Text}" />
-                            <uc:StepsPanelControl
-                                Grid.Row="4"
-                                Number="5"
-                                Text="{helpers:ResourceString Name=FifthStepToAuthorize/Text}" />
+							<uc:StepsPanelControl
+								Grid.Row="0"
+								Number="1"
+								Text="{helpers:ResourceString Name=FirstStepToAuthorize/Text}" />
+							<uc:StepsPanelControl
+								Grid.Row="1"
+								Number="2"
+								Text="{helpers:ResourceString Name=SecondStepToAuthorize/Text}" />
+							<uc:StepsPanelControl
+								Grid.Row="2"
+								Number="3"
+								Text="{helpers:ResourceString Name=ThirdStepToAuthorize/Text}" />
+							<uc:StepsPanelControl
+								Grid.Row="3"
+								Number="4"
+								Text="{helpers:ResourceString Name=ForthStepToAuthorize/Text}" />
+							<uc:StepsPanelControl
+								Grid.Row="4"
+								Number="5"
+								Text="{helpers:ResourceString Name=FifthStepToAuthorize/Text}" />
 
-                        </Grid>
+						</Grid>
 
-                        <Grid RowSpacing="12">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
+						<Grid RowSpacing="12">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
 
-                            <Button
-                                HorizontalAlignment="Stretch"
-                                Command="{x:Bind ViewModel.AuthorizeWithBrowserCommand}"
-                                Content="{helpers:ResourceString Name=LoginWithGitHub/Content}">
-                                <Button.KeyboardAccelerators>
-                                    <KeyboardAccelerator Key="Enter" />
-                                </Button.KeyboardAccelerators>
-                            </Button>
+							<Button
+								HorizontalAlignment="Stretch"
+								Command="{x:Bind ViewModel.AuthorizeWithBrowserCommand}"
+								Content="{helpers:ResourceString Name=LoginWithGitHub/Content}">
+								<Button.KeyboardAccelerators>
+									<KeyboardAccelerator Key="Enter" />
+								</Button.KeyboardAccelerators>
+							</Button>
 
-                            <Button
-                                x:Name="GoToMainPageButtonWhenAuthorized"
-                                Grid.Row="1"
-                                HorizontalAlignment="Stretch"
-                                x:Load="{x:Bind ViewModel.AuthorizedSuccessfully, Mode=OneWay}"
-                                Click="OnGoToMainPageButtonWhenAuthorizedClick"
-                                Content="Here we go!"
-                                Style="{StaticResource AccentButtonStyle}" />
+							<Button
+								x:Name="GoToMainPageButtonWhenAuthorized"
+								Grid.Row="1"
+								HorizontalAlignment="Stretch"
+								x:Load="{x:Bind ViewModel.AuthorizedSuccessfully, Mode=OneWay}"
+								Click="OnGoToMainPageButtonWhenAuthorizedClick"
+								Content="Here we go!"
+								Style="{StaticResource AccentButtonStyle}" />
 
-                        </Grid>
+						</Grid>
 
-                        <StackPanel
-                            Margin="0,8,0,0"
-                            HorizontalAlignment="Right"
-                            Orientation="Horizontal"
-                            Spacing="4">
+						<StackPanel
+							Margin="0,8,0,0"
+							HorizontalAlignment="Right"
+							Orientation="Horizontal"
+							Spacing="4">
 
-                            <HyperlinkButton
-                                Content="Documentations"
-                                NavigateUri="https://hub.codrex.dev/docs"
-                                ToolTipService.ToolTip="https://hub.codrex.dev/docs" />
+							<HyperlinkButton
+								Content="Documentations"
+								NavigateUri="https://hub.codrex.dev/docs"
+								ToolTipService.ToolTip="https://hub.codrex.dev/docs" />
 
-                            <HyperlinkButton NavigateUri="https://github.com/FluentHub/FluentHub" ToolTipService.ToolTip="https://github.com/FluentHub/FluentHub">
-                                <StackPanel Orientation="Horizontal" Spacing="6">
-                                    <FontIcon
-                                        FontFamily="{StaticResource Octicons}"
-                                        FontSize="16"
-                                        Glyph="&#xEA0B;" />
-                                    <TextBlock Text="FluentHub" />
-                                </StackPanel>
-                            </HyperlinkButton>
+							<HyperlinkButton NavigateUri="https://github.com/FluentHub/FluentHub" ToolTipService.ToolTip="https://github.com/FluentHub/FluentHub">
+								<StackPanel Orientation="Horizontal" Spacing="6">
+									<FontIcon
+										FontFamily="{StaticResource Octicons}"
+										FontSize="16"
+										Glyph="&#xEA0B;" />
+									<TextBlock Text="FluentHub" />
+								</StackPanel>
+							</HyperlinkButton>
 
-                        </StackPanel>
-                    </StackPanel>
-                </Grid>
+						</StackPanel>
+					</StackPanel>
+				</Grid>
 
-            </ScrollViewer>
+			</ScrollViewer>
 
-        </Grid>
-    </Grid>
+		</Grid>
+	</Grid>
 </Page>

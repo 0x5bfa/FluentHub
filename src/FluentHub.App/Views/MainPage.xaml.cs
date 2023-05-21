@@ -1,4 +1,6 @@
-using FluentHub.App.Dialogs;
+// Copyright (c) FluentHub
+// Licensed under the MIT License. See the LICENSE.
+
 using FluentHub.App.Helpers;
 using FluentHub.App.Models;
 using FluentHub.App.Services;
@@ -10,12 +12,8 @@ using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Navigation;
-using Windows.ApplicationModel.Core;
 using Windows.Graphics;
-using Windows.System;
-using Windows.UI.Core;
 
 namespace FluentHub.App.Views
 {
@@ -109,11 +107,12 @@ namespace FluentHub.App.Views
 
 		private void SetRectDragRegion()
 		{
-			const uint MDT_Effective_DPI = 0;
+			const uint MDT_EFFECTIVE_DPI = 0;
 
 			var displayArea = DisplayArea.GetFromWindowId(App.Window.AppWindow.Id, DisplayAreaFallback.Primary);
 			var hMonitor = Win32Interop.GetMonitorFromDisplayId(displayArea.DisplayId);
-			var hr = NativeWinApiHelper.GetDpiForMonitor(hMonitor, MDT_Effective_DPI, out var dpiX, out _);
+
+			var hr = NativeWinApiHelper.GetDpiForMonitor(hMonitor, MDT_EFFECTIVE_DPI, out _, out _);
 			if (hr != 0)
 				return;
 
@@ -122,194 +121,37 @@ namespace FluentHub.App.Views
 
 			var offset = CustomTabViewControl.ActualOffset;
 
-			var x = (int)(((double)offset.X + CustomTabViewControl.ActualWidth - dragArea.ActualWidth) * scaleAdjustment);
+			var x = (int)((offset.X + CustomTabViewControl.ActualWidth - dragArea.ActualWidth) * scaleAdjustment);
 			var y = 0;
+
 			var width = (int)(dragArea.ActualWidth * scaleAdjustment);
 			var height = (int)(CustomTabViewControl.TitlebarArea.ActualHeight * scaleAdjustment);
 
-			var titlebarRect = new RectInt32((int)MainPageTitleBar.ActualOffset.X, (int)MainPageTitleBar.ActualOffset.Y, (int)(MainPageTitleBar.ActualWidth + MainPageTitleBar.Margin.Left + MainPageTitleBar.Margin.Right), 44);
 			var dragRect = new RectInt32(x, y, width, height);
 
-			// WinUI3: Need to track this issue https://github.com/microsoft/WindowsAppSDK/issues/2574
-			// They is not fixed in latest stable version v1.5 However, it has been fixed in latest preview version v1.2.220930.4-preview2
-			// So we have no choice but to use unstable version of WASDK. Should use latest stable version.
-			App.Window.AppWindow.TitleBar.SetDragRectangles(new[] { titlebarRect, dragRect });
+			// WinUI3: See also, https://github.com/microsoft/WindowsAppSDK/issues/2574
+			App.Window.AppWindow.TitleBar.SetDragRectangles(new[] { dragRect });
 		}
-
-		//private void OnSearchGitHubButtonButtonClick(object sender, RoutedEventArgs e)
-		//{
-		//	SearchGitHubAutoSuggestBox.Visibility = Visibility.Visible;
-		//	SearchGitHubAutoSuggestBox.Focus(FocusState.Pointer);
-		//	SearchGitHubButton.Visibility = Visibility.Collapsed;
-
-		//	if (ViewModel.SearchTerm != null)
-		//		SearchGitHubAutoSuggestBox.Text = ViewModel.SearchTerm;
-		//}
-
-		//private void OpenSearchAccelerator(KeyboardAcceleratorInvokedEventArgs e)
-		//{
-		//    SearchGitHubAutoSuggestBox.Visibility = Visibility.Visible;
-		//    SearchGitHubAutoSuggestBox.Focus(FocusState.Keyboard);
-		//    SearchGitHubButton.Visibility = Visibility.Collapsed;
-		//}
-
-		//private void OnSearchGitHubAutoSuggestBoxLostFocus(object sender, RoutedEventArgs e)
-		//{
-		//	//Type currentPage = navService.CurrentPage;
-		//	//var currentPageNamespace = currentPage.ToString();
-		//	//if (!currentPageNamespace.Contains("Views.Searches"))
-		//	//{
-		//		SearchGitHubAutoSuggestBox.Visibility = Visibility.Collapsed;
-		//		SearchGitHubButton.Visibility = Visibility.Visible;
-		//	//}
-		//}
-
-		//private void OnSearchGitHubAutoSuggestBoxQuerySubmitted(AutoSuggestBox sender, AutoSuggestBoxQuerySubmittedEventArgs args)
-		//{
-		//	string queryTerm;
-
-		//	// Suggestion chosen
-		//	if (args.ChosenSuggestion != null)
-		//	{
-		//		queryTerm = (args.ChosenSuggestion as SearchQueryModel).QueryString;
-		//	}
-		//	else
-		//	{
-		//		queryTerm = args.QueryText;
-		//	}
-
-		//	ViewModel.SearchTerm = queryTerm;
-
-		//	sender.Text = queryTerm;
-		//	navService.Navigate<Searches.RepositoriesPage>(new Models.FrameNavigationArgs() { Parameters = new() { queryTerm } });
-		//}
-
-		//private void OnSearchGitHubAutoSuggestBoxSuggestionChosen(AutoSuggestBox sender, AutoSuggestBoxSuggestionChosenEventArgs args)
-		//{
-		//	var selectedItem = args.SelectedItem as SearchQueryModel;
-		//	sender.Text = selectedItem.QueryString;
-		//}
-
-		//private void OnSearchGitHubAutoSuggestBoxTextChanged(AutoSuggestBox sender, AutoSuggestBoxTextChangedEventArgs args)
-		//{
-		//	// Only get results when it was a user typing, 
-		//	// otherwise assume the value got filled in by TextMemberPath 
-		//	// or the handler for SuggestionChosen.
-		//	if (args.Reason == AutoSuggestionBoxTextChangeReason.UserInput)
-		//	{
-		//		var suitableItems = new List<string>();
-
-		//		ViewModel.SearchTerm = sender.Text;
-
-		//		ViewModel.ClearSearchQueryModelItems();
-
-		//		bool isInRepositories = false;
-		//		bool isInOrganizations = false;
-		//		bool isInUsers = false;
-
-		//		Type currentPage = navService.CurrentPage;
-		//		var currentPageNamespace = currentPage.ToString();
-
-		//		if (sender.Text != "")
-		//		{
-		//			ViewModel.AddNewSearchQueryModel(sender.Text, "All GitHub");
-		//		}
-
-		//		if (currentPageNamespace.Contains("Views.Organizations"))
-		//		{
-		//			ViewModel.AddNewSearchQueryModel(sender.Text, "in this organization");
-		//		}
-		//		else if (currentPageNamespace.Contains("Views.Repositories"))
-		//		{
-		//			ViewModel.AddNewSearchQueryModel(sender.Text, "in this repository");
-		//		}
-		//		else if (currentPageNamespace.Contains("Views.Users"))
-		//		{
-		//			ViewModel.AddNewSearchQueryModel(sender.Text, "in this user");
-		//		}
-		//	}
-		//}
 
 		private void OnTabViewSelectionChanged(object sender, TabViewSelectionChangedEventArgs e)
 		{
 			RootFrameBorder.Content = e.NewSelectedItem?.Frame;
 		}
 
-		private void OnMainNavViewItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
-		{
-			if (args.InvokedItemContainer == null || args.InvokedItemContainer.Tag == null)
-				return;
-
-			switch (args.InvokedItemContainer.Tag.ToString().ToLower())
-			{
-				default:
-				case "home":
-					navService.Navigate<Home.UserHomePage>();
-					break;
-				case "notifications":
-					navService.Navigate<Home.NotificationsPage>();
-					break;
-				case "issues":
-                    navService.Navigate<Users.IssuesPage>(
-                        new FrameNavigationArgs()
-                        {
-                            Parameters = new() { "AsViewer" },
-							Login = ViewModel.SignedInUser.Login,
-                        });
-                    break;
-                case "pullrequests":
-                    navService.Navigate<Users.PullRequestsPage>(
-                        new FrameNavigationArgs()
-                        {
-                            Parameters = new() { "AsViewer" },
-                            Login = ViewModel.SignedInUser.Login,
-                        });
-                    break;
-                case "discussions":
-                    navService.Navigate<Users.DiscussionsPage>(
-                        new FrameNavigationArgs()
-                        {
-                            Parameters = new() { "AsViewer" },
-							Login = ViewModel.SignedInUser.Login,
-                        });
-                    break;
-                case "repositories":
-                    navService.Navigate<Users.RepositoriesPage>(
-                        new FrameNavigationArgs()
-                        {
-                            Parameters = new() { "AsViewer" },
-							Login = ViewModel.SignedInUser.Login,
-                        });
-                    break;
-                case "organizations":
-                    navService.Navigate<Users.OrganizationsPage>(
-                        new FrameNavigationArgs()
-                        {
-                            Parameters = new() { "AsViewer" },
-							Login = ViewModel.SignedInUser.Login,
-                        });
-                    break;
-                case "stars":
-                    navService.Navigate<Users.StarredReposPage>(
-                        new FrameNavigationArgs()
-                        {
-                            Parameters = new() { "AsViewer" },
-							Login = ViewModel.SignedInUser.Login,
-                        });
-                    break;
-                case "settings":
-                    navService.Navigate<AppSettings.AppearancePage>();
-                    break;
-            }
+        private void LeftSideNavigationViewOpenerButton_Click(object sender, RoutedEventArgs e)
+        {
+            LeftSideNavigationView.IsPaneOpen = true;
+            LeftSideNavigationView.Visibility = Visibility.Visible;
         }
 
-        private void SignedInUserButton_Click(object sender, RoutedEventArgs e)
+        private void LeftSideNavigationView_PaneClosed(NavigationView sender, object args)
         {
-            navService.Navigate<Users.OverviewPage>(
-            new FrameNavigationArgs()
-            {
-                Login = App.AppSettings.SignedInUserName,
-            });
+            LeftSideNavigationView.Visibility = Visibility.Collapsed;
+        }
+
+        private void UserNotificationInBoxButton_Click(object sender, RoutedEventArgs e)
+        {
+            navService.Navigate<Home.NotificationsPage>();
         }
         #endregion
     }

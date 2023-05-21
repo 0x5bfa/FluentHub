@@ -59,12 +59,7 @@
 
 		<Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadUserHomePageCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
 			<ScrollViewer Grid.Column="2">
-				<Grid
-					Padding="24"
-					Background="{ThemeResource LayerFillColorDefaultBrush}"
-					BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-					BorderThickness="1,1,0,0"
-					CornerRadius="8,0,0,0">
+				<Grid Padding="24">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="Auto" />
@@ -112,7 +107,7 @@
 										ItemsStretch="Fill"
 										MaximumRowsOrColumns="6"
 										MinColumnSpacing="8"
-										MinItemHeight="72"
+										MinItemHeight="92"
 										MinItemWidth="100"
 										MinRowSpacing="8"
 										Orientation="Horizontal" />
@@ -120,7 +115,8 @@
 								<ItemsRepeater.ItemTemplate>
 									<DataTemplate x:DataType="models:FolderCardItem">
 										<Button
-											Padding="8"
+											MaxWidth="184"
+											Padding="16"
 											HorizontalAlignment="Stretch"
 											VerticalAlignment="Stretch"
 											HorizontalContentAlignment="Stretch"

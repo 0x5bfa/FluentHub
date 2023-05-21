@@ -1,3 +1,6 @@
+// Copyright (c) FluentHub
+// Licensed under the MIT License. See the LICENSE.
+
 namespace FluentHub.App.Services.Navigation
 {
     public interface ITabView
@@ -8,7 +11,7 @@ namespace FluentHub.App.Services.Navigation
 
         Type NewTabPage { get; set; }
 
-        ReadOnlyObservableCollection<ITabViewItem> Items { get; }
+        ReadOnlyObservableCollection<ITabViewItem> TabItems { get; }
 
         ITabViewItem OpenTab(Type page = null, object parameter = null, bool setAsSelected = true);
 

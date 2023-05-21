@@ -1,108 +1,108 @@
 ﻿<Page
-    x:Class="FluentHub.App.Views.Repositories.Projects.ProjectPage"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:helpers="using:FluentHub.App.Helpers"
-    xmlns:local="using:FluentHub.App.Views.Repositories.Projects"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:ov="using:FluentHub.App.UserControls.Overview"
-    xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
-    xmlns:uc="using:FluentHub.App.UserControls"
-    mc:Ignorable="d">
+	x:Class="FluentHub.App.Views.Repositories.Projects.ProjectPage"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:helpers="using:FluentHub.App.Helpers"
+	xmlns:local="using:FluentHub.App.Views.Repositories.Projects"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:ov="using:FluentHub.App.UserControls.Overview"
+	xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
+	xmlns:uc="using:FluentHub.App.UserControls"
+	mc:Ignorable="d">
 
-    <Grid>
+	<Grid>
 
-        <Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryProjectPageCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
-            <ScrollViewer VerticalScrollBarVisibility="Auto">
-                <Grid Margin="0,0,8,8" RowSpacing="8">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
+		<Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryProjectPageCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
+			<ScrollViewer VerticalScrollBarVisibility="Auto">
+				<Grid Margin="0,0,8,8" RowSpacing="8">
+					<Grid.RowDefinitions>
+						<RowDefinition Height="Auto" />
+						<RowDefinition Height="*" />
+					</Grid.RowDefinitions>
 
-                    <ov:RepositoryOverview Margin="0,0,0,8" ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
+					<ov:RepositoryOverview Margin="0,0,0,8" ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
 
-                    <Grid
-                        Grid.Row="1"
-                        Padding="32"
-                        Background="{ThemeResource LayerFillColorDefaultBrush}"
-                        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                        BorderThickness="1"
-                        CornerRadius="8">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
+					<Grid
+						Grid.Row="1"
+						Padding="32"
+						Background="{ThemeResource LayerFillColorDefaultBrush}"
+						BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+						BorderThickness="1"
+						CornerRadius="8">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="Auto" />
+							<RowDefinition Height="*" />
+						</Grid.RowDefinitions>
 
-                        <Grid RowSpacing="8">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
+						<Grid RowSpacing="8">
+							<Grid.RowDefinitions>
+								<RowDefinition Height="Auto" />
+								<RowDefinition Height="Auto" />
+							</Grid.RowDefinitions>
 
-                            <StackPanel Orientation="Horizontal" Spacing="8">
-                                <TextBlock
-                                    x:Name="IssueTitleTextBlock"
-                                    FontWeight="Normal"
-                                    Style="{StaticResource TitleTextBlockStyle}"
-                                    Text="{x:Bind ViewModel.Project.Name, Mode=OneWay}" />
-                                <StackPanel Orientation="Horizontal">
-                                    <TextBlock
-                                        FontWeight="ExtraLight"
-                                        Foreground="{ThemeResource TextFillColorSecondary}"
-                                        Style="{StaticResource TitleTextBlockStyle}"
-                                        Text="#" />
-                                    <TextBlock
-                                        FontWeight="ExtraLight"
-                                        Foreground="{ThemeResource TextFillColorSecondary}"
-                                        Style="{StaticResource TitleTextBlockStyle}"
-                                        Text="{x:Bind ViewModel.Project.Number, Mode=OneWay}" />
-                                </StackPanel>
-                            </StackPanel>
+							<StackPanel Orientation="Horizontal" Spacing="8">
+								<TextBlock
+									x:Name="IssueTitleTextBlock"
+									FontWeight="Normal"
+									Style="{StaticResource TitleTextBlockStyle}"
+									Text="{x:Bind ViewModel.Project.Name, Mode=OneWay}" />
+								<StackPanel Orientation="Horizontal">
+									<TextBlock
+										FontWeight="ExtraLight"
+										Foreground="{ThemeResource TextFillColorSecondary}"
+										Style="{StaticResource TitleTextBlockStyle}"
+										Text="#" />
+									<TextBlock
+										FontWeight="ExtraLight"
+										Foreground="{ThemeResource TextFillColorSecondary}"
+										Style="{StaticResource TitleTextBlockStyle}"
+										Text="{x:Bind ViewModel.Project.Number, Mode=OneWay}" />
+								</StackPanel>
+							</StackPanel>
 
-                            <TextBlock
-                                Grid.Row="1"
-                                Foreground="{ThemeResource TextFillColorSecondary}"
-                                Style="{StaticResource CaptionTextBlockStyle}"
-                                Text="{x:Bind ViewModel.Project.Body, Mode=OneWay}" />
+							<TextBlock
+								Grid.Row="1"
+								Foreground="{ThemeResource TextFillColorSecondary}"
+								Style="{StaticResource CaptionTextBlockStyle}"
+								Text="{x:Bind ViewModel.Project.Body, Mode=OneWay}" />
 
-                        </Grid>
+						</Grid>
 
-                        <MenuFlyoutSeparator Grid.Row="1" Margin="12,6" />
+						<MenuFlyoutSeparator Grid.Row="1" Margin="12,6" />
 
-                        <TextBlock
-                            Grid.Row="2"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            Style="{StaticResource BodyStrongTextBlockStyle}"
-                            Text="This page is not available for now." />
-                    </Grid>
-                </Grid>
-            </ScrollViewer>
-        </Grid>
+						<TextBlock
+							Grid.Row="2"
+							HorizontalAlignment="Center"
+							VerticalAlignment="Center"
+							Style="{StaticResource BodyStrongTextBlockStyle}"
+							Text="This page is not available for now." />
+					</Grid>
+				</Grid>
+			</ScrollViewer>
+		</Grid>
 
-        <Grid x:Name="ErrorDisplayingContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryProjectPageCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
-            <uc:LoadErrorDisplay
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Stretch"
-                TaskException="{x:Bind ViewModel.TaskException, Mode=OneWay}">
-                <uc:LoadErrorDisplay.Action>
-                    <Grid>
-                        <Button
-                            Margin="0,24,0,0"
-                            HorizontalAlignment="Center"
-                            Command="{x:Bind ViewModel.LoadRepositoryProjectPageCommand}">
-                            <StackPanel Orientation="Horizontal" Spacing="8">
-                                <FontIcon FontSize="16" Glyph="&#xE149;" />
-                                <TextBlock Text="{helpers:ResourceString Name=TryAgainWithCap}" />
-                            </StackPanel>
-                        </Button>
-                    </Grid>
-                </uc:LoadErrorDisplay.Action>
-            </uc:LoadErrorDisplay>
-        </Grid>
+		<Grid x:Name="ErrorDisplayingContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryProjectPageCommand.ExecutionTask.IsFaulted, Mode=OneWay}">
+			<uc:LoadErrorDisplay
+				HorizontalAlignment="Stretch"
+				VerticalAlignment="Stretch"
+				TaskException="{x:Bind ViewModel.TaskException, Mode=OneWay}">
+				<uc:LoadErrorDisplay.Action>
+					<Grid>
+						<Button
+							Margin="0,24,0,0"
+							HorizontalAlignment="Center"
+							Command="{x:Bind ViewModel.LoadRepositoryProjectPageCommand}">
+							<StackPanel Orientation="Horizontal" Spacing="8">
+								<FontIcon FontSize="16" Glyph="&#xE149;" />
+								<TextBlock Text="{helpers:ResourceString Name=TryAgainWithCap}" />
+							</StackPanel>
+						</Button>
+					</Grid>
+				</uc:LoadErrorDisplay.Action>
+			</uc:LoadErrorDisplay>
+		</Grid>
 
-    </Grid>
+	</Grid>
 </Page>

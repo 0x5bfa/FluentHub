@@ -122,7 +122,7 @@ namespace FluentHub.App.ViewModels
 
 		private void GoToNextTabAccelerator(KeyboardAcceleratorInvokedEventArgs e)
 		{
-			if (_navigationService.TabView.SelectedIndex == _navigationService.TabView.Items.Count - 1)
+			if (_navigationService.TabView.SelectedIndex == _navigationService.TabView.TabItems.Count - 1)
 			{
 				_navigationService.TabView.SelectedIndex = 0;
 			}
@@ -136,7 +136,7 @@ namespace FluentHub.App.ViewModels
 
 		private void GoToPreviousTabAccelerator(KeyboardAcceleratorInvokedEventArgs e)
 		{
-			if (_navigationService.TabView.SelectedIndex == _navigationService.TabView.Items.Count - 1)
+			if (_navigationService.TabView.SelectedIndex == _navigationService.TabView.TabItems.Count - 1)
 			{
 				_navigationService.TabView.SelectedIndex = 0;
 			}

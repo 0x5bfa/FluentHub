@@ -1,3 +1,6 @@
+// Copyright (c) FluentHub
+// Licensed under the MIT License. See the LICENSE.
+
 using Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.App.Services.Navigation
@@ -8,26 +11,19 @@ namespace FluentHub.App.Services.Navigation
         {
         }
 
-#if DEBUG
-        ~PageNavigationEntry()
-            => System.Diagnostics.Debug.WriteLine("~PageNavigationEntry");
-#endif
+        private string? _Header;
+        public string? Header { get => _Header; set => SetProperty(ref _Header, value); }
 
-        #region Fields and Properties
-        private string _title;
-        public string Header { get => _title; set => SetProperty(ref _title, value); }
+        private string? _Description;
+        public string? Description { get => _Description; set => SetProperty(ref _Description, value); }
 
-        private string _description;
-        public string Description { get => _description; set => SetProperty(ref _description, value); }
+        private string? _Url;
+        public string? Url { get => _Url; set => SetProperty(ref _Url, value); }
 
-        private string _url;
-        public string Url { get => _url; set => SetProperty(ref _url, value); }
+        private string? _DisplayUrl;
+        public string? DisplayUrl { get => _DisplayUrl; set => SetProperty(ref _DisplayUrl, value); }
 
-        private string _displayurl;
-        public string DisplayUrl { get => _displayurl; set => SetProperty(ref _displayurl, value); }
-
-        private IconSource _icon;
-        public IconSource Icon { get => _icon; set => SetProperty(ref _icon, value); }
-        #endregion
+        private IconSource? _Icon;
+        public IconSource? Icon { get => _Icon; set => SetProperty(ref _Icon, value); }
     }
 }

@@ -9,7 +9,7 @@
 	mc:Ignorable="d">
 
 	<winuiex:WindowEx.Backdrop>
-		<winuiex:MicaSystemBackdrop />
+		<winuiex:MicaSystemBackdrop Kind="BaseAlt" />
 	</winuiex:WindowEx.Backdrop>
 
 </winuiex:WindowEx>

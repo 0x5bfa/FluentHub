@@ -1,3 +1,6 @@
+// Copyright (c) FluentHub
+// Licensed under the MIT License. See the LICENSE.
+
 using FluentHub.App.Services.Navigation;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
