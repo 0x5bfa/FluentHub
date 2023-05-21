@@ -1,22 +1,43 @@
-﻿using Octokit.GraphQL;
+﻿// Copyright (c) FluentHub
+// Licensed under the MIT License. See the LICENSE.
+
+using Octokit.GraphQL;
 using System;
 using System.Threading.Tasks;
 using System.IO;
-using System.Linq;
 using FluentHub.Octokit.ModelGenerator.Generators;
+using System.Text;
 
 namespace FluentHub.Octokit.ModelGenerator
 {
     public class Program
     {
-        private const string rootNamespace = "FluentHub.Octokit";
-        private const string entityNamespace = "FluentHub.Octokit.Models.v4";
+        private readonly static string rootNamespace = "FluentHub.Octokit";
 
+        private readonly static string entityNamespace = "FluentHub.Octokit.Models.v4";
+
+        // filename.exe [api token] [path to copy]
         static void Main(string[] args)
         {
             if (args.Length != 2)
             {
-                Console.WriteLine("Error: Invalid arguments.");
+                StringBuilder message = new(1024);
+
+                message.AppendLine();
+                message.AppendLine("Copyright (c) FluentHub");
+                message.AppendLine("FluentHub Octokit Model Generator");
+                message.AppendLine("--------------------------------------------------");
+                message.AppendLine();
+                message.AppendLine("An error occurred in parsing command line arguments.");
+                message.AppendLine();
+                message.AppendLine("Syntax:");
+                message.AppendLine("    filename.exe [api token] [path to copy]");
+                message.AppendLine();
+
+                Console.Write(message.ToString());
+
+                message.Clear();
+
                 return;
             }
 
