@@ -16,7 +16,6 @@ namespace FluentHub.Octokit.ModelGenerator
 
         private readonly static string entityNamespace = "FluentHub.Octokit.Models.v4";
 
-        // filename.exe [api token] [path to copy]
         static void Main(string[] args)
         {
             if (args.Length != 2)
