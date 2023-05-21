@@ -1,156 +1,156 @@
 ﻿<UserControl
-    x:Class="FluentHub.App.UserControls.Overview.UserProfileOverview"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:converters="using:FluentHub.App.Converters"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:helpers="using:FluentHub.App.Helpers"
-    xmlns:local="using:FluentHub.App.UserControls.Overview"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    xmlns:primer="using:FluentHub.App.UserControls.PrimerControls"
-    xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
-    xmlns:toolkittriggers="using:CommunityToolkit.WinUI.UI.Triggers"
-    xmlns:uc="using:FluentHub.App.UserControls"
-    d:DesignHeight="300"
-    d:DesignWidth="400"
-    mc:Ignorable="d">
+	x:Class="FluentHub.App.UserControls.Overview.UserProfileOverview"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:converters="using:FluentHub.App.Converters"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:helpers="using:FluentHub.App.Helpers"
+	xmlns:local="using:FluentHub.App.UserControls.Overview"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	xmlns:primer="using:FluentHub.App.UserControls.PrimerControls"
+	xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
+	xmlns:toolkittriggers="using:CommunityToolkit.WinUI.UI.Triggers"
+	xmlns:uc="using:FluentHub.App.UserControls"
+	d:DesignHeight="300"
+	d:DesignWidth="400"
+	mc:Ignorable="d">
 
-    <UserControl.Resources>
-        <ResourceDictionary>
-            <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary>
-                    <StaticResource x:Key="NavigationViewContentBackground" ResourceKey="SystemControlPageBackgroundTransparentBrush" />
-                    <Thickness x:Key="NavigationViewTopPaneHeight">40</Thickness>
-                    <SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
-                    <converters:EmojiShortCodeToUnicodeConverter x:Key="EmojiShortCodeToUnicodeConverter" />
-                    <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
-                </ResourceDictionary>
-            </ResourceDictionary.MergedDictionaries>
-        </ResourceDictionary>
-    </UserControl.Resources>
+	<UserControl.Resources>
+		<ResourceDictionary>
+			<ResourceDictionary.MergedDictionaries>
+				<ResourceDictionary>
+					<StaticResource x:Key="NavigationViewContentBackground" ResourceKey="SystemControlPageBackgroundTransparentBrush" />
+					<Thickness x:Key="NavigationViewTopPaneHeight">40</Thickness>
+					<SolidColorBrush x:Key="NavigationViewContentGridBorderBrush" Color="Transparent" />
+					<converters:EmojiShortCodeToUnicodeConverter x:Key="EmojiShortCodeToUnicodeConverter" />
+					<converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+				</ResourceDictionary>
+			</ResourceDictionary.MergedDictionaries>
+		</ResourceDictionary>
+	</UserControl.Resources>
 
-    <Grid
-        Background="{ThemeResource LayerFillColorDefaultBrush}"
-        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-        BorderThickness="1"
-        CornerRadius="8">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="*" />
-        </Grid.RowDefinitions>
+	<Grid
+		Background="{ThemeResource LayerFillColorDefaultBrush}"
+		BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+		BorderThickness="1"
+		CornerRadius="8">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
 
-        <Grid Margin="32,32,32,12">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
+		<Grid Margin="32,32,32,12">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+				<RowDefinition Height="Auto" />
+			</Grid.RowDefinitions>
 
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="*" />
+					<ColumnDefinition Width="Auto" />
+				</Grid.ColumnDefinitions>
 
-                <Grid
-                    Width="128"
-                    Height="128"
-                    CornerRadius="64">
-                    <Image Source="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}" />
-                </Grid>
+				<Grid
+					Width="128"
+					Height="128"
+					CornerRadius="64">
+					<Image Source="{x:Bind ViewModel.User.AvatarUrl, Mode=OneWay}" />
+				</Grid>
 
-                <StackPanel
-                    Grid.Column="1"
-                    Margin="24,0,0,0"
-                    VerticalAlignment="Center">
+				<StackPanel
+					Grid.Column="1"
+					Margin="24,0,0,0"
+					VerticalAlignment="Center">
 
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        FontWeight="SemiBold"
-                        IsTextSelectionEnabled="True"
-                        Style="{StaticResource SubtitleTextBlockStyle}"
-                        Text="{x:Bind ViewModel.User.Name, Mode=OneWay}"
-                        Visibility="{x:Bind ViewModel.User.Name, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
+					<TextBlock
+						VerticalAlignment="Center"
+						FontWeight="SemiBold"
+						IsTextSelectionEnabled="True"
+						Style="{StaticResource SubtitleTextBlockStyle}"
+						Text="{x:Bind ViewModel.User.Name, Mode=OneWay}"
+						Visibility="{x:Bind ViewModel.User.Name, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
 
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        FontSize="13"
-                        Foreground="{ThemeResource TextFillColorSecondary}"
-                        IsTextSelectionEnabled="True"
-                        Style="{ThemeResource CaptionTextBlockStyle}"
-                        Text="{x:Bind ViewModel.User.Login, Mode=OneWay}"
-                        Visibility="{x:Bind ViewModel.User.Login, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
+					<TextBlock
+						VerticalAlignment="Center"
+						FontSize="13"
+						Foreground="{ThemeResource TextFillColorSecondary}"
+						IsTextSelectionEnabled="True"
+						Style="{ThemeResource CaptionTextBlockStyle}"
+						Text="{x:Bind ViewModel.User.Login, Mode=OneWay}"
+						Visibility="{x:Bind ViewModel.User.Login, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
 
-                    <TextBlock
-                        x:Name="UserBioTextBlock"
-                        Margin="0,4,0,0"
-                        IsTextSelectionEnabled="True"
-                        MaxLines="2"
-                        Style="{ThemeResource BodyTextBlockStyle}"
-                        Text="{x:Bind ViewModel.User.Bio, Mode=OneWay}"
-                        TextTrimming="CharacterEllipsis"
-                        Visibility="{x:Bind ViewModel.User.Bio, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
-                        <ToolTipService.ToolTip>
-                            <ToolTip Content="{x:Bind UserBioTextBlock.Text, Mode=OneWay}" IsEnabled="{x:Bind UserBioTextBlock.IsTextTrimmed, Mode=OneWay}" />
-                        </ToolTipService.ToolTip>
-                    </TextBlock>
+					<TextBlock
+						x:Name="UserBioTextBlock"
+						Margin="0,4,0,0"
+						IsTextSelectionEnabled="True"
+						MaxLines="2"
+						Style="{ThemeResource BodyTextBlockStyle}"
+						Text="{x:Bind ViewModel.User.Bio, Mode=OneWay}"
+						TextTrimming="CharacterEllipsis"
+						Visibility="{x:Bind ViewModel.User.Bio, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+						<ToolTipService.ToolTip>
+							<ToolTip Content="{x:Bind UserBioTextBlock.Text, Mode=OneWay}" IsEnabled="{x:Bind UserBioTextBlock.IsTextTrimmed, Mode=OneWay}" />
+						</ToolTipService.ToolTip>
+					</TextBlock>
 
-                    <Grid
-                        x:Name="UserStatusBlock"
-                        Margin="0,8,0,0"
-                        HorizontalAlignment="Left"
-                        x:Load="{x:Bind ViewModel.User.Status.Emoji, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
-                        <Border
-                            x:Name="UserStatusBlockBorder"
-                            Height="36"
-                            HorizontalAlignment="Stretch"
-                            Background="{ThemeResource LayerFillColorDefaultBrush}"
-                            BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-                            BorderThickness="1"
-                            CornerRadius="4">
-                            <StackPanel
-                                Margin="0,0,0,2"
-                                VerticalAlignment="Center"
-                                Orientation="Horizontal">
-                                <TextBlock
-                                    x:Name="UserStatusEmoji"
-                                    Margin="8,0,0,0"
-                                    VerticalAlignment="Center"
-                                    x:Load="{x:Bind ViewModel.User.Status.Emoji, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-                                    IsTextSelectionEnabled="True"
-                                    LineHeight="18"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="{x:Bind ViewModel.User.Status.Emoji, Converter={StaticResource EmojiShortCodeToUnicodeConverter}, Mode=OneWay}" />
-                                <TextBlock
-                                    x:Name="UserStatusBlockMessageTextBlock"
-                                    Margin="4,0,12,0"
-                                    VerticalAlignment="Center"
-                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                    IsTextSelectionEnabled="True"
-                                    LineHeight="18"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="{x:Bind ViewModel.User.Status.Message, Mode=OneWay}" />
-                                <TextBlock
-                                    x:Name="UserStatusIndicatesLimitedAvailabilityTextBlock"
-                                    Grid.Column="1"
-                                    Margin="-4,0,12,0"
-                                    VerticalAlignment="Center"
-                                    x:Load="{x:Bind ViewModel.User.Status.IndicatesLimitedAvailability, Mode=OneWay}"
-                                    FontFamily="Segoe Fluent Icons"
-                                    Foreground="{ThemeResource PrimerAttentionForeground}"
-                                    Style="{StaticResource BodyTextBlockStyle}"
-                                    Text="&#xe946;">
-                                    <ToolTipService.ToolTip>
-                                        <TextBlock
-                                            Foreground="{ThemeResource PrimerAttentionForeground}"
-                                            Style="{StaticResource CaptionTextBlockStyle}"
-                                            Text="This user has limited availability." />
-                                    </ToolTipService.ToolTip>
-                                </TextBlock>
-                            </StackPanel>
+					<Grid
+						x:Name="UserStatusBlock"
+						Margin="0,8,0,0"
+						HorizontalAlignment="Left"
+						x:Load="{x:Bind ViewModel.User.Status.Emoji, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+						<Border
+							x:Name="UserStatusBlockBorder"
+							Height="36"
+							HorizontalAlignment="Stretch"
+							Background="{ThemeResource LayerFillColorDefaultBrush}"
+							BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+							BorderThickness="1"
+							CornerRadius="4">
+							<StackPanel
+								Margin="0,0,0,2"
+								VerticalAlignment="Center"
+								Orientation="Horizontal">
+								<TextBlock
+									x:Name="UserStatusEmoji"
+									Margin="8,0,0,0"
+									VerticalAlignment="Center"
+									x:Load="{x:Bind ViewModel.User.Status.Emoji, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+									IsTextSelectionEnabled="True"
+									LineHeight="18"
+									Style="{StaticResource BodyTextBlockStyle}"
+									Text="{x:Bind ViewModel.User.Status.Emoji, Converter={StaticResource EmojiShortCodeToUnicodeConverter}, Mode=OneWay}" />
+								<TextBlock
+									x:Name="UserStatusBlockMessageTextBlock"
+									Margin="4,0,12,0"
+									VerticalAlignment="Center"
+									Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+									IsTextSelectionEnabled="True"
+									LineHeight="18"
+									Style="{StaticResource BodyTextBlockStyle}"
+									Text="{x:Bind ViewModel.User.Status.Message, Mode=OneWay}" />
+								<TextBlock
+									x:Name="UserStatusIndicatesLimitedAvailabilityTextBlock"
+									Grid.Column="1"
+									Margin="-4,0,12,0"
+									VerticalAlignment="Center"
+									x:Load="{x:Bind ViewModel.User.Status.IndicatesLimitedAvailability, Mode=OneWay}"
+									FontFamily="Segoe Fluent Icons"
+									Foreground="{ThemeResource PrimerAttentionForeground}"
+									Style="{StaticResource BodyTextBlockStyle}"
+									Text="&#xe946;">
+									<ToolTipService.ToolTip>
+										<TextBlock
+											Foreground="{ThemeResource PrimerAttentionForeground}"
+											Style="{StaticResource CaptionTextBlockStyle}"
+											Text="This user has limited availability." />
+									</ToolTipService.ToolTip>
+								</TextBlock>
+							</StackPanel>
 
-                            <!--<VisualStateManager.VisualStateGroups>
+							<!--<VisualStateManager.VisualStateGroups>
                                 <VisualStateGroup>
                                     <VisualState>
                                         <VisualState.StateTriggers>
@@ -169,297 +169,297 @@
                                     </VisualState>
                                 </VisualStateGroup>
                             </VisualStateManager.VisualStateGroups>-->
-                        </Border>
-                    </Grid>
+						</Border>
+					</Grid>
 
-                </StackPanel>
+				</StackPanel>
 
-                <toolkit:SwitchPresenter
-                    Grid.Column="2"
-                    VerticalAlignment="Top"
-                    TargetType="x:Boolean"
-                    Value="{x:Bind ViewModel.User.IsViewer, Mode=OneWay}">
+				<toolkit:SwitchPresenter
+					Grid.Column="2"
+					VerticalAlignment="Top"
+					TargetType="x:Boolean"
+					Value="{x:Bind ViewModel.User.IsViewer, Mode=OneWay}">
 
-                    <toolkit:Case Value="False">
-                        <Button Width="128">
-                            <Button.Content>
+					<toolkit:Case Value="False">
+						<Button Width="128">
+							<Button.Content>
 
-                                <toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.User.ViewerIsFollowing, Mode=OneWay}">
-                                    <toolkit:Case Value="True">
-                                        <TextBlock Text="{helpers:ResourceString Name=Unfollow}" />
-                                    </toolkit:Case>
-                                    <toolkit:Case Value="False">
-                                        <TextBlock Text="{helpers:ResourceString Name=Follow}" />
-                                    </toolkit:Case>
-                                </toolkit:SwitchPresenter>
+								<toolkit:SwitchPresenter TargetType="x:Boolean" Value="{x:Bind ViewModel.User.ViewerIsFollowing, Mode=OneWay}">
+									<toolkit:Case Value="True">
+										<TextBlock Text="{helpers:ResourceString Name=Unfollow}" />
+									</toolkit:Case>
+									<toolkit:Case Value="False">
+										<TextBlock Text="{helpers:ResourceString Name=Follow}" />
+									</toolkit:Case>
+								</toolkit:SwitchPresenter>
 
-                            </Button.Content>
-                        </Button>
-                    </toolkit:Case>
+							</Button.Content>
+						</Button>
+					</toolkit:Case>
 
-                    <toolkit:Case Value="True">
-                        <Button
-                            Width="128"
-                            Click="OnEditProfileButtonClick"
-                            Content="{helpers:ResourceString Name=EditUserProfile}" />
-                    </toolkit:Case>
+					<toolkit:Case Value="True">
+						<Button
+							Width="128"
+							Click="OnEditProfileButtonClick"
+							Content="{helpers:ResourceString Name=EditUserProfile}" />
+					</toolkit:Case>
 
-                </toolkit:SwitchPresenter>
+				</toolkit:SwitchPresenter>
 
-            </Grid>
+			</Grid>
 
-            <toolkit:WrapPanel
-                Grid.Row="1"
-                Margin="0,12,0,0"
-                HorizontalAlignment="Stretch"
-                HorizontalSpacing="6"
-                Orientation="Horizontal">
+			<toolkit:WrapPanel
+				Grid.Row="1"
+				Margin="0,12,0,0"
+				HorizontalAlignment="Stretch"
+				HorizontalSpacing="6"
+				Orientation="Horizontal">
 
-                <StackPanel
-                    Margin="0,0,12,0"
-                    HorizontalAlignment="Left"
-                    Orientation="Horizontal"
-                    Spacing="6"
-                    Visibility="{x:Bind ViewModel.User.Company, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
-                    <FontIcon
-                        VerticalAlignment="Center"
-                        FontFamily="{StaticResource Octicons}"
-                        FontSize="14"
-                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                        Glyph="&#xEA27;" />
-                    <TextBlock VerticalAlignment="Center" Text="{x:Bind ViewModel.User.Company, Mode=OneWay}" />
-                </StackPanel>
+				<StackPanel
+					Margin="0,0,12,0"
+					HorizontalAlignment="Left"
+					Orientation="Horizontal"
+					Spacing="6"
+					Visibility="{x:Bind ViewModel.User.Company, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+					<FontIcon
+						VerticalAlignment="Center"
+						FontFamily="{StaticResource Octicons}"
+						FontSize="14"
+						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+						Glyph="&#xEA27;" />
+					<TextBlock VerticalAlignment="Center" Text="{x:Bind ViewModel.User.Company, Mode=OneWay}" />
+				</StackPanel>
 
-                <StackPanel
-                    Margin="0,0,12,0"
-                    HorizontalAlignment="Left"
-                    Orientation="Horizontal"
-                    Visibility="{x:Bind ViewModel.User.Location, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
-                    <FontIcon
-                        VerticalAlignment="Center"
-                        FontFamily="{StaticResource Octicons}"
-                        FontSize="14"
-                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                        Glyph="&#xEA03;" />
-                    <HyperlinkButton
-                        Padding="4"
-                        Content="{x:Bind ViewModel.User.Location, Mode=OneWay}"
-                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                        NavigateUri="https://bing.com/maps" />
-                </StackPanel>
+				<StackPanel
+					Margin="0,0,12,0"
+					HorizontalAlignment="Left"
+					Orientation="Horizontal"
+					Visibility="{x:Bind ViewModel.User.Location, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+					<FontIcon
+						VerticalAlignment="Center"
+						FontFamily="{StaticResource Octicons}"
+						FontSize="14"
+						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+						Glyph="&#xEA03;" />
+					<HyperlinkButton
+						Padding="4"
+						Content="{x:Bind ViewModel.User.Location, Mode=OneWay}"
+						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+						NavigateUri="https://bing.com/maps" />
+				</StackPanel>
 
-                <StackPanel
-                    Margin="0,0,12,0"
-                    Orientation="Horizontal"
-                    Visibility="{x:Bind ViewModel.BuiltWebsiteUrl, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
-                    <FontIcon
-                        VerticalAlignment="Center"
-                        FontFamily="{StaticResource Octicons}"
-                        FontSize="14"
-                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                        Glyph="&#xE9FB;" />
-                    <HyperlinkButton
-                        Padding="4"
-                        Content="{x:Bind ViewModel.User.WebsiteUrl, Mode=OneWay}"
-                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                        NavigateUri="{x:Bind ViewModel.BuiltWebsiteUrl, Mode=OneWay}" />
-                </StackPanel>
+				<StackPanel
+					Margin="0,0,12,0"
+					Orientation="Horizontal"
+					Visibility="{x:Bind ViewModel.BuiltWebsiteUrl, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+					<FontIcon
+						VerticalAlignment="Center"
+						FontFamily="{StaticResource Octicons}"
+						FontSize="14"
+						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+						Glyph="&#xE9FB;" />
+					<HyperlinkButton
+						Padding="4"
+						Content="{x:Bind ViewModel.User.WebsiteUrl, Mode=OneWay}"
+						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+						NavigateUri="{x:Bind ViewModel.BuiltWebsiteUrl, Mode=OneWay}" />
+				</StackPanel>
 
-                <StackPanel
-                    x:Name="DeveloperProgramMemberBlock"
-                    Margin="0,0,12,0"
-                    x:Load="{x:Bind ViewModel.User.IsDeveloperProgramMember, Mode=OneWay}"
-                    Orientation="Horizontal"
-                    Spacing="4">
-                    <FontIcon
-                        VerticalAlignment="Center"
-                        FontFamily="{StaticResource Octicons}"
-                        FontSize="14"
-                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                        Glyph="&#xE964;" />
-                    <TextBlock
-                        VerticalAlignment="Center"
-                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                        Style="{ThemeResource BodyTextBlockStyle}"
-                        Text="{helpers:ResourceString Name=DeveloperProgramMember}" />
-                </StackPanel>
+				<StackPanel
+					x:Name="DeveloperProgramMemberBlock"
+					Margin="0,0,12,0"
+					x:Load="{x:Bind ViewModel.User.IsDeveloperProgramMember, Mode=OneWay}"
+					Orientation="Horizontal"
+					Spacing="4">
+					<FontIcon
+						VerticalAlignment="Center"
+						FontFamily="{StaticResource Octicons}"
+						FontSize="14"
+						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+						Glyph="&#xE964;" />
+					<TextBlock
+						VerticalAlignment="Center"
+						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+						Style="{ThemeResource BodyTextBlockStyle}"
+						Text="{helpers:ResourceString Name=DeveloperProgramMember}" />
+				</StackPanel>
 
-                <StackPanel Orientation="Horizontal" Visibility="{x:Bind ViewModel.User.Followers.TotalCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
-                    <FontIcon
-                        Margin="0,0,2,0"
-                        VerticalAlignment="Center"
-                        FontFamily="{StaticResource Octicons}"
-                        FontSize="14"
-                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                        Glyph="&#xEA36;" />
+				<StackPanel Orientation="Horizontal" Visibility="{x:Bind ViewModel.User.Followers.TotalCount, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+					<FontIcon
+						Margin="0,0,2,0"
+						VerticalAlignment="Center"
+						FontFamily="{StaticResource Octicons}"
+						FontSize="14"
+						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+						Glyph="&#xEA36;" />
 
-                    <Button
-                        Padding="4"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Click="OnUserFollowersButtonClick">
-                        <Button.Content>
-                            <StackPanel Orientation="Horizontal" Spacing="6">
-                                <TextBlock
-                                    VerticalAlignment="Center"
-                                    FontWeight="SemiBold"
-                                    Style="{ThemeResource BodyTextBlockStyle}"
-                                    Text="{x:Bind ViewModel.User.Followers.TotalCount, Mode=OneWay}" />
-                                <TextBlock
-                                    VerticalAlignment="Center"
-                                    Foreground="{ThemeResource TextFillColorSecondary}"
-                                    Style="{ThemeResource BodyTextBlockStyle}"
-                                    Text="{helpers:ResourceString Name=FollowersWithoutCaps}" />
-                            </StackPanel>
-                        </Button.Content>
-                    </Button>
+					<Button
+						Padding="4"
+						Background="Transparent"
+						BorderThickness="0"
+						Click="OnUserFollowersButtonClick">
+						<Button.Content>
+							<StackPanel Orientation="Horizontal" Spacing="6">
+								<TextBlock
+									VerticalAlignment="Center"
+									FontWeight="SemiBold"
+									Style="{ThemeResource BodyTextBlockStyle}"
+									Text="{x:Bind ViewModel.User.Followers.TotalCount, Mode=OneWay}" />
+								<TextBlock
+									VerticalAlignment="Center"
+									Foreground="{ThemeResource TextFillColorSecondary}"
+									Style="{ThemeResource BodyTextBlockStyle}"
+									Text="{helpers:ResourceString Name=FollowersWithoutCaps}" />
+							</StackPanel>
+						</Button.Content>
+					</Button>
 
-                    <TextBlock
-                        Margin="1,0"
-                        VerticalAlignment="Center"
-                        Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                        Style="{ThemeResource BodyTextBlockStyle}"
-                        Text="•" />
+					<TextBlock
+						Margin="1,0"
+						VerticalAlignment="Center"
+						Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+						Style="{ThemeResource BodyTextBlockStyle}"
+						Text="•" />
 
-                    <Button
-                        Padding="4"
-                        Background="Transparent"
-                        BorderThickness="0"
-                        Click="OnUserFollowingButtonClick">
-                        <Button.Content>
-                            <StackPanel Orientation="Horizontal" Spacing="6">
-                                <TextBlock
-                                    VerticalAlignment="Center"
-                                    FontWeight="SemiBold"
-                                    Style="{ThemeResource BodyTextBlockStyle}"
-                                    Text="{x:Bind ViewModel.User.Following.TotalCount, Mode=OneWay}" />
-                                <TextBlock
-                                    VerticalAlignment="Center"
-                                    Foreground="{ThemeResource TextFillColorSecondaryBrush}"
-                                    Style="{ThemeResource BodyTextBlockStyle}"
-                                    Text="{helpers:ResourceString Name=FollowingWithoutCaps}" />
-                            </StackPanel>
-                        </Button.Content>
-                    </Button>
+					<Button
+						Padding="4"
+						Background="Transparent"
+						BorderThickness="0"
+						Click="OnUserFollowingButtonClick">
+						<Button.Content>
+							<StackPanel Orientation="Horizontal" Spacing="6">
+								<TextBlock
+									VerticalAlignment="Center"
+									FontWeight="SemiBold"
+									Style="{ThemeResource BodyTextBlockStyle}"
+									Text="{x:Bind ViewModel.User.Following.TotalCount, Mode=OneWay}" />
+								<TextBlock
+									VerticalAlignment="Center"
+									Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+									Style="{ThemeResource BodyTextBlockStyle}"
+									Text="{helpers:ResourceString Name=FollowingWithoutCaps}" />
+							</StackPanel>
+						</Button.Content>
+					</Button>
 
-                </StackPanel>
+				</StackPanel>
 
-            </toolkit:WrapPanel>
-        </Grid>
+			</toolkit:WrapPanel>
+		</Grid>
 
-        <Grid Grid.Row="1">
-            <NavigationView
-                x:Name="UserProfileNavView"
-                Margin="32,0"
-                IsBackButtonVisible="Collapsed"
-                IsSettingsVisible="False"
-                ItemInvoked="OnUserNavViewItemInvoked"
-                PaneDisplayMode="Top">
+		<Grid Grid.Row="1">
+			<NavigationView
+				x:Name="UserProfileNavView"
+				Margin="32,0"
+				IsBackButtonVisible="Collapsed"
+				IsSettingsVisible="False"
+				ItemInvoked="OnUserNavViewItemInvoked"
+				PaneDisplayMode="Top">
 
-                <NavigationView.MenuItems>
-                    <NavigationViewItem
-                        x:Name="UserNavViewItemOverview"
-                        Content="{helpers:ResourceString Name=Overview}"
-                        Tag="Overview">
-                        <NavigationViewItem.Icon>
-                            <FontIcon
-                                FontFamily="{StaticResource Octicons}"
-                                FontSize="16"
-                                Glyph="&#xE922;" />
-                        </NavigationViewItem.Icon>
-                    </NavigationViewItem>
-                    <NavigationViewItem
-                        x:Name="UserNavViewItemRepositories"
-                        Content="{helpers:ResourceString Name=Repositories}"
-                        Tag="Repositories">
-                        <NavigationViewItem.Icon>
-                            <FontIcon
-                                FontFamily="{StaticResource Octicons}"
-                                FontSize="16"
-                                Glyph="&#xEA52;" />
-                        </NavigationViewItem.Icon>
-                    </NavigationViewItem>
-                    <NavigationViewItem
-                        x:Name="UserNavViewItemStars"
-                        Content="{helpers:ResourceString Name=Stars}"
-                        Tag="Stars">
-                        <NavigationViewItem.Icon>
-                            <FontIcon
-                                FontFamily="{StaticResource Octicons}"
-                                FontSize="16"
-                                Glyph="&#xEA94;" />
-                        </NavigationViewItem.Icon>
-                    </NavigationViewItem>
-                    <NavigationViewItem
-                        x:Name="UserNavViewItemProjects"
-                        Content="{helpers:ResourceString Name=Projects}"
-                        Tag="Projects">
-                        <NavigationViewItem.Icon>
-                            <FontIcon
-                                FontFamily="{StaticResource Octicons}"
-                                FontSize="16"
-                                Glyph="&#xEAA3;" />
-                        </NavigationViewItem.Icon>
-                    </NavigationViewItem>
-                    <NavigationViewItem
-                        x:Name="UserNavViewItemPackages"
-                        Content="{helpers:ResourceString Name=Packages}"
-                        Tag="Packages">
-                        <NavigationViewItem.Icon>
-                            <FontIcon
-                                FontFamily="{StaticResource Octicons}"
-                                FontSize="16"
-                                Glyph="&#xEA29;" />
-                        </NavigationViewItem.Icon>
-                    </NavigationViewItem>
-                    <NavigationViewItem
-                        x:Name="UserNavViewItemOrganizations"
-                        Content="{helpers:ResourceString Name=Organizations}"
-                        Tag="Organizations">
-                        <NavigationViewItem.Icon>
-                            <FontIcon
-                                FontFamily="{StaticResource Octicons}"
-                                FontSize="16"
-                                Glyph="&#xEA27;" />
-                        </NavigationViewItem.Icon>
-                    </NavigationViewItem>
-                    <NavigationViewItem
-                        x:Name="UserNavViewItemDiscussions"
-                        Content="{helpers:ResourceString Name=Discussions}"
-                        Tag="Discussions">
-                        <NavigationViewItem.Icon>
-                            <FontIcon
-                                FontFamily="{StaticResource Octicons}"
-                                FontSize="16"
-                                Glyph="&#xE95D;" />
-                        </NavigationViewItem.Icon>
-                    </NavigationViewItem>
-                    <NavigationViewItem
-                        x:Name="UserNavViewItemFollowers"
-                        Content="{helpers:ResourceString Name=Followers}"
-                        Tag="Followers">
-                        <NavigationViewItem.Icon>
-                            <FontIcon
-                                FontFamily="{StaticResource Octicons}"
-                                FontSize="16"
-                                Glyph="&#xEA36;" />
-                        </NavigationViewItem.Icon>
-                    </NavigationViewItem>
-                    <NavigationViewItem
-                        x:Name="UserNavViewItemFollowing"
-                        Content="{helpers:ResourceString Name=Following}"
-                        Tag="Following">
-                        <NavigationViewItem.Icon>
-                            <FontIcon
-                                FontFamily="{StaticResource Octicons}"
-                                FontSize="16"
-                                Glyph="&#xEA36;" />
-                        </NavigationViewItem.Icon>
-                    </NavigationViewItem>
-                </NavigationView.MenuItems>
+				<NavigationView.MenuItems>
+					<NavigationViewItem
+						x:Name="UserNavViewItemOverview"
+						Content="{helpers:ResourceString Name=Overview}"
+						Tag="Overview">
+						<NavigationViewItem.Icon>
+							<FontIcon
+								FontFamily="{StaticResource Octicons}"
+								FontSize="16"
+								Glyph="&#xE922;" />
+						</NavigationViewItem.Icon>
+					</NavigationViewItem>
+					<NavigationViewItem
+						x:Name="UserNavViewItemRepositories"
+						Content="{helpers:ResourceString Name=Repositories}"
+						Tag="Repositories">
+						<NavigationViewItem.Icon>
+							<FontIcon
+								FontFamily="{StaticResource Octicons}"
+								FontSize="16"
+								Glyph="&#xEA52;" />
+						</NavigationViewItem.Icon>
+					</NavigationViewItem>
+					<NavigationViewItem
+						x:Name="UserNavViewItemStars"
+						Content="{helpers:ResourceString Name=Stars}"
+						Tag="Stars">
+						<NavigationViewItem.Icon>
+							<FontIcon
+								FontFamily="{StaticResource Octicons}"
+								FontSize="16"
+								Glyph="&#xEA94;" />
+						</NavigationViewItem.Icon>
+					</NavigationViewItem>
+					<NavigationViewItem
+						x:Name="UserNavViewItemProjects"
+						Content="{helpers:ResourceString Name=Projects}"
+						Tag="Projects">
+						<NavigationViewItem.Icon>
+							<FontIcon
+								FontFamily="{StaticResource Octicons}"
+								FontSize="16"
+								Glyph="&#xEAA3;" />
+						</NavigationViewItem.Icon>
+					</NavigationViewItem>
+					<NavigationViewItem
+						x:Name="UserNavViewItemPackages"
+						Content="{helpers:ResourceString Name=Packages}"
+						Tag="Packages">
+						<NavigationViewItem.Icon>
+							<FontIcon
+								FontFamily="{StaticResource Octicons}"
+								FontSize="16"
+								Glyph="&#xEA29;" />
+						</NavigationViewItem.Icon>
+					</NavigationViewItem>
+					<NavigationViewItem
+						x:Name="UserNavViewItemOrganizations"
+						Content="{helpers:ResourceString Name=Organizations}"
+						Tag="Organizations">
+						<NavigationViewItem.Icon>
+							<FontIcon
+								FontFamily="{StaticResource Octicons}"
+								FontSize="16"
+								Glyph="&#xEA27;" />
+						</NavigationViewItem.Icon>
+					</NavigationViewItem>
+					<NavigationViewItem
+						x:Name="UserNavViewItemDiscussions"
+						Content="{helpers:ResourceString Name=Discussions}"
+						Tag="Discussions">
+						<NavigationViewItem.Icon>
+							<FontIcon
+								FontFamily="{StaticResource Octicons}"
+								FontSize="16"
+								Glyph="&#xE95D;" />
+						</NavigationViewItem.Icon>
+					</NavigationViewItem>
+					<NavigationViewItem
+						x:Name="UserNavViewItemFollowers"
+						Content="{helpers:ResourceString Name=Followers}"
+						Tag="Followers">
+						<NavigationViewItem.Icon>
+							<FontIcon
+								FontFamily="{StaticResource Octicons}"
+								FontSize="16"
+								Glyph="&#xEA36;" />
+						</NavigationViewItem.Icon>
+					</NavigationViewItem>
+					<NavigationViewItem
+						x:Name="UserNavViewItemFollowing"
+						Content="{helpers:ResourceString Name=Following}"
+						Tag="Following">
+						<NavigationViewItem.Icon>
+							<FontIcon
+								FontFamily="{StaticResource Octicons}"
+								FontSize="16"
+								Glyph="&#xEA36;" />
+						</NavigationViewItem.Icon>
+					</NavigationViewItem>
+				</NavigationView.MenuItems>
 
-            </NavigationView>
-        </Grid>
+			</NavigationView>
+		</Grid>
 
-    </Grid>
+	</Grid>
 </UserControl>

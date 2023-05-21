@@ -1,68 +1,68 @@
 ﻿<UserControl
-    x:Class="FluentHub.App.UserControls.FileContentBlock"
-    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:converters="using:FluentHub.App.Converters"
-    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-    xmlns:local="using:FluentHub.App.UserControls"
-    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    d:DesignHeight="300"
-    d:DesignWidth="400"
-    mc:Ignorable="d">
+	x:Class="FluentHub.App.UserControls.FileContentBlock"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:converters="using:FluentHub.App.Converters"
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:local="using:FluentHub.App.UserControls"
+	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	d:DesignHeight="300"
+	d:DesignWidth="400"
+	mc:Ignorable="d">
 
-    <UserControl.Resources>
-        <converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
-    </UserControl.Resources>
+	<UserControl.Resources>
+		<converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
+	</UserControl.Resources>
 
-    <Grid
-        x:Name="ContentBlock"
-        Background="{ThemeResource LayerFillColorDefaultBrush}"
-        BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-        BorderThickness="1"
-        CornerRadius="4">
+	<Grid
+		x:Name="ContentBlock"
+		Background="{ThemeResource LayerFillColorDefaultBrush}"
+		BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+		BorderThickness="1"
+		CornerRadius="4">
 
-        <Grid.RowDefinitions>
-            <RowDefinition Height="48" />
-            <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="48" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
 
-        <Grid Padding="8,6" VerticalAlignment="Stretch">
+		<Grid Padding="8,6" VerticalAlignment="Stretch">
 
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
 
-            <StackPanel VerticalAlignment="Stretch" Orientation="Horizontal">
+			<StackPanel VerticalAlignment="Stretch" Orientation="Horizontal">
 
-                <StackPanel Orientation="Horizontal" Visibility="{x:Bind ViewModel.FormattedFileDetails, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
-                    <TextBlock
-                        Margin="10,0"
-                        VerticalAlignment="Center"
-                        FontFamily="Cascadia Code"
-                        Style="{StaticResource CaptionTextBlockStyle}"
-                        Text="{x:Bind ViewModel.FormattedFileDetails, Mode=OneWay}" />
+				<StackPanel Orientation="Horizontal" Visibility="{x:Bind ViewModel.FormattedFileDetails, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+					<TextBlock
+						Margin="10,0"
+						VerticalAlignment="Center"
+						FontFamily="Cascadia Code"
+						Style="{StaticResource CaptionTextBlockStyle}"
+						Text="{x:Bind ViewModel.FormattedFileDetails, Mode=OneWay}" />
 
-                    <Border
-                        Width="0.5"
-                        Height="24"
-                        VerticalAlignment="Center"
-                        BorderBrush="{StaticResource CardBackgroundFillColorDefaultBrush}"
-                        BorderThickness="0.5" />
-                </StackPanel>
+					<Border
+						Width="0.5"
+						Height="24"
+						VerticalAlignment="Center"
+						BorderBrush="{StaticResource CardBackgroundFillColorDefaultBrush}"
+						BorderThickness="0.5" />
+				</StackPanel>
 
-                <TextBlock
-                    Margin="10,0"
-                    VerticalAlignment="Center"
-                    FontFamily="Cascadia Code"
-                    Style="{StaticResource CaptionTextBlockStyle}"
-                    Text="{x:Bind ViewModel.FormattedFileSize, Mode=OneWay}" />
+				<TextBlock
+					Margin="10,0"
+					VerticalAlignment="Center"
+					FontFamily="Cascadia Code"
+					Style="{StaticResource CaptionTextBlockStyle}"
+					Text="{x:Bind ViewModel.FormattedFileSize, Mode=OneWay}" />
 
-            </StackPanel>
+			</StackPanel>
 
-            <!--<StackPanel
+			<!--<StackPanel
                 Grid.Column="2"
                 HorizontalAlignment="Right"
                 Orientation="Horizontal">
@@ -107,44 +107,44 @@
                 </Button>
 
             </StackPanel>-->
-        </Grid>
+		</Grid>
 
-        <MenuFlyoutSeparator Grid.Row="1" />
+		<MenuFlyoutSeparator Grid.Row="1" />
 
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+		<Grid Grid.Row="2">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="Auto" />
+				<ColumnDefinition Width="*" />
+			</Grid.ColumnDefinitions>
 
-            <TextBlock
-                Margin="12,8"
-                FontFamily="Cascadia Code"
-                FontWeight="ExtraLight"
-                Foreground="{ThemeResource TextFillColorSecondary}"
-                HorizontalTextAlignment="Right"
-                Text="{x:Bind ViewModel.LineText, Mode=OneWay}" />
+			<TextBlock
+				Margin="12,8"
+				FontFamily="Cascadia Code"
+				FontWeight="ExtraLight"
+				Foreground="{ThemeResource TextFillColorSecondary}"
+				HorizontalTextAlignment="Right"
+				Text="{x:Bind ViewModel.LineText, Mode=OneWay}" />
 
-            <ScrollViewer
-                Grid.Column="1"
-                Padding="0,8"
-                HorizontalScrollBarVisibility="Auto"
-                HorizontalScrollMode="Enabled"
-                VerticalScrollBarVisibility="Disabled"
-                VerticalScrollMode="Disabled">
+			<ScrollViewer
+				Grid.Column="1"
+				Padding="0,8"
+				HorizontalScrollBarVisibility="Auto"
+				HorizontalScrollMode="Enabled"
+				VerticalScrollBarVisibility="Disabled"
+				VerticalScrollMode="Disabled">
 
-                <RichTextBlock
-                    x:Name="ColorCodeBlock"
-                    FontFamily="Cascadia Code"
-                    FontWeight="SemiLight"
-                    IsTextSelectionEnabled="True" />
-            </ScrollViewer>
+				<RichTextBlock
+					x:Name="ColorCodeBlock"
+					FontFamily="Cascadia Code"
+					FontWeight="SemiLight"
+					IsTextSelectionEnabled="True" />
+			</ScrollViewer>
 
-            <TextBlock
-                Margin="12,8"
-                IsTextSelectionEnabled="True"
-                Text="Binary file not shown"
-                Visibility="{x:Bind ViewModel.Blob.IsBinary, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
-        </Grid>
-    </Grid>
+			<TextBlock
+				Margin="12,8"
+				IsTextSelectionEnabled="True"
+				Text="Binary file not shown"
+				Visibility="{x:Bind ViewModel.Blob.IsBinary, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}" />
+		</Grid>
+	</Grid>
 </UserControl>

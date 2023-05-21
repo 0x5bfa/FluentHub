@@ -13,8 +13,7 @@
 	<UserControl.Resources>
 		<ResourceDictionary>
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="/ResourceDictionaries/TabView_themeresources.xaml" />
-				<ResourceDictionary Source="/ResourceDictionaries/TabViewItem_shared.xaml" />
+				<ResourceDictionary Source="/ResourceDictionaries/CustomTabViewItemStyle.xaml" />
 			</ResourceDictionary.MergedDictionaries>
 		</ResourceDictionary>
 	</UserControl.Resources>
