@@ -1,6 +1,7 @@
 // Copyright (c) FluentHub
 // Licensed under the MIT License. See the LICENSE.
 
+using FluentHub.App.Data.Items;
 using FluentHub.App.Services.Navigation;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
@@ -9,6 +10,8 @@ namespace FluentHub.App.Services
 {
     public interface INavigationService
     {
+        ObservableCollection<NavigationBarItem> NavigationBarItems { get; set; }
+
         Type CurrentPage { get; set; }
 
         ITabView TabView { get; }

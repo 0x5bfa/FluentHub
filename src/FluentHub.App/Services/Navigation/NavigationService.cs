@@ -1,6 +1,7 @@
 // Copyright (c) FluentHub
 // Licensed under the MIT License. See the LICENSE.
 
+using FluentHub.App.Data.Items;
 using FluentHub.App.Utils;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
@@ -17,6 +18,8 @@ namespace FluentHub.App.Services.Navigation
         private readonly ILogger _logger;
 
         private static readonly EntranceNavigationTransitionInfo _navigationMode = new();
+
+        public ObservableCollection<NavigationBarItem> NavigationBarItems { get; set; }
 
         public Type CurrentPage { get; set; }
 

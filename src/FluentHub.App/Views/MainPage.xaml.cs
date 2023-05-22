@@ -25,14 +25,17 @@ namespace FluentHub.App.Views
 
 			var provider = App.Current.Services;
 			ViewModel = provider.GetRequiredService<MainPageViewModel>();
-			navService = provider.GetRequiredService<INavigationService>();
-			Logger = provider.GetService<ILogger>();
+			NavigationService = provider.GetRequiredService<INavigationService>();
+			Logger = provider.GetRequiredService<ILogger>();
 		}
 
 		#region Fields and Properties
 		public MainPageViewModel ViewModel { get; }
-		private INavigationService navService { get; }
+
+		public INavigationService NavigationService { get; }
+
 		public ILogger Logger { get; }
+
 		#endregion
 
 		#region Methods
@@ -67,8 +70,8 @@ namespace FluentHub.App.Views
 			SubscribeEvents();
 
 			CustomTabViewControl.NewTabPage = typeof(Home.UserHomePage);
-			navService.Configure(CustomTabViewControl);
-			navService.Navigate<Home.UserHomePage>();
+			NavigationService.Configure(CustomTabViewControl);
+			NavigationService.Navigate<Home.UserHomePage>();
 
 			var command = ViewModel.LoadSignedInUserCommand;
 			if (command.CanExecute(null))
@@ -81,7 +84,7 @@ namespace FluentHub.App.Views
 		protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
 		{
 			UnsubscribeEvents();
-			navService.Disconnect();
+			NavigationService.Disconnect();
 		}
 
 		private void OnCustomTabViewControlLoaded(object sender, RoutedEventArgs e)
@@ -151,7 +154,7 @@ namespace FluentHub.App.Views
 
         private void UserNotificationInBoxButton_Click(object sender, RoutedEventArgs e)
         {
-            navService.Navigate<Home.NotificationsPage>();
+            NavigationService.Navigate<Home.NotificationsPage>();
         }
         #endregion
     }

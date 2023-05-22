@@ -25,19 +25,18 @@
 
 		<Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadUserOverviewCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
 			<ScrollViewer VerticalScrollBarVisibility="Auto">
-				<Grid Margin="0,0,8,8" RowSpacing="8">
-					<Grid.RowDefinitions>
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="*" />
-					</Grid.RowDefinitions>
+				<Grid Margin="16" RowSpacing="8">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition
+							Width="*"
+							MinWidth="250"
+							MaxWidth="348" />
+						<ColumnDefinition Width="2*" />
+					</Grid.ColumnDefinitions>
 
-					<ov:UserProfileOverview
-						x:Name="UserProfileOverview"
-						Margin="0,0,0,0"
-						x:Load="True"
-						ViewModel="{x:Bind ViewModel.UserProfileOverviewViewModel, Mode=OneWay}" />
+					<StackPanel />
 
-					<StackPanel Grid.Row="1" Spacing="8">
+					<StackPanel Grid.Column="1" Spacing="8">
 
 						<Grid
 							x:Name="PinnedRepositoriesGrid"
@@ -52,7 +51,7 @@
 								<RowDefinition Height="Auto" />
 							</Grid.RowDefinitions>
 
-							<Grid Height="44" Padding="32,8,32,4">
+							<Grid Height="44" Padding="16,8,16,4">
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition Width="*" />
 									<ColumnDefinition Width="Auto" />
@@ -130,7 +129,7 @@
 								<RowDefinition Height="Auto" />
 							</Grid.RowDefinitions>
 
-							<Grid Height="44" Padding="32,8,32,4">
+							<Grid Height="44" Padding="16,8,16,4">
 								<Grid.ColumnDefinitions>
 									<ColumnDefinition Width="*" />
 									<ColumnDefinition Width="Auto" />
@@ -193,10 +192,6 @@
 
 							</Grid>
 						</Grid>
-
-						<uc:UserContributionGraph Login="{x:Bind ViewModel.Login, Mode=OneWay}" />
-
-						<uc:ReadmeContentBlock ContextViewModel="{x:Bind ViewModel.ContextViewModel, Mode=OneWay}" />
 
 					</StackPanel>
 

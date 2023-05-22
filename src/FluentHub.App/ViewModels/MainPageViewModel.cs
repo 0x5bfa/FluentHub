@@ -11,6 +11,7 @@ using FluentHub.App.Utils;
 using Microsoft.UI.Xaml.Input;
 using System.Windows.Input;
 using Windows.System;
+using FluentHub.App.Data.Items;
 
 namespace FluentHub.App.ViewModels
 {
