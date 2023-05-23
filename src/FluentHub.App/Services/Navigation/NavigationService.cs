@@ -3,12 +3,13 @@
 
 using FluentHub.App.Data.Items;
 using FluentHub.App.Utils;
+using FluentHub.Core.Data.Enums;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
 
 namespace FluentHub.App.Services.Navigation
 {
-    public class NavigationService : INavigationService
+    public class NavigationService : ObservableObject, INavigationService
     {
         public NavigationService(ILogger logger = null)
         {
@@ -20,6 +21,11 @@ namespace FluentHub.App.Services.Navigation
         private static readonly EntranceNavigationTransitionInfo _navigationMode = new();
 
         public ObservableCollection<NavigationBarItem> NavigationBarItems { get; set; }
+
+        public NavigationBarPageKind PageKind { get; set; }
+
+        private bool _IsNavigationBarShown = true;
+        public bool IsNavigationBarShown { get => _IsNavigationBarShown; set => SetProperty(ref _IsNavigationBarShown, value); }
 
         public Type CurrentPage { get; set; }
 

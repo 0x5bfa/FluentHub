@@ -1,3 +1,6 @@
+// Copyright (c) FluentHub
+// Licensed under the MIT License. See the LICENSE.
+
 using FluentHub.App.Services;
 using FluentHub.App.ViewModels.Users;
 using Microsoft.Extensions.DependencyInjection;
@@ -7,9 +10,9 @@ using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.App.Views.Users
 {
-    public sealed partial class OverviewPage : Page
+    public sealed partial class OverviewPage : LocatablePage
     {
-        public OverviewPage()
+        public OverviewPage() : base(Core.Data.Enums.NavigationBarPageKind.User)
         {
             InitializeComponent();
 

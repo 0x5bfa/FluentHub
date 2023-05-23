@@ -7,19 +7,19 @@ namespace FluentHub.App.Data.Factories
 {
     public static class NavigationBarFactory
     {
-        public static IList<NavigationBarItem> GetUserNavigationBarItems()
+        public static IList<NavigationBarItem> GetOrganizationNavigationBarItems()
         {
             return new List<NavigationBarItem>()
             {
                 new()
                 {
                     Text = "Overview",
-                    PageToNavigate = typeof(Views.Users.OverviewPage)
+                    PageToNavigate = typeof(Views.Organizations.OverviewPage)
                 },
                 new()
                 {
                     Text = "Repositories",
-                    PageToNavigate = typeof(Views.Users.RepositoriesPage)
+                    PageToNavigate = typeof(Views.Organizations.RepositoriesPage)
                 },
             };
         }
@@ -37,6 +37,28 @@ namespace FluentHub.App.Data.Factories
                 {
                     Text = "Issues",
                     PageToNavigate = typeof(Views.Repositories.Issues.IssuesPage)
+                },
+            };
+        }
+
+        public static IList<NavigationBarItem> GetUserNavigationBarItems()
+        {
+            return new List<NavigationBarItem>()
+            {
+                new()
+                {
+                    Text = "Overview",
+                    PageToNavigate = typeof(Views.Users.OverviewPage)
+                },
+                new()
+                {
+                    Text = "Repositories",
+                    PageToNavigate = typeof(Views.Users.RepositoriesPage)
+                },
+                new()
+                {
+                    Text = "Stars",
+                    PageToNavigate = typeof(Views.Users.StarredReposPage)
                 },
             };
         }

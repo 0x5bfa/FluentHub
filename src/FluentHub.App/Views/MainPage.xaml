@@ -5,6 +5,7 @@
 	xmlns:animatedvisuals="using:Microsoft.UI.Xaml.Controls.AnimatedVisuals"
 	xmlns:converters="using:FluentHub.App.Converters"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+	xmlns:dataitems="using:FluentHub.App.Data.Items"
 	xmlns:helpers="using:FluentHub.App.Helpers"
 	xmlns:i="using:Microsoft.Xaml.Interactivity"
 	xmlns:icore="using:Microsoft.Xaml.Interactions.Core"
@@ -231,19 +232,28 @@
 
 					</Grid>
 
-					<!--<NavigationView
+					<NavigationView
+						x:Name="NavigationBarNavigationView"
 						Grid.Row="1"
 						Margin="0,-4,0,-12"
+						x:Load="{x:Bind NavigationService.IsNavigationBarShown, Mode=OneWay}"
 						IsBackButtonVisible="Collapsed"
 						IsPaneToggleButtonVisible="False"
 						IsSettingsVisible="False"
+						MenuItemsSource="{x:Bind NavigationService.NavigationBarItems, Mode=OneWay}"
 						PaneDisplayMode="Top">
-						<NavigationView.MenuItems>
-							<NavigationViewItem Content="Code" />
-							<NavigationViewItem Content="Issues" />
-							<NavigationViewItem Content="Pull requests" />
-						</NavigationView.MenuItems>
-					</NavigationView>-->
+						<NavigationView.MenuItemTemplate>
+							<DataTemplate x:DataType="dataitems:NavigationBarItem">
+								<StackPanel Orientation="Horizontal" Spacing="6">
+									<FontIcon
+										x:Name="NavigationbarItemGlyph"
+										x:Load="{x:Bind Glyph, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
+										Glyph="{x:Bind Glyph, Mode=OneWay}" />
+									<TextBlock Text="{x:Bind Text, Mode=OneWay}" />
+								</StackPanel>
+							</DataTemplate>
+						</NavigationView.MenuItemTemplate>
+					</NavigationView>
 				</Grid>
 
 			</Grid>

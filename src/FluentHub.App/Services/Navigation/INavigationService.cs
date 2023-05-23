@@ -3,6 +3,7 @@
 
 using FluentHub.App.Data.Items;
 using FluentHub.App.Services.Navigation;
+using FluentHub.Core.Data.Enums;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
 
@@ -11,6 +12,10 @@ namespace FluentHub.App.Services
     public interface INavigationService
     {
         ObservableCollection<NavigationBarItem> NavigationBarItems { get; set; }
+
+        NavigationBarPageKind PageKind { get; set; }
+
+        bool IsNavigationBarShown { get; set; }
 
         Type CurrentPage { get; set; }
 

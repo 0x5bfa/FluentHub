@@ -19,6 +19,12 @@ namespace FluentHub.App.Views
 {
 	public sealed partial class MainPage : Page
 	{
+		public MainPageViewModel ViewModel { get; }
+
+		public INavigationService NavigationService { get; }
+
+		public ILogger _logger { get; }
+
 		public MainPage()
 		{
 			InitializeComponent();
@@ -26,17 +32,8 @@ namespace FluentHub.App.Views
 			var provider = App.Current.Services;
 			ViewModel = provider.GetRequiredService<MainPageViewModel>();
 			NavigationService = provider.GetRequiredService<INavigationService>();
-			Logger = provider.GetRequiredService<ILogger>();
+			_logger = provider.GetRequiredService<ILogger>();
 		}
-
-		#region Fields and Properties
-		public MainPageViewModel ViewModel { get; }
-
-		public INavigationService NavigationService { get; }
-
-		public ILogger Logger { get; }
-
-		#endregion
 
 		#region Methods
 		private void SubscribeEvents()
