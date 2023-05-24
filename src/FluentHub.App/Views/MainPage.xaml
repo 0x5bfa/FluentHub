@@ -241,7 +241,8 @@
 						IsPaneToggleButtonVisible="False"
 						IsSettingsVisible="False"
 						MenuItemsSource="{x:Bind CustomTabViewControl.SelectedItem.NavigationHistory.CurrentItem.NavigationBarItems, Mode=OneWay}"
-						PaneDisplayMode="Top">
+						PaneDisplayMode="Top"
+						SelectedItem="{x:Bind CustomTabViewControl.SelectedItem.NavigationHistory.CurrentItem.NavigationBarItems, Mode=TwoWay}">
 						<NavigationView.MenuItemTemplate>
 							<DataTemplate x:DataType="dataitems:NavigationBarItem">
 								<StackPanel Orientation="Horizontal" Spacing="6">

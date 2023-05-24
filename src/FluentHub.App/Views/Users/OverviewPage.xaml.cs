@@ -3,6 +3,7 @@
 
 using FluentHub.App.Services;
 using FluentHub.App.ViewModels.Users;
+using FluentHub.Core.Data.Enums;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
@@ -12,7 +13,8 @@ namespace FluentHub.App.Views.Users
 {
     public sealed partial class OverviewPage : LocatablePage
     {
-        public OverviewPage() : base(Core.Data.Enums.NavigationBarPageKind.User)
+        public OverviewPage()
+            : base(NavigationBarPageKind.User, NavigationBarItemKey.Overview)
         {
             InitializeComponent();
 

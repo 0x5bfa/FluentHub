@@ -31,6 +31,9 @@ namespace FluentHub.App.Services.Navigation
         private ObservableCollection<NavigationBarItem>? _NavigationBarItems;
         public ObservableCollection<NavigationBarItem>? NavigationBarItems { get => _NavigationBarItems; set => SetProperty(ref _NavigationBarItems, value); }
 
+        private NavigationBarItem? _SelectedNavigationBarItem;
+        public NavigationBarItem? SelectedNavigationBarItem { get => _SelectedNavigationBarItem; set => SetProperty(ref _SelectedNavigationBarItem, value); }
+
         private NavigationBarPageKind _PageKind;
         public NavigationBarPageKind PageKind
         {

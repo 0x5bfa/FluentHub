@@ -14,12 +14,14 @@ namespace FluentHub.App.Data.Factories
                 new()
                 {
                     Text = "Overview",
-                    PageToNavigate = typeof(Views.Organizations.OverviewPage)
+                    PageToNavigate = typeof(Views.Organizations.OverviewPage),
+                    PageItemKey = Core.Data.Enums.NavigationBarItemKey.Overview,
                 },
                 new()
                 {
                     Text = "Repositories",
-                    PageToNavigate = typeof(Views.Organizations.RepositoriesPage)
+                    PageToNavigate = typeof(Views.Organizations.RepositoriesPage),
+                    PageItemKey = Core.Data.Enums.NavigationBarItemKey.Repositories,
                 },
             };
         }
@@ -31,12 +33,14 @@ namespace FluentHub.App.Data.Factories
                 new()
                 {
                     Text = "Code",
-                    PageToNavigate = typeof(Views.Repositories.Code.Layouts.DetailsLayoutView)
+                    PageToNavigate = typeof(Views.Repositories.Code.Layouts.DetailsLayoutView),
+                    PageItemKey = Core.Data.Enums.NavigationBarItemKey.Code,
                 },
                 new()
                 {
                     Text = "Issues",
-                    PageToNavigate = typeof(Views.Repositories.Issues.IssuesPage)
+                    PageToNavigate = typeof(Views.Repositories.Issues.IssuesPage),
+                    PageItemKey = Core.Data.Enums.NavigationBarItemKey.Issues,
                 },
             };
         }
@@ -48,17 +52,20 @@ namespace FluentHub.App.Data.Factories
                 new()
                 {
                     Text = "Overview",
-                    PageToNavigate = typeof(Views.Users.OverviewPage)
+                    PageToNavigate = typeof(Views.Users.OverviewPage),
+                    PageItemKey = Core.Data.Enums.NavigationBarItemKey.Overview,
                 },
                 new()
                 {
                     Text = "Repositories",
-                    PageToNavigate = typeof(Views.Users.RepositoriesPage)
+                    PageToNavigate = typeof(Views.Users.RepositoriesPage),
+                    PageItemKey = Core.Data.Enums.NavigationBarItemKey.Repositories,
                 },
                 new()
                 {
                     Text = "Stars",
-                    PageToNavigate = typeof(Views.Users.StarredReposPage)
+                    PageToNavigate = typeof(Views.Users.StarredReposPage),
+                    PageItemKey = Core.Data.Enums.NavigationBarItemKey.Stars,
                 },
             };
         }
