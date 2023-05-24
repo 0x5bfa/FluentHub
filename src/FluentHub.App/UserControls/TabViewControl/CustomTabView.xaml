@@ -53,9 +53,11 @@
 						<ColumnDefinition x:Name="RightPaddingColumn" Width="0" />
 					</Grid.ColumnDefinitions>
 					<Button
+						x:Name="AddNewTabViewItemButton"
 						Grid.Column="0"
-						Width="36"
-						Height="36"
+						Width="32"
+						Height="32"
+						Margin="-4,0,0,2"
 						HorizontalAlignment="Left"
 						VerticalAlignment="Bottom"
 						Background="Transparent"

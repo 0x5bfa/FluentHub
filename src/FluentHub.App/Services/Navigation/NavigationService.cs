@@ -20,13 +20,6 @@ namespace FluentHub.App.Services.Navigation
 
         private static readonly EntranceNavigationTransitionInfo _navigationMode = new();
 
-        public ObservableCollection<NavigationBarItem> NavigationBarItems { get; set; }
-
-        public NavigationBarPageKind PageKind { get; set; }
-
-        private bool _IsNavigationBarShown = true;
-        public bool IsNavigationBarShown { get => _IsNavigationBarShown; set => SetProperty(ref _IsNavigationBarShown, value); }
-
         public Type CurrentPage { get; set; }
 
         public ITabView TabView { get; private set; }

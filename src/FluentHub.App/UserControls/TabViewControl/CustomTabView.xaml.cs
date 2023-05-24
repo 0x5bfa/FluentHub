@@ -44,7 +44,7 @@ namespace FluentHub.App.UserControls.TabViewControl
         private readonly ObservableCollection<ITabViewItem> _TabItems;
         public ReadOnlyObservableCollection<ITabViewItem> TabItems { get; }
 
-        private Type _NewTabPage;
+        private Type _NewTabPage = typeof(Views.Home.UserHomePage);
         public Type NewTabPage
         {
             get => _NewTabPage;
@@ -61,7 +61,7 @@ namespace FluentHub.App.UserControls.TabViewControl
             }
         }
 
-        public event EventHandler<TabViewSelectionChangedEventArgs> SelectionChanged;
+        public event EventHandler<TabViewSelectionChangedEventArgs>? SelectionChanged;
 
         public CustomTabView()
         {
@@ -71,7 +71,7 @@ namespace FluentHub.App.UserControls.TabViewControl
             TabItems = new(_TabItems);
         }
 
-        public ITabViewItem OpenTab(Type page = null, object parameter = null, bool setAsSelected = true)
+        public ITabViewItem OpenTab(Type? page = null, object? parameter = null, bool setAsSelected = true)
         {
             ITabViewItem tab = new TabItem();
             _TabItems.Add(tab);
@@ -90,7 +90,7 @@ namespace FluentHub.App.UserControls.TabViewControl
             => tabItem is not null && CloseTab(_TabItems.IndexOf(tabItem));
 
         public bool CloseTab(Guid guid)
-            => CloseTab(_TabItems.FirstOrDefault(x => x.Guid == guid));
+            => CloseTab(_TabItems.First(x => x.Guid == guid));
 
         public bool CloseTab(int index)
         {
@@ -124,8 +124,8 @@ namespace FluentHub.App.UserControls.TabViewControl
 
         private static void OnSelectedItemChanged(DependencyObject d, DependencyPropertyChangedEventArgs e)
         {
-            var newItem = e.NewValue as ITabViewItem;
-            var oldItem = e.OldValue as ITabViewItem;
+            var newItem = (ITabViewItem)e.NewValue;
+            var oldItem = (ITabViewItem)e.OldValue;
             ((CustomTabView)d).OnSelectionChanged(newItem, oldItem);
         }
 

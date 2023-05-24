@@ -13,6 +13,6 @@ namespace FluentHub.App.Services.Navigation
 
         Frame Frame { get; }
 
-        NavigationHistory<PageNavigationEntry> NavigationHistory { get; }
+        NavigationHistory NavigationHistory { get; }
     }
 }

@@ -17,7 +17,7 @@ namespace FluentHub.App.UserControls.TabViewControl
 
         public Frame Frame { get; }
 
-        public NavigationHistory<PageNavigationEntry> NavigationHistory { get; }
+        public NavigationHistory NavigationHistory { get; }
 
         public TabItem()
         {

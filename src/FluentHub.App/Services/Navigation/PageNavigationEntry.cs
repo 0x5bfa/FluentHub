@@ -1,6 +1,8 @@
 // Copyright (c) FluentHub
 // Licensed under the MIT License. See the LICENSE.
 
+using FluentHub.App.Data.Items;
+using FluentHub.Core.Data.Enums;
 using Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.App.Services.Navigation
@@ -25,5 +27,22 @@ namespace FluentHub.App.Services.Navigation
 
         private IconSource? _Icon;
         public IconSource? Icon { get => _Icon; set => SetProperty(ref _Icon, value); }
+
+        private ObservableCollection<NavigationBarItem>? _NavigationBarItems;
+        public ObservableCollection<NavigationBarItem>? NavigationBarItems { get => _NavigationBarItems; set => SetProperty(ref _NavigationBarItems, value); }
+
+        private NavigationBarPageKind _PageKind;
+        public NavigationBarPageKind PageKind
+        {
+            get => _PageKind;
+            set
+            {
+                _PageKind = value;
+                OnPropertyChanged(nameof(IsNavigationBarShown));
+            }
+        }
+
+        public bool IsNavigationBarShown
+            => PageKind != NavigationBarPageKind.None;
     }
 }

@@ -21,11 +21,11 @@ namespace FluentHub.App.Views
 {
     public abstract class LocatablePage : Page
     {
-        private INavigationService _navigationService;
+        private readonly INavigationService _navigationService;
 
-        private ILogger _logger;
+        private readonly ILogger _logger;
 
-        private NavigationBarPageKind _currentPageKind;
+        private readonly NavigationBarPageKind _currentPageKind;
 
         public LocatablePage(NavigationBarPageKind pageKind)
         {
@@ -39,37 +39,26 @@ namespace FluentHub.App.Views
 
         public void CheckIfNavigationBarShouldBeChanged()
         {
-            // Check if Navigation Bar exists or not
-            if (_navigationService.PageKind != _currentPageKind)
+            var currentItem = _navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            if (currentItem is null)
+                return;
+
+            currentItem.PageKind = _currentPageKind;
+
+            // Generate new NavigationBar items from the factory
+            currentItem.NavigationBarItems ??= new();
+            currentItem.NavigationBarItems.Clear();
+
+            var items = _currentPageKind switch
             {
-                // Generate new NavigationBar items from the factory
-                _navigationService.NavigationBarItems ??= new();
-                _navigationService.NavigationBarItems.Clear();
+                NavigationBarPageKind.Organization => NavigationBarFactory.GetUserNavigationBarItems(),
+                NavigationBarPageKind.Repository => NavigationBarFactory.GetUserNavigationBarItems(),
+                NavigationBarPageKind.User => NavigationBarFactory.GetUserNavigationBarItems(),
+                _ => new List<NavigationBarItem>(),
+            };
 
-                var items = _currentPageKind switch
-                {
-                    NavigationBarPageKind.Organization => NavigationBarFactory.GetUserNavigationBarItems(),
-                    NavigationBarPageKind.Repository => NavigationBarFactory.GetUserNavigationBarItems(),
-                    NavigationBarPageKind.User => NavigationBarFactory.GetUserNavigationBarItems(),
-                    _ => new List<NavigationBarItem>(),
-                };
-
-                if (_currentPageKind == NavigationBarPageKind.None)
-                    _navigationService.IsNavigationBarShown = false;
-
-                foreach (var item in items)
-                    _navigationService.NavigationBarItems.Add(item);
-
-                _navigationService.IsNavigationBarShown = true;
-            }
-        }
-
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-        }
-
-        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
-        {
+            foreach (var item in items)
+                currentItem.NavigationBarItems.Add(item);
         }
     }
 }

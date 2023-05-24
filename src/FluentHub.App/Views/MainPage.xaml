@@ -236,20 +236,20 @@
 						x:Name="NavigationBarNavigationView"
 						Grid.Row="1"
 						Margin="0,-4,0,-12"
-						x:Load="{x:Bind NavigationService.IsNavigationBarShown, Mode=OneWay}"
+						x:Load="{x:Bind CustomTabViewControl.SelectedItem.NavigationHistory.CurrentItem.IsNavigationBarShown, Mode=OneWay}"
 						IsBackButtonVisible="Collapsed"
 						IsPaneToggleButtonVisible="False"
 						IsSettingsVisible="False"
-						MenuItemsSource="{x:Bind NavigationService.NavigationBarItems, Mode=OneWay}"
+						MenuItemsSource="{x:Bind CustomTabViewControl.SelectedItem.NavigationHistory.CurrentItem.NavigationBarItems, Mode=OneWay}"
 						PaneDisplayMode="Top">
 						<NavigationView.MenuItemTemplate>
 							<DataTemplate x:DataType="dataitems:NavigationBarItem">
 								<StackPanel Orientation="Horizontal" Spacing="6">
 									<FontIcon
 										x:Name="NavigationbarItemGlyph"
-										x:Load="{x:Bind Glyph, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-										Glyph="{x:Bind Glyph, Mode=OneWay}" />
-									<TextBlock Text="{x:Bind Text, Mode=OneWay}" />
+										x:Load="{x:Bind Glyph, Converter={StaticResource ObjectToBoolConverter}}"
+										Glyph="{x:Bind Glyph}" />
+									<TextBlock Text="{x:Bind Text}" />
 								</StackPanel>
 							</DataTemplate>
 						</NavigationView.MenuItemTemplate>

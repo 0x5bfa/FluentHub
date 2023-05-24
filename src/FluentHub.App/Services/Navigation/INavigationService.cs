@@ -11,12 +11,6 @@ namespace FluentHub.App.Services
 {
     public interface INavigationService
     {
-        ObservableCollection<NavigationBarItem> NavigationBarItems { get; set; }
-
-        NavigationBarPageKind PageKind { get; set; }
-
-        bool IsNavigationBarShown { get; set; }
-
         Type CurrentPage { get; set; }
 
         ITabView TabView { get; }
