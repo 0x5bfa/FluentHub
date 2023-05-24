@@ -29,9 +29,9 @@ namespace FluentHub.Octokit.Models.v4
         public ID? PullRequestReviewId { get; set; }
 
         /// <summary>
-        /// The line of the blob to which the thread refers. The end of the line range for multi-line comments.
+        /// The line of the blob to which the thread refers, required for line-level threads. The end of the line range for multi-line comments.
         /// </summary>
-        public int Line { get; set; }
+        public int? Line { get; set; }
 
         /// <summary>
         /// The side of the diff on which the line resides. For multi-line comments, this is the side for the end of the line range.
@@ -47,6 +47,11 @@ namespace FluentHub.Octokit.Models.v4
         /// The side of the diff on which the start line resides.
         /// </summary>
         public DiffSide? StartSide { get; set; }
+
+        /// <summary>
+        /// The level at which the comments in the corresponding thread are targeted, can be a diff line or a file
+        /// </summary>
+        public PullRequestReviewThreadSubjectType? SubjectType { get; set; }
 
         /// <summary>
         /// A unique identifier for the client performing the mutation.

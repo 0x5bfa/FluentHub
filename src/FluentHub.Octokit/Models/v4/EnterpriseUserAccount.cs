@@ -30,6 +30,18 @@ namespace FluentHub.Octokit.Models.v4
         /// </summary>
         public Enterprise Enterprise { get; set; }
 
+        /// <summary>
+        /// A list of Enterprise Server installations this user is a member of.
+        /// </summary>
+        /// <param name="first">Returns the first _n_ elements from the list.</param>
+        /// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
+        /// <param name="last">Returns the last _n_ elements from the list.</param>
+        /// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
+        /// <param name="orderBy">Ordering options for installations returned from the connection.</param>
+        /// <param name="query">The search string to look for.</param>
+        /// <param name="role">The role of the user in the installation.</param>
+        public EnterpriseServerInstallationMembershipConnection EnterpriseInstallations { get; set; }
+
         public ID Id { get; set; }
 
         /// <summary>

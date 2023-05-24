@@ -18,5 +18,10 @@ namespace FluentHub.Octokit.Models.v4
         /// The pull request review the deleted comment belonged to.
         /// </summary>
         public PullRequestReview PullRequestReview { get; set; }
+
+        /// <summary>
+        /// The deleted pull request review comment.
+        /// </summary>
+        public PullRequestReviewComment PullRequestReviewComment { get; set; }
     }
 }

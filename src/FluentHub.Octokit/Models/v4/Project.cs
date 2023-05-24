@@ -20,7 +20,7 @@ namespace FluentHub.Octokit.Models.v4
         public string BodyHTML { get; set; }
 
         /// <summary>
-        /// `true` if the object is closed (definition of closed may depend on type)
+        /// Indicates if the object is closed (definition of closed may depend on type)
         /// </summary>
         public bool Closed { get; set; }
 
@@ -119,6 +119,16 @@ namespace FluentHub.Octokit.Models.v4
         /// The HTTP URL for this project
         /// </summary>
         public string Url { get; set; }
+
+        /// <summary>
+        /// Indicates if the object can be closed by the viewer.
+        /// </summary>
+        public bool ViewerCanClose { get; set; }
+
+        /// <summary>
+        /// Indicates if the object can be reopened by the viewer.
+        /// </summary>
+        public bool ViewerCanReopen { get; set; }
 
         /// <summary>
         /// Check if the current viewer can update this object.

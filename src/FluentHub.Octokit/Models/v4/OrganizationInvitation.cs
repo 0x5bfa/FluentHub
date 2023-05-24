@@ -27,6 +27,11 @@ namespace FluentHub.Octokit.Models.v4
         public ID Id { get; set; }
 
         /// <summary>
+        /// The source of the invitation.
+        /// </summary>
+        public OrganizationInvitationSource InvitationSource { get; set; }
+
+        /// <summary>
         /// The type of invitation that was sent (e.g. email, user).
         /// </summary>
         public OrganizationInvitationType InvitationType { get; set; }

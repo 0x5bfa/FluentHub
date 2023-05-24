@@ -59,7 +59,7 @@ namespace FluentHub.Octokit.Models.v4
         public string BodyUrl { get; set; }
 
         /// <summary>
-        /// `true` if the object is closed (definition of closed may depend on type)
+        /// Indicates if the object is closed (definition of closed may depend on type)
         /// </summary>
         public bool Closed { get; set; }
 
@@ -109,6 +109,11 @@ namespace FluentHub.Octokit.Models.v4
         public IActor Editor { get; set; }
 
         /// <summary>
+        /// Identifies the primary key from the database as a BigInt.
+        /// </summary>
+        public string FullDatabaseId { get; set; }
+
+        /// <summary>
         /// The hovercard information for this issue
         /// </summary>
         /// <param name="includeNotificationContexts">Whether or not to include notification contexts</param>
@@ -150,6 +155,15 @@ namespace FluentHub.Octokit.Models.v4
         /// Humanized string of "The moment the editor made the last edit"
         /// <summary>
         public string LastEditedAtHumanized { get; set; }
+
+        /// <summary>
+        /// Branches linked to this issue.
+        /// </summary>
+        /// <param name="first">Returns the first _n_ elements from the list.</param>
+        /// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
+        /// <param name="last">Returns the last _n_ elements from the list.</param>
+        /// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
+        public LinkedBranchConnection LinkedBranches { get; set; }
 
         /// <summary>
         /// `true` if the object is locked
@@ -196,37 +210,10 @@ namespace FluentHub.Octokit.Models.v4
         public ProjectV2ItemConnection ProjectItems { get; set; }
 
         /// <summary>
-        /// Find a project by project (beta) number.
-        /// </summary>
-        /// <param name="number">The project (beta) number.</param>
-        public ProjectNext ProjectNext { get; set; }
-
-        /// <summary>
-        /// List of project (beta) items associated with this issue.
-        /// </summary>
-        /// <param name="first">Returns the first _n_ elements from the list.</param>
-        /// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
-        /// <param name="last">Returns the last _n_ elements from the list.</param>
-        /// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
-        /// <param name="includeArchived">Include archived items.</param>
-        public ProjectNextItemConnection ProjectNextItems { get; set; }
-
-        /// <summary>
         /// Find a project by number.
         /// </summary>
         /// <param name="number">The project number.</param>
         public ProjectV2 ProjectV2 { get; set; }
-
-        /// <summary>
-        /// A list of projects (beta) under the owner.
-        /// </summary>
-        /// <param name="first">Returns the first _n_ elements from the list.</param>
-        /// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
-        /// <param name="last">Returns the last _n_ elements from the list.</param>
-        /// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
-        /// <param name="query">A project (beta) to search for under the the owner.</param>
-        /// <param name="sortBy">How to order the returned projects (beta).</param>
-        public ProjectNextConnection ProjectsNext { get; set; }
 
         /// <summary>
         /// A list of projects under the owner.
@@ -366,9 +353,19 @@ namespace FluentHub.Octokit.Models.v4
         public UserContentEditConnection UserContentEdits { get; set; }
 
         /// <summary>
+        /// Indicates if the object can be closed by the viewer.
+        /// </summary>
+        public bool ViewerCanClose { get; set; }
+
+        /// <summary>
         /// Can user react to this subject
         /// </summary>
         public bool ViewerCanReact { get; set; }
+
+        /// <summary>
+        /// Indicates if the object can be reopened by the viewer.
+        /// </summary>
+        public bool ViewerCanReopen { get; set; }
 
         /// <summary>
         /// Check if the viewer is able to change their subscription status for the repository.

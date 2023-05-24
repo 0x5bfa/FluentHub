@@ -1,8 +1,6 @@
-using CommunityToolkit.Mvvm.DependencyInjection;
-using CommunityToolkit.WinUI;
-using CommunityToolkit.WinUI.Helpers;
-using CommunityToolkit.WinUI.Notifications;
-using FluentHub.App;
+// Copyright (c) FluentHub
+// Licensed under the MIT License. See the LICENSE.
+
 using FluentHub.App.Utils;
 using FluentHub.App.Services;
 using FluentHub.App.Services.Navigation;
@@ -13,17 +11,18 @@ using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Windowing;
 using Microsoft.Windows.AppLifecycle;
-using Serilog;
-using System;
-using System.IO;
-using System.Linq;
 using Windows.ApplicationModel;
 using Windows.Storage;
+using CommunityToolkit.WinUI;
 
 namespace FluentHub.App
 {
     public partial class App : Application
     {
+        public static MainWindow Window { get; private set; } = null!;
+
+        public static IntPtr WindowHandle { get; private set; }
+
         public new static App Current
             => (App)Application.Current;
 
@@ -45,15 +44,13 @@ namespace FluentHub.App
             TaskScheduler.UnobservedTaskException += OnUnobservedException;
 
             Services = ConfigureServices();
-
-            System.Environment.SetEnvironmentVariable("WEBVIEW2_DEFAULT_BACKGROUND_COLOR", "0");
         }
 
-        private IServiceProvider ConfigureServices()
+        private static IServiceProvider ConfigureServices()
         {
             return new ServiceCollection()
                 .AddSingleton<INavigationService, NavigationService>()
-                .AddSingleton<Utils.ILogger>(new SerilogWrapperLogger(Serilog.Log.Logger))
+                .AddSingleton<ILogger>(new SerilogWrapperLogger(Serilog.Log.Logger))
                 .AddSingleton<ToastService>()
                 .AddSingleton<IMessenger>(StrongReferenceMessenger.Default)
                 // ViewModels
@@ -118,25 +115,15 @@ namespace FluentHub.App
             AppSettings ??= new SettingsViewModel();
         }
 
-        private static async Task StartAppCenter()
+        private void EnsureWindowIsInitialized()
         {
-            //try
-            //{
-            //    if (!AppCenter.Configured)
-            //    {
-            //        var file = await StorageFile.GetFileFromApplicationUriAsync(new Uri(@"ms-appx:///Resources/AppCenterKey.txt"));
-            //        var lines = await FileIO.ReadTextAsync(file);
-            //        using var document = System.Text.Json.JsonDocument.Parse(lines);
-            //        var obj = document.RootElement;
-            //        AppCenter.Start(obj.GetProperty("key").GetString(), typeof(Analytics), typeof(Crashes));
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    Logger.Warn(ex, "AppCenter could not be started.");
-            //}
+            Window = new MainWindow();
+            Window.Activated += Window_Activated;
+            //Window.Closed += Window_Closed;
+            WindowHandle = WinRT.Interop.WindowNative.GetWindowHandle(Window);
         }
 
+        #region Event Methods
         protected override void OnLaunched(LaunchActivatedEventArgs e)
         {
             var activatedEventArgs = Microsoft.Windows.AppLifecycle.AppInstance.GetCurrent().GetActivatedEventArgs();
@@ -144,22 +131,19 @@ namespace FluentHub.App
             // Initialize MainWindow here
             EnsureWindowIsInitialized();
 
+            // Initialize static services
             EnsureSettingsAndConfigurationAreBootstrapped();
 
-            _ = Window.InitializeApplication(activatedEventArgs.Data);
+            // Initialize Window
+            Window.InitializeApplication(activatedEventArgs.Data);
         }
 
         public void OnActivated(AppActivationArguments activatedEventArgs)
         {
-            Window.DispatcherQueue.EnqueueAsync(async() => await Window.InitializeApplication(activatedEventArgs.Data));
-        }
+            // Called from Program class
 
-        private void EnsureWindowIsInitialized()
-        {
-            Window = new MainWindow();
-            Window.Activated += Window_Activated;
-            //Window.Closed += Window_Closed;
-            WindowHandle = WinRT.Interop.WindowNative.GetWindowHandle(Window);
+            // Initialize Window
+            Window.DispatcherQueue.EnqueueAsync(() => Window.InitializeApplication(activatedEventArgs.Data));
         }
 
         private void Window_Activated(object sender, WindowActivatedEventArgs args)
@@ -206,15 +190,7 @@ namespace FluentHub.App
                 Services.GetService<Utils.ILogger>()?.Error("Failed to display unhandled exception", ex2);
             }
         }
-
-        public static TEnum GetEnum<TEnum>(string text) where TEnum : struct
-        {
-            if (!typeof(TEnum).GetType().IsEnum)
-            {
-                throw new InvalidOperationException("Generic parameter 'TEnum' must be an enum.");
-            }
-            return (TEnum)Enum.Parse(typeof(TEnum), text);
-        }
+        #endregion
 
         public static void CloseApp()
             => Window.Close();
@@ -222,14 +198,9 @@ namespace FluentHub.App
         public static AppWindow GetAppWindow(Window w)
         {
             var hWnd = WinRT.Interop.WindowNative.GetWindowHandle(w);
-
-            Microsoft.UI.WindowId windowId = Win32Interop.GetWindowIdFromWindow(hWnd);
+            WindowId windowId = Win32Interop.GetWindowIdFromWindow(hWnd);
 
             return AppWindow.GetFromWindowId(windowId);
         }
-
-        public static MainWindow Window { get; private set; } = null!;
-
-        public static IntPtr WindowHandle { get; private set; }
     }
 }

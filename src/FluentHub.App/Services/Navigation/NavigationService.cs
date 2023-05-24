@@ -1,26 +1,31 @@
+// Copyright (c) FluentHub
+// Licensed under the MIT License. See the LICENSE.
+
+using FluentHub.App.Data.Items;
 using FluentHub.App.Utils;
+using FluentHub.Core.Data.Enums;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
 
 namespace FluentHub.App.Services.Navigation
 {
-    public class NavigationService : INavigationService
+    public class NavigationService : ObservableObject, INavigationService
     {
-        #region Constructor
         public NavigationService(ILogger logger = null)
-            => _logger = logger;
-        #endregion
+        {
+            _logger = logger;
+        }
 
-        #region Fields and Properties
         private readonly ILogger _logger;
-        private static readonly SuppressNavigationTransitionInfo _navigationMode = new();
+
+        private static readonly EntranceNavigationTransitionInfo _navigationMode = new();
 
         public Type CurrentPage { get; set; }
-        public ITabView TabView { get; private set; }
-        public bool IsConfigured { get; private set; }
-        #endregion
 
-        #region Methods
+        public ITabView TabView { get; private set; }
+
+        public bool IsConfigured { get; private set; }
+
         public void Configure(ITabView tabView)
         {
             TabView = tabView;
@@ -33,14 +38,11 @@ namespace FluentHub.App.Services.Navigation
             EnsureConfigured();
 
             var tab = TabView.SelectedItem;
+
             if (tab is null)
-            {
                 TabView.OpenTab(page, parameter, true);
-            }
             else
-            {
                 tab.Frame.Navigate(page, parameter, transitionInfo);
-            }
 
             CurrentPage = page;
         }
@@ -61,7 +63,7 @@ namespace FluentHub.App.Services.Navigation
 
         public void GoToTab(Guid tabId)
         {
-            var tab = TabView.Items.FirstOrDefault(x => x.Guid == tabId);
+            var tab = TabView.TabItems.FirstOrDefault(x => x.Guid == tabId);
             if (tab != null)
             {
                 TabView.SelectedItem = tab;
@@ -77,9 +79,7 @@ namespace FluentHub.App.Services.Navigation
 
             var tab = TabView.SelectedItem;
             if (tab is null)
-            {
                 throw new InvalidOperationException("No tab selected");
-            }
 
             tab.Frame.GoBack();
         }
@@ -90,9 +90,7 @@ namespace FluentHub.App.Services.Navigation
 
             var tab = TabView.SelectedItem;
             if (tab is null)
-            {
                 throw new InvalidOperationException("No tab selected");
-            }
 
             tab.Frame.GoForward();
         }
@@ -117,6 +115,7 @@ namespace FluentHub.App.Services.Navigation
             {
                 var message = "The Navigation Service has not been configured. Call INavigationService.Configure first";
                 _logger?.Error(message);
+
                 throw new InvalidOperationException(message);
             }
         }
@@ -127,6 +126,5 @@ namespace FluentHub.App.Services.Navigation
             IsConfigured = false;
             _logger?.Info("NavigationService disconnected");
         }
-        #endregion
     }
 }

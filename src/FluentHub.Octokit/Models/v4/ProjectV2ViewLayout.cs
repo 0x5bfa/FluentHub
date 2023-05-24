@@ -22,5 +22,11 @@ namespace FluentHub.Octokit.Models.v4
         /// </summary>
         [EnumMember(Value = "TABLE_LAYOUT")]
         TableLayout,
+
+        /// <summary>
+        /// Roadmap layout
+        /// </summary>
+        [EnumMember(Value = "ROADMAP_LAYOUT")]
+        RoadmapLayout,
     }
 }

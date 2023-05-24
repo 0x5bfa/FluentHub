@@ -15,7 +15,7 @@ namespace FluentHub.Octokit.Models.v4
         public string ClientMutationId { get; set; }
 
         /// <summary>
-        /// The created Octoshift migration source.
+        /// The created migration source.
         /// </summary>
         public MigrationSource MigrationSource { get; set; }
     }

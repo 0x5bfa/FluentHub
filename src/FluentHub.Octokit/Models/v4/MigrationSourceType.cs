@@ -6,17 +6,11 @@ using Newtonsoft.Json.Converters;
 namespace FluentHub.Octokit.Models.v4
 {
     /// <summary>
-    /// Represents the different Octoshift migration sources.
+    /// Represents the different GitHub Enterprise Importer (GEI) migration sources.
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
     public enum MigrationSourceType
     {
-        /// <summary>
-        /// A GitLab migration source.
-        /// </summary>
-        [EnumMember(Value = "GITLAB")]
-        Gitlab,
-
         /// <summary>
         /// An Azure DevOps migration source.
         /// </summary>
@@ -28,12 +22,6 @@ namespace FluentHub.Octokit.Models.v4
         /// </summary>
         [EnumMember(Value = "BITBUCKET_SERVER")]
         BitbucketServer,
-
-        /// <summary>
-        /// A GitHub migration source.
-        /// </summary>
-        [EnumMember(Value = "GITHUB")]
-        Github,
 
         /// <summary>
         /// A GitHub Migration API source.

@@ -64,5 +64,11 @@ namespace FluentHub.Octokit.Models.v4
         /// </summary>
         [EnumMember(Value = "RUST")]
         Rust,
+
+        /// <summary>
+        /// Dart packages hosted at pub.dev
+        /// </summary>
+        [EnumMember(Value = "PUB")]
+        Pub,
     }
 }

@@ -248,8 +248,7 @@ namespace FluentHub.App.ViewModels.Repositories.Code.Layouts
                 ImageSource = new BitmapImage(new("ms-appx:///Assets/Icons/Repositories.png"))
             };
 
-            NavigationHistory<Services.Navigation.PageNavigationEntry>
-                .SetCurrentItem(header, description, url, icon);
+            NavigationHistory.SetCurrentItem(header, description, url, icon);
         }
     }
 }

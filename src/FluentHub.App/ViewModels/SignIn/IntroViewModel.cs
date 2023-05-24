@@ -1,8 +1,10 @@
+// Copyright (c) FluentHub
+// Licensed under the MIT License. See the LICENSE.
+
 using FluentHub.App.Models;
 using FluentHub.App.Services;
 using FluentHub.App.Utils;
 using FluentHub.Octokit.Authorization;
-using System.IO;
 using Windows.System;
 
 namespace FluentHub.App.ViewModels.SignIn
@@ -14,10 +16,7 @@ namespace FluentHub.App.ViewModels.SignIn
             _logger = logger;
             _messenger = messenger;
 
-            if (_messenger != null)
-            {
-                _messenger.Register<UserNotificationMessage>(this, OnNewNotificationReceived);
-            }
+            _messenger?.Register<UserNotificationMessage>(this, OnNewNotificationReceived);
 
             AuthorizeOAuthCommand = new AsyncRelayCommand<string>(AuthorizeOAuthAsync);
             AuthorizeWithBrowserCommand = new AsyncRelayCommand<string>(AuthorizeWithBrowserAsync);
@@ -79,6 +78,10 @@ namespace FluentHub.App.ViewModels.SignIn
                 await SetAccountInfo(accessToken);
 
                 AuthorizedSuccessfully = true;
+
+                // Setup was completed successfully
+                App.AppSettings.SetupProgress = true;
+                App.AppSettings.SetupCompleted = true;
             }
             catch (Exception ex)
             {
@@ -116,7 +119,7 @@ namespace FluentHub.App.ViewModels.SignIn
 
         private void OnNewNotificationReceived(object recipient, UserNotificationMessage message)
         {
-            if (message.Title != "Recieved GitHub user identity")
+            if (message.Title != "Received GitHub User ID")
                 return;
 
             var code = message.Message;

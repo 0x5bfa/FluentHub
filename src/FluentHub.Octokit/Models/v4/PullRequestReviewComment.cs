@@ -102,7 +102,12 @@ namespace FluentHub.Octokit.Models.v4
         public string LastEditedAtHumanized { get; set; }
 
         /// <summary>
-        /// Returns why the comment was minimized.
+        /// The end line number on the file to which the comment applies
+        /// </summary>
+        public int? Line { get; set; }
+
+        /// <summary>
+        /// Returns why the comment was minimized. One of `abuse`, `off-topic`, `outdated`, `resolved`, `duplicate` and `spam`. Note that the case and formatting of these values differs from the inputs to the `MinimizeComment` mutation.
         /// </summary>
         public string MinimizedReason { get; set; }
 
@@ -112,9 +117,20 @@ namespace FluentHub.Octokit.Models.v4
         public Commit OriginalCommit { get; set; }
 
         /// <summary>
+        /// The end line number on the file to which the comment applied when it was first created
+        /// </summary>
+        public int? OriginalLine { get; set; }
+
+        /// <summary>
         /// The original line index in the diff to which the comment applies.
         /// </summary>
+        [Obsolete(@"We are phasing out diff-relative positioning for PR comments Removal on 2023-10-01 UTC.")]
         public int OriginalPosition { get; set; }
+
+        /// <summary>
+        /// The start line number on the file to which the comment applied when it was first created
+        /// </summary>
+        public int? OriginalStartLine { get; set; }
 
         /// <summary>
         /// Identifies when the comment body is outdated
@@ -129,6 +145,7 @@ namespace FluentHub.Octokit.Models.v4
         /// <summary>
         /// The line index in the diff to which the comment applies.
         /// </summary>
+        [Obsolete(@"We are phasing out diff-relative positioning for PR comments Use the `line` and `startLine` fields instead, which are file line numbers instead of diff line numbers Removal on 2023-10-01 UTC.")]
         public int? Position { get; set; }
 
         /// <summary>
@@ -183,9 +200,19 @@ namespace FluentHub.Octokit.Models.v4
         public string ResourcePath { get; set; }
 
         /// <summary>
+        /// The start line number on the file to which the comment applies
+        /// </summary>
+        public int? StartLine { get; set; }
+
+        /// <summary>
         /// Identifies the state of the comment.
         /// </summary>
         public PullRequestReviewCommentState State { get; set; }
+
+        /// <summary>
+        /// The level at which the comments in the corresponding thread are targeted, can be a diff line or a file
+        /// </summary>
+        public PullRequestReviewThreadSubjectType SubjectType { get; set; }
 
         /// <summary>
         /// Identifies when the comment was last updated.

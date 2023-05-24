@@ -19,6 +19,16 @@ namespace FluentHub.Octokit.Models.v4
         public string Title { get; set; }
 
         /// <summary>
+        /// The repository to link the project to.
+        /// </summary>
+        public ID? RepositoryId { get; set; }
+
+        /// <summary>
+        /// The team to link the project to. The team will be granted read permissions.
+        /// </summary>
+        public ID? TeamId { get; set; }
+
+        /// <summary>
         /// A unique identifier for the client performing the mutation.
         /// </summary>
         public string ClientMutationId { get; set; }

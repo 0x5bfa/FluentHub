@@ -1,62 +1,57 @@
 using FluentHub.App.Services;
+using FluentHub.App.Services.Navigation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.App.Utils
 {
-    public class NavigationHistory<T> : ObservableObject
+    public class NavigationHistory : ObservableObject
     {
         public NavigationHistory()
         {
-            _items = new ObservableCollection<T>();
-            Items = new ReadOnlyObservableCollection<T>(_items);
+            _Items = new ObservableCollection<PageNavigationEntry>();
+            Items = new ReadOnlyObservableCollection<PageNavigationEntry>(_Items);
 
-            _canGoBack = _canGoForward = false;
-            _currentItem = default;
-            _currentItemIndex = -1;
+            _CanGoBack = _CanGoForward = false;
+            _CurrentItem = default;
+            _CurrentItemIndex = -1;
         }
 
-#if DEBUG
-        ~NavigationHistory()
-            => System.Diagnostics.Debug.WriteLine("~NavigationHistory");
-#endif
+        private bool _CanGoBack;
+        public bool CanGoBack { get => _CanGoBack; private set => SetProperty(ref _CanGoBack, value); }
 
-        #region Fields and Properties
-        private bool _canGoBack;
-        public bool CanGoBack { get => _canGoBack; private set => SetProperty(ref _canGoBack, value); }
+        private bool _CanGoForward;
+        public bool CanGoForward { get => _CanGoForward; private set => SetProperty(ref _CanGoForward, value); }
 
-        private bool _canGoForward;
-        public bool CanGoForward { get => _canGoForward; private set => SetProperty(ref _canGoForward, value); }
+        private PageNavigationEntry? _CurrentItem;
+        public PageNavigationEntry? CurrentItem { get => _CurrentItem; private set => SetProperty(ref _CurrentItem, value); }
 
-        private T _currentItem;
-        public T CurrentItem { get => _currentItem; private set => SetProperty(ref _currentItem, value); }
+        private readonly ObservableCollection<PageNavigationEntry> _Items;
+        public ReadOnlyObservableCollection<PageNavigationEntry> Items { get; }
 
-        private ObservableCollection<T> _items;
-
-        private int _currentItemIndex;
+        private int _CurrentItemIndex;
         public int CurrentItemIndex
         {
-            get => _currentItemIndex;
+            get => _CurrentItemIndex;
             set
             {
                 if (value == -1)
                     CurrentItem = default;
-                else if (value >= 0 && value <= _items.Count)
-                    CurrentItem = _items[value];
+                else if (value >= 0 && value <= _Items.Count)
+                    CurrentItem = _Items[value];
                 else
                     throw new ArgumentOutOfRangeException(nameof(value));
 
-                _currentItemIndex = value;
+                _CurrentItemIndex = value;
+
                 OnPropertyChanged(nameof(CurrentItemIndex));
                 Update();
             }
         }
 
-        public T this[int index] => Items[index];
-        public ReadOnlyObservableCollection<T> Items { get; }
-        #endregion
+        public PageNavigationEntry this[int index]
+            => Items[index];
 
-        #region Methods
         public bool GoBack()
         {
             if (CanGoBack)
@@ -81,27 +76,24 @@ namespace FluentHub.App.Utils
             return false;
         }
 
-        public void NavigateTo(T item)
+        public void NavigateTo(PageNavigationEntry item)
         {
-            _items.Add(item);
-            CurrentItemIndex = _items.Count - 1;
+            _Items.Add(item);
+            CurrentItemIndex = _Items.Count - 1;
 
             Update();
         }
 
-        public void NavigateTo(T item, int index)
+        public void NavigateTo(PageNavigationEntry item, int index)
         {
             // Valid
-            if (index >= 0 && index <= _items.Count)
+            if (index >= 0 && index <= _Items.Count)
             {
                 if (index == 0)
-                {
                     ClearHistory();
-                }
-                while (index < _items.Count)
-                {
-                    _items.RemoveAt(_items.Count - 1);
-                }
+
+                while (index < _Items.Count)
+                    _Items.RemoveAt(_Items.Count - 1);
 
                 NavigateTo(item);
             }
@@ -113,7 +105,7 @@ namespace FluentHub.App.Utils
 
         public void ClearHistory()
         {
-            _items.Clear();
+            _Items.Clear();
             CurrentItemIndex = -1;
 
             Update();
@@ -122,7 +114,7 @@ namespace FluentHub.App.Utils
         private void Update()
         {
             CanGoBack = CurrentItemIndex > 0;
-            CanGoForward = CurrentItemIndex < _items.Count - 1;
+            CanGoForward = CurrentItemIndex < _Items.Count - 1;
         }
 
         public static void SetCurrentItem(string header, string description, string url, IconSource icon)
@@ -137,6 +129,5 @@ namespace FluentHub.App.Utils
             currentItem.DisplayUrl = "";
             currentItem.Icon = icon;
         }
-        #endregion
     }
 }

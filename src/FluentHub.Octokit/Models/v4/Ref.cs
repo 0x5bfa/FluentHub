@@ -28,6 +28,12 @@ namespace FluentHub.Octokit.Models.v4
         /// </summary>
         public BranchProtectionRule BranchProtectionRule { get; set; }
 
+        /// <summary>
+        /// Compares the current ref as a base ref to another head ref, if the comparison can be made.
+        /// </summary>
+        /// <param name="headRef">The head ref to compare against.</param>
+        public Comparison Compare { get; set; }
+
         public ID Id { get; set; }
 
         /// <summary>

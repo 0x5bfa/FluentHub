@@ -9,13 +9,13 @@ namespace FluentHub.Octokit.Models.v4
     /// with `refs/heads/` (although the input is not required to be fully
     /// qualified).
     /// The Ref may be specified by its global node ID or by the
-    /// repository nameWithOwner and branch name.
+    /// `repositoryNameWithOwner` and `branchName`.
     /// ### Examples
     /// Specify a branch using a global node ID:
     ///     { "id": "MDM6UmVmMTpyZWZzL2hlYWRzL21haW4=" }
-    /// Specify a branch using nameWithOwner and branch name:
+    /// Specify a branch using `repositoryNameWithOwner` and `branchName`:
     ///     {
-    ///       "nameWithOwner": "github/graphql-client",
+    ///       "repositoryNameWithOwner": "github/graphql-client",
     ///       "branchName": "main"
     ///     }
     /// </summary>

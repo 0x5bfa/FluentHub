@@ -1,9 +1,18 @@
+// Copyright (c) FluentHub
+// Licensed under the MIT License. See the LICENSE.
+
 using Microsoft.UI.Xaml.Media.Animation;
 
 namespace FluentHub.App.Services.Navigation
 {
     public class TabViewSelectionChangedEventArgs : EventArgs
     {
+        public ITabViewItem NewSelectedItem { get; }
+
+        public ITabViewItem OldSelectedItem { get; }
+
+        public NavigationTransitionInfo RecommendedNavigationTransitionInfo { get; }
+
         public TabViewSelectionChangedEventArgs(ITabViewItem newSelectedItem)
         {
             NewSelectedItem = newSelectedItem;
@@ -21,9 +30,5 @@ namespace FluentHub.App.Services.Navigation
             OldSelectedItem = oldSelectedItem;
             RecommendedNavigationTransitionInfo = recommendedNavigationTransitionInfo;
         }
-
-        public ITabViewItem NewSelectedItem { get; }
-        public ITabViewItem OldSelectedItem { get; }
-        public NavigationTransitionInfo RecommendedNavigationTransitionInfo { get; }
     }
 }

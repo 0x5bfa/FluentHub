@@ -19,6 +19,11 @@ namespace FluentHub.Octokit.Models.v4
         /// <param name="skip">Skips the first _n_ elements in the list.</param>
         public PullRequestReviewCommentConnection Comments { get; set; }
 
+        /// <summary>
+        /// The side of the diff on which this thread was placed.
+        /// </summary>
+        public DiffSide DiffSide { get; set; }
+
         public ID Id { get; set; }
 
         /// <summary>
@@ -37,6 +42,11 @@ namespace FluentHub.Octokit.Models.v4
         public bool IsResolved { get; set; }
 
         /// <summary>
+        /// The line in the file to which this thread refers
+        /// </summary>
+        public int? Line { get; set; }
+
+        /// <summary>
         /// Identifies the pull request associated with this thread.
         /// </summary>
         public PullRequest PullRequest { get; set; }
@@ -50,6 +60,16 @@ namespace FluentHub.Octokit.Models.v4
         /// The user who resolved this thread
         /// </summary>
         public User ResolvedBy { get; set; }
+
+        /// <summary>
+        /// The side of the diff that the first line of the thread starts on (multi-line only)
+        /// </summary>
+        public DiffSide? StartDiffSide { get; set; }
+
+        /// <summary>
+        /// The line of the first file diff in the thread.
+        /// </summary>
+        public int? StartLine { get; set; }
 
         /// <summary>
         /// Indicates whether the current viewer can reply to this thread.

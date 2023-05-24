@@ -113,6 +113,21 @@ namespace FluentHub.Octokit.Models.v4
         public string ShortDescription { get; set; }
 
         /// <summary>
+        /// The teams the project is linked to.
+        /// </summary>
+        /// <param name="first">Returns the first _n_ elements from the list.</param>
+        /// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
+        /// <param name="last">Returns the last _n_ elements from the list.</param>
+        /// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
+        /// <param name="orderBy">Ordering options for teams returned from this connection.</param>
+        public TeamConnection Teams { get; set; }
+
+        /// <summary>
+        /// Returns true if this project is a template.
+        /// </summary>
+        public bool Template { get; set; }
+
+        /// <summary>
         /// The project's name.
         /// </summary>
         public string Title { get; set; }
@@ -133,6 +148,22 @@ namespace FluentHub.Octokit.Models.v4
         public string Url { get; set; }
 
         /// <summary>
+        /// A view of the project
+        /// </summary>
+        /// <param name="number">The number of a view belonging to the project</param>
+        public ProjectV2View View { get; set; }
+
+        /// <summary>
+        /// Indicates if the object can be closed by the viewer.
+        /// </summary>
+        public bool ViewerCanClose { get; set; }
+
+        /// <summary>
+        /// Indicates if the object can be reopened by the viewer.
+        /// </summary>
+        public bool ViewerCanReopen { get; set; }
+
+        /// <summary>
         /// Check if the current viewer can update this object.
         /// </summary>
         public bool ViewerCanUpdate { get; set; }
@@ -146,5 +177,21 @@ namespace FluentHub.Octokit.Models.v4
         /// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
         /// <param name="orderBy">Ordering options for project v2 views returned from the connection</param>
         public ProjectV2ViewConnection Views { get; set; }
+
+        /// <summary>
+        /// A workflow of the project
+        /// </summary>
+        /// <param name="number">The number of a workflow belonging to the project</param>
+        public ProjectV2Workflow Workflow { get; set; }
+
+        /// <summary>
+        /// List of the workflows in the project
+        /// </summary>
+        /// <param name="first">Returns the first _n_ elements from the list.</param>
+        /// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
+        /// <param name="last">Returns the last _n_ elements from the list.</param>
+        /// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
+        /// <param name="orderBy">Ordering options for project v2 workflows returned from the connection</param>
+        public ProjectV2WorkflowConnection Workflows { get; set; }
     }
 }

@@ -5,7 +5,7 @@ namespace FluentHub.Octokit.Models.v4
     using System.Linq.Expressions;
 
     /// <summary>
-    /// Enterprise information only visible to enterprise owners.
+    /// Enterprise information visible to enterprise owners or enterprise owners' personal access tokens (classic) with read:enterprise or admin:enterprise scope.
     /// </summary>
     public class EnterpriseOwnerInfo
     {
@@ -16,6 +16,7 @@ namespace FluentHub.Octokit.Models.v4
         /// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
         /// <param name="last">Returns the last _n_ elements from the list.</param>
         /// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
+        /// <param name="hasTwoFactorEnabled">Only return administrators with this two-factor authentication status.</param>
         /// <param name="orderBy">Ordering options for administrators returned from the connection.</param>
         /// <param name="organizationLogins">Only return members within the organizations with these logins</param>
         /// <param name="query">The search string to look for.</param>
@@ -53,6 +54,11 @@ namespace FluentHub.Octokit.Models.v4
         public OrganizationConnection AllowPrivateRepositoryForkingSettingOrganizations { get; set; }
 
         /// <summary>
+        /// The value for the allow private repository forking policy on the enterprise.
+        /// </summary>
+        public EnterpriseAllowPrivateRepositoryForkingPolicyValue? AllowPrivateRepositoryForkingSettingPolicyValue { get; set; }
+
+        /// <summary>
         /// The setting value for base repository permissions for organizations in this enterprise.
         /// </summary>
         public EnterpriseDefaultRepositoryPermissionSettingValue DefaultRepositoryPermissionSetting { get; set; }
@@ -69,7 +75,7 @@ namespace FluentHub.Octokit.Models.v4
         public OrganizationConnection DefaultRepositoryPermissionSettingOrganizations { get; set; }
 
         /// <summary>
-        /// A list of domains owned by the enterprise.
+        /// A list of domains owned by the enterprise. Visible to enterprise owners or enterprise owners' personal access tokens (classic) with admin:enterprise scope.
         /// </summary>
         /// <param name="first">Returns the first _n_ elements from the list.</param>
         /// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
@@ -92,12 +98,22 @@ namespace FluentHub.Octokit.Models.v4
         public EnterpriseServerInstallationConnection EnterpriseServerInstallations { get; set; }
 
         /// <summary>
+        /// A list of failed invitations in the enterprise.
+        /// </summary>
+        /// <param name="first">Returns the first _n_ elements from the list.</param>
+        /// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
+        /// <param name="last">Returns the last _n_ elements from the list.</param>
+        /// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
+        /// <param name="query">The search string to look for.</param>
+        public EnterpriseFailedInvitationConnection FailedInvitations { get; set; }
+
+        /// <summary>
         /// The setting value for whether the enterprise has an IP allow list enabled.
         /// </summary>
         public IpAllowListEnabledSettingValue IpAllowListEnabledSetting { get; set; }
 
         /// <summary>
-        /// The IP addresses that are allowed to access resources owned by the enterprise.
+        /// The IP addresses that are allowed to access resources owned by the enterprise. Visible to enterprise owners or enterprise owners' personal access tokens (classic) with admin:enterprise scope.
         /// </summary>
         /// <param name="first">Returns the first _n_ elements from the list.</param>
         /// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
@@ -324,6 +340,7 @@ namespace FluentHub.Octokit.Models.v4
         /// <param name="after">Returns the elements in the list that come after the specified cursor.</param>
         /// <param name="last">Returns the last _n_ elements from the list.</param>
         /// <param name="before">Returns the elements in the list that come before the specified cursor.</param>
+        /// <param name="invitationSource">Only return invitations matching this invitation source</param>
         /// <param name="organizationLogins">Only return invitations within the organizations with these logins</param>
         /// <param name="query">The search string to look for.</param>
         public EnterprisePendingMemberInvitationConnection PendingMemberInvitations { get; set; }
@@ -345,7 +362,7 @@ namespace FluentHub.Octokit.Models.v4
         public OrganizationConnection RepositoryProjectsSettingOrganizations { get; set; }
 
         /// <summary>
-        /// The SAML Identity Provider for the enterprise. When used by a GitHub App, requires an installation token with read and write access to members.
+        /// The SAML Identity Provider for the enterprise.
         /// </summary>
         public EnterpriseIdentityProvider SamlIdentityProvider { get; set; }
 

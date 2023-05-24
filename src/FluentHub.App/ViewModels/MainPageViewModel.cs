@@ -11,6 +11,7 @@ using FluentHub.App.Utils;
 using Microsoft.UI.Xaml.Input;
 using System.Windows.Input;
 using Windows.System;
+using FluentHub.App.Data.Items;
 
 namespace FluentHub.App.ViewModels
 {
@@ -122,7 +123,7 @@ namespace FluentHub.App.ViewModels
 
 		private void GoToNextTabAccelerator(KeyboardAcceleratorInvokedEventArgs e)
 		{
-			if (_navigationService.TabView.SelectedIndex == _navigationService.TabView.Items.Count - 1)
+			if (_navigationService.TabView.SelectedIndex == _navigationService.TabView.TabItems.Count - 1)
 			{
 				_navigationService.TabView.SelectedIndex = 0;
 			}
@@ -136,7 +137,7 @@ namespace FluentHub.App.ViewModels
 
 		private void GoToPreviousTabAccelerator(KeyboardAcceleratorInvokedEventArgs e)
 		{
-			if (_navigationService.TabView.SelectedIndex == _navigationService.TabView.Items.Count - 1)
+			if (_navigationService.TabView.SelectedIndex == _navigationService.TabView.TabItems.Count - 1)
 			{
 				_navigationService.TabView.SelectedIndex = 0;
 			}

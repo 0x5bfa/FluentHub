@@ -19,6 +19,11 @@ namespace FluentHub.Octokit.Models.v4
         public EnterpriseEnabledDisabledSettingValue SettingValue { get; set; }
 
         /// <summary>
+        /// The value for the allow private repository forking policy on the enterprise.
+        /// </summary>
+        public EnterpriseAllowPrivateRepositoryForkingPolicyValue? PolicyValue { get; set; }
+
+        /// <summary>
         /// A unique identifier for the client performing the mutation.
         /// </summary>
         public string ClientMutationId { get; set; }

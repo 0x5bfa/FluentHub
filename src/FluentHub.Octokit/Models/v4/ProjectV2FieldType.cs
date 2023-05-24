@@ -88,5 +88,11 @@ namespace FluentHub.Octokit.Models.v4
         /// </summary>
         [EnumMember(Value = "TRACKS")]
         Tracks,
+
+        /// <summary>
+        /// Tracked by
+        /// </summary>
+        [EnumMember(Value = "TRACKED_BY")]
+        TrackedBy,
     }
 }

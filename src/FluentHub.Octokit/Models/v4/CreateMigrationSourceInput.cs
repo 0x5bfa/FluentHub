@@ -9,27 +9,27 @@ namespace FluentHub.Octokit.Models.v4
     public class CreateMigrationSourceInput
     {
         /// <summary>
-        /// The Octoshift migration source name.
+        /// The migration source name.
         /// </summary>
         public string Name { get; set; }
 
         /// <summary>
-        /// The Octoshift migration source URL.
+        /// The migration source URL, for example `https://github.com` or `https://monalisa.ghe.com`.
         /// </summary>
         public string Url { get; set; }
 
         /// <summary>
-        /// The Octoshift migration source access token.
+        /// The migration source access token.
         /// </summary>
         public string AccessToken { get; set; }
 
         /// <summary>
-        /// The Octoshift migration source type.
+        /// The migration source type.
         /// </summary>
         public MigrationSourceType Type { get; set; }
 
         /// <summary>
-        /// The ID of the organization that will own the Octoshift migration source.
+        /// The ID of the organization that will own the migration source.
         /// </summary>
         public ID OwnerId { get; set; }
 

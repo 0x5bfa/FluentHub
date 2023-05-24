@@ -20,6 +20,7 @@ namespace FluentHub.Octokit.Models.v4
         /// <param name="answered">Filter discussions to only those that have been answered or not. Defaults to including both answered and unanswered discussions.</param>
         /// <param name="orderBy">Ordering options for discussions returned from the connection.</param>
         /// <param name="repositoryId">Filter discussions to only those in a specific repository.</param>
+        /// <param name="states">A list of states to filter the discussions by.</param>
         DiscussionConnection RepositoryDiscussions { get; set; }
     }
 }

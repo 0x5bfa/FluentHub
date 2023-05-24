@@ -10,6 +10,11 @@ namespace FluentHub.Octokit.Models.v4
     public class SponsorshipNewsletter
     {
         /// <summary>
+        /// The author of the newsletter.
+        /// </summary>
+        public User Author { get; set; }
+
+        /// <summary>
         /// The contents of the newsletter, the message the sponsorable wanted to give.
         /// </summary>
         public string Body { get; set; }

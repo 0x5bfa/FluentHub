@@ -65,6 +65,21 @@ namespace FluentHub.Octokit.Models.v4
         public DiscussionCategory Category { get; set; }
 
         /// <summary>
+        /// Indicates if the object is closed (definition of closed may depend on type)
+        /// </summary>
+        public bool Closed { get; set; }
+
+        /// <summary>
+        /// Identifies the date and time when the object was closed.
+        /// </summary>
+        public DateTimeOffset? ClosedAt { get; set; }
+
+        /// <summary>
+        /// Humanized string of "Identifies the date and time when the object was closed."
+        /// <summary>
+        public string ClosedAtHumanized { get; set; }
+
+        /// <summary>
         /// The replies to the discussion.
         /// </summary>
         /// <param name="first">Returns the first _n_ elements from the list.</param>
@@ -177,6 +192,11 @@ namespace FluentHub.Octokit.Models.v4
         public string ResourcePath { get; set; }
 
         /// <summary>
+        /// Identifies the reason for the discussion's state.
+        /// </summary>
+        public DiscussionStateReason? StateReason { get; set; }
+
+        /// <summary>
         /// The title of this discussion.
         /// </summary>
         public string Title { get; set; }
@@ -211,6 +231,11 @@ namespace FluentHub.Octokit.Models.v4
         public UserContentEditConnection UserContentEdits { get; set; }
 
         /// <summary>
+        /// Indicates if the object can be closed by the viewer.
+        /// </summary>
+        public bool ViewerCanClose { get; set; }
+
+        /// <summary>
         /// Check if the current viewer can delete this object.
         /// </summary>
         public bool ViewerCanDelete { get; set; }
@@ -219,6 +244,11 @@ namespace FluentHub.Octokit.Models.v4
         /// Can user react to this subject
         /// </summary>
         public bool ViewerCanReact { get; set; }
+
+        /// <summary>
+        /// Indicates if the object can be reopened by the viewer.
+        /// </summary>
+        public bool ViewerCanReopen { get; set; }
 
         /// <summary>
         /// Check if the viewer is able to change their subscription status for the repository.

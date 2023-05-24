@@ -22,5 +22,11 @@ namespace FluentHub.Octokit.Models.v4
         /// </summary>
         [EnumMember(Value = "OWNER")]
         Owner,
+
+        /// <summary>
+        /// The user is not an owner of the enterprise, and not a member or owner of any organizations in the enterprise; only for EMU-enabled enterprises.
+        /// </summary>
+        [EnumMember(Value = "UNAFFILIATED")]
+        Unaffiliated,
     }
 }

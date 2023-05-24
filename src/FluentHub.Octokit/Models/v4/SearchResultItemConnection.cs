@@ -5,17 +5,17 @@ namespace FluentHub.Octokit.Models.v4
     using System.Linq.Expressions;
 
     /// <summary>
-    /// A list of results that matched against a search query.
+    /// A list of results that matched against a search query. Regardless of the number of matches, a maximum of 1,000 results will be available across all types, potentially split across many pages.
     /// </summary>
     public class SearchResultItemConnection
     {
         /// <summary>
-        /// The number of pieces of code that matched the search query.
+        /// The total number of pieces of code that matched the search query. Regardless of the total number of matches, a maximum of 1,000 results will be available across all types.
         /// </summary>
         public int CodeCount { get; set; }
 
         /// <summary>
-        /// The number of discussions that matched the search query.
+        /// The total number of discussions that matched the search query. Regardless of the total number of matches, a maximum of 1,000 results will be available across all types.
         /// </summary>
         public int DiscussionCount { get; set; }
 
@@ -25,7 +25,7 @@ namespace FluentHub.Octokit.Models.v4
         public List<SearchResultItemEdge> Edges { get; set; }
 
         /// <summary>
-        /// The number of issues that matched the search query.
+        /// The total number of issues that matched the search query. Regardless of the total number of matches, a maximum of 1,000 results will be available across all types.
         /// </summary>
         public int IssueCount { get; set; }
 
@@ -40,17 +40,17 @@ namespace FluentHub.Octokit.Models.v4
         public PageInfo PageInfo { get; set; }
 
         /// <summary>
-        /// The number of repositories that matched the search query.
+        /// The total number of repositories that matched the search query. Regardless of the total number of matches, a maximum of 1,000 results will be available across all types.
         /// </summary>
         public int RepositoryCount { get; set; }
 
         /// <summary>
-        /// The number of users that matched the search query.
+        /// The total number of users that matched the search query. Regardless of the total number of matches, a maximum of 1,000 results will be available across all types.
         /// </summary>
         public int UserCount { get; set; }
 
         /// <summary>
-        /// The number of wiki pages that matched the search query.
+        /// The total number of wiki pages that matched the search query. Regardless of the total number of matches, a maximum of 1,000 results will be available across all types.
         /// </summary>
         public int WikiCount { get; set; }
     }

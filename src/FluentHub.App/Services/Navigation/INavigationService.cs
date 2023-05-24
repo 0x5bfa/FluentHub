@@ -1,4 +1,9 @@
+// Copyright (c) FluentHub
+// Licensed under the MIT License. See the LICENSE.
+
+using FluentHub.App.Data.Items;
 using FluentHub.App.Services.Navigation;
+using FluentHub.Core.Data.Enums;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
 

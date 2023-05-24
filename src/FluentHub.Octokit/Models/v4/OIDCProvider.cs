@@ -5,7 +5,7 @@ namespace FluentHub.Octokit.Models.v4
     using System.Linq.Expressions;
 
     /// <summary>
-    /// An OIDC identity provider configured to provision identities for an enterprise.
+    /// An OIDC identity provider configured to provision identities for an enterprise. Visible to enterprise owners or enterprise owners' personal access tokens (classic) with read:enterprise or admin:enterprise scope.
     /// </summary>
     public class OIDCProvider
     {

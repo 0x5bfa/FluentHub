@@ -48,7 +48,7 @@ namespace FluentHub.App.ViewModels.UserControls
 
         public async Task SetMarkdownCommentToWebViewAsync(WebView2 webView2)
         {
-            var settingTheme = Helpers.ThemeHelpers.RootTheme.ToString();
+            var settingTheme = ThemeHelpers.RootTheme.ToString();
             var appTheme = App.Current.RequestedTheme.ToString().ToLower();
 
             if (settingTheme == "default")

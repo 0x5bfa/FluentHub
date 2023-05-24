@@ -74,6 +74,16 @@ namespace FluentHub.Octokit.Models.v4
         public bool IsAdminEnforced { get; set; }
 
         /// <summary>
+        /// Whether users can pull changes from upstream when the branch is locked. Set to `true` to allow fork syncing. Set to `false` to prevent fork syncing.
+        /// </summary>
+        public bool LockAllowsFetchAndMerge { get; set; }
+
+        /// <summary>
+        /// Whether to set the branch as read-only. If this is true, users will not be able to push to the branch.
+        /// </summary>
+        public bool LockBranch { get; set; }
+
+        /// <summary>
         /// Repository refs that are protected by this rule
         /// </summary>
         /// <param name="first">Returns the first _n_ elements from the list.</param>
@@ -103,9 +113,19 @@ namespace FluentHub.Octokit.Models.v4
         public Repository Repository { get; set; }
 
         /// <summary>
+        /// Whether the most recent push must be approved by someone other than the person who pushed it
+        /// </summary>
+        public bool RequireLastPushApproval { get; set; }
+
+        /// <summary>
         /// Number of approving reviews required to update matching branches.
         /// </summary>
         public int? RequiredApprovingReviewCount { get; set; }
+
+        /// <summary>
+        /// List of required deployment environments that must be deployed successfully to update matching branches
+        /// </summary>
+        public List<string> RequiredDeploymentEnvironments { get; set; }
 
         /// <summary>
         /// List of required status check contexts that must pass for commits to be accepted to matching branches.
@@ -136,6 +156,11 @@ namespace FluentHub.Octokit.Models.v4
         /// Are conversations required to be resolved before merging.
         /// </summary>
         public bool RequiresConversationResolution { get; set; }
+
+        /// <summary>
+        /// Does this branch require deployment to specific environments before merging
+        /// </summary>
+        public bool RequiresDeployments { get; set; }
 
         /// <summary>
         /// Are merge commits prohibited from being pushed to this branch.
