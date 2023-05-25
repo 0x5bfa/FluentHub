@@ -1,4 +1,4 @@
-﻿<Page
+﻿<views:LocatablePage
 	x:Class="FluentHub.App.Views.Users.RepositoriesPage"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -12,13 +12,14 @@
 	xmlns:ov="using:FluentHub.App.UserControls.Overview"
 	xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
 	xmlns:uc="using:FluentHub.App.UserControls"
+	xmlns:views="using:FluentHub.App.Views"
 	mc:Ignorable="d">
 
-	<Page.Resources>
+	<views:LocatablePage.Resources>
 		<ResourceDictionary>
 			<converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
 		</ResourceDictionary>
-	</Page.Resources>
+	</views:LocatablePage.Resources>
 
 	<Grid>
 
@@ -167,4 +168,4 @@
 		</Grid>
 
 	</Grid>
-</Page>
+</views:LocatablePage>

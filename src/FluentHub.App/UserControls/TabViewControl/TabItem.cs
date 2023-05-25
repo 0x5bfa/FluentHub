@@ -22,7 +22,7 @@ namespace FluentHub.App.UserControls.TabViewControl
         public TabItem()
         {
             // Dependency injection
-            _logger = App.Current.Services.GetService<ILogger>();
+            _logger = App.Current.Services.GetRequiredService<ILogger>();
 
             // Initialize
             Guid = Guid.NewGuid();

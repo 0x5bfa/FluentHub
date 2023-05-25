@@ -1,5 +1,6 @@
 using FluentHub.App.Services;
 using FluentHub.App.ViewModels.Users;
+using FluentHub.Core.Data.Enums;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
@@ -7,9 +8,10 @@ using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.App.Views.Users
 {
-    public sealed partial class StarredReposPage : Page
+    public sealed partial class StarredReposPage : LocatablePage
     {
         public StarredReposPage()
+            : base(NavigationBarPageKind.User, NavigationBarItemKey.Stars)
         {
             InitializeComponent();
 
