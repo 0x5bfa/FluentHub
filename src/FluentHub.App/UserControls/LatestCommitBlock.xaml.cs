@@ -57,7 +57,7 @@ namespace FluentHub.App.UserControls
         private void OnViewAllCommitsButtonClick(object sender, RoutedEventArgs e)
         {
             navigationService.Navigate<CommitsPage>(
-                new Models.FrameNavigationArgs()
+                new Models.FrameNavigationParameter()
                 {
                     Login = ViewModel.ContextViewModel.Repository.Owner.Login,
                     Name = ViewModel.ContextViewModel.Repository.Name,

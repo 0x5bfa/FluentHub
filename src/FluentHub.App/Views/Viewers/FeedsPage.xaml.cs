@@ -33,7 +33,7 @@ namespace FluentHub.App.Views.Home
         {
             var item = e.ClickedItem as Repository;
 
-            var parameter = new FrameNavigationArgs()
+            var parameter = new FrameNavigationParameter()
             {
                 Login = item.Owner.Login,
                 Name = item.Name,

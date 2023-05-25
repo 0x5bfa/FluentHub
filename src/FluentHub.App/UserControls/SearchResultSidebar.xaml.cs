@@ -52,7 +52,7 @@ namespace FluentHub.App.UserControls
         {
             var navigation = App.Current.Services.GetRequiredService<INavigationService>();
             var page = typeof(Views.Searches.RepositoriesPage);
-            Models.FrameNavigationArgs param = new()
+            Models.FrameNavigationParameter param = new()
             {
                 Parameters = new() { SearchTerm }
             };

@@ -43,7 +43,7 @@ namespace FluentHub.App.ViewModels.UserControls.Overview
             if (Repository.IsInOrganization)
             {
                 service.Navigate<Views.Organizations.OverviewPage>(
-                    new Models.FrameNavigationArgs()
+                    new Models.FrameNavigationParameter()
                     {
                         Login = Repository.Owner.Login,
                     });
@@ -51,7 +51,7 @@ namespace FluentHub.App.ViewModels.UserControls.Overview
             else
             {
                 service.Navigate<Views.Users.OverviewPage>(
-                    new Models.FrameNavigationArgs()
+                    new Models.FrameNavigationParameter()
                     {
                         Login = Repository.Owner.Login,
                     });

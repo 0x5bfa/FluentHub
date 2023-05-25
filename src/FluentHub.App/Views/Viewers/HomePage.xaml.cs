@@ -33,7 +33,7 @@ namespace FluentHub.App.Views.Home
         {
             var clickedItem = e.ClickedItem as Repository;
 
-            var param = new FrameNavigationArgs()
+            var param = new FrameNavigationParameter()
             {
                 Login = clickedItem.Owner.Login,
                 Name = clickedItem.Name,
@@ -48,7 +48,7 @@ namespace FluentHub.App.Views.Home
         private void OnOneFolderCardClick(object sender, RoutedEventArgs e)
         {
             var clickedButton = sender as Button;
-            var param = new FrameNavigationArgs()
+            var param = new FrameNavigationParameter()
             {
                 Login = App.AppSettings.SignedInUserName,
                 Parameters = new() { "AsViewer" },
@@ -90,7 +90,7 @@ namespace FluentHub.App.Views.Home
 				case NotificationSubjectType.IssueClosedAsNotPlanned:
 				case NotificationSubjectType.IssueOpen:
 					_navigation.Navigate<Repositories.Issues.IssuePage>(
-					new FrameNavigationArgs()
+					new FrameNavigationParameter()
 					{
 						Login = notification.Repository.Owner.Login,
 						Name = notification.Repository.Name,
@@ -102,7 +102,7 @@ namespace FluentHub.App.Views.Home
 				case NotificationSubjectType.PullRequestMerged:
 				case NotificationSubjectType.PullRequestOpen:
 					_navigation.Navigate<Repositories.PullRequests.ConversationPage>(
-					new FrameNavigationArgs()
+					new FrameNavigationParameter()
 					{
 						Login = notification.Repository.Owner.Login,
 						Name = notification.Repository.Name,

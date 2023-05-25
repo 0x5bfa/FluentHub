@@ -39,7 +39,7 @@ namespace FluentHub.App.UserControls.Overview
             {
                 default:
                 case "code":
-                    var param = new Models.FrameNavigationArgs()
+                    var param = new Models.FrameNavigationParameter()
                     {
                         Login = ViewModel.Repository?.Owner?.Login,
                         Name = ViewModel.Repository?.Name,
@@ -53,7 +53,7 @@ namespace FluentHub.App.UserControls.Overview
                 case "issues":
                     service.Navigate(
                         typeof(Views.Repositories.Issues.IssuesPage),
-                        new Models.FrameNavigationArgs()
+                        new Models.FrameNavigationParameter()
                         {
                             Login = ViewModel.Repository?.Owner?.Login,
                             Name = ViewModel.Repository?.Name,
@@ -62,7 +62,7 @@ namespace FluentHub.App.UserControls.Overview
                 case "pullrequests":
                     service.Navigate(
                         typeof(Views.Repositories.PullRequests.PullRequestsPage),
-                        new Models.FrameNavigationArgs()
+                        new Models.FrameNavigationParameter()
                         {
                             Login = ViewModel.Repository?.Owner?.Login,
                             Name = ViewModel.Repository?.Name,
@@ -71,7 +71,7 @@ namespace FluentHub.App.UserControls.Overview
                 case "discussions":
                     service.Navigate(
                         typeof(Views.Repositories.Discussions.DiscussionsPage),
-                        new Models.FrameNavigationArgs()
+                        new Models.FrameNavigationParameter()
                         {
                             Login = ViewModel.Repository?.Owner?.Login,
                             Name = ViewModel.Repository?.Name,
@@ -80,7 +80,7 @@ namespace FluentHub.App.UserControls.Overview
                 case "projects":
                     service.Navigate(
                         typeof(Views.Repositories.Projects.ProjectsPage),
-                        new Models.FrameNavigationArgs()
+                        new Models.FrameNavigationParameter()
                         {
                             Login = ViewModel.Repository?.Owner?.Login,
                             Name = ViewModel.Repository?.Name,

@@ -55,7 +55,7 @@ namespace FluentHub.App.UserControls.Overview
 
         private void OnUserNavViewItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
-            var param = new Models.FrameNavigationArgs()
+            var param = new Models.FrameNavigationParameter()
             {
                 Login = ViewModel.User.Login,
             };
@@ -96,7 +96,7 @@ namespace FluentHub.App.UserControls.Overview
         {
             SelectItemByTag("followers");
             navService.Navigate<Views.Users.FollowersPage>(
-            new Models.FrameNavigationArgs()
+            new Models.FrameNavigationParameter()
             {
                 Login = ViewModel.User.Login,
             });
@@ -106,7 +106,7 @@ namespace FluentHub.App.UserControls.Overview
         {
             SelectItemByTag("following");
             navService.Navigate<Views.Users.FollowingPage>(
-            new Models.FrameNavigationArgs()
+            new Models.FrameNavigationParameter()
             {
                 Login = ViewModel.User.Login,
             });

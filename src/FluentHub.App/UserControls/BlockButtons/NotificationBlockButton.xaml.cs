@@ -38,7 +38,7 @@ namespace FluentHub.App.UserControls.BlockButtons
                 case NotificationSubjectType.IssueClosedAsNotPlanned:
                 case NotificationSubjectType.IssueOpen:
                     navService.Navigate<Views.Repositories.Issues.IssuePage>(
-                    new FrameNavigationArgs()
+                    new FrameNavigationParameter()
                     {
                         Login = ViewModel.Item.Repository.Owner.Login,
                         Name = ViewModel.Item.Repository.Name,
@@ -50,7 +50,7 @@ namespace FluentHub.App.UserControls.BlockButtons
                 case NotificationSubjectType.PullRequestMerged:
                 case NotificationSubjectType.PullRequestDraft:
                     navService.Navigate<Views.Repositories.PullRequests.ConversationPage>(
-                    new FrameNavigationArgs()
+                    new FrameNavigationParameter()
                     {
                         Login = ViewModel.Item.Repository.Owner.Login,
                         Name = ViewModel.Item.Repository.Name,

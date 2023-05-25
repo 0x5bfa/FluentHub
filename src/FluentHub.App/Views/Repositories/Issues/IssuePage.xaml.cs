@@ -25,7 +25,7 @@ namespace FluentHub.App.Views.Repositories.Issues
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var param = e.Parameter as FrameNavigationArgs;
+            var param = e.Parameter as FrameNavigationParameter;
 
             if (param == null)
             {

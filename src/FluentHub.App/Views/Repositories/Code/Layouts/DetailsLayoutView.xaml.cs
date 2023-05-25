@@ -28,7 +28,7 @@ namespace FluentHub.App.Views.Repositories.Code.Layouts
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var param = e.Parameter as FrameNavigationArgs;
+            var param = e.Parameter as FrameNavigationParameter;
             ViewModel.Login = param.Login;
             ViewModel.Name = param.Name;
             ViewModel.CurrentPath = param.Parameters.ElementAtOrDefault(0) as string;
@@ -55,7 +55,7 @@ namespace FluentHub.App.Views.Repositories.Code.Layouts
             param.Add(objType + "/" + ViewModel.ContextViewModel.BranchName + "/" + path);
 
             _navigation.Navigate<DetailsLayoutView>(
-                new FrameNavigationArgs()
+                new FrameNavigationParameter()
                 {
                     Login = ViewModel.Repository.Owner.Login,
                     Name = ViewModel.Repository.Name,
@@ -66,7 +66,7 @@ namespace FluentHub.App.Views.Repositories.Code.Layouts
         private void OnLatestReleaseClick(object sender, RoutedEventArgs e)
         {
             _navigation.Navigate<Views.Repositories.Releases.ReleasesPage>(
-                new FrameNavigationArgs()
+                new FrameNavigationParameter()
                 {
                     Login = ViewModel.Repository.Owner.Login,
                     Name = ViewModel.Repository.Name,

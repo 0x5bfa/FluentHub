@@ -36,7 +36,7 @@ namespace FluentHub.App.UserControls.BlockButtons
         {
             var navService = App.Current.Services.GetRequiredService<INavigationService>();
             navService.Navigate<Views.Repositories.Issues.IssuePage>(
-                new FrameNavigationArgs()
+                new FrameNavigationParameter()
                 {
                     Login = ViewModel.IssueItem.Repository.Owner.Login,
                     Name = ViewModel.IssueItem.Repository.Name,

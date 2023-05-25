@@ -57,7 +57,7 @@ namespace FluentHub.App.UserControls.Overview
         private void OnSettingsNavViewItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
             // Parameter (should not use)
-            Models.FrameNavigationArgs parameter = new()
+            Models.FrameNavigationParameter parameter = new()
             {
                 Login = ViewModel?.User?.Login,
             };

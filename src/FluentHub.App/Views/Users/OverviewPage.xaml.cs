@@ -26,7 +26,7 @@ namespace FluentHub.App.Views.Users
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var param = e.Parameter as Models.FrameNavigationArgs;
+            var param = e.Parameter as Models.FrameNavigationParameter;
             _ = param ?? throw new ArgumentNullException("param");
 
             ViewModel.Login = param.Login;

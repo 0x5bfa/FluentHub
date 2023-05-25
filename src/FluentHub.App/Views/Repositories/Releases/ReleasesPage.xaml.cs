@@ -28,7 +28,7 @@ namespace FluentHub.App.Views.Repositories.Releases
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var param = e.Parameter as FrameNavigationArgs;
+            var param = e.Parameter as FrameNavigationParameter;
             _ = param ?? throw new ArgumentNullException("param");
 
             ViewModel.Login = param.Login;
@@ -47,7 +47,7 @@ namespace FluentHub.App.Views.Repositories.Releases
         private void OnReleaseBlockButtonClick(object sender, RoutedEventArgs e)
         {
             _navigation.Navigate<ReleasePage>(
-                new FrameNavigationArgs()
+                new FrameNavigationParameter()
                 {
                     Login = ViewModel.Repository.Owner.Login,
                     Name = ViewModel.Repository.Name,

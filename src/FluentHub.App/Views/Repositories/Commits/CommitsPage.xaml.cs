@@ -27,7 +27,7 @@ namespace FluentHub.App.Views.Repositories.Commits
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var param = e.Parameter as FrameNavigationArgs;
+            var param = e.Parameter as FrameNavigationParameter;
             ViewModel.Login = param.Login;
             ViewModel.Name = param.Name;
             ViewModel.ContextViewModel = param.Parameters.ElementAt(0) as RepoContextViewModel;

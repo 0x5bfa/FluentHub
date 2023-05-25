@@ -24,7 +24,7 @@ namespace FluentHub.App.Views.Repositories.PullRequests
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var param = e.Parameter as FrameNavigationArgs;
+            var param = e.Parameter as FrameNavigationParameter;
             ViewModel.Login = param.Login;
             ViewModel.Name = param.Name;
 

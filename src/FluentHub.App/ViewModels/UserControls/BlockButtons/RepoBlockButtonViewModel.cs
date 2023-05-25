@@ -31,7 +31,7 @@ namespace FluentHub.App.ViewModels.UserControls.BlockButtons
         {
             var _navigation = App.Current.Services.GetRequiredService<INavigationService>();
 
-            var parameter = new FrameNavigationArgs()
+            var parameter = new FrameNavigationParameter()
             {
                 Login = Repository.Owner.Login,
                 Name = Repository.Name,

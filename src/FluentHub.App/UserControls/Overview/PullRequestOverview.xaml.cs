@@ -38,7 +38,7 @@ namespace FluentHub.App.UserControls.Overview
         {
             var service = App.Current.Services.GetRequiredService<INavigationService>();
 
-            var param = new Models.FrameNavigationArgs()
+            var param = new Models.FrameNavigationParameter()
             {
                 Login = ViewModel.PullRequest?.Repository?.Owner?.Login,
                 Name = ViewModel.PullRequest?.Repository?.Name,
