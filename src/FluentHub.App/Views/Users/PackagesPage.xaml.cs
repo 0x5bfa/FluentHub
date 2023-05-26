@@ -1,3 +1,6 @@
+// Copyright (c) FluentHub
+// Licensed under the MIT License. See the LICENSE.
+
 using FluentHub.App.Services;
 using FluentHub.App.ViewModels.Users;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,26 +12,32 @@ namespace FluentHub.App.Views.Users
 {
     public sealed partial class PackagesPage : Page
     {
+        private readonly INavigationService _navigationService;
+
+        public PackagesViewModel ViewModel { get; }
+
         public PackagesPage()
         {
             InitializeComponent();
 
             var provider = App.Current.Services;
+            _navigationService = provider.GetRequiredService<INavigationService>();
             ViewModel = provider.GetRequiredService<PackagesViewModel>();
         }
 
-        public PackagesViewModel ViewModel { get; }
-
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var param = e.Parameter as Models.FrameNavigationParameter;
-            _ = param ?? throw new ArgumentNullException("param");
+            var parameter = (Models.FrameNavigationParameter)e.Parameter;
 
-            ViewModel.Login = param.Login;
+            ViewModel.Login = parameter.Login
+                ?? throw new ArgumentNullException(nameof(parameter.Login), "Login parameter cannot be null in this context.");
 
-            if (param.Parameters.ElementAtOrDefault(0) as string is "AsViewer")
+            if (parameter.AsViewer)
             {
                 ViewModel.DisplayTitle = true;
+
+                var currentTabItem = _navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+                currentTabItem.PageKind = Core.Data.Enums.NavigationBarPageKind.None;
             }
 
             var command = ViewModel.LoadUserPackagesPageCommand;

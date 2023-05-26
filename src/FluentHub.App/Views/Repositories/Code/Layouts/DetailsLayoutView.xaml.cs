@@ -31,7 +31,9 @@ namespace FluentHub.App.Views.Repositories.Code.Layouts
             var param = e.Parameter as FrameNavigationParameter;
             ViewModel.Login = param.Login;
             ViewModel.Name = param.Name;
-            ViewModel.CurrentPath = param.Parameters.ElementAtOrDefault(0) as string;
+
+            if (param.Parameters is not null)
+                ViewModel.CurrentPath = param.Parameters.ElementAtOrDefault(0) as string;
 
             var command = ViewModel.LoadDetailsViewPageCommand;
             if (command.CanExecute(null))

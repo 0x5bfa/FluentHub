@@ -51,7 +51,7 @@ namespace FluentHub.App.Views.Home
             var param = new FrameNavigationParameter()
             {
                 Login = App.AppSettings.SignedInUserName,
-                Parameters = new() { "AsViewer" },
+                AsViewer = true,
             };
 
             switch (clickedButton.Tag)

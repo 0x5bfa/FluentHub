@@ -23,7 +23,7 @@ namespace FluentHub.App.Models
         public int Number { get; set; }
 
         /// <summary>
-        /// Gets or Sets whether the user wans to view as the authorized viewer.
+        /// Gets or sets whether the user wans to view as the authorized viewer.
         /// </summary>
         public bool AsViewer { get; set; }
 
