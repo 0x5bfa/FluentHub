@@ -5,36 +5,36 @@ namespace FluentHub.App.Models
         /// <summary>
         /// The original URL.
         /// </summary>
-        public string? Url { get; init; }
+        public string? Url { get; set; }
 
         /// <summary>
         /// User login.
         /// </summary>
-        public string? Login { get; init; }
+        public string? Login { get; set; }
 
         /// <summary>
         /// Repository name.
         /// </summary>
-        public string? Name { get; init; }
+        public string? Name { get; set; }
 
         /// <summary>
         /// Issue, PR, Discussion, Project, and more number.
         /// </summary>
-        public int Number { get; init; }
+        public int Number { get; set; }
 
         /// <summary>
         /// Gets or Sets whether the user wans to view as the authorized viewer.
         /// </summary>
-        public bool AsViewer { get; init; }
+        public bool AsViewer { get; set; }
 
         /// <summary>
         /// Other needed parameters.
         /// </summary>
-        public List<object>? Parameters { get; init; }
+        public List<object>? Parameters { get; set; }
 
         /// <summary>
         /// Page type of the URL.
         /// </summary>
-        public Utils.UrlPageType PageType { get; init; }
+        public Utils.UrlPageType PageType { get; set; }
     }
 }
