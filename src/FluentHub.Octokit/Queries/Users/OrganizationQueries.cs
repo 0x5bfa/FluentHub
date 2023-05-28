@@ -11,7 +11,7 @@
                 .Nodes
                 .Select(x => new Organization
                 {
-                    AvatarUrl = x.AvatarUrl(100),
+                    AvatarUrl = x.AvatarUrl(500),
                     Description = x.Description,
                     Name = x.Name,
                     Login = x.Login,

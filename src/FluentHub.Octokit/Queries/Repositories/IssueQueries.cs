@@ -28,7 +28,7 @@
 
                         Owner = repo.Owner.Select(owner => new RepositoryOwner
                         {
-                            AvatarUrl = owner.AvatarUrl(100),
+                            AvatarUrl = owner.AvatarUrl(500),
                             Id = owner.Id,
                             Login = owner.Login,
                         })
@@ -77,7 +77,7 @@
                     {
                         Nodes = assignees.Nodes.Select(y => new User
                         {
-                            AvatarUrl = y.AvatarUrl(100),
+                            AvatarUrl = y.AvatarUrl(500),
                             Login = y.Login,
                         })
                         .ToList(),
@@ -113,7 +113,7 @@
                     {
                         Nodes = participants.Nodes.Select(y => new User
                         {
-                            AvatarUrl = y.AvatarUrl(100),
+                            AvatarUrl = y.AvatarUrl(500),
                             Login = y.Login,
                         })
                         .ToList(),
@@ -136,7 +136,7 @@
 
                         Owner = repo.Owner.Select(owner => new RepositoryOwner
                         {
-                            AvatarUrl = owner.AvatarUrl(100),
+                            AvatarUrl = owner.AvatarUrl(500),
                             Id = owner.Id,
                             Login = owner.Login,
                         })
@@ -175,7 +175,7 @@
                     Author = x.Author.Select(author => new Actor
                     {
                         Login = author.Login,
-                        AvatarUrl = author.AvatarUrl(100),
+                        AvatarUrl = author.AvatarUrl(500),
                     })
                     .SingleOrDefault(),
 
@@ -222,7 +222,7 @@
 
                         Owner = repo.Owner.Select(owner => new RepositoryOwner
                         {
-                            AvatarUrl = owner.AvatarUrl(100),
+                            AvatarUrl = owner.AvatarUrl(500),
                             Id = owner.Id,
                             Login = owner.Login,
                         })

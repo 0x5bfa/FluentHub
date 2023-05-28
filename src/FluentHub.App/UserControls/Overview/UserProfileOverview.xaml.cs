@@ -20,12 +20,7 @@ namespace FluentHub.App.UserControls.Overview
         public UserProfileOverviewViewModel ViewModel
         {
             get => (UserProfileOverviewViewModel)GetValue(ViewModelProperty);
-            set
-            {
-                SetValue(ViewModelProperty, value);
-                if (ViewModel is not null)
-                    SelectItemByTag(ViewModel.SelectedTag);
-            }
+            set => SetValue(ViewModelProperty, value);
         }
         #endregion
 
@@ -37,66 +32,10 @@ namespace FluentHub.App.UserControls.Overview
 
         private readonly INavigationService navService;
 
-        private void SelectItemByTag(string tag)
-        {
-            var defaultItem
-                = UserProfileNavView
-                .MenuItems
-                .OfType<NavigationViewItem>()
-                .FirstOrDefault();
-
-            UserProfileNavView.SelectedItem
-                = UserProfileNavView
-                .MenuItems
-                .OfType<NavigationViewItem>()
-                .FirstOrDefault(x => string.Compare(x.Tag.ToString(), tag?.ToString(), true) == 0)
-                ?? defaultItem;
-        }
-
-        private void OnUserNavViewItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
-        {
-            var param = new Models.FrameNavigationParameter()
-            {
-                Login = ViewModel.User.Login,
-            };
-
-            switch (args.InvokedItemContainer.Tag.ToString().ToLower())
-            {
-                case "overview":
-                    navService.Navigate<Views.Users.OverviewPage>(param);
-                    break;
-                case "repositories":
-                    navService.Navigate<Views.Users.RepositoriesPage>(param);
-                    break;
-                case "stars":
-                    navService.Navigate<Views.Users.StarredReposPage>(param);
-                    break;
-                case "projects":
-                    navService.Navigate<Views.Users.ProjectsPage>(param);
-                    break;
-                case "packages":
-                    navService.Navigate<Views.Users.PackagesPage>(param);
-                    break;
-                case "organizations":
-                    navService.Navigate<Views.Users.OrganizationsPage>(param);
-                    break;
-                case "discussions":
-                    navService.Navigate<Views.Users.DiscussionsPage>(param);
-                    break;
-                case "followers":
-                    navService.Navigate<Views.Users.FollowersPage>(param);
-                    break;
-                case "following":
-                    navService.Navigate<Views.Users.FollowingPage>(param);
-                    break;
-            }
-        }
-
         private void OnUserFollowersButtonClick(object sender, RoutedEventArgs e)
         {
-            SelectItemByTag("followers");
             navService.Navigate<Views.Users.FollowersPage>(
-            new Models.FrameNavigationParameter()
+            new FrameNavigationParameter()
             {
                 Login = ViewModel.User.Login,
             });
@@ -104,9 +43,8 @@ namespace FluentHub.App.UserControls.Overview
 
         private void OnUserFollowingButtonClick(object sender, RoutedEventArgs e)
         {
-            SelectItemByTag("following");
             navService.Navigate<Views.Users.FollowingPage>(
-            new Models.FrameNavigationParameter()
+            new FrameNavigationParameter()
             {
                 Login = ViewModel.User.Login,
             });

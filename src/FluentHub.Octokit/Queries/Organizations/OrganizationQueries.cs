@@ -8,7 +8,7 @@
                 .Organization(org)
                 .Select(x => new Organization
                 {
-                    AvatarUrl = x.AvatarUrl(100),
+                    AvatarUrl = x.AvatarUrl(500),
                     Description = x.Description,
                     Email = x.Email,
                     Id = x.Id,

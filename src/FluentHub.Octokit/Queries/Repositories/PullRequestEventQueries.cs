@@ -15,7 +15,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -26,7 +26,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -36,7 +36,7 @@
                         User = assignee.Switch<User>(whenUser => whenUser
                         .User(user => new User
                         {
-                            AvatarUrl = user.AvatarUrl(100),
+                            AvatarUrl = user.AvatarUrl(500),
                             Login = user.Login,
                         }))
                     })
@@ -53,7 +53,7 @@
 
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -64,7 +64,7 @@
 
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -75,7 +75,7 @@
 
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -86,7 +86,7 @@
 
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -100,7 +100,7 @@
 
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -114,7 +114,7 @@
 
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -128,7 +128,7 @@
 
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -141,7 +141,7 @@
 
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -153,7 +153,7 @@
 
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -174,7 +174,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .Single(),
@@ -187,14 +187,14 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
 
                     DeletedCommentAuthor = y.DeletedCommentAuthor.Select(deletedAuthor => new Actor
                     {
-                        AvatarUrl = deletedAuthor.AvatarUrl(100),
+                        AvatarUrl = deletedAuthor.AvatarUrl(500),
                         Login = deletedAuthor.Login,
                     })
                     .SingleOrDefault(),
@@ -205,7 +205,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -250,7 +250,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .Single(),
@@ -263,7 +263,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -274,7 +274,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .Single(),
@@ -287,7 +287,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -336,7 +336,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -348,7 +348,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -373,7 +373,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -390,7 +390,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -437,7 +437,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -456,7 +456,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -481,7 +481,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -510,7 +510,7 @@
 
                     Author = y.Author.Select(author => new Actor
                     {
-                        AvatarUrl = author.AvatarUrl(100),
+                        AvatarUrl = author.AvatarUrl(500),
                         Login = author.Login,
                     })
                     .SingleOrDefault(),
@@ -535,7 +535,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -554,7 +554,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -567,7 +567,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -594,7 +594,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .Single(),
@@ -607,7 +607,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -626,7 +626,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -639,7 +639,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -650,7 +650,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -663,7 +663,7 @@
                     {
                         Author = y.Commit.Author.Select(actor => new GitActor
                         {
-                            AvatarUrl = actor.AvatarUrl(100),
+                            AvatarUrl = actor.AvatarUrl(500),
                             User = actor.User.Select(user => new User
                             {
                                 Login = user.Login,
@@ -685,7 +685,7 @@
                     {
                         Author = y.Commit.Author.Select(actor => new GitActor
                         {
-                            AvatarUrl = actor.AvatarUrl(100),
+                            AvatarUrl = actor.AvatarUrl(500),
                             User = actor.User.Select(user => new User
                             {
                                 Login = user.Login,
@@ -719,7 +719,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -730,7 +730,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -745,7 +745,7 @@
                     {
                         Owner = from.Owner.Select(owner => new RepositoryOwner
                         {
-                            AvatarUrl = owner.AvatarUrl(100),
+                            AvatarUrl = owner.AvatarUrl(500),
                             Login = owner.Login,
                         })
                         .SingleOrDefault(),
@@ -766,7 +766,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -779,7 +779,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -794,7 +794,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -807,7 +807,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -820,7 +820,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -830,7 +830,7 @@
                         User = reviewer.Switch<User>(whenUser => whenUser
                         .User(user => new User
                         {
-                            AvatarUrl = user.AvatarUrl(100),
+                            AvatarUrl = user.AvatarUrl(500),
                             Login = user.Login,
                         }))
                     })
@@ -842,7 +842,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -852,7 +852,7 @@
                         User = reviewer.Switch<User>(whenUser => whenUser
                         .User(user => new User
                         {
-                            AvatarUrl = user.AvatarUrl(100),
+                            AvatarUrl = user.AvatarUrl(500),
                             Login = user.Login,
                         }))
                     })
@@ -864,7 +864,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .Single(),
@@ -877,7 +877,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -886,7 +886,7 @@
                     {
                         Owner = from.Owner.Select(owner => new RepositoryOwner
                         {
-                            AvatarUrl = owner.AvatarUrl(100),
+                            AvatarUrl = owner.AvatarUrl(500),
                             Login = owner.Login,
                         })
                         .Single(),
@@ -901,7 +901,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -911,7 +911,7 @@
                         User = assignee.Switch<User>(whenUser => whenUser
                         .User(user => new User
                         {
-                            AvatarUrl = user.AvatarUrl(100),
+                            AvatarUrl = user.AvatarUrl(500),
                             Login = user.Login,
                         }))
                     })
@@ -923,7 +923,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -942,7 +942,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -953,7 +953,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -980,7 +980,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),
@@ -991,7 +991,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .Single(),
@@ -1004,7 +1004,7 @@
                 {
                     Actor = y.Actor.Select(actor => new Actor
                     {
-                        AvatarUrl = actor.AvatarUrl(100),
+                        AvatarUrl = actor.AvatarUrl(500),
                         Login = actor.Login,
                     })
                     .SingleOrDefault(),

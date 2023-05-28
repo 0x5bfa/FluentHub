@@ -28,7 +28,7 @@
 
                     Author = x.Author.Select(author => new GitActor
                     {
-                        AvatarUrl = author.AvatarUrl(100),
+                        AvatarUrl = author.AvatarUrl(500),
 
                         User = author.User.Select(user => new User
                         {
@@ -60,7 +60,7 @@
 
                         Signer = signature.Signer.Select(user => new User
                         {
-                            AvatarUrl = user.AvatarUrl(100),
+                            AvatarUrl = user.AvatarUrl(500),
                             Login = user.Login
                         })
                         .SingleOrDefault(),
@@ -102,7 +102,7 @@
 
                             Author = y.Author.Select(author => new GitActor
                             {
-                                AvatarUrl = author.AvatarUrl(100),
+                                AvatarUrl = author.AvatarUrl(500),
                                 User = author.User.Select(user => new User
                                 {
                                     Login = user.Login,

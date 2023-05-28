@@ -31,7 +31,7 @@
 
                         Owner = repo.Owner.Select(owner => new RepositoryOwner
                         {
-                            AvatarUrl = owner.AvatarUrl(100),
+                            AvatarUrl = owner.AvatarUrl(500),
                             Id = owner.Id,
                             Login = owner.Login,
                         })
@@ -45,7 +45,7 @@
 
                         Owner = repo.Owner.Select(owner => new RepositoryOwner
                         {
-                            AvatarUrl = owner.AvatarUrl(100),
+                            AvatarUrl = owner.AvatarUrl(500),
                             Login = owner.Login,
                         })
                         .SingleOrDefault(),

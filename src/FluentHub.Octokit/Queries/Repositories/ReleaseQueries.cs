@@ -19,7 +19,7 @@
                     Author = x.Author.Select(author => new User
                     {
                         Login = author.Login,
-                        AvatarUrl = author.AvatarUrl(100),
+                        AvatarUrl = author.AvatarUrl(500),
                     })
                     .Single(),
 
@@ -58,7 +58,7 @@
                     Author = x.Author.Select(author => new User
                     {
                         Login = author.Login,
-                        AvatarUrl = author.AvatarUrl(100),
+                        AvatarUrl = author.AvatarUrl(500),
                     })
                     .SingleOrDefault(),
 

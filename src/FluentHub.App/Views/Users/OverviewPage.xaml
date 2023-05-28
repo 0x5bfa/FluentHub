@@ -26,7 +26,7 @@
 
 		<Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadUserOverviewCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
 			<ScrollViewer VerticalScrollBarVisibility="Auto">
-				<Grid Margin="16" RowSpacing="8">
+				<Grid Padding="32,24">
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition
 							Width="*"
@@ -35,7 +35,10 @@
 						<ColumnDefinition Width="2*" />
 					</Grid.ColumnDefinitions>
 
-					<StackPanel />
+					<ov:UserProfileOverview
+						x:Name="UserProfileOverview"
+						Margin="0,0,24,0"
+						ViewModel="{x:Bind ViewModel.UserProfileOverviewViewModel, Mode=OneWay}" />
 
 					<StackPanel Grid.Column="1" Spacing="8">
 

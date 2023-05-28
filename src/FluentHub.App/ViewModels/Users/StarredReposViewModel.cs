@@ -125,6 +125,7 @@ namespace FluentHub.App.ViewModels.Users
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Stars";
             currentItem.Description = $"{User?.Login}'s stars";
+            currentItem.UserLogin = User?.Login;
             currentItem.Icon = new ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Starred.png"))

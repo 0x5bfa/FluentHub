@@ -20,7 +20,7 @@
 
                     Owner = x.Owner.Select(owner => new RepositoryOwner
                     {
-                        AvatarUrl = owner.AvatarUrl(100),
+                        AvatarUrl = owner.AvatarUrl(500),
                         Id = owner.Id,
                         Login = owner.Login,
                     })
@@ -58,7 +58,7 @@
 
                     Owner = x.Owner.Select(owner => new RepositoryOwner
                     {
-                        AvatarUrl = owner.AvatarUrl(100),
+                        AvatarUrl = owner.AvatarUrl(500),
                         Id = owner.Id,
                         Login = owner.Login,
                     })
@@ -96,7 +96,7 @@
 
                         Owner = x.Owner.Select(owner => new RepositoryOwner
                         {
-                            AvatarUrl = owner.AvatarUrl(100),
+                            AvatarUrl = owner.AvatarUrl(500),
                             Id = owner.Id,
                             Login = owner.Login,
                         })
@@ -123,7 +123,7 @@
 
                         Owner = x.Owner.Select(owner => new RepositoryOwner
                         {
-                            AvatarUrl = owner.AvatarUrl(100),
+                            AvatarUrl = owner.AvatarUrl(500),
                             Id = owner.Id,
                             Login = owner.Login,
                         })

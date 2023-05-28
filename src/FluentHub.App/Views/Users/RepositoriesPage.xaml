@@ -25,30 +25,23 @@
 
 		<Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadUserRepositoriesPageCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
 			<ScrollViewer VerticalScrollBarVisibility="Auto">
-				<Grid>
-					<Grid.RowDefinitions>
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="*" />
-					</Grid.RowDefinitions>
+				<Grid Padding="32,24">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition
+							x:Name="UserLoginOverviewColumn"
+							Width="*"
+							MinWidth="250"
+							MaxWidth="348" />
+						<ColumnDefinition Width="2*" />
+					</Grid.ColumnDefinitions>
 
 					<ov:UserProfileOverview
 						x:Name="UserProfileOverview"
-						Margin="0,0,8,8"
+						Margin="0,0,24,0"
 						x:Load="{x:Bind ViewModel.DisplayTitle, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
 						ViewModel="{x:Bind ViewModel.UserProfileOverviewViewModel, Mode=OneWay}" />
 
-					<Border
-						x:Name="ContentBackgroundFull"
-						Grid.Row="1"
-						x:Load="{x:Bind ViewModel.DisplayTitle, Mode=OneWay}" />
-
-					<Border
-						x:Name="ContentBackgroundRounded"
-						Grid.Row="1"
-						Margin="0,0,8,8"
-						x:Load="{x:Bind ViewModel.DisplayTitle, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}" />
-
-					<Grid Grid.Row="1" Padding="32,24">
+					<Grid Grid.Column="1">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto" />
 							<RowDefinition Height="Auto" />
@@ -142,6 +135,7 @@
 								TextAlignment="Center" />
 						</Grid>
 					</Grid>
+
 				</Grid>
 			</ScrollViewer>
 		</Grid>

@@ -8,7 +8,7 @@
                 .User(login)
                 .Select(x => new User
                 {
-                    AvatarUrl = x.AvatarUrl(100),
+                    AvatarUrl = x.AvatarUrl(500),
                     Bio = x.Bio,
                     Company = x.Company,
                     Email = x.Email,

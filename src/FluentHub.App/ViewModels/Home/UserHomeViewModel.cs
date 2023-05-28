@@ -9,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
 
-namespace FluentHub.App.ViewModels.Home
+namespace FluentHub.App.ViewModels.Viewers
 {
     public class UserHomeViewModel : ObservableObject
     {

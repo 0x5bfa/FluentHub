@@ -66,9 +66,9 @@ namespace FluentHub.App.Views
 
 			SubscribeEvents();
 
-			CustomTabViewControl.NewTabPage = typeof(Home.UserHomePage);
+			CustomTabViewControl.NewTabPage = typeof(Viewers.UserHomePage);
 			NavigationService.Configure(CustomTabViewControl);
-			NavigationService.Navigate<Home.UserHomePage>();
+			NavigationService.Navigate<Viewers.UserHomePage>();
 
 			var command = ViewModel.LoadSignedInUserCommand;
 			if (command.CanExecute(null))
@@ -151,7 +151,7 @@ namespace FluentHub.App.Views
 
         private void UserNotificationInBoxButton_Click(object sender, RoutedEventArgs e)
         {
-            NavigationService.Navigate<Home.NotificationsPage>();
+            NavigationService.Navigate<Viewers.NotificationsPage>();
         }
         #endregion
     }

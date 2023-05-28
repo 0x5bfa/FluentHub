@@ -11,7 +11,7 @@
                     .Nodes
                     .Select(x => new User
                     {
-                        AvatarUrl = x.AvatarUrl(100),
+                        AvatarUrl = x.AvatarUrl(500),
                         Name = x.Name,
                         Bio = x.Bio,
                         Login = x.Login,

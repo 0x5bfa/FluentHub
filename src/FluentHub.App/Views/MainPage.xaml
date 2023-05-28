@@ -137,10 +137,8 @@
 								Width="32"
 								Height="32"
 								Padding="0"
-								Click="LeftSideNavigationViewOpenerButton_Click">
-								<Button.Resources>
-									<SolidColorBrush x:Key="ButtonBackgroundDisabled" Color="Transparent" />
-								</Button.Resources>
+								Click="LeftSideNavigationViewOpenerButton_Click"
+								IsEnabled="False">
 								<Viewbox Width="16">
 									<AnimatedIcon>
 										<AnimatedIcon.Source>
@@ -252,7 +250,6 @@
 						Margin="0,-4,0,-12"
 						x:Load="{x:Bind CustomTabViewControl.SelectedItem.NavigationHistory.CurrentItem.IsNavigationBarShown, Mode=OneWay}"
 						IsBackButtonVisible="Collapsed"
-						IsEnabled="False"
 						IsPaneToggleButtonVisible="False"
 						IsSettingsVisible="False"
 						MenuItemsSource="{x:Bind CustomTabViewControl.SelectedItem.NavigationHistory.CurrentItem.NavigationBarItems, Mode=OneWay}"

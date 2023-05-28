@@ -3,6 +3,7 @@
 
 using FluentHub.App.Data.Items;
 using FluentHub.Core.Data.Enums;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.App.Services.Navigation
@@ -28,11 +29,33 @@ namespace FluentHub.App.Services.Navigation
         private IconSource? _Icon;
         public IconSource? Icon { get => _Icon; set => SetProperty(ref _Icon, value); }
 
+        private string? _UserLogin;
+        public string? UserLogin { get => _UserLogin; set => SetProperty(ref _UserLogin, value); }
+
+        private string? _RepositoryName;
+        public string? RepositoryName { get => _RepositoryName; set => SetProperty(ref _RepositoryName, value); }
+
         private ObservableCollection<NavigationBarItem>? _NavigationBarItems;
         public ObservableCollection<NavigationBarItem>? NavigationBarItems { get => _NavigationBarItems; set => SetProperty(ref _NavigationBarItems, value); }
 
         private NavigationBarItem? _SelectedNavigationBarItem;
-        public NavigationBarItem? SelectedNavigationBarItem { get => _SelectedNavigationBarItem; set => SetProperty(ref _SelectedNavigationBarItem, value); }
+        public NavigationBarItem? SelectedNavigationBarItem
+        {
+            get => _SelectedNavigationBarItem;
+            set
+            {
+                if (SetProperty(ref _SelectedNavigationBarItem, value) || UserLogin is not null)
+                {
+                    var service = App.Current.Services.GetRequiredService<INavigationService>();
+                    service.Navigate(
+                        SelectedNavigationBarItem.PageToNavigate,
+                        new Models.FrameNavigationParameter()
+                        {
+                            Login = UserLogin,
+                        });
+                }
+            }
+        }
 
         private NavigationBarPageKind _PageKind;
         public NavigationBarPageKind PageKind

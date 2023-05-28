@@ -32,7 +32,7 @@
 
                         Owner = repo.Owner.Select(owner => new RepositoryOwner
                         {
-                            AvatarUrl = owner.AvatarUrl(100),
+                            AvatarUrl = owner.AvatarUrl(500),
                             Id = owner.Id,
                             Login = owner.Login,
                         })
@@ -46,7 +46,7 @@
 
                         Owner = repo.Owner.Select(owner => new RepositoryOwner
                         {
-                            AvatarUrl = owner.AvatarUrl(100),
+                            AvatarUrl = owner.AvatarUrl(500),
                             Login = owner.Login,
                         })
                         .SingleOrDefault(),
@@ -130,7 +130,7 @@
                     {
                         Nodes = assignees.Nodes.Select(y => new User
                         {
-                            AvatarUrl = y.AvatarUrl(100),
+                            AvatarUrl = y.AvatarUrl(500),
                             Login = y.Login,
                         })
                         .ToList(),
@@ -169,7 +169,7 @@
 
                         Owner = repo.Owner.Select(owner => new RepositoryOwner
                         {
-                            AvatarUrl = owner.AvatarUrl(100),
+                            AvatarUrl = owner.AvatarUrl(500),
                             Login = owner.Login,
                         })
                         .SingleOrDefault(),
@@ -194,7 +194,7 @@
                         {
                             Author = latestReview.Author.Select(author => new Actor
                             {
-                                AvatarUrl = author.AvatarUrl(100),
+                                AvatarUrl = author.AvatarUrl(500),
                                 Login = author.Login,
                             })
                             .SingleOrDefault(),
@@ -214,7 +214,7 @@
                     {
                         Nodes = participants.Nodes.Select(y => new User
                         {
-                            AvatarUrl = y.AvatarUrl(100),
+                            AvatarUrl = y.AvatarUrl(500),
                             Login = y.Login,
                         })
                         .ToList(),
@@ -237,7 +237,7 @@
 
                         Owner = repo.Owner.Select(owner => new RepositoryOwner
                         {
-                            AvatarUrl = owner.AvatarUrl(100),
+                            AvatarUrl = owner.AvatarUrl(500),
                             Id = owner.Id,
                             Login = owner.Login,
                         })
@@ -254,7 +254,7 @@
                                 User = requestedReviewer.Switch<User>(whenUser => whenUser
                                 .User(user => new User
                                 {
-                                    AvatarUrl = user.AvatarUrl(100),
+                                    AvatarUrl = user.AvatarUrl(500),
                                     Login = user.Login,
                                 })),
                             })
@@ -305,7 +305,7 @@
                     Author = x.Author.Select(author => new Actor
                     {
                         Login = author.Login,
-                        AvatarUrl = author.AvatarUrl(100),
+                        AvatarUrl = author.AvatarUrl(500),
                     })
                     .SingleOrDefault(),
 

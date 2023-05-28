@@ -1,5 +1,5 @@
 ﻿<Page
-	x:Class="FluentHub.App.Views.Home.ActivitiesPage"
+	x:Class="FluentHub.App.Views.Viewers.ActivitiesPage"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:converters="using:FluentHub.App.Converters"

@@ -1,11 +1,11 @@
 using FluentHub.App.Services;
 using FluentHub.App.Utils;
-using FluentHub.App.ViewModels.Home;
+using FluentHub.App.ViewModels.Viewers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 
-namespace FluentHub.App.Views.Home
+namespace FluentHub.App.Views.Viewers
 {
     public sealed partial class NotificationsPage : Page
     {

@@ -1,12 +1,12 @@
 using FluentHub.App.Models;
 using FluentHub.App.Services;
-using FluentHub.App.ViewModels.Home;
+using FluentHub.App.ViewModels.Viewers;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 
-namespace FluentHub.App.Views.Home
+namespace FluentHub.App.Views.Viewers
 {
     public sealed partial class UserHomePage : Page
     {

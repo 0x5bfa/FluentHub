@@ -126,6 +126,7 @@ namespace FluentHub.App.ViewModels.Users
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Repositories";
             currentItem.Description = $"{Login}'s repositories";
+            currentItem.UserLogin = User?.Login;
             currentItem.Icon = new ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.png"))

@@ -19,7 +19,7 @@
 
                     Author = new()
                     {
-                        AvatarUrl = y.Author.AvatarUrl(100),
+                        AvatarUrl = y.Author.AvatarUrl(500),
                         User = y.Author.User.Select(user => new User
                         {
                             Login = user.Login,
