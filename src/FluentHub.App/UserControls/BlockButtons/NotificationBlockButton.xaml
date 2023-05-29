@@ -48,83 +48,85 @@
 				Opacity="0.1"
 				Visibility="{x:Bind ViewModel.Item.Unread, Mode=OneWay}" />
 
-			<Grid Margin="0,0,8,0">
-				<toolkit:SwitchPresenter TargetType="x:String" Value="{x:Bind ViewModel.Item.Subject.TypeHumanized, Mode=OneWay}">
+			<toolkit:SwitchPresenter
+				Width="22"
+				Margin="8,0,12,0"
+				TargetType="x:String"
+				Value="{x:Bind ViewModel.Item.Subject.TypeHumanized, Mode=OneWay}">
 
-					<toolkit:Case Value="IssueClosedAsCompleted">
-						<FontIcon
-							FontFamily="{StaticResource Octicons}"
-							FontSize="22"
-							Foreground="{StaticResource PrimerDoneForeground}"
-							Glyph="&#xE9E6;" />
-					</toolkit:Case>
+				<toolkit:Case Value="IssueClosedAsCompleted">
+					<FontIcon
+						FontFamily="{StaticResource Octicons}"
+						FontSize="22"
+						Foreground="{StaticResource PrimerDoneForeground}"
+						Glyph="&#xE9E6;" />
+				</toolkit:Case>
 
-					<toolkit:Case Value="IssueClosedAsNotPlanned">
-						<FontIcon
-							FontFamily="{StaticResource Octicons}"
-							FontSize="22"
-							Foreground="{StaticResource PrimerNeutralEmphasis}"
-							Glyph="&#xEA84;" />
-					</toolkit:Case>
+				<toolkit:Case Value="IssueClosedAsNotPlanned">
+					<FontIcon
+						FontFamily="{StaticResource Octicons}"
+						FontSize="22"
+						Foreground="{StaticResource PrimerNeutralEmphasis}"
+						Glyph="&#xEA84;" />
+				</toolkit:Case>
 
-					<toolkit:Case Value="IssueOpen">
-						<FontIcon
-							FontFamily="{StaticResource Octicons}"
-							FontSize="22"
-							Foreground="{StaticResource PrimerOpenForeground}"
-							Glyph="&#xE9EA;" />
-					</toolkit:Case>
+				<toolkit:Case Value="IssueOpen">
+					<FontIcon
+						FontFamily="{StaticResource Octicons}"
+						FontSize="22"
+						Foreground="{StaticResource PrimerOpenForeground}"
+						Glyph="&#xE9EA;" />
+				</toolkit:Case>
 
-					<toolkit:Case Value="PullRequestClosed">
-						<FontIcon
-							FontFamily="{StaticResource Octicons}"
-							FontSize="22"
-							Foreground="{StaticResource PrimerClosedForeground}"
-							Glyph="&#xE9C1;" />
-					</toolkit:Case>
+				<toolkit:Case Value="PullRequestClosed">
+					<FontIcon
+						FontFamily="{StaticResource Octicons}"
+						FontSize="22"
+						Foreground="{StaticResource PrimerClosedForeground}"
+						Glyph="&#xE9C1;" />
+				</toolkit:Case>
 
-					<toolkit:Case Value="PullRequestMerged">
-						<FontIcon
-							FontFamily="{StaticResource Octicons}"
-							FontSize="22"
-							Foreground="{StaticResource PrimerDoneForeground}"
-							Glyph="&#xE9BD;" />
-					</toolkit:Case>
+				<toolkit:Case Value="PullRequestMerged">
+					<FontIcon
+						FontFamily="{StaticResource Octicons}"
+						FontSize="22"
+						Foreground="{StaticResource PrimerDoneForeground}"
+						Glyph="&#xE9BD;" />
+				</toolkit:Case>
 
-					<toolkit:Case Value="PullRequestDraft">
-						<FontIcon
-							FontFamily="{StaticResource Octicons}"
-							FontSize="22"
-							Foreground="{StaticResource PrimerNeutralEmphasis}"
-							Glyph="&#xE9C3;" />
-					</toolkit:Case>
+				<toolkit:Case Value="PullRequestDraft">
+					<FontIcon
+						FontFamily="{StaticResource Octicons}"
+						FontSize="22"
+						Foreground="{StaticResource PrimerNeutralEmphasis}"
+						Glyph="&#xE9C3;" />
+				</toolkit:Case>
 
-					<toolkit:Case Value="PullRequestOpen">
-						<FontIcon
-							FontFamily="{StaticResource Octicons}"
-							FontSize="22"
-							Foreground="{StaticResource PrimerOpenForeground}"
-							Glyph="&#xE9BF;" />
-					</toolkit:Case>
+				<toolkit:Case Value="PullRequestOpen">
+					<FontIcon
+						FontFamily="{StaticResource Octicons}"
+						FontSize="22"
+						Foreground="{StaticResource PrimerOpenForeground}"
+						Glyph="&#xE9BF;" />
+				</toolkit:Case>
 
-					<toolkit:Case Value="Discussion">
-						<FontIcon
-							FontFamily="{StaticResource Octicons}"
-							FontSize="22"
-							Foreground="{StaticResource PrimerNeutralEmphasis}"
-							Glyph="&#xE95D;" />
-					</toolkit:Case>
+				<toolkit:Case Value="Discussion">
+					<FontIcon
+						FontFamily="{StaticResource Octicons}"
+						FontSize="22"
+						Foreground="{StaticResource PrimerNeutralEmphasis}"
+						Glyph="&#xE95D;" />
+				</toolkit:Case>
 
-					<toolkit:Case Value="Commit">
-						<FontIcon
-							FontFamily="{StaticResource Octicons}"
-							FontSize="22"
-							Foreground="{StaticResource PrimerNeutralEmphasis}"
-							Glyph="&#xE9B9;" />
-					</toolkit:Case>
+				<toolkit:Case Value="Commit">
+					<FontIcon
+						FontFamily="{StaticResource Octicons}"
+						FontSize="22"
+						Foreground="{StaticResource PrimerNeutralEmphasis}"
+						Glyph="&#xE9B9;" />
+				</toolkit:Case>
 
-				</toolkit:SwitchPresenter>
-			</Grid>
+			</toolkit:SwitchPresenter>
 
 			<Grid Grid.Column="1">
 				<Grid.RowDefinitions>

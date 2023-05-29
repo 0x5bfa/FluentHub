@@ -33,7 +33,7 @@ namespace FluentHub.App
             AppWindow.TitleBar.ButtonBackgroundColor = Colors.Transparent;
             AppWindow.TitleBar.ButtonInactiveBackgroundColor = Colors.Transparent;
             PersistenceId = "FluentHubMainWindow";
-            MinHeight = 328;
+            MinHeight = 516;
             MinWidth = 516;
         }
 

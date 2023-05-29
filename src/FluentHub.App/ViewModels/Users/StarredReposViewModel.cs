@@ -8,6 +8,7 @@ using FluentHub.App.Utils;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
+using Microsoft.UI.Xaml;
 
 namespace FluentHub.App.ViewModels.Users
 {
