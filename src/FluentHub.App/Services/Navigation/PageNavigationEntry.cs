@@ -44,7 +44,7 @@ namespace FluentHub.App.Services.Navigation
             get => _SelectedNavigationBarItem;
             set
             {
-                if (SetProperty(ref _SelectedNavigationBarItem, value) || UserLogin is not null)
+                if (value is not null && SetProperty(ref _SelectedNavigationBarItem, value) && UserLogin is not null)
                 {
                     var service = App.Current.Services.GetRequiredService<INavigationService>();
                     service.Navigate(
