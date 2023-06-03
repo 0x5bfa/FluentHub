@@ -3,7 +3,6 @@
 
 using FluentHub.App.Utils;
 using FluentHub.App.Services;
-using FluentHub.App.Services.Navigation;
 using FluentHub.App.ViewModels;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI;
@@ -14,6 +13,7 @@ using Microsoft.Windows.AppLifecycle;
 using Windows.ApplicationModel;
 using Windows.Storage;
 using CommunityToolkit.WinUI;
+using FluentHub.App.ViewModels.Repositories.Codes;
 
 namespace FluentHub.App
 {
@@ -68,8 +68,8 @@ namespace FluentHub.App
                 .AddTransient<ViewModels.Viewers.UserHomeViewModel>()
                 .AddTransient<ViewModels.Organizations.OverviewViewModel>()
                 .AddTransient<ViewModels.Organizations.RepositoriesViewModel>()
-                .AddTransient<ViewModels.Repositories.Code.Layouts.DetailsLayoutViewModel>()
-                .AddTransient<ViewModels.Repositories.Code.Layouts.TreeLayoutViewModel>()
+                .AddTransient<DetailsLayoutViewModel>()
+                .AddTransient<TreeLayoutViewModel>()
                 .AddTransient<ViewModels.Repositories.Commits.CommitsViewModel>()
                 .AddTransient<ViewModels.Repositories.Commits.CommitViewModel>()
                 .AddTransient<ViewModels.Repositories.Discussions.DiscussionsViewModel>()

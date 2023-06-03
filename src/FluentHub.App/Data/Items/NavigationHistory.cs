@@ -1,16 +1,15 @@
 using FluentHub.App.Services;
-using FluentHub.App.Services.Navigation;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
 
-namespace FluentHub.App.Utils
+namespace FluentHub.App.Data.Items
 {
     public class NavigationHistory : ObservableObject
     {
         public NavigationHistory()
         {
-            _Items = new ObservableCollection<PageNavigationEntry>();
-            Items = new ReadOnlyObservableCollection<PageNavigationEntry>(_Items);
+            _Items = new();
+            Items = new(_Items);
 
             _CanGoBack = _CanGoForward = false;
             _CurrentItem = default;

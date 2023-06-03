@@ -1,4 +1,4 @@
-using FluentHub.App.Models;
+using FluentHub.App.Data.Parameters;
 using FluentHub.App.Services;
 using FluentHub.App.ViewModels.UserControls;
 using Microsoft.Extensions.DependencyInjection;
@@ -52,7 +52,7 @@ namespace FluentHub.App.UserControls
         {
             var navigation = App.Current.Services.GetRequiredService<INavigationService>();
             var page = typeof(Views.Searches.RepositoriesPage);
-            Models.FrameNavigationParameter param = new()
+            FrameNavigationParameter param = new()
             {
                 Parameters = new() { SearchTerm }
             };

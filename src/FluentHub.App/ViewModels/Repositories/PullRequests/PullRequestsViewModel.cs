@@ -82,7 +82,7 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
         private async Task LoadRepositoryPullRequestsAsync(string owner, string name)
         {
             PullRequestQueries queries = new();
-            var items = await queries.GetAllAsync(owner, name);
+            var items = await queries.GetAllAsync(name, owner);
             if (items == null) return;
 
             _pullRequests.Clear();
@@ -119,6 +119,8 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
             INavigationService navigationService = provider.GetRequiredService<INavigationService>();
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.UserLogin = Repository.Owner.Login;
+            currentItem.RepositoryName = Repository.Name;
             currentItem.Header = "Discussions";
             currentItem.Description = "Discussions";
             currentItem.Icon = new ImageIconSource

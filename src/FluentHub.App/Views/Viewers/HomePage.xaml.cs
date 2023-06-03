@@ -35,14 +35,14 @@ namespace FluentHub.App.Views.Viewers
 
             var param = new FrameNavigationParameter()
             {
-                Login = clickedItem.Owner.Login,
-                Name = clickedItem.Name,
+                UserLogin = clickedItem.Owner.Login,
+                RepositoryName = clickedItem.Name,
             };
 
             if (App.AppSettings.UseDetailsView)
-                _navigation.Navigate<Repositories.Code.Layouts.DetailsLayoutView>(param);
+                _navigation.Navigate<Repositories.Code.DetailsLayoutView>(param);
             else
-                _navigation.Navigate<Repositories.Code.Layouts.TreeLayoutView>(param);
+                _navigation.Navigate<Repositories.Code.TreeLayoutView>(param);
         }
 
         private void OnOneFolderCardClick(object sender, RoutedEventArgs e)
@@ -50,7 +50,7 @@ namespace FluentHub.App.Views.Viewers
             var clickedButton = sender as Button;
             var param = new FrameNavigationParameter()
             {
-                Login = App.AppSettings.SignedInUserName,
+                UserLogin = App.AppSettings.SignedInUserName,
                 AsViewer = true,
             };
 
@@ -92,8 +92,8 @@ namespace FluentHub.App.Views.Viewers
 					_navigation.Navigate<Repositories.Issues.IssuePage>(
 					new FrameNavigationParameter()
 					{
-						Login = notification.Repository.Owner.Login,
-						Name = notification.Repository.Name,
+						UserLogin = notification.Repository.Owner.Login,
+						RepositoryName = notification.Repository.Name,
 						Number = notification.Subject.Number,
 					});
 					break;
@@ -104,8 +104,8 @@ namespace FluentHub.App.Views.Viewers
 					_navigation.Navigate<Repositories.PullRequests.ConversationPage>(
 					new FrameNavigationParameter()
 					{
-						Login = notification.Repository.Owner.Login,
-						Name = notification.Repository.Name,
+						UserLogin = notification.Repository.Owner.Login,
+						RepositoryName = notification.Repository.Name,
 						Number = notification.Subject.Number,
 					});
 					break;

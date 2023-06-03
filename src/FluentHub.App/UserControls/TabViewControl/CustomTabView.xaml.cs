@@ -1,7 +1,6 @@
 // Copyright (c) FluentHub
 // Licensed under the MIT License. See the LICENSE.
 
-using FluentHub.App.Services.Navigation;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
@@ -73,7 +72,7 @@ namespace FluentHub.App.UserControls.TabViewControl
 
         public ITabViewItem OpenTab(Type? page = null, object? parameter = null, bool setAsSelected = true)
         {
-            ITabViewItem tab = new TabItem();
+            ITabViewItem tab = new Data.Items.TabViewItem();
             _TabItems.Add(tab);
 
             if (setAsSelected)

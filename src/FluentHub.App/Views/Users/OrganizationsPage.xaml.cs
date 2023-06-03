@@ -8,6 +8,7 @@ using System;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
 using Microsoft.UI.Xaml.Navigation;
+using FluentHub.App.Data.Parameters;
 
 namespace FluentHub.App.Views.Users
 {
@@ -28,17 +29,17 @@ namespace FluentHub.App.Views.Users
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var parameter = (Models.FrameNavigationParameter)e.Parameter;
+            var parameter = (FrameNavigationParameter)e.Parameter;
 
-            ViewModel.Login = parameter.Login
-                ?? throw new ArgumentNullException(nameof(parameter.Login), "Login parameter cannot be null in this context.");
+            ViewModel.Login = parameter.UserLogin
+                ?? throw new ArgumentNullException(nameof(parameter.UserLogin), "Login parameter cannot be null in this context.");
 
             if (parameter.AsViewer)
             {
                 ViewModel.DisplayTitle = true;
 
-                var currentTabItem = _navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-                currentTabItem.PageKind = Core.Data.Enums.NavigationBarPageKind.None;
+                var currentTabItem = _navigationService.TabView.SelectedItem;
+                currentTabItem.PageKind = NavigationBarPageKind.None;
             }
 
             var command = ViewModel.LoadUserOrganizationsPageCommand;

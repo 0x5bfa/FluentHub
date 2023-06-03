@@ -1,18 +1,16 @@
 // Copyright (c) FluentHub
 // Licensed under the MIT License. See the LICENSE.
 
-using FluentHub.App.Services;
 using FluentHub.App.ViewModels.Users;
-using FluentHub.Core.Data.Enums;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Media.Imaging;
 using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.App.Views.Users
 {
     public sealed partial class OverviewPage : LocatablePage
     {
+        public OverviewViewModel ViewModel { get; }
+
         public OverviewPage()
             : base(NavigationBarPageKind.User, NavigationBarItemKey.Overview)
         {
@@ -22,21 +20,17 @@ namespace FluentHub.App.Views.Users
             ViewModel = provider.GetRequiredService<OverviewViewModel>();
         }
 
-        public OverviewViewModel ViewModel { get; }
-
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var param = e.Parameter as Models.FrameNavigationParameter;
-            _ = param ?? throw new ArgumentNullException("param");
+            var param = (FrameNavigationParameter)e.Parameter;
 
-            ViewModel.Login = param.Login;
+            ViewModel.Login = param.UserLogin;
 
-            ViewModel.ContextViewModel = new ViewModels.Repositories.RepoContextViewModel()
+            ViewModel.ContextViewModel = new()
             {
                 Repository = new()
                 {
                     Name = ViewModel.Login,
-
                     Owner = new RepositoryOwner()
                     {
                         Login = ViewModel.Login,

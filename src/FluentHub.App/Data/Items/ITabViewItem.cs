@@ -1,11 +1,10 @@
 // Copyright (c) FluentHub
 // Licensed under the MIT License. See the LICENSE.
 
-using FluentHub.App.Utils;
 using Microsoft.UI.Xaml.Controls;
 using System.ComponentModel;
 
-namespace FluentHub.App.Services.Navigation
+namespace FluentHub.App.Data.Items
 {
     public interface ITabViewItem : INotifyPropertyChanged
     {
@@ -14,5 +13,13 @@ namespace FluentHub.App.Services.Navigation
         Frame Frame { get; }
 
         NavigationHistory NavigationHistory { get; }
+
+        public ObservableCollection<NavigationBarItem>? NavigationBarItems { get; set; }
+
+        public NavigationBarItem? SelectedNavigationBarItem { get; set; }
+
+        public NavigationBarPageKind PageKind { get; set; }
+
+        public bool IsNavigationBarShown { get; }
     }
 }

@@ -1,4 +1,4 @@
-using FluentHub.App.Models;
+using FluentHub.App.Data.Parameters;
 using FluentHub.App.Services;
 using FluentHub.App.ViewModels.UserControls.Overview;
 using Microsoft.Extensions.DependencyInjection;
@@ -57,9 +57,9 @@ namespace FluentHub.App.UserControls.Overview
         private void OnSettingsNavViewItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
             // Parameter (should not use)
-            Models.FrameNavigationParameter parameter = new()
+            FrameNavigationParameter parameter = new()
             {
-                Login = ViewModel?.User?.Login,
+                UserLogin = ViewModel?.User?.Login,
             };
 
             switch (args.InvokedItemContainer.Tag.ToString().ToLower())

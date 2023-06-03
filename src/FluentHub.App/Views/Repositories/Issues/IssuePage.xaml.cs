@@ -1,4 +1,7 @@
-using FluentHub.App.Models;
+// Copyright (c) FluentHub
+// Licensed under the MIT License. See the LICENSE.
+
+using FluentHub.App.Data.Parameters;
 using FluentHub.App.Services;
 using FluentHub.App.ViewModels.Repositories.Issues;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,9 +12,14 @@ using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.App.Views.Repositories.Issues
 {
-    public sealed partial class IssuePage : Page
+    public sealed partial class IssuePage : LocatablePage
     {
+        public IssueViewModel ViewModel { get; }
+
+        private readonly INavigationService _navigation;
+
         public IssuePage()
+            : base(NavigationBarPageKind.Repository, NavigationBarItemKey.Issues)
         {
             InitializeComponent();
 
@@ -19,9 +27,6 @@ namespace FluentHub.App.Views.Repositories.Issues
             ViewModel = provider.GetRequiredService<IssueViewModel>();
             _navigation = provider.GetRequiredService<INavigationService>();
         }
-
-        public IssueViewModel ViewModel { get; }
-        private readonly INavigationService _navigation;
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -32,8 +37,8 @@ namespace FluentHub.App.Views.Repositories.Issues
                 throw new ArgumentNullException(nameof(param), "OnNavigateTo() failed to load.");
             }
 
-            ViewModel.Login = param.Login;
-            ViewModel.Name = param.Name;
+            ViewModel.Login = param.UserLogin;
+            ViewModel.Name = param.RepositoryName;
             ViewModel.Number = param.Number;
 
             var command = ViewModel.LoadRepositoryIssuePageCommand;

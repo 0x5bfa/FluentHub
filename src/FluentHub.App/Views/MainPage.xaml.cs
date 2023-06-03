@@ -4,7 +4,6 @@
 using FluentHub.App.Helpers;
 using FluentHub.App.Models;
 using FluentHub.App.Services;
-using FluentHub.App.Services.Navigation;
 using FluentHub.App.ViewModels;
 using FluentHub.App.Utils;
 using Microsoft.Extensions.DependencyInjection;

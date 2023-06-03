@@ -1,13 +1,11 @@
 // Copyright (c) FluentHub
 // Licensed under the MIT License. See the LICENSE.
 
-using FluentHub.App.Data.Items;
 using FluentHub.App.Utils;
-using FluentHub.Core.Data.Enums;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
 
-namespace FluentHub.App.Services.Navigation
+namespace FluentHub.App.Services
 {
     public class NavigationService : ObservableObject, INavigationService
     {

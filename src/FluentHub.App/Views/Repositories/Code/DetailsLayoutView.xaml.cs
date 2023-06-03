@@ -1,20 +1,23 @@
+// Copyright (c) FluentHub
+// Licensed under the MIT License. See the LICENSE.
+
 using FluentHub.App.Models;
-using FluentHub.App.Services;
-using FluentHub.App.Services.Navigation;
-using FluentHub.App.ViewModels;
-using FluentHub.App.ViewModels.Repositories.Code.Layouts;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
-using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Navigation;
-using Microsoft.UI.Xaml.Media.Imaging;
+using FluentHub.App.ViewModels.Repositories.Codes;
 
-namespace FluentHub.App.Views.Repositories.Code.Layouts
+namespace FluentHub.App.Views.Repositories.Code
 {
-    public sealed partial class DetailsLayoutView : Page
+    public sealed partial class DetailsLayoutView : LocatablePage
     {
+        public DetailsLayoutViewModel ViewModel { get; }
+
+        private readonly INavigationService _navigation;
+
         public DetailsLayoutView()
+            : base(NavigationBarPageKind.Repository, NavigationBarItemKey.Code)
         {
             InitializeComponent();
 
@@ -23,14 +26,11 @@ namespace FluentHub.App.Views.Repositories.Code.Layouts
             _navigation = App.Current.Services.GetRequiredService<INavigationService>();
         }
 
-        public DetailsLayoutViewModel ViewModel { get; }
-        private readonly INavigationService _navigation;
-
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var param = e.Parameter as FrameNavigationParameter;
-            ViewModel.Login = param.Login;
-            ViewModel.Name = param.Name;
+            var param = (FrameNavigationParameter)e.Parameter;
+            ViewModel.Login = param.UserLogin;
+            ViewModel.Name = param.RepositoryName;
 
             if (param.Parameters is not null)
                 ViewModel.CurrentPath = param.Parameters.ElementAtOrDefault(0) as string;
@@ -59,8 +59,8 @@ namespace FluentHub.App.Views.Repositories.Code.Layouts
             _navigation.Navigate<DetailsLayoutView>(
                 new FrameNavigationParameter()
                 {
-                    Login = ViewModel.Repository.Owner.Login,
-                    Name = ViewModel.Repository.Name,
+                    UserLogin = ViewModel.Repository.Owner.Login,
+                    RepositoryName = ViewModel.Repository.Name,
                     Parameters = param,
                 });
         }
@@ -70,8 +70,8 @@ namespace FluentHub.App.Views.Repositories.Code.Layouts
             _navigation.Navigate<Views.Repositories.Releases.ReleasesPage>(
                 new FrameNavigationParameter()
                 {
-                    Login = ViewModel.Repository.Owner.Login,
-                    Name = ViewModel.Repository.Name,
+                    UserLogin = ViewModel.Repository.Owner.Login,
+                    RepositoryName = ViewModel.Repository.Name,
                     Parameters = new() { ViewModel.ContextViewModel },
                 });
         }

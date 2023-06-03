@@ -1,3 +1,4 @@
+using FluentHub.App.Data.Parameters;
 using FluentHub.App.Services;
 using FluentHub.App.ViewModels.Searches;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,7 +22,7 @@ namespace FluentHub.App.Views.Searches
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var param = e.Parameter as Models.FrameNavigationParameter;
+            var param = e.Parameter as FrameNavigationParameter;
             ViewModel.SearchTerm = param.Parameters.ElementAtOrDefault(0) as string;
 
             var command = ViewModel.LoadSearchIssuesPageCommand;

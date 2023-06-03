@@ -28,11 +28,7 @@
 		</ResourceDictionary>
 	</UserControl.Resources>
 
-	<Grid
-		Background="{ThemeResource LayerFillColorDefaultBrush}"
-		BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-		BorderThickness="1"
-		CornerRadius="8">
+	<Grid>
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
 			<RowDefinition Height="Auto" />

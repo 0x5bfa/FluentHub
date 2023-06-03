@@ -125,11 +125,11 @@ namespace FluentHub.App.UserControls
             List<object> param = new();
             param.Add($"{objType}/{ViewModel.ContextViewModel.BranchName}{path}");
 
-            navService.Navigate<Views.Repositories.Code.Layouts.DetailsLayoutView>(
-                new Models.FrameNavigationParameter()
+            navService.Navigate<Views.Repositories.Code.DetailsLayoutView>(
+                new FrameNavigationParameter()
                 {
-                    Login = ViewModel.ContextViewModel.Repository.Owner.Login,
-                    Name = ViewModel.ContextViewModel.Repository.Name,
+                    UserLogin = ViewModel.ContextViewModel.Repository.Owner.Login,
+                    RepositoryName = ViewModel.ContextViewModel.Repository.Name,
                     Parameters = param,
                 });
         }

@@ -1,8 +1,5 @@
-using FluentHub.App.Helpers;
-using FluentHub.App.Models;
-using FluentHub.App.Services;
-using FluentHub.App.Utils;
-using Microsoft.Extensions.DependencyInjection;
+// Copyright (c) FluentHub
+// Licensed under the MIT License. See the LICENSE.
 
 namespace FluentHub.App.ViewModels.UserControls.Overview
 {

@@ -5,7 +5,7 @@ using FluentHub.App.ViewModels.UserControls.Overview;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
 
-namespace FluentHub.App.ViewModels.Repositories.Code.Layouts
+namespace FluentHub.App.ViewModels.Repositories.Codes
 {
     public class DetailsLayoutViewModel : ObservableObject
     {
@@ -223,7 +223,7 @@ namespace FluentHub.App.ViewModels.Repositories.Code.Layouts
             string description;
             string url;
             ImageIconSource icon;
-            
+
             if (ContextViewModel.IsRootDir)
             {
                 if (string.IsNullOrEmpty(Repository.Description))
@@ -249,6 +249,13 @@ namespace FluentHub.App.ViewModels.Repositories.Code.Layouts
             };
 
             NavigationHistory.SetCurrentItem(header, description, url, icon);
+
+            var provider = App.Current.Services;
+            INavigationService navigationService = provider.GetRequiredService<INavigationService>();
+            var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+
+            currentItem.UserLogin = Repository.Owner.Login;
+            currentItem.RepositoryName = Repository.Name;
         }
     }
 }

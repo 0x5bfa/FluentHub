@@ -37,7 +37,7 @@ namespace FluentHub.App.UserControls.Overview
             navService.Navigate<Views.Users.FollowersPage>(
             new FrameNavigationParameter()
             {
-                Login = ViewModel.User.Login,
+                UserLogin = ViewModel.User.Login,
             });
         }
 
@@ -46,7 +46,7 @@ namespace FluentHub.App.UserControls.Overview
             navService.Navigate<Views.Users.FollowingPage>(
             new FrameNavigationParameter()
             {
-                Login = ViewModel.User.Login,
+                UserLogin = ViewModel.User.Login,
             });
         }
 

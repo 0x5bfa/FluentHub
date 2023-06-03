@@ -1,7 +1,6 @@
-using FluentHub.App.Helpers;
-using FluentHub.App.Services;
-using FluentHub.App.Models;
-using FluentHub.App.Utils;
+// Copyright (c) FluentHub
+// Licensed under the MIT License. See the LICENSE.
+
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows.Input;
 
@@ -33,14 +32,14 @@ namespace FluentHub.App.ViewModels.UserControls.BlockButtons
 
             var parameter = new FrameNavigationParameter()
             {
-                Login = Repository.Owner.Login,
-                Name = Repository.Name,
+                UserLogin = Repository.Owner.Login,
+                RepositoryName = Repository.Name,
             };
 
             if (App.AppSettings.UseDetailsView)
-                _navigation.Navigate<Views.Repositories.Code.Layouts.DetailsLayoutView>(parameter);
+                _navigation.Navigate<Views.Repositories.Code.DetailsLayoutView>(parameter);
             else
-                _navigation.Navigate<Views.Repositories.Code.Layouts.TreeLayoutView>(parameter);
+                _navigation.Navigate<Views.Repositories.Code.TreeLayoutView>(parameter);
         }
     }
 }

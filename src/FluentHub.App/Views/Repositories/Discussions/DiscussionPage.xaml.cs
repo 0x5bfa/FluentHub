@@ -1,4 +1,4 @@
-using FluentHub.App.Models;
+using FluentHub.App.Data.Parameters;
 using FluentHub.App.Services;
 using FluentHub.App.ViewModels.Repositories.Discussions;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,8 +25,8 @@ namespace FluentHub.App.Views.Repositories.Discussions
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var param = e.Parameter as FrameNavigationParameter;
-            ViewModel.Login = param.Login;
-            ViewModel.Name = param.Name;
+            ViewModel.Login = param.UserLogin;
+            ViewModel.Name = param.RepositoryName;
             ViewModel.Number = param.Number;
 
             var command = ViewModel.LoadRepositoryDiscussionPageCommand;

@@ -42,9 +42,9 @@ namespace FluentHub.App.UserControls.BlockButtons
             else
             {
                 service.Navigate<Views.Users.OverviewPage>(
-                    new Models.FrameNavigationParameter()
+                    new FrameNavigationParameter()
                     {
-                        Login = ViewModel.User.Login,
+                        UserLogin = ViewModel.User.Login,
                     });
             }
         }

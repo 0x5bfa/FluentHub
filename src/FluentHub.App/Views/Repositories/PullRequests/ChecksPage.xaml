@@ -1,4 +1,4 @@
-﻿<Page
+﻿<views:LocatablePage
 	x:Class="FluentHub.App.Views.Repositories.PullRequests.ChecksPage"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -14,9 +14,10 @@
 	xmlns:ov="using:FluentHub.App.UserControls.Overview"
 	xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
 	xmlns:uc="using:FluentHub.App.UserControls"
+	xmlns:views="using:FluentHub.App.Views"
 	mc:Ignorable="d">
 
-	<Page.Resources>
+	<views:LocatablePage.Resources>
 		<ResourceDictionary>
 			<!--<SolidColorBrush x:Key="ExpanderHeaderBackground" Color="Transparent" />
             <SolidColorBrush x:Key="ExpanderHeaderBorderBrush" Color="Transparent" />
@@ -37,20 +38,18 @@
 			<converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
 			<converters:ObjectToStringConverter x:Key="ObjectToStringConverter" />
 		</ResourceDictionary>
-	</Page.Resources>
+	</views:LocatablePage.Resources>
 
 	<Grid>
 
 		<Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryPullRequestChecksPageCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
 			<ScrollViewer VerticalScrollBarVisibility="Auto">
-				<Grid Margin="0,0,8,8" RowSpacing="8">
+				<Grid RowSpacing="8">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="*" />
 					</Grid.RowDefinitions>
-
-					<ov:RepositoryOverview ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
 
 					<ov:PullRequestOverview Grid.Row="1" ViewModel="{x:Bind ViewModel.PullRequestOverviewViewModel, Mode=OneWay}" />
 
@@ -447,4 +446,4 @@
 		</Grid>
 
 	</Grid>
-</Page>
+</views:LocatablePage>

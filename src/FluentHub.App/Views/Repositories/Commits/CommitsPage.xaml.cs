@@ -1,4 +1,3 @@
-using FluentHub.App.Models;
 using FluentHub.App.Services;
 using FluentHub.App.ViewModels.Repositories;
 using FluentHub.App.ViewModels.Repositories.Commits;
@@ -8,6 +7,7 @@ using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Media.Imaging;
+using FluentHub.App.Data.Parameters;
 
 namespace FluentHub.App.Views.Repositories.Commits
 {
@@ -28,8 +28,8 @@ namespace FluentHub.App.Views.Repositories.Commits
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             var param = e.Parameter as FrameNavigationParameter;
-            ViewModel.Login = param.Login;
-            ViewModel.Name = param.Name;
+            ViewModel.Login = param.UserLogin;
+            ViewModel.Name = param.RepositoryName;
             ViewModel.ContextViewModel = param.Parameters.ElementAt(0) as RepoContextViewModel;
 
             var command = ViewModel.LoadRepositoryCommitsPageCommand;

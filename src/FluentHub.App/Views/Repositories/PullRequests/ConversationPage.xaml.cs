@@ -1,4 +1,7 @@
-using FluentHub.App.Models;
+// Copyright (c) FluentHub
+// Licensed under the MIT License. See the LICENSE.
+
+using FluentHub.App.Data.Parameters;
 using FluentHub.App.Services;
 using FluentHub.App.ViewModels.Repositories.PullRequests;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,9 +12,13 @@ using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.App.Views.Repositories.PullRequests
 {
-    public sealed partial class ConversationPage : Page
+    public sealed partial class ConversationPage : LocatablePage
     {
+        public ConversationViewModel ViewModel { get; }
+        private readonly INavigationService _navigation;
+
         public ConversationPage()
+            : base(NavigationBarPageKind.Repository, NavigationBarItemKey.PullRequests)
         {
             InitializeComponent();
 
@@ -19,9 +26,6 @@ namespace FluentHub.App.Views.Repositories.PullRequests
             ViewModel = provider.GetRequiredService<ConversationViewModel>();
             _navigation = provider.GetRequiredService<INavigationService>();
         }
-
-        public ConversationViewModel ViewModel { get; }
-        private readonly INavigationService _navigation;
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
@@ -32,8 +36,8 @@ namespace FluentHub.App.Views.Repositories.PullRequests
                 throw new ArgumentNullException(nameof(param), "OnNavigateTo() failed to load.");
             }
 
-            ViewModel.Login = param.Login;
-            ViewModel.Name = param.Name;
+            ViewModel.Login = param.UserLogin;
+            ViewModel.Name = param.RepositoryName;
             ViewModel.Number = param.Number;
 
             var command = ViewModel.LoadRepositoryPullRequestConversationPageCommand;

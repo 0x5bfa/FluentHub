@@ -1,22 +1,27 @@
+// Copyright (c) FluentHub
+// Licensed under the MIT License. See the LICENSE.
+
 using FluentHub.App.Models;
-using FluentHub.App.Services;
-using FluentHub.App.Services.Navigation;
-using FluentHub.App.ViewModels;
 using FluentHub.App.ViewModels.Repositories;
-using FluentHub.App.ViewModels.Repositories.Code;
-using FluentHub.App.ViewModels.Repositories.Code.Layouts;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
-using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Navigation;
 using Microsoft.UI.Xaml.Media.Imaging;
+using FluentHub.App.ViewModels.Repositories.Codes;
 
-namespace FluentHub.App.Views.Repositories.Code.Layouts
+namespace FluentHub.App.Views.Repositories.Code
 {
-    public sealed partial class TreeLayoutView : Page
+    public sealed partial class TreeLayoutView : LocatablePage
     {
+        private static Repository RepositoryCache { get; set; }
+
+        public TreeLayoutViewModel ViewModel { get; }
+
+        private readonly INavigationService navigationService;
+
         public TreeLayoutView()
+            : base(NavigationBarPageKind.Repository, NavigationBarItemKey.Code)
         {
             InitializeComponent();
 
@@ -24,10 +29,6 @@ namespace FluentHub.App.Views.Repositories.Code.Layouts
             ViewModel = provider.GetRequiredService<TreeLayoutViewModel>();
             navigationService = App.Current.Services.GetRequiredService<INavigationService>();
         }
-
-        private static Repository RepositoryCache { get; set; }
-        public TreeLayoutViewModel ViewModel { get; }
-        private readonly INavigationService navigationService;
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)
         {

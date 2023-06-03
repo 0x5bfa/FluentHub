@@ -4,7 +4,7 @@ using FluentHub.App.Utils;
 using FluentHub.App.ViewModels.UserControls;
 using FluentHub.App.ViewModels.UserControls.Overview;
 
-namespace FluentHub.App.ViewModels.Repositories.Code.Layouts
+namespace FluentHub.App.ViewModels.Repositories.Codes
 {
     public class TreeLayoutViewModel : ObservableObject
     {

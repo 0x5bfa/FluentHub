@@ -10,16 +10,26 @@ global using global::System.Text;
 global using global::System.Threading;
 global using global::System.Threading.Tasks;
 
+// Generic
+global using global::Microsoft.Extensions.DependencyInjection;
+
 // Windows Community Toolkit
 global using global::CommunityToolkit.Mvvm.ComponentModel;
 global using global::CommunityToolkit.Mvvm.Input;
 global using global::CommunityToolkit.Mvvm.Messaging;
 
-// Octokit
+// FluentHub
+global using global::FluentHub.App.Data.EventArgs;
+global using global::FluentHub.App.Data.Factories;
+global using global::FluentHub.App.Data.Items;
+//global using global::FluentHub.App.Data.Models;
+global using global::FluentHub.App.Data.Parameters;
+global using global::FluentHub.App.Services;
+global using global::FluentHub.Core.Data.Enums;
 global using global::FluentHub.Octokit.Models.v3;
 global using global::FluentHub.Octokit.Models.v4;
+
+// Third-party
 global using global::Octokit.GraphQL;
 global using OctokitOriginal = global::Octokit;
-
-// Custom
 global using global::Humanizer;

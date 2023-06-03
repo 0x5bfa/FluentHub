@@ -1,7 +1,6 @@
-using FluentHub.App.Helpers;
-using FluentHub.App.Models;
-using FluentHub.App.Services;
-using FluentHub.App.Utils;
+// Copyright (c) FluentHub
+// Licensed under the MIT License. See the LICENSE.
+
 using Microsoft.Extensions.DependencyInjection;
 using System.Windows.Input;
 
@@ -43,17 +42,17 @@ namespace FluentHub.App.ViewModels.UserControls.Overview
             if (Repository.IsInOrganization)
             {
                 service.Navigate<Views.Organizations.OverviewPage>(
-                    new Models.FrameNavigationParameter()
+                    new FrameNavigationParameter()
                     {
-                        Login = Repository.Owner.Login,
+                        UserLogin = Repository.Owner.Login,
                     });
             }
             else
             {
                 service.Navigate<Views.Users.OverviewPage>(
-                    new Models.FrameNavigationParameter()
+                    new FrameNavigationParameter()
                     {
-                        Login = Repository.Owner.Login,
+                        UserLogin = Repository.Owner.Login,
                     });
             }
         }

@@ -35,9 +35,9 @@ namespace FluentHub.App.UserControls.BlockButtons
         {
             var service = App.Current.Services.GetRequiredService<INavigationService>();
             service.Navigate<Views.Organizations.OverviewPage>(
-                new Models.FrameNavigationParameter()
+                new FrameNavigationParameter()
                 {
-                    Login = ViewModel.OrgItem.Login,
+                    UserLogin = ViewModel.OrgItem.Login,
                 });
         }
     }

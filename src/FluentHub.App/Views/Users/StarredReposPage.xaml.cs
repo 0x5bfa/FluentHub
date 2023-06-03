@@ -1,6 +1,7 @@
 // Copyright (c) FluentHub
 // Licensed under the MIT License. See the LICENSE.
 
+using FluentHub.App.Data.Parameters;
 using FluentHub.App.Services;
 using FluentHub.App.ViewModels.Users;
 using FluentHub.Core.Data.Enums;
@@ -29,16 +30,16 @@ namespace FluentHub.App.Views.Users
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var parameter = (Models.FrameNavigationParameter)e.Parameter;
+            var parameter = (FrameNavigationParameter)e.Parameter;
 
-            ViewModel.Login = parameter.Login
-                ?? throw new ArgumentNullException(nameof(parameter.Login), "Login parameter cannot be null in this context.");
+            ViewModel.Login = parameter.UserLogin
+                ?? throw new ArgumentNullException(nameof(parameter.UserLogin), "Login parameter cannot be null in this context.");
 
             if (parameter.AsViewer)
             {
                 ViewModel.DisplayTitle = true;
 
-                var currentTabItem = _navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+                var currentTabItem = _navigationService.TabView.SelectedItem;
                 currentTabItem.PageKind = NavigationBarPageKind.None;
             }
 

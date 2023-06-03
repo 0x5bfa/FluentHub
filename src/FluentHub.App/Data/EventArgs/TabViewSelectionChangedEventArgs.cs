@@ -3,9 +3,9 @@
 
 using Microsoft.UI.Xaml.Media.Animation;
 
-namespace FluentHub.App.Services.Navigation
+namespace FluentHub.App.Data.EventArgs
 {
-    public class TabViewSelectionChangedEventArgs : EventArgs
+    public class TabViewSelectionChangedEventArgs : System.EventArgs
     {
         public ITabViewItem NewSelectedItem { get; }
 

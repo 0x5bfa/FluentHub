@@ -39,51 +39,51 @@ namespace FluentHub.App.UserControls.Overview
             {
                 default:
                 case "code":
-                    var param = new Models.FrameNavigationParameter()
+                    var param = new FrameNavigationParameter()
                     {
-                        Login = ViewModel.Repository?.Owner?.Login,
-                        Name = ViewModel.Repository?.Name,
+                        UserLogin = ViewModel.Repository?.Owner?.Login,
+                        RepositoryName = ViewModel.Repository?.Name,
                     };
 
                     if (App.AppSettings.UseDetailsView)
-                        service.Navigate<Views.Repositories.Code.Layouts.DetailsLayoutView>(param);
+                        service.Navigate<Views.Repositories.Code.DetailsLayoutView>(param);
                     else
-                        service.Navigate<Views.Repositories.Code.Layouts.TreeLayoutView>(param);
+                        service.Navigate<Views.Repositories.Code.TreeLayoutView>(param);
                     break;
                 case "issues":
                     service.Navigate(
                         typeof(Views.Repositories.Issues.IssuesPage),
-                        new Models.FrameNavigationParameter()
+                        new FrameNavigationParameter()
                         {
-                            Login = ViewModel.Repository?.Owner?.Login,
-                            Name = ViewModel.Repository?.Name,
+                            UserLogin = ViewModel.Repository?.Owner?.Login,
+                            RepositoryName = ViewModel.Repository?.Name,
                         });
                     break;
                 case "pullrequests":
                     service.Navigate(
                         typeof(Views.Repositories.PullRequests.PullRequestsPage),
-                        new Models.FrameNavigationParameter()
+                        new FrameNavigationParameter()
                         {
-                            Login = ViewModel.Repository?.Owner?.Login,
-                            Name = ViewModel.Repository?.Name,
+                            UserLogin = ViewModel.Repository?.Owner?.Login,
+                            RepositoryName = ViewModel.Repository?.Name,
                         });
                     break;
                 case "discussions":
                     service.Navigate(
                         typeof(Views.Repositories.Discussions.DiscussionsPage),
-                        new Models.FrameNavigationParameter()
+                        new FrameNavigationParameter()
                         {
-                            Login = ViewModel.Repository?.Owner?.Login,
-                            Name = ViewModel.Repository?.Name,
+                            UserLogin = ViewModel.Repository?.Owner?.Login,
+                            RepositoryName = ViewModel.Repository?.Name,
                         });
                     break;
                 case "projects":
                     service.Navigate(
                         typeof(Views.Repositories.Projects.ProjectsPage),
-                        new Models.FrameNavigationParameter()
+                        new FrameNavigationParameter()
                         {
-                            Login = ViewModel.Repository?.Owner?.Login,
-                            Name = ViewModel.Repository?.Name,
+                            UserLogin = ViewModel.Repository?.Owner?.Login,
+                            RepositoryName = ViewModel.Repository?.Name,
                         });
                     break;
                 case "insights":

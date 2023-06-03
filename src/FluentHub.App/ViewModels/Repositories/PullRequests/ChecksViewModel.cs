@@ -142,6 +142,8 @@ namespace FluentHub.App.ViewModels.Repositories.PullRequests
             INavigationService navigationService = provider.GetRequiredService<INavigationService>();
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
+            currentItem.UserLogin = Repository.Owner.Login;
+            currentItem.RepositoryName = Repository.Name;
             currentItem.Header = "Checks";
             currentItem.Description = "Checks";
             currentItem.Icon = new ImageIconSource

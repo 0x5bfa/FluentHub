@@ -1,4 +1,4 @@
-﻿<Page
+﻿<views:LocatablePage
 	x:Class="FluentHub.App.Views.Repositories.PullRequests.ConversationPage"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -14,9 +14,10 @@
 	xmlns:primer="using:FluentHub.App.UserControls.PrimerControls"
 	xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
 	xmlns:uc="using:FluentHub.App.UserControls"
+	xmlns:views="using:FluentHub.App.Views"
 	mc:Ignorable="d">
 
-	<Page.Resources>
+	<views:LocatablePage.Resources>
 		<ResourceDictionary>
 			<converters:ObjectToBoolConverter x:Key="ObjectToBoolConverter" />
 			<converters:IssueCommentToIssueCommentBlockViewModelConverter x:Key="IssueCommentToIssueCommentBlockViewModelConverter" />
@@ -1543,7 +1544,7 @@
 				UnpinnedEventDataTemplate="{StaticResource UnpinnedEventDataTemplate}"
 				UserBlockedEventDataTemplate="{StaticResource UserBlockedEventDataTemplate}" />
 		</ResourceDictionary>
-	</Page.Resources>
+	</views:LocatablePage.Resources>
 
 	<Grid>
 
@@ -1557,8 +1558,6 @@
 						<RowDefinition Height="Auto" />
 					</Grid.RowDefinitions>
 
-					<ov:RepositoryOverview ViewModel="{x:Bind ViewModel.RepositoryOverviewViewModel, Mode=OneWay}" />
-
 					<ov:PullRequestOverview
 						Grid.Row="1"
 						Margin="0,8,0,0"
@@ -1567,11 +1566,7 @@
 					<Grid
 						Grid.Row="2"
 						Margin="0,8,0,0"
-						Padding="32,0,32,32"
-						Background="{ThemeResource LayerFillColorDefaultBrush}"
-						BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-						BorderThickness="1"
-						CornerRadius="8">
+						Padding="32,0,32,32">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="3*" />
 							<ColumnDefinition
@@ -2020,4 +2015,4 @@
 		</Grid>
 
 	</Grid>
-</Page>
+</views:LocatablePage>

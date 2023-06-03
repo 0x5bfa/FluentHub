@@ -248,13 +248,13 @@
 						x:Name="NavigationBarNavigationView"
 						Grid.Row="1"
 						Margin="0,-4,0,-12"
-						x:Load="{x:Bind CustomTabViewControl.SelectedItem.NavigationHistory.CurrentItem.IsNavigationBarShown, Mode=OneWay}"
+						x:Load="{x:Bind CustomTabViewControl.SelectedItem.IsNavigationBarShown, Mode=OneWay}"
 						IsBackButtonVisible="Collapsed"
 						IsPaneToggleButtonVisible="False"
 						IsSettingsVisible="False"
-						MenuItemsSource="{x:Bind CustomTabViewControl.SelectedItem.NavigationHistory.CurrentItem.NavigationBarItems, Mode=OneWay}"
+						MenuItemsSource="{x:Bind CustomTabViewControl.SelectedItem.NavigationBarItems, Mode=OneWay}"
 						PaneDisplayMode="Top"
-						SelectedItem="{x:Bind CustomTabViewControl.SelectedItem.NavigationHistory.CurrentItem.SelectedNavigationBarItem, Mode=TwoWay}">
+						SelectedItem="{x:Bind CustomTabViewControl.SelectedItem.SelectedNavigationBarItem, Mode=TwoWay}">
 						<NavigationView.MenuItemTemplate>
 							<DataTemplate x:DataType="dataitems:NavigationBarItem">
 								<StackPanel Orientation="Horizontal" Spacing="6">

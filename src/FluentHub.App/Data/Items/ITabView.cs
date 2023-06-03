@@ -1,7 +1,7 @@
 // Copyright (c) FluentHub
 // Licensed under the MIT License. See the LICENSE.
 
-namespace FluentHub.App.Services.Navigation
+namespace FluentHub.App.Data.Items
 {
     public interface ITabView
     {

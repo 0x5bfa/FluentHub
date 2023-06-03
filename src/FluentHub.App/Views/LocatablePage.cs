@@ -34,33 +34,41 @@ namespace FluentHub.App.Views
 
         public void CheckIfNavigationBarShouldBeChanged()
         {
-            var currentItem = _navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
-            if (currentItem is null || currentItem.PageKind == _currentPageKind)
+            var currentTabItem = _navigationService.TabView.SelectedItem;
+            if (currentTabItem is null)
                 return;
 
-            currentItem.PageKind = _currentPageKind;
-
-            // Initialize NavigationBar items
-            currentItem.NavigationBarItems ??= new();
-            currentItem.NavigationBarItems.Clear();
-
-            // Generate items
-            var items = _currentPageKind switch
+            if (currentTabItem.PageKind != _currentPageKind)
             {
-                NavigationBarPageKind.Organization => NavigationBarFactory.GetUserNavigationBarItems(),
-                NavigationBarPageKind.Repository => NavigationBarFactory.GetUserNavigationBarItems(),
-                NavigationBarPageKind.User => NavigationBarFactory.GetUserNavigationBarItems(),
-                _ => new List<NavigationBarItem>(),
-            };
+                currentTabItem.PageKind = _currentPageKind;
 
-            // Add generated items
-            foreach (var item in items)
-                currentItem.NavigationBarItems.Add(item);
+                // Initialize NavigationBar items
+                currentTabItem.NavigationBarItems ??= new();
+                currentTabItem.NavigationBarItems.Clear();
+
+                // Generate items
+                var items = _currentPageKind switch
+                {
+                    NavigationBarPageKind.Organization => NavigationBarFactory.GetUserNavigationBarItems(),
+                    NavigationBarPageKind.Repository => NavigationBarFactory.GetRepositoryNavigationBarItems(),
+                    NavigationBarPageKind.User => NavigationBarFactory.GetOrganizationNavigationBarItems(),
+                    _ => new List<NavigationBarItem>(),
+                };
+
+                // Add generated items
+                foreach (var item in items)
+                    currentTabItem.NavigationBarItems.Add(item);
+            }
 
             // Select item
-            var selectableItem = currentItem.NavigationBarItems.Where(x => x.PageItemKey == _currentPageItemKey).FirstOrDefault();
-            if (selectableItem != default)
-                currentItem.SelectedNavigationBarItem = selectableItem;
+            foreach (var item in currentTabItem.NavigationBarItems)
+            {
+                if (item.PageItemKey == _currentPageItemKey)
+                {
+                    currentTabItem.SelectedNavigationBarItem = item;
+                    break;
+                }
+            }
         }
     }
 }

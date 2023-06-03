@@ -1,12 +1,12 @@
 using FluentHub.App.Helpers;
 using FluentHub.App.Services;
-using FluentHub.App.Models;
 using FluentHub.App.ViewModels.Repositories.Releases;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Input;
 using Microsoft.UI.Xaml.Navigation;
+using FluentHub.App.Data.Parameters;
 
 namespace FluentHub.App.Views.Repositories.Releases
 {
@@ -31,8 +31,8 @@ namespace FluentHub.App.Views.Repositories.Releases
             var param = e.Parameter as FrameNavigationParameter;
             _ = param ?? throw new ArgumentNullException("param");
 
-            ViewModel.Login = param.Login;
-            ViewModel.Name = param.Name;
+            ViewModel.Login = param.UserLogin;
+            ViewModel.Name = param.RepositoryName;
 
             var command = ViewModel.LoadRepositoryReleasesPageCommand;
             if (command.CanExecute(null))
@@ -49,8 +49,8 @@ namespace FluentHub.App.Views.Repositories.Releases
             _navigation.Navigate<ReleasePage>(
                 new FrameNavigationParameter()
                 {
-                    Login = ViewModel.Repository.Owner.Login,
-                    Name = ViewModel.Repository.Name,
+                    UserLogin = ViewModel.Repository.Owner.Login,
+                    RepositoryName = ViewModel.Repository.Name,
                     Parameters = new() { $"{(sender as Button).Tag as string}" }
                 });
         }

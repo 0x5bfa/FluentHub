@@ -35,14 +35,14 @@ namespace FluentHub.App.Views.Viewers
 
             var parameter = new FrameNavigationParameter()
             {
-                Login = item.Owner.Login,
-                Name = item.Name,
+                UserLogin = item.Owner.Login,
+                RepositoryName = item.Name,
             };
 
             if (App.AppSettings.UseDetailsView)
-                _navigation.Navigate<Views.Repositories.Code.Layouts.DetailsLayoutView>(parameter);
+                _navigation.Navigate<Views.Repositories.Code.DetailsLayoutView>(parameter);
             else
-                _navigation.Navigate<Views.Repositories.Code.Layouts.TreeLayoutView>(parameter);
+                _navigation.Navigate<Views.Repositories.Code.TreeLayoutView>(parameter);
         }
     }
 }

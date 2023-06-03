@@ -1,3 +1,4 @@
+using FluentHub.App.Data.Parameters;
 using FluentHub.App.Services;
 using FluentHub.App.ViewModels.Organizations;
 using Microsoft.Extensions.DependencyInjection;
@@ -23,8 +24,8 @@ namespace FluentHub.App.Views.Organizations
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var param = e.Parameter as Models.FrameNavigationParameter;
-            ViewModel.Login = param.Login;
+            var param = e.Parameter as FrameNavigationParameter;
+            ViewModel.Login = param.UserLogin;
 
             var command = ViewModel.LoadOrganizationRepositoriesPageCommand;
             if (command.CanExecute(null))

@@ -60,16 +60,16 @@ namespace FluentHub.App.UserControls.Overview
             {
                 case "overview":
                     navService.Navigate<Views.Organizations.OverviewPage>(
-                    new Models.FrameNavigationParameter()
+                    new FrameNavigationParameter()
                     {
-                        Login = ViewModel.Organization.Login,
+                        UserLogin = ViewModel.Organization.Login,
                     });
                     break;
                 case "repositories":
                     navService.Navigate<Views.Organizations.RepositoriesPage>(
-                    new Models.FrameNavigationParameter()
+                    new FrameNavigationParameter()
                     {
-                        Login = ViewModel.Organization.Login,
+                        UserLogin = ViewModel.Organization.Login,
                     });
                     break;
             }
