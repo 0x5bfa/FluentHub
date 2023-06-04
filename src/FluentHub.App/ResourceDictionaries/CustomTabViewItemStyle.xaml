@@ -335,7 +335,7 @@
 								Margin="{ThemeResource TabViewItemHeaderIconMargin}">
 								<ContentControl
 									x:Name="IconControl"
-									Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TabViewTemplateSettings.IconElement}"
+									Content="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=TabViewTemplateSettings.IconElement, Mode=OneWay}"
 									Foreground="{ThemeResource TabViewItemIconForeground}"
 									HighContrastAdjustment="None"
 									IsTabStop="False" />

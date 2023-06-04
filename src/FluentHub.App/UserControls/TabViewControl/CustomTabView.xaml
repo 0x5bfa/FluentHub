@@ -41,6 +41,7 @@
 					<TabViewItem
 						Header="{x:Bind NavigationHistory.CurrentItem.Header, Mode=OneWay}"
 						IconSource="{x:Bind NavigationHistory.CurrentItem.Icon, Mode=OneWay}"
+						Loaded="TabViewItem_Loaded"
 						Style="{StaticResource TabViewItemStyle}"
 						ToolTipService.Placement="Bottom"
 						ToolTipService.ToolTip="{x:Bind NavigationHistory.CurrentItem.Description, Mode=OneWay}" />

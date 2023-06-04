@@ -86,13 +86,7 @@
 						</Grid>
 					</Grid>
 
-					<Grid
-						Grid.Row="2"
-						Padding="32,24"
-						Background="{ThemeResource LayerFillColorDefaultBrush}"
-						BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
-						BorderThickness="1"
-						CornerRadius="8">
+					<Grid Grid.Row="2" Padding="32,24">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto" />
 							<RowDefinition Height="*" />
@@ -106,69 +100,6 @@
 
 							<TextBox IsEnabled="False" PlaceholderText="Search issues" />
 
-							<StackPanel
-								Grid.Row="1"
-								Orientation="Horizontal"
-								Spacing="8">
-
-								<DropDownButton IsEnabled="False">
-									<DropDownButton.Content>
-										<StackPanel Orientation="Horizontal" Spacing="4">
-											<TextBlock
-												Foreground="{ThemeResource TextFillColorSecondary}"
-												Style="{StaticResource BodyTextBlockStyle}"
-												Text="Status:" />
-											<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
-										</StackPanel>
-									</DropDownButton.Content>
-									<DropDownButton.Flyout>
-										<MenuFlyout Placement="BottomEdgeAlignedLeft">
-											<MenuFlyout.Items>
-												<ToggleMenuFlyoutItem IsEnabled="False" Text="Not available yet" />
-											</MenuFlyout.Items>
-										</MenuFlyout>
-									</DropDownButton.Flyout>
-								</DropDownButton>
-
-								<DropDownButton IsEnabled="False">
-									<DropDownButton.Content>
-										<StackPanel Orientation="Horizontal" Spacing="4">
-											<TextBlock
-												Foreground="{ThemeResource TextFillColorSecondary}"
-												Style="{StaticResource BodyTextBlockStyle}"
-												Text="Labels:" />
-											<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
-										</StackPanel>
-									</DropDownButton.Content>
-									<DropDownButton.Flyout>
-										<MenuFlyout Placement="BottomEdgeAlignedLeft">
-											<MenuFlyout.Items>
-												<ToggleMenuFlyoutItem IsEnabled="False" Text="Not available yet" />
-											</MenuFlyout.Items>
-										</MenuFlyout>
-									</DropDownButton.Flyout>
-								</DropDownButton>
-
-								<DropDownButton IsEnabled="False">
-									<DropDownButton.Content>
-										<StackPanel Orientation="Horizontal" Spacing="4">
-											<TextBlock
-												Foreground="{ThemeResource TextFillColorSecondary}"
-												Style="{StaticResource BodyTextBlockStyle}"
-												Text="Sort:" />
-											<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
-										</StackPanel>
-									</DropDownButton.Content>
-									<DropDownButton.Flyout>
-										<MenuFlyout Placement="BottomEdgeAlignedLeft">
-											<MenuFlyout.Items>
-												<ToggleMenuFlyoutItem IsEnabled="False" Text="Not available yet" />
-											</MenuFlyout.Items>
-										</MenuFlyout>
-									</DropDownButton.Flyout>
-								</DropDownButton>
-
-							</StackPanel>
 						</Grid>
 
 						<Grid Grid.Row="1">

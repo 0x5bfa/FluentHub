@@ -25,120 +25,50 @@
 
 		<Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryPullRequestsPageCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
 			<ScrollViewer VerticalScrollBarVisibility="Auto">
-				<Grid RowSpacing="8">
+				<Grid Grid.Row="1" Padding="32">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="*" />
 					</Grid.RowDefinitions>
 
-					<Grid Grid.Row="1" Padding="32">
+					<Grid
+						Grid.Row="0"
+						Margin="0,8,0,16"
+						RowSpacing="8">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto" />
-							<RowDefinition Height="*" />
+							<RowDefinition Height="Auto" />
 						</Grid.RowDefinitions>
 
-						<Grid
-							Grid.Row="0"
-							Margin="0,8,0,16"
-							RowSpacing="8">
-							<Grid.RowDefinitions>
-								<RowDefinition Height="Auto" />
-								<RowDefinition Height="Auto" />
-							</Grid.RowDefinitions>
-
-							<TextBox IsEnabled="False" PlaceholderText="Search pull requests" />
-
-							<StackPanel
-								Grid.Row="1"
-								Orientation="Horizontal"
-								Spacing="8">
-
-								<DropDownButton IsEnabled="False">
-									<DropDownButton.Content>
-										<StackPanel Orientation="Horizontal" Spacing="4">
-											<TextBlock
-												Foreground="{ThemeResource TextFillColorSecondary}"
-												Style="{StaticResource BodyTextBlockStyle}"
-												Text="Status:" />
-											<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
-										</StackPanel>
-									</DropDownButton.Content>
-									<DropDownButton.Flyout>
-										<MenuFlyout Placement="BottomEdgeAlignedLeft">
-											<MenuFlyout.Items>
-												<ToggleMenuFlyoutItem IsEnabled="False" Text="Not available yet" />
-											</MenuFlyout.Items>
-										</MenuFlyout>
-									</DropDownButton.Flyout>
-								</DropDownButton>
-
-								<DropDownButton IsEnabled="False">
-									<DropDownButton.Content>
-										<StackPanel Orientation="Horizontal" Spacing="4">
-											<TextBlock
-												Foreground="{ThemeResource TextFillColorSecondary}"
-												Style="{StaticResource BodyTextBlockStyle}"
-												Text="Labels:" />
-											<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
-										</StackPanel>
-									</DropDownButton.Content>
-									<DropDownButton.Flyout>
-										<MenuFlyout Placement="BottomEdgeAlignedLeft">
-											<MenuFlyout.Items>
-												<ToggleMenuFlyoutItem IsEnabled="False" Text="Not available yet" />
-											</MenuFlyout.Items>
-										</MenuFlyout>
-									</DropDownButton.Flyout>
-								</DropDownButton>
-
-								<DropDownButton IsEnabled="False">
-									<DropDownButton.Content>
-										<StackPanel Orientation="Horizontal" Spacing="4">
-											<TextBlock
-												Foreground="{ThemeResource TextFillColorSecondary}"
-												Style="{StaticResource BodyTextBlockStyle}"
-												Text="Sort:" />
-											<TextBlock Style="{StaticResource BodyTextBlockStyle}" Text="None" />
-										</StackPanel>
-									</DropDownButton.Content>
-									<DropDownButton.Flyout>
-										<MenuFlyout Placement="BottomEdgeAlignedLeft">
-											<MenuFlyout.Items>
-												<ToggleMenuFlyoutItem IsEnabled="False" Text="Not available yet" />
-											</MenuFlyout.Items>
-										</MenuFlyout>
-									</DropDownButton.Flyout>
-								</DropDownButton>
-
-							</StackPanel>
-						</Grid>
-
-						<Grid Grid.Row="1">
-							<ItemsRepeater ItemsSource="{x:Bind ViewModel.PullItems, Mode=OneWay}">
-								<ItemsRepeater.Layout>
-									<StackLayout Orientation="Vertical" Spacing="6" />
-								</ItemsRepeater.Layout>
-								<DataTemplate x:DataType="bbvm:PullBlockButtonViewModel">
-									<bbuc:PullBlockButton ViewModel="{x:Bind}" />
-								</DataTemplate>
-							</ItemsRepeater>
-
-							<toolkit:SwitchPresenter
-								HorizontalAlignment="Center"
-								VerticalAlignment="Center"
-								TargetType="x:Int32"
-								Value="{x:Bind ViewModel.PullItems.Count, Mode=OneWay}">
-								<toolkit:Case Value="0">
-									<TextBlock
-										FontSize="18"
-										Style="{StaticResource BodyStrongTextBlockStyle}"
-										Text="No pull requests."
-										TextAlignment="Center" />
-								</toolkit:Case>
-							</toolkit:SwitchPresenter>
-						</Grid>
+						<TextBox IsEnabled="False" PlaceholderText="Search pull requests" />
 
 					</Grid>
+
+					<Grid Grid.Row="1">
+						<ItemsRepeater ItemsSource="{x:Bind ViewModel.PullItems, Mode=OneWay}">
+							<ItemsRepeater.Layout>
+								<StackLayout Orientation="Vertical" Spacing="6" />
+							</ItemsRepeater.Layout>
+							<DataTemplate x:DataType="bbvm:PullBlockButtonViewModel">
+								<bbuc:PullBlockButton ViewModel="{x:Bind}" />
+							</DataTemplate>
+						</ItemsRepeater>
+
+						<toolkit:SwitchPresenter
+							HorizontalAlignment="Center"
+							VerticalAlignment="Center"
+							TargetType="x:Int32"
+							Value="{x:Bind ViewModel.PullItems.Count, Mode=OneWay}">
+							<toolkit:Case Value="0">
+								<TextBlock
+									FontSize="18"
+									Style="{StaticResource BodyStrongTextBlockStyle}"
+									Text="No pull requests."
+									TextAlignment="Center" />
+							</toolkit:Case>
+						</toolkit:SwitchPresenter>
+					</Grid>
+
 				</Grid>
 			</ScrollViewer>
 		</Grid>

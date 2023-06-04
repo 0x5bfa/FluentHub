@@ -1,9 +1,11 @@
 // Copyright (c) FluentHub
 // Licensed under the MIT License. See the LICENSE.
 
+using CommunityToolkit.WinUI.UI;
 using Microsoft.UI.Xaml;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 
 namespace FluentHub.App.UserControls.TabViewControl
 {
@@ -38,7 +40,6 @@ namespace FluentHub.App.UserControls.TabViewControl
 
         public Grid DragArea
             => DragAreaGrid;
-
 
         private readonly ObservableCollection<ITabViewItem> _TabItems;
         public ReadOnlyObservableCollection<ITabViewItem> TabItems { get; }
@@ -147,5 +148,23 @@ namespace FluentHub.App.UserControls.TabViewControl
 
         private void OnAddNewTabButtonClick(object sender, RoutedEventArgs e)
             => OpenTab();
+
+        private void TabViewItem_Loaded(object sender, RoutedEventArgs e)
+        {
+            //if (sender is Microsoft.UI.Xaml.Controls.TabViewItem tvi &&
+            //    tvi.FindDescendant("IconControl") is ContentControl control)
+            //{
+            //    control.Content = (tvi.IconSource as ImageIconSource).CreateIconElement();
+
+            //    tvi.RegisterPropertyChangedCallback(Microsoft.UI.Xaml.Controls.TabViewItem.IconSourceProperty, (s, args) =>
+            //    {
+            //        if (s is Microsoft.UI.Xaml.Controls.TabViewItem tabViewItem &&
+            //            tabViewItem.FindDescendant("IconControl") is ContentControl iconControl)
+            //        {
+            //            iconControl.Content = (tabViewItem.IconSource as ImageIconSource).CreateIconElement();
+            //        }
+            //    });
+            //}
+        }
     }
 }

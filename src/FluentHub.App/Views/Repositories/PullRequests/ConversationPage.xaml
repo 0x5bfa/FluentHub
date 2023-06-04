@@ -1550,7 +1550,7 @@
 
 		<Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryPullRequestConversationPageCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
 			<ScrollViewer VerticalScrollBarVisibility="Auto">
-				<Grid Margin="0,0,8,8">
+				<Grid>
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="Auto" />
@@ -1558,15 +1558,9 @@
 						<RowDefinition Height="Auto" />
 					</Grid.RowDefinitions>
 
-					<ov:PullRequestOverview
-						Grid.Row="1"
-						Margin="0,8,0,0"
-						ViewModel="{x:Bind ViewModel.PullRequestOverviewViewModel, Mode=OneWay}" />
+					<ov:PullRequestOverview Grid.Row="1" ViewModel="{x:Bind ViewModel.PullRequestOverviewViewModel, Mode=OneWay}" />
 
-					<Grid
-						Grid.Row="2"
-						Margin="0,8,0,0"
-						Padding="32,0,32,32">
+					<Grid Grid.Row="2" Padding="32,0,32,32">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="3*" />
 							<ColumnDefinition
@@ -1869,7 +1863,6 @@
 
 					<Grid
 						Grid.Row="3"
-						Margin="0,8,0,0"
 						Background="{ThemeResource LayerFillColorDefaultBrush}"
 						BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
 						BorderThickness="1"
