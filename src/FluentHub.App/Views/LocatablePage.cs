@@ -34,7 +34,7 @@ namespace FluentHub.App.Views
 
         public void CheckIfNavigationBarShouldBeChanged()
         {
-            var currentTabItem = _navigationService.TabView.SelectedItem;
+            var currentTabItem = _navigationService.TabView.SelectedItem.NavigationBar;
             if (currentTabItem is null)
                 return;
 
@@ -49,9 +49,9 @@ namespace FluentHub.App.Views
                 // Generate items
                 var items = _currentPageKind switch
                 {
-                    NavigationBarPageKind.Organization => NavigationBarFactory.GetUserNavigationBarItems(),
+                    NavigationBarPageKind.Organization => NavigationBarFactory.GetOrganizationNavigationBarItems(),
                     NavigationBarPageKind.Repository => NavigationBarFactory.GetRepositoryNavigationBarItems(),
-                    NavigationBarPageKind.User => NavigationBarFactory.GetOrganizationNavigationBarItems(),
+                    NavigationBarPageKind.User => NavigationBarFactory.GetUserNavigationBarItems(),
                     _ => new List<NavigationBarItem>(),
                 };
 

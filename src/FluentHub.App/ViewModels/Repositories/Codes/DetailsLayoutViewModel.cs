@@ -13,6 +13,14 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
         {
             _messenger = messenger;
             _logger = logger;
+            _navigation = App.Current.Services.GetRequiredService<INavigationService>();
+
+            var parameter = _navigation.TabView.SelectedItem.NavigationBar.Parameter;
+            Login = parameter.UserLogin;
+            Name = parameter.RepositoryName;
+
+            if (parameter.Parameters is not null)
+                CurrentPath = parameter.Parameters.ElementAtOrDefault(0) as string;
 
             _items = new();
             Items = new(_items);
@@ -22,7 +30,10 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 
         #region Fields and Properties
         private readonly ILogger _logger;
+
         private readonly IMessenger _messenger;
+
+        private readonly INavigationService _navigation;
 
         private string _login;
         public string Login { get => _login; set => SetProperty(ref _login, value); }

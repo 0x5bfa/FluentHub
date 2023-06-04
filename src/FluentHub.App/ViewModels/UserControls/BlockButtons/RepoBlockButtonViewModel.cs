@@ -29,17 +29,15 @@ namespace FluentHub.App.ViewModels.UserControls.BlockButtons
         private void GoRepository()
         {
             var _navigation = App.Current.Services.GetRequiredService<INavigationService>();
+            var parameter = _navigation.TabView.SelectedItem.NavigationBar.Parameter;
 
-            var parameter = new FrameNavigationParameter()
-            {
-                UserLogin = Repository.Owner.Login,
-                RepositoryName = Repository.Name,
-            };
+            parameter.UserLogin = Repository.Owner.Login;
+            parameter.RepositoryName = Repository.Name;
 
             if (App.AppSettings.UseDetailsView)
-                _navigation.Navigate<Views.Repositories.Code.DetailsLayoutView>(parameter);
+                _navigation.Navigate<Views.Repositories.Code.DetailsLayoutView>();
             else
-                _navigation.Navigate<Views.Repositories.Code.TreeLayoutView>(parameter);
+                _navigation.Navigate<Views.Repositories.Code.TreeLayoutView>();
         }
     }
 }

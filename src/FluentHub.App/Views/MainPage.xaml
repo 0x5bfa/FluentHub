@@ -221,7 +221,7 @@
 								CornerRadius="18">
 								<Image Margin="-1" Source="{x:Bind ViewModel.SignedInUser.AvatarUrl, Mode=OneWay}" />
 								<Button.Flyout>
-									<MenuBarItemFlyout Placement="BottomEdgeAlignedRight">
+									<MenuBarItemFlyout x:Name="LeftSideViewerIconMenuFlyout" Placement="BottomEdgeAlignedRight">
 										<MenuBarItemFlyout.MenuFlyoutPresenterStyle>
 											<Style TargetType="MenuFlyoutPresenter">
 												<Setter Property="Width" Value="96" />
@@ -229,13 +229,25 @@
 										</MenuBarItemFlyout.MenuFlyoutPresenterStyle>
 										<MenuFlyoutItem IsEnabled="false" Text="Set status" />
 										<MenuFlyoutSeparator />
-										<MenuFlyoutItem Text="Your profile" />
+										<MenuFlyoutItem
+											Click="LeftSideViewerIconMenuFlyoutItem_Click"
+											Tag="YourProfile"
+											Text="Your profile" />
 										<MenuFlyoutSeparator />
-										<MenuFlyoutItem Text="Your repositories" />
+										<MenuFlyoutItem
+											Click="LeftSideViewerIconMenuFlyoutItem_Click"
+											Tag="YourRepositories"
+											Text="Your repositories" />
 										<MenuFlyoutItem IsEnabled="false" Text="Your projects" />
 										<MenuFlyoutItem IsEnabled="false" Text="Your codespaces" />
-										<MenuFlyoutItem Text="Your organizations" />
-										<MenuFlyoutItem Text="Your stars" />
+										<MenuFlyoutItem
+											Click="LeftSideViewerIconMenuFlyoutItem_Click"
+											Tag="YourOrganizations"
+											Text="Your organizations" />
+										<MenuFlyoutItem
+											Click="LeftSideViewerIconMenuFlyoutItem_Click"
+											Tag="YourStars"
+											Text="Your stars" />
 										<MenuFlyoutItem IsEnabled="false" Text="Your sponsors" />
 									</MenuBarItemFlyout>
 								</Button.Flyout>
@@ -248,13 +260,13 @@
 						x:Name="NavigationBarNavigationView"
 						Grid.Row="1"
 						Margin="0,-4,0,-12"
-						x:Load="{x:Bind CustomTabViewControl.SelectedItem.IsNavigationBarShown, Mode=OneWay}"
+						x:Load="{x:Bind CustomTabViewControl.SelectedItem.NavigationBar.IsNavigationBarShown, Mode=OneWay}"
 						IsBackButtonVisible="Collapsed"
 						IsPaneToggleButtonVisible="False"
 						IsSettingsVisible="False"
-						MenuItemsSource="{x:Bind CustomTabViewControl.SelectedItem.NavigationBarItems, Mode=OneWay}"
+						MenuItemsSource="{x:Bind CustomTabViewControl.SelectedItem.NavigationBar.NavigationBarItems, Mode=OneWay}"
 						PaneDisplayMode="Top"
-						SelectedItem="{x:Bind CustomTabViewControl.SelectedItem.SelectedNavigationBarItem, Mode=TwoWay}">
+						SelectedItem="{x:Bind CustomTabViewControl.SelectedItem.NavigationBar.SelectedNavigationBarItem, Mode=TwoWay}">
 						<NavigationView.MenuItemTemplate>
 							<DataTemplate x:DataType="dataitems:NavigationBarItem">
 								<StackPanel Orientation="Horizontal" Spacing="6">

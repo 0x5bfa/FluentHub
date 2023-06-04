@@ -9,7 +9,7 @@ namespace FluentHub.App.Data.Items
 
         public string? Glyph { get; set; }
 
-        public Type? PageToNavigate { get; set; }
+        public Type PageToNavigate { get; set; } = typeof(Views.Viewers.UserHomePage);
 
         public NavigationBarPageKind PageKind { get; set; }
 

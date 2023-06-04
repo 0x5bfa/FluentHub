@@ -2,7 +2,6 @@
 // Licensed under the MIT License. See the LICENSE.
 
 using FluentHub.App.Utils;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 
@@ -18,48 +17,7 @@ namespace FluentHub.App.Data.Items
 
         public NavigationHistory NavigationHistory { get; }
 
-        private ObservableCollection<NavigationBarItem>? _NavigationBarItems;
-        public ObservableCollection<NavigationBarItem>? NavigationBarItems { get => _NavigationBarItems; set => SetProperty(ref _NavigationBarItems, value); }
-
-        private NavigationBarItem? _SelectedNavigationBarItem;
-        public NavigationBarItem? SelectedNavigationBarItem
-        {
-            get => _SelectedNavigationBarItem;
-            set
-            {
-                if (value is not null && SetProperty(ref _SelectedNavigationBarItem, value))
-                {
-                    // Parameters validation
-                    if ((value.PageKind == NavigationBarPageKind.User && NavigationHistory.CurrentItem.UserLogin is not null) ||
-                        (value.PageKind == NavigationBarPageKind.Repository && NavigationHistory.CurrentItem.RepositoryName is not null) ||
-                        (value.PageKind == NavigationBarPageKind.Organization && NavigationHistory.CurrentItem.UserLogin is not null))
-                    {
-                        var service = App.Current.Services.GetRequiredService<INavigationService>();
-                        service.Navigate(
-                            SelectedNavigationBarItem.PageToNavigate,
-                            new FrameNavigationParameter()
-                            {
-                                UserLogin = NavigationHistory.CurrentItem.UserLogin,
-                                RepositoryName = NavigationHistory.CurrentItem.RepositoryName,
-                            });
-                    }
-                }
-            }
-        }
-
-        private NavigationBarPageKind _PageKind;
-        public NavigationBarPageKind PageKind
-        {
-            get => _PageKind;
-            set
-            {
-                _PageKind = value;
-                OnPropertyChanged(nameof(IsNavigationBarShown));
-            }
-        }
-
-        public bool IsNavigationBarShown
-            => PageKind != NavigationBarPageKind.None;
+        public NavigationBarModel NavigationBar { get; }
 
         public TabViewItem()
         {
@@ -70,6 +28,7 @@ namespace FluentHub.App.Data.Items
             Guid = Guid.NewGuid();
             Frame = new();
             NavigationHistory = new();
+            NavigationBar = new();
 
             Frame.Navigating += OnFrameNavigating;
         }

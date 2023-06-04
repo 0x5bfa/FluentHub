@@ -3,10 +3,8 @@
 
 using FluentHub.App.Helpers;
 using FluentHub.App.Models;
-using FluentHub.App.Services;
 using FluentHub.App.ViewModels;
 using FluentHub.App.Utils;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI;
 using Microsoft.UI.Windowing;
 using Microsoft.UI.Xaml;
@@ -137,21 +135,46 @@ namespace FluentHub.App.Views
 			RootFrameBorder.Content = e.NewSelectedItem?.Frame;
 		}
 
-        private void LeftSideNavigationViewOpenerButton_Click(object sender, RoutedEventArgs e)
-        {
-            LeftSideNavigationView.IsPaneOpen = true;
-            LeftSideNavigationView.Visibility = Visibility.Visible;
-        }
+		private void LeftSideNavigationViewOpenerButton_Click(object sender, RoutedEventArgs e)
+		{
+			LeftSideNavigationView.IsPaneOpen = true;
+			LeftSideNavigationView.Visibility = Visibility.Visible;
+		}
 
-        private void LeftSideNavigationView_PaneClosed(NavigationView sender, object args)
-        {
-            LeftSideNavigationView.Visibility = Visibility.Collapsed;
-        }
+		private void LeftSideNavigationView_PaneClosed(NavigationView sender, object args)
+		{
+			LeftSideNavigationView.Visibility = Visibility.Collapsed;
+		}
 
-        private void UserNotificationInBoxButton_Click(object sender, RoutedEventArgs e)
-        {
-            NavigationService.Navigate<Viewers.NotificationsPage>();
-        }
-        #endregion
-    }
+		private void UserNotificationInBoxButton_Click(object sender, RoutedEventArgs e)
+		{
+			NavigationService.Navigate<Viewers.NotificationsPage>();
+		}
+		#endregion
+
+		private void LeftSideViewerIconMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
+		{
+			var mfi = (MenuFlyoutItem)sender;
+
+			var parameter = NavigationService.TabView.SelectedItem.NavigationBar.Parameter;
+			parameter.UserLogin = ViewModel.SignedInUser.Login;
+			parameter.AsViewer = false;
+
+			switch (mfi.Tag.ToString())
+			{
+				case "YourProfile":
+					NavigationService.Navigate<Views.Users.OverviewPage>();
+					break;
+				case "YourRepositories":
+					NavigationService.Navigate<Views.Users.RepositoriesPage>();
+					break;
+				//case "YourOrganizations":
+				//	NavigationService.Navigate<Views.Users.OrganizationsPage>();
+				//	break;
+				case "YourStars":
+					NavigationService.Navigate<Views.Users.StarredReposPage>();
+					break;
+			}
+		}
+	}
 }

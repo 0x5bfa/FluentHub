@@ -38,7 +38,7 @@ namespace FluentHub.App.Views.Users
                 ViewModel.DisplayTitle = true;
 
                 var currentTabItem = _navigationService.TabView.SelectedItem;
-                currentTabItem.PageKind = Core.Data.Enums.NavigationBarPageKind.None;
+                currentTabItem.NavigationBar.PageKind = NavigationBarPageKind.None;
             }
 
             var command = ViewModel.LoadUserIssuesPageCommand;

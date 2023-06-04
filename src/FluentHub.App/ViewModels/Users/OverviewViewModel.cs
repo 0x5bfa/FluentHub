@@ -14,10 +14,15 @@ namespace FluentHub.App.ViewModels.Users
 {
     public class OverviewViewModel : ObservableObject
     {
-        public OverviewViewModel(IMessenger messenger = null, ILogger logger = null)
+        public OverviewViewModel()
         {
-            _logger = logger;
-            _messenger = messenger;
+            // Dependency Injection
+            _logger = App.Current.Services.GetRequiredService<ILogger>();
+            _messenger = App.Current.Services.GetRequiredService<IMessenger>();
+            _navigation = App.Current.Services.GetRequiredService<INavigationService>();
+
+            var parameter = _navigation.TabView.SelectedItem.NavigationBar.Parameter;
+            Login = parameter.UserLogin;
 
             _pinnedRepositories = new();
             PinnedRepositories = new(_pinnedRepositories);
@@ -32,6 +37,7 @@ namespace FluentHub.App.ViewModels.Users
         #region Fields and Properties
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
+        private readonly INavigationService _navigation;
 
         private string _login;
         public string Login { get => _login; set => SetProperty(ref _login, value); }

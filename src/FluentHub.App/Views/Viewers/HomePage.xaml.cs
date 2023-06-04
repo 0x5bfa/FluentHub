@@ -47,32 +47,31 @@ namespace FluentHub.App.Views.Viewers
 
         private void OnOneFolderCardClick(object sender, RoutedEventArgs e)
         {
+            var parameter = _navigation.TabView.SelectedItem.NavigationBar.Parameter;
+            parameter.UserLogin = App.AppSettings.SignedInUserName;
+            parameter.AsViewer = true;
+
             var clickedButton = sender as Button;
-            var param = new FrameNavigationParameter()
-            {
-                UserLogin = App.AppSettings.SignedInUserName,
-                AsViewer = true,
-            };
 
             switch (clickedButton.Tag)
             {
                 case "issues":
-                    _navigation.Navigate<Users.IssuesPage>(param);
+                    _navigation.Navigate<Users.IssuesPage>();
                     break;
                 case "pullrequests":
-                    _navigation.Navigate<Users.PullRequestsPage>(param);
+                    _navigation.Navigate<Users.PullRequestsPage>();
                     break;
                 case "discussions":
-                    _navigation.Navigate<Users.DiscussionsPage>(param);
+                    _navigation.Navigate<Users.DiscussionsPage>();
                     break;
                 case "repositories":
-                    _navigation.Navigate<Users.RepositoriesPage>(param);
+                    _navigation.Navigate<Users.RepositoriesPage>();
                     break;
                 case "organizations":
-                    _navigation.Navigate<Users.OrganizationsPage>(param);
+                    _navigation.Navigate<Users.OrganizationsPage>();
                     break;
                 case "stars":
-                    _navigation.Navigate<Users.StarredReposPage>(param);
+                    _navigation.Navigate<Users.StarredReposPage>();
                     break;
             }
         }

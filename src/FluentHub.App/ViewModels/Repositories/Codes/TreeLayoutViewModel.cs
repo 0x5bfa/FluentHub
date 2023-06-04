@@ -12,6 +12,7 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
         {
             _messenger = messenger;
             _logger = logger;
+            _navigation = App.Current.Services.GetRequiredService<INavigationService>();
 
             _items = new();
             Items = new(_items);
@@ -23,6 +24,7 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
         #region Fields and Properties
         private readonly ILogger _logger;
         private readonly IMessenger _messenger;
+        private readonly INavigationService _navigation;
 
         private bool _blobSelected;
         public bool BlobSelected { get => _blobSelected; set => SetProperty(ref _blobSelected, value); }

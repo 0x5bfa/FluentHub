@@ -28,13 +28,6 @@ namespace FluentHub.App.Views.Repositories.Code
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
-            var param = (FrameNavigationParameter)e.Parameter;
-            ViewModel.Login = param.UserLogin;
-            ViewModel.Name = param.RepositoryName;
-
-            if (param.Parameters is not null)
-                ViewModel.CurrentPath = param.Parameters.ElementAtOrDefault(0) as string;
-
             var command = ViewModel.LoadDetailsViewPageCommand;
             if (command.CanExecute(null))
                 command.Execute(null);

@@ -15,10 +15,22 @@ namespace FluentHub.App.ViewModels.Users
 {
     public class RepositoriesViewModel : ObservableObject
     {
-        public RepositoriesViewModel(IMessenger messenger = null, ILogger logger = null)
+        public RepositoriesViewModel()
         {
-            _messenger = messenger;
-            _logger = logger;
+            // Dependency Injection
+            _logger = App.Current.Services.GetRequiredService<ILogger>();
+            _messenger = App.Current.Services.GetRequiredService<IMessenger>();
+            _navigation = App.Current.Services.GetRequiredService<INavigationService>();
+
+            var parameter = _navigation.TabView.SelectedItem.NavigationBar.Parameter;
+            Login = parameter.UserLogin;
+            if (parameter.AsViewer)
+            {
+                var currentTabItem = _navigation.TabView.SelectedItem;
+                currentTabItem.NavigationBar.PageKind = NavigationBarPageKind.None;
+
+                DisplayTitle = true;
+            }
 
             _repositories = new();
             Repositories = new(_repositories);
@@ -29,6 +41,7 @@ namespace FluentHub.App.ViewModels.Users
         #region Fields and Properties
         private readonly IMessenger _messenger;
         private readonly ILogger _logger;
+        private readonly INavigationService _navigation;
 
         private string _login;
         public string Login { get => _login; set => SetProperty(ref _login, value); }

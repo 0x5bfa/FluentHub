@@ -14,12 +14,6 @@ namespace FluentHub.App.Data.Items
 
         NavigationHistory NavigationHistory { get; }
 
-        public ObservableCollection<NavigationBarItem>? NavigationBarItems { get; set; }
-
-        public NavigationBarItem? SelectedNavigationBarItem { get; set; }
-
-        public NavigationBarPageKind PageKind { get; set; }
-
-        public bool IsNavigationBarShown { get; }
+        NavigationBarModel NavigationBar { get; }
     }
 }
