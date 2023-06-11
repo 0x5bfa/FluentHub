@@ -166,7 +166,7 @@
     <value>Không có hoạt động nào gần đây.</value>
   </data>
   <data name="FifthStepToAuthorize.Text" xml:space="preserve">
-    <value>Tiếp tục với ứng dụng FluentHub.</value>
+    <value>Tiếp tục với FluentHub.</value>
   </data>
   <data name="FirstStepToAuthorize.Text" xml:space="preserve">
     <value>Nhấn "Đăng nhập với GitHub";</value>
@@ -205,6 +205,7 @@
     <value>Yêu thích</value>
   </data>
   <data name="HomePageFavoritesNotAvailableBody.Text" xml:space="preserve">
+    <value>Không có mục yêu thích khả dụng.</value>
     <value>Không có mục yêu thích nào.</value>
   </data>
   <data name="HomePageGeneralHeader.Text" xml:space="preserve">
@@ -241,10 +242,10 @@
     <value>Báo cáo sự cố</value>
   </data>
   <data name="LoadErrorDisplayShowExceptionDetailsContentDialogButton.ToolTipService.ToolTip" xml:space="preserve">
-    <value>Hiển thị kết quả theo dõi trong một hộp thoại.</value>
+    <value>Hiển thị kết quả theo dõi trong hộp thoại.</value>
   </data>
   <data name="LoadErrorDisplayShowExceptionDetailsContentDialogButtonBody.Text" xml:space="preserve">
-    <value>Xem ngăn xếp thẳng</value>
+    <value>Xem kết quả theo dõi</value>
   </data>
   <data name="LoginWithGitHub.Content" xml:space="preserve">
     <value>Đăng nhập với GitHub</value>
@@ -256,7 +257,7 @@
     <value>Mới</value>
   </data>
   <data name="NewMutationOrganizationButton.Text" xml:space="preserve">
-    <value>Tổ chưcs mới</value>
+    <value>Tổ chức mới</value>
   </data>
   <data name="NewMutationRepoButton.Text" xml:space="preserve">
     <value>Kho lưu trữ mới</value>
@@ -280,7 +281,7 @@
     <value>✉️ Đề cập</value>
   </data>
   <data name="NotificationsPageFilterByReasonMentionedTeam.Text" xml:space="preserve">
-    <value>📧 Đề cập nhóm</value>
+    <value>📧 Nhóm đã đề cập</value>
   </data>
   <data name="NotificationsPageFilterByReasonParticipating.Text" xml:space="preserve">
     <value>🤝‍ Đang tham gia</value>
@@ -316,7 +317,7 @@
     <value>Chưa đọc</value>
   </data>
   <data name="NoUserDiscussions" xml:space="preserve">
-    <value>Không có thảo luận nào</value>
+    <value>Không có thảo luận</value>
   </data>
   <data name="NoUserFollowers" xml:space="preserve">
     <value>Không có người theo dõi</value>
@@ -325,22 +326,22 @@
     <value>Không theo dõi bất kì ai</value>
   </data>
   <data name="NoUserIssues" xml:space="preserve">
-    <value>Không có vấn đề nào</value>
+    <value>Không có vấn đề</value>
   </data>
   <data name="NoUserOrganizations" xml:space="preserve">
-    <value>Không có tổ chức nào</value>
+    <value>Không có tổ chức</value>
   </data>
   <data name="NoUserPopularRepositories" xml:space="preserve">
-    <value>Không có kho lưu trữ phổ biến nào</value>
+    <value>Không có kho lưu trữ phổ biến</value>
   </data>
   <data name="NoUserPullRequests" xml:space="preserve">
-    <value>Không có pull requests nào</value>
+    <value>Không có pull requests</value>
   </data>
   <data name="NoUserRepositories" xml:space="preserve">
-    <value>Không có kho lưu trữ nào</value>
+    <value>Không có kho lưu trữ</value>
   </data>
   <data name="NoUserStars" xml:space="preserve">
-    <value>Không có stars nào</value>
+    <value>Không có stars</value>
   </data>
   <data name="Organizations" xml:space="preserve">
     <value>Tổ chức</value>
@@ -379,7 +380,7 @@
     <value>Tìm kiếm</value>
   </data>
   <data name="SearchDiscussionsTextBox.PlaceholderText" xml:space="preserve">
-    <value>Tìm kiếm các cuộc thảo luận</value>
+    <value>Tìm kiếm thảo luận</value>
   </data>
   <data name="SearchFollowersTextBox.PlaceholderText" xml:space="preserve">
     <value>Tìm kiếm người theo dõi</value>
@@ -469,7 +470,7 @@
     <value>Thảo luận của bạn</value>
   </data>
   <data name="YourFollowers" xml:space="preserve">
-    <value>Ngưởi theo dõi bạn</value>
+    <value>Người theo dõi bạn</value>
   </data>
   <data name="YourFollowing" xml:space="preserve">
     <value>Người bạn đang theo dõi</value>
