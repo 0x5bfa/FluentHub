@@ -20,6 +20,8 @@ namespace FluentHub.Octokit.Models.v3
 
         public DateTimeOffset CreatedAt { get; set; }
 
+        public string CreatedAtHumanized { get; set; }
+
         public string Id { get; set; }
     }
 }

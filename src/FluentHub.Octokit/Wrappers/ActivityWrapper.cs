@@ -41,14 +41,16 @@ namespace FluentHub.Octokit.Wrappers
                 {
                     CreatedAt = item.CreatedAt,
 
+                    CreatedAtHumanized = item.CreatedAt.Humanize(),
+
                     Repository = itemRep,
 
                     Actor = itemUser,
 
-                    Organization = itemOrganization
-                };
+                    Organization = itemOrganization,
 
-                indivisual.PayloadSets = new ActivityPayloads();
+                    PayloadSets = new ActivityPayloads(),
+                };
 
                 switch (item.Type)
                 {

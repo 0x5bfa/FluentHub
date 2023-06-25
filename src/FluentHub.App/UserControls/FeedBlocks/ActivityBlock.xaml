@@ -329,7 +329,7 @@
 				VerticalAlignment="Center"
 				Foreground="{ThemeResource TextFillColorSecondary}"
 				Style="{StaticResource CaptionTextBlockStyle}"
-				Text="{x:Bind ViewModel.Payload.CreatedAt, Mode=OneWay}" />
+				Text="{x:Bind ViewModel.Payload.CreatedAtHumanized, Mode=OneWay}" />
 		</Grid>
 
 		<Grid

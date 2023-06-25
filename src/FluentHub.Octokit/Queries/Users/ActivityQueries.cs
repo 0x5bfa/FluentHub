@@ -4,7 +4,6 @@
     {
         public async Task<List<Activity>> GetAllAsync(string login)
         {
-            #region query
             OctokitV3.ApiOptions options = new()
             {
                 PageCount = 1,
@@ -13,7 +12,6 @@
             };
 
             var response = await App.Client.Activity.Events.GetAllUserReceived(login, options);
-            #endregion
 
             Wrappers.ActivityWrapper wrapper = new();
             var activities = wrapper.Wrap(response);

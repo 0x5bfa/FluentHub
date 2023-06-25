@@ -16,20 +16,19 @@ namespace FluentHub.App.Views
 {
 	public sealed partial class MainPage : Page
 	{
-		public MainPageViewModel ViewModel { get; }
+		private readonly MainPageViewModel ViewModel;
 
-		public INavigationService NavigationService { get; }
+		private readonly INavigationService NavigationService;
 
-		public ILogger _logger { get; }
+		private readonly ILogger _logger;
 
 		public MainPage()
 		{
 			InitializeComponent();
 
-			var provider = App.Current.Services;
-			ViewModel = provider.GetRequiredService<MainPageViewModel>();
-			NavigationService = provider.GetRequiredService<INavigationService>();
-			_logger = provider.GetRequiredService<ILogger>();
+			ViewModel = App.Current.Services.GetRequiredService<MainPageViewModel>();
+			NavigationService = App.Current.Services.GetRequiredService<INavigationService>();
+			_logger = App.Current.Services.GetRequiredService<ILogger>();
 		}
 
 		#region Methods
@@ -63,9 +62,9 @@ namespace FluentHub.App.Views
 
 			SubscribeEvents();
 
-			CustomTabViewControl.NewTabPage = typeof(Viewers.UserHomePage);
+			CustomTabViewControl.NewTabPage = typeof(Viewers.DashBoardPage);
 			NavigationService.Configure(CustomTabViewControl);
-			NavigationService.Navigate<Viewers.UserHomePage>();
+			NavigationService.Navigate<Viewers.DashBoardPage>();
 
 			var command = ViewModel.LoadSignedInUserCommand;
 			if (command.CanExecute(null))

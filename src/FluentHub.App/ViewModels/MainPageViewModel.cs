@@ -111,7 +111,7 @@ namespace FluentHub.App.ViewModels
 		#region Command methods
 		private void AddNewTabAccelerator(KeyboardAcceleratorInvokedEventArgs e)
 		{
-			_navigationService.OpenTab<Views.Viewers.UserHomePage>();
+			_navigationService.OpenTab<Views.Viewers.DashBoardPage>();
 			e.Handled = true;
 		}
 
@@ -151,7 +151,7 @@ namespace FluentHub.App.ViewModels
 
 		private void AddNewTabWithMouseAccelerator(KeyboardAcceleratorInvokedEventArgs e)
 		{
-			_navigationService.OpenTab<Views.Viewers.UserHomePage>();
+			_navigationService.OpenTab<Views.Viewers.DashBoardPage>();
 			e.Handled = true;
 		}
 

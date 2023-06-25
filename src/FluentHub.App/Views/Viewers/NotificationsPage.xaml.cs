@@ -1,7 +1,7 @@
-using FluentHub.App.Services;
-using FluentHub.App.Utils;
+// Copyright (c) FluentHub
+// Licensed under the MIT License. See the LICENSE.
+
 using FluentHub.App.ViewModels.Viewers;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Navigation;
 

@@ -44,7 +44,7 @@ namespace FluentHub.App.UserControls.TabViewControl
         private readonly ObservableCollection<ITabViewItem> _TabItems;
         public ReadOnlyObservableCollection<ITabViewItem> TabItems { get; }
 
-        private Type _NewTabPage = typeof(Views.Viewers.UserHomePage);
+        private Type _NewTabPage = typeof(Views.Viewers.DashBoardPage);
         public Type NewTabPage
         {
             get => _NewTabPage;
