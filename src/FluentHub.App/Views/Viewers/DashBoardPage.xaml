@@ -119,7 +119,7 @@
 
 					<ItemsRepeater
 						Grid.Row="1"
-						Margin="6,8"
+						Margin="12,8"
 						ItemsSource="{x:Bind ViewModel.TopRepositories, Mode=OneWay}">
 						<ItemsRepeater.Layout>
 							<StackLayout Orientation="Vertical" Spacing="4" />
@@ -127,6 +127,7 @@
 						<DataTemplate x:DataType="modelsV4:Repository">
 							<Button
 								Height="32"
+								Padding="6,4"
 								HorizontalAlignment="Stretch"
 								HorizontalContentAlignment="Left"
 								Background="Transparent"
@@ -153,13 +154,14 @@
 
 					<ItemsRepeater
 						Grid.Row="3"
-						Margin="6,8"
+						Margin="12,8"
 						ItemsSource="{x:Bind ViewModel.RecentActivities, Mode=OneWay}">
 						<ItemsRepeater.Layout>
 							<StackLayout Orientation="Vertical" Spacing="4" />
 						</ItemsRepeater.Layout>
 						<DataTemplate x:DataType="modelsV3:Notification">
 							<Button
+								Padding="6,4"
 								HorizontalAlignment="Stretch"
 								HorizontalContentAlignment="Left"
 								Background="Transparent"
@@ -237,13 +239,13 @@
 			</Grid.RowDefinitions>
 
 			<TextBlock
-				Margin="20,16,20,0"
+				Margin="16,24,20,8"
 				Style="{StaticResource SubtitleTextBlockStyle}"
 				Text="Dashboard" />
 
 			<ScrollViewer Grid.Row="1">
-				<Grid Margin="0,0,8,8">
-					<ItemsRepeater Margin="12,8,12,8" ItemsSource="{x:Bind ViewModel.Feeds, Mode=OneWay}">
+				<Grid Margin="12,0,24,24">
+					<ItemsRepeater ItemsSource="{x:Bind ViewModel.Feeds, Mode=OneWay}">
 						<DataTemplate x:DataType="fbvm:ActivityBlockViewModel">
 							<fbuc:ActivityBlock ViewModel="{x:Bind}" />
 						</DataTemplate>

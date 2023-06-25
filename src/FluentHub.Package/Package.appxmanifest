@@ -52,7 +52,10 @@
                         <uap:ShowOn Tile="square150x150Logo"/>
                         <uap:ShowOn Tile="square310x310Logo"/>
                     </uap:ShowNameOnTiles>
-                </uap:DefaultTile >
+                </uap:DefaultTile>
+
+                <uap:SplashScreen uap5:Optional="false" Image="Assets\AppTiles\Dev\SplashScreen.png" />
+
             </uap:VisualElements>
 
             <Extensions>
