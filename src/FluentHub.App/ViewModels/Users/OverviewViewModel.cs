@@ -1,12 +1,12 @@
+// Copyright (c) FluentHub
+// Licensed under the MIT License. See the LICENSE.
+
 using FluentHub.Octokit.Queries.Users;
-using FluentHub.App.Helpers;
 using FluentHub.App.Models;
-using FluentHub.App.Services;
 using FluentHub.App.ViewModels.Repositories;
 using FluentHub.App.ViewModels.UserControls.Overview;
 using FluentHub.App.ViewModels.UserControls.BlockButtons;
 using FluentHub.App.Utils;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Imaging;
 

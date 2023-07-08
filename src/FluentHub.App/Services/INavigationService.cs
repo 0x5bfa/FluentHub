@@ -1,43 +1,47 @@
 // Copyright (c) FluentHub
 // Licensed under the MIT License. See the LICENSE.
 
-using FluentHub.App.Data.Items;
-using FluentHub.Core.Data.Enums;
 using Microsoft.UI.Xaml.Controls;
 using Microsoft.UI.Xaml.Media.Animation;
 
 namespace FluentHub.App.Services
 {
-    public interface INavigationService
-    {
-        Type CurrentPage { get; set; }
+	public interface INavigationService
+	{
+		Type CurrentPage { get; set; }
 
-        ITabView TabView { get; }
+		ITabView TabView { get; }
 
-        bool IsConfigured { get; }
+		bool IsConfigured { get; }
 
-        void Configure(ITabView tabView);
+		void Configure(ITabView tabView);
 
-        void Disconnect();
+		void Disconnect();
 
-        void Navigate(Type page, object parameter = null, NavigationTransitionInfo transitionInfo = null);
+		void Navigate(Type page, object parameter = null, NavigationTransitionInfo transitionInfo = null);
 
-        void Navigate<T>(object parameter = null, NavigationTransitionInfo transitionInfo = null) where T : Page;
+		void Navigate<T>(object parameter = null, NavigationTransitionInfo transitionInfo = null) where T : Page;
 
-        Guid OpenTab(Type page, object parameter = null);
+		Guid OpenTab(Type page, object parameter = null);
 
-        Guid OpenTab<T>(object parameter = null) where T : Page;
+		Guid OpenTab<T>(object parameter = null) where T : Page;
 
-        void CloseTab(Guid tabId);
+		void CloseTab(Guid tabId);
 
-        void GoToTab(Guid tabId);
+		void GoToTab(Guid tabId);
 
-        void GoBack();
+		void GoBack();
 
-        void GoForward();
+		void GoForward();
 
-        bool CanGoBack();
+		bool CanGoBack();
 
-        bool CanGoForward();
-    }
+		bool CanGoForward();
+
+		PageNavigationEntry GetCurrentTabItem();
+
+		void SetCurrentTabItem(PageNavigationEntry newEntry);
+
+		public void SaveContextToCurrentTabItem(FrameNavigationParameter context);
+	}
 }

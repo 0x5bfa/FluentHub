@@ -1,33 +1,33 @@
 namespace FluentHub.App.Services
 {
-    public enum BadgeGlyphType
-    {
-        None,
+	public enum BadgeGlyphType
+	{
+		None,
 
-        Activity,
+		Activity,
 
-        Alarm,
+		Alarm,
 
-        Alert,
+		Alert,
 
-        Attention,
+		Attention,
 
-        Available,
+		Available,
 
-        Away,
+		Away,
 
-        Busy,
+		Busy,
 
-        Error,
+		Error,
 
-        NewMessage,
+		NewMessage,
 
-        Paused,
+		Paused,
 
-        Playing,
+		Playing,
 
-        Unavailable,
+		Unavailable,
 
-        Number
-    }
+		Number
+	}
 }

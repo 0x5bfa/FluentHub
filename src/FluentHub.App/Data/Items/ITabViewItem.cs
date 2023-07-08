@@ -6,14 +6,14 @@ using System.ComponentModel;
 
 namespace FluentHub.App.Data.Items
 {
-    public interface ITabViewItem : INotifyPropertyChanged
-    {
-        Guid Guid { get; }
+	public interface ITabViewItem : INotifyPropertyChanged
+	{
+		Guid Guid { get; }
 
-        Frame Frame { get; }
+		Frame Frame { get; }
 
-        NavigationHistory NavigationHistory { get; }
+		NavigationHistory NavigationHistory { get; }
 
-        NavigationBarModel NavigationBar { get; }
-    }
+		NavigationBarModel NavigationBar { get; }
+	}
 }
