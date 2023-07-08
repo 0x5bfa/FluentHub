@@ -4,9 +4,7 @@
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 	xmlns:dataitems="using:FluentHub.App.Data.Items"
-	xmlns:local="using:FluentHub.App.UserControls.TabViewControl"
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-	xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
 	d:DesignHeight="300"
 	d:DesignWidth="400"
 	mc:Ignorable="d">
@@ -24,20 +22,22 @@
 		HorizontalAlignment="Stretch"
 		x:FieldModifier="public"
 		Background="Transparent">
+
 		<TabView
 			x:Name="MainTabView"
 			HorizontalAlignment="Stretch"
 			VerticalAlignment="Stretch"
 			AllowDropTabs="True"
-			Background="{x:Null}"
 			CanReorderTabs="True"
 			IsAddTabButtonVisible="False"
 			SelectedIndex="{x:Bind SelectedIndex, Mode=TwoWay}"
 			SelectedItem="{x:Bind SelectedItem, Mode=TwoWay}"
 			TabCloseRequested="OnMainTabViewTabCloseRequested"
 			TabItemsSource="{x:Bind TabItems, Mode=OneWay}">
+
 			<TabView.TabItemTemplate>
 				<DataTemplate x:DataType="dataitems:TabViewItem">
+
 					<TabViewItem
 						Header="{x:Bind NavigationHistory.CurrentItem.Header, Mode=OneWay}"
 						IconSource="{x:Bind NavigationHistory.CurrentItem.Icon, Mode=OneWay}"
@@ -45,8 +45,10 @@
 						Style="{StaticResource TabViewItemStyle}"
 						ToolTipService.Placement="Bottom"
 						ToolTipService.ToolTip="{x:Bind NavigationHistory.CurrentItem.Description, Mode=OneWay}" />
+
 				</DataTemplate>
 			</TabView.TabItemTemplate>
+
 			<TabView.TabStripFooter>
 				<Grid>
 					<Grid.ColumnDefinitions>
@@ -54,12 +56,14 @@
 						<ColumnDefinition Width="*" />
 						<ColumnDefinition x:Name="RightPaddingColumn" Width="0" />
 					</Grid.ColumnDefinitions>
+
 					<Button
 						x:Name="AddNewTabViewItemButton"
 						Grid.Column="0"
-						Width="32"
-						Height="32"
+						Width="28"
+						Height="28"
 						Margin="-4,0,0,2"
+						Padding="0"
 						HorizontalAlignment="Left"
 						VerticalAlignment="Bottom"
 						Background="Transparent"
@@ -71,6 +75,7 @@
 							<FontIcon FontSize="12" Glyph="&#xE710;" />
 						</Button.Content>
 					</Button>
+
 					<Grid
 						x:Name="DragAreaGrid"
 						Grid.Column="1"
@@ -78,8 +83,11 @@
 						HorizontalAlignment="Stretch"
 						VerticalAlignment="Stretch"
 						Background="Transparent" />
+
 				</Grid>
 			</TabView.TabStripFooter>
+
 		</TabView>
+
 	</Border>
 </UserControl>

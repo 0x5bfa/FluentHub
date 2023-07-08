@@ -83,7 +83,7 @@
 
 	<Grid>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="48" />
+			<RowDefinition Height="40" />
 			<RowDefinition Height="*" />
 		</Grid.RowDefinitions>
 
@@ -99,8 +99,9 @@
 				x:Name="CustomTabViewControl"
 				Title="{x:Bind CustomTabViewControl.SelectedItem.NavigationHistory.CurrentItem.Header, Mode=OneWay}"
 				Grid.Column="3"
-				Height="44"
-				Margin="-6,-6,0,0"
+				Height="40"
+				Margin="0,0,0,0"
+				VerticalAlignment="Bottom"
 				Background="Transparent"
 				Loaded="OnCustomTabViewControlLoaded"
 				SelectionChanged="OnTabViewSelectionChanged" />
@@ -116,7 +117,7 @@
 			<Grid
 				Grid.Row="0"
 				Padding="16,12,16,12"
-				Background="{ThemeResource LayerOnMicaBaseAltFillColorSecondaryBrush}"
+				Background="{ThemeResource AppThemeGlobalNavigationBarBackgroundBrush}"
 				RowSpacing="12">
 				<Grid>
 					<Grid.RowDefinitions>
@@ -283,9 +284,12 @@
 
 			</Grid>
 
-			<Grid Grid.Row="1" Background="{ThemeResource LayerOnMicaBaseAltFillColorDefaultBrush}">
-				<ContentPresenter x:Name="RootFrameBorder" />
-			</Grid>
+			<Grid
+				Grid.Row="1"
+				Background="{ThemeResource LayerOnMicaBaseAltFillColorDefaultBrush}"
+				Opacity="0.5" />
+
+			<ContentPresenter x:Name="RootFrameBorder" Grid.Row="1" />
 
 			<Grid Grid.RowSpan="2">
 				<NavigationView
