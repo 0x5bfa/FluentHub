@@ -5,7 +5,7 @@
   FluentHub
 </h1>
 <p align="center">
-  A stylish yet powerful GitHub client.
+  The stylish yet powerful GitHub client for Windows.
 </p>
 
 <p align="center">
