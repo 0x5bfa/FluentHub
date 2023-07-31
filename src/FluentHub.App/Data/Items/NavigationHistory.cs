@@ -1,8 +1,6 @@
 // Copyright (c) FluentHub
 // Licensed under the MIT License. See the LICENSE.
 
-using FluentHub.App.Services;
-using Microsoft.Extensions.DependencyInjection;
 using Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.App.Data.Items
@@ -20,16 +18,28 @@ namespace FluentHub.App.Data.Items
 		}
 
 		private bool _CanGoBack;
-		public bool CanGoBack { get => _CanGoBack; private set => SetProperty(ref _CanGoBack, value); }
+		public bool CanGoBack
+		{
+			get => _CanGoBack;
+			private set => SetProperty(ref _CanGoBack, value);
+		}
 
 		private bool _CanGoForward;
-		public bool CanGoForward { get => _CanGoForward; private set => SetProperty(ref _CanGoForward, value); }
+		public bool CanGoForward
+		{
+			get => _CanGoForward;
+			private set => SetProperty(ref _CanGoForward, value);
+		}
 
-		private PageNavigationEntry? _CurrentItem;
-		public PageNavigationEntry? CurrentItem { get => _CurrentItem; private set => SetProperty(ref _CurrentItem, value); }
+		private NavigationHistoryItem? _CurrentItem;
+		public NavigationHistoryItem? CurrentItem
+		{
+			get => _CurrentItem;
+			private set => SetProperty(ref _CurrentItem, value);
+		}
 
-		private readonly ObservableCollection<PageNavigationEntry> _Items;
-		public ReadOnlyObservableCollection<PageNavigationEntry> Items { get; }
+		private readonly ObservableCollection<NavigationHistoryItem> _Items;
+		public ReadOnlyObservableCollection<NavigationHistoryItem> Items { get; }
 
 		private int _CurrentItemIndex;
 		public int CurrentItemIndex
@@ -44,14 +54,12 @@ namespace FluentHub.App.Data.Items
 				else
 					throw new ArgumentOutOfRangeException(nameof(value));
 
-				_CurrentItemIndex = value;
-
-				OnPropertyChanged(nameof(CurrentItemIndex));
+				SetProperty(ref _CurrentItemIndex, value);
 				Update();
 			}
 		}
 
-		public PageNavigationEntry this[int index]
+		public NavigationHistoryItem this[int index]
 			=> Items[index];
 
 		public bool GoBack()
@@ -59,7 +67,9 @@ namespace FluentHub.App.Data.Items
 			if (CanGoBack)
 			{
 				CurrentItemIndex--;
+
 				Update();
+
 				return true;
 			}
 
@@ -71,22 +81,25 @@ namespace FluentHub.App.Data.Items
 			if (CanGoForward)
 			{
 				CurrentItemIndex++;
+
 				Update();
+
 				return true;
 			}
 
 			return false;
 		}
 
-		public void NavigateTo(PageNavigationEntry item)
+		public void NavigateTo(NavigationHistoryItem item)
 		{
 			_Items.Add(item);
+
 			CurrentItemIndex = _Items.Count - 1;
 
 			Update();
 		}
 
-		public void NavigateTo(PageNavigationEntry item, int index)
+		public void NavigateTo(NavigationHistoryItem item, int index)
 		{
 			// Valid
 			if (index >= 0 && index <= _Items.Count)
@@ -108,6 +121,7 @@ namespace FluentHub.App.Data.Items
 		public void ClearHistory()
 		{
 			_Items.Clear();
+
 			CurrentItemIndex = -1;
 
 			Update();
@@ -123,6 +137,7 @@ namespace FluentHub.App.Data.Items
 		{
 			INavigationService navigationService;
 			navigationService = App.Current.Services.GetRequiredService<INavigationService>();
+
 			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
 
 			currentItem.Header = header;

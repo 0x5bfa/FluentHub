@@ -5,7 +5,7 @@ using Microsoft.UI.Xaml.Controls;
 
 namespace FluentHub.App.Data.Items
 {
-	public class PageNavigationEntry : ObservableObject
+	public class NavigationHistoryItem : ObservableObject
 	{
 		private string? _Header;
 		public string? Header { get => _Header; set => SetProperty(ref _Header, value); }
@@ -32,5 +32,7 @@ namespace FluentHub.App.Data.Items
 
 		private FrameNavigationParameter? _Context;
 		public FrameNavigationParameter? Context { get => _Context; set => SetProperty(ref _Context, value); }
+
+		public bool NewlyCreated { get; set; }
 	}
 }

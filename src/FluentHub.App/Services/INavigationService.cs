@@ -38,9 +38,9 @@ namespace FluentHub.App.Services
 
 		bool CanGoForward();
 
-		PageNavigationEntry GetCurrentTabItem();
+		NavigationHistoryItem GetCurrentTabItem();
 
-		void SetCurrentTabItem(PageNavigationEntry newEntry);
+		void SetCurrentTabItem(NavigationHistoryItem newEntry);
 
 		public void SaveContextToCurrentTabItem(FrameNavigationParameter context);
 	}

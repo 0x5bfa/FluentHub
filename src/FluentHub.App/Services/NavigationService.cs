@@ -75,9 +75,7 @@ namespace FluentHub.App.Services
 		{
 			EnsureConfigured();
 
-			var tab = TabView.SelectedItem;
-			if (tab is null)
-				throw new InvalidOperationException("No tab selected");
+			var tab = TabView.SelectedItem ?? throw new InvalidOperationException("No tab selected");
 
 			tab.Frame.GoBack();
 		}
@@ -86,9 +84,7 @@ namespace FluentHub.App.Services
 		{
 			EnsureConfigured();
 
-			var tab = TabView.SelectedItem;
-			if (tab is null)
-				throw new InvalidOperationException("No tab selected");
+			var tab = TabView.SelectedItem ?? throw new InvalidOperationException("No tab selected");
 
 			tab.Frame.GoForward();
 		}
@@ -107,12 +103,12 @@ namespace FluentHub.App.Services
 			return TabView.SelectedItem?.Frame?.CanGoForward == true;
 		}
 
-		public PageNavigationEntry GetCurrentTabItem()
+		public NavigationHistoryItem GetCurrentTabItem()
 		{
 			return TabView.SelectedItem.NavigationHistory.CurrentItem;
 		}
 
-		public void SetCurrentTabItem(PageNavigationEntry newEntry)
+		public void SetCurrentTabItem(NavigationHistoryItem newEntry)
 		{
 			var currentItem = TabView.SelectedItem.NavigationHistory.CurrentItem;
 

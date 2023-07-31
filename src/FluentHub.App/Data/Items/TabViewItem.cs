@@ -38,7 +38,7 @@ namespace FluentHub.App.Data.Items
 			switch (e.NavigationMode)
 			{
 				case NavigationMode.New:
-					NavigationHistory.NavigateTo(new PageNavigationEntry(), NavigationHistory.CurrentItemIndex + 1);
+					NavigationHistory.NavigateTo(new NavigationHistoryItem(), NavigationHistory.CurrentItemIndex + 1);
 					break;
 				case NavigationMode.Back:
 					NavigationHistory.GoBack();
