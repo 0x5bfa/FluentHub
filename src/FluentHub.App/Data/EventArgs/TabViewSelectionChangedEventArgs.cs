@@ -5,30 +5,30 @@ using Microsoft.UI.Xaml.Media.Animation;
 
 namespace FluentHub.App.Data.EventArgs
 {
-    public class TabViewSelectionChangedEventArgs : System.EventArgs
-    {
-        public ITabViewItem NewSelectedItem { get; }
+	public class TabViewSelectionChangedEventArgs : System.EventArgs
+	{
+		public ITabViewItem NewSelectedItem { get; }
 
-        public ITabViewItem OldSelectedItem { get; }
+		public ITabViewItem OldSelectedItem { get; }
 
-        public NavigationTransitionInfo RecommendedNavigationTransitionInfo { get; }
+		public NavigationTransitionInfo RecommendedNavigationTransitionInfo { get; }
 
-        public TabViewSelectionChangedEventArgs(ITabViewItem newSelectedItem)
-        {
-            NewSelectedItem = newSelectedItem;
-        }
+		public TabViewSelectionChangedEventArgs(ITabViewItem newSelectedItem)
+		{
+			NewSelectedItem = newSelectedItem;
+		}
 
-        public TabViewSelectionChangedEventArgs(ITabViewItem newSelectedItem, ITabViewItem oldSelectedItem)
-        {
-            NewSelectedItem = newSelectedItem;
-            OldSelectedItem = oldSelectedItem;
-        }
+		public TabViewSelectionChangedEventArgs(ITabViewItem newSelectedItem, ITabViewItem oldSelectedItem)
+		{
+			NewSelectedItem = newSelectedItem;
+			OldSelectedItem = oldSelectedItem;
+		}
 
-        public TabViewSelectionChangedEventArgs(ITabViewItem newSelectedItem, ITabViewItem oldSelectedItem, NavigationTransitionInfo recommendedNavigationTransitionInfo)
-        {
-            NewSelectedItem = newSelectedItem;
-            OldSelectedItem = oldSelectedItem;
-            RecommendedNavigationTransitionInfo = recommendedNavigationTransitionInfo;
-        }
-    }
+		public TabViewSelectionChangedEventArgs(ITabViewItem newSelectedItem, ITabViewItem oldSelectedItem, NavigationTransitionInfo recommendedNavigationTransitionInfo)
+		{
+			NewSelectedItem = newSelectedItem;
+			OldSelectedItem = oldSelectedItem;
+			RecommendedNavigationTransitionInfo = recommendedNavigationTransitionInfo;
+		}
+	}
 }
