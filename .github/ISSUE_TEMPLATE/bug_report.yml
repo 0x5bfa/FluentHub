@@ -72,6 +72,6 @@ body:
       required: true
   - type: textarea
     attributes:
-      label: 📸 Assets
+      label: Assets
       description: |
         A list of assets (errors, screenshots, logs) relevant to the bug.
