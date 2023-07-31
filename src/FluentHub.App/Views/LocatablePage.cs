@@ -11,64 +11,67 @@ using FluentHub.App.Data.Items;
 
 namespace FluentHub.App.Views
 {
-    public abstract class LocatablePage : Page
-    {
-        private readonly INavigationService _navigationService;
+	public abstract class LocatablePage : Page
+	{
+		private readonly INavigationService _navigationService;
 
-        private readonly ILogger _logger;
+		private readonly ILogger _logger;
 
-        private readonly NavigationBarPageKind _currentPageKind;
+		private readonly NavigationPageKind _currentPageKind;
 
-        private readonly NavigationBarItemKey _currentPageItemKey;
+		private readonly NavigationPageKey _currentPageItemKey;
 
-        public LocatablePage(NavigationBarPageKind pageKind, NavigationBarItemKey itemKey)
-        {
-            var provider = App.Current.Services;
-            _navigationService = provider.GetRequiredService<INavigationService>();
-            _logger = provider.GetRequiredService<ILogger>();
-            _currentPageKind = pageKind;
-            _currentPageItemKey = itemKey;
+		public LocatablePage(NavigationPageKind pageKind, NavigationPageKey itemKey)
+		{
+			var provider = App.Current.Services;
+			_navigationService = provider.GetRequiredService<INavigationService>();
+			_logger = provider.GetRequiredService<ILogger>();
+			_currentPageKind = pageKind;
+			_currentPageItemKey = itemKey;
 
-            CheckIfNavigationBarShouldBeChanged();
-        }
+			CheckIfNavigationBarShouldBeChanged();
+		}
 
-        public void CheckIfNavigationBarShouldBeChanged()
-        {
-            var currentTabItem = _navigationService.TabView.SelectedItem.NavigationBar;
-            if (currentTabItem is null)
-                return;
+		public void CheckIfNavigationBarShouldBeChanged()
+		{
+			var currentTabNavigationBar = _navigationService.TabView.SelectedItem.NavigationBar;
+			if (currentTabNavigationBar is null)
+				return;
 
-            if (currentTabItem.PageKind != _currentPageKind)
-            {
-                currentTabItem.PageKind = _currentPageKind;
+			if (currentTabNavigationBar.PageKind != _currentPageKind)
+			{
+				currentTabNavigationBar.PageKind = _currentPageKind;
 
-                // Initialize NavigationBar items
-                currentTabItem.NavigationBarItems ??= new();
-                currentTabItem.NavigationBarItems.Clear();
+				// Initialize NavigationBar items
+				currentTabNavigationBar.NavigationBarItems ??= new();
+				currentTabNavigationBar.NavigationBarItems.Clear();
 
-                // Generate items
-                var items = _currentPageKind switch
-                {
-                    NavigationBarPageKind.Organization => NavigationBarFactory.GetOrganizationNavigationBarItems(),
-                    NavigationBarPageKind.Repository => NavigationBarFactory.GetRepositoryNavigationBarItems(),
-                    NavigationBarPageKind.User => NavigationBarFactory.GetUserNavigationBarItems(),
-                    _ => new List<NavigationBarItem>(),
-                };
+				// Generate items
+				var items = _currentPageKind switch
+				{
+					NavigationPageKind.Organization => NavigationBarFactory.GetOrganizationNavigationBarItems(),
+					NavigationPageKind.Repository => NavigationBarFactory.GetRepositoryNavigationBarItems(),
+					NavigationPageKind.User => NavigationBarFactory.GetUserNavigationBarItems(),
+					_ => new List<NavigationBarItem>(),
+				};
 
-                // Add generated items
-                foreach (var item in items)
-                    currentTabItem.NavigationBarItems.Add(item);
-            }
+				// Add generated items
+				foreach (var item in items)
+					currentTabNavigationBar.NavigationBarItems.Add(item);
+			}
 
-            // Select item
-            foreach (var item in currentTabItem.NavigationBarItems)
-            {
-                if (item.PageItemKey == _currentPageItemKey)
-                {
-                    currentTabItem.SelectedNavigationBarItem = item;
-                    break;
-                }
-            }
-        }
-    }
+			_navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem.PageKey = _currentPageItemKey;
+			_navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem.PageKind = _currentPageKind;
+
+			// Select item
+			foreach (var item in currentTabNavigationBar.NavigationBarItems)
+			{
+				if (item.PageItemKey == _currentPageItemKey)
+				{
+					currentTabNavigationBar.SelectedNavigationBarItem = item;
+					break;
+				}
+			}
+		}
+	}
 }

@@ -19,7 +19,7 @@ namespace FluentHub.App.Views.Repositories.Issues
         private readonly INavigationService _navigation;
 
         public IssuesPage()
-            : base(NavigationBarPageKind.Repository, NavigationBarItemKey.Issues)
+            : base(NavigationPageKind.Repository, NavigationPageKey.Issues)
         {
             InitializeComponent();
 

@@ -32,8 +32,6 @@ namespace FluentHub.App.Views.AppSettings.Accounts
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Other users";
             currentItem.Description = "Other users";
-            currentItem.Url = "fluenthub://settings/account/otherusers";
-            currentItem.DisplayUrl = "Settings / Account / Other users";
             currentItem.Icon = new ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Accounts.png"))

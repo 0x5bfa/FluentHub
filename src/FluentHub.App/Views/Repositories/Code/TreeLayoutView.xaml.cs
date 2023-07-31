@@ -21,7 +21,7 @@ namespace FluentHub.App.Views.Repositories.Code
         private readonly INavigationService navigationService;
 
         public TreeLayoutView()
-            : base(NavigationBarPageKind.Repository, NavigationBarItemKey.Code)
+            : base(NavigationPageKind.Repository, NavigationPageKey.Code)
         {
             InitializeComponent();
 

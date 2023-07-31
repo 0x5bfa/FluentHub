@@ -28,8 +28,6 @@ namespace FluentHub.App.Views.AppSettings
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Notifications";
             currentItem.Description = "FluentHub notifications settings";
-            currentItem.Url = "fluenthub://settings/notifications";
-            currentItem.DisplayUrl = "Settings / Notifications";
             currentItem.Icon = new ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Settings.png"))

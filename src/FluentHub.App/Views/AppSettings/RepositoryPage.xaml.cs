@@ -24,8 +24,6 @@ namespace FluentHub.App.Views.AppSettings
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Repositories settings";
             currentItem.Description = "Repositories settings";
-            currentItem.Url = "fluenthub://settings/repositories";
-            currentItem.DisplayUrl = $"Settings / Repositories";
             currentItem.Icon = new ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Repositories.png"))

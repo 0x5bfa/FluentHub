@@ -28,8 +28,6 @@ namespace FluentHub.App.Views.AppSettings.Accounts
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Account";
             currentItem.Description = "Account Settings";
-            currentItem.Url = "fluenthub://settings/account";
-            currentItem.DisplayUrl = $"Settings / Account";
             currentItem.Icon = new ImageIconSource
             {
                 ImageSource = new BitmapImage(new Uri("ms-appx:///Assets/Icons/Accounts.png"))

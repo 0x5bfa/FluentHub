@@ -13,7 +13,7 @@ namespace FluentHub.App.Views.Users
         public StarredReposViewModel ViewModel { get; }
 
         public StarredReposPage()
-            : base(NavigationBarPageKind.User, NavigationBarItemKey.Stars)
+            : base(NavigationPageKind.User, NavigationPageKey.Stars)
         {
             InitializeComponent();
 

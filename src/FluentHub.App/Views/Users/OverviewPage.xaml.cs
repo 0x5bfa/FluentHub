@@ -11,7 +11,7 @@ namespace FluentHub.App.Views.Users
 		public OverviewViewModel ViewModel { get; }
 
 		public OverviewPage()
-			: base(NavigationBarPageKind.User, NavigationBarItemKey.Overview)
+			: base(NavigationPageKind.User, NavigationPageKey.Overview)
 		{
 			InitializeComponent();
 

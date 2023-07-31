@@ -21,9 +21,9 @@ namespace FluentHub.App.Data.Items
 				if (value is not null && SetProperty(ref _SelectedNavigationBarItem, value))
 				{
 					// Parameters validation
-					if ((value.PageKind == NavigationBarPageKind.User && Parameter?.UserLogin is not null) ||
-						(value.PageKind == NavigationBarPageKind.Repository && Parameter?.RepositoryName is not null) ||
-						(value.PageKind == NavigationBarPageKind.Organization && Parameter?.UserLogin is not null))
+					if ((value.PageKind == NavigationPageKind.User && Parameter?.UserLogin is not null) ||
+						(value.PageKind == NavigationPageKind.Repository && Parameter?.RepositoryName is not null) ||
+						(value.PageKind == NavigationPageKind.Organization && Parameter?.UserLogin is not null))
 					{
 						var service = App.Current.Services.GetRequiredService<INavigationService>();
 						service.Navigate(
@@ -38,8 +38,8 @@ namespace FluentHub.App.Data.Items
 			}
 		}
 
-		private NavigationBarPageKind _PageKind;
-		public NavigationBarPageKind PageKind
+		private NavigationPageKind _PageKind;
+		public NavigationPageKind PageKind
 		{
 			get => _PageKind;
 			set
@@ -50,7 +50,7 @@ namespace FluentHub.App.Data.Items
 		}
 
 		public bool IsNavigationBarShown
-			=> PageKind != NavigationBarPageKind.None;
+			=> PageKind != NavigationPageKind.None;
 
 		public FrameNavigationParameter Parameter { get; set; } = new();
 	}

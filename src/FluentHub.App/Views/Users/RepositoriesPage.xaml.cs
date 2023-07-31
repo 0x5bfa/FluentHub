@@ -13,7 +13,7 @@ namespace FluentHub.App.Views.Users
         public RepositoriesViewModel ViewModel { get; }
 
         public RepositoriesPage()
-            : base(NavigationBarPageKind.User, NavigationBarItemKey.Repositories)
+            : base(NavigationPageKind.User, NavigationPageKey.Repositories)
         {
             InitializeComponent();
 

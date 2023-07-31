@@ -17,7 +17,7 @@ namespace FluentHub.App.Views.Repositories.Code
         private readonly INavigationService _navigation;
 
         public DetailsLayoutView()
-            : base(NavigationBarPageKind.Repository, NavigationBarItemKey.Code)
+            : base(NavigationPageKind.Repository, NavigationPageKey.Code)
         {
             InitializeComponent();
 

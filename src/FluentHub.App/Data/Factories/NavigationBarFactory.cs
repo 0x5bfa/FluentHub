@@ -15,15 +15,15 @@ namespace FluentHub.App.Data.Factories
                 {
                     Text = "Overview",
                     PageToNavigate = typeof(Views.Organizations.OverviewPage),
-                    PageItemKey = NavigationBarItemKey.Overview,
-                    PageKind = NavigationBarPageKind.Organization,
+                    PageItemKey = NavigationPageKey.Overview,
+                    PageKind = NavigationPageKind.Organization,
                 },
                 new()
                 {
                     Text = "Repositories",
                     PageToNavigate = typeof(Views.Organizations.RepositoriesPage),
-                    PageItemKey = NavigationBarItemKey.Repositories,
-                    PageKind = NavigationBarPageKind.Organization,
+                    PageItemKey = NavigationPageKey.Repositories,
+                    PageKind = NavigationPageKind.Organization,
                 },
             };
         }
@@ -36,22 +36,22 @@ namespace FluentHub.App.Data.Factories
                 {
                     Text = "Code",
                     PageToNavigate = typeof(Views.Repositories.Code.DetailsLayoutView),
-                    PageItemKey = NavigationBarItemKey.Code,
-                    PageKind = NavigationBarPageKind.Repository,
+                    PageItemKey = NavigationPageKey.Code,
+                    PageKind = NavigationPageKind.Repository,
                 },
                 new()
                 {
                     Text = "Issues",
                     PageToNavigate = typeof(Views.Repositories.Issues.IssuesPage),
-                    PageItemKey = NavigationBarItemKey.Issues,
-                    PageKind = NavigationBarPageKind.Repository,
+                    PageItemKey = NavigationPageKey.Issues,
+                    PageKind = NavigationPageKind.Repository,
                 },
                 new()
                 {
                     Text = "Pull Requests",
                     PageToNavigate = typeof(Views.Repositories.PullRequests.PullRequestsPage),
-                    PageItemKey = NavigationBarItemKey.PullRequests,
-                    PageKind = NavigationBarPageKind.Repository,
+                    PageItemKey = NavigationPageKey.PullRequests,
+                    PageKind = NavigationPageKind.Repository,
                 },
             };
         }
@@ -64,22 +64,22 @@ namespace FluentHub.App.Data.Factories
                 {
                     Text = "Overview",
                     PageToNavigate = typeof(Views.Users.OverviewPage),
-                    PageItemKey = NavigationBarItemKey.Overview,
-                    PageKind = NavigationBarPageKind.User,
+                    PageItemKey = NavigationPageKey.Overview,
+                    PageKind = NavigationPageKind.User,
                 },
                 new()
                 {
                     Text = "Repositories",
                     PageToNavigate = typeof(Views.Users.RepositoriesPage),
-                    PageItemKey = NavigationBarItemKey.Repositories,
-                    PageKind = NavigationBarPageKind.User,
+                    PageItemKey = NavigationPageKey.Repositories,
+                    PageKind = NavigationPageKind.User,
                 },
                 new()
                 {
                     Text = "Stars",
                     PageToNavigate = typeof(Views.Users.StarredReposPage),
-                    PageItemKey = NavigationBarItemKey.Stars,
-                    PageKind = NavigationBarPageKind.User,
+                    PageItemKey = NavigationPageKey.Stars,
+                    PageKind = NavigationPageKind.User,
                 },
             };
         }

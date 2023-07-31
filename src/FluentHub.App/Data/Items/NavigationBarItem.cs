@@ -11,8 +11,8 @@ namespace FluentHub.App.Data.Items
 
 		public Type PageToNavigate { get; set; } = typeof(Views.Viewers.DashBoardPage);
 
-		public NavigationBarPageKind PageKind { get; set; }
+		public NavigationPageKind PageKind { get; set; }
 
-		public NavigationBarItemKey PageItemKey { get; set; }
+		public NavigationPageKey PageItemKey { get; set; }
 	}
 }

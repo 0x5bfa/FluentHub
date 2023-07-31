@@ -68,6 +68,9 @@ namespace FluentHub.App.Data.Items
 			{
 				CurrentItemIndex--;
 
+				// Update NavigationBar
+				UpdateNavigationBar(true);
+
 				Update();
 
 				return true;
@@ -81,6 +84,9 @@ namespace FluentHub.App.Data.Items
 			if (CanGoForward)
 			{
 				CurrentItemIndex++;
+
+				// Update NavigationBar
+				UpdateNavigationBar(false);
 
 				Update();
 
@@ -142,9 +148,54 @@ namespace FluentHub.App.Data.Items
 
 			currentItem.Header = header;
 			currentItem.Description = description;
-			currentItem.Url = url;
-			currentItem.DisplayUrl = "";
 			currentItem.Icon = icon;
+		}
+
+		private void UpdateNavigationBar(bool isBackNavigation = false)
+		{
+			var previousItem = isBackNavigation ? Items[CurrentItemIndex + 1] : Items[CurrentItemIndex - 1];
+
+			var _navigationService = App.Current.Services.GetRequiredService<INavigationService>();
+
+			var currentTabNavigationBar = _navigationService.TabView.SelectedItem.NavigationBar;
+			if (currentTabNavigationBar is null)
+				return;
+
+			// Generate new navigation bar items
+			if (previousItem.PageKind != CurrentItem.PageKind)
+			{
+				currentTabNavigationBar.PageKind = CurrentItem.PageKind;
+
+				// Initialize NavigationBar items
+				currentTabNavigationBar.NavigationBarItems ??= new();
+				currentTabNavigationBar.NavigationBarItems.Clear();
+
+				// Generate items
+				var items = CurrentItem.PageKind switch
+				{
+					NavigationPageKind.Organization => NavigationBarFactory.GetOrganizationNavigationBarItems(),
+					NavigationPageKind.Repository => NavigationBarFactory.GetRepositoryNavigationBarItems(),
+					NavigationPageKind.User => NavigationBarFactory.GetUserNavigationBarItems(),
+					_ => new List<NavigationBarItem>(),
+				};
+
+				// Add generated items
+				foreach (var item in items)
+					currentTabNavigationBar.NavigationBarItems.Add(item);
+			}
+
+			_navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem.PageKey = CurrentItem.PageKey;
+			_navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem.PageKind = CurrentItem.PageKind;
+
+			// Select item
+			foreach (var item in currentTabNavigationBar.NavigationBarItems)
+			{
+				if (item.PageItemKey == CurrentItem.PageKind)
+				{
+					currentTabNavigationBar.SelectedNavigationBarItem = item;
+					break;
+				}
+			}
 		}
 	}
 }

@@ -17,7 +17,7 @@ namespace FluentHub.App.Views.Repositories.PullRequests
         private readonly INavigationService _navigation;
 
         public PullRequestsPage()
-            : base(NavigationBarPageKind.Repository, NavigationBarItemKey.PullRequests)
+            : base(NavigationPageKind.Repository, NavigationPageKey.PullRequests)
         {
             InitializeComponent();
 

@@ -27,7 +27,7 @@ namespace FluentHub.App.ViewModels.Users
             if (parameter.AsViewer)
             {
                 var currentTabItem = _navigation.TabView.SelectedItem;
-                currentTabItem.NavigationBar.PageKind = NavigationBarPageKind.None;
+                currentTabItem.NavigationBar.PageKind = NavigationPageKind.None;
 
                 DisplayTitle = true;
             }
