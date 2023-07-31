@@ -168,7 +168,9 @@ namespace FluentHub.App.Data.Items
 
 				// Initialize NavigationBar items
 				currentTabNavigationBar.NavigationBarItems ??= new();
-				currentTabNavigationBar.NavigationBarItems.Clear();
+
+				if (currentTabNavigationBar.NavigationBarItems.Count != 0)
+					currentTabNavigationBar.NavigationBarItems.Clear();
 
 				// Generate items
 				var items = CurrentItem.PageKind switch
@@ -184,13 +186,10 @@ namespace FluentHub.App.Data.Items
 					currentTabNavigationBar.NavigationBarItems.Add(item);
 			}
 
-			_navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem.PageKey = CurrentItem.PageKey;
-			_navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem.PageKind = CurrentItem.PageKind;
-
 			// Select item
 			foreach (var item in currentTabNavigationBar.NavigationBarItems)
 			{
-				if (item.PageItemKey == CurrentItem.PageKind)
+				if (item.PageItemKey == CurrentItem.PageKey)
 				{
 					currentTabNavigationBar.SelectedNavigationBarItem = item;
 					break;
