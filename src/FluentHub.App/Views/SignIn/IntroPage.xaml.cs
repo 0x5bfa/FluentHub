@@ -15,8 +15,7 @@ namespace FluentHub.App.Views.SignIn
         {
             InitializeComponent();
 
-            var provider = App.Current.Services;
-            ViewModel = provider.GetRequiredService<IntroViewModel>();
+            ViewModel = Ioc.Default.GetRequiredService<IntroViewModel>();
         }
 
         public IntroViewModel ViewModel { get; }

@@ -12,9 +12,8 @@ namespace FluentHub.App.Views.AppSettings
         {
             InitializeComponent();
 
-            var provider = App.Current.Services;
-            ViewModel = provider.GetRequiredService<AboutViewModel>();
-            _navigation = provider.GetRequiredService<INavigationService>();
+            ViewModel = Ioc.Default.GetRequiredService<AboutViewModel>();
+            _navigation = Ioc.Default.GetRequiredService<INavigationService>();
         }
 
         public AboutViewModel ViewModel { get; }

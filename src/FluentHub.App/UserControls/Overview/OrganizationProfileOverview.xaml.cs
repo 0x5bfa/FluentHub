@@ -33,7 +33,7 @@ namespace FluentHub.App.UserControls.Overview
         public OrganizationProfileOverview()
         {
             InitializeComponent();
-            navService = App.Current.Services.GetRequiredService<INavigationService>();
+            navService = Ioc.Default.GetRequiredService<INavigationService>();
         }
 
         private readonly INavigationService navService;

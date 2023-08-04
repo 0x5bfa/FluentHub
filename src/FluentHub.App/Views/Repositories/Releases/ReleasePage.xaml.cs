@@ -17,9 +17,8 @@ namespace FluentHub.App.Views.Repositories.Releases
         {
             InitializeComponent();
 
-            var provider = App.Current.Services;
-            ViewModel = provider.GetRequiredService<ReleaseViewModel>();
-            _navigation = App.Current.Services.GetRequiredService<INavigationService>();
+            ViewModel = Ioc.Default.GetRequiredService<ReleaseViewModel>();
+            _navigation = Ioc.Default.GetRequiredService<INavigationService>();
         }
 
         public ReleaseViewModel ViewModel { get; }

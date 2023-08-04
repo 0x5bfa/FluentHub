@@ -23,9 +23,8 @@ namespace FluentHub.App.Views
 
 		public LocatablePage(NavigationPageKind pageKind, NavigationPageKey itemKey)
 		{
-			var provider = App.Current.Services;
-			_navigationService = provider.GetRequiredService<INavigationService>();
-			_logger = provider.GetRequiredService<ILogger>();
+			_navigationService = Ioc.Default.GetRequiredService<INavigationService>();
+			_logger = Ioc.Default.GetRequiredService<ILogger>();
 			_currentPageKind = pageKind;
 			_currentPageItemKey = itemKey;
 

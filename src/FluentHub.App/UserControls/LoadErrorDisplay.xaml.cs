@@ -65,8 +65,7 @@ namespace FluentHub.App.UserControls
 
         private async void OnOpenLogFileLocationButtonClick(object sender, RoutedEventArgs e)
         {
-            var provider = App.Current.Services;
-            var logger = provider.GetRequiredService<Utils.ILogger>();
+            var logger = Ioc.Default.GetRequiredService<Utils.ILogger>();
 
             string logsFolder = Path.Combine(ApplicationData.Current.LocalFolder.Path, "FluentHub.Logs");
             var result = await Launcher.LaunchFolderPathAsync(logsFolder);
@@ -80,8 +79,7 @@ namespace FluentHub.App.UserControls
 
         private void SetCurrentTabItem()
         {
-            var provider = App.Current.Services;
-            INavigationService navigationService = provider.GetRequiredService<INavigationService>();
+            INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Something went wrong";
@@ -90,8 +88,7 @@ namespace FluentHub.App.UserControls
 
         private void  NotifyErrorContent()
         {
-            var provider = App.Current.Services;
-            var messenger = provider.GetRequiredService<IMessenger>();
+            var messenger = Ioc.Default.GetRequiredService<IMessenger>();
 
             UserNotificationMessage notification = new("Something went wrong", TaskException?.Message, UserNotificationType.Error);
             messenger?.Send(notification);

@@ -21,9 +21,8 @@ namespace FluentHub.App.Views.Users
         {
             InitializeComponent();
 
-            var provider = App.Current.Services;
-            _navigationService = provider.GetRequiredService<INavigationService>();
-            ViewModel = provider.GetRequiredService<IssuesViewModel>();
+            _navigationService = Ioc.Default.GetRequiredService<INavigationService>();
+            ViewModel = Ioc.Default.GetRequiredService<IssuesViewModel>();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

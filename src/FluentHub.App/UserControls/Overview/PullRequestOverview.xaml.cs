@@ -36,7 +36,7 @@ namespace FluentHub.App.UserControls.Overview
 
         private void OnPullRequestNavViewItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
-            var service = App.Current.Services.GetRequiredService<INavigationService>();
+            var service = Ioc.Default.GetRequiredService<INavigationService>();
 
             var param = new FrameNavigationParameter()
             {

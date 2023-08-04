@@ -31,9 +31,8 @@ namespace FluentHub.App.UserControls
         {
             InitializeComponent();
 
-            var provider = App.Current.Services;
-            ViewModel = provider.GetRequiredService<LatestCommitBlockViewModel>();
-            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
+            ViewModel = Ioc.Default.GetRequiredService<LatestCommitBlockViewModel>();
+            navigationService = Ioc.Default.GetRequiredService<INavigationService>();
         }
 
         public LatestCommitBlockViewModel ViewModel { get; }

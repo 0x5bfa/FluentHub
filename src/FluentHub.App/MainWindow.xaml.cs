@@ -39,8 +39,8 @@ namespace FluentHub.App
 
 		public void InitializeApplication(object activatedEventArgs)
 		{
-			var logger = App.Current.Services.GetService<Utils.ILogger>();
-			var messenger = App.Current.Services.GetService<IMessenger>();
+			var logger = Ioc.Default.GetService<Utils.ILogger>();
+			var messenger = Ioc.Default.GetService<IMessenger>();
 
 			Frame rootFrame = EnsureWindowIsInitialized();
 			if (rootFrame is null)

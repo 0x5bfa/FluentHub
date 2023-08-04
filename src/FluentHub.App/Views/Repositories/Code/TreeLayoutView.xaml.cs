@@ -25,9 +25,8 @@ namespace FluentHub.App.Views.Repositories.Code
         {
             InitializeComponent();
 
-            var provider = App.Current.Services;
-            ViewModel = provider.GetRequiredService<TreeLayoutViewModel>();
-            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
+            ViewModel = Ioc.Default.GetRequiredService<TreeLayoutViewModel>();
+            navigationService = Ioc.Default.GetRequiredService<INavigationService>();
         }
 
         protected async override void OnNavigatedTo(NavigationEventArgs e)

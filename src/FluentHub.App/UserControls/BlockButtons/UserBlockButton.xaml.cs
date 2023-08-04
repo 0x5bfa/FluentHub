@@ -33,7 +33,7 @@ namespace FluentHub.App.UserControls.BlockButtons
 
         private void UserBlockButtonButton_Click(object sender, RoutedEventArgs e)
         {
-            var service = App.Current.Services.GetRequiredService<INavigationService>();
+            var service = Ioc.Default.GetRequiredService<INavigationService>();
 
             if (ViewModel.User.Id.ToString().StartsWith("O_"))
             {

@@ -38,8 +38,7 @@ namespace FluentHub.App.UserControls
         {
             InitializeComponent();
 
-            var provider = App.Current.Services;
-            ViewModel = provider.GetRequiredService<FileContentBlockViewModel>();
+            ViewModel = Ioc.Default.GetRequiredService<FileContentBlockViewModel>();
         }
 
         public FileContentBlockViewModel ViewModel { get; }

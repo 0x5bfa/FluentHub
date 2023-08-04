@@ -33,7 +33,7 @@ namespace FluentHub.App.UserControls.BlockButtons
 
         private void OrganizationOverviewButton_Click(object sender, RoutedEventArgs e)
         {
-            var service = App.Current.Services.GetRequiredService<INavigationService>();
+            var service = Ioc.Default.GetRequiredService<INavigationService>();
             service.Navigate<Views.Organizations.OverviewPage>(
                 new FrameNavigationParameter()
                 {

@@ -24,9 +24,8 @@ namespace FluentHub.App.Views.Repositories.PullRequests
         {
             InitializeComponent();
 
-            var provider = App.Current.Services;
-            ViewModel = provider.GetRequiredService<CommitViewModel>();
-            _navigation = App.Current.Services.GetRequiredService<INavigationService>();
+            ViewModel = Ioc.Default.GetRequiredService<CommitViewModel>();
+            _navigation = Ioc.Default.GetRequiredService<INavigationService>();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

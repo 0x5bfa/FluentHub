@@ -14,8 +14,7 @@ namespace FluentHub.App.Views.Searches
         {
             InitializeComponent();
 
-            var provider = App.Current.Services;
-            ViewModel = provider.GetRequiredService<RepositoriesViewModel>();
+            ViewModel = Ioc.Default.GetRequiredService<RepositoriesViewModel>();
         }
 
         public RepositoriesViewModel ViewModel { get; }

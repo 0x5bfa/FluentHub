@@ -77,7 +77,7 @@ namespace FluentHub.App.Data.Factories
 				new()
 				{
 					Text = "Stars",
-					PageToNavigate = typeof(Views.Users.StarredReposPage),
+					PageToNavigate = typeof(Views.Users.StarsPage),
 					PageItemKey = NavigationPageKey.Stars,
 					PageKind = NavigationPageKind.User,
 				},

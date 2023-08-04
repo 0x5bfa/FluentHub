@@ -40,8 +40,7 @@ namespace FluentHub.App.UserControls
         {
             InitializeComponent();
 
-            var provider = App.Current.Services;
-            ViewModel = provider.GetRequiredService<ReadmeContentBlockViewModel>();
+            ViewModel = Ioc.Default.GetRequiredService<ReadmeContentBlockViewModel>();
         }
 
         public ReadmeContentBlockViewModel ViewModel { get; }

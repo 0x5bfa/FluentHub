@@ -13,7 +13,7 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
         {
             _messenger = messenger;
             _logger = logger;
-            _navigation = App.Current.Services.GetRequiredService<INavigationService>();
+            _navigation = Ioc.Default.GetRequiredService<INavigationService>();
 
             var parameter = _navigation.TabView.SelectedItem.NavigationBar.Parameter;
             Login = parameter.UserLogin;
@@ -261,12 +261,11 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
 
             NavigationHistory.SetCurrentItem(header, description, url, icon);
 
-            var provider = App.Current.Services;
-            INavigationService navigationService = provider.GetRequiredService<INavigationService>();
+            INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
 
             currentItem.UserLogin = Repository.Owner.Login;
             currentItem.RepositoryName = Repository.Name;
-        }
+		}
     }
 }

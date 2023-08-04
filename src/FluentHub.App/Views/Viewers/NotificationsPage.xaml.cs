@@ -13,8 +13,7 @@ namespace FluentHub.App.Views.Viewers
         {
             InitializeComponent();
 
-            var provider = App.Current.Services;
-            ViewModel = provider.GetRequiredService<NotificationsViewModel>();
+            ViewModel = Ioc.Default.GetRequiredService<NotificationsViewModel>();
         }
 
         public NotificationsViewModel ViewModel { get; }

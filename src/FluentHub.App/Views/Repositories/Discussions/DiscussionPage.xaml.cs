@@ -14,9 +14,8 @@ namespace FluentHub.App.Views.Repositories.Discussions
         {
             InitializeComponent();
 
-            var provider = App.Current.Services;
-            ViewModel = provider.GetRequiredService<DiscussionViewModel>();
-            _navigation = provider.GetRequiredService<INavigationService>();
+            ViewModel = Ioc.Default.GetRequiredService<DiscussionViewModel>();
+            _navigation = Ioc.Default.GetRequiredService<INavigationService>();
         }
 
         private readonly INavigationService _navigation;

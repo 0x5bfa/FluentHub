@@ -17,9 +17,8 @@ namespace FluentHub.App.Views.Repositories.Commits
         {
             InitializeComponent();
 
-            var provider = App.Current.Services;
-            ViewModel = provider.GetRequiredService<CommitViewModel>();
-            _navigation = App.Current.Services.GetRequiredService<INavigationService>();
+            ViewModel = Ioc.Default.GetRequiredService<CommitViewModel>();
+            _navigation = Ioc.Default.GetRequiredService<INavigationService>();
         }
 
         public CommitViewModel ViewModel { get; }

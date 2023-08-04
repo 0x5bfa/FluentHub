@@ -33,7 +33,7 @@ namespace FluentHub.App.UserControls.Overview
         {
             InitializeComponent();
 
-            _navigation = App.Current.Services.GetRequiredService<INavigationService>();
+            _navigation = Ioc.Default.GetRequiredService<INavigationService>();
         }
 
         private readonly INavigationService _navigation;

@@ -12,8 +12,7 @@ namespace FluentHub.App.Dialogs
         {
             InitializeComponent();
 
-            var provider = App.Current.Services;
-            ViewModel = provider.GetRequiredService<EditPinnedRepositoriesDialogViewModel>();
+            ViewModel = Ioc.Default.GetRequiredService<EditPinnedRepositoriesDialogViewModel>();
 
             ViewModel.Login = login;
         }

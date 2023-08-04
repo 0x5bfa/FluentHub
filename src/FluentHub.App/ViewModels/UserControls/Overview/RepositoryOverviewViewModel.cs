@@ -37,7 +37,7 @@ namespace FluentHub.App.ViewModels.UserControls.Overview
         #region Command methods
         private void GoOwnerProfile()
         {
-            var service = App.Current.Services.GetRequiredService<INavigationService>();
+            var service = Ioc.Default.GetRequiredService<INavigationService>();
 
             if (Repository.IsInOrganization)
             {

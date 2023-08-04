@@ -26,9 +26,9 @@ namespace FluentHub.App.Views
 		{
 			InitializeComponent();
 
-			ViewModel = App.Current.Services.GetRequiredService<MainPageViewModel>();
-			NavigationService = App.Current.Services.GetRequiredService<INavigationService>();
-			_logger = App.Current.Services.GetRequiredService<ILogger>();
+			ViewModel = Ioc.Default.GetRequiredService<MainPageViewModel>();
+			NavigationService = Ioc.Default.GetRequiredService<INavigationService>();
+			_logger = Ioc.Default.GetRequiredService<ILogger>();
 		}
 
 		#region Methods
@@ -171,7 +171,7 @@ namespace FluentHub.App.Views
 				//	NavigationService.Navigate<Views.Users.OrganizationsPage>();
 				//	break;
 				case "YourStars":
-					NavigationService.Navigate<Views.Users.StarredReposPage>();
+					NavigationService.Navigate<Views.Users.StarsPage>();
 					break;
 			}
 		}

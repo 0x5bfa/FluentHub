@@ -38,9 +38,9 @@ namespace FluentHub.App.ViewModels.Viewers
 
         public DashBoardViewModel()
         {
-            _messenger = App.Current.Services.GetRequiredService<IMessenger>();
-            _logger = App.Current.Services.GetRequiredService<ILogger>();
-            _navigation = App.Current.Services.GetRequiredService<INavigationService>();
+            _messenger = Ioc.Default.GetRequiredService<IMessenger>();
+            _logger = Ioc.Default.GetRequiredService<ILogger>();
+            _navigation = Ioc.Default.GetRequiredService<INavigationService>();
 
             _TopRepositories = new();
             TopRepositories = new(_TopRepositories);
@@ -142,8 +142,7 @@ namespace FluentHub.App.ViewModels.Viewers
 
         private static void SetCurrentTabItem()
         {
-            var provider = App.Current.Services;
-            INavigationService navigationService = provider.GetRequiredService<INavigationService>();
+            INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem!;
             currentItem.Header = "Dashboard";

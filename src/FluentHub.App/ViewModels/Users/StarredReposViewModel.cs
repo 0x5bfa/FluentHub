@@ -17,9 +17,9 @@ namespace FluentHub.App.ViewModels.Users
         public StarredReposViewModel()
         {
             // Dependency Injection
-            _logger = App.Current.Services.GetRequiredService<ILogger>();
-            _messenger = App.Current.Services.GetRequiredService<IMessenger>();
-            _navigation = App.Current.Services.GetRequiredService<INavigationService>();
+            _logger = Ioc.Default.GetRequiredService<ILogger>();
+            _messenger = Ioc.Default.GetRequiredService<IMessenger>();
+            _navigation = Ioc.Default.GetRequiredService<INavigationService>();
 
             var parameter = _navigation.TabView.SelectedItem.NavigationBar.Parameter;
             Login = parameter.UserLogin;
@@ -133,8 +133,7 @@ namespace FluentHub.App.ViewModels.Users
 
         private void SetCurrentTabItem()
         {
-            var provider = App.Current.Services;
-            INavigationService navigationService = provider.GetRequiredService<INavigationService>();
+            INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = "Stars";

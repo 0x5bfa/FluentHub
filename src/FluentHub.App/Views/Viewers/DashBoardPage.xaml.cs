@@ -19,8 +19,8 @@ namespace FluentHub.App.Views.Viewers
             InitializeComponent();
 
             // Dependency injection
-            ViewModel = App.Current.Services.GetRequiredService<DashBoardViewModel>();
-            _navigation = App.Current.Services.GetRequiredService<INavigationService>();
+            ViewModel = Ioc.Default.GetRequiredService<DashBoardViewModel>();
+            _navigation = Ioc.Default.GetRequiredService<INavigationService>();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

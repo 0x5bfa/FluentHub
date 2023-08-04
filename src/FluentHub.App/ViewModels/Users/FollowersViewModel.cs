@@ -117,8 +117,7 @@ namespace FluentHub.App.ViewModels.Users
 
         private void SetCurrentTabItem()
         {
-            var provider = App.Current.Services;
-            INavigationService navigationService = provider.GetRequiredService<INavigationService>();
+            INavigationService navigationService = Ioc.Default.GetRequiredService<INavigationService>();
 
             var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
             currentItem.Header = $"Followers";

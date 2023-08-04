@@ -23,9 +23,8 @@ namespace FluentHub.App.Views.Repositories.Issues
         {
             InitializeComponent();
 
-            var provider = App.Current.Services;
-            ViewModel = provider.GetRequiredService<IssueViewModel>();
-            _navigation = provider.GetRequiredService<INavigationService>();
+            ViewModel = Ioc.Default.GetRequiredService<IssueViewModel>();
+            _navigation = Ioc.Default.GetRequiredService<INavigationService>();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)

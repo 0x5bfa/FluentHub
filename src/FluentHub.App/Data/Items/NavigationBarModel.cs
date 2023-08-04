@@ -25,7 +25,7 @@ namespace FluentHub.App.Data.Items
 						(value.PageKind == NavigationPageKind.Repository && Parameter?.RepositoryName is not null) ||
 						(value.PageKind == NavigationPageKind.Organization && Parameter?.UserLogin is not null))
 					{
-						var service = App.Current.Services.GetRequiredService<INavigationService>();
+						var service = Ioc.Default.GetRequiredService<INavigationService>();
 						service.Navigate(
 							value.PageToNavigate,
 							new FrameNavigationParameter()

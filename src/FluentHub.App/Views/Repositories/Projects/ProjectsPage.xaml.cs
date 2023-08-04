@@ -14,9 +14,8 @@ namespace FluentHub.App.Views.Repositories.Projects
         {
             InitializeComponent();
 
-            var provider = App.Current.Services;
-            ViewModel = provider.GetRequiredService<ProjectsViewModel>();
-            navigationService = provider.GetRequiredService<INavigationService>();
+            ViewModel = Ioc.Default.GetRequiredService<ProjectsViewModel>();
+            navigationService = Ioc.Default.GetRequiredService<INavigationService>();
         }
 
         private readonly INavigationService navigationService;

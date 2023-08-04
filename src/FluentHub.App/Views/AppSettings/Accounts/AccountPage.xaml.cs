@@ -15,9 +15,8 @@ namespace FluentHub.App.Views.AppSettings.Accounts
         {
             InitializeComponent();
 
-            var provider = App.Current.Services;
-            ViewModel = provider.GetRequiredService<AccountViewModel>();
-            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
+            ViewModel = Ioc.Default.GetRequiredService<AccountViewModel>();
+            navigationService = Ioc.Default.GetRequiredService<INavigationService>();
         }
 
         private readonly INavigationService navigationService;

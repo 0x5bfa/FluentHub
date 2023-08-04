@@ -67,9 +67,8 @@ namespace FluentHub.App.UserControls
         {
             InitializeComponent();
 
-            var provider = App.Current.Services;
-            ViewModel = provider.GetRequiredService<FileNavigationBlockViewModel>();
-            navService = App.Current.Services.GetRequiredService<INavigationService>();
+            ViewModel = Ioc.Default.GetRequiredService<FileNavigationBlockViewModel>();
+            navService = Ioc.Default.GetRequiredService<INavigationService>();
         }
 
         private readonly INavigationService navService;

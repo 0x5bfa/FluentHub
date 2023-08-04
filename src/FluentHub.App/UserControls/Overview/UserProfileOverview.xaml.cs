@@ -27,7 +27,7 @@ namespace FluentHub.App.UserControls.Overview
         public UserProfileOverview()
         {
             InitializeComponent();
-            navService = App.Current.Services.GetRequiredService<INavigationService>();
+            navService = Ioc.Default.GetRequiredService<INavigationService>();
         }
 
         private readonly INavigationService navService;

@@ -14,8 +14,7 @@ namespace FluentHub.App.Views.Organizations
         {
             InitializeComponent();
 
-            var provider = App.Current.Services;
-            ViewModel = provider.GetRequiredService<OverviewViewModel>();
+            ViewModel = Ioc.Default.GetRequiredService<OverviewViewModel>();
         }
 
         public OverviewViewModel ViewModel { get; }

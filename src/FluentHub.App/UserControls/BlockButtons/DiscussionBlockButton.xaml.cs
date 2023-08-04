@@ -34,7 +34,7 @@ namespace FluentHub.App.UserControls.BlockButtons
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var navService = App.Current.Services.GetRequiredService<INavigationService>();
+            var navService = Ioc.Default.GetRequiredService<INavigationService>();
             navService.Navigate<Views.Repositories.Discussions.DiscussionsPage>(
                 new FrameNavigationParameter()
                 {

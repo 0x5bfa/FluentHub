@@ -49,7 +49,7 @@ namespace FluentHub.App.UserControls.BlockButtons
                 param.Number = ViewModel.PullRequest.Number;
             }
 
-            var navService = App.Current.Services.GetRequiredService<INavigationService>();
+            var navService = Ioc.Default.GetRequiredService<INavigationService>();
             navService.Navigate(frameType, param);
         }
     }

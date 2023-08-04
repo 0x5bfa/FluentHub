@@ -22,7 +22,7 @@ namespace FluentHub.App.Data.Items
 		public TabViewItem()
 		{
 			// Dependency injection
-			_logger = App.Current.Services.GetRequiredService<ILogger>();
+			_logger = Ioc.Default.GetRequiredService<ILogger>();
 
 			// Initialize
 			Guid = Guid.NewGuid();

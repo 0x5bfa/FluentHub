@@ -13,7 +13,7 @@ namespace FluentHub.App.Views.AppSettings
         {
             InitializeComponent();
 
-            navigationService = App.Current.Services.GetRequiredService<INavigationService>();
+            navigationService = Ioc.Default.GetRequiredService<INavigationService>();
         }
 
         private readonly INavigationService navigationService;

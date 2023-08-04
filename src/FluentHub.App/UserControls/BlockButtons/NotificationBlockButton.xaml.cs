@@ -30,7 +30,7 @@ namespace FluentHub.App.UserControls.BlockButtons
 
         private void OnClick(object sender, RoutedEventArgs e)
         {
-            var navService = App.Current.Services.GetRequiredService<INavigationService>();
+            var navService = Ioc.Default.GetRequiredService<INavigationService>();
 
             switch (ViewModel.Item.Subject.Type)
             {

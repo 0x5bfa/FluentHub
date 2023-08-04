@@ -12,7 +12,7 @@ namespace FluentHub.App.ViewModels.Repositories.Codes
         {
             _messenger = messenger;
             _logger = logger;
-            _navigation = App.Current.Services.GetRequiredService<INavigationService>();
+            _navigation = Ioc.Default.GetRequiredService<INavigationService>();
 
             _items = new();
             Items = new(_items);

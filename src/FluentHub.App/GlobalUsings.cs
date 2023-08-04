@@ -15,6 +15,7 @@ global using global::Microsoft.Extensions.DependencyInjection;
 
 // Windows Community Toolkit
 global using global::CommunityToolkit.Mvvm.ComponentModel;
+global using global::CommunityToolkit.Mvvm.DependencyInjection;
 global using global::CommunityToolkit.Mvvm.Input;
 global using global::CommunityToolkit.Mvvm.Messaging;
 

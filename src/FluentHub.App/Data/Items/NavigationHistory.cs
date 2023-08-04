@@ -142,7 +142,7 @@ namespace FluentHub.App.Data.Items
 		public static void SetCurrentItem(string header, string description, string url, IconSource icon)
 		{
 			INavigationService navigationService;
-			navigationService = App.Current.Services.GetRequiredService<INavigationService>();
+			navigationService = Ioc.Default.GetRequiredService<INavigationService>();
 
 			var currentItem = navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem;
 
@@ -155,11 +155,20 @@ namespace FluentHub.App.Data.Items
 		{
 			var previousItem = isBackNavigation ? Items[CurrentItemIndex + 1] : Items[CurrentItemIndex - 1];
 
-			var _navigationService = App.Current.Services.GetRequiredService<INavigationService>();
+			var _navigationService = Ioc.Default.GetRequiredService<INavigationService>();
 
 			var currentTabNavigationBar = _navigationService.TabView.SelectedItem.NavigationBar;
 			if (currentTabNavigationBar is null)
 				return;
+
+			if (CurrentItem.PageKind is NavigationPageKind.None)
+			{
+				currentTabNavigationBar.NavigationBarItems = new();
+				currentTabNavigationBar.PageKind = CurrentItem.PageKind;
+				currentTabNavigationBar.Parameter = CurrentItem.Context ?? new();
+
+				return;
+			}
 
 			// Generate new navigation bar items
 			if (previousItem.PageKind != CurrentItem.PageKind)

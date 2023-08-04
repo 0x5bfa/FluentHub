@@ -50,7 +50,7 @@ namespace FluentHub.App.UserControls
 
         private void OnSearchNavViewItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
-            var navigation = App.Current.Services.GetRequiredService<INavigationService>();
+            var navigation = Ioc.Default.GetRequiredService<INavigationService>();
             var page = typeof(Views.Searches.RepositoriesPage);
             FrameNavigationParameter param = new()
             {

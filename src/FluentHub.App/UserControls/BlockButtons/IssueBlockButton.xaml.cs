@@ -34,7 +34,7 @@ namespace FluentHub.App.UserControls.BlockButtons
 
         private void OnClick(object sender, RoutedEventArgs e)
         {
-            var navService = App.Current.Services.GetRequiredService<INavigationService>();
+            var navService = Ioc.Default.GetRequiredService<INavigationService>();
             navService.Navigate<Views.Repositories.Issues.IssuePage>(
                 new FrameNavigationParameter()
                 {

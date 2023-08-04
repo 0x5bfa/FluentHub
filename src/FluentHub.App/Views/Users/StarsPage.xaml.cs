@@ -6,20 +6,19 @@ using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.App.Views.Users
 {
-    public sealed partial class StarredReposPage : LocatablePage
+    public sealed partial class StarsPage : LocatablePage
     {
         private readonly INavigationService _navigationService;
 
         public StarredReposViewModel ViewModel { get; }
 
-        public StarredReposPage()
+        public StarsPage()
             : base(NavigationPageKind.User, NavigationPageKey.Stars)
         {
             InitializeComponent();
 
-            var provider = App.Current.Services;
-            _navigationService = provider.GetRequiredService<INavigationService>();
-            ViewModel = provider.GetRequiredService<StarredReposViewModel>();
+            _navigationService = Ioc.Default.GetRequiredService<INavigationService>();
+            ViewModel = Ioc.Default.GetRequiredService<StarredReposViewModel>();
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
