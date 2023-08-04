@@ -1748,11 +1748,13 @@
 
 								<Grid>
 									<Grid
+										x:Name="IssueDetailsSidebarMilestoneVisualGrid"
 										Padding="16,8,16,16"
+										x:Load="{x:Bind ViewModel.PullItem.Milestone, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
 										Background="{ThemeResource LayerFillColorDefaultBrush}"
 										BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
 										BorderThickness="1"
-										CornerRadius="8"
+										CornerRadius="4"
 										RowSpacing="8">
 										<Grid.RowDefinitions>
 											<RowDefinition Height="Auto" />

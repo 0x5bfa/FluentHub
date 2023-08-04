@@ -8,7 +8,6 @@
 	xmlns:primer="using:FluentHub.App.UserControls.PrimerControls"
 	d:DesignHeight="300"
 	d:DesignWidth="400"
-	Unloaded="OnUserControlUnloaded"
 	mc:Ignorable="d">
 
 	<UserControl.Resources>
@@ -86,24 +85,15 @@
 
 		<MenuFlyoutSeparator Grid.Row="1" />
 
-		<Grid
-			Grid.Row="2"
-			Padding="16"
-			Background="{ThemeResource SolidBackgroundFillColorBase}">
+		<Grid Grid.Row="2" Padding="16">
 
-			<WebView2
-				x:Name="CommentWebView"
-				DefaultBackgroundColor="Transparent"
-				NavigationCompleted="OnCommentWebViewNavigationCompleted"
-				SizeChanged="OnWebViewSizeChanged" />
+			<TextBlock IsTextSelectionEnabled="True" Text="{x:Bind ViewModel.IssueComment.Body, Mode=OneWay}" />
 
-			<!--<TextBlock
-				x:Name="FailedToLoadContentsTextBlock"
-				Margin="0"
-				Foreground="{ThemeResource SystemFillColorCritical}"
+			<TextBlock
+				FontStyle="Italic"
 				IsTextSelectionEnabled="True"
-				Style="{StaticResource BodyTextBlockStyle}"
-				Text="This issue comment is not supported to load because WebView2 is unstable." />-->
+				Text="No description provided."
+				Visibility="{x:Bind ViewModel.IssueComment.Body, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}" />
 
 		</Grid>
 
@@ -111,8 +101,7 @@
 			x:Name="IssueCommentReactionGroupGrid"
 			Grid.Row="3"
 			Padding="12,0,0,12"
-			x:Load="{x:Bind ViewModel.IssueComment.Reactions.Nodes.Count, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}"
-			Background="{ThemeResource SolidBackgroundFillColorBase}">
+			x:Load="{x:Bind ViewModel.IssueComment.Reactions.Nodes.Count, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
 			<StackPanel Orientation="Horizontal" Spacing="6">
 
 				<Button
