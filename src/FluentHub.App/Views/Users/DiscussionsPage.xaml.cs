@@ -11,38 +11,38 @@ using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.App.Views.Users
 {
-    public sealed partial class DiscussionsPage : Page
-    {
-        private readonly INavigationService _navigationService;
+	public sealed partial class DiscussionsPage : Page
+	{
+		private readonly INavigationService _navigationService;
 
-        public DiscussionsViewModel ViewModel { get; }
+		public DiscussionsViewModel ViewModel { get; }
 
-        public DiscussionsPage()
-        {
-            InitializeComponent();
+		public DiscussionsPage()
+		{
+			InitializeComponent();
 
-            _navigationService = Ioc.Default.GetRequiredService<INavigationService>();
-            ViewModel = Ioc.Default.GetRequiredService<DiscussionsViewModel>();
-        }
+			_navigationService = Ioc.Default.GetRequiredService<INavigationService>();
+			ViewModel = Ioc.Default.GetRequiredService<DiscussionsViewModel>();
+		}
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            var parameter = (FrameNavigationParameter)e.Parameter;
+		protected override void OnNavigatedTo(NavigationEventArgs e)
+		{
+			var parameter = (FrameNavigationParameter)e.Parameter;
 
-            ViewModel.Login = parameter.UserLogin
-                ?? throw new ArgumentNullException(nameof(parameter.UserLogin), "Login parameter cannot be null in this context.");
+			ViewModel.Login = parameter.UserLogin
+				?? throw new ArgumentNullException(nameof(parameter.UserLogin), "Login parameter cannot be null in this context.");
 
-            if (parameter.AsViewer)
-            {
-                ViewModel.DisplayTitle = true;
+			if (parameter.AsViewer)
+			{
+				ViewModel.DisplayTitle = true;
 
-                var currentTabItem = _navigationService.TabView.SelectedItem;
-                currentTabItem.NavigationBar.PageKind = NavigationPageKind.None;
-            }
+				var currentTabItem = _navigationService.TabView.SelectedItem;
+				currentTabItem.NavigationBar.PageKind = NavigationPageKind.None;
+			}
 
-            var command = ViewModel.LoadUserDiscussionsPageCommand;
-            if (command.CanExecute(null))
-                command.Execute(null);
-        }
-    }
+			var command = ViewModel.LoadUserDiscussionsPageCommand;
+			if (command.CanExecute(null))
+				command.Execute(null);
+		}
+	}
 }

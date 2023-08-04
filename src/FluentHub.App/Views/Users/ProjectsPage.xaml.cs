@@ -11,38 +11,38 @@ using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.App.Views.Users
 {
-    public sealed partial class ProjectsPage : Page
-    {
-        private readonly INavigationService _navigationService;
+	public sealed partial class ProjectsPage : Page
+	{
+		private readonly INavigationService _navigationService;
 
-        public ProjectsViewModel ViewModel { get; }
+		public ProjectsViewModel ViewModel { get; }
 
-        public ProjectsPage()
-        {
-            InitializeComponent();
+		public ProjectsPage()
+		{
+			InitializeComponent();
 
-            _navigationService = Ioc.Default.GetRequiredService<INavigationService>();
-            ViewModel = Ioc.Default.GetRequiredService<ProjectsViewModel>();
-        }
+			_navigationService = Ioc.Default.GetRequiredService<INavigationService>();
+			ViewModel = Ioc.Default.GetRequiredService<ProjectsViewModel>();
+		}
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            var parameter = (FrameNavigationParameter)e.Parameter;
+		protected override void OnNavigatedTo(NavigationEventArgs e)
+		{
+			var parameter = (FrameNavigationParameter)e.Parameter;
 
-            ViewModel.Login = parameter.UserLogin
-                ?? throw new ArgumentNullException(nameof(parameter.UserLogin), "Login parameter cannot be null in this context.");
+			ViewModel.Login = parameter.UserLogin
+				?? throw new ArgumentNullException(nameof(parameter.UserLogin), "Login parameter cannot be null in this context.");
 
-            if (parameter.AsViewer)
-            {
-                ViewModel.DisplayTitle = true;
+			if (parameter.AsViewer)
+			{
+				ViewModel.DisplayTitle = true;
 
-                var currentTabItem = _navigationService.TabView.SelectedItem;
-                currentTabItem.NavigationBar.PageKind = NavigationPageKind.None;
-            }
+				var currentTabItem = _navigationService.TabView.SelectedItem;
+				currentTabItem.NavigationBar.PageKind = NavigationPageKind.None;
+			}
 
-            var command = ViewModel.LoadUserProjectsPageCommand;
-            if (command.CanExecute(null))
-                command.Execute(null);
-        }
-    }
+			var command = ViewModel.LoadUserProjectsPageCommand;
+			if (command.CanExecute(null))
+				command.Execute(null);
+		}
+	}
 }

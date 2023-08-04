@@ -11,38 +11,38 @@ using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.App.Views.Users
 {
-    public sealed partial class PackagesPage : Page
-    {
-        private readonly INavigationService _navigationService;
+	public sealed partial class PackagesPage : Page
+	{
+		private readonly INavigationService _navigationService;
 
-        public PackagesViewModel ViewModel { get; }
+		public PackagesViewModel ViewModel { get; }
 
-        public PackagesPage()
-        {
-            InitializeComponent();
+		public PackagesPage()
+		{
+			InitializeComponent();
 
-            _navigationService = Ioc.Default.GetRequiredService<INavigationService>();
-            ViewModel = Ioc.Default.GetRequiredService<PackagesViewModel>();
-        }
+			_navigationService = Ioc.Default.GetRequiredService<INavigationService>();
+			ViewModel = Ioc.Default.GetRequiredService<PackagesViewModel>();
+		}
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            var parameter = (FrameNavigationParameter)e.Parameter;
+		protected override void OnNavigatedTo(NavigationEventArgs e)
+		{
+			var parameter = (FrameNavigationParameter)e.Parameter;
 
-            ViewModel.Login = parameter.UserLogin
-                ?? throw new ArgumentNullException(nameof(parameter.UserLogin), "Login parameter cannot be null in this context.");
+			ViewModel.Login = parameter.UserLogin
+				?? throw new ArgumentNullException(nameof(parameter.UserLogin), "Login parameter cannot be null in this context.");
 
-            if (parameter.AsViewer)
-            {
-                ViewModel.DisplayTitle = true;
+			if (parameter.AsViewer)
+			{
+				ViewModel.DisplayTitle = true;
 
-                var currentTabItem = _navigationService.TabView.SelectedItem;
-                currentTabItem.NavigationBar.PageKind = NavigationPageKind.None;
-            }
+				var currentTabItem = _navigationService.TabView.SelectedItem;
+				currentTabItem.NavigationBar.PageKind = NavigationPageKind.None;
+			}
 
-            var command = ViewModel.LoadUserPackagesPageCommand;
-            if (command.CanExecute(null))
-                command.Execute(null);
-        }
-    }
+			var command = ViewModel.LoadUserPackagesPageCommand;
+			if (command.CanExecute(null))
+				command.Execute(null);
+		}
+	}
 }

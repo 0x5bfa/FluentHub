@@ -11,38 +11,38 @@ using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.App.Views.Users
 {
-    public sealed partial class FollowersPage : Page
-    {
-        private readonly INavigationService _navigationService;
+	public sealed partial class FollowersPage : Page
+	{
+		private readonly INavigationService _navigationService;
 
-        public FollowersViewModel ViewModel { get; }
+		public FollowersViewModel ViewModel { get; }
 
-        public FollowersPage()
-        {
-            InitializeComponent();
+		public FollowersPage()
+		{
+			InitializeComponent();
 
-            _navigationService = Ioc.Default.GetRequiredService<INavigationService>();
-            ViewModel = Ioc.Default.GetRequiredService<FollowersViewModel>();
-        }
+			_navigationService = Ioc.Default.GetRequiredService<INavigationService>();
+			ViewModel = Ioc.Default.GetRequiredService<FollowersViewModel>();
+		}
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            var parameter = (FrameNavigationParameter)e.Parameter;
+		protected override void OnNavigatedTo(NavigationEventArgs e)
+		{
+			var parameter = (FrameNavigationParameter)e.Parameter;
 
-            ViewModel.Login = parameter.UserLogin
-                ?? throw new ArgumentNullException(nameof(parameter.UserLogin), "Login parameter cannot be null in this context.");
+			ViewModel.Login = parameter.UserLogin
+				?? throw new ArgumentNullException(nameof(parameter.UserLogin), "Login parameter cannot be null in this context.");
 
-            if (parameter.AsViewer)
-            {
-                ViewModel.DisplayTitle = true;
+			if (parameter.AsViewer)
+			{
+				ViewModel.DisplayTitle = true;
 
-                var currentTabItem = _navigationService.TabView.SelectedItem;
-                currentTabItem.NavigationBar.PageKind = Core.Data.Enums.NavigationPageKind.None;
-            }
+				var currentTabItem = _navigationService.TabView.SelectedItem;
+				currentTabItem.NavigationBar.PageKind = Core.Data.Enums.NavigationPageKind.None;
+			}
 
-            var command = ViewModel.LoadUserFollowersPageCommand;
-            if (command.CanExecute(null))
-                command.Execute(null);
-        }
-    }
+			var command = ViewModel.LoadUserFollowersPageCommand;
+			if (command.CanExecute(null))
+				command.Execute(null);
+		}
+	}
 }
