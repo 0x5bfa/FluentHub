@@ -12,13 +12,14 @@ using FluentHub.App.Data.Parameters;
 
 namespace FluentHub.App.Views.Users
 {
-	public sealed partial class OrganizationsPage : Page
+	public sealed partial class OrganizationsPage : LocatablePage
 	{
 		private readonly INavigationService _navigationService;
 
 		public OrganizationsViewModel ViewModel { get; }
 
 		public OrganizationsPage()
+			: base(NavigationPageKind.User, NavigationPageKey.None)
 		{
 			InitializeComponent();
 

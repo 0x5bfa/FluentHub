@@ -11,13 +11,14 @@ using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.App.Views.Users
 {
-	public sealed partial class ProjectsPage : Page
+	public sealed partial class ProjectsPage : LocatablePage
 	{
 		private readonly INavigationService _navigationService;
 
 		public ProjectsViewModel ViewModel { get; }
 
 		public ProjectsPage()
+			: base(NavigationPageKind.User, NavigationPageKey.None)
 		{
 			InitializeComponent();
 
