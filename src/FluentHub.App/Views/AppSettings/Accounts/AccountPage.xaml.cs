@@ -39,7 +39,7 @@ namespace FluentHub.App.Views.AppSettings.Accounts
 
         private void OnSignOutButton_Click(object sender, RoutedEventArgs e)
         {
-            Frame rootFrame = (Frame)App.Window.Content;
+            Frame rootFrame = (Frame)App.WindowInstance.Content;
             rootFrame.Navigate(typeof(SignIn.IntroPage));
         }
 

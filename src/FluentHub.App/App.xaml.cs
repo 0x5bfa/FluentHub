@@ -20,7 +20,7 @@ namespace FluentHub.App
 {
 	public partial class App : Application
 	{
-		public static MainWindow Window { get; private set; } = null!;
+		public static MainWindow WindowInstance { get; private set; } = null!;
 
 		public static IntPtr WindowHandle { get; private set; }
 
@@ -117,10 +117,10 @@ namespace FluentHub.App
 
 		private void EnsureWindowIsInitialized()
 		{
-			Window = new MainWindow();
-			Window.Activated += Window_Activated;
+			WindowInstance = new MainWindow();
+			WindowInstance.Activated += Window_Activated;
 			//Window.Closed += Window_Closed;
-			WindowHandle = WinRT.Interop.WindowNative.GetWindowHandle(Window);
+			WindowHandle = WinRT.Interop.WindowNative.GetWindowHandle(WindowInstance);
 		}
 
 		#region Event Methods
@@ -135,7 +135,7 @@ namespace FluentHub.App
 			EnsureSettingsAndConfigurationAreBootstrapped();
 
 			// Initialize Window
-			Window.InitializeApplication(activatedEventArgs.Data);
+			WindowInstance.InitializeApplication(activatedEventArgs.Data);
 		}
 
 		public void OnActivated(AppActivationArguments activatedEventArgs)
@@ -143,7 +143,7 @@ namespace FluentHub.App
 			// Called from Program class
 
 			// Initialize Window
-			Window.DispatcherQueue.EnqueueAsync(() => Window.InitializeApplication(activatedEventArgs.Data));
+			WindowInstance.DispatcherQueue.EnqueueAsync(() => WindowInstance.InitializeApplication(activatedEventArgs.Data));
 		}
 
 		private void Window_Activated(object sender, WindowActivatedEventArgs args)
@@ -193,7 +193,7 @@ namespace FluentHub.App
 		#endregion
 
 		public static void CloseApp()
-			=> Window.Close();
+			=> WindowInstance.Close();
 
 		public static AppWindow GetAppWindow(Window w)
 		{

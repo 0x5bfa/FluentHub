@@ -121,14 +121,14 @@ namespace FluentHub.App
 		{
 			// Do not repeat app initialization when the Window already has content,
 			// just ensure that the window is active
-			if (App.Window.Content is not Frame rootFrame)
+			if (App.WindowInstance.Content is not Frame rootFrame)
 			{
 				// Create a Frame to act as the navigation context and navigate to the first page
 				rootFrame = new() { CacheSize = 1 };
 				rootFrame.NavigationFailed += OnNavigationFailed;
 
 				// Place the frame in the current Window
-				App.Window.Content = rootFrame;
+				App.WindowInstance.Content = rootFrame;
 			}
 
 			return rootFrame;

@@ -95,9 +95,9 @@ namespace FluentHub.App.Views
 			}
 			else
 			{
-				App.Window.AppWindow.TitleBar.ExtendsContentIntoTitleBar = false;
-				App.Window.ExtendsContentIntoTitleBar = true;
-				App.Window.SetTitleBar(CustomTabViewControl.DragArea);
+				App.WindowInstance.AppWindow.TitleBar.ExtendsContentIntoTitleBar = false;
+				App.WindowInstance.ExtendsContentIntoTitleBar = true;
+				App.WindowInstance.SetTitleBar(CustomTabViewControl.DragArea);
 			}
 		}
 
@@ -105,7 +105,7 @@ namespace FluentHub.App.Views
 		{
 			const uint MDT_EFFECTIVE_DPI = 0;
 
-			var displayArea = DisplayArea.GetFromWindowId(App.Window.AppWindow.Id, DisplayAreaFallback.Primary);
+			var displayArea = DisplayArea.GetFromWindowId(App.WindowInstance.AppWindow.Id, DisplayAreaFallback.Primary);
 			var hMonitor = Win32Interop.GetMonitorFromDisplayId(displayArea.DisplayId);
 
 			var hr = NativeWinApiHelper.GetDpiForMonitor(hMonitor, MDT_EFFECTIVE_DPI, out _, out _);
@@ -126,7 +126,7 @@ namespace FluentHub.App.Views
 			var dragRect = new RectInt32(x, y, width, height);
 
 			// WinUI3: See also, https://github.com/microsoft/WindowsAppSDK/issues/2574
-			App.Window.AppWindow.TitleBar.SetDragRectangles(new[] { dragRect });
+			App.WindowInstance.AppWindow.TitleBar.SetDragRectangles(new[] { dragRect });
 		}
 
 		private void OnTabViewSelectionChanged(object sender, TabViewSelectionChangedEventArgs e)

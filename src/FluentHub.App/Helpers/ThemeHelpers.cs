@@ -48,7 +48,7 @@ namespace FluentHub.App.Helpers
         public static void Initialize()
         {
             // Save reference as this might be null when the user is in another app
-            currentApplicationWindow = App.Window;
+            currentApplicationWindow = App.WindowInstance;
 
             // Set TitleBar background color
             titleBar = App.GetAppWindow(currentApplicationWindow).TitleBar;
@@ -78,7 +78,7 @@ namespace FluentHub.App.Helpers
         {
             var rootTheme = RootTheme;
 
-            if (App.Window.Content is FrameworkElement rootElement)
+            if (App.WindowInstance.Content is FrameworkElement rootElement)
             {
                 rootElement.RequestedTheme = rootTheme;
             }

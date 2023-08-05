@@ -9,6 +9,7 @@
 	xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 	xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
 	xmlns:uc="using:FluentHub.App.UserControls"
+	Background="{ThemeResource LayerOnAccentAcrylicFillColorDefaultBrush}"
 	mc:Ignorable="d">
 
 	<Page.Resources>

@@ -76,6 +76,7 @@
             <Generator>MSBuild:Compile</Generator>
             <SubType>Designer</SubType>
         </Content>
+        <None Remove="Dialogs\CreateNewRepositoryDialog.xaml" />
         <Content Include="AppCredentials.config">
             <CopyToOutputDirectory>Always</CopyToOutputDirectory>
         </Content>
@@ -103,6 +104,12 @@
     <ItemGroup>
         <ProjectReference Include="..\FluentHub.Core\FluentHub.Core.csproj" />
         <ProjectReference Include="..\FluentHub.Octokit\FluentHub.Octokit.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Page Update="Dialogs\CreateNewRepositoryDialog.xaml">
+        <Generator>MSBuild:Compile</Generator>
+      </Page>
     </ItemGroup>
 
 </Project>
