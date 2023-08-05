@@ -8,13 +8,14 @@ using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.App.Views.Viewers
 {
-	public sealed partial class DashBoardPage : Page
+	public sealed partial class DashBoardPage : LocatablePage
 	{
 		private readonly DashBoardViewModel ViewModel;
 
 		private readonly INavigationService _navigation;
 
 		public DashBoardPage()
+			: base(NavigationPageKind.None, NavigationPageKey.None)
 		{
 			InitializeComponent();
 

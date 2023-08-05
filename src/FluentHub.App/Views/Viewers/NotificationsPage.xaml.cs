@@ -7,9 +7,10 @@ using Microsoft.UI.Xaml.Navigation;
 
 namespace FluentHub.App.Views.Viewers
 {
-	public sealed partial class NotificationsPage : Page
+	public sealed partial class NotificationsPage : LocatablePage
 	{
 		public NotificationsPage()
+			: base(NavigationPageKind.None, NavigationPageKey.None)
 		{
 			InitializeComponent();
 

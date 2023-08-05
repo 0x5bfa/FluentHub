@@ -1,4 +1,4 @@
-﻿<Page
+﻿<views:LocatablePage
 	x:Class="FluentHub.App.Views.Viewers.DashBoardPage"
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
@@ -16,10 +16,11 @@
 	xmlns:root="using:FluentHub.App"
 	xmlns:toolkit="using:CommunityToolkit.WinUI.UI.Controls"
 	xmlns:uc="using:FluentHub.App.UserControls"
+	xmlns:views="using:FluentHub.App.Views"
 	DataContext="{x:Bind ViewModel, Mode=OneWay}"
 	mc:Ignorable="d">
 
-	<Page.Resources>
+	<views:LocatablePage.Resources>
 		<ResourceDictionary>
 
 			<ResourceDictionary.MergedDictionaries>
@@ -58,7 +59,7 @@
 			</Style>
 
 		</ResourceDictionary>
-	</Page.Resources>
+	</views:LocatablePage.Resources>
 
 	<Grid ColumnSpacing="8">
 		<Grid.ColumnDefinitions>
@@ -256,4 +257,4 @@
 		</Grid>
 
 	</Grid>
-</Page>
+</views:LocatablePage>

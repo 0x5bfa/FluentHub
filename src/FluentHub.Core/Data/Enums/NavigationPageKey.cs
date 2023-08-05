@@ -5,6 +5,8 @@ namespace FluentHub.Core.Data.Enums
 {
 	public enum NavigationPageKey
 	{
+		None,
+
 		Overview,
 		Repositories,
 		Discussions,

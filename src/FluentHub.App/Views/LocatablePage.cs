@@ -63,6 +63,9 @@ namespace FluentHub.App.Views
 			_navigationService.TabView.SelectedItem.NavigationHistory.CurrentItem.PageKind = _currentPageKind;
 
 			// Select item
+			if (currentTabNavigationBar.NavigationBarItems is null)
+				return;
+
 			foreach (var item in currentTabNavigationBar.NavigationBarItems)
 			{
 				if (item.PageItemKey == _currentPageItemKey)
