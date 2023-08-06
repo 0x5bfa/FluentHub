@@ -20,7 +20,7 @@
 		Background="{ThemeResource LayerFillColorDefaultBrush}"
 		BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
 		BorderThickness="1"
-		CornerRadius="{StaticResource ControlCornerRadius}">
+		CornerRadius="8">
 
 		<Grid.RowDefinitions>
 			<RowDefinition Height="Auto" />
@@ -62,9 +62,10 @@
 				<Button
 					Width="36"
 					Height="32"
+					Padding="0"
 					VerticalAlignment="Center"
 					Background="Transparent"
-					BorderThickness="0">
+					BorderBrush="Transparent">
 					<FontIcon FontSize="16" Glyph="&#xE10C;" />
 					<Button.Flyout>
 						<MenuFlyout Placement="BottomEdgeAlignedRight">

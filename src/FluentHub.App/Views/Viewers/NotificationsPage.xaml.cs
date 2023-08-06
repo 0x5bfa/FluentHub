@@ -10,7 +10,7 @@ namespace FluentHub.App.Views.Viewers
 	public sealed partial class NotificationsPage : LocatablePage
 	{
 		public NotificationsPage()
-			: base(NavigationPageKind.None, NavigationPageKey.None)
+			:	base(NavigationPageKind.None, NavigationPageKey.None)
 		{
 			InitializeComponent();
 

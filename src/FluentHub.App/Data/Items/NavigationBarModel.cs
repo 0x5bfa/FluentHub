@@ -5,8 +5,8 @@ namespace FluentHub.App.Data.Items
 {
 	public class NavigationBarModel : ObservableObject
 	{
-		private ObservableCollection<NavigationBarItem>? _NavigationBarItems;
-		public ObservableCollection<NavigationBarItem>? NavigationBarItems
+		private ObservableCollection<NavigationBarItem> _NavigationBarItems = new();
+		public ObservableCollection<NavigationBarItem> NavigationBarItems
 		{
 			get => _NavigationBarItems;
 			set => SetProperty(ref _NavigationBarItems, value);

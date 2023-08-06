@@ -34,17 +34,24 @@
 			<RowDefinition Height="Auto" />
 		</Grid.RowDefinitions>
 
-		<Grid Padding="32,16,32,12">
+		<Grid
+			Padding="24,12,24,24"
+			ColumnSpacing="12"
+			RowSpacing="12">
 			<Grid.RowDefinitions>
 				<RowDefinition Height="Auto" />
 				<RowDefinition Height="Auto" />
 			</Grid.RowDefinitions>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="*" />
+				<ColumnDefinition Width="Auto" />
+			</Grid.ColumnDefinitions>
 
 			<TextBlock
 				x:Name="PullRequestTitleTextBlock"
 				IsTextSelectionEnabled="True"
 				Style="{StaticResource TitleTextBlockStyle}"
-				ToolTipService.ToolTip="{x:Bind PullRequestTitleTextBlock.Text, Mode=OneWay}">
+				ToolTipService.ToolTip="{x:Bind ViewModel.PullRequest.Title, Mode=OneWay}">
 				<Run FontWeight="SemiBold" Text="{x:Bind ViewModel.PullRequest.Title, Mode=OneWay}" />
 				<Run
 					FontWeight="Normal"
@@ -54,7 +61,6 @@
 
 			<StackPanel
 				Grid.Row="1"
-				Margin="0,12,0,0"
 				Orientation="Horizontal"
 				Spacing="16">
 
@@ -160,6 +166,7 @@
 
 			<Grid
 				Grid.RowSpan="2"
+				Grid.Column="1"
 				HorizontalAlignment="Right"
 				VerticalAlignment="Top">
 				<Button
@@ -189,7 +196,13 @@
 
 		</Grid>
 
-		<Grid Grid.Row="1" Margin="24,0">
+		<Grid
+			Grid.Row="1"
+			Margin="24,0"
+			Background="{ThemeResource CardBackgroundFillColorDefaultBrush}"
+			BorderBrush="{ThemeResource CardStrokeColorDefaultBrush}"
+			BorderThickness="1"
+			CornerRadius="8">
 			<NavigationView
 				x:Name="PullRequestNavView"
 				IsBackButtonVisible="Collapsed"

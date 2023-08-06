@@ -37,12 +37,18 @@ namespace FluentHub.App.Views
 			if (currentTabNavigationBar is null)
 				return;
 
+			if (_currentPageKind is NavigationPageKind.None)
+			{
+				currentTabNavigationBar.PageKind = _currentPageKind;
+				currentTabNavigationBar.NavigationBarItems = new();
+
+				return;
+			}
+
 			if (currentTabNavigationBar.PageKind != _currentPageKind)
 			{
 				currentTabNavigationBar.PageKind = _currentPageKind;
 
-				// Initialize NavigationBar items
-				currentTabNavigationBar.NavigationBarItems ??= new();
 				currentTabNavigationBar.NavigationBarItems.Clear();
 
 				// Generate items

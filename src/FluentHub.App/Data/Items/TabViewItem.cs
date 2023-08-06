@@ -29,6 +29,7 @@ namespace FluentHub.App.Data.Items
 			Frame = new();
 			NavigationHistory = new();
 			NavigationBar = new();
+			NavigationBar.NavigationBarItems = new();
 
 			Frame.Navigating += OnFrameNavigating;
 		}

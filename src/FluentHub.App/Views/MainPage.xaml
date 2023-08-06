@@ -118,6 +118,8 @@
 				Grid.Row="0"
 				Padding="16,12,16,12"
 				Background="{ThemeResource AppThemeGlobalNavigationBarBackgroundBrush}"
+				BorderBrush="{ThemeResource DividerStrokeColorDefaultBrush}"
+				BorderThickness="0,0,0,1"
 				RowSpacing="12">
 				<Grid>
 					<Grid.RowDefinitions>

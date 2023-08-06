@@ -175,9 +175,6 @@ namespace FluentHub.App.Data.Items
 			{
 				currentTabNavigationBar.PageKind = CurrentItem.PageKind;
 
-				// Initialize NavigationBar items
-				currentTabNavigationBar.NavigationBarItems ??= new();
-
 				if (currentTabNavigationBar.NavigationBarItems.Count != 0)
 					currentTabNavigationBar.NavigationBarItems.Clear();
 

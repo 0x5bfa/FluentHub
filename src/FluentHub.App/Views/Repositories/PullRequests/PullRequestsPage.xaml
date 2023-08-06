@@ -25,16 +25,13 @@
 
 		<Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryPullRequestsPageCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
 			<ScrollViewer VerticalScrollBarVisibility="Auto">
-				<Grid Grid.Row="1" Padding="32">
+				<Grid Padding="24,24,24,24">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="*" />
 					</Grid.RowDefinitions>
 
-					<Grid
-						Grid.Row="0"
-						Margin="0,8,0,16"
-						RowSpacing="8">
+					<Grid Grid.Row="0" RowSpacing="8">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto" />
 							<RowDefinition Height="Auto" />

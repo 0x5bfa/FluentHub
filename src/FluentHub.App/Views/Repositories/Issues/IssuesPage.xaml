@@ -86,7 +86,7 @@
 						</Grid>
 					</Grid>
 
-					<Grid Grid.Row="2" Padding="32,24">
+					<Grid Grid.Row="2" Padding="24,12,24,24">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto" />
 							<RowDefinition Height="*" />
