@@ -10,62 +10,62 @@ using FluentHub.App.ViewModels.Repositories.Codes;
 
 namespace FluentHub.App.Views.Repositories.Code
 {
-    public sealed partial class DetailsLayoutView : LocatablePage
-    {
-        public DetailsLayoutViewModel ViewModel { get; }
+	public sealed partial class DetailsLayoutView : LocatablePage
+	{
+		public DetailsLayoutViewModel ViewModel { get; }
 
-        private readonly INavigationService _navigation;
+		private readonly INavigationService _navigation;
 
-        public DetailsLayoutView()
-            : base(NavigationPageKind.Repository, NavigationPageKey.Code)
-        {
-            InitializeComponent();
+		public DetailsLayoutView()
+			: base(NavigationPageKind.Repository, NavigationPageKey.Code)
+		{
+			InitializeComponent();
 
-            ViewModel = Ioc.Default.GetRequiredService<DetailsLayoutViewModel>();
-            _navigation = Ioc.Default.GetRequiredService<INavigationService>();
-        }
+			ViewModel = Ioc.Default.GetRequiredService<DetailsLayoutViewModel>();
+			_navigation = Ioc.Default.GetRequiredService<INavigationService>();
+		}
 
-        protected override void OnNavigatedTo(NavigationEventArgs e)
-        {
-            var command = ViewModel.LoadDetailsViewPageCommand;
-            if (command.CanExecute(null))
-                command.Execute(null);
-        }
+		protected override void OnNavigatedTo(NavigationEventArgs e)
+		{
+			var command = ViewModel.LoadDetailsViewPageCommand;
+			if (command.CanExecute(null))
+				command.Execute(null);
+		}
 
-        private void OnDirListViewDoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
-        {
-            var item = DirListView.SelectedItem as DetailsLayoutListViewModel;
-            var objType = item?.Type;
+		private void OnDirListViewDoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+		{
+			var item = DirListView.SelectedItem as DetailsLayoutListViewModel;
+			var objType = item?.Type;
 
-            string path = ViewModel.ContextViewModel.Path;
+			string path = ViewModel.ContextViewModel.Path;
 
-            if (string.IsNullOrEmpty(path) is false)
-            {
-                path += "/";
-            }
+			if (string.IsNullOrEmpty(path) is false)
+			{
+				path += "/";
+			}
 
-            path += item.Name;
-            List<object> param = new();
-            param.Add(objType + "/" + ViewModel.ContextViewModel.BranchName + "/" + path);
+			path += item.Name;
+			List<object> param = new();
+			param.Add(objType + "/" + ViewModel.ContextViewModel.BranchName + "/" + path);
 
-            _navigation.Navigate<DetailsLayoutView>(
-                new FrameNavigationParameter()
-                {
-                    UserLogin = ViewModel.Repository.Owner.Login,
-                    RepositoryName = ViewModel.Repository.Name,
-                    Parameters = param,
-                });
-        }
+			_navigation.Navigate<DetailsLayoutView>(
+				new FrameNavigationParameter()
+				{
+					UserLogin = ViewModel.Repository.Owner.Login,
+					RepositoryName = ViewModel.Repository.Name,
+					Parameters = param,
+				});
+		}
 
-        private void OnLatestReleaseClick(object sender, RoutedEventArgs e)
-        {
-            _navigation.Navigate<Views.Repositories.Releases.ReleasesPage>(
-                new FrameNavigationParameter()
-                {
-                    UserLogin = ViewModel.Repository.Owner.Login,
-                    RepositoryName = ViewModel.Repository.Name,
-                    Parameters = new() { ViewModel.ContextViewModel },
-                });
-        }
-    }
+		private void OnLatestReleaseClick(object sender, RoutedEventArgs e)
+		{
+			_navigation.Navigate<Views.Repositories.Releases.ReleasesPage>(
+				new FrameNavigationParameter()
+				{
+					UserLogin = ViewModel.Repository.Owner.Login,
+					RepositoryName = ViewModel.Repository.Name,
+					Parameters = new() { ViewModel.ContextViewModel },
+				});
+		}
+	}
 }

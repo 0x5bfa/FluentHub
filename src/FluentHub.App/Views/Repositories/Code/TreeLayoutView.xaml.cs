@@ -12,76 +12,76 @@ using FluentHub.App.ViewModels.Repositories.Codes;
 
 namespace FluentHub.App.Views.Repositories.Code
 {
-    public sealed partial class TreeLayoutView : LocatablePage
-    {
-        private static Repository RepositoryCache { get; set; }
+	public sealed partial class TreeLayoutView : LocatablePage
+	{
+		private static Repository RepositoryCache { get; set; }
 
-        public TreeLayoutViewModel ViewModel { get; }
+		public TreeLayoutViewModel ViewModel { get; }
 
-        private readonly INavigationService navigationService;
+		private readonly INavigationService navigationService;
 
-        public TreeLayoutView()
-            : base(NavigationPageKind.Repository, NavigationPageKey.Code)
-        {
-            InitializeComponent();
+		public TreeLayoutView()
+			: base(NavigationPageKind.Repository, NavigationPageKey.Code)
+		{
+			InitializeComponent();
 
-            ViewModel = Ioc.Default.GetRequiredService<TreeLayoutViewModel>();
-            navigationService = Ioc.Default.GetRequiredService<INavigationService>();
-        }
+			ViewModel = Ioc.Default.GetRequiredService<TreeLayoutViewModel>();
+			navigationService = Ioc.Default.GetRequiredService<INavigationService>();
+		}
 
-        protected async override void OnNavigatedTo(NavigationEventArgs e)
-        {
-        }
+		protected async override void OnNavigatedTo(NavigationEventArgs e)
+		{
+		}
 
-        private async void OnDirTreeViewExpanding(TreeView sender, TreeViewExpandingEventArgs args)
-        {
-            if (args.Node.HasUnrealizedChildren && !(args.Item as TreeLayoutPageModel).IsBolb)
-            {
-                var item = args.Item as TreeLayoutPageModel;
-                string path = item?.Path;
+		private async void OnDirTreeViewExpanding(TreeView sender, TreeViewExpandingEventArgs args)
+		{
+			if (args.Node.HasUnrealizedChildren && !(args.Item as TreeLayoutPageModel).IsBolb)
+			{
+				var item = args.Item as TreeLayoutPageModel;
+				string path = item?.Path;
 
-                var result = await ViewModel.LoadSubItemsAsync(path);
+				var result = await ViewModel.LoadSubItemsAsync(path);
 
-                item.Children.Clear();
-                foreach (var res in result) item.Children.Add(res);
+				item.Children.Clear();
+				foreach (var res in result) item.Children.Add(res);
 
-                args.Node.HasUnrealizedChildren = false;
-            }
-        }
+				args.Node.HasUnrealizedChildren = false;
+			}
+		}
 
-        private void OnDirTreeViewItemInvoked(TreeView sender, TreeViewItemInvokedEventArgs args)
-        {
-            var item = args.InvokedItem as TreeLayoutPageModel;
+		private void OnDirTreeViewItemInvoked(TreeView sender, TreeViewItemInvokedEventArgs args)
+		{
+			var item = args.InvokedItem as TreeLayoutPageModel;
 
-            ViewModel.BlobSelected = false;
-            if (!item.IsBolb) return;
+			ViewModel.BlobSelected = false;
+			if (!item.IsBolb) return;
 
-            ViewModel.BlobSelected = true;
+			ViewModel.BlobSelected = true;
 
-            RepoContextViewModel viewmodel = new()
-            {
-                IsDir = false,
-                IsFile = true,
-                IsRootDir = false,
-                IsSubDir = false,
-                Repository = ViewModel.ContextViewModel.Repository,
-                BranchName = ViewModel.ContextViewModel.BranchName,
-                Path = "/" + item?.Path,
-            };
+			RepoContextViewModel viewmodel = new()
+			{
+				IsDir = false,
+				IsFile = true,
+				IsRootDir = false,
+				IsSubDir = false,
+				Repository = ViewModel.ContextViewModel.Repository,
+				BranchName = ViewModel.ContextViewModel.BranchName,
+				Path = "/" + item?.Path,
+			};
 
-            ViewModel.SelectedContextViewModel = viewmodel;
-        }
-    }
+			ViewModel.SelectedContextViewModel = viewmodel;
+		}
+	}
 
-    class ExplorerItemTemplateSelector : DataTemplateSelector
-    {
-        public DataTemplate FolderTemplate { get; set; }
-        public DataTemplate FileTemplate { get; set; }
+	class ExplorerItemTemplateSelector : DataTemplateSelector
+	{
+		public DataTemplate FolderTemplate { get; set; }
+		public DataTemplate FileTemplate { get; set; }
 
-        protected override DataTemplate SelectTemplateCore(object item)
-        {
-            var explorerItem = (TreeLayoutPageModel)item;
-            return explorerItem.IsBolb ? FileTemplate : FolderTemplate;
-        }
-    }
+		protected override DataTemplate SelectTemplateCore(object item)
+		{
+			var explorerItem = (TreeLayoutPageModel)item;
+			return explorerItem.IsBolb ? FileTemplate : FolderTemplate;
+		}
+	}
 }

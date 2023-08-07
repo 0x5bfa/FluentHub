@@ -52,6 +52,11 @@ namespace FluentHub.App.Data.Items
 		public bool IsNavigationBarShown
 			=> PageKind != NavigationPageKind.None;
 
-		public FrameNavigationParameter Parameter { get; set; } = new();
+		private FrameNavigationParameter _Parameter = new();
+		public FrameNavigationParameter Parameter
+		{
+			get => _Parameter;
+			set => SetProperty(ref _Parameter, value);
+		}
 	}
 }

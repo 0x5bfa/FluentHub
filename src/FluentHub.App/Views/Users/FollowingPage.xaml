@@ -24,94 +24,46 @@
 	<Grid>
 
 		<Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadUserFollowingPageCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
-			<ScrollViewer VerticalScrollBarVisibility="Auto">
-				<Grid RowSpacing="8">
-					<Grid.RowDefinitions>
-						<RowDefinition Height="Auto" />
-						<RowDefinition Height="*" />
-					</Grid.RowDefinitions>
+			<Grid RowSpacing="8">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="Auto" />
+					<ColumnDefinition Width="*" />
+				</Grid.ColumnDefinitions>
 
-					<ov:UserProfileOverview
-						x:Name="UserProfileOverview"
-						Margin="0,0,8,0"
-						x:Load="{x:Bind ViewModel.DisplayTitle, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
-						ViewModel="{x:Bind ViewModel.UserProfileOverviewViewModel, Mode=OneWay}" />
+				<ov:UserProfileOverview
+					x:Name="UserProfileOverview"
+					MaxWidth="300"
+					Margin="32,32,0,32"
+					x:Load="{x:Bind ViewModel.DisplayTitle, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
+					ViewModel="{x:Bind ViewModel.UserProfileOverviewViewModel, Mode=OneWay}" />
 
-					<Border
-						x:Name="ContentBackgroundFull"
-						Grid.Row="1"
-						x:Load="{x:Bind ViewModel.DisplayTitle, Mode=OneWay}" />
-
-					<Border
-						x:Name="ContentBackgroundRounded"
-						Grid.Row="1"
-						Margin="0,0,8,8"
-						x:Load="{x:Bind ViewModel.DisplayTitle, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}" />
-
-					<Grid Grid.Row="1" Padding="32,24,32,32">
+				<ScrollViewer Grid.Column="1">
+					<Grid Padding="32">
 						<Grid.RowDefinitions>
-							<RowDefinition Height="Auto" />
 							<RowDefinition Height="Auto" />
 							<RowDefinition Height="*" />
 						</Grid.RowDefinitions>
 
-						<Grid x:Name="TitleGrid" x:Load="{x:Bind ViewModel.DisplayTitle, Mode=OneWay}">
-							<TextBlock
-								x:Name="UserFollowingHeader"
-								Margin="12,12,12,8"
-								Style="{StaticResource TitleTextBlockStyle}"
-								Text="{helpers:ResourceString Name=YourFollowing}" />
-						</Grid>
-
-						<Grid
-							Grid.Row="1"
+						<TextBox
+							x:Name="SearchRepositoriesTextBox"
+							Grid.Row="0"
 							Margin="0,8,0,16"
-							RowSpacing="8">
-							<Grid.RowDefinitions>
-								<RowDefinition Height="Auto" />
-								<RowDefinition Height="Auto" />
-							</Grid.RowDefinitions>
+							IsEnabled="False"
+							PlaceholderText="{helpers:ResourceString Name=SearchFollowingTextBox/PlaceholderText}" />
 
-							<TextBox
-								x:Name="SearchFolliwingTextBox"
-								IsEnabled="False"
-								PlaceholderText="{helpers:ResourceString Name=SearchFollowingTextBox/PlaceholderText}" />
+						<ItemsRepeater Grid.Row="1" ItemsSource="{x:Bind ViewModel.FollowingItems, Mode=OneWay}">
+							<ItemsRepeater.Layout>
+								<StackLayout Orientation="Vertical" Spacing="6" />
+							</ItemsRepeater.Layout>
+							<DataTemplate x:DataType="bbvm:UserBlockButtonViewModel">
+								<bbuc:UserBlockButton x:Name="RepositoryBlock" ViewModel="{x:Bind}" />
+							</DataTemplate>
+						</ItemsRepeater>
 
-							<StackPanel
-								Grid.Row="1"
-								Orientation="Horizontal"
-								Spacing="8" />
-						</Grid>
-
-						<Grid Grid.Row="2">
-							<ItemsRepeater ItemsSource="{x:Bind ViewModel.FollowingItems, Mode=OneWay}">
-								<ItemsRepeater.Layout>
-									<StackLayout Orientation="Vertical" Spacing="6" />
-								</ItemsRepeater.Layout>
-								<DataTemplate x:DataType="bbvm:UserBlockButtonViewModel">
-									<bbuc:UserBlockButton ViewModel="{x:Bind}" />
-								</DataTemplate>
-							</ItemsRepeater>
-
-							<toolkit:SwitchPresenter
-								x:Name="NoFollowingSwitchPresenter"
-								HorizontalAlignment="Center"
-								VerticalAlignment="Center"
-								TargetType="x:Int32"
-								Value="{x:Bind ViewModel.FollowingItems.Count, Mode=OneWay}">
-								<toolkit:Case Value="0">
-									<TextBlock
-										x:Name="NoFollowingTextBlock"
-										FontSize="18"
-										Style="{StaticResource BodyStrongTextBlockStyle}"
-										Text="{helpers:ResourceString Name=NoUserFollowing}"
-										TextAlignment="Center" />
-								</toolkit:Case>
-							</toolkit:SwitchPresenter>
-						</Grid>
 					</Grid>
-				</Grid>
-			</ScrollViewer>
+				</ScrollViewer>
+
+			</Grid>
 		</Grid>
 
 		<Grid x:Name="ErrorDisplayingContentGrid" x:Load="{x:Bind ViewModel.LoadUserFollowingPageCommand.ExecutionTask.IsFaulted, Mode=OneWay}">

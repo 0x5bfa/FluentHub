@@ -33,12 +33,12 @@
 				<ov:UserProfileOverview
 					x:Name="UserProfileOverview"
 					MaxWidth="300"
-					Margin="32,32,0,0"
+					Margin="32,32,0,32"
 					x:Load="{x:Bind ViewModel.DisplayTitle, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}"
 					ViewModel="{x:Bind ViewModel.UserProfileOverviewViewModel, Mode=OneWay}" />
 
 				<ScrollViewer Grid.Column="1">
-					<Grid Margin="32">
+					<Grid Padding="32">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto" />
 							<RowDefinition Height="*" />

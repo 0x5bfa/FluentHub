@@ -24,83 +24,64 @@
 	<Grid>
 
 		<Grid x:Name="RootContentGrid" x:Load="{x:Bind ViewModel.LoadRepositoryIssuesPageCommand.ExecutionTask.IsFaulted, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}">
-			<ScrollViewer VerticalScrollBarVisibility="Auto">
+			<ScrollViewer>
 				<Grid>
 					<Grid.RowDefinitions>
-						<RowDefinition Height="Auto" />
 						<RowDefinition Height="Auto" />
 						<RowDefinition Height="*" />
 					</Grid.RowDefinitions>
 
 					<Grid
 						x:Name="PinnedIssuesBlock"
-						Grid.Row="1"
-						Margin="0,0,0,8"
+						Grid.Row="0"
+						Margin="0,24,0,0"
 						x:Load="{x:Bind ViewModel.PinnedItems.Count, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto" />
 							<RowDefinition Height="Auto" />
-							<RowDefinition Height="Auto" />
 						</Grid.RowDefinitions>
 
-						<Grid Height="44" Padding="32,8,32,4">
-							<Grid.ColumnDefinitions>
-								<ColumnDefinition Width="*" />
-								<ColumnDefinition Width="Auto" />
-							</Grid.ColumnDefinitions>
+						<Grid Padding="32,0,32,4">
 
-							<StackPanel Orientation="Horizontal" Spacing="4">
-								<TextBlock
-									VerticalAlignment="Center"
-									FontSize="14"
-									Style="{StaticResource BodyStrongTextBlockStyle}"
-									Text="Pinned issues" />
-							</StackPanel>
+							<TextBlock
+								VerticalAlignment="Center"
+								FontSize="14"
+								Style="{StaticResource BodyStrongTextBlockStyle}"
+								Text="Pinned issues" />
 
 						</Grid>
 
-						<MenuFlyoutSeparator Grid.Row="1" />
+						<ItemsRepeater
+							Grid.Row="1"
+							Margin="24,12,24,0"
+							ItemsSource="{x:Bind ViewModel.PinnedItems, Mode=OneWay}">
+							<ItemsRepeater.Layout>
+								<UniformGridLayout
+									ItemsStretch="Fill"
+									MaximumRowsOrColumns="3"
+									MinColumnSpacing="8"
+									MinItemHeight="98"
+									MinItemWidth="100"
+									MinRowSpacing="8"
+									Orientation="Horizontal" />
+							</ItemsRepeater.Layout>
+							<DataTemplate x:DataType="bbvm:IssueBlockButtonViewModel">
+								<bbuc:IssueBlockButton
+									MaxWidth="360"
+									VerticalAlignment="Stretch"
+									ViewModel="{x:Bind}" />
+							</DataTemplate>
+						</ItemsRepeater>
 
-						<Grid Grid.Row="2">
-
-							<ItemsRepeater Margin="24,12,24,24" ItemsSource="{x:Bind ViewModel.PinnedItems, Mode=OneWay}">
-								<ItemsRepeater.Layout>
-									<UniformGridLayout
-										ItemsStretch="Fill"
-										MaximumRowsOrColumns="3"
-										MinColumnSpacing="8"
-										MinItemHeight="98"
-										MinItemWidth="100"
-										MinRowSpacing="8"
-										Orientation="Horizontal" />
-								</ItemsRepeater.Layout>
-								<DataTemplate x:DataType="bbvm:IssueBlockButtonViewModel">
-									<bbuc:IssueBlockButton
-										MaxWidth="360"
-										VerticalAlignment="Stretch"
-										ViewModel="{x:Bind}" />
-								</DataTemplate>
-							</ItemsRepeater>
-
-
-						</Grid>
 					</Grid>
 
-					<Grid Grid.Row="2" Padding="24,12,24,24">
+					<Grid Grid.Row="1" Padding="24,12,24,24" RowSpacing="12">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto" />
 							<RowDefinition Height="*" />
 						</Grid.RowDefinitions>
 
-						<Grid Margin="0,8,0,16" RowSpacing="8">
-							<Grid.RowDefinitions>
-								<RowDefinition Height="Auto" />
-								<RowDefinition Height="Auto" />
-							</Grid.RowDefinitions>
-
-							<TextBox IsEnabled="False" PlaceholderText="Search issues" />
-
-						</Grid>
+						<TextBox IsEnabled="False" PlaceholderText="Search issues" />
 
 						<Grid Grid.Row="1">
 							<ItemsRepeater ItemsSource="{x:Bind ViewModel.IssueItems, Mode=OneWay}">

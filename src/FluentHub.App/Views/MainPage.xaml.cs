@@ -31,7 +31,6 @@ namespace FluentHub.App.Views
 			_logger = Ioc.Default.GetRequiredService<ILogger>();
 		}
 
-		#region Methods
 		private void SubscribeEvents()
 		{
 		}
@@ -51,9 +50,7 @@ namespace FluentHub.App.Views
 				_ => throw new ArgumentOutOfRangeException(nameof(type), type, null),
 			};
 		}
-		#endregion
 
-		#region Event handlers
 		protected override async void OnNavigatedTo(NavigationEventArgs e)
 		{
 			// Initialize the static theme helper to capture a reference to this window
@@ -149,7 +146,6 @@ namespace FluentHub.App.Views
 		{
 			NavigationService.Navigate<Viewers.NotificationsPage>();
 		}
-		#endregion
 
 		private void LeftSideViewerIconMenuFlyoutItem_Click(object sender, RoutedEventArgs e)
 		{
@@ -162,16 +158,16 @@ namespace FluentHub.App.Views
 			switch (mfi.Tag.ToString())
 			{
 				case "YourProfile":
-					NavigationService.Navigate<Views.Users.OverviewPage>();
+					NavigationService.Navigate<Users.OverviewPage>();
 					break;
 				case "YourRepositories":
-					NavigationService.Navigate<Views.Users.RepositoriesPage>();
+					NavigationService.Navigate<Users.RepositoriesPage>();
 					break;
 				//case "YourOrganizations":
 				//	NavigationService.Navigate<Views.Users.OrganizationsPage>();
 				//	break;
 				case "YourStars":
-					NavigationService.Navigate<Views.Users.StarsPage>();
+					NavigationService.Navigate<Users.StarsPage>();
 					break;
 			}
 		}

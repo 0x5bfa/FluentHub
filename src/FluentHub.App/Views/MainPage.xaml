@@ -175,20 +175,30 @@
 							</Button>
 						</StackPanel>
 
-						<StackPanel
-							Grid.Column="1"
-							Orientation="Horizontal"
-							Spacing="4">
+						<StackPanel Grid.Column="1" Orientation="Horizontal">
 							<TextBlock
 								VerticalAlignment="Center"
 								Style="{StaticResource BodyStrongTextBlockStyle}"
-								Text="FluentHub" />
-							<!--<TextBlock VerticalAlignment="Center" Text="FluentHub" />
-							<TextBlock VerticalAlignment="Center" Text="/" />
-							<TextBlock
-								VerticalAlignment="Center"
-								Style="{StaticResource BodyStrongTextBlockStyle}"
-								Text="FluentHub" />-->
+								Text="{x:Bind CustomTabViewControl.SelectedItem.NavigationBar.Parameter.UserLogin, Mode=OneWay}"
+								Visibility="{x:Bind CustomTabViewControl.SelectedItem.NavigationBar.Parameter.RepositoryName, Converter={StaticResource ObjectToBoolConverter}, ConverterParameter=Invert, Mode=OneWay}" />
+							<StackPanel
+								Orientation="Horizontal"
+								Spacing="8"
+								Visibility="{x:Bind CustomTabViewControl.SelectedItem.NavigationBar.Parameter.RepositoryName, Converter={StaticResource ObjectToBoolConverter}, Mode=OneWay}">
+								<TextBlock
+									VerticalAlignment="Center"
+									Style="{StaticResource BodyTextBlockStyle}"
+									Text="{x:Bind CustomTabViewControl.SelectedItem.NavigationBar.Parameter.UserLogin, Mode=OneWay}" />
+								<TextBlock
+									VerticalAlignment="Center"
+									Foreground="{ThemeResource TextFillColorSecondaryBrush}"
+									Style="{StaticResource BodyTextBlockStyle}"
+									Text="/" />
+								<TextBlock
+									VerticalAlignment="Center"
+									Style="{StaticResource BodyStrongTextBlockStyle}"
+									Text="{x:Bind CustomTabViewControl.SelectedItem.NavigationBar.Parameter.RepositoryName, Mode=OneWay}" />
+							</StackPanel>
 						</StackPanel>
 
 						<StackPanel
