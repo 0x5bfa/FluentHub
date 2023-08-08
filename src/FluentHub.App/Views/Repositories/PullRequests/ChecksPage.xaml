@@ -47,13 +47,12 @@
 				<Grid Padding="32,24,32,32" RowSpacing="16">
 					<Grid.RowDefinitions>
 						<RowDefinition Height="Auto" />
-						<RowDefinition Height="Auto" />
 						<RowDefinition Height="*" />
 					</Grid.RowDefinitions>
 
-					<ov:PullRequestOverview Grid.Row="1" ViewModel="{x:Bind ViewModel.PullRequestOverviewViewModel, Mode=OneWay}" />
+					<ov:PullRequestOverview Grid.Row="0" ViewModel="{x:Bind ViewModel.PullRequestOverviewViewModel, Mode=OneWay}" />
 
-					<Grid Grid.Row="2" ColumnSpacing="8">
+					<Grid Grid.Row="1" ColumnSpacing="8">
 						<Grid.ColumnDefinitions>
 							<ColumnDefinition Width="Auto" MaxWidth="360" />
 							<ColumnDefinition Width="*" />

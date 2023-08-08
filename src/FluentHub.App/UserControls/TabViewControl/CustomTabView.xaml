@@ -20,14 +20,14 @@
 	<Border
 		x:Name="TitlebarArea"
 		HorizontalAlignment="Stretch"
-		x:FieldModifier="public"
-		Background="Transparent">
+		x:FieldModifier="public">
 
 		<TabView
 			x:Name="MainTabView"
 			HorizontalAlignment="Stretch"
 			VerticalAlignment="Stretch"
 			AllowDropTabs="True"
+			Background="Transparent"
 			CanReorderTabs="True"
 			IsAddTabButtonVisible="False"
 			SelectedIndex="{x:Bind SelectedIndex, Mode=TwoWay}"
